@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2010, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology Transfer
+  at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+  is subject to U.S. export control laws and regulations, the recipient has
+  the responsibility to obtain export licenses or other export authority as
+  may be required before exporting such information to foreign countries or
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<document>
+  <properties>
+    <title>Release Changes</title>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Paul Ramirez</author>
+  </properties>
+
+  <body>
+    <release version="0.1.0" date="2010-10-29" description="This release of the Registry Service is a component of the integrated release 1.0.0 of the PDS 2010 System.">
+      <action dev="mcayanan" type="add">
+        Add capability to validate a file or directory.
+      </action>
+      <action dev="mcayanan" type="add">
+        Add capability to validate against a user-specified schema instead of the internal, default schemas used by the tool.
+      </action>
+      <action dev="mcayanan" type="add">
+        Add capability to disable directory recursion.
+      </action>
+      <action dev="mcayanan" type="add">
+        Add capability to optionally set the tool behaviors through a configuration file.
+      </action>
+      <action dev="mcayanan" type="add">
+        Add capability to specify file filters to search for specific files in a target directory.
+      </action>
+    </release>
+  </body>
+</document>

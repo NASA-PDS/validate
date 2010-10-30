@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# Copyright 2008-2010, by the California Institute of Technology.
+# ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+# Any commercial use must be negotiated with the Office of Technology Transfer
+# at the California Institute of Technology.
+#
+# This software is subject to U. S. export control laws and regulations
+# (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+# is subject to U.S. export control laws and regulations, the recipient has
+# the responsibility to obtain export licenses or other export authority as
+# may be required before exporting such information to foreign countries or
+# providing access to foreign nationals.
+#
+# $Id: Validate 5853 2010-02-06 22:54:00Z shardman $
+
+# Bourne Shell script that allows easy execution of the Validate Tool
+# without the need to set the CLASSAPTH or having to type in that
+# long java command (java gov.nasa.pds.validate.ValidateLauncher ...)
+
+# Expects the Validate Tool jar file to be in the ../lib directory.
+
+SCRIPT_DIR=`dirname $0`
+PARENT_DIR=`cd ${SCRIPT_DIR}/.. && pwd`
+
+LIB_DIR=${PARENT_DIR}/lib
+
+
+if [ ! -f ${LIB_DIR}/validate-*.jar ]; then
+    echo "Cannot find Validate Tool jar file in ${LIB_DIR}"
+    exit 1
+fi
+
+VALIDATE_JAR=`ls ${LIB_DIR}/validate-*.jar`
+
+# Executes Validate Tool via the executable jar file
+# Arguments are passed in to the tool via '$@'
+
+java -Xss256m -jar ${VALIDATE_JAR} "$@"

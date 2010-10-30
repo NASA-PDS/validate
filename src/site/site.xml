@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<!-- 
+  Copyright 2010, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology 
+  Transfer at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations 
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software 
+  is subject to U.S. export control laws and regulations, the recipient has 
+  the responsibility to obtain export licenses or other export authority as 
+  may be required before exporting such information to foreign countries or 
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<project name="Validate Tool">
+  <bannerLeft>
+    <src>images/pds4_logo.jpg</src>
+    <href>http://pds-cm.jpl.nasa.gov/2010/</href>
+  </bannerLeft>
+
+  <bannerRight>
+    <name>Validate Tool&nbsp;&nbsp;</name>
+  </bannerRight>
+
+  <version/>
+
+  <body>
+    <links>
+      <item name="Validate" href="http://pds-cm.jpl.nasa.gov/2010/tools/validate/index.html" />
+    </links>
+
+    <menu name="Software Documentation">
+      <item name="About Validate Tool" href="index.html"/>
+      <item name="Release Notes" href="release/index.html"/>
+      <item name="Installation" href="install/index.html"/>
+      <item name="Operation" href="operate/index.html"/>
+    </menu>
+
+    <menu name="Download">
+      <item name="Validate Tool Guide (pdf)" href="${project.artifactId}-${project.version}.pdf"/>
+      <item name="Binary Package (tar.gz)" href="ftp://pds.nasa.gov/pub/toplevel/2010/${project.artifactId}-${project.version}-bin.tar.gz"/>
+      <item name="Binary Package (zip)" href="ftp://pds.nasa.gov/pub/toplevel/2010/${project.artifactId}-${project.version}-bin.zip"/>
+    </menu>
+
+    <menu ref="reports"/>
+  </body>
+</project>

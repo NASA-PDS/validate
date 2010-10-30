@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2010, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology Transfer
+  at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+  is subject to U.S. export control laws and regulations, the recipient has
+  the responsibility to obtain export licenses or other export authority as
+  may be required before exporting such information to foreign countries or
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<document>
+  <properties>
+    <title>Operation</title>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Paul Ramirez</author>
+    <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
+  </properties>
+
+  <body>
+    <section name="Operation">
+      <p>The following topics can be found in this section:
+      </p>
+
+      <ul>
+        <li><a href="#Tool_Setup">Tool Setup</a></li>
+        <li><a href="#Tool_Execution">Tool Execution</a></li>
+        <li><a href="#Report_Format">Report Format</a></li>
+      </ul>
+
+      <p>Note: The command-line examples in this section have been broken into multiple lines for readability. The commands should be reassembled into a single line prior to execution.
+      </p>
+    </section>
+
+    <section name="Tool Setup">
+      <p>In order to execute the Validate Tool, the user's environment must first be configured appropriately. This section describes how to setup the user environment on UNIX-based and Windows machines.
+      </p>
+
+      <subsection name="UNIX-Based Setup">
+        <p>This section details the environment setup for UNIX-based machines. The preferred method is to specify the shell script, <i>Validate</i>, on the command-line. Setting the <i>PATH</i> environment variable to the location of the script, enables the shell script to be executed from any location on the user's machine.
+        </p>
+
+        <p>The following command demonstrates how to set the <i>PATH</i> environment variable, by appending to its current setting:
+        </p>
+
+        <source>
+% setenv PATH ${PATH}:$HOME/${xdoc-artifactId}-${xdoc-version}/bin
+        </source>
+
+        <p>The tool can now be executed via the shell script as demonstrated in the following example:
+        </p>
+
+        <source>
+% Validate &lt;targets&gt; &lt;command-line arguments&gt;
+        </source>
+
+        <p>Additional methods for setting up a UNIX-based environment can be found in the <a href="index-unix.html">UNIX Setup Options</a> section. If viewing this document in PDF form, see the appendix for details.
+        </p>
+      </subsection>
+
+      <subsection name="Windows Setup">
+        <p>This section details the environment setup for Windows machines. The preferred method is to specify the batch file, <i>Validate.bat</i>, on the command-line. Setting the <i>PATH</i> environment variable to the location of the file, enables the batch file to be executed from any location on the user's machine.
+        </p>
+
+        <p>The following command demonstrates how to set the <i>PATH</i> environment variable, by appending to its current setting:
+        </p>
+
+        <source>
+C:\&gt; set PATH = %PATH%;C:\\${xdoc-artifactId}-${xdoc-version}\bin
+        </source>
+
+        <p>The tool can now be executed via the batch file as demonstrated in the following example:
+        </p>
+
+        <source>
+C:\&gt; Validate &lt;targets&gt; &lt;command-line arguments&gt;
+        </source>
+
+        <p>Additional methods for setting up a Windows environment can be found in the <a href="index-win.html">Windows Setup Options</a> section. If viewing this document in PDF form, see the appendix for details.
+        </p>
+      </subsection>
+    </section>
+
+    <section name="Additional Tool Setup">
+      <p>This section details how to tell the Validate Tool to use core schemas from some external directory rather than the core schemas loaded internally into the tool. Users that wish to not do this can skip this section.
+      </p>
+
+      <p>The Java system property, <i>core.schema.dir</i>, can be used to load core schemas from an external directory. At this time, any external directory used must have a sub-directory named <i>0111c</i> with the schemas under this sub-directory. For example, if specifying an external directory named <i>/home/pds/schemas</i>, the directory must have the following structure:
+      </p>
+
+      <ul>
+        <li><b>0111c/</b><br/>
+          <p>This directory will contain the list of core schemas to load into the tool. This overwrites the internal core schemas used for validation.</p>
+        </li>
+      </ul>
+
+      <p>The sections below detail how to add this system property into the Validate Tool launch scripts.
+      </p>
+
+      <subsection name="UNIX-Based Users">
+        <p>Open the <i>Validate</i> shell script and go to the last line in the file. It should look like the following:
+        </p>
+
+        <source>
+java -Xss256m -jar ${VALIDATE_JAR} "$@"
+        </source>
+
+        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>/home/pds/schemas</i>:
+        </p>
+
+        <source>
+java -Dcore.schema.dir="/home/pds/schemas" -Xss256m -jar ${VALIDATE_JAR} "$@"
+        </source>
+      </subsection>
+
+      <subsection name="Windows-Based Users">
+        <p>Open the <i>Validate</i> batch and go to the last line in the file. It should look like the following:
+        </p>
+
+        <source>
+java -Xss128m -jar "%VALIDATE_JAR%" $*
+        </source>
+
+        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>c:\pds\schemas</i>:
+        </p>
+
+        <source>
+java -Dcore.schema.dir="c:\pds\schemas" -Xss128m -jar "%VALIDATE_JAR%" $*
+        </source>
+      </subsection>
+    </section>
+
+    <section name="Tool Execution">
+      <p>The Validate Tool can be executed in various ways. This section describes how to run the tool, as well as its behaviors and caveats.
+      </p>
+
+      <subsection name="Command-Line Options">
+        <p>The following table describes the command-line options available:
+        </p>
+
+        <table>
+          <tr><th>Command-Line Option</th><th>Description</th></tr>
+          <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
+          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By default, PDS schemas are built into the tool to perform the validation.</td></tr>
+          <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
+          <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
+          <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
+          <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
+          <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
+        </table>
+      </subsection>
+
+      <subsection name="Running the Validate Tool">
+        <p>This section demonstrates some of the ways that the tool can be executed using the command-line option flags:
+        </p>
+
+        <ul>
+          <li>Validating a Target File</li>
+          <li>Validataing a Target Directory</li>
+          <li>Validating Against User-Specified Schemas</li>
+          <li>Validating Specific Files in a Target Directory</li>
+          <li>Ignoring Sub-Directories During Validation</li>
+          <li>Changing Tool Behaviors With The Configuration File</li>
+        </ul>
+
+        <p><b><i>Validating a Target File</i></b></p>
+
+        <p>The following command demonstrates the validation of a single data product label against the core PDS schemas:
+        </p>
+
+        <source>
+% Validate product.xml
+        </source>
+
+        <p><b><i>Validating a Target Directory</i></b></p>
+
+        <p>The following command demonstrates the validation of a target directory against the core PDS schemas:
+        </p>
+
+        <source>
+% Validate /home/pds/collection
+        </source>
+
+        <p><b><i>Validating Against User-Specified Schemas</i></b></p>
+
+        <p>Specifying schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas that come with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
+        </p>
+
+        <source>
+% Validate proudct.xml -x product.xsd
+        </source>
+
+        <p>The following command demonstrates the validation of a set of target files against a set of user-specified schemas:
+        </p>
+
+        <source>
+% Validate producta.xml, productb.xml -x producta.xsd, productb.xsd
+        </source>
+
+        <p><b><i>Validating Specific Files in a Target Directory</i></b></p>
+
+        <p>The following command demonstrates the validation of any file that has a <i>.xml</i> extension in a target directory:
+        </p>
+
+        <source>
+% Validate /home/pds/collection -e "*.xml"
+        </source>
+
+        <p>Note: File patterns should be surrounded in quotes to avoid having the system shell mistakingly interpreting them. In addition, pattern matching is case-insensitve in Windows, but case-sensitive for other systems.
+        </p>
+
+        <p><b><i>Ignoring Sub-Directories During Validation</i></b></p>
+
+        <p>By default, the Validate Tool will recursively traverse a target directory during validation. The <i>local</i> flag option is used to tell the Validate Tool to not perform recursion. The following command demonstrates the validation of a target directory without directory recursion:
+        </p>
+
+        <source>
+% Validate /home/pds/collection -L
+        </source>
+
+        <p><b><i>Changing Tool Behaviors With The Configuration File</i></b></p>
+
+        <p>A configuration file can be passed into the command-line to change the default behaviors of the tool and to also provide users a way to perform validation with a single flag. For more details on how to setup the configuration file, see the <a href="#Using_a_Configuration_File">Using a Configuration File</a> section.
+        </p>
+
+        <p>The following command demonstrates performing validation using a configuration file:
+        </p>
+
+        <source>
+% Validate -c config.txt
+        </source>
+      </subsection>
+
+      <subsection name="Specifying Targets">
+        <p>Targets are validated in the order in which they are specified on the command-line. They can be specified implicitly and explicitly.
+        </p>
+
+        <p>To specify targets implicitly, it is best to specify them first on the command-line before any other command-line option flags. The following command demonstrates the validation of an implicitly defined, single target product label:
+        </p>
+        <source>
+% Validate product.xml
+        </source>
+
+        <p>The following command demonstrates the validation of implicitly defined, multiple targets:
+        </p>
+        <source>
+% Validate product.xml, /home/pds/collection
+        </source>
+
+        <p><b>Implicit targets should not be specified after option flags that allow multiple arguments (see example below). Unexpected results can occur.</b>
+        </p>
+        <source>
+% Validate -x product.xsd product.xml
+        </source>
+
+        <p>In this example, the Validate Tool will inadvertently treat the implicit target, <i>product.xml</i>, as a schema file.
+        </p>
+
+        <p>Targets can be specified both implicitly and explicitly at the same time. Targets specified implicitly are validated first, followed by those that are specified explicitly with the target flag.
+        </p>
+
+        <p>The following command demonstrates the validation of multiple product labels, specified both implicitly and explicitly:
+        </p>
+
+        <source>
+% Validate producta.xml, productb.xml -t productc.xml, /home/pds/collection
+        </source>
+
+        <p>In this example, <i>producta.xml</i> and <i>productb.xml</i> will get validated first, then <i>productc.xml</i> and the product labels in <i>/home/pds/collection</i> will get validated next.
+        </p>
+      </subsection>
+
+      <subsection name="Using a Configuration File">
+        <p>A configuration file is an alternative way to set the different behaviors of the tool instead of the command-line option flags. It consists of a text file made up of keyword/value pairs. The configuration file follows the syntax of the stream parsed by the Java Properties.load(java.io.InputStream) method.
+        </p>
+
+        <p>Some of the important syntax rules are as follows:
+        </p>
+
+        <ul>
+          <li>Blank lines and lines which begin with the hash character "#" are ignored.</li>
+          <li>Values may be separated on different lines if a backslash is placed at the end of the line that continues below.</li>
+          <li>Escape sequences for special characters like a line feed, a tabulation or a unicode character, are allowed in the values and are specified in the same notation as those used in Java strings (e.g. \n, \t, \r).</li>
+        </ul>
+
+        <p>Since backslashes (\) have special meanings in a configuration file, keyword values that contain this character will not be interpreted properly by the Validate Tool even if it is surrounded by quotes. A common example would be a Windows path name (e.g. c:\pds\collection). Use the forward slash character instead (c:/pds/collection) or escape the backslash character (c:\\pds\\collection).
+        </p>
+
+        <p>Note: Any flag specified on the command-line takes precedence over any equivalent settings placed in the configuration file.
+        </p>
+
+        <p>The following table contains valid keywords that can be specified in the configuration file:</p>
+
+        <table>
+          <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
+          <tr><td>validate.target</td><td>-t, --target</td></tr>
+          <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
+          <tr><td>validate.report</td><td>-r, --report-file</td></tr>
+          <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
+          <tr><td>validate.local</td><td>-L, --local</td></tr>
+        </table>
+
+        <p>The following example demonstrates how to set a configuration file:
+        </p>
+
+        <source>
+# This is a Validate Tool configuration file
+
+validate.target = ./collection
+validate.report = report.txt
+validate.regexp = "*.xml"
+        </source>
+
+        <p>This is equivalent to running the tool with the following flags:
+        </p>
+
+        <source>
+-t ./collection -e "*.xml" -r report.txt
+        </source>
+
+        <p>The following example demonstrates how to set a configuration file with multiple values for a keyword:
+        </p>
+        <source>
+# This is a Validate Tool configuration file with multiple values
+
+validate.target = product.xml, ./collection
+vtool.regexp = "*.xml", "Mars*"
+        </source>
+
+        <p>This is equivalent to running the tool with the following flags:
+        </p>
+
+        <source>
+-t product.xml, ./collection -e "*.xml", "Mars*"
+        </source>
+
+        <p>The following example demonstrates how to set a configuration file with multiple values that span across multiple lines:
+        </p>
+
+        <source>
+# This is a Validate configuration file with multiple values
+# that span across multiple lines
+
+validate.target = product.xml, ./collection
+validate.regexp = "*.xml", "Mars*"
+        </source>
+
+        <p>As previously mentioned, any flag options set on the command-line will overwrite settings set in the configuration file. The following example demonstrates how to override a setting in the configuration file.
+        </p>
+
+        <p>Suppose the configuration file named <i>config.txt</i> is defined as follows:
+        </p>
+        <source>
+validate.target = ./collection
+validate.regexp = "*.xml"
+        </source>
+
+        <p>This configuration allows the tool to validate files with a <i>.xml</i> extension in the <i>collection</i> directory. To change the behavior to validate all files instead of just files ending in <i>.xml</i>, then specify the <i>regexp</i> flag option on the command-line to overwrite the <i>validate.regexp</i> property:
+        </p>
+        <source>
+% Validate -c config.txt -e "*"
+        </source>
+      </subsection>
+
+      <section name="Report Format">
+        <p>This section describes the contents of the Validate Tool report. At this time, the Validate Tool outputs a series of log messages. A log message consists of the severity level, file name, line number, and a message. The following is an example of some of the log messages that can be expected from the Validate Tool:
+        </p>
+
+        <source>
+PDS Validate Tool Report
+
+Configuration:
+  Version                  0.1.0
+  Time                     Thu, Oct 28 2010 at 10:05:03 AM
+  Core Schemas             [a.xsd, b.xsd, c.xsd]
+
+Parameters:
+  Target(s)                [C:\pds4]
+  User-Specified Schemas   [C:\pds4\element-definitions\schemas\ \
+                           Product_Data_Element_Definition_2010-04-22B.xsd]
+  Severity Level           Warnings
+  Recurse Directories      true
+
+Validation Details:
+
+  ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
+  line 8, 66: cvc-elt.5.2.2.2.2: The value 'Product_Element_Definition' of \
+  element 'product_class' does not match the {value constraint} value \
+  'Product_Data_Element_Definition'.
+  ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
+  line 24, 34: cvc-complex-type.2.4.a: Invalid content was found starting with \
+  element 'Reference_Entry_Generic'. One of \
+  '{"http://pds.nasa.gov/schema/pds4/pds":data_reference, \
+  "http://pds.nasa.gov/schema/pds4/pds":Bibliographic_Reference, \
+  "http://pds.nasa.gov/schema/pds4/pds":Observing_System}' is expected.
+  ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
+  line 29, 25: cvc-complex-type.2.4.a: Invalid content was found starting with \
+  element 'Element_Definition'. One of \
+  '{"http://pds.nasa.gov/schema/pds4/pds":File_Area}' is expected.
+
+  ERROR  [file:/C:/pds4/test/ \
+  0001_NASA_PDS_1_img_Az_el_coordinate_system_reference_coordinate_system_name_0111c.xml] \
+  line 5, 26: cvc-complex-type.2.4.a: Invalid content was found starting with \
+  element 'Identification_Area'. One of \
+  '{"http://pds.nasa.gov/schema/pds4/pds":Product_Identification_Area}' is expected.
+
+
+End of Report
+        </source>
+      </section>
+
+    </section>
+  </body>
+</document>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2010, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology Transfer
+  at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+  is subject to U.S. export control laws and regulations, the recipient has
+  the responsibility to obtain export licenses or other export authority as
+  may be required before exporting such information to foreign countries or
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<document>
+  <properties>
+    <title>Release Notes</title>
+    <author email="Paul.Ramirez@jpl.nasa.gov">Paul Ramirez</author>
+    <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
+  </properties>
+
+  <body>
+    <section name="Release Notes">
+      <p>The purpose of this section is to provide a description of a Validate Tool release including any impact that the new or modified capabilities will have on the Discipline Nodes or the PDS user community. If viewing the web-based version of this document, a somewhat itemized list of changes for each release can be found on the <a href="../changes-report.html">Release Changes</a> page.
+      </p>
+    </section>
+
+    <section name="Release 0.1.0">
+      <p>This release of the Validate Tool is a component of the integrated release <a href="../../../release/index-1.0.0.html">1.0.0</a> of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards. The new or modified capabilities for this release are as follows:
+      </p>
+
+      <ul>
+        <li>TBD</li>
+      </ul>
+
+      <p>The liens for this release are as follows:
+      </p>
+
+      <ul>
+        <li>TBD</li>
+      </ul>
+     </section>
+  </body>
+</document>
+
