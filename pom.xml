@@ -19,11 +19,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>gov.nasa.pds.2010</groupId>
-    <artifactId>tools</artifactId>
+    <artifactId>preparation</artifactId>
     <version>0.0.0</version>
   </parent>
 
-  <groupId>gov.nasa.pds.2010.tools</groupId>
+  <groupId>gov.nasa.pds.2010.preparation</groupId>
   <artifactId>validate</artifactId>
   <version>0.1.0</version>
   <packaging>jar</packaging>
@@ -32,7 +32,7 @@
   <description>
     The Validate Tool project contains software for validating PDS4 product labels and product data.
   </description>
-  <url>http://pds-cm.jpl.nasa.gov/2010/tools/validate/</url>
+  <url>http://pds-cm.jpl.nasa.gov/2010/preparation/validate/</url>
 
   <licenses>
     <license>
@@ -168,9 +168,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>gov.nasa.pds.2010.tools</groupId>
+      <groupId>gov.nasa.pds.2010.preparation</groupId>
       <artifactId>core</artifactId>
-      <version>0.1.0-dev</version>
+      <version>0.1.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
