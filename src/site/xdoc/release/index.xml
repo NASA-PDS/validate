@@ -19,7 +19,7 @@
 <document>
   <properties>
     <title>Release Notes</title>
-    <author email="Paul.Ramirez@jpl.nasa.gov">Paul Ramirez</author>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
     <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
   </properties>
 
@@ -34,14 +34,17 @@
       </p>
 
       <ul>
-        <li>TBD</li>
+        <li>Support for validating a product label or set of product labels against a specified XML Schema. Validation capabilities provided by the Core Library.</li>
+        <li>Support for validating against a set of packaged schemas, including determination of the appropriate schema based on the type of product label. Internal set of XML Schemas provided by the Core Library.</li>
+        <li>Support for command-line input including specifying files or directories for validation target, specifying a regular expression for validation target, turn off directory recursion, specifying schemas for validation and specifying a file for the validation report.</li> 
       </ul>
 
       <p>The liens for this release are as follows:
       </p>
 
       <ul>
-        <li>TBD</li>
+        <li>Certain scenarios cause a validation run to produce a stack overflow error. Inherited from the Core Library.</li>
+        <li>Need support for specifying a bundle or collection product and have the tool validate the products that are referenced by those products.</li>
       </ul>
      </section>
   </body>
