@@ -23,7 +23,7 @@
   </properties>
 
   <body>
-    <release version="0.1.0" date="2010-10-29" description="This release of the Registry Service is a component of the integrated release 1.0.0 of the PDS 2010 System.">
+    <release version="0.1.0" date="2010-10-31" description="This release of the Registry Service is a component of the integrated release 1.0.0 of the PDS 2010 System.">
       <action dev="mcayanan" type="add">
         Add capability to validate a product label or directory containing product labels. Validation capabilities provided by the Core Library.
       </action>
