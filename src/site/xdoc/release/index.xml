@@ -43,7 +43,6 @@
       </p>
 
       <ul>
-        <li>Certain scenarios cause a validation run to produce a stack overflow error. Inherited from the Core Library.</li>
         <li>Need support for specifying a bundle or collection product and have the tool validate the products that are referenced by those products.</li>
       </ul>
      </section>
