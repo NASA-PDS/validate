@@ -36,4 +36,4 @@ VALIDATE_JAR=`ls ${LIB_DIR}/validate-*.jar`
 # Executes Validate Tool via the executable jar file
 # Arguments are passed in to the tool via '$@'
 
-java -Xss256m -jar ${VALIDATE_JAR} "$@"
+java -jar ${VALIDATE_JAR} "$@"
