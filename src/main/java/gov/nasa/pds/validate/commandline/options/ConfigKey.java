@@ -10,7 +10,7 @@
 // may be required before exporting such information to foreign countries or
 // providing access to foreign nationals.
 //
-// $Id$
+// $Id: ConfigKey.java -1M 2010-11-04 18:13:37Z (local) $
 package gov.nasa.pds.validate.commandline.options;
 
 /**
@@ -20,12 +20,24 @@ package gov.nasa.pds.validate.commandline.options;
  * @author mcayanan
  *
  */
-public interface ConfigKeys {
-    public static final String REGEXPKEY = "validate.regexp";
-    public static final String REPORTKEY = "validate.report";
-    public static final String TARGETKEY = "validate.target";
-    public static final String VERBOSEKEY = "validate.verbose";
-    public static final String SCHEMAKEY = "validate.schema";
-    public static final String CATALOGKEY = "validate.catalog";
-    public static final String LOCALKEY = "validate.local";
+public class ConfigKey {
+    /** List of file patterns to look for if traversing a target directory. */
+    public static final String REGEXP = "validate.regexp";
+
+    /** The report. */
+    public static final String REPORT = "validate.report";
+
+    /** A list of targets to validate. */
+    public static final String TARGET = "validate.target";
+
+    /** A severity level for the output report. */
+    public static final String VERBOSE = "validate.verbose";
+
+    /** A list of schema files to validate against. */
+    public static final String SCHEMA = "validate.schema";
+
+    public static final String CATALOG = "validate.catalog";
+
+    /** Enables/disables direcotry recursion. */
+    public static final String LOCAL = "validate.local";
 }

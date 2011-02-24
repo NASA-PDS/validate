@@ -10,25 +10,25 @@
 // may be required before exporting such information to foreign countries or
 // providing access to foreign nationals.
 //
-// $Id$
-package gov.nasa.pds.validate.util;
+// $Id: InventoryReader.java 8162 2010-11-10 22:05:09Z mcayanan $
+package gov.nasa.pds.validate.inventory.reader;
 
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+/**
+ * Interface for reading a PDS Inventory File.
+ *
+ * @author mcayanan
+ *
+ */
+public interface InventoryReader {
 
-public class XMLErrorHandler implements ErrorHandler {
-
-    public void error(SAXParseException exception) throws SAXException {
-        throw new SAXException(exception);
-    }
-
-    public void fatalError(SAXParseException exception) throws SAXException {
-        throw new SAXException(exception);
-    }
-
-    public void warning(SAXParseException exception) throws SAXException {
-        throw new SAXException(exception);
-    }
-
+    /**
+     * Get the next file reference in the Inventory file.
+     *
+     * @return An object representation of the next file reference in
+     * the Inventory file.
+     *
+     * @throws InventoryReaderException If an error occured while getting the
+     * next entry in the inventory file.
+     */
+    public abstract InventoryEntry getNext() throws InventoryReaderException;
 }

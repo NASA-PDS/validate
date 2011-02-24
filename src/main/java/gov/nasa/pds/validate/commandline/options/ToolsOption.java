@@ -24,9 +24,6 @@ import org.apache.commons.cli.Option;
  *
  */
 public class ToolsOption extends Option {
-
-    private final char argSeparator = ',';
-
     /**
      * Constructor.
      *
@@ -36,6 +33,13 @@ public class ToolsOption extends Option {
      */
     public ToolsOption(String opt, String longOpt, String description) {
         super(opt, longOpt, false, description);
+    }
+
+    public ToolsOption(Flag flag) {
+        this(flag.getShortName(), flag.getLongName(), flag.getDescription());
+        if (flag.getArgType() != null) {
+           hasArg(flag.getArgName(), flag.getArgType());
+        }
     }
 
     /**
@@ -72,6 +76,7 @@ public class ToolsOption extends Option {
      * @param type Sets the data type allowed for this argument.
      */
     public void hasArgs(String name, Object type) {
+       char argSeparator = ',';
         hasArgs(name, type, argSeparator, false);
     }
 

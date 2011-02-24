@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
@@ -21,9 +22,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.XMLConstants;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
+import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
 
@@ -34,49 +37,63 @@ import org.xml.sax.SAXException;
  *
  */
 public abstract class Validator {
-    protected Report report;
-    protected Schema schema;
+  /** An object representation of a report to capture the results of
+   *  validation. */
+  protected Report report;
 
-    /**
-     * Constructor.
-     *
-     * @param report A Report object to output the results of the validation
-     *  run.
-     */
-    public Validator(Report report) {
-        this.report = report;
-        this.schema = null;
+  /**
+   * An object representataion of a schema to validate against.
+   *
+   */
+  protected Schema schema;
+
+  /**
+   * Constructor.
+   *
+   * @param report A Report object to output the results of the validation
+   *  run.
+   */
+  public Validator(Report report) {
+    this.report = report;
+    this.schema = null;
+  }
+
+  /**
+   * Sets the schemas to use during validation. By default, the validation
+   * comes pre-loaded with schemas to use. This method would only be used
+   * in cases where the user wishes to use their own set of schemas for
+   * validation.
+   *
+   * @param schemaFiles A list of schema files.
+   *
+   * @throws SAXException If a schema is malformed.
+   */
+  public void setSchema(List<File> schemaFiles) throws SAXException {
+    List<StreamSource> schemas = new ArrayList<StreamSource>();
+    for (File schema : schemaFiles) {
+      schemas.add(new StreamSource(schema));
     }
+    SchemaFactory factory = SchemaFactory
+    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    this.schema = factory.newSchema(schemas.toArray(new StreamSource[0]));
+  }
 
-    /**
-     * Sets the schemas to use during validation. By default, the validation
-     * comes pre-loaded with schemas to use. This method would only be used
-     * in cases where the user wishes to use their own set of schemas for
-     * validation.
-     *
-     * @param schemaFiles A list of schema files.
-     *
-     * @throws SAXException If a schema is malformed.
-     */
-    public void setSchema(List<File> schemaFiles) throws SAXException {
-        List<StreamSource> schemas = new ArrayList<StreamSource>();
-        for (File schema : schemaFiles) {
-            schemas.add(new StreamSource(schema));
-        }
-        SchemaFactory factory = SchemaFactory
-          .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        this.schema = factory.newSchema(schemas.toArray(new StreamSource[0]));
-    }
+  /**
+   * Set the schema.
+   *
+   * @param schema An object representation of a schema.
+   */
+  public void setSchema(Schema schema) {
+    this.schema = schema;
+  }
 
-    public void setSchema(Schema schema) {
-        this.schema = schema;
-    }
-
-    /**
-     * Validate a PDS product.
-     *
-     * @param file A PDS product file.
-     *
-     */
-    public abstract void validate(File file);
+  /**
+   * Validate a PDS product.
+   *
+   * @param file A PDS product file.
+   *
+   */
+  public abstract void validate(File file) throws SAXException, IOException,
+  ParserConfigurationException, XPathExpressionException,
+  InventoryReaderException;
 }

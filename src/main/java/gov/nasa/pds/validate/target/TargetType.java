@@ -13,9 +13,16 @@
 // $Id$
 package gov.nasa.pds.validate.target;
 
+/**
+ * An enum of the different types of targets that can be passed into the
+ * Validate Tool.
+ *
+ * @author mcayanan
+ *
+ */
 public enum TargetType {
-    BUNDLE(0,"Context_Bundle"), COLLECTION(1,"Context_Collection"),
-    DIRECTORY(2,"Directory"), FILE(3,"File");
+    BUNDLE(0, "bundle"), COLLECTION(1, "collection"),
+    DIRECTORY(2, "directory"), FILE(3, "file");
 
     private final int value;
     private final String name;

@@ -30,7 +30,10 @@ import org.apache.commons.io.filefilter.IOFileFilter;
  *
  */
 public class DirectoryCrawler  {
+    /** A file filter. */
     private IOFileFilter fileFilter;
+
+    /** A directory filter. */
     private FileFilter directoryFilter;
 
     /**
@@ -58,10 +61,10 @@ public class DirectoryCrawler  {
             List<String> fileFilters) {
         List<File> results = new ArrayList<File>();
 
-        if(fileFilters != null && !(fileFilters.isEmpty())) {
+        if (fileFilters != null && !(fileFilters.isEmpty())) {
             fileFilter = new WildcardOSFilter(fileFilters);
         }
-        if( !directory.isDirectory() ) {
+        if ( !directory.isDirectory() ) {
             throw new IllegalArgumentException("Input file is not a directory: "
                     + directory);
         }
@@ -70,7 +73,7 @@ public class DirectoryCrawler  {
         results.addAll(FileUtils.listFiles(directory, fileFilter, null));
 
         //Visit sub-directories if the recurse flag is set
-        if(getSubDirectories) {
+        if (getSubDirectories) {
             results.addAll(
                     Arrays.asList(directory.listFiles(directoryFilter)));
         }

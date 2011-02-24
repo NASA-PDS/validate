@@ -15,9 +15,21 @@ package gov.nasa.pds.validate.util;
 
 import java.util.List;
 
+/**
+ * Utility class.
+ *
+ * @author mcayanan
+ *
+ */
 public class Utility {
+    /**
+     * Removes quotes within a list of strings.
+     *
+     * @param list A list of strings.
+     * @return A list with the quotes removed.
+     */
     public static List<String> removeQuotes(List<String> list) {
-        for(int i=0; i < list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             list.set(i, list.get(i).toString().replace('"', ' ')
                     .trim());
         }

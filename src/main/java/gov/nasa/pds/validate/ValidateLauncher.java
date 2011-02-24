@@ -13,36 +13,39 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.util.VersionInfo;
-import gov.nasa.pds.validate.commandline.options.ConfigKeys;
+import gov.nasa.pds.validate.commandline.options.ConfigKey;
+import gov.nasa.pds.validate.commandline.options.Flag;
+import gov.nasa.pds.validate.commandline.options.FlagOptions;
 import gov.nasa.pds.validate.commandline.options.InvalidOptionException;
-import gov.nasa.pds.validate.commandline.options.ToolsOption;
-import gov.nasa.pds.validate.commandline.options.Flags;
 import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.Report;
-import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.target.TargetType;
+import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
+import gov.nasa.pds.validate.util.XMLExtractor;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
+
+import javax.xml.xpath.XPathExpressionException;
+
+import net.sf.saxon.trans.XPathException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
@@ -53,6 +56,7 @@ import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and
@@ -61,87 +65,58 @@ import org.xml.sax.SAXException;
  * @author mcayanan
  *
  */
-public class ValidateLauncher implements Flags, ConfigKeys {
-    private final String PROPERTYFILE = "validate.properties";
-    private final String PROPERTYTOOLNAME = "validate.name";
-    private final String PROPERTYVERSION = "validate.version";
-    private final String PROPERTYDATE = "validate.date";
-    private final String PROPERTYCOPYRIGHT = "validate.copyright";
+public class ValidateLauncher {
+    /** List of targets to validate. */
+    private List<File> targets;
 
-    private List<Target> targets;
+    /** List of regular expressions for the file filter. */
     private List<String> regExps;
+
+    /** A list of user-given schemas to validate against. */
     private List<File> schemas;
+
+    /** A report file. */
     private File reportFile;
+
+    /** A flag to enable/disable directory recursion. */
     private boolean traverse;
+
+    /** The severity level and above to include in the report. */
     private Level severity;
 
-    private Options options;
+    /** An object representation of a Validate Tool report. */
     private Report report;
+
+    /** The XPath to the product_class tag. */
+    private final static String PRODUCT_TYPE_XPATH =
+      "//*[starts-with(name(),'Identification_Area')]/product_class";
+
+    //TODO: Find a way to dynamically add the list of valid bundle
+    // and collection type names.
+
+    /** A list of valid bundle type names. */
+    private final String[] BUNDLE_TYPES = {"Product_Bundle"};
+
+    /** A list of valid collection type names. */
+    private final String[] COLLECTION_TYPES = {"Collection_Browse",
+      "Collection_Calibration", "Collection_Context","Collection_Data",
+      "Collection_Document", "Collection_Generic", "Collection_Geometry",
+      "Collection_Miscellaneous", "Collection_Secondary",
+      "Collection_XML_Schema"};
 
     /**
      * Constructor.
      *
      */
     public ValidateLauncher() {
-        targets = new ArrayList<Target>();
+        targets = new ArrayList<File>();
         regExps = new ArrayList<String>();
         schemas = new ArrayList<File>();
         reportFile = null;
         traverse = true;
         severity = Level.WARNING;
 
-        options = buildOptions();
         report = new FullReport();
-    }
-
-    /**
-     * Builds the command-line option flags.
-     *
-     * @return A class representation of the command-line option flags.
-     */
-    private Options buildOptions() {
-        ToolsOption to = null;
-        Options options = new Options();
-
-        options.addOption(new ToolsOption(
-                HELP[SHORT], HELP[LONG], WHATIS_HELP));
-        options.addOption(new ToolsOption(
-                VERSION[SHORT], VERSION[LONG], WHATIS_VERSION));
-        options.addOption(new ToolsOption(
-                LOCAL[SHORT], LOCAL[LONG], WHATIS_LOCAL));
-
-        // Option to specify a file pattern to seach for specific files
-        // within a target directory
-        to = new ToolsOption(REGEXP[SHORT], REGEXP[LONG], WHATIS_REGEXP);
-        to.hasArgs(REGEXP[ARGNAME], String.class);
-        options.addOption(to);
-
-        //Option to specify the report file name
-        to = new ToolsOption(REPORT[SHORT], REPORT[LONG], WHATIS_REPORT);
-        to.hasArg(REPORT[ARGNAME], String.class);
-        options.addOption(to);
-
-        //Option to specify the report file name
-        to = new ToolsOption(SCHEMA[SHORT], SCHEMA[LONG], WHATIS_SCHEMA);
-        to.hasArgs(SCHEMA[ARGNAME], String.class);
-        options.addOption(to);
-
-        // Option to specify the label(s) to validate
-        to = new ToolsOption(TARGET[SHORT], TARGET[LONG], WHATIS_TARGET);
-        to.hasArgs(TARGET[ARGNAME], String.class);
-        options.addOption(to);
-
-        // Option to specify the severity level and above
-        to = new ToolsOption(CONFIG[SHORT], CONFIG[LONG], WHATIS_CONFIG);
-        to.hasArg(VERBOSE[ARGNAME], String.class);
-        options.addOption(to);
-
-        // Option to specify the severity level and above
-        to = new ToolsOption(VERBOSE[SHORT], VERBOSE[LONG], WHATIS_VERBOSE);
-        to.hasArg(VERBOSE[ARGNAME], short.class);
-        options.addOption(to);
-
-        return options;
     }
 
     /**
@@ -150,64 +125,70 @@ public class ValidateLauncher implements Flags, ConfigKeys {
      * @param args The command-line arguments
      * @return A class representation of the command-line arguments
      *
-     * @throws ParseException
-     * @throws InvalidOptionException
+     * @throws ParseException If an error occurred during parsing.
      */
-    public CommandLine parse(String[] args)
-    throws ParseException, InvalidOptionException {
+    public CommandLine parse(String[] args) throws ParseException {
         CommandLineParser parser = new GnuParser();
-        return parser.parse(options, args);
+        return parser.parse(FlagOptions.getOptions(), args);
     }
 
+    /**
+     * Query the command-line and process the command-line option flags set.
+     *
+     * @param line A CommandLine object containing the flags that were set.
+     *
+     * @throws Exception If an error occurred while processing the
+     * command-line options.
+     */
     public void query(CommandLine line) throws Exception {
         List<Option> processedOptions = Arrays.asList(line.getOptions());
         List<String> targetList = new ArrayList<String>();
 
         //Gets the implicit targets
-        for(java.util.Iterator<String> i = line.getArgList().iterator();
+        for (java.util.Iterator<String> i = line.getArgList().iterator();
         i.hasNext();) {
             String[] values = i.next().split(",");
-            for(int index=0; index < values.length; index++) {
+            for (int index = 0; index < values.length; index++) {
                 targetList.add(values[index].trim());
             }
         }
-        for(Option o : processedOptions) {
-            if(HELP[SHORT].equals(o.getOpt())) {
+        for (Option o : processedOptions) {
+            if (Flag.HELP.getShortName().equals(o.getOpt())) {
                 displayHelp();
                 System.exit(0);
-            } else if(VERSION[SHORT].equals(o.getOpt())) {
+            } else if (Flag.VERSION.getShortName().equals(o.getOpt())) {
                 displayVersion();
                 System.exit(0);
-            } else if(CONFIG[SHORT].equals(o.getOpt())) {
+            } else if (Flag.CONFIG.getShortName().equals(o.getOpt())) {
                 File c = new File(o.getValue());
-                if(c.exists()) {
+                if (c.exists()) {
                     query(c);
                 } else {
                     throw new Exception("Configuration file does not exist: "
                             + c);
                 }
-            } else if(REPORT[SHORT].equals(o.getOpt())) {
+            } else if (Flag.REPORT.getShortName().equals(o.getOpt())) {
                 setReport(new File(o.getValue()));
-            } else if(LOCAL[SHORT].equals(o.getOpt())) {
+            } else if (Flag.LOCAL.getShortName().equals(o.getOpt())) {
                 setTraverse(false);
-            } else if(SCHEMA[SHORT].equals(o.getOpt())) {
+            } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
                 setSchemas(o.getValuesList());
-            } else if(TARGET[SHORT].equals(o.getOpt())) {
+            } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
                 targetList.addAll(o.getValuesList());
-            } else if(VERBOSE[SHORT].equals(o.getOpt())) {
+            } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
                 short value = 0;
                 try {
                    value = Short.parseShort(o.getValue());
-                } catch(IllegalArgumentException a) {
+                } catch (IllegalArgumentException a) {
                     throw new InvalidOptionException(
-                            "Problems Parsing severity level value.");
+                            "Problems parsing severity level value.");
                 }
                 setSeverity(value);
-            } else if(REGEXP[SHORT].equals(o.getOpt())) {
+            } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
                 setRegExps((List<String>) o.getValuesList());
             }
         }
-        if(!targetList.isEmpty()) {
+        if (!targetList.isEmpty()) {
             setTargets(targetList);
         }
     }
@@ -217,95 +198,126 @@ public class ValidateLauncher implements Flags, ConfigKeys {
      *
      * @param configuration A configuration file.
      *
-     * @throws ConfigurationException
+     * @throws ConfigurationException If an error occurred while querying
+     * the configuration file.
      */
     public void query(File configuration) throws ConfigurationException {
         try {
             Configuration config = null;
             AbstractConfiguration.setDefaultListDelimiter(',');
             config = new PropertiesConfiguration(configuration);
-            if(config.isEmpty()) {
+            if (config.isEmpty()) {
                 throw new ConfigurationException(
                         "Configuration file is empty: " + configuration);
             }
-            if(config.containsKey(REGEXPKEY)) {
+            if (config.containsKey(ConfigKey.REGEXP)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(REGEXPKEY);
+                List<String> list = config.getList(ConfigKey.REGEXP);
                 list = Utility.removeQuotes(list);
                 setRegExps(list);
             }
-            if(config.containsKey(REPORTKEY)) {
-                setReport(new File(config.getString(REPORTKEY)));
+            if (config.containsKey(ConfigKey.REPORT)) {
+                setReport(new File(config.getString(ConfigKey.REPORT)));
             }
-            if(config.containsKey(TARGETKEY)) {
+            if (config.containsKey(ConfigKey.TARGET)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(TARGETKEY);
+                List<String> list = config.getList(ConfigKey.TARGET);
                 list = Utility.removeQuotes(list);
                 setTargets(list);
             }
-            if(config.containsKey(VERBOSEKEY)) {
-                setSeverity(config.getShort(VERBOSEKEY));
+            if (config.containsKey(ConfigKey.VERBOSE)) {
+                setSeverity(config.getShort(ConfigKey.VERBOSE));
             }
-            if(config.containsKey(SCHEMAKEY)) {
+            if (config.containsKey(ConfigKey.SCHEMA)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(SCHEMAKEY);
+                List<String> list = config.getList(ConfigKey.SCHEMA);
                 list = Utility.removeQuotes(list);
                 setSchemas(list);
             }
-            if(config.containsKey(LOCALKEY)) {
-                if(config.getBoolean(LOCALKEY) == true) {
+            if (config.containsKey(ConfigKey.LOCAL)) {
+                if (config.getBoolean(ConfigKey.LOCAL) == true) {
                     setTraverse(false);
                 } else {
                     setTraverse(true);
                 }
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
         }
     }
 
+    /**
+     * Set the target.
+     *
+     * @param targets A list of targets.
+     */
     private void setTargets(List<String> targets) {
         this.targets.clear();
-        while(targets.remove(""));
-        for(String t : targets) {
-            this.targets.add(new Target(t));
+        while (targets.remove(""));
+        for (String t : targets) {
+            this.targets.add(new File(t));
         }
     }
 
+    /**
+     * Set the schemas.
+     *
+     * @param schemas A list of schemas.
+     */
     private void setSchemas(List<String> schemas) {
-        while(schemas.remove(""));
+        while (schemas.remove(""));
         List<File> list = new ArrayList<File>();
-        for(String s : schemas) {
+        for (String s : schemas) {
              list.add(new File(s));
          }
         this.schemas = list;
     }
 
+    /**
+     * Sets the report file.
+     *
+     * @param report A report file.
+     */
     private void setReport(File report) {
         this.reportFile = report;
     }
 
+    /**
+     * Sets the flag to enable/disable directory recursion.
+     *
+     * @param value A boolean value.
+     */
     private void setTraverse(boolean value) {
         this.traverse = value;
     }
 
+    /**
+     * Sets the severity level for the report.
+     *
+     * @param level An interger value.
+     */
     private void setSeverity(int level) {
-        if(level < 1 || level > 3) {
+        if (level < 1 || level > 3) {
             throw new IllegalArgumentException(
                     "Severity level value can only be 1, 2, or 3");
         }
-        if(level == 1) {
+        if (level == 1) {
             this.severity = Level.INFO;
-        } else if(level == 2) {
+        } else if (level == 2) {
             this.severity = Level.WARNING;
-        } else if(level == 3) {
+        } else if (level == 3) {
             this.severity = Level.SEVERE;
         }
     }
 
+    /**
+     * Sets the list of file patterns to look for if traversing a directory.
+     *
+     * @param patterns A list of file patterns.
+     */
     private void setRegExps(List<String> patterns) {
         this.regExps = patterns;
-        while(this.regExps.remove(""));
+        while (this.regExps.remove(""));
     }
 
     /**
@@ -314,52 +326,37 @@ public class ValidateLauncher implements Flags, ConfigKeys {
      */
     public void displayHelp() {
         HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp(80, "validate <policy file> <options>",
-                null, options, null);
+        formatter.printHelp(80, "Validate <target> <options>",
+                null, FlagOptions.getOptions(), null);
     }
 
     /**
      * Displays the current version and disclaimer notice.
      *
-     * @throws IOException
+     * @throws IOException If there was an error that occurred while
+     * getting the tool information.
      */
     public void displayVersion() throws IOException {
-        URL propertyFile = this.getClass().getResource(PROPERTYFILE);
-        Properties p  = new Properties();
-        InputStream in = null;
-        try {
-            in = propertyFile.openStream();
-            p.load(in);
-        } finally {
-            in.close();
-        }
-        System.err.println("\n" + p.get(PROPERTYTOOLNAME));
-        System.err.println(p.get(PROPERTYVERSION));
-        System.err.println("Release Date: " + p.get(PROPERTYDATE));
-        System.err.println(p.get(PROPERTYCOPYRIGHT) + "\n");
+        System.err.println("\n" + ToolInfo.getName());
+        System.err.println(ToolInfo.getVersion());
+        System.err.println("Release Date: " + ToolInfo.getReleaseDate());
+        System.err.println(ToolInfo.getCopyright() + "\n");
     }
 
+    /**
+     * Setup the report.
+     *
+     * @throws IOException If an error occurred while setting up the report.
+     */
     private void setupReport() throws IOException {
-        if(reportFile != null) {
+        if (reportFile != null) {
             report.setOutput(reportFile);
         }
-        Properties p = new Properties();
-        InputStream in = null;
-        try {
-           in = this.getClass().getResource(PROPERTYFILE).openStream();
-           p.load(in);
-        } finally {
-            in.close();
-        }
-        String version = p.getProperty(PROPERTYVERSION)
-           .replaceFirst("Version", "").trim();
+        String version = ToolInfo.getVersion()
+                    .replaceFirst("Version", "").trim();
         SimpleDateFormat df = new SimpleDateFormat(
                 "EEE, MMM dd yyyy 'at' hh:mm:ss a");
         Date date = Calendar.getInstance().getTime();
-        List<String> files = new ArrayList<String>();
-        for(Target t : targets) {
-            files.add(t.getFilename());
-        }
         report.addConfiguration("   Version                  " + version);
         report.addConfiguration("   Time                     "
                 + df.format(date));
@@ -368,13 +365,13 @@ public class ValidateLauncher implements Flags, ConfigKeys {
         report.addConfiguration("   Model Version            "
                 + VersionInfo.getModelVersion());
         report.addParameter("   Target(s)                "
-                    + files);
-        if(!schemas.isEmpty()) {
+                    + targets);
+        if (!schemas.isEmpty()) {
             report.addParameter("   User-Specified Schemas   " + schemas);
         }
         report.addParameter("   Severity Level           Warnings");
         report.addParameter("   Recurse Directories      " + traverse);
-        if(!regExps.isEmpty()) {
+        if (!regExps.isEmpty()) {
             report.addParameter("   File Filter(s) Used      " + regExps);
         }
         report.printHeader();
@@ -383,50 +380,118 @@ public class ValidateLauncher implements Flags, ConfigKeys {
     /**
      * Performs validation.
      *
-     * @throws SAXException
+     * @throws SAXException If one of the schemas is malformed.
      */
     private void doValidation() throws SAXException {
         Validator validator = new FileValidator(report);
-        for(Target t : targets) {
-            if(TargetType.DIRECTORY.equals(t.getType())) {
+        for (File target : targets) {
+          try {
+            TargetType type = getTargetType(target);
+            if (TargetType.DIRECTORY.equals(type)) {
                 DirectoryValidator dv = new DirectoryValidator(report);
                 dv.setFileFilters(regExps);
                 dv.setRecurse(traverse);
                 validator = dv;
-            }/*
-            else if(COLLECTION.equals(t.getType())) {
+            }
+            else if (TargetType.COLLECTION.equals(type)) {
                 validator = new CollectionValidator(report);
-            } else if(BUNDLE.equals(t.getType())) {
+            } else if (TargetType.BUNDLE.equals(type)) {
                 validator = new BundleValidator(report);
-            }*/
-            if(!schemas.isEmpty()) {
+            }
+            if (!schemas.isEmpty()) {
                 validator.setSchema(schemas);
             }
-            validator.validate(new File(t.getFilename()));
+            validator.validate(target);
+          } catch (Exception e) {
+            LabelException le = null;
+            if (e instanceof SAXParseException) {
+              SAXParseException se = (SAXParseException) e;
+              le = new LabelException(ExceptionType.FATAL, se.getMessage(),
+                  target.toString(), target.toString(), se.getLineNumber(),
+                  se.getColumnNumber());
+            } else {
+              le = new LabelException(ExceptionType.FATAL,
+                      e.getMessage(), target.toString(), target.toString(),
+                      null, null);
+            }
+            report.record(target.toURI(), le);
+          }
         }
     }
 
+    /**
+     * Get the target type of the file.
+     *
+     * @param target The file.
+     *
+     * @return A TargetType. The default is a file if the product_class
+     * tag value is not part of the list of bundle and collection type
+     * names.
+     *
+     * @throws XPathException If an error occurred while parsing the file.
+     */
+    private TargetType getTargetType(File target) throws XPathException {
+      TargetType type = TargetType.FILE;
+      if (target.isDirectory()) {
+          type = TargetType.DIRECTORY;
+      } else {
+          XMLExtractor extractor = new XMLExtractor();
+          extractor.parse(target);
+          String value = "";
+          try {
+            value = extractor.getValueFromDoc(PRODUCT_TYPE_XPATH);
+          } catch (XPathExpressionException x) {
+            throw new XPathException("Bad xpath expression: "
+                + PRODUCT_TYPE_XPATH);
+          }
+          if (Arrays.asList(BUNDLE_TYPES).contains(value)) {
+              type = TargetType.BUNDLE;
+          } else if (Arrays.asList(COLLECTION_TYPES).contains(value)) {
+              type = TargetType.COLLECTION;
+          }
+      }
+      return type;
+    }
+
+    /**
+     * Print the report footer.
+     *
+     */
     private void printReportFooter() {
         report.printFooter();
     }
 
+    /**
+     * Wrapper method for the main class.
+     *
+     * @param args list of command-line arguments.
+     */
+    public void processMain(String[] args) {
+      try {
+          CommandLine cmdLine = parse(args);
+          query(cmdLine);
+          setupReport();
+          doValidation();
+          printReportFooter();
+      } catch (Exception e) {
+          System.out.println(e.getMessage());
+      }
+    }
+
+    /**
+     * Main class that launches the Validate Tool.
+     *
+     * @param args A list of command-line arguments.
+     */
     public static void main(String[] args) {
         if (args.length == 0) {
             System.out.println("\nType 'Validate -h' for usage");
             System.exit(0);
         }
-        ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
+        ConsoleAppender ca = new ConsoleAppender(
+            new PatternLayout("%-5p %m%n"));
         ca.setThreshold(Priority.FATAL);
         BasicConfigurator.configure(ca);
-        ValidateLauncher launcher = new ValidateLauncher();
-        try {
-            CommandLine cmdLine = launcher.parse(args);
-            launcher.query(cmdLine);
-            launcher.setupReport();
-            launcher.doValidation();
-            launcher.printReportFooter();
-        } catch (Exception e) {
-           System.out.println(e.getMessage());
-        }
+        new ValidateLauncher().processMain(args);
     }
 }

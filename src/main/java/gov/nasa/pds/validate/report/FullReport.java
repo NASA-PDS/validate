@@ -45,10 +45,10 @@ public class FullReport extends Report {
       URI sourceUri, List<LabelException> problems) {
     Map<URI, List<LabelException>> externalProblems = new HashMap<URI, List<LabelException>>();
       writer.println();
-//    writer.print("  ");
-//    writer.print(status.getName());
-//    writer.print(": ");
-//    writer.println(sourceUri.toString());
+      writer.print("  ");
+      writer.print(status.getName());
+      writer.print(": ");
+      writer.println(sourceUri.toString());
 
     // Print all the sources problems and gather all external problems
     for (LabelException problem : problems) {
@@ -69,11 +69,12 @@ public class FullReport extends Report {
     }
     writer.print(severity);
     writer.print("  ");
-    writer.print("[" + problem.getSystemId() + "]   ");
-    if (problem.getLineNumber() != null) {
+    if (problem.getLineNumber() != null
+        && problem.getLineNumber() != -1) {
       writer.print("line ");
       writer.print(problem.getLineNumber().toString());
-      if (problem.getColumnNumber() != null) {
+      if (problem.getColumnNumber() != null
+        && problem.getColumnNumber() != -1) {
         writer.print(", ");
         writer.print(problem.getColumnNumber().toString());
       }
@@ -109,10 +110,12 @@ public class FullReport extends Report {
       }
       writer.print(severity);
       writer.print("  ");
-      if (problem.getLineNumber() != null) {
+      if (problem.getLineNumber() != null
+          && problem.getLineNumber() != -1) {
         writer.print("line ");
         writer.print(problem.getLineNumber().toString());
-        if (problem.getColumnNumber() != null) {
+        if (problem.getColumnNumber() != null
+            && problem.getColumnNumber() != -1) {
           writer.print(", ");
           writer.print(problem.getColumnNumber().toString());
         }
