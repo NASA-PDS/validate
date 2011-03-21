@@ -30,7 +30,8 @@ public class InventoryKeys {
         + "//Table_Record_Inventory_LID/Table_Field_LID/field_number";
 
     /** XPath to the external table file of a collection. */
-    public static final String DATA_FILE_XPATH = "//File_Area/File/file_name";
+    public static final String DATA_FILE_XPATH = "//*[starts-with(name(),"
+      + "'File_Area')]/File/file_name";
 
     /** XPath to grab the Member_Entry tags in a bundle. */
     public static final String MEMBER_ENTRY_XPATH =
