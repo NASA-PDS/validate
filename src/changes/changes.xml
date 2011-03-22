@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -23,7 +23,10 @@
   </properties>
 
   <body>
-    <release version="0.2.0" date="TBD" description="TBD">
+    <release version="0.2.0" date="2011-03-25" description="This release of the Registry Service is a component of the integrated release 1.1.0 of the PDS 2010 System.">
+      <action dev="pramirez" type="add">
+        Added in the 0300A version of the schemas and set this as the default for the release. Inherited from core.
+      </action>
     </release>
 
     <release version="0.1.0" date="2010-10-31" description="This release of the Registry Service is a component of the integrated release 1.0.0 of the PDS 2010 System.">

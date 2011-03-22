@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -30,7 +30,7 @@
     </section>
 
     <section name="Release 0.2.0">
-      <p>TBD
+      <p>This release of the Validate Tool is a component of the integrated release <a href="../../../release/index-1.1.0.html">1.1.0</a> of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards and the system components to date. This release includes the latest set of schemas generated from the PDS4 data model.
       </p>
     </section>
 
