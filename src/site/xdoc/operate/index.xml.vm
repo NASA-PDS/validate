@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -91,11 +91,11 @@ C:\&gt; Validate &lt;targets&gt; &lt;command-line arguments&gt;
       <p>This section details how to tell the Validate Tool to use core schemas from some external directory rather than the core schemas loaded internally into the tool. Users that wish to not do this can skip this section.
       </p>
 
-      <p>The Java system property, <i>core.schema.dir</i>, can be used to load core schemas from an external directory. At this time, any external directory used must have a sub-directory named <i>0111c</i> with the schemas under this sub-directory. For example, if specifying an external directory named <i>/home/pds/schemas</i>, the directory must have the following structure:
+      <p>The Java system property, <i>core.schema.dir</i>, can be used to load core schemas from an external directory. At this time, any external directory used must have a sub-directory named <i>0300A</i> with the schemas under this sub-directory. For example, if specifying an external directory named <i>/home/pds/schemas</i>, the directory must have the following structure:
       </p>
 
       <ul>
-        <li><b>0111c/</b><br/>
+        <li><b>0300A/</b><br/>
           <p>This directory will contain the list of core schemas to load into the tool. This overwrites the internal core schemas used for validation.</p>
         </li>
       </ul>
@@ -108,14 +108,14 @@ C:\&gt; Validate &lt;targets&gt; &lt;command-line arguments&gt;
         </p>
 
         <source>
-java -Xss256m -jar ${VALIDATE_JAR} "$@"
+java -jar ${VALIDATE_JAR} "$@"
         </source>
 
         <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>/home/pds/schemas</i>:
         </p>
 
         <source>
-java -Dcore.schema.dir="/home/pds/schemas" -Xss256m -jar ${VALIDATE_JAR} "$@"
+java -Dcore.schema.dir="/home/pds/schemas" -jar ${VALIDATE_JAR} "$@"
         </source>
       </subsection>
 
@@ -124,14 +124,14 @@ java -Dcore.schema.dir="/home/pds/schemas" -Xss256m -jar ${VALIDATE_JAR} "$@"
         </p>
 
         <source>
-java -Xss128m -jar "%VALIDATE_JAR%" $*
+java -jar "%VALIDATE_JAR%" $*
         </source>
 
         <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>c:\pds\schemas</i>:
         </p>
 
         <source>
-java -Dcore.schema.dir="c:\pds\schemas" -Xss128m -jar "%VALIDATE_JAR%" $*
+java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
         </source>
       </subsection>
     </section>
@@ -162,7 +162,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -Xss128m -jar "%VALIDATE_JAR%" $*
 
         <ul>
           <li>Validating a Target File</li>
-          <li>Validataing a Target Directory</li>
+          <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
@@ -193,7 +193,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -Xss128m -jar "%VALIDATE_JAR%" $*
         </p>
 
         <source>
-% Validate proudct.xml -x product.xsd
+% Validate product.xml -x product.xsd
         </source>
 
         <p>The following command demonstrates the validation of a set of target files against a set of user-specified schemas:
@@ -212,7 +212,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -Xss128m -jar "%VALIDATE_JAR%" $*
 % Validate /home/pds/collection -e "*.xml"
         </source>
 
-        <p>Note: File patterns should be surrounded in quotes to avoid having the system shell mistakingly interpreting them. In addition, pattern matching is case-insensitve in Windows, but case-sensitive for other systems.
+        <p>Note: File patterns should be surrounded in quotes to avoid having the system shell mistakingly interpreting them. In addition, pattern matching is case-insensitive in Windows, but case-sensitive for other systems.
         </p>
 
         <p><b><i>Ignoring Sub-Directories During Validation</i></b></p>
