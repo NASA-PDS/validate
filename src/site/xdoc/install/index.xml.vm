@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -43,7 +43,7 @@
     </section>
 
     <section name="Unpacking the Package">
-      <p>Download the <i>${xdoc-artifactId}</i> package from the yet to be developed PDS 2010 web page. The binary distribution is available in identical zip or tar/gzip packages. Unpack the selected binary distribution file with one of the following commands:
+      <p>Download the <i>${xdoc-artifactId}</i> package from the PDS <a href="ftp://pds.nasa.gov/pub/toplevel/2010/preparation/" target="_blank">FTP</a> site. The binary distribution is available in identical zip or tar/gzip packages. Unpack the selected binary distribution file with one of the following commands:
       </p>
 
       <source>
