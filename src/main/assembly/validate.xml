@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology
   Transfer at the California Institute of Technology.
@@ -43,7 +43,6 @@
         <include>Validate.bat</include>
       </includes>
       <fileMode>755</fileMode>
-      <lineEnding>unix</lineEnding>
     </fileSet>
     <fileSet>
       <directory>target/site</directory>
