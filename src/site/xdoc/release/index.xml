@@ -29,6 +29,11 @@
       </p>
     </section>
 
+    <section name="Release 0.3.0">
+      <p>TBD
+      </p>
+    </section>
+
     <section name="Release 0.2.0">
       <p>This release of the Validate Tool is a component of the integrated release <a href="../../../release/index-1.1.0.html">1.1.0</a> of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards and the system components to date. This release includes the latest set of schemas generated from the PDS4 data model.
       </p>
