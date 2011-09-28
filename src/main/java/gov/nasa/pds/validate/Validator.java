@@ -48,14 +48,22 @@ public abstract class Validator {
   protected Schema schema;
 
   /**
+   * The model version to validate against.
+   *
+   */
+  protected String modelVersion;
+
+  /**
    * Constructor.
    *
+   * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results of the validation
    *  run.
    */
-  public Validator(Report report) {
+  public Validator(String modelVersion, Report report) {
     this.report = report;
     this.schema = null;
+    this.modelVersion = modelVersion;
   }
 
   /**

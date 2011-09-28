@@ -21,23 +21,26 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public class ConfigKey {
-    /** List of file patterns to look for if traversing a target directory. */
-    public static final String REGEXP = "validate.regexp";
+  /** List of file patterns to look for if traversing a target directory. */
+  public static final String REGEXP = "validate.regexp";
 
-    /** The report. */
-    public static final String REPORT = "validate.report";
+  /** The report. */
+  public static final String REPORT = "validate.report";
 
-    /** A list of targets to validate. */
-    public static final String TARGET = "validate.target";
+  /** A list of targets to validate. */
+  public static final String TARGET = "validate.target";
 
-    /** A severity level for the output report. */
-    public static final String VERBOSE = "validate.verbose";
+  /** A severity level for the output report. */
+  public static final String VERBOSE = "validate.verbose";
 
-    /** A list of schema files to validate against. */
-    public static final String SCHEMA = "validate.schema";
+  /** A list of schema files to validate against. */
+  public static final String SCHEMA = "validate.schema";
 
-    public static final String CATALOG = "validate.catalog";
+  public static final String CATALOG = "validate.catalog";
 
-    /** Enables/disables direcotry recursion. */
-    public static final String LOCAL = "validate.local";
+  /** The model version to use during validation. */
+  public static final String MODEL = "validate.model";
+
+  /** Enables/disables direcotry recursion. */
+  public static final String LOCAL = "validate.local";
 }

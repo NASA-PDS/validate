@@ -35,10 +35,11 @@ public class FileValidator extends Validator {
   /**
    * Constructor.
    *
+   * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
    */
-  public FileValidator(Report report) {
-    super(report);
+  public FileValidator(String modelVersion, Report report) {
+    super(modelVersion, report);
   }
 
   /**
@@ -55,6 +56,7 @@ public class FileValidator extends Validator {
   public void validate(File file) throws SAXException, IOException,
   ParserConfigurationException, XPathExpressionException {
     LabelValidator lv = new LabelValidator();
+    lv.setModelVersion(modelVersion);
     ExceptionContainer exceptionContainer = new ExceptionContainer();
     if (schema != null) {
       lv.validate(exceptionContainer, file, schema);

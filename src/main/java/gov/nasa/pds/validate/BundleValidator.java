@@ -39,10 +39,11 @@ public class BundleValidator extends Validator {
   /**
    * Constructor.
    *
+   * @param modelVersion The model version to use for validation.
    * @param report A Report to capture the results of the validation.
    */
-  public BundleValidator(Report report) {
-        super(report);
+  public BundleValidator(String modelVersion, Report report) {
+        super(modelVersion, report);
     }
 
   /**
@@ -53,7 +54,7 @@ public class BundleValidator extends Validator {
    * @throws InventoryReaderException
    */
   public void validate(File bundle) throws InventoryReaderException {
-    FileValidator fValidator = new FileValidator(report);
+    FileValidator fValidator = new FileValidator(modelVersion, report);
     if (schema != null) {
       fValidator.setSchema(schema);
     }
@@ -78,7 +79,8 @@ public class BundleValidator extends Validator {
       report.record(bundle.toURI(), le);
       return;
     }
-    CollectionValidator cValidator = new CollectionValidator(report);
+    CollectionValidator cValidator = new CollectionValidator(modelVersion,
+        report);
     if (schema != null) {
       cValidator.setSchema(schema);
     }

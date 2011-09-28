@@ -44,10 +44,11 @@ public class CollectionValidator extends Validator {
   /**
    * Constructor.
    *
+   * @param modelVersion The model version to use for validation.
    * @param report A Report to capture the results of the validation.
    */
-  public CollectionValidator(Report report) {
-    super(report);
+  public CollectionValidator(String modelVersion, Report report) {
+    super(modelVersion, report);
   }
 
   /**
@@ -64,7 +65,7 @@ public class CollectionValidator extends Validator {
   public void validate(File collection) throws InventoryReaderException,
   XPathExpressionException, SAXException, IOException,
   ParserConfigurationException {
-    FileValidator fValidator = new FileValidator(report);
+    FileValidator fValidator = new FileValidator(modelVersion, report);
     if (schema != null) {
       fValidator.setSchema(schema);
     }

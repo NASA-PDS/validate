@@ -40,11 +40,12 @@ public class DirectoryValidator extends Validator {
   /**
    * Constructor.
    *
+   * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
    *
    */
-  public DirectoryValidator(Report report) {
-    super(report);
+  public DirectoryValidator(String modelVersion, Report report) {
+    super(modelVersion, report);
     recurse = true;
     fileFilters = new ArrayList<String>();
   }
@@ -81,7 +82,7 @@ public class DirectoryValidator extends Validator {
       if (target.isDirectory()) {
         validate(target);
       } else {
-        FileValidator fv = new FileValidator(report);
+        FileValidator fv = new FileValidator(modelVersion, report);
         if (schema != null) {
           fv.setSchema(schema);
         }
