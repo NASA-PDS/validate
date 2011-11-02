@@ -147,6 +147,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
         <table>
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By default, PDS schemas are built into the tool to perform the validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
@@ -164,6 +165,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
           <li>Validating a Target File</li>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
+          <li>Validating Against an Older Version of the PDS4 Data Model</li>   
           <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
           <li>Changing Tool Behaviors With The Configuration File</li>
@@ -201,6 +203,15 @@ java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
 
         <source>
 % Validate producta.xml, productb.xml -x producta.xsd, productb.xsd
+        </source>
+
+        <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
+        
+        <p>The following command demonstrates the validation of a single data product label against version <i>0111c</i> of the PDS4 data model:
+        </p>
+        
+        <source>
+%Validate product.xml -m 0111c
         </source>
 
         <p><b><i>Validating Specific Files in a Target Directory</i></b></p>
@@ -304,6 +315,7 @@ java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>
+          <tr><td>validate.model</td><td>-m, --model-version</td></tr>
         </table>
 
         <p>The following example demonstrates how to set a configuration file:
