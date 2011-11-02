@@ -28,7 +28,10 @@
         Added support to validate against older versions of the PDS4 data model.
       </action>
       <action dev="mcayanan" type="fix">
-        Fixed a bug where the Validate Tool did not correctly crawl a collection or bundle when validating multiple targets specified on the command-line.
+        PDS-48: Fixed to support crawling of all bundle class types.
+      </action>
+      <action dev="mcayanan" type="fix">
+        Fixed a bug where the Validate Tool did not correctly crawl a collection or bundle when validating multiple targets of different types during a single executable run.
       </action>
     </release>
 
