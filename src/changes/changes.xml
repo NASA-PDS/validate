@@ -24,6 +24,12 @@
 
   <body>
     <release version="0.4.0" date="TBD" description="This release of the Validate Tool is a component of the integrated release 2.0.0 of the PDS 2010 System.">
+      <action dev="mcayanan" type="add">
+        Added support to validate against older versions of the PDS4 data model.
+      </action>
+      <action dev="mcayanan" type="fix">
+        Fixed a bug where the Validate Tool did not correctly crawl a collection or bundle when validating multiple targets specified on the command-line.
+      </action>
     </release>
 
     <release version="0.3.0" date="2011-08-29" description="This release of the Validate Tool is a component of the integrated release 1.2.0 of the PDS 2010 System.">
