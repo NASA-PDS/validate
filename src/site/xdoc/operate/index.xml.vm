@@ -29,111 +29,12 @@
       </p>
 
       <ul>
-        <li><a href="#Tool_Setup">Tool Setup</a></li>
         <li><a href="#Tool_Execution">Tool Execution</a></li>
         <li><a href="#Report_Format">Report Format</a></li>
       </ul>
 
       <p>Note: The command-line examples in this section have been broken into multiple lines for readability. The commands should be reassembled into a single line prior to execution.
       </p>
-    </section>
-
-    <section name="Tool Setup">
-      <p>In order to execute the Validate Tool, the user's environment must first be configured appropriately. This section describes how to setup the user environment on UNIX-based and Windows machines.
-      </p>
-
-      <subsection name="UNIX-Based Setup">
-        <p>This section details the environment setup for UNIX-based machines. The preferred method is to specify the shell script, <i>Validate</i>, on the command-line. Setting the <i>PATH</i> environment variable to the location of the script, enables the shell script to be executed from any location on the user's machine.
-        </p>
-
-        <p>The following command demonstrates how to set the <i>PATH</i> environment variable, by appending to its current setting:
-        </p>
-
-        <source>
-% setenv PATH ${PATH}:$HOME/${xdoc-artifactId}-${xdoc-version}/bin
-        </source>
-
-        <p>The tool can now be executed via the shell script as demonstrated in the following example:
-        </p>
-
-        <source>
-% Validate &lt;targets&gt; &lt;command-line arguments&gt;
-        </source>
-
-        <p>Additional methods for setting up a UNIX-based environment can be found in the <a href="index-unix.html">UNIX Setup Options</a> section. If viewing this document in PDF form, see the appendix for details.
-        </p>
-      </subsection>
-
-      <subsection name="Windows Setup">
-        <p>This section details the environment setup for Windows machines. The preferred method is to specify the batch file, <i>Validate.bat</i>, on the command-line. Setting the <i>PATH</i> environment variable to the location of the file, enables the batch file to be executed from any location on the user's machine.
-        </p>
-
-        <p>The following command demonstrates how to set the <i>PATH</i> environment variable, by appending to its current setting:
-        </p>
-
-        <source>
-C:\&gt; set PATH = %PATH%;C:\\${xdoc-artifactId}-${xdoc-version}\bin
-        </source>
-
-        <p>The tool can now be executed via the batch file as demonstrated in the following example:
-        </p>
-
-        <source>
-C:\&gt; Validate &lt;targets&gt; &lt;command-line arguments&gt;
-        </source>
-
-        <p>Additional methods for setting up a Windows environment can be found in the <a href="index-win.html">Windows Setup Options</a> section. If viewing this document in PDF form, see the appendix for details.
-        </p>
-      </subsection>
-    </section>
-
-    <section name="Additional Tool Setup">
-      <p>This section details how to tell the Validate Tool to use core schemas from some external directory rather than the core schemas loaded internally into the tool. Users that wish to not do this can skip this section.
-      </p>
-
-      <p>The Java system property, <i>core.schema.dir</i>, can be used to load core schemas from an external directory. At this time, any external directory used must have a sub-directory named <i>0411f</i> with the schemas under this sub-directory. For example, if specifying an external directory named <i>/home/pds/schemas</i>, the directory must have the following structure:
-      </p>
-
-      <ul>
-        <li><b>0411f/</b><br/>
-          <p>This directory will contain the list of core schemas to load into the tool. This overwrites the internal core schemas used for validation.</p>
-        </li>
-      </ul>
-
-      <p>The sections below detail how to add this system property into the Validate Tool launch scripts.
-      </p>
-
-      <subsection name="UNIX-Based Users">
-        <p>Open the <i>Validate</i> shell script and go to the last line in the file. It should look like the following:
-        </p>
-
-        <source>
-java -jar ${VALIDATE_JAR} "$@"
-        </source>
-
-        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>/home/pds/schemas</i>:
-        </p>
-
-        <source>
-java -Dcore.schema.dir="/home/pds/schemas" -jar ${VALIDATE_JAR} "$@"
-        </source>
-      </subsection>
-
-      <subsection name="Windows-Based Users">
-        <p>Open the <i>Validate</i> batch and go to the last line in the file. It should look like the following:
-        </p>
-
-        <source>
-java -jar "%VALIDATE_JAR%" $*
-        </source>
-
-        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>c:\pds\schemas</i>:
-        </p>
-
-        <source>
-java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
-        </source>
-      </subsection>
     </section>
 
     <section name="Tool Execution">

@@ -30,7 +30,7 @@
     </section>
 
     <section name="Release 0.4.0">
-      <p>TBD
+      <p>This release of the Validate Tool is a component of the integrated release <a href="../../release/index-2.0.0.html">2.0.0</a> of the PDS 2010 System. This is an operational release of the system components to date. This release includes a couple of bug fixes and support for older versions of the PDS data model.
       </p>
     </section>
 

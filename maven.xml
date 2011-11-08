@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2011, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -30,11 +30,8 @@
     <velocity:merge name="${maven.build.dir}/pdf/operate/index.xml"
                     basedir="${basedir}/src/site/xdoc/operate"
                     template="index.xml.vm"/>
-    <velocity:merge name="${maven.build.dir}/pdf/operate/index-unix.xml"
-                    basedir="${basedir}/src/site/xdoc/operate"
-                    template="index-unix.xml.vm"/>
-    <velocity:merge name="${maven.build.dir}/pdf/operate/index-win.xml"
-                    basedir="${basedir}/src/site/xdoc/operate"
+    <velocity:merge name="${maven.build.dir}/pdf/install/index-win.xml"
+                    basedir="${basedir}/src/site/xdoc/install"
                     template="index-win.xml.vm"/>
   </goal>
 </project>

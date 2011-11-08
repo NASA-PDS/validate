@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2011, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology Transfer
+  at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+  is subject to U.S. export control laws and regulations, the recipient has
+  the responsibility to obtain export licenses or other export authority as
+  may be required before exporting such information to foreign countries or
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<document>
+  <properties>
+    <title>Windows System Properties</title>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
+    <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
+  </properties>
+
+  <body>
+    <section name="Windows System Properties">
+      <p>The required environment variables for the <i>${xdoc-artifactId}</i> package can also be set through the Windows system properties panel. The <i>Path</i> environment variable can be modified as follows:
+      </p>
+
+      <ul>
+        <li>Right-click on <i>My Computer</i> icon on your desktop and select the <i>Properties</i> menu item.
+        </li>
+        <li>Navigate to the <i>Advanced</i> tab and select the <i>Environment Variables</i> button. At this point, you should now see a window like the one below:
+        </li>
+      </ul>
+
+      <center><img src="../images/windows_panel.jpg"/></center>
+
+      <ul>
+        <li>Highlight the <i>Path</i> variable in the System Variables list and select the <i>Edit</i> button.
+        </li>
+        <li>Append to the current contents of the variable, the path to the <i>bin</i> directory within <i>${xdoc-artifactId}</i> package. Separate the package path from the current contents of the variable with a semicolon.
+        </li>
+        <li>Select the <i>OK</i> button when you are finished editing the <i>Path</i> variable, then select the <i>OK</i> button on the Environment Variables window to apply the changes.
+        </li>
+      </ul>
+
+      <p>New environment variables (e.g., JAVA_HOME) may also be specified in the system properties panel. Instead of selecting the <i>Edit</i> button from the System Variables list, select the <i>New</i> button and enter the variable name and value. Select the <i>OK</i> button when you are finished, then select the <i>OK</i> button on the Environment Variables window to apply the changes.
+      </p>
+
+      <p>Note: If you already have a DOS window open, you will need to close and re-open the window for the environment variable changes to take effect.
+      </p>
+    </section>
+  </body>
+</document>
