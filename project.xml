@@ -19,7 +19,7 @@
 <project>
   <id>validate</id>
   <name>Validate Tool</name>
-  <currentVersion>0.4.0</currentVersion>
+  <currentVersion>0.5.0-dev</currentVersion>
 
   <organization>
     <name>NASA Jet Propulsion Laboratory, California Institute of Technology</name>
