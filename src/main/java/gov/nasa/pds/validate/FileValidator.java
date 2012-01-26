@@ -55,14 +55,13 @@ public class FileValidator extends Validator {
    */
   public void validate(File file) throws SAXException, IOException,
   ParserConfigurationException, XPathExpressionException {
+    ExceptionContainer exceptionContainer = new ExceptionContainer();
     LabelValidator lv = new LabelValidator();
     lv.setModelVersion(modelVersion);
-    ExceptionContainer exceptionContainer = new ExceptionContainer();
     if (schema != null) {
-      lv.validate(exceptionContainer, file, schema);
-    } else {
-      lv.validate(exceptionContainer, file);
-    }
+      lv.setSchema(schema);
+    } 
+    lv.validate(exceptionContainer, file);
     report.record(file.toURI(), exceptionContainer.getExceptions());
   }
 }

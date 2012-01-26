@@ -45,7 +45,7 @@ public class XMLExtractor {
 
   /** Default namespace uri. */
   private static String defaultNamespaceUri =
-    VersionInfo.getPDSDefaultNamespace(VersionInfo.getModelVersion());
+    VersionInfo.getPDSDefaultNamespace(VersionInfo.getDefaultModelVersion());
 
   /** Namespace Context. */
   private static PDSNamespaceContext namespaceContext = null;

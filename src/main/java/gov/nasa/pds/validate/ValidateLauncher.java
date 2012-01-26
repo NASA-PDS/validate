@@ -105,7 +105,7 @@ public class ValidateLauncher {
     reportFile = null;
     traverse = true;
     severity = Level.WARNING;
-    modelVersion = VersionInfo.getModelVersion();
+    modelVersion = VersionInfo.getDefaultModelVersion();
 
     report = new FullReport();
   }
