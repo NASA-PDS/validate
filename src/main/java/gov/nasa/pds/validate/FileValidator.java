@@ -58,9 +58,12 @@ public class FileValidator extends Validator {
     ExceptionContainer exceptionContainer = new ExceptionContainer();
     LabelValidator lv = new LabelValidator();
     lv.setModelVersion(modelVersion);
-    if (schema != null) {
-      lv.setSchema(schema);
-    } 
+    if (!schemas.isEmpty()) {
+      lv.setSchema(schemas.toArray(new String[0]));
+    }
+    if (!catalogs.isEmpty()) {
+      lv.setCatalogs(catalogs.toArray(new String[0]));
+    }
     lv.validate(exceptionContainer, file);
     report.record(file.toURI(), exceptionContainer.getExceptions());
   }

@@ -28,6 +28,7 @@ public class FlagOptions {
     static {
         options = new Options();
 
+        options.addOption(new ToolsOption(Flag.CATALOG));
         options.addOption(new ToolsOption(Flag.CONFIG));
         options.addOption(new ToolsOption(Flag.REGEXP));
         options.addOption(new ToolsOption(Flag.HELP));

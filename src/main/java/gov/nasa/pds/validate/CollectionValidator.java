@@ -66,8 +66,11 @@ public class CollectionValidator extends Validator {
   XPathExpressionException, SAXException, IOException,
   ParserConfigurationException {
     FileValidator fValidator = new FileValidator(modelVersion, report);
-    if (schema != null) {
-      fValidator.setSchema(schema);
+    if (!schemas.isEmpty()) {
+      fValidator.setSchemas(schemas);
+    }
+    if (!catalogs.isEmpty()) {
+      fValidator.setCatalogs(catalogs);
     }
     fValidator.validate(collection);
     InventoryTableReader reader = new InventoryTableReader(collection);

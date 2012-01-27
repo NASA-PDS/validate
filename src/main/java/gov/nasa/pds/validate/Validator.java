@@ -21,11 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
@@ -42,10 +38,16 @@ public abstract class Validator {
   protected Report report;
 
   /**
-   * An object representataion of a schema to validate against.
+   * A list of user specified schemas to validate against.
    *
    */
-  protected Schema schema;
+  protected List<String> schemas;
+
+  /**
+   * A list of user specified catalogs to use during validation.
+   *
+   */
+  protected List<String> catalogs;
 
   /**
    * The model version to validate against.
@@ -62,7 +64,8 @@ public abstract class Validator {
    */
   public Validator(String modelVersion, Report report) {
     this.report = report;
-    this.schema = null;
+    this.schemas = new ArrayList<String>();
+    this.catalogs = new ArrayList<String>();
     this.modelVersion = modelVersion;
   }
 
@@ -74,25 +77,18 @@ public abstract class Validator {
    *
    * @param schemaFiles A list of schema files.
    *
-   * @throws SAXException If a schema is malformed.
    */
-  public void setSchema(List<File> schemaFiles) throws SAXException {
-    List<StreamSource> schemas = new ArrayList<StreamSource>();
-    for (File schema : schemaFiles) {
-      schemas.add(new StreamSource(schema));
-    }
-    SchemaFactory factory = SchemaFactory
-    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    this.schema = factory.newSchema(schemas.toArray(new StreamSource[0]));
+  public void setSchemas(List<String> schemaFiles) {
+    this.schemas.addAll(schemaFiles);
   }
 
   /**
-   * Set the schema.
+   * Sets the catalogs to use during validation.
    *
-   * @param schema An object representation of a schema.
+   * @param catalogs A list of catalog files.
    */
-  public void setSchema(Schema schema) {
-    this.schema = schema;
+  public void setCatalogs(List<String> catalogs) {
+    this.catalogs.addAll(catalogs);
   }
 
   /**

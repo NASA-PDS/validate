@@ -25,6 +25,9 @@ public enum Flag {
   CONFIG("c", "config", "file", String.class, "Specify a configuration "
       + "file to set the tool behavior."),
 
+  CATALOG("C", "catalog", "catalog files", String.class, "Specify catalog "
+      + "files to use during validation."),
+
   /**
    * Flag to specify file patterns to look for when validating a target
    * directory.
@@ -62,7 +65,7 @@ public enum Flag {
   /**
    * Flag to specify a list of schemas to use during validation.
    */
-  SCHEMA("x", "xsd", "schema file", String.class, "Specify a schema file."),
+  SCHEMA("x", "schema", "schema files", String.class, "Specify schema files."),
 
   /**
    * Flag to specify a model version to use during validation.

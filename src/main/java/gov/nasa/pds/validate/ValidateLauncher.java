@@ -73,7 +73,10 @@ public class ValidateLauncher {
   private List<String> regExps;
 
   /** A list of user-given schemas to validate against. */
-  private List<File> schemas;
+  private List<String> schemas;
+
+  /** A list of catalog files to use during validation. */
+  private List<String> catalogs;
 
   /** A report file. */
   private File reportFile;
@@ -101,7 +104,8 @@ public class ValidateLauncher {
   public ValidateLauncher() {
     targets = new ArrayList<File>();
     regExps = new ArrayList<String>();
-    schemas = new ArrayList<File>();
+    catalogs = new ArrayList<String>();
+    schemas = new ArrayList<String>();
     reportFile = null;
     traverse = true;
     severity = Level.WARNING;
@@ -161,6 +165,8 @@ public class ValidateLauncher {
         setReport(new File(o.getValue()));
       } else if (Flag.LOCAL.getShortName().equals(o.getOpt())) {
         setTraverse(false);
+      } else if (Flag.CATALOG.getShortName().equals(o.getOpt())) {
+        setCatalogs(o.getValuesList());
       } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
         setSchemas(o.getValuesList());
       } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
@@ -261,11 +267,17 @@ public class ValidateLauncher {
    */
   private void setSchemas(List<String> schemas) {
     while (schemas.remove(""));
-    List<File> list = new ArrayList<File>();
-    for (String s : schemas) {
-      list.add(new File(s));
-    }
-    this.schemas = list;
+    this.schemas.addAll(schemas);
+  }
+
+  /**
+   * Set the catalogs.
+   *
+   * @param catalogs A list of catalogs.
+   */
+  private void setCatalogs(List<String> catalogs) {
+    while (catalogs.remove(""));
+    this.catalogs.addAll(catalogs);
   }
 
   /**
@@ -402,7 +414,10 @@ public class ValidateLauncher {
           validator = new BundleValidator(modelVersion, report);
         }
         if (!schemas.isEmpty()) {
-          validator.setSchema(schemas);
+          validator.setSchemas(schemas);
+        }
+        if (!catalogs.isEmpty()) {
+          validator.setCatalogs(catalogs);
         }
         validator.validate(target);
       } catch (Exception e) {

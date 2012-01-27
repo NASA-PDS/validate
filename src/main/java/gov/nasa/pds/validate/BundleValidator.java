@@ -55,8 +55,11 @@ public class BundleValidator extends Validator {
    */
   public void validate(File bundle) throws InventoryReaderException {
     FileValidator fValidator = new FileValidator(modelVersion, report);
-    if (schema != null) {
-      fValidator.setSchema(schema);
+    if (!schemas.isEmpty()) {
+      fValidator.setSchemas(schemas);
+    }
+    if (!catalogs.isEmpty()) {
+      fValidator.setCatalogs(catalogs);
     }
     InventoryXMLReader reader = null;
     try {
@@ -81,8 +84,11 @@ public class BundleValidator extends Validator {
     }
     CollectionValidator cValidator = new CollectionValidator(modelVersion,
         report);
-    if (schema != null) {
-      cValidator.setSchema(schema);
+    if (!schemas.isEmpty()) {
+      cValidator.setSchemas(schemas);
+    }
+    if (!catalogs.isEmpty()) {
+      cValidator.setCatalogs(catalogs);
     }
     List<LabelException> problems = new ArrayList<LabelException>();
     for (InventoryEntry entry = new InventoryEntry(); entry != null;) {

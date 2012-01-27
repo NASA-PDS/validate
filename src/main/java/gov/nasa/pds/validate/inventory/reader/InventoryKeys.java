@@ -49,6 +49,10 @@ public class InventoryKeys {
     "lidvid_reference | lid_reference";
 
   /** XPath that will indicate if a collection is primary. */
-  public static final String CONTAINS_PRIMARY_COLLECTION_XPATH =
-    "//*[starts-with(name(), 'Identification_Area')]/contains_primary_member";
+  public static final String PRIMARY_COLLECTION_XPATH =
+    "//Inventory_LIDVID_Primary";
+
+  /** Xpath to indicate if a collection is secondary. */
+  public static final String SECONDARY_COLLECTION_XPATH =
+    "//Inventory_LIDVID_Secondary | //Inventory_LID_Secondary";
 }

@@ -83,8 +83,11 @@ public class DirectoryValidator extends Validator {
         validate(target);
       } else {
         FileValidator fv = new FileValidator(modelVersion, report);
-        if (schema != null) {
-          fv.setSchema(schema);
+        if (!schemas.isEmpty()) {
+          fv.setSchemas(schemas);
+        }
+        if (!catalogs.isEmpty()) {
+          fv.setCatalogs(catalogs);
         }
         try {
           fv.validate(target);
