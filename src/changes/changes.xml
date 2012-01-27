@@ -24,6 +24,9 @@
 
   <body>
     <release version="0.5.0" date="TBD" description="This release of the Validate Tool is a component of the integrated release 2.1.0 of the PDS 2010 System.">
+      <action dev="mcayanan" type="add">
+        Added a -C, --catalog flag option to be able to specify catalogs to use during validation.
+      </action>
     </release>
 
     <release version="0.4.0" date="2011-11-09" description="This release of the Validate Tool is a component of the integrated release 2.0.0 of the PDS 2010 System.">
