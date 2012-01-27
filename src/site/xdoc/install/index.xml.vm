@@ -119,7 +119,7 @@ or
         <p>The system administrator for the local machine may need to be consulted for this location. The path specified should have a <i>bin</i> sub-directory that contains the <i>java</i> executable. This variable may also be defined within the scripts. Edit the scripts (files without the .bat extension) and change the line in the example above to represent the local Java installation.
         </p>
       </subsection>
-      
+
       <subsection name="Windows Setup">
         <p>This section details the environment setup for Windows machines. The binary distribution includes a couple batch scripts that must be executed from the command-line. Setting the <i>PATH</i> environment variable to the location of the files, enables the batch scripts to be executed from any location on the local machine.
         </p>
@@ -146,15 +146,6 @@ C:\&gt; set JAVA_HOME = C:\path\to\java\home
     <section name="Configuring Alternate Core Schemas">
       <p>This section details how to configure the Validate Tool to use core schemas from an external directory rather than the core schemas loaded internally with the tool.
       </p>
-
-      <p>The Java system property, <i>core.schema.dir</i>, can be used to load core schemas from an external directory. At this time, any external directory used must have a sub-directory named <i>0500g</i> with the schemas under this sub-directory. For example, if specifying an external directory named <i>/home/pds/schemas</i>, the directory must have the following structure:
-      </p>
-
-      <ul>
-        <li><b>0500g/</b><br/>
-          <p>This directory will contain the list of core schemas to load into the tool. This overwrites the internal core schemas used for validation.</p>
-        </li>
-      </ul>
 
       <p>The sections below detail how to add this system property into the Validate Tool launch scripts.
       </p>
