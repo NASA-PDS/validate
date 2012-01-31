@@ -25,14 +25,14 @@ public enum Flag {
   CONFIG("c", "config", "file", String.class, "Specify a configuration "
       + "file to set the tool behavior."),
 
-  CATALOG("C", "catalog", "catalog files", String.class, "Specify catalog "
-      + "files to use during validation."),
+  CATALOG("C", "catalog", "catalog files", String.class, true,
+      "Specify catalog files to use during validation."),
 
   /**
    * Flag to specify file patterns to look for when validating a target
    * directory.
    */
-  REGEXP("e", "regexp", "patterns", String.class, "Specify file patterns "
+  REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
       + "to look for when validating a directory. Each pattern should "
       + "be surrounded by quotes. (i.e. -e \"*.xml\")"),
 
@@ -50,7 +50,7 @@ public enum Flag {
   /**
    * Flag to explicitly specify the targets to validate.
    */
-  TARGET("t", "target", "files,dirs", String.class, "Explicitly specify "
+  TARGET("t", "target", "files,dirs", String.class, true, "Explicitly specify "
       + "the targets (files, directories) to validate. Targets can be "
       + "specified implicitly as well. "
       + "(example: validate product.xml)"),
@@ -65,7 +65,8 @@ public enum Flag {
   /**
    * Flag to specify a list of schemas to use during validation.
    */
-  SCHEMA("x", "schema", "schema files", String.class, "Specify schema files."),
+  SCHEMA("x", "schema", "schema files", String.class, true,
+      "Specify schema files."),
 
   /**
    * Flag to specify a model version to use during validation.

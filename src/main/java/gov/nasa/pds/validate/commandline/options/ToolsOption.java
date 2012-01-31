@@ -38,7 +38,11 @@ public class ToolsOption extends Option {
     public ToolsOption(Flag flag) {
         this(flag.getShortName(), flag.getLongName(), flag.getDescription());
         if (flag.getArgType() != null) {
-           hasArg(flag.getArgName(), flag.getArgType());
+          if (flag.allowsMultipleArgs()) {
+            hasArgs(flag.getArgName(), flag.getArgType());
+          } else {
+            hasArg(flag.getArgName(), flag.getArgType());
+          }
         }
     }
 
