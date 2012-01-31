@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2012, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -260,10 +260,10 @@ public abstract class Report {
 
     writer.println("Summary:");
     writer.println();
-    writer.println("  " + totalValidated + " of " + totalFiles + " validated, "
+    writer.println("  " + totalValidated + " of " + totalFiles + " file(s) processed, "
         + this.getNumSkipped() + " skipped");
     writer.println("  " + this.getNumPassed() + " of " + totalValidated
-        + " passed");
+        + " file(s) passed validation");
     writer.println();
     writer.println("End of Report");
     this.writer.flush();
