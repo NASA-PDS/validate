@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2011, by the California Institute of Technology.
+  Copyright 2011-2012, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -25,7 +25,7 @@
 
   <body>
     <section name="Windows System Properties">
-      <p>The required environment variables for the <i>${xdoc-artifactId}</i> package can also be set through the Windows system properties panel. The <i>Path</i> environment variable can be modified as follows:
+      <p>The required environment variables for the <i>${project.artifactId}</i> package can also be set through the Windows system properties panel. The <i>Path</i> environment variable can be modified as follows:
       </p>
 
       <ul>
@@ -40,7 +40,7 @@
       <ul>
         <li>Highlight the <i>Path</i> variable in the System Variables list and select the <i>Edit</i> button.
         </li>
-        <li>Append to the current contents of the variable, the path to the <i>bin</i> directory within <i>${xdoc-artifactId}</i> package. Separate the package path from the current contents of the variable with a semicolon.
+        <li>Append to the current contents of the variable, the path to the <i>bin</i> directory within <i>${project.artifactId}</i> package. Separate the package path from the current contents of the variable with a semicolon.
         </li>
         <li>Select the <i>OK</i> button when you are finished editing the <i>Path</i> variable, then select the <i>OK</i> button on the Environment Variables window to apply the changes.
         </li>

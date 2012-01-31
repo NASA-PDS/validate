@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2011, by the California Institute of Technology.
+  Copyright 2010-2012, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -25,7 +25,7 @@
 
   <body>
     <section name="Installation">
-      <p>This section describes how to install the Validate Tool software contained in the <i>${xdoc-artifactId}</i> package. The following topics can be found in this section:
+      <p>This document describes how to install the Validate Tool software contained in the <i>${project.artifactId}</i> package. The following topics can be found in this document:
       </p>
 
       <ul>
@@ -55,19 +55,19 @@ Java HotSpot(TM) 64-Bit Server VM (build 20.1-b02-384, mixed mode)
     </section>
 
     <section name="Unpacking the Package">
-      <p>Download the <i>${xdoc-artifactId}</i> package from the PDS <a href="ftp://pds.nasa.gov/pub/toplevel/2010/preparation/" target="_blank">FTP</a> site. The binary distribution is available in identical zip or tar/gzip packages. Unpack the selected binary distribution file with one of the following commands:
+      <p>Download the <i>${project.artifactId}</i> package from the PDS <a href="ftp://pds.nasa.gov/pub/toplevel/2010/preparation/" target="_blank">FTP</a> site. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
       </p>
 
       <source>
-% unzip ${xdoc-artifactId}-${xdoc-version}-bin.zip
+% unzip ${project.artifactId}-${project.version}-bin.zip
 or
-% tar -xzvf ${xdoc-artifactId}-${xdoc-version}-bin.tar.gz
+% tar -xzvf ${project.artifactId}-${project.version}-bin.tar.gz
       </source>
 
       <p>Note: Depending on the platform, the native version of <i>tar</i> may produce an error when attempting to unpack the distribution file because many of the file paths are greater than 100 characters. If available, the GNU version of tar will resolve this problem. If that is not available or cannot be installed, the zipped package will work just fine in a UNIX environment.
       </p>
 
-      <p>The commands above result in the creation of the <i>${xdoc-artifactId}-${xdoc-version}</i> directory with the following directory structure:
+      <p>The commands above result in the creation of the <i>${project.artifactId}-${project.version}</i> directory with the following directory structure:
       </p>
 
       <ul>
@@ -84,11 +84,11 @@ or
           </p>
         </li>
         <li><b>doc/</b><br/>
-          <p>This document directory contains a local web site with the Validate Tool Guide, javadoc, unit test results and other configuration management related information. Just point the desired web browser to the <i>index.html</i> file in this directory.
+          <p>This directory contains a local web site with the Validate Tool documentation, javadoc, unit test results and other configuration management related information. Just point the desired web browser to the <i>index.html</i> file in this directory.
           </p>
         </li>
         <li><b>lib/</b><br/>
-          <p>This directory contains the dependent jar files for the tool along with the executable jar file (${xdoc-artifactId}-${xdoc-version}.jar) containing the Validate Tool software.
+          <p>This directory contains the dependent jar files for the tool along with the executable jar file (${project.artifactId}-${project.version}.jar) containing the Validate Tool software.
           </p>
         </li>
       </ul>
@@ -106,7 +106,7 @@ or
         </p>
 
         <source>
-% export PATH=${PATH}:${HOME}/${xdoc-artifactId}-${xdoc-version}/bin
+% export PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin
         </source>
 
         <p>In addition, the shell scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
@@ -120,7 +120,7 @@ or
         </p>
       </subsection>
 
-      <subsection name="Windows Setup">
+      <subsection name="Windows Environment">
         <p>This section details the environment setup for Windows machines. The binary distribution includes a couple batch scripts that must be executed from the command-line. Setting the <i>PATH</i> environment variable to the location of the files, enables the batch scripts to be executed from any location on the local machine.
         </p>
 
@@ -128,7 +128,7 @@ or
         </p>
 
         <source>
-C:\&gt; set PATH = %PATH%;C:\\${xdoc-artifactId}-${xdoc-version}\bin
+C:\&gt; set PATH = %PATH%;C:\Program Files\\${project.artifactId}-${project.version}\bin
         </source>
 
         <p>In addition, the batch scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
@@ -138,8 +138,34 @@ C:\&gt; set PATH = %PATH%;C:\\${xdoc-artifactId}-${xdoc-version}\bin
 C:\&gt; set JAVA_HOME = C:\path\to\java\home
         </source>
 
-        <p>The system administrator for the local machine may need to be consulted for this location. The path specified should have a <i>bin</i> sub-directory that contains the <i>java</i> executable. This variable may also be defined within the scripts. Edit the scripts (files with the .bat extension) and change the line in the example above to represent the local Java installation. Additional methods for setting Windows environment variables can be found in the <a href="index-win.html">Windows System Properties</a> section. If viewing this document in PDF form, see the appendix for details.
+        <p>The system administrator for the local machine may need to be consulted for this location. The path specified should have a <i>bin</i> sub-directory that contains the <i>java</i> executable. This variable may also be defined within the scripts. Edit the scripts (files with the .bat extension) and change the line in the example above to represent the local Java installation. Additional methods for setting Windows environment variables can be found in the <a href="index-win.html">Windows System Properties</a> document.
         </p>
+      </subsection>
+
+      <subsection name="Installation Location">
+        <p>Both the shell and batch scripts for this software utilize system commands for determining the installation home directory that may or may not be available on all platforms. If these commands are not available in the current environment, their use can be replaced in the scripts by setting the <i>PARENT_DIR</i> variable with the actual installation path. Modify the UNIX-based shell scripts as follows (the actual installation path may be different in the current environment):
+        </p>
+
+        <source>
+SCRIPT_DIR=`dirname $0`
+PARENT_DIR=`cd ${SCRIPT_DIR}/.. &amp;&amp; pwd`
+
+  should be replaced with:
+
+PARENT_DIR=/usr/local/${project.artifactId}-${project.version}
+        </source>
+
+        <p>Modify the Windows-based batch scripts as follows (the actual installation path may be different in the current environment):
+        </p>
+
+        <source>
+set SCRIPT_DIR=%~dps0
+set PARENT_DIR=%SCRIPT_DIR%..
+
+  should be replaced with:
+
+set PARENT_DIR=C:\Program Files\\${project.artifactId}-${project.version}
+        </source>
       </subsection>
     </section>
 

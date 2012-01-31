@@ -9,12 +9,8 @@ http://pds-cm.jpl.nasa.gov/2010/preparation/validate/. If it is not
 accessible, you can execute the "mvn site:run" command and view the 
 documentation locally at http://localhost:8080.
 
-In order to create a complete package for distribution, execute the 
+In order to create a complete distribution package, execute the 
 following commands: 
 
 % mvn site
-% maven pdf
 % mvn package
-
-The project still relies on Maven 1 functionality to generate the PDF form 
-of the documentation.
