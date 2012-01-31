@@ -383,6 +383,9 @@ public class ValidateLauncher {
     if (!schemas.isEmpty()) {
       report.addParameter("   User-Specified Schemas   " + schemas);
     }
+    if (!catalogs.isEmpty()) {
+      report.addParameter("   User-Specified Catalogs  " + catalogs);
+    }
     report.addParameter("   Severity Level           Warnings");
     report.addParameter("   Recurse Directories      " + traverse);
     if (!regExps.isEmpty()) {
