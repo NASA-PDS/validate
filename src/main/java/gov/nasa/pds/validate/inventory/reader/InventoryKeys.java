@@ -17,18 +17,16 @@ public class InventoryKeys {
   /** XPath to the field number of the column containing the file
    * reference.
    */
-  public static final String FILE_SPEC_FIELD_NUM_XPATH = "//*[starts-with("
-      + "name(),'Table_Record')]/"
-      + "Table_Field_File_Specification_Name/field_number";
+  public static final String FILE_SPEC_FIELD_NUM_XPATH =
+    "//Record_Character/Field_Character[name='File_Specification_Name']"
+    + "/field_number";
 
   /**
    * XPath to the field number of the column containing the LID-VID or LID
    * reference.
    */
   public static final String LIDVID_FIELD_NUM_XPATH =
-    "//*[starts-with(name(), 'Table_Record_Inventory')]/"
-    + "Table_Field_LIDVID/field_number | //*[starts-with(name(), "
-    + "'Table_Record_Inventory')]/Table_Field_LID/field_number";
+    "//Record_Character/Field_Character[name='LIDVID']/field_number";
 
   /** XPath to the external table file of a collection. */
   public static final String DATA_FILE_XPATH = "//*[starts-with(name(),"
