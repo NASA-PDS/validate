@@ -38,6 +38,9 @@
         <li>Added support for XML Schema 1.1 and support for XML Catalogs.</li>
         <li>Cleaned up the documentation.</li>
       </ul>
+
+      <p>The one lien for this release is related to the XML Catalog implementation. Although the capability is available for this release, the developers feel that its use could be more intuitive. This will be addressed in the next release.
+      </p>
     </section>
 
     <section name="Release 0.4.0">

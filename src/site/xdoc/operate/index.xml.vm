@@ -48,9 +48,9 @@
         <table>
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>0600h</i>). The only other model supported in this release is <i>0513B</i>.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By default, PDS schemas are built into the tool to perform the validation.</td></tr>
-          <tr><td>-C, --catalog &lt;catalogs&gt;</td><td>Specify xml catalog files to use during validation.</td></tr>
+          <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
@@ -68,7 +68,7 @@
           <li>Validating a Target File</li>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
-          <li>Validating Against User-Specified Catalogs</li>
+          <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against an Older Version of the PDS4 Data Model</li>
           <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
@@ -109,9 +109,9 @@
 % validate producta.xml, productb.xml -x producta.xsd, productb.xsd
         </source>
 
-        <p><b><i>Validating Against User-Specified Catalogs</i></b></p>
+        <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
 
-        <p>The following command demonstrates the validation of a single data product against a user-specified catalog:
+        <p>The following command demonstrates the validation of a single data product against a user-specified XML Catalog:
         </p>
 
         <source>
@@ -120,11 +120,11 @@
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
 
-        <p>The following command demonstrates the validation of a single data product label against version <i>0111c</i> of the PDS4 data model:
+        <p>The following command demonstrates the validation of a single data product label against version <i>0513B</i> of the PDS4 data model:
         </p>
 
         <source>
-% validate product.xml -m 0111c
+% validate product.xml -m 0513B
         </source>
 
         <p><b><i>Validating Specific Files in a Target Directory</i></b></p>
@@ -177,7 +177,7 @@
 % validate product.xml, /home/pds/collection
         </source>
 
-        <p><b>Implicit targets should not be specified after option flags that allow multiple arguments (see example below). Unexpected results can occur.</b>
+        <p>Note: Implicit targets should not be specified after option flags that allow multiple arguments (see example below). Unexpected results can occur.
         </p>
         <source>
 % validate -x product.xsd product.xml
@@ -198,6 +198,34 @@
 
         <p>In this example, <i>producta.xml</i> and <i>productb.xml</i> will get validated first, then <i>productc.xml</i> and the product labels in <i>/home/pds/collection</i> will get validated next.
         </p>
+
+        <p>In each scenario above, the target product(s) were the equivalent of observational or document products. The data model also consists of bundle and collection products, which in turn reference other products. When the Validate Tool encounters one of these products, it traverses the inventory associated with that product and validates each product referenced as well as the target product.
+        </p>
+      </subsection>
+
+      <subsection name="Using an XML Catalog">
+        <p>An XML Catalog allows the user to describe a mapping between external entity references in their products and locally-available XML Schema documents. This feature of the tool is not fully implemented and needs to be exercised with multiple PDS scenarios, but it is available to experiment with in this release. The following is an example XML Catalog file for validating the Data Provider's Handbook (DPH) example bundle. The file maps the PDS namespace to a local copy of the PDS4 Ops XML Schema document and the DPH namespace to a local copy of the DPH example dictionary XML Schema document.
+        </p>
+
+        <source>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
+  &lt;group xml:base="file:///${HOME}/"&gt;
+    &lt;uri name="http://pds.nasa.gov/schema/pds4/pds/v06" 
+         uri="VG2PLS_archive/schemas/PDS4_OPS_0600h.xsd"/&gt;
+    &lt;uri name="http://pds.nasa.gov/schema/pds4/dph/v01" 
+         uri="VG2PLS_archive/local_dictionaries/dph_example_dict_0600h.xsd"/&gt;
+  &lt;/group&gt;
+&lt;/catalog&gt;
+        </source>
+
+        <p>There is actually a third schema document <i>Product_TableChar_tailored_0600h.xsd</i>, that is required for validation that references the DPH dictionary schema document with an <i>&lt;xs:include&gt;</i> statement. This is where the issue occurs with the current implementation. This schema document must be passed on the command-line (instead of being specified in the XML Catalog) when executing the Validate Tool. The following command will validate DPH example bundle correctly:
+        </p>
+
+        <source>
+% validate -t ${HOME}/VG2PLS_archive -e "*.xml" -C catalog.xml \
+-x ${HOME}/VG2PLS_archive/schemas/Product_TableChar_tailored_0600h.xsd
+        </source>
       </subsection>
 
       <subsection name="Using a Configuration File">

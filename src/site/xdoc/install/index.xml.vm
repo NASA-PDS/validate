@@ -32,7 +32,6 @@
         <li><a href="#System_Requirements">System Requirements</a></li>
         <li><a href="#Unpacking_the_Package">Unpacking the Package</a></li>
         <li><a href="#Configuring_the_Environment">Configuring the Environment</a></li>
-        <li><a href="#Configuring_Alternate_Core_Schemas">Configuring Alternate Core Schemas</a></li>
       </ul>
     </section>
 
@@ -165,46 +164,6 @@ set PARENT_DIR=%SCRIPT_DIR%..
   should be replaced with:
 
 set PARENT_DIR=C:\Program Files\\${project.artifactId}-${project.version}
-        </source>
-      </subsection>
-    </section>
-
-    <section name="Configuring Alternate Core Schemas">
-      <p>This section details how to configure the Validate Tool to use core schemas from an external directory rather than the core schemas loaded internally with the tool.
-      </p>
-
-      <p>The sections below detail how to add this system property into the Validate Tool launch scripts.
-      </p>
-
-      <subsection name="UNIX-Based Users">
-        <p>Open the <i>Validate</i> shell script and go to the last line in the file. It should look like the following:
-        </p>
-
-        <source>
-${JAVA_HOME}/bin/java -jar ${VALIDATE_JAR} "$@"
-        </source>
-
-        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>/home/pds/schemas</i>:
-        </p>
-
-        <source>
-${JAVA_HOME}/bin/java -Dcore.schema.dir="/home/pds/schemas" -jar ${VALIDATE_JAR} "$@"
-        </source>
-      </subsection>
-
-      <subsection name="Windows-Based Users">
-        <p>Open the <i>Validate</i> batch and go to the last line in the file. It should look like the following:
-        </p>
-
-        <source>
-"%JAVA_HOME%"\bin\java -jar "%VALIDATE_JAR%" $*
-        </source>
-
-        <p>Add the <i>core.schema.dir</i> Java system property using the <i>-D</i> Java flag option and set it to the location of the schemas. For example, making the following change to the launch script allows the Validate Tool to load core schemas from a directory named <i>c:\pds\schemas</i>:
-        </p>
-
-        <source>
-"%JAVA_HOME%"\bin\java -Dcore.schema.dir="c:\pds\schemas" -jar "%VALIDATE_JAR%" $*
         </source>
       </subsection>
     </section>
