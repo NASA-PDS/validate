@@ -29,6 +29,11 @@
       </p>
     </section>
 
+    <section name="Release 1.1.0">
+      <p>This release of the Validate Tool is a component of the integrated release <a href="../../../release/index-2.2.0.html">2.2.0</a> of the PDS 2010 System. This is an operational release of the system components to date.
+      </p>
+    </section>
+
     <section name="Release 1.0.0">
       <p>This release of the Validate Tool is a component of the integrated release <a href="../../../release/index-2.1.0.html">2.1.0</a> of the PDS 2010 System. This is an operational release of the system components to date. The new or modified capabilities for this release are as follows:
       </p>
