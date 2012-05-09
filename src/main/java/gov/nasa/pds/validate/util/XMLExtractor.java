@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.validate.util;
 
+
 import gov.nasa.pds.tools.util.VersionInfo;
 
 import java.io.File;
@@ -43,10 +44,6 @@ public class XMLExtractor {
   /** The XPath evaluator object. */
   private XPathEvaluator xpath = null;
 
-  /** Default namespace uri. */
-  private static String defaultNamespaceUri =
-    VersionInfo.getPDSDefaultNamespace(VersionInfo.getDefaultModelVersion());
-
   /** Namespace Context. */
   private static PDSNamespaceContext namespaceContext = null;
 
@@ -56,8 +53,6 @@ public class XMLExtractor {
    */
   public XMLExtractor() {
     xpath = new XPathEvaluator();
-    xpath.getStaticContext().setDefaultElementNamespace(
-        defaultNamespaceUri);
     if (namespaceContext != null) {
       xpath.getStaticContext().setNamespaceContext(namespaceContext);
     }
@@ -69,8 +64,9 @@ public class XMLExtractor {
    * @param src An XML file.
    *
    * @throws XPathException If an error occurred while parsing the XML file.
+   * @throws XPathExpressionException
    */
-  public void parse(File src) throws XPathException {
+  public void parse(File src) throws XPathException, XPathExpressionException {
     String uri = src.toURI().toString();
     Configuration configuration = xpath.getConfiguration();
     configuration.setLineNumbering(true);
@@ -78,6 +74,8 @@ public class XMLExtractor {
     options.setErrorListener(new XMLErrorListener());
     xml = configuration.buildDocument(new SAXSource(new InputSource(uri)),
         options);
+    String definedNamespace = getValueFromDoc("namespace-uri(/*)");
+    xpath.getStaticContext().setDefaultElementNamespace(definedNamespace);
   }
 
   /**
@@ -86,19 +84,10 @@ public class XMLExtractor {
    * @param src An XML file.
    *
    * @throws XPathException If an error occurred while parsing the XML file.
+   * @throws XPathExpressionException
    */
-  public void parse(String src) throws XPathException {
+  public void parse(String src) throws XPathException, XPathExpressionException {
     parse(new File(src));
-  }
-
-  /**
-   * Sets the default namespace URI.
-   *
-   * @param uri A URI.
-   */
-  public static void setDefaultNamespace(String uri) {
-    //xpath.getStaticContext().setDefaultElementNamespace(uri);
-    defaultNamespaceUri = uri;
   }
 
   /**
@@ -237,6 +226,10 @@ public class XMLExtractor {
    */
   public DocumentInfo getDocNode() throws XPathException {
     return xpath.setSource(xml).getDocumentRoot();
+  }
+
+  public String getNamespaceUri() throws XPathExpressionException, XPathException {
+    return getValueFromDoc("namespace-uri(/*)");
   }
 
   /**

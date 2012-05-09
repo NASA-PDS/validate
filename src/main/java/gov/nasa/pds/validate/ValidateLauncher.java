@@ -23,6 +23,7 @@ import gov.nasa.pds.validate.commandline.options.InvalidOptionException;
 import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.target.TargetType;
+import gov.nasa.pds.validate.util.ToolConfig;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 import gov.nasa.pds.validate.util.XMLExtractor;
@@ -93,10 +94,6 @@ public class ValidateLauncher {
   /** The model version to use during validation. */
   private String modelVersion;
 
-  /** The XPath to the product_class tag. */
-  private final static String PRODUCT_TYPE_XPATH =
-    "//*[starts-with(name(),'Identification_Area')]/product_class";
-
   /**
    * Constructor.
    *
@@ -110,7 +107,6 @@ public class ValidateLauncher {
     traverse = true;
     severity = Level.WARNING;
     modelVersion = VersionInfo.getDefaultModelVersion();
-
     report = new FullReport();
   }
 
@@ -334,8 +330,6 @@ public class ValidateLauncher {
    */
   private void setModelVersion(String version) {
     this.modelVersion = version;
-    XMLExtractor.setDefaultNamespace(VersionInfo.getPDSDefaultNamespace(
-        version));
   }
 
   /**
@@ -450,8 +444,10 @@ public class ValidateLauncher {
    * names.
    *
    * @throws XPathException If an error occurred while parsing the file.
+   * @throws XPathExpressionException
    */
-  private TargetType getTargetType(File target) throws XPathException {
+  private TargetType getTargetType(File target) throws XPathException,
+  XPathExpressionException {
     TargetType type = TargetType.FILE;
     if (target.isDirectory()) {
       type = TargetType.DIRECTORY;
@@ -460,10 +456,15 @@ public class ValidateLauncher {
       extractor.parse(target);
       String value = "";
       try {
-        value = extractor.getValueFromDoc(PRODUCT_TYPE_XPATH);
+        value = extractor.getValueFromDoc(ToolConfig.XPATH_PRODUCT_CLASS);
+        if ("".equals(value)) {
+          throw new XPathException("Target type cannot be determined. "
+              + "XPath expression to find product_class tag returned no "
+              + "result: " + ToolConfig.XPATH_PRODUCT_CLASS);
+        }
       } catch (XPathExpressionException x) {
         throw new XPathException("Bad xpath expression: "
-            + PRODUCT_TYPE_XPATH);
+            + ToolConfig.XPATH_PRODUCT_CLASS);
       }
       if (value.contains("Bundle")) {
         type = TargetType.BUNDLE;

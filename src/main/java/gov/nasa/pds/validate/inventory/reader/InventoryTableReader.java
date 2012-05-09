@@ -87,13 +87,14 @@ public class InventoryTableReader implements InventoryReader {
             + "expression returned no result: "
             + InventoryKeys.FILE_SPEC_FIELD_NUM_XPATH);
       }
-      value = extractor.getValueFromDoc(InventoryKeys.LIDVID_FIELD_NUM_XPATH);
+      value = extractor.getValueFromDoc(
+          InventoryKeys.IDENTIFIER_FIELD_NUM_XPATH);
       if (!value.isEmpty()) {
         lidvidFieldLocation = Integer.parseInt(value);
       } else {
         throw new Exception("Problems parsing file: " + file + ". XPath "
             + "expression returned no result: "
-            + InventoryKeys.LIDVID_FIELD_NUM_XPATH);
+            + InventoryKeys.IDENTIFIER_FIELD_NUM_XPATH);
       }
     } catch (Exception e) {
       throw new InventoryReaderException(e);
