@@ -69,6 +69,12 @@ public enum Flag {
       "Specify schema files."),
 
   /**
+   * Flag to specify a list of schematron files to use during validation.
+   */
+  SCHEMATRON("S", "schematron", "schematron files", String.class, true,
+      "Specify schematron files."),
+
+  /**
    * Flag to specify a model version to use during validation.
    */
   MODEL("m", "model-version", "version", String.class, "Specify a model "

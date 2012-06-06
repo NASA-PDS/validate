@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
@@ -51,15 +52,20 @@ public class FileValidator extends Validator {
    * @throws IOException
    * @throws SAXException
    * @throws XPathExpressionException
+   * @throws TransformerException
    *
    */
   public void validate(File file) throws SAXException, IOException,
-  ParserConfigurationException, XPathExpressionException {
+  ParserConfigurationException, XPathExpressionException,
+  TransformerException {
     ExceptionContainer exceptionContainer = new ExceptionContainer();
     LabelValidator lv = new LabelValidator();
     lv.setModelVersion(modelVersion);
     if (!schemas.isEmpty()) {
       lv.setSchema(schemas.toArray(new String[0]));
+    }
+    if (!schematrons.isEmpty()) {
+      lv.setSchematronFiles(schematrons.toArray(new String[0]));
     }
     if (!catalogs.isEmpty()) {
       lv.setCatalogs(catalogs.toArray(new String[0]));

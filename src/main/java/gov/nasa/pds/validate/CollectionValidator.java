@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
 import net.sf.saxon.trans.XPathException;
@@ -60,14 +61,18 @@ public class CollectionValidator extends Validator {
    * @throws IOException
    * @throws SAXException
    * @throws XPathExpressionException
+   * @throws TransformerException
    *
    */
   public void validate(File collection) throws InventoryReaderException,
   XPathExpressionException, SAXException, IOException,
-  ParserConfigurationException {
+  ParserConfigurationException, TransformerException {
     FileValidator fValidator = new FileValidator(modelVersion, report);
     if (!schemas.isEmpty()) {
       fValidator.setSchemas(schemas);
+    }
+    if (!schematrons.isEmpty()) {
+      fValidator.setSchematrons(schematrons);
     }
     if (!catalogs.isEmpty()) {
       fValidator.setCatalogs(catalogs);

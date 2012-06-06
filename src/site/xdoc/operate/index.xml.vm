@@ -50,6 +50,7 @@
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
           <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>0600h</i>). The only other model supported in this release is <i>0513B</i>.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By default, PDS schemas are built into the tool to perform the validation.</td></tr>
+          <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
@@ -69,6 +70,7 @@
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating Against User-Specified XML Catalogs</li>
+          <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against an Older Version of the PDS4 Data Model</li>
           <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
@@ -116,6 +118,15 @@
 
         <source>
 % validate product.xml -C catalog.xml
+        </source>
+
+        <p><b><i>Validating Against User-Specified Schematron Files</i></b></p>
+
+        <p>The following command demonstrates the vadation of a single data product against a user-specified schematron:
+        </p>
+
+        <source>
+% validate product.xml -S product.sch
         </source>
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
@@ -211,9 +222,9 @@
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
   &lt;group xml:base="file:///${HOME}/"&gt;
-    &lt;uri name="http://pds.nasa.gov/schema/pds4/pds/v06" 
+    &lt;uri name="http://pds.nasa.gov/schema/pds4/pds/v06"
          uri="VG2PLS_archive/schemas/PDS4_OPS_0600h.xsd"/&gt;
-    &lt;uri name="http://pds.nasa.gov/schema/pds4/dph/v01" 
+    &lt;uri name="http://pds.nasa.gov/schema/pds4/dph/v01"
          uri="VG2PLS_archive/local_dictionaries/dph_example_dict_0600h.xsd"/&gt;
   &lt;/group&gt;
 &lt;/catalog&gt;
@@ -254,6 +265,7 @@
           <tr><td>validate.target</td><td>-t, --target</td></tr>
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
+          <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>

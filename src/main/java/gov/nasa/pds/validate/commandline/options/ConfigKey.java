@@ -36,6 +36,9 @@ public class ConfigKey {
   /** A list of schema files to validate against. */
   public static final String SCHEMA = "validate.schema";
 
+  /** A list of schematron files to validate against. */
+  public static final String SCHEMATRON = "validate.schematron";
+
   public static final String CATALOG = "validate.catalog";
 
   /** The model version to use during validation. */

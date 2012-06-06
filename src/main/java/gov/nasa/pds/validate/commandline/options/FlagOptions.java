@@ -36,6 +36,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.TARGET));
         options.addOption(new ToolsOption(Flag.VERBOSE));
         options.addOption(new ToolsOption(Flag.SCHEMA));
+        options.addOption(new ToolsOption(Flag.SCHEMATRON));
         options.addOption(new ToolsOption(Flag.LOCAL));
         options.addOption(new ToolsOption(Flag.VERSION));
         options.addOption(new ToolsOption(Flag.MODEL));

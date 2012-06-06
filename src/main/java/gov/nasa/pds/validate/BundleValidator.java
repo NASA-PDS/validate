@@ -58,6 +58,9 @@ public class BundleValidator extends Validator {
     if (!schemas.isEmpty()) {
       fValidator.setSchemas(schemas);
     }
+    if (!schematrons.isEmpty()) {
+      fValidator.setSchematrons(schematrons);
+    }
     if (!catalogs.isEmpty()) {
       fValidator.setCatalogs(catalogs);
     }
@@ -86,6 +89,9 @@ public class BundleValidator extends Validator {
         report);
     if (!schemas.isEmpty()) {
       cValidator.setSchemas(schemas);
+    }
+    if (!schematrons.isEmpty()) {
+      cValidator.setSchematrons(schematrons);
     }
     if (!catalogs.isEmpty()) {
       cValidator.setCatalogs(catalogs);

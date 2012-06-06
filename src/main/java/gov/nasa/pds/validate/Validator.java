@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
@@ -42,6 +43,12 @@ public abstract class Validator {
    *
    */
   protected List<String> schemas;
+
+  /**
+   * A list of user specified schematrons to validate against.
+   *
+   */
+  protected List<String> schematrons;
 
   /**
    * A list of user specified catalogs to use during validation.
@@ -65,6 +72,7 @@ public abstract class Validator {
   public Validator(String modelVersion, Report report) {
     this.report = report;
     this.schemas = new ArrayList<String>();
+    this.schematrons = new ArrayList<String>();
     this.catalogs = new ArrayList<String>();
     this.modelVersion = modelVersion;
   }
@@ -83,6 +91,15 @@ public abstract class Validator {
   }
 
   /**
+   * Sets the schematrons to use during validation.
+   *
+   * @param schematronFiles A list of schematron files.
+   */
+  public void setSchematrons(List<String> schematronFiles) {
+    this.schematrons.addAll(schematronFiles);
+  }
+
+  /**
    * Sets the catalogs to use during validation.
    *
    * @param catalogs A list of catalog files.
@@ -98,6 +115,6 @@ public abstract class Validator {
    *
    */
   public abstract void validate(File file) throws SAXException, IOException,
-  ParserConfigurationException, XPathExpressionException,
+  ParserConfigurationException, XPathExpressionException, TransformerException,
   InventoryReaderException;
 }

@@ -86,6 +86,9 @@ public class DirectoryValidator extends Validator {
         if (!schemas.isEmpty()) {
           fv.setSchemas(schemas);
         }
+        if (!schematrons.isEmpty()) {
+          fv.setSchematrons(schematrons);
+        }
         if (!catalogs.isEmpty()) {
           fv.setCatalogs(catalogs);
         }

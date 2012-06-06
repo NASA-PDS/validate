@@ -78,6 +78,8 @@ public class ValidateLauncher {
   /** A list of catalog files to use during validation. */
   private List<String> catalogs;
 
+  private List<String> schematrons;
+
   /** A report file. */
   private File reportFile;
 
@@ -106,6 +108,7 @@ public class ValidateLauncher {
     regExps = new ArrayList<String>();
     catalogs = new ArrayList<String>();
     schemas = new ArrayList<String>();
+    schematrons = new ArrayList<String>();
     reportFile = null;
     traverse = true;
     severity = Level.WARNING;
@@ -168,6 +171,8 @@ public class ValidateLauncher {
         setCatalogs(o.getValuesList());
       } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
         setSchemas(o.getValuesList());
+      } else if (Flag.SCHEMATRON.getShortName().equals(o.getOpt())) {
+        setSchematrons(o.getValuesList());
       } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
         targetList.addAll(o.getValuesList());
       } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
@@ -231,6 +236,12 @@ public class ValidateLauncher {
         list = Utility.removeQuotes(list);
         setSchemas(list);
       }
+      if (config.containsKey(ConfigKey.SCHEMATRON)) {
+        // Removes quotes surrounding each pattern being specified
+        List<String> list = config.getList(ConfigKey.SCHEMATRON);
+        list = Utility.removeQuotes(list);
+        setSchematrons(list);
+      }
       if (config.containsKey(ConfigKey.LOCAL)) {
         if (config.getBoolean(ConfigKey.LOCAL) == true) {
           setTraverse(false);
@@ -267,6 +278,16 @@ public class ValidateLauncher {
   private void setSchemas(List<String> schemas) {
     while (schemas.remove(""));
     this.schemas.addAll(schemas);
+  }
+
+  /**
+   * Set the schematrons.
+   *
+   * @param schematrons A list of schematrons.
+   */
+  private void setSchematrons(List<String> schematrons) {
+    while (schematrons.remove(""));
+    this.schematrons.addAll(schematrons);
   }
 
   /**
@@ -418,6 +439,9 @@ public class ValidateLauncher {
         }
         if (!catalogs.isEmpty()) {
           validator.setCatalogs(catalogs);
+        }
+        if (!schematrons.isEmpty()) {
+          validator.setSchematrons(schematrons);
         }
         validator.validate(target);
       } catch (Exception e) {
