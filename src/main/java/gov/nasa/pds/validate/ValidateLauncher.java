@@ -392,22 +392,25 @@ public class ValidateLauncher {
     SimpleDateFormat df = new SimpleDateFormat(
         "EEE, MMM dd yyyy 'at' hh:mm:ss a");
     Date date = Calendar.getInstance().getTime();
-    report.addConfiguration("   Version                  " + version);
-    report.addConfiguration("   Time                     " + df.format(date));
-    report.addConfiguration("   Core Schemas             "
+    report.addConfiguration("   Version                       " + version);
+    report.addConfiguration("   Time                          " + df.format(date));
+    report.addConfiguration("   Core Schemas                  "
         + VersionInfo.getSchemas());
-    report.addConfiguration("   Model Version            " + modelVersion);
-    report.addParameter("   Target(s)                " + targets);
+    report.addConfiguration("   Model Version                 " + modelVersion);
+    report.addParameter("   Target(s)                     " + targets);
     if (!schemas.isEmpty()) {
-      report.addParameter("   User-Specified Schemas   " + schemas);
+      report.addParameter("   User-Specified Schemas        " + schemas);
     }
     if (!catalogs.isEmpty()) {
-      report.addParameter("   User-Specified Catalogs  " + catalogs);
+      report.addParameter("   User-Specified Catalogs       " + catalogs);
     }
-    report.addParameter("   Severity Level           Warnings");
-    report.addParameter("   Recurse Directories      " + traverse);
+    if (!schematrons.isEmpty()) {
+      report.addParameter("   User-Specified Schematrons    " + schematrons);
+    }
+    report.addParameter("   Severity Level                Warnings");
+    report.addParameter("   Recurse Directories           " + traverse);
     if (!regExps.isEmpty()) {
-      report.addParameter("   File Filter(s) Used      " + regExps);
+      report.addParameter("   File Filter(s) Used           " + regExps);
     }
     report.printHeader();
   }
