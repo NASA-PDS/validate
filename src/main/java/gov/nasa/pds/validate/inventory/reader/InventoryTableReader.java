@@ -30,11 +30,17 @@ import org.apache.commons.io.FilenameUtils;
  *
  */
 public class InventoryTableReader implements InventoryReader {
-  /** The field number of the LID-VID. */
-  private int lidvidFieldLocation;
+  /** The field location of the identifier (LID-VID or LID). */
+  private int identifierFieldLocation;
+
+  /** The field length of the identifier (LID-VID or LID). */
+  private int identifierFieldLength;
 
   /** The field number of the file reference. */
   private int filenameFieldLocation;
+
+  /** The field length of the file reference. */
+  private int filenameFieldLength;
 
   /** The field number of the checksum. */
   private int checksumFieldLocation;
@@ -59,8 +65,10 @@ public class InventoryTableReader implements InventoryReader {
   public InventoryTableReader(File file)
   throws InventoryReaderException {
     filenameFieldLocation = 0;
+    filenameFieldLength = 0;
     checksumFieldLocation = 0;
-    lidvidFieldLocation = 0;
+    identifierFieldLocation = 0;
+    identifierFieldLength = 0;
     dataFile = null;
     parentDirectory = file.getParent();
     XMLExtractor extractor = new XMLExtractor();
@@ -79,22 +87,40 @@ public class InventoryTableReader implements InventoryReader {
       reader = new LineNumberReader(new FileReader(dataFile));
       String value = "";
       value = extractor.getValueFromDoc(
-          InventoryKeys.FILE_SPEC_FIELD_NUM_XPATH);
+          InventoryKeys.FILE_SPEC_FIELD_LOCATION_XPATH);
       if (!value.isEmpty()) {
         filenameFieldLocation = Integer.parseInt(value);
       } else {
         throw new Exception("Problems parsing file: " + file + ". XPath "
             + "expression returned no result: "
-            + InventoryKeys.FILE_SPEC_FIELD_NUM_XPATH);
+            + InventoryKeys.FILE_SPEC_FIELD_LOCATION_XPATH);
       }
       value = extractor.getValueFromDoc(
-          InventoryKeys.IDENTIFIER_FIELD_NUM_XPATH);
+          InventoryKeys.FILE_SPEC_FIELD_LENGTH_XPATH);
       if (!value.isEmpty()) {
-        lidvidFieldLocation = Integer.parseInt(value);
+        filenameFieldLength = Integer.parseInt(value);
       } else {
         throw new Exception("Problems parsing file: " + file + ". XPath "
             + "expression returned no result: "
-            + InventoryKeys.IDENTIFIER_FIELD_NUM_XPATH);
+            + InventoryKeys.FILE_SPEC_FIELD_LENGTH_XPATH);
+      }
+      value = extractor.getValueFromDoc(
+          InventoryKeys.IDENTIFIER_FIELD_LOCATION_XPATH);
+      if (!value.isEmpty()) {
+        identifierFieldLocation = Integer.parseInt(value);
+      } else {
+        throw new Exception("Problems parsing file: " + file + ". XPath "
+            + "expression returned no result: "
+            + InventoryKeys.IDENTIFIER_FIELD_LOCATION_XPATH);
+      }
+      value = extractor.getValueFromDoc(
+          InventoryKeys.IDENTIFIER_FIELD_LENGTH_XPATH);
+      if (!value.isEmpty()) {
+        identifierFieldLength = Integer.parseInt(value);
+      } else {
+        throw new Exception("Problems parsing file: " + file + ". XPath "
+            + "expression returned no result: "
+            + InventoryKeys.IDENTIFIER_FIELD_LENGTH_XPATH);
       }
     } catch (Exception e) {
       throw new InventoryReaderException(e);
@@ -157,34 +183,37 @@ public class InventoryTableReader implements InventoryReader {
         throw new InventoryReaderException(i);
     }
     File file = null;
-    String lidvid = null;
-    String[] tokens = line.split(",");
-    if (filenameFieldLocation != 0) {
+    String identifier = "";
+    if (filenameFieldLocation != 0 && filenameFieldLength != 0) {
       try {
-        file = new File(FilenameUtils.separatorsToSystem(
-            tokens[filenameFieldLocation - 1].trim()));
-      } catch (ArrayIndexOutOfBoundsException ae) {
+        file = new File(FilenameUtils.separatorsToSystem(line.substring(
+            filenameFieldLocation - 1,
+            (filenameFieldLocation - 1) + filenameFieldLength).trim()));
+      } catch (IndexOutOfBoundsException ae) {
         InventoryReaderException ir = new InventoryReaderException(
-            new ArrayIndexOutOfBoundsException(
-                "Could not parse a value from the file name field in the file: " + dataFile));
+            new IndexOutOfBoundsException("Could not parse a value "
+                + "from the file name specification field in the file: "
+                + dataFile));
         ir.setLineNumber(reader.getLineNumber());
-       throw ir;
+        throw ir;
       }
       if (!file.isAbsolute()) {
         file = new File(parentDirectory, file.toString());
       }
     }
-    if (lidvidFieldLocation != 0) {
+    if (identifierFieldLocation != 0 && identifierFieldLength != 0) {
       try {
-        lidvid = tokens[lidvidFieldLocation - 1].trim();
-      } catch (ArrayIndexOutOfBoundsException ae) {
+      identifier = line.substring(identifierFieldLocation - 1,
+          (identifierFieldLocation - 1) + identifierFieldLength).trim();
+      } catch (IndexOutOfBoundsException ae) {
         InventoryReaderException ir = new InventoryReaderException(
-            new ArrayIndexOutOfBoundsException(
-                "Could not parse a value from the lidvid field in the file: " + dataFile));
+            new IndexOutOfBoundsException("Could not parse a value "
+                + "from the identifier (LID or LIDVID) field in the file: "
+                + dataFile));
         ir.setLineNumber(reader.getLineNumber());
         throw ir;
       }
     }
-    return new InventoryEntry(file, "", lidvid);
+    return new InventoryEntry(file, "", identifier);
   }
 }

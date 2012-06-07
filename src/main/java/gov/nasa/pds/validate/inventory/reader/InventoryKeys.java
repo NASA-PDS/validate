@@ -14,21 +14,37 @@
 package gov.nasa.pds.validate.inventory.reader;
 
 public class InventoryKeys {
-  /** XPath to the field number of the column containing the file
+  /** XPath to the field length of the column containing the file
    * reference.
    */
-  public static final String FILE_SPEC_FIELD_NUM_XPATH =
+  public static final String FILE_SPEC_FIELD_LENGTH_XPATH =
     "//Record_Character/"
     + "Field_Character[data_type='ASCII_File_Specification_Name']/"
-    + "field_number";
+    + "field_length";
 
-  /**
-   * XPath to the field number of the column containing the LID-VID or LID
+  /** XPath to the field location of the column containing the file
    * reference.
    */
-  public static final String IDENTIFIER_FIELD_NUM_XPATH =
-   "//Record_Character/Field_Character[data_type='ASCII_LIDVID']/field_number"
-    + " | //Record_Character/Field_Character[data_type='ASCII_LID']/field_number";
+  public static final String FILE_SPEC_FIELD_LOCATION_XPATH =
+    "//Record_Character/"
+    + "Field_Character[data_type='ASCII_File_Specification_Name']/"
+    + "field_location";
+
+  /**
+   * XPath to the field length of the column containing the LID-VID or LID
+   * reference.
+   */
+  public static final String IDENTIFIER_FIELD_LENGTH_XPATH =
+    "//Record_Character/Field_Character[data_type='ASCII_LIDVID']/field_length"
+    + " | //Record_Character/Field_Character[data_type='ASCII_LID']/field_length";
+
+  /**
+   * XPath to the field location of the column containing the LID-VID or LID
+   * reference.
+   */
+  public static final String IDENTIFIER_FIELD_LOCATION_XPATH =
+    "//Record_Character/Field_Character[data_type='ASCII_LIDVID']/field_location"
+    + " | //Record_Character/Field_Character[data_type='ASCII_LID']/field_location";
 
   /** XPath to the external table file of a collection. */
   public static final String DATA_FILE_XPATH = "//*[starts-with(name(),"
