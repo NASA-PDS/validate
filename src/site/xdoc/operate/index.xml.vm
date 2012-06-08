@@ -343,41 +343,59 @@ validate.regexp = "*.xml"
 PDS Validate Tool Report
 
 Configuration:
-Version                  0.1.0
-Time                     Thu, Oct 28 2010 at 10:05:03 AM
-Core Schemas             [a.xsd, b.xsd, c.xsd]
+   Version                       1.1.0
+   Time                          Fri, Jun 08 2012 at 12:10:03 PM
+   Core Schemas                  [PDS4_OPS_0800k.xsd]
+   Model Version                 0800k
 
 Parameters:
-Target(s)                [C:\pds4]
-User-Specified Schemas   [C:\pds4\element-definitions\schemas\ \
-                         Product_Data_Element_Definition_2010-04-22B.xsd]
-Severity Level           Warnings
-Recurse Directories      true
+   Target(s)                     [/Users/.../VG2PLS/Product_Bundle.xml]
+   Severity Level                Warnings
+   Recurse Directories           true
 
 Validation Details:
 
-ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
-line 8, 66: cvc-elt.5.2.2.2.2: The value 'Product_Element_Definition' of \
-element 'product_class' does not match the {value constraint} value \
-'Product_Data_Element_Definition'.
-ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
-line 24, 34: cvc-complex-type.2.4.a: Invalid content was found starting with \
-element 'Reference_Entry_Generic'. One of \
-'{"http://pds.nasa.gov/schema/pds4/pds":data_reference, \
-"http://pds.nasa.gov/schema/pds4/pds":Bibliographic_Reference, \
-"http://pds.nasa.gov/schema/pds4/pds":Observing_System}' is expected.
-ERROR  [file:/C:/pds4/coordinate_system_positive_azimuth_direction_0111c.xml] \
-line 29, 25: cvc-complex-type.2.4.a: Invalid content was found starting with \
-element 'Element_Definition'. One of \
-'{"http://pds.nasa.gov/schema/pds4/pds":File_Area}' is expected.
+  PASS: file:/Users/.../VG2PLS/Product_Bundle.xml
 
-ERROR  [file:/C:/pds4/test/ \
-0001_NASA_PDS_1_img_Az_el_coordinate_system_reference_coordinate_\
-system_name_0111c.xml] \
-line 5, 26: cvc-complex-type.2.4.a: Invalid content was found starting with \
-element 'Identification_Area'. One of \
-'{"http://pds.nasa.gov/schema/pds4/pds":Product_Identification_Area}' is expected.
+  PASS: file:/Users/.../VG2PLS/browse/Collection_Browse.xml
 
+  PASS: file:/Users/.../VG2PLS/browse/ele_mom_browse.xml
+
+  PASS: file:/Users/.../VG2PLS/context/Collection_Context.xml
+
+  FAIL: file:/Users/.../VG2PLS/context/InstHostPDS3_VG2.xml
+      ERROR  The ROOT element is not one of the allowed product types. \
+      [Context: "/*:Product_Instrument_Host_PDS3 \
+      [namespace-uri()='http://pds.nasa.gov/pds4/pds/v08'][1]"; \
+      Test: "name() = ('Product_Browse','Product_Bundle','Product_Collection', \
+      'Product_Context','Product_Document','Product_File_Text','Product_Observational', \
+      'Product_SPICE_Kernel','Product_Thumbnail','Product_XML_Schema', \
+      'Product_Delivery_Manifest','Product_Update')"]
+
+...
+
+  PASS: file:/Users/.../VG2PLS/data/Collection_Data.xml
+
+  PASS: file:/Users/.../VG2PLS/data/ele_mom_tblChar.xml
+
+  PASS: file:/Users/.../VG2PLS/document/Collection_Document.xml
+
+  PASS: file:/Users/.../VG2PLS/document/checksums.xml
+
+  PASS: file:/Users/.../VG2PLS/document/errata.xml
+
+  PASS: file:/Users/.../VG2PLS/document/mission.xml
+
+  PASS: file:/Users/.../VG2PLS/document/plsinst.xml
+
+  FAIL: file:/Users/.../VG2PLS/schemas/aaaCollection_XML_Schema.xml
+      FATAL_ERROR  /Users/.../VG2PLS/schemas/aaaCollection_XML_Schema.xml \
+      (No such file or directory)
+
+Summary:
+
+  16 of 16 file(s) processed, 0 skipped
+  11 of 16 file(s) passed validation
 
 End of Report
       </source>
