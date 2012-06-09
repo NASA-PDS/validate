@@ -19,13 +19,19 @@
 <document>
   <properties>
     <title>Release Changes</title>
-    <author email="Paul.Ramirez@jpl.nasa.gov">Paul Ramirez</author>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
   </properties>
 
   <body>
-    <release version="1.1.0" date="TBD" description="This release of the Validate Tool is a component of the integrated release 2.2.0 of the PDS 2010 System.">
+    <release version="1.1.0" date="2012-06-11" description="This release of the Validate Tool is a component of the integrated release 2.2.0 of the PDS 2010 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add">
-        Added a -S, --schematron flag option to be able to specfiy schematron files to use during validation.
+        Added a -S, --schematron flag option to be able to specify schematron files to use during validation.
+      </action>
+      <action dev="pramirez" type="add">
+        Added in 0800k version of schema and schematron and set as default for this release. Inherited from core.
+      </action>
+      <action dev="pramirez" type="add">
+        Added in 0700j version of schema and schematron. Inherited from core.
       </action>
       <action dev="mcayanan" type="update">
         Updated xpath expressions to support the latest changes to the PDS4 data model.
@@ -36,9 +42,12 @@
       <action dev="mcayanan" type="fix">
         Fixed to rely on the field_location and field_length attributes instead of commas to parse an inventory table file.
       </action>
+      <action dev="shardman" type="remove">
+        Removed the Release Notes document. This document now serves as the single source for release changes.
+      </action>
     </release>
 
-    <release version="1.0.0" date="2012-01-31" description="This release of the Validate Tool is a component of the integrated release 2.1.0 of the PDS 2010 System.">
+    <release version="1.0.0" date="2012-01-31" description="This release of the Validate Tool is a component of the integrated release 2.1.0 of the PDS 2010 System. This is an operational release of the system components to date.">
       <action dev="pramirez" type="add">
         Added support for XSD 1.1 and XML Catalogs. Inherited from core.
       </action>
@@ -50,31 +59,31 @@
       </action>
     </release>
 
-    <release version="0.4.0" date="2011-11-09" description="This release of the Validate Tool is a component of the integrated release 2.0.0 of the PDS 2010 System.">
-      <action dev="mcayanan" type="fix">
-        PDS-48: Fixed to support crawling of all bundle class types.
-      </action>
+    <release version="0.4.0" date="2011-11-09" description="This release of the Validate Tool is a component of the integrated release 2.0.0 of the PDS 2010 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add">
         Added support to validate against older versions of the PDS4 data model.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-48">
+        Fixed to support crawling of all bundle class types.
       </action>
       <action dev="mcayanan" type="fix">
         Fixed a bug where the Validate Tool did not correctly crawl a collection or bundle when validating multiple targets of different types during a single executable run.
       </action>
     </release>
 
-    <release version="0.3.0" date="2011-08-29" description="This release of the Validate Tool is a component of the integrated release 1.2.0 of the PDS 2010 System.">
+    <release version="0.3.0" date="2011-08-29" description="This release of the Validate Tool is a component of the integrated release 1.2.0 of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards and the system components to date.">
       <action dev="pramirez" type="add">
         Added in the 0411f version of the schemas and set this as the default for the release. Inherited from core.
       </action>
     </release>
 
-    <release version="0.2.0" date="2011-03-25" description="This release of the Validate Tool is a component of the integrated release 1.1.0 of the PDS 2010 System.">
+    <release version="0.2.0" date="2011-03-25" description="This release of the Validate Tool is a component of the integrated release 1.1.0 of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards and the system components to date.">
       <action dev="pramirez" type="add">
         Added in the 0300A version of the schemas and set this as the default for the release. Inherited from core.
       </action>
     </release>
 
-    <release version="0.1.0" date="2010-10-31" description="This release of the Validate Tool is a component of the integrated release 1.0.0 of the PDS 2010 System.">
+    <release version="0.1.0" date="2010-10-31" description="This release of the Validate Tool is a component of the integrated release 1.0.0 of the PDS 2010 System. This release is intended as a prototype release in support of the assessment of the PDS4 standards.">
       <action dev="mcayanan" type="add">
         Add capability to validate a product label or directory containing product labels. Validation capabilities provided by the Core Library.
       </action>

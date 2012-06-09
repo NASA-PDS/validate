@@ -35,7 +35,6 @@
 
     <menu name="Software Documentation">
       <item name="About Validate Tool" href="index.html"/>
-      <item name="Release Notes" href="release/index.html"/>
       <item name="Installation" href="install/index.html"/>
       <item name="Operation" href="operate/index.html"/>
     </menu>
