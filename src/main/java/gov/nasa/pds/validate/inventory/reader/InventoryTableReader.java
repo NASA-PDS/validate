@@ -176,7 +176,7 @@ public class InventoryTableReader implements InventoryReader {
       if (line == null) {
         reader.close();
         return null;
-      } else if (line.isEmpty()) {
+      } else if (line.trim().equals("")) {
         return new InventoryEntry();
       }
     } catch (IOException i) {
@@ -192,8 +192,10 @@ public class InventoryTableReader implements InventoryReader {
       } catch (IndexOutOfBoundsException ae) {
         InventoryReaderException ir = new InventoryReaderException(
             new IndexOutOfBoundsException("Could not parse a value "
-                + "from the file name specification field in the file: "
-                + dataFile));
+                + "from the file name specification field using "
+                + "field location '" + filenameFieldLocation
+                + "' and field length '" + filenameFieldLength
+                + "' in the file: " + dataFile));
         ir.setLineNumber(reader.getLineNumber());
         throw ir;
       }
@@ -208,8 +210,10 @@ public class InventoryTableReader implements InventoryReader {
       } catch (IndexOutOfBoundsException ae) {
         InventoryReaderException ir = new InventoryReaderException(
             new IndexOutOfBoundsException("Could not parse a value "
-                + "from the identifier (LID or LIDVID) field in the file: "
-                + dataFile));
+                + "from the identifier field using "
+                + "field location '" + identifierFieldLocation
+                + "' and field length '" + identifierFieldLength
+                + "' in the file: " + dataFile));
         ir.setLineNumber(reader.getLineNumber());
         throw ir;
       }
