@@ -392,11 +392,21 @@ public class ValidateLauncher {
     SimpleDateFormat df = new SimpleDateFormat(
         "EEE, MMM dd yyyy 'at' hh:mm:ss a");
     Date date = Calendar.getInstance().getTime();
+    List<String> coreSchemas = VersionInfo.getSchemasFromJar(modelVersion);
+    List<String> coreSchematrons =
+      VersionInfo.getSchematronsFromJar(modelVersion);
     report.addConfiguration("   Version                       " + version);
-    report.addConfiguration("   Time                          " + df.format(date));
-    report.addConfiguration("   Core Schemas                  "
-        + VersionInfo.getSchemas());
-    report.addConfiguration("   Model Version                 " + modelVersion);
+    report.addConfiguration("   Time                          "
+        + df.format(date));
+    if ( (schemas.isEmpty()) && (catalogs.isEmpty())
+        && (schematrons.isEmpty()) ) {
+      report.addConfiguration("   Core Schemas                  "
+          + coreSchemas);
+      report.addConfiguration("   Core Schematrons              "
+          + coreSchematrons);
+      report.addConfiguration("   Model Version                 "
+          + modelVersion);
+    }
     report.addParameter("   Target(s)                     " + targets);
     if (!schemas.isEmpty()) {
       report.addParameter("   User-Specified Schemas        " + schemas);
@@ -496,9 +506,9 @@ public class ValidateLauncher {
         throw new XPathException("Bad xpath expression: "
             + PRODUCT_TYPE_XPATH);
       }
-      if (value.contains("Bundle")) {
+      if (value.equalsIgnoreCase("Product_Bundle")) {
         type = TargetType.BUNDLE;
-      } else if (value.contains("Collection")) {
+      } else if (value.equalsIgnoreCase("Product_Collection")) {
         type = TargetType.COLLECTION;
       }
     }
