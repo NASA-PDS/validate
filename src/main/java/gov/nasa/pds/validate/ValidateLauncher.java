@@ -362,7 +362,7 @@ public class ValidateLauncher {
    */
   public void displayHelp() {
     HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp(80, "Validate <target> <options>", null,
+    formatter.printHelp(80, "validate <target> <options>", null,
         FlagOptions.getOptions(), null);
   }
 
@@ -547,7 +547,7 @@ public class ValidateLauncher {
    */
   public static void main(String[] args) {
     if (args.length == 0) {
-      System.out.println("\nType 'Validate -h' for usage");
+      System.out.println("\nType 'validate -h' for usage");
       System.exit(0);
     }
     ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
