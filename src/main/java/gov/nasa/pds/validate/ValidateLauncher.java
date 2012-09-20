@@ -409,14 +409,16 @@ public class ValidateLauncher {
         + df.format(date));
     if (schemas.isEmpty() && catalogs.isEmpty()) {
       report.addConfiguration("   Core Schemas                  "
-        + coreSchemas);
+          + coreSchemas);
     }
     if (schematrons.isEmpty()) {
       report.addConfiguration("   Core Schematrons              "
-        + coreSchematrons);
+          + coreSchematrons);
     }
-    report.addConfiguration("   Model Version                 "
-        + modelVersion);
+    if ( schematrons.isEmpty() || (schemas.isEmpty() && catalogs.isEmpty()) ) {
+      report.addConfiguration("   Model Version                 "
+          + modelVersion);
+    }
     report.addParameter("   Target(s)                     " + targets);
     if (!schemas.isEmpty()) {
       report.addParameter("   User-Specified Schemas        " + schemas);
