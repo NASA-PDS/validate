@@ -373,9 +373,18 @@ public class ValidateLauncher {
    * getting the tool information.
    */
   public void displayVersion() throws IOException {
+    String schema = VersionInfo.getSchemasFromJar(
+        VersionInfo.getDefaultModelVersion()).toString()
+        .replaceAll("[\\[\\]]", "");
+    String schematron = VersionInfo.getSchematronsFromJar(
+        VersionInfo.getDefaultModelVersion()).toString()
+        .replaceAll("[\\[\\]]", "");
+
     System.err.println("\n" + ToolInfo.getName());
     System.err.println(ToolInfo.getVersion());
     System.err.println("Release Date: " + ToolInfo.getReleaseDate());
+    System.err.println("Core Schema: " + schema);
+    System.err.println("Core Schematron: " + schematron);
     System.err.println(ToolInfo.getCopyright() + "\n");
   }
 
@@ -398,15 +407,16 @@ public class ValidateLauncher {
     report.addConfiguration("   Version                       " + version);
     report.addConfiguration("   Time                          "
         + df.format(date));
-    if ( (schemas.isEmpty()) && (catalogs.isEmpty())
-        && (schematrons.isEmpty()) ) {
+    if (schemas.isEmpty() && catalogs.isEmpty()) {
       report.addConfiguration("   Core Schemas                  "
-          + coreSchemas);
-      report.addConfiguration("   Core Schematrons              "
-          + coreSchematrons);
-      report.addConfiguration("   Model Version                 "
-          + modelVersion);
+        + coreSchemas);
     }
+    if (schematrons.isEmpty()) {
+      report.addConfiguration("   Core Schematrons              "
+        + coreSchematrons);
+    }
+    report.addConfiguration("   Model Version                 "
+        + modelVersion);
     report.addParameter("   Target(s)                     " + targets);
     if (!schemas.isEmpty()) {
       report.addParameter("   User-Specified Schemas        " + schemas);
