@@ -15,6 +15,7 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.inventory.reader.InventoryEntry;
 import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.inventory.reader.InventoryTableReader;
@@ -62,11 +63,12 @@ public class CollectionValidator extends Validator {
    * @throws SAXException
    * @throws XPathExpressionException
    * @throws TransformerException
+   * @throws ValidatorException 
    *
    */
   public void validate(File collection) throws InventoryReaderException,
   XPathExpressionException, SAXException, IOException,
-  ParserConfigurationException, TransformerException {
+  ParserConfigurationException, TransformerException, ValidatorException {
     FileValidator fValidator = new FileValidator(modelVersion, report);
     if (!schemas.isEmpty()) {
       fValidator.setSchemas(schemas);

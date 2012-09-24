@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
@@ -112,9 +113,10 @@ public abstract class Validator {
    * Validate a PDS product.
    *
    * @param file A PDS product file.
+   * @throws ValidatorException 
    *
    */
   public abstract void validate(File file) throws SAXException, IOException,
   ParserConfigurationException, XPathExpressionException, TransformerException,
-  InventoryReaderException;
+  InventoryReaderException, ValidatorException;
 }

@@ -15,6 +15,7 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.LabelValidator;
+import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
@@ -57,7 +58,7 @@ public class FileValidator extends Validator {
    */
   public void validate(File file) throws SAXException, IOException,
   ParserConfigurationException, XPathExpressionException,
-  TransformerException {
+  TransformerException, ValidatorException {
     ExceptionContainer exceptionContainer = new ExceptionContainer();
     LabelValidator lv = new LabelValidator();
     lv.setModelVersion(modelVersion);
