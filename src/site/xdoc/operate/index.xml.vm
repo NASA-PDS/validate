@@ -49,8 +49,8 @@
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
           <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>0300a</i>). The other models supported in this release include: <i>0513B</i>, <i>0600h</i>, <i>0700j</i> and <i>0800k</i>.</td></tr>
-          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By default, PDS schemas are built into the tool to perform the validation.</td></tr>
-          <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation.</td></tr>
+          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By using this flag, this will override using the PDS schemas packaged with the tool.</td></tr>
+          <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation. By using this flag, this will override using the PDS schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
@@ -97,7 +97,7 @@
 
         <p><b><i>Validating Against User-Specified Schemas</i></b></p>
 
-        <p>Specifying schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas that come with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
+        <p>Specifying schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas packaged with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
         </p>
 
         <source>
@@ -122,7 +122,7 @@
 
         <p><b><i>Validating Against User-Specified Schematron Files</i></b></p>
 
-        <p>The following command demonstrates the vadation of a single data product against a user-specified schematron:
+        <p>Specifying schematron files on the command-line will allow the Validate Tool to validate against the user-specified schematron files instead of the schematron files packaged with the tool. The following command demonstrates the vadation of a single data product against a user-specified schematron:
         </p>
 
         <source>
