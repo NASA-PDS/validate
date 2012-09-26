@@ -446,18 +446,12 @@ public class ValidateLauncher {
     for (File target : targets) {
       Validator validator = new FileValidator(modelVersion, report);
       try {
-        TargetType type = getTargetType(target);
-        if (TargetType.DIRECTORY.equals(type)) {
+        if (target.isDirectory()) {
           DirectoryValidator dv = new DirectoryValidator(modelVersion,
               report);
           dv.setFileFilters(regExps);
           dv.setRecurse(traverse);
           validator = dv;
-        }
-        else if (TargetType.COLLECTION.equals(type)) {
-          validator = new CollectionValidator(modelVersion, report);
-        } else if (TargetType.BUNDLE.equals(type)) {
-          validator = new BundleValidator(modelVersion, report);
         }
         if (!schemas.isEmpty()) {
           validator.setSchemas(schemas);
