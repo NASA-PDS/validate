@@ -24,6 +24,15 @@
 
   <body>
     <release version="1.2.0" date="TBD" description="This release of the Validate Tool is a component of the integrated release 3.0.0 of the PDS 2010 System. This is an operational release of the system components to date.">
+      <action dev="mcayanan" type="add">
+        Updated to support the v09 data model. This includes no longer crawling a bundle or collection to look for file references.
+      </action>
+      <action dev="mcayanan" type="add">
+        Updated version information to also display the default schema and scehmatron files being used during validation.
+      </action>
+      <action dev="mcayanan" type="fix">
+        Fixed the report header to display the correct core schema and schematron being used when validating against an older version of the data model.
+      </action>
     </release>
 
     <release version="1.1.0" date="2012-06-11" description="This release of the Validate Tool is a component of the integrated release 2.2.0 of the PDS 2010 System. This is an operational release of the system components to date.">
