@@ -31,7 +31,7 @@
         Updated to support the v09 data model. This includes no longer crawling a bundle or collection to look for file references.
       </action>
       <action dev="mcayanan" type="add">
-        Updated version information to also display the default schema and scehmatron files being used during validation.
+        Updated version information to also display the default schema and schematron files being used during validation.
       </action>
       <action dev="pramirez" type="add">
         Added in 0300a version of schema and schematron and set as default for this release. Inherited from core.
