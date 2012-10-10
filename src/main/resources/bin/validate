@@ -15,7 +15,7 @@
 # $Id: Validate 5853 2010-02-06 22:54:00Z shardman $
 
 # Bourne Shell script that allows easy execution of the Validate Tool
-# without the need to set the CLASSAPTH or having to type in that
+# without the need to set the CLASSPATH or having to type in that
 # long java command (java gov.nasa.pds.validate.ValidateLauncher ...)
 
 # Expects the Validate Tool jar file to be in the ../lib directory.
