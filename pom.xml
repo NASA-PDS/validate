@@ -129,7 +129,7 @@
     <dependency>
       <groupId>gov.nasa.pds.2010.preparation</groupId>
       <artifactId>core</artifactId>
-      <version>1.2.0</version>
+      <version>1.3.0-dev</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
