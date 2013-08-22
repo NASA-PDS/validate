@@ -16,10 +16,14 @@ package gov.nasa.pds.validate;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
+import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -54,11 +58,15 @@ public class FileValidator extends Validator {
    * @throws SAXException
    * @throws XPathExpressionException
    * @throws TransformerException
+   * @throws InventoryReaderException
    *
    */
-  public void validate(File file) throws SAXException, IOException,
-  ParserConfigurationException, XPathExpressionException,
-  TransformerException, ValidatorException {
+  public void validate(File file) throws Exception {
+    validate(file.toURI().toURL());
+  }
+
+  @Override
+  public void validate(URL url) throws Exception {
     ExceptionContainer exceptionContainer = new ExceptionContainer();
     LabelValidator lv = new LabelValidator();
     lv.setModelVersion(modelVersion);
@@ -71,7 +79,8 @@ public class FileValidator extends Validator {
     if (!catalogs.isEmpty()) {
       lv.setCatalogs(catalogs.toArray(new String[0]));
     }
-    lv.validate(exceptionContainer, file);
-    report.record(file.toURI(), exceptionContainer.getExceptions());
+    lv.validate(exceptionContainer, url);
+    report.record(url.toURI(), exceptionContainer.getExceptions());
+
   }
 }

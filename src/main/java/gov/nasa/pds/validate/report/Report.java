@@ -44,9 +44,9 @@ public abstract class Report {
   private int numSkipped;
   private int numFailed;
   private int numPassed;
-  private final List<String> parameters;
-  private final List<String> configurations;
-  private PrintWriter writer;
+  protected final List<String> parameters;
+  protected final List<String> configurations;
+  protected PrintWriter writer;
   private ExceptionType type;
 
   /**

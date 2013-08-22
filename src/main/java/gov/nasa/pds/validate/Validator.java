@@ -19,6 +19,7 @@ import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,10 +114,10 @@ public abstract class Validator {
    * Validate a PDS product.
    *
    * @param file A PDS product file.
-   * @throws ValidatorException 
+   * @throws ValidatorException
    *
    */
-  public abstract void validate(File file) throws SAXException, IOException,
-  ParserConfigurationException, XPathExpressionException, TransformerException,
-  InventoryReaderException, ValidatorException;
+  public abstract void validate(File file) throws Exception;
+
+  public abstract void validate(URL url) throws Exception;
 }

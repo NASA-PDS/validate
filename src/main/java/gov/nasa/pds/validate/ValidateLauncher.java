@@ -21,14 +21,17 @@ import gov.nasa.pds.validate.commandline.options.Flag;
 import gov.nasa.pds.validate.commandline.options.FlagOptions;
 import gov.nasa.pds.validate.commandline.options.InvalidOptionException;
 import gov.nasa.pds.validate.report.FullReport;
+import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
-import gov.nasa.pds.validate.target.TargetType;
+import gov.nasa.pds.validate.report.XmlReport;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
-import gov.nasa.pds.validate.util.XMLExtractor;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,10 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-
-import javax.xml.xpath.XPathExpressionException;
-
-import net.sf.saxon.trans.XPathException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -51,6 +50,8 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
@@ -67,7 +68,7 @@ import org.xml.sax.SAXParseException;
  */
 public class ValidateLauncher {
   /** List of targets to validate. */
-  private List<File> targets;
+  private List<URL> targets;
 
   /** List of regular expressions for the file filter. */
   private List<String> regExps;
@@ -92,6 +93,9 @@ public class ValidateLauncher {
   /** An object representation of a Validate Tool report. */
   private Report report;
 
+  /** Indicates the report style format. */
+  private String reportStyle;
+
   /** The model version to use during validation. */
   private String modelVersion;
 
@@ -104,7 +108,7 @@ public class ValidateLauncher {
    *
    */
   public ValidateLauncher() {
-    targets = new ArrayList<File>();
+    targets = new ArrayList<URL>();
     regExps = new ArrayList<String>();
     catalogs = new ArrayList<String>();
     schemas = new ArrayList<String>();
@@ -113,7 +117,8 @@ public class ValidateLauncher {
     traverse = true;
     severity = Level.WARNING;
     modelVersion = VersionInfo.getDefaultModelVersion();
-    report = new FullReport();
+    report = null;
+    reportStyle = "full";
   }
 
   /**
@@ -188,6 +193,8 @@ public class ValidateLauncher {
         setRegExps((List<String>) o.getValuesList());
       } else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
         setModelVersion(o.getValue());
+      } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
+        setReportStyle(o.getValue());
       }
     }
     if (!targetList.isEmpty()) {
@@ -252,6 +259,9 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.MODEL)) {
         setModelVersion(config.getString(ConfigKey.MODEL));
       }
+      if (config.containsKey(ConfigKey.STYLE)) {
+        setReportStyle(config.getString(ConfigKey.STYLE));
+      }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
     }
@@ -261,12 +271,21 @@ public class ValidateLauncher {
    * Set the target.
    *
    * @param targets A list of targets.
+   * @throws MalformedURLException
    */
-  private void setTargets(List<String> targets) {
+  public void setTargets(List<String> targets)
+  throws MalformedURLException {
     this.targets.clear();
     while (targets.remove(""));
     for (String t : targets) {
-      this.targets.add(new File(t));
+      URL url = null;
+      try {
+        url = new URL(t);
+        this.targets.add(url);
+      } catch (MalformedURLException u) {
+        File file = new File(t);
+        this.targets.add(file.toURI().normalize().toURL());
+      }
     }
   }
 
@@ -275,7 +294,7 @@ public class ValidateLauncher {
    *
    * @param schemas A list of schemas.
    */
-  private void setSchemas(List<String> schemas) {
+  public void setSchemas(List<String> schemas) {
     while (schemas.remove(""));
     this.schemas.addAll(schemas);
   }
@@ -285,7 +304,7 @@ public class ValidateLauncher {
    *
    * @param schematrons A list of schematrons.
    */
-  private void setSchematrons(List<String> schematrons) {
+  public void setSchematrons(List<String> schematrons) {
     while (schematrons.remove(""));
     this.schematrons.addAll(schematrons);
   }
@@ -295,7 +314,7 @@ public class ValidateLauncher {
    *
    * @param catalogs A list of catalogs.
    */
-  private void setCatalogs(List<String> catalogs) {
+  public void setCatalogs(List<String> catalogs) {
     while (catalogs.remove(""));
     this.catalogs.addAll(catalogs);
   }
@@ -305,8 +324,34 @@ public class ValidateLauncher {
    *
    * @param report A report file.
    */
-  private void setReport(File report) {
+  public void setReport(File report) {
     this.reportFile = report;
+  }
+
+  /**
+   * Gets the object representation of the Validation Report.
+   *
+   * @return The Report object.
+   */
+  public Report getReport() {
+    return report;
+  }
+
+  /**
+   * Set the output style for the report.
+   * @param style 'sum' for a summary report, 'min' for a minimal report,
+   *  and 'full' for a full report
+   * @throws ApplicationException
+   */
+  public void setReportStyle(String style) throws Exception {
+    if ( (style.equalsIgnoreCase("full") == false) &&
+        (style.equalsIgnoreCase("json") == false) &&
+        (style.equalsIgnoreCase("xml") == false)) {
+        throw new Exception(
+            "Invalid value entered for 's' flag. Value can only "
+            + "be either 'full', 'json' or 'xml'");
+    }
+    this.reportStyle = style;
   }
 
   /**
@@ -314,7 +359,7 @@ public class ValidateLauncher {
    *
    * @param value A boolean value.
    */
-  private void setTraverse(boolean value) {
+  public void setTraverse(boolean value) {
     this.traverse = value;
   }
 
@@ -323,7 +368,7 @@ public class ValidateLauncher {
    *
    * @param level An interger value.
    */
-  private void setSeverity(int level) {
+  public void setSeverity(int level) {
     if (level < 1 || level > 3) {
       throw new IllegalArgumentException("Severity level value can only "
           + "be 1, 2, or 3");
@@ -342,7 +387,7 @@ public class ValidateLauncher {
    *
    * @param patterns A list of file patterns.
    */
-  private void setRegExps(List<String> patterns) {
+  public void setRegExps(List<String> patterns) {
     this.regExps = patterns;
     while (this.regExps.remove(""));
   }
@@ -352,7 +397,7 @@ public class ValidateLauncher {
    *
    * @param version The model version.
    */
-  private void setModelVersion(String version) {
+  public void setModelVersion(String version) {
     this.modelVersion = version;
   }
 
@@ -393,7 +438,14 @@ public class ValidateLauncher {
    *
    * @throws IOException If an error occurred while setting up the report.
    */
-  private void setupReport() throws IOException {
+  public void setupReport() throws IOException {
+    if (this.reportStyle.equals("full")) {
+      this.report = new FullReport();
+    } else if (this.reportStyle.equals("json")){
+      this.report = new JSONReport();
+    } else if (this.reportStyle.equals("xml")) {
+      this.report = new XmlReport();
+    }
     if (reportFile != null) {
       report.setOutput(reportFile);
     }
@@ -419,20 +471,20 @@ public class ValidateLauncher {
       report.addConfiguration("   Model Version                 "
           + modelVersion);
     }
-    report.addParameter("   Target(s)                     " + targets);
+    report.addParameter("   Targets                     " + targets);
     if (!schemas.isEmpty()) {
-      report.addParameter("   User-Specified Schemas        " + schemas);
+      report.addParameter("   User Specified Schemas        " + schemas);
     }
     if (!catalogs.isEmpty()) {
-      report.addParameter("   User-Specified Catalogs       " + catalogs);
+      report.addParameter("   User Specified Catalogs       " + catalogs);
     }
     if (!schematrons.isEmpty()) {
-      report.addParameter("   User-Specified Schematrons    " + schematrons);
+      report.addParameter("   User Specified Schematrons    " + schematrons);
     }
     report.addParameter("   Severity Level                Warnings");
     report.addParameter("   Recurse Directories           " + traverse);
     if (!regExps.isEmpty()) {
-      report.addParameter("   File Filter(s) Used           " + regExps);
+      report.addParameter("   File Filters Used           " + regExps);
     }
     report.printHeader();
   }
@@ -442,11 +494,20 @@ public class ValidateLauncher {
    *
    * @throws SAXException If one of the schemas is malformed.
    */
-  private void doValidation() throws SAXException {
-    for (File target : targets) {
+  public void doValidation() throws SAXException {
+    for (URL target : targets) {
       Validator validator = new FileValidator(modelVersion, report);
       try {
-        if (target.isDirectory()) {
+        if (target.getProtocol().equalsIgnoreCase("file")) {
+          File file = FileUtils.toFile(target);
+          if (file.isDirectory()) {
+            DirectoryValidator dv = new DirectoryValidator(modelVersion,
+              report);
+            dv.setFileFilters(regExps);
+            dv.setRecurse(traverse);
+            validator = dv;
+          }
+        } else if ("".equals(FilenameUtils.getExtension(target.toString()))) {
           DirectoryValidator dv = new DirectoryValidator(modelVersion,
               report);
           dv.setFileFilters(regExps);
@@ -475,57 +536,22 @@ public class ValidateLauncher {
               e.getMessage(), target.toString(), target.toString(),
               null, null);
         }
-        report.record(target.toURI(), le);
-      }
-    }
-  }
-
-  /**
-   * Get the target type of the file.
-   *
-   * @param target The file.
-   *
-   * @return A TargetType. The default is a file if the product_class
-   * tag value is not part of the list of bundle and collection type
-   * names.
-   *
-   * @throws XPathException If an error occurred while parsing the file.
-   * @throws XPathExpressionException
-   */
-  private TargetType getTargetType(File target) throws XPathException,
-  XPathExpressionException {
-    TargetType type = TargetType.FILE;
-    if (target.isDirectory()) {
-      type = TargetType.DIRECTORY;
-    } else {
-      XMLExtractor extractor = new XMLExtractor();
-      extractor.parse(target);
-      String value = "";
-      try {
-        value = extractor.getValueFromDoc(PRODUCT_TYPE_XPATH);
-        if ("".equals(value)) {
-          throw new XPathException("Target type cannot be determined. "
-              + "XPath expression to find product_class tag returned no "
-              + "result: " + PRODUCT_TYPE_XPATH);
+        try {
+          report.record(target.toURI(), le);
+        } catch (URISyntaxException u) {
+          le = new LabelException(ExceptionType.FATAL,
+              e.getMessage(), target.toString(), target.toString(),
+              null, null);
         }
-      } catch (XPathExpressionException x) {
-        throw new XPathException("Bad xpath expression: "
-            + PRODUCT_TYPE_XPATH);
-      }
-      if (value.equalsIgnoreCase("Product_Bundle")) {
-        type = TargetType.BUNDLE;
-      } else if (value.equalsIgnoreCase("Product_Collection")) {
-        type = TargetType.COLLECTION;
       }
     }
-    return type;
   }
 
   /**
    * Print the report footer.
    *
    */
-  private void printReportFooter() {
+  public void printReportFooter() {
     report.printFooter();
   }
 
@@ -534,7 +560,7 @@ public class ValidateLauncher {
    *
    * @param args list of command-line arguments.
    */
-  public void processMain(String[] args) {
+  private void processMain(String[] args) {
     try {
       CommandLine cmdLine = parse(args);
       query(cmdLine);

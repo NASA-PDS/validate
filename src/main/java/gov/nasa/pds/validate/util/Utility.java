@@ -15,6 +15,10 @@ package gov.nasa.pds.validate.util;
 
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
 /**
  * Utility class.
  *
@@ -34,5 +38,13 @@ public class Utility {
                     .trim());
         }
         return list;
+    }
+
+    public static String toStringNoBraces(JsonObject json) {
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      StringBuilder string = new StringBuilder(gson.toJson(json));
+      string = string.replace(0, 1,"");
+      string = string.replace(string.lastIndexOf("}"), string.lastIndexOf("}")+1, "");
+      return string.toString().trim();
     }
 }

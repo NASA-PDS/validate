@@ -46,4 +46,7 @@ public class ConfigKey {
 
   /** Enables/disables direcotry recursion. */
   public static final String LOCAL = "validate.local";
+
+  /** Configures the report style format. */
+  public static final String STYLE = "validate.reportStyle";
 }

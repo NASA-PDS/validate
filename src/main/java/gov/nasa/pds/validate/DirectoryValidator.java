@@ -15,10 +15,14 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
-import gov.nasa.pds.validate.crawler.DirectoryCrawler;
+import gov.nasa.pds.validate.crawler.Crawler;
+import gov.nasa.pds.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.validate.report.Report;
+import gov.nasa.pds.validate.target.Target;
 
 import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,14 +77,16 @@ public class DirectoryValidator extends Validator {
    * Perform validation on a directory.
    *
    * @param directory A directory path to start traversing.
+   * @throws Exception
    *
    */
-  public void validate(File directory) {
-    DirectoryCrawler crawler = new DirectoryCrawler();
-    List<File> targets = crawler.crawl(directory, recurse, fileFilters);
-    for (File target : targets) {
-      if (target.isDirectory()) {
-        validate(target);
+  public void validate(URL directory) throws Exception {
+    Crawler crawler = CrawlerFactory.newInstance(directory, recurse,
+        fileFilters);
+    List<Target> targets = crawler.crawl(directory);
+    for (Target target : targets) {
+      if (target.isDir()) {
+        validate(target.getUrl());
       } else {
         FileValidator fv = new FileValidator(modelVersion, report);
         if (!schemas.isEmpty()) {
@@ -93,7 +99,7 @@ public class DirectoryValidator extends Validator {
           fv.setCatalogs(catalogs);
         }
         try {
-          fv.validate(target);
+          fv.validate(target.getUrl());
         } catch (Exception e) {
           LabelException le = null;
           if (e instanceof SAXParseException) {
@@ -107,9 +113,18 @@ public class DirectoryValidator extends Validator {
                 e.getMessage(), target.toString(),
                 target.toString(), null, null);
           }
-          report.record(target.toURI(), le);
+          try {
+            report.record(target.getUrl().toURI(), le);
+          } catch(URISyntaxException ignore) {
+            //Ignore for now
+          }
         }
       }
     }
+  }
+
+  @Override
+  public void validate(File file) throws Exception {
+    validate(file.toURI().toURL());
   }
 }

@@ -90,7 +90,17 @@ public enum Flag {
   /**
    * Displays the tool version.
    */
-  VERSION("V", "version", "Display application version.");
+  VERSION("V", "version", "Display application version."),
+
+  /**
+   * Flag to specify the report style.
+   *
+   */
+  STYLE("s", "report-style", "full|json|xml", String.class,
+      "Specify the level of detail for the reporting. Valid values are "
+      + "'full' for a full view, 'json' for a json view, and 'xml' for an "
+      + "XML view. Default is to see a full report if this flag is not "
+      + "specified");
 
   /** The short name. */
   private final String shortName;

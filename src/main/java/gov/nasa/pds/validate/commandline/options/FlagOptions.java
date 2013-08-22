@@ -40,6 +40,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.LOCAL));
         options.addOption(new ToolsOption(Flag.VERSION));
         options.addOption(new ToolsOption(Flag.MODEL));
+        options.addOption(new ToolsOption(Flag.STYLE));
     }
 
     /**

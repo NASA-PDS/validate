@@ -21,6 +21,7 @@ import gov.nasa.pds.validate.inventory.reader.InventoryXMLReader;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,7 @@ public class BundleValidator extends Validator {
    * @param bundle A PDS Bundle file.
    * @throws InventoryReaderException
    */
-  public void validate(File bundle) throws InventoryReaderException {
+  public void validate(File bundle) throws Exception {
     FileValidator fValidator = new FileValidator(modelVersion, report);
     if (!schemas.isEmpty()) {
       fValidator.setSchemas(schemas);
@@ -141,5 +142,11 @@ public class BundleValidator extends Validator {
     if (!problems.isEmpty()) {
       report.record(bundle.toURI(), problems);
     }
+  }
+
+  @Override
+  public void validate(URL url) throws Exception {
+    // TODO Auto-generated method stub
+
   }
 }

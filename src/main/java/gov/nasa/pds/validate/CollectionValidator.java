@@ -23,6 +23,7 @@ import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,12 +64,10 @@ public class CollectionValidator extends Validator {
    * @throws SAXException
    * @throws XPathExpressionException
    * @throws TransformerException
-   * @throws ValidatorException 
+   * @throws ValidatorException
    *
    */
-  public void validate(File collection) throws InventoryReaderException,
-  XPathExpressionException, SAXException, IOException,
-  ParserConfigurationException, TransformerException, ValidatorException {
+  public void validate(File collection) throws Exception {
     FileValidator fValidator = new FileValidator(modelVersion, report);
     if (!schemas.isEmpty()) {
       fValidator.setSchemas(schemas);
@@ -79,7 +78,7 @@ public class CollectionValidator extends Validator {
     if (!catalogs.isEmpty()) {
       fValidator.setCatalogs(catalogs);
     }
-    fValidator.validate(collection);
+    fValidator.validate(collection.toURI().toURL());
     InventoryTableReader reader = new InventoryTableReader(collection);
     List<LabelException> problems = new ArrayList<LabelException>();
     for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
@@ -127,5 +126,11 @@ public class CollectionValidator extends Validator {
     if (!problems.isEmpty()) {
       report.record(reader.getDataFile().toURI(), problems);
     }
+  }
+
+  @Override
+  public void validate(URL url) throws Exception {
+    // TODO Auto-generated method stub
+
   }
 }
