@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="update">
         Updated to support URL inputs to the tool.
       </action>
+      <action dev="mcayanan" type="update">
+        Updated the report header to display the timestamp with an ISO 8601 date time format.
+      </action>
     </release>
 
     <release version="1.3.1" date="2013-06-21" description="This release of the Core Library is a component of the integrated release 3.1.1 of the PDS4 System. This is an operational release of the system components to date.">

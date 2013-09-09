@@ -38,6 +38,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Level;
 
 import org.apache.commons.cli.CommandLine;
@@ -451,13 +452,14 @@ public class ValidateLauncher {
     }
     String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
     SimpleDateFormat df = new SimpleDateFormat(
-        "EEE, MMM dd yyyy 'at' hh:mm:ss a");
+        "yyyy-MM-dd'T'HH:mm:ss'Z'");
+    df.setTimeZone(TimeZone.getTimeZone("UTC"));
     Date date = Calendar.getInstance().getTime();
     List<String> coreSchemas = VersionInfo.getSchemasFromJar(modelVersion);
     List<String> coreSchematrons =
       VersionInfo.getSchematronsFromJar(modelVersion);
     report.addConfiguration("   Version                       " + version);
-    report.addConfiguration("   Time                          "
+    report.addConfiguration("   Date                          "
         + df.format(date));
     if (schemas.isEmpty() && catalogs.isEmpty()) {
       report.addConfiguration("   Core Schemas                  "
