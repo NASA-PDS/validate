@@ -36,8 +36,8 @@ public class XmlReport extends Report {
       String key = tokens[0].replaceAll("\\s", "").toUpperCase();
       if ("CORESCHEMAS".equals(key)) {
         writer.println("    <coreSchemas>" + tokens[1] + "</coreSchemas>");
-      } else if ("TIME".equals(key)) {
-        writer.println("    <time>" + tokens[1] + "</time>");
+      } else if ("DATE".equals(key)) {
+        writer.println("    <date>" + tokens[1] + "</date>");
       } else if ("CORESCHEMATRONS".equals(key)) {
         writer.println("    <coreSchematrons>" + tokens[1] + "</coreSchematrons>");
       } else if ("VERSION".equals(key)) {
@@ -105,7 +105,7 @@ public class XmlReport extends Report {
       writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
     }
     writer.print(">" + "\n");
-    writer.println("        " + StringEscapeUtils.escapeXml(problem.getMessage()));
+    writer.println("        <content>" + StringEscapeUtils.escapeXml(problem.getMessage()) + "</content>");
     writer.println("      " + "</message>");
   }
 
@@ -127,7 +127,7 @@ public class XmlReport extends Report {
       writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
     }
     writer.print(">" + "\n");
-    writer.println("      " + StringEscapeUtils.escapeXml(problem.getMessage()));
+    writer.println("      <content>" + StringEscapeUtils.escapeXml(problem.getMessage()) + "</content>");
     writer.println("    " + "</message>");
   }
 
@@ -139,7 +139,7 @@ public class XmlReport extends Report {
     } else {
       writer.print("    ");
       writer.print("<message severity=\"ERROR\">" + "\n");
-      writer.println("     " + StringEscapeUtils.escapeXml(exception.getMessage()));
+      writer.println("     <content>" + StringEscapeUtils.escapeXml(exception.getMessage()) + "</content>");
       writer.println("    " + "</message>");
     }
     writer.println("  </label>");

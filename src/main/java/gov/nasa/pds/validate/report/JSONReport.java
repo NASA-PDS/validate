@@ -25,6 +25,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.WordUtils;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -42,12 +44,14 @@ public class JSONReport extends Report {
       JsonObject config = new JsonObject();
       for (String configuration : configurations) {
         String[] tokens = configuration.trim().split("\\s{2,}+", 2);
-        config.addProperty(tokens[0].replaceAll("\\s", ""), tokens[1]);
+        String key = tokens[0].replaceAll("\\s", "");
+        config.addProperty(WordUtils.uncapitalize(key), tokens[1]);
       }
       JsonObject params = new JsonObject();
       for (String parameter : parameters) {
         String[] tokens = parameter.trim().split("\\s{2,}+", 2);
-        params.addProperty(tokens[0].replaceAll("\\s",""), tokens[1]);
+        String key = tokens[0].replaceAll("\\s","");
+        params.addProperty(WordUtils.uncapitalize(key), tokens[1]);
       }
       JsonObject header = new JsonObject();
       header.addProperty("title", "PDS Validation Tool Report");
