@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2007-2013, by the California Institute of Technology.
+  ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+  Any commercial use must be negotiated with the Office of Technology Transfer
+  at the California Institute of Technology.
+
+  This software is subject to U. S. export control laws and regulations
+  (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+  is subject to U.S. export control laws and regulations, the recipient has
+  the responsibility to obtain export licenses or other export authority as
+  may be required before exporting such information to foreign countries or
+  providing access to foreign nationals.
+
+  $Id$
+-->
+
+<document>
+  <properties>
+    <title>Full Report Example</title>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
+  </properties>
+
+  <body>
+    <section name="JSON Report Example">
+      <p>The following is an example of a JSON report:
+      </p>
+
+      <source>
+{
+  "title": "PDS Validation Tool Report",
+  "configuration": {
+    "version": "1.4.0-dev",
+    "date": "2013-09-12T20:30:58Z",
+    "coreSchemas": "[PDS4_PDS_1000.xsd]",
+    "coreSchematrons": "[PDS4_PDS_1000.sch]",
+    "modelVersion": "1000"
+  },
+  "parameters": {
+    "targets": "[http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml]",
+    "severityLevel": "Warnings",
+    "recurseDirectories": "true"
+  },
+  "status": "FAIL",
+  "label": "http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml",
+  "messages": [
+    {
+      "severity": "ERROR",
+      "line": 90,
+      "column": 47,
+      "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element \u0027dph:spacecraft_clock_start_count\u0027."
+    },
+    {
+      "severity": "ERROR",
+      "line": 91,
+      "column": 46,
+      "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element \u0027dph:spacecraft_clock_stop_count\u0027."
+    },
+    {
+      "severity": "ERROR",
+      "line": 121,
+      "message": "Generated checksum \u0027653ac7fc8cdeee51a875689bc47a771a\u0027 does not match supplied checksum \u0027d220dac0d1fe312f3f3b9c824f6ac294\u0027 in the product label \
+      for the following uri reference: \
+      http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/fs004sdd_001_4e0111040000a0.tab"
+    }
+  ]
+}
+      </source>
+    </section>
+  </body>
+</document>

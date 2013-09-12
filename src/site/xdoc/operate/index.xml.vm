@@ -54,6 +54,7 @@
           <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation. By using this flag, this will override using the PDS schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
+          <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
           <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
@@ -268,6 +269,7 @@
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
+          <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>
           <tr><td>validate.model</td><td>-m, --model-version</td></tr>
@@ -337,71 +339,26 @@ validate.regexp = "*.xml"
     </section>
 
     <section name="Report Format">
-      <p>This section describes the contents of the Validate Tool report. At this time, the Validate Tool outputs a series of log messages. A log message consists of the severity level, file name, line number, and a message. The following is an example of some of the log messages that can be expected from the Validate Tool:
+      <p>This section describes the contents of the Validate Tool report. The links below detail the validation results of the same run for each format.
       </p>
 
-      <source>
-PDS Validate Tool Report
+      <p>The tool can represent a validation report in three different formats: a full, XML, or JSON format. The report style option is used to change the formatting. When this option is not specified on the command-line, the default is to generate a full report.
+      </p>
 
-Configuration:
-   Version                       1.2.0
-   Time                          Mon, Sep 24 2012 at 02:43:36 PM
-   Core Schemas                  [PDS4_OPS_0300a.xsd]
-   Core Schematrons              [PDS4_OPS_0300a.sch]
-   Model Version                 0300a
+      <subsection name="Full Report">
+        <p>In a <a href="reports/index-full.html">full</a> report, the location, severity, and textual description of each detected anomaly is reported. A 'PASS', 'FAIL', or 'SKIP' keyword is displayed next to each file to indicate when a file has passed, failed, or skipped PDS validation, respectively.
+        </p>
+      </subsection>
 
-Parameters:
-   Target(s)                     [/Users/.../VG2PLS]
-   Severity Level                Warnings
-   Recurse Directories           true
-   File Filter(s) Used           [*.xml]
+      <subsection name="XML Report">
+        <p>In an <a href="reports/index-xml.html">XML</a> report, the contents are the same as the full report.
+        </p>
+      </subsection>
 
-Validation Details:
-
-  PASS: file:/Users/.../VG2PLS/Product_Bundle.xml
-
-  PASS: file:/Users/.../VG2PLS/browse/Collection_Browse.xml
-
-  PASS: file:/Users/.../VG2PLS/browse/ele_mom_browse.xml
-
-  PASS: file:/Users/.../VG2PLS/context/Collection_Context.xml
-
-  FAIL: file:/Users/.../VG2PLS/context/InstHostPDS3_VG2.xml
-      ERROR  The ROOT element is not one of the allowed product types. \
-      [Context: "/*:Product_Instrument_Host_PDS3 \
-      [namespace-uri()='http://pds.nasa.gov/pds4/pds/v03'][1]"; \
-      Test: "name() = ('Product_Browse','Product_Bundle','Product_Collection', \
-      'Product_Context','Product_Document','Product_File_Text','Product_Observational', \
-      'Product_SPICE_Kernel','Product_Thumbnail','Product_XML_Schema', \
-      'Product_Delivery_Manifest','Product_Update')"]
-
-...
-
-  PASS: file:/Users/.../VG2PLS/data/Collection_Data.xml
-
-  PASS: file:/Users/.../VG2PLS/data/ele_mom_tblChar.xml
-
-  PASS: file:/Users/.../VG2PLS/document/Collection_Document.xml
-
-  PASS: file:/Users/.../VG2PLS/document/checksums.xml
-
-  PASS: file:/Users/.../VG2PLS/document/errata.xml
-
-  PASS: file:/Users/.../VG2PLS/document/mission.xml
-
-  PASS: file:/Users/.../VG2PLS/document/plsinst.xml
-
-  FAIL: file:/Users/.../VG2PLS/schemas/aaaCollection_XML_Schema.xml
-      FATAL_ERROR  /Users/.../VG2PLS/schemas/aaaCollection_XML_Schema.xml \
-      (No such file or directory)
-
-Summary:
-
-  16 of 16 file(s) processed, 0 skipped
-  11 of 16 file(s) passed validation
-
-End of Report
-      </source>
+      <subsection name="JSON Report">
+        <p>In a <a href="reports/index-json.html">JSON</a> report, the contents are the same as the full report. Currently, the tool only supports validation runs of only a single data product label when generating this type of report.
+        </p>
+      </subsection>
     </section>
 
     <section name="Common Errors">
