@@ -336,6 +336,113 @@ validate.regexp = "*.xml"
 % validate -c config.txt -e "*"
         </source>
       </subsection>
+
+      <subsection name="Passing in Multiple Schemas">
+        <p>The Validate Tool allows multiple schemas to be passed in through the command-line via the <i>-x</i> flag option. When passing in multiple schemas, the definitions found in each file are merged internally. In the case where two schemas are passed in and both define the same element under the same namespace, then the definition in the first schema passed in will take precedence over the second schema. As an example, suppose a schema file, <i>schema1.xsd</i>, contains the following definition:
+        </p>
+
+        <source>
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.1.0.0"&gt;
+
+...
+
+&lt;xs:complexType name="File_Area_Browse"&gt;
+  &lt;xs:annotation&gt;
+    &lt;xs:documentation&gt; The File Area Browse class describes a file and one or more tagged_data_objects contained within the file. &lt;/xs:documentation&gt;
+  &lt;/xs:annotation&gt;
+  &lt;xs:complexContent&gt;
+    &lt;xs:extension base="pds:File_Area"&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="File" type="pds:File" minOccurs="1" maxOccurs="1"&gt; &lt;/xs:element&gt;
+        &lt;xs:choice minOccurs="1" maxOccurs="unbounded"&gt;
+          &lt;xs:element name="Array_1D" type="pds:Array_1D"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D" type="pds:Array_2D"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Image" type="pds:Array_2D_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Map" type="pds:Array_2D_Map"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Spectrum" type="pds:Array_2D_Spectrum"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D" type="pds:Array_3D"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Image" type="pds:Array_3D_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Movie" type="pds:Array_3D_Movie"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Spectrum" type="pds:Array_3D_Spectrum"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Encoded_Header" type="pds:Encoded_Header"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Encoded_Image" type="pds:Encoded_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Header" type="pds:Header"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Stream_Text" type="pds:Stream_Text"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Binary" type="pds:Table_Binary"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Character" type="pds:Table_Character"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Delimited" type="pds:Table_Delimited"&gt; &lt;/xs:element&gt;
+        &lt;/xs:choice&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:extension&gt;
+  &lt;/xs:complexContent&gt;
+&lt;/xs:complexType&gt;
+
+...
+        </source>
+
+        <p>Suppose the other schema, <i>schema2.xsd</i>, contains the same element definition:
+        </p>
+
+        <source>
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified"
+  version="1.0.0.0"&gt;
+
+...
+
+&lt;xs:complexType name="File_Area_Browse"&gt;
+  &lt;xs:annotation&gt;
+    &lt;xs:documentation&gt; The File Area Browse class describes a file and one or more tagged_data_objects contained within the file. &lt;/xs:documentation&gt;
+  &lt;/xs:annotation&gt;
+  &lt;xs:complexContent&gt;
+    &lt;xs:extension base="pds:File_Area"&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="File" type="pds:File" minOccurs="1" maxOccurs="1"&gt; &lt;/xs:element&gt;
+        &lt;xs:choice minOccurs="1" maxOccurs="unbounded"&gt;
+          &lt;xs:element name="Array_2D" type="pds:Array_2D"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Image" type="pds:Array_2D_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Map" type="pds:Array_2D_Map"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_2D_Spectrum" type="pds:Array_2D_Spectrum"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D" type="pds:Array_3D"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Image" type="pds:Array_3D_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Movie" type="pds:Array_3D_Movie"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Array_3D_Spectrum" type="pds:Array_3D_Spectrum"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Encoded_Header" type="pds:Encoded_Header"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Encoded_Image" type="pds:Encoded_Image"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Header" type="pds:Header"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Stream_Text" type="pds:Stream_Text"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Binary" type="pds:Table_Binary"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Character" type="pds:Table_Character"&gt; &lt;/xs:element&gt;
+          &lt;xs:element name="Table_Delimited" type="pds:Table_Delimited"&gt; &lt;/xs:element&gt;
+        &lt;/xs:choice&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:extension&gt;
+  &lt;/xs:complexContent&gt;
+&lt;/xs:complexType&gt;
+
+...
+        </source>
+
+        <p>If the schemas are passed into the Validate Tool as follows:
+        </p>
+
+        <source>
+% ./validate product.xml -x schema1.xsd, schema2.xsd
+        </source>
+
+        <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
+        </p>
+
+      </subsection>
+
     </section>
 
     <section name="Report Format">
