@@ -79,9 +79,7 @@ public class JSONReport extends Report {
     for (LabelException problem : problems) {
       probs.add(printProblem(problem));
     }
-    if (probs.size() != 0) {
-      validateMsgs.add("messages", probs);
-    }
+    validateMsgs.add("messages", probs);
     writer.println(",");
     writer.print("  ");
     writer.print(Utility.toStringNoBraces(validateMsgs));
