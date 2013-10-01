@@ -47,6 +47,8 @@
     <fileSet>
       <directory>target/site</directory>
       <outputDirectory>doc</outputDirectory>
+      <fileMode>644</fileMode>
+      <lineEnding>keep</lineEnding>
     </fileSet>
   </fileSets>
 
