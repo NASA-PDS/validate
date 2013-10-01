@@ -25,7 +25,7 @@
 
   <groupId>gov.nasa.pds.2010.preparation</groupId>
   <artifactId>validate</artifactId>
-  <version>1.4.0-dev</version>
+  <version>1.4.0</version>
   <packaging>jar</packaging>
 
   <name>Validate Tool</name>
@@ -90,11 +90,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <configuration>
-          <descriptors>
-            <descriptor>src/main/assembly/assembly.xml</descriptor>
-          </descriptors>
-        </configuration>
         <executions>
           <execution>
             <id>bin-release</id>
@@ -102,6 +97,12 @@
             <goals>
               <goal>single</goal>
             </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/tar-assembly.xml</descriptor>
+                <descriptor>src/main/assembly/zip-assembly.xml</descriptor>
+              </descriptors>
+            </configuration>
           </execution>
         </executions>
       </plugin>

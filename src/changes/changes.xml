@@ -23,9 +23,12 @@
   </properties>
 
   <body>
-    <release version="1.4.0" date="TBD" description="TBD">
+    <release version="1.4.0" date="2013-09-30" description="This release of the Core Library is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+      <action dev="shardman" type="add">
+        Added in 1100 version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>
       <action dev="mcayanan" type="add">
-        Added the capability to generate reports in xml and json.
+        Added the capability to generate reports in XML and JSON.
       </action>
       <action dev="mcayanan" type="update">
         Updated to support URL inputs to the tool.
