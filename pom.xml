@@ -25,7 +25,7 @@
 
   <groupId>gov.nasa.pds.2010.preparation</groupId>
   <artifactId>validate</artifactId>
-  <version>1.4.0</version>
+  <version>${validate-version}</version>
   <packaging>jar</packaging>
 
   <name>Validate Tool</name>
@@ -130,7 +130,7 @@
     <dependency>
       <groupId>gov.nasa.pds.2010.preparation</groupId>
       <artifactId>core</artifactId>
-      <version>1.4.0</version>
+      <version>${core-version}</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
