@@ -47,7 +47,7 @@ public abstract class Report {
   protected final List<String> parameters;
   protected final List<String> configurations;
   protected PrintWriter writer;
-  private ExceptionType type;
+  private ExceptionType level;
 
   /**
    * Default constructor to initialize report variables. Initializes default
@@ -64,7 +64,7 @@ public abstract class Report {
     this.parameters = new ArrayList<String>();
     this.configurations = new ArrayList<String>();
     this.writer = new PrintWriter(new OutputStreamWriter(System.out));
-    this.type = ExceptionType.WARNING;
+    this.level = ExceptionType.WARNING;
   }
 
   /**
@@ -180,14 +180,22 @@ public abstract class Report {
     // TODO: Handle null problems
 
     for (LabelException problem : problems) {
-        if(problem.getExceptionType() == ExceptionType.ERROR ||
+        if (problem.getExceptionType() == ExceptionType.ERROR ||
            problem.getExceptionType() == ExceptionType.FATAL) {
+          if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
             numErrors++;
-        }
-        else if (problem.getExceptionType() == ExceptionType.WARNING) {
+          }
+        } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+          if (ExceptionType.WARNING.getValue() <= this.level.getValue()) {
             numWarnings++;
+          }
+        } else if (problem.getExceptionType() == ExceptionType.INFO) {
+          if (ExceptionType.INFO.getValue() <= this.level.getValue()) {
+            numInfos++;
+          }
         }
     }
+    List<LabelException> filteredProblems = this.filterProblems(problems);
     // If the label was skipped we don't want to count the errors and warnings
     // in total but we still want them to print.
 /*
@@ -207,9 +215,19 @@ public abstract class Report {
     } else {
       this.numPassed++;
     }
-    printRecordMessages(this.writer, status, sourceUri, problems);
+    printRecordMessages(this.writer, status, sourceUri, filteredProblems);
 
     return status;
+  }
+
+  private List<LabelException> filterProblems(List<LabelException> problems) {
+    List<LabelException> filteredProblems = new ArrayList<LabelException>();
+    for (LabelException problem : problems) {
+      if (problem.getExceptionType().getValue() <= this.level.getValue()) {
+        filteredProblems.add(problem);
+      }
+    }
+    return filteredProblems;
   }
 
   /*
@@ -354,8 +372,8 @@ public abstract class Report {
    * @param ExceptionType
    *          level on which items will be reported
    */
-  public void setExceptionType(ExceptionType ExceptionType) {
-    this.type = ExceptionType;
+  public void setLevel(ExceptionType ExceptionType) {
+    this.level = ExceptionType;
   }
 
   /**
@@ -363,7 +381,7 @@ public abstract class Report {
    * @return ExceptionType level of items that will be reported on. Anything at or
    *         above this level will be reported on
    */
-  public ExceptionType getExceptionType() {
-    return this.type;
+  public ExceptionType getLevel() {
+    return this.level;
   }
 }

@@ -24,6 +24,12 @@
 
   <body>
     <release version="1.5.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="add">
+        Added support to change the severity level messaging in the report.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-225">
+        Updated to leverage the "role" attribute in a schematron rule in determining the severity level of a failed-assert message in the schematron report. Inherited from core library.
+      </action>
       <action dev="mcayanan" type="fix" issue="PDS-213">
         Fixed to correctly find file references that use the directory_path_name element. Inherited from core.
       </action>

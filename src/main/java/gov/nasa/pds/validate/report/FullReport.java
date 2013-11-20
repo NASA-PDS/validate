@@ -61,11 +61,13 @@ public class FullReport extends Report {
     writer.print("      ");
     String severity = "";
     if (problem.getExceptionType() == ExceptionType.FATAL) {
-        severity = "FATAL_ERROR";
+      severity = "FATAL_ERROR";
     } else if (problem.getExceptionType() == ExceptionType.ERROR) {
-        severity = "ERROR";
+      severity = "ERROR";
     } else if (problem.getExceptionType() == ExceptionType.WARNING) {
-        severity = "WARNING";
+      severity = "WARNING";
+    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+      severity = "INFO";
     }
     writer.print(severity);
     writer.print("  ");

@@ -89,7 +89,7 @@ public class ValidateLauncher {
   private boolean traverse;
 
   /** The severity level and above to include in the report. */
-  private Level severity;
+  private ExceptionType severity;
 
   /** An object representation of a Validate Tool report. */
   private Report report;
@@ -116,7 +116,7 @@ public class ValidateLauncher {
     schematrons = new ArrayList<String>();
     reportFile = null;
     traverse = true;
-    severity = Level.WARNING;
+    severity = ExceptionType.WARNING;
     modelVersion = VersionInfo.getDefaultModelVersion();
     report = null;
     reportStyle = "full";
@@ -375,11 +375,11 @@ public class ValidateLauncher {
           + "be 1, 2, or 3");
     }
     if (level == 1) {
-      this.severity = Level.INFO;
+      this.severity = ExceptionType.INFO;
     } else if (level == 2) {
-      this.severity = Level.WARNING;
+      this.severity = ExceptionType.WARNING;
     } else if (level == 3) {
-      this.severity = Level.SEVERE;
+      this.severity = ExceptionType.ERROR;
     }
   }
 
@@ -447,6 +447,7 @@ public class ValidateLauncher {
     } else if (this.reportStyle.equals("xml")) {
       this.report = new XmlReport();
     }
+    report.setLevel(severity);
     if (reportFile != null) {
       report.setOutput(reportFile);
     }
@@ -473,7 +474,7 @@ public class ValidateLauncher {
       report.addConfiguration("   Model Version                 "
           + modelVersion);
     }
-    report.addParameter("   Targets                     " + targets);
+    report.addParameter("   Targets                       " + targets);
     if (!schemas.isEmpty()) {
       report.addParameter("   User Specified Schemas        " + schemas);
     }
@@ -483,7 +484,7 @@ public class ValidateLauncher {
     if (!schematrons.isEmpty()) {
       report.addParameter("   User Specified Schematrons    " + schematrons);
     }
-    report.addParameter("   Severity Level                Warnings");
+    report.addParameter("   Severity Level                " + severity.getName());
     report.addParameter("   Recurse Directories           " + traverse);
     if (!regExps.isEmpty()) {
       report.addParameter("   File Filters Used           " + regExps);
