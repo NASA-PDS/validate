@@ -20,6 +20,7 @@ import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +44,7 @@ public class FullReport extends Report {
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
-    Map<URI, List<LabelException>> externalProblems = new HashMap<URI, List<LabelException>>();
+    Map<String, List<LabelException>> externalProblems = new HashMap<String, List<LabelException>>();
       writer.println();
       writer.print("  ");
       writer.print(status.getName());
@@ -52,7 +53,27 @@ public class FullReport extends Report {
 
     // Print all the sources problems and gather all external problems
     for (LabelException problem : problems) {
+      if ( ((problem.getPublicId() == null)
+          && (problem.getSystemId() == null))
+          || sourceUri.toString().equals(problem.getSystemId())) {
         printProblem(writer, problem);
+      } else {
+        List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+        if (extProbs == null) {
+          extProbs = new ArrayList<LabelException>();
+        }
+        extProbs.add(problem);
+        externalProblems.put(problem.getSystemId(), extProbs);
+      }
+    }
+    for (String extSystemId : externalProblems.keySet()) {
+      writer.print("    Begin Fragment: ");
+      writer.println(extSystemId);
+      for (LabelException problem : externalProblems.get(extSystemId)) {
+        printProblem(writer, problem);
+      }
+      writer.print("    End Fragment: ");
+      writer.println(extSystemId);
     }
   }
 
@@ -103,12 +124,14 @@ public class FullReport extends Report {
       LabelException problem = (LabelException) exception;
       writer.print("      ");
       String severity = "";
-      if(problem.getExceptionType() == ExceptionType.FATAL) {
-          severity = "FATAL_ERROR";
-      } else if(problem.getExceptionType() == ExceptionType.ERROR) {
-          severity = "ERROR";
-      } else if(problem.getExceptionType() == ExceptionType.WARNING) {
-          severity = "WARNING";
+      if (problem.getExceptionType() == ExceptionType.FATAL) {
+        severity = "FATAL_ERROR";
+      } else if (problem.getExceptionType() == ExceptionType.ERROR) {
+        severity = "ERROR";
+      } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+        severity = "WARNING";
+      } else if (problem.getExceptionType() == ExceptionType.INFO) {
+        severity = "INFO";
       }
       writer.print(severity);
       writer.print("  ");

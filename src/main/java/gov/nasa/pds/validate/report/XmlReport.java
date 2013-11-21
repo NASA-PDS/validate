@@ -19,6 +19,7 @@ import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,10 +80,29 @@ public class XmlReport extends Report {
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
-    Map<URI, List<LabelException>> externalProblems = new HashMap<URI, List<LabelException>>();
+    Map<String, List<LabelException>> externalProblems = new HashMap<String, List<LabelException>>();
     writer.println("  <label target=\"" + sourceUri.toString() + "\" status=\"" + status.getName() + "\">");
     for (LabelException problem : problems) {
+      if ( ((problem.getPublicId() == null)
+          && (problem.getSystemId() == null))
+          || sourceUri.toString().equals(problem.getSystemId())) {
         printProblem(writer, problem);
+      } else {
+        List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+        if (extProbs == null) {
+          extProbs = new ArrayList<LabelException>();
+        }
+        extProbs.add(problem);
+        externalProblems.put(problem.getSystemId(), extProbs);
+      }
+    }
+
+    for (String extSystemId : externalProblems.keySet()) {
+      writer.println("    <fragment uri=\"" + extSystemId.toString() + "\">");
+      for (LabelException problem : externalProblems.get(extSystemId)) {
+        printExtProblem(writer, problem);
+      }
+      writer.println("    </fragment>");
     }
     writer.println("  </label>");
   }
@@ -90,11 +110,13 @@ public class XmlReport extends Report {
   private void printExtProblem(PrintWriter writer, final LabelException problem) {
     String severity = "";
     if (problem.getExceptionType() == ExceptionType.FATAL) {
-        severity = "FATAL_ERROR";
+      severity = "FATAL_ERROR";
     } else if (problem.getExceptionType() == ExceptionType.ERROR) {
-        severity = "ERROR";
+      severity = "ERROR";
     } else if (problem.getExceptionType() == ExceptionType.WARNING) {
-        severity = "WARNING";
+      severity = "WARNING";
+    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+      severity = "INFO";
     }
     writer.print("      ");
     writer.print("<message severity=\"" + severity + "\"");

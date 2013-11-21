@@ -21,6 +21,7 @@ import gov.nasa.pds.validate.util.Utility;
 
 import java.io.PrintWriter;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,16 +71,39 @@ public class JSONReport extends Report {
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
-    Map<URI, List<LabelException>> externalProblems = new HashMap<URI, List<LabelException>>();
+    Map<String, List<LabelException>> externalProblems = new HashMap<String, List<LabelException>>();
     JsonObject validateMsgs = new JsonObject();
     validateMsgs.addProperty("status", status.getName());
     validateMsgs.addProperty("label", sourceUri.toString());
 
     JsonArray probs = new JsonArray();
     for (LabelException problem : problems) {
-      probs.add(printProblem(problem));
+      if ( ((problem.getPublicId() == null)
+          && (problem.getSystemId() == null))
+          || sourceUri.toString().equals(problem.getSystemId())) {
+        probs.add(printProblem(problem));
+      } else {
+        List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+        if (extProbs == null) {
+          extProbs = new ArrayList<LabelException>();
+        }
+        extProbs.add(problem);
+        externalProblems.put(problem.getSystemId(), extProbs);
+      }
+    }
+    JsonArray extProbs = new JsonArray();
+    for (String extSystemId : externalProblems.keySet()) {
+      JsonObject jo = new JsonObject();
+      jo.addProperty("fragment", extSystemId.toString());
+      JsonArray msgs = new JsonArray();
+      for (LabelException problem : externalProblems.get(extSystemId)) {
+        msgs.add(printProblem(problem));
+      }
+      jo.add("messages", msgs);
+      extProbs.add(jo);
     }
     validateMsgs.add("messages", probs);
+    validateMsgs.add("fragments", extProbs);
     writer.println(",");
     writer.print("  ");
     writer.print(Utility.toStringNoBraces(validateMsgs));
