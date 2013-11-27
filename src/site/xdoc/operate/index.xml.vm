@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2012, by the California Institute of Technology.
+  Copyright 2010-2013, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -49,7 +49,7 @@
         <table>
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>0300a</i>). The other models supported in this release include: <i>0513B</i>, <i>0600h</i>, <i>0700j</i> and <i>0800k</i>.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1101</i>). The other models supported in this release include: <i>1000</i> and <i>1100</i>.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By using this flag, this will override using the PDS schemas packaged with the tool.</td></tr>
           <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation. By using this flag, this will override using the PDS schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
@@ -133,11 +133,11 @@
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
 
-        <p>The following command demonstrates the validation of a single data product label against version <i>0513B</i> of the PDS4 data model:
+        <p>The following command demonstrates the validation of a single data product label against version <i>1000</i> of the PDS4 data model:
         </p>
 
         <source>
-% validate product.xml -m 0513B
+% validate product.xml -m 1000
         </source>
 
         <p><b><i>Validating Specific Files in a Target Directory</i></b></p>

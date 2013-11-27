@@ -23,25 +23,28 @@
   </properties>
 
   <body>
-    <release version="1.5.0" date="TBD" description="TBD">
-      <action dev="mcayanan" type="add" issue=PDS-27>
-        Added support for Include pointers. Inherited from core.
+    <release version="1.4.1" date="2013-11-27" description="This release of the Validate Tool is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+      <action dev="mcayanan" type="add" issue="PDS-27">
+        Added support for xinclude pointers. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-213">
+        Fixed to correctly find file references that use the directory_path_name element. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-225">
+        Updated to leverage the "role" attribute in a schematron rule in determining the severity level of a failed-assert message in the schematron report. Inherited from core.
       </action>
       <action dev="mcayanan" type="add">
         Added support to change the severity level messaging in the report.
       </action>
       <action dev="mcayanan" type="add">
-        Added support in the reports to distinguish parent vs fragment label problems.
+        Added support in the reports to distinguish parent versus fragment label problems.
       </action>
-      <action dev="mcayanan" type="update" issue="PDS-225">
-        Updated to leverage the "role" attribute in a schematron rule in determining the severity level of a failed-assert message in the schematron report. Inherited from core.
-      </action>
-      <action dev="mcayanan" type="fix" issue="PDS-213">
-        Fixed to correctly find file references that use the directory_path_name element. Inherited from core.
+      <action dev="shardman" type="add">
+        Added in 1101 version of the schema and schematron and set as default for this release.
       </action>
     </release>
 
-    <release version="1.4.0" date="2013-09-30" description="This release of the Core Library is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+    <release version="1.4.0" date="2013-09-30" description="This release of the Validate Tool is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="shardman" type="add">
         Added in 1100 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
@@ -56,7 +59,7 @@
       </action>
     </release>
 
-    <release version="1.3.1" date="2013-06-21" description="This release of the Core Library is a component of the integrated release 3.1.1 of the PDS4 System. This is an operational release of the system components to date.">
+    <release version="1.3.1" date="2013-06-21" description="This release of the Validate Tool is a component of the integrated release 3.1.1 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="shardman" type="add">
         Added in 1000 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
