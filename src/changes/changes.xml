@@ -23,6 +23,9 @@
   </properties>
 
   <body>
+    <release version="1.5.0" date="TBD" description="TBD">
+    </release>
+
     <release version="1.4.1" date="2013-11-27" description="This release of the Validate Tool is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-27">
         Added support for xinclude pointers. Inherited from core.
