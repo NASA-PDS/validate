@@ -24,6 +24,7 @@
 
   <body>
     <release version="1.5.0" date="TBD" description="TBD">
+        Updated to be xinclude aware when performing checksum and file casing validation on file references found in a PDS4 label. Inherited from core.
     </release>
 
     <release version="1.4.1" date="2013-11-27" description="This release of the Validate Tool is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
