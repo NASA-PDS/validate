@@ -1,4 +1,4 @@
-:: Copyright 2010-2011, by the California Institute of Technology.
+:: Copyright 2010-2014, by the California Institute of Technology.
 :: ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 :: Any commercial use must be negotiated with the Office of Technology Transfer
 :: at the California Institute of Technology.
@@ -20,10 +20,10 @@
 
 @echo off
 
-:: Set the JAVA_HOME environment variable here in the script if it will
-:: not be defined in the environment.
+:: Check if the JAVA_HOME environment variable is set.
 if not defined JAVA_HOME (
-  set JAVA_HOME=\path\to\java\home
+echo The JAVA_HOME environment variable is not set.
+goto END
 )
 
 :: Setup environment variables.
