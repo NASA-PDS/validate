@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2013, by the California Institute of Technology.
+  Copyright 2010-2014, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -24,11 +24,14 @@
 
   <body>
     <release version="1.5.0" date="TBD" description="TBD">
-      <action dev="mcayanan" type="update">
-        Updated to be xinclude aware when performing checksum and file casing validation on file references found in a PDS4 label. Inherited from core.
-      </action>
       <action dev="mcayanan" type="update" issue="PDS-253">
         Updated Unix shell script and Windows batch file to provide a more user friendly message when JAVA_HOME is not set in the environment.
+      </action>
+      <action dev="shardman" type="add">
+        Added in 1200 version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update">
+        Updated to be xinclude aware when performing checksum and file casing validation on file references found in a PDS4 label. Inherited from core.
       </action>
     </release>
 
@@ -49,7 +52,7 @@
         Added support in the reports to distinguish parent versus fragment label problems.
       </action>
       <action dev="shardman" type="add">
-        Added in 1101 version of the schema and schematron and set as default for this release.
+        Added in 1101 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
     </release>
 
