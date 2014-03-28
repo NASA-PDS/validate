@@ -28,7 +28,10 @@
         Updated Unix shell script and Windows batch file to provide a more user friendly message when JAVA_HOME is not set in the environment.
       </action>
       <action dev="shardman" type="add">
-        Added in 1200 version of the schema and schematron and set as default for this release. Inherited from core.
+        Added in the 1200 version of the schema and schematron. Inherited from core.
+      </action>
+      <action dev="shardman" type="add">
+        Added in the 1201 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
       <action dev="mcayanan" type="update">
         Updated to be xinclude aware when performing checksum and file casing validation on file references found in a PDS4 label. Inherited from core.
@@ -52,13 +55,13 @@
         Added support in the reports to distinguish parent versus fragment label problems.
       </action>
       <action dev="shardman" type="add">
-        Added in 1101 version of the schema and schematron and set as default for this release. Inherited from core.
+        Added in the 1101 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
     </release>
 
     <release version="1.4.0" date="2013-09-30" description="This release of the Validate Tool is a component of the integrated release 4.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="shardman" type="add">
-        Added in 1100 version of the schema and schematron and set as default for this release. Inherited from core.
+        Added in the 1100 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
       <action dev="mcayanan" type="add">
         Added the capability to generate reports in XML and JSON.
@@ -73,7 +76,7 @@
 
     <release version="1.3.1" date="2013-06-21" description="This release of the Validate Tool is a component of the integrated release 3.1.1 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="shardman" type="add">
-        Added in 1000 version of the schema and schematron and set as default for this release. Inherited from core.
+        Added in the 1000 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
     </release>
 
@@ -82,7 +85,7 @@
         Added the capability to perform the following file reference checks: Check that the casing of the file references match what is on the file system; Check that the generated checksums match the supplied checksums in the label, if provided. Inherited from the core library.
       </action>
       <action dev="shardman" type="add">
-        Added in 0310b version of the schema and schematron and set as default for this release. Inherited from core.
+        Added in the 0310b version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
       <action dev="pramirez" type="fix" issue="PDS-109">
         Bundled in DTD for 1.1 catalog. This allows doctypes to be specified in catalog files. Inherited from core.
@@ -97,7 +100,7 @@
         Updated version information to also display the default schema and schematron files being used during validation.
       </action>
       <action dev="pramirez" type="add">
-        Added in 0300a version of schema and schematron and set as default for this release. Inherited from core.
+        Added in the 0300a version of schema and schematron and set as default for this release. Inherited from core.
       </action>
       <action dev="mcayanan" type="fix">
         Fixed the report header to display the correct core schema and schematron being used when validating against an older version of the data model.
@@ -112,10 +115,10 @@
         Added a -S, --schematron flag option to be able to specify schematron files to use during validation.
       </action>
       <action dev="pramirez" type="add">
-        Added in 0800k version of schema and schematron and set as default for this release. Inherited from core.
+        Added in the 0800k version of schema and schematron and set as default for this release. Inherited from core.
       </action>
       <action dev="pramirez" type="add">
-        Added in 0700j version of schema and schematron. Inherited from core.
+        Added in the 0700j version of schema and schematron. Inherited from core.
       </action>
       <action dev="mcayanan" type="update">
         Updated xpath expressions to support the latest changes to the PDS4 data model.
@@ -144,6 +147,9 @@
     </release>
 
     <release version="0.4.0" date="2011-11-09" description="This release of the Validate Tool is a component of the integrated release 2.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+      <action dev="pramirez" type="add">
+        Added in the 0500g version of the schemas and set this as the default for the release. Inherited from core.
+      </action>
       <action dev="mcayanan" type="add">
         Added support to validate against older versions of the PDS4 data model.
       </action>
