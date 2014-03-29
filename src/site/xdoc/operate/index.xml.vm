@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2013, by the California Institute of Technology.
+  Copyright 2010-2014, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -30,6 +30,14 @@
 
       <ul>
         <li><a href="#Tool_Execution">Tool Execution</a></li>
+        <ul>
+          <li><a href="#Command-Line_Options">Command-Line Options</a></li>
+          <li><a href="#Running_the_Validate_Tool">Running the Validate Tool</a></li>
+          <li><a href="#Specifying_Targets">Specifying_Targets</a></li>
+          <li><a href="#Using_an_XML_Catalog">Using an XML Catalog</a></li>
+          <li><a href="#Using_a_Configuration_File">Using a Configuration File</a></li>
+          <li><a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a></li>
+        </ul>
         <li><a href="#Report_Format">Report Format</a></li>
         <li><a href="#Common_Errors">Common Errors</a></li>
       </ul>
@@ -49,13 +57,13 @@
         <table>
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1101</i>). The other models supported in this release include: <i>1000</i> and <i>1100</i>.</td></tr>
-          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify schema files to use during validation. By using this flag, this will override using the PDS schemas packaged with the tool.</td></tr>
-          <tr><td>-S, --schematron &lt;schematron files&gt;</td><td>Specify schematron files to use during validation. By using this flag, this will override using the PDS schematron files packaged with the tool.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1201</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i> and <i>1200</i>.</td></tr>
+          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
+          <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
-          <tr><td nowrap="nowrap">-e, --regexp &lt;file patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
+          <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
           <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
           <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
@@ -99,7 +107,7 @@
 
         <p><b><i>Validating Against User-Specified Schemas</i></b></p>
 
-        <p>Specifying schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas packaged with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
+        <p>Specifying XML Schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas packaged with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
         </p>
 
         <source>
@@ -124,7 +132,7 @@
 
         <p><b><i>Validating Against User-Specified Schematron Files</i></b></p>
 
-        <p>Specifying schematron files on the command-line will allow the Validate Tool to validate against the user-specified schematron files instead of the schematron files packaged with the tool. The following command demonstrates the vadation of a single data product against a user-specified schematron:
+        <p>Specifying Schematron files on the command-line will allow the Validate Tool to validate against the user-specified Schematron files instead of the Schematron files packaged with the tool. The following command demonstrates the vadation of a single data product against a user-specified Schematron:
         </p>
 
         <source>
@@ -338,7 +346,7 @@ validate.regexp = "*.xml"
       </subsection>
 
       <subsection name="Passing in Multiple Schemas">
-        <p>The Validate Tool allows multiple schemas to be passed in through the command-line via the <i>-x</i> flag option. When passing in multiple schemas, the definitions found in each file are merged internally. In the case where two schemas are passed in and both define the same element under the same namespace, then the definition in the first schema passed in will take precedence over the second schema. As an example, suppose a schema file, <i>schema1.xsd</i>, contains the following definition:
+        <p>The Validate Tool allows multiple XML Schemas to be passed in through the command-line via the <i>-x</i> flag option. When passing in multiple schemas, the definitions found in each file are merged internally. In the case where two schemas are passed in and both define the same element under the same namespace, then the definition in the first schema passed in will take precedence over the second schema. As an example, suppose a schema file, <i>schema1.xsd</i>, contains the following definition:
         </p>
 
         <source>
@@ -440,9 +448,7 @@ validate.regexp = "*.xml"
 
         <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
         </p>
-
       </subsection>
-
     </section>
 
     <section name="Report Format">
