@@ -24,6 +24,12 @@
 
   <body>
     <release version="1.6.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="add" issue="PDS-84">
+        Validate: Tool should allow the schema and schematron files specified in the labels to be used for validation. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update">
+        Refactored the code so that schemas/schematrons are only loaded once per execution run in order to improve tool performance.
+      </action>
     </release>
 
     <release version="1.5.0" date="2014-03-31" description="This release of the Validate Tool is a component of the integrated release 4.1.0 of the PDS4 System. This is an operational release of the system components to date.">

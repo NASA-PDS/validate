@@ -65,6 +65,7 @@
           <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
+          <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
           <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
           <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
           <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
@@ -81,6 +82,7 @@
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
+          <li>Validating Against Label Specified Schemas and Schematrons</li>
           <li>Validating Against an Older Version of the PDS4 Data Model</li>
           <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
@@ -137,6 +139,15 @@
 
         <source>
 % validate product.xml -S product.sch
+        </source>
+
+        <p><b><i>Validating Against Label Specified Schemas and Schematrons</i></b></p>
+        
+        <p>The following command demonstrates forcing the tool to validate against the schemas and schematrons specified in a given label.
+        </p>
+        
+        <source>
+% validate product.xml -f        
         </source>
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
@@ -281,6 +292,7 @@
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>
           <tr><td>validate.model</td><td>-m, --model-version</td></tr>
+          <tr><td>validate.force</td><td>-f, --force</td></tr>
         </table>
 
         <p>The following example demonstrates how to set a configuration file:

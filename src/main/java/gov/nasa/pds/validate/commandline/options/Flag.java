@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -28,6 +28,12 @@ public enum Flag {
   CATALOG("C", "catalog", "catalog files", String.class, true,
       "Specify catalog files to use during validation."),
 
+  /**
+   * Flag to force the tool to perform validation against the schema and
+   * schematron specified in a given label.
+   */
+  FORCE("f", "force", "Force the tool to perform validation against the "
+      + "schema and schematron specified in a given label."),
   /**
    * Flag to specify file patterns to look for when validating a target
    * directory.

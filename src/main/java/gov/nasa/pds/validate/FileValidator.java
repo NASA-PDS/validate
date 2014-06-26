@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,15 +14,11 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionContainer;
-import gov.nasa.pds.tools.label.LabelValidator;
-import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,8 +39,10 @@ public class FileValidator extends Validator {
    *
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
+   * @throws ParserConfigurationException 
    */
-  public FileValidator(String modelVersion, Report report) {
+  public FileValidator(String modelVersion, Report report)
+      throws ParserConfigurationException {
     super(modelVersion, report);
   }
 
@@ -68,18 +66,7 @@ public class FileValidator extends Validator {
   @Override
   public void validate(URL url) throws Exception {
     ExceptionContainer exceptionContainer = new ExceptionContainer();
-    LabelValidator lv = new LabelValidator();
-    lv.setModelVersion(modelVersion);
-    if (!schemas.isEmpty()) {
-      lv.setSchema(schemas.toArray(new String[0]));
-    }
-    if (!schematrons.isEmpty()) {
-      lv.setSchematronFiles(schematrons.toArray(new String[0]));
-    }
-    if (!catalogs.isEmpty()) {
-      lv.setCatalogs(catalogs.toArray(new String[0]));
-    }
-    lv.validate(exceptionContainer, url);
+    labelValidator.validate(exceptionContainer, url);
     report.record(url.toURI(), exceptionContainer.getExceptions());
 
   }

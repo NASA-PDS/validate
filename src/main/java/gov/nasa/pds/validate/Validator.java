@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -13,19 +13,16 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
-import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.xpath.XPathExpressionException;
 
 import org.xml.sax.SAXException;
 
@@ -63,6 +60,8 @@ public abstract class Validator {
    *
    */
   protected String modelVersion;
+  
+  protected LabelValidator labelValidator;
 
   /**
    * Constructor.
@@ -70,13 +69,15 @@ public abstract class Validator {
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results of the validation
    *  run.
+   * @throws ParserConfigurationException 
    */
-  public Validator(String modelVersion, Report report) {
+  public Validator(String modelVersion, Report report)
+      throws ParserConfigurationException {
     this.report = report;
-    this.schemas = new ArrayList<String>();
     this.schematrons = new ArrayList<String>();
     this.catalogs = new ArrayList<String>();
     this.modelVersion = modelVersion;
+    this.labelValidator = new LabelValidator();
   }
 
   /**
@@ -86,10 +87,11 @@ public abstract class Validator {
    * validation.
    *
    * @param schemaFiles A list of schema files.
+   * @throws SAXException 
    *
    */
-  public void setSchemas(List<String> schemaFiles) {
-    this.schemas.addAll(schemaFiles);
+  public void setSchemas(List<String> schemaFiles) throws SAXException {
+    labelValidator.setSchema(schemaFiles.toArray(new String[0]));
   }
 
   /**
@@ -98,7 +100,7 @@ public abstract class Validator {
    * @param schematronFiles A list of schematron files.
    */
   public void setSchematrons(List<String> schematronFiles) {
-    this.schematrons.addAll(schematronFiles);
+    labelValidator.setSchematronFiles(schematronFiles.toArray(new String[0]));
   }
 
   /**
@@ -107,9 +109,14 @@ public abstract class Validator {
    * @param catalogs A list of catalog files.
    */
   public void setCatalogs(List<String> catalogs) {
-    this.catalogs.addAll(catalogs);
+    labelValidator.setCatalogs(catalogs.toArray(new String[0]));
   }
 
+  public void setForce(boolean value) {
+    labelValidator.setSchemaCheck(true, value);
+    labelValidator.setSchematronCheck(true, value);
+  }
+  
   /**
    * Validate a PDS product.
    *

@@ -1,4 +1,4 @@
-// Copyright 2006-2012, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -230,12 +230,11 @@ public abstract class Report {
     return filteredProblems;
   }
 
-  /*
   public Status recordSkip(final URI sourceUri, final Exception exception) {
     this.numSkipped++;
     if (exception instanceof LabelException) {
       LabelException problem = (LabelException) exception;
-      if (problem.getType().getExceptionType().getValue() <= this.level.getValue()) {
+      if (problem.getExceptionType().getValue() <= this.level.getValue()) {
         printRecordSkip(this.writer, sourceUri, exception);
       }
     } else {
@@ -243,7 +242,6 @@ public abstract class Report {
     }
     return Status.SKIP;
   }
-*/
 
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
       final Exception exception) {

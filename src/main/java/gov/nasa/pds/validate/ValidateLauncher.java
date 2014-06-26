@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -15,6 +15,7 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -39,7 +40,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
-import java.util.logging.Level;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -100,10 +102,11 @@ public class ValidateLauncher {
   /** The model version to use during validation. */
   private String modelVersion;
 
-  /** The XPath to the product_class tag. */
-  private final static String PRODUCT_TYPE_XPATH =
-    "//*[starts-with(name(),'Identification_Area')]/product_class";
-
+  /** Flag to force the tool to validate against the schema and schematron 
+   *  specified in the given label. 
+   */
+  private boolean force;
+  
   /**
    * Constructor.
    *
@@ -120,6 +123,7 @@ public class ValidateLauncher {
     modelVersion = VersionInfo.getDefaultModelVersion();
     report = null;
     reportStyle = "full";
+    force = false;
   }
 
   /**
@@ -196,10 +200,19 @@ public class ValidateLauncher {
         setModelVersion(o.getValue());
       } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
         setReportStyle(o.getValue());
+      } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
+        setForce(true);
       }
     }
     if (!targetList.isEmpty()) {
       setTargets(targetList);
+    }
+    if (force 
+        && (!schemas.isEmpty() 
+            || !schematrons.isEmpty() 
+            || !catalogs.isEmpty())) {
+      throw new InvalidOptionException("Cannot specify user schemas, "
+            + "schematrons, and/or catalog files with the 'force' flag option");
     }
   }
 
@@ -262,6 +275,9 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.STYLE)) {
         setReportStyle(config.getString(ConfigKey.STYLE));
+      }
+      if (config.containsKey(ConfigKey.FORCE)) {
+        setForce(config.getBoolean(ConfigKey.FORCE));
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -402,6 +418,10 @@ public class ValidateLauncher {
     this.modelVersion = version;
   }
 
+  public void setForce(boolean value) {
+    this.force = value;
+  }
+  
   /**
    * Displays tool usage.
    *
@@ -462,17 +482,19 @@ public class ValidateLauncher {
     report.addConfiguration("   Version                       " + version);
     report.addConfiguration("   Date                          "
         + df.format(date));
-    if (schemas.isEmpty() && catalogs.isEmpty()) {
-      report.addConfiguration("   Core Schemas                  "
-          + coreSchemas);
-    }
-    if (schematrons.isEmpty()) {
-      report.addConfiguration("   Core Schematrons              "
-          + coreSchematrons);
-    }
-    if ( schematrons.isEmpty() || (schemas.isEmpty() && catalogs.isEmpty()) ) {
-      report.addConfiguration("   Model Version                 "
-          + modelVersion);
+    if (!force) {
+      if (schemas.isEmpty() && catalogs.isEmpty()) {
+        report.addConfiguration("   Core Schemas                  "
+            + coreSchemas);
+      }
+      if (schematrons.isEmpty()) {
+        report.addConfiguration("   Core Schematrons              "
+            + coreSchematrons);
+      }
+      if ( schematrons.isEmpty() || (schemas.isEmpty() && catalogs.isEmpty()) ) {
+        report.addConfiguration("   Model Version                 "
+            + modelVersion);
+      }
     }
     report.addParameter("   Targets                       " + targets);
     if (!schemas.isEmpty()) {
@@ -487,7 +509,12 @@ public class ValidateLauncher {
     report.addParameter("   Severity Level                " + severity.getName());
     report.addParameter("   Recurse Directories           " + traverse);
     if (!regExps.isEmpty()) {
-      report.addParameter("   File Filters Used           " + regExps);
+      report.addParameter("   File Filters Used             " + regExps);
+    }
+    if (force) {
+      report.addParameter("   Force Mode                    on");
+    } else {
+      report.addParameter("   Force Mode                    off");      
     }
     report.printHeader();
   }
@@ -496,8 +523,9 @@ public class ValidateLauncher {
    * Performs validation.
    *
    * @throws SAXException If one of the schemas is malformed.
+   * @throws ParserConfigurationException 
    */
-  public void doValidation() throws SAXException {
+  public void doValidation() throws SAXException, ParserConfigurationException {
     for (URL target : targets) {
       Validator validator = new FileValidator(modelVersion, report);
       try {
@@ -517,6 +545,7 @@ public class ValidateLauncher {
           dv.setRecurse(traverse);
           validator = dv;
         }
+        validator.setForce(force);
         if (!schemas.isEmpty()) {
           validator.setSchemas(schemas);
         }
@@ -529,22 +558,35 @@ public class ValidateLauncher {
         validator.validate(target);
       } catch (Exception e) {
         LabelException le = null;
-        if (e instanceof SAXParseException) {
-          SAXParseException se = (SAXParseException) e;
-          le = new LabelException(ExceptionType.FATAL, se.getMessage(),
-              target.toString(), target.toString(), se.getLineNumber(),
-              se.getColumnNumber());
+        if (e instanceof MissingLabelSchemaException) {
+          MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
+          le = new LabelException(ExceptionType.WARNING, mse.getMessage(), 
+              target.toString(), target.toString(), null, null);
+          try {
+            report.recordSkip(target.toURI(), le);
+          } catch (URISyntaxException u) {
+            le = new LabelException(ExceptionType.FATAL,
+                e.getMessage(), target.toString(), target.toString(),
+                null, null);
+          }
         } else {
-          le = new LabelException(ExceptionType.FATAL,
-              e.getMessage(), target.toString(), target.toString(),
-              null, null);
-        }
-        try {
-          report.record(target.toURI(), le);
-        } catch (URISyntaxException u) {
-          le = new LabelException(ExceptionType.FATAL,
-              e.getMessage(), target.toString(), target.toString(),
-              null, null);
+          if (e instanceof SAXParseException) {
+            SAXParseException se = (SAXParseException) e;
+            le = new LabelException(ExceptionType.FATAL, se.getMessage(),
+                target.toString(), target.toString(), se.getLineNumber(),
+                se.getColumnNumber());
+          } else {
+            le = new LabelException(ExceptionType.FATAL,
+                e.getMessage(), target.toString(), target.toString(),
+                null, null);
+          }
+          try {
+            report.record(target.toURI(), le);
+          } catch (URISyntaxException u) {
+            le = new LabelException(ExceptionType.FATAL,
+                e.getMessage(), target.toString(), target.toString(),
+                null, null);
+          }
         }
       }
     }

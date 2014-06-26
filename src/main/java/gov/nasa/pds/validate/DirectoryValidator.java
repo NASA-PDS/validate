@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -15,16 +15,18 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.validate.crawler.Crawler;
 import gov.nasa.pds.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.target.Target;
 
-import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXParseException;
 
@@ -34,7 +36,7 @@ import org.xml.sax.SAXParseException;
  * @author mcayanan
  *
  */
-public class DirectoryValidator extends Validator {
+public class DirectoryValidator extends FileValidator {
   /** Flag to enable/disable recursion. */
   private boolean recurse;
 
@@ -46,9 +48,11 @@ public class DirectoryValidator extends Validator {
    *
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
+   * @throws ParserConfigurationException 
    *
    */
-  public DirectoryValidator(String modelVersion, Report report) {
+  public DirectoryValidator(String modelVersion, Report report)
+      throws ParserConfigurationException {
     super(modelVersion, report);
     recurse = true;
     fileFilters = new ArrayList<String>();
@@ -88,43 +92,41 @@ public class DirectoryValidator extends Validator {
       if (target.isDir()) {
         validate(target.getUrl());
       } else {
-        FileValidator fv = new FileValidator(modelVersion, report);
-        if (!schemas.isEmpty()) {
-          fv.setSchemas(schemas);
-        }
-        if (!schematrons.isEmpty()) {
-          fv.setSchematrons(schematrons);
-        }
-        if (!catalogs.isEmpty()) {
-          fv.setCatalogs(catalogs);
-        }
         try {
-          fv.validate(target.getUrl());
+          super.validate(target.getUrl());
         } catch (Exception e) {
           LabelException le = null;
-          if (e instanceof SAXParseException) {
-            SAXParseException se = (SAXParseException) e;
-            le = new LabelException(ExceptionType.FATAL,
-                se.getMessage(), target.toString(),
-                target.toString(), se.getLineNumber(),
-                se.getColumnNumber());
+          if (e instanceof MissingLabelSchemaException) {
+            MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
+            le = new LabelException(ExceptionType.WARNING, mse.getMessage(), 
+                target.toString(), target.toString(), null, null);
+            try {
+              report.recordSkip(target.getUrl().toURI(), le);
+            } catch (URISyntaxException u) {
+              le = new LabelException(ExceptionType.FATAL,
+                  e.getMessage(), target.toString(), target.toString(),
+                  null, null);
+            }
           } else {
-            le = new LabelException(ExceptionType.FATAL,
-                e.getMessage(), target.toString(),
-                target.toString(), null, null);
-          }
-          try {
-            report.record(target.getUrl().toURI(), le);
-          } catch(URISyntaxException ignore) {
-            //Ignore for now
+            if (e instanceof SAXParseException) {
+              SAXParseException se = (SAXParseException) e;
+              le = new LabelException(ExceptionType.FATAL,
+                  se.getMessage(), target.getUrl().toString(),
+                  target.toString(), se.getLineNumber(),
+                  se.getColumnNumber());
+            } else {
+              le = new LabelException(ExceptionType.FATAL,
+                  e.getMessage(), target.toString(),
+                  target.toString(), null, null);
+            }
+            try {
+              report.record(target.getUrl().toURI(), le);
+            } catch(URISyntaxException ignore) {
+              //Ignore for now
+            }
           }
         }
       }
     }
-  }
-
-  @Override
-  public void validate(File file) throws Exception {
-    validate(file.toURI().toURL());
   }
 }

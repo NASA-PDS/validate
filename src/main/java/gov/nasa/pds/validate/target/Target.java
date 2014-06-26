@@ -1,4 +1,4 @@
-// Copyright 2006-2013, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.validate.target;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Target {
@@ -31,5 +32,14 @@ public class Target {
 
   public boolean isDir() {
     return isDir;
+  }
+  
+  public String toString() {
+    try {
+      return url.toURI().toString();
+    } catch (URISyntaxException e) {
+      return url.toString();
+    }
+    
   }
 }
