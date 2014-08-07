@@ -14,6 +14,7 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ExceptionContainer;
+import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.validate.report.Report;
 
@@ -39,10 +40,11 @@ public class FileValidator extends Validator {
    *
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
-   * @throws ParserConfigurationException 
+   * @throws ParserConfigurationException
+   * @throws ValidatorException
    */
   public FileValidator(String modelVersion, Report report)
-      throws ParserConfigurationException {
+      throws ParserConfigurationException, ValidatorException {
     super(modelVersion, report);
   }
 

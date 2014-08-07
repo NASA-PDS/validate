@@ -56,12 +56,6 @@ public abstract class Validator {
    */
   protected List<String> catalogs;
 
-  /**
-   * The model version to validate against.
-   *
-   */
-  protected String modelVersion;
-
   protected LabelValidator labelValidator;
 
   /**
@@ -71,14 +65,15 @@ public abstract class Validator {
    * @param report A Report object to output the results of the validation
    *  run.
    * @throws ParserConfigurationException
+   * @throws ValidatorException
    */
   public Validator(String modelVersion, Report report)
-      throws ParserConfigurationException {
+      throws ParserConfigurationException, ValidatorException {
     this.report = report;
     this.schematrons = new ArrayList<String>();
     this.catalogs = new ArrayList<String>();
-    this.modelVersion = modelVersion;
     this.labelValidator = new LabelValidator();
+    this.labelValidator.setModelVersion(modelVersion);
   }
 
   /**

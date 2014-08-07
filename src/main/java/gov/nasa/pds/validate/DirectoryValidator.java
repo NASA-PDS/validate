@@ -16,6 +16,7 @@ package gov.nasa.pds.validate;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
+import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.validate.crawler.Crawler;
 import gov.nasa.pds.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.validate.report.Report;
@@ -48,11 +49,12 @@ public class DirectoryValidator extends FileValidator {
    *
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results.
-   * @throws ParserConfigurationException 
+   * @throws ParserConfigurationException
+   * @throws ValidatorException
    *
    */
   public DirectoryValidator(String modelVersion, Report report)
-      throws ParserConfigurationException {
+      throws ParserConfigurationException, ValidatorException {
     super(modelVersion, report);
     recurse = true;
     fileFilters = new ArrayList<String>();
@@ -98,7 +100,7 @@ public class DirectoryValidator extends FileValidator {
           LabelException le = null;
           if (e instanceof MissingLabelSchemaException) {
             MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
-            le = new LabelException(ExceptionType.WARNING, mse.getMessage(), 
+            le = new LabelException(ExceptionType.WARNING, mse.getMessage(),
                 target.toString(), target.toString(), null, null);
             try {
               report.recordSkip(target.getUrl().toURI(), le);
