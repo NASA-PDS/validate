@@ -117,6 +117,8 @@ public class JSONReport extends Report {
         severity = "ERROR";
     } else if (problem.getExceptionType() == ExceptionType.WARNING) {
         severity = "WARNING";
+    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+      severity = "INFO";
     }
     JsonObject message = new JsonObject();
     message.addProperty("severity", severity);
