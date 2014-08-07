@@ -20,20 +20,15 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public enum Flag {
+  
+  CATALOG("C", "catalog", "catalog files", String.class, true,
+      "Specify catalog files to use during validation."),
+  
   /** Flag to specify a configuration file to configure the tool behavior.
    */
   CONFIG("c", "config", "file", String.class, "Specify a configuration "
       + "file to set the tool behavior."),
 
-  CATALOG("C", "catalog", "catalog files", String.class, true,
-      "Specify catalog files to use during validation."),
-
-  /**
-   * Flag to force the tool to perform validation against the schema and
-   * schematron specified in a given label.
-   */
-  FORCE("f", "force", "Force the tool to perform validation against the "
-      + "schema and schematron specified in a given label."),
   /**
    * Flag to specify file patterns to look for when validating a target
    * directory.
@@ -41,6 +36,13 @@ public enum Flag {
   REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
       + "to look for when validating a directory. Each pattern should "
       + "be surrounded by quotes. (i.e. -e \"*.xml\")"),
+      
+  /**
+   * Flag to force the tool to perform validation against the schema and
+   * schematron specified in a given label.
+   */
+  FORCE("f", "force", "Force the tool to perform validation against the "
+      + "schema and schematron specified in a given label."),
 
   /**
    * Flag to display the help.
@@ -48,10 +50,45 @@ public enum Flag {
   HELP("h", "help", "Display usage."),
 
   /**
+   * Flag to perform referential integrity checking.
+   */
+  INTEGRITY("i", "integrity-check", "Perform referential integrity on the "
+      + "given targets."),
+  
+  /**
+   * Flag that disables recursion when traversing a target directory.
+   */
+  LOCAL("L", "local", "Validate files only in the target directory rather "
+      + "than recursively traversing down the subdirectories."),
+  
+  /**
+   * Flag to specify a model version to use during validation.
+   */
+  MODEL("m", "model-version", "version", String.class, "Specify a model "
+      + "version to use during validation. The default is to use the "
+      + "latest model."),
+      
+  /**
    * Flag to specify a report file name.
    */
   REPORT("r", "report-file", "file name", String.class, "Specify the "
       + "report file name. Default is standard out."),
+
+  /**
+   * Flag to specify a list of schematron files to use during validation.
+   */
+  SCHEMATRON("S", "schematron", "schematron files", String.class, true,
+    "Specify schematron files."),
+      
+  /**
+   * Flag to specify the report style.
+   *
+   */
+  STYLE("s", "report-style", "full|json|xml", String.class,
+      "Specify the level of detail for the reporting. Valid values are "
+      + "'full' for a full view, 'json' for a json view, and 'xml' for an "
+      + "XML view. Default is to see a full report if this flag is not "
+      + "specified"),
 
   /**
    * Flag to explicitly specify the targets to validate.
@@ -61,6 +98,11 @@ public enum Flag {
       + "specified implicitly as well. "
       + "(example: validate product.xml)"),
 
+  /**
+   * Displays the tool version.
+   */
+  VERSION("V", "version", "Display application version."),
+  
   /**
    * Flag to specify the severity level and above to include in the report.
    */
@@ -72,41 +114,7 @@ public enum Flag {
    * Flag to specify a list of schemas to use during validation.
    */
   SCHEMA("x", "schema", "schema files", String.class, true,
-      "Specify schema files."),
-
-  /**
-   * Flag to specify a list of schematron files to use during validation.
-   */
-  SCHEMATRON("S", "schematron", "schematron files", String.class, true,
-      "Specify schematron files."),
-
-  /**
-   * Flag to specify a model version to use during validation.
-   */
-  MODEL("m", "model-version", "version", String.class, "Specify a model "
-      + "version to use during validation. The default is to use the "
-      + "latest model."),
-
-  /**
-   * Flag that disables recursion when traversing a target directory.
-   */
-  LOCAL("L", "local", "Validate files only in the target directory rather "
-      + "than recursively traversing down the subdirectories."),
-
-  /**
-   * Displays the tool version.
-   */
-  VERSION("V", "version", "Display application version."),
-
-  /**
-   * Flag to specify the report style.
-   *
-   */
-  STYLE("s", "report-style", "full|json|xml", String.class,
-      "Specify the level of detail for the reporting. Valid values are "
-      + "'full' for a full view, 'json' for a json view, and 'xml' for an "
-      + "XML view. Default is to see a full report if this flag is not "
-      + "specified");
+      "Specify schema files.");
 
   /** The short name. */
   private final String shortName;

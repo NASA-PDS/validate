@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -13,54 +13,18 @@
 // $Id: InventoryKeys.java -1M 2010-11-01 17:33:08Z (local) $
 package gov.nasa.pds.validate.inventory.reader;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class InventoryKeys {
-  /** XPath to the field length of the column containing the file
-   * reference.
-   */
-  public static final String FILE_SPEC_FIELD_LENGTH_XPATH =
-    "//Record_Character/"
-    + "Field_Character[data_type='ASCII_File_Specification_Name']/"
-    + "field_length";
 
-  /** XPath to the field location of the column containing the file
-   * reference.
-   */
-  public static final String FILE_SPEC_FIELD_LOCATION_XPATH =
-    "//Record_Character/"
-    + "Field_Character[data_type='ASCII_File_Specification_Name']/"
-    + "field_location";
+  public static final Map<String, String> fieldDelimiters =
+    new HashMap<String, String>();
 
-  /**
-   * XPath to the field length of the column containing the LID-VID or LID
-   * reference.
-   */
-  public static final String IDENTIFIER_FIELD_LENGTH_XPATH =
-    "//Record_Character/Field_Character[data_type='ASCII_LIDVID']/field_length"
-    + " | //Record_Character/Field_Character[data_type='ASCII_LID']/field_length";
-
-  /**
-   * XPath to the field location of the column containing the LID-VID or LID
-   * reference.
-   */
-  public static final String IDENTIFIER_FIELD_LOCATION_XPATH =
-    "//Record_Character/Field_Character[data_type='ASCII_LIDVID']/field_location"
-    + " | //Record_Character/Field_Character[data_type='ASCII_LID']/field_location";
-
-  /** XPath to the external table file of a collection. */
-  public static final String DATA_FILE_XPATH = "//*[starts-with(name(),"
-    + "'File_Area')]/File/file_name";
-
-  /** XPath to grab the Member_Entry tags in a bundle. */
-  public static final String MEMBER_ENTRY_XPATH =
-    "//*[ends-with(name(),'Member_Entry')]";
-
-  /** The file reference XPath in an Inventory file. */
-  public static final String FILE_SPEC_XPATH = "file_specification_name";
-
-  /** The MD5 checksum XPath in an Inventory file. */
-  public static final String CHECKSUM_XPATH = "md5_checksum";
-
-  /** The LID-VID or LID XPath for an association. */
-  public static final String IDENTITY_REFERENCE_XPATH =
-    "lidvid_reference | lid_reference";
+  static {
+    fieldDelimiters.put("comma",",");
+    fieldDelimiters.put("horizontal_tab", "\\t");
+    fieldDelimiters.put("semicolon", ";");
+    fieldDelimiters.put("vertical_bar", "\\|");
+  }
 }

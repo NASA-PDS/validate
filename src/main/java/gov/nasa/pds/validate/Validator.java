@@ -15,6 +15,7 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
+import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
@@ -60,7 +61,7 @@ public abstract class Validator {
    *
    */
   protected String modelVersion;
-  
+
   protected LabelValidator labelValidator;
 
   /**
@@ -69,7 +70,7 @@ public abstract class Validator {
    * @param modelVersion The model version to use for validation.
    * @param report A Report object to output the results of the validation
    *  run.
-   * @throws ParserConfigurationException 
+   * @throws ParserConfigurationException
    */
   public Validator(String modelVersion, Report report)
       throws ParserConfigurationException {
@@ -87,7 +88,7 @@ public abstract class Validator {
    * validation.
    *
    * @param schemaFiles A list of schema files.
-   * @throws SAXException 
+   * @throws SAXException
    *
    */
   public void setSchemas(List<String> schemaFiles) throws SAXException {
@@ -116,7 +117,11 @@ public abstract class Validator {
     labelValidator.setSchemaCheck(true, value);
     labelValidator.setSchematronCheck(true, value);
   }
-  
+
+  public void addValidator(DocumentValidator validator) {
+    labelValidator.addValidator(validator);
+  }
+
   /**
    * Validate a PDS product.
    *

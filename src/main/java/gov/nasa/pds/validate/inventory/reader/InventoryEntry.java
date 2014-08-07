@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -22,73 +22,97 @@ import java.io.File;
  *
  */
 public class InventoryEntry {
-    /** A product file. */
-    private File file;
+  /** A product file. */
+  private File file;
 
-    /** A checksum. */
-    private String checksum;
+  /** A checksum. */
+  private String checksum;
 
-    /** A logical identifier. */
-    private String lidvid;
+  /** A logical identifier. */
+  private String identifier;
 
-    /** Default constructor */
-    public InventoryEntry() {
-        this.file = null;
-        this.checksum = "";
-        this.lidvid = "";
-    }
+  /** Member status. */
+  private String memberStatus;
 
-    /**
-     * Constructor.
-     *
-     * @param file A product file.
-     * @param checksum checksum.
-     * @param lidvid logical identifier.
-     */
-    public InventoryEntry(File file, String checksum, String lidvid) {
-        this.file = file;
-        this.checksum = checksum;
-        this.lidvid = lidvid;
-    }
+  /** Default constructor */
+  public InventoryEntry() {
+      this.file = null;
+      this.checksum = "";
+      this.identifier = "";
+      this.memberStatus = "";
+  }
 
-    /**
-     * Gets the file.
-     *
-     * @return The file.
-     */
-    public File getFile() {
-        return file;
-    }
+  /**
+   * Constructor.
+   *
+   * @param identifier logical identifier.
+   * @param memberStatus member status.
+   */
+  public InventoryEntry(String identifier, String memberStatus) {
+    this(null, "", identifier, memberStatus);
+  }
 
-    /**
-     * Gets the checksum.
-     *
-     * @return Checksum value.
-     */
-    public String getChecksum() {
-        return checksum;
-    }
+  /**
+   * Constructor.
+   *
+   * @param file A product file.
+   * @param checksum checksum.
+   * @param identifier logical identifier.
+   */
+  public InventoryEntry(File file, String checksum, String identifier, String memberStatus) {
+      this.file = file;
+      this.checksum = checksum;
+      this.identifier = identifier;
+      this.memberStatus = memberStatus;
+  }
 
-    /**
-     * Gets the LID-VID.
-     *
-     * @return A LID-VID.
-     */
-    public String getLidvid() {
-        return lidvid;
-    }
+  /**
+   * Gets the file.
+   *
+   * @return The file.
+   */
+  public File getFile() {
+      return file;
+  }
 
-    /**
-     * Determines whether the object is empty.
-     *
-     * @return true if the object is empty, false otherwise.
-     */
-    public boolean isEmpty() {
-        if (this.file == null && this.checksum.isEmpty()
-            && this.lidvid.isEmpty()) {
-          return true;
-        } else {
-          return false;
-        }
-    }
+  /**
+   * Gets the checksum.
+   *
+   * @return Checksum value.
+   */
+  public String getChecksum() {
+      return checksum;
+  }
+
+  /**
+   * Gets the logical identifier.
+   *
+   * @return A LID or LIDVID.
+   */
+  public String getIdentifier() {
+      return identifier;
+  }
+
+  /**
+   * Gets the member status.
+   *
+   * @return "P", "Primary", "S", or "Secondary"
+   */
+  public String getMemberStatus() {
+    return memberStatus;
+  }
+
+  /**
+   * Determines whether the object is empty.
+   *
+   * @return true if the object is empty, false otherwise.
+   */
+  public boolean isEmpty() {
+      if (this.file == null && this.checksum.isEmpty()
+          && this.identifier.isEmpty() && this.memberStatus.isEmpty()) {
+        return true;
+      } else {
+        return false;
+      }
+  }
 }

@@ -41,8 +41,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -59,7 +57,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
-import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -70,6 +67,8 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class ValidateLauncher {
+
+
   /** List of targets to validate. */
   private List<URL> targets;
 
@@ -102,11 +101,17 @@ public class ValidateLauncher {
   /** The model version to use during validation. */
   private String modelVersion;
 
-  /** Flag to force the tool to validate against the schema and schematron 
-   *  specified in the given label. 
+  /** Flag to force the tool to validate against the schema and schematron
+   *  specified in the given label.
    */
   private boolean force;
-  
+
+  /**
+   * Flag to perform referential integrity.
+   *
+   */
+  private boolean integrityCheck;
+
   /**
    * Constructor.
    *
@@ -124,6 +129,7 @@ public class ValidateLauncher {
     report = null;
     reportStyle = "full";
     force = false;
+    integrityCheck = false;
   }
 
   /**
@@ -202,14 +208,16 @@ public class ValidateLauncher {
         setReportStyle(o.getValue());
       } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
         setForce(true);
+      } else if (Flag.INTEGRITY.getShortName().equals(o.getOpt())) {
+        setIntegrityCheck(true);
       }
     }
     if (!targetList.isEmpty()) {
       setTargets(targetList);
     }
-    if (force 
-        && (!schemas.isEmpty() 
-            || !schematrons.isEmpty() 
+    if (force
+        && (!schemas.isEmpty()
+            || !schematrons.isEmpty()
             || !catalogs.isEmpty())) {
       throw new InvalidOptionException("Cannot specify user schemas, "
             + "schematrons, and/or catalog files with the 'force' flag option");
@@ -278,6 +286,9 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.FORCE)) {
         setForce(config.getBoolean(ConfigKey.FORCE));
+      }
+      if (config.containsKey(ConfigKey.INTEGRITY)) {
+        setIntegrityCheck(config.getBoolean(ConfigKey.INTEGRITY));
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -421,7 +432,11 @@ public class ValidateLauncher {
   public void setForce(boolean value) {
     this.force = value;
   }
-  
+
+  public void setIntegrityCheck(boolean value) {
+    this.integrityCheck = value;
+  }
+
   /**
    * Displays tool usage.
    *
@@ -514,53 +529,106 @@ public class ValidateLauncher {
     if (force) {
       report.addParameter("   Force Mode                    on");
     } else {
-      report.addParameter("   Force Mode                    off");      
+      report.addParameter("   Force Mode                    off");
+    }
+    if (integrityCheck) {
+      report.addParameter("   Referential Integrity Check   on");
+    } else {
+      report.addParameter("   Referential Integrity Check   off");
     }
     report.printHeader();
   }
 
   /**
    * Performs validation.
-   *
-   * @throws SAXException If one of the schemas is malformed.
-   * @throws ParserConfigurationException 
+   * @throws Exception
    */
-  public void doValidation() throws SAXException, ParserConfigurationException {
+  public void doValidation() throws Exception {
+    FileValidator cachedFileValidator = null;
+    DirectoryValidator cachedDirectoryValidator = null;
+    ReferentialIntegrityValidator refIntegrityValidator =
+        new ReferentialIntegrityValidator();
     for (URL target : targets) {
-      Validator validator = new FileValidator(modelVersion, report);
+      if (integrityCheck) {
+        refIntegrityValidator.clearSources();
+        System.out.println("Begin gathering LIDVIDs, bundle and collection "
+            + "members from the given target: " + target);
+        refIntegrityValidator.setSources(Utility.toTarget(target), traverse,
+            regExps);
+        System.out.println("Finished gathering LIDVIDs, bundle and "
+            + "collection members from the given target: " + target);
+      }
+      Validator validator = null;
+      if (cachedFileValidator == null) {
+        cachedFileValidator = new FileValidator(modelVersion, report);
+        cachedFileValidator.setForce(force);
+        if (!schemas.isEmpty()) {
+          cachedFileValidator.setSchemas(schemas);
+        }
+        if (!catalogs.isEmpty()) {
+          cachedFileValidator.setCatalogs(catalogs);
+        }
+        if (!schematrons.isEmpty()) {
+          cachedFileValidator.setSchematrons(schematrons);
+        }
+        if (integrityCheck) {
+          cachedFileValidator.addValidator(refIntegrityValidator);
+        }
+      }
+      validator = cachedFileValidator;
       try {
         if (target.getProtocol().equalsIgnoreCase("file")) {
           File file = FileUtils.toFile(target);
           if (file.isDirectory()) {
-            DirectoryValidator dv = new DirectoryValidator(modelVersion,
-              report);
-            dv.setFileFilters(regExps);
-            dv.setRecurse(traverse);
-            validator = dv;
+            if (cachedDirectoryValidator == null) {
+              cachedDirectoryValidator = new DirectoryValidator(modelVersion,
+                report);
+              cachedDirectoryValidator.setFileFilters(regExps);
+              cachedDirectoryValidator.setRecurse(traverse);
+              cachedDirectoryValidator.setForce(force);
+              if (!schemas.isEmpty()) {
+                cachedDirectoryValidator.setSchemas(schemas);
+              }
+              if (!catalogs.isEmpty()) {
+                cachedDirectoryValidator.setCatalogs(catalogs);
+              }
+              if (!schematrons.isEmpty()) {
+                cachedDirectoryValidator.setSchematrons(schematrons);
+              }
+              if (integrityCheck) {
+                cachedDirectoryValidator.addValidator(refIntegrityValidator);
+              }
+            }
+            validator = cachedDirectoryValidator;
           }
         } else if ("".equals(FilenameUtils.getExtension(target.toString()))) {
-          DirectoryValidator dv = new DirectoryValidator(modelVersion,
+          if (cachedDirectoryValidator == null) {
+            cachedDirectoryValidator = new DirectoryValidator(modelVersion,
               report);
-          dv.setFileFilters(regExps);
-          dv.setRecurse(traverse);
-          validator = dv;
-        }
-        validator.setForce(force);
-        if (!schemas.isEmpty()) {
-          validator.setSchemas(schemas);
-        }
-        if (!catalogs.isEmpty()) {
-          validator.setCatalogs(catalogs);
-        }
-        if (!schematrons.isEmpty()) {
-          validator.setSchematrons(schematrons);
+            cachedDirectoryValidator.setFileFilters(regExps);
+            cachedDirectoryValidator.setRecurse(traverse);
+            cachedDirectoryValidator.setForce(force);
+            if (!schemas.isEmpty()) {
+              cachedDirectoryValidator.setSchemas(schemas);
+            }
+            if (!catalogs.isEmpty()) {
+              cachedDirectoryValidator.setCatalogs(catalogs);
+            }
+            if (!schematrons.isEmpty()) {
+              cachedDirectoryValidator.setSchematrons(schematrons);
+            }
+            if (integrityCheck) {
+              cachedDirectoryValidator.addValidator(refIntegrityValidator);
+            }
+          }
+          validator = cachedDirectoryValidator;
         }
         validator.validate(target);
       } catch (Exception e) {
         LabelException le = null;
         if (e instanceof MissingLabelSchemaException) {
           MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
-          le = new LabelException(ExceptionType.WARNING, mse.getMessage(), 
+          le = new LabelException(ExceptionType.WARNING, mse.getMessage(),
               target.toString(), target.toString(), null, null);
           try {
             report.recordSkip(target.toURI(), le);

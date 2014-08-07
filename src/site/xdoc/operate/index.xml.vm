@@ -33,7 +33,8 @@
         <ul>
           <li><a href="#Command-Line_Options">Command-Line Options</a></li>
           <li><a href="#Running_the_Validate_Tool">Running the Validate Tool</a></li>
-          <li><a href="#Specifying_Targets">Specifying_Targets</a></li>
+          <li><a href="#Specifying_Targets">Specifying Targets</a></li>
+          <li><a href="#Referential_Integrity_Checking">Referential Integrity Checking</a></li>
           <li><a href="#Using_an_XML_Catalog">Using an XML Catalog</a></li>
           <li><a href="#Using_a_Configuration_File">Using a Configuration File</a></li>
           <li><a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a></li>
@@ -57,12 +58,14 @@
         <table>
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
+          <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
           <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1201</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i> and <i>1200</i>.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
           <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
           <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
           <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
+          <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
           <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
@@ -80,6 +83,7 @@
           <li>Validating a Target File</li>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
+          <li>Validating with Referential Integrity Checking</li>
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
@@ -123,6 +127,15 @@
 % validate producta.xml, productb.xml -x producta.xsd, productb.xsd
         </source>
 
+        <p><b><i>Validating with Referential Integrity Checking</i></b></p>
+
+        <p>The following command demonstrates validating a bundle target with referential integrity checking enabled:
+        </p>
+
+        <source>
+% validate ${HOME}/bundle -i
+        </source>
+
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
 
         <p>The following command demonstrates the validation of a single data product against a user-specified XML Catalog:
@@ -142,12 +155,12 @@
         </source>
 
         <p><b><i>Validating Against Label Specified Schemas and Schematrons</i></b></p>
-        
+
         <p>The following command demonstrates forcing the tool to validate against the schemas and schematrons specified in a given label.
         </p>
-        
+
         <source>
-% validate product.xml -f        
+% validate product.xml -f
         </source>
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
@@ -235,6 +248,74 @@
         </p>
       </subsection>
 
+      <subsection name="Referential Integrity Checking">
+        <p>The Validate Tool performs referential integrity checking within a given target when the <i>-i, --integrity-check</i> flag option is specified on the command line. The tool makes one pass through a given target and gathers the LIDVIDs of each product, members within a Bundle product, and members within a Collection product. Then as it validates each product within the target, it will perform the following referential integrity checks:
+        </p>
+
+        <p>For Bundle products,
+        </p>
+
+        <ul>
+          <li>Verify that each Collection member of a Bundle is present within the given target.</li>
+          <li>Verify that each Collection member of a Bundle is referenced only once within the given target.</li>
+        </ul>
+
+        <p>For Collection products,
+        </p>
+
+        <ul>
+          <li>Verify that each Collection product is referenced by a Bundle product within the given target.</li>
+          <li>Verify that each Product member of a Collection is present within the given target.</li>
+          <li>Verify that each Product member of a Collection is referenced only once within the given target.</li>
+        </ul>
+
+        <p>All other products are assumed to be members of a Collection. So for these, the tool will verify that each product is referenced by a Collection product within the given target.
+        </p>
+
+        <p>It is important to note that the tool only performs referential integrity checking on the targets that the tool is given. For example, if the target passed in points to a directory containing just a Collection product and its members, the tool will not report that the Collection product is not referenced by a Bundle product.
+        </p>
+
+        <p>The report will record verified references under the <i>INFO</i> message severity level. So in order to see these messages, run the tool with the verbose level set to <i>1</i> to produce a report with the INFO messages. The following command demonstrates running the tool with the severity level set to <i>INFO</i> and above:
+        </p>
+
+        <source>
+% validate ${HOME}/bundle1 -e "*.xml" -i -v1
+        </source>
+
+        <p>Below is a snippet of an example report of a validation run with integrity checking turned on and the severity level set to <i>INFO</i> and above:
+        </p>
+
+        <source>
+        ...
+
+  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse::1.0' is a member of the following bundle: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
+      INFO  The member 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+
+  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is a member of the following collection: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+
+  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/Collection_context.xml
+      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:context::1.0' is a member of the following bundle: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
+      INFO  The member 'urn:nasa:pds:context:instrument_host:instrument_host.vg2::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:instrument:instrument.pls__vg2::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:investigation:mission.voyager::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:target:planet.jupiter::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+
+        ...
+        </source>
+
+        <p>In the case that 2 targets are specified on the command line, the tool will treat each target as a separate entity when performing referential integrity checking. As an example, the following command demonstrates performing referential integrity on 2 different bundles:
+        </p>
+
+        <source>
+% validate ${HOME}/bundle1, ${HOME}/bundle2 -e "*.xml" -i
+        </source>
+
+        <p>The tool will perform referential integrity checking within the products located in the <i>${HOME}/bundle1</i> target, then will perform referential integrity checking within the products located in the <i>${HOME}/bundle2</i> target. In other words, the tool will not cross over to the <i>${HOME}/bundle2</i> directory to find LID/LIDVID references of a product in the <i>${HOME}/bundle1</i> directory.
+        </p>
+      </subsection>
+
       <subsection name="Using an XML Catalog">
         <p>An XML Catalog allows the user to describe a mapping between external entity references in their products and locally-available XML Schema documents. This feature of the tool is not fully implemented and needs to be exercised with multiple PDS scenarios, but it is available to experiment with in this release. The following is an example XML Catalog file for validating the Data Provider's Handbook (DPH) example bundle. The file maps the PDS namespace to a local copy of the PDS4 Ops XML Schema document and the DPH namespace to a local copy of the DPH example dictionary XML Schema document.
         </p>
@@ -284,10 +365,12 @@
         <table>
           <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
           <tr><td>validate.target</td><td>-t, --target</td></tr>
+          <tr><td>validate.integrity</td><td>-i, --integrity-check</td></tr>
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
+          <tr><td>validate.verbose</td><td>-v, --verbose</td></tr>
           <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>

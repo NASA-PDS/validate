@@ -33,13 +33,30 @@ public class Target {
   public boolean isDir() {
     return isDir;
   }
-  
+
   public String toString() {
     try {
       return url.toURI().toString();
     } catch (URISyntaxException e) {
       return url.toString();
     }
-    
   }
+
+  public boolean equals(Object obj) {
+    Target otherTarget = (Target) obj;
+    if ( (this.url.equals(otherTarget.getUrl())) &&
+        (this.isDir == otherTarget.isDir()) ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public int hashCode() {
+    int hash = 7;
+    hash = 31 * hash + (null == url ? 0 : url.hashCode());
+    hash = 31 * hash + (isDir ? 0 : 1);
+    return hash;
+  }
+
 }
