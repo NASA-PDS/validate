@@ -1,4 +1,4 @@
-// Copyright 2006-2013, by the California Institute of Technology.
+// Copyright 2006-2014, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -19,7 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
@@ -58,31 +61,35 @@ public class URLCrawler extends Crawler {
    */
   public List<Target> crawl(URL url) throws IOException {
     Document doc = Jsoup.connect(url.toString()).get();
-    List<Target> results = new ArrayList<Target>();
+    Set<Target> results = new LinkedHashSet<Target>();
     for (Element file : doc.select("a")) {
       String value = file.attr("abs:href");
-      //Check if the value has a 3-character extension. If so, it is most likely a file
-      if (FilenameUtils.getExtension(value).length() == 3) {
-        if (fileFilter.accept(new File(value))) {
-          results.add(new Target(new URL(value), false));
-        }
-      } else {
-        //Assume that any href values found that contain a '?' or '#' are
-        //links to things other than files and directories. So we can skip
-        //over them.
-        if (getDirectories &&
-            value.indexOf('#') == -1 &&
-            value.indexOf('?') == -1) {
-          URL absHref = new URL(value);
-          String parentUrl = new File(url.getFile()).getParent();
-          String parentHref = new File(absHref.getFile()).toString();
-          //Check to see if the directory value is a link to the parent
-          if (!parentUrl.equalsIgnoreCase(parentHref)) {
-            results.add(new Target(absHref, true));
+      // Check if the given url is a subset of the href value. If it is,
+      // assume it is a file or a directory we will need to process.
+      if (value.contains(url.toString())) {
+        //Check if the value has a 3-character extension. If so, it is most likely a file
+        if (FilenameUtils.getExtension(value).length() == 3) {
+          if (fileFilter.accept(new File(value))) {
+            results.add(new Target(new URL(value), false));
+          }
+        } else {
+          //Assume that any href values found that contain a '?' or '#' are
+          //links to things other than files and directories. So we can skip
+          //over them.
+          if (getDirectories &&
+              value.indexOf('#') == -1 &&
+              value.indexOf('?') == -1) {
+            URL absHref = new URL(value);
+            String parentUrl = new File(url.getFile()).getParent();
+            String parentHref = new File(absHref.getFile()).toString();
+            //Check to see if the directory value is a link to the parent
+            if (!parentUrl.equalsIgnoreCase(parentHref)) {
+              results.add(new Target(absHref, true));
+            }
           }
         }
       }
     }
-    return results;
+    return new ArrayList<Target>(results);
   }
 }
