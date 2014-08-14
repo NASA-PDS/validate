@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.WordUtils;
 
 public class XmlReport extends Report {
 
@@ -34,39 +35,17 @@ public class XmlReport extends Report {
     writer.println("  <configuration>");
     for (String config : configurations) {
       String[] tokens = config.trim().split("\\s{2,}+", 2);
-      String key = tokens[0].replaceAll("\\s", "").toUpperCase();
-      if ("CORESCHEMAS".equals(key)) {
-        writer.println("    <coreSchemas>" + tokens[1] + "</coreSchemas>");
-      } else if ("DATE".equals(key)) {
-        writer.println("    <date>" + tokens[1] + "</date>");
-      } else if ("CORESCHEMATRONS".equals(key)) {
-        writer.println("    <coreSchematrons>" + tokens[1] + "</coreSchematrons>");
-      } else if ("VERSION".equals(key)) {
-        writer.println("    <version>" + tokens[1] + "</version>");
-      } else if ("MODELVERSION".equals(key)) {
-        writer.println("    <modelVersion>" + tokens[1] + "</modelVersion>");
-      }
+      String key = tokens[0].replaceAll("\\s", "");
+      writer.println("    <" + WordUtils.uncapitalize(key) + ">" + tokens[1]
+          + "</" + WordUtils.uncapitalize(key) + ">");
     }
     writer.println("  </configuration>");
     writer.println("  <parameters>");
     for (String param : parameters) {
       String[] tokens = param.trim().split("\\s{2,}+", 2);
-      String key = tokens[0].replaceAll("\\s", "").toUpperCase();
-      if ("TARGETS".equals(key)) {
-        writer.println("    <targets>" + tokens[1] + "</targets>");
-      } else if ("USERSPECIFIEDSCHEMAS".equals(key)) {
-        writer.println("    <userSpecifiedSchemas>" + tokens[1] + "</userSpecifiedSchemas>");
-      } else if ("USERSPECIFIEDCATALOGS".equals(key)) {
-        writer.println("    <userSpecifiedCatalogs>" + tokens[1] + "</userSpecifiedCatalogs>");
-      } else if ("USERSPECIFIEDSCHEMATRONS".equals(key)) {
-        writer.println("    <userSpecifiedSchematrons>" + tokens[1] + "</userSpecifiedSchematrons>");
-      } else if ("SEVERITYLEVEL".equals(key)) {
-        writer.println("    <severityLevel>" + tokens[1] + "</severityLevel>");
-      } else if ("RECURSEDIRECTORIES".equals(key)) {
-        writer.println("    <recurseDirectories>" + tokens[1] + "</recurseDirectories>");
-      } else if ("FILEFILTERSUSED".equals(key)) {
-        writer.println("    <fileFiltersUsed>" + tokens[1] + "</fileFiltersUsed>");
-      }
+      String key = tokens[0].replaceAll("\\s","");
+      writer.println("    <" + WordUtils.uncapitalize(key) + ">" + tokens[1]
+          + "</" + WordUtils.uncapitalize(key) + ">");
     }
     writer.println("  </parameters>");
   }
