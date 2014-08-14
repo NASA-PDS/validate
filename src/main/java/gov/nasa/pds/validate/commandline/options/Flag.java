@@ -20,10 +20,10 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public enum Flag {
-  
+
   CATALOG("C", "catalog", "catalog files", String.class, true,
       "Specify catalog files to use during validation."),
-  
+
   /** Flag to specify a configuration file to configure the tool behavior.
    */
   CONFIG("c", "config", "file", String.class, "Specify a configuration "
@@ -36,7 +36,7 @@ public enum Flag {
   REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
       + "to look for when validating a directory. Each pattern should "
       + "be surrounded by quotes. (i.e. -e \"*.xml\")"),
-      
+
   /**
    * Flag to force the tool to perform validation against the schema and
    * schematron specified in a given label.
@@ -54,20 +54,28 @@ public enum Flag {
    */
   INTEGRITY("i", "integrity-check", "Perform referential integrity on the "
       + "given targets."),
-  
+
   /**
    * Flag that disables recursion when traversing a target directory.
    */
   LOCAL("L", "local", "Validate files only in the target directory rather "
       + "than recursively traversing down the subdirectories."),
-  
+
+  /**
+   * Flag to specify one or more checksum manifest files in order to
+   * perform checksum validation.
+   */
+  CHECKSUM_MANIFEST("M", "checksum-manifest", "files", String.class, true,
+      "Specify a checksum manifest file to perform checksum validation "
+      + "against the targets being validated."),
+
   /**
    * Flag to specify a model version to use during validation.
    */
   MODEL("m", "model-version", "version", String.class, "Specify a model "
       + "version to use during validation. The default is to use the "
       + "latest model."),
-      
+
   /**
    * Flag to specify a report file name.
    */
@@ -79,7 +87,7 @@ public enum Flag {
    */
   SCHEMATRON("S", "schematron", "schematron files", String.class, true,
     "Specify schematron files."),
-      
+
   /**
    * Flag to specify the report style.
    *
@@ -102,7 +110,7 @@ public enum Flag {
    * Displays the tool version.
    */
   VERSION("V", "version", "Display application version."),
-  
+
   /**
    * Flag to specify the severity level and above to include in the report.
    */

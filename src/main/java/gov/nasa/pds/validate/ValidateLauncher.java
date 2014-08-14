@@ -16,7 +16,9 @@ package gov.nasa.pds.validate;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
+import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.VersionInfo;
+import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
 import gov.nasa.pds.validate.commandline.options.FlagOptions;
@@ -38,7 +40,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import org.apache.commons.cli.CommandLine;
@@ -113,6 +117,12 @@ public class ValidateLauncher {
   private boolean integrityCheck;
 
   /**
+   * A list of checksum manifest files to use for checksum validation.
+   *
+   */
+  private List<URL> checksumManifests;
+
+  /**
    * Constructor.
    *
    */
@@ -122,6 +132,7 @@ public class ValidateLauncher {
     catalogs = new ArrayList<String>();
     schemas = new ArrayList<String>();
     schematrons = new ArrayList<String>();
+    checksumManifests = new ArrayList<URL>();
     reportFile = null;
     traverse = true;
     severity = ExceptionType.WARNING;
@@ -210,6 +221,8 @@ public class ValidateLauncher {
         setForce(true);
       } else if (Flag.INTEGRITY.getShortName().equals(o.getOpt())) {
         setIntegrityCheck(true);
+      } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
+        setChecksumManifests(o.getValuesList());
       }
     }
     if (!targetList.isEmpty()) {
@@ -290,6 +303,11 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.INTEGRITY)) {
         setIntegrityCheck(config.getBoolean(ConfigKey.INTEGRITY));
       }
+      if (config.containsKey(ConfigKey.CHECKSUM)) {
+        List<String> list = config.getList(ConfigKey.CHECKSUM);
+        list = Utility.removeQuotes(list);
+        setChecksumManifests(list);
+      }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
     }
@@ -313,6 +331,28 @@ public class ValidateLauncher {
       } catch (MalformedURLException u) {
         File file = new File(t);
         this.targets.add(file.toURI().normalize().toURL());
+      }
+    }
+  }
+
+  /**
+   * Set the checksum manifests.
+   *
+   * @param manifests A list of checksum manifest files.
+   * @throws MalformedURLException
+   */
+  public void setChecksumManifests(List<String> manifests)
+  throws MalformedURLException {
+    this.checksumManifests.clear();
+    while (manifests.remove(""));
+    for (String m : manifests) {
+      URL url = null;
+      try {
+        url = new URL(m);
+        this.checksumManifests.add(url);
+      } catch (MalformedURLException u) {
+        File file = new File(m);
+        this.checksumManifests.add(file.toURI().normalize().toURL());
       }
     }
   }
@@ -536,6 +576,9 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Referential Integrity Check   off");
     }
+    if (!checksumManifests.isEmpty()) {
+      report.addParameter("   Checksum Manifest Files       " + checksumManifests);
+    }
     report.printHeader();
   }
 
@@ -543,11 +586,16 @@ public class ValidateLauncher {
    * Performs validation.
    * @throws Exception
    */
-  public void doValidation() throws Exception {
+  public void doValidation(Map<URL, String> checksumManifest)
+  throws Exception {
     FileValidator cachedFileValidator = null;
     DirectoryValidator cachedDirectoryValidator = null;
     ReferentialIntegrityValidator refIntegrityValidator =
         new ReferentialIntegrityValidator();
+    FileReferenceValidator fileRefValidator = new FileReferenceValidator();
+    if (!checksumManifest.isEmpty()) {
+      fileRefValidator.setChecksumManifest(checksumManifest);
+    }
     for (URL target : targets) {
       if (integrityCheck) {
         refIntegrityValidator.clearSources();
@@ -562,6 +610,7 @@ public class ValidateLauncher {
       if (cachedFileValidator == null) {
         cachedFileValidator = new FileValidator(modelVersion, report);
         cachedFileValidator.setForce(force);
+        cachedFileValidator.addValidator(fileRefValidator);
         if (!schemas.isEmpty()) {
           cachedFileValidator.setSchemas(schemas);
         }
@@ -586,6 +635,7 @@ public class ValidateLauncher {
               cachedDirectoryValidator.setFileFilters(regExps);
               cachedDirectoryValidator.setRecurse(traverse);
               cachedDirectoryValidator.setForce(force);
+              cachedDirectoryValidator.addValidator(fileRefValidator);
               if (!schemas.isEmpty()) {
                 cachedDirectoryValidator.setSchemas(schemas);
               }
@@ -608,6 +658,7 @@ public class ValidateLauncher {
             cachedDirectoryValidator.setFileFilters(regExps);
             cachedDirectoryValidator.setRecurse(traverse);
             cachedDirectoryValidator.setForce(force);
+            cachedDirectoryValidator.addValidator(fileRefValidator);
             if (!schemas.isEmpty()) {
               cachedDirectoryValidator.setSchemas(schemas);
             }
@@ -678,7 +729,15 @@ public class ValidateLauncher {
       CommandLine cmdLine = parse(args);
       query(cmdLine);
       setupReport();
-      doValidation();
+      Map<URL, String> checksumManifestMap = new HashMap<URL, String>();
+      if (!checksumManifests.isEmpty()) {
+        for (URL checksumManifest : checksumManifests) {
+          checksumManifestMap.putAll(
+              ChecksumManifest.read(checksumManifest)
+              );
+        }
+      }
+      doValidation(checksumManifestMap);
       printReportFooter();
     } catch (Exception e) {
       System.out.println(e.getMessage());

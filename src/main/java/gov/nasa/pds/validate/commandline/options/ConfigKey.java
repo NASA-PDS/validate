@@ -39,7 +39,11 @@ public class ConfigKey {
   /** A list of schematron files to validate against. */
   public static final String SCHEMATRON = "validate.schematron";
 
+  /** The catalog file to use during validation. */
   public static final String CATALOG = "validate.catalog";
+
+  /** Property to specify one or more checksum manifest files. */
+  public static final String CHECKSUM = "validate.checksum";
 
   /** The model version to use during validation. */
   public static final String MODEL = "validate.model";
@@ -49,12 +53,12 @@ public class ConfigKey {
 
   /** Configures the report style format. */
   public static final String STYLE = "validate.reportStyle";
-  
-  /** Force the tool to validate against the schema and schematron specified 
-   *  in the label. 
+
+  /** Force the tool to validate against the schema and schematron specified
+   *  in the label.
    */
   public static final String FORCE = "validate.force";
-  
+
   /**
    * Property to enable/disable referential integrity checking.
    */

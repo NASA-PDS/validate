@@ -25,10 +25,13 @@
   <body>
     <release version="1.6.0" date="TBD" description="TBD">
       <action dev="mcayanan" type="add" issue="PDS-84">
-        Validate: Tool should allow the schema and schematron files specified in the labels to be used for validation. Inherited from core.
+        Tool should allow the schema and schematron files specified in the labels to be used for validation. Inherited from core.
       </action>
       <action dev="mcayanan" type="add" issue="PDS-280">
-        Validate: Add support for bundle and collection integrity checking
+        Added support for bundle and collection integrity checking
+      </action>
+      <action dev="mcayanan" type="add" issue="PDS-287">
+        Added support for reading a checksum file for use in checksum validation. Inherited from core.
       </action>
       <action dev="mcayanan" type="update">
         Refactored the code so that schemas/schematrons are only loaded once per execution run in order to improve tool performance.

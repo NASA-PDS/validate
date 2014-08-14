@@ -59,7 +59,7 @@
           <tr><th>Command-Line Option</th><th>Description</th></tr>
           <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
           <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1201</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i> and <i>1200</i>.</td></tr>
+          <tr><td>-M, --checksum-manifest &lt;file(s)&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation.</td></tr>
           <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
           <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
           <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
@@ -67,6 +67,7 @@
           <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
           <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1201</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i> and <i>1200</i>.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
           <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
           <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
@@ -84,6 +85,7 @@
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating with Referential Integrity Checking</li>
+          <li>Validating Against a Checksum Manifest File</li>
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
@@ -135,6 +137,21 @@
         <source>
 % validate ${HOME}/bundle -i
         </source>
+
+        <p><b><i>Validating Against a Checksum Manifest File</i></b></p>
+
+        <p>By default, the tool performs checksum validation against the file references specified in a product label. It generates an MD5 checksum for each file reference found and verifies that the generated checksum value matches the supplied checksum in the product label. When a Checksum Manifest file is passed into the tool, the tool will additionally verify that each generated checksum matches the supplied checksum in the given manifest file.
+        </p>
+
+        <p>The following command demonstrates validating a bundle target against a Checksum Manifest file:
+        </p>
+
+        <source>
+% validate ${HOME}/bundle -M ${HOME}/bundle_checksums.txt
+        </source>
+
+        <p>Note that the tool expects the file references specified in the Checksum Manfiest file to either be absolute or relative paths.
+        </p>
 
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
 
@@ -366,6 +383,7 @@
           <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
           <tr><td>validate.target</td><td>-t, --target</td></tr>
           <tr><td>validate.integrity</td><td>-i, --integrity-check</td></tr>
+          <tr><td>validate.checksum</td><td>-M, --checksum-manifest</td></tr>
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
