@@ -32,7 +32,7 @@
   <description>
     The Validate Tool project contains software for validating PDS4 product labels and product data.
   </description>
-  <url>http://pds-cm.jpl.nasa.gov/pds4/preparation/validate/</url>
+  <url>https://pds-cm.jpl.nasa.gov/pds4/preparation/validate/</url>
 
   <licenses>
     <license>
@@ -114,7 +114,7 @@
     <repository>
       <id>pds-repo</id>
       <name>PDS Maven Repository</name>
-      <url>http://pds-cm.jpl.nasa.gov/maven2</url>
+      <url>https://pds-cm.jpl.nasa.gov/maven2</url>
       <releases>
         <enabled>true</enabled>
         <updatePolicy>always</updatePolicy>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!-- 
-  Copyright 2010-2013, by the California Institute of Technology.
+  Copyright 2010-2014, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology 
   Transfer at the California Institute of Technology.
@@ -19,7 +19,7 @@
 <project name="Validate Tool">
   <bannerLeft>
     <src>images/pds4_logo.png</src>
-    <href>http://pds-cm.jpl.nasa.gov/pds4/</href>
+    <href>https://pds-cm.jpl.nasa.gov/pds4/</href>
   </bannerLeft>
 
   <bannerRight>
@@ -30,7 +30,7 @@
 
   <body>
     <links>
-      <item name="Validate" href="http://pds-cm.jpl.nasa.gov/pds4/preparation/validate/index.html" />
+      <item name="Validate" href="https://pds-cm.jpl.nasa.gov/pds4/preparation/validate/index.html" />
     </links>
 
     <menu name="Software Documentation">
