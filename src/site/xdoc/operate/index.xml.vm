@@ -67,7 +67,7 @@
           <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
           <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
           <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1201</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i> and <i>1200</i>.</td></tr>
+          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1300</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i>, <i>1200</i> and <i>1201</i>.</td></tr>
           <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
           <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
           <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
@@ -150,7 +150,7 @@
 % validate ${HOME}/bundle -M ${HOME}/bundle_checksums.txt
         </source>
 
-        <p>Note that the tool expects the file references specified in the Checksum Manfiest file to either be absolute or relative paths.
+        <p>Note that the tool expects the file references specified in the Checksum Manifest file to either be absolute or relative paths.
         </p>
 
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>

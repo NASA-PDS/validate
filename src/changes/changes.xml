@@ -33,6 +33,9 @@
       <action dev="mcayanan" type="add" issue="PDS-287">
         Added support for reading a checksum file for use in checksum validation. Inherited from core.
       </action>
+      <action dev="shardman" type="add">
+        Added in the 1300 version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>
       <action dev="mcayanan" type="update">
         Refactored the code so that schemas/schematrons are only loaded once per execution run in order to improve tool performance.
       </action>
