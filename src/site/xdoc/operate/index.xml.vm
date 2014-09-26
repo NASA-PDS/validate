@@ -29,16 +29,9 @@
       </p>
 
       <ul>
-        <li><a href="#Tool_Execution">Tool Execution</a></li>
-        <ul>
-          <li><a href="#Command-Line_Options">Command-Line Options</a></li>
-          <li><a href="#Running_the_Validate_Tool">Running the Validate Tool</a></li>
-          <li><a href="#Specifying_Targets">Specifying Targets</a></li>
-          <li><a href="#Referential_Integrity_Checking">Referential Integrity Checking</a></li>
-          <li><a href="#Using_an_XML_Catalog">Using an XML Catalog</a></li>
-          <li><a href="#Using_a_Configuration_File">Using a Configuration File</a></li>
-          <li><a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a></li>
-        </ul>
+        <li><a href="#Quick_Start">Quick Start</a></li>
+        <li><a href="#Command-Line_Options">Command-Line Options</a></li>
+        <li><a href="#Advanced_Usage">Advanced Usage</a></li>
         <li><a href="#Report_Format">Report Format</a></li>
         <li><a href="#Common_Errors">Common Errors</a></li>
       </ul>
@@ -47,41 +40,69 @@
       </p>
     </section>
 
-    <section name="Tool Execution">
-      <p>The Validate Tool can be executed in various ways. This section describes how to run the tool, as well as its behaviors and caveats.
+    <section name="Quick Start">
+      <p>This section is intended to give a quick and easy way to run the Validate Tool. For a more detailed explanation on other ways to run the tool, go to the <a href="#Advanced_Usage">Advanced Usage</a> section.
       </p>
 
-      <subsection name="Command-Line Options">
-        <p>The following table describes the command-line options available:
-        </p>
+      <p><b><i>Validating a Product</i></b></p>
 
-        <table>
-          <tr><th>Command-Line Option</th><th>Description</th></tr>
-          <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-          <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
-          <tr><td>-M, --checksum-manifest &lt;file(s)&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation.</td></tr>
-          <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
-          <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
-          <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
-          <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
-          <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
-          <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
-          <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
-          <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1300</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i>, <i>1200</i> and <i>1201</i>.</td></tr>
-          <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
-          <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
-          <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
-          <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
-          <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
-        </table>
-      </subsection>
+      <p>The command below shows the recommended way to validate a single product:
+      </p>
 
-      <subsection name="Running the Validate Tool">
+      <source>
+ % validate product.xml -r validate-report.txt
+      </source>
+
+      <p>This validates the given product against the latest core schema and schematron packaged with the tool and writes the results to a file.
+      </p>
+
+      <p><b><i>Validating a Bundle</i></b></p>
+
+      <p>The command below shows the recommended way to validate a bundle:
+      </p>
+
+      <source>
+% validate $HOME/pds/bundle -e "*.xml" -i -M checksum-manifest.txt -r validate-report.txt
+      </source>
+
+      <p>The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
+      </p>
+    </section>
+
+    <section name="Command-Line Options">
+      <p>The following table describes the command-line options available:
+      </p>
+
+      <table>
+        <tr><th>Command-Line Option</th><th>Description</th></tr>
+        <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
+        <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
+        <tr><td>-M, --checksum-manifest &lt;file(s)&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation.</td></tr>
+        <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
+        <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
+        <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
+        <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
+        <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
+        <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
+        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
+        <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1300</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i>, <i>1200</i> and <i>1201</i>.</td></tr>
+        <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
+        <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
+        <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
+        <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
+        <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
+      </table>
+    </section>
+
+    <section name="Advanced Usage">
+      <p>This section describes more advanced ways to run the tool, as well as its behaviors and caveats.
+      </p>
+
+      <subsection name="Tool Execution">
         <p>This section demonstrates some of the ways that the tool can be executed using the command-line option flags:
         </p>
 
         <ul>
-          <li>Validating a Target File</li>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating with Referential Integrity Checking</li>
@@ -94,15 +115,6 @@
           <li>Ignoring Sub-Directories During Validation</li>
           <li>Changing Tool Behaviors With The Configuration File</li>
         </ul>
-
-        <p><b><i>Validating a Target File</i></b></p>
-
-        <p>The following command demonstrates the validation of a single data product label against the core PDS schemas:
-        </p>
-
-        <source>
-% validate product.xml
-        </source>
 
         <p><b><i>Validating a Target Directory</i></b></p>
 
@@ -305,19 +317,27 @@
         <source>
         ...
 
-  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
-      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse::1.0' is a member of the following bundle: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
-      INFO  The member 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse::1.0' is a member of the following bundle: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
+    INFO  The member 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is referenced in the following product: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
 
-  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
-      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is a member of the following collection: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is a member of the following collection: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
 
-  PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/Collection_context.xml
-      INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:context::1.0' is a member of the following bundle: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
-      INFO  The member 'urn:nasa:pds:context:instrument_host:instrument_host.vg2::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
-      INFO  The member 'urn:nasa:pds:context:instrument:instrument.pls__vg2::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
-      INFO  The member 'urn:nasa:pds:context:investigation:mission.voyager::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
-      INFO  The member 'urn:nasa:pds:context:target:planet.jupiter::1.0' is referenced in the following product: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/Collection_context.xml
+    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:context::1.0' is a member of the following bundle: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
+    INFO  The member 'urn:nasa:pds:context:instrument_host:instrument_host.vg2::1.0' is referenced in the following product: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
+    INFO  The member 'urn:nasa:pds:context:instrument:instrument.pls__vg2::1.0' is referenced in the following product: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
+    INFO  The member 'urn:nasa:pds:context:investigation:mission.voyager::1.0' is referenced in the following product: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+    INFO  The member 'urn:nasa:pds:context:target:planet.jupiter::1.0' is referenced in the following product: \
+    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
 
         ...
         </source>
