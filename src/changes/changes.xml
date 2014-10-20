@@ -24,6 +24,9 @@
 
   <body>
     <release version="1.7.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="fix" issue="PDS-314">
+        Fixed to properly report errors when validating a directory. Inherited from core.
+      </action>
       <action dev="mcayanan" type="fix" issue="PDS-315">
         Fixed to correctly find file references specified in Product_Document products. Inherited from core.
       </action>
