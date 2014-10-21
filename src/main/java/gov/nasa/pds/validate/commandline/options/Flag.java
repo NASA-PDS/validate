@@ -35,7 +35,8 @@ public enum Flag {
    */
   REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
       + "to look for when validating a directory. Each pattern should "
-      + "be surrounded by quotes. (i.e. -e \"*.xml\")"),
+      + "be surrounded by quotes. Default is to look for files ending with "
+      + "a '.xml' or '.XML' file extension."),
 
   /**
    * Flag to force the tool to perform validation against the schema and
@@ -52,8 +53,8 @@ public enum Flag {
   /**
    * Flag to perform referential integrity checking.
    */
-  INTEGRITY("i", "integrity-check", "Perform referential integrity on the "
-      + "given targets."),
+  INTEGRITY("i", "integrity-check", "Perform referential integrity checking "
+      + "on the given target directory or directories."),
 
   /**
    * Flag that disables recursion when traversing a target directory.
