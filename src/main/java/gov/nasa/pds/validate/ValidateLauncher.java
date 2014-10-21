@@ -123,6 +123,11 @@ public class ValidateLauncher {
   private List<URL> checksumManifests;
 
   /**
+   * Default file filters.
+   */
+  private String[] DEFAULT_FILE_FILTERS = {"*.xml", "*.XML"};
+
+  /**
    * Constructor.
    *
    */
@@ -141,6 +146,7 @@ public class ValidateLauncher {
     reportStyle = "full";
     force = false;
     integrityCheck = false;
+    regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
   }
 
   /**
@@ -234,6 +240,14 @@ public class ValidateLauncher {
             || !catalogs.isEmpty())) {
       throw new InvalidOptionException("Cannot specify user schemas, "
             + "schematrons, and/or catalog files with the 'force' flag option");
+    }
+    if (integrityCheck) {
+      for (URL target : targets) {
+        if (!Utility.toTarget(target).isDir()) {
+          throw new InvalidOptionException("Warning: Target must be a "
+              + "directory specification when performing integrity checking: " + target);
+        }
+      }
     }
   }
 

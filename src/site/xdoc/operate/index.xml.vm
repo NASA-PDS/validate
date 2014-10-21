@@ -62,7 +62,7 @@
       </p>
 
       <source>
-% validate $HOME/pds/bundle -e "*.xml" -i -M checksum-manifest.txt -r validate-report.txt
+% validate $HOME/pds/bundle -i -M checksum-manifest.txt -r validate-report.txt
       </source>
 
       <p>The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
@@ -76,7 +76,7 @@
       <table>
         <tr><th>Command-Line Option</th><th>Description</th></tr>
         <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-        <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
+        <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking on a target directory. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
         <tr><td>-M, --checksum-manifest &lt;file(s)&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation.</td></tr>
         <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
         <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
@@ -84,7 +84,7 @@
         <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
         <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
-        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems.</td></tr>
+        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
         <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>1300</i>). The other models supported in this release include: <i>1000</i>, <i>1100</i>, <i>1101</i>, <i>1200</i> and <i>1201</i>.</td></tr>
         <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
         <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
@@ -111,7 +111,6 @@
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
           <li>Validating Against an Older Version of the PDS4 Data Model</li>
-          <li>Validating Specific Files in a Target Directory</li>
           <li>Ignoring Sub-Directories During Validation</li>
           <li>Changing Tool Behaviors With The Configuration File</li>
         </ul>
@@ -201,18 +200,6 @@
 % validate product.xml -m 1000
         </source>
 
-        <p><b><i>Validating Specific Files in a Target Directory</i></b></p>
-
-        <p>The following command demonstrates the validation of any file that has a <i>.xml</i> extension in a target directory:
-        </p>
-
-        <source>
-% validate /home/pds/collection -e "*.xml"
-        </source>
-
-        <p>Note: File patterns should be surrounded in quotes to avoid having the system shell mistakingly interpreting them. In addition, pattern matching is case-insensitive in Windows, but case-sensitive for other systems.
-        </p>
-
         <p><b><i>Ignoring Sub-Directories During Validation</i></b></p>
 
         <p>By default, the Validate Tool will recursively traverse a target directory during validation. The <i>local</i> flag option is used to tell the Validate Tool to not perform recursion. The following command demonstrates the validation of a target directory without directory recursion:
@@ -278,7 +265,7 @@
       </subsection>
 
       <subsection name="Referential Integrity Checking">
-        <p>The Validate Tool performs referential integrity checking within a given target when the <i>-i, --integrity-check</i> flag option is specified on the command line. The tool makes one pass through a given target and gathers the LIDVIDs of each product, members within a Bundle product, and members within a Collection product. Then as it validates each product within the target, it will perform the following referential integrity checks:
+        <p>The Validate Tool performs referential integrity checking within a given target directory when the <i>-i, --integrity-check</i> flag option is specified on the command line. The tool makes one pass through a given target and gathers the LIDVIDs of each product, members within a Bundle product, and members within a Collection product. Assuming that the target directory points to a full PDS4 bundle, the following referential integrity checks are made as the tool validates each product:
         </p>
 
         <p>For Bundle products,
@@ -301,14 +288,21 @@
         <p>All other products are assumed to be members of a Collection. So for these, the tool will verify that each product is referenced by a Collection product within the given target.
         </p>
 
-        <p>It is important to note that the tool only performs referential integrity checking on the targets that the tool is given. For example, if the target passed in points to a directory containing just a Collection product and its members, the tool will not report that the Collection product is not referenced by a Bundle product.
-        </p>
-
-        <p>The report will record verified references under the <i>INFO</i> message severity level. So in order to see these messages, run the tool with the verbose level set to <i>1</i> to produce a report with the INFO messages. The following command demonstrates running the tool with the severity level set to <i>INFO</i> and above:
+        <p>It is important to note that the tool only performs referential integrity checking on the targets that the tool is given. As an example, it is fine to specify a target directory that contains just a Collection product and its members:
         </p>
 
         <source>
-% validate ${HOME}/bundle1 -e "*.xml" -i -v1
+% validate ${HOME}/bundle/collection -i
+        </source>
+
+        <p>In this case, the tool will not report that the given Collection is not referenced by a Bundle product.
+        </p>
+
+        <p>Another thing to note is that the report will record verified references under the <i>INFO</i> message severity level. So in order to see these messages, run the tool with the verbose level set to <i>1</i> to produce a report with the INFO messages. The following command demonstrates running the tool with the severity level set to <i>INFO</i> and above:
+        </p>
+
+        <source>
+% validate ${HOME}/bundle1 -i -v1
         </source>
 
         <p>Below is a snippet of an example report of a validation run with integrity checking turned on and the severity level set to <i>INFO</i> and above:
@@ -373,7 +367,7 @@ PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context
         </p>
 
         <source>
-% validate -t ${HOME}/VG2PLS_archive -e "*.xml" -C catalog.xml \
+% validate -t ${HOME}/VG2PLS_archive -C catalog.xml \
 -x ${HOME}/VG2PLS_archive/schemas/Product_TableChar_tailored_0600h.xsd
         </source>
       </subsection>
