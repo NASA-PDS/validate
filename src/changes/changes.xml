@@ -23,14 +23,6 @@
   </properties>
 
   <body>
-    <release version="1.7.0" date="TBD" description="TBD">
-      <action dev="mcayanan" type="fix" issue="PDS-314">
-        Fixed to properly report errors when validating a directory. Inherited from core.
-      </action>
-      <action dev="mcayanan" type="fix" issue="PDS-315">
-        Fixed to correctly find file references specified in Product_Document products. Inherited from core.
-      </action>
-    </release>
     <release version="1.6.0" date="2014-09-30" description="This release of the Validate Tool is a component of the integrated release 5.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-84">
         Tool should allow the schema and schematron files specified in the labels to be used for validation. Inherited from core.
@@ -40,6 +32,15 @@
       </action>
       <action dev="mcayanan" type="add" issue="PDS-287">
         Added support for reading a checksum file for use in checksum validation. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-314">
+        Fixed to properly report errors when validating a directory. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-315">
+        Fixed to correctly find file references specified in Product_Document products. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-316">
+        Clarify and check for proper usage of referential integrity feature and update documentation accordingly. This also includes defaulting the file filter (-e option) to *.xml and *.XML. This can be overridden by specifying the option on the command-line.
       </action>
       <action dev="shardman" type="add">
         Added in the 1300 and 1301 versions of the schema and schematron and set as default for this release. Inherited from core.
