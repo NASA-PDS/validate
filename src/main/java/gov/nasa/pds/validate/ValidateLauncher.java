@@ -244,8 +244,8 @@ public class ValidateLauncher {
     if (integrityCheck) {
       for (URL target : targets) {
         if (!Utility.toTarget(target).isDir()) {
-          throw new InvalidOptionException("Warning: Target must be a "
-              + "directory specification when performing integrity checking: " + target);
+          throw new InvalidOptionException("Must specify a target directory "
+              + "when performing integrity checking: " + target);
         }
       }
     }
