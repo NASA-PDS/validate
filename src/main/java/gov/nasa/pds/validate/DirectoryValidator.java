@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
 
 import org.xml.sax.SAXParseException;
 
@@ -51,10 +52,12 @@ public class DirectoryValidator extends FileValidator {
    * @param report A Report object to output the results.
    * @throws ParserConfigurationException
    * @throws ValidatorException
+   * @throws TransformerConfigurationException
    *
    */
   public DirectoryValidator(String modelVersion, Report report)
-      throws ParserConfigurationException, ValidatorException {
+      throws ParserConfigurationException, ValidatorException,
+      TransformerConfigurationException {
     super(modelVersion, report);
     recurse = true;
     fileFilters = new ArrayList<String>();

@@ -16,6 +16,7 @@ package gov.nasa.pds.validate.util;
 import gov.nasa.pds.validate.target.Target;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
@@ -52,6 +53,17 @@ public class Utility {
     string = string.replace(0, 1,"");
     string = string.replace(string.lastIndexOf("}"), string.lastIndexOf("}")+1, "");
     return string.toString().trim();
+  }
+
+  public static URL toURL (String target) throws MalformedURLException {
+    URL url = null;
+    try {
+      url = new URL(target);
+    } catch (MalformedURLException u) {
+      File file = new File(target);
+      url = file.toURI().normalize().toURL();
+    }
+    return url;
   }
 
   public static Target toTarget(URL target) {

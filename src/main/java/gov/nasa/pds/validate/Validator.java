@@ -13,10 +13,13 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.LabelValidator;
+import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.validate.report.Report;
+import gov.nasa.pds.validate.schema.SchemaValidator;
 
 import java.io.File;
 import java.net.URL;
@@ -24,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 
 import org.xml.sax.SAXException;
 
@@ -45,18 +50,36 @@ public abstract class Validator {
   protected List<String> schemas;
 
   /**
-   * A list of user specified schematrons to validate against.
-   *
-   */
-  protected List<String> schematrons;
-
-  /**
    * A list of user specified catalogs to use during validation.
    *
    */
   protected List<String> catalogs;
 
+  /**
+   * LabelValidator object.
+   */
   protected LabelValidator labelValidator;
+
+  /**
+   * Flag to force validation against a label's schema and schematron.
+   */
+  protected boolean force;
+
+  /**
+   * Schema validator.
+   */
+  protected SchemaValidator schemaValidator;
+
+  /**
+   * A SchematronTransformer object.
+   */
+  protected SchematronTransformer schematronTransformer;
+
+  /**
+   * Resolver that holds byte streams of entities that have already been
+   * read.
+   */
+  protected CachedEntityResolver cachedEntityResolver;
 
   /**
    * Constructor.
@@ -66,14 +89,19 @@ public abstract class Validator {
    *  run.
    * @throws ParserConfigurationException
    * @throws ValidatorException
+   * @throws TransformerConfigurationException
    */
   public Validator(String modelVersion, Report report)
-      throws ParserConfigurationException, ValidatorException {
+      throws ParserConfigurationException, ValidatorException,
+      TransformerConfigurationException {
     this.report = report;
-    this.schematrons = new ArrayList<String>();
     this.catalogs = new ArrayList<String>();
     this.labelValidator = new LabelValidator();
     this.labelValidator.setModelVersion(modelVersion);
+    this.force = false;
+    cachedEntityResolver = new CachedEntityResolver();
+    schemaValidator = new SchemaValidator(cachedEntityResolver);
+    schematronTransformer = new SchematronTransformer();
   }
 
   /**
@@ -86,8 +114,8 @@ public abstract class Validator {
    * @throws SAXException
    *
    */
-  public void setSchemas(List<String> schemaFiles) throws SAXException {
-    labelValidator.setSchema(schemaFiles.toArray(new String[0]));
+  public void setSchemas(List<URL> schemaFiles) throws SAXException {
+    labelValidator.setSchema(schemaFiles);
   }
 
   /**
@@ -95,8 +123,8 @@ public abstract class Validator {
    *
    * @param schematronFiles A list of schematron files.
    */
-  public void setSchematrons(List<String> schematronFiles) {
-    labelValidator.setSchematronFiles(schematronFiles.toArray(new String[0]));
+  public void setSchematrons(List<Transformer> schematrons) {
+    labelValidator.setSchematrons(schematrons);
   }
 
   /**
@@ -111,6 +139,7 @@ public abstract class Validator {
   public void setForce(boolean value) {
     labelValidator.setSchemaCheck(true, value);
     labelValidator.setSchematronCheck(true, value);
+    force = value;
   }
 
   public void addValidator(DocumentValidator validator) {

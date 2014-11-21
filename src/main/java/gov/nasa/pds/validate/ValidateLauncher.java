@@ -13,9 +13,12 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.CachedEntityResolver;
+import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
+import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
@@ -27,6 +30,7 @@ import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
+import gov.nasa.pds.validate.schema.SchemaValidator;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
@@ -45,6 +49,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -55,8 +63,6 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
@@ -80,12 +86,12 @@ public class ValidateLauncher {
   private List<String> regExps;
 
   /** A list of user-given schemas to validate against. */
-  private List<String> schemas;
+  private List<URL> schemas;
 
   /** A list of catalog files to use during validation. */
   private List<String> catalogs;
 
-  private List<String> schematrons;
+  private List<URL> schematrons;
 
   /** A report file. */
   private File reportFile;
@@ -127,16 +133,23 @@ public class ValidateLauncher {
    */
   private String[] DEFAULT_FILE_FILTERS = {"*.xml", "*.XML"};
 
+  private SchemaValidator schemaValidator;
+
+  private SchematronTransformer schematronTransformer;
+
+  private List<Transformer> transformedSchematrons;
+
   /**
    * Constructor.
+   * @throws TransformerConfigurationException
    *
    */
-  public ValidateLauncher() {
+  public ValidateLauncher() throws TransformerConfigurationException {
     targets = new ArrayList<URL>();
     regExps = new ArrayList<String>();
     catalogs = new ArrayList<String>();
-    schemas = new ArrayList<String>();
-    schematrons = new ArrayList<String>();
+    schemas = new ArrayList<URL>();
+    schematrons = new ArrayList<URL>();
     checksumManifests = new ArrayList<URL>();
     reportFile = null;
     traverse = true;
@@ -147,6 +160,9 @@ public class ValidateLauncher {
     force = false;
     integrityCheck = false;
     regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
+    schemaValidator = new SchemaValidator(new CachedEntityResolver());
+    schematronTransformer = new SchematronTransformer();
+    transformedSchematrons = new ArrayList<Transformer>();
   }
 
   /**
@@ -375,20 +391,27 @@ public class ValidateLauncher {
    * Set the schemas.
    *
    * @param schemas A list of schemas.
+   * @throws MalformedURLException
    */
-  public void setSchemas(List<String> schemas) {
+  public void setSchemas(List<String> schemas) throws MalformedURLException {
     while (schemas.remove(""));
-    this.schemas.addAll(schemas);
+    for (String schema : schemas) {
+      this.schemas.add(Utility.toURL(schema));
+    }
   }
 
   /**
    * Set the schematrons.
    *
    * @param schematrons A list of schematrons.
+   * @throws MalformedURLException
    */
-  public void setSchematrons(List<String> schematrons) {
+  public void setSchematrons(List<String> schematrons)
+      throws MalformedURLException {
     while (schematrons.remove(""));
-    this.schematrons.addAll(schematrons);
+    for (String schematron: schematrons) {
+      this.schematrons.add(Utility.toURL(schematron));
+    }
   }
 
   /**
@@ -602,14 +625,13 @@ public class ValidateLauncher {
    */
   public void doValidation(Map<URL, String> checksumManifest)
   throws Exception {
-    FileValidator cachedFileValidator = null;
-    DirectoryValidator cachedDirectoryValidator = null;
     ReferentialIntegrityValidator refIntegrityValidator =
         new ReferentialIntegrityValidator();
     FileReferenceValidator fileRefValidator = new FileReferenceValidator();
     if (!checksumManifest.isEmpty()) {
       fileRefValidator.setChecksumManifest(checksumManifest);
     }
+    ValidatorFactory factory = ValidatorFactory.getInstance();
     for (URL target : targets) {
       if (integrityCheck) {
         refIntegrityValidator.clearSources();
@@ -620,73 +642,27 @@ public class ValidateLauncher {
         System.out.println("Finished gathering LIDVIDs, bundle and "
             + "collection members from the given target: " + target);
       }
-      Validator validator = null;
-      if (cachedFileValidator == null) {
-        cachedFileValidator = new FileValidator(modelVersion, report);
-        cachedFileValidator.setForce(force);
-        cachedFileValidator.addValidator(fileRefValidator);
+      try {
+        Validator validator = factory.newInstance(target, modelVersion, report);
+        validator.setForce(force);
+        validator.addValidator(fileRefValidator);
+        if (integrityCheck) {
+          validator.addValidator(refIntegrityValidator);
+        }
+        if (validator instanceof DirectoryValidator) {
+          DirectoryValidator dv = (DirectoryValidator) validator;
+          dv.setFileFilters(regExps);
+          dv.setRecurse(traverse);
+          validator = dv;
+        }
         if (!schemas.isEmpty()) {
-          cachedFileValidator.setSchemas(schemas);
+          validator.setSchemas(schemas);
         }
         if (!catalogs.isEmpty()) {
-          cachedFileValidator.setCatalogs(catalogs);
+          validator.setCatalogs(catalogs);
         }
-        if (!schematrons.isEmpty()) {
-          cachedFileValidator.setSchematrons(schematrons);
-        }
-        if (integrityCheck) {
-          cachedFileValidator.addValidator(refIntegrityValidator);
-        }
-      }
-      validator = cachedFileValidator;
-      try {
-        if (target.getProtocol().equalsIgnoreCase("file")) {
-          File file = FileUtils.toFile(target);
-          if (file.isDirectory()) {
-            if (cachedDirectoryValidator == null) {
-              cachedDirectoryValidator = new DirectoryValidator(modelVersion,
-                report);
-              cachedDirectoryValidator.setFileFilters(regExps);
-              cachedDirectoryValidator.setRecurse(traverse);
-              cachedDirectoryValidator.setForce(force);
-              cachedDirectoryValidator.addValidator(fileRefValidator);
-              if (!schemas.isEmpty()) {
-                cachedDirectoryValidator.setSchemas(schemas);
-              }
-              if (!catalogs.isEmpty()) {
-                cachedDirectoryValidator.setCatalogs(catalogs);
-              }
-              if (!schematrons.isEmpty()) {
-                cachedDirectoryValidator.setSchematrons(schematrons);
-              }
-              if (integrityCheck) {
-                cachedDirectoryValidator.addValidator(refIntegrityValidator);
-              }
-            }
-            validator = cachedDirectoryValidator;
-          }
-        } else if ("".equals(FilenameUtils.getExtension(target.toString()))) {
-          if (cachedDirectoryValidator == null) {
-            cachedDirectoryValidator = new DirectoryValidator(modelVersion,
-              report);
-            cachedDirectoryValidator.setFileFilters(regExps);
-            cachedDirectoryValidator.setRecurse(traverse);
-            cachedDirectoryValidator.setForce(force);
-            cachedDirectoryValidator.addValidator(fileRefValidator);
-            if (!schemas.isEmpty()) {
-              cachedDirectoryValidator.setSchemas(schemas);
-            }
-            if (!catalogs.isEmpty()) {
-              cachedDirectoryValidator.setCatalogs(catalogs);
-            }
-            if (!schematrons.isEmpty()) {
-              cachedDirectoryValidator.setSchematrons(schematrons);
-            }
-            if (integrityCheck) {
-              cachedDirectoryValidator.addValidator(refIntegrityValidator);
-            }
-          }
-          validator = cachedDirectoryValidator;
+        if (!transformedSchematrons.isEmpty()) {
+          validator.setSchematrons(transformedSchematrons);
         }
         validator.validate(target);
       } catch (Exception e) {
@@ -726,6 +702,53 @@ public class ValidateLauncher {
   }
 
   /**
+   * Transforms a given schematron.
+   *
+   * @param schematron A schematron to transform.
+   * @param container Container to hold problems.
+   *
+   * @return The ISO Schematron transformer associated with the given
+   * schematron.
+   *
+   * @throws TransformerException If an error occurred during the
+   * transform process.
+   */
+  private Transformer transformSchematron(URL schematron,
+      ExceptionContainer container) {
+    Transformer transformer = null;
+    try {
+      transformer = schematronTransformer.transform(schematron,
+          container);
+      return transformer;
+    } catch (Exception e) {
+      container.addException(new LabelException(ExceptionType.FATAL,
+          "Error occurred while processing schematron '"
+          + schematron + "': " + e.getMessage(),
+          schematron.toString()));
+    }
+    return transformer;
+  }
+
+  /**
+   * Validates a given schema.
+   *
+   * @param schema The URL to the schema.
+   *
+   * @return 'true' if the schema was valid, 'false' otherwise.
+   * @throws URISyntaxException
+   */
+  private boolean validateSchema(URL schema) throws URISyntaxException {
+    boolean isValid = true;
+    ExceptionContainer problems = schemaValidator.validate(schema);
+    if (problems.getExceptions().size() != 0) {
+      isValid = false;
+      report.record(schema.toURI(),
+          problems.getExceptions());
+    }
+    return isValid;
+  }
+
+  /**
    * Print the report footer.
    *
    */
@@ -751,9 +774,35 @@ public class ValidateLauncher {
               );
         }
       }
-      doValidation(checksumManifestMap);
+      // Validate schemas and schematrons first before performing label
+      // validation
+      boolean invalidSchemas = false;
+      if (!schemas.isEmpty()) {
+        for (URL schema : schemas) {
+          if (!validateSchema(schema)) {
+            invalidSchemas = true;
+          }
+        }
+      }
+      boolean invalidSchematron = false;
+      if (!schematrons.isEmpty()) {
+        for (URL schematron : schematrons) {
+          ExceptionContainer container = new ExceptionContainer();
+          Transformer transformer = transformSchematron(schematron, container);
+          if (container.getExceptions().size() != 0) {
+            report.record(schematron.toURI(), container.getExceptions());
+            invalidSchematron = true;
+          } else {
+            transformedSchematrons.add(transformer);
+          }
+        }
+      }
+      if ( !(invalidSchemas) && !(invalidSchematron) ) {
+        doValidation(checksumManifestMap);
+      }
       printReportFooter();
     } catch (Exception e) {
+      e.printStackTrace();
       System.out.println(e.getMessage());
     }
   }
@@ -762,8 +811,10 @@ public class ValidateLauncher {
    * Main class that launches the Validate Tool.
    *
    * @param args A list of command-line arguments.
+   * @throws TransformerConfigurationException
    */
-  public static void main(String[] args) {
+  public static void main(String[] args)
+      throws TransformerConfigurationException {
     if (args.length == 0) {
       System.out.println("\nType 'validate -h' for usage");
       System.exit(0);

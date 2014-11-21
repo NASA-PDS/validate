@@ -24,6 +24,12 @@
 
   <body>
     <release version="1.7.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="update" issue="PDS-320">
+        Report if a given XML Schema or Schematron file is invalid.
+      </action>
+      <action dev="mcayanan" type="update">
+        Updated to support schema and schematron URLs. (Inherited from core)
+      </action>
     </release>
 
     <release version="1.6.0" date="2014-09-30" description="This release of the Validate Tool is a component of the integrated release 5.0.0 of the PDS4 System. This is an operational release of the system components to date.">
