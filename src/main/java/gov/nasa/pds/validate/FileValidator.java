@@ -41,6 +41,8 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
 
+import net.sf.saxon.tinytree.TinyNodeImpl;
+
 import org.xml.sax.SAXException;
 
 /**
@@ -216,10 +218,10 @@ public class FileValidator extends Validator {
       ExceptionContainer labelProblems) {
     boolean passFlag = true;
     Map<String, Transformer> results = new HashMap<String, Transformer>();
-    List<String> xmlModels = new ArrayList<String>();
+    List<TinyNodeImpl> xmlModels = new ArrayList<TinyNodeImpl>();
     try {
       XMLExtractor extractor = new XMLExtractor(label);
-      xmlModels = extractor.getXmlModels();
+      xmlModels = extractor.getNodesFromDoc(XMLExtractor.XML_MODEL_XPATH);
     } catch (Exception e) {
       labelProblems.addException(new LabelException(ExceptionType.FATAL,
           "Error occurred while attempting to find schematrons using the XPath '"
@@ -229,11 +231,12 @@ public class FileValidator extends Validator {
       return results;
     }
     Pattern pattern = Pattern.compile(
-        "href=\\\"([^=]+)\\\"( schematypens=\\\"([^=]*)\\\")?"
+        "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")?"
         );
     List<URL> schematronRefs = new ArrayList<URL>();
-    for (String xmlModel : xmlModels) {
-      String filteredData = xmlModel.replaceAll("\\s+", " ");
+    for (TinyNodeImpl xmlModel : xmlModels) {
+      String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");
+      filteredData = filteredData.trim();
       Matcher matcher = pattern.matcher(filteredData);
       if (matcher.matches()) {
         String value = matcher.group(1).trim();
@@ -251,7 +254,10 @@ public class FileValidator extends Validator {
             labelProblems.addException(new LabelException(ExceptionType.ERROR,
                 "Cannot resolve schematron specification '"
                     + value + "': " + mue.getMessage(),
-                    label.toString()));
+                    label.toString(),
+                    label.toString(),
+                    new Integer(xmlModel.getLineNumber()),
+                    null));
             passFlag = false;
             continue;
           } catch (URISyntaxException e) {
