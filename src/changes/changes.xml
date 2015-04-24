@@ -34,7 +34,7 @@
         Enable reporting of line numbers for Schematron errors. (Inherited from core)
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-351">
-        Schema validation fails with certificate issue in Java 6. (Inherited from core)
+        Correct issue where schema validation fails with a certificate issue in Java 6. (Inherited from core)
       </action>
       <action dev="shardman" type="add">
         Added in the 1400 version of the schema and schematron and set as default for this release. (Inherited from core)
