@@ -92,6 +92,15 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
         // Check for missing and duplicate members
         List<LidVid> bundleMembers = this.bundleMembers.get(
             new URL(xml.getSystemId()));
+        List<LidVid> secondaryBundleMembers =
+            this.bundleSecondaryMembers.get(new URL(xml.getSystemId()));
+        if (secondaryBundleMembers != null) {
+          if (bundleMembers == null) {
+            bundleMembers = secondaryBundleMembers;
+          } else {
+            bundleMembers.addAll(secondaryBundleMembers);
+          }
+        }
         if (bundleMembers != null) {
           for (LidVid bundleMember : bundleMembers) {
             List<Map.Entry<URL, LidVid>> matchingMembers =
@@ -101,7 +110,9 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
                 matchingMembers.add(entry);
               }
             }
-            if (matchingMembers.isEmpty()) {
+            if (matchingMembers.isEmpty() &&
+                (secondaryBundleMembers != null &&
+                !secondaryBundleMembers.contains(bundleMember))) {
               container.addException(new LabelException(ExceptionType.WARNING,
                   "The member '" + bundleMember + "' could not be found in "
                       + "any product within the given target.",
@@ -113,7 +124,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() == 1) {
               container.addException(new LabelException(ExceptionType.INFO,
                   "The member '" + bundleMember + "' is identified in "
-                      + "the following product: " + matchingMembers.get(0),
+                      + "the following product: " + matchingMembers.get(0).getKey(),
                   xml.getSystemId(),
                   xml.getSystemId(),
                   null,
@@ -122,17 +133,29 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() > 1) {
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!bundleMember.hasVersion()) {
-                Map<LidVid, List<URL>> matchingLidVids =
+                Map<String, List<URL>> matchingLidVids =
                     findMatchingLidVids(matchingMembers);
-                for (LidVid lidVid : matchingLidVids.keySet()) {
+                boolean foundDuplicates = false;
+                for (String lidVid : matchingLidVids.keySet()) {
                   if (matchingLidVids.get(lidVid).size() > 1) {
                    container.addException(new LabelException(exceptionType,
                        "The member '" + bundleMember + "' is identified "
                        + "in multiple products, but with the same version id '"
-                       + lidVid.getVersion() + "': "
+                       + lidVid.split("::")[1] + "': "
                        + matchingLidVids.get(lidVid).toString(),
                        xml.getSystemId(), xml.getSystemId(), null, null));
+                   foundDuplicates = true;
                   }
+                }
+                if (!foundDuplicates) {
+                  List<URL> urls = new ArrayList<URL>();
+                  for (Map.Entry<URL, LidVid> m : matchingMembers) {
+                    urls.add(m.getKey());
+                  }
+                  container.addException(new LabelException(ExceptionType.INFO,
+                      "The member '" + bundleMember + "' is identified "
+                      + "in multiple products: " + urls.toString(),
+                      xml.getSystemId(), xml.getSystemId(), null, null));
                 }
               } else {
                 List<URL> urls = new ArrayList<URL>();
@@ -197,6 +220,15 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
         // multiple LIDs/LIDVIDs are referencing the same member.
         List<LidVid> collectionMembers = this.collectionMembers.get(
             new URL(xml.getSystemId()));
+        List<LidVid> secondaryCollectionMembers =
+            this.collectionSecondaryMembers.get(new URL(xml.getSystemId()));
+        if (secondaryCollectionMembers != null) {
+          if (collectionMembers == null) {
+            collectionMembers = secondaryCollectionMembers;
+          } else {
+            collectionMembers.addAll(secondaryCollectionMembers);
+          }
+        }
         if (collectionMembers != null) {
           for (LidVid collectionMember : collectionMembers) {
             List<Map.Entry<URL, LidVid>> matchingMembers =
@@ -206,7 +238,9 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
                 matchingMembers.add(entry);
               }
             }
-            if (matchingMembers.isEmpty()) {
+            if (matchingMembers.isEmpty() &&
+                (secondaryCollectionMembers != null &&
+                !secondaryCollectionMembers.contains(collectionMember))) {
               container.addException(new LabelException(ExceptionType.WARNING,
                   "The member '" + collectionMember + "' could not be found in "
                       + "any product within the given target.",
@@ -218,7 +252,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() == 1) {
               container.addException(new LabelException(ExceptionType.INFO,
                   "The member '" + collectionMember + "' is identified in "
-                      + "the following product: " + matchingMembers.get(0),
+                      + "the following product: " + matchingMembers.get(0).getKey(),
                   xml.getSystemId(),
                   xml.getSystemId(),
                   null,
@@ -227,17 +261,29 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() > 1) {
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!collectionMember.hasVersion()) {
-                Map<LidVid, List<URL>> matchingLidVids =
+                Map<String, List<URL>> matchingLidVids =
                     findMatchingLidVids(matchingMembers);
-                for (LidVid lidVid : matchingLidVids.keySet()) {
+                boolean foundDuplicates = false;
+                for (String lidVid : matchingLidVids.keySet()) {
                   if (matchingLidVids.get(lidVid).size() > 1) {
                    container.addException(new LabelException(exceptionType,
                        "The member '" + collectionMember + "' is identified "
                        + "in multiple products, but with the same version id '"
-                       + lidVid.getVersion() + "': "
+                       + lidVid.split("::")[1] + "': "
                        + matchingLidVids.get(lidVid).toString(),
                        xml.getSystemId(), xml.getSystemId(), null, null));
+                   foundDuplicates = true;
                   }
+                }
+                if (!foundDuplicates) {
+                  List<URL> urls = new ArrayList<URL>();
+                  for (Map.Entry<URL, LidVid> m : matchingMembers) {
+                    urls.add(m.getKey());
+                  }
+                  container.addException(new LabelException(ExceptionType.INFO,
+                      "The member '" + collectionMember + "' is identified "
+                      + "in multiple products: " + urls.toString(),
+                      xml.getSystemId(), xml.getSystemId(), null, null));
                 }
               } else {
                 List<URL> urls = new ArrayList<URL>();
@@ -316,16 +362,16 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
     return passFlag;
   }
 
-  public Map<LidVid, List<URL>> findMatchingLidVids(List<Map.Entry<URL, LidVid>> products) {
-    Map<LidVid, List<URL>> results = new HashMap<LidVid, List<URL>>();
+  public Map<String, List<URL>> findMatchingLidVids(List<Map.Entry<URL, LidVid>> products) {
+    Map<String, List<URL>> results = new HashMap<String, List<URL>>();
     for (Map.Entry<URL, LidVid> product : products) {
-      if (results.get(product.getValue()) != null) {
-        List<URL> urls = results.get(product.getValue());
+      if (results.get(product.getValue().toString()) != null) {
+        List<URL> urls = results.get(product.getValue().toString());
         urls.add(product.getKey());
       } else {
         List<URL> urls = new ArrayList<URL>();
         urls.add(product.getKey());
-        results.put(product.getValue(), urls);
+        results.put(product.getValue().toString(), urls);
       }
     }
     return results;
