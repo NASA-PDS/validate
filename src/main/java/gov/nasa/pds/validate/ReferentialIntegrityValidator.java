@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,6 +14,7 @@
 package gov.nasa.pds.validate;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,18 +49,29 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
    */
   private Map<URL, List<LidVid>> bundleMembers;
 
+
+  private Map<URL, List<LidVid>> bundleSecondaryMembers;
+
   /**
    * Intended to contain a mapping of all members of a Collection within
    * a given target.
    */
   private Map<URL, List<LidVid>> collectionMembers;
 
+  /**
+   * Intended to contain a mapping of non-primary members of a Collection
+   * within a given target.
+   */
+  private Map<URL, List<LidVid>> collectionSecondaryMembers;
+
   /** Intended to containin a mapping of all LIDVIDs within a given target. */
   private Map<URL, LidVid> lidVidReferences;
 
   public ReferentialIntegrityValidator() {
     this.bundleMembers = new HashMap<URL, List<LidVid>>();
+    this.bundleSecondaryMembers = new HashMap<URL, List<LidVid>>();
     this.collectionMembers = new HashMap<URL, List<LidVid>>();
+    this.collectionSecondaryMembers = new HashMap<URL, List<LidVid>>();
     this.lidVidReferences = new HashMap<URL, LidVid>();
   }
 
@@ -82,10 +94,11 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             new URL(xml.getSystemId()));
         if (bundleMembers != null) {
           for (LidVid bundleMember : bundleMembers) {
-            List<URL> matchingMembers = new ArrayList<URL>();
+            List<Map.Entry<URL, LidVid>> matchingMembers =
+                new ArrayList<Map.Entry<URL, LidVid>>();
             for (Map.Entry<URL, LidVid> entry : lidVidReferences.entrySet()) {
-              if (entry.getValue().getLid().equals(bundleMember.getLid())) {
-                matchingMembers.add(entry.getKey());
+              if (bundleMember.equals(entry.getValue())) {
+                matchingMembers.add(entry);
               }
             }
             if (matchingMembers.isEmpty()) {
@@ -99,7 +112,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
                );
             } else if (matchingMembers.size() == 1) {
               container.addException(new LabelException(ExceptionType.INFO,
-                  "The member '" + bundleMember + "' is referenced in "
+                  "The member '" + bundleMember + "' is identified in "
                       + "the following product: " + matchingMembers.get(0),
                   xml.getSystemId(),
                   xml.getSystemId(),
@@ -109,16 +122,32 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() > 1) {
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!bundleMember.hasVersion()) {
-                exceptionType = ExceptionType.WARNING;
+                Map<LidVid, List<URL>> matchingLidVids =
+                    findMatchingLidVids(matchingMembers);
+                for (LidVid lidVid : matchingLidVids.keySet()) {
+                  if (matchingLidVids.get(lidVid).size() > 1) {
+                   container.addException(new LabelException(exceptionType,
+                       "The member '" + bundleMember + "' is identified "
+                       + "in multiple products, but with the same version id '"
+                       + lidVid.getVersion() + "': "
+                       + matchingLidVids.get(lidVid).toString(),
+                       xml.getSystemId(), xml.getSystemId(), null, null));
+                  }
+                }
+              } else {
+                List<URL> urls = new ArrayList<URL>();
+                for (Map.Entry<URL, LidVid> m : matchingMembers) {
+                  urls.add(m.getKey());
+                }
+                container.addException(new LabelException(exceptionType,
+                    "The member '" + bundleMember + "' is identified in "
+                        + "multiple products: " + urls.toString(),
+                    xml.getSystemId(),
+                    xml.getSystemId(),
+                    null,
+                    null)
+                 );
               }
-              container.addException(new LabelException(exceptionType,
-                  "The member '" + bundleMember + "' is referenced in "
-                      + "multiple products: " + matchingMembers.toString(),
-                  xml.getSystemId(),
-                  xml.getSystemId(),
-                  null,
-                  null)
-               );
             }
           }
         }
@@ -128,7 +157,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
         boolean found = false;
         for (Map.Entry<URL, List<LidVid>> entry : this.bundleMembers.entrySet()) {
           for (LidVid bundleMember : entry.getValue()) {
-            if (bundleMember.getLid().equals(target.getLid())) {
+            if (bundleMember.equals(target)) {
               found = true;
               container.addException(new LabelException(ExceptionType.INFO,
                   "The lidvid '" + target.toString()
@@ -138,7 +167,23 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             }
           }
         }
-        if (!found && !this.bundleMembers.isEmpty()) {
+        // Need to check the non-primary bundle members list
+        if (!found) {
+          for (Map.Entry<URL, List<LidVid>> entry : this.bundleSecondaryMembers.entrySet()) {
+            for (LidVid nonPrimaryMember : entry.getValue()) {
+              if (nonPrimaryMember.equals(target)) {
+                found = true;
+                container.addException(new LabelException(ExceptionType.INFO,
+                    "The lidvid '" + target.toString()
+                    + "' is a secondary member of the following bundle: "
+                    + entry.getKey(),
+                    xml.getSystemId(), xml.getSystemId(), null, null));
+                break;
+              }
+            }
+          }
+        }
+        if (!found && (!this.bundleMembers.isEmpty() || !this.bundleSecondaryMembers.isEmpty())) {
           container.addException(new LabelException(ExceptionType.WARNING,
               "The lidvid '" + target.toString() + "' is not a member of "
                   + "any bundle within the given target.",
@@ -154,10 +199,11 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             new URL(xml.getSystemId()));
         if (collectionMembers != null) {
           for (LidVid collectionMember : collectionMembers) {
-            List<URL> matchingMembers = new ArrayList<URL>();
+            List<Map.Entry<URL, LidVid>> matchingMembers =
+                new ArrayList<Map.Entry<URL, LidVid>>();
             for (Map.Entry<URL, LidVid> entry : lidVidReferences.entrySet()) {
-              if (entry.getValue().getLid().equals(collectionMember.getLid())) {
-                matchingMembers.add(entry.getKey());
+              if (collectionMember.equals(entry.getValue())) {
+                matchingMembers.add(entry);
               }
             }
             if (matchingMembers.isEmpty()) {
@@ -171,7 +217,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
                );
             } else if (matchingMembers.size() == 1) {
               container.addException(new LabelException(ExceptionType.INFO,
-                  "The member '" + collectionMember + "' is referenced in "
+                  "The member '" + collectionMember + "' is identified in "
                       + "the following product: " + matchingMembers.get(0),
                   xml.getSystemId(),
                   xml.getSystemId(),
@@ -181,16 +227,32 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
             } else if (matchingMembers.size() > 1) {
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!collectionMember.hasVersion()) {
-                exceptionType = ExceptionType.WARNING;
+                Map<LidVid, List<URL>> matchingLidVids =
+                    findMatchingLidVids(matchingMembers);
+                for (LidVid lidVid : matchingLidVids.keySet()) {
+                  if (matchingLidVids.get(lidVid).size() > 1) {
+                   container.addException(new LabelException(exceptionType,
+                       "The member '" + collectionMember + "' is identified "
+                       + "in multiple products, but with the same version id '"
+                       + lidVid.getVersion() + "': "
+                       + matchingLidVids.get(lidVid).toString(),
+                       xml.getSystemId(), xml.getSystemId(), null, null));
+                  }
+                }
+              } else {
+                List<URL> urls = new ArrayList<URL>();
+                for (Map.Entry<URL, LidVid> m : matchingMembers) {
+                  urls.add(m.getKey());
+                }
+                container.addException(new LabelException(exceptionType,
+                    "The member '" + collectionMember + "' is identified in "
+                        + "multiple products: " + urls.toString(),
+                    xml.getSystemId(),
+                    xml.getSystemId(),
+                    null,
+                    null)
+                 );
               }
-              container.addException(new LabelException(exceptionType,
-                  "The member '" + collectionMember + "' is referenced in "
-                      + "multiple products: " + matchingMembers.toString(),
-                  xml.getSystemId(),
-                  xml.getSystemId(),
-                  null,
-                  null)
-               );
             }
           }
         }
@@ -200,18 +262,36 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
         boolean found = false;
         for (Map.Entry<URL, List<LidVid>> entry : this.collectionMembers.entrySet()) {
           for (LidVid collectionMember : entry.getValue()) {
-            if (collectionMember.getLid().equals(target.getLid())) {
+            if (collectionMember.equals(target)) {
               found = true;
               container.addException(new LabelException(ExceptionType.INFO,
-                  "The lidvid '" + target.toString()
-                  + "' is a member of the following collection: "
-                  + entry.getKey(),
-                  xml.getSystemId(), xml.getSystemId(), null, null));
+                "The lidvid '" + target.toString()
+                + "' is a member of the following collection: "
+                + entry.getKey(),
+                xml.getSystemId(), xml.getSystemId(), null, null));
               break;
             }
           }
         }
-        if (!found && !this.collectionMembers.isEmpty()) {
+        // Need to check the non-primary collection members list
+        if (!found) {
+          for (Map.Entry<URL, List<LidVid>> entry : this.collectionSecondaryMembers.entrySet()) {
+            for (LidVid nonPrimaryMember : entry.getValue()) {
+              if (nonPrimaryMember.equals(target)) {
+                found = true;
+                container.addException(new LabelException(ExceptionType.INFO,
+                    "The lidvid '" + target.toString()
+                    + "' is a secondary member of the following collection: "
+                    + entry.getKey(),
+                    xml.getSystemId(), xml.getSystemId(), null, null));
+                break;
+              }
+            }
+          }
+        }
+
+        if ( !found
+            && (!this.collectionMembers.isEmpty() || !this.collectionSecondaryMembers.isEmpty()) ) {
           container.addException(new LabelException(ExceptionType.WARNING,
               "The lidvid '" + target.toString() + "' is not a member of "
                   + "any collection within the given target.",
@@ -236,9 +316,26 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
     return passFlag;
   }
 
+  public Map<LidVid, List<URL>> findMatchingLidVids(List<Map.Entry<URL, LidVid>> products) {
+    Map<LidVid, List<URL>> results = new HashMap<LidVid, List<URL>>();
+    for (Map.Entry<URL, LidVid> product : products) {
+      if (results.get(product.getValue()) != null) {
+        List<URL> urls = results.get(product.getValue());
+        urls.add(product.getKey());
+      } else {
+        List<URL> urls = new ArrayList<URL>();
+        urls.add(product.getKey());
+        results.put(product.getValue(), urls);
+      }
+    }
+    return results;
+  }
+
   public void clearSources() {
     this.bundleMembers.clear();
+    this.bundleSecondaryMembers.clear();
     this.collectionMembers.clear();
+    this.collectionSecondaryMembers.clear();
     this.lidVidReferences.clear();
   }
 
@@ -296,19 +393,31 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
     }
     lidVidReferences.put(target, new LidVid(lid, version));
     if ("Product_Bundle".equalsIgnoreCase(productClass)) {
+      List<LidVid> secondaryLidVids = new ArrayList<LidVid>();
       List<TinyNodeImpl> nodes = extractor.getNodesFromDoc(
           CoreXPaths.BUNDLE_MEMBER_ENTRY);
       for (TinyNodeImpl node : nodes) {
         String reference = extractor.getValueFromItem(
             CoreXPaths.IDENTITY_REFERENCE,
             node);
+        String memberStatus = extractor.getValueFromItem(
+            CoreXPaths.MEMBER_STATUS,
+            node);
         LidVid lidVid = parseIdentifier(reference);
-        lidVids.add(lidVid);
+        if ("Primary".equalsIgnoreCase(memberStatus)) {
+          lidVids.add(lidVid);
+        } else {
+          secondaryLidVids.add(lidVid);
+        }
       }
       if (!lidVids.isEmpty()) {
         this.bundleMembers.put(target, lidVids);
       }
+      if (!secondaryLidVids.isEmpty()) {
+        this.bundleSecondaryMembers.put(target, secondaryLidVids);
+      }
     } else if ("Product_Collection".equalsIgnoreCase(productClass)) {
+      List<LidVid> secondaryLidVids = new ArrayList<LidVid>();
       InventoryTableReader reader = new InventoryTableReader(target);
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
         if (!entry.isEmpty()) {
@@ -316,13 +425,20 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
             LidVid lidVid = parseIdentifier(identifier);
-            lidVids.add(lidVid);
+            if ("P".equalsIgnoreCase(entry.getMemberStatus())) {
+              lidVids.add(lidVid);
+            } else {
+              secondaryLidVids.add(lidVid);
+            }
           }
         }
         entry = reader.getNext();
       }
       if (!lidVids.isEmpty()) {
         this.collectionMembers.put(target, lidVids);
+      }
+      if (!secondaryLidVids.isEmpty()) {
+        this.collectionSecondaryMembers.put(target, secondaryLidVids);
       }
     }
   }
