@@ -802,7 +802,6 @@ public class ValidateLauncher {
       }
       printReportFooter();
     } catch (Exception e) {
-      e.printStackTrace();
       System.out.println(e.getMessage());
     }
   }
