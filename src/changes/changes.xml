@@ -27,6 +27,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-352">
         Using the -i argument -i someFile returns an ugly error message
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-375">
+        Correct issue where a NullPointerException is thrown when a schema file could not be read. (Inherited from core)
+      </action>
     </release>
 
     <release version="1.7.0" date="2015-03-31" description="This release of the Validate Tool is a component of the integrated release 5.1.0 of the PDS4 System. This is an operational release of the system components to date.">
