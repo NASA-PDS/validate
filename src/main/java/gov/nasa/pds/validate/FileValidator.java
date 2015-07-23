@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
@@ -39,10 +40,12 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 
 import net.sf.saxon.tinytree.TinyNodeImpl;
 
+import org.w3c.dom.ls.LSInput;
 import org.xml.sax.SAXException;
 
 /**
@@ -70,7 +73,7 @@ public class FileValidator extends Validator {
       throws ParserConfigurationException, ValidatorException,
       TransformerConfigurationException {
     super(modelVersion, report);
-    schemaValidator = new SchemaValidator(cachedEntityResolver);
+    schemaValidator = new SchemaValidator();
     labelSchemaResults = new HashMap<URL, ExceptionContainer>();
     labelSchematronResults = new HashMap<URL, ExceptionContainer>();
     labelSchematrons = new HashMap<URL, Transformer>();
@@ -106,7 +109,12 @@ public class FileValidator extends Validator {
           url, exceptionContainer);
 
       if (hasValidSchemas && !labelSchematrons.isEmpty()) {
-        labelValidator.setCachedEntityResolver(cachedEntityResolver);
+        CachedEntityResolver resolver = new CachedEntityResolver();
+        resolver.addCachedEntities(schemaValidator.getCachedLSResolver()
+            .getCachedEntities());
+        labelValidator.setCachedEntityResolver(resolver);
+        labelValidator.setCachedLSResourceResolver(
+            schemaValidator.getCachedLSResolver());
         labelValidator.setLabelSchematrons(labelSchematrons);
         labelValidator.validate(exceptionContainer, url);
         report.record(url.toURI(), exceptionContainer.getExceptions());
@@ -127,10 +135,11 @@ public class FileValidator extends Validator {
       ExceptionContainer labelProblems) {
     boolean passFlag = true;
     List<URL> schemaUrls = new ArrayList<URL>();
-    String value = "";
+    List<StreamSource> sources = new ArrayList<StreamSource>();
+    String schemaLocations = "";
     try {
       XMLExtractor extractor = new XMLExtractor(label);
-      value = extractor.getSchemaLocation();
+      schemaLocations = extractor.getSchemaLocation();
     } catch (Exception e) {
       labelProblems.addException(new LabelException(ExceptionType.FATAL,
           "Error occurred while attempting to find schemas using the XPath '"
@@ -138,38 +147,42 @@ public class FileValidator extends Validator {
           label.toString()));
       return false;
     }
-    if (value == null || (value != null && value.isEmpty())) {
+    if (schemaLocations == null ||
+        (schemaLocations != null && schemaLocations.isEmpty())) {
       labelProblems.addException(new LabelException(ExceptionType.ERROR,
           "No schema(s) found in the label.", label.toString()));
       return false;
     } else {
-      StringTokenizer tokenizer = new StringTokenizer(value);
+      StringTokenizer tokenizer = new StringTokenizer(schemaLocations);
       if ((tokenizer.countTokens() % 2) != 0) {
         labelProblems.addException(new LabelException(ExceptionType.ERROR,
             "schemaLocation value does not appear to have matching sets of "
-            + "namespaces to uris: '" + value + "'",
+            + "namespaces to uris: '" + schemaLocations + "'",
             label.toString()));
         return false;
       } else {
         // While loop that will grab the schema URIs
         while (tokenizer.hasMoreTokens()) {
           // First token assumed to be the namespace
-          String token = tokenizer.nextToken();
+          String namespace = tokenizer.nextToken();
           // Second token assumed to be the URI
-          token = tokenizer.nextToken();
+          String uri = tokenizer.nextToken();
+          URL schemaUrl = null;
           try {
-            schemaUrls.add(new URL(token));
+            schemaUrl = new URL(uri);
+            schemaUrls.add(schemaUrl);
           } catch (MalformedURLException mu) {
             // The schema specification value does not appear to be
             // a URL. Assume a local reference to the schematron and
             // attempt to resolve it.
             try {
               URL parent = label.toURI().resolve(".").toURL();
-              schemaUrls.add(new URL(parent, value));
+              schemaUrl = new URL(parent, schemaLocations);
+              schemaUrls.add(schemaUrl);
             } catch (MalformedURLException mue) {
               labelProblems.addException(new LabelException(ExceptionType.ERROR,
                   "Cannot resolve schema specification '"
-                      + value + "': " + mue.getMessage(),
+                      + schemaLocations + "': " + mue.getMessage(),
                       label.toString()));
               passFlag = false;
             } catch (URISyntaxException e) {
@@ -182,32 +195,79 @@ public class FileValidator extends Validator {
     if (labelProblems.getExceptions().size() != 0) {
       passFlag = false;
     } else {
+      try {
+        schemaValidator.setExternalLocations(schemaLocations);
+      } catch (Exception ignore) {
+        //Should not throw an exception
+      }
       for (URL schemaUrl : schemaUrls) {
-        try {
-          ExceptionContainer container = null;
-          if (labelSchemaResults.containsKey(schemaUrl)) {
-            container = labelSchemaResults.get(schemaUrl);
-            if (container.getExceptions().size() != 0) {
-              report.record(schemaUrl.toURI(), container.getExceptions());
-              if (container.hasError() || container.hasFatal()) {
-                passFlag = false;
-              }
+        ExceptionContainer container = new ExceptionContainer();
+        schemaValidator.getCachedLSResolver().setExceptionContainer(container);
+        LSInput input = schemaValidator.getCachedLSResolver()
+            .resolveResource("", "", "", schemaUrl.toString(),
+                schemaUrl.toString());
+        boolean addSource = true;
+        if (container.getExceptions().size() != 0) {
+          try {
+            report.record(schemaUrl.toURI(), container.getExceptions());
+            if (container.hasError() || container.hasFatal()) {
+              passFlag = false;
+              addSource = false;
             }
-          } else {
-            container = schemaValidator.validate(schemaUrl);
-            if (container.getExceptions().size() != 0) {
-              report.record(schemaUrl.toURI(), container.getExceptions());
-              if (container.hasError() || container.hasFatal()) {
-                passFlag = false;
-              }
-            }
-            labelSchemaResults.put(schemaUrl, container);
+          } catch (URISyntaxException u) {
+            labelProblems.addException(new LabelException(ExceptionType.FATAL,
+                "URI syntax exception occurred for schema '"
+                + schemaUrl.toString() + "': " + u.getMessage(),
+                label.toString()));
           }
-        } catch (URISyntaxException u) {
-          labelProblems.addException(new LabelException(ExceptionType.FATAL,
-              "URI syntax exception occurred for schema '"
-              + schemaUrl.toString() + "': " + u.getMessage(),
-              label.toString()));
+        }
+        if (addSource) {
+          StreamSource streamSource = new StreamSource(
+              input.getByteStream());
+          streamSource.setSystemId(schemaUrl.toString());
+          sources.add(streamSource);
+        }
+      }
+      if (passFlag) {
+        for (StreamSource source : sources) {
+          try {
+            URL schemaUrl = null;
+            try {
+              schemaUrl = new URL(source.getSystemId());
+            } catch(MalformedURLException ignore) {
+              //Should never throw an exception
+            }
+            ExceptionContainer container = new ExceptionContainer();
+            if (labelSchemaResults.containsKey(schemaUrl)) {
+              container = labelSchemaResults.get(schemaUrl);
+              if (container.getExceptions().size() != 0) {
+                report.record(schemaUrl.toURI(), container.getExceptions());
+                if (container.hasError() || container.hasFatal()) {
+                  passFlag = false;
+                }
+              }
+            } else {
+              try {
+                container = schemaValidator.validate(source);
+              } catch (Exception e) {
+                container.addException(new LabelException(ExceptionType.ERROR,
+                    "Error reading schema: " + e.getMessage(),
+                    schemaUrl.toString()));
+              }
+              if (container.getExceptions().size() != 0) {
+                report.record(schemaUrl.toURI(), container.getExceptions());
+                if (container.hasError() || container.hasFatal()) {
+                  passFlag = false;
+                }
+              }
+              labelSchemaResults.put(schemaUrl, container);
+            }
+          } catch (URISyntaxException u) {
+            labelProblems.addException(new LabelException(ExceptionType.FATAL,
+                "URI syntax exception occurred for schema '"
+                + source.getSystemId() + "': " + u.getMessage(),
+                label.toString()));
+          }
         }
       }
     }

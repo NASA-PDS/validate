@@ -13,9 +13,9 @@
 // $Id$
 package gov.nasa.pds.validate.schema;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
@@ -26,9 +26,9 @@ import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 
-import org.xml.sax.EntityResolver;
-import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -44,20 +44,15 @@ public class SchemaValidator {
   private SchemaFactory schemaFactory;
 
   /**
-   * An entity resolver.
-   */
-  private EntityResolver resolver;
-
-  /**
    * Constructor.
    *
    * @param resolver An entity resolver.
    */
-  public SchemaValidator(EntityResolver resolver) {
+  public SchemaValidator() {
     // Support for XSD 1.1
     schemaFactory = SchemaFactory
         .newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
-    this.resolver = resolver;
+    schemaFactory.setResourceResolver(new CachedLSResourceResolver());
   }
 
   /**
@@ -68,15 +63,14 @@ public class SchemaValidator {
    * @return An ExceptionContainer that contains any problems
    * that were found during validation.
    */
-  public ExceptionContainer validate(URL schema) {
+  public ExceptionContainer validate(StreamSource schema) {
     ExceptionContainer container = new ExceptionContainer();
     schemaFactory.setErrorHandler(new LabelErrorHandler(container));
-    schemaFactory.setResourceResolver(new CachedLSResourceResolver(container));
+    CachedLSResourceResolver resolver =
+        (CachedLSResourceResolver) schemaFactory.getResourceResolver();
+    resolver.setExceptionContainer(container);
     try {
-      InputSource inputSource = resolver.resolveEntity("", schema.toString());
-      StreamSource source = new StreamSource(inputSource.getByteStream());
-      source.setSystemId(schema.toString());
-      schemaFactory.newSchema(source);
+      schemaFactory.newSchema(schema);
     } catch (SAXException se) {
       if ( !(se instanceof SAXParseException) ) {
         LabelException le = new LabelException(ExceptionType.FATAL,
@@ -84,19 +78,18 @@ public class SchemaValidator {
             null, null);
         container.addException(le);
       }
-    } catch (IOException io) {
-      if (io instanceof FileNotFoundException) {
-        LabelException le = new LabelException(ExceptionType.FATAL,
-          "Cannot read schema as URL cannot be found: " + io.getMessage(),
-          schema.toString(), schema.toString(), null, null);
-        container.addException(le);
-      } else {
-        LabelException le = new LabelException(ExceptionType.FATAL,
-            "Exception occurred while reading schema: " + io.getMessage(),
-            schema.toString(), schema.toString(), null, null);
-        container.addException(le);
-      }
     }
     return container;
+  }
+
+  public void setExternalLocations(String locations)
+      throws SAXNotRecognizedException, SAXNotSupportedException {
+    schemaFactory.setProperty(
+        "http://apache.org/xml/properties/schema/external-schemaLocation",
+         locations);
+  }
+
+  public CachedLSResourceResolver getCachedLSResolver() {
+    return (CachedLSResourceResolver) schemaFactory.getResourceResolver();
   }
 }

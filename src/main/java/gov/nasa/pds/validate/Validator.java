@@ -14,6 +14,7 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
+import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.ValidatorException;
@@ -76,12 +77,6 @@ public abstract class Validator {
   protected SchematronTransformer schematronTransformer;
 
   /**
-   * Resolver that holds byte streams of entities that have already been
-   * read.
-   */
-  protected CachedEntityResolver cachedEntityResolver;
-
-  /**
    * Constructor.
    *
    * @param modelVersion The model version to use for validation.
@@ -99,8 +94,7 @@ public abstract class Validator {
     this.labelValidator = new LabelValidator();
     this.labelValidator.setModelVersion(modelVersion);
     this.force = false;
-    cachedEntityResolver = new CachedEntityResolver();
-    schemaValidator = new SchemaValidator(cachedEntityResolver);
+    schemaValidator = new SchemaValidator();
     schematronTransformer = new SchematronTransformer();
   }
 
@@ -125,6 +119,14 @@ public abstract class Validator {
    */
   public void setSchematrons(List<Transformer> schematrons) {
     labelValidator.setSchematrons(schematrons);
+  }
+
+  public void setCachedEntityResolver(CachedEntityResolver resolver) {
+    labelValidator.setCachedEntityResolver(resolver);
+  }
+
+  public void setCachedLSResourceResolver(CachedLSResourceResolver resolver) {
+    labelValidator.setCachedLSResourceResolver(resolver);
   }
 
   /**

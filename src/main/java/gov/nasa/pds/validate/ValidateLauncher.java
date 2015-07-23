@@ -14,6 +14,7 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
+import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
@@ -21,6 +22,7 @@ import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.VersionInfo;
+import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -34,11 +36,16 @@ import gov.nasa.pds.validate.schema.SchemaValidator;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,6 +59,11 @@ import java.util.TimeZone;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.om.DocumentInfo;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -63,10 +75,13 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.IOUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
+import org.w3c.dom.ls.LSInput;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
 /**
@@ -139,6 +154,8 @@ public class ValidateLauncher {
 
   private List<Transformer> transformedSchematrons;
 
+  private CachedEntityResolver resolver;
+
   /**
    * Constructor.
    * @throws TransformerConfigurationException
@@ -160,9 +177,10 @@ public class ValidateLauncher {
     force = false;
     integrityCheck = false;
     regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
-    schemaValidator = new SchemaValidator(new CachedEntityResolver());
+    schemaValidator = new SchemaValidator();
     schematronTransformer = new SchematronTransformer();
     transformedSchematrons = new ArrayList<Transformer>();
+    resolver = new CachedEntityResolver();
   }
 
   /**
@@ -657,6 +675,9 @@ public class ValidateLauncher {
         }
         if (!schemas.isEmpty()) {
           validator.setSchemas(schemas);
+          validator.setCachedEntityResolver(resolver);
+          validator.setCachedLSResourceResolver(
+              schemaValidator.getCachedLSResolver());
         }
         if (!catalogs.isEmpty()) {
           validator.setCatalogs(catalogs);
@@ -735,15 +756,44 @@ public class ValidateLauncher {
    * @param schema The URL to the schema.
    *
    * @return 'true' if the schema was valid, 'false' otherwise.
-   * @throws URISyntaxException
+   * @throws Exception
    */
-  private boolean validateSchema(URL schema) throws URISyntaxException {
+  private boolean validateSchemas(List<URL> schemas)
+      throws Exception {
     boolean isValid = true;
-    ExceptionContainer problems = schemaValidator.validate(schema);
-    if (problems.getExceptions().size() != 0) {
-      isValid = false;
-      report.record(schema.toURI(),
-          problems.getExceptions());
+    List<StreamSource> sources = new ArrayList<StreamSource>();
+    String locations = "";
+    for (URL schema : schemas) {
+      LSInput input = schemaValidator.getCachedLSResolver()
+          .resolveResource("", "", "", schema.toString(), schema.toString());
+      StreamSource streamSource = new StreamSource(
+          input.getByteStream());
+      streamSource.setSystemId(schema.toString());
+      sources.add(streamSource);
+      try {
+        InputSource inputSource = new InputSource(
+            input.getByteStream());
+        inputSource.setSystemId(input.getSystemId());
+        //TODO: Should we log an error if the targetNamespace is missing?
+        XMLExtractor extractor = new XMLExtractor(inputSource);
+        String namespace = extractor.getTargetNamespace();
+        if (!namespace.isEmpty()) {
+          locations += namespace + " " + schema + "\n";
+        }
+        inputSource.getByteStream().reset();
+      } catch (Exception e) {
+        throw new Exception("Error while getting targetNamespace of schema '"
+            + schema.toString() + "': " + e.getMessage());
+      }
+    }
+    schemaValidator.setExternalLocations(locations);
+    for(StreamSource source : sources) {
+      ExceptionContainer problems = schemaValidator.validate(source);
+      if (problems.getExceptions().size() != 0) {
+        isValid = false;
+        report.record(new URI(source.getSystemId()),
+            problems.getExceptions());
+      }
     }
     return isValid;
   }
@@ -778,10 +828,8 @@ public class ValidateLauncher {
       // validation
       boolean invalidSchemas = false;
       if (!schemas.isEmpty()) {
-        for (URL schema : schemas) {
-          if (!validateSchema(schema)) {
-            invalidSchemas = true;
-          }
+        if (!validateSchemas(schemas)) {
+          invalidSchemas = true;
         }
       }
       boolean invalidSchematron = false;
