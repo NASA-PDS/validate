@@ -25,7 +25,13 @@
   <body>
     <release version="1.8.0" date="TBD" description="TBD">
       <action dev="mcayanan" type="fix" issue="PDS-352">
-        Using the -i argument -i someFile returns an ugly error message
+        Using the -i argument -i someFile returns an ugly error message.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-371">
+        Should not throw a warning for missing secondary members in a bundle or collection.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-372">
+        Integrity checking of multiple products with same LID but different VID.
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-375">
         Correct issue where a NullPointerException is thrown when a schema file could not be read. (Inherited from core)
