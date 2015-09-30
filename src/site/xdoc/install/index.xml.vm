@@ -130,7 +130,7 @@ or
 C:\&gt; set PATH = %PATH%;C:\Program Files\\${project.artifactId}-${project.version}\bin
         </source>
 
-        <p>In addition, the batch scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
+        <p>In addition, the batch scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. This may have already been set when Java was installed. However, if it hasn't, then run the following command to set the <i>JAVA_HOME</i> environment variable:
         </p>
 
         <source>
@@ -164,6 +164,16 @@ set PARENT_DIR=%SCRIPT_DIR%..
   should be replaced with:
 
 set PARENT_DIR=C:\Program Files\\${project.artifactId}-${project.version}
+        </source>
+      </subsection>
+      <subsection name="Verifying the Installation">
+        <p>Verify that the tool was installed correctly by running the shell script or Windows batch file with no arguments. The output should look something like the following:
+        </p>
+
+        <source>
+% ${project.artifactId}
+
+Type '${project.artifactId} -h' for usage
         </source>
       </subsection>
     </section>
