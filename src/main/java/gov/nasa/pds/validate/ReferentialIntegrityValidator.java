@@ -111,8 +111,8 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
               }
             }
             if (matchingMembers.isEmpty() &&
-                (secondaryBundleMembers != null &&
-                !secondaryBundleMembers.contains(bundleMember))) {
+                ((secondaryBundleMembers == null) ||
+                    (!secondaryBundleMembers.contains(bundleMember))) ) {
               container.addException(new LabelException(ExceptionType.WARNING,
                   "The member '" + bundleMember + "' could not be found in "
                       + "any product within the given target.",
@@ -239,8 +239,8 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
               }
             }
             if (matchingMembers.isEmpty() &&
-                (secondaryCollectionMembers != null &&
-                !secondaryCollectionMembers.contains(collectionMember))) {
+                ((secondaryCollectionMembers == null) ||
+                    (!secondaryCollectionMembers.contains(collectionMember))) ) {
               container.addException(new LabelException(ExceptionType.WARNING,
                   "The member '" + collectionMember + "' could not be found in "
                       + "any product within the given target.",
