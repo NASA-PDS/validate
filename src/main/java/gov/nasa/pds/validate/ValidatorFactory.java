@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,10 +14,13 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.ValidatorException;
+import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.validate.report.Report;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -39,10 +42,22 @@ public class ValidatorFactory {
 
   private DirectoryValidator cachedDirectoryValidator;
 
+  /** A list of DocumentValidator objects. */
+  private List<DocumentValidator> documentValidators;
+
+  /** The Report to attach to the Validator. */
+  private Report report;
+
+  /** The model version to use when performing validation. */
+  private String modelVersion;
+
   /** Private constructor. */
   private ValidatorFactory() {
     cachedFileValidator = null;
     cachedDirectoryValidator = null;
+    documentValidators = new ArrayList<DocumentValidator>();
+    report = null;
+    modelVersion = "";
   }
 
   /** Gets an instance of the factory.
@@ -59,8 +74,6 @@ public class ValidatorFactory {
    * Returns a Validator object.
    *
    * @param target The target URL.
-   * @param modelVersion PDS4 model version.
-   * @param report The object representation of a report.
    *
    * @return a Validator object based on the inputs given.
    *
@@ -68,12 +81,14 @@ public class ValidatorFactory {
    * @throws ValidatorException Validator error occurred.
    * @throws TransformerConfigurationException Transformer configuration error occurred.
    */
-  public Validator newInstance(URL target, String modelVersion, Report report)
-      throws ValidatorException,
-      TransformerConfigurationException, ParserConfigurationException {
+  public Validator newInstance(URL target) throws ValidatorException,
+  TransformerConfigurationException, ParserConfigurationException {
     Validator validator = null;
     if (cachedFileValidator == null) {
       cachedFileValidator = new FileValidator(modelVersion, report);
+      for(DocumentValidator dv : documentValidators) {
+        cachedFileValidator.addValidator(dv);
+      }
     }
     validator = cachedFileValidator;
     if (target.getProtocol().equalsIgnoreCase("file")) {
@@ -81,15 +96,45 @@ public class ValidatorFactory {
       if (file.isDirectory()) {
         if (cachedDirectoryValidator == null) {
           cachedDirectoryValidator = new DirectoryValidator(modelVersion, report);
+          for(DocumentValidator dv : documentValidators) {
+            cachedDirectoryValidator.addValidator(dv);
+          }
         }
         validator = cachedDirectoryValidator;
       }
     } else if ("".equals(FilenameUtils.getExtension(target.toString()))) {
       if (cachedDirectoryValidator == null) {
         cachedDirectoryValidator = new DirectoryValidator(modelVersion, report);
+        for(DocumentValidator dv : documentValidators) {
+          cachedDirectoryValidator.addValidator(dv);
+        }
       }
       validator = cachedDirectoryValidator;
     }
     return validator;
+  }
+
+  /**
+   *
+   * @param validators A list of DocumentValidators
+   */
+  public void setDocumentValidators(List<DocumentValidator> validators) {
+    this.documentValidators = validators;
+  }
+
+  /**
+   *
+   * @param modelVersion The model version.
+   */
+  public void setModelVersion(String modelVersion) {
+    this.modelVersion = modelVersion;
+  }
+
+  /**
+   *
+   * @param report The report.
+   */
+  public void setReport(Report report) {
+    this.report = report;
   }
 }

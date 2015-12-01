@@ -31,40 +31,47 @@
 {
   "title": "PDS Validation Tool Report",
   "configuration": {
-    "version": "1.4.0-dev",
-    "date": "2013-09-12T20:30:58Z",
-    "coreSchemas": "[PDS4_PDS_1000.xsd]",
-    "coreSchematrons": "[PDS4_PDS_1000.sch]",
-    "modelVersion": "1000"
+    "version": "1.9.0",
+    "date": "2015-12-01T19:12:23Z",
+    "coreSchemas": "[PDS4_PDS_1500.xsd]",
+    "coreSchematrons": "[PDS4_PDS_1500.sch]",
+    "modelVersion": "1500"
   },
   "parameters": {
-    "targets": "[http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml]",
-    "severityLevel": "Warnings",
-    "recurseDirectories": "true"
+    "targets": "[file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml]",
+    "severityLevel": "WARNING",
+    "recurseDirectories": "true",
+    "fileFiltersUsed": "[*.xml, *.XML]",
+    "forceMode": "off",
+    "referentialIntegrityCheck": "off"
   },
-  "status": "FAIL",
-  "label": "http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml",
-  "messages": [
+  "validationDetails": [
     {
-      "severity": "ERROR",
-      "line": 90,
-      "column": 47,
-      "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element \u0027dph:spacecraft_clock_start_count\u0027."
-    },
-    {
-      "severity": "ERROR",
-      "line": 91,
-      "column": 46,
-      "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element \u0027dph:spacecraft_clock_stop_count\u0027."
-    },
-    {
-      "severity": "ERROR",
-      "line": 121,
-      "message": "Generated checksum \u0027653ac7fc8cdeee51a875689bc47a771a\u0027 does not match supplied checksum \u0027d220dac0d1fe312f3f3b9c824f6ac294\u0027 in the product label \
-      for the following uri reference: \
-      http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/fs004sdd_001_4e0111040000a0.tab"
+      "status": "FAIL",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml",
+      "messages": [
+        {
+          "severity": "ERROR",
+          "line": 93,
+          "column": 47,
+          "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_start_count'."
+        },
+        {
+          "severity": "ERROR",
+          "line": 94,
+          "column": 46,
+          "message": "cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_stop_count'."
+        }
+      ],
+      "fragments": []
     }
-  ]
+  ],
+  "summary": {
+    "totalProcessed": 1,
+    "totalSkipped": 0,
+    "totalValidated": 1,
+    "totalPassedValidation": 0
+  }
 }
       </source>
     </section>

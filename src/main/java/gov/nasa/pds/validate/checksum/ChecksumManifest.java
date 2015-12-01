@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -18,7 +18,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
@@ -31,28 +31,29 @@ import org.apache.commons.io.FilenameUtils;
  *
  */
 public class ChecksumManifest {
+  private URL baseUrl;
+
+  public ChecksumManifest(String baseUrl)
+      throws MalformedURLException {
+    if (!baseUrl.endsWith("/")) {
+      this.baseUrl = new URL(baseUrl + "/");
+    } else {
+      this.baseUrl = new URL(baseUrl);
+    }
+  }
 
   /**
    * Reads a checksum manifest file.
    *
    * @param manifest The checksum manifest.
    *
-   * @return A hash map of absolute file pathnames to checksum values.
+   * @return A hash map of file paths(absolute or relative) to checksum values.
    *
    * @throws IOException If there was an error reading the checksum manifest.
    */
-  public static HashMap<URL, String> read(URL manifest)
+  public HashMap<URL, String> read(URL manifest)
   throws IOException {
     HashMap<URL, String> checksums = new HashMap<URL, String>();
-    URL parent = null;
-    try {
-      parent = manifest.toURI().getPath().endsWith("/") ?
-          manifest.toURI().resolve("..").toURL() :
-            manifest.toURI().resolve(".").toURL();
-    } catch (URISyntaxException ue) {
-      throw new IOException("Error occurred while getting parent of '"
-          + manifest + "': " + ue.getMessage());
-    }
     LineNumberReader reader = new LineNumberReader(new BufferedReader(
         new InputStreamReader(manifest.openStream())));
     String line = "";
@@ -63,7 +64,7 @@ public class ChecksumManifest {
           continue;
         }
         String[] tokens = line.split("\\s{1,2}", 2);
-        URL url = new URL(parent, FilenameUtils.separatorsToUnix(tokens[1]));
+        URL url = new URL(baseUrl, FilenameUtils.separatorsToUnix(tokens[1]));
         checksums.put(url, tokens[0]);
       }
     } catch (ArrayIndexOutOfBoundsException ae) {

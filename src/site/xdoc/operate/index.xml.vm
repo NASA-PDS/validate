@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2014, by the California Institute of Technology.
+  Copyright 2010-2015, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -77,7 +77,8 @@
         <tr><th>Command-Line Option</th><th>Description</th></tr>
         <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
         <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking on a target directory. The tool will not accept a target file specification when this feature is enabled. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
-        <tr><td>-M, --checksum-manifest &lt;file(s)&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation.</td></tr>
+        <tr><td>-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
+        <tr><td>-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
         <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
         <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
         <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
@@ -106,7 +107,6 @@
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
           <li>Validating with Referential Integrity Checking</li>
-          <li>Validating Against a Checksum Manifest File</li>
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
@@ -148,21 +148,6 @@
         <source>
 % validate ${HOME}/bundle -i
         </source>
-
-        <p><b><i>Validating Against a Checksum Manifest File</i></b></p>
-
-        <p>By default, the tool performs checksum validation against the file references specified in a product label. It generates an MD5 checksum for each file reference found and verifies that the generated checksum value matches the supplied checksum in the product label. When a Checksum Manifest file is passed into the tool, the tool will additionally verify that each generated checksum matches the supplied checksum in the given manifest file.
-        </p>
-
-        <p>The following command demonstrates validating a bundle target against a Checksum Manifest file:
-        </p>
-
-        <source>
-% validate ${HOME}/bundle -M ${HOME}/bundle_checksums.txt
-        </source>
-
-        <p>Note that the tool expects the file references specified in the Checksum Manifest file to either be absolute or relative paths.
-        </p>
 
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
 
@@ -347,6 +332,60 @@ PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context
         </p>
       </subsection>
 
+      <subsection name="Checksum Manifest File Validation">
+        <p>When a Checksum Manifest file is passed into the tool, the generated checksum value of a file is compared against the supplied value in the Manifest file.
+        </p>
+        
+        <p>The dph example archive bundle, which can be downloaded from the <a href="https://pds.nasa.gov/pds4/doc/examples/">PDS web site</a>, contains an example of how a Checksum Manifest file could look like:
+        </p>
+        
+        <source>
+97a7569daeaacf57b5abceca57bdca43  .\Product_Bundle.xml
+e7da7276dd553f30496b868a2007bf5b  .\README.TXT
+84f68c7706f379c401e2f8e08a82edea  .\browse\Collection_browse.xml
+bcb852a6a9292e304a93668e6cc2068c  .\browse\Collection_browse_inventory.tab
+3ff61c98cbed11e99690f76b5f6831b0  .\browse\ELE_MOM.PDF
+f2e5969b0f1a0f54e530e416b7f5d54a  .\browse\ele_mom_browse.xml
+76d6463510bc48233d65b46d08087ef8  .\context\Collection_context.xml
+b8f5301ad7c868c76f0e627f0da19aed  .\context\Collection_context_inventory.tab
+c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
+...
+        </source>
+        
+        <p>It is importatnt to note that the tool supports either absolute or relative file references specified in a Checksum Manifest file. In the event that the file references are relative paths, the tool assumes that the target root is the base path of these file references. The <i>Parameter</i> section of the Validate Tool Report will indicate the base path that the tool uses to resolve relative file references in a Manifest file. This is found under the setting <i>Manifest File Base Path</i>.
+        </p>
+        
+        <p>The following command demonstrates performing Checksum Manifest file validation against the dph example archive bundle using its manifest file <i>bundle_checksums.txt</i>: 
+        </p>
+        
+        <source>
+% validate /home/pds4/dph_example_archive_VG2PLS -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
+        </source>
+        
+        <p>In the example above, the base path of the file references in the <i>bundle_checksums.txt</i> file is assumed to be <i>/home/pds4/dph_example_archive_VG2PLS</i>.
+        </p>
+        
+        <p>Another use case is doing checksum manifest file validation on a sub-directory of a bundle. Using the dph example archive bundle example, we would need to tell the tool to use a different base than the target root since the file references in the <i>bundle_checksums.txt</i> file would not match up with the target sub-directory. This can be done using the <i>-B</i> flag option. The following command demonstrates performing Checksum Manifest file validation on a a sub-directory of the dph example archive bundle:
+        </p>
+        
+        <source>
+% validate /home/pds4/dph_example_archive_VG2PLS/browse -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt -B /home/pds4/dph_example_archive_VG2PLS
+        </source>
+        
+        <p>In the command line example above, the base path is set to <i>/home/pds4/dph_example_archive_VG2PLS</i>.
+        </p>
+        
+        <p>In the event that multiple targets are specified when performing checksum manifest file validation, the <i>-B</i> flag option must be specified. Continuing with the dph example archive bundle example, the following command demonstrates Checksum Manifest file validation on multiple sub-directories of the bundle:
+        </p>
+
+        <source>
+% validate /home/pds4/dph_example_archive_VG2PLS/browse, /home/pds4/dph_example_archive_VG2PLS/context \ 
+-M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt \
+-B /home/pds4/dph_example_archive_VG2PLS
+        </source>
+        
+      </subsection>
+
       <subsection name="Using an XML Catalog">
         <p>An XML Catalog allows the user to describe a mapping between external entity references in their products and locally-available XML Schema documents. This feature of the tool is not fully implemented and needs to be exercised with multiple PDS scenarios, but it is available to experiment with in this release. The following is an example XML Catalog file for validating the Data Provider's Handbook (DPH) example bundle. The file maps the PDS namespace to a local copy of the PDS4 Ops XML Schema document and the DPH namespace to a local copy of the DPH example dictionary XML Schema document.
         </p>
@@ -398,6 +437,7 @@ PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context
           <tr><td>validate.target</td><td>-t, --target</td></tr>
           <tr><td>validate.integrity</td><td>-i, --integrity-check</td></tr>
           <tr><td>validate.checksum</td><td>-M, --checksum-manifest</td></tr>
+          <tr><td>validate.basePath</td><td>-B, --base-path</td></tr>
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
@@ -570,7 +610,7 @@ validate.regexp = "*.xml"
         </p>
 
         <source>
-% ./validate product.xml -x schema1.xsd, schema2.xsd
+% validate product.xml -x schema1.xsd, schema2.xsd
         </source>
 
         <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
@@ -602,15 +642,33 @@ validate.regexp = "*.xml"
     </section>
 
     <section name="Common Errors">
+      <p><b><i>White spaces are required error</i></b></p>
+      
       <p>Execution of the Validate Tool may result in the following message appearing in the log:
       </p>
 
       <source>
-  FAIL: file:/Users/.../hi0173794441_9080000_001_r.xml
-      FATAL_ERROR  line 1, 55: White spaces are required between publicId and systemId.
+FAIL: file:/Users/.../hi0173794441_9080000_001_r.xml
+    FATAL_ERROR  line 1, 55: White spaces are required between publicId and systemId.
       </source>
 
       <p>The message above is generated by the underlying <a href="http://xerces.apache.org/">Xerces</a> library that is utilized by the Validate Tool for XML Schema validation. Although not very intuitive, the message normally indicates that the XML Schema for the default namespace of the target label is missing. In the example above the default namespace was "http://pds.nasa.gov/pds4/pds/v03" but the XML Schema file describing that namespace (PDS4_PDS_0300a.xsd) was not provided to the tool at runtime.
+      </p>
+      
+      <p><b><i>No checksum found in the manifest errors</i></b></p>
+      
+      <p>When performing Checksum Manifest file validation, having the wrong base path setting will result in multiple errors like the following:
+      </p>
+      
+      <source>
+FAIL: file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+    ERROR  No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml'.     
+      </source>
+      
+      <p>To resolve this issue, check that the base path setting correctly resolves the relative file references (if present) in the Checksum Manifest file by looking at the <i>Manifest File Base Path</i> parameter specified at the top of the Validate Tool report. If the base path is incorrect, specify the correct one on the command line using the <i>-B, --base-path</i> flag option.
+      </p>
+      
+      <p>
       </p>
     </section>
   </body>

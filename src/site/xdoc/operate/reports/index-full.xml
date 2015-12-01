@@ -31,28 +31,69 @@
 PDS Validate Tool Report
 
 Configuration:
-   Version                       1.4.0-dev
-   Date                          2013-09-12T20:30:05Z
-   Core Schemas                  [PDS4_PDS_1000.xsd]
-   Core Schematrons              [PDS4_PDS_1000.sch]
-   Model Version                 1000
+Version                       1.9.0
+Date                          2015-12-01T19:27:59Z
+Core Schemas                  [PDS4_PDS_1500.xsd]
+Core Schematrons              [PDS4_PDS_1500.sch]
+Model Version                 1500
 
 Parameters:
-   Targets                     [http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml]
-   Severity Level                Warnings
-   Recurse Directories           true
+Targets                       [file:/home/pds4/dph_example_archive_VG2PLS/]
+Severity Level                WARNING
+Recurse Directories           true
+File Filters Used             [*.xml, *.XML]
+Force Mode                    off
+Referential Integrity Check   on
+Checksum Manifest File        file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
+Manifest File Base Path       file:/home/pds4/dph_example_archive_VG2PLS/
 
 Validation Details:
 
-  FAIL: http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/Product_Table_Character_Grouped.xml
-      ERROR  line 90, 47: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_start_count'.
-      ERROR  line 91, 46: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_stop_count'.
-      ERROR  line 121: Generated checksum '653ac7fc8cdeee51a875689bc47a771a' does not match supplied checksum 'd220dac0d1fe312f3f3b9c824f6ac294' in the product label for the following uri reference: http://pds.nasa.gov/repository/pds4/examples/dph_examples_1000/dph_example_products/product_table_character_grouped/fs004sdd_001_4e0111040000a0.tab
+FAIL: file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml
+  ERROR  No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml'.
+  ERROR  line 47: No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt'.
+  WARNING  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0' is not a member of any collection within the given target.
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/Product_Bundle.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml
+
+FAIL: file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
+  ERROR  line 93, 47: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_start_count'.
+  ERROR  line 94, 46: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_stop_count'.
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/checksums.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/errata.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/mission.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/plsinst.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml
+
+PASS: file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1500.xml
 
 Summary:
 
-  1 of 1 file(s) processed, 0 skipped
-  0 of 1 file(s) passed validation
+18 of 18 file(s) processed, 0 skipped
+16 of 18 file(s) passed validation
 
 End of Report
       </source>

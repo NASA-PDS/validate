@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -20,6 +20,9 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public enum Flag {
+  BASE_PATH("B", "base-path", "path", String.class, "Specify a path "
+      + "for the tool to use in order to properly resolve relative file "
+      + "references found in a checksum manifest file."),
 
   CATALOG("C", "catalog", "catalog files", String.class, true,
       "Specify catalog files to use during validation."),
@@ -66,7 +69,7 @@ public enum Flag {
    * Flag to specify one or more checksum manifest files in order to
    * perform checksum validation.
    */
-  CHECKSUM_MANIFEST("M", "checksum-manifest", "files", String.class, true,
+  CHECKSUM_MANIFEST("M", "checksum-manifest", "file", String.class,
       "Specify a checksum manifest file to perform checksum validation "
       + "against the targets being validated."),
 

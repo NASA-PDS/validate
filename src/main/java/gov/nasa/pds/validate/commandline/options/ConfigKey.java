@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -44,6 +44,12 @@ public class ConfigKey {
 
   /** Property to specify one or more checksum manifest files. */
   public static final String CHECKSUM = "validate.checksum";
+
+  /**
+   * List of paths to use as the base when looking up file references
+   * in a checksum manifest file.
+   */
+  public static final String BASE_PATH = "validate.basePath";
 
   /** The model version to use during validation. */
   public static final String MODEL = "validate.model";

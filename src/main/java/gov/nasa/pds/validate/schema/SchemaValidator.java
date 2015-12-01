@@ -46,7 +46,6 @@ public class SchemaValidator {
   /**
    * Constructor.
    *
-   * @param resolver An entity resolver.
    */
   public SchemaValidator() {
     // Support for XSD 1.1

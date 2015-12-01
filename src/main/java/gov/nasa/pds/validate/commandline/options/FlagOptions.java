@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -28,6 +28,7 @@ public class FlagOptions {
     static {
         options = new Options();
 
+        options.addOption(new ToolsOption(Flag.BASE_PATH));
         options.addOption(new ToolsOption(Flag.CATALOG));
         options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));
         options.addOption(new ToolsOption(Flag.CONFIG));

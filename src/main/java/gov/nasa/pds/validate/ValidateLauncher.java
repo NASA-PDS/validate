@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2015, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,12 +14,12 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
-import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
+import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -33,19 +33,16 @@ import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
 import gov.nasa.pds.validate.schema.SchemaValidator;
+import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -59,11 +56,7 @@ import java.util.TimeZone;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
-
-import net.sf.saxon.om.DocumentInfo;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -75,7 +68,6 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.io.IOUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
@@ -138,10 +130,10 @@ public class ValidateLauncher {
   private boolean integrityCheck;
 
   /**
-   * A list of checksum manifest files to use for checksum validation.
+   * A checksum manifest file to use for checksum validation.
    *
    */
-  private List<URL> checksumManifests;
+  private URL checksumManifest;
 
   /**
    * Default file filters.
@@ -157,6 +149,12 @@ public class ValidateLauncher {
   private CachedEntityResolver resolver;
 
   /**
+   * path to use as the base when looking up file references in
+   * a manifest file.
+   */
+  private URL manifestBasePath;
+
+  /**
    * Constructor.
    * @throws TransformerConfigurationException
    *
@@ -167,7 +165,8 @@ public class ValidateLauncher {
     catalogs = new ArrayList<String>();
     schemas = new ArrayList<URL>();
     schematrons = new ArrayList<URL>();
-    checksumManifests = new ArrayList<URL>();
+    checksumManifest = null;
+    manifestBasePath = null;
     reportFile = null;
     traverse = true;
     severity = ExceptionType.WARNING;
@@ -207,7 +206,6 @@ public class ValidateLauncher {
   public void query(CommandLine line) throws Exception {
     List<Option> processedOptions = Arrays.asList(line.getOptions());
     List<String> targetList = new ArrayList<String>();
-
     //Gets the implicit targets
     for (java.util.Iterator<String> i = line.getArgList().iterator();
     i.hasNext();) {
@@ -262,7 +260,9 @@ public class ValidateLauncher {
       } else if (Flag.INTEGRITY.getShortName().equals(o.getOpt())) {
         setIntegrityCheck(true);
       } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
-        setChecksumManifests(o.getValuesList());
+        setChecksumManifest(o.getValue());
+      } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
+        setManifestBasePath(o.getValue());
       }
     }
     if (!targetList.isEmpty()) {
@@ -281,6 +281,13 @@ public class ValidateLauncher {
           throw new InvalidOptionException("Must specify a target directory "
               + "when performing integrity checking: " + target);
         }
+      }
+    }
+    if (checksumManifest != null) {
+      if ( (targets.size() > 1) && (manifestBasePath == null) ) {
+        throw new InvalidOptionException("Must specify the base path "
+            + "flag option ('-B' flag) when specifying a checksum manifest "
+            + "file and multiple targets.");
       }
     }
   }
@@ -352,9 +359,10 @@ public class ValidateLauncher {
         setIntegrityCheck(config.getBoolean(ConfigKey.INTEGRITY));
       }
       if (config.containsKey(ConfigKey.CHECKSUM)) {
-        List<String> list = config.getList(ConfigKey.CHECKSUM);
-        list = Utility.removeQuotes(list);
-        setChecksumManifests(list);
+        setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
+      }
+      if (config.containsKey(ConfigKey.BASE_PATH)) {
+        setManifestBasePath(config.getString(ConfigKey.BASE_PATH));
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -384,25 +392,33 @@ public class ValidateLauncher {
   }
 
   /**
-   * Set the checksum manifests.
+   * Set the checksum manifest.
    *
-   * @param manifests A list of checksum manifest files.
+   * @param manifest A checksum manifest file.
    * @throws MalformedURLException
    */
-  public void setChecksumManifests(List<String> manifests)
+  public void setChecksumManifest(String manifest)
   throws MalformedURLException {
-    this.checksumManifests.clear();
-    while (manifests.remove(""));
-    for (String m : manifests) {
-      URL url = null;
-      try {
-        url = new URL(m);
-        this.checksumManifests.add(url);
-      } catch (MalformedURLException u) {
-        File file = new File(m);
-        this.checksumManifests.add(file.toURI().normalize().toURL());
-      }
+    URL url = null;
+    try {
+      url = new URL(manifest);
+      this.checksumManifest = url;
+    } catch (MalformedURLException u) {
+      File file = new File(manifest);
+      this.checksumManifest = file.toURI().normalize().toURL();
     }
+  }
+
+  /**
+   * Set the base path to look up relative file references in a
+   * given checksum manifest file.
+   *
+   * @param path A path.
+   * @throws MalformedURLException
+   */
+  public void setManifestBasePath(String path)
+      throws MalformedURLException {
+    this.manifestBasePath = Utility.toURL(path);
   }
 
   /**
@@ -631,8 +647,9 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Referential Integrity Check   off");
     }
-    if (!checksumManifests.isEmpty()) {
-      report.addParameter("   Checksum Manifest Files       " + checksumManifests);
+    if (checksumManifest != null) {
+      report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
+      report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
     }
     report.printHeader();
   }
@@ -649,7 +666,16 @@ public class ValidateLauncher {
     if (!checksumManifest.isEmpty()) {
       fileRefValidator.setChecksumManifest(checksumManifest);
     }
+    // Initialize the Factory Class
+    List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
+    docValidators.add(fileRefValidator);
+    if (integrityCheck) {
+      docValidators.add(refIntegrityValidator);
+    }
     ValidatorFactory factory = ValidatorFactory.getInstance();
+    factory.setModelVersion(modelVersion);
+    factory.setReport(report);
+    factory.setDocumentValidators(docValidators);
     for (URL target : targets) {
       if (integrityCheck) {
         refIntegrityValidator.clearSources();
@@ -661,12 +687,8 @@ public class ValidateLauncher {
             + "collection members from the given target: " + target);
       }
       try {
-        Validator validator = factory.newInstance(target, modelVersion, report);
+        Validator validator = factory.newInstance(target);
         validator.setForce(force);
-        validator.addValidator(fileRefValidator);
-        if (integrityCheck) {
-          validator.addValidator(refIntegrityValidator);
-        }
         if (validator instanceof DirectoryValidator) {
           DirectoryValidator dv = (DirectoryValidator) validator;
           dv.setFileFilters(regExps);
@@ -815,15 +837,36 @@ public class ValidateLauncher {
     try {
       CommandLine cmdLine = parse(args);
       query(cmdLine);
-      setupReport();
       Map<URL, String> checksumManifestMap = new HashMap<URL, String>();
-      if (!checksumManifests.isEmpty()) {
-        for (URL checksumManifest : checksumManifests) {
-          checksumManifestMap.putAll(
-              ChecksumManifest.read(checksumManifest)
-              );
+      if (checksumManifest != null) {
+        if (manifestBasePath == null) {
+          URL base = null;
+          Target t = Utility.toTarget(targets.get(0));
+          try {
+            if (t.isDir()) {
+              base = t.getUrl();
+            } else {
+              base = t.getUrl().toURI().getPath().endsWith("/") ?
+                t.getUrl().toURI().resolve("..").toURL() :
+                  t.getUrl().toURI().resolve(".").toURL();
+            }
+            manifestBasePath = base;
+          } catch (URISyntaxException ue) {
+            throw new IOException("Error occurred while getting parent of '"
+                + t + "': " + ue.getMessage());
+          }
+        }
+        ChecksumManifest cm = new ChecksumManifest(
+            manifestBasePath.toString());
+        try {
+          checksumManifestMap.putAll(cm.read(checksumManifest));
+        } catch (IOException io) {
+          throw new Exception("Error occurred while reading checksum "
+              + "manifest file '" + checksumManifest.toString() + "': "
+              + io.getMessage());
         }
       }
+      setupReport();
       // Validate schemas and schematrons first before performing label
       // validation
       boolean invalidSchemas = false;
