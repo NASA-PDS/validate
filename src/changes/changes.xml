@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="update" issue="PDS-409">
         Use target root as the base directory when doing checksum validation.
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-415">
+        Duplicate messages appearing in the report.
+      </action>
     </release>
 
     <release version="1.8.0" date="2015-09-30" description="This release of the Validate Tool is a component of the integrated release 6.0.0 of the PDS4 System. This is an operational release of the system components to date.">
