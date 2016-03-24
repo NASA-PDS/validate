@@ -23,7 +23,7 @@ import java.util.Map;
 
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.tinytree.TinyNodeImpl;
-import gov.nasa.pds.tools.label.ExceptionContainer;
+import gov.nasa.pds.tools.label.ExceptionHandler;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
@@ -76,7 +76,7 @@ public class ReferentialIntegrityValidator implements DocumentValidator {
   }
 
   @Override
-  public boolean validate(ExceptionContainer container, DocumentInfo xml) {
+  public boolean validate(ExceptionHandler container, DocumentInfo xml) {
     boolean passFlag = true;
     try {
       XMLExtractor extractor = new XMLExtractor(xml);

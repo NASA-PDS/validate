@@ -202,7 +202,7 @@ public class FileValidator extends Validator {
       }
       for (URL schemaUrl : schemaUrls) {
         ExceptionContainer container = new ExceptionContainer();
-        schemaValidator.getCachedLSResolver().setExceptionContainer(container);
+        schemaValidator.getCachedLSResolver().setExceptionHandler(container);
         LSInput input = schemaValidator.getCachedLSResolver()
             .resolveResource("", "", "", schemaUrl.toString(),
                 schemaUrl.toString());

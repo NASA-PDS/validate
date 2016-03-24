@@ -13,15 +13,11 @@
 // $Id$
 package gov.nasa.pds.validate.schema;
 
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
-
+import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelErrorHandler;
 import gov.nasa.pds.tools.label.LabelException;
-import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
@@ -67,7 +63,7 @@ public class SchemaValidator {
     schemaFactory.setErrorHandler(new LabelErrorHandler(container));
     CachedLSResourceResolver resolver =
         (CachedLSResourceResolver) schemaFactory.getResourceResolver();
-    resolver.setExceptionContainer(container);
+    resolver.setExceptionHandler(container);
     try {
       schemaFactory.newSchema(schema);
     } catch (SAXException se) {

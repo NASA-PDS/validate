@@ -167,6 +167,11 @@
       <artifactId>jsoup</artifactId>
       <version>1.7.2</version>
     </dependency>
+    <dependency>
+    	<groupId>commons-io</groupId>
+    	<artifactId>commons-io</artifactId>
+    	<version>2.4</version>
+    </dependency>
   </dependencies>
 
   <!-- Project Information and Reports inherited from parent. -->
