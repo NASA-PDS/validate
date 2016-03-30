@@ -26,6 +26,20 @@
     <section name="About Validate Tool">
       <p>The Validate Tool project contains software for validating PDS4 product labels and product data. The associated specific schema for the product label specifies syntactic and semantic constraints. The product label itself specifies the constraints for the data.
       </p>
+      
+      <p>The Validate Tool currently supports the following validation features:
+      </p>
+      
+      <ul>
+        <li>Validation against a schema and schematron.</li>
+        <li>Referential integrity within a target bundle.</li>
+        <li>Validation against an XML Catalog.</li>
+        <li>Check that files referenced in a product label exist.</li>
+        <li>Check that the file references in a product label and the file on the file system match case.</li>
+        <li>Check that file reference checksums in a product label matches their actual checksums, if present.</li>
+        <li>Perform checksum validation against a Checksum Manifest file, if supplied.</li>
+        <li>Validation against the schema and schematron supplied in the product label.</li>
+      </ul>
 
       <p>Please send comments, change requests and bug reports to the <a href="mailto:pds_operator@jpl.nasa.gov">PDS Operator</a> at pds_operator@jpl.nasa.gov.
       </p>
