@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2015, by the California Institute of Technology.
+  Copyright 2010-2016, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -23,12 +23,9 @@
   </properties>
 
   <body>
-    <release version="1.9.0" date="TBD" description="TBD">
+    <release version="1.9.0" date="2016-03-31" description="This release of the Validate Tool is a component of the integrated release 6.1.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-409">
-        Added a -B,--base-path flag option to specify a base path to use when resolving relative file references in a Checksum Manifest file.
-      </action>
-      <action dev="mcayanan" type="update" issue="PDS-409">
-        Use target root as the base directory when doing checksum validation.
+        Added a -B,--base-path flag option to specify a base path to use when resolving relative file references in a Checksum Manifest file. Also, use target root as the base directory when doing checksum validation.
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-415">
         Duplicate messages appearing in the report.
