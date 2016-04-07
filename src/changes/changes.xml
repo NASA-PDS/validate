@@ -23,6 +23,9 @@
   </properties>
 
   <body>
+    <release version="1.10.0" date="TBD" description="TBD">
+    </release>
+
     <release version="1.9.0" date="2016-03-31" description="This release of the Validate Tool is a component of the integrated release 6.1.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-409">
         Added a -B,--base-path flag option to specify a base path to use when resolving relative file references in a Checksum Manifest file. Also, use target root as the base directory when doing checksum validation.
