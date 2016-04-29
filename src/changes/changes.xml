@@ -24,9 +24,6 @@
 
   <body>
     <release version="1.10.0" date="TBD" description="TBD">
-      <action dev="mcayanan" type="fix" issue="PDS-443">
-        Fixed to also recognize "Member Status" as a valid field name for the Field_Delimited element in the Inventory area of a collection.
-      </action>
     </release>
 
     <release version="1.9.0" date="2016-03-31" description="This release of the Validate Tool is a component of the integrated release 6.1.0 of the PDS4 System. This is an operational release of the system components to date.">
@@ -38,6 +35,9 @@
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-439">
         Does not place errors found in the referenced file of an xinclude statement in the proper place of the Validate Tool report. (Inherited from core)
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-443">
+        Fixed to also recognize "Member Status" as a valid field name for the Field_Delimited element in the Inventory area of a collection.
       </action>
     </release>
 
