@@ -175,6 +175,9 @@
         <source>
 % validate product.xml -f
         </source>
+        
+        <p>Note that validating with the force flag option versus passing in the label specified schemas using the <i>-x</i> flag may yield different validation results. This is due to how the underlying Xerces library treats these 2 scenarios. Basically, with the force flag behavior, namespaces are resolved by matching the element namespace in the label to one of the namespaces declared in the <i>schemaLocation</i> attribute of the label. When passing in schemas using the <i>-x</i> flag, those user given schemas override any schemas specified in the <i>schemaLocation</i> attribute of the label. They are read in and cached in memory prior to the validation step. Namespaces are then resolved by matching the element namespace to one defined in one of those schemas cached in memory.
+        </p>
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
 
@@ -491,8 +494,10 @@ validate.regexp = "*.xml", "Mars*"
 # This is a Validate configuration file with multiple values
 # that span across multiple lines
 
-validate.target = product.xml, ./collection
-validate.regexp = "*.xml", "Mars*"
+validate.target = product.xml, \
+                  ./collection
+validate.regexp = "*.xml", \
+                  "Mars*"
         </source>
 
         <p>As previously mentioned, any flag options set on the command-line will overwrite settings set in the configuration file. The following example demonstrates how to override a setting in the configuration file.
