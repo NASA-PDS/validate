@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2011-2012, by the California Institute of Technology.
+  Copyright 2012, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -25,13 +25,21 @@
 
   <body>
     <section name="Windows System Properties">
-      <p>The required environment variables for the <i>${project.artifactId}</i> package can also be set through the Windows system properties panel. The <i>Path</i> environment variable can be modified as follows:
+      <p>The required environment variables for the <i>${project.artifactId}</i> package can also be set through the Windows system properties panel. The instructions provided below were based off of a Windows 7 machine. Windows 8 and 10 users should be able to use these steps as well to modify their environment.
+      </p>
+      
+      <p>The <i>Path</i> environment variable can be modified as follows:
       </p>
 
       <ul>
-        <li>Right-click on <i>My Computer</i> icon on your desktop and select the <i>Properties</i> menu item.
+        <li>Click on the Windows icon on the bottom left. In the search text box, type in <i>edit system environment variables</i>. A search result called <i>Edit the system environment variables</i> should appear under the <i>Control Panel</i> area as follows:
         </li>
-        <li>Navigate to the <i>Advanced</i> tab and select the <i>Environment Variables</i> button. At this point, you should now see a window like the one below:
+      </ul>
+      
+      <center><img src="../images/windows_search.jpg"/></center>
+      
+      <ul>
+        <li>Click on <i>Edit the system environment variables</i> and in there, click on the <i>Environment Variables</i> button. At this point, you should now see a window like the one below:
         </li>
       </ul>
 
