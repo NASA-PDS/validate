@@ -13,20 +13,16 @@
 // $Id$
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.validate.report.Report;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 
 /**
  * Factory class that will create the appropriate Validator object.
@@ -38,25 +34,17 @@ public class ValidatorFactory {
   /** Holds the factory object. */
   private static ValidatorFactory factory = null;
 
-  private FileValidator cachedFileValidator;
-
-  private DirectoryValidator cachedDirectoryValidator;
-
+  private LocationValidator cachedValidator;
+  
   /** A list of DocumentValidator objects. */
   private List<DocumentValidator> documentValidators;
-
-  /** The Report to attach to the Validator. */
-  private Report report;
 
   /** The model version to use when performing validation. */
   private String modelVersion;
 
   /** Private constructor. */
   private ValidatorFactory() {
-    cachedFileValidator = null;
-    cachedDirectoryValidator = null;
     documentValidators = new ArrayList<DocumentValidator>();
-    report = null;
     modelVersion = "";
   }
 
@@ -81,37 +69,17 @@ public class ValidatorFactory {
    * @throws ValidatorException Validator error occurred.
    * @throws TransformerConfigurationException Transformer configuration error occurred.
    */
-  public Validator newInstance(URL target) throws ValidatorException,
+  public LocationValidator newInstance(URL target) throws ValidatorException,
   TransformerConfigurationException, ParserConfigurationException {
     Validator validator = null;
-    if (cachedFileValidator == null) {
-      cachedFileValidator = new FileValidator(modelVersion, report);
-      for(DocumentValidator dv : documentValidators) {
-        cachedFileValidator.addValidator(dv);
-      }
+    if (cachedValidator == null) {
+    	cachedValidator = new LocationValidator();
+    	cachedValidator.setModelVersion(modelVersion);
+    	for(DocumentValidator dv : documentValidators) {
+    		cachedValidator.addValidator(dv);
+    	}
     }
-    validator = cachedFileValidator;
-    if (target.getProtocol().equalsIgnoreCase("file")) {
-      File file = FileUtils.toFile(target);
-      if (file.isDirectory()) {
-        if (cachedDirectoryValidator == null) {
-          cachedDirectoryValidator = new DirectoryValidator(modelVersion, report);
-          for(DocumentValidator dv : documentValidators) {
-            cachedDirectoryValidator.addValidator(dv);
-          }
-        }
-        validator = cachedDirectoryValidator;
-      }
-    } else if ("".equals(FilenameUtils.getExtension(target.toString()))) {
-      if (cachedDirectoryValidator == null) {
-        cachedDirectoryValidator = new DirectoryValidator(modelVersion, report);
-        for(DocumentValidator dv : documentValidators) {
-          cachedDirectoryValidator.addValidator(dv);
-        }
-      }
-      validator = cachedDirectoryValidator;
-    }
-    return validator;
+    return cachedValidator;
   }
 
   /**
@@ -130,11 +98,4 @@ public class ValidatorFactory {
     this.modelVersion = modelVersion;
   }
 
-  /**
-   *
-   * @param report The report.
-   */
-  public void setReport(Report report) {
-    this.report = report;
-  }
 }

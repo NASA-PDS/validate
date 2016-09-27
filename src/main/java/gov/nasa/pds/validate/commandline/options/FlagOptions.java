@@ -45,6 +45,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.MODEL));
         options.addOption(new ToolsOption(Flag.STYLE));
         options.addOption(new ToolsOption(Flag.INTEGRITY));
+        options.addOption(new ToolsOption(Flag.RULE));
     }
 
     /**

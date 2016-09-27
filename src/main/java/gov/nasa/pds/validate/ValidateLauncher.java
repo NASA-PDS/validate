@@ -15,14 +15,18 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
+import gov.nasa.pds.tools.label.ExceptionHandler;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
+import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.validate.InMemoryRegistrar;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -52,6 +56,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.TreeMap;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -72,6 +77,7 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
+import org.omg.CORBA.portable.ApplicationException;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
@@ -85,6 +91,8 @@ import org.xml.sax.SAXParseException;
  */
 public class ValidateLauncher {
 
+  /** A manager for validation settings. */
+  private SettingsManager settings = SettingsManager.INSTANCE;
 
   /** List of targets to validate. */
   private List<URL> targets;
@@ -153,6 +161,9 @@ public class ValidateLauncher {
    * a manifest file.
    */
   private URL manifestBasePath;
+  
+  /** The validation rule name to use. */
+  private String validationRule;
 
   /**
    * Constructor.
@@ -263,6 +274,8 @@ public class ValidateLauncher {
         setChecksumManifest(o.getValue());
       } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
         setManifestBasePath(o.getValue());
+      } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
+    	setValidationRule(o.getValue());
       }
     }
     if (!targetList.isEmpty()) {
@@ -547,6 +560,15 @@ public class ValidateLauncher {
   public void setIntegrityCheck(boolean value) {
     this.integrityCheck = value;
   }
+  
+  /**
+   * Sets the validation rule name to use.
+   * 
+   * @param value the validation rule name
+   */
+  public void setValidationRule(String value) {
+	  this.validationRule = value;
+  }
 
   /**
    * Displays tool usage.
@@ -674,7 +696,6 @@ public class ValidateLauncher {
     }
     ValidatorFactory factory = ValidatorFactory.getInstance();
     factory.setModelVersion(modelVersion);
-    factory.setReport(report);
     factory.setDocumentValidators(docValidators);
     for (URL target : targets) {
       if (integrityCheck) {
@@ -687,16 +708,20 @@ public class ValidateLauncher {
             + "collection members from the given target: " + target);
       }
       try {
-        Validator validator = factory.newInstance(target);
+        LocationValidator validator = factory.newInstance(target);
         validator.setForce(force);
-        if (validator instanceof DirectoryValidator) {
-          DirectoryValidator dv = (DirectoryValidator) validator;
-          dv.setFileFilters(regExps);
-          dv.setRecurse(traverse);
-          validator = dv;
+        validator.setFileFilters(regExps);
+        validator.setRecurse(traverse);
+        validator.setTargetRegistrar(new InMemoryRegistrar());
+        
+        ValidationMonitor monitor = new ValidationMonitor(target.toString());
+        
+        if (validationRule != null) {
+        	validator.setRule(validationRule);
         }
+        
         if (!schemas.isEmpty()) {
-          validator.setSchemas(schemas);
+          validator.setSchema(schemas);
           validator.setCachedEntityResolver(resolver);
           validator.setCachedLSResourceResolver(
               schemaValidator.getCachedLSResolver());
@@ -707,7 +732,8 @@ public class ValidateLauncher {
         if (!transformedSchematrons.isEmpty()) {
           validator.setSchematrons(transformedSchematrons);
         }
-        validator.validate(target);
+        validator.validate(monitor, target);
+        monitor.endValidation();
       } catch (Exception e) {
         LabelException le = null;
         if (e instanceof MissingLabelSchemaException) {
@@ -914,4 +940,51 @@ public class ValidateLauncher {
     BasicConfigurator.configure(ca);
     new ValidateLauncher().processMain(args);
   }
+  
+  /**
+   * A validation monitor that coalesces exceptions by location and summarizes
+   * into the report.
+   */
+  private class ValidationMonitor implements ExceptionHandler {
+	  
+	private Map<String, ExceptionContainer> exceptions = new TreeMap<String, ExceptionContainer>();
+	private String rootLocation;
+	  
+	
+	public ValidationMonitor(String rootLocation) {
+		this.rootLocation = rootLocation;
+	}
+	
+	@Override
+	public void addException(LabelException ex) {
+		String location = rootLocation;
+		if (ex.getSystemId() != null) {
+			location = ex.getSystemId();
+		}
+		
+		addLocation(location);
+		exceptions.get(location).addException(ex);
+	}
+	
+	public void endValidation() {
+		for (String location : exceptions.keySet()) {
+			URI uri = null;
+				try {
+					uri = new URI(location);
+				} catch (URISyntaxException e) {
+					// Should not happen - ignore.
+				}
+			report.record(uri, exceptions.get(location).getExceptions());
+		}
+	}
+	
+	private void addLocation(String location) {
+		if (!exceptions.containsKey(location)) {
+			ExceptionContainer container = new ExceptionContainer();
+			exceptions.put(location, container);
+		}
+	}
+
+  }
+
 }

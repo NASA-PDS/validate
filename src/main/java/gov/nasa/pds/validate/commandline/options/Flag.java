@@ -126,7 +126,11 @@ public enum Flag {
    * Flag to specify a list of schemas to use during validation.
    */
   SCHEMA("x", "schema", "schema files", String.class, true,
-      "Specify schema files.");
+      "Specify schema files."),
+      
+  RULE("R", "rule", "validation rule name", String.class,
+	   "Specifies the validation rule to use. (pds3.volume|pds4.bundle|pds4.collection|pds4.directory|auto)."
+	   + " Default is to auto-detect based on the contents at the location specified.");
 
   /** The short name. */
   private final String shortName;
