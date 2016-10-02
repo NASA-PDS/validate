@@ -23,10 +23,19 @@
   </properties>
 
   <body>
-    <release version="1.10.0" date="TBD" description="TBD">
+    <release version="1.10.0" date="2016-09-30" description="This release of the Validate Tool is a component of the integrated release 7.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="update" issue="PDS-464">
         Updated Windows System Properties Install Guide.
       </action>    
+      <action dev="mcayanan" type="update">
+        Clarified in the documentation the differences between using the -f flag versus the -x flag. 
+      </action>    
+      <action dev="mrose" type="add">
+        Added support for PDS3 volume validation. Inherited from core.
+      </action>
+      <action dev="mrose" type="update">
+        Added new features for PDS4 validation. Inherited from core.
+      </action>
     </release>
 
     <release version="1.9.0" date="2016-03-31" description="This release of the Validate Tool is a component of the integrated release 6.1.0 of the PDS4 System. This is an operational release of the system components to date.">
