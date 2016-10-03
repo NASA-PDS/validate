@@ -27,12 +27,15 @@
       <action dev="mcayanan" type="update" issue="PDS-464">
         Updated Windows System Properties Install Guide.
       </action>    
-      <action dev="mcayanan" type="update">
-        Clarified in the documentation the differences between using the -f flag versus the -x flag. 
-      </action>    
       <action dev="mrose" type="add">
         Added support for PDS3 volume validation. Inherited from core.
       </action>
+      <action dev="shardman" type="add">
+        Added in the 1700 version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update">
+        Clarified in the documentation the differences between using the -f flag versus the -x flag. 
+      </action>    
       <action dev="mrose" type="update">
         Added new features for PDS4 validation. Inherited from core.
       </action>
@@ -46,10 +49,13 @@
         Duplicate messages appearing in the report.
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-439">
-        Does not place errors found in the referenced file of an xinclude statement in the proper place of the Validate Tool report. (Inherited from core)
+        Does not place errors found in the referenced file of an xinclude statement in the proper place of the Validate Tool report. Inherited from core.
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-443">
         Fixed to also recognize "Member Status" as a valid field name for the Field_Delimited element in the Inventory area of a collection.
+      </action>
+      <action dev="shardman" type="add">
+        Added in the 1600 version of the schema and schematron and set as default for this release. Inhertied from core.
       </action>
     </release>
 
@@ -72,6 +78,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-401">
         Referential integrity checking not recognizing missing products.
       </action>
+      <action dev="shardman" type="add">
+        Added in the 1500 version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>
     </release>
 
     <release version="1.7.0" date="2015-03-31" description="This release of the Validate Tool is a component of the integrated release 5.1.0 of the PDS4 System. This is an operational release of the system components to date.">
@@ -79,7 +88,7 @@
         Report if a given XML Schema or Schematron file is invalid.
       </action>
       <action dev="mrose" type="update" issue="PDS-345">
-        Enable reporting of line numbers for Schematron errors. (Inherited from core)
+        Enable reporting of line numbers for Schematron errors. Inherited from core.
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-351">
         Correct issue where schema validation fails with a certificate issue in Java 6. (Inherited from core)
