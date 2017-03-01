@@ -69,4 +69,9 @@ public class ConfigKey {
    * Property to enable/disable referential integrity checking.
    */
   public static final String INTEGRITY = "validate.integrity";
+  
+  /**
+   * Property to specify the validation rule type.
+   */
+  public static final String RULE = "validate.rule";
 }

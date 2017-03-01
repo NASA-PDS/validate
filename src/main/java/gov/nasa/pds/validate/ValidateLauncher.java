@@ -40,6 +40,7 @@ import gov.nasa.pds.validate.schema.SchemaValidator;
 import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
+import net.sf.saxon.trans.XPathException;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,11 +54,13 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
+import javax.xml.transform.SourceLocator;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -275,7 +278,7 @@ public class ValidateLauncher {
       } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
         setManifestBasePath(o.getValue());
       } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
-    	setValidationRule(o.getValue());
+        setValidationRule(o.getValue());
       }
     }
     if (!targetList.isEmpty()) {
@@ -303,6 +306,18 @@ public class ValidateLauncher {
             + "file and multiple targets.");
       }
     }
+    /*
+    if (!filters.isEmpty() && 
+        (validationRule != null && !validationRule.equals("pds4.folder"))) {
+      throw new IllegalArgumentException("Cannot specify a file filter "
+          + "when the validation rule is set to '" + validationRule + "'");
+    }
+    if (validationRule != null && 
+        !(validationRule.equals("pds4.folder") || 
+            validationRule.equals("pds4.label"))) {
+      setRegExps(Arrays.asList(new String[] {"*"}));
+    }
+    */
   }
 
   /**
@@ -376,6 +391,9 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.BASE_PATH)) {
         setManifestBasePath(config.getString(ConfigKey.BASE_PATH));
+      }
+      if (config.containsKey(ConfigKey.RULE)) {
+        setValidationRule(config.getString(ConfigKey.RULE));
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -567,7 +585,21 @@ public class ValidateLauncher {
    * @param value the validation rule name
    */
   public void setValidationRule(String value) {
-	  this.validationRule = value;
+    if ("pds4.bundle".equalsIgnoreCase(value)) {
+      this.validationRule = "pds4.bundle";
+    } else if ("pds4.collection".equalsIgnoreCase(value)) {
+      this.validationRule = "pds4.collection";
+    } else if ("pds4.folder".equalsIgnoreCase(value)) {
+      this.validationRule = "pds4.folder";
+    } else if ("pds4.label".equalsIgnoreCase(value)) {
+      this.validationRule = "pds4.label";
+    } else if ("pds3.volume".equalsIgnoreCase(value)) {
+      this.validationRule = "pds3.volume";
+    } else {
+      throw new IllegalArgumentException("Validation rule type value must "
+          + "be one of the following: pds4.bundle, pds4.collection, "
+          + "pds4.folder, pds4.label, or pds3.volume");
+    }
   }
 
   /**
@@ -645,6 +677,9 @@ public class ValidateLauncher {
       }
     }
     report.addParameter("   Targets                       " + targets);
+    if (validationRule != null) {
+      report.addParameter("   Rule Type                     " + validationRule);
+    }
     if (!schemas.isEmpty()) {
       report.addParameter("   User Specified Schemas        " + schemas);
     }
@@ -690,7 +725,6 @@ public class ValidateLauncher {
     }
     // Initialize the Factory Class
     List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
-    docValidators.add(fileRefValidator);
     if (integrityCheck) {
       docValidators.add(refIntegrityValidator);
     }
@@ -703,7 +737,7 @@ public class ValidateLauncher {
         System.out.println("Begin gathering LIDVIDs, bundle and collection "
             + "members from the given target: " + target);
         refIntegrityValidator.setSources(Utility.toTarget(target), traverse,
-            regExps);
+            Arrays.asList(DEFAULT_FILE_FILTERS));
         System.out.println("Finished gathering LIDVIDs, bundle and "
             + "collection members from the given target: " + target);
       }
@@ -712,6 +746,9 @@ public class ValidateLauncher {
         validator.setForce(force);
         validator.setFileFilters(regExps);
         validator.setRecurse(traverse);
+        if (!checksumManifest.isEmpty()) {
+          validator.setChecksumManifest(checksumManifest);
+        }
         validator.setTargetRegistrar(new InMemoryRegistrar());
         
         ValidationMonitor monitor = new ValidationMonitor(target.toString());
@@ -830,10 +867,10 @@ public class ValidateLauncher {
         }
         inputSource.getByteStream().reset();
       } catch (Exception e) {
-        throw new Exception("Error while getting targetNamespace of schema '"
+          throw new Exception("Error while getting targetNamespace of schema '"
             + schema.toString() + "': " + e.getMessage());
+        }
       }
-    }
     schemaValidator.setExternalLocations(locations);
     for(StreamSource source : sources) {
       ExceptionContainer problems = schemaValidator.validate(source);
@@ -931,6 +968,7 @@ public class ValidateLauncher {
    */
   public static void main(String[] args)
       throws TransformerConfigurationException {
+    System.setProperty("https.protocols", "TLSv1.2");
     if (args.length == 0) {
       System.out.println("\nType 'validate -h' for usage");
       System.exit(0);
@@ -947,9 +985,8 @@ public class ValidateLauncher {
    */
   private class ValidationMonitor implements ExceptionHandler {
 	  
-	private Map<String, ExceptionContainer> exceptions = new TreeMap<String, ExceptionContainer>();
+	private Map<String, ExceptionContainer> exceptions = new LinkedHashMap<String, ExceptionContainer>();
 	private String rootLocation;
-	  
 	
 	public ValidationMonitor(String rootLocation) {
 		this.rootLocation = rootLocation;
@@ -958,8 +995,8 @@ public class ValidateLauncher {
 	@Override
 	public void addException(LabelException ex) {
 		String location = rootLocation;
-		if (ex.getSystemId() != null) {
-			location = ex.getSystemId();
+		if (ex.getSource() != null) {
+			location = ex.getSource();
 		}
 		
 		addLocation(location);

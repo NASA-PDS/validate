@@ -62,10 +62,10 @@
       </p>
 
       <source>
-% validate $HOME/pds/bundle -i -M checksum-manifest.txt -r validate-report.txt
+% validate $HOME/pds/bundle -i -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
       </source>
 
-      <p>The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
+      <p>The <i>-R</i> flag indicates to the tool to apply additional validation rules to the target bundle. The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
       </p>
     </section>
 
@@ -76,6 +76,7 @@
       <table>
         <tr><th>Command-Line Option</th><th>Description</th></tr>
         <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
+        <tr><td>-R, --rule &lt;validation rule name&gt;</td><td>Specify the validation rules to apply. Valid values are "pds4.bundle", "pds4.collection", "pds4.folder", "pds4.label", or "pds3.volume". Default is to use "pds4.label" for target file inputs and to use "pds4.folder" for target directory inputs. See <a href="#Validation_Rules">Validation Rules</a> for more details.</td></tr>
         <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking on a target directory. The tool will not accept a target file specification when this feature is enabled. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
         <tr><td>-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
         <tr><td>-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
@@ -250,6 +251,104 @@
 
         <p>In each scenario above, the target product(s) were the equivalent of observational or document products. The data model also consists of bundle and collection products, which in turn reference other products. When the Validate Tool encounters one of these products, it traverses the inventory associated with that product and validates each product referenced as well as the target product.
         </p>
+      </subsection>
+
+      <subsection name="Validation Rules">
+        <p>The Validate Tool provides the capability of doing various additional checks passed the usual PDS4 label validation. This is done through the <i>-R, --rule</i> flag option. The valid values are the following:
+        </p>
+        
+        <ul>
+          <li>pds4.label</li>
+          <li>pds4.folder</li>
+          <li>pds4.collection</li>
+          <li>pds4.bundle</li>
+          <li>pds3.volume</li>
+        </ul>
+        
+        <p>If the <i>-R</i> flag is not specified on the command-line, the default behavior is to use the <i>pds4.label</i> rule for target file inputs and to use the <i>pds4.folder</i> rule for target directory inputs. This section details the checks that are made for each of the rule types. The command-line run examples below reference the example PDS4 Archive Bundle that can be found on the <a href="https://pds.jpl.nasa.gov/pds4/doc/examples/">PDS4 web site</a>.
+        </p>
+        
+        <p><b><i>pds4.label</i></b></p>
+        
+        <p>The <i>pds4.label</i> validation rule will:
+        </p>
+        
+        <ul>
+          <li>Check that a product label conforms to a given schema and schematron.</li>
+          <li>Check that files referenced in a product label exist.</li>
+          <li>Check that the file references in a product label and the file on the file system match case.</li>
+          <li>Check that file reference checksums in a product label matches their actual checksums, if present.</li>
+          <li>Perform checksum validation against a Checksum Manifest file, if supplied.</li>
+        </ul>
+        
+        <p>The following example demonstrates validating a product label using the default <i>pds4.label</i> validation rule:
+        </p>
+        
+        <source> 
+%> validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
+        </source>
+        
+        <p><b><i>pds4.folder</i></b></p>
+        
+        <p>The <i>pds4.folder</i> validation rule allows the tool to do a file-by-file validation using the <i>pds4.label</i> rule on each file found in the target directory.
+        </p>
+        
+        <p>The following example demonstrates performing a file-by-file validation on a target directory: 
+        </p>
+        
+        <source>
+%> validate /home/pds/dph_example_archive_VG2PLS        
+        </source>
+        
+        <p><b><i>pds4.collection</i></b></p>
+        
+        <p>The <i>pds4.collection</i> validation rule applies the <i>pds4.label</i> validation rule on each product label found within a target collection. In addition, it will:
+        </p>
+        
+        <ul>
+          <li>Check that file names follow the file-naming rules as defined in section 6C.1.1 of the PDS4 Standards Reference.</li>
+          <li>Check that file names do not match the prohibitied file names as defined in section 6C.1.2 of the PDS4 Standards Reference.</li>
+          <li>Check that file names do not contain the prohibitied base names as defined in section 6C.1.4 of the PDS4 Standards Reference.</li>
+          <li>Check that directory names follow directory-naming rules as defined in section 6C.2.1 of the PDS4 Standards Reference.</li>
+          <li>Check that directory names do not match prohibited directory names as defined in section 6C.2.3 of the PDS4 Standards Reference.</li>
+          <li>Check that all files in the target collection are referenced by some label.</li>
+        </ul>
+        
+        <p>The following example demonstrates applying a PDS4 Collection validation rule on a target collection:
+        </p>
+        
+        <source>
+%> validate /home/pds/dph_example_archive_VG2PLS/data -R pds4.collection
+        </source>
+        
+        <p><b><i>pds4.bundle</i></b></p>
+        
+        <p>The <i>pds4.bundle</i> validation rule applies the <i>pds4.collection</i> validation rule on each collection found within a target collection. In addition, it will:
+        </p>
+        
+        <ul>
+          <li>Check that files and directories at the root of the target bundle are valid as defined in section 2B.2.2.1 of the PDS4 Standards Reference.</li>
+        </ul>
+        
+        <p>The following example demonstrates running the tool using the PDS4 Bundle validation rules on a target bundle:
+        </p>
+        
+        <source>
+%> validate /home/pds/dph_example_archive_VG2PLS -R pds4.bundle
+        </source>
+        
+        <p><b><i>pds3.volume</i></b></p>
+        
+        <p>The <i>pds3.volume</i> validation rule allows the Validate Tool to perform PDS3 volume validation on a target directory. Currently, only local targets are supported for this validation rule.
+        </p>
+        
+        <p>The following example demonstrates running the tool against a PDS3 volume:
+        </p>
+        
+        <source>
+%> validate /home/pds/VG2-J-PLS-5-SUMM-ELE-MOM-96.0SEC-V1.0 -R pds3.volume
+        </source>
+        
       </subsection>
 
       <subsection name="Referential Integrity Checking">
@@ -438,6 +537,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
         <table>
           <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
           <tr><td>validate.target</td><td>-t, --target</td></tr>
+          <tr><td>validate.rule</td><td>-R, --rule</td></tr>
           <tr><td>validate.integrity</td><td>-i, --integrity-check</td></tr>
           <tr><td>validate.checksum</td><td>-M, --checksum-manifest</td></tr>
           <tr><td>validate.basePath</td><td>-B, --base-path</td></tr>

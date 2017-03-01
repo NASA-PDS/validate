@@ -24,6 +24,30 @@
 
   <body>
     <release version="TBD" date="TBD" description="TBD">
+      <action dev="mcayanan" type="fix" issue="PDS-481">
+        Restored URL support. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-482">
+        Restored integrity checking feature. 
+      </action>      
+      <action dev="mcayanan" type="fix" issue="PDS-483">
+        Restored file reference checking. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-484">
+        Restored the capability to pass in a target directory to do file by file validation. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-485">
+        Restored reporting of files that passed validation. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-486">
+        Restored capability to filter on specific files when passing in a target directory. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-487">
+        Restored capability to validate a schema defined in a label. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-488">
+        Disabled support for xinclude pointers. Inherited from core.
+      </action> 
     </release>
 
     <release version="1.10.0" date="2016-09-30" description="This release of the Validate Tool is a component of the integrated release 7.0.0 of the PDS4 System. This is an operational release of the system components to date.">

@@ -129,7 +129,7 @@ public enum Flag {
       "Specify schema files."),
       
   RULE("R", "rule", "validation rule name", String.class,
-	   "Specifies the validation rules to apply. (pds3.volume|pds4.bundle|pds4.collection|pds4.directory)."
+	   "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
 	   + " Default is to auto-detect based on the contents at the location specified.");
 
   /** The short name. */
