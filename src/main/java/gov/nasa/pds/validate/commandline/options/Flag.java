@@ -54,12 +54,6 @@ public enum Flag {
   HELP("h", "help", "Display usage."),
 
   /**
-   * Flag to perform referential integrity checking.
-   */
-  INTEGRITY("i", "integrity-check", "Perform referential integrity checking "
-      + "on the given target directory or directories."),
-
-  /**
    * Flag that disables recursion when traversing a target directory.
    */
   LOCAL("L", "local", "Validate files only in the target directory rather "

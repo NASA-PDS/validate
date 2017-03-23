@@ -64,11 +64,6 @@ public class ConfigKey {
    *  in the label.
    */
   public static final String FORCE = "validate.force";
-
-  /**
-   * Property to enable/disable referential integrity checking.
-   */
-  public static final String INTEGRITY = "validate.integrity";
   
   /**
    * Property to specify the validation rule type.

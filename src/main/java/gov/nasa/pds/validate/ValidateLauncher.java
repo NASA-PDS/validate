@@ -135,12 +135,6 @@ public class ValidateLauncher {
   private boolean force;
 
   /**
-   * Flag to perform referential integrity.
-   *
-   */
-  private boolean integrityCheck;
-
-  /**
    * A checksum manifest file to use for checksum validation.
    *
    */
@@ -188,7 +182,6 @@ public class ValidateLauncher {
     report = null;
     reportStyle = "full";
     force = false;
-    integrityCheck = false;
     regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
     schemaValidator = new SchemaValidator();
     schematronTransformer = new SchematronTransformer();
@@ -271,8 +264,6 @@ public class ValidateLauncher {
         setReportStyle(o.getValue());
       } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
         setForce(true);
-      } else if (Flag.INTEGRITY.getShortName().equals(o.getOpt())) {
-        setIntegrityCheck(true);
       } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
         setChecksumManifest(o.getValue());
       } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
@@ -290,14 +281,6 @@ public class ValidateLauncher {
             || !catalogs.isEmpty())) {
       throw new InvalidOptionException("Cannot specify user schemas, "
             + "schematrons, and/or catalog files with the 'force' flag option");
-    }
-    if (integrityCheck) {
-      for (URL target : targets) {
-        if (!Utility.toTarget(target).isDir()) {
-          throw new InvalidOptionException("Must specify a target directory "
-              + "when performing integrity checking: " + target);
-        }
-      }
     }
     if (checksumManifest != null) {
       if ( (targets.size() > 1) && (manifestBasePath == null) ) {
@@ -382,9 +365,6 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.FORCE)) {
         setForce(config.getBoolean(ConfigKey.FORCE));
-      }
-      if (config.containsKey(ConfigKey.INTEGRITY)) {
-        setIntegrityCheck(config.getBoolean(ConfigKey.INTEGRITY));
       }
       if (config.containsKey(ConfigKey.CHECKSUM)) {
         setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
@@ -574,10 +554,6 @@ public class ValidateLauncher {
   public void setForce(boolean value) {
     this.force = value;
   }
-
-  public void setIntegrityCheck(boolean value) {
-    this.integrityCheck = value;
-  }
   
   /**
    * Sets the validation rule name to use.
@@ -699,11 +675,6 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Force Mode                    off");
     }
-    if (integrityCheck) {
-      report.addParameter("   Referential Integrity Check   on");
-    } else {
-      report.addParameter("   Referential Integrity Check   off");
-    }
     if (checksumManifest != null) {
       report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
       report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
@@ -717,30 +688,12 @@ public class ValidateLauncher {
    */
   public void doValidation(Map<URL, String> checksumManifest)
   throws Exception {
-    ReferentialIntegrityValidator refIntegrityValidator =
-        new ReferentialIntegrityValidator();
-    FileReferenceValidator fileRefValidator = new FileReferenceValidator();
-    if (!checksumManifest.isEmpty()) {
-      fileRefValidator.setChecksumManifest(checksumManifest);
-    }
     // Initialize the Factory Class
     List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
-    if (integrityCheck) {
-      docValidators.add(refIntegrityValidator);
-    }
     ValidatorFactory factory = ValidatorFactory.getInstance();
     factory.setModelVersion(modelVersion);
     factory.setDocumentValidators(docValidators);
     for (URL target : targets) {
-      if (integrityCheck) {
-        refIntegrityValidator.clearSources();
-        System.out.println("Begin gathering LIDVIDs, bundle and collection "
-            + "members from the given target: " + target);
-        refIntegrityValidator.setSources(Utility.toTarget(target), traverse,
-            Arrays.asList(DEFAULT_FILE_FILTERS));
-        System.out.println("Finished gathering LIDVIDs, bundle and "
-            + "collection members from the given target: " + target);
-      }
       try {
         LocationValidator validator = factory.newInstance(target);
         validator.setForce(force);

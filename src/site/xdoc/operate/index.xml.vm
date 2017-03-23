@@ -62,7 +62,7 @@
       </p>
 
       <source>
-% validate $HOME/pds/bundle -i -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
+% validate $HOME/pds/bundle -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
       </source>
 
       <p>The <i>-R</i> flag indicates to the tool to apply additional validation rules to the target bundle. The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
@@ -77,7 +77,6 @@
         <tr><th>Command-Line Option</th><th>Description</th></tr>
         <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
         <tr><td>-R, --rule &lt;validation rule name&gt;</td><td>Specify the validation rules to apply. Valid values are "pds4.bundle", "pds4.collection", "pds4.folder", "pds4.label", or "pds3.volume". Default is to use "pds4.label" for target file inputs and to use "pds4.folder" for target directory inputs. See <a href="#Validation_Rules">Validation Rules</a> for more details.</td></tr>
-        <tr><td>-i, --integrity-check</td><td>Perform referential integrity checking on a target directory. The tool will not accept a target file specification when this feature is enabled. For more details, see the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.</td></tr>
         <tr><td>-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
         <tr><td>-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
         <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
@@ -107,7 +106,6 @@
         <ul>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
-          <li>Validating with Referential Integrity Checking</li>
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
@@ -139,15 +137,6 @@
 
         <source>
 % validate producta.xml, productb.xml -x producta.xsd, productb.xsd
-        </source>
-
-        <p><b><i>Validating with Referential Integrity Checking</i></b></p>
-
-        <p>The following command demonstrates validating a bundle target with referential integrity checking enabled:
-        </p>
-
-        <source>
-% validate ${HOME}/bundle -i
         </source>
 
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
@@ -312,6 +301,7 @@
           <li>Check that directory names follow directory-naming rules as defined in section 6C.2.1 of the PDS4 Standards Reference.</li>
           <li>Check that directory names do not match prohibited directory names as defined in section 6C.2.3 of the PDS4 Standards Reference.</li>
           <li>Check that all files in the target collection are referenced by some label.</li>
+          <li>Perform referential integrity checking among the target collection and its members.</li>
         </ul>
         
         <p>The following example demonstrates applying a PDS4 Collection validation rule on a target collection:
@@ -328,6 +318,7 @@
         
         <ul>
           <li>Check that files and directories at the root of the target bundle are valid as defined in section 2B.2.2.1 of the PDS4 Standards Reference.</li>
+          <li>Perform referential integrity checking among the target bundle and its members.</li>
         </ul>
         
         <p>The following example demonstrates running the tool using the PDS4 Bundle validation rules on a target bundle:
@@ -352,7 +343,7 @@
       </subsection>
 
       <subsection name="Referential Integrity Checking">
-        <p>The Validate Tool performs referential integrity checking within a given target directory when the <i>-i, --integrity-check</i> flag option is specified on the command line. The tool makes one pass through a given target and gathers the LIDVIDs of each product, members within a Bundle product, and members within a Collection product. Assuming that the target directory points to a full PDS4 bundle, the following referential integrity checks are made as the tool validates each product:
+        <p>The Validate Tool performs referential integrity checking within a given target directory when the <i>pds4.collection</i> or <i>pds4.bundle</i> validation rules are applied to a validation run (via the <i>-R, --rule</i> flag option). Assuming that the target directory points to a full PDS4 bundle, the following referential integrity checks are made as the tool validates each product:
         </p>
 
         <p>For Bundle products,
@@ -379,7 +370,7 @@
         </p>
 
         <source>
-% validate ${HOME}/bundle/collection -i
+% validate ${HOME}/bundle/collection -R pds4.collection
         </source>
 
         <p>In this case, the tool will not report that the given Collection is not referenced by a Bundle product.
@@ -389,7 +380,7 @@
         </p>
 
         <source>
-% validate ${HOME}/bundle1 -i -v1
+% validate ${HOME}/bundle1 -R pds4.bundle -v1
         </source>
 
         <p>Below is a snippet of an example report of a validation run with integrity checking turned on and the severity level set to <i>INFO</i> and above:
@@ -427,7 +418,7 @@ PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context
         </p>
 
         <source>
-% validate ${HOME}/bundle1, ${HOME}/bundle2 -e "*.xml" -i
+% validate ${HOME}/bundle1, ${HOME}/bundle2 -e "*.xml" -R pds4.bundle
         </source>
 
         <p>The tool will perform referential integrity checking within the products located in the <i>${HOME}/bundle1</i> target, then will perform referential integrity checking within the products located in the <i>${HOME}/bundle2</i> target. In other words, the tool will not cross over to the <i>${HOME}/bundle2</i> directory to find LID/LIDVID references of a product in the <i>${HOME}/bundle1</i> directory.
@@ -538,7 +529,6 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
           <tr><td>validate.target</td><td>-t, --target</td></tr>
           <tr><td>validate.rule</td><td>-R, --rule</td></tr>
-          <tr><td>validate.integrity</td><td>-i, --integrity-check</td></tr>
           <tr><td>validate.checksum</td><td>-M, --checksum-manifest</td></tr>
           <tr><td>validate.basePath</td><td>-B, --base-path</td></tr>
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
