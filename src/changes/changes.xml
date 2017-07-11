@@ -23,7 +23,10 @@
   </properties>
 
   <body>
-    <release version="1.11.1" date="2017-07-11" description="This release of the Validate Tool is a component of the integrated release 7.1.0 of the PDS4 System. This is an operational release of the system components to date.">
+    <release version="1.12.0" date="TBD" description="TBD">
+    </release>
+
+    <release version="1.11.1" date="2017-07-11" description="This point release of the Validate Tool is a component of the integrated release 7.1.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="fix" issue="PDS-467">
         Fixed support for Schema JAR URLs. Inherited from core.
       </action>    
