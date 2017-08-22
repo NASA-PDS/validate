@@ -32,20 +32,96 @@
   "title": "PDS Validation Tool Report",
   "configuration": {
     "version": "1.9.0",
-    "date": "2015-12-01T19:12:23Z",
+    "date": "2015-12-01T21:01:07Z",
     "coreSchemas": "[PDS4_PDS_1500.xsd]",
     "coreSchematrons": "[PDS4_PDS_1500.sch]",
     "modelVersion": "1500"
   },
   "parameters": {
-    "targets": "[file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml]",
+    "targets": "[file:/home/pds4/dph_example_archive_VG2PLS/]",
     "severityLevel": "WARNING",
     "recurseDirectories": "true",
     "fileFiltersUsed": "[*.xml, *.XML]",
     "forceMode": "off",
-    "referentialIntegrityCheck": "off"
+    "referentialIntegrityCheck": "on",
+    "checksumManifestFile": "file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt",
+    "manifestFileBasePath": "file:/home/pds4/dph_example_archive_VG2PLS/"
   },
   "validationDetails": [
+    {
+      "status": "FAIL",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml",
+      "messages": [
+        {
+          "severity": "ERROR",
+          "message": "No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml'."
+        },
+        {
+          "severity": "ERROR",
+          "line": 47,
+          "message": "No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt'."
+        },
+        {
+          "severity": "WARNING",
+          "message": "The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0' is not a member of any collection within the given target."
+        }
+      ],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/Product_Bundle.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml",
+      "messages": [],
+      "fragments": []
+    },
     {
       "status": "FAIL",
       "label": "file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml",
@@ -64,13 +140,55 @@
         }
       ],
       "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/document/checksums.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/document/errata.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/document/mission.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/document/plsinst.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml",
+      "messages": [],
+      "fragments": []
+    },
+    {
+      "status": "PASS",
+      "label": "file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1500.xml",
+      "messages": [],
+      "fragments": []
     }
   ],
   "summary": {
-    "totalProcessed": 1,
+    "totalProcessed": 18,
     "totalSkipped": 0,
-    "totalValidated": 1,
-    "totalPassedValidation": 0
+    "totalValidated": 18,
+    "totalPassedValidation": 16
   }
 }
       </source>

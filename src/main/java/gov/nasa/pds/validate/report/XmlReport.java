@@ -15,12 +15,14 @@ package gov.nasa.pds.validate.report;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.validate.content.table.TableContentException;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,20 +61,31 @@ public class XmlReport extends Report {
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
-    Map<String, List<LabelException>> externalProblems = new HashMap<String, List<LabelException>>();
+    Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
+    Map<String, List<TableContentException>> contentProblems = new LinkedHashMap<String, List<TableContentException>>();
     writer.println("  <label target=\"" + sourceUri.toString() + "\" status=\"" + status.getName() + "\">");
     for (LabelException problem : problems) {
-      if ( ((problem.getPublicId() == null)
-          && (problem.getSystemId() == null))
-          || sourceUri.toString().equals(problem.getSystemId())) {
-        printProblem(writer, problem);
-      } else {
-        List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
-        if (extProbs == null) {
-          extProbs = new ArrayList<LabelException>();
+      if (problem instanceof TableContentException) {
+        TableContentException contentProb = (TableContentException) problem;
+        List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
+        if (contentProbs == null) {
+          contentProbs = new ArrayList<TableContentException>();
         }
-        extProbs.add(problem);
-        externalProblems.put(problem.getSystemId(), extProbs);
+        contentProbs.add(contentProb);
+        contentProblems.put(contentProb.getSource(), contentProbs);        
+      } else {
+        if ( ((problem.getPublicId() == null)
+            && (problem.getSystemId() == null))
+            || sourceUri.toString().equals(problem.getSystemId())) {
+          printProblem(writer, problem);
+        } else {
+          List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+          if (extProbs == null) {
+            extProbs = new ArrayList<LabelException>();
+          }
+          extProbs.add(problem);
+          externalProblems.put(problem.getSystemId(), extProbs);
+        }
       }
     }
 
@@ -83,6 +96,15 @@ public class XmlReport extends Report {
       }
       writer.println("    </fragment>");
     }
+    
+    for (String dataFile : contentProblems.keySet()) {
+      writer.println("    <dataFile uri=\"" + dataFile.toString() + "\">");
+      for (TableContentException problem : contentProblems.get(dataFile)) {
+        printExtProblem(writer, problem);
+      }
+      writer.println("    </dataFile>");
+    }
+    
     writer.println("  </label>");
   }
 
@@ -99,11 +121,24 @@ public class XmlReport extends Report {
     }
     writer.print("      ");
     writer.print("<message severity=\"" + severity + "\"");
-    if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
-      writer.print(" line=\"" + problem.getLineNumber().toString() + "\"");
-    }
-    if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
-      writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
+    if (problem instanceof TableContentException) {
+      TableContentException tcProblem = (TableContentException) problem;
+      if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
+        writer.print(" table=\"" + tcProblem.getTable().toString() + "\"");
+      }
+      if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
+        writer.print(" record=\"" + tcProblem.getRecord().toString() + "\"");
+      }
+      if (tcProblem.getField() != null && tcProblem.getField() != -1) {
+        writer.print(" field=\"" + tcProblem.getField().toString() + "\"");        
+      }   
+    } else {   
+      if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
+        writer.print(" line=\"" + problem.getLineNumber().toString() + "\"");
+      }
+      if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
+        writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
+      }
     }
     writer.print(">" + "\n");
     writer.println("        <content>" + StringEscapeUtils.escapeXml(problem.getMessage()) + "</content>");

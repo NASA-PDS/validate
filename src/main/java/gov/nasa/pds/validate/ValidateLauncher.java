@@ -27,6 +27,7 @@ import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
+import gov.nasa.pds.tools.validate.content.table.TableContentException;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -948,10 +949,14 @@ public class ValidateLauncher {
 	@Override
 	public void addException(LabelException ex) {
 		String location = rootLocation;
-		if (ex.getSource() != null) {
-			location = ex.getSource();
+		if (ex instanceof TableContentException) {
+		  TableContentException tce = (TableContentException) ex;
+		  location = tce.getLabel();
+		} else {
+  		if (ex.getSource() != null) {
+  			location = ex.getSource();
+  		}
 		}
-		
 		addLocation(location);
 		exceptions.get(location).addException(ex);
 	}

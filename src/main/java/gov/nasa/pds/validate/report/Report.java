@@ -75,7 +75,7 @@ public abstract class Report {
    * @param writer
    *          which the report will be written to
    */
-  public final void setOutput(Writer writer) {
+  public void setOutput(Writer writer) {
     this.writer = new PrintWriter(writer);
   }
 
@@ -86,7 +86,7 @@ public abstract class Report {
    * @param os
    *          stream which the report will be written to
    */
-  public final void setOutput(OutputStream os) {
+  public void setOutput(OutputStream os) {
     this.setOutput(new OutputStreamWriter(os));
   }
 
@@ -98,7 +98,7 @@ public abstract class Report {
    * @throws IOException
    *           if there is an issue in writing the report to the file
    */
-  public final void setOutput(File file) throws IOException {
+  public void setOutput(File file) throws IOException {
     this.setOutput(new FileWriter(file));
   }
 
@@ -216,7 +216,7 @@ public abstract class Report {
       this.numPassed++;
     }
     printRecordMessages(this.writer, status, sourceUri, filteredProblems);
-
+    this.writer.flush();
     return status;
   }
 
