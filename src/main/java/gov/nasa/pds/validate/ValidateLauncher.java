@@ -21,6 +21,7 @@ import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
+import gov.nasa.pds.tools.label.ValidateExceptionHandler;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.SettingsManager;
@@ -705,7 +706,7 @@ public class ValidateLauncher {
         }
         validator.setTargetRegistrar(new InMemoryRegistrar());
         
-        ValidationMonitor monitor = new ValidationMonitor(target.toString());
+        ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
         
         if (validationRule != null) {
         	validator.setRule(validationRule);
@@ -937,49 +938,52 @@ public class ValidateLauncher {
    * A validation monitor that coalesces exceptions by location and summarizes
    * into the report.
    */
-  private class ValidationMonitor implements ExceptionHandler {
+  private class ValidationMonitor implements ValidateExceptionHandler {
 	  
-	private Map<String, ExceptionContainer> exceptions = new LinkedHashMap<String, ExceptionContainer>();
-	private String rootLocation;
-	
-	public ValidationMonitor(String rootLocation) {
-		this.rootLocation = rootLocation;
-	}
-	
-	@Override
-	public void addException(LabelException ex) {
-		String location = rootLocation;
-		if (ex instanceof TableContentException) {
-		  TableContentException tce = (TableContentException) ex;
-		  location = tce.getLabel();
-		} else {
-  		if (ex.getSource() != null) {
-  			location = ex.getSource();
+  	private Map<String, ExceptionContainer> exceptions = new LinkedHashMap<String, ExceptionContainer>();
+  	private String rootLocation;
+  	private ExceptionType verbosityLevel;
+  	
+  	public ValidationMonitor(String rootLocation, ExceptionType severity) {
+  		this.rootLocation = rootLocation;
+  		this.verbosityLevel = severity;
+  	}
+  	
+  	@Override
+  	public void addException(LabelException ex) {
+  	  if (ex.getExceptionType().getValue() <= verbosityLevel.getValue()) {
+    		String location = rootLocation;
+    		if (ex instanceof TableContentException) {
+    		  TableContentException tce = (TableContentException) ex;
+    		  location = tce.getLabel();
+    		} else {
+      		if (ex.getSource() != null) {
+      			location = ex.getSource();
+      		}
+    		}
+    		addLocation(location);
+    		exceptions.get(location).addException(ex);
+  	  }
+  	}
+  	
+  	public void endValidation() {
+  		for (String location : exceptions.keySet()) {
+  			URI uri = null;
+  				try {
+  					uri = new URI(location);
+  				} catch (URISyntaxException e) {
+  					// Should not happen - ignore.
+  				}
+  			report.record(uri, exceptions.get(location).getExceptions());
   		}
-		}
-		addLocation(location);
-		exceptions.get(location).addException(ex);
-	}
-	
-	public void endValidation() {
-		for (String location : exceptions.keySet()) {
-			URI uri = null;
-				try {
-					uri = new URI(location);
-				} catch (URISyntaxException e) {
-					// Should not happen - ignore.
-				}
-			report.record(uri, exceptions.get(location).getExceptions());
-		}
-	}
-	
-	private void addLocation(String location) {
-		if (!exceptions.containsKey(location)) {
-			ExceptionContainer container = new ExceptionContainer();
-			exceptions.put(location, container);
-		}
-	}
-
+  	}
+  	
+  	public void addLocation(String location) {
+  		if (!exceptions.containsKey(location)) {
+  			ExceptionContainer container = new ExceptionContainer();
+  			exceptions.put(location, container);
+  		}
+  	}
   }
 
 }
