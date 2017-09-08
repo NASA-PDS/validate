@@ -123,13 +123,13 @@
 % validate /home/pds/collection
         </source>
 
-        <p><b><i>Validating Against User-Specified Schemas</i></b></p>
+        <p><b><i>Validating Against User-Specified Schemas and Schematrons</i></b></p>
 
-        <p>Specifying XML Schemas on the command line will allow the Validate Tool to validate against the user-specified schemas instead of the schemas packaged with the tool. The following command demonstrates the validation of a single product label against a user-specified schema:
+        <p>Specifying XML Schemas and schematrons on the command line will allow the Validate Tool to validate against the user-specified schemas and schematrons instead of those packaged with the tool. The following command demonstrates the validation of a single product label against a user-specified schema and schematron:
         </p>
 
         <source>
-% validate product.xml -x product.xsd
+% validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml -x /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd, /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_DPH_1700.xsd -S /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.sch        
         </source>
 
         <p>The following command demonstrates the validation of a set of target files against a set of user-specified schemas:
@@ -146,15 +146,6 @@
 
         <source>
 % validate product.xml -C catalog.xml
-        </source>
-
-        <p><b><i>Validating Against User-Specified Schematron Files</i></b></p>
-
-        <p>Specifying Schematron files on the command-line will allow the Validate Tool to validate against the user-specified Schematron files instead of the Schematron files packaged with the tool. The following command demonstrates the vadation of a single data product against a user-specified Schematron:
-        </p>
-
-        <source>
-% validate product.xml -S product.sch
         </source>
 
         <p><b><i>Validating Against Label Specified Schemas and Schematrons</i></b></p>
