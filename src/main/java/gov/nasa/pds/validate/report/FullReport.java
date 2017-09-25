@@ -111,6 +111,8 @@ public class FullReport extends Report {
       severity = "WARNING";
     } else if (problem.getExceptionType() == ExceptionType.INFO) {
       severity = "INFO";
+    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+      severity = "DEBUG";
     }
     writer.print(severity);
     writer.print("  ");
@@ -171,6 +173,8 @@ public class FullReport extends Report {
         severity = "WARNING";
       } else if (problem.getExceptionType() == ExceptionType.INFO) {
         severity = "INFO";
+      } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+        severity = "DEBUG";
       }
       writer.print(severity);
       writer.print("  ");

@@ -202,6 +202,8 @@ public class JSONReport extends Report {
         severity = "WARNING";
     } else if (problem.getExceptionType() == ExceptionType.INFO) {
       severity = "INFO";
+    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+      severity = "DEBUG";
     }
     this.jsonWriter.beginObject();
     this.jsonWriter.name("severity").value(severity);

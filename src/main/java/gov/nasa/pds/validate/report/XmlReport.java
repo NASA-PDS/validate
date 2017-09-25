@@ -118,6 +118,8 @@ public class XmlReport extends Report {
       severity = "WARNING";
     } else if (problem.getExceptionType() == ExceptionType.INFO) {
       severity = "INFO";
+    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+      severity = "DEBUG";
     }
     writer.print("      ");
     writer.print("<message severity=\"" + severity + "\"");

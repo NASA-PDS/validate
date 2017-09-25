@@ -195,16 +195,6 @@ public abstract class Report {
           }
         }
     }
-    List<LabelException> filteredProblems = this.filterProblems(problems);
-    // If the label was skipped we don't want to count the errors and warnings
-    // in total but we still want them to print.
-/*
-    if (status == Status.SKIP) {
-      this.numSkipped++;
-      printRecordMessages(this.writer, status, sourceUri, filteredProblems);
-      return status;
-    }
-*/
     this.totalErrors += numErrors;
     this.totalInfos += numInfos;
     this.totalWarnings += numWarnings;
@@ -215,21 +205,11 @@ public abstract class Report {
     } else {
       this.numPassed++;
     }
-    printRecordMessages(this.writer, status, sourceUri, filteredProblems);
+    printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();
     return status;
   }
-
-  private List<LabelException> filterProblems(List<LabelException> problems) {
-    List<LabelException> filteredProblems = new ArrayList<LabelException>();
-    for (LabelException problem : problems) {
-      if (problem.getExceptionType().getValue() <= this.level.getValue()) {
-        filteredProblems.add(problem);
-      }
-    }
-    return filteredProblems;
-  }
-
+  
   public Status recordSkip(final URI sourceUri, final Exception exception) {
     this.numSkipped++;
     if (exception instanceof LabelException) {
