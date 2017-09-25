@@ -521,11 +521,13 @@ public class ValidateLauncher {
    * @param level An interger value.
    */
   public void setSeverity(int level) {
-    if (level < 1 || level > 3) {
+    if (level < 0 || level > 3) {
       throw new IllegalArgumentException("Severity level value can only "
           + "be 1, 2, or 3");
     }
-    if (level == 1) {
+    if (level == 0) {
+      this.severity = ExceptionType.DEBUG;
+    } else if (level == 1) {
       this.severity = ExceptionType.INFO;
     } else if (level == 2) {
       this.severity = ExceptionType.WARNING;
