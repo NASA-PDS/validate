@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="add" issue="PDS-508">
         Added support for validating data content of table products. Inherited from core.
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-515">
+        Updated to resolve a handshake issue when running with a JRE 7 older than update 95.
+      </action>      
       <action dev="mcayanan" type="update">
         Updated to no longer support model versions older than 1000. Inherited from core.
       </action>
