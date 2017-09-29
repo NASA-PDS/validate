@@ -23,7 +23,7 @@
   </properties>
 
   <body>
-    <release version="1.12.0" date="TBD" description="TBD">
+    <release version="1.12.0" date="2017-09-29" description="This point release of the Validate Tool is a component of the integrated release 8.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="update" issue="PDS-504">
         Improved Operation guide examples.
       </action>
@@ -35,6 +35,9 @@
       </action>      
       <action dev="mcayanan" type="update">
         Updated to no longer support model versions older than 1000. Inherited from core.
+      </action>
+      <action dev="shardman" type="add">
+        Added in the 1900 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
     </release>
 
