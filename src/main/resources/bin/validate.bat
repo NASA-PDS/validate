@@ -45,6 +45,6 @@ for %%i in ("%LIB_DIR%"\validate-*.jar) do set VALIDATE_JAR=%%i
 :: Executes the Validate Tool via the executable jar file
 :: The special variable '%*' allows the arguments
 :: to be passed into the executable.
-"%JAVA_HOME%"\bin\java -Xms256m -Xmx1024m -jar "%VALIDATE_JAR%" %*
+"%JAVA_HOME%"\bin\java -Xms2048m -Xmx4096m -jar "%VALIDATE_JAR%" %*
 
 :END

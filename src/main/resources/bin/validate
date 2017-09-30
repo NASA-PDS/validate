@@ -42,4 +42,4 @@ VALIDATE_JAR=`ls ${LIB_DIR}/validate-*.jar`
 
 # Executes Validate Tool via the executable jar file
 # Arguments are passed in to the tool via '$@'
-"${JAVA_HOME}"/bin/java -Xms256m -Xmx1024m -jar ${VALIDATE_JAR} "$@"
+"${JAVA_HOME}"/bin/java -Xms2048m -Xmx4096m -jar ${VALIDATE_JAR} "$@"

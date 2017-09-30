@@ -39,6 +39,9 @@
       <action dev="shardman" type="add">
         Added in the 1900 version of the schema and schematron and set as default for this release. Inherited from core.
       </action>
+      <action dev="mcayanan" type="update">
+        Increased the JVM heap space allocation settings to -Xms2048 -Xmx4096m in the startup shell script and Windows batch file.
+      </action>      
     </release>
 
     <release version="1.11.1" date="2017-07-11" description="This point release of the Validate Tool is a component of the integrated release 7.1.0 of the PDS4 System. This is an operational release of the system components to date.">
