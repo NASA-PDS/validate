@@ -85,7 +85,7 @@
         <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
         <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
-        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
+        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
         <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported.</td></tr>
         <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
         <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
@@ -93,6 +93,7 @@
         <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
         <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
       </table>
+      
     </section>
 
     <section name="Advanced Usage">
@@ -302,6 +303,9 @@
 %> validate /home/pds/dph_example_archive_VG2PLS/data -R pds4.collection
         </source>
         
+        <p>Note that the <i>-e</i> flag option to filter on specific files is ignored when validating under the <i>pds4.collection</i> rules.
+        </p>
+        
         <p><b><i>pds4.bundle</i></b></p>
         
         <p>The <i>pds4.bundle</i> validation rule applies the <i>pds4.collection</i> validation rule on each collection found within a target collection. In addition, it will:
@@ -318,6 +322,9 @@
         <source>
 %> validate /home/pds/dph_example_archive_VG2PLS -R pds4.bundle
         </source>
+        
+        <p>Note that the <i>-e</i> flag option to filter on specific files is ignored when validating under the <i>pds4.bundle</i> rules.
+        </p>
         
         <p><b><i>pds3.volume</i></b></p>
         
@@ -409,7 +416,7 @@ PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context
         </p>
 
         <source>
-% validate ${HOME}/bundle1, ${HOME}/bundle2 -e "*.xml" -R pds4.bundle
+% validate ${HOME}/bundle1, ${HOME}/bundle2 -R pds4.bundle
         </source>
 
         <p>The tool will perform referential integrity checking within the products located in the <i>${HOME}/bundle1</i> target, then will perform referential integrity checking within the products located in the <i>${HOME}/bundle2</i> target. In other words, the tool will not cross over to the <i>${HOME}/bundle2</i> directory to find LID/LIDVID references of a product in the <i>${HOME}/bundle1</i> directory.
