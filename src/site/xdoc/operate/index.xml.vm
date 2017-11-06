@@ -381,35 +381,33 @@
 % validate ${HOME}/bundle1 -R pds4.bundle -v1
         </source>
 
-        <p>Below is a snippet of an example report of a validation run with integrity checking turned on and the severity level set to <i>INFO</i> and above:
+        <p>Below is a snippet of an example report of a validation run using the pds4.bundle rules and the severity level set to <i>INFO</i> and above:
         </p>
 
         <source>
         ...
 
-PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
-    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse::1.0' is a member of the following bundle: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
-    INFO  The member 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is referenced in the following product: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+PDS4 Bundle Level Validation Results
 
-PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
-    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is a member of the following collection: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+  PASS: file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+      INFO  The member 'urn:nasa:pds:example.dph.sample_archive_bundle:browse:ele_mom::1.0' is identified in the following product: \
+      file:/home/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+      INFO  Identifier 'urn:nasa:pds:example.dph.sample_archive_bundle:browse::1.0' is a member of \
+      'file:/home/pds4/dph_example_archive_VG2PLS/bundle.xml'
 
-PASS: https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/Collection_context.xml
-    INFO  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:context::1.0' is a member of the following bundle: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/Product_Bundle.xml
-    INFO  The member 'urn:nasa:pds:context:instrument_host:instrument_host.vg2::1.0' is referenced in the following product: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
-    INFO  The member 'urn:nasa:pds:context:instrument:instrument.pls__vg2::1.0' is referenced in the following product: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
-    INFO  The member 'urn:nasa:pds:context:investigation:mission.voyager::1.0' is referenced in the following product: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
-    INFO  The member 'urn:nasa:pds:context:target:planet.jupiter::1.0' is referenced in the following product: \
-    https://starbase.jpl.nasa.gov/pds4/1201/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
-
+  PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml
+      INFO  The member 'urn:nasa:pds:context:instrument_host:spacecraft.vg2::1.0' is identified in the following product: \
+      file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:instrument:pls.vg2::1.0' is identified in the following product: \
+      file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS_VG2_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:investigation:mission.voyager::1.0' is identified in the following product: \
+      file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+      INFO  The member 'urn:nasa:pds:context:target:planet.jupiter::1.0' is identified in the following product: \
+      file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+      INFO  Identifier 'urn:nasa:pds:example.dph.sample_archive_bundle:context::1.0' is a member of \
+      'file:/home/pds4/dph_example_archive_VG2PLS/bundle.xml'
         ...
+        
         </source>
 
         <p>In the case that 2 targets are specified on the command line, the tool will treat each target as a separate entity when performing referential integrity checking. As an example, the following command demonstrates performing referential integrity on 2 different bundles:

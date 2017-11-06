@@ -30,74 +30,190 @@
       <source>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;validateReport&gt;
-  &lt;configuration&gt;
-    &lt;version&gt;1.9.0-dev&lt;/version&gt;
-    &lt;date&gt;2015-12-01T19:29:30Z&lt;/date&gt;
-    &lt;coreSchemas&gt;[PDS4_PDS_1500.xsd]&lt;/coreSchemas&gt;
-    &lt;coreSchematrons&gt;[PDS4_PDS_1500.sch]&lt;/coreSchematrons&gt;
-    &lt;modelVersion&gt;1500&lt;/modelVersion&gt;
-  &lt;/configuration&gt;
-  &lt;parameters&gt;
-    &lt;targets&gt;[file:/home/pds4/dph_example_archive_VG2PLS/]&lt;/targets&gt;
-    &lt;severityLevel&gt;WARNING&lt;/severityLevel&gt;
-    &lt;recurseDirectories&gt;true&lt;/recurseDirectories&gt;
-    &lt;fileFiltersUsed&gt;[*.xml, *.XML]&lt;/fileFiltersUsed&gt;
-    &lt;forceMode&gt;off&lt;/forceMode&gt;
-    &lt;referentialIntegrityCheck&gt;on&lt;/referentialIntegrityCheck&gt;
-    &lt;checksumManifestFile&gt;file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt&lt;/checksumManifestFile&gt;
-    &lt;manifestFileBasePath&gt;file:/home/pds4/dph_example_archive_VG2PLS/&lt;/manifestFileBasePath&gt;
-  &lt;/parameters&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml" status="FAIL"&gt;
-  &lt;message severity="ERROR"&gt;
-    &lt;content&gt;No checksum found in the manifest for &apos;file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml&apos;.&lt;/content&gt;
-  &lt;/message&gt;
-  &lt;message severity="ERROR" line="47"&gt;
-    &lt;content&gt;No checksum found in the manifest for &apos;file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt&apos;.&lt;/content&gt;
-  &lt;/message&gt;
-  &lt;message severity="WARNING"&gt;
-    &lt;content&gt;The lidvid &apos;urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0&apos; is not a member of any collection within the given target.&lt;/content&gt;
-  &lt;/message&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/Product_Bundle.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml" status="FAIL"&gt;
-  &lt;message severity="ERROR" line="93" column="47"&gt;
-    &lt;content&gt;cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element &apos;dph:spacecraft_clock_start_count&apos;.&lt;/content&gt;
-  &lt;/message&gt;
-  &lt;message severity="ERROR" line="94" column="46"&gt;
-    &lt;content&gt;cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element &apos;dph:spacecraft_clock_stop_count&apos;.&lt;/content&gt;
-  &lt;/message&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/document/checksums.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/document/errata.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/document/mission.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/document/plsinst.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml" status="PASS"&gt;
-  &lt;/label&gt;
-  &lt;label target="file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1500.xml" status="PASS"&gt;
-  &lt;/label&gt;
+   &lt;configuration&gt;
+      &lt;version&gt;1.13.0-dev&lt;/version&gt;
+      &lt;date&gt;2017-11-06T18:03:17Z&lt;/date&gt;
+      &lt;coreSchemas&gt;[PDS4_PDS_1700.xsd]&lt;/coreSchemas&gt;
+      &lt;coreSchematrons&gt;[PDS4_PDS_1700.sch]&lt;/coreSchematrons&gt;
+      &lt;modelVersion&gt;1700&lt;/modelVersion&gt;
+   &lt;/configuration&gt;
+   &lt;parameters&gt;
+      &lt;targets&gt;[file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/]&lt;/targets&gt;
+      &lt;ruleType&gt;pds4.bundle&lt;/ruleType&gt;
+      &lt;severityLevel&gt;WARNING&lt;/severityLevel&gt;
+      &lt;recurseDirectories&gt;true&lt;/recurseDirectories&gt;
+      &lt;fileFiltersUsed&gt;[*.xml, *.XML]&lt;/fileFiltersUsed&gt;
+      &lt;forceMode&gt;off&lt;/forceMode&gt;
+   &lt;/parameters&gt;
+   &lt;ProductLevelValidationResults&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml"&gt;
+         &lt;dataFile uri="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse_inventory.tab"&gt;
+            &lt;message record="1" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+         &lt;/dataFile&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml"&gt;
+         &lt;dataFile uri="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context_inventory.tab"&gt;
+            &lt;message record="1" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="2" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record 2 has wrong number of fields (expected 2, got 1)&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="3" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="4" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record 4 has wrong number of fields (expected 2, got 1)&lt;/content&gt;
+            &lt;/message&gt;
+         &lt;/dataFile&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS_VG2_1.0.xml"&gt;
+         &lt;message column="17" line="28" severity="WARNING"&gt;
+            &lt;content&gt;The value Plasma Analyzer for attribute Instrument.type is deprecated and should not be used.&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml"&gt;
+         &lt;dataFile uri="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data_inventory.tab"&gt;
+            &lt;message record="1" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+         &lt;/dataFile&gt;
+      &lt;/label&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml"&gt;
+         &lt;message column="47" line="93" severity="ERROR"&gt;
+            &lt;content&gt;cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element &amp;apos;dph:spacecraft_clock_start_count&amp;apos;.&lt;/content&gt;
+         &lt;/message&gt;
+         &lt;message column="46" line="94" severity="ERROR"&gt;
+            &lt;content&gt;cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element &amp;apos;dph:spacecraft_clock_stop_count&amp;apos;.&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/checksums.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml"&gt;
+         &lt;dataFile uri="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document_inventory.tab"&gt;
+            &lt;message record="1" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="2" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record 2 has wrong number of fields (expected 2, got 1)&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="3" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+            &lt;message record="4" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record 4 has wrong number of fields (expected 2, got 1)&lt;/content&gt;
+            &lt;/message&gt;
+         &lt;/dataFile&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/errata.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/mission.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/plsinst.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml"&gt;
+         &lt;dataFile uri="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema_inventory.tab"&gt;
+            &lt;message record="1" severity="ERROR" table="1"&gt;
+               &lt;content&gt;Record does not end in carriage-return line feed.&lt;/content&gt;
+            &lt;/message&gt;
+         &lt;/dataFile&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xml"/&gt;
+   &lt;/ProductLevelValidationResults&gt;
+   &lt;PDS4BundleLevelValidationResults&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml"/&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt"&gt;
+         &lt;message severity="ERROR"&gt;
+            &lt;content&gt;File is not valid in bundle root directory&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/README.TXT"&gt;
+         &lt;message severity="ERROR"&gt;
+            &lt;content&gt;File is not valid in bundle root directory&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/PLS/INFO.TXT"&gt;
+         &lt;message severity="ERROR"&gt;
+            &lt;content&gt;File is not referenced by any label&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/PLS/PLSINST.LBL"&gt;
+         &lt;message severity="ERROR"&gt;
+            &lt;content&gt;File is not referenced by any label&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="FAIL"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_DPH_1700.xsd"&gt;
+         &lt;message severity="ERROR"&gt;
+            &lt;content&gt;File is not referenced by any label&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml"&gt;
+         &lt;message severity="WARNING"&gt;
+            &lt;content&gt;Identifier &amp;apos;urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0&amp;apos; is not a member of any collection within the given target&lt;/content&gt;
+         &lt;/message&gt;
+      &lt;/label&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS_VG2_1.0.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/errata.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/checksums.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/plsinst.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/mission.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml"/&gt;
+      &lt;label status="PASS"
+             target="file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml"/&gt;
+   &lt;/PDS4BundleLevelValidationResults&gt;
 &lt;/validateReport&gt;
       </source>
     </section>

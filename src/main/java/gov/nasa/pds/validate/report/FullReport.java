@@ -39,8 +39,11 @@ import java.util.Map;
 public class FullReport extends Report {
 
   @Override
-  protected void printHeader(PrintWriter writer) {
-    writer.println("Validation Details:");
+  protected void printHeader(PrintWriter writer, String title) {
+    //writer.println("Validation Details:");
+    writer.println();
+    writer.println();
+    writer.println(title);
   }
 
   @Override

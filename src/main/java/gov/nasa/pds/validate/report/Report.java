@@ -119,7 +119,7 @@ public abstract class Report {
       writer.println(parameter);
     }
     writer.println();
-    printHeader(this.writer);
+    printHeader(this.writer, "Product Level Validation Results");
   }
 
   /**
@@ -146,13 +146,17 @@ public abstract class Report {
     this.configurations.add(configuration);
   }
 
+  public void printHeader(String title) {
+    printHeader(this.writer, title);
+  }
+  
   /**
    * Allows a Report to customize the header portion of the Report if necessary.
    *
    * @param writer
    *          passed down to write header contents to
    */
-  protected abstract void printHeader(PrintWriter writer);
+  protected abstract void printHeader(PrintWriter writer, String title);
 
   public Status record(URI sourceUri, final LabelException problem) {
       List<LabelException> problems = new ArrayList<LabelException>();
@@ -256,10 +260,14 @@ public abstract class Report {
 
     writer.println("Summary:");
     writer.println();
+    writer.println("  " + totalErrors + " error(s)");
+    writer.println("  " + totalWarnings + " warning(s)");
+/*    
     writer.println("  " + totalValidated + " of " + totalFiles + " file(s) processed, "
         + this.getNumSkipped() + " skipped");
     writer.println("  " + this.getNumPassed() + " of " + totalValidated
         + " file(s) passed validation");
+*/
     writer.println();
     writer.println("End of Report");
     this.writer.flush();

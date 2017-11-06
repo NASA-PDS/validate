@@ -21,41 +21,47 @@ import gov.nasa.pds.validate.status.Status;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.WordUtils;
 
-public class XmlReport extends Report {
+import com.jamesmurty.utils.XMLBuilder2;
 
+public class XmlReport extends Report {
+  private XMLBuilder2 xmlBuilder;
+
+  public XmlReport() {
+    super();
+    this.xmlBuilder = XMLBuilder2.create("validateReport");
+  }
+  
   public void printHeader() {
-    writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-    writer.println("<validateReport>");
-    writer.println("  <configuration>");
+    xmlBuilder = xmlBuilder.e("configuration");
     for (String config : configurations) {
       String[] tokens = config.trim().split("\\s{2,}+", 2);
       String key = tokens[0].replaceAll("\\s", "");
-      writer.println("    <" + WordUtils.uncapitalize(key) + ">" + tokens[1]
-          + "</" + WordUtils.uncapitalize(key) + ">");
+      xmlBuilder = xmlBuilder.e(WordUtils.uncapitalize(key)).t(tokens[1]).up();
     }
-    writer.println("  </configuration>");
-    writer.println("  <parameters>");
+    xmlBuilder = xmlBuilder.up();
+    xmlBuilder = xmlBuilder.e("parameters");
     for (String param : parameters) {
       String[] tokens = param.trim().split("\\s{2,}+", 2);
       String key = tokens[0].replaceAll("\\s","");
-      writer.println("    <" + WordUtils.uncapitalize(key) + ">" + tokens[1]
-          + "</" + WordUtils.uncapitalize(key) + ">");
+      xmlBuilder = xmlBuilder.e(WordUtils.uncapitalize(key)).t(tokens[1]).up();
     }
-    writer.println("  </parameters>");
+    xmlBuilder = xmlBuilder.up();
+    xmlBuilder = xmlBuilder.e("ProductLevelValidationResults");
   }
 
   @Override
-  protected void printHeader(PrintWriter writer) {
-    // TODO Auto-generated method stub
-
+  protected void printHeader(PrintWriter writer, String title) {
+    xmlBuilder = xmlBuilder.up();
+    title = title.replaceAll("\\s+", "");
+    xmlBuilder = xmlBuilder.e(title);
   }
 
   @Override
@@ -63,7 +69,7 @@ public class XmlReport extends Report {
       URI sourceUri, List<LabelException> problems) {
     Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
     Map<String, List<TableContentException>> contentProblems = new LinkedHashMap<String, List<TableContentException>>();
-    writer.println("  <label target=\"" + sourceUri.toString() + "\" status=\"" + status.getName() + "\">");
+    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", status.getName());
     for (LabelException problem : problems) {
       if (problem instanceof TableContentException) {
         TableContentException contentProb = (TableContentException) problem;
@@ -90,22 +96,21 @@ public class XmlReport extends Report {
     }
 
     for (String extSystemId : externalProblems.keySet()) {
-      writer.println("    <fragment uri=\"" + extSystemId.toString() + "\">");
+      xmlBuilder = xmlBuilder.e("fragment").a("uri", extSystemId.toString());
       for (LabelException problem : externalProblems.get(extSystemId)) {
         printExtProblem(writer, problem);
       }
-      writer.println("    </fragment>");
+      xmlBuilder = xmlBuilder.up();
     }
     
     for (String dataFile : contentProblems.keySet()) {
-      writer.println("    <dataFile uri=\"" + dataFile.toString() + "\">");
+      xmlBuilder = xmlBuilder.e("dataFile").a("uri", dataFile.toString());
       for (TableContentException problem : contentProblems.get(dataFile)) {
         printExtProblem(writer, problem);
       }
-      writer.println("    </dataFile>");
+      xmlBuilder = xmlBuilder.up();
     }
-    
-    writer.println("  </label>");
+    xmlBuilder = xmlBuilder.up();
   }
 
   private void printExtProblem(PrintWriter writer, final LabelException problem) {
@@ -121,30 +126,28 @@ public class XmlReport extends Report {
     } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
       severity = "DEBUG";
     }
-    writer.print("      ");
-    writer.print("<message severity=\"" + severity + "\"");
+    xmlBuilder = xmlBuilder.e("message").a("severity", severity);
     if (problem instanceof TableContentException) {
       TableContentException tcProblem = (TableContentException) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
-        writer.print(" table=\"" + tcProblem.getTable().toString() + "\"");
+        xmlBuilder = xmlBuilder.a("table", tcProblem.getTable().toString());
       }
       if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
-        writer.print(" record=\"" + tcProblem.getRecord().toString() + "\"");
+        xmlBuilder = xmlBuilder.a("record", tcProblem.getRecord().toString());
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
-        writer.print(" field=\"" + tcProblem.getField().toString() + "\"");        
+        xmlBuilder = xmlBuilder.a("field", tcProblem.getField().toString());        
       }   
     } else {   
       if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
-        writer.print(" line=\"" + problem.getLineNumber().toString() + "\"");
+        xmlBuilder = xmlBuilder.a("line", problem.getLineNumber().toString());
       }
       if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
-        writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
+        xmlBuilder = xmlBuilder.a("column", problem.getColumnNumber().toString());
       }
     }
-    writer.print(">" + "\n");
-    writer.println("        <content>" + StringEscapeUtils.escapeXml(problem.getMessage()) + "</content>");
-    writer.println("      " + "</message>");
+    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(problem.getMessage())).up();
+    xmlBuilder = xmlBuilder.up();
   }
 
   private void printProblem(PrintWriter writer, final LabelException problem) {
@@ -158,31 +161,28 @@ public class XmlReport extends Report {
     } else if (problem.getExceptionType() == ExceptionType.INFO) {
       severity = "INFO";
     }
-    writer.print("    ");
-    writer.print("<message severity=\"" + severity + "\"");
+    xmlBuilder = xmlBuilder.e("message").a("severity", severity);
     if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
-      writer.print(" line=\"" + problem.getLineNumber().toString() + "\"");
+      xmlBuilder = xmlBuilder.a("line", problem.getLineNumber().toString());
     }
     if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
-      writer.print(" column=\"" + problem.getColumnNumber().toString() + "\"");
+      xmlBuilder = xmlBuilder.a("column", problem.getColumnNumber().toString());
     }
-    writer.print(">" + "\n");
-    writer.println("      <content>" + StringEscapeUtils.escapeXml(problem.getMessage()) + "</content>");
-    writer.println("    " + "</message>");
+    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(problem.getMessage())).up();
+    xmlBuilder = xmlBuilder.up();
   }
 
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri, final Exception exception) {
-    writer.print("  <label target=\"" + sourceUri.toString() + "\" status=\"" + Status.SKIP.getName() + "\">" + "\n");
+    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", Status.SKIP.getName());
     if (exception instanceof LabelException) {
       LabelException problem = (LabelException) exception;
       printProblem(writer, problem);
     } else {
-      writer.print("    ");
-      writer.print("<message severity=\"ERROR\">" + "\n");
-      writer.println("     <content>" + StringEscapeUtils.escapeXml(exception.getMessage()) + "</content>");
-      writer.println("    " + "</message>");
+      xmlBuilder = xmlBuilder.e("message").a("severity", "ERROR");
+      xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(exception.getMessage())).up();
+      xmlBuilder = xmlBuilder.up();
     }
-    writer.println("  </label>");
+    xmlBuilder = xmlBuilder.up();
   }
 
   @Override
@@ -192,7 +192,13 @@ public class XmlReport extends Report {
   }
 
   public void printFooter() {
-    writer.println("</validateReport>");
+    xmlBuilder = xmlBuilder.up();
+    Properties outputProperties = new Properties();
+    // Pretty-print the XML output (doesn't work in all cases)
+    outputProperties.put(javax.xml.transform.OutputKeys.INDENT, "yes");
+    // Get 2-space indenting when using the Apache transformer
+    //outputProperties.put("{http://xml.apache.org/xslt}indent-amount", "2");
+    this.xmlBuilder.toWriter(true, this.writer, outputProperties);
     writer.flush();
     writer.close();
   }

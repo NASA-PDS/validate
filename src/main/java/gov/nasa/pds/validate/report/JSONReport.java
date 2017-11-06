@@ -109,7 +109,7 @@ public class JSONReport extends Report {
         this.jsonWriter.name(WordUtils.uncapitalize(key)).value(tokens[1]);
       }
       this.jsonWriter.endObject();
-      this.jsonWriter.name("validationDetails");
+      this.jsonWriter.name("productLevelValidationResults");
       this.jsonWriter.beginArray();
     } catch (ArrayIndexOutOfBoundsException ae) {
       ae.printStackTrace();
@@ -119,7 +119,15 @@ public class JSONReport extends Report {
   }
 
   @Override
-  protected void printHeader(PrintWriter writer) {
+  protected void printHeader(PrintWriter writer, String title) {
+    try {
+      this.jsonWriter.endArray();
+      title = title.replaceAll("\\s+", "");
+      this.jsonWriter.name(title);
+      this.jsonWriter.beginArray();
+    } catch (IOException io) {
+      io.printStackTrace();
+    }
   }
 
   @Override
@@ -267,10 +275,14 @@ public class JSONReport extends Report {
       this.jsonWriter.endArray();
       this.jsonWriter.name("summary");
       this.jsonWriter.beginObject();
+      this.jsonWriter.name("totalErrors").value(getTotalErrors());
+      this.jsonWriter.name("totalWarnings").value(getTotalWarnings());
+/*
       this.jsonWriter.name("totalProcessed").value(totalFiles);
       this.jsonWriter.name("totalSkipped").value(this.getNumSkipped());
       this.jsonWriter.name("totalValidated").value(totalValidated);
       this.jsonWriter.name("totalPassedValidation").value(this.getNumPassed());
+*/
       this.jsonWriter.endObject();
       this.jsonWriter.endObject();
       this.jsonWriter.flush();

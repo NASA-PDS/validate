@@ -31,69 +31,143 @@
 PDS Validate Tool Report
 
 Configuration:
-Version                       1.9.0
-Date                          2015-12-01T19:27:59Z
-Core Schemas                  [PDS4_PDS_1500.xsd]
-Core Schematrons              [PDS4_PDS_1500.sch]
-Model Version                 1500
+   Version                       1.13.0-dev
+   Date                          2017-11-06T18:03:08Z
+   Core Schemas                  [PDS4_PDS_1700.xsd]
+   Core Schematrons              [PDS4_PDS_1700.sch]
+   Model Version                 1700
 
 Parameters:
-Targets                       [file:/home/pds4/dph_example_archive_VG2PLS/]
-Severity Level                WARNING
-Recurse Directories           true
-File Filters Used             [*.xml, *.XML]
-Force Mode                    off
-Referential Integrity Check   on
-Checksum Manifest File        file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
-Manifest File Base Path       file:/home/pds4/dph_example_archive_VG2PLS/
+   Targets                       [file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/]
+   Rule Type                     pds4.bundle
+   Severity Level                WARNING
+   Recurse Directories           true
+   File Filters Used             [*.xml, *.XML]
+   Force Mode                    off
 
-Validation Details:
 
-FAIL: file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml
-  ERROR  No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml'.
-  ERROR  line 47: No checksum found in the manifest for 'file:/home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt'.
-  WARNING  The lidvid 'urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0' is not a member of any collection within the given target.
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/Product_Bundle.xml
+Product Level Validation Results
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+    Begin Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse_inventory.tab
+      ERROR  table 1, record 1: Record does not end in carriage-return line feed.
+    End Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse_inventory.tab
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS__VG2_1.0.xml
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml
+    Begin Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context_inventory.tab
+      ERROR  table 1, record 1: Record does not end in carriage-return line feed.
+      ERROR  table 1, record 2: Record 2 has wrong number of fields (expected 2, got 1)
+      ERROR  table 1, record 3: Record does not end in carriage-return line feed.
+      ERROR  table 1, record 4: Record 4 has wrong number of fields (expected 2, got 1)
+    End Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context_inventory.tab
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS_VG2_1.0.xml
+      WARNING  line 28, 17: The value Plasma Analyzer for attribute Instrument.type is deprecated and should not be used.
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
 
-FAIL: file:/home/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
-  ERROR  line 93, 47: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_start_count'.
-  ERROR  line 94, 46: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_stop_count'.
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/checksums.xml
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml
+    Begin Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data_inventory.tab
+      ERROR  table 1, record 1: Record does not end in carriage-return line feed.
+    End Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data_inventory.tab
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
+      ERROR  line 93, 47: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_start_count'.
+      ERROR  line 94, 46: cvc-complex-type.2.4.c: The matching wildcard is strict, but no declaration can be found for element 'dph:spacecraft_clock_stop_count'.
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/errata.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/checksums.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/mission.xml
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml
+    Begin Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document_inventory.tab
+      ERROR  table 1, record 1: Record does not end in carriage-return line feed.
+      ERROR  table 1, record 2: Record 2 has wrong number of fields (expected 2, got 1)
+      ERROR  table 1, record 3: Record does not end in carriage-return line feed.
+      ERROR  table 1, record 4: Record 4 has wrong number of fields (expected 2, got 1)
+    End Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document_inventory.tab
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/document/plsinst.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/errata.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/mission.xml
 
-PASS: file:/home/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1500.xml
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/plsinst.xml
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml
+    Begin Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema_inventory.tab
+      ERROR  table 1, record 1: Record does not end in carriage-return line feed.
+    End Content Validation: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema_inventory.tab
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xml
+
+
+PDS4 Bundle Level Validation Results
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/Collection_context.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/Collection_data.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/Collection_document.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/Collection_xml_schema.xml
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
+      ERROR  File is not valid in bundle root directory
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/README.TXT
+      ERROR  File is not valid in bundle root directory
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/PLS/INFO.TXT
+      ERROR  File is not referenced by any label
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/PLS/PLSINST.LBL
+      ERROR  File is not referenced by any label
+
+  FAIL: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_DPH_1700.xsd
+      ERROR  File is not referenced by any label
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/bundle_checksums.xml
+      WARNING  Identifier 'urn:nasa:pds:example.dph.sample_archive_bundle:bundle:bundle_checksums::1.0' is not a member of any collection within the given target
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/browse/ele_mom_browse.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_inst_PLS_VG2_1.0.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/errata.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/checksums.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_target_JUPITER_1.0.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/plsinst.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/document/mission.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_mission_VOYAGER_1.0.xml
+
+  PASS: file:/Users/mcayanan/pds4/dph_example_archive_VG2PLS/context/PDS4_host_VG2_1.0.xml
 
 Summary:
 
-18 of 18 file(s) processed, 0 skipped
-16 of 18 file(s) passed validation
+  18 error(s)
+  2 warning(s)
 
 End of Report
       </source>

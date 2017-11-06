@@ -968,6 +968,23 @@ public class ValidateLauncher {
   	  }
   	}
   	
+  	public void printHeader(String title) {
+  	  report.printHeader(title);
+  	}
+  	
+  	public void record(String location) {
+      URI uri = null;
+      try {
+        uri = new URI(location);
+      } catch (URISyntaxException e) {
+        // Should not happen - ignore.
+      }
+      if (exceptions.get(location) != null) {
+        report.record(uri, exceptions.get(location).getExceptions());
+        exceptions.remove(location);
+      }
+  	}
+  	
   	public void endValidation() {
   		for (String location : exceptions.keySet()) {
   			URI uri = null;
