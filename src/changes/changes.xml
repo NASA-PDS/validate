@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-524">
         Fixed an issue where a BufferUnderflowException was being thrown. Inherited from core.
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-526">
+        Improved support for Catalog files. Inherited from core.
+      </action>
     </release>
 
     <release version="1.12.0" date="2017-09-29" description="This point release of the Validate Tool is a component of the integrated release 8.0.0 of the PDS4 System. This is an operational release of the system components to date.">

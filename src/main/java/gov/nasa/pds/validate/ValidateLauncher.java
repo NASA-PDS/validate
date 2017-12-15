@@ -291,6 +291,9 @@ public class ValidateLauncher {
             + "file and multiple targets.");
       }
     }
+    if (!catalogs.isEmpty()) {
+      schematronTransformer.setCatalogResolver(catalogs);
+    }
     /*
     if (!filters.isEmpty() && 
         (validationRule != null && !validationRule.equals("pds4.folder"))) {
@@ -647,11 +650,11 @@ public class ValidateLauncher {
         report.addConfiguration("   Core Schemas                  "
             + coreSchemas);
       }
-      if (schematrons.isEmpty()) {
+      if (schematrons.isEmpty() && catalogs.isEmpty()) {
         report.addConfiguration("   Core Schematrons              "
             + coreSchematrons);
       }
-      if ( schematrons.isEmpty() || (schemas.isEmpty() && catalogs.isEmpty()) ) {
+      if ( ( (schematrons.isEmpty() || schemas.isEmpty()) && catalogs.isEmpty()) ) {
         report.addConfiguration("   Model Version                 "
             + modelVersion);
       }
@@ -930,9 +933,11 @@ public class ValidateLauncher {
       System.out.println("\nType 'validate -h' for usage");
       System.exit(0);
     }
+    
     ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
     ca.setThreshold(Priority.FATAL);
     BasicConfigurator.configure(ca);
+    
     new ValidateLauncher().processMain(args);
   }
   

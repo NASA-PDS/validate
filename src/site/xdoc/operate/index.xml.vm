@@ -65,7 +65,7 @@
 % validate $HOME/pds/bundle -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
       </source>
 
-      <p>The <i>-R</i> flag indicates to the tool to apply additional validation rules to the target bundle. The <i>-i</i> flag indicates to the tool to perform referential integrity checking while the <i>-M</i> flag performs additional checksum validation. For more details on what is involved with referential integrity checking, go to the <a href="#Referential_Integrity_Checking">Referential Integrity Checking</a> section.
+      <p>The <i>-R</i> flag indicates to the tool to apply bundle validation rules to the target bundle. This means that validation at the bundle level will be performed, which includes referential integrity checking among other things. Please see the <a href="#Validation_Rules">Validation Rules</a> section for more details. The <i>-M</i> flag performs additional checksum validation.
       </p>
     </section>
 
@@ -476,28 +476,100 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
       </subsection>
 
       <subsection name="Using an XML Catalog">
-        <p>An XML Catalog allows the user to describe a mapping between external entity references in their products and locally-available XML Schema documents. This feature of the tool is not fully implemented and needs to be exercised with multiple PDS scenarios, but it is available to experiment with in this release. The following is an example XML Catalog file for validating the Data Provider's Handbook (DPH) example bundle. The file maps the PDS namespace to a local copy of the PDS4 Ops XML Schema document and the DPH namespace to a local copy of the DPH example dictionary XML Schema document.
+        <p>An XML Catalog allows the user to describe a mapping between external entity references in their products and locally-available XML Schema and Schematron documents. This section details some of the ways that the Catalog file can be set up that should support most use-case scenarios. The examples can be used to validate the <i>ele_mom_tblChar.xml</i> product label that can be found in the Data Provider's Handbook (DPH) example bundle, which is made available at the <a href="https://pds.nasa.gov/pds4/doc/examples/">PDS website</a>.
+        </p>
+
+        <p><b><i>Mapping Label-Defined Schemas and Schematrons to Local Copies</i></b></p>
+        
+        <p>The following is an example of an XML Catalog that maps schemas and schematrons defined in the product label to local copies:
+        </p>
+        
+        <source>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
+    &lt;group xml:base="file:///home/pds/dph_example_archive_VG2PLS/xml_schema/"&gt;
+        &lt;uri name="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd"
+            uri="PDS4_PDS_1700.xsd"/&gt;
+        &lt;uri name="https://pds.nasa.gov/pds4/dph/v1/PDS4_DPH_1700.xsd"
+            uri="PDS4_DPH_1700.xsd"/&gt;
+        &lt;uri name="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch"
+            uri="PDS4_PDS_1700.sch"/&gt;
+    &lt;/group&gt;
+&lt;/catalog&gt;
+        </source>
+
+        <p>The <i>xml:base</i> attribute sets the top-level directory to where the local copies of the schemas and schematrons can be found. So, in this example, the <i>https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd</i> schema maps to the local schema at <i>file:///home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd</i>. Note that the <i>xml:base</i> attribute value must end in the backslash '<i>/</i>' character in order for the tool to properly resolve the URI references set in the Catalog file. 
+        </p>
+
+        <p><b><i>Mapping Namespaces to Local Copies of Schemas</i></b></p>
+
+        <p>The following is an example of an XML Catalog that maps namespaces defined in the product label to local copies of the Schemas:
         </p>
 
         <source>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
-  &lt;group xml:base="file:///${HOME}/"&gt;
-    &lt;uri name="http://pds.nasa.gov/pds4/pds/v03"
-         uri="VG2PLS/schemas/PDS4_OPS_0600h.xsd"/&gt;
-    &lt;uri name="http://pds.nasa.gov/pds4/dph/v01"
-         uri="VG2PLS/local_dictionaries/dph_example_dict_0300a.xsd"/&gt;
+  &lt;group xml:base="file:///home/pds/dph_example_archive_VG2PLS/xml_schema/"&gt;
+    &lt;uri name="http://pds.nasa.gov/pds4/pds/v1"
+         uri="PDS4_PDS_1700.xsd"/&gt;
+    &lt;uri name="http://pds.nasa.gov/pds4/dph/v1"
+         uri="PDS4_DPH_1700.xsd"/&gt;
+    &lt;uri name="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch"
+         uri="PDS4_PDS_1700.sch"/&gt;
   &lt;/group&gt;
 &lt;/catalog&gt;
         </source>
-
-        <p>There is actually a third schema document <i>Product_TableChar_tailored_0600h.xsd</i>, that is required for validation that references the DPH dictionary schema document with an <i>&lt;xs:include&gt;</i> statement. This is where the issue occurs with the current implementation. This schema document must be passed on the command-line (instead of being specified in the XML Catalog) when executing the Validate Tool. The following command will validate DPH example bundle correctly:
+        
+        <p>In this example, the namespace <i>http://pds.nasa.gov/pds4/pds/v1</i> maps to the schema <i>file:///home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd</i>.
         </p>
-
+        
+        <p><b><i>Mapping Many Schemas At Once</i></b></p>
+        
+        <p>The following is an example of an XML Catalog that maps many Schemas and Schematrons at once based on a common initial substring in those URIs:
+        </p>
+        
         <source>
-% validate -t ${HOME}/VG2PLS_archive -C catalog.xml \
--x ${HOME}/VG2PLS_archive/schemas/Product_TableChar_tailored_0600h.xsd
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
+    &lt;rewriteURI uriStartString="https://pds.nasa.gov/pds4/pds/v1" 
+                   rewritePrefix="file:///home/pds/dph_example_archive_VG2PLS/xml_schema"/&gt;
+    &lt;rewriteURI uriStartString="https://pds.nasa.gov/pds4/dph/v1" 
+                   rewritePrefix="file:///home/pds/dph_example_archive_VG2PLS/xml_schema"/&gt;  
+&lt;/catalog&gt;
         </source>
+        
+        <p>The <i>uriStartString</i> represents the prefix to look for in the product label. The <i>rewritePrefix</i> is the replacement string in order to resolve the URI reference. So in this example, the first entry maps the <i>https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd</i> schema in the product label to <i>file:///home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd</i> and maps the <i>https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch</i> schematron to <i>file:///home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.sch</i>.
+        </p>
+        
+        <p><b><i>Passing References to Another Catalog</i></b></p>
+        
+        <p>The following example of an XML Catalog file passes off the DPH URI reference off to another XML Catalog named <i>XMLCatalog_dph.xml</i> for resolution:
+        </p>
+        
+        <source>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
+    &lt;delegateURI uriStartString="https://pds.nasa.gov/pds4/dph/v1" 
+                 catalog="file:///home/pds/catalog/dph/XMLCatalog_dph.xml"/&gt;
+    &lt;rewriteURI uriStartString="https://pds.nasa.gov/pds4/pds/v1" 
+                rewritePrefix="file:///home/pds/dph_example_archive_VG2PLS/xml_schema"/&gt; 
+&lt;/catalog>
+        </source>
+        
+        <p>The <i>XMLCatalog_dph.xml</i> would contain the following:
+        </p>
+        
+        <source>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog"&gt;
+    &lt;rewriteURI uriStartString="https://pds.nasa.gov/pds4/dph/v1" 
+                rewritePrefix="file:///home/pds/dph_example_archive_VG2PLS/xml_schema"/&gt;  
+&lt;/catalog&gt;
+        </source>
+        
+        <p>In the first example, the <i>uriStartString</i> value in the <i>delegateURI</i> element matches the <i>https://pds.nasa.gov/pds4/dph/v1/PDS4_DPH_1700.xsd</i> DPH schema in the product label, so the tool passes this off to the <i>XMLCatalog_dph.xml</i> for resolution.
+        </p>
+        
       </subsection>
 
       <subsection name="Using a Configuration File">

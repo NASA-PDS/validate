@@ -95,7 +95,6 @@ public abstract class Validator {
     this.labelValidator.setModelVersion(modelVersion);
     this.force = false;
     schemaValidator = new SchemaValidator();
-    schematronTransformer = new SchematronTransformer();
   }
 
   /**
