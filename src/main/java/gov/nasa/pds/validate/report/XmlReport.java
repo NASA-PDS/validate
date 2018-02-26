@@ -21,6 +21,7 @@ import gov.nasa.pds.validate.status.Status;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -70,7 +71,8 @@ public class XmlReport extends Report {
     Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
     Map<String, List<TableContentException>> contentProblems = new LinkedHashMap<String, List<TableContentException>>();
     xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", status.getName());
-    for (LabelException problem : problems) {
+    for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
+      LabelException problem = iterator.next();
       if (problem instanceof TableContentException) {
         TableContentException contentProb = (TableContentException) problem;
         List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
@@ -93,15 +95,17 @@ public class XmlReport extends Report {
           externalProblems.put(problem.getSystemId(), extProbs);
         }
       }
+      iterator.remove();
     }
-
+    xmlBuilder = xmlBuilder.e("fragments");
     for (String extSystemId : externalProblems.keySet()) {
-      xmlBuilder = xmlBuilder.e("fragment").a("uri", extSystemId.toString());
+      xmlBuilder = xmlBuilder.e(getType(extSystemId).toLowerCase()).a("uri", extSystemId.toString());
       for (LabelException problem : externalProblems.get(extSystemId)) {
         printExtProblem(writer, problem);
       }
       xmlBuilder = xmlBuilder.up();
     }
+    xmlBuilder = xmlBuilder.up();
     
     for (String dataFile : contentProblems.keySet()) {
       xmlBuilder = xmlBuilder.e("dataFile").a("uri", dataFile.toString());

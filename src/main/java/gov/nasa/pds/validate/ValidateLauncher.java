@@ -15,7 +15,6 @@ package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.ExceptionContainer;
-import gov.nasa.pds.tools.label.ExceptionHandler;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.LocationValidator;
@@ -23,7 +22,6 @@ import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.ValidateExceptionHandler;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.tools.label.validate.FileReferenceValidator;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -42,7 +40,6 @@ import gov.nasa.pds.validate.schema.SchemaValidator;
 import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
-import net.sf.saxon.trans.XPathException;
 
 import java.io.File;
 import java.io.IOException;
@@ -60,9 +57,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.TreeMap;
 
-import javax.xml.transform.SourceLocator;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -290,9 +285,6 @@ public class ValidateLauncher {
             + "flag option ('-B' flag) when specifying a checksum manifest "
             + "file and multiple targets.");
       }
-    }
-    if (!catalogs.isEmpty()) {
-      schematronTransformer.setCatalogResolver(catalogs);
     }
     /*
     if (!filters.isEmpty() && 
@@ -811,26 +803,30 @@ public class ValidateLauncher {
     for (URL schema : schemas) {
       LSInput input = schemaValidator.getCachedLSResolver()
           .resolveResource("", "", "", schema.toString(), schema.toString());
-      StreamSource streamSource = new StreamSource(
-          input.getByteStream());
-      streamSource.setSystemId(schema.toString());
-      sources.add(streamSource);
-      try {
-        InputSource inputSource = new InputSource(
+      if (input != null) {
+        StreamSource streamSource = new StreamSource(
             input.getByteStream());
-        inputSource.setSystemId(input.getSystemId());
-        //TODO: Should we log an error if the targetNamespace is missing?
-        XMLExtractor extractor = new XMLExtractor(inputSource);
-        String namespace = extractor.getTargetNamespace();
-        if (!namespace.isEmpty()) {
-          locations += namespace + " " + schema + "\n";
-        }
-        inputSource.getByteStream().reset();
-      } catch (Exception e) {
+        streamSource.setSystemId(schema.toString());
+        sources.add(streamSource);
+        try {
+          InputSource inputSource = new InputSource(
+              input.getByteStream());
+          inputSource.setSystemId(input.getSystemId());
+          //TODO: Should we log an error if the targetNamespace is missing?
+          XMLExtractor extractor = new XMLExtractor(inputSource);
+          String namespace = extractor.getTargetNamespace();
+          if (!namespace.isEmpty()) {
+            locations += namespace + " " + schema + "\n";
+          }
+          inputSource.getByteStream().reset();
+        } catch (Exception e) {
           throw new Exception("Error while getting targetNamespace of schema '"
-            + schema.toString() + "': " + e.getMessage());
+              + schema.toString() + "': " + e.getMessage());
         }
+      } else {
+        System.out.println("Error while trying to read in '" + schema.toString() + "'");
       }
+    }
     schemaValidator.setExternalLocations(locations);
     for(StreamSource source : sources) {
       ExceptionContainer problems = schemaValidator.validate(source);

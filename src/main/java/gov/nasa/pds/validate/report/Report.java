@@ -29,6 +29,8 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FilenameUtils;
+
 /**
  * Abstract class that represents a Report for the Vtool command line API. This
  * class handles basic utilities for reporting and calling customized portions
@@ -369,5 +371,16 @@ public abstract class Report {
    */
   public ExceptionType getLevel() {
     return this.level;
+  }
+  
+  public String getType(String systemId) {
+    String type = "Fragment";
+    String extension = FilenameUtils.getExtension(systemId);
+    if ("xsd".equalsIgnoreCase(extension)) {
+      type = "Schema";
+    } else if ("sch".equalsIgnoreCase(extension)) {
+      type = "Schematron";
+    }
+    return type;
   }
 }

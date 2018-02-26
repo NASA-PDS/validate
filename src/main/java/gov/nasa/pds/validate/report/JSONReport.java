@@ -29,6 +29,7 @@ import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,7 +142,8 @@ public class JSONReport extends Report {
       this.jsonWriter.name("label").value(sourceUri.toString());
       this.jsonWriter.name("messages");
       this.jsonWriter.beginArray();
-      for (LabelException problem : problems) {
+      for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
+        LabelException problem = iterator.next();
         if (problem instanceof TableContentException) {
           TableContentException contentProb = (TableContentException) problem;
           List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
@@ -164,13 +166,14 @@ public class JSONReport extends Report {
             externalProblems.put(problem.getSystemId(), extProbs);
           }
         }
+        iterator.remove();
       }
       this.jsonWriter.endArray();
       this.jsonWriter.name("fragments");
       this.jsonWriter.beginArray();
       for (String extSystemId : externalProblems.keySet()) {
         this.jsonWriter.beginObject();
-        this.jsonWriter.name("fragment").value(extSystemId.toString());
+        this.jsonWriter.name(getType(extSystemId).toLowerCase()).value(extSystemId.toString());
         this.jsonWriter.name("messages");
         this.jsonWriter.beginArray();
         for (LabelException problem : externalProblems.get(extSystemId)) {

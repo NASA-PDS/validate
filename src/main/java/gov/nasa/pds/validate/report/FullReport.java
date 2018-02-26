@@ -22,7 +22,7 @@ import gov.nasa.pds.validate.status.Status;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +58,8 @@ public class FullReport extends Report {
       writer.println(sourceUri.toString());
 
     // Print all the sources problems and gather all external problems
-    for (LabelException problem : problems) {
+    for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
+      LabelException problem = iterator.next();
       if (problem instanceof TableContentException) {
         TableContentException contentProb = (TableContentException) problem;
         List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
@@ -81,14 +82,15 @@ public class FullReport extends Report {
           externalProblems.put(problem.getSystemId(), extProbs);
         }
       }
+      iterator.remove();
     }
     for (String extSystemId : externalProblems.keySet()) {
-      writer.print("    Begin Fragment: ");
+      writer.print("    Begin " + getType(extSystemId) + ": ");
       writer.println(extSystemId);
       for (LabelException problem : externalProblems.get(extSystemId)) {
         printProblem(writer, problem);
       }
-      writer.print("    End Fragment: ");
+      writer.print("    End " + getType(extSystemId) + ": ");
       writer.println(extSystemId);
     }
     for (String dataFile : contentProblems.keySet()) {
