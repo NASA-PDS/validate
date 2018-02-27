@@ -159,6 +159,9 @@ public class ValidateLauncher {
   /** The validation rule name to use. */
   private String validationRule;
 
+  /** Flag to enable/disable data content validation. */
+  private boolean checkData;
+  
   /**
    * Constructor.
    * @throws TransformerConfigurationException
@@ -184,6 +187,7 @@ public class ValidateLauncher {
     schematronTransformer = new SchematronTransformer();
     transformedSchematrons = new ArrayList<Transformer>();
     resolver = new CachedEntityResolver();
+    checkData = true;
   }
 
   /**
@@ -267,6 +271,8 @@ public class ValidateLauncher {
         setManifestBasePath(o.getValue());
       } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
         setValidationRule(o.getValue());
+      } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
+        setCheckData(false);
       }
     }
     if (!targetList.isEmpty()) {
@@ -371,6 +377,13 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.RULE)) {
         setValidationRule(config.getString(ConfigKey.RULE));
+      }
+      if (config.containsKey(ConfigKey.NO_DATA)) {
+        if (config.getBoolean(ConfigKey.NO_DATA) == true) {
+          setCheckData(false);
+        } else {
+          setCheckData(true);
+        }
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -578,6 +591,15 @@ public class ValidateLauncher {
   }
 
   /**
+   * Sets the flag that enables/disables data content validation.
+   * 
+   * @param flag True or False.
+   */
+  public void setCheckData(boolean flag) {
+    this.checkData = flag;
+  }
+  
+  /**
    * Displays tool usage.
    *
    */
@@ -678,6 +700,11 @@ public class ValidateLauncher {
       report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
       report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
     }
+    if (checkData) {
+      report.addParameter("   Data Content Validation       on");
+    } else {
+      report.addParameter("   Data Content Validation       off");      
+    }
     report.printHeader();
   }
 
@@ -698,6 +725,7 @@ public class ValidateLauncher {
         validator.setForce(force);
         validator.setFileFilters(regExps);
         validator.setRecurse(traverse);
+        validator.setCheckData(checkData);
         if (!checksumManifest.isEmpty()) {
           validator.setChecksumManifest(checksumManifest);
         }

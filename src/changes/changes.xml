@@ -33,6 +33,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-526">
         Improved support for Catalog files. Inherited from core.
       </action>
+      <action dev="mcayanan" type="add" issue="PDS-542">
+        Added a -D, --no-data-check flag option to disable content validation.
+      </action>
       <action dev="mcayanan" type="add" issue="PDS-543">
         Added support for Array content validation. Inherited from core.
       </action>

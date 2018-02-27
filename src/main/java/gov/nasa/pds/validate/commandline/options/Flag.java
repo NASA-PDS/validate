@@ -31,7 +31,7 @@ public enum Flag {
    */
   CONFIG("c", "config", "file", String.class, "Specify a configuration "
       + "file to set the tool behavior."),
-
+  
   /**
    * Flag to specify file patterns to look for when validating a target
    * directory.
@@ -74,6 +74,9 @@ public enum Flag {
       + "version to use during validation. The default is to use the "
       + "latest model."),
 
+  /** Flag to disable data content validation. */
+  NO_DATA("D", "no-data-check", "Disable data content validation."),
+  
   /**
    * Flag to specify a report file name.
    */

@@ -69,4 +69,9 @@ public class ConfigKey {
    * Property to specify the validation rule type.
    */
   public static final String RULE = "validate.rule";
+  
+  /**
+   * Property to disable data content validation.
+   */
+  public static final String NO_DATA = "validate.noDataCheck";
 }

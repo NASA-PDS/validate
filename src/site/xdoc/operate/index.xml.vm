@@ -84,6 +84,7 @@
         <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
         <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
         <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
+        <tr><td>-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
         <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported.</td></tr>
@@ -602,6 +603,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
+          <tr><td>validate.noDataCheck</td><td>-D, --no-data-check</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
           <tr><td>validate.verbose</td><td>-v, --verbose</td></tr>
           <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
