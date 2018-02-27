@@ -27,6 +27,9 @@
       <action dev="mcayanan" type="update" issue="PDS-516">
         Updated how the tool generates the report in order to support large validation runs. Inherited from core.
       </action>
+      <action dev="mcayanan" type="update" issue="PDS-522">
+        Updated to suppress logging messages from the core library as they should be propagated up to the report.
+      </action>
       <action dev="mcayanan" type="fix" issue="PDS-524">
         Fixed an issue where a BufferUnderflowException was being thrown. Inherited from core.
       </action>
