@@ -13,15 +13,16 @@
 // $Id$
 package gov.nasa.pds.validate.report;
 
+import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentException;
 import gov.nasa.pds.tools.validate.content.table.TableContentException;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,15 +70,14 @@ public class XmlReport extends Report {
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
     Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
-    Map<String, List<TableContentException>> contentProblems = new LinkedHashMap<String, List<TableContentException>>();
+    Map<String, List<ContentException>> contentProblems = new LinkedHashMap<String, List<ContentException>>();
     xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", status.getName());
-    for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
-      LabelException problem = iterator.next();
-      if (problem instanceof TableContentException) {
-        TableContentException contentProb = (TableContentException) problem;
-        List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
+    for (LabelException problem : problems) {
+      if (problem instanceof ContentException) {
+        ContentException contentProb = (ContentException) problem;
+        List<ContentException> contentProbs = contentProblems.get(contentProb.getSource());
         if (contentProbs == null) {
-          contentProbs = new ArrayList<TableContentException>();
+          contentProbs = new ArrayList<ContentException>();
         }
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);        
@@ -95,7 +95,6 @@ public class XmlReport extends Report {
           externalProblems.put(problem.getSystemId(), extProbs);
         }
       }
-      iterator.remove();
     }
     xmlBuilder = xmlBuilder.e("fragments");
     for (String extSystemId : externalProblems.keySet()) {
@@ -109,7 +108,7 @@ public class XmlReport extends Report {
     
     for (String dataFile : contentProblems.keySet()) {
       xmlBuilder = xmlBuilder.e("dataFile").a("uri", dataFile.toString());
-      for (TableContentException problem : contentProblems.get(dataFile)) {
+      for (ContentException problem : contentProblems.get(dataFile)) {
         printExtProblem(writer, problem);
       }
       xmlBuilder = xmlBuilder.up();
@@ -142,6 +141,32 @@ public class XmlReport extends Report {
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
         xmlBuilder = xmlBuilder.a("field", tcProblem.getField().toString());        
       }   
+    } else if (problem instanceof ArrayContentException) {
+      ArrayContentException aProblem = (ArrayContentException) problem;
+      if (aProblem.getArray() != null && aProblem.getArray() != -1) {
+        xmlBuilder = xmlBuilder.a("array", aProblem.getArray().toString());
+      }
+      if (aProblem.getPlane() != null && aProblem.getPlane().getElement() != -1) {
+        String name = aProblem.getPlane().getName();
+        if (name.isEmpty()) {
+          name = "plane";
+        }
+        xmlBuilder = xmlBuilder.a(name, aProblem.getPlane().getElement().toString());
+      }
+      if (aProblem.getRow() != null) {
+        String name = aProblem.getRow().getName();
+        if (name == null) {
+          name = "row";
+        }
+        xmlBuilder = xmlBuilder.a(name, aProblem.getRow().getElement().toString());
+      }
+      if (aProblem.getColumn() != null) {
+        String name = aProblem.getColumn().getName();
+        if (name == null) {
+          name = "column";
+        }
+        xmlBuilder = xmlBuilder.a(name, aProblem.getColumn().getElement().toString());
+      }      
     } else {   
       if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
         xmlBuilder = xmlBuilder.a("line", problem.getLineNumber().toString());

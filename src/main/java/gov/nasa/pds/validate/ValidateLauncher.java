@@ -14,6 +14,7 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
+import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
@@ -26,7 +27,6 @@ import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
-import gov.nasa.pds.tools.validate.content.table.TableContentException;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -956,9 +956,9 @@ public class ValidateLauncher {
   	public void addException(LabelException ex) {
   	  if (ex.getExceptionType().getValue() <= verbosityLevel.getValue()) {
     		String location = rootLocation;
-    		if (ex instanceof TableContentException) {
-    		  TableContentException tce = (TableContentException) ex;
-    		  location = tce.getLabel();
+    		if (ex instanceof ContentException) {
+    		  ContentException ce = (ContentException) ex;
+    		  location = ce.getLabel();
     		} else {
       		if (ex.getSource() != null) {
       			location = ex.getSource();

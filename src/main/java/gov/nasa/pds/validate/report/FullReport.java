@@ -14,8 +14,10 @@
 
 package gov.nasa.pds.validate.report;
 
+import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentException;
 import gov.nasa.pds.tools.validate.content.table.TableContentException;
 import gov.nasa.pds.validate.status.Status;
 
@@ -50,7 +52,7 @@ public class FullReport extends Report {
   protected void printRecordMessages(PrintWriter writer, Status status,
       URI sourceUri, List<LabelException> problems) {
     Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
-    Map<String, List<TableContentException>> contentProblems = new LinkedHashMap<String, List<TableContentException>>();
+    Map<String, List<ContentException>> contentProblems = new LinkedHashMap<String, List<ContentException>>();
       writer.println();
       writer.print("  ");
       writer.print(status.getName());
@@ -60,11 +62,11 @@ public class FullReport extends Report {
     // Print all the sources problems and gather all external problems
     for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
       LabelException problem = iterator.next();
-      if (problem instanceof TableContentException) {
-        TableContentException contentProb = (TableContentException) problem;
-        List<TableContentException> contentProbs = contentProblems.get(contentProb.getSource());
+      if (problem instanceof ContentException) {
+        ContentException contentProb = (ContentException) problem;
+        List<ContentException> contentProbs = contentProblems.get(contentProb.getSource());
         if (contentProbs == null) {
-          contentProbs = new ArrayList<TableContentException>();
+          contentProbs = new ArrayList<ContentException>();
         }
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);
@@ -96,7 +98,7 @@ public class FullReport extends Report {
     for (String dataFile : contentProblems.keySet()) {
       writer.print("    Begin Content Validation: ");
       writer.println(dataFile);
-      for (TableContentException problem : contentProblems.get(dataFile)) {
+      for (ContentException problem : contentProblems.get(dataFile)) {
         printProblem(writer, problem);
       }
       writer.print("    End Content Validation: ");
@@ -136,6 +138,38 @@ public class FullReport extends Report {
         writer.print("field " + tcProblem.getField().toString());        
       }
       writer.print(": ");
+    } else if (problem instanceof ArrayContentException) {
+      // For now, we'll assuming we will report on image arrays
+      ArrayContentException aProblem = (ArrayContentException) problem;
+      if (aProblem.getArray() != null && aProblem.getArray() != -1) {
+        writer.print("array ");
+        writer.print(aProblem.getArray().toString());
+      }
+      if (aProblem.getPlane() != null && aProblem.getPlane().getElement() != -1) {
+        writer.print(", ");
+        String name = aProblem.getPlane().getName();
+        if (name.isEmpty()) {
+          name = "plane";
+        }
+        writer.print(name + " " + aProblem.getPlane().getElement());
+      }
+      if (aProblem.getRow() != null) {
+        writer.print(", ");
+        String name = aProblem.getRow().getName();
+        if (name == null) {
+          name = "row";
+        }
+        writer.print(name + " " + aProblem.getRow().getElement());        
+      }
+      if (aProblem.getColumn() != null) {
+        String name = aProblem.getColumn().getName();
+        if (name == null) {
+          name = "column";
+        }
+        writer.print(", ");
+        writer.print(name + " " + aProblem.getColumn().getElement());        
+      }
+      writer.print(": ");      
     } else {
       if (problem.getLineNumber() != null
           && problem.getLineNumber() != -1) {
