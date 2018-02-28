@@ -38,6 +38,9 @@
       </action>
       <action dev="mcayanan" type="fix" issue="PDS-531">
         Fixed to properly do field format precision checking of real values with exponential notation. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-537">
+        Fixed to properly do field format specifier checking of large integer values. Inherited from core.
       </action>      
       <action dev="mcayanan" type="add" issue="PDS-542">
         Added a -D, --no-data-check flag option to disable content validation.
