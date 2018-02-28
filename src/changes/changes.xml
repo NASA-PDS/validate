@@ -36,6 +36,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-526">
         Improved support for Catalog files. Inherited from core.
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-531">
+        Fixed to properly do field format precision checking of real values with exponential notation. Inherited from core.
+      </action>      
       <action dev="mcayanan" type="add" issue="PDS-542">
         Added a -D, --no-data-check flag option to disable content validation.
       </action>
