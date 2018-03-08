@@ -145,29 +145,9 @@ public class FullReport extends Report {
         writer.print("array ");
         writer.print(aProblem.getArray().toString());
       }
-      if (aProblem.getPlane() != null && aProblem.getPlane().getElement() != -1) {
+      if (aProblem.getLocation() != null) {
         writer.print(", ");
-        String name = aProblem.getPlane().getName();
-        if (name.isEmpty()) {
-          name = "plane";
-        }
-        writer.print(name + " " + aProblem.getPlane().getElement());
-      }
-      if (aProblem.getRow() != null) {
-        writer.print(", ");
-        String name = aProblem.getRow().getName();
-        if (name == null) {
-          name = "row";
-        }
-        writer.print(name + " " + aProblem.getRow().getElement());        
-      }
-      if (aProblem.getColumn() != null) {
-        String name = aProblem.getColumn().getName();
-        if (name == null) {
-          name = "column";
-        }
-        writer.print(", ");
-        writer.print(name + " " + aProblem.getColumn().getElement());        
+        writer.print("location " + aProblem.getLocation());
       }
       writer.print(": ");      
     } else {

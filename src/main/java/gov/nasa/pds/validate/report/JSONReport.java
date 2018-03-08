@@ -233,26 +233,8 @@ public class JSONReport extends Report {
       if (aProblem.getArray() != null && aProblem.getArray() != -1) {
         this.jsonWriter.name("array").value(aProblem.getArray().toString());
       }
-      if (aProblem.getPlane() != null && aProblem.getPlane().getElement() != -1) {
-        String name = aProblem.getPlane().getName();
-        if (name.isEmpty()) {
-          name = "plane";
-        }
-        this.jsonWriter.name(name).value(aProblem.getPlane().getElement());
-      }
-      if (aProblem.getRow() != null) {
-        String name = aProblem.getRow().getName();
-        if (name == null) {
-          name = "row";
-        }
-        this.jsonWriter.name(name).value(aProblem.getRow().getElement());
-      }
-      if (aProblem.getColumn() != null) {
-        String name = aProblem.getColumn().getName();
-        if (name == null) {
-          name = "column";
-        }
-        this.jsonWriter.name(name).value(aProblem.getColumn().getElement());
+      if (aProblem.getLocation() != null) {
+        this.jsonWriter.name("location").value(aProblem.getLocation());
       }
     } else {
       if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {

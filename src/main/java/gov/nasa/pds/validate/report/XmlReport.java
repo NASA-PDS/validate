@@ -146,26 +146,8 @@ public class XmlReport extends Report {
       if (aProblem.getArray() != null && aProblem.getArray() != -1) {
         xmlBuilder = xmlBuilder.a("array", aProblem.getArray().toString());
       }
-      if (aProblem.getPlane() != null && aProblem.getPlane().getElement() != -1) {
-        String name = aProblem.getPlane().getName();
-        if (name.isEmpty()) {
-          name = "plane";
-        }
-        xmlBuilder = xmlBuilder.a(name, aProblem.getPlane().getElement().toString());
-      }
-      if (aProblem.getRow() != null) {
-        String name = aProblem.getRow().getName();
-        if (name == null) {
-          name = "row";
-        }
-        xmlBuilder = xmlBuilder.a(name, aProblem.getRow().getElement().toString());
-      }
-      if (aProblem.getColumn() != null) {
-        String name = aProblem.getColumn().getName();
-        if (name == null) {
-          name = "column";
-        }
-        xmlBuilder = xmlBuilder.a(name, aProblem.getColumn().getElement().toString());
+      if (aProblem.getLocation() != null) {
+        xmlBuilder = xmlBuilder.a("location", aProblem.getLocation());
       }      
     } else {   
       if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
