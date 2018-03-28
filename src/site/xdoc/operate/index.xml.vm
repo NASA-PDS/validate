@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2010-2016, by the California Institute of Technology.
+  Copyright 2010-2018, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology Transfer
   at the California Institute of Technology.
@@ -87,7 +87,7 @@
         <tr><td>-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
-        <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported.</td></tr>
+        <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported. The version number should be specified without periods, for example <i>1000</i> for version <i>1.0.0.0</i>.</td></tr>
         <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
         <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
         <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
@@ -164,7 +164,7 @@
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
 
-        <p>The following command demonstrates the validation of a single data product label against version <i>1000</i> of the PDS4 data model:
+        <p>The following command demonstrates the validation of a single data product label against version <i>1000</i> (1.0.0.0) of the PDS4 data model:
         </p>
 
         <source>
