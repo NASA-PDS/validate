@@ -91,6 +91,7 @@
         <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
         <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
         <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
+        <tr><td>-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
         <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
         <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
       </table>
@@ -611,6 +612,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><td>validate.local</td><td>-L, --local</td></tr>
           <tr><td>validate.model</td><td>-m, --model-version</td></tr>
           <tr><td>validate.force</td><td>-f, --force</td></tr>
+          <tr><td>validate.maxErrors</td><td>-E, --max-errors</td></tr>
         </table>
 
         <p>The following example demonstrates how to set a configuration file:

@@ -36,6 +36,14 @@ public enum Flag {
    * Flag to specify file patterns to look for when validating a target
    * directory.
    */
+  MAX_ERRORS("E", "max-errors", "value", short.class, "Specify the max "
+      + "number of errors that the tool will report on before gracefully "
+      + "exiting a validation run. Default is 100,000."),
+  
+  /**
+   * Flag to specify file patterns to look for when validating a target
+   * directory.
+   */
   REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
       + "to look for when validating a directory. Each pattern should "
       + "be surrounded by quotes. Default is to look for files ending with "

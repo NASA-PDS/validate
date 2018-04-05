@@ -32,6 +32,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.CATALOG));
         options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));
         options.addOption(new ToolsOption(Flag.CONFIG));
+        options.addOption(new ToolsOption(Flag.MAX_ERRORS));
         options.addOption(new ToolsOption(Flag.FORCE));
         options.addOption(new ToolsOption(Flag.REGEXP));
         options.addOption(new ToolsOption(Flag.HELP));

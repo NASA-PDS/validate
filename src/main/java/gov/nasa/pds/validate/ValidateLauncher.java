@@ -53,6 +53,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -162,6 +163,10 @@ public class ValidateLauncher {
   /** Flag to enable/disable data content validation. */
   private boolean checkData;
   
+  private long MAX_ERRORS = 100000;
+  
+  private long maxErrors;
+  
   /**
    * Constructor.
    * @throws TransformerConfigurationException
@@ -188,6 +193,7 @@ public class ValidateLauncher {
     transformedSchematrons = new ArrayList<Transformer>();
     resolver = new CachedEntityResolver();
     checkData = true;
+    maxErrors = MAX_ERRORS;
   }
 
   /**
@@ -273,6 +279,15 @@ public class ValidateLauncher {
         setValidationRule(o.getValue());
       } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
         setCheckData(false);
+      } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
+        long value = 0;
+        try {
+          value = Long.parseLong(o.getValue());
+        } catch (IllegalArgumentException a) {
+          throw new InvalidOptionException("Could not parse value '"
+              + o.getValue() + "': " + a.getMessage());
+        }
+        setMaxErrors(value);
       }
     }
     if (!targetList.isEmpty()) {
@@ -384,6 +399,9 @@ public class ValidateLauncher {
         } else {
           setCheckData(true);
         }
+      }
+      if (config.containsKey(ConfigKey.MAX_ERRORS)) {
+        setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));       
       }
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
@@ -599,6 +617,10 @@ public class ValidateLauncher {
     this.checkData = flag;
   }
   
+  public void setMaxErrors(long value) {
+    this.maxErrors = value;
+  }
+  
   /**
    * Displays tool usage.
    *
@@ -705,6 +727,7 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Data Content Validation       off");      
     }
+    report.addParameter("   Max Errors                    " + maxErrors);   
     report.printHeader();
   }
 
@@ -732,6 +755,7 @@ public class ValidateLauncher {
         validator.setTargetRegistrar(new InMemoryRegistrar());
         
         ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
+        monitor.setMaxErrors(maxErrors);
         
         if (validationRule != null) {
         	validator.setRule(validationRule);
@@ -974,10 +998,14 @@ public class ValidateLauncher {
   	private Map<String, ExceptionContainer> exceptions = new LinkedHashMap<String, ExceptionContainer>();
   	private String rootLocation;
   	private ExceptionType verbosityLevel;
+  	private long maxErrors;
+  	private long numErrors;
   	
   	public ValidationMonitor(String rootLocation, ExceptionType severity) {
   		this.rootLocation = rootLocation;
   		this.verbosityLevel = severity;
+  		maxErrors = MAX_ERRORS;
+  		numErrors = 0;
   	}
   	
   	@Override
@@ -994,6 +1022,13 @@ public class ValidateLauncher {
     		}
     		addLocation(location);
     		exceptions.get(location).addException(ex);
+    		numErrors++;
+    		if (numErrors >= maxErrors) {
+    		  endValidation();
+          printReportFooter();
+    		  System.err.println("\n\nERROR: Validation run terminated due to an excessive amount of errors.\n\n");
+    		  System.exit(1);
+    		}
   	  }
   	}
   	
@@ -1031,6 +1066,10 @@ public class ValidateLauncher {
   			ExceptionContainer container = new ExceptionContainer();
   			exceptions.put(location, container);
   		}
+  	}
+  	
+  	public void setMaxErrors(long value) {
+  	  this.maxErrors = value;
   	}
   }
 

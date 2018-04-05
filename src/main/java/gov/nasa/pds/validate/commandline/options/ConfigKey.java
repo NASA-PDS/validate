@@ -74,4 +74,10 @@ public class ConfigKey {
    * Property to disable data content validation.
    */
   public static final String NO_DATA = "validate.noDataCheck";
+  
+  /**
+   * Property to specify the maximum number of errors to report before 
+   * terminating a validation run.
+   */
+  public static final String MAX_ERRORS = "validate.maxErrors";
 }

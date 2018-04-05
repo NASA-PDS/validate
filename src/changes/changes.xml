@@ -51,6 +51,9 @@
       <action dev="mcayanan" type="add" issue="PDS-543">
         Added support for Array content validation. Inherited from core.
       </action>
+      <action dev="mcayanan" type="add" issue="PDS-555">
+        Added a -E, --max-errors flag option to limit the amount of errors before terminating a validation run. Default is 100,000.
+      </action>      
       <action dev="shardman" type="add">
         Added in the 1A00 (1.10.0.0) version of the schema and schematron and set as default for this release. Inherited from core.
       </action>      
