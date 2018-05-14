@@ -26,7 +26,7 @@
     <release version="1.14.0" date="TBD" description="TBD">
     </release>
 
-    <release version="1.13.0" date="2018-03-30" description="TBD">
+    <release version="1.13.0" date="2018-03-30" description="This release of the Validate Tool is a component of the integrated release 8.1.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="update" issue="PDS-516">
         Updated how the tool generates the report in order to support large validation runs. Inherited from core.
       </action>
@@ -52,7 +52,7 @@
         Added a -D, --no-data-check flag option to disable content validation.
       </action>
       <action dev="mcayanan" type="add" issue="PDS-543">
-        Added support for Array content validation. Inherited from core.
+        Added support for Array content validation. Inherited from core and pds4-tools.
       </action>
       <action dev="mcayanan" type="add" issue="PDS-555">
         Added a -E, --max-errors flag option to limit the amount of errors before terminating a validation run. Default is 100,000.

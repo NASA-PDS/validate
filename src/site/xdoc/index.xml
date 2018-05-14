@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2010, by the California Institute of Technology.
+  Copyright 2010-2018, by the California Institute of Technology.
   ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
   Any commercial use must be negotiated with the Office of Technology 
   Transfer at the California Institute of Technology.
@@ -18,8 +18,8 @@
 <document>
   <properties>
     <title>About Validate Tool</title>
-    <author email="Paul.Ramirez@jpl.nasa.gov">Paul Ramirez</author>
     <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
+    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
   </properties>
 
   <body>
@@ -32,47 +32,44 @@
       
       <ul>
         <li>Validation against a Schema and Schematron through the following means:<br/>
-            -Ones supplied with the tool.<br/>
-            -Ones specified by the user.<br/>
-            -the label itself.<br/>
-            -An XML Catalog.<br/>
+            - Supplied with the tool<br/>
+            - Specified by the user on the command-line<br/>
+            - Specified in the label<br/>
+            - Specified in an XML Catalog file<br/>
             <br/>
         </li>
         <li>Validation against file references in the product label:<br/>
-            -Check that file references do exist.<br/>
-            -Casing of file references match their physical files on the file system.<br/>
-            -Checksum validation against the actual checksum and a Manifest file (if supplied).<br/>
+            - Check that files referenced do exist<br/>
+            - Check casing of file references to see if they match their physical files on the file system<br/>
+            - Checksum validation against the actual checksum and a Manifest file (if supplied)<br/>
             <br/>
         </li>
-        <li>Validation at the Bundle level, including, but not limited to:<br/>
-            -Referential integrity.<br/>
-            -Names of files and directories adhere to the PDS4 Standards.<br/>
+        <li>Validation at the Bundle/Collection level, including, but not limited to:<br/>
+            - Referential integrity<br/>
+            - Names of files and directories adhere to the PDS4 Standards<br/>
             <br/>
         </li>
       </ul>
       
-      <p>Additionally, the tool performs data content validation of tables and arrays.
-      </p>
-      
-      <p>The features that the tool supports with regards to table content validation are:
+      <p>Additionally, the tool performs data content validation of tables and arrays. The features that the tool supports with regards to table content validation are:
       </p>
       
       <ul>
         <li>For all tables, field values are checked for the following:<br/>
-            -Values match their defined data type.<br/>
-            -Values match their defined field format, if specified.<br/>
-            -Values are within the defined min and max values of the field, if specified.<br/>
+            - Values match their defined data type<br/>
+            - Values match their defined field format, if specified<br/>
+            - Values are within the defined minimum and maximum values of the field, if specified<br/>
             <br/>    
         </li>
         <li>Specifically for binary tables, fields are checked for the following:<br/>
-            -Fields that are packed match the defined number of bit-fields.<br/>
-            -Bit-field values that match their defined data type.<br/>
+            - Fields that are packed match the defined number of bit-fields<br/>
+            - Bit-field values match their defined data type<br/>
             <br/>
         </li>
         <li>Specifically for character and delimited tables, records are checked for the following:<br/>
-            -Records in the data file end in CRLF.<br/>
-            -The length of a record does not exceed the defined length (or defined maximum length in the case of delimited tables).<br/>
-            -Number of records match the defined number in the label.<br/>
+            - Records in the data file end with a carriage return and line feed<br/>
+            - The length of a record does not exceed the defined length (or defined maximum length in the case of delimited tables)<br/>
+            - Number of records match the defined number in the label<br/>
             <br/>
         </li>
       </ul>
@@ -81,8 +78,8 @@
       </p>
       
       <ul>
-         <li>The size of the array object is equal to the element size times the product of the sizes of all axes.</li>
-         <li>Array elements have values which conform to their data type.</li>
+         <li>The size of the array object is equal to the element size times the product of the sizes of all axes</li>
+         <li>Array elements have values which conform to their data type</li>
          <li>Verify that the elements match the object statistics defined within their associated label, if they exist</li>
       </ul>
 
