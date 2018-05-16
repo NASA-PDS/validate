@@ -24,6 +24,9 @@
 
   <body>
     <release version="1.14.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="fix" issue="PDS-564">
+        Handle gap datetimes during data content validation. Inherited from core.
+      </action>
     </release>
 
     <release version="1.13.0" date="2018-03-30" description="This release of the Validate Tool is a component of the integrated release 8.1.0 of the PDS4 System. This is an operational release of the system components to date.">
