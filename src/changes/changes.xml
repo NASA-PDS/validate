@@ -24,6 +24,12 @@
 
   <body>
     <release version="1.14.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="fix" issue="PDS-556">
+        Fixed to support validation of Arrays greater than 2GB. Inherited from pds4-tools.
+      </action>
+      <action dev="mcayanan" type="fix" issue="PDS-563">
+        Fixed issue where it incorrectly flags errors for negative float values during table content validation. Inherited from core.
+      </action>          
       <action dev="mcayanan" type="fix" issue="PDS-564">
         Handle gap datetimes during data content validation. Inherited from core.
       </action>
