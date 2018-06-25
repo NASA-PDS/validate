@@ -1,4 +1,4 @@
-// Copyright 2006-2015, by the California Institute of Technology.
+// Copyright 2006-2018, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,10 +14,15 @@
 package gov.nasa.pds.validate.schema;
 
 import gov.nasa.pds.tools.label.CachedLSResourceResolver;
-import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelErrorHandler;
-import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.validate.ProblemContainer;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
@@ -58,20 +63,28 @@ public class SchemaValidator {
    * @return An ExceptionContainer that contains any problems
    * that were found during validation.
    */
-  public ExceptionContainer validate(StreamSource schema) {
-    ExceptionContainer container = new ExceptionContainer();
+  public ProblemContainer validate(StreamSource schema) {
+    ProblemContainer container = new ProblemContainer();
     schemaFactory.setErrorHandler(new LabelErrorHandler(container));
     CachedLSResourceResolver resolver =
         (CachedLSResourceResolver) schemaFactory.getResourceResolver();
-    resolver.setExceptionHandler(container);
+    resolver.setProblemHandler(container);
     try {
       schemaFactory.newSchema(schema);
     } catch (SAXException se) {
       if ( !(se instanceof SAXParseException) ) {
-        LabelException le = new LabelException(ExceptionType.FATAL,
-            se.getMessage(), schema.toString(), schema.toString(),
-            null, null);
-        container.addException(le);
+        URL schemaUrl = null;
+        try {
+          schemaUrl = new URL(schema.toString());
+        } catch (MalformedURLException e) {
+          //Ignore. Should not happen!!! 
+        }
+        ValidationProblem problem = new ValidationProblem(
+            new ProblemDefinition(ExceptionType.FATAL,
+                ProblemType.SCHEMA_ERROR,
+                se.getMessage()), 
+            schemaUrl);
+        container.addProblem(problem);
       }
     }
     return container;

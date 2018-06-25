@@ -1,4 +1,4 @@
-// Copyright 2006-2015, by the California Institute of Technology.
+// Copyright 2006-2018, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,19 +14,21 @@
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
-import gov.nasa.pds.tools.label.ContentException;
-import gov.nasa.pds.tools.label.ExceptionContainer;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LabelException;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
-import gov.nasa.pds.tools.label.ValidateExceptionHandler;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
+import gov.nasa.pds.tools.validate.ProblemContainer;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.ValidateProblemHandler;
+import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -53,7 +55,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -776,35 +777,40 @@ public class ValidateLauncher {
         validator.validate(monitor, target);
         monitor.endValidation();
       } catch (Exception e) {
-        LabelException le = null;
+        ValidationProblem p = null;
         if (e instanceof MissingLabelSchemaException) {
           MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
-          le = new LabelException(ExceptionType.WARNING, mse.getMessage(),
-              target.toString(), target.toString(), null, null);
+          p = new ValidationProblem(new ProblemDefinition(
+                ExceptionType.WARNING, 
+                ProblemType.MISSING_SCHEMA,
+                mse.getMessage()),
+              target);
           try {
-            report.recordSkip(target.toURI(), le);
+            report.recordSkip(target.toURI(), p);
           } catch (URISyntaxException u) {
-            le = new LabelException(ExceptionType.FATAL,
-                e.getMessage(), target.toString(), target.toString(),
-                null, null);
+            //Ignore. Should not happen!!!
           }
         } else {
           if (e instanceof SAXParseException) {
             SAXParseException se = (SAXParseException) e;
-            le = new LabelException(ExceptionType.FATAL, se.getMessage(),
-                target.toString(), target.toString(), se.getLineNumber(),
+            p = new ValidationProblem(new ProblemDefinition(
+                  ExceptionType.FATAL,
+                  ProblemType.SCHEMA_ERROR,
+                  se.getMessage()),
+                target, 
+                se.getLineNumber(),
                 se.getColumnNumber());
           } else {
-            le = new LabelException(ExceptionType.FATAL,
-                e.getMessage(), target.toString(), target.toString(),
-                null, null);
+            p = new ValidationProblem(new ProblemDefinition(
+                  ExceptionType.FATAL,
+                  ProblemType.INTERNAL_ERROR,
+                  e.getMessage()), 
+                target);
           }
           try {
-            report.record(target.toURI(), le);
+            report.record(target.toURI(), p);
           } catch (URISyntaxException u) {
-            le = new LabelException(ExceptionType.FATAL,
-                e.getMessage(), target.toString(), target.toString(),
-                null, null);
+            //Ignore. Should not happen!!!
           }
         }
       }
@@ -824,17 +830,20 @@ public class ValidateLauncher {
    * transform process.
    */
   private Transformer transformSchematron(URL schematron,
-      ExceptionContainer container) {
+      ProblemContainer container) {
     Transformer transformer = null;
     try {
       transformer = schematronTransformer.transform(schematron,
           container);
       return transformer;
     } catch (Exception e) {
-      container.addException(new LabelException(ExceptionType.FATAL,
-          "Error occurred while processing schematron '"
-          + schematron + "': " + e.getMessage(),
-          schematron.toString()));
+      container.addProblem(new ValidationProblem(
+          new ProblemDefinition(
+              ExceptionType.FATAL,
+              ProblemType.SCHEMATRON_ERROR,
+              "Error occurred while processing schematron '"
+                  + schematron + "': " + e.getMessage()),
+          schematron));
     }
     return transformer;
   }
@@ -881,11 +890,11 @@ public class ValidateLauncher {
     }
     schemaValidator.setExternalLocations(locations);
     for(StreamSource source : sources) {
-      ExceptionContainer problems = schemaValidator.validate(source);
-      if (problems.getExceptions().size() != 0) {
+      ProblemContainer problems = schemaValidator.validate(source);
+      if (problems.getProblems().size() != 0) {
         isValid = false;
         report.record(new URI(source.getSystemId()),
-            problems.getExceptions());
+            problems.getProblems());
       }
     }
     return isValid;
@@ -949,10 +958,10 @@ public class ValidateLauncher {
       boolean invalidSchematron = false;
       if (!schematrons.isEmpty()) {
         for (URL schematron : schematrons) {
-          ExceptionContainer container = new ExceptionContainer();
+          ProblemContainer container = new ProblemContainer();
           Transformer transformer = transformSchematron(schematron, container);
-          if (container.getExceptions().size() != 0) {
-            report.record(schematron.toURI(), container.getExceptions());
+          if (container.getProblems().size() != 0) {
+            report.record(schematron.toURI(), container.getProblems());
             invalidSchematron = true;
           } else {
             transformedSchematrons.add(transformer);
@@ -993,9 +1002,9 @@ public class ValidateLauncher {
    * A validation monitor that coalesces exceptions by location and summarizes
    * into the report.
    */
-  private class ValidationMonitor implements ValidateExceptionHandler {
+  private class ValidationMonitor implements ValidateProblemHandler {
 	  
-  	private Map<String, ExceptionContainer> exceptions = new LinkedHashMap<String, ExceptionContainer>();
+  	private Map<String, ProblemContainer> exceptions = new LinkedHashMap<String, ProblemContainer>();
   	private String rootLocation;
   	private ExceptionType verbosityLevel;
   	private long maxErrors;
@@ -1009,20 +1018,22 @@ public class ValidateLauncher {
   	}
   	
   	@Override
-  	public void addException(LabelException ex) {
-  	  if (ex.getExceptionType().getValue() <= verbosityLevel.getValue()) {
+  	public void addProblem(ValidationProblem problem) {
+  	  if (problem.getProblem().getSeverity().getValue() <= verbosityLevel.getValue()) {
     		String location = rootLocation;
-    		if (ex instanceof ContentException) {
-    		  ContentException ce = (ContentException) ex;
-    		  location = ce.getLabel();
+    		if (problem instanceof ContentProblem) {
+    		  ContentProblem cp = (ContentProblem) problem;
+    		  location = cp.getLabel().toString();
     		} else {
-      		if (ex.getSource() != null) {
-      			location = ex.getSource();
+      		if (problem.getSource() != null) {
+      			location = problem.getSource();
       		}
     		}
     		addLocation(location);
-    		exceptions.get(location).addException(ex);
-    		numErrors++;
+    		exceptions.get(location).addProblem(problem);
+    		if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
+    		  numErrors++;
+    		}
     		if (numErrors >= maxErrors) {
     		  endValidation();
           printReportFooter();
@@ -1044,7 +1055,7 @@ public class ValidateLauncher {
         // Should not happen - ignore.
       }
       if (exceptions.get(location) != null) {
-        report.record(uri, exceptions.get(location).getExceptions());
+        report.record(uri, exceptions.get(location).getProblems());
         exceptions.remove(location);
       }
   	}
@@ -1057,13 +1068,13 @@ public class ValidateLauncher {
   				} catch (URISyntaxException e) {
   					// Should not happen - ignore.
   				}
-  			report.record(uri, exceptions.get(location).getExceptions());
+  			report.record(uri, exceptions.get(location).getProblems());
   		}
   	}
   	
   	public void addLocation(String location) {
   		if (!exceptions.containsKey(location)) {
-  			ExceptionContainer container = new ExceptionContainer();
+  			ProblemContainer container = new ProblemContainer();
   			exceptions.put(location, container);
   		}
   	}

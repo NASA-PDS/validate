@@ -1,4 +1,4 @@
-// Copyright 2006-2013, by the California Institute of Technology.
+// Copyright 2006-2018, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -13,11 +13,11 @@
 // $Id$
 package gov.nasa.pds.validate.report;
 
-import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LabelException;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentException;
-import gov.nasa.pds.tools.validate.content.table.TableContentException;
+import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
+import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
@@ -68,38 +68,43 @@ public class XmlReport extends Report {
 
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
-      URI sourceUri, List<LabelException> problems) {
-    Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
-    Map<String, List<ContentException>> contentProblems = new LinkedHashMap<String, List<ContentException>>();
-    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", status.getName());
-    for (LabelException problem : problems) {
-      if (problem instanceof ContentException) {
-        ContentException contentProb = (ContentException) problem;
-        List<ContentException> contentProbs = contentProblems.get(contentProb.getSource());
+      URI sourceUri, List<ValidationProblem> problems) {
+    Map<String, List<ValidationProblem>> externalProblems = 
+        new LinkedHashMap<String, List<ValidationProblem>>();
+    Map<String, List<ContentProblem>> contentProblems = 
+        new LinkedHashMap<String, List<ContentProblem>>();
+    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString())
+        .a("status", status.getName());
+    for (ValidationProblem problem : problems) {
+      if (problem instanceof ContentProblem) {
+        ContentProblem contentProb = (ContentProblem) problem;
+        List<ContentProblem> contentProbs = contentProblems.get(
+            contentProb.getSource());
         if (contentProbs == null) {
-          contentProbs = new ArrayList<ContentException>();
+          contentProbs = new ArrayList<ContentProblem>();
         }
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);        
       } else {
-        if ( ((problem.getPublicId() == null)
-            && (problem.getSystemId() == null))
-            || sourceUri.toString().equals(problem.getSystemId())) {
+        if ( (problem.getTarget() == null) || 
+            sourceUri.toString().equals(problem.getTarget().getLocation())) {
           printProblem(writer, problem);
         } else {
-          List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+          List<ValidationProblem> extProbs = externalProblems.get(
+              problem.getTarget().getLocation());
           if (extProbs == null) {
-            extProbs = new ArrayList<LabelException>();
+            extProbs = new ArrayList<ValidationProblem>();
           }
           extProbs.add(problem);
-          externalProblems.put(problem.getSystemId(), extProbs);
+          externalProblems.put(problem.getTarget().getLocation(), extProbs);
         }
       }
     }
     xmlBuilder = xmlBuilder.e("fragments");
     for (String extSystemId : externalProblems.keySet()) {
-      xmlBuilder = xmlBuilder.e(getType(extSystemId).toLowerCase()).a("uri", extSystemId.toString());
-      for (LabelException problem : externalProblems.get(extSystemId)) {
+      xmlBuilder = xmlBuilder.e(getType(extSystemId).toLowerCase())
+          .a("uri", extSystemId.toString());
+      for (ValidationProblem problem : externalProblems.get(extSystemId)) {
         printExtProblem(writer, problem);
       }
       xmlBuilder = xmlBuilder.up();
@@ -108,7 +113,7 @@ public class XmlReport extends Report {
     
     for (String dataFile : contentProblems.keySet()) {
       xmlBuilder = xmlBuilder.e("dataFile").a("uri", dataFile.toString());
-      for (ContentException problem : contentProblems.get(dataFile)) {
+      for (ContentProblem problem : contentProblems.get(dataFile)) {
         printExtProblem(writer, problem);
       }
       xmlBuilder = xmlBuilder.up();
@@ -116,22 +121,24 @@ public class XmlReport extends Report {
     xmlBuilder = xmlBuilder.up();
   }
 
-  private void printExtProblem(PrintWriter writer, final LabelException problem) {
+  private void printExtProblem(PrintWriter writer, 
+      final ValidationProblem problem) {
     String severity = "";
-    if (problem.getExceptionType() == ExceptionType.FATAL) {
+    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
       severity = "FATAL_ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.ERROR) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
       severity = "ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
       severity = "WARNING";
-    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
       severity = "INFO";
-    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
       severity = "DEBUG";
     }
     xmlBuilder = xmlBuilder.e("message").a("severity", severity);
-    if (problem instanceof TableContentException) {
-      TableContentException tcProblem = (TableContentException) problem;
+    xmlBuilder = xmlBuilder.a("type", problem.getProblem().getType().getKey());
+    if (problem instanceof TableContentProblem) {
+      TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
         xmlBuilder = xmlBuilder.a("table", tcProblem.getTable().toString());
       }
@@ -141,8 +148,8 @@ public class XmlReport extends Report {
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
         xmlBuilder = xmlBuilder.a("field", tcProblem.getField().toString());        
       }   
-    } else if (problem instanceof ArrayContentException) {
-      ArrayContentException aProblem = (ArrayContentException) problem;
+    } else if (problem instanceof ArrayContentProblem) {
+      ArrayContentProblem aProblem = (ArrayContentProblem) problem;
       if (aProblem.getArray() != null && aProblem.getArray() != -1) {
         xmlBuilder = xmlBuilder.a("array", aProblem.getArray().toString());
       }
@@ -150,49 +157,54 @@ public class XmlReport extends Report {
         xmlBuilder = xmlBuilder.a("location", aProblem.getLocation());
       }      
     } else {   
-      if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
-        xmlBuilder = xmlBuilder.a("line", problem.getLineNumber().toString());
+      if (problem.getLineNumber() != -1) {
+        xmlBuilder = xmlBuilder.a("line", 
+            Integer.toString(problem.getLineNumber()));
       }
-      if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
-        xmlBuilder = xmlBuilder.a("column", problem.getColumnNumber().toString());
+      if (problem.getColumnNumber() != -1) {
+        xmlBuilder = xmlBuilder.a("column", 
+            Integer.toString(problem.getColumnNumber()));
       }
     }
-    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(problem.getMessage())).up();
+    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(
+        problem.getMessage())).up();
     xmlBuilder = xmlBuilder.up();
   }
 
-  private void printProblem(PrintWriter writer, final LabelException problem) {
+  private void printProblem(PrintWriter writer, 
+      final ValidationProblem problem) {
     String severity = "";
-    if (problem.getExceptionType() == ExceptionType.FATAL) {
+    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         severity = "FATAL_ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.ERROR) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
         severity = "ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
         severity = "WARNING";
-    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
       severity = "INFO";
     }
     xmlBuilder = xmlBuilder.e("message").a("severity", severity);
-    if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
-      xmlBuilder = xmlBuilder.a("line", problem.getLineNumber().toString());
+    xmlBuilder = xmlBuilder.a("type", problem.getProblem().getType().getKey());
+    if (problem.getLineNumber() != -1) {
+      xmlBuilder = xmlBuilder.a("line", 
+          Integer.toString(problem.getLineNumber()));
     }
-    if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
-      xmlBuilder = xmlBuilder.a("column", problem.getColumnNumber().toString());
+    if (problem.getColumnNumber() != -1) {
+      xmlBuilder = xmlBuilder.a("column", 
+          Integer.toString(problem.getColumnNumber()));
     }
-    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(problem.getMessage())).up();
+    xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(
+        problem.getMessage())).up();
     xmlBuilder = xmlBuilder.up();
   }
 
-  protected void printRecordSkip(PrintWriter writer, final URI sourceUri, final Exception exception) {
-    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString()).a("status", Status.SKIP.getName());
-    if (exception instanceof LabelException) {
-      LabelException problem = (LabelException) exception;
-      printProblem(writer, problem);
-    } else {
-      xmlBuilder = xmlBuilder.e("message").a("severity", "ERROR");
-      xmlBuilder = xmlBuilder.e("content").t(StringEscapeUtils.escapeXml(exception.getMessage())).up();
-      xmlBuilder = xmlBuilder.up();
-    }
+  protected void printRecordSkip(PrintWriter writer, final URI sourceUri, 
+      final ValidationProblem problem) {
+    xmlBuilder = xmlBuilder.e("label").a("target", sourceUri.toString())
+        .a("status", Status.SKIP.getName());
+
+    printProblem(writer, problem);
+
     xmlBuilder = xmlBuilder.up();
   }
 
@@ -203,6 +215,19 @@ public class XmlReport extends Report {
   }
 
   public void printFooter() {
+    xmlBuilder = xmlBuilder.e("summary");
+    xmlBuilder = xmlBuilder.e("totalErrors").t(
+        Integer.toString(getTotalErrors())).up();
+    xmlBuilder = xmlBuilder.e("totalWarnings").t(
+        Integer.toString(getTotalWarnings())).up();
+    xmlBuilder = xmlBuilder.e("messageTypes");
+    for (String type : this.messageSummary.keySet()) {
+      xmlBuilder.e("messageType")
+          .a("total", this.messageSummary.get(type).toString())
+          .t(type).up();
+    }
+    xmlBuilder = xmlBuilder.up();
+    xmlBuilder = xmlBuilder.up();
     xmlBuilder = xmlBuilder.up();
     Properties outputProperties = new Properties();
     // Pretty-print the XML output (doesn't work in all cases)

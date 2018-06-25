@@ -1,4 +1,4 @@
-//Copyright 2006-2013, by the California Institute of Technology.
+//Copyright 2006-2018, by the California Institute of Technology.
 //ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 //Any commercial use must be negotiated with the Office of Technology Transfer
 //at the California Institute of Technology.
@@ -14,11 +14,11 @@
 //
 package gov.nasa.pds.validate.report;
 
-import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LabelException;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentException;
-import gov.nasa.pds.tools.validate.content.table.TableContentException;
+import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
+import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.File;
@@ -30,7 +30,6 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -134,36 +133,37 @@ public class JSONReport extends Report {
 
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
-      URI sourceUri, List<LabelException> problems) {
-    Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
-    Map<String, List<ContentException>> contentProblems = new LinkedHashMap<String, List<ContentException>>();
+      URI sourceUri, List<ValidationProblem> problems) {
+    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<String, List<ValidationProblem>>();
+    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<String, List<ContentProblem>>();
     try {
       this.jsonWriter.beginObject();
       this.jsonWriter.name("status").value(status.getName());
       this.jsonWriter.name("label").value(sourceUri.toString());
       this.jsonWriter.name("messages");
       this.jsonWriter.beginArray();
-      for (LabelException problem : problems) {
-        if (problem instanceof ContentException) {
-          ContentException contentProb = (ContentException) problem;
-          List<ContentException> contentProbs = contentProblems.get(contentProb.getSource());
+      for (ValidationProblem problem : problems) {
+        if (problem instanceof ContentProblem) {
+          ContentProblem contentProb = (ContentProblem) problem;
+          List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
           if (contentProbs == null) {
-            contentProbs = new ArrayList<ContentException>();
+            contentProbs = new ArrayList<ContentProblem>();
           }
           contentProbs.add(contentProb);
           contentProblems.put(contentProb.getSource(), contentProbs);
         } else {      
-          if ( ((problem.getPublicId() == null)
-              && (problem.getSystemId() == null))
-              || sourceUri.toString().equals(problem.getSystemId())) {
+          if ( (problem.getTarget() == null)
+              || sourceUri.toString().equals(
+                  problem.getTarget().getLocation())) {
             printProblem(problem);
           } else {
-            List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+            List<ValidationProblem> extProbs = externalProblems.get(
+                problem.getTarget().getLocation());
             if (extProbs == null) {
-              extProbs = new ArrayList<LabelException>();
+              extProbs = new ArrayList<ValidationProblem>();
             }
             extProbs.add(problem);
-            externalProblems.put(problem.getSystemId(), extProbs);
+            externalProblems.put(problem.getTarget().getLocation(), extProbs);
           }
         }
       }
@@ -175,7 +175,7 @@ public class JSONReport extends Report {
         this.jsonWriter.name(getType(extSystemId).toLowerCase()).value(extSystemId.toString());
         this.jsonWriter.name("messages");
         this.jsonWriter.beginArray();
-        for (LabelException problem : externalProblems.get(extSystemId)) {
+        for (ValidationProblem problem : externalProblems.get(extSystemId)) {
           printProblem(problem);
         }
         this.jsonWriter.endArray();
@@ -189,7 +189,7 @@ public class JSONReport extends Report {
         this.jsonWriter.name("dataFile").value(dataFile);
         this.jsonWriter.name("messages");
         this.jsonWriter.beginArray();
-        for (ContentException problem : contentProblems.get(dataFile)) {
+        for (ContentProblem problem : contentProblems.get(dataFile)) {
           printProblem(problem);
         }
         this.jsonWriter.endArray();
@@ -202,44 +202,45 @@ public class JSONReport extends Report {
     }
   }
 
-  private void printProblem(final LabelException problem) throws IOException {
+  private void printProblem(final ValidationProblem problem) throws IOException {
     String severity = "";
-    if (problem.getExceptionType() == ExceptionType.FATAL) {
+    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         severity = "FATAL_ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.ERROR) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
         severity = "ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
         severity = "WARNING";
-    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
       severity = "INFO";
-    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
       severity = "DEBUG";
     }
     this.jsonWriter.beginObject();
     this.jsonWriter.name("severity").value(severity);
-    if (problem instanceof TableContentException) {
-      TableContentException tcProblem = (TableContentException) problem;
+    this.jsonWriter.name("type").value(problem.getProblem().getType().getKey());
+    if (problem instanceof TableContentProblem) {
+      TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
-        this.jsonWriter.name("table").value(tcProblem.getTable().toString());
+        this.jsonWriter.name("table").value(tcProblem.getTable());
       }
       if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
-        this.jsonWriter.name("record").value(tcProblem.getRecord().toString());
+        this.jsonWriter.name("record").value(tcProblem.getRecord());
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
-        this.jsonWriter.name("field").value(tcProblem.getField().toString());        
+        this.jsonWriter.name("field").value(tcProblem.getField());        
       }
-    } else if (problem instanceof ArrayContentException) {
-      ArrayContentException aProblem = (ArrayContentException) problem;
+    } else if (problem instanceof ArrayContentProblem) {
+      ArrayContentProblem aProblem = (ArrayContentProblem) problem;
       if (aProblem.getArray() != null && aProblem.getArray() != -1) {
-        this.jsonWriter.name("array").value(aProblem.getArray().toString());
+        this.jsonWriter.name("array").value(aProblem.getArray());
       }
       if (aProblem.getLocation() != null) {
         this.jsonWriter.name("location").value(aProblem.getLocation());
       }
     } else {
-      if (problem.getLineNumber() != null && problem.getLineNumber() != -1) {
+      if (problem.getLineNumber() != -1) {
         this.jsonWriter.name("line").value(problem.getLineNumber());
-        if (problem.getColumnNumber() != null && problem.getColumnNumber() != -1) {
+        if (problem.getColumnNumber() != -1) {
           this.jsonWriter.name("column").value(problem.getColumnNumber());
         }
       }
@@ -249,22 +250,16 @@ public class JSONReport extends Report {
   }
 
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
-      final Exception exception) {
+      final ValidationProblem problem) {
     try {
       this.jsonWriter.beginObject();
       this.jsonWriter.name("status").value(Status.SKIP.getName());
       this.jsonWriter.name("label").value(sourceUri.toString());
       this.jsonWriter.name("messages");
       this.jsonWriter.beginArray();
-      if (exception instanceof LabelException) {
-        LabelException problem = (LabelException) exception;
-        printProblem(problem);
-      } else {
-        this.jsonWriter.beginObject();
-        this.jsonWriter.name("severity").value("ERROR");
-        this.jsonWriter.name("message").value(exception.getMessage());
-        this.jsonWriter.endObject();
-      }
+
+      printProblem(problem);
+      
       this.jsonWriter.endArray();
       this.jsonWriter.endObject();
     } catch (IOException io) {
@@ -278,21 +273,21 @@ public class JSONReport extends Report {
   }
 
   public void printFooter() {
-    int totalFiles = this.getNumPassed() + this.getNumFailed()
-        + this.getNumSkipped();
-    int totalValidated = this.getNumPassed() + this.getNumFailed();
     try {
       this.jsonWriter.endArray();
       this.jsonWriter.name("summary");
       this.jsonWriter.beginObject();
       this.jsonWriter.name("totalErrors").value(getTotalErrors());
       this.jsonWriter.name("totalWarnings").value(getTotalWarnings());
-/*
-      this.jsonWriter.name("totalProcessed").value(totalFiles);
-      this.jsonWriter.name("totalSkipped").value(this.getNumSkipped());
-      this.jsonWriter.name("totalValidated").value(totalValidated);
-      this.jsonWriter.name("totalPassedValidation").value(this.getNumPassed());
-*/
+      this.jsonWriter.name("messageTypes");
+      this.jsonWriter.beginArray();
+      for (String type : this.messageSummary.keySet()) {
+        this.jsonWriter.beginObject();
+        this.jsonWriter.name("messageType").value(type);
+        this.jsonWriter.name("total").value(this.messageSummary.get(type));
+        this.jsonWriter.endObject();
+      }
+      this.jsonWriter.endArray();
       this.jsonWriter.endObject();
       this.jsonWriter.endObject();
       this.jsonWriter.flush();

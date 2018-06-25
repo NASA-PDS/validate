@@ -793,7 +793,7 @@ validate.regexp = "*.xml"
       </p>
 
       <subsection name="Full Report">
-        <p>In a <a href="reports/index-full.html">full</a> report, the location, severity, and textual description of each detected anomaly is reported. A 'PASS', 'FAIL', or 'SKIP' keyword is displayed next to each file to indicate when a file has passed, failed, or skipped PDS validation, respectively.
+        <p>In a <a href="reports/index-full.html">full</a> report, the location, severity, message type, and textual description of each detected anomaly is reported. A 'PASS', 'FAIL', or 'SKIP' keyword is displayed next to each file to indicate when a file has passed, failed, or skipped PDS validation, respectively. A summary is printed at the end indicating the total number of warnings and errors, followed by a summary of each of the different message types that were found in the validation run.
         </p>
       </subsection>
 
@@ -803,7 +803,7 @@ validate.regexp = "*.xml"
       </subsection>
 
       <subsection name="JSON Report">
-        <p>In a <a href="reports/index-json.html">JSON</a> report, the contents are the same as the full report. Currently, the tool only supports validation runs of only a single data product label when generating this type of report.
+        <p>In a <a href="reports/index-json.html">JSON</a> report, the contents are the same as the full report.
         </p>
       </subsection>
     </section>

@@ -1,4 +1,4 @@
-// Copyright 2006-2014, by the California Institute of Technology.
+// Copyright 2006-2018, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -15,7 +15,7 @@
 package gov.nasa.pds.validate.report;
 
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LabelException;
+import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.File;
@@ -27,7 +27,9 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -50,6 +52,7 @@ public abstract class Report {
   protected final List<String> configurations;
   protected PrintWriter writer;
   private ExceptionType level;
+  protected Map<String, Long> messageSummary;
 
   /**
    * Default constructor to initialize report variables. Initializes default
@@ -66,6 +69,7 @@ public abstract class Report {
     this.parameters = new ArrayList<String>();
     this.configurations = new ArrayList<String>();
     this.writer = new PrintWriter(new OutputStreamWriter(System.out));
+    this.messageSummary = new HashMap<String, Long>();
     this.level = ExceptionType.WARNING;
   }
 
@@ -160,8 +164,8 @@ public abstract class Report {
    */
   protected abstract void printHeader(PrintWriter writer, String title);
 
-  public Status record(URI sourceUri, final LabelException problem) {
-      List<LabelException> problems = new ArrayList<LabelException>();
+  public Status record(URI sourceUri, final ValidationProblem problem) {
+      List<ValidationProblem> problems = new ArrayList<ValidationProblem>();
       problems.add(problem);
       return record(sourceUri, problems);
   }
@@ -177,7 +181,7 @@ public abstract class Report {
    *          the set of issues found with the file. to be reported on
    * @return status of the file (i.e. PASS, FAIL, or SKIP)
    */
-  public Status record(URI sourceUri, final List<LabelException> problems) {
+  public Status record(URI sourceUri, final List<ValidationProblem> problems) {
     int numErrors = 0;
     int numWarnings = 0;
     int numInfos = 0;
@@ -185,21 +189,24 @@ public abstract class Report {
 
     // TODO: Handle null problems
 
-    for (LabelException problem : problems) {
-        if (problem.getExceptionType() == ExceptionType.ERROR ||
-           problem.getExceptionType() == ExceptionType.FATAL) {
-          if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
-            numErrors++;
-          }
-        } else if (problem.getExceptionType() == ExceptionType.WARNING) {
-          if (ExceptionType.WARNING.getValue() <= this.level.getValue()) {
-            numWarnings++;
-          }
-        } else if (problem.getExceptionType() == ExceptionType.INFO) {
-          if (ExceptionType.INFO.getValue() <= this.level.getValue()) {
-            numInfos++;
-          }
+    for (ValidationProblem problem : problems) {
+      if (problem.getProblem().getSeverity() == ExceptionType.ERROR ||
+         problem.getProblem().getSeverity() == ExceptionType.FATAL) {
+        if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
+          numErrors++;
+          addToMessageSummary(problem.getProblem().getType().getKey());
         }
+      } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
+        if (ExceptionType.WARNING.getValue() <= this.level.getValue()) {
+          numWarnings++;
+          addToMessageSummary(problem.getProblem().getType().getKey());
+        }
+      } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
+        if (ExceptionType.INFO.getValue() <= this.level.getValue()) {
+          numInfos++;
+          addToMessageSummary(problem.getProblem().getType().getKey());
+        }
+      }
     }
     this.totalErrors += numErrors;
     this.totalInfos += numInfos;
@@ -216,21 +223,25 @@ public abstract class Report {
     return status;
   }
   
-  public Status recordSkip(final URI sourceUri, final Exception exception) {
-    this.numSkipped++;
-    if (exception instanceof LabelException) {
-      LabelException problem = (LabelException) exception;
-      if (problem.getExceptionType().getValue() <= this.level.getValue()) {
-        printRecordSkip(this.writer, sourceUri, exception);
-      }
+  private void addToMessageSummary(String type) {
+    if (this.messageSummary.containsKey(type)) {
+      long count = this.messageSummary.get(type).longValue();
+      this.messageSummary.put(type, new Long(count + 1));
     } else {
-      printRecordSkip(this.writer, sourceUri, exception);
+      this.messageSummary.put(type, new Long(1));
+    }
+  }
+  
+  public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
+    this.numSkipped++;
+    if (problem.getProblem().getSeverity().getValue() <= this.level.getValue()) {
+      printRecordSkip(this.writer, sourceUri, problem);
     }
     return Status.SKIP;
   }
 
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
-      final Exception exception) {
+      final ValidationProblem problem) {
     // no op
   }
 
@@ -247,16 +258,13 @@ public abstract class Report {
    */
   protected abstract void printRecordMessages(PrintWriter writer,
       final Status status, final URI sourceUri,
-      final List<LabelException> problems);
+      final List<ValidationProblem> problems);
 
   /**
    * Prints out the footer or the report and calls the customized footer
    * section.
    */
   public void printFooter() {
-    int totalFiles = this.getNumPassed() + this.getNumFailed()
-        + this.getNumSkipped();
-    int totalValidated = this.getNumPassed() + this.getNumFailed();
     printFooter(writer);
     writer.println();
 
@@ -264,12 +272,14 @@ public abstract class Report {
     writer.println();
     writer.println("  " + totalErrors + " error(s)");
     writer.println("  " + totalWarnings + " warning(s)");
-/*    
-    writer.println("  " + totalValidated + " of " + totalFiles + " file(s) processed, "
-        + this.getNumSkipped() + " skipped");
-    writer.println("  " + this.getNumPassed() + " of " + totalValidated
-        + " file(s) passed validation");
-*/
+    writer.println();
+    writer.println("  Message Types:");
+    for (String type : this.messageSummary.keySet()) {
+      writer.print("    ");
+      writer.printf("%-10d", this.messageSummary.get(type));
+      writer.print("   ");
+      writer.println(type);
+    }
     writer.println();
     writer.println("End of Report");
     this.writer.flush();

@@ -1,4 +1,4 @@
-// Copyright 2006-2010, by the California Institute of Technology.
+// Copyright 2006-2018, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -14,11 +14,11 @@
 
 package gov.nasa.pds.validate.report;
 
-import gov.nasa.pds.tools.label.ContentException;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LabelException;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentException;
-import gov.nasa.pds.tools.validate.content.table.TableContentException;
+import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
+import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
 
 import java.io.PrintWriter;
@@ -50,9 +50,11 @@ public class FullReport extends Report {
 
   @Override
   protected void printRecordMessages(PrintWriter writer, Status status,
-      URI sourceUri, List<LabelException> problems) {
-    Map<String, List<LabelException>> externalProblems = new LinkedHashMap<String, List<LabelException>>();
-    Map<String, List<ContentException>> contentProblems = new LinkedHashMap<String, List<ContentException>>();
+      URI sourceUri, List<ValidationProblem> problems) {
+    Map<String, List<ValidationProblem>> externalProblems = 
+        new LinkedHashMap<String, List<ValidationProblem>>();
+    Map<String, List<ContentProblem>> contentProblems = 
+        new LinkedHashMap<String, List<ContentProblem>>();
       writer.println();
       writer.print("  ");
       writer.print(status.getName());
@@ -60,28 +62,31 @@ public class FullReport extends Report {
       writer.println(sourceUri.toString());
 
     // Print all the sources problems and gather all external problems
-    for (Iterator<LabelException> iterator = problems.iterator(); iterator.hasNext();) {
-      LabelException problem = iterator.next();
-      if (problem instanceof ContentException) {
-        ContentException contentProb = (ContentException) problem;
-        List<ContentException> contentProbs = contentProblems.get(contentProb.getSource());
+    for (Iterator<ValidationProblem> iterator = problems.iterator();
+        iterator.hasNext();) {
+      ValidationProblem problem = iterator.next();
+      if (problem instanceof ContentProblem) {
+        ContentProblem contentProb = (ContentProblem) problem;
+        List<ContentProblem> contentProbs = contentProblems.get(
+            contentProb.getSource());
         if (contentProbs == null) {
-          contentProbs = new ArrayList<ContentException>();
+          contentProbs = new ArrayList<ContentProblem>();
         }
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);
       } else {
-        if ( ((problem.getPublicId() == null)
-            && (problem.getSystemId() == null))
-            || sourceUri.toString().equals(problem.getSystemId())) {
+        if ( ((problem.getTarget() == null))
+            || sourceUri.toString().equals(problem.getTarget()
+                .getLocation())) {
           printProblem(writer, problem);
         } else {
-          List<LabelException> extProbs = externalProblems.get(problem.getSystemId());
+          List<ValidationProblem> extProbs = externalProblems.get(
+              problem.getTarget().getLocation());
           if (extProbs == null) {
-            extProbs = new ArrayList<LabelException>();
+            extProbs = new ArrayList<ValidationProblem>();
           }
           extProbs.add(problem);
-          externalProblems.put(problem.getSystemId(), extProbs);
+          externalProblems.put(problem.getTarget().getLocation(), extProbs);
         }
       }
       iterator.remove();
@@ -89,7 +94,7 @@ public class FullReport extends Report {
     for (String extSystemId : externalProblems.keySet()) {
       writer.print("    Begin " + getType(extSystemId) + ": ");
       writer.println(extSystemId);
-      for (LabelException problem : externalProblems.get(extSystemId)) {
+      for (ValidationProblem problem : externalProblems.get(extSystemId)) {
         printProblem(writer, problem);
       }
       writer.print("    End " + getType(extSystemId) + ": ");
@@ -98,7 +103,7 @@ public class FullReport extends Report {
     for (String dataFile : contentProblems.keySet()) {
       writer.print("    Begin Content Validation: ");
       writer.println(dataFile);
-      for (ContentException problem : contentProblems.get(dataFile)) {
+      for (ContentProblem problem : contentProblems.get(dataFile)) {
         printProblem(writer, problem);
       }
       writer.print("    End Content Validation: ");
@@ -107,24 +112,26 @@ public class FullReport extends Report {
   }
 
   private void printProblem(PrintWriter writer,
-      final LabelException problem) {
+      final ValidationProblem problem) {
     writer.print("      ");
     String severity = "";
-    if (problem.getExceptionType() == ExceptionType.FATAL) {
+    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
       severity = "FATAL_ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.ERROR) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
       severity = "ERROR";
-    } else if (problem.getExceptionType() == ExceptionType.WARNING) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
       severity = "WARNING";
-    } else if (problem.getExceptionType() == ExceptionType.INFO) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
       severity = "INFO";
-    } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
+    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
       severity = "DEBUG";
     }
     writer.print(severity);
     writer.print("  ");
-    if (problem instanceof TableContentException) {
-      TableContentException tcProblem = (TableContentException) problem;
+    writer.print("[" + problem.getProblem().getType().getKey() + "]");
+    writer.print("   ");
+    if (problem instanceof TableContentProblem) {
+      TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
         writer.print("table ");
         writer.print(tcProblem.getTable().toString());
@@ -138,9 +145,9 @@ public class FullReport extends Report {
         writer.print("field " + tcProblem.getField().toString());        
       }
       writer.print(": ");
-    } else if (problem instanceof ArrayContentException) {
+    } else if (problem instanceof ArrayContentProblem) {
       // For now, we'll assuming we will report on image arrays
-      ArrayContentException aProblem = (ArrayContentException) problem;
+      ArrayContentProblem aProblem = (ArrayContentProblem) problem;
       if (aProblem.getArray() != null && aProblem.getArray() != -1) {
         writer.print("array ");
         writer.print(aProblem.getArray().toString());
@@ -151,14 +158,12 @@ public class FullReport extends Report {
       }
       writer.print(": ");      
     } else {
-      if (problem.getLineNumber() != null
-          && problem.getLineNumber() != -1) {
+      if (problem.getLineNumber() != -1) {
         writer.print("line ");
-        writer.print(problem.getLineNumber().toString());
-        if (problem.getColumnNumber() != null
-          && problem.getColumnNumber() != -1) {
+        writer.print(problem.getLineNumber());
+        if (problem.getColumnNumber() != -1) {
           writer.print(", ");
-          writer.print(problem.getColumnNumber().toString());
+          writer.print(problem.getColumnNumber());
         }
         writer.print(": ");
       }
@@ -173,47 +178,40 @@ public class FullReport extends Report {
 
   @Override
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
-      final Exception exception) {
+      final ValidationProblem problem) {
     writer.println();
     writer.print("  ");
     writer.print(Status.SKIP.getName());
     writer.print(": ");
     writer.println(sourceUri.toString());
 
-    if (exception instanceof LabelException) {
-      LabelException problem = (LabelException) exception;
-      writer.print("      ");
-      String severity = "";
-      if (problem.getExceptionType() == ExceptionType.FATAL) {
-        severity = "FATAL_ERROR";
-      } else if (problem.getExceptionType() == ExceptionType.ERROR) {
-        severity = "ERROR";
-      } else if (problem.getExceptionType() == ExceptionType.WARNING) {
-        severity = "WARNING";
-      } else if (problem.getExceptionType() == ExceptionType.INFO) {
-        severity = "INFO";
-      } else if (problem.getExceptionType() == ExceptionType.DEBUG) {
-        severity = "DEBUG";
-      }
-      writer.print(severity);
-      writer.print("  ");
-      if (problem.getLineNumber() != null
-          && problem.getLineNumber() != -1) {
-        writer.print("line ");
-        writer.print(problem.getLineNumber().toString());
-        if (problem.getColumnNumber() != null
-            && problem.getColumnNumber() != -1) {
-          writer.print(", ");
-          writer.print(problem.getColumnNumber().toString());
-        }
-        writer.print(": ");
-      }
-      writer.println(problem.getMessage());
-    } else {
-      writer.print("      ");
-      writer.print("ERROR");
-      writer.print("  ");
-      writer.println(exception.getMessage());
+    writer.print("      ");
+    String severity = "";
+    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
+      severity = "FATAL_ERROR";
+    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
+      severity = "ERROR";
+    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
+      severity = "WARNING";
+    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
+      severity = "INFO";
+    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
+      severity = "DEBUG";
     }
+    writer.print(severity);
+    writer.print("  ");
+    writer.print("[" + problem.getProblem().getType().getKey() + "]");
+    writer.print("   ");
+    if (problem.getLineNumber() != -1) {
+      writer.print("line ");
+      writer.print(problem.getLineNumber());
+      if (problem.getColumnNumber() != -1) {
+        writer.print(", ");
+        writer.print(problem.getColumnNumber());
+      }
+      writer.print(": ");
+    }
+    writer.println(problem.getMessage());
+    
   }
 }

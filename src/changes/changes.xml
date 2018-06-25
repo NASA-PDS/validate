@@ -24,6 +24,9 @@
 
   <body>
     <release version="1.14.0" date="TBD" description="TBD">
+      <action dev="mcayanan" type="add" issue="PDS-549">
+        Added a summary of messages section at the end of the reports. Inherited from core.
+      </action>    
       <action dev="mcayanan" type="fix" issue="PDS-556">
         Fixed to support validation of Arrays greater than 2GB. Inherited from pds4-tools.
       </action>
