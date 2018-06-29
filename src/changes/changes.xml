@@ -34,7 +34,7 @@
        Updated to read in only the portion of the data file corresponding with the object description. Inherited from core.
       </action> 
       <action dev="mcayanan" type="update" issue="PDS-561">
-        Updated to support Product_Metadata_Supplemental products. Inherited from core.
+        Updated to support Product_Metadata_Supplemental products. Inherited from pds4-tools.
       </action>           
       <action dev="mcayanan" type="fix" issue="PDS-563">
         Fixed issue where it incorrectly flags errors for negative float values during table content validation. Inherited from core.
