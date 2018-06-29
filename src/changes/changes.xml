@@ -39,9 +39,15 @@
       <action dev="mcayanan" type="fix" issue="PDS-564">
         Handle gap datetimes during data content validation. Inherited from core.
       </action>
+      <action dev="mcayanan" type="update" issue="PDS-566">
+        Updated to support new start_bit_location/stop_bit_location elements. Inherited from pds4-tools.
+      </action>
       <action dev="mcayanan" type="fix" issue="PDS-568">
         Fixed to no longer check field values against its specified field format for binary tables. Inherited from core.
-      </action> 
+      </action>
+      <action dev="mcayanan" type="add">
+        Added in the 1A10 (1.10.1.0) version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>      
     </release>
 
     <release version="1.13.0" date="2018-03-30" description="This release of the Validate Tool is a component of the integrated release 8.1.0 of the PDS4 System. This is an operational release of the system components to date.">
