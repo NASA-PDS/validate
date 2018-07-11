@@ -37,7 +37,7 @@
         Updated to support Product_Metadata_Supplemental products. Inherited from pds4-tools.
       </action>           
       <action dev="mcayanan" type="fix" issue="PDS-563">
-        Fixed issue where it incorrectly flags errors for negative float values during table content validation. Inherited from core.
+        Fixed issue where it incorrectly flags errors for negative float values during array and table content validation. Inherited from core.
       </action>          
       <action dev="mcayanan" type="fix" issue="PDS-564">
         Handle gap datetimes during data content validation. Inherited from core.
