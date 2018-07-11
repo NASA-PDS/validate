@@ -221,9 +221,10 @@ public class XmlReport extends Report {
     xmlBuilder = xmlBuilder.e("totalWarnings").t(
         Integer.toString(getTotalWarnings())).up();
     xmlBuilder = xmlBuilder.e("messageTypes");
-    for (String type : this.messageSummary.keySet()) {
+    Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
+    for (String type : sortedMessageSummary.keySet()) {
       xmlBuilder.e("messageType")
-          .a("total", this.messageSummary.get(type).toString())
+          .a("total", sortedMessageSummary.get(type).toString())
           .t(type).up();
     }
     xmlBuilder = xmlBuilder.up();

@@ -27,7 +27,10 @@ import java.io.PrintWriter;
 import java.io.Writer;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,7 +55,7 @@ public abstract class Report {
   protected final List<String> configurations;
   protected PrintWriter writer;
   private ExceptionType level;
-  protected Map<String, Long> messageSummary;
+  protected Map<String, Long> messageSummary; 
 
   /**
    * Default constructor to initialize report variables. Initializes default
@@ -206,6 +209,10 @@ public abstract class Report {
           numInfos++;
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
+      } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
+        if (ExceptionType.DEBUG.getValue() <= this.level.getValue()) {
+          addToMessageSummary(problem.getProblem().getType().getKey());
+        }
       }
     }
     this.totalErrors += numErrors;
@@ -229,6 +236,51 @@ public abstract class Report {
       this.messageSummary.put(type, new Long(count + 1));
     } else {
       this.messageSummary.put(type, new Long(1));
+    }
+  }
+  
+  protected Map<String, Long> sortMessageSummary(Map<String, Long> messageSummary) {
+    List<Map.Entry<String, Long>> entries = new 
+        ArrayList<Map.Entry<String, Long>>(messageSummary.entrySet());
+    Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
+      public int compare(Map.Entry<String, Long> a, Map.Entry<String, Long> b){
+        int result = 0;
+        ExceptionType aKey = getExceptionType(a.getKey());
+        ExceptionType bKey = getExceptionType(b.getKey());
+        if (aKey.getValue() > bKey.getValue()) {
+          result = 1;
+        } else if (aKey.getValue() < bKey.getValue()) {
+          result = -1;
+        } else {
+          // keys are the same severity level
+          int valueResult = a.getValue().compareTo(b.getValue());
+          if (valueResult > 0) {
+            result = -1;
+          } else if (valueResult < 0) {
+            result = 1;
+          } else {
+            result = 0;
+          }
+        }
+        return result;
+      }
+    });
+    Map<String, Long> sortedMap = new LinkedHashMap<String, Long>();
+    for (Map.Entry<String, Long> entry : entries) {
+      sortedMap.put(entry.getKey(), entry.getValue());
+    }
+    return sortedMap;
+  }
+  
+  private ExceptionType getExceptionType(String type) {
+    if (type.startsWith("error")) {
+      return ExceptionType.ERROR;
+    } else if (type.startsWith("warning")) {
+      return ExceptionType.WARNING;
+    } else if (type.startsWith("info")) {
+      return ExceptionType.INFO;
+    } else {
+      return ExceptionType.DEBUG;
     }
   }
   
@@ -274,9 +326,10 @@ public abstract class Report {
     writer.println("  " + totalWarnings + " warning(s)");
     writer.println();
     writer.println("  Message Types:");
-    for (String type : this.messageSummary.keySet()) {
+    Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
+    for (String type : sortedMessageSummary.keySet()) {
       writer.print("    ");
-      writer.printf("%-10d", this.messageSummary.get(type));
+      writer.printf("%-10d", sortedMessageSummary.get(type));
       writer.print("   ");
       writer.println(type);
     }

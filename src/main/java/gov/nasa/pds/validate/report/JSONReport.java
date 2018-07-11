@@ -281,10 +281,11 @@ public class JSONReport extends Report {
       this.jsonWriter.name("totalWarnings").value(getTotalWarnings());
       this.jsonWriter.name("messageTypes");
       this.jsonWriter.beginArray();
-      for (String type : this.messageSummary.keySet()) {
+      Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
+      for (String type : sortedMessageSummary.keySet()) {
         this.jsonWriter.beginObject();
         this.jsonWriter.name("messageType").value(type);
-        this.jsonWriter.name("total").value(this.messageSummary.get(type));
+        this.jsonWriter.name("total").value(sortedMessageSummary.get(type));
         this.jsonWriter.endObject();
       }
       this.jsonWriter.endArray();
