@@ -325,13 +325,15 @@ public abstract class Report {
     writer.println("  " + totalErrors + " error(s)");
     writer.println("  " + totalWarnings + " warning(s)");
     writer.println();
-    writer.println("  Message Types:");
-    Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
-    for (String type : sortedMessageSummary.keySet()) {
-      writer.print("    ");
-      writer.printf("%-10d", sortedMessageSummary.get(type));
-      writer.print("   ");
-      writer.println(type);
+    if (!this.messageSummary.isEmpty()) {
+      writer.println("  Message Types:");
+      Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
+      for (String type : sortedMessageSummary.keySet()) {
+        writer.print("    ");
+        writer.printf("%-10d", sortedMessageSummary.get(type));
+        writer.print("   ");
+        writer.println(type);
+      }
     }
     writer.println();
     writer.println("End of Report");
