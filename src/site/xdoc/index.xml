@@ -57,7 +57,6 @@
       <ul>
         <li>For all tables, field values are checked for the following:<br/>
             - Values match their defined data type<br/>
-            - Values match their defined field format, if specified<br/>
             - Values are within the defined minimum and maximum values of the field, if specified<br/>
             <br/>    
         </li>
@@ -70,6 +69,7 @@
             - Records in the data file end with a carriage return and line feed<br/>
             - The length of a record does not exceed the defined length (or defined maximum length in the case of delimited tables)<br/>
             - Number of records match the defined number in the label<br/>
+            - Values match their defined field format, if specified<br/>
             <br/>
         </li>
       </ul>
