@@ -86,7 +86,8 @@ public class XmlReport extends Report {
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);        
       } else {
-        if ( (problem.getTarget() == null) || 
+        if ( ((problem.getTarget() == null)) || 
+            (problem.getTarget().getLocation() == null) || 
             sourceUri.toString().equals(problem.getTarget().getLocation())) {
           printProblem(writer, problem);
         } else {
