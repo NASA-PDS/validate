@@ -23,7 +23,7 @@
   </properties>
 
   <body>
-    <release version="1.14.0" date="TBD" description="TBD">
+    <release version="1.13.1" date="2018-08-01" description="This release of the Validate Tool is an interim point build of the component. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-549">
         Added a summary of messages section at the end of the reports. Inherited from core.
       </action>    
