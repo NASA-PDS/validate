@@ -25,7 +25,7 @@
 
   <groupId>gov.nasa.pds.2010.preparation</groupId>
   <artifactId>validate</artifactId>
-  <version>1.13.1</version>
+  <version>1.14.0-dev</version>
   <packaging>jar</packaging>
 
   <name>Validate Tool</name>

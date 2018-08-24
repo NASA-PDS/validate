@@ -23,6 +23,17 @@
   </properties>
 
   <body>
+    <release version="1.14.0" date="2018-09-29" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+      <action dev="mcayanan" type="update" issue="PDS-570">
+        Updated to support multiple collection products located in the same directory. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-571">
+        Updated to remove checking of valid files and directories at the root of a bundle directory. Inherited from core.
+      </action>
+      <action dev="mcayanan" type="update" issue="PDS-572">
+        Updated to disable the check that every file in a bundle or collection is referenced by a label. Inherited from core.
+      </action>      
+    </release>  
     <release version="1.13.1" date="2018-08-01" description="This release of the Validate Tool is an interim point build of the component. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-549">
         Added a summary of messages section at the end of the reports. Inherited from core.
