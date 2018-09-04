@@ -23,7 +23,7 @@
   </properties>
 
   <body>
-    <release version="1.14.0" date="2018-09-29" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
+    <release version="1.14.0" date="TBD" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="update" issue="PDS-570">
         Updated to support multiple collection products located in the same directory. Inherited from core.
       </action>
@@ -39,7 +39,7 @@
         Added a summary of messages section at the end of the reports. Inherited from core.
       </action>    
       <action dev="mcayanan" type="fix" issue="PDS-556">
-        Fixed to support validation of Arrays greater than 2GB. Inherited from pds4-tools.
+        Fixed to support reading of Arrays greater than 2GB. Inherited from pds4-tools.
       </action>
       <action dev="mcayanan" type="update" issue="PDS-557">
        Updated to read in only the portion of the data file corresponding with the object description. Inherited from core.
