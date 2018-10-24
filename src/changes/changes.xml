@@ -36,6 +36,9 @@
       <action dev="mcayanan" type="update" issue="PDS-572">
         Updated to disable the check that every file in a bundle or collection is referenced by a label. Inherited from core.
       </action>
+      <action dev="mcayanan" type="fix" issue="PDS-618">
+        Fixed a hanging issue when crawling a target URL directory. Inherited from core.
+      </action>      
       <action dev="mcayanan" type="update" issue="SW-31">
         Updated to support ASCII_Real values without leading zeroes. Inherited from core.
       </action>   
