@@ -80,4 +80,10 @@ public class ConfigKey {
    * terminating a validation run.
    */
   public static final String MAX_ERRORS = "validate.maxErrors";
+  
+  /**
+   * Property to specify how many lines or records to skip during
+   * content validation.
+   */
+  public static final String SPOT_CHECK_DATA = "validate.spotCheckData";
 }

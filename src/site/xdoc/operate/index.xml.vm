@@ -13,7 +13,7 @@
   may be required before exporting such information to foreign countries or
   providing access to foreign nationals.
 
-  $Id$
+  $Id: index.xml.vm 16821 2018-06-25 15:01:49Z mcayanan $
 -->
 
 <document>
@@ -85,6 +85,7 @@
         <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
         <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
         <tr><td>-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
+        <tr><td>--spot-check-data &lt;num&gt;</td><td>Specify to skip every nth record (or line in Arrays) during data content validation.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
         <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported. The version number should be specified without periods, for example <i>1000</i> for version <i>1.0.0.0</i>.</td></tr>
@@ -112,6 +113,7 @@
           <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
           <li>Validating Against Label Specified Schemas and Schematrons</li>
+          <li>Spot Checking of Data</li>
           <li>Validating Against an Older Version of the PDS4 Data Model</li>
           <li>Ignoring Sub-Directories During Validation</li>
           <li>Changing Tool Behaviors With The Configuration File</li>
@@ -161,6 +163,18 @@
         </source>
         
         <p>Note that validating with the force flag option versus passing in the label specified schemas using the <i>-x</i> flag may yield different validation results. This is due to how the underlying Xerces library treats these 2 scenarios. Basically, with the force flag behavior, namespaces are resolved by matching the element namespace in the label to one of the namespaces declared in the <i>schemaLocation</i> attribute of the label. When passing in schemas using the <i>-x</i> flag, those user given schemas override any schemas specified in the <i>schemaLocation</i> attribute of the label. They are read in and cached in memory prior to the validation step. Namespaces are then resolved by matching the element namespace to one defined in one of those schemas cached in memory.
+        </p>
+
+        <p><b><i>Spot Checking of Data</i></b></p>
+        
+        <p>By default, the tool performs a byte by byte validation of the data content. This can lead to long validation run times for large tables and arrays. So in order to do some quick validation of the data content, the <i>--spot-check-data</i> flag option can be used. The command below demonstrates running the Validate Tool with spot checking turned on: 
+        </p>
+        
+        <source>
+% validate product.xml --spot-check-data 100
+        </source>
+        
+        <p>In the above example, assuming the data is a table, the tool will perform content validation on every 100th record in the table. If the data content is an array, the tool will perform content validation on every 100th line in the array.
         </p>
 
         <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
@@ -605,6 +619,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
           <tr><td>validate.noDataCheck</td><td>-D, --no-data-check</td></tr>
+          <tr><td>validate.spotCheckData</td><td>--spot-check-data</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
           <tr><td>validate.verbose</td><td>-v, --verbose</td></tr>
           <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>

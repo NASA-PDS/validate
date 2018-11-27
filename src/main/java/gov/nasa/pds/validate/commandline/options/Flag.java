@@ -132,7 +132,11 @@ public enum Flag {
    */
   SCHEMA("x", "schema", "schema files", String.class, true,
       "Specify schema files."),
-      
+  
+  SPOT_CHECK_DATA(null, "spot-check-data", "num", int.class, "Tells the tool to skip every nth "
+      + "records or lines during data content validation."),
+  
+  
   RULE("R", "rule", "validation rule name", String.class,
 	   "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
 	   + " Default is to auto-detect based on the contents at the location specified.");

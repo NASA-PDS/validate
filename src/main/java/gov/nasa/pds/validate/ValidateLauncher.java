@@ -10,7 +10,7 @@
 // may be required before exporting such information to foreign countries or
 // providing access to foreign nationals.
 //
-// $Id$
+// $Id: ValidateLauncher.java 16821 2018-06-25 15:01:49Z mcayanan $
 package gov.nasa.pds.validate;
 
 import gov.nasa.pds.tools.label.CachedEntityResolver;
@@ -168,6 +168,8 @@ public class ValidateLauncher {
   
   private long maxErrors;
   
+  private int spotCheckData;
+  
   /**
    * Constructor.
    * @throws TransformerConfigurationException
@@ -195,6 +197,7 @@ public class ValidateLauncher {
     resolver = new CachedEntityResolver();
     checkData = true;
     maxErrors = MAX_ERRORS;
+    spotCheckData = -1;
   }
 
   /**
@@ -289,6 +292,15 @@ public class ValidateLauncher {
               + o.getValue() + "': " + a.getMessage());
         }
         setMaxErrors(value);
+      } else if (Flag.SPOT_CHECK_DATA.getLongName().equals(o.getLongOpt())) {
+        int value = 0;
+        try {
+          value = Integer.parseInt(o.getValue());
+        } catch (IllegalArgumentException a) {
+          throw new InvalidOptionException("Could not parse value '"
+              + o.getValue() + "': " + a.getMessage());
+        }
+        setSpotCheckData(value);        
       }
     }
     if (!targetList.isEmpty()) {
@@ -404,6 +416,10 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.MAX_ERRORS)) {
         setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));       
       }
+      if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
+        setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
+      }
+      
     } catch (Exception e) {
       throw new ConfigurationException(e.getMessage());
     }
@@ -496,7 +512,7 @@ public class ValidateLauncher {
   public void setCatalogs(List<String> catalogs) {
     while (catalogs.remove(""));
     this.catalogs.addAll(catalogs);
-  }
+    }
 
   /**
    * Sets the report file.
@@ -622,6 +638,10 @@ public class ValidateLauncher {
     this.maxErrors = value;
   }
   
+  public void setSpotCheckData(int value) {
+    this.spotCheckData = value;
+  }
+  
   /**
    * Displays tool usage.
    *
@@ -728,6 +748,9 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Data Content Validation       off");      
     }
+    if (spotCheckData != -1) {
+      report.addParameter("   Data Spot Check               " + spotCheckData);
+    }
     report.addParameter("   Max Errors                    " + maxErrors);   
     report.printHeader();
   }
@@ -750,6 +773,7 @@ public class ValidateLauncher {
         validator.setFileFilters(regExps);
         validator.setRecurse(traverse);
         validator.setCheckData(checkData);
+        validator.setSpotCheckData(spotCheckData);
         if (!checksumManifest.isEmpty()) {
           validator.setChecksumManifest(checksumManifest);
         }

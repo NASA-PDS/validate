@@ -13,7 +13,7 @@
   may be required before exporting such information to foreign countries or
   providing access to foreign nationals.
 
-  $Id$
+  $Id: changes.xml 17122 2018-10-24 14:10:02Z mcayanan $
 -->
 
 <document>
@@ -24,6 +24,9 @@
 
   <body>
     <release version="1.15.0" date="2019-03-29" description="This release of the Validate Tool is a component of the integrated release 9.1.0 of the PDS4 System. This is an operational release of the system components to date.">
+      <action dev="mcayanan" type="add" issue="PDS-603">
+        Added capability to skip every nth record (or line for arrays) during content validation. Inherited from core.
+      </action>
     </release>
       
     <release version="1.14.0" date="2018-09-28" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
