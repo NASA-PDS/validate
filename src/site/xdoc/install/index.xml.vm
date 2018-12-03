@@ -95,6 +95,10 @@ or
           <p>This directory contains the dependent jar files for the tool along with the executable jar file (${project.artifactId}-${project.version}.jar) containing the Validate Tool software.
           </p>
         </li>
+        <li><b>resources/</b><br/>
+          <p>This directory contains a JSON-formatted file containing a list of Context Product LIDVIDs that are registered at the PDS Engineering Node at the time of the Software Build release. This file will be used to check that product labels containing context product references exist in the registered list.
+          </p>
+        </li>        
       </ul>
     </section>
 
