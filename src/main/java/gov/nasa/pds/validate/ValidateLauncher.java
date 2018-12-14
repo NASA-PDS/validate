@@ -19,6 +19,7 @@ import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
+import gov.nasa.pds.tools.util.LidVid;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -44,6 +45,7 @@ import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -83,6 +85,10 @@ import org.omg.CORBA.portable.ApplicationException;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and
@@ -170,6 +176,10 @@ public class ValidateLauncher {
   
   private int spotCheckData;
   
+  private File registeredProductsFile;
+  
+  private Map<String, List<LidVid>> registeredProducts;
+  
   /**
    * Constructor.
    * @throws TransformerConfigurationException
@@ -198,6 +208,10 @@ public class ValidateLauncher {
     checkData = true;
     maxErrors = MAX_ERRORS;
     spotCheckData = -1;
+    registeredProducts = new HashMap<String, List<LidVid>>();
+    registeredProductsFile = new File(System.getProperty("resources.home")
+        + "/registered_context_products.json");
+    
   }
 
   /**
@@ -642,6 +656,18 @@ public class ValidateLauncher {
     this.spotCheckData = value;
   }
   
+  private void setRegisteredProducts() throws IOException {
+    Gson gson = new Gson();
+    JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
+    JsonArray array = json.get("Product_Context").getAsJsonArray();
+    List<LidVid> lidvids = new ArrayList<LidVid>();
+    List<String> jsonObjList = gson.fromJson(array, ArrayList.class);
+    for (String jsonObj : jsonObjList) {
+      lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+    }
+    this.registeredProducts.put("Product_Context", lidvids);
+  }
+  
   /**
    * Displays tool usage.
    *
@@ -751,7 +777,8 @@ public class ValidateLauncher {
     if (spotCheckData != -1) {
       report.addParameter("   Data Spot Check               " + spotCheckData);
     }
-    report.addParameter("   Max Errors                    " + maxErrors);   
+    report.addParameter("   Max Errors                    " + maxErrors);
+    report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
     report.printHeader();
   }
 
@@ -774,6 +801,7 @@ public class ValidateLauncher {
         validator.setRecurse(traverse);
         validator.setCheckData(checkData);
         validator.setSpotCheckData(spotCheckData);
+        validator.setRegisteredProducts(this.registeredProducts);
         if (!checksumManifest.isEmpty()) {
           validator.setChecksumManifest(checksumManifest);
         }
@@ -993,6 +1021,7 @@ public class ValidateLauncher {
         }
       }
       if ( !(invalidSchemas) && !(invalidSchematron) ) {
+        setRegisteredProducts();
         doValidation(checksumManifestMap);
       }
       printReportFooter();
