@@ -86,4 +86,10 @@ public class ConfigKey {
    * content validation.
    */
   public static final String SPOT_CHECK_DATA = "validate.spotCheckData";
+  
+  /**
+   * Property to allow the tool to not report on unlabeled files in a bundle
+   * or collection.
+   */
+  public static final String ALLOW_UNLABELED_FILES = "validate.allowUnlabeledFiles";
 }

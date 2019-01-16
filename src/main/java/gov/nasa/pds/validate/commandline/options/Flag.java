@@ -136,6 +136,9 @@ public enum Flag {
   SPOT_CHECK_DATA(null, "spot-check-data", "num", int.class, "Tells the tool to skip every nth "
       + "records or lines during data content validation."),
   
+  ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files", 
+      "Tells the tool to not check for unlabeled files in a bundle or collection."),
+  
   
   RULE("R", "rule", "validation rule name", String.class,
 	   "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."

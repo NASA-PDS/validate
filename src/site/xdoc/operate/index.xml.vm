@@ -86,6 +86,7 @@
         <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
         <tr><td>-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
         <tr><td>--spot-check-data &lt;num&gt;</td><td>Specify to skip every nth record (or line in Arrays) during data content validation.</td></tr>
+        <tr><td>--allow-unlabeled-files</td><td>Specify this flag to tell the tool to not check for un-labeled files in a bundle or collection.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
         <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported. The version number should be specified without periods, for example <i>1000</i> for version <i>1.0.0.0</i>.</td></tr>
@@ -620,6 +621,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
           <tr><td>validate.noDataCheck</td><td>-D, --no-data-check</td></tr>
           <tr><td>validate.spotCheckData</td><td>--spot-check-data</td></tr>
+          <tr><td>validate.allowUnlabeledFiles</td><td>--allow-unlabeled-files</td></tr>
           <tr><td>validate.report</td><td>-r, --report-file</td></tr>
           <tr><td>validate.verbose</td><td>-v, --verbose</td></tr>
           <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
@@ -796,6 +798,11 @@ validate.regexp = "*.xml"
         </source>
 
         <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
+        </p>
+      </subsection>
+      
+      <subsection name="Context Product Reference Validation">
+        <p>The <i>resources/</i> folder in the Validate Tool Release Package contains a JSON-formatted file that contains a list intended to represent a snapshot of the Context Product LIDVIDs (Logical Identifier/Version Identifier) currently registerd at the PDS Engineering Node. This file is read in at execution time so that the tool can validate that Context Products referenced in a product label exist within this supplied list. In the event that you would like the tool to check for additional Context Products that are not a part of this supplied list, simply edit the <i>resources/registered_context_products.json</i> file and add to the existing list.
         </p>
       </subsection>
     </section>

@@ -23,10 +23,13 @@
   </properties>
 
   <body>
-    <release version="1.15.0" date="2019-03-29" description="This release of the Validate Tool is a component of the integrated release 9.1.0 of the PDS4 System. This is an operational release of the system components to date.">
+    <release version="1.15.0" date="2019-03-29" description="This release of the Validate Tool is a component of the integrated release 9.1.0 of the PDS4 System. This is an operational release of the system components to date."> 
       <action dev="mcayanan" type="add" issue="PDS-603">
         Added capability to skip every nth record (or line for arrays) during content validation. Inherited from core.
       </action>
+      <action dev="mcayanan" type="add" issue="PDS-604">
+        Re-added capability to check for un-labeled files in a bundle or collection. Inherited from core. This includes adding an "--allow-unlabeled-files" flag option to turn this check off.
+      </action>      
     </release>
       
     <release version="1.14.0" date="2018-09-28" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">

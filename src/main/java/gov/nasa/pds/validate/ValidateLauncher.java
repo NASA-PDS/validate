@@ -176,6 +176,8 @@ public class ValidateLauncher {
   
   private int spotCheckData;
   
+  private boolean allowUnlabeledFiles;
+  
   private File registeredProductsFile;
   
   private Map<String, List<LidVid>> registeredProducts;
@@ -208,6 +210,7 @@ public class ValidateLauncher {
     checkData = true;
     maxErrors = MAX_ERRORS;
     spotCheckData = -1;
+    allowUnlabeledFiles = false;
     registeredProducts = new HashMap<String, List<LidVid>>();
     registeredProductsFile = new File(System.getProperty("resources.home")
         + "/registered_context_products.json");
@@ -315,6 +318,8 @@ public class ValidateLauncher {
               + o.getValue() + "': " + a.getMessage());
         }
         setSpotCheckData(value);        
+      } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
+        setAllowUnlabeledFiles(true);
       }
     }
     if (!targetList.isEmpty()) {
@@ -432,6 +437,9 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
         setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
+      }
+      if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
+        setAllowUnlabeledFiles(true);
       }
       
     } catch (Exception e) {
@@ -656,6 +664,10 @@ public class ValidateLauncher {
     this.spotCheckData = value;
   }
   
+  public void setAllowUnlabeledFiles(boolean flag) {
+    this.allowUnlabeledFiles = flag;
+  }
+  
   private void setRegisteredProducts() throws IOException {
     Gson gson = new Gson();
     JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
@@ -777,6 +789,10 @@ public class ValidateLauncher {
     if (spotCheckData != -1) {
       report.addParameter("   Data Spot Check               " + spotCheckData);
     }
+    if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle") || 
+        validationRule.equalsIgnoreCase("pds4.collection")) ) {
+      report.addParameter("   Allow Unlabeled Files         " + allowUnlabeledFiles);
+    }
     report.addParameter("   Max Errors                    " + maxErrors);
     report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
     report.printHeader();
@@ -801,6 +817,7 @@ public class ValidateLauncher {
         validator.setRecurse(traverse);
         validator.setCheckData(checkData);
         validator.setSpotCheckData(spotCheckData);
+        validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
         validator.setRegisteredProducts(this.registeredProducts);
         if (!checksumManifest.isEmpty()) {
           validator.setChecksumManifest(checksumManifest);
