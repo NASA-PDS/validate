@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="add" issue="PDS-604">
         Re-added capability to check for un-labeled files in a bundle or collection. Inherited from core. This includes adding an "--allow-unlabeled-files" flag option to turn this check off.
       </action>
+      <action dev="mcayanan" type="add" issue="PDS-606">
+        Added capability to check for the existence of referenced local identifiers within a label. Inherited from core.
+      </action>
       <action dev="mcayanan" type="fix" issue="PDS-723">
         Fixed to support schematron rules using the document-uri() function. Inherited from core.
       </action>          
