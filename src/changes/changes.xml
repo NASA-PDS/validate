@@ -33,9 +33,15 @@
       <action dev="mcayanan" type="add" issue="PDS-606">
         Added capability to check for the existence of referenced local identifiers within a label. Inherited from core.
       </action>
+      <action dev="mcayanan" type="update" issue="PDS-701">
+        Updated how the tool does field format validation against Table_Character tables due to CCB-214. Inherited from core.
+      </action> 
       <action dev="mcayanan" type="fix" issue="PDS-723">
         Fixed to support schematron rules using the document-uri() function. Inherited from core.
-      </action>          
+      </action>
+      <action dev="mcayanan" type="add">
+        Added in the 1C00 (1.12.0.0) version of the schema and schematron and set as default for this release. Inherited from core.
+      </action>        
     </release>
       
     <release version="1.14.0" date="2018-09-28" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
