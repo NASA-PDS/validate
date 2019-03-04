@@ -311,6 +311,7 @@
           <li>Check that directory names do not match prohibited directory names as defined in section 6C.2.3 of the PDS4 Standards Reference.</li>
           <li>Check that all files in the target collection are referenced by some label.</li>
           <li>Perform referential integrity checking among the target collection and its members.</li>
+          <li>Verify that the LID of the collection is used as the base of the LIDs of products that are members of the collection.</li>
         </ul>
         
         <p>The following example demonstrates applying a PDS4 Collection validation rule on a target collection:
@@ -331,6 +332,7 @@
         <ul>
           <li>Check that files and directories at the root of the target bundle are valid as defined in section 2B.2.2.1 of the PDS4 Standards Reference.</li>
           <li>Perform referential integrity checking among the target bundle and its members.</li>
+          <li>Verify that the LID of the bundle is used as the base of the LIDs of collections that are members of the bundle.</li>
         </ul>
         
         <p>The following example demonstrates running the tool using the PDS4 Bundle validation rules on a target bundle:
@@ -800,10 +802,10 @@ validate.regexp = "*.xml"
         <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
         </p>
       </subsection>
-      
-      <subsection name="Context Product Reference Validation">
-        <p>The <i>resources/</i> folder in the Validate Tool Release Package contains a JSON-formatted file that contains a list intended to represent a snapshot of the Context Product LIDVIDs (Logical Identifier/Version Identifier) currently registerd at the PDS Engineering Node. This file is read in at execution time so that the tool can validate that Context Products referenced in a product label exist within this supplied list. In the event that you would like the tool to check for additional Context Products that are not a part of this supplied list, simply edit the <i>resources/registered_context_products.json</i> file and add to the existing list.
-        </p>
+            	
+      <subsection name="Context Product Reference Validation">	
+        <p>The <i>resources/</i> folder in the Validate Tool Release Package contains a JSON-formatted file that contains a list intended to represent a snapshot of the Context Product LIDVIDs (Logical Identifier/Version Identifier) currently registerd at the PDS Engineering Node. This file is read in at execution time so that the tool can validate that Context Products referenced in a product label exist within this supplied list. In the event that you would like the tool to check for additional Context Products that are not a part of this supplied list, simply edit the <i>resources/registered_context_products.json</i> file and add to the existing list.	
+        </p>	
       </subsection>
     </section>
 
