@@ -35,7 +35,10 @@
       </action>
       <action dev="mcayanan" type="add" issue="PDS-606">	
         Added capability to check for the existence of referenced local identifiers within a label. Inherited from core.	
-      </action>	
+      </action>
+       <action dev="mcayanan" type="add" issue="PDS-678">
+        Added validation of Context Products referenced in a label. Inherited from core.
+      </action>     
       <action dev="mcayanan" type="update" issue="PDS-701">	
         Updated how the tool does field format validation against Table_Character tables due to CCB-214. Inherited from core.	
       </action> 	
