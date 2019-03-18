@@ -30,6 +30,9 @@
       <action dev="mcayanan" type="add" issue="PDS-604">
         Re-added capability to check for un-labeled files in a bundle or collection. Inherited from core. This includes adding an "--allow-unlabeled-files" flag option to turn this check off.
       </action>
+      <action dev="resneck" type="add" issue="PDS-605">
+        Added integrity check that product LIDs have collection LID as their base and that collection LIDs have bundle LID as their base. Inherited from core.
+      </action>
       <action dev="mcayanan" type="add" issue="PDS-606">	
         Added capability to check for the existence of referenced local identifiers within a label. Inherited from core.	
       </action>	
@@ -38,13 +41,13 @@
       </action> 	
       <action dev="mcayanan" type="fix" issue="PDS-723">	
         Fixed to support schematron rules using the document-uri() function. Inherited from core.	
-      </action>	
+      </action>
+      <action dev="mcayanan" type="add" issue="PDS-793">
+        Added support for ASCII_BibCode data types due to CCB-235. Inherited from core and pds4-tools.
+      </action>
       <action dev="mcayanan" type="add">	
         Added in the 1C00 (1.12.0.0) version of the schema and schematron and set as default for this release. Inherited from core.	
       </action> 
-      <action dev="resneck" type="add" issue="PDS-605">
-        Added integrity check that product LIDs have collection LID as their base and that collection LIDs have bundle LID as their base. Inherited from core.
-      </action>
     </release>
       
     <release version="1.14.0" date="2018-09-28" description="This release of the Validate Tool is a component of the integrated release 9.0.0 of the PDS4 System. This is an operational release of the system components to date.">
