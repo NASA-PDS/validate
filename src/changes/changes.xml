@@ -48,6 +48,9 @@
       <action dev="mcayanan" type="add" issue="PDS-793">
         Added support for ASCII_BibCode data types due to CCB-235. Inherited from core and pds4-tools.
       </action>
+      <action dev="mcayanan" type="update" issue="PDS-795">
+        Added support for validating ASCII_TIME values. Inherited from core.
+      </action>      
       <action dev="mcayanan" type="add">	
         Added in the 1C00 (1.12.0.0) version of the schema and schematron and set as default for this release. Inherited from core.	
       </action> 
