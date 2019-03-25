@@ -45,6 +45,9 @@
       <action dev="mcayanan" type="fix" issue="PDS-723">	
         Fixed to support schematron rules using the document-uri() function. Inherited from core.	
       </action>
+      <action dev = "resneck" type="add" issue="PDS-777">
+        Added check for valid member status designations in collection inventory tables. Inherited from core.
+      </action>
       <action dev="mcayanan" type="add" issue="PDS-793">
         Added support for ASCII_BibCode data types due to CCB-235. Inherited from core and pds4-tools.
       </action>
