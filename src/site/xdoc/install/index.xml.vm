@@ -117,9 +117,11 @@ or
 % export PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin
         </source>
 
-        <p>In addition, the shell scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
+        <p>In addition, it is recommended that the <i>JAVA_HOME</i> environment variable be set. It should point to the appropriate location of the Java installation on the local machine. If this is not set, then the shell script tries to resolve it via the <i>which java</i> command. If it still cannot find Java at this point, then an error is returned.
         </p>
 
+        <p>The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
+        </p>
         <source>
 % export JAVA_HOME=/path/to/java/home
         </source>
