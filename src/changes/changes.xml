@@ -23,12 +23,6 @@
   </properties>
 
   <body>
-    <release version="1.16.0" date="2019-09-30" description="This release of the Core Library is a component of the integrated release 10.0.0 of the PDS4 System. This is an operational release of the system components to date.">
-      <action dev = "resneck" type="add" issue="PDS-774">
-        Added check for secondary member status of context collections and their members. Inherited from core.
-      </action>
-    </release>
-    
     <release version="1.15.0" date="2019-03-29" description="This release of the Validate Tool is a component of the integrated release 9.1.0 of the PDS4 System. This is an operational release of the system components to date.">
       <action dev="mcayanan" type="add" issue="PDS-603">
         Added capability to skip every nth record (or line for arrays) during content validation. Inherited from core.
