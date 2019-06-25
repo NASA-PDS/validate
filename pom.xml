@@ -32,13 +32,8 @@ POSSIBILITY OF SUCH DAMAGE.
 -->
 <project>
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>gov.nasa.pds.2010</groupId>
-    <artifactId>preparation</artifactId>
-    <version>0.0.0</version>
-  </parent>
 
-  <groupId>gov.nasa.pds.2010.preparation</groupId>
+  <groupId>gov.nasa.pds.pds4.preparation</groupId>
   <artifactId>validate</artifactId>
   <version>1.15.0</version>
   <packaging>jar</packaging>
@@ -48,12 +43,11 @@ POSSIBILITY OF SUCH DAMAGE.
     The Validate Tool project contains software for validating PDS4 product labels and product data.
   </description>
 
-  <!-- TODO: This is behind a JPL HtAccess … how do we want to publicize this? -->
-  <url>https://pds-cm.jpl.nasa.gov/pds4/preparation/validate/</url>
+  <url>https://pds-engineering.jpl.nasa.gov/development/pds4/current/preparation/validate/</url>
 
   <licenses>
     <license>
-      <name>California Institute of Technology</name>
+      <name>Apache License, Version 2.0</name>
       <url>file:///${basedir}/LICENSE.txt</url>
       <distribution>repo</distribution>
     </license>
