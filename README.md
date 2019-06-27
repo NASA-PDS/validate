@@ -11,8 +11,8 @@ Two dependencies for this tool are not yet in Maven Central repository so they w
 2. Clone the tagged branch
 3. Run `mvn install` to install the package in your local maven repo.
 
-## PDS4 Parser
-1. Go to https://github.com/NASA-PDS-Incubator/pds4-parser-java/releases/latest
+## PDS4 JParser
+1. Go to https://github.com/NASA-PDS-Incubator/pds4-jparser/releases/latest
 2. Clone the tagged branch
 3. Run `mvn install` to install the package in your local maven repo.
 
