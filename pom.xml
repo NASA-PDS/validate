@@ -33,9 +33,9 @@ POSSIBILITY OF SUCH DAMAGE.
 <project>
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>gov.nasa.pds.pds4.preparation</groupId>
+  <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>1.15.0</version>
+  <version>1.16.0-alpha</version>
   <packaging>jar</packaging>
 
   <name>Validate Tool</name>
