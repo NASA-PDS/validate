@@ -67,6 +67,11 @@ POSSIBILITY OF SUCH DAMAGE.
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
         <configuration>
           <archive>
@@ -90,6 +95,7 @@ POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
         <configuration>
+	  <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
           <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
           <items>
             <item>timestamp</item>
@@ -117,44 +123,22 @@ POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
-  <repositories>
-    <!-- Hosts the PDS and OODT artifacts. -->
-    <repository>
-      <id>pds-repo</id>
-      <name>PDS Maven Repository</name>
-      <url>https://pds-cm.jpl.nasa.gov/maven2</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
   <dependencies>
     <dependency>
-      <groupId>gov.nasa.pds.2010.preparation</groupId>
-      <artifactId>core</artifactId>
-      <version>${core-version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jdk14</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>saxon</groupId>
-      <artifactId>saxon</artifactId>
-      <version>9.2</version>
-      <scope>compile</scope>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>9.4.0.7</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -192,17 +176,119 @@ POSSIBILITY OF SUCH DAMAGE.
       <groupId>com.jamesmurty.utils</groupId>
       <artifactId>java-xmlbuilder</artifactId>
       <version>1.2</version>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>commons-chain</groupId>
+      <artifactId>commons-chain</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xml-resolver</groupId>
+      <artifactId>xml-resolver</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    <dependency>
+      <groupId>gov.nasa.pds.preparation</groupId>
+      <artifactId>pds4-parser</artifactId>
+      <version>${pds4-parser.version}</version>
+      <scope>compile</scope>
+      <exclusions>
+	<exclusion>
+          <groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
+	  <artifactId>vicario</artifactId>
+        </exclusion>
+	<exclusion>
+	  <groupId>com.google.guava</groupId>
+	  <artifactId>guava</artifactId>
+	</exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>pds3-product-tools</artifactId>
+      <version>${pds3-product-tools.version}</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
-  <!-- Project Information and Reports inherited from parent. -->
+  <!-- Dummy SCM repo to handle issue with Maven 2 and Java 9-->
+  <scm>
+    <connection>scm:svn:http://127.0.0.1/dummy</connection>
+    <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://127.0.0.1/dummy</url>
+  </scm>
+
   <reporting>
-    <!-- Project Reports not inherited from parent. -->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+              <report>issue-management</report>
+              <report>licenses</report>
+              <report>mailing-lists</report>
+              <report>team</report>
+              <report>summary</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
+  <properties>
+    <pds4-parser.version>1.0.0</pds4-parser.version>
+    <pds3-product-tools.version>4.0.0</pds3-product-tools.version>
+  </properties>
 </project>
