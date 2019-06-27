@@ -213,9 +213,9 @@ POSSIBILITY OF SUCH DAMAGE.
       <version>1.2.17</version>
     </dependency>
     <dependency>
-      <groupId>gov.nasa.pds.preparation</groupId>
-      <artifactId>pds4-parser</artifactId>
-      <version>${pds4-parser.version}</version>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>pds4-jparser</artifactId>
+      <version>${pds4-jparser.version}</version>
       <scope>compile</scope>
       <exclusions>
 	<exclusion>
@@ -288,7 +288,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </plugins>
   </reporting>
   <properties>
-    <pds4-parser.version>1.0.0</pds4-parser.version>
+    <pds4-jparser.version>1.0.1</pds4-jparser.version>
     <pds3-product-tools.version>4.0.0</pds3-product-tools.version>
   </properties>
 </project>
