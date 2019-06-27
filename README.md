@@ -7,15 +7,20 @@ to execute validation.
 Two dependencies for this tool are not yet in Maven Central repository so they will need to be installed in your local maven repository in order to build and compile.
 
 ## PDS3 Product Tools
-1. Go to https://github.com/NASA-PDS-Incubator/pds3-product-tools/releases/latest
-2. Clone the tagged branch
-3. Run `mvn install` to install the package in your local maven repo.
+1. Clone the repo and checkout v4.0.0:
+```
+git clone git@github.com:NASA-PDS-Incubator/pds3-product-tools.git
+git checkout tags/v4.0.0
+```
+2. Run `mvn install` to install the package in your local maven repo.
 
 ## PDS4 JParser
-1. Go to https://github.com/NASA-PDS-Incubator/pds4-jparser/releases/latest
-2. Clone the tagged branch
-3. Run `mvn install` to install the package in your local maven repo.
-
+1. Clone the repo and checkout v1.0.0:
+```
+git clone git@github.com:NASA-PDS-Incubator/pds4-jparser.git
+git checkout tags/v1.0.0
+```
+2. Run `mvn install` to install the package in your local maven repo.
 
 # Build
 The software can be compiled and built with the "mvn compile" command but in order 
