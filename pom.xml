@@ -288,7 +288,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </plugins>
   </reporting>
   <properties>
-    <pds4-jparser.version>1.0.1</pds4-jparser.version>
+    <pds4-jparser.version>1.0.0</pds4-jparser.version>
     <pds3-product-tools.version>4.0.0</pds3-product-tools.version>
   </properties>
 </project>
