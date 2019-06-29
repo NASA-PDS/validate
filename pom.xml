@@ -30,15 +30,17 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 -->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>1.16.0-alpha</version>
+  <version>1.16.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Validate Tool</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>
     The Validate Tool project contains software for validating PDS4 product labels and product data.
   </description>
@@ -47,11 +49,65 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>file:///${basedir}/LICENSE.txt</url>
-      <distribution>repo</distribution>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+  
+<developers>
+    <developer>
+      <name>Jordan Padams</name>
+      <id>jpadams</id>
+      <email>Jordan.H.Padams@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Node Manager</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Galen Hollins</name>
+      <id>ghollins</id>
+      <email>Galen.Hollins@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Node Development Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Hyun Lee</name>
+      <email>Hyun.Lee@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Dan Yu</name>
+      <email>Dan.Yu@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Sean Hardman</name>
+      <id>shardman</id>
+      <email>Sean.Hardman@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>Former Development Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Michael Cayanan</name>
+      <id>mcayanan</id>
+      <email>Michael.Cayanan@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>Former Developer</role>
+      </roles>
+    </developer>
+  </developers>
 
   <build>
     <resources>
@@ -65,6 +121,17 @@ POSSIBILITY OF SUCH DAMAGE.
       </resource>
     </resources>
     <plugins>
+      <plugin>
+	    <groupId>org.sonatype.plugins</groupId>
+	    <artifactId>nexus-staging-maven-plugin</artifactId>
+	    <version>1.6.7</version>
+	    <extensions>true</extensions>
+	    <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+	    </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
@@ -133,6 +200,83 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
     </plugins>
   </build>
+
+<distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
+  
+  <scm>
+    <url>https://github.com/NASA-PDS-Incubator/pds3-product-tools/tree/master</url>
+    <connection>scm:git:git://github.com/NASA-PDS-Incubator/pds3-product-tools.git</connection>
+    <developerConnection>scm:git:ssh://github.com:NASA-PDS-Incubator/pds3-product-tools.git</developerConnection>
+  </scm>
+
+  <profiles>
+    <profile> 
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                  <goal>test-jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <source>1.8</source>
+              <failOnError>false</failOnError>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+                <execution>
+                    <id>sign-artifacts</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>sign</goal>
+                    </goals>
+                    <configuration>
+                        <gpgArguments>
+                            <arg>--pinentry-mode</arg>
+                            <arg>loopback</arg>
+                        </gpgArguments>
+                    </configuration>
+                </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
@@ -218,14 +362,14 @@ POSSIBILITY OF SUCH DAMAGE.
       <version>${pds4-jparser.version}</version>
       <scope>compile</scope>
       <exclusions>
-	<exclusion>
+	    <exclusion>
           <groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
-	  <artifactId>vicario</artifactId>
+	      <artifactId>vicario</artifactId>
         </exclusion>
-	<exclusion>
-	  <groupId>com.google.guava</groupId>
-	  <artifactId>guava</artifactId>
-	</exclusion>
+	    <exclusion>
+	      <groupId>com.google.guava</groupId>
+	      <artifactId>guava</artifactId>
+	    </exclusion>
       </exclusions>
     </dependency>
     <dependency>
@@ -235,14 +379,6 @@ POSSIBILITY OF SUCH DAMAGE.
       <scope>compile</scope>
     </dependency>
   </dependencies>
-
-  <!-- Dummy SCM repo to handle issue with Maven 2 and Java 9-->
-  <scm>
-    <connection>scm:svn:http://127.0.0.1/dummy</connection>
-    <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
-    <tag>HEAD</tag>
-    <url>http://127.0.0.1/dummy</url>
-  </scm>
 
   <reporting>
     <plugins>
@@ -288,7 +424,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </plugins>
   </reporting>
   <properties>
-    <pds4-jparser.version>1.0.0</pds4-jparser.version>
-    <pds3-product-tools.version>4.0.0</pds3-product-tools.version>
+    <pds4-jparser.version>1.0.1</pds4-jparser.version>
+    <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
   </properties>
 </project>

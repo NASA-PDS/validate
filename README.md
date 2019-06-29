@@ -3,26 +3,12 @@ Project containing software for validating PDS4 products and PDS3 volumes.
 The software is packaged in a JAR file with a command-line wrapper script
 to execute validation.
 
-# Dependencies
-Two dependencies for this tool are not yet in Maven Central repository so they will need to be installed in your local maven repository in order to build and compile.
-
-## PDS3 Product Tools
-1. Clone the repo and checkout v4.0.0:
-```
-git clone https://github.com/NASA-PDS-Incubator/pds3-product-tools.git
-cd pds3-product-tools
-git checkout tags/v4.0.0
-```
-2. Run `mvn install` to install the package in your local maven repo.
-
-## PDS4 JParser
-1. Clone the repo and checkout v1.0.0:
-```
-git clone https://github.com/NASA-PDS-Incubator/pds4-jparser.git
-cd pds4-jparser
-git checkout tags/v1.0.0
-```
-2. Run `mvn install` to install the package in your local maven repo.
+# Documentation
+The documentation including release notes, installation and operation of the 
+software should be online at 
+https://pds-engineering.jpl.nasa.gov/development/pds4/current/preparation/validate/. If it is not 
+accessible, you can execute the "mvn site:run" command and view the 
+documentation locally at http://localhost:8080.
 
 # Build
 The software can be compiled and built with the "mvn compile" command but in order 
@@ -31,13 +17,63 @@ to create the JAR file, you must execute the "mvn compile jar:jar" command.
 In order to create a complete distribution package, execute the 
 following commands: 
 
+```
 % mvn site
 % mvn package
+```
+# Release
+Here is the procedure for releasing the software both in Github and pushing the JARs to the public Maven Central repo.
 
+## Pre-Requisites
+* Make sure you have your GPG Key created and sent to server.
+* Make sure you have your .settings configured correctly for GPG:
+```
+<profiles>
+  <profile>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+      <gpg.executable>gpg</gpg.executable>
+      <gpg.keyname>KEY_NAME</gpg.keyname>
+      <gpg.passphrase>KEY_PASSPHRASE</gpg.passphrase>
+    </properties>
+  </profile>
+</profiles>
+```
 
-# Documentation
-The documentation including release notes, installation and operation of the 
-software should be online at 
-https://pds-engineering.jpl.nasa.gov/development/pds4/current/preparation/validate/. If it is not 
-accessible, you can execute the "mvn site:run" command and view the 
-documentation locally at http://localhost:8080.
+## Operational Release
+1. Checkout the dev branch.
+
+2. Version the software:
+```
+mvn versions:set -DnewVersion=1.2.0
+```
+
+3. Deploy software to Sonatype Maven repo:
+```
+# Operational release
+mvn clean site deploy -P release
+```
+
+4. Create pull request from dev -> master and merge.
+
+5. Tag release in Github
+
+6. Update version to next snapshot:
+```
+mvn versions:set -DnewVersion=1.3.0-SNAPSHOT
+```
+
+## SNAPSHOT Release
+1. Checkout the dev branch.
+
+2. Deploy software to Sonatype Maven repo:
+```
+# Operational release
+mvn clean site deploy
+```
+
+# JAR Dependency Reference
+
+https://search.maven.org/search?q=g:gov.nasa.pds%20AND%20a:validate&core=gav
