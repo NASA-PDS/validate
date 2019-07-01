@@ -4,3 +4,7 @@ target/
 typescript
 .*.swp
 *.sublime-*
+
+.idea
+*.iml
+
