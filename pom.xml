@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright © 2019, California Institute of Technology ("Caltech").
+Copyright 2019, California Institute of Technology ("Caltech").
 U.S. Government sponsorship acknowledged.
 
 All rights reserved.
@@ -30,34 +30,84 @@ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 -->
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>gov.nasa.pds.2010</groupId>
-    <artifactId>preparation</artifactId>
-    <version>0.0.0</version>
-  </parent>
 
-  <groupId>gov.nasa.pds.2010.preparation</groupId>
+  <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>1.15.0</version>
+  <version>1.16.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Validate Tool</name>
+  <name>${project.groupId}:${project.artifactId}</name>
   <description>
     The Validate Tool project contains software for validating PDS4 product labels and product data.
   </description>
 
-  <!-- TODO: This is behind a JPL HtAccess … how do we want to publicize this? -->
-  <url>https://pds-cm.jpl.nasa.gov/pds4/preparation/validate/</url>
+  <url>https://pds-engineering.jpl.nasa.gov/development/pds4/current/preparation/validate/</url>
 
   <licenses>
     <license>
-      <name>California Institute of Technology</name>
-      <url>file:///${basedir}/LICENSE.txt</url>
-      <distribution>repo</distribution>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+  
+<developers>
+    <developer>
+      <name>Jordan Padams</name>
+      <id>jpadams</id>
+      <email>Jordan.H.Padams@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Node Manager</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Galen Hollins</name>
+      <id>ghollins</id>
+      <email>Galen.Hollins@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Node Development Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Hyun Lee</name>
+      <email>Hyun.Lee@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Dan Yu</name>
+      <email>Dan.Yu@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>PDS Engineering Developer</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Sean Hardman</name>
+      <id>shardman</id>
+      <email>Sean.Hardman@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>Former Development Lead</role>
+      </roles>
+    </developer>
+    <developer>
+      <name>Michael Cayanan</name>
+      <id>mcayanan</id>
+      <email>Michael.Cayanan@jpl.nasa.gov</email>
+      <organization>NASA Jet Propulsion Laboratory</organization>
+      <roles>
+        <role>Former Developer</role>
+      </roles>
+    </developer>
+  </developers>
 
   <build>
     <resources>
@@ -71,6 +121,22 @@ POSSIBILITY OF SUCH DAMAGE.
       </resource>
     </resources>
     <plugins>
+      <plugin>
+	    <groupId>org.sonatype.plugins</groupId>
+	    <artifactId>nexus-staging-maven-plugin</artifactId>
+	    <version>1.6.7</version>
+	    <extensions>true</extensions>
+	    <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+	    </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.7.1</version>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
@@ -96,6 +162,7 @@ POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
         <configuration>
+	  <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
           <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
           <items>
             <item>timestamp</item>
@@ -123,44 +190,99 @@ POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+	<artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
-  <repositories>
-    <!-- Hosts the PDS and OODT artifacts. -->
+<distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
     <repository>
-      <id>pds-repo</id>
-      <name>PDS Maven Repository</name>
-      <url>https://pds-cm.jpl.nasa.gov/maven2</url>
-      <releases>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-        <checksumPolicy>warn</checksumPolicy>
-      </releases>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
-  </repositories>
+  </distributionManagement>
+  
+  <scm>
+    <url>https://github.com/NASA-PDS-Incubator/pds3-product-tools/tree/master</url>
+    <connection>scm:git:git://github.com/NASA-PDS-Incubator/pds3-product-tools.git</connection>
+    <developerConnection>scm:git:ssh://github.com:NASA-PDS-Incubator/pds3-product-tools.git</developerConnection>
+  </scm>
+
+  <profiles>
+    <profile> 
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                  <goal>test-jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <configuration>
+              <source>1.8</source>
+              <failOnError>false</failOnError>
+            </configuration>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+                <execution>
+                    <id>sign-artifacts</id>
+                    <phase>verify</phase>
+                    <goals>
+                        <goal>sign</goal>
+                    </goals>
+                    <configuration>
+                        <gpgArguments>
+                            <arg>--pinentry-mode</arg>
+                            <arg>loopback</arg>
+                        </gpgArguments>
+                    </configuration>
+                </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
-      <groupId>gov.nasa.pds.2010.preparation</groupId>
-      <artifactId>core</artifactId>
-      <version>${core-version}</version>
-      <scope>compile</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-jdk14</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
-      <groupId>saxon</groupId>
-      <artifactId>saxon</artifactId>
-      <version>9.2</version>
-      <scope>compile</scope>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>Saxon-HE</artifactId>
+      <version>9.4.0.7</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
@@ -198,17 +320,111 @@ POSSIBILITY OF SUCH DAMAGE.
       <groupId>com.jamesmurty.utils</groupId>
       <artifactId>java-xmlbuilder</artifactId>
       <version>1.2</version>
-    </dependency>    
+    </dependency>
+    <dependency>
+      <groupId>commons-chain</groupId>
+      <artifactId>commons-chain</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.9</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-compress</artifactId>
+      <version>1.16</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>18.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xercesImpl</artifactId>
+      <version>2.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>xml-resolver</groupId>
+      <artifactId>xml-resolver</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.17</version>
+    </dependency>
+    <dependency>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>pds4-jparser</artifactId>
+      <version>${pds4-jparser.version}</version>
+      <scope>compile</scope>
+      <exclusions>
+	    <exclusion>
+          <groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
+	      <artifactId>vicario</artifactId>
+        </exclusion>
+	    <exclusion>
+	      <groupId>com.google.guava</groupId>
+	      <artifactId>guava</artifactId>
+	    </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>pds3-product-tools</artifactId>
+      <version>${pds3-product-tools.version}</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 
-  <!-- Project Information and Reports inherited from parent. -->
   <reporting>
-    <!-- Project Reports not inherited from parent. -->
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>dependencies</report>
+              <report>issue-management</report>
+              <report>licenses</report>
+              <report>mailing-lists</report>
+              <report>team</report>
+              <report>summary</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-changes-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <failOnError>false</failOnError>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
+  <properties>
+    <pds4-jparser.version>1.0.1</pds4-jparser.version>
+    <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
+  </properties>
 </project>
