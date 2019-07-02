@@ -17,6 +17,7 @@ package gov.nasa.pds.tools.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -67,7 +68,11 @@ public class VersionInfo {
   static {
     try {
       xmlParserVersion = org.apache.xerces.impl.Version.getVersion();
-      props.load(VersionInfo.class.getResourceAsStream("/core.properties"));
+      InputStream is = VersionInfo.class.getResourceAsStream("/core.properties");
+      if (is == null) {
+        throw new RuntimeException("ERROR: Unable to locate core.properties");
+      }
+      props.load(is);
       String schemaDirString = System.getProperty(SCHEMA_DIR_PROP);
       internalMode = (schemaDirString == null) ? true : false;
       if (!internalMode) {

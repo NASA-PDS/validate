@@ -42,7 +42,7 @@ import java.util.Properties;
  *
  */
 public class ToolInfo {
-    public static final String FILE = "validate.properties";
+    public static final String FILE = "/validate.properties";
 
     public static final String NAME = "validate.name";
 

@@ -41,6 +41,7 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 
@@ -67,8 +68,8 @@ public class SchemaValidator {
    */
   public SchemaValidator() {
     // Support for XSD 1.1
-    schemaFactory = SchemaFactory
-        .newInstance("http://www.w3.org/XML/XMLSchema/v1.1");
+    schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
     schemaFactory.setResourceResolver(new CachedLSResourceResolver());
   }
 

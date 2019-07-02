@@ -39,6 +39,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -148,9 +149,9 @@ public class LabelValidator {
     cachedEntityResolver = new CachedEntityResolver();
     cachedLSResolver = new CachedLSResourceResolver();
     validatingSchema = null;
+
     // Support for XSD 1.1
-    schemaFactory = SchemaFactory.newInstance(
-        "http://www.w3.org/XML/XMLSchema/v1.1");
+    schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
     // We need a SAX parser factory to do the validating parse
     // to create the DOM tree, so we can insert line numbers
