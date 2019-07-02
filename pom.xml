@@ -423,5 +423,6 @@ POSSIBILITY OF SUCH DAMAGE.
   <properties>
     <pds4-jparser.version>1.0.1</pds4-jparser.version>
     <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
+    <model-version>1C00</model-version>
   </properties>
 </project>
