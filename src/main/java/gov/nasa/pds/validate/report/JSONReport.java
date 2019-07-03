@@ -65,8 +65,26 @@ public class JSONReport extends Report {
 
   public JSONReport() {
     super();
-    this.jsonWriter = new JsonWriter(this.writer);
-    this.jsonWriter.setIndent("  ");
+    refreshWriter();
+  }
+
+  private void refreshWriter() {
+    if (jsonWriter != null) {
+      try {
+        writer.flush();
+        writer.close();
+        jsonWriter.flush();
+        jsonWriter.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    writer = null;
+    jsonWriter = null;
+    writer = new PrintWriter(new OutputStreamWriter(System.out));
+    System.out.println("refreshReport " + messageSummary.size());
+    jsonWriter = new JsonWriter(writer);
+    jsonWriter.setIndent("  ");
   }
 
   /**
@@ -275,7 +293,7 @@ public class JSONReport extends Report {
       this.jsonWriter.beginArray();
 
       printProblem(problem);
-      
+
       this.jsonWriter.endArray();
       this.jsonWriter.endObject();
     } catch (IOException io) {
@@ -307,10 +325,11 @@ public class JSONReport extends Report {
       this.jsonWriter.endArray();
       this.jsonWriter.endObject();
       this.jsonWriter.endObject();
-      this.jsonWriter.flush();
-      this.jsonWriter.close();
     } catch (IOException io) {
       io.getMessage();
+    }
+    finally {
+      refreshWriter();
     }
   }
 }
