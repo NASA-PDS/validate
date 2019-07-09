@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers.tabularData;
+package gov.nasa.pds.tools.web.ui.containers.tabularData;
 
 import java.io.Serializable;
 import java.util.ArrayList;

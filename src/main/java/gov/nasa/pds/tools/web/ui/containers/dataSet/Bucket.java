@@ -1,6 +1,6 @@
-package gov.nasa.pds.web.ui.containers.dataSet;
+package gov.nasa.pds.tools.web.ui.containers.dataSet;
 
-import gov.nasa.pds.web.ui.containers.dataSet.ValidationResults.SimpleProblem;
+import gov.nasa.pds.tools.web.ui.containers.dataSet.ValidationResults.SimpleProblem;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,9 +1,9 @@
-package gov.nasa.pds.web.ui.containers.tabularData;
+package gov.nasa.pds.tools.web.ui.containers.tabularData;
 
 import gov.nasa.pds.tools.constants.Constants.ProblemType;
 import gov.nasa.pds.tools.label.AttributeStatement;
 import gov.nasa.pds.tools.label.ObjectStatement;
-import gov.nasa.pds.web.ui.utils.TabularData;
+import gov.nasa.pds.tools.web.ui.utils.TabularData;
 
 import java.io.Serializable;
 import java.util.ArrayList;

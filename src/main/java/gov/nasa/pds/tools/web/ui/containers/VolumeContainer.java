@@ -1,9 +1,9 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 import gov.nasa.arc.pds.tools.util.LocaleUtils;
-import gov.nasa.pds.web.ui.constants.DataSetConstants;
-import gov.nasa.pds.web.ui.constants.DataSetConstants.DataType;
-import gov.nasa.pds.web.ui.constants.DataSetConstants.Status;
+import gov.nasa.pds.tools.web.ui.constants.DataSetConstants;
+import gov.nasa.pds.tools.web.ui.constants.DataSetConstants.DataType;
+import gov.nasa.pds.tools.web.ui.constants.DataSetConstants.Status;
 
 import java.util.Date;
 import java.util.UUID;

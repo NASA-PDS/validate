@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.utils;
+package gov.nasa.pds.tools.web.ui.utils;
 
 /*
  * This class is primarily for checking that we have enough memory to continue a

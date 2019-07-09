@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers.tabularManagement;
+package gov.nasa.pds.tools.web.ui.containers.tabularManagement;
 
 import gov.nasa.arc.pds.tools.util.FileUtils;
 import gov.nasa.pds.tools.containers.VolumeContainerSimple;
@@ -9,9 +9,9 @@ import gov.nasa.pds.tools.label.Label;
 import gov.nasa.pds.tools.label.Numeric;
 import gov.nasa.pds.tools.label.ObjectStatement;
 import gov.nasa.pds.tools.label.PointerStatement;
-import gov.nasa.pds.web.ui.containers.ColumnInfo;
-import gov.nasa.pds.web.ui.containers.LabelContainer;
-import gov.nasa.pds.web.ui.utils.TabularData;
+import gov.nasa.pds.tools.web.ui.containers.ColumnInfo;
+import gov.nasa.pds.tools.web.ui.containers.LabelContainer;
+import gov.nasa.pds.tools.web.ui.utils.TabularData;
 
 import java.io.File;
 import java.net.URI;

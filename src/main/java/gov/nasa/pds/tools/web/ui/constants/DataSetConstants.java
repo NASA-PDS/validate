@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.constants;
+package gov.nasa.pds.tools.web.ui.constants;
 
 import gov.nasa.arc.pds.tools.util.FileUtils;
 

@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -38,75 +38,82 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public class ConfigKey {
-  /** List of file patterns to look for if traversing a target directory. */
-  public static final String REGEXP = "validate.regexp";
+    /** List of file patterns to look for if traversing a target directory. */
+    public static final String REGEXP = "validate.regexp";
 
-  /** The report. */
-  public static final String REPORT = "validate.report";
+    /** The report. */
+    public static final String REPORT = "validate.report";
 
-  /** A list of targets to validate. */
-  public static final String TARGET = "validate.target";
+    /** A list of targets to validate. */
+    public static final String TARGET = "validate.target";
 
-  /** A severity level for the output report. */
-  public static final String VERBOSE = "validate.verbose";
+    /** A severity level for the output report. */
+    public static final String VERBOSE = "validate.verbose";
 
-  /** A list of schema files to validate against. */
-  public static final String SCHEMA = "validate.schema";
+    /** A list of schema files to validate against. */
+    public static final String SCHEMA = "validate.schema";
 
-  /** A list of schematron files to validate against. */
-  public static final String SCHEMATRON = "validate.schematron";
+    /** A list of schematron files to validate against. */
+    public static final String SCHEMATRON = "validate.schematron";
 
-  /** The catalog file to use during validation. */
-  public static final String CATALOG = "validate.catalog";
+    /** The catalog file to use during validation. */
+    public static final String CATALOG = "validate.catalog";
 
-  /** Property to specify one or more checksum manifest files. */
-  public static final String CHECKSUM = "validate.checksum";
+    /** Property to specify one or more checksum manifest files. */
+    public static final String CHECKSUM = "validate.checksum";
 
-  /**
-   * List of paths to use as the base when looking up file references
-   * in a checksum manifest file.
-   */
-  public static final String BASE_PATH = "validate.basePath";
+    /**
+     * List of paths to use as the base when looking up file references in a
+     * checksum manifest file.
+     */
+    public static final String BASE_PATH = "validate.basePath";
 
-  /** The model version to use during validation. */
-  public static final String MODEL = "validate.model";
+    /** The model version to use during validation. */
+    public static final String MODEL = "validate.model";
 
-  /** Enables/disables direcotry recursion. */
-  public static final String LOCAL = "validate.local";
+    /** Enables/disables direcotry recursion. */
+    public static final String LOCAL = "validate.local";
 
-  /** Configures the report style format. */
-  public static final String STYLE = "validate.reportStyle";
+    /** Configures the report style format. */
+    public static final String STYLE = "validate.reportStyle";
 
-  /** Force the tool to validate against the schema and schematron specified
-   *  in the label.
-   */
-  public static final String FORCE = "validate.force";
-  
-  /**
-   * Property to specify the validation rule type.
-   */
-  public static final String RULE = "validate.rule";
-  
-  /**
-   * Property to disable data content validation.
-   */
-  public static final String NO_DATA = "validate.noDataCheck";
-  
-  /**
-   * Property to specify the maximum number of errors to report before 
-   * terminating a validation run.
-   */
-  public static final String MAX_ERRORS = "validate.maxErrors";
-  
-  /**
-   * Property to specify how many lines or records to skip during
-   * content validation.
-   */
-  public static final String SPOT_CHECK_DATA = "validate.spotCheckData";
-  
-  /**
-   * Property to allow the tool to not report on unlabeled files in a bundle
-   * or collection.
-   */
-  public static final String ALLOW_UNLABELED_FILES = "validate.allowUnlabeledFiles";
+    /**
+     * Force the tool to validate against the schema and schematron specified in
+     * the label.
+     */
+    public static final String FORCE = "validate.force";
+
+    /**
+     * Property to specify the validation rule type.
+     */
+    public static final String RULE = "validate.rule";
+
+    /**
+     * Property to disable data content validation.
+     */
+    public static final String NO_DATA = "validate.noDataCheck";
+
+    /**
+     * Property to specify the maximum number of errors to report before
+     * terminating a validation run.
+     */
+    public static final String MAX_ERRORS = "validate.maxErrors";
+
+    /**
+     * Property to specify how many lines or records to skip during content
+     * validation.
+     */
+    public static final String SPOT_CHECK_DATA = "validate.spotCheckData";
+
+    /**
+     * Property to allow the tool to not report on unlabeled files in a bundle
+     * or collection.
+     */
+    public static final String ALLOW_UNLABELED_FILES = "validate.allowUnlabeledFiles";
+
+    /**
+     * Property to download the latest Registered Context Products JSON file and
+     * replace the existing file.
+     */
+    public static final String LATEST_JSON_FILE = "validate.latestJsonFile";
 }

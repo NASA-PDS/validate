@@ -37,7 +37,7 @@ import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.LidVid;
-import gov.nasa.pds.tools.util.SettingsManager;
+//import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -62,8 +62,12 @@ import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -86,7 +90,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
@@ -98,6 +102,13 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;
 import org.apache.log4j.PatternLayout;
 import org.apache.log4j.Priority;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.omg.CORBA.portable.ApplicationException;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
@@ -106,6 +117,7 @@ import org.xml.sax.SAXParseException;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and
@@ -116,1059 +128,1163 @@ import com.google.gson.JsonObject;
  */
 public class ValidateLauncher {
 
-  /** A manager for validation settings. */
-  private SettingsManager settings = SettingsManager.INSTANCE;
+    /** A manager for validation settings. */
+    // private SettingsManager settings = SettingsManager.INSTANCE;
 
-  /** List of targets to validate. */
-  private List<URL> targets;
+    /** List of targets to validate. */
+    private List<URL> targets;
 
-  /** List of regular expressions for the file filter. */
-  private List<String> regExps;
+    /** List of regular expressions for the file filter. */
+    private List<String> regExps;
 
-  /** A list of user-given schemas to validate against. */
-  private List<URL> schemas;
+    /** A list of user-given schemas to validate against. */
+    private List<URL> schemas;
 
-  /** A list of catalog files to use during validation. */
-  private List<String> catalogs;
+    /** A list of catalog files to use during validation. */
+    private List<String> catalogs;
 
-  private List<URL> schematrons;
+    private List<URL> schematrons;
 
-  /** A report file. */
-  private File reportFile;
+    /** A report file. */
+    private File reportFile;
 
-  /** A flag to enable/disable directory recursion. */
-  private boolean traverse;
+    /** A flag to enable/disable directory recursion. */
+    private boolean traverse;
 
-  /** The severity level and above to include in the report. */
-  private ExceptionType severity;
+    /** The severity level and above to include in the report. */
+    private ExceptionType severity;
 
-  /** An object representation of a Validate Tool report. */
-  private Report report;
+    /** An object representation of a Validate Tool report. */
+    private Report report;
 
-  /** Indicates the report style format. */
-  private String reportStyle;
+    /** Indicates the report style format. */
+    private String reportStyle;
 
-  /** The model version to use during validation. */
-  private String modelVersion;
+    /** The model version to use during validation. */
+    private String modelVersion;
 
-  /** Flag to force the tool to validate against the schema and schematron
-   *  specified in the given label.
-   */
-  private boolean force;
+    /**
+     * Flag to force the tool to validate against the schema and schematron
+     * specified in the given label.
+     */
+    private boolean force;
 
-  /**
-   * A checksum manifest file to use for checksum validation.
-   *
-   */
-  private URL checksumManifest;
+    /**
+     * A checksum manifest file to use for checksum validation.
+     *
+     */
+    private URL checksumManifest;
 
-  /**
-   * Default file filters.
-   */
-  private String[] DEFAULT_FILE_FILTERS = {"*.xml", "*.XML"};
+    /**
+     * Default file filters.
+     */
+    private String[] DEFAULT_FILE_FILTERS = { "*.xml", "*.XML" };
 
-  private SchemaValidator schemaValidator;
+    private SchemaValidator schemaValidator;
 
-  private SchematronTransformer schematronTransformer;
+    private SchematronTransformer schematronTransformer;
 
-  private List<Transformer> transformedSchematrons;
+    private List<Transformer> transformedSchematrons;
 
-  private CachedEntityResolver resolver;
+    private CachedEntityResolver resolver;
 
-  /**
-   * path to use as the base when looking up file references in
-   * a manifest file.
-   */
-  private URL manifestBasePath;
-  
-  /** The validation rule name to use. */
-  private String validationRule;
+    /**
+     * path to use as the base when looking up file references in a manifest
+     * file.
+     */
+    private URL manifestBasePath;
 
-  /** Flag to enable/disable data content validation. */
-  private boolean checkData;
-  
-  private long MAX_ERRORS = 100000;
-  
-  private long maxErrors;
-  
-  private int spotCheckData;
-  
-  private boolean allowUnlabeledFiles;
-  
-  private File registeredProductsFile;
-  
-  private Map<String, List<LidVid>> registeredProducts;
-  
-  /**
-   * Constructor.
-   * @throws TransformerConfigurationException
-   *
-   */
-  public ValidateLauncher() throws TransformerConfigurationException {
-    targets = new ArrayList<URL>();
-    regExps = new ArrayList<String>();
-    catalogs = new ArrayList<String>();
-    schemas = new ArrayList<URL>();
-    schematrons = new ArrayList<URL>();
-    checksumManifest = null;
-    manifestBasePath = null;
-    reportFile = null;
-    traverse = true;
-    severity = ExceptionType.WARNING;
-    modelVersion = VersionInfo.getDefaultModelVersion();
-    report = null;
-    reportStyle = "full";
-    force = false;
-    regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
-    schemaValidator = new SchemaValidator();
-    schematronTransformer = new SchematronTransformer();
-    transformedSchematrons = new ArrayList<Transformer>();
-    resolver = new CachedEntityResolver();
-    checkData = true;
-    maxErrors = MAX_ERRORS;
-    spotCheckData = -1;
-    allowUnlabeledFiles = false;
-    registeredProducts = new HashMap<String, List<LidVid>>();
-    registeredProductsFile = new File(System.getProperty("resources.home")
-        + "/registered_context_products.json");
-    
-  }
+    /** The validation rule name to use. */
+    private String validationRule;
 
-  /**
-   * Parse the command-line arguments
-   *
-   * @param args The command-line arguments
-   * @return A class representation of the command-line arguments
-   *
-   * @throws ParseException If an error occurred during parsing.
-   */
-  public CommandLine parse(String[] args) throws ParseException {
-    CommandLineParser parser = new GnuParser();
-    return parser.parse(FlagOptions.getOptions(), args);
-  }
+    /** Flag to enable/disable data content validation. */
+    private boolean checkData;
 
-  /**
-   * Query the command-line and process the command-line option flags set.
-   *
-   * @param line A CommandLine object containing the flags that were set.
-   *
-   * @throws Exception If an error occurred while processing the
-   * command-line options.
-   */
-  public void query(CommandLine line) throws Exception {
-    List<Option> processedOptions = Arrays.asList(line.getOptions());
-    List<String> targetList = new ArrayList<String>();
-    //Gets the implicit targets
-    for (java.util.Iterator<String> i = line.getArgList().iterator();
-    i.hasNext();) {
-      String[] values = i.next().split(",");
-      for (int index = 0; index < values.length; index++) {
-        targetList.add(values[index].trim());
-      }
+    private long MAX_ERRORS = 100000;
+
+    private long maxErrors;
+
+    private int spotCheckData;
+
+    private boolean allowUnlabeledFiles;
+
+    private File registeredProductsFile;
+
+    private Map<String, List<LidVid>> registeredProducts;
+
+    /**
+     * Constructor.
+     * 
+     * @throws TransformerConfigurationException
+     *
+     */
+    public ValidateLauncher() throws TransformerConfigurationException {
+        targets = new ArrayList<URL>();
+        regExps = new ArrayList<String>();
+        catalogs = new ArrayList<String>();
+        schemas = new ArrayList<URL>();
+        schematrons = new ArrayList<URL>();
+        checksumManifest = null;
+        manifestBasePath = null;
+        reportFile = null;
+        traverse = true;
+        severity = ExceptionType.WARNING;
+        modelVersion = VersionInfo.getDefaultModelVersion();
+        report = null;
+        reportStyle = "full";
+        force = false;
+        regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
+        schemaValidator = new SchemaValidator();
+        schematronTransformer = new SchematronTransformer();
+        transformedSchematrons = new ArrayList<Transformer>();
+        resolver = new CachedEntityResolver();
+        checkData = true;
+        maxErrors = MAX_ERRORS;
+        spotCheckData = -1;
+        allowUnlabeledFiles = false;
+        registeredProducts = new HashMap<String, List<LidVid>>();
+        registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
+
     }
-    for (Option o : processedOptions) {
-      if (Flag.HELP.getShortName().equals(o.getOpt())) {
-        displayHelp();
-        System.exit(0);
-      } else if (Flag.VERSION.getShortName().equals(o.getOpt())) {
-        displayVersion();
-        System.exit(0);
-      } else if (Flag.CONFIG.getShortName().equals(o.getOpt())) {
-        File c = new File(o.getValue());
-        if (c.exists()) {
-          query(c);
-        } else {
-          throw new Exception("Configuration file does not exist: " + c);
+
+    /**
+     * Parse the command-line arguments
+     *
+     * @param args
+     *            The command-line arguments
+     * @return A class representation of the command-line arguments
+     *
+     * @throws ParseException
+     *             If an error occurred during parsing.
+     */
+    public CommandLine parse(String[] args) throws ParseException {
+        CommandLineParser parser = new DefaultParser();
+        return parser.parse(FlagOptions.getOptions(), args);
+    }
+
+    /**
+     * Query the command-line and process the command-line option flags set.
+     *
+     * @param line
+     *            A CommandLine object containing the flags that were set.
+     *
+     * @throws Exception
+     *             If an error occurred while processing the command-line
+     *             options.
+     */
+    public void query(CommandLine line) throws Exception {
+        List<Option> processedOptions = Arrays.asList(line.getOptions());
+        List<String> targetList = new ArrayList<String>();
+        // Gets the implicit targets
+        for (java.util.Iterator<String> i = line.getArgList().iterator(); i.hasNext();) {
+            String[] values = i.next().split(",");
+            for (int index = 0; index < values.length; index++) {
+                targetList.add(values[index].trim());
+            }
         }
-      } else if (Flag.REPORT.getShortName().equals(o.getOpt())) {
-        setReport(new File(o.getValue()));
-      } else if (Flag.LOCAL.getShortName().equals(o.getOpt())) {
-        setTraverse(false);
-      } else if (Flag.CATALOG.getShortName().equals(o.getOpt())) {
-        setCatalogs(o.getValuesList());
-      } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
-        setSchemas(o.getValuesList());
-      } else if (Flag.SCHEMATRON.getShortName().equals(o.getOpt())) {
-        setSchematrons(o.getValuesList());
-      } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
-        targetList.addAll(o.getValuesList());
-      } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
-        short value = 0;
+        for (Option o : processedOptions) {
+            if (Flag.HELP.getShortName().equals(o.getOpt())) {
+                displayHelp();
+                System.exit(0);
+            } else if (Flag.VERSION.getShortName().equals(o.getOpt())) {
+                displayVersion();
+                System.exit(0);
+            } else if (Flag.CONFIG.getShortName().equals(o.getOpt())) {
+                File c = new File(o.getValue());
+                if (c.exists()) {
+                    query(c);
+                } else {
+                    throw new Exception("Configuration file does not exist: " + c);
+                }
+            } else if (Flag.REPORT.getShortName().equals(o.getOpt())) {
+                setReport(new File(o.getValue()));
+            } else if (Flag.LOCAL.getShortName().equals(o.getOpt())) {
+                setTraverse(false);
+            } else if (Flag.CATALOG.getShortName().equals(o.getOpt())) {
+                setCatalogs(o.getValuesList());
+            } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
+                setSchemas(o.getValuesList());
+            } else if (Flag.SCHEMATRON.getShortName().equals(o.getOpt())) {
+                setSchematrons(o.getValuesList());
+            } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
+                targetList.addAll(o.getValuesList());
+            } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
+                short value = 0;
+                try {
+                    value = Short.parseShort(o.getValue());
+                } catch (IllegalArgumentException a) {
+                    throw new InvalidOptionException("Problems parsing severity level " + "value.");
+                }
+                setSeverity(value);
+            } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
+                setRegExps((List<String>) o.getValuesList());
+            } else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
+                setModelVersion(o.getValue());
+            } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
+                setReportStyle(o.getValue());
+            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
+                setForce(true);
+            } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
+                setChecksumManifest(o.getValue());
+            } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
+                setManifestBasePath(o.getValue());
+            } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
+                setValidationRule(o.getValue());
+            } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
+                setCheckData(false);
+            } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
+                long value = 0;
+                try {
+                    value = Long.parseLong(o.getValue());
+                } catch (IllegalArgumentException a) {
+                    throw new InvalidOptionException("Could not parse value '" + o.getValue() + "': " + a.getMessage());
+                }
+                setMaxErrors(value);
+            } else if (Flag.SPOT_CHECK_DATA.getLongName().equals(o.getLongOpt())) {
+                int value = 0;
+                try {
+                    value = Integer.parseInt(o.getValue());
+                } catch (IllegalArgumentException a) {
+                    throw new InvalidOptionException("Could not parse value '" + o.getValue() + "': " + a.getMessage());
+                }
+                setSpotCheckData(value);
+            } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
+                setAllowUnlabeledFiles(true);
+            } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
+                // download the latest Registered Context Products JSON file and
+                // replace the existing file.
+                getlatestJsonContext();
+            }
+        }
+        if (!targetList.isEmpty()) {
+            setTargets(targetList);
+        }
+        if (force && (!schemas.isEmpty() || !schematrons.isEmpty() || !catalogs.isEmpty())) {
+            throw new InvalidOptionException(
+                    "Cannot specify user schemas, " + "schematrons, and/or catalog files with the 'force' flag option");
+        }
+        if (checksumManifest != null) {
+            if ((targets.size() > 1) && (manifestBasePath == null)) {
+                throw new InvalidOptionException(
+                        "Must specify the base path " + "flag option ('-B' flag) when specifying a checksum manifest "
+                                + "file and multiple targets.");
+            }
+        }
+        /*
+         * if (!filters.isEmpty() && (validationRule != null &&
+         * !validationRule.equals("pds4.folder"))) { throw new
+         * IllegalArgumentException("Cannot specify a file filter " +
+         * "when the validation rule is set to '" + validationRule + "'"); } if
+         * (validationRule != null && !(validationRule.equals("pds4.folder") ||
+         * validationRule.equals("pds4.label"))) { setRegExps(Arrays.asList(new
+         * String[] {"*"})); }
+         */
+    }
+
+    private void getlatestJsonContext() {
+
+        String url = ToolInfo.getSearchURL();
+        String endpoint = ToolInfo.getEndpoint();
+        String query = ToolInfo.getQuery();
+
+        System.out.println("Search Service url: " + url);
+
+        SolrClient client = new HttpSolrClient.Builder(url).build();
+        SolrQuery solrQuery = new SolrQuery(query);
+        solrQuery.setRequestHandler("/" + endpoint);
+        solrQuery.setStart(0);
+        solrQuery.setParam("fl", "identifier, version_id");
+
+        System.out.println("Query: " + solrQuery.getQuery());
+        System.out.println("RequestHandler: " + solrQuery.getRequestHandler());
+
+        QueryResponse resp;
         try {
-         value = Short.parseShort(o.getValue());
-        } catch (IllegalArgumentException a) {
-         throw new InvalidOptionException("Problems parsing severity level "
-             + "value.");
+            resp = client.query(solrQuery);
+            SolrDocumentList res = resp.getResults();
+            // System.out.println("get rows: " + res.size());
+            System.out.println("NumFound: " + res.getNumFound());
+
+            solrQuery.setRows((int) res.getNumFound());
+            resp = client.query(solrQuery);
+            res = resp.getResults();
+            System.out.println("get all rows: " + res.size());
+
+            parseJsonObjectWriteTofile(res);
+
+            client.close();
+            
+            System.out.println("============================");
+            System.out.println();
+
+        } catch (SolrServerException | IOException ex) {
+            ex.printStackTrace();
         }
-        setSeverity(value);
-      } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
-        setRegExps((List<String>) o.getValuesList());
-      } else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
-        setModelVersion(o.getValue());
-      } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
-        setReportStyle(o.getValue());
-      } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
-        setForce(true);
-      } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
-        setChecksumManifest(o.getValue());
-      } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
-        setManifestBasePath(o.getValue());
-      } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
-        setValidationRule(o.getValue());
-      } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
-        setCheckData(false);
-      } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
-        long value = 0;
+
+    }
+
+    private void parseJsonObjectWriteTofile(SolrDocumentList docs) {
+        // backup old file
         try {
-          value = Long.parseLong(o.getValue());
-        } catch (IllegalArgumentException a) {
-          throw new InvalidOptionException("Could not parse value '"
-              + o.getValue() + "': " + a.getMessage());
+            copyFile(registeredProductsFile,
+                    new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup"));
+            System.out.println("back up " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()
+                    + " to " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        setMaxErrors(value);
-      } else if (Flag.SPOT_CHECK_DATA.getLongName().equals(o.getLongOpt())) {
-        int value = 0;
+
+        List<String> contextIDVer = new ArrayList<String>();
+        int count = 0;
+        for (SolrDocument document : docs) {
+            String id = (String) document.getFirstValue("identifier");
+            String ver = (String) document.getFirstValue("version_id");
+
+            // System.out.println("id: " + id + "; ver: " + ver);
+            contextIDVer.add(id + "::" + ver);
+            count++;
+        }
+        System.out.println("Number of records: " + count);
+
         try {
-          value = Integer.parseInt(o.getValue());
-        } catch (IllegalArgumentException a) {
-          throw new InvalidOptionException("Could not parse value '"
-              + o.getValue() + "': " + a.getMessage());
+            JsonWriter writer = new JsonWriter(
+                    new FileWriter(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()));
+            writer.setIndent("     ");
+            writer.beginObject();
+            writer.name("Product_Context");
+            writer.beginArray();
+            for (String idver : contextIDVer) {
+                writer.value(idver);
+            }
+            writer.endArray();
+            writer.endObject();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        setSpotCheckData(value);        
-      } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
-        setAllowUnlabeledFiles(true);
-      }
-    }
-    if (!targetList.isEmpty()) {
-      setTargets(targetList);
-    }
-    if (force
-        && (!schemas.isEmpty()
-            || !schematrons.isEmpty()
-            || !catalogs.isEmpty())) {
-      throw new InvalidOptionException("Cannot specify user schemas, "
-            + "schematrons, and/or catalog files with the 'force' flag option");
-    }
-    if (checksumManifest != null) {
-      if ( (targets.size() > 1) && (manifestBasePath == null) ) {
-        throw new InvalidOptionException("Must specify the base path "
-            + "flag option ('-B' flag) when specifying a checksum manifest "
-            + "file and multiple targets.");
-      }
-    }
-    /*
-    if (!filters.isEmpty() && 
-        (validationRule != null && !validationRule.equals("pds4.folder"))) {
-      throw new IllegalArgumentException("Cannot specify a file filter "
-          + "when the validation rule is set to '" + validationRule + "'");
-    }
-    if (validationRule != null && 
-        !(validationRule.equals("pds4.folder") || 
-            validationRule.equals("pds4.label"))) {
-      setRegExps(Arrays.asList(new String[] {"*"}));
-    }
-    */
-  }
+        System.out.println("New Registered Products File: " + registeredProductsFile);
 
-  /**
-   * Query the configuration file.
-   *
-   * @param configuration A configuration file.
-   *
-   * @throws ConfigurationException If an error occurred while querying
-   * the configuration file.
-   */
-  public void query(File configuration) throws ConfigurationException {
-    try {
-      Configuration config = null;
-      AbstractConfiguration.setDefaultListDelimiter(',');
-      config = new PropertiesConfiguration(configuration);
-      if (config.isEmpty()) {
-        throw new ConfigurationException("Configuration file is empty: "
-            + configuration);
-      }
-      if (config.containsKey(ConfigKey.REGEXP)) {
-        // Removes quotes surrounding each pattern being specified
-        List<String> list = config.getList(ConfigKey.REGEXP);
-        list = Utility.removeQuotes(list);
-        setRegExps(list);
-      }
-      if (config.containsKey(ConfigKey.REPORT)) {
-        setReport(new File(config.getString(ConfigKey.REPORT)));
-      }
-      if (config.containsKey(ConfigKey.TARGET)) {
-        // Removes quotes surrounding each pattern being specified
-        List<String> list = config.getList(ConfigKey.TARGET);
-        list = Utility.removeQuotes(list);
-        setTargets(list);
-      }
-      if (config.containsKey(ConfigKey.VERBOSE)) {
-        setSeverity(config.getShort(ConfigKey.VERBOSE));
-      }
-      if (config.containsKey(ConfigKey.SCHEMA)) {
-        // Removes quotes surrounding each pattern being specified
-        List<String> list = config.getList(ConfigKey.SCHEMA);
-        list = Utility.removeQuotes(list);
-        setSchemas(list);
-      }
-      if (config.containsKey(ConfigKey.SCHEMATRON)) {
-        // Removes quotes surrounding each pattern being specified
-        List<String> list = config.getList(ConfigKey.SCHEMATRON);
-        list = Utility.removeQuotes(list);
-        setSchematrons(list);
-      }
-      if (config.containsKey(ConfigKey.LOCAL)) {
-        if (config.getBoolean(ConfigKey.LOCAL) == true) {
-          setTraverse(false);
+    }
+
+    private void copyFile(File source, File dest) throws IOException {
+        FileChannel sourceChannel = null;
+        FileChannel destChannel = null;
+        FileInputStream fileInputStream = new FileInputStream(source);
+        FileOutputStream fileOutputStream = new FileOutputStream(dest);
+
+        try {
+            sourceChannel = fileInputStream.getChannel();
+            destChannel = fileOutputStream.getChannel();
+            destChannel.transferFrom(sourceChannel, 0, sourceChannel.size());
+        } finally {
+            if (sourceChannel != null)
+                sourceChannel.close();
+            if (destChannel != null)
+                destChannel.close();
+            if (fileInputStream != null)
+                fileInputStream.close();
+            if (fileOutputStream != null)
+                fileOutputStream.close();
+        }
+    }
+
+    /**
+     * Query the configuration file.
+     *
+     * @param configuration
+     *            A configuration file.
+     *
+     * @throws ConfigurationException
+     *             If an error occurred while querying the configuration file.
+     */
+    @SuppressWarnings("unchecked")
+    public void query(File configuration) throws ConfigurationException {
+        try {
+            Configuration config = null;
+            AbstractConfiguration.setDefaultListDelimiter(',');
+            config = new PropertiesConfiguration(configuration);
+            if (config.isEmpty()) {
+                throw new ConfigurationException("Configuration file is empty: " + configuration);
+            }
+            if (config.containsKey(ConfigKey.REGEXP)) {
+                // Removes quotes surrounding each pattern being specified
+                List<String> list = config.getList(ConfigKey.REGEXP);
+                list = Utility.removeQuotes(list);
+                setRegExps(list);
+            }
+            if (config.containsKey(ConfigKey.REPORT)) {
+                setReport(new File(config.getString(ConfigKey.REPORT)));
+            }
+            if (config.containsKey(ConfigKey.TARGET)) {
+                // Removes quotes surrounding each pattern being specified
+                List<String> list = config.getList(ConfigKey.TARGET);
+                list = Utility.removeQuotes(list);
+                setTargets(list);
+            }
+            if (config.containsKey(ConfigKey.VERBOSE)) {
+                setSeverity(config.getShort(ConfigKey.VERBOSE));
+            }
+            if (config.containsKey(ConfigKey.SCHEMA)) {
+                // Removes quotes surrounding each pattern being specified
+                List<String> list = config.getList(ConfigKey.SCHEMA);
+                list = Utility.removeQuotes(list);
+                setSchemas(list);
+            }
+            if (config.containsKey(ConfigKey.SCHEMATRON)) {
+                // Removes quotes surrounding each pattern being specified
+                List<String> list = config.getList(ConfigKey.SCHEMATRON);
+                list = Utility.removeQuotes(list);
+                setSchematrons(list);
+            }
+            if (config.containsKey(ConfigKey.LOCAL)) {
+                if (config.getBoolean(ConfigKey.LOCAL) == true) {
+                    setTraverse(false);
+                } else {
+                    setTraverse(true);
+                }
+            }
+            if (config.containsKey(ConfigKey.MODEL)) {
+                setModelVersion(config.getString(ConfigKey.MODEL));
+            }
+            if (config.containsKey(ConfigKey.STYLE)) {
+                setReportStyle(config.getString(ConfigKey.STYLE));
+            }
+            if (config.containsKey(ConfigKey.FORCE)) {
+                setForce(config.getBoolean(ConfigKey.FORCE));
+            }
+            if (config.containsKey(ConfigKey.CHECKSUM)) {
+                setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
+            }
+            if (config.containsKey(ConfigKey.BASE_PATH)) {
+                setManifestBasePath(config.getString(ConfigKey.BASE_PATH));
+            }
+            if (config.containsKey(ConfigKey.RULE)) {
+                setValidationRule(config.getString(ConfigKey.RULE));
+            }
+            if (config.containsKey(ConfigKey.NO_DATA)) {
+                if (config.getBoolean(ConfigKey.NO_DATA) == true) {
+                    setCheckData(false);
+                } else {
+                    setCheckData(true);
+                }
+            }
+            if (config.containsKey(ConfigKey.MAX_ERRORS)) {
+                setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));
+            }
+            if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
+                setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
+            }
+            if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
+                setAllowUnlabeledFiles(true);
+            }
+            if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
+                // download the latest Registered Context Products JSON file and
+                // replace the existing file.
+                getlatestJsonContext();
+            }
+
+        } catch (Exception e) {
+            throw new ConfigurationException(e.getMessage());
+        }
+    }
+
+    /**
+     * Set the target.
+     *
+     * @param targets
+     *            A list of targets.
+     * @throws MalformedURLException
+     */
+    public void setTargets(List<String> targets) throws MalformedURLException {
+        this.targets.clear();
+        while (targets.remove(""))
+            ;
+        for (String t : targets) {
+            URL url = null;
+            try {
+                url = new URL(t);
+                this.targets.add(url);
+            } catch (MalformedURLException u) {
+                File file = new File(t);
+                this.targets.add(file.toURI().normalize().toURL());
+            }
+        }
+    }
+
+    /**
+     * Set the checksum manifest.
+     *
+     * @param manifest
+     *            A checksum manifest file.
+     * @throws MalformedURLException
+     */
+    public void setChecksumManifest(String manifest) throws MalformedURLException {
+        URL url = null;
+        try {
+            url = new URL(manifest);
+            this.checksumManifest = url;
+        } catch (MalformedURLException u) {
+            File file = new File(manifest);
+            this.checksumManifest = file.toURI().normalize().toURL();
+        }
+    }
+
+    /**
+     * Set the base path to look up relative file references in a given checksum
+     * manifest file.
+     *
+     * @param path
+     *            A path.
+     * @throws MalformedURLException
+     */
+    public void setManifestBasePath(String path) throws MalformedURLException {
+        this.manifestBasePath = Utility.toURL(path);
+    }
+
+    /**
+     * Set the schemas.
+     *
+     * @param schemas
+     *            A list of schemas.
+     * @throws MalformedURLException
+     */
+    public void setSchemas(List<String> schemas) throws MalformedURLException {
+        while (schemas.remove(""))
+            ;
+        for (String schema : schemas) {
+            this.schemas.add(Utility.toURL(schema));
+        }
+    }
+
+    /**
+     * Set the schematrons.
+     *
+     * @param schematrons
+     *            A list of schematrons.
+     * @throws MalformedURLException
+     */
+    public void setSchematrons(List<String> schematrons) throws MalformedURLException {
+        while (schematrons.remove(""))
+            ;
+        for (String schematron : schematrons) {
+            this.schematrons.add(Utility.toURL(schematron));
+        }
+    }
+
+    /**
+     * Set the catalogs.
+     *
+     * @param catalogs
+     *            A list of catalogs.
+     */
+    public void setCatalogs(List<String> catalogs) {
+        while (catalogs.remove(""))
+            ;
+        this.catalogs.addAll(catalogs);
+    }
+
+    /**
+     * Sets the report file.
+     *
+     * @param report
+     *            A report file.
+     */
+    public void setReport(File report) {
+        this.reportFile = report;
+    }
+
+    /**
+     * Gets the object representation of the Validation Report.
+     *
+     * @return The Report object.
+     */
+    public Report getReport() {
+        return report;
+    }
+
+    /**
+     * Set the output style for the report.
+     * 
+     * @param style
+     *            'sum' for a summary report, 'min' for a minimal report, and
+     *            'full' for a full report
+     * @throws ApplicationException
+     */
+    public void setReportStyle(String style) throws Exception {
+        if ((style.equalsIgnoreCase("full") == false) && (style.equalsIgnoreCase("json") == false)
+                && (style.equalsIgnoreCase("xml") == false)) {
+            throw new Exception(
+                    "Invalid value entered for 's' flag. Value can only " + "be either 'full', 'json' or 'xml'");
+        }
+        this.reportStyle = style;
+    }
+
+    /**
+     * Sets the flag to enable/disable directory recursion.
+     *
+     * @param value
+     *            A boolean value.
+     */
+    public void setTraverse(boolean value) {
+        this.traverse = value;
+    }
+
+    /**
+     * Sets the severity level for the report.
+     *
+     * @param level
+     *            An interger value.
+     */
+    public void setSeverity(int level) {
+        if (level < 0 || level > 3) {
+            throw new IllegalArgumentException("Severity level value can only " + "be 1, 2, or 3");
+        }
+        if (level == 0) {
+            this.severity = ExceptionType.DEBUG;
+        } else if (level == 1) {
+            this.severity = ExceptionType.INFO;
+        } else if (level == 2) {
+            this.severity = ExceptionType.WARNING;
+        } else if (level == 3) {
+            this.severity = ExceptionType.ERROR;
+        }
+    }
+
+    /**
+     * Sets the list of file patterns to look for if traversing a directory.
+     *
+     * @param patterns
+     *            A list of file patterns.
+     */
+    public void setRegExps(List<String> patterns) {
+        this.regExps = patterns;
+        while (this.regExps.remove(""))
+            ;
+    }
+
+    /**
+     * Sets the model version to use during validation.
+     *
+     * @param version
+     *            The model version.
+     */
+    public void setModelVersion(String version) {
+        this.modelVersion = version;
+    }
+
+    public void setForce(boolean value) {
+        this.force = value;
+    }
+
+    /**
+     * Sets the validation rule name to use.
+     * 
+     * @param value
+     *            the validation rule name
+     */
+    public void setValidationRule(String value) {
+        if ("pds4.bundle".equalsIgnoreCase(value)) {
+            this.validationRule = "pds4.bundle";
+        } else if ("pds4.collection".equalsIgnoreCase(value)) {
+            this.validationRule = "pds4.collection";
+        } else if ("pds4.folder".equalsIgnoreCase(value)) {
+            this.validationRule = "pds4.folder";
+        } else if ("pds4.label".equalsIgnoreCase(value)) {
+            this.validationRule = "pds4.label";
+        } else if ("pds3.volume".equalsIgnoreCase(value)) {
+            this.validationRule = "pds3.volume";
         } else {
-          setTraverse(true);
+            throw new IllegalArgumentException(
+                    "Validation rule type value must " + "be one of the following: pds4.bundle, pds4.collection, "
+                            + "pds4.folder, pds4.label, or pds3.volume");
         }
-      }
-      if (config.containsKey(ConfigKey.MODEL)) {
-        setModelVersion(config.getString(ConfigKey.MODEL));
-      }
-      if (config.containsKey(ConfigKey.STYLE)) {
-        setReportStyle(config.getString(ConfigKey.STYLE));
-      }
-      if (config.containsKey(ConfigKey.FORCE)) {
-        setForce(config.getBoolean(ConfigKey.FORCE));
-      }
-      if (config.containsKey(ConfigKey.CHECKSUM)) {
-        setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
-      }
-      if (config.containsKey(ConfigKey.BASE_PATH)) {
-        setManifestBasePath(config.getString(ConfigKey.BASE_PATH));
-      }
-      if (config.containsKey(ConfigKey.RULE)) {
-        setValidationRule(config.getString(ConfigKey.RULE));
-      }
-      if (config.containsKey(ConfigKey.NO_DATA)) {
-        if (config.getBoolean(ConfigKey.NO_DATA) == true) {
-          setCheckData(false);
-        } else {
-          setCheckData(true);
+    }
+
+    /**
+     * Sets the flag that enables/disables data content validation.
+     * 
+     * @param flag
+     *            True or False.
+     */
+    public void setCheckData(boolean flag) {
+        this.checkData = flag;
+    }
+
+    public void setMaxErrors(long value) {
+        this.maxErrors = value;
+    }
+
+    public void setSpotCheckData(int value) {
+        this.spotCheckData = value;
+    }
+
+    public void setAllowUnlabeledFiles(boolean flag) {
+        this.allowUnlabeledFiles = flag;
+    }
+
+    @SuppressWarnings("unchecked")
+    private void setRegisteredProducts() throws IOException {
+        Gson gson = new Gson();
+        JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
+        JsonArray array = json.get("Product_Context").getAsJsonArray();
+        List<LidVid> lidvids = new ArrayList<LidVid>();
+        List<String> jsonObjList = gson.fromJson(array, ArrayList.class);
+        for (String jsonObj : jsonObjList) {
+            lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
         }
-      }
-      if (config.containsKey(ConfigKey.MAX_ERRORS)) {
-        setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));       
-      }
-      if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
-        setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
-      }
-      if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
-        setAllowUnlabeledFiles(true);
-      }
-      
-    } catch (Exception e) {
-      throw new ConfigurationException(e.getMessage());
-    }
-  }
-
-  /**
-   * Set the target.
-   *
-   * @param targets A list of targets.
-   * @throws MalformedURLException
-   */
-  public void setTargets(List<String> targets)
-  throws MalformedURLException {
-    this.targets.clear();
-    while (targets.remove(""));
-    for (String t : targets) {
-      URL url = null;
-      try {
-        url = new URL(t);
-        this.targets.add(url);
-      } catch (MalformedURLException u) {
-        File file = new File(t);
-        this.targets.add(file.toURI().normalize().toURL());
-      }
-    }
-  }
-
-  /**
-   * Set the checksum manifest.
-   *
-   * @param manifest A checksum manifest file.
-   * @throws MalformedURLException
-   */
-  public void setChecksumManifest(String manifest)
-  throws MalformedURLException {
-    URL url = null;
-    try {
-      url = new URL(manifest);
-      this.checksumManifest = url;
-    } catch (MalformedURLException u) {
-      File file = new File(manifest);
-      this.checksumManifest = file.toURI().normalize().toURL();
-    }
-  }
-
-  /**
-   * Set the base path to look up relative file references in a
-   * given checksum manifest file.
-   *
-   * @param path A path.
-   * @throws MalformedURLException
-   */
-  public void setManifestBasePath(String path)
-      throws MalformedURLException {
-    this.manifestBasePath = Utility.toURL(path);
-  }
-
-  /**
-   * Set the schemas.
-   *
-   * @param schemas A list of schemas.
-   * @throws MalformedURLException
-   */
-  public void setSchemas(List<String> schemas) throws MalformedURLException {
-    while (schemas.remove(""));
-    for (String schema : schemas) {
-      this.schemas.add(Utility.toURL(schema));
-    }
-  }
-
-  /**
-   * Set the schematrons.
-   *
-   * @param schematrons A list of schematrons.
-   * @throws MalformedURLException
-   */
-  public void setSchematrons(List<String> schematrons)
-      throws MalformedURLException {
-    while (schematrons.remove(""));
-    for (String schematron: schematrons) {
-      this.schematrons.add(Utility.toURL(schematron));
-    }
-  }
-
-  /**
-   * Set the catalogs.
-   *
-   * @param catalogs A list of catalogs.
-   */
-  public void setCatalogs(List<String> catalogs) {
-    while (catalogs.remove(""));
-    this.catalogs.addAll(catalogs);
+        this.registeredProducts.put("Product_Context", lidvids);
     }
 
-  /**
-   * Sets the report file.
-   *
-   * @param report A report file.
-   */
-  public void setReport(File report) {
-    this.reportFile = report;
-  }
+    /**
+     * Displays tool usage.
+     *
+     */
+    public void displayHelp() {
+        HelpFormatter formatter = new HelpFormatter();
+        formatter.printHelp(80, "validate <target> <options>", null, FlagOptions.getOptions(), null);
+    }
 
-  /**
-   * Gets the object representation of the Validation Report.
-   *
-   * @return The Report object.
-   */
-  public Report getReport() {
-    return report;
-  }
+    /**
+     * Displays the current version and disclaimer notice.
+     *
+     * @throws IOException
+     *             If there was an error that occurred while getting the tool
+     *             information.
+     */
+    public void displayVersion() throws IOException {
+        String schema = VersionInfo.getSchemasFromJar(VersionInfo.getDefaultModelVersion()).toString()
+                .replaceAll("[\\[\\]]", "");
+        String schematron = VersionInfo.getSchematronsFromJar(VersionInfo.getDefaultModelVersion()).toString()
+                .replaceAll("[\\[\\]]", "");
 
-  /**
-   * Set the output style for the report.
-   * @param style 'sum' for a summary report, 'min' for a minimal report,
-   *  and 'full' for a full report
-   * @throws ApplicationException
-   */
-  public void setReportStyle(String style) throws Exception {
-    if ( (style.equalsIgnoreCase("full") == false) &&
-        (style.equalsIgnoreCase("json") == false) &&
-        (style.equalsIgnoreCase("xml") == false)) {
-        throw new Exception(
-            "Invalid value entered for 's' flag. Value can only "
-            + "be either 'full', 'json' or 'xml'");
+        System.err.println("\n" + ToolInfo.getName());
+        System.err.println(ToolInfo.getVersion());
+        System.err.println("Release Date: " + ToolInfo.getReleaseDate());
+        System.err.println("Core Schema: " + schema);
+        System.err.println("Core Schematron: " + schematron);
+        System.err.println(ToolInfo.getCopyright() + "\n");
     }
-    this.reportStyle = style;
-  }
 
-  /**
-   * Sets the flag to enable/disable directory recursion.
-   *
-   * @param value A boolean value.
-   */
-  public void setTraverse(boolean value) {
-    this.traverse = value;
-  }
-
-  /**
-   * Sets the severity level for the report.
-   *
-   * @param level An interger value.
-   */
-  public void setSeverity(int level) {
-    if (level < 0 || level > 3) {
-      throw new IllegalArgumentException("Severity level value can only "
-          + "be 1, 2, or 3");
-    }
-    if (level == 0) {
-      this.severity = ExceptionType.DEBUG;
-    } else if (level == 1) {
-      this.severity = ExceptionType.INFO;
-    } else if (level == 2) {
-      this.severity = ExceptionType.WARNING;
-    } else if (level == 3) {
-      this.severity = ExceptionType.ERROR;
-    }
-  }
-
-  /**
-   * Sets the list of file patterns to look for if traversing a directory.
-   *
-   * @param patterns A list of file patterns.
-   */
-  public void setRegExps(List<String> patterns) {
-    this.regExps = patterns;
-    while (this.regExps.remove(""));
-  }
-
-  /**
-   * Sets the model version to use during validation.
-   *
-   * @param version The model version.
-   */
-  public void setModelVersion(String version) {
-    this.modelVersion = version;
-  }
-
-  public void setForce(boolean value) {
-    this.force = value;
-  }
-  
-  /**
-   * Sets the validation rule name to use.
-   * 
-   * @param value the validation rule name
-   */
-  public void setValidationRule(String value) {
-    if ("pds4.bundle".equalsIgnoreCase(value)) {
-      this.validationRule = "pds4.bundle";
-    } else if ("pds4.collection".equalsIgnoreCase(value)) {
-      this.validationRule = "pds4.collection";
-    } else if ("pds4.folder".equalsIgnoreCase(value)) {
-      this.validationRule = "pds4.folder";
-    } else if ("pds4.label".equalsIgnoreCase(value)) {
-      this.validationRule = "pds4.label";
-    } else if ("pds3.volume".equalsIgnoreCase(value)) {
-      this.validationRule = "pds3.volume";
-    } else {
-      throw new IllegalArgumentException("Validation rule type value must "
-          + "be one of the following: pds4.bundle, pds4.collection, "
-          + "pds4.folder, pds4.label, or pds3.volume");
-    }
-  }
-
-  /**
-   * Sets the flag that enables/disables data content validation.
-   * 
-   * @param flag True or False.
-   */
-  public void setCheckData(boolean flag) {
-    this.checkData = flag;
-  }
-  
-  public void setMaxErrors(long value) {
-    this.maxErrors = value;
-  }
-  
-  public void setSpotCheckData(int value) {
-    this.spotCheckData = value;
-  }
-  
-  public void setAllowUnlabeledFiles(boolean flag) {
-    this.allowUnlabeledFiles = flag;
-  }
-  
-  private void setRegisteredProducts() throws IOException {
-    Gson gson = new Gson();
-    JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
-    JsonArray array = json.get("Product_Context").getAsJsonArray();
-    List<LidVid> lidvids = new ArrayList<LidVid>();
-    List<String> jsonObjList = gson.fromJson(array, ArrayList.class);
-    for (String jsonObj : jsonObjList) {
-      lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
-    }
-    this.registeredProducts.put("Product_Context", lidvids);
-  }
-  
-  /**
-   * Displays tool usage.
-   *
-   */
-  public void displayHelp() {
-    HelpFormatter formatter = new HelpFormatter();
-    formatter.printHelp(80, "validate <target> <options>", null,
-        FlagOptions.getOptions(), null);
-  }
-
-  /**
-   * Displays the current version and disclaimer notice.
-   *
-   * @throws IOException If there was an error that occurred while
-   * getting the tool information.
-   */
-  public void displayVersion() throws IOException {
-    String schema = VersionInfo.getSchemasFromJar(
-        VersionInfo.getDefaultModelVersion()).toString()
-        .replaceAll("[\\[\\]]", "");
-    String schematron = VersionInfo.getSchematronsFromJar(
-        VersionInfo.getDefaultModelVersion()).toString()
-        .replaceAll("[\\[\\]]", "");
-
-    System.err.println("\n" + ToolInfo.getName());
-    System.err.println(ToolInfo.getVersion());
-    System.err.println("Release Date: " + ToolInfo.getReleaseDate());
-    System.err.println("Core Schema: " + schema);
-    System.err.println("Core Schematron: " + schematron);
-    System.err.println(ToolInfo.getCopyright() + "\n");
-  }
-
-  /**
-   * Setup the report.
-   *
-   * @throws IOException If an error occurred while setting up the report.
-   */
-  public void setupReport() throws IOException {
-    if (this.reportStyle.equals("full")) {
-      this.report = new FullReport();
-    } else if (this.reportStyle.equals("json")){
-      this.report = new JSONReport();
-    } else if (this.reportStyle.equals("xml")) {
-      this.report = new XmlReport();
-    }
-    report.setLevel(severity);
-    if (reportFile != null) {
-      report.setOutput(reportFile);
-    }
-    String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
-    SimpleDateFormat df = new SimpleDateFormat(
-        "yyyy-MM-dd'T'HH:mm:ss'Z'");
-    df.setTimeZone(TimeZone.getTimeZone("UTC"));
-    Date date = Calendar.getInstance().getTime();
-    List<String> coreSchemas = VersionInfo.getSchemasFromJar(modelVersion);
-    List<String> coreSchematrons =
-      VersionInfo.getSchematronsFromJar(modelVersion);
-    report.addConfiguration("   Version                       " + version);
-    report.addConfiguration("   Date                          "
-        + df.format(date));
-    if (!force) {
-      if (schemas.isEmpty() && catalogs.isEmpty()) {
-        report.addConfiguration("   Core Schemas                  "
-            + coreSchemas);
-      }
-      if (schematrons.isEmpty() && catalogs.isEmpty()) {
-        report.addConfiguration("   Core Schematrons              "
-            + coreSchematrons);
-      }
-      if ( ( (schematrons.isEmpty() || schemas.isEmpty()) && catalogs.isEmpty()) ) {
-        report.addConfiguration("   Model Version                 "
-            + modelVersion);
-      }
-    }
-    report.addParameter("   Targets                       " + targets);
-    if (validationRule != null) {
-      report.addParameter("   Rule Type                     " + validationRule);
-    }
-    if (!schemas.isEmpty()) {
-      report.addParameter("   User Specified Schemas        " + schemas);
-    }
-    if (!catalogs.isEmpty()) {
-      report.addParameter("   User Specified Catalogs       " + catalogs);
-    }
-    if (!schematrons.isEmpty()) {
-      report.addParameter("   User Specified Schematrons    " + schematrons);
-    }
-    report.addParameter("   Severity Level                " + severity.getName());
-    report.addParameter("   Recurse Directories           " + traverse);
-    if (!regExps.isEmpty()) {
-      report.addParameter("   File Filters Used             " + regExps);
-    }
-    if (force) {
-      report.addParameter("   Force Mode                    on");
-    } else {
-      report.addParameter("   Force Mode                    off");
-    }
-    if (checksumManifest != null) {
-      report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
-      report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
-    }
-    if (checkData) {
-      report.addParameter("   Data Content Validation       on");
-    } else {
-      report.addParameter("   Data Content Validation       off");      
-    }
-    if (spotCheckData != -1) {
-      report.addParameter("   Data Spot Check               " + spotCheckData);
-    }
-    if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle") || 
-        validationRule.equalsIgnoreCase("pds4.collection")) ) {
-      report.addParameter("   Allow Unlabeled Files         " + allowUnlabeledFiles);
-    }
-    report.addParameter("   Max Errors                    " + maxErrors);
-    report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
-    report.printHeader();
-  }
-
-  /**
-   * Performs validation.
-   * @throws Exception
-   */
-  public void doValidation(Map<URL, String> checksumManifest)
-  throws Exception {
-    // Initialize the Factory Class
-    List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
-    ValidatorFactory factory = ValidatorFactory.getInstance();
-    factory.setModelVersion(modelVersion);
-    factory.setDocumentValidators(docValidators);
-    for (URL target : targets) {
-      try {
-        LocationValidator validator = factory.newInstance(target);
-        validator.setForce(force);
-        validator.setFileFilters(regExps);
-        validator.setRecurse(traverse);
-        validator.setCheckData(checkData);
-        validator.setSpotCheckData(spotCheckData);
-        validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
-        validator.setRegisteredProducts(this.registeredProducts);
-        if (!checksumManifest.isEmpty()) {
-          validator.setChecksumManifest(checksumManifest);
+    /**
+     * Setup the report.
+     *
+     * @throws IOException
+     *             If an error occurred while setting up the report.
+     */
+    public void setupReport() throws IOException {
+        if (this.reportStyle.equals("full")) {
+            this.report = new FullReport();
+        } else if (this.reportStyle.equals("json")) {
+            this.report = new JSONReport();
+        } else if (this.reportStyle.equals("xml")) {
+            this.report = new XmlReport();
         }
-        validator.setTargetRegistrar(new InMemoryRegistrar());
-        
-        ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
-        monitor.setMaxErrors(maxErrors);
-        
+        report.setLevel(severity);
+        if (reportFile != null) {
+            report.setOutput(reportFile);
+        }
+        String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        df.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date date = Calendar.getInstance().getTime();
+        List<String> coreSchemas = VersionInfo.getSchemasFromJar(modelVersion);
+        List<String> coreSchematrons = VersionInfo.getSchematronsFromJar(modelVersion);
+        report.addConfiguration("   Version                       " + version);
+        report.addConfiguration("   Date                          " + df.format(date));
+        if (!force) {
+            if (schemas.isEmpty() && catalogs.isEmpty()) {
+                report.addConfiguration("   Core Schemas                  " + coreSchemas);
+            }
+            if (schematrons.isEmpty() && catalogs.isEmpty()) {
+                report.addConfiguration("   Core Schematrons              " + coreSchematrons);
+            }
+            if (((schematrons.isEmpty() || schemas.isEmpty()) && catalogs.isEmpty())) {
+                report.addConfiguration("   Model Version                 " + modelVersion);
+            }
+        }
+        report.addParameter("   Targets                       " + targets);
         if (validationRule != null) {
-        	validator.setRule(validationRule);
+            report.addParameter("   Rule Type                     " + validationRule);
         }
-        
         if (!schemas.isEmpty()) {
-          validator.setSchema(schemas);
-          validator.setCachedEntityResolver(resolver);
-          validator.setCachedLSResourceResolver(
-              schemaValidator.getCachedLSResolver());
+            report.addParameter("   User Specified Schemas        " + schemas);
         }
         if (!catalogs.isEmpty()) {
-          validator.setCatalogs(catalogs);
+            report.addParameter("   User Specified Catalogs       " + catalogs);
         }
-        if (!transformedSchematrons.isEmpty()) {
-          validator.setSchematrons(transformedSchematrons);
+        if (!schematrons.isEmpty()) {
+            report.addParameter("   User Specified Schematrons    " + schematrons);
         }
-        validator.validate(monitor, target);
-        monitor.endValidation();
-      } catch (Exception e) {
-        ValidationProblem p = null;
-        if (e instanceof MissingLabelSchemaException) {
-          MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
-          p = new ValidationProblem(new ProblemDefinition(
-                ExceptionType.WARNING, 
-                ProblemType.MISSING_SCHEMA,
-                mse.getMessage()),
-              target);
-          try {
-            report.recordSkip(target.toURI(), p);
-          } catch (URISyntaxException u) {
-            //Ignore. Should not happen!!!
-          }
+        report.addParameter("   Severity Level                " + severity.getName());
+        report.addParameter("   Recurse Directories           " + traverse);
+        if (!regExps.isEmpty()) {
+            report.addParameter("   File Filters Used             " + regExps);
+        }
+        if (force) {
+            report.addParameter("   Force Mode                    on");
         } else {
-          if (e instanceof SAXParseException) {
-            SAXParseException se = (SAXParseException) e;
-            p = new ValidationProblem(new ProblemDefinition(
-                  ExceptionType.FATAL,
-                  ProblemType.SCHEMA_ERROR,
-                  se.getMessage()),
-                target, 
-                se.getLineNumber(),
-                se.getColumnNumber());
-          } else {
-            p = new ValidationProblem(new ProblemDefinition(
-                  ExceptionType.FATAL,
-                  ProblemType.INTERNAL_ERROR,
-                  e.getMessage()), 
-                target);
-          }
-          try {
-            report.record(target.toURI(), p);
-          } catch (URISyntaxException u) {
-            //Ignore. Should not happen!!!
-          }
+            report.addParameter("   Force Mode                    off");
         }
-      }
-    }
-  }
-
-  /**
-   * Transforms a given schematron.
-   *
-   * @param schematron A schematron to transform.
-   * @param container Container to hold problems.
-   *
-   * @return The ISO Schematron transformer associated with the given
-   * schematron.
-   *
-   * @throws TransformerException If an error occurred during the
-   * transform process.
-   */
-  private Transformer transformSchematron(URL schematron,
-      ProblemContainer container) {
-    Transformer transformer = null;
-    try {
-      transformer = schematronTransformer.transform(schematron,
-          container);
-      return transformer;
-    } catch (Exception e) {
-      container.addProblem(new ValidationProblem(
-          new ProblemDefinition(
-              ExceptionType.FATAL,
-              ProblemType.SCHEMATRON_ERROR,
-              "Error occurred while processing schematron '"
-                  + schematron + "': " + e.getMessage()),
-          schematron));
-    }
-    return transformer;
-  }
-
-  /**
-   * Validates a given schema.
-   *
-   * @param schema The URL to the schema.
-   *
-   * @return 'true' if the schema was valid, 'false' otherwise.
-   * @throws Exception
-   */
-  private boolean validateSchemas(List<URL> schemas)
-      throws Exception {
-    boolean isValid = true;
-    List<StreamSource> sources = new ArrayList<StreamSource>();
-    String locations = "";
-    for (URL schema : schemas) {
-      LSInput input = schemaValidator.getCachedLSResolver()
-          .resolveResource("", "", "", schema.toString(), schema.toString());
-      if (input != null) {
-        StreamSource streamSource = new StreamSource(
-            input.getByteStream());
-        streamSource.setSystemId(schema.toString());
-        sources.add(streamSource);
-        try {
-          InputSource inputSource = new InputSource(
-              input.getByteStream());
-          inputSource.setSystemId(input.getSystemId());
-          //TODO: Should we log an error if the targetNamespace is missing?
-          XMLExtractor extractor = new XMLExtractor(inputSource);
-          String namespace = extractor.getTargetNamespace();
-          if (!namespace.isEmpty()) {
-            locations += namespace + " " + schema + "\n";
-          }
-          inputSource.getByteStream().reset();
-        } catch (Exception e) {
-          throw new Exception("Error while getting targetNamespace of schema '"
-              + schema.toString() + "': " + e.getMessage());
+        if (checksumManifest != null) {
+            report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
+            report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
         }
-      } else {
-        System.out.println("Error while trying to read in '" + schema.toString() + "'");
-      }
+        if (checkData) {
+            report.addParameter("   Data Content Validation       on");
+        } else {
+            report.addParameter("   Data Content Validation       off");
+        }
+        if (spotCheckData != -1) {
+            report.addParameter("   Data Spot Check               " + spotCheckData);
+        }
+        if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle")
+                || validationRule.equalsIgnoreCase("pds4.collection"))) {
+            report.addParameter("   Allow Unlabeled Files         " + allowUnlabeledFiles);
+        }
+        report.addParameter("   Max Errors                    " + maxErrors);
+        report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
+        report.printHeader();
     }
-    schemaValidator.setExternalLocations(locations);
-    for(StreamSource source : sources) {
-      ProblemContainer problems = schemaValidator.validate(source);
-      if (problems.getProblems().size() != 0) {
-        isValid = false;
-        report.record(new URI(source.getSystemId()),
-            problems.getProblems());
-      }
-    }
-    return isValid;
-  }
 
-  /**
-   * Print the report footer.
-   *
-   */
-  public void printReportFooter() {
-    report.printFooter();
-  }
+    /**
+     * Performs validation.
+     * 
+     * @throws Exception
+     */
+    public void doValidation(Map<URL, String> checksumManifest) throws Exception {
+        // Initialize the Factory Class
+        List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
+        ValidatorFactory factory = ValidatorFactory.getInstance();
+        factory.setModelVersion(modelVersion);
+        factory.setDocumentValidators(docValidators);
+        for (URL target : targets) {
+            try {
+                LocationValidator validator = factory.newInstance(target);
+                validator.setForce(force);
+                validator.setFileFilters(regExps);
+                validator.setRecurse(traverse);
+                validator.setCheckData(checkData);
+                validator.setSpotCheckData(spotCheckData);
+                validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
+                validator.setRegisteredProducts(this.registeredProducts);
+                if (!checksumManifest.isEmpty()) {
+                    validator.setChecksumManifest(checksumManifest);
+                }
+                validator.setTargetRegistrar(new InMemoryRegistrar());
 
-  /**
-   * Wrapper method for the main class.
-   *
-   * @param args list of command-line arguments.
-   */
-  private void processMain(String[] args) {
-    try {
-      CommandLine cmdLine = parse(args);
-      query(cmdLine);
-      Map<URL, String> checksumManifestMap = new HashMap<URL, String>();
-      if (checksumManifest != null) {
-        if (manifestBasePath == null) {
-          URL base = null;
-          Target t = Utility.toTarget(targets.get(0));
-          try {
-            if (t.isDir()) {
-              base = t.getUrl();
-            } else {
-              base = t.getUrl().toURI().getPath().endsWith("/") ?
-                t.getUrl().toURI().resolve("..").toURL() :
-                  t.getUrl().toURI().resolve(".").toURL();
+                ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
+                monitor.setMaxErrors(maxErrors);
+
+                if (validationRule != null) {
+                    validator.setRule(validationRule);
+                }
+
+                if (!schemas.isEmpty()) {
+                    validator.setSchema(schemas);
+                    validator.setCachedEntityResolver(resolver);
+                    validator.setCachedLSResourceResolver(schemaValidator.getCachedLSResolver());
+                }
+                if (!catalogs.isEmpty()) {
+                    validator.setCatalogs(catalogs);
+                }
+                if (!transformedSchematrons.isEmpty()) {
+                    validator.setSchematrons(transformedSchematrons);
+                }
+                validator.validate(monitor, target);
+                monitor.endValidation();
+            } catch (Exception e) {
+                ValidationProblem p = null;
+                if (e instanceof MissingLabelSchemaException) {
+                    MissingLabelSchemaException mse = (MissingLabelSchemaException) e;
+                    p = new ValidationProblem(
+                            new ProblemDefinition(ExceptionType.WARNING, ProblemType.MISSING_SCHEMA, mse.getMessage()),
+                            target);
+                    try {
+                        report.recordSkip(target.toURI(), p);
+                    } catch (URISyntaxException u) {
+                        // Ignore. Should not happen!!!
+                    }
+                } else {
+                    if (e instanceof SAXParseException) {
+                        SAXParseException se = (SAXParseException) e;
+                        p = new ValidationProblem(
+                                new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMA_ERROR, se.getMessage()),
+                                target, se.getLineNumber(), se.getColumnNumber());
+                    } else {
+                        p = new ValidationProblem(
+                                new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, e.getMessage()),
+                                target);
+                    }
+                    try {
+                        report.record(target.toURI(), p);
+                    } catch (URISyntaxException u) {
+                        // Ignore. Should not happen!!!
+                    }
+                }
             }
-            manifestBasePath = base;
-          } catch (URISyntaxException ue) {
-            throw new IOException("Error occurred while getting parent of '"
-                + t + "': " + ue.getMessage());
-          }
         }
-        ChecksumManifest cm = new ChecksumManifest(
-            manifestBasePath.toString());
-        try {
-          checksumManifestMap.putAll(cm.read(checksumManifest));
-        } catch (IOException io) {
-          throw new Exception("Error occurred while reading checksum "
-              + "manifest file '" + checksumManifest.toString() + "': "
-              + io.getMessage());
-        }
-      }
-      setupReport();
-      // Validate schemas and schematrons first before performing label
-      // validation
-      boolean invalidSchemas = false;
-      if (!schemas.isEmpty()) {
-        if (!validateSchemas(schemas)) {
-          invalidSchemas = true;
-        }
-      }
-      boolean invalidSchematron = false;
-      if (!schematrons.isEmpty()) {
-        for (URL schematron : schematrons) {
-          ProblemContainer container = new ProblemContainer();
-          Transformer transformer = transformSchematron(schematron, container);
-          if (container.getProblems().size() != 0) {
-            report.record(schematron.toURI(), container.getProblems());
-            invalidSchematron = true;
-          } else {
-            transformedSchematrons.add(transformer);
-          }
-        }
-      }
-      if ( !(invalidSchemas) && !(invalidSchematron) ) {
-        setRegisteredProducts();
-        doValidation(checksumManifestMap);
-      }
-      printReportFooter();
-    } catch (Exception e) {
-      System.out.println(e.getMessage());
     }
-  }
 
-  /**
-   * Main class that launches the Validate Tool.
-   *
-   * @param args A list of command-line arguments.
-   * @throws TransformerConfigurationException
-   */
-  public static void main(String[] args)
-      throws TransformerConfigurationException {
-    System.setProperty("https.protocols", "TLSv1.2");
-    if (args.length == 0) {
-      System.out.println("\nType 'validate -h' for usage");
-      System.exit(0);
+    /**
+     * Transforms a given schematron.
+     *
+     * @param schematron
+     *            A schematron to transform.
+     * @param container
+     *            Container to hold problems.
+     *
+     * @return The ISO Schematron transformer associated with the given
+     *         schematron.
+     *
+     * @throws TransformerException
+     *             If an error occurred during the transform process.
+     */
+    private Transformer transformSchematron(URL schematron, ProblemContainer container) {
+        Transformer transformer = null;
+        try {
+            transformer = schematronTransformer.transform(schematron, container);
+            return transformer;
+        } catch (Exception e) {
+            container.addProblem(new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR,
+                            "Error occurred while processing schematron '" + schematron + "': " + e.getMessage()),
+                    schematron));
+        }
+        return transformer;
     }
-    
-    ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
-    ca.setThreshold(Priority.FATAL);
-    BasicConfigurator.configure(ca);
-    
-    new ValidateLauncher().processMain(args);
-  }
-  
-  /**
-   * A validation monitor that coalesces exceptions by location and summarizes
-   * into the report.
-   */
-  private class ValidationMonitor implements ValidateProblemHandler {
-	  
-  	private Map<String, ProblemContainer> exceptions = new LinkedHashMap<String, ProblemContainer>();
-  	private String rootLocation;
-  	private ExceptionType verbosityLevel;
-  	private long maxErrors;
-  	private long numErrors;
-  	
-  	public ValidationMonitor(String rootLocation, ExceptionType severity) {
-  		this.rootLocation = rootLocation;
-  		this.verbosityLevel = severity;
-  		maxErrors = MAX_ERRORS;
-  		numErrors = 0;
-  	}
-  	
-  	@Override
-  	public void addProblem(ValidationProblem problem) {
-  	  if (problem.getProblem().getSeverity().getValue() <= verbosityLevel.getValue()) {
-    		String location = rootLocation;
-    		if (problem instanceof ContentProblem) {
-    		  ContentProblem cp = (ContentProblem) problem;
-    		  location = cp.getLabel().toString();
-    		} else {
-      		if (problem.getSource() != null) {
-      			location = problem.getSource();
-      		}
-    		}
-    		addLocation(location);
-    		exceptions.get(location).addProblem(problem);
-    		if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-    		  numErrors++;
-    		}
-    		if (numErrors >= maxErrors) {
-    		  endValidation();
-          printReportFooter();
-    		  System.err.println("\n\nERROR: Validation run terminated due to an excessive amount of errors.\n\n");
-    		  System.exit(1);
-    		}
-  	  }
-  	}
-  	
-  	public void printHeader(String title) {
-  	  report.printHeader(title);
-  	}
-  	
-  	public void record(String location) {
-      URI uri = null;
-      try {
-        uri = new URI(location);
-      } catch (URISyntaxException e) {
-        // Should not happen - ignore.
-      }
-      if (exceptions.get(location) != null) {
-        report.record(uri, exceptions.get(location).getProblems());
-        exceptions.remove(location);
-      }
-  	}
-  	
-  	public void endValidation() {
-  		for (String location : exceptions.keySet()) {
-  			URI uri = null;
-  				try {
-  					uri = new URI(location);
-  				} catch (URISyntaxException e) {
-  					// Should not happen - ignore.
-  				}
-  			report.record(uri, exceptions.get(location).getProblems());
-  		}
-  	}
-  	
-  	public void addLocation(String location) {
-  		if (!exceptions.containsKey(location)) {
-  			ProblemContainer container = new ProblemContainer();
-  			exceptions.put(location, container);
-  		}
-  	}
-  	
-  	public void setMaxErrors(long value) {
-  	  this.maxErrors = value;
-  	}
-  }
+
+    /**
+     * Validates a given schema.
+     *
+     * @param schema
+     *            The URL to the schema.
+     *
+     * @return 'true' if the schema was valid, 'false' otherwise.
+     * @throws Exception
+     */
+    private boolean validateSchemas(List<URL> schemas) throws Exception {
+        boolean isValid = true;
+        List<StreamSource> sources = new ArrayList<StreamSource>();
+        String locations = "";
+        for (URL schema : schemas) {
+            LSInput input = schemaValidator.getCachedLSResolver().resolveResource("", "", "", schema.toString(),
+                    schema.toString());
+            if (input != null) {
+                StreamSource streamSource = new StreamSource(input.getByteStream());
+                streamSource.setSystemId(schema.toString());
+                sources.add(streamSource);
+                try {
+                    InputSource inputSource = new InputSource(input.getByteStream());
+                    inputSource.setSystemId(input.getSystemId());
+                    // TODO: Should we log an error if the targetNamespace is
+                    // missing?
+                    XMLExtractor extractor = new XMLExtractor(inputSource);
+                    String namespace = extractor.getTargetNamespace();
+                    if (!namespace.isEmpty()) {
+                        locations += namespace + " " + schema + "\n";
+                    }
+                    inputSource.getByteStream().reset();
+                } catch (Exception e) {
+                    throw new Exception("Error while getting targetNamespace of schema '" + schema.toString() + "': "
+                            + e.getMessage());
+                }
+            } else {
+                System.out.println("Error while trying to read in '" + schema.toString() + "'");
+            }
+        }
+        schemaValidator.setExternalLocations(locations);
+        for (StreamSource source : sources) {
+            ProblemContainer problems = schemaValidator.validate(source);
+            if (problems.getProblems().size() != 0) {
+                isValid = false;
+                report.record(new URI(source.getSystemId()), problems.getProblems());
+            }
+        }
+        return isValid;
+    }
+
+    /**
+     * Print the report footer.
+     *
+     */
+    public void printReportFooter() {
+        report.printFooter();
+    }
+
+    /**
+     * Wrapper method for the main class.
+     *
+     * @param args
+     *            list of command-line arguments.
+     */
+    private void processMain(String[] args) {
+        try {
+            CommandLine cmdLine = parse(args);
+            query(cmdLine);
+            Map<URL, String> checksumManifestMap = new HashMap<URL, String>();
+            if (checksumManifest != null) {
+                if (manifestBasePath == null) {
+                    URL base = null;
+                    Target t = Utility.toTarget(targets.get(0));
+                    try {
+                        if (t.isDir()) {
+                            base = t.getUrl();
+                        } else {
+                            base = t.getUrl().toURI().getPath().endsWith("/") ? t.getUrl().toURI().resolve("..").toURL()
+                                    : t.getUrl().toURI().resolve(".").toURL();
+                        }
+                        manifestBasePath = base;
+                    } catch (URISyntaxException ue) {
+                        throw new IOException("Error occurred while getting parent of '" + t + "': " + ue.getMessage());
+                    }
+                }
+                ChecksumManifest cm = new ChecksumManifest(manifestBasePath.toString());
+                try {
+                    checksumManifestMap.putAll(cm.read(checksumManifest));
+                } catch (IOException io) {
+                    throw new Exception("Error occurred while reading checksum " + "manifest file '"
+                            + checksumManifest.toString() + "': " + io.getMessage());
+                }
+            }
+            setupReport();
+            // Validate schemas and schematrons first before performing label
+            // validation
+            boolean invalidSchemas = false;
+            if (!schemas.isEmpty()) {
+                if (!validateSchemas(schemas)) {
+                    invalidSchemas = true;
+                }
+            }
+            boolean invalidSchematron = false;
+            if (!schematrons.isEmpty()) {
+                for (URL schematron : schematrons) {
+                    ProblemContainer container = new ProblemContainer();
+                    Transformer transformer = transformSchematron(schematron, container);
+                    if (container.getProblems().size() != 0) {
+                        report.record(schematron.toURI(), container.getProblems());
+                        invalidSchematron = true;
+                    } else {
+                        transformedSchematrons.add(transformer);
+                    }
+                }
+            }
+            if (!(invalidSchemas) && !(invalidSchematron)) {
+                setRegisteredProducts();
+                doValidation(checksumManifestMap);
+            }
+            printReportFooter();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Main class that launches the Validate Tool.
+     *
+     * @param args
+     *            A list of command-line arguments.
+     * @throws TransformerConfigurationException
+     */
+    @SuppressWarnings("deprecation")
+    public static void main(String[] args) throws TransformerConfigurationException {
+        System.setProperty("https.protocols", "TLSv1.2");
+        if (args.length == 0) {
+            System.out.println("\nType 'validate -h' for usage");
+            System.exit(0);
+        }
+
+        ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
+        ca.setThreshold(Priority.FATAL);
+        BasicConfigurator.configure(ca);
+
+        new ValidateLauncher().processMain(args);
+    }
+
+    /**
+     * A validation monitor that coalesces exceptions by location and summarizes
+     * into the report.
+     */
+    private class ValidationMonitor implements ValidateProblemHandler {
+
+        private Map<String, ProblemContainer> exceptions = new LinkedHashMap<String, ProblemContainer>();
+        private String rootLocation;
+        private ExceptionType verbosityLevel;
+        private long maxErrors;
+        private long numErrors;
+
+        public ValidationMonitor(String rootLocation, ExceptionType severity) {
+            this.rootLocation = rootLocation;
+            this.verbosityLevel = severity;
+            maxErrors = MAX_ERRORS;
+            numErrors = 0;
+        }
+
+        @Override
+        public void addProblem(ValidationProblem problem) {
+            if (problem.getProblem().getSeverity().getValue() <= verbosityLevel.getValue()) {
+                String location = rootLocation;
+                if (problem instanceof ContentProblem) {
+                    ContentProblem cp = (ContentProblem) problem;
+                    location = cp.getLabel().toString();
+                } else {
+                    if (problem.getSource() != null) {
+                        location = problem.getSource();
+                    }
+                }
+                addLocation(location);
+                exceptions.get(location).addProblem(problem);
+                if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
+                    numErrors++;
+                }
+                if (numErrors >= maxErrors) {
+                    endValidation();
+                    printReportFooter();
+                    System.err
+                            .println("\n\nERROR: Validation run terminated due to an excessive amount of errors.\n\n");
+                    System.exit(1);
+                }
+            }
+        }
+
+        public void printHeader(String title) {
+            report.printHeader(title);
+        }
+
+        public void record(String location) {
+            URI uri = null;
+            try {
+                uri = new URI(location);
+            } catch (URISyntaxException e) {
+                // Should not happen - ignore.
+            }
+            if (exceptions.get(location) != null) {
+                report.record(uri, exceptions.get(location).getProblems());
+                exceptions.remove(location);
+            }
+        }
+
+        public void endValidation() {
+            for (String location : exceptions.keySet()) {
+                URI uri = null;
+                try {
+                    uri = new URI(location);
+                } catch (URISyntaxException e) {
+                    // Should not happen - ignore.
+                }
+                report.record(uri, exceptions.get(location).getProblems());
+            }
+        }
+
+        public void addLocation(String location) {
+            if (!exceptions.containsKey(location)) {
+                ProblemContainer container = new ProblemContainer();
+                exceptions.put(location, container);
+            }
+        }
+
+        public void setMaxErrors(long value) {
+            this.maxErrors = value;
+        }
+    }
 
 }

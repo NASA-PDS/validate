@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 /**
  * An interface used to identify whether an object surfaced in a JSP is a

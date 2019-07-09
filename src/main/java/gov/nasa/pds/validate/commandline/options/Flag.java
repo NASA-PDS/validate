@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -37,246 +37,237 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public enum Flag {
-  BASE_PATH("B", "base-path", "path", String.class, "Specify a path "
-      + "for the tool to use in order to properly resolve relative file "
-      + "references found in a checksum manifest file."),
+    BASE_PATH("B", "base-path", "path", String.class,
+            "Specify a path " + "for the tool to use in order to properly resolve relative file "
+                    + "references found in a checksum manifest file."),
 
-  CATALOG("C", "catalog", "catalog files", String.class, true,
-      "Specify catalog files to use during validation."),
+    CATALOG("C", "catalog", "catalog files", String.class, true, "Specify catalog files to use during validation."),
 
-  /** Flag to specify a configuration file to configure the tool behavior.
-   */
-  CONFIG("c", "config", "file", String.class, "Specify a configuration "
-      + "file to set the tool behavior."),
-  
-  /**
-   * Flag to specify file patterns to look for when validating a target
-   * directory.
-   */
-  MAX_ERRORS("E", "max-errors", "value", short.class, "Specify the max "
-      + "number of errors that the tool will report on before gracefully "
-      + "exiting a validation run. Default is 100,000."),
-  
-  /**
-   * Flag to specify file patterns to look for when validating a target
-   * directory.
-   */
-  REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns "
-      + "to look for when validating a directory. Each pattern should "
-      + "be surrounded by quotes. Default is to look for files ending with "
-      + "a '.xml' or '.XML' file extension."),
+    /**
+     * Flag to specify a configuration file to configure the tool behavior.
+     */
+    CONFIG("c", "config", "file", String.class, "Specify a configuration " + "file to set the tool behavior."),
 
-  /**
-   * Flag to force the tool to perform validation against the schema and
-   * schematron specified in a given label.
-   */
-  FORCE("f", "force", "Force the tool to perform validation against the "
-      + "schema and schematron specified in a given label."),
+    /**
+     * Flag to specify file patterns to look for when validating a target
+     * directory.
+     */
+    MAX_ERRORS("E", "max-errors", "value", short.class, "Specify the max " + "number of errors that the tool will report on before gracefully " + "exiting a validation run. Default is 100,000."),
 
-  /**
-   * Flag to display the help.
-   */
-  HELP("h", "help", "Display usage."),
+    /**
+     * Flag to specify file patterns to look for when validating a target
+     * directory.
+     */
+    REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns " + "to look for when validating a directory. Each pattern should " + "be surrounded by quotes. Default is to look for files ending with " + "a '.xml' or '.XML' file extension."),
 
-  /**
-   * Flag that disables recursion when traversing a target directory.
-   */
-  LOCAL("L", "local", "Validate files only in the target directory rather "
-      + "than recursively traversing down the subdirectories."),
+    /**
+     * Flag to force the tool to perform validation against the schema and
+     * schematron specified in a given label.
+     */
+    FORCE("f", "force", "Force the tool to perform validation against the " + "schema and schematron specified in a given label."),
 
-  /**
-   * Flag to specify one or more checksum manifest files in order to
-   * perform checksum validation.
-   */
-  CHECKSUM_MANIFEST("M", "checksum-manifest", "file", String.class,
-      "Specify a checksum manifest file to perform checksum validation "
-      + "against the targets being validated."),
+    /**
+     * Flag to display the help.
+     */
+    HELP("h", "help", "Display usage."),
 
-  /**
-   * Flag to specify a model version to use during validation.
-   */
-  MODEL("m", "model-version", "version", String.class, "Specify a model "
-      + "version to use during validation. The default is to use the "
-      + "latest model."),
+    /**
+     * Flag that disables recursion when traversing a target directory.
+     */
+    LOCAL("L", "local", "Validate files only in the target directory rather " + "than recursively traversing down the subdirectories."),
 
-  /** Flag to disable data content validation. */
-  NO_DATA("D", "no-data-check", "Disable data content validation."),
-  
-  /**
-   * Flag to specify a report file name.
-   */
-  REPORT("r", "report-file", "file name", String.class, "Specify the "
-      + "report file name. Default is standard out."),
+    /**
+     * Flag to specify one or more checksum manifest files in order to perform
+     * checksum validation.
+     */
+    CHECKSUM_MANIFEST("M", "checksum-manifest", "file", String.class, "Specify a checksum manifest file to perform checksum validation " + "against the targets being validated."),
 
-  /**
-   * Flag to specify a list of schematron files to use during validation.
-   */
-  SCHEMATRON("S", "schematron", "schematron files", String.class, true,
-    "Specify schematron files."),
+    /**
+     * Flag to specify a model version to use during validation.
+     */
+    MODEL("m", "model-version", "version", String.class, "Specify a model " + "version to use during validation. The default is to use the " + "latest model."),
 
-  /**
-   * Flag to specify the report style.
-   *
-   */
-  STYLE("s", "report-style", "full|json|xml", String.class,
-      "Specify the level of detail for the reporting. Valid values are "
-      + "'full' for a full view, 'json' for a json view, and 'xml' for an "
-      + "XML view. Default is to see a full report if this flag is not "
-      + "specified"),
+    /** Flag to disable data content validation. */
+    NO_DATA("D", "no-data-check", "Disable data content validation."),
 
-  /**
-   * Flag to explicitly specify the targets to validate.
-   */
-  TARGET("t", "target", "files,dirs", String.class, true, "Explicitly specify "
-      + "the targets (files, directories) to validate. Targets can be "
-      + "specified implicitly as well. "
-      + "(example: validate product.xml)"),
+    /**
+     * Flag to specify a report file name.
+     */
+    REPORT("r", "report-file", "file name", String.class, "Specify the " + "report file name. Default is standard out."),
 
-  /**
-   * Displays the tool version.
-   */
-  VERSION("V", "version", "Display application version."),
+    /**
+     * Flag to specify a list of schematron files to use during validation.
+     */
+    SCHEMATRON("S", "schematron", "schematron files", String.class, true, "Specify schematron files."),
 
-  /**
-   * Flag to specify the severity level and above to include in the report.
-   */
-  VERBOSE("v", "verbose", "1|2|3", short.class, "Specify the severity "
-      + "level and above to include in the human-readable report: "
-      + "(1=Info, 2=Warning, 3=Error). Default is Warning and above. "),
+    /**
+     * Flag to specify the report style.
+     *
+     */
+    STYLE("s", "report-style", "full|json|xml", String.class, "Specify the level of detail for the reporting. Valid values are " + "'full' for a full view, 'json' for a json view, and 'xml' for an " + "XML view. Default is to see a full report if this flag is not " + "specified"),
 
-  /**
-   * Flag to specify a list of schemas to use during validation.
-   */
-  SCHEMA("x", "schema", "schema files", String.class, true,
-      "Specify schema files."),
-  
-  SPOT_CHECK_DATA(null, "spot-check-data", "num", int.class, "Tells the tool to skip every nth "
-      + "records or lines during data content validation."),
-  
-  ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files", 
-      "Tells the tool to not check for unlabeled files in a bundle or collection."),
-  
-  
-  RULE("R", "rule", "validation rule name", String.class,
-	   "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
-	   + " Default is to auto-detect based on the contents at the location specified.");
+    /**
+     * Flag to explicitly specify the targets to validate.
+     */
+    TARGET("t", "target", "files,dirs", String.class, true, "Explicitly specify " + "the targets (files, directories) to validate. Targets can be " + "specified implicitly as well. " + "(example: validate product.xml)"),
 
-  /** The short name. */
-  private final String shortName;
+    /**
+     * Displays the tool version.
+     */
+    VERSION("V", "version", "Display application version."),
 
-  /** The long name. */
-  private final String longName;
+    /**
+     * Flag to specify the severity level and above to include in the report.
+     */
+    VERBOSE("v", "verbose", "1|2|3", short.class, "Specify the severity " + "level and above to include in the human-readable report: " + "(1=Info, 2=Warning, 3=Error). Default is Warning and above. "),
 
-  /** The argument name. */
-  private final String argName;
+    /**
+     * Flag to specify a list of schemas to use during validation.
+     */
+    SCHEMA("x", "schema", "schema files", String.class, true, "Specify schema files."),
 
-  /** The type of argument that the flag accepts. */
-  private final Object argType;
+    SPOT_CHECK_DATA(null, "spot-check-data", "num", int.class,
+            "Tells the tool to skip every nth " + "records or lines during data content validation."),
 
-  /** A flag that allows multiple argument values. */
-  private final boolean allowsMultipleArgs;
+    ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files",
+            "Tells the tool to not check for unlabeled files in a bundle or collection."),
 
-  /** A description of the flag. */
-  private final String description;
+    RULE("R", "rule", "validation rule name", String.class,
+            "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
+                    + " Default is to auto-detect based on the contents at the location specified."),
 
-  /**
-   * Constructor.
-   *
-   * @param shortName The short name.
-   * @param longName The long name.
-   * @param description A description of the flag.
-   */
-  private Flag(final String shortName, final String longName,
-      final String description) {
-    this(shortName, longName, null, null, description);
-  }
+    /**
+     * Flag to download the latest Registered Context Products JSON file and
+     * replace the existing file.
+     */
+    LATEST_JSON_FILE("u", "latest-json-file", "download the latest Registered Context Productes JSON file and replace the existing file.");
 
-  /**
-   * Constructor for flags that can take arguments.
-   *
-   * @param shortName The short name.
-   * @param longName The long name.
-   * @param argName The argument name.
-   * @param argType The argument type.
-   * @param description A description of the flag.
-   */
-  private Flag(final String shortName, final String longName,
-      final String argName, final Object argType,
-      final String description) {
-    this(shortName, longName, argName, argType, false, description);
-  }
+    /** The short name. */
+    private final String shortName;
 
-  /**
-   * Constructor for flags that can take arguments.
-   *
-   * @param shortName The short name.
-   * @param longName The long name.
-   * @param argName The argument name.
-   * @param argType The argument type.
-   * @param description A description of the flag.
-   */
-  private Flag(final String shortName, final String longName,
-      final String argName, final Object argType,
-      final boolean allowsMultipleArgs, final String description) {
-    this.shortName = shortName;
-    this.longName = longName;
-    this.argName = argName;
-    this.argType = argType;
-    this.allowsMultipleArgs = allowsMultipleArgs;
-    this.description = description;
-  }
+    /** The long name. */
+    private final String longName;
 
-  /**
-   * Get the short name of the flag.
-   *
-   * @return The short name.
-   */
-  public String getShortName() {
-    return shortName;
-  }
+    /** The argument name. */
+    private final String argName;
 
-  /**
-   * Get the long name of the flag.
-   *
-   * @return The long name.
-   */
-  public String getLongName() {
-    return longName;
-  }
+    /** The type of argument that the flag accepts. */
+    private final Object argType;
 
-  /**
-   * Get the argument name of the flag.
-   *
-   * @return The argument name.
-   */
-  public String getArgName() {
-    return argName;
-  }
+    /** A flag that allows multiple argument values. */
+    private final boolean allowsMultipleArgs;
 
-  /**
-   * Find out if the flag can handle multiple arguments.
-   *
-   * @return 'true' if yes.
-   */
-  public boolean allowsMultipleArgs() {
-    return allowsMultipleArgs;
-  }
+    /** A description of the flag. */
+    private final String description;
 
-  /**
-   * Get the argument type of the flag.
-   *
-   * @return The argument type.
-   */
-  public Object getArgType() {
-    return argType;
-  }
+    /**
+     * Constructor.
+     *
+     * @param shortName
+     *            The short name.
+     * @param longName
+     *            The long name.
+     * @param description
+     *            A description of the flag.
+     */
+    private Flag(final String shortName, final String longName, final String description) {
+        this(shortName, longName, null, null, description);
+    }
 
-  /**
-   * Get the flag description.
-   *
-   * @return The description.
-   */
-  public String getDescription() {
-    return description;
-  }
+    /**
+     * Constructor for flags that can take arguments.
+     *
+     * @param shortName
+     *            The short name.
+     * @param longName
+     *            The long name.
+     * @param argName
+     *            The argument name.
+     * @param argType
+     *            The argument type.
+     * @param description
+     *            A description of the flag.
+     */
+    private Flag(final String shortName, final String longName, final String argName, final Object argType,
+            final String description) {
+        this(shortName, longName, argName, argType, false, description);
+    }
+
+    /**
+     * Constructor for flags that can take arguments.
+     *
+     * @param shortName
+     *            The short name.
+     * @param longName
+     *            The long name.
+     * @param argName
+     *            The argument name.
+     * @param argType
+     *            The argument type.
+     * @param description
+     *            A description of the flag.
+     */
+    private Flag(final String shortName, final String longName, final String argName, final Object argType,
+            final boolean allowsMultipleArgs, final String description) {
+        this.shortName = shortName;
+        this.longName = longName;
+        this.argName = argName;
+        this.argType = argType;
+        this.allowsMultipleArgs = allowsMultipleArgs;
+        this.description = description;
+    }
+
+    /**
+     * Get the short name of the flag.
+     *
+     * @return The short name.
+     */
+    public String getShortName() {
+        return shortName;
+    }
+
+    /**
+     * Get the long name of the flag.
+     *
+     * @return The long name.
+     */
+    public String getLongName() {
+        return longName;
+    }
+
+    /**
+     * Get the argument name of the flag.
+     *
+     * @return The argument name.
+     */
+    public String getArgName() {
+        return argName;
+    }
+
+    /**
+     * Find out if the flag can handle multiple arguments.
+     *
+     * @return 'true' if yes.
+     */
+    public boolean allowsMultipleArgs() {
+        return allowsMultipleArgs;
+    }
+
+    /**
+     * Get the argument type of the flag.
+     *
+     * @return The argument type.
+     */
+    public Object getArgType() {
+        return argType;
+    }
+
+    /**
+     * Get the flag description.
+     *
+     * @return The description.
+     */
+    public String getDescription() {
+        return description;
+    }
 }

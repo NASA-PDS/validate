@@ -1,11 +1,11 @@
-package gov.nasa.pds.web.ui.utils;
+package gov.nasa.pds.tools.web.ui.utils;
 
 import gov.nasa.pds.tools.LabelParserException;
 import gov.nasa.pds.tools.constants.Constants.ProblemType;
 import gov.nasa.pds.tools.label.Statement;
-import gov.nasa.pds.web.ui.containers.ColumnInfo;
-import gov.nasa.pds.web.ui.containers.tabularData.Column;
-import gov.nasa.pds.web.ui.containers.tabularData.Row;
+import gov.nasa.pds.tools.web.ui.containers.ColumnInfo;
+import gov.nasa.pds.tools.web.ui.containers.tabularData.Column;
+import gov.nasa.pds.tools.web.ui.containers.tabularData.Row;
 
 import java.io.BufferedReader;
 import java.io.File;

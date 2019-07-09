@@ -1,10 +1,10 @@
-package gov.nasa.pds.web.ui.containers.dataSet;
+package gov.nasa.pds.tools.web.ui.containers.dataSet;
 
 import gov.nasa.arc.pds.tools.container.FileMirror;
 import gov.nasa.pds.tools.LabelParserException;
 import gov.nasa.pds.tools.constants.Constants.ProblemType;
 import gov.nasa.pds.tools.containers.SimpleDictionaryChange;
-import gov.nasa.pds.web.ui.containers.BaseContainerInterface;
+import gov.nasa.pds.tools.web.ui.containers.BaseContainerInterface;
 
 import java.io.File;
 import java.io.Serializable;

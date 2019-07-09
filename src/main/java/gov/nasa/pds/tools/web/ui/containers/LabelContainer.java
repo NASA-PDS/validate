@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 import gov.nasa.arc.pds.tools.util.FileUtils;
 import gov.nasa.pds.tools.LabelParserException;
@@ -17,7 +17,7 @@ import gov.nasa.pds.tools.label.StandardPathResolver;
 import gov.nasa.pds.tools.label.Value;
 import gov.nasa.pds.tools.label.parser.DefaultLabelParser;
 import gov.nasa.pds.tools.label.validate.Validator;
-import gov.nasa.pds.web.ui.utils.TabularData;
+import gov.nasa.pds.tools.web.ui.utils.TabularData;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,7 +1,7 @@
-package gov.nasa.pds.web.ui.containers.tabularData;
+package gov.nasa.pds.tools.web.ui.containers.tabularData;
 
 import gov.nasa.pds.tools.label.ObjectStatement;
-import gov.nasa.pds.web.ui.containers.ColumnInfo;
+import gov.nasa.pds.tools.web.ui.containers.ColumnInfo;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -26,11 +26,12 @@ import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
-import gov.nasa.pds.web.ui.containers.StatusContainer;
-import gov.nasa.pds.web.ui.containers.dataSet.Bucket;
-import gov.nasa.pds.web.ui.containers.dataSet.ValidationResults;
-import gov.nasa.pds.web.ui.containers.dataSet.ValidationResults.SimpleProblem;
-import gov.nasa.pds.web.ui.utils.DataSetValidator;
+
+import gov.nasa.pds.tools.web.ui.containers.StatusContainer;
+import gov.nasa.pds.tools.web.ui.containers.dataSet.Bucket;
+import gov.nasa.pds.tools.web.ui.containers.dataSet.ValidationResults;
+import gov.nasa.pds.tools.web.ui.containers.dataSet.ValidationResults.SimpleProblem;
+import gov.nasa.pds.tools.web.ui.utils.DataSetValidator;
 
 import java.io.File;
 import java.io.IOException;

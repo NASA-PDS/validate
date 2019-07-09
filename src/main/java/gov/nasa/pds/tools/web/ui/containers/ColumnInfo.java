@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 import gov.nasa.pds.tools.label.AttributeStatement;
 import gov.nasa.pds.tools.label.ObjectStatement;

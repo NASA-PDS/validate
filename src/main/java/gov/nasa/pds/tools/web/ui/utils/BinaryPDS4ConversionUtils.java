@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.utils;
+package gov.nasa.pds.tools.web.ui.utils;
 
 /**
  * Helper class to convert between PDS4 data types

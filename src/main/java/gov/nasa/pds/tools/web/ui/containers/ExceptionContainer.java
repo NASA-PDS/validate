@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 public class ExceptionContainer implements BaseContainerInterface {
 

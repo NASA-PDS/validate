@@ -1,4 +1,4 @@
-package gov.nasa.pds.web.ui.containers;
+package gov.nasa.pds.tools.web.ui.containers;
 
 import java.util.ArrayList;
 import java.util.List;

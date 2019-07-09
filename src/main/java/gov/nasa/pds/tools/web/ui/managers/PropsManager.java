@@ -1,6 +1,6 @@
-package gov.nasa.pds.web.ui.managers;
+package gov.nasa.pds.tools.web.ui.managers;
 
-import gov.nasa.pds.web.ui.constants.ApplicationConstants;
+import gov.nasa.pds.tools.web.ui.constants.ApplicationConstants;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,7 +1,7 @@
-package gov.nasa.pds.web.ui.utils;
+package gov.nasa.pds.tools.web.ui.utils;
 
-import gov.nasa.pds.web.ui.constants.ApplicationConstants;
-import gov.nasa.pds.web.ui.managers.PropsManager;
+import gov.nasa.pds.tools.web.ui.constants.ApplicationConstants;
+import gov.nasa.pds.tools.web.ui.managers.PropsManager;
 
 import java.util.Properties;
 
