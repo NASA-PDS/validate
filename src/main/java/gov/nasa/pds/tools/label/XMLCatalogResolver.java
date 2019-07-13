@@ -340,7 +340,12 @@ implements XMLEntityResolver, EntityResolver2 {
    */
   public LSInput resolveResource(String type, String namespaceURI,
       String publicId, String systemId, String baseURI) {
-
+	  // Similar to CachedLSResourceResolver, if systemId == null
+	  // we won't be able to resolve this resource
+	  if (systemId == null) {
+	    return null;
+	  }
+	  
       String resolvedId = null;
       URL baseUrl = null;
       try {
