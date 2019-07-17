@@ -44,7 +44,7 @@ public enum ProblemType {
 	
 	OUT_OF_MEMORY("error.validation.out_of_memory"),
 
-	INTERNAL_ERROR("error.vadidation.internal_error"),
+	INTERNAL_ERROR("error.validation.internal_error"),
   
   CHECKSUM_MISMATCH("error.label.checksum_mismatch"),
   

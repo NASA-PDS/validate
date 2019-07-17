@@ -115,6 +115,14 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
       </resource>
+      <resource>
+		<filtering>true</filtering>
+		<targetPath>gov/nasa/pds/validate/util</targetPath>
+		<directory>src/main/resources</directory>
+		<includes>
+			<include>validate.properties</include>
+		</includes>
+	  </resource>
     </resources>
 
     <plugins>
@@ -353,6 +361,11 @@ POSSIBILITY OF SUCH DAMAGE.
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
+	<dependency>
+      <groupId>org.apache.solr</groupId>
+	  <artifactId>solr-solrj</artifactId>
+	  <version>7.7.2</version>
+	</dependency>
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
