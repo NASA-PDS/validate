@@ -351,16 +351,16 @@ implements XMLEntityResolver, EntityResolver2 {
       
 	  // Similar to CachedLSResourceResolver, if systemId == null
 	  // we won't be able to resolve this resource
-      if (getProblemHandler() != null) {
-          getProblemHandler().addProblem(
-              new ValidationProblem(
-                  new ProblemDefinition(
-                      ExceptionType.WARNING,
-                      ProblemType.CATALOG_UNRESOLVABLE_RESOURCE,
-                      "SystemId is not set in resource. Most likely related to other XML validation ERROR."), 
-                  baseUrl));
-      }
 	  if (systemId == null) {
+		if (getProblemHandler() != null) {
+	        getProblemHandler().addProblem(
+	            new ValidationProblem(
+	                new ProblemDefinition(
+	                    ExceptionType.WARNING,
+	                    ProblemType.CATALOG_UNRESOLVABLE_RESOURCE,
+	                    "SystemId is not set in resource. Most likely related to other XML validation ERROR."), 
+	                baseUrl));
+	    }
 	    return null;
 	  }
       
