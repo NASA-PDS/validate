@@ -69,8 +69,20 @@ POSSIBILITY OF SUCH DAMAGE.
  % validate product.xml -r validate-report.txt
       </source>
 
-      <p>This validates the given product against the latest core schema and schematron packaged with the tool and writes the results to a file.
+      <p>This validates the given product against the schemas and schematrons specified in a label and writes the results to a file.
       </p>
+      <p>If it fails to validate, you may want to use your user-specified schema and schematron. This can be achieved with the command below.</p>
+      
+      <p>Note that validating with default versus passing in the label specified schemas using the <i>-x</i> flag may yield different validation results. This is due to how the underlying Xerces library treats these 2 scenarios. Basically, with the default behavior, namespaces are resolved by matching the element namespace in the label to one of the namespaces declared in the <i>schemaLocation</i> attribute of the label. When passing in schemas using the <i>-x</i> flag, those user given schemas override any schemas specified in the <i>schemaLocation</i> attribute of the label. They are read in and cached in memory prior to the validation step. Namespaces are then resolved by matching the element namespace to one defined in one of those schemas cached in memory.
+      </p>
+     
+      <source>
+% validate product.xml -r validate-report.txt -x product.xsd
+
+or
+
+% validate product.xml -r validate-report.txt -x product.xsd -S product.sch
+      </source>
 
       <p><b><i>Validating a Bundle</i></b></p>
 
@@ -105,9 +117,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <tr><td>--allow-unlabeled-files</td><td>Specify this flag to tell the tool to not check for un-labeled files in a bundle or collection.</td></tr>
         <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
-        <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported. The version number should be specified without periods, for example <i>1000</i> for version <i>1.0.0.0</i>.</td></tr>
         <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
-        <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
         <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
         <tr><td>-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
         <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
@@ -127,11 +137,9 @@ POSSIBILITY OF SUCH DAMAGE.
         <ul>
           <li>Validating a Target Directory</li>
           <li>Validating Against User-Specified Schemas</li>
-          <li>Validating Against User-Specified XML Catalogs</li>
           <li>Validating Against User-Specified Schematron Files</li>
-          <li>Validating Against Label Specified Schemas and Schematrons</li>
+          <li>Validating Against User-Specified XML Catalogs</li>  
           <li>Spot Checking of Data</li>
-          <li>Validating Against an Older Version of the PDS4 Data Model</li>
           <li>Ignoring Sub-Directories During Validation</li>
           <li>Changing Tool Behaviors With The Configuration File</li>
         </ul>
@@ -170,18 +178,6 @@ POSSIBILITY OF SUCH DAMAGE.
 % validate product.xml -C catalog.xml
         </source>
 
-        <p><b><i>Validating Against Label Specified Schemas and Schematrons</i></b></p>
-
-        <p>The following command demonstrates forcing the tool to validate against the schemas and schematrons specified in a given label.
-        </p>
-
-        <source>
-% validate product.xml -f
-        </source>
-        
-        <p>Note that validating with the force flag option versus passing in the label specified schemas using the <i>-x</i> flag may yield different validation results. This is due to how the underlying Xerces library treats these 2 scenarios. Basically, with the force flag behavior, namespaces are resolved by matching the element namespace in the label to one of the namespaces declared in the <i>schemaLocation</i> attribute of the label. When passing in schemas using the <i>-x</i> flag, those user given schemas override any schemas specified in the <i>schemaLocation</i> attribute of the label. They are read in and cached in memory prior to the validation step. Namespaces are then resolved by matching the element namespace to one defined in one of those schemas cached in memory.
-        </p>
-
         <p><b><i>Spot Checking of Data</i></b></p>
         
         <p>By default, the tool performs a byte by byte validation of the data content. This can lead to long validation run times for large tables and arrays. So in order to do some quick validation of the data content, the <i>--spot-check-data</i> flag option can be used. The command below demonstrates running the Validate Tool with spot checking turned on: 
@@ -193,15 +189,6 @@ POSSIBILITY OF SUCH DAMAGE.
         
         <p>In the above example, assuming the data is a table, the tool will perform content validation on every 100th record in the table. If the data content is an array, the tool will perform content validation on every 100th line in the array.
         </p>
-
-        <p><b><i>Validating Against an Older Version of the PDS4 Data Model</i></b></p>
-
-        <p>The following command demonstrates the validation of a single data product label against version <i>1000</i> (1.0.0.0) of the PDS4 data model:
-        </p>
-
-        <source>
-% validate product.xml -m 1000
-        </source>
 
         <p><b><i>Ignoring Sub-Directories During Validation</i></b></p>
 
@@ -645,8 +632,6 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
           <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
           <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
           <tr><td>validate.local</td><td>-L, --local</td></tr>
-          <tr><td>validate.model</td><td>-m, --model-version</td></tr>
-          <tr><td>validate.force</td><td>-f, --force</td></tr>
           <tr><td>validate.maxErrors</td><td>-E, --max-errors</td></tr>
         </table>
 

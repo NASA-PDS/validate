@@ -333,6 +333,7 @@ public abstract class Report {
    * section.
    */
   public void printFooter() {
+	boolean displayWarning = false;
     printFooter(writer);
     writer.println();
 
@@ -349,10 +350,20 @@ public abstract class Report {
         writer.printf("%-10d", sortedMessageSummary.get(type));
         writer.print("   ");
         writer.println(type);
+        if (type.equalsIgnoreCase("error.label.schema") ||
+        	type.equalsIgnoreCase("error.label.unresolvable_resource"))
+          displayWarning = true;
       }
     }
     writer.println();
     writer.println("End of Report");
+    
+    if (displayWarning) {
+      writer.println();
+      writer.println("NOTE: Default behavior of the Validate Tool validates against the schemas and schematrons specified in a label.");
+      writer.println("      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.");
+      writer.println();
+    }
     this.writer.flush();
   }
 

@@ -348,21 +348,18 @@ public class LabelValidator {
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
 
-      // Do we need this to clear the cache?
-      
+      // Do we need this to clear the cache
       if (useLabelSchema) {
         cachedValidatorHandler = schemaFactory.newSchema().newValidatorHandler();
       } else {
         cachedValidatorHandler = validatingSchema.newValidatorHandler();
       }
       
-      
       // Capture messages in a container
       if (handler != null) {
         ErrorHandler eh = new LabelErrorHandler(handler);
         cachedParser.setErrorHandler(eh);
         cachedValidatorHandler.setErrorHandler(eh);
-
       }
       
       // Finally parse and validate the file
@@ -478,7 +475,8 @@ public class LabelValidator {
           handler.addProblem(processFailedAssert(url, node, xml));
         }
       }
-    }
+    } // end if (performsSchematronValidation()) 
+    
     if (!externalValidators.isEmpty()) {
       // Perform any other additional checks that were added
       for(ExternalValidator ev : externalValidators) {
@@ -535,6 +533,7 @@ public class LabelValidator {
           validatingSchema = schemaFactory
               .newSchema(loadSchemaSourcesFromJar().toArray(
                   new StreamSource[0]));
+          
         } else {
           // Load from user specified external directory
           validatingSchema = schemaFactory.newSchema(loadSchemaSources(
