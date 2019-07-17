@@ -150,8 +150,11 @@ public class ValidateLauncher {
 
     /** A flag to enable/disable directory recursion. */
     private boolean traverse;
+    
+    /** Update register context products flag */
+    private boolean updateRegisteredProducts;
 
-    /** The severity level and above to include in the report. */
+	/** The severity level and above to include in the report. */
     private ExceptionType severity;
 
     /** An object representation of a Validate Tool report. */
@@ -244,6 +247,7 @@ public class ValidateLauncher {
         allowUnlabeledFiles = false;
         registeredProducts = new HashMap<String, List<LidVid>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
+        updateRegisteredProducts = false;
 
     }
 
@@ -351,9 +355,7 @@ public class ValidateLauncher {
             } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
                 setAllowUnlabeledFiles(true);
             } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
-                // download the latest Registered Context Products JSON file and
-                // replace the existing file.
-                getlatestJsonContext();
+            	setUpdateRegisteredProducts(true);
             }
         }
         if (!targetList.isEmpty()) {
@@ -381,46 +383,63 @@ public class ValidateLauncher {
          */
     }
 
-    private void getlatestJsonContext() {
+    private void getLatestJsonContext() {
 
         String url = ToolInfo.getSearchURL();
         String endpoint = ToolInfo.getEndpoint();
         String query = ToolInfo.getQuery();
 
-        System.out.println("Search Service url: " + url);
-
+//        System.out.println("Search Service url: " + url);
         SolrClient client = new HttpSolrClient.Builder(url).build();
         SolrQuery solrQuery = new SolrQuery(query);
         solrQuery.setRequestHandler("/" + endpoint);
         solrQuery.setStart(0);
         solrQuery.setParam("fl", "identifier, version_id");
 
-        System.out.println("Query: " + solrQuery.getQuery());
-        System.out.println("RequestHandler: " + solrQuery.getRequestHandler());
+//        System.out.println("Query: " + solrQuery.getQuery());
+//        System.out.println("RequestHandler: " + solrQuery.getRequestHandler());
 
         QueryResponse resp;
+        ValidationProblem p = null;
         try {
             resp = client.query(solrQuery);
             SolrDocumentList res = resp.getResults();
             // System.out.println("get rows: " + res.size());
-            System.out.println("NumFound: " + res.getNumFound());
+//            System.out.println("NumFound: " + res.getNumFound());
 
             solrQuery.setRows((int) res.getNumFound());
             resp = client.query(solrQuery);
             res = resp.getResults();
-            System.out.println("get all rows: " + res.size());
+//            System.out.println("get all rows: " + res.size());
 
             parseJsonObjectWriteTofile(res);
 
             client.close();
             
-            System.out.println("============================");
-            System.out.println();
+//            System.out.println("============================");
+//            System.out.println();
 
+            p = new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                    		"Successfully updated registered context products config file."),
+                    new URL(url));
+            
         } catch (SolrServerException | IOException ex) {
-            ex.printStackTrace();
+        	try {
+	            p = new ValidationProblem(
+	                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+	                    		"Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
+	                    new URL(url));
+        	} catch (Exception e) {
+		        e.printStackTrace();
+		    }
         }
-
+        
+        try {
+        	report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
     }
 
     private void parseJsonObjectWriteTofile(SolrDocumentList docs) {
@@ -428,8 +447,8 @@ public class ValidateLauncher {
         try {
             copyFile(registeredProductsFile,
                     new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup"));
-            System.out.println("back up " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()
-                    + " to " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup");
+//            System.out.println("back up " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()
+//                    + " to " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -444,7 +463,7 @@ public class ValidateLauncher {
             contextIDVer.add(id + "::" + ver);
             count++;
         }
-        System.out.println("Number of records: " + count);
+//        System.out.println("Number of records: " + count);
 
         try {
             JsonWriter writer = new JsonWriter(
@@ -462,7 +481,7 @@ public class ValidateLauncher {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("New Registered Products File: " + registeredProductsFile);
+//        System.out.println("New Registered Products File: " + registeredProductsFile);
 
     }
 
@@ -578,9 +597,7 @@ public class ValidateLauncher {
                 setAllowUnlabeledFiles(true);
             }
             if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
-                // download the latest Registered Context Products JSON file and
-                // replace the existing file.
-                getlatestJsonContext();
+                setUpdateRegisteredProducts(true);
             }
 
         } catch (Exception e) {
@@ -834,6 +851,10 @@ public class ValidateLauncher {
         }
         this.registeredProducts.put("Product_Context", lidvids);
     }
+
+	public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
+		this.updateRegisteredProducts = updateRegisteredProducts;
+	}
 
     /**
      * Displays tool usage.
@@ -1147,6 +1168,13 @@ public class ValidateLauncher {
                 }
             }
             setupReport();
+            
+            // download the latest Registered Context Products JSON file and
+            // replace the existing file.
+            if (updateRegisteredProducts) {
+            	getLatestJsonContext();
+            }
+            
             // Validate schemas and schematrons first before performing label
             // validation
             boolean invalidSchemas = false;
