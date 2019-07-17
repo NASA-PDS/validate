@@ -115,6 +115,14 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <filtering>true</filtering>
       </resource>
+      <resource>
+		<filtering>true</filtering>
+		<targetPath>gov/nasa/pds/validate/util</targetPath>
+		<directory>src/main/resources</directory>
+		<includes>
+			<include>validate.properties</include>
+		</includes>
+	  </resource>
     </resources>
 
     <plugins>
