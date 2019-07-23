@@ -54,6 +54,12 @@ POSSIBILITY OF SUCH DAMAGE.
     </license>
   </licenses>
   
+  <properties>
+    <pds4-jparser.version>1.1.0-SNAPSHOT</pds4-jparser.version>
+    <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
+    <model-version>1C00</model-version>
+  </properties>
+  
 <developers>
     <developer>
       <name>Jordan Padams</name>
@@ -433,9 +439,4 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
     </plugins>
   </reporting>
-  <properties>
-    <pds4-jparser.version>1.0.1</pds4-jparser.version>
-    <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
-    <model-version>1C00</model-version>
-  </properties>
 </project>
