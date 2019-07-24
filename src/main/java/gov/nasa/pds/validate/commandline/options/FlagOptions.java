@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -64,6 +64,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.NO_DATA));
         options.addOption(new ToolsOption(Flag.SPOT_CHECK_DATA));
         options.addOption(new ToolsOption(Flag.ALLOW_UNLABELED_FILES));
+        options.addOption(new ToolsOption(Flag.LATEST_JSON_FILE));
     }
 
     /**

@@ -340,7 +340,7 @@ implements XMLEntityResolver, EntityResolver2 {
    */
   public LSInput resolveResource(String type, String namespaceURI,
       String publicId, String systemId, String baseURI) {
-
+	  
       String resolvedId = null;
       URL baseUrl = null;
       try {
@@ -348,6 +348,21 @@ implements XMLEntityResolver, EntityResolver2 {
       } catch (MalformedURLException e) {
         // Ignore. Should not happen!!!!
       }
+      
+	  // Similar to CachedLSResourceResolver, if systemId == null
+	  // we won't be able to resolve this resource
+	  if (systemId == null) {
+		if (getProblemHandler() != null) {
+	        getProblemHandler().addProblem(
+	            new ValidationProblem(
+	                new ProblemDefinition(
+	                    ExceptionType.WARNING,
+	                    ProblemType.CATALOG_UNRESOLVABLE_RESOURCE,
+	                    "SystemId is not set in resource. Most likely related to other XML validation ERROR."), 
+	                baseUrl));
+	    }
+	    return null;
+	  }
       
       try {
         resolvedId = resolveResource(namespaceURI, publicId, systemId, 

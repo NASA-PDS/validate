@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -38,6 +38,7 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public class ConfigKey {
+
   /** List of file patterns to look for if traversing a target directory. */
   public static final String REGEXP = "validate.regexp";
 
@@ -101,4 +102,10 @@ public class ConfigKey {
    * or collection.
    */
   public static final String ALLOW_UNLABELED_FILES = "validate.allowUnlabeledFiles";
+
+  /**
+   * Property to download the latest Registered Context Products JSON file and
+   * replace the existing file.
+   */
+  public static final String LATEST_JSON_FILE = "validate.latestJsonFile";
 }

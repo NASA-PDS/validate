@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -42,7 +42,7 @@ import java.util.Properties;
  *
  */
 public class ToolInfo {
-    public static final String FILE = "/validate.properties";
+    public static final String FILE = "validate.properties";
 
     public static final String NAME = "validate.name";
 
@@ -52,14 +52,19 @@ public class ToolInfo {
 
     public static final String COPYRIGHT = "validate.copyright";
 
+    public static final String SEARCH_URL = "validate.search_url";
+    public static final String OUTPUT_FILE_NAME = "validate.output_file_name";
+    public static final String ENDPOINT = "validate.endpoint";
+    public static final String QUERY = "validate.query";
+
     private static final Properties props = new Properties();
 
     static {
         try {
-        URL propertyFile = ToolInfo.class.getResource(FILE);
-         InputStream in = propertyFile.openStream();
-         props.load(in);
-        } catch(IOException io) {
+            URL propertyFile = ToolInfo.class.getResource(FILE);
+            InputStream in = propertyFile.openStream();
+            props.load(in);
+        } catch (IOException io) {
             throw new RuntimeException(io.getMessage());
         }
     }
@@ -70,7 +75,7 @@ public class ToolInfo {
 
     public static String getVersion() {
         return props.getProperty(VERSION);
-      }
+    }
 
     public static String getReleaseDate() {
         return props.getProperty(RELEASE_DATE);
@@ -78,5 +83,21 @@ public class ToolInfo {
 
     public static String getCopyright() {
         return props.getProperty(COPYRIGHT);
-      }
+    }
+
+    public static String getSearchURL() {
+        return props.getProperty(SEARCH_URL);
+    }
+
+    public static String getOutputFileName() {
+        return props.getProperty(OUTPUT_FILE_NAME);
+    }
+
+    public static String getEndpoint() {
+        return props.getProperty(ENDPOINT);
+    }
+
+    public static String getQuery() {
+        return props.getProperty(QUERY);
+    }
 }
