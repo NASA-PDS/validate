@@ -122,26 +122,26 @@ POSSIBILITY OF SUCH DAMAGE.
         <filtering>true</filtering>
       </resource>
       <resource>
-		<filtering>true</filtering>
-		<targetPath>gov/nasa/pds/validate/util</targetPath>
-		<directory>src/main/resources</directory>
-		<includes>
-			<include>validate.properties</include>
-		</includes>
-	  </resource>
+	<filtering>true</filtering>
+	<targetPath>gov/nasa/pds/validate/util</targetPath>
+	<directory>src/main/resources</directory>
+	<includes>
+	  <include>validate.properties</include>
+	</includes>
+      </resource>
     </resources>
 
     <plugins>
       <plugin>
-	    <groupId>org.sonatype.plugins</groupId>
-	    <artifactId>nexus-staging-maven-plugin</artifactId>
-	    <version>1.6.7</version>
-	    <extensions>true</extensions>
-	    <configuration>
+	<groupId>org.sonatype.plugins</groupId>
+	<artifactId>nexus-staging-maven-plugin</artifactId>
+	<version>1.6.7</version>
+	<extensions>true</extensions>
+	<configuration>
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
-	    </configuration>
+	</configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -212,7 +212,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </plugins>
   </build>
 
-<distributionManagement>
+  <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -228,6 +228,19 @@ POSSIBILITY OF SUCH DAMAGE.
     <connection>scm:git:git://github.com/NASA-PDS-Incubator/pds3-product-tools.git</connection>
     <developerConnection>scm:git:ssh://github.com:NASA-PDS-Incubator/pds3-product-tools.git</developerConnection>
   </scm>
+
+  <repositories>
+    <repository>
+      <id>snapshots-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases>
+	<enabled>false</enabled>
+      </releases>
+      <snapshots>
+	<enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
   <profiles>
     <profile> 
