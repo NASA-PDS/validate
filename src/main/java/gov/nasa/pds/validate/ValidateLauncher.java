@@ -577,14 +577,13 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.STYLE)) {
                 setReportStyle(config.getString(ConfigKey.STYLE));
             }
-            /* Deprecated issue-23, just comments out in case we want to revert back
+            /** Deprecated per issue-23. Add deprecation warning message **/
             if (config.containsKey(ConfigKey.MODEL)) {
-                setModelVersion(config.getString(ConfigKey.MODEL));
+                deprecatedFlagWarning = true;
             }
             if (config.containsKey(ConfigKey.FORCE)) {
-                setForce(config.getBoolean(ConfigKey.FORCE));
+                deprecatedFlagWarning = true;
             }
-            */
             if (config.containsKey(ConfigKey.CHECKSUM)) {
                 setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
             }
