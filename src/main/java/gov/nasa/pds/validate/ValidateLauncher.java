@@ -882,7 +882,7 @@ public class ValidateLauncher {
         }
         ValidationProblem p3 = new ValidationProblem(
                 new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                        "Tatal number of Product Context: " + lidvids.size()),
+                        "Total number of Product Context: " + lidvids.size()),
                 url);
         pList.add(p3);
         //System.out.println(new Gson().toJson(lidvids));
