@@ -61,6 +61,13 @@ import org.apache.commons.io.FilenameUtils;
  *
  */
 public abstract class Report {
+  private static String DEPRECATED_FLAG_WARNING_MSG = ("NOTE: --force (-f) and --model-version (-m) flags have been deprecated. \n\n" +
+                                                    "      The default behavior of the Validate Tool validates against the schemas and \n" +
+                                                    "      schematrons specified in a label.  \n\n" +
+                                                    "      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified \n" +
+                                                    "      schema and schematron.");
+
+  private boolean deprecatedFlagWarning;
   private int totalWarnings;
   private int totalErrors;
   private int totalInfos;
@@ -85,6 +92,7 @@ public abstract class Report {
     this.numFailed = 0;
     this.numPassed = 0;
     this.numSkipped = 0;
+    this.deprecatedFlagWarning = false;
     this.parameters = new ArrayList<String>();
     this.configurations = new ArrayList<String>();
     this.writer = new PrintWriter(new OutputStreamWriter(System.out));
@@ -333,7 +341,6 @@ public abstract class Report {
    * section.
    */
   public void printFooter() {
-    boolean displayWarning = false;
     printFooter(writer);
     writer.println();
 
@@ -350,18 +357,14 @@ public abstract class Report {
         writer.printf("%-10d", sortedMessageSummary.get(type));
         writer.print("   ");
         writer.println(type);
-		if (type.equalsIgnoreCase("error.label.schema") ||
-            type.equalsIgnoreCase("error.label.unresolvable_resource"))
-          displayWarning = true;
       }
     }
     writer.println();
     writer.println("End of Report");
 
-	if (displayWarning) {
+	if (this.deprecatedFlagWarning) {
       writer.println();
-      writer.println("NOTE: Default behavior of the Validate Tool validates against the schemas and schematrons specified in a label.");
-      writer.println("      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.");
+      writer.println(DEPRECATED_FLAG_WARNING_MSG);
       writer.println();
     }
     this.writer.flush();
@@ -444,6 +447,13 @@ public abstract class Report {
   public boolean hasWarnings() {
     return (this.totalWarnings > 0) ? true : false;
   }
+  
+  /**
+   * Enables deprecation warning message when deprecated CLI flags are used
+   */
+  public void enableDeprecatedFlagWarning() {
+      this.deprecatedFlagWarning = true;
+    }
 
   /**
    * Anything at or above the level will be reported. Default ExceptionType level is

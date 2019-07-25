@@ -153,6 +153,9 @@ public class ValidateLauncher {
     
     /** Update register context products flag */
     private boolean updateRegisteredProducts;
+    
+    /** Flag to indicated deprecated flag was used **/
+    private boolean deprecatedFlagWarning;
 
 	/** The severity level and above to include in the report. */
     private ExceptionType severity;
@@ -248,6 +251,7 @@ public class ValidateLauncher {
         registeredProducts = new HashMap<String, List<LidVid>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
+        deprecatedFlagWarning = false;
 
     }
 
@@ -326,13 +330,7 @@ public class ValidateLauncher {
                 setRegExps((List<String>) o.getValuesList());       
             } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
                 setReportStyle(o.getValue());
-            } 
-            /* Deprecated issue-23
-            else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
-                setModelVersion(o.getValue());
-            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
-                setForce(true);
-            } */
+            }
             else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
                 setChecksumManifest(o.getValue());
             } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
@@ -362,6 +360,15 @@ public class ValidateLauncher {
             } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
             	setUpdateRegisteredProducts(true);
             }
+            /** Deprecated per https://github.com/NASA-PDS-Incubator/validate/issues/23 **/
+            else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
+                setModelVersion(o.getValue());
+                deprecatedFlagWarning = true;
+            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
+                setForce(true);
+                deprecatedFlagWarning = true;
+            }
+            /** **/
         }
         if (!targetList.isEmpty()) {
             setTargets(targetList);
@@ -911,6 +918,11 @@ public class ValidateLauncher {
         if (reportFile != null) {
             report.setOutput(reportFile);
         }
+
+        if (this.deprecatedFlagWarning) {
+            report.enableDeprecatedFlagWarning();
+        }
+
         String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));

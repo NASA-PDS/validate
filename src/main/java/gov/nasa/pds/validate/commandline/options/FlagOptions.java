@@ -65,6 +65,10 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.SPOT_CHECK_DATA));
         options.addOption(new ToolsOption(Flag.ALLOW_UNLABELED_FILES));
         options.addOption(new ToolsOption(Flag.LATEST_JSON_FILE));
+        
+        /** DEPRECATED Options **/
+        options.addOption(new ToolsOption(Flag.FORCE));
+        options.addOption(new ToolsOption(Flag.MODEL));
     }
 
     /**
