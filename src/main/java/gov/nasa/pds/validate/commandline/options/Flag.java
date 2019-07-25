@@ -140,7 +140,9 @@ public enum Flag {
      * Flag to download the latest Registered Context Products JSON file and
      * replace the existing file.
      */
-    LATEST_JSON_FILE("u", "latest-json-file", "download the latest Registered Context Productes JSON file and replace the existing file.");
+    LATEST_JSON_FILE("u", "latest-json-file", "download the latest Registered Context Productes JSON file and replace the existing file."),
+    
+    NONREGPROD_JSON_FILE(null, "no-registe-prod-context", "dir/files", String.class, true, "Explicitly specify " + "the NON Registered Context Products JSON file (directory/file)");
 
     /** The short name. */
     private final String shortName;

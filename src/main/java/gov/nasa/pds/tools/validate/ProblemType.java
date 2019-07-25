@@ -169,6 +169,7 @@ public enum ProblemType {
   UNREFERENCED_MEMBER("warning.integrity.unreferenced_member"),
   
   UNLABELED_FILE("warning.file.not_referenced_in_label"),
+  NON_REGISTERED_PRODUCT("warning.product_not_registered"),
   
   // Info message types
   
