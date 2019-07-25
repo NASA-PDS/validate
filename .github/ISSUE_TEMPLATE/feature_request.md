@@ -2,8 +2,8 @@
 name: Feature request
 about: Suggest an idea for this project
 title: ''
-labels: new feature request
-assignees: galenatjpl
+labels: new-feature-request
+assignees: ''
 
 ---
 
