@@ -61,12 +61,6 @@ public enum Flag {
     REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns " + "to look for when validating a directory. Each pattern should " + "be surrounded by quotes. Default is to look for files ending with " + "a '.xml' or '.XML' file extension."),
 
     /**
-     * Flag to force the tool to perform validation against the schema and
-     * schematron specified in a given label.
-     */
-    FORCE("f", "force", "Force the tool to perform validation against the " + "schema and schematron specified in a given label."),
-
-    /**
      * Flag to display the help.
      */
     HELP("h", "help", "Display usage."),
@@ -81,11 +75,6 @@ public enum Flag {
      * checksum validation.
      */
     CHECKSUM_MANIFEST("M", "checksum-manifest", "file", String.class, "Specify a checksum manifest file to perform checksum validation " + "against the targets being validated."),
-
-    /**
-     * Flag to specify a model version to use during validation.
-     */
-    MODEL("m", "model-version", "version", String.class, "Specify a model " + "version to use during validation. The default is to use the " + "latest model."),
 
     /** Flag to disable data content validation. */
     NO_DATA("D", "no-data-check", "Disable data content validation."),

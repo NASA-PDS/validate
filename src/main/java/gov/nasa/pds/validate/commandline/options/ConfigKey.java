@@ -68,20 +68,11 @@ public class ConfigKey {
      */
     public static final String BASE_PATH = "validate.basePath";
 
-    /** The model version to use during validation. */
-    public static final String MODEL = "validate.model";
-
     /** Enables/disables direcotry recursion. */
     public static final String LOCAL = "validate.local";
 
     /** Configures the report style format. */
     public static final String STYLE = "validate.reportStyle";
-
-    /**
-     * Force the tool to validate against the schema and schematron specified in
-     * the label.
-     */
-    public static final String FORCE = "validate.force";
 
     /**
      * Property to specify the validation rule type.

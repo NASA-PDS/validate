@@ -235,7 +235,7 @@ public class ValidateLauncher {
         modelVersion = VersionInfo.getDefaultModelVersion();
         report = null;
         reportStyle = "full";
-        force = false;
+        force = true;
         regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
         schemaValidator = new SchemaValidator();
         schematronTransformer = new SchematronTransformer();
@@ -308,8 +308,10 @@ public class ValidateLauncher {
                 setCatalogs(o.getValuesList());
             } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
                 setSchemas(o.getValuesList());
+                setForce(false);
             } else if (Flag.SCHEMATRON.getShortName().equals(o.getOpt())) {
                 setSchematrons(o.getValuesList());
+                setForce(false);
             } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
                 targetList.addAll(o.getValuesList());
             } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
@@ -321,14 +323,17 @@ public class ValidateLauncher {
                 }
                 setSeverity(value);
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
-                setRegExps((List<String>) o.getValuesList());
-            } else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
-                setModelVersion(o.getValue());
+                setRegExps((List<String>) o.getValuesList());       
             } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
                 setReportStyle(o.getValue());
+            } 
+            /* Deprecated issue-23
+            else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
+                setModelVersion(o.getValue());
             } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
                 setForce(true);
-            } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
+            } */
+            else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
                 setChecksumManifest(o.getValue());
             } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
                 setManifestBasePath(o.getValue());
@@ -561,16 +566,18 @@ public class ValidateLauncher {
                 } else {
                     setTraverse(true);
                 }
-            }
-            if (config.containsKey(ConfigKey.MODEL)) {
-                setModelVersion(config.getString(ConfigKey.MODEL));
-            }
+            }   
             if (config.containsKey(ConfigKey.STYLE)) {
                 setReportStyle(config.getString(ConfigKey.STYLE));
+            }
+            /* Deprecated issue-23, just comments out in case we want to revert back
+            if (config.containsKey(ConfigKey.MODEL)) {
+                setModelVersion(config.getString(ConfigKey.MODEL));
             }
             if (config.containsKey(ConfigKey.FORCE)) {
                 setForce(config.getBoolean(ConfigKey.FORCE));
             }
+            */
             if (config.containsKey(ConfigKey.CHECKSUM)) {
                 setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
             }
@@ -941,11 +948,13 @@ public class ValidateLauncher {
         if (!regExps.isEmpty()) {
             report.addParameter("   File Filters Used             " + regExps);
         }
+        /* Deprecated issue-23
         if (force) {
             report.addParameter("   Force Mode                    on");
         } else {
             report.addParameter("   Force Mode                    off");
         }
+        */
         if (checksumManifest != null) {
             report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
             report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
