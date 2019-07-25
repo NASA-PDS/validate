@@ -153,6 +153,9 @@ public class ValidateLauncher {
     
     /** Update register context products flag */
     private boolean updateRegisteredProducts;
+    
+    /** Flag to indicated deprecated flag was used **/
+    private boolean deprecatedFlagWarning;
 
 	/** The severity level and above to include in the report. */
     private ExceptionType severity;
@@ -235,7 +238,7 @@ public class ValidateLauncher {
         modelVersion = VersionInfo.getDefaultModelVersion();
         report = null;
         reportStyle = "full";
-        force = false;
+        force = true;
         regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
         schemaValidator = new SchemaValidator();
         schematronTransformer = new SchematronTransformer();
@@ -248,6 +251,7 @@ public class ValidateLauncher {
         registeredProducts = new HashMap<String, List<LidVid>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
+        deprecatedFlagWarning = false;
 
     }
 
@@ -308,8 +312,10 @@ public class ValidateLauncher {
                 setCatalogs(o.getValuesList());
             } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
                 setSchemas(o.getValuesList());
+                setForce(false);
             } else if (Flag.SCHEMATRON.getShortName().equals(o.getOpt())) {
                 setSchematrons(o.getValuesList());
+                setForce(false);
             } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
                 targetList.addAll(o.getValuesList());
             } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
@@ -321,14 +327,11 @@ public class ValidateLauncher {
                 }
                 setSeverity(value);
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
-                setRegExps((List<String>) o.getValuesList());
-            } else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
-                setModelVersion(o.getValue());
+                setRegExps((List<String>) o.getValuesList());       
             } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
                 setReportStyle(o.getValue());
-            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
-                setForce(true);
-            } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
+            }
+            else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
                 setChecksumManifest(o.getValue());
             } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
                 setManifestBasePath(o.getValue());
@@ -357,6 +360,15 @@ public class ValidateLauncher {
             } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
             	setUpdateRegisteredProducts(true);
             }
+            /** Deprecated per https://github.com/NASA-PDS-Incubator/validate/issues/23 **/
+            else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
+                setModelVersion(o.getValue());
+                deprecatedFlagWarning = true;
+            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
+                setForce(true);
+                deprecatedFlagWarning = true;
+            }
+            /** **/
         }
         if (!targetList.isEmpty()) {
             setTargets(targetList);
@@ -561,15 +573,16 @@ public class ValidateLauncher {
                 } else {
                     setTraverse(true);
                 }
-            }
-            if (config.containsKey(ConfigKey.MODEL)) {
-                setModelVersion(config.getString(ConfigKey.MODEL));
-            }
+            }   
             if (config.containsKey(ConfigKey.STYLE)) {
                 setReportStyle(config.getString(ConfigKey.STYLE));
             }
+            /** Deprecated per issue-23. Add deprecation warning message **/
+            if (config.containsKey(ConfigKey.MODEL)) {
+                deprecatedFlagWarning = true;
+            }
             if (config.containsKey(ConfigKey.FORCE)) {
-                setForce(config.getBoolean(ConfigKey.FORCE));
+                deprecatedFlagWarning = true;
             }
             if (config.containsKey(ConfigKey.CHECKSUM)) {
                 setChecksumManifest(config.getString(ConfigKey.CHECKSUM));
@@ -904,6 +917,11 @@ public class ValidateLauncher {
         if (reportFile != null) {
             report.setOutput(reportFile);
         }
+
+        if (this.deprecatedFlagWarning) {
+            report.enableDeprecatedFlagWarning();
+        }
+
         String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -941,11 +959,13 @@ public class ValidateLauncher {
         if (!regExps.isEmpty()) {
             report.addParameter("   File Filters Used             " + regExps);
         }
+        /* Deprecated issue-23
         if (force) {
             report.addParameter("   Force Mode                    on");
         } else {
             report.addParameter("   Force Mode                    off");
         }
+        */
         if (checksumManifest != null) {
             report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
             report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());

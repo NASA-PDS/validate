@@ -1,10 +1,43 @@
-target/
-.DS_Store
-*.log
-typescript
+# Object files
+*.o
+*.pkl
+*.pyc
+
+# Libraries
+*.lib
+*.a
+
+# Eclipse files
+.settings/
+*.project
+*.classpath
+
+# IntelliJ files
+.idea/
+*.iml
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Temporary files
+*~
+
+# other stuff
+*.xpr
+*.swp
+/bin/
 .*.swp
 *.sublime-*
 
-.idea
-*.iml
-
+# Java stuff
+*.javac
+.gwt/
+target/

@@ -50,7 +50,6 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));
         options.addOption(new ToolsOption(Flag.CONFIG));
         options.addOption(new ToolsOption(Flag.MAX_ERRORS));
-        options.addOption(new ToolsOption(Flag.FORCE));
         options.addOption(new ToolsOption(Flag.REGEXP));
         options.addOption(new ToolsOption(Flag.HELP));
         options.addOption(new ToolsOption(Flag.REPORT));
@@ -60,13 +59,16 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.SCHEMATRON));
         options.addOption(new ToolsOption(Flag.LOCAL));
         options.addOption(new ToolsOption(Flag.VERSION));
-        options.addOption(new ToolsOption(Flag.MODEL));
         options.addOption(new ToolsOption(Flag.STYLE));
         options.addOption(new ToolsOption(Flag.RULE));
         options.addOption(new ToolsOption(Flag.NO_DATA));
         options.addOption(new ToolsOption(Flag.SPOT_CHECK_DATA));
         options.addOption(new ToolsOption(Flag.ALLOW_UNLABELED_FILES));
         options.addOption(new ToolsOption(Flag.LATEST_JSON_FILE));
+        
+        /** DEPRECATED Options **/
+        options.addOption(new ToolsOption(Flag.FORCE));
+        options.addOption(new ToolsOption(Flag.MODEL));
     }
 
     /**
