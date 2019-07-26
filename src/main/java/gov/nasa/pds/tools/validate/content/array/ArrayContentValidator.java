@@ -111,6 +111,7 @@ public class ArrayContentValidator {
     } finally {
       arrayObject.closeChannel();
     }
+    System.out.println();
   }
   
   private void process(Array array, ArrayObject arrayObject, int[] dimensions, 
