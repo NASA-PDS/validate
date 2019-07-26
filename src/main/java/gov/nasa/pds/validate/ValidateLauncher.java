@@ -854,7 +854,7 @@ public class ValidateLauncher {
     }
 
     @SuppressWarnings("unchecked")
-    private void setRegisteredProducts() throws IOException {
+    private void setRegisteredProducts() throws Exception {
         
         List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
         
@@ -866,29 +866,33 @@ public class ValidateLauncher {
         URL url = null;
         ValidationProblem p1 = new ValidationProblem(
                 new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                        "number of Registered Products: " + jsonObjList.size()),
+                        "number of registered context products used for validation: " + jsonObjList.size()),
                 url);
         pList.add(p1);
         for (String jsonObj : jsonObjList) {
             lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
         }
         if(nonRegisteredProducts){
-            gson = new Gson();
-            JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
-            JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
-            List<String> jsonObjListN = gson.fromJson(arrayN, ArrayList.class);
-            ValidationProblem p2 = new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                            "number of Non Registered Products: " + jsonObjListN.size()),
-                    url);
-            pList.add(p2);
-            ValidationProblem pW = new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
-                            "This should be used for archive development only, and all context products need to be registered for a valid released archive bundle. "),
-                    url);
-            pList.add(pW);
-            for (String jsonObj : jsonObjListN) {
-                lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+            try {
+                gson = new Gson();
+                JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
+                JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
+                List<String> jsonObjListN = gson.fromJson(arrayN, ArrayList.class);
+                ValidationProblem p2 = new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                                "number of non-registered context products used for validation: " + jsonObjListN.size()),
+                        url);
+                pList.add(p2);
+                ValidationProblem pW = new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
+                                "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
+                        url);
+                pList.add(pW);
+                for (String jsonObj : jsonObjListN) {
+                    lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+                }
+            } catch (Exception e) {
+                throw new Exception("Invalid JSON File: Verify format and values match that in default JSON file.");
             }
             
         }
