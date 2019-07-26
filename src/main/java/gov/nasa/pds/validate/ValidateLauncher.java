@@ -37,7 +37,6 @@ import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.LidVid;
-//import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -128,9 +127,6 @@ import com.google.gson.stream.JsonWriter;
  */
 public class ValidateLauncher {
 
-    /** A manager for validation settings. */
-    // private SettingsManager settings = SettingsManager.INSTANCE;
-
     /** List of targets to validate. */
     private List<URL> targets;
 
@@ -153,7 +149,10 @@ public class ValidateLauncher {
     
     /** Update register context products flag */
     private boolean updateRegisteredProducts;
-    
+
+    /** user no register context products flag */
+    private boolean nonRegisteredProducts;
+
     /** Flag to indicated deprecated flag was used **/
     private boolean deprecatedFlagWarning;
 
@@ -215,8 +214,10 @@ public class ValidateLauncher {
     private boolean allowUnlabeledFiles;
 
     private File registeredProductsFile;
+    
+    private File nonRegisteredProductsFile;
 
-    private Map<String, List<LidVid>> registeredProducts;
+    private Map<String, List<LidVid>> registeredAndNonRegistedProducts;
 
     /**
      * Constructor.
@@ -248,7 +249,7 @@ public class ValidateLauncher {
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
         allowUnlabeledFiles = false;
-        registeredProducts = new HashMap<String, List<LidVid>>();
+        registeredAndNonRegistedProducts = new HashMap<String, List<LidVid>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
@@ -359,6 +360,14 @@ public class ValidateLauncher {
                 setAllowUnlabeledFiles(true);
             } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
             	setUpdateRegisteredProducts(true);
+            }else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
+                File nonRegProdJson = new File(o.getValue());
+                if (nonRegProdJson.exists()) {
+                    nonRegisteredProductsFile = nonRegProdJson;
+                } else {
+                    throw new Exception("The user No Registered Product context file does not exist: " + nonRegProdJson);
+                }
+                setNonRegisteredProducts(true);
             }
             /** Deprecated per https://github.com/NASA-PDS-Incubator/validate/issues/23 **/
             else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
@@ -401,54 +410,48 @@ public class ValidateLauncher {
         String endpoint = ToolInfo.getEndpoint();
         String query = ToolInfo.getQuery();
 
-//        System.out.println("Search Service url: " + url);
         SolrClient client = new HttpSolrClient.Builder(url).build();
         SolrQuery solrQuery = new SolrQuery(query);
         solrQuery.setRequestHandler("/" + endpoint);
         solrQuery.setStart(0);
         solrQuery.setParam("fl", "identifier, version_id");
 
-//        System.out.println("Query: " + solrQuery.getQuery());
-//        System.out.println("RequestHandler: " + solrQuery.getRequestHandler());
-
         QueryResponse resp;
-        ValidationProblem p = null;
+        List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
         try {
             resp = client.query(solrQuery);
             SolrDocumentList res = resp.getResults();
-            // System.out.println("get rows: " + res.size());
-//            System.out.println("NumFound: " + res.getNumFound());
-
             solrQuery.setRows((int) res.getNumFound());
             resp = client.query(solrQuery);
             res = resp.getResults();
-//            System.out.println("get all rows: " + res.size());
-
             parseJsonObjectWriteTofile(res);
 
             client.close();
-            
-//            System.out.println("============================");
-//            System.out.println();
-
-            p = new ValidationProblem(
+            ValidationProblem p1 = new ValidationProblem(
                     new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                    		"Successfully updated registered context products config file."),
+                    		"Successfully updated registered context products config file. "),
                     new URL(url));
+            pList.add(p1);
+            ValidationProblem p2 = new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                            "Number Found from the latest registered products: " + res.size()),
+                    new URL(url));
+            pList.add(p2);
             
         } catch (SolrServerException | IOException ex) {
         	try {
-	            p = new ValidationProblem(
+        	    ValidationProblem p = new ValidationProblem(
 	                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
 	                    		"Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
 	                    new URL(url));
+	            report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
         	} catch (Exception e) {
 		        e.printStackTrace();
 		    }
         }
         
         try {
-        	report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
+        	report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), pList);
         } catch (Exception e) {
         	e.printStackTrace();
         }
@@ -466,17 +469,12 @@ public class ValidateLauncher {
         }
 
         List<String> contextIDVer = new ArrayList<String>();
-        int count = 0;
         for (SolrDocument document : docs) {
             String id = (String) document.getFirstValue("identifier");
             String ver = (String) document.getFirstValue("version_id");
-
-            // System.out.println("id: " + id + "; ver: " + ver);
             contextIDVer.add(id + "::" + ver);
-            count++;
         }
-//        System.out.println("Number of records: " + count);
-
+        
         try {
             JsonWriter writer = new JsonWriter(
                     new FileWriter(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()));
@@ -612,7 +610,10 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
                 setUpdateRegisteredProducts(true);
             }
-
+            if (config.containsKey(ConfigKey.NONREGPROD_JSON_FILE)) {
+                nonRegisteredProductsFile = new File (config.getString(ConfigKey.NONREGPROD_JSON_FILE));
+                setNonRegisteredProducts(true);
+            }
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
         }
@@ -853,21 +854,68 @@ public class ValidateLauncher {
     }
 
     @SuppressWarnings("unchecked")
-    private void setRegisteredProducts() throws IOException {
+    private void setRegisteredProducts() throws Exception {
+        
+        List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
+        
         Gson gson = new Gson();
         JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
         JsonArray array = json.get("Product_Context").getAsJsonArray();
         List<LidVid> lidvids = new ArrayList<LidVid>();
         List<String> jsonObjList = gson.fromJson(array, ArrayList.class);
+        URL url = null;
+        ValidationProblem p1 = new ValidationProblem(
+                new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                        "number of registered context products used for validation: " + jsonObjList.size()),
+                url);
+        pList.add(p1);
         for (String jsonObj : jsonObjList) {
             lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
         }
-        this.registeredProducts.put("Product_Context", lidvids);
+        if(nonRegisteredProducts){
+            try {
+                gson = new Gson();
+                JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
+                JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
+                List<String> jsonObjListN = gson.fromJson(arrayN, ArrayList.class);
+                ValidationProblem p2 = new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                                "number of non-registered context products used for validation: " + jsonObjListN.size()),
+                        url);
+                pList.add(p2);
+                ValidationProblem pW = new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
+                                "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
+                        url);
+                pList.add(pW);
+                for (String jsonObj : jsonObjListN) {
+                    lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+                }
+            } catch (Exception e) {
+                throw new Exception("Invalid JSON File: Verify format and values match that in default JSON file.");
+            }
+            
+        }
+        ValidationProblem p3 = new ValidationProblem(
+                new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                        "Total number of Product Context: " + lidvids.size()),
+                url);
+        pList.add(p3);
+        //System.out.println(new Gson().toJson(lidvids));
+        try {
+            report.record(new URI(ValidateLauncher.class.getName()), pList);
+        } catch (URISyntaxException e) {
+            System.out.println(e.getMessage());
+        }
+        this.registeredAndNonRegistedProducts.put("Product_Context", lidvids);
     }
 
 	public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
 		this.updateRegisteredProducts = updateRegisteredProducts;
 	}
+	public void setNonRegisteredProducts(boolean nonRegisteredProducts) {
+        this.nonRegisteredProducts = nonRegisteredProducts;
+    }
 
     /**
      * Displays tool usage.
@@ -984,6 +1032,8 @@ public class ValidateLauncher {
         }
         report.addParameter("   Max Errors                    " + maxErrors);
         report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
+        if(nonRegisteredProductsFile != null)
+            report.addParameter("   Non Registered Contexts File  " + nonRegisteredProductsFile.toString());
         report.printHeader();
     }
 
@@ -1007,7 +1057,7 @@ public class ValidateLauncher {
                 validator.setCheckData(checkData);
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
-                validator.setRegisteredProducts(this.registeredProducts);
+                validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); //this map may include Non registered products  
                 if (!checksumManifest.isEmpty()) {
                     validator.setChecksumManifest(checksumManifest);
                 }

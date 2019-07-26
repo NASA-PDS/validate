@@ -142,7 +142,11 @@ public enum Flag {
      * Flag to download the latest Registered Context Products JSON file and
      * replace the existing file.
      */
-    LATEST_JSON_FILE("u", "latest-json-file", "download the latest Registered Context Productes JSON file and replace the existing file.");
+    LATEST_JSON_FILE("u", "update-context-products", "Update the Context Product information used for validating context product references in labels."),
+    
+    NONREGPROD_JSON_FILE(null, "add-context-products", "dir/files", String.class, true,
+            "Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. " +
+            "WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive.");
 
     /** The short name. */
     private final String shortName;

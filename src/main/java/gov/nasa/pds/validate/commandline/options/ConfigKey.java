@@ -115,5 +115,7 @@ public class ConfigKey {
      * Property to download the latest Registered Context Products JSON file and
      * replace the existing file.
      */
-    public static final String LATEST_JSON_FILE = "validate.latestJsonFile";
+    public static final String LATEST_JSON_FILE = "validate.updateContextProducts";
+    
+    public static final String NONREGPROD_JSON_FILE = "validate.addContextProducts";
 }
