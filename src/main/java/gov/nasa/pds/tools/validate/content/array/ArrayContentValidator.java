@@ -115,6 +115,10 @@ public class ArrayContentValidator {
   
   private void process(Array array, ArrayObject arrayObject, int[] dimensions, 
       int[] position, int depth, int maxDepth) throws IOException {
+    // Print something to indicate the program is still executing since content
+    // validation can take some time
+    System.out.print(".");
+
     for (int i = 0; i < dimensions[depth];) {
       if( depth < maxDepth ) { //max depth not reached, do another recursion
         position[depth] = i;

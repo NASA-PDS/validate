@@ -82,7 +82,6 @@ public class JSONReport extends Report {
     writer = null;
     jsonWriter = null;
     writer = new PrintWriter(new OutputStreamWriter(System.out));
-    System.out.println("refreshReport " + messageSummary.size());
     jsonWriter = new JsonWriter(writer);
     jsonWriter.setIndent("  ");
   }
