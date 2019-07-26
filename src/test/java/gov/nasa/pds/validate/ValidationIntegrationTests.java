@@ -11,6 +11,7 @@ import java.io.FileReader;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
@@ -40,10 +41,10 @@ class ValidationIntegrationTests {
     /**
      * @throws java.lang.Exception
      */
-    @AfterEach
-    void tearDown() throws Exception {
-        FileUtils.forceDelete(this.outputData);
-    }
+//    @AfterEach
+//    void tearDown() throws Exception {
+//        FileUtils.forceDelete(this.outputData);
+//    }
 
     @Test
     void testPDS543() {
@@ -89,6 +90,53 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             assertNotEquals(reportJson.get("productLevelValidationResults"), expectedJson.get("productLevelValidationResults"),
                     expected.getAbsolutePath() + " and " + report.getAbsolutePath() + " match when they should not.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testGithub28() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github28");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report.json");
+            File expected = new File(testPath + File.separator + "report.expected.json");
+
+            // First test that we get an invalid context product error
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    testPath + File.separator + "test_add_context_products.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            // Make sure we have 1 error as expected
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 1, "One error expected for invalid context reference test.");
+
+            // Now test with added context products
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--add-context-products", testPath + File.separator + "new_context.json",
+                    testPath + File.separator + "test_add_context_products.xml",
+                    
+                    };
+            ValidateLauncher.main(args2);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "No errors expected for add additional context test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
