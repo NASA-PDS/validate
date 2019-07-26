@@ -31,8 +31,8 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>gov.nasa.pds</groupId>
@@ -122,26 +122,26 @@ POSSIBILITY OF SUCH DAMAGE.
         <filtering>true</filtering>
       </resource>
       <resource>
-	<filtering>true</filtering>
-	<targetPath>gov/nasa/pds/validate/util</targetPath>
-	<directory>src/main/resources</directory>
-	<includes>
-	  <include>validate.properties</include>
-	</includes>
+  <filtering>true</filtering>
+  <targetPath>gov/nasa/pds/validate/util</targetPath>
+  <directory>src/main/resources</directory>
+  <includes>
+    <include>validate.properties</include>
+  </includes>
       </resource>
     </resources>
 
     <plugins>
       <plugin>
-	<groupId>org.sonatype.plugins</groupId>
-	<artifactId>nexus-staging-maven-plugin</artifactId>
-	<version>1.6.7</version>
-	<extensions>true</extensions>
-	<configuration>
+  <groupId>org.sonatype.plugins</groupId>
+  <artifactId>nexus-staging-maven-plugin</artifactId>
+  <version>1.6.7</version>
+  <extensions>true</extensions>
+  <configuration>
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
-	</configuration>
+  </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -173,7 +173,7 @@ POSSIBILITY OF SUCH DAMAGE.
           </execution>
         </executions>
         <configuration>
-	  <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
+    <revisionOnScmFailure>unknownbuild</revisionOnScmFailure>
           <format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
           <items>
             <item>timestamp</item>
@@ -203,7 +203,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-	<artifactId>maven-compiler-plugin</artifactId>
+  <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
@@ -234,10 +234,10 @@ POSSIBILITY OF SUCH DAMAGE.
       <id>snapshots-repo</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
-	<enabled>false</enabled>
+  <enabled>false</enabled>
       </releases>
       <snapshots>
-	<enabled>true</enabled>
+  <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -332,9 +332,9 @@ POSSIBILITY OF SUCH DAMAGE.
       <version>1.7.2</version>
     </dependency>
     <dependency>
-    	<groupId>commons-io</groupId>
-    	<artifactId>commons-io</artifactId>
-    	<version>2.4</version>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
     </dependency>
    <dependency>
       <groupId>org.slf4j</groupId>
@@ -381,25 +381,37 @@ POSSIBILITY OF SUCH DAMAGE.
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
     </dependency>
-	<dependency>
+    <dependency>
       <groupId>org.apache.solr</groupId>
-	  <artifactId>solr-solrj</artifactId>
-	  <version>7.7.2</version>
-	</dependency>
+      <artifactId>solr-solrj</artifactId>
+      <version>7.7.2</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.5.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.5.1</version>
+        <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
       <version>${pds4-jparser.version}</version>
       <scope>compile</scope>
       <exclusions>
-	    <exclusion>
+      <exclusion>
           <groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
-	      <artifactId>vicario</artifactId>
+        <artifactId>vicario</artifactId>
         </exclusion>
-	    <exclusion>
-	      <groupId>com.google.guava</groupId>
-	      <artifactId>guava</artifactId>
-	    </exclusion>
+      <exclusion>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+      </exclusion>
       </exclusions>
     </dependency>
     <dependency>
