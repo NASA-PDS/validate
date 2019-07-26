@@ -2,7 +2,7 @@
   "title": "PDS Validation Tool Report",
   "configuration": {
     "version": "1.16.0-SNAPSHOT",
-    "date": "2019-07-26T05:59:36Z"
+    "date": "2019-07-26T15:35:15Z"
   },
   "parameters": {
     "targets": "[file:/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/src/test/resources/PDS-543/ladee_mission_bundle_SIP_4col_manifest_v1.0.xml]",
@@ -11,9 +11,27 @@
     "fileFiltersUsed": "[*.xml, *.XML]",
     "dataContentValidation": "on",
     "maxErrors": "100000",
-    "registeredContextsFile": "/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/validate-1.16.0-SNAPSHOT/resources/registered_context_products.json"
+    "registeredContextsFile": "/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/src/main/resources/util/registered_context_products.json"
   },
   "productLevelValidationResults": [
+    {
+      "status": "PASS",
+      "label": "gov.nasa.pds.validate.ValidateLauncher",
+      "messages": [
+        {
+          "severity": "INFO",
+          "type": "info.validation.general",
+          "message": "number of registered context products used for validation: 1875"
+        },
+        {
+          "severity": "INFO",
+          "type": "info.validation.general",
+          "message": "Total number of Product Context: 1875"
+        }
+      ],
+      "fragments": [],
+      "dataContents": []
+    },
     {
       "status": "FAIL",
       "label": "file:/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/src/test/resources/PDS-543/ladee_mission_bundle_SIP_4col_manifest_v1.0.xml",
