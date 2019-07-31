@@ -32,7 +32,7 @@
         
         <File_Area_SIP_Deep_Archive>
             <File>
-                <file_name>ladee_mission_bundle_SIP_4col_manifest_v1.0.tab</file_name>
+                <file_name>foo.tab</file_name>
                 <creation_date_time>2019-07-17T07:35:41.6612Z</creation_date_time>
                 <file_size unit="byte">2418</file_size>
                 <records>13</records>

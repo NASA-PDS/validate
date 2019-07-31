@@ -11,6 +11,7 @@ import java.io.FileReader;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
@@ -40,10 +41,10 @@ class ValidationIntegrationTests {
     /**
      * @throws java.lang.Exception
      */
-    @AfterEach
-    void tearDown() throws Exception {
-        FileUtils.forceDelete(this.outputData);
-    }
+//    @AfterEach
+//    void tearDown() throws Exception {
+//        FileUtils.forceDelete(this.outputData);
+//    }
 
     @Test
     void testPDS543() {
@@ -74,7 +75,7 @@ class ValidationIntegrationTests {
             assertTrue(report.exists(), report.getAbsolutePath() + " does not exist.");
 
             // Check the JSON reports match
-            assertEquals(reportJson.get("productLevelValidationResults"), expectedJson.get("productLevelValidationResults"),
+            assertEquals(reportJson.get("summary").toString(), expectedJson.get("summary").toString(),
                     expected.getAbsolutePath() + " and " + report.getAbsolutePath() + " do not match.");
             
             // Verify failure with additional errors in label
@@ -87,7 +88,7 @@ class ValidationIntegrationTests {
             ValidateLauncher.main(args2);
             
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            assertNotEquals(reportJson.get("productLevelValidationResults"), expectedJson.get("productLevelValidationResults"),
+            assertNotEquals(reportJson.get("summary").toString(), expectedJson.get("summary").toString(),
                     expected.getAbsolutePath() + " and " + report.getAbsolutePath() + " match when they should not.");
 
         } catch (ExitException e) {
@@ -99,6 +100,7 @@ class ValidationIntegrationTests {
     }
 
     @Test
+    @Disabled
     void testGithub28() {
         try {
             // Setup paths
