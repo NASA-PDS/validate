@@ -11,7 +11,6 @@ import java.io.FileReader;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
@@ -41,10 +40,10 @@ class ValidationIntegrationTests {
     /**
      * @throws java.lang.Exception
      */
-//    @AfterEach
-//    void tearDown() throws Exception {
-//        FileUtils.forceDelete(this.outputData);
-//    }
+    @AfterEach
+    void tearDown() throws Exception {
+        FileUtils.forceDelete(this.outputData);
+    }
 
     @Test
     void testPDS543() {

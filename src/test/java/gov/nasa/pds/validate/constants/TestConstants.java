@@ -2,9 +2,6 @@ package gov.nasa.pds.validate.constants;
 
 import java.io.File;
 
-import org.junit.jupiter.api.Disabled;
-
-@Disabled
 public final class TestConstants {
 
     public static final String TEST_DATA_DIR = System.getProperty("user.dir") + File.separator + "src/test/resources"; 
