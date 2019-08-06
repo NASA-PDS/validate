@@ -35,7 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 <project name="Validate Tool">
   <bannerLeft>
     <src>images/pds4_logo.png</src>
-    <href>https://pds-cm.jpl.nasa.gov/pds4/</href>
+    <href>images/pds4_logo.png</href>
   </bannerLeft>
 
   <bannerRight>
@@ -46,7 +46,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <body>
     <links>
-      <item name="Validate" href="https://pds-cm.jpl.nasa.gov/pds4/preparation/validate/index.html" />
+      <item name="Validate" href="https://nasa-pds-incubator.github.io/validate/index.html" />
     </links>
 
     <menu name="Software Documentation">
@@ -56,8 +56,8 @@ POSSIBILITY OF SUCH DAMAGE.
     </menu>
 
     <menu name="Download">
-      <item name="Binary Package (tar.gz)" href="ftp://pds.nasa.gov/pub/toplevel/2010/preparation/${project.artifactId}-${project.version}-bin.tar.gz"/>
-      <item name="Binary Package (zip)" href="ftp://pds.nasa.gov/pub/toplevel/2010/preparation/${project.artifactId}-${project.version}-bin.zip"/>
+      <item name="Binary Package (tar.gz)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.tar.gz"/>
+      <item name="Binary Package (zip)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
     </menu>
 
     <menu ref="reports"/>
