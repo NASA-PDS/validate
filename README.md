@@ -19,12 +19,36 @@ following commands:
 % mvn site
 % mvn package
 ```
-# Release
-Here is the procedure for releasing the software both in Github and pushing the JARs to the public Maven Central repo.
+# Operational Release
 
-## Pre-Requisites
-* Make sure you have your GPG Key created and sent to server.
-* Make sure you have your .settings configured correctly for GPG:
+A release candidate should be created after the community has determined that a release should occur. These steps should be followed when generating a release candidate and when completing the release.
+
+## Update Version Numbers
+
+Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
+```
+mvn versions:set -DnewVersion=$VERSION
+```
+
+## Update Changelog
+Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
+```
+github_changelog_generator --future-release v$VERSION
+```
+
+## Commit Changes
+Commit changes using following template commit message:
+```
+[RELEASE] Validate v$VERSION
+```
+
+## Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
+
+```
+mvn clean site deploy -P release
+```
+
+Note: If you have issues with GPG, be sure to make sure you've created your GPG key, sent to server, and have the following in your `~/.m2/settings.xml`:
 ```
 <profiles>
   <profile>
@@ -38,35 +62,24 @@ Here is the procedure for releasing the software both in Github and pushing the 
     </properties>
   </profile>
 </profiles>
+
 ```
 
-## Operational Release
-1. Checkout the dev branch.
+## Complete Release in Github
+Currently this process is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
 
-2. Version the software:
-```
-mvn versions:set -DnewVersion=1.2.0
-```
 
-3. Deploy software to Sonatype Maven repo:
-```
-# Operational release
-mvn clean site deploy -P release
-```
+## Update Versions For Development
 
-4. Create pull request from dev -> master and merge.
-
-5. Tag release in Github
-
-6. Update version to next snapshot:
+Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin, e.g.:
 ```
 mvn versions:set -DnewVersion=1.3.0-SNAPSHOT
 ```
 
-## SNAPSHOT Release
-1. Checkout the dev branch.
+# Snapshot Release
 
-2. Deploy software to Sonatype Maven repo:
+Deploy software to Sonatype SNAPSHOTS Maven repo:
+
 ```
 # Operational release
 mvn clean site deploy
@@ -74,7 +87,7 @@ mvn clean site deploy
 
 # Maven JAR Dependency Reference
 
-## Official Releases
+## Operational Releases
 https://search.maven.org/search?q=g:gov.nasa.pds%20AND%20a:validate&core=gav
 
 ## Snapshots

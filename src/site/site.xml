@@ -35,7 +35,7 @@ POSSIBILITY OF SUCH DAMAGE.
 <project name="Validate Tool">
   <bannerLeft>
     <src>images/pds4_logo.png</src>
-    <href>images/pds4_logo.png</href>
+    <href>https://github.com/NASA-PDS-Incubator/${project.artifactId}</href>
   </bannerLeft>
 
   <bannerRight>
@@ -46,18 +46,24 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <body>
     <links>
-      <item name="Validate" href="https://nasa-pds-incubator.github.io/validate/index.html" />
+      <item name="Validate" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}" />
     </links>
 
-    <menu name="Software Documentation">
+    <menu name="Documentation">
       <item name="About Validate Tool" href="index.html"/>
       <item name="Installation" href="install/index.html"/>
       <item name="Operation" href="operate/index.html"/>
     </menu>
 
-    <menu name="Download">
-      <item name="Binary Package (tar.gz)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.tar.gz"/>
-      <item name="Binary Package (zip)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
+    <menu name="Downloads">
+      <item name="Current Release (tar.gz)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.tar.gz"/>
+      <item name="Current Release (zip)" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
+      <item name="Past Releases" href="https://pds-engineering.jpl.nasa.gov/content/pds4-software"/>
+    </menu>
+
+    <menu name="Change Log">
+      <item name="Since v1.15.1" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/blob/v${project.version}/CHANGELOG.md#v${project.version}" />
+      <item name="Prior to v1.15.1" href="changes-report.html" />
     </menu>
 
     <menu ref="reports"/>
