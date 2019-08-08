@@ -65,16 +65,33 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ```
 
-## Complete Release in Github
-Currently this process is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
+## Push Tagged Release
+```
+git tag v$VERSION
+git push --tags
+```
 
+## Deploy Site to Github Pages
+
+From cloned repo:
+```
+git checkout gh-pages
+rsync -av target/site/* .
+git add .
+git commit -m "Deploy v$VERSION docs"
+git push origin gh-pages
+```
 
 ## Update Versions For Development
 
 Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin, e.g.:
 ```
-mvn versions:set -DnewVersion=1.3.0-SNAPSHOT
+mvn versions:set -DnewVersion=1.16.0-SNAPSHOT
 ```
+
+## Complete Release in Github
+Currently the process to create more formal release notes and attach Assets is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
+
 
 # Snapshot Release
 
