@@ -77,6 +77,7 @@ From cloned repo:
 ```
 git checkout gh-pages
 rsync -av target/site/* .
+rm -fr target
 git add .
 git commit -m "Deploy v$VERSION docs"
 git push origin gh-pages
