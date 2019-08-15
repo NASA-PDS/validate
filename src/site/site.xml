@@ -46,7 +46,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <body>
     <links>
-      <item name="Validate" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}" />
+      <item name="Validate Github Repo" href="https://github.com/NASA-PDS-Incubator/${project.artifactId}" />
     </links>
 
     <menu name="Documentation">
