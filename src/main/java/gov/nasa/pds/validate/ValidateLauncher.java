@@ -209,6 +209,9 @@ public class ValidateLauncher {
 
     /** Flag to enable/disable data content validation. */
     private boolean checkData;
+    
+    /** Flag to enable/disable product level validation. */
+    private boolean skipProductValidation;
 
     private long MAX_ERRORS = 100000;
 
@@ -253,6 +256,7 @@ public class ValidateLauncher {
         transformedSchematrons = new ArrayList<Transformer>();
         resolver = new CachedEntityResolver();
         checkData = true;
+        skipProductValidation = false;
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
         allowUnlabeledFiles = false;
@@ -360,6 +364,8 @@ public class ValidateLauncher {
                 setValidationRule(o.getValue());
             } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
                 setCheckData(false);
+            } else if (Flag.SKIP_PRODUCT_VALIDATION.getLongName().equals(o.getLongOpt())) {
+            	setSkipProductValidation(true);
             } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
                 long value = 0;
                 try {
@@ -641,6 +647,9 @@ public class ValidateLauncher {
                     setCheckData(true);
                 }
             }
+            if (config.containsKey(ConfigKey.SKIP_PRODUCT_VALIDATION)) {
+                setSkipProductValidation(true);
+            }
             if (config.containsKey(ConfigKey.MAX_ERRORS)) {
                 setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));
             }
@@ -908,6 +917,10 @@ public class ValidateLauncher {
         this.checkData = flag;
     }
 
+    public void setSkipProductValidation(boolean flag) {
+    	this.skipProductValidation = flag;
+    }
+    
     public void setMaxErrors(long value) {
         this.maxErrors = value;
     }
@@ -1117,6 +1130,12 @@ public class ValidateLauncher {
         } else {
             report.addParameter("   Data Content Validation       off");
         }
+        
+        if (skipProductValidation) {
+        	report.addParameter("   Product Level Validation      on");
+        } else {
+            report.addParameter("   Product Level Validation      off");
+        }
         if (spotCheckData != -1) {
             report.addParameter("   Data Spot Check               " + spotCheckData);
         }
@@ -1153,15 +1172,9 @@ public class ValidateLauncher {
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
                 validator.setValidateContext(validateContext);
-                
-                validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); // this
-                                                                                        // map
-                                                                                        // may
-                                                                                        // include
-                                                                                        // Non
-                                                                                        // registered
-                                                                                        // products
-                if (!checksumManifest.isEmpty()) {                   
+                validator.setSkipProductValidation(skipProductValidation);
+                validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); //this map may include Non registered products  
+                if (!checksumManifest.isEmpty()) {
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());

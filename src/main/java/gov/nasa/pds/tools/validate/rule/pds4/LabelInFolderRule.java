@@ -46,11 +46,14 @@ public class LabelInFolderRule extends AbstractValidationRule {
   @ValidationTest
   public void validateLabelsInFolder() {
     ValidationRule labelRule = getContext().getRuleManager().findRuleByName("pds4.label");
+    
     Crawler crawler = getContext().getCrawler();
     try {
       for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
         try {
-          labelRule.execute(getChildContext(t.getUrl()));
+		    // issue42 - to skip Product level validation
+        	if (!getContext().getSkipProductValidation()) 
+        	  labelRule.execute(getChildContext(t.getUrl()));
         } catch (Exception e) {
           reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
         }

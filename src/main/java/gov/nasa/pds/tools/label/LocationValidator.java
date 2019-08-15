@@ -180,7 +180,7 @@ public class LocationValidator {
 			validationType = validationRule;
 		}
 		ValidationRule rule;
-		
+
 		if (validationType == null) {
 		  URI uri = null;
 		  try {
@@ -303,6 +303,11 @@ public class LocationValidator {
     public void  setValidateContext(boolean flag) {
         ruleContext.setValidateContext(flag);
     }
+
+	public void setSkipProductValidation(boolean flag) {
+	  ruleContext.setSkipProductValidation(flag);
+	  //or labelValidator.setSkipProductValidation(flag)
+	}
 	
 	/**
 	 * Implements a simple problem handler that prints problems to the 

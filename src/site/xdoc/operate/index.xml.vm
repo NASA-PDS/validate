@@ -176,7 +176,6 @@ POSSIBILITY OF SUCH DAMAGE.
                                          is Warning and above.
  -V,--version                            Display application version.
  -x,--schema &lt;schema files&gt;              Specify schema files.
-
       </source>
       
     </section>

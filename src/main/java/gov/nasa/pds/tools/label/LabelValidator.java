@@ -354,8 +354,7 @@ public class LabelValidator {
         cachedValidatorHandler = schemaFactory.newSchema().newValidatorHandler();
       } else {
         cachedValidatorHandler = validatingSchema.newValidatorHandler();
-      }
-      
+      }    
       
       // Capture messages in a container
       if (handler != null) {
@@ -364,7 +363,6 @@ public class LabelValidator {
         cachedValidatorHandler.setErrorHandler(eh);
 
       }
-      
       // Finally parse and validate the file
       xml = docBuilder.newDocument();
       cachedParser.setContentHandler(new DocumentCreator(xml));
