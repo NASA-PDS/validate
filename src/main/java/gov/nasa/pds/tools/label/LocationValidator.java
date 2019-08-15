@@ -180,7 +180,7 @@ public class LocationValidator {
 			validationType = validationRule;
 		}
 		ValidationRule rule;
-		
+
 		if (validationType == null) {
 		  URI uri = null;
 		  try {
@@ -298,6 +298,11 @@ public class LocationValidator {
 	
 	public void setAllowUnlabeledFiles(boolean flag) {
 	  ruleContext.setAllowUnlabeledFiles(flag);
+	}
+	
+	public void setSkipProductValidation(boolean flag) {
+	  ruleContext.setSkipProductValidation(flag);
+	  //or labelValidator.setSkipProductValidation(flag)
 	}
 	
 	/**

@@ -104,6 +104,10 @@ public class RuleContext extends ContextBase {
    */
   public static final String REGISTERED_PRODUCTS_KEY = "validate.registered-products";
   
+  /**
+   * Key used to ignore(skip) product level validation.
+   */
+  public static final String SKIP_PRODUCT_VALIDATION_KEY = "validate.skip-product-validation";
   
   private boolean rootTarget = false;
 
@@ -342,5 +346,13 @@ public class RuleContext extends ContextBase {
 	
 	public void setRegisteredProducts(Map<String, List<LidVid>> products) {
 	  putContextValue(REGISTERED_PRODUCTS_KEY, products);
+	}
+	
+	public boolean getSkipProductValidation() {
+	  return getContextValue(SKIP_PRODUCT_VALIDATION_KEY, Boolean.class);
+	}
+	
+	public void setSkipProductValidation(boolean flag) {
+	  putContextValue(SKIP_PRODUCT_VALIDATION_KEY, flag);
 	}
 }

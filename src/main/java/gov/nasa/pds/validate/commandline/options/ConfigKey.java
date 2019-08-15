@@ -118,4 +118,7 @@ public class ConfigKey {
     public static final String LATEST_JSON_FILE = "validate.updateContextProducts";
     
     public static final String NONREGPROD_JSON_FILE = "validate.addContextProducts";
+    
+    
+    public static final String SKIP_PRODUCT_VALIDATION = "validate.ignoreProductValidation";
 }
