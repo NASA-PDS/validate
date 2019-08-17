@@ -311,6 +311,7 @@ public class ValidateLauncher {
                 setTraverse(false);
             } else if (Flag.CATALOG.getShortName().equals(o.getOpt())) {
                 setCatalogs(o.getValuesList());
+                setForce(false);
             } else if (Flag.SCHEMA.getShortName().equals(o.getOpt())) {
                 setSchemas(o.getValuesList());
                 setForce(false);
@@ -1212,6 +1213,11 @@ public class ValidateLauncher {
         try {
             CommandLine cmdLine = parse(args);
             query(cmdLine);
+
+            if (targets.size() == 0) { // Throw error if no targets are specified
+                throw new InvalidOptionException("No files specified for validation. Check your paths and use -t flag to explicitly denote the set of target data.");
+            }
+
             Map<URL, String> checksumManifestMap = new HashMap<URL, String>();
             if (checksumManifest != null) {
                 if (manifestBasePath == null) {
@@ -1238,7 +1244,6 @@ public class ValidateLauncher {
                 }
             }
             setupReport();
-            
             // download the latest Registered Context Products JSON file and
             // replace the existing file.
             if (updateRegisteredProducts) {
