@@ -5,8 +5,10 @@ package gov.nasa.pds.validate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -38,9 +40,9 @@ class ValidationIntegrationTests {
         FileUtils.forceMkdir(this.outputData);
     }
     
-    /**
-     * @throws java.lang.Exception
-     */
+//    /**
+//     * @throws java.lang.Exception
+//     */
 //    @AfterEach
 //    void tearDown() throws Exception {
 //        FileUtils.forceDelete(this.outputData);
@@ -53,7 +55,7 @@ class ValidationIntegrationTests {
             System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/PDS-543");
             String outFilePath = TestConstants.TEST_OUT_DIR;
-            File report = new File(outFilePath + File.separator + "report.json");
+            File report = new File(outFilePath + File.separator + "report_PDS543.json");
             File expected = new File(testPath + File.separator + "report.expected.json");
 
             String[] args = {
@@ -101,14 +103,82 @@ class ValidationIntegrationTests {
 
     @Test
     @Disabled
+    void testGithub71() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github71_1.json");
+            String catFile =outFilePath + File.separator + "catalog.xml";
+
+            // Create catalog file
+            String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+                    "<!--\n" + 
+                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
+                    "s/entity/release/1.1/catalog.dtd\">\n" + 
+                    "-->\n" + 
+                    "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
+                    "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "</catalog>";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(catFile));
+            writer.write(catText);
+            writer.close();
+            
+            // First test that we get an invalid context product error
+            String[] args = {
+//                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    testPath + File.separator + "ELE_MOM.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            JsonObject message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(0).getAsJsonObject();
+
+            System.out.println(message);
+            assertEquals(message.get("messageType").getAsString(), "error.label.unresolvable_resource", "error.label.unresolvable_resource expected.");
+            assertEquals(message.get("total").getAsInt(), 1, "One error expected.");
+
+            report = new File(outFilePath + File.separator + "report_github71_2.json");
+            // First test that we get an invalid context product error
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-C", catFile,
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "ELE_MOM.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "Zero errors expected.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    @Disabled
+    // For some reason the logging isn't working properly so ignoring this test for now.
     void testGithub28() {
         try {
             // Setup paths
             System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github28");
             String outFilePath = TestConstants.TEST_OUT_DIR;
-            File report = new File(outFilePath + File.separator + "report.json");
-            File expected = new File(testPath + File.separator + "report.expected.json");
+            File report = new File(outFilePath + File.separator + "report_github28_1.json");
 
             // First test that we get an invalid context product error
             String[] args = {
@@ -126,11 +196,12 @@ class ValidationIntegrationTests {
             assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 1, "One error expected for invalid context reference test.");
 
             // Now test with added context products
+            report = new File(outFilePath + File.separator + "report_github28_2.json");
             String[] args2 = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     "--add-context-products", testPath + File.separator + "new_context.json",
-                    testPath + File.separator + "test_add_context_products.xml",
+                    "-t" , testPath + File.separator + "test_add_context_products.xml",
                     
                     };
             ValidateLauncher.main(args2);
