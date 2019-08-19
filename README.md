@@ -23,11 +23,25 @@ following commands:
 
 A release candidate should be created after the community has determined that a release should occur. These steps should be followed when generating a release candidate and when completing the release.
 
+## Update Registered Context Products JSON
+
+Until we automate this, we must manually generate this file:
+```
+VERSION=1.15.0
+mvn clean package
+tar -xvzf target/validate-${VERSION}-bin.tar.gz
+validate-${VERSION}/bin/validate -u
+cp validate-${VERSION}/resources/registered_context_products.json src/main/resources/util/
+git add src/main/resources/util/
+# Will commit later on
+```
+
 ## Update Version Numbers
 
 Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 ```
 mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
 ```
 
 ## Update Changelog
@@ -39,7 +53,7 @@ github_changelog_generator --future-release v$VERSION
 ## Commit Changes
 Commit changes using following template commit message:
 ```
-git add pom.xml CHANGELOG.md
+git add CHANGELOG.md
 git commit -m "[RELEASE] Validate v$VERSION"
 ```
 
