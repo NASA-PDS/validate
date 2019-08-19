@@ -36,97 +36,109 @@ import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
 /**
- * Class that checks that context products referenced in a product label exist
- * in a supplied list of registered context products at the Engineering Node.
+ * Class that checks that context products referenced in a product label
+ * exist in a supplied list of registered context products at the
+ * Engineering Node.
  * 
  * @author mcayanan
  *
  */
 public class ContextProductReferenceValidationRule extends AbstractValidationRule {
-    private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
-
-    /**
-     * XPath to the internal references within a PDS4 data product label.
-     * 
-     * At this time, we'll only be getting the referenced Context Products. So,
-     * we'll look for the following reference_types:
-     * 
-     * - is_* (is_instrument, is_facility, is_telescope, etc.) -
-     * collection_to_context - document_to_* except for document_to_associate -
-     * *_to_target - data_to_investigation
-     */
-    private final String INTERNAL_REF_XPATH = "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and *:reference_type[namespace-uri()='"
-            + PDS4_NS + "'] = 'collection_to_context'] | " + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and *:reference_type[namespace-uri()='" + PDS4_NS + "'] = 'data_to_investigation'] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'document_to_') and "
-            + "*:reference_type[namespace-uri()='" + PDS4_NS + "'] != 'document_to_associate']";
-
-    @Override
-    public boolean isApplicable(String location) {
-        if (Utility.isDir(location) || !Utility.canRead(location)) {
-            return false;
-        }
-
-        if (!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
-            return false;
-        }
-        return true;
+  private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
+  
+  /**
+   * XPath to the internal references within a PDS4 data product label.
+   * 
+   * At this time, we'll only be getting the referenced Context Products. So,
+   * we'll look for the following reference_types:
+   * 
+   * - is_* (is_instrument, is_facility, is_telescope, etc.)
+   * - collection_to_context
+   * - document_to_* except for document_to_associate
+   * - *_to_target
+   * - data_to_investigation
+   */
+  private final String INTERNAL_REF_XPATH =
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | " + 
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_facility')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_telescope')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_airborne')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_laboratory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_observatory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_context')]";
+  
+  @Override
+  public boolean isApplicable(String location) {
+    if (Utility.isDir(location) || !Utility.canRead(location)) {
+      return false;
     }
-
-    @ValidationTest
-    public void checkContextReferences() throws XPathExpressionException {
-        URI uri = null;
-        try {
-            uri = getTarget().toURI();
-        } catch (URISyntaxException e) {
-            // Should never happen
-        }
-        ValidationTarget target = new ValidationTarget(getTarget());
-        Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
-        DOMSource source = new DOMSource(label);
-        source.setSystemId(uri.toString());
-        XPathFactory xpathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
-        NodeList references = (NodeList) xpathFactory.newXPath().evaluate(INTERNAL_REF_XPATH, source,
-                XPathConstants.NODESET);
-        for (int i = 0; i < references.getLength(); i++) {
-            NodeList children = references.item(i).getChildNodes();
-            for (int j = 0; children != null && j < children.getLength(); j++) {
-                if ("lidvid_reference".equalsIgnoreCase(children.item(j).getLocalName())
-                        || "lid_reference".equalsIgnoreCase(children.item(j).getLocalName())) {
-                    SourceLocation locator = (SourceLocation) children.item(j)
-                            .getUserData(SourceLocation.class.getName());
-                    String lidvid = children.item(j).getTextContent();
-                    System.out.println("lidvid from children: " + lidvid);
-                    if (!getContext().getRegisteredProducts().get("Product_Context")
-                            .contains(parseIdentifier(lidvid))) {
-                        getListener().addProblem(new ValidationProblem(
-                                new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
-                                        "'" + lidvid + "' could not be found in the "
-                                                + "supplied list of registered context products."),
-                                target, locator.getLineNumber(), -1));
-                    } else {
-                        getListener().addProblem(new ValidationProblem(
-                                new ProblemDefinition(ExceptionType.INFO, ProblemType.CONTEXT_REFERENCE_FOUND,
-                                        "'" + lidvid + "' was found in the "
-                                                + "supplied list of registered context products."),
-                                target, locator.getLineNumber(), -1));
-                    }
-                }
-            }
-        }
+    
+    if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
+      return false;
     }
+    return true;
+  }
 
-    private LidVid parseIdentifier(String identifier) {
-        if (identifier.indexOf("::") != -1) {
-            return new LidVid(identifier.split("::")[0], identifier.split("::")[1], null, null);
-        } else {
-            return new LidVid(identifier.split("::")[0]);
-        }
+  @ValidationTest
+  public void checkContextReferences() throws XPathExpressionException {
+    URI uri = null;
+    try {
+      uri = getTarget().toURI();
+    } catch (URISyntaxException e) {
+      // Should never happen
     }
-
+    ValidationTarget target = new ValidationTarget(getTarget());
+    Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT,
+        Document.class);
+    DOMSource source = new DOMSource(label);
+    source.setSystemId(uri.toString());
+    XPathFactory xpathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
+    NodeList references = (NodeList) xpathFactory.newXPath().evaluate(
+        INTERNAL_REF_XPATH, source, XPathConstants.NODESET);
+    for (int i = 0; i < references.getLength(); i++) {
+      NodeList children = references.item(i).getChildNodes();
+      for (int j = 0; children != null && j < children.getLength(); j++) {
+        if ("lidvid_reference".equalsIgnoreCase(children.item(j).getLocalName()) ||
+            "lid_reference".equalsIgnoreCase(children.item(j).getLocalName())) {
+          SourceLocation locator = (SourceLocation) children.item(j)
+              .getUserData(SourceLocation.class.getName());
+          String lidvid = children.item(j).getTextContent();
+          if (!getContext().getRegisteredProducts().get("Product_Context")
+              .contains(parseIdentifier(lidvid))) {
+            getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(ExceptionType.ERROR,
+                    ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                    "'" + lidvid + "' could not be found in the "
+                        + "supplied list of registered context products."),
+                target,
+                locator.getLineNumber(), 
+                -1));
+          } else {
+            getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(ExceptionType.INFO,
+                    ProblemType.CONTEXT_REFERENCE_FOUND,
+                    "'" + lidvid + "' was found in the "
+                        + "supplied list of registered context products."),
+                target,
+                locator.getLineNumber(),
+                -1));
+          }          
+        }
+      }
+    }
+  }
+  
+  private LidVid parseIdentifier(String identifier) {
+      if (identifier.indexOf("::") != -1) {
+          return new LidVid(identifier.split("::")[0], identifier.split("::")[1], null, null);
+      } else {
+          return new LidVid(identifier.split("::")[0]);
+      }
+  }
+  
 }
