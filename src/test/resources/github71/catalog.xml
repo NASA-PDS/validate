@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" 
+  "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+
+  <!-- rewriteSystem and rewriteURI are used to map a starting URL to a local file path
+       replace the user-specific file path with your own. The URLs should remain the same
+       as they are the paths used for release PDS4 dictionaries.
+       
+       Note: These will not work when the schemas are released into development area -->
+
+  <rewriteSystem systemIdStartString="http://pds.nasa.gov/pds4/"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+
+  <rewriteURI uriStartString="http://pds.nasa.gov/pds4/"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+
+  <rewriteURI uriStartString="https://pds.nasa.gov/pds4/"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+
+
+  <!-- Everything after this is just around as examples of other ways to configure the catalog.xml -->
+
+  <!-- To configure this catalog file for use on your own system, set the "xml:base"
+    attribute in the "group" element below to the directory containing the XML and
+    Schematron schemas for your PDS4 products. -->
+  <!--  <group xml:base="file:/Users/jpadams/Documents/workspace/img-pds4-workspace/schema/">
+    
+    <!-\- XML schema file mappings -\->
+    <system systemId="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1201.xsd" uri="pds/v1/PDS4_PDS_1400.xsd"/>
+    <system systemId="http://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1400.xsd" uri="img/v1/PDS4_IMG_1400.xsd"/>
+    <system systemId="http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1400.xsd" uri="disp/v1/PDS4_DISP_1400.xsd"/>
+    <system systemId="http://pds.nasa.gov/pds4/mission/insight/v0/PDS4_INSIGHT_1400.xsd" uri="mission/insight/v0/PDS4_INSIGHT_1400.xsd"/>
+    <system systemId="http://pds.nasa.gov/pds4/geom/v0/geom_0610_adc.xsd" uri="geom/v0/geom_0610_adc.xsd"/>
+    
+    <!-\- Schematron schema file mappings -\->
+    <system systemId="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1400.sch" uri="pds/v1/PDS4_PDS_1400.sch"/>
+    <system systemId="http://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1400.sch" uri="img/v1/PDS4_IMG_1400.sch"/>
+    <system systemId="http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1400.sch" uri="disp/v1/PDS4_DISP_1400.sch"/>
+    <system systemId="http://pds.nasa.gov/pds4/mission/insight/v0/PDS4_INSIGHT_1400.sch" uri="mission/insight/v0/PDS4_INSIGHT_1400.scg"/>
+    <system systemId="http://pds.nasa.gov/pds4/geom/v0/geom_0600.sch" uri="geom/v0/geom_0600.sch"/>
+    
+    <uri name="http://pds.nasa.gov/pds4/pds/v1" uri="pds/v1/PDS4_PDS_1400.xsd"/>
+    <uri name="http://pds.nasa.gov/pds4/img/v1" uri="img/v1/PDS4_IMG_1400.xsd"/>
+    <uri name="http://pds.nasa.gov/pds4/disp/v1" uri="disp/v1/PDS4_DISP_1400.xsd"/>
+    <uri name="http://pds.nasa.gov/pds4/mission/insight/v0" uri="mission/insight/v0/PDS4_INSIGHT_1400.xsd"/>
+    <uri name="http://pds.nasa.gov/pds4/geom/v0" uri="geom/v0/geom_0610_adc.xsd"/> 
+  </group>-->
+
+  <!--  <group xml:base="file:/Users/jpadams/Documents/workspace/img-oxy-workspace/schema/">
+    <uri name="https://pds.nasa.gov/pds4/pds/v1" uri="pds/v1/PDS4_PDS_1500.xsd"/>
+    <uri name="https://pds.nasa.gov/pds4/schema/develop/img" uri="img/v1/PDS4_IMG_1500.xsd"/>
+    <uri name="https://pds.nasa.gov/pds4/schema/develop/geom" uri="img/v1/PDS4_GEOM_1500.xsd"/>
+    <uri name="https://pds.nasa.gov/pds4/schema/develop/mission/insight"
+      uri="img/v1/PDS4_INSIGHT_1000.xsd"/>
+  </group>-->
+
+  <!--
+  <rewriteSystem systemIdStartString="http://pds.nasa.gov/pds4/schema/develop/mission/insight"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/mission/insight/v1"/>
+    
+  <rewriteURI uriStartString="http://pds.nasa.gov/pds4/schema/develop/mission/insight"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/mission/insight/v1"/>
+    
+  <rewriteSystem systemIdStartString="http://pds.nasa.gov/pds4/pds/v1"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/pds/v1"/>
+    
+  <rewriteURI uriStartString="http://pds.nasa.gov/pds4/test/v1"
+    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/pds/v1"/>-->
+
+</catalog>
