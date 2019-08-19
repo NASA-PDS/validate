@@ -32,6 +32,7 @@ mvn clean package
 tar -xvzf target/validate-${VERSION}-bin.tar.gz
 validate-${VERSION}/bin/validate -u
 cp validate-${VERSION}/resources/registered_context_products.json src/main/resources/util/
+rm -fr validate-${VERSION}
 git add src/main/resources/util/
 # Will commit later on
 ```
@@ -48,12 +49,12 @@ git add pom.xml
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
 github_changelog_generator --future-release v$VERSION
+git add CHANGELOG.md
 ```
 
 ## Commit Changes
 Commit changes using following template commit message:
 ```
-git add CHANGELOG.md
 git commit -m "[RELEASE] Validate v$VERSION"
 ```
 
