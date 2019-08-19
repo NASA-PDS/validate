@@ -39,7 +39,8 @@ github_changelog_generator --future-release v$VERSION
 ## Commit Changes
 Commit changes using following template commit message:
 ```
-[RELEASE] Validate v$VERSION
+git add pom.xml CHANGELOG.md
+git commit -m "[RELEASE] Validate v$VERSION"
 ```
 
 ## Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
@@ -79,7 +80,6 @@ git checkout gh-pages
 
 # Create specific version site
 mv target/site $VERSION
-rm -fr target
 
 # Sync latest version to ops 
 rsync -av $VERSION/* .
@@ -92,6 +92,7 @@ git push origin gh-pages
 
 Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin, e.g.:
 ```
+git checkout master
 VERSION=1.16.0-SNAPSHOT
 mvn versions:set -DnewVersion=$VERSION
 git add pom.xml
@@ -101,6 +102,8 @@ git push -u origin master
 
 ## Complete Release in Github
 Currently the process to create more formal release notes and attach Assets is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
+
+*NOTE: Be sure to add the `tar.gz` and `zip` from the `target/` directory to the release assets, otherwise the downloads will not work.*
 
 
 # Snapshot Release
