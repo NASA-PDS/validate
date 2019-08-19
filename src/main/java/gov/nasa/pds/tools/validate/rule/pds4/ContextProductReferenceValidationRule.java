@@ -61,10 +61,16 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
   private final String INTERNAL_REF_XPATH =
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | " + 
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
-    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and *:reference_type[namespace-uri()='" + PDS4_NS + "'] = 'collection_to_context'] | " + 
-    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and *:reference_type[namespace-uri()='" + PDS4_NS + "'] = 'data_to_investigation'] | " + 
-    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'document_to_') and " + 
-    "*:reference_type[namespace-uri()='" + PDS4_NS + "'] != 'document_to_associate']";
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_facility')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_telescope')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_airborne')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_laboratory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_observatory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_context')]";
   
   @Override
   public boolean isApplicable(String location) {
