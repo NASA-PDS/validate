@@ -26,17 +26,25 @@ public class LidVid {
 
   /** The version. */
   private String version;
+  
+  /** The type. */
+  private String type;
+
+  /** The name. */
+  private String name;
 
   /** Flag to indicate if a version exists. */
   private boolean hasVersion;
 
   public LidVid(String lid) {
-    this(lid, null);
+    this(lid, null,null, null);
   }
 
-  public LidVid(String lid, String version) {
+  public LidVid(String lid, String version, String type, String name) {
     this.lid = lid;
     this.version = version;
+    this.type = type;
+    this.name = name;
     if (this.version == null) {
       hasVersion = false;
     } else {
@@ -52,6 +60,14 @@ public class LidVid {
     return this.version;
   }
 
+  public String getType() {
+      return this.type;
+    }
+
+    public String getName() {
+      return this.name;
+    }
+    
   public boolean hasVersion() {
     return this.hasVersion;
   }
