@@ -38,6 +38,7 @@
 *.sublime-*
 .DS_Store
 .metadata
+pom.xml.versionsBackup
 
 # Java stuff
 *.javac
