@@ -37,6 +37,7 @@
 .*.swp
 *.sublime-*
 *.DS_Store
+pom.xml.versionsBackup
 
 # Java stuff
 *.javac
