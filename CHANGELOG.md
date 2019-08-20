@@ -1,6 +1,17 @@
 # Change Log
 
-## [v1.15.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.15.2) (2019-08-18)
+## [v1.15.3](https://github.com/NASA-PDS-Incubator/validate/tree/v1.15.3) (2019-08-19)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.2...v1.15.3)
+
+**Fixed bugs:**
+
+- Validate execution script throws arguments error with v1.15.1 [\#74](https://github.com/NASA-PDS-Incubator/validate/issues/74)
+
+**Merged pull requests:**
+
+- Issue \#74: Update tar/zip assemblies to ignore sources jars [\#75](https://github.com/NASA-PDS-Incubator/validate/pull/75) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.15.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.15.2) (2019-08-19)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.1...v1.15.2)
 
 **Implemented enhancements:**
