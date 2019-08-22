@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.constants.TestConstants;
 import gov.nasa.pds.validate.test.util.Utility;
 
@@ -111,7 +112,6 @@ class ValidationIntegrationTests {
             File report = new File(outFilePath + File.separator + "report_github28_1.json");
 
             // First test that we get an invalid context product error
-            System.out.println(testPath + File.separator + "test_add_context_products.xml");
             String[] args = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
@@ -140,6 +140,61 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
             assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "No errors expected for add additional context test.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub62() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github62");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github62_1.json");
+            
+            // First test that we get an invalid context product error
+            String[] args = {
+                    "-v1",
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "ele_mom_tblChar.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+
+            assertEquals(infos, 3, "info.label.context_ref_found info messages expected.");
+
+            // Now let's test for additional context products in another product
+            report = new File(outFilePath + File.separator + "report_github62_2.json");
+            String[] args2 = {
+                    "-v1",
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "spacecraft.orex_1.1.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+
+            assertEquals(count, 7, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -186,13 +241,9 @@ class ValidationIntegrationTests {
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            
-            // TODO Bug due to executing Github28 prior to this. It will still attempt context resolution after being unable to parse
-            // the label properly, so for some reason the code still use the context from previous run
-            JsonObject message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(1).getAsJsonObject();
 
-            assertEquals(message.get("messageType").getAsString(), "error.label.unresolvable_resource", "error.label.unresolvable_resource expected.");
-            assertEquals(message.get("total").getAsInt(), 1, "One error expected.");
+            int errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
+            assertEquals(errors, 1, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message expected.");
 
             report = new File(outFilePath + File.separator + "report_github71_2.json");
             // First test that we get an invalid context product error
@@ -208,13 +259,32 @@ class ValidationIntegrationTests {
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "Zero errors expected.");
+            errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
+            assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message not expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    int getMessageCount(JsonObject reportJson, String messageTypeName) {
+        int i = 0;
+        JsonObject message = null;
+        int count = 0;
+        while (true) {
+            try {
+                message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(i).getAsJsonObject();
+                if (message.get("messageType").getAsString().equals(messageTypeName)) {
+                    count = message.get("total").getAsInt();
+                    return count;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return count;
+            }
+            i++;
         }
     }
     
