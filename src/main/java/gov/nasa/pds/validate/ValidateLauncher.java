@@ -420,7 +420,7 @@ public class ValidateLauncher {
         solrQuery.setStart(0);
         solrQuery.setParam("fl",
                 "identifier, " + "version_id, " + "data_product_type, " + "target_name, " + "instrument_name, "
-                        + "instrument_host_name, " + "resource_name, " + "investigation_name" + "target_type, "
+                        + "instrument_host_name, " + "resource_name, " + "investigation_name, " + "target_type, "
                         + "instrument_type, " + "instrument_host_type, " + "resource_type, " + "investigation_type");
 
         QueryResponse resp;
@@ -912,13 +912,13 @@ public class ValidateLauncher {
                     + "\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
                     + registeredProductsFile);
         }
-
+        
         if (nonRegisteredProducts) {
+            
             try {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
-
                 ValidationProblem p2 = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
                                 "number of non-registered context products used for validation: " + arrayN.size()),
@@ -933,18 +933,17 @@ public class ValidateLauncher {
                 for (JsonElement jsonElmN : arrayN) {
 
                     JsonObject jsonObjN = jsonElmN.getAsJsonObject();
-                    String lidvidString = jsonObjN.get("lidvid").getAsString();
-                    String typeString = "N/A";
+                    String lidvidStringN = jsonObjN.get("lidvid").getAsString();
+                    String typeStringN = "N/A";
                     if (!jsonObjN.get("type").isJsonNull()) {
-                        typeString = jsonObjN.get("type").getAsString();
+                        typeStringN = jsonObjN.get("type").getAsString();
                     }
-                    String nameString = "N/A";
+                    String nameStringN = "N/A";
                     if (!jsonObjN.get("name").isJsonNull()) {
-                        nameString = jsonObjN.get("name").getAsString();
+                        nameStringN = jsonObjN.get("name").getAsString();
                     }
-
-                    lidvids.add(new LidVid(lidvidString.split("::")[0], lidvidString.split("::")[1], typeString,
-                            nameString));
+                    lidvids.add(new LidVid(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
+                            nameStringN));
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage()
@@ -964,6 +963,7 @@ public class ValidateLauncher {
             System.out.println(e.getMessage());
         }
         this.registeredAndNonRegistedProducts.put("Product_Context", lidvids);
+        //System.out.println("Total of LIDVID in registeredAndNonRegistedProducts: " + lidvids.size());
     }
 
     public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
@@ -1103,10 +1103,9 @@ public class ValidateLauncher {
         ValidatorFactory factory = ValidatorFactory.getInstance();
         factory.setModelVersion(modelVersion);
         factory.setDocumentValidators(docValidators);
-        System.out.println("targets here! ");
         for (URL target : targets) {
             try {
-                System.out.println("target: " + target);
+                
                 LocationValidator validator = factory.newInstance(target);
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
@@ -1122,10 +1121,7 @@ public class ValidateLauncher {
                                                                                         // Non
                                                                                         // registered
                                                                                         // products
-                System.out.println("validator.setRegisteredProducts? ");
-                if (!checksumManifest.isEmpty()) {
-                    checksumManifest.keySet().iterator().forEachRemaining(System.out::println);
-                    checksumManifest.values().iterator().forEachRemaining(System.out::println);
+                if (!checksumManifest.isEmpty()) {                   
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());
@@ -1148,9 +1144,7 @@ public class ValidateLauncher {
                 if (!transformedSchematrons.isEmpty()) {
                     validator.setSchematrons(transformedSchematrons);
                 }
-                //System.out.println("target: " + target);
                 validator.validate(monitor, target);
-                System.out.println("validator.validate!");
                 monitor.endValidation();
             } catch (Exception e) {
                 ValidationProblem p = null;
@@ -1335,14 +1329,9 @@ public class ValidateLauncher {
                     }
                 }
             }
-            System.out.println("invalidSchemas: " + invalidSchemas);
-            System.out.println("invalidSchematron: " + invalidSchematron);
-            System.out.println("checksumManifestMap: " + checksumManifestMap.toString());
             if (!(invalidSchemas) && !(invalidSchematron)) {
                 setRegisteredProducts();
-                System.out.println("setRegisteredProducts!");
                 doValidation(checksumManifestMap);
-                System.out.println("doValidation!");
             }
             printReportFooter();
         } catch (Exception e) {

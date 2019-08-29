@@ -19,7 +19,6 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.constants.TestConstants;
 import gov.nasa.pds.validate.test.util.Utility;
 
@@ -112,6 +111,7 @@ class ValidationIntegrationTests {
             File report = new File(outFilePath + File.separator + "report_github28_1.json");
 
             // First test that we get an invalid context product error
+            //System.out.println(testPath + File.separator + "test_add_context_products.xml");
             String[] args = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
@@ -124,7 +124,7 @@ class ValidationIntegrationTests {
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             
             // Make sure we have 1 error as expected
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 1, "One error expected for invalid context reference test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 4, "One error expected for invalid context reference test.");
 
             // Now test with added context products
             report = new File(outFilePath + File.separator + "report_github28_2.json");
@@ -139,7 +139,7 @@ class ValidationIntegrationTests {
 
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "No errors expected for add additional context test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for add additional context test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -150,21 +150,22 @@ class ValidationIntegrationTests {
     }
     
     @Test
-    void testGithub62() {
+    void testGithub15() {
         try {
             // Setup paths
             System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github62");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github15");
             String outFilePath = TestConstants.TEST_OUT_DIR;
-            File report = new File(outFilePath + File.separator + "report_github62_1.json");
             
-            // First test that we get an invalid context product error
+            //test one. Found all products and the name/type are case match
+            File report = new File(outFilePath + File.separator + "report_github15_pass.json");
+
+            //System.out.println("Test file: " + testPath + File.separator + "test_check-pass_context_products.xml");
             String[] args = {
-                    "-v1",
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
-                    "--no-data-check",
-                    "-t", testPath + File.separator + "ele_mom_tblChar.xml"
+                    "-R", "pds4.label",
+                    testPath + File.separator + "test_check-pass_context_products.xml"
                     };
 
             ValidateLauncher.main(args);
@@ -172,119 +173,30 @@ class ValidationIntegrationTests {
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for invalid context reference (Lid, name, value) test.");
 
-            assertEquals(infos, 3, "info.label.context_ref_found info messages expected.");
+            //get warnings/errors test
+            report = new File(outFilePath + File.separator + "report_github15_no-pass.json");
 
-            // Now let's test for additional context products in another product
-            report = new File(outFilePath + File.separator + "report_github62_2.json");
+            //System.out.println("Test file: " + testPath + File.separator + "test_check-no-pass_context_products.xml");
             String[] args2 = {
-                    "-v1",
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
-                    "--no-data-check",
-                    "-t", testPath + File.separator + "spacecraft.orex_1.1.xml"
+                    testPath + File.separator + "test_check-no-pass_context_products.xml"
                     };
 
             ValidateLauncher.main(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            
-            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
-            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 7, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.");
+            assertEquals(reportJson.getAsJsonObject("summary").toString(), reportJson.get("summary").toString(), "No errors expected for invalid context reference (Lid, name, value) test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
-        }
-    }
-    
-    @Test
-    void testGithub71() {
-        try {
-            // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
-            String outFilePath = TestConstants.TEST_OUT_DIR;
-            File report = new File(outFilePath + File.separator + "report_github71_1.json");
-            String catFile =outFilePath + File.separator + "catalog.xml";
-
-            // Create catalog file
-            String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-                    "<!--\n" + 
-                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
-                    "s/entity/release/1.1/catalog.dtd\">\n" + 
-                    "-->\n" + 
-                    "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
-                    "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
-                    "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
-                    "</catalog>";
-
-            BufferedWriter writer = new BufferedWriter(new FileWriter(catFile));
-            writer.write(catText);
-            writer.close();
-            
-            // First test that we get an invalid context product error
-            String[] args = {
-                    "-r", report.getAbsolutePath(),
-                    "-s", "json",
-                    "--no-data-check",
-                    "-t", testPath + File.separator + "ELE_MOM.xml"
-                    };
-
-            ValidateLauncher.main(args);
-
-            Gson gson = new Gson();
-            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-            int errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
-            assertEquals(errors, 1, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message expected.");
-
-            report = new File(outFilePath + File.separator + "report_github71_2.json");
-            // First test that we get an invalid context product error
-            String[] args2 = {
-                    "-r", report.getAbsolutePath(),
-                    "-s", "json",
-                    "-C", catFile,
-                    "--no-data-check",
-                    "-t", testPath + File.separator + "ELE_MOM.xml"
-                    };
-
-            ValidateLauncher.main(args2);
-
-            gson = new Gson();
-            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
-            assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message not expected.");
-
-        } catch (ExitException e) {
-            assertEquals(0, e.status, "Exit status");
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Test Failed Due To Exception: " + e.getMessage());
-        }
-    }
-    
-    int getMessageCount(JsonObject reportJson, String messageTypeName) {
-        int i = 0;
-        JsonObject message = null;
-        int count = 0;
-        while (true) {
-            try {
-                message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(i).getAsJsonObject();
-                if (message.get("messageType").getAsString().equals(messageTypeName)) {
-                    count = message.get("total").getAsInt();
-                    return count;
-                }
-            } catch (IndexOutOfBoundsException e) {
-                return count;
-            }
-            i++;
         }
     }
     

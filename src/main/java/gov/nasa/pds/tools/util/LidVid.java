@@ -21,82 +21,90 @@ package gov.nasa.pds.tools.util;
  */
 public class LidVid {
 
-  /** The logical identifier. */
-  private String lid;
+    /** The logical identifier. */
+    private String lid;
 
-  /** The version. */
-  private String version;
-  
-  /** The type. */
-  private String type;
+    /** The version. */
+    private String version;
 
-  /** The name. */
-  private String name;
+    /** The type. */
+    private String type;
 
-  /** Flag to indicate if a version exists. */
-  private boolean hasVersion;
+    /** The name. */
+    private String name;
 
-  public LidVid(String lid) {
-    this(lid, null,null, null);
-  }
+    /** Flag to indicate if a version exists. */
+    private boolean hasVersion;
 
-  public LidVid(String lid, String version, String type, String name) {
-    this.lid = lid;
-    this.version = version;
-    this.type = type;
-    this.name = name;
-    if (this.version == null) {
-      hasVersion = false;
-    } else {
-      hasVersion = true;
+    public LidVid(String lid) {
+        this(lid, null, null, null);
     }
-  }
 
-  public String getLid() {
-    return this.lid;
-  }
+    public LidVid(String lid, String version, String type, String name) {
+        this.lid = lid;
+        this.version = version;
+        this.type = type;
+        this.name = name;
+        if (this.version == null) {
+            hasVersion = false;
+        } else {
+            hasVersion = true;
+        }
+        // System.out.println(getLid() + ", " + getVersion() + ", " + getName()
+        // + ", " + getType());
+    }
 
-  public String getVersion() {
-    return this.version;
-  }
+    public String getLid() {
+        return this.lid;
+    }
 
-  public String getType() {
-      return this.type;
+    public String getVersion() {
+        return this.version;
+    }
+
+    public String getType() {
+        return this.type;
     }
 
     public String getName() {
-      return this.name;
+        return this.name;
     }
-    
-  public boolean hasVersion() {
-    return this.hasVersion;
-  }
 
-  public String toString() {
-    String identifier = this.lid;
-    if (hasVersion) {
-      identifier += "::" + this.version;
+    public boolean hasVersion() {
+        return this.hasVersion;
     }
-    return identifier;
-  }
 
-  /**
-   * Determines where 2 LIDVIDs are equal.
-   *
-   */
-  public boolean equals(Object o) {
-    boolean isEqual = false;
-    LidVid lidvid = (LidVid) o;
-    if (this.lid.equals(lidvid.getLid())) {
-      if (this.hasVersion) {
-        if (lidvid.hasVersion()
-            && this.version.equals(lidvid.getVersion())) {
-          isEqual = true;
+    public String toString() {
+        String identifier = this.lid;
+        if (hasVersion) {
+            identifier += "::" + this.version;
         }
-      } else {
-        isEqual = true;
-      }
+        return identifier;
     }
-    return isEqual;
-  }
+
+    /**
+     * Determines where 2 LIDVIDs are equal.
+     *
+     */
+    public boolean equals(Object o) {
+        boolean isEqual = false;
+        LidVid lidvid = (LidVid) o;
+
+        // if(lidvid.getName().equals("N/A"))
+        // System.out.println("obj 1: " + lidvid.getLid() + ", " +
+        // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
+        // lidvid.getType());
+
+        // Compare Lid and/or version only
+        if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
+            if (this.hasVersion) {
+                if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+                    isEqual = true;
+                }
+            } else {
+                isEqual = true;
+            }
+        }
+        return isEqual;
+    }
 }
