@@ -226,7 +226,7 @@ class ValidationIntegrationTests {
 
             int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
 
-            assertEquals(infos, 3, "info.label.context_ref_found info messages expected.");
+            assertEquals(infos, 2, "info.label.context_ref_found info messages expected.");
 
             // Now let's test for additional context products in another product
             report = new File(outFilePath + File.separator + "report_github62_2.json");
@@ -246,7 +246,7 @@ class ValidationIntegrationTests {
             int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
             count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 7, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.");
+            assertEquals(count, 8, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
