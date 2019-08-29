@@ -49,6 +49,10 @@ POSSIBILITY OF SUCH DAMAGE.
       <includes>
         <include>*.jar</include>
       </includes>
+      <excludes>
+        <exclude>*-sources.jar</exclude>
+        <exclude>*-test-sources.jar</exclude>
+      </excludes>
     </fileSet>
     <fileSet>
       <directory>src/main/resources/bin</directory>

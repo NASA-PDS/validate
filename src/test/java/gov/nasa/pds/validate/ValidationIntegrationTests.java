@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.constants.TestConstants;
 import gov.nasa.pds.validate.test.util.Utility;
 
@@ -197,6 +198,145 @@ class ValidationIntegrationTests {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub62() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github62");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github62_1.json");
+            
+            // First test that we get an invalid context product error
+            String[] args = {
+                    "-v1",
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "ele_mom_tblChar.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+
+            assertEquals(infos, 3, "info.label.context_ref_found info messages expected.");
+
+            // Now let's test for additional context products in another product
+            report = new File(outFilePath + File.separator + "report_github62_2.json");
+            String[] args2 = {
+                    "-v1",
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "spacecraft.orex_1.1.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+
+            assertEquals(count, 7, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub71() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github71_1.json");
+            String catFile =outFilePath + File.separator + "catalog.xml";
+
+            // Create catalog file
+            String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+                    "<!--\n" + 
+                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
+                    "s/entity/release/1.1/catalog.dtd\">\n" + 
+                    "-->\n" + 
+                    "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
+                    "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "</catalog>";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(catFile));
+            writer.write(catText);
+            writer.close();
+            
+            // First test that we get an invalid context product error
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "ELE_MOM.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
+            assertEquals(errors, 1, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message expected.");
+
+            report = new File(outFilePath + File.separator + "report_github71_2.json");
+            // First test that we get an invalid context product error
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-C", catFile,
+                    "--no-data-check",
+                    "-t", testPath + File.separator + "ELE_MOM.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
+            assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message not expected.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    int getMessageCount(JsonObject reportJson, String messageTypeName) {
+        int i = 0;
+        JsonObject message = null;
+        int count = 0;
+        while (true) {
+            try {
+                message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(i).getAsJsonObject();
+                if (message.get("messageType").getAsString().equals(messageTypeName)) {
+                    count = message.get("total").getAsInt();
+                    return count;
+                }
+            } catch (IndexOutOfBoundsException e) {
+                return count;
+            }
+            i++;
         }
     }
     

@@ -44,6 +44,7 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  *
  */
 public class ContextProductReferenceValidationRule extends AbstractValidationRule {
+<<<<<<< issue_15
     private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
     /**
@@ -91,6 +92,55 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
             return false;
         }
         return true;
+=======
+  private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
+  
+  /**
+   * XPath to the internal references within a PDS4 data product label.
+   * 
+   * At this time, we'll only be getting the referenced Context Products. So,
+   * we'll look for the following reference_types:
+   * 
+   * - is_* (is_instrument, is_facility, is_telescope, etc.)
+   * - collection_to_context
+   * - document_to_* except for document_to_associate
+   * - *_to_target
+   * - data_to_investigation
+   */
+  private final String INTERNAL_REF_XPATH =
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | " + 
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_facility')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_telescope')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_airborne')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_laboratory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_observatory')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_context')]";
+  
+  @Override
+  public boolean isApplicable(String location) {
+    if (Utility.isDir(location) || !Utility.canRead(location)) {
+      return false;
+    }
+    
+    if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
+      return false;
+    }
+    return true;
+  }
+
+  @ValidationTest
+  public void checkContextReferences() throws XPathExpressionException {
+    URI uri = null;
+    try {
+      uri = getTarget().toURI();
+    } catch (URISyntaxException e) {
+      // Should never happen
+>>>>>>> master
     }
 
     @ValidationTest

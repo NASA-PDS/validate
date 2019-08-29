@@ -19,12 +19,52 @@ following commands:
 % mvn site
 % mvn package
 ```
-# Release
-Here is the procedure for releasing the software both in Github and pushing the JARs to the public Maven Central repo.
+# Operational Release
 
-## Pre-Requisites
-* Make sure you have your GPG Key created and sent to server.
-* Make sure you have your .settings configured correctly for GPG:
+A release candidate should be created after the community has determined that a release should occur. These steps should be followed when generating a release candidate and when completing the release.
+
+## Update Registered Context Products JSON
+
+Until we automate this, we must manually generate this file:
+```
+VERSION=1.15.0
+mvn clean package
+tar -xvzf target/validate-${VERSION}-bin.tar.gz
+validate-${VERSION}/bin/validate -u
+cp validate-${VERSION}/resources/registered_context_products.json src/main/resources/util/
+rm -fr validate-${VERSION}
+git add src/main/resources/util/
+# Will commit later on
+```
+
+## Update Version Numbers
+
+Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
+```
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+```
+
+## Update Changelog
+Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
+```
+github_changelog_generator --future-release v$VERSION
+git add CHANGELOG.md
+```
+
+## Commit Changes
+Commit changes using following template commit message:
+```
+git commit -m "[RELEASE] Validate v$VERSION"
+```
+
+## Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
+
+```
+mvn clean site deploy -P release
+```
+
+Note: If you have issues with GPG, be sure to make sure you've created your GPG key, sent to server, and have the following in your `~/.m2/settings.xml`:
 ```
 <profiles>
   <profile>
@@ -38,35 +78,53 @@ Here is the procedure for releasing the software both in Github and pushing the 
     </properties>
   </profile>
 </profiles>
+
 ```
 
-## Operational Release
-1. Checkout the dev branch.
-
-2. Version the software:
+## Push Tagged Release
 ```
-mvn versions:set -DnewVersion=1.2.0
+git tag v$VERSION
+git push --tags
 ```
 
-3. Deploy software to Sonatype Maven repo:
+## Deploy Site to Github Pages
+
+From cloned repo:
 ```
-# Operational release
-mvn clean site deploy -P release
+git checkout gh-pages
+
+# Create specific version site
+mv target/site $VERSION
+
+# Sync latest version to ops 
+rsync -av $VERSION/* .
+git add .
+git commit -m "Deploy v$VERSION docs"
+git push origin gh-pages
 ```
 
-4. Create pull request from dev -> master and merge.
+## Update Versions For Development
 
-5. Tag release in Github
-
-6. Update version to next snapshot:
+Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin, e.g.:
 ```
-mvn versions:set -DnewVersion=1.3.0-SNAPSHOT
+git checkout master
+VERSION=1.16.0-SNAPSHOT
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+git commit -m "Update version for $VERSION development"
+git push -u origin master
 ```
 
-## SNAPSHOT Release
-1. Checkout the dev branch.
+## Complete Release in Github
+Currently the process to create more formal release notes and attach Assets is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
 
-2. Deploy software to Sonatype Maven repo:
+*NOTE: Be sure to add the `tar.gz` and `zip` from the `target/` directory to the release assets, otherwise the downloads will not work.*
+
+
+# Snapshot Release
+
+Deploy software to Sonatype SNAPSHOTS Maven repo:
+
 ```
 # Operational release
 mvn clean site deploy
@@ -74,7 +132,7 @@ mvn clean site deploy
 
 # Maven JAR Dependency Reference
 
-## Official Releases
+## Operational Releases
 https://search.maven.org/search?q=g:gov.nasa.pds%20AND%20a:validate&core=gav
 
 ## Snapshots

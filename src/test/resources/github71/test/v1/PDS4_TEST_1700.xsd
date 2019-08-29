@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ============================================================ -->
+<!-- NameSpace identification                                     -->
+<!--        (1) the global namespace (pds)                        -->
+<!--        (2) the locally defined namespace (dph)               -->
+<!--                                                              -->
+<!--   - each namespace is further identified by release          -->
+<!-- ============================================================ -->       
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  targetNamespace="http://pds.nasa.gov/pds4/test/v1"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:test="http://pds.nasa.gov/pds4/test/v1" 
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified" version="1.7.0.0">
+
+  <xsd:annotation>
+    <xsd:documentation> The puropse of this schema is to support the 
+      definition of locally defined attributes / classes used by  
+      the DPH example products 
+    </xsd:documentation>
+  </xsd:annotation>
+
+
+  <xsd:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">   
+    <xsd:annotation>
+      <xsd:documentation>This import is done so the type definitions in 
+        this file can build on the base types. 
+      </xsd:documentation>
+    </xsd:annotation>
+  </xsd:import>
+  
+
+  <!-- ============================================ -->
+  <!-- Atribute: test:spacecraft_clock_start_count   -->
+  <!-- ============================================ -->
+  <xsd:element name="spacecraft_clock_start_count" type="test:spacecraft_clock_start_count"/>
+
+  <xsd:simpleType name="spacecraft_clock_start_count">
+    <xsd:restriction base="pds:ASCII_Short_String_Collapsed">
+       <xsd:minLength value="1"/>
+      <xsd:maxLength value="30"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- ============================================ -->
+  <!-- Atribute: test:spacecraft_clock_stop_count    -->
+  <!-- ============================================ -->
+  <xsd:element name="spacecraft_clock_stop_count" type="test:spacecraft_clock_stop_count"/>
+  
+  <xsd:simpleType name="spacecraft_clock_stop_count">
+    <xsd:restriction base="pds:ASCII_Short_String_Collapsed">
+      <xsd:minLength value="1"/>
+      <xsd:maxLength value="30"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>
