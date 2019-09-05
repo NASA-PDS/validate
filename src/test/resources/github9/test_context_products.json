@@ -1,0 +1,6 @@
+{
+     "Product_Context": [
+		  "urn:esa:psa:context:instrument_host:spacecraft.test::1.0",
+		  "urn:esa:psa:context:instrument:test.spacecraft::1.0"
+     ]
+}

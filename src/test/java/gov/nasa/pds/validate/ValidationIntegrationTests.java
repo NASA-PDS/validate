@@ -270,6 +270,41 @@ class ValidationIntegrationTests {
         }
     }
     
+    @Test
+    void testGithub9() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github9");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github9_1.json");
+
+            // Now test with added context products
+            report = new File(outFilePath + File.separator + "report_github28_2.json");
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--add-context-products", testPath + File.separator + "test_context_products.json",
+                    "-t" , testPath + File.separator + "minimal_test_product_bad.xml",
+                    
+                    };
+            ValidateLauncher.main(args);
+            
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 2, "Two erros expected for error.table.field_value_data_type_mismatch.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
         JsonObject message = null;

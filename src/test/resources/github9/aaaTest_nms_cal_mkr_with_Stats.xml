@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/schema/released/pds/v1/PDS4_PDS_1300.sch" ?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+	http://pds.nasa.gov/pds4/schema/released/pds/v1/PDS4_PDS_1300.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:ladee_nms:data:nms_cal_mkr_36006_20130918_220556</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>NMS Marker Log</title>
+        <information_model_version>1.3.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2013-09-18Z</start_date_time>
+            <stop_date_time>2013-09-18T22:38:57Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Engineering</purpose>
+            <processing_level>Calibrated</processing_level>
+      		<Science_Facets>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+                <facet1>Structure</facet1>
+      		</Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>LADEE with Neutral Mass Spectrometer</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.ladee</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+                <comment>test</comment>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>LADEE</name>
+            <Observing_System_Component>
+                <name>Neutral Mass Spectrometer</name>
+                <type>Instrument</type>
+                <description>
+                    The LADEE Neutral Mass Spectrometer (NMS) instrument
+                    description is included in the LADEE NMS Software
+                    Interface Specification (SIS) file 'nms_pds_sis.docx'
+                    in the document collection of the LADEE NMS bundle.
+                </description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:instrument.nms__ladee</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>LADEE</name>
+                <type>Spacecraft</type>
+                <description>
+                    The LADEE spacecraft description document is included
+                    as a secondary member of the document collection of the
+                    LADEE NMS bundle.
+                </description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.ladee</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Moon</name>
+            <type>Satellite</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.moon</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:ladee_nms:document:nms_pds_sis</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:ladee_nms:document:ladee_pds_spacecraft</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>nms_cal_mkr_36006_20130918_220556.csv</file_name>
+            <local_identifier>nms_cal_mkr_36006_20130918_220556</local_identifier>
+            <creation_date_time>2014-08-23T09:18:09</creation_date_time>
+            <file_size unit="byte">39963</file_size>
+            <records>821</records>
+        </File>
+        <Header>
+            <name>Column headings for TABLE</name>
+            <local_identifier>HEADER</local_identifier>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">23</object_length>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+        </Header>
+        <Table_Delimited>
+            <name>NMS Data Markers</name>
+            <local_identifier>TABLE</local_identifier>
+            <offset unit="byte">23</offset>
+            <object_length unit="byte">39940</object_length>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>
+                A spreadsheet containing all NMS telemetry markers. This markers
+                provide information on the status of the instrument at a given time.
+            </description>
+            <records>820</records>
+            <record_delimiter>carriage-return line-feed</record_delimiter>
+            <field_delimiter>comma</field_delimiter>
+            <Record_Delimited>
+                <fields>3</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>TIME</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">10</maximum_field_length>
+                    <unit>SECONDS</unit>
+                    <description>
+                        SCLK Timestamp at the start of the marker
+                    </description>
+                    <Special_Constants>
+                        <saturated_constant>111</saturated_constant>	<!-- value should not be int -->
+                        <missing_constant>ffff</missing_constant>     <!-- value should not be base16 -->
+                        <error_constant>333.33</error_constant>
+                        <invalid_constant>444.44</invalid_constant>
+                        <unknown_constant>555.55</unknown_constant>
+                        <not_applicable_constant>666.66</not_applicable_constant>
+                        <valid_maximum>777.77</valid_maximum>
+                        <high_instrument_saturation>888.88</high_instrument_saturation>
+                        <high_representation_saturation>999.99</high_representation_saturation>
+                        <valid_minimum>123.45</valid_minimum>
+                        <low_instrument_saturation>234.56</low_instrument_saturation>
+                        <low_representation_saturation>345.67</low_representation_saturation>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>432459725.11</maximum>
+                        <minimum>432455503.22</minimum>
+                    </Field_Statistics>      
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>MKID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">10</maximum_field_length>
+                    <description>
+                        Numeric ID associated with the marker
+                    </description>
+                    <Special_Constants>
+                        <saturated_constant>-111</saturated_constant>       <!-- value must be non-neg int -->
+                        <missing_constant>222.22</missing_constant>         <!-- value must be non-net int -->
+                        <error_constant>333</error_constant>
+                        <invalid_constant>444</invalid_constant>
+                        <unknown_constant>555</unknown_constant>
+                        <not_applicable_constant>666</not_applicable_constant>
+                        <valid_maximum>777</valid_maximum>
+                        <high_instrument_saturation>65535</high_instrument_saturation>
+                        <high_representation_saturation>999</high_representation_saturation>
+                        <valid_minimum>123</valid_minimum>
+                        <low_instrument_saturation>234</low_instrument_saturation>
+                        <low_representation_saturation>345</low_representation_saturation>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>9903</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>                    
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DESCRIPTION</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">10</maximum_field_length>
+                    <description>
+                        Descriptive text associated with the given marker.
+                    </description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>
