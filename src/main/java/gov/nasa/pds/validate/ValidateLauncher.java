@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+//Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -220,6 +220,8 @@ public class ValidateLauncher {
 
     private Map<String, List<LidVid>> registeredAndNonRegistedProducts;
 
+    private boolean validContext;
+
     /**
      * Constructor.
      * 
@@ -254,6 +256,7 @@ public class ValidateLauncher {
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
+        validContext = true;
 
     }
 
@@ -370,7 +373,10 @@ public class ValidateLauncher {
                             "The user No Registered Product context file does not exist: " + nonRegProdJson);
                 }
                 setNonRegisteredProducts(true);
+            } else if (Flag.NO_CONTEXT_VALID.getLongName().equals(o.getLongOpt())) {
+                setValidContext(false);
             }
+
             /**
              * Deprecated per
              * https://github.com/NASA-PDS-Incubator/validate/issues/23
@@ -633,6 +639,13 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.NONREGPROD_JSON_FILE)) {
                 nonRegisteredProductsFile = new File(config.getString(ConfigKey.NONREGPROD_JSON_FILE));
                 setNonRegisteredProducts(true);
+            }
+            if (config.containsKey(ConfigKey.NO_CONTEXT_VALID)) {
+                if (config.getBoolean(ConfigKey.NO_CONTEXT_VALID) == true) {
+                    setValidContext(false);
+                } else {
+                    setValidContext(true);
+                }
             }
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
@@ -913,9 +926,9 @@ public class ValidateLauncher {
                     + "\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
                     + registeredProductsFile);
         }
-        
+
         if (nonRegisteredProducts) {
-            
+
             try {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
@@ -964,7 +977,8 @@ public class ValidateLauncher {
             System.out.println(e.getMessage());
         }
         this.registeredAndNonRegistedProducts.put("Product_Context", lidvids);
-        //System.out.println("Total of LIDVID in registeredAndNonRegistedProducts: " + lidvids.size());
+        // System.out.println("Total of LIDVID in
+        // registeredAndNonRegistedProducts: " + lidvids.size());
     }
 
     public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
@@ -973,6 +987,16 @@ public class ValidateLauncher {
 
     public void setNonRegisteredProducts(boolean nonRegisteredProducts) {
         this.nonRegisteredProducts = nonRegisteredProducts;
+    }
+
+    /**
+     * Sets the flag that enables/disables context validation.
+     * 
+     * @param flag
+     *            True or False.
+     */
+    public void setValidContext(boolean flag) {
+        this.validContext = flag;
     }
 
     /**
@@ -1106,7 +1130,7 @@ public class ValidateLauncher {
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
             try {
-                
+
                 LocationValidator validator = factory.newInstance(target);
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
@@ -1114,7 +1138,8 @@ public class ValidateLauncher {
                 validator.setCheckData(checkData);
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
-                
+                validator.setValidContext(validContext);
+
                 validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); // this
                                                                                         // map
                                                                                         // may
@@ -1122,7 +1147,7 @@ public class ValidateLauncher {
                                                                                         // Non
                                                                                         // registered
                                                                                         // products
-                if (!checksumManifest.isEmpty()) {                   
+                if (!checksumManifest.isEmpty()) {
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());
@@ -1277,8 +1302,10 @@ public class ValidateLauncher {
             CommandLine cmdLine = parse(args);
             query(cmdLine);
 
-            if (targets.size() == 0) { // Throw error if no targets are specified
-                throw new InvalidOptionException("No files specified for validation. Check your paths and use -t flag to explicitly denote the set of target data.");
+            if (targets.size() == 0) { // Throw error if no targets are
+                                       // specified
+                throw new InvalidOptionException(
+                        "No files specified for validation. Check your paths and use -t flag to explicitly denote the set of target data.");
             }
 
             Map<URL, String> checksumManifestMap = new HashMap<URL, String>();

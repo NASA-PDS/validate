@@ -59,13 +59,12 @@ public enum Flag {
      * directory.
      */
     REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns " + "to look for when validating a directory. Each pattern should " + "be surrounded by quotes. Default is to look for files ending with " + "a '.xml' or '.XML' file extension."),
-    
+
     /**
-     * DEPRECATED: Flag to force the tool to perform validation against the schema and
-     * schematron specified in a given label.
+     * DEPRECATED: Flag to force the tool to perform validation against the
+     * schema and schematron specified in a given label.
      */
-    FORCE("f", "force", "DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. " +
-               "Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron."),
+    FORCE("f", "force", "DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. " + "Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron."),
 
     /**
      * Flag to display the help.
@@ -82,12 +81,11 @@ public enum Flag {
      * checksum validation.
      */
     CHECKSUM_MANIFEST("M", "checksum-manifest", "file", String.class, "Specify a checksum manifest file to perform checksum validation " + "against the targets being validated."),
-    
+
     /**
      * DEPRECATED: Flag to specify a model version to use during validation.
      */
-    MODEL("m", "model-version", "version", String.class, "DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. " +
-                                                         "Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron."),
+    MODEL("m", "model-version", "version", String.class, "DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. " + "Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron."),
 
     /** Flag to disable data content validation. */
     NO_DATA("D", "no-data-check", "Disable data content validation."),
@@ -143,10 +141,17 @@ public enum Flag {
      * replace the existing file.
      */
     LATEST_JSON_FILE("u", "update-context-products", "Update the Context Product information used for validating context product references in labels."),
-    
+
     NONREGPROD_JSON_FILE(null, "add-context-products", "dir/files", String.class, true,
-            "Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. " +
-            "WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive.");
+            "Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. "
+                    + "WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive."),
+
+    /**
+     * flag to temporarily disable context validation. When this flag is
+     * enabled, the output logs will throw WARNING messages instead of failing
+     * validation. Only be enabled during development
+     */
+    NO_CONTEXT_VALID(null, "no-context-valid", "Disable context validation.Only be enabled during development.");
 
     /** The short name. */
     private final String shortName;

@@ -96,6 +96,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
 
     @ValidationTest
     public void checkContextReferences() throws XPathExpressionException {
+        boolean doValid = getContext().getValidContext();
         URI uri = null;
         try {
             uri = getTarget().toURI();
@@ -144,7 +145,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                     SourceLocation locator = (SourceLocation) children.item(j)
                             .getUserData(SourceLocation.class.getName());
                     String lidvid = children.item(j).getTextContent();
-                    //System.out.println("lidvid: " + lidvid);
+                    // System.out.println("lidvid: " + lidvid);
 
                     // check name/type is available
                     if (hasName && hasType) {
@@ -152,15 +153,25 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
 
                         LidVid lidvidObj = parseIdentifier(lidvid, type, name);
 
-                        //int rpJsonSize = rgProds.size();
-                        //System.out.println("rpJsonSize: " + rpJsonSize);
+                        // int rpJsonSize = rgProds.size();
+                        // System.out.println("rpJsonSize: " + rpJsonSize);
 
                         if (!rgProds.contains(lidvidObj)) {
-                            getListener().addProblem(new ValidationProblem(
-                                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
-                                            "'" + lidvid + "' could not be found in the "
-                                                    + "supplied list of registered context products."),
-                                    target, locator.getLineNumber(), -1));
+                            if (doValid) {
+                                getListener().addProblem(new ValidationProblem(
+                                        new ProblemDefinition(ExceptionType.ERROR,
+                                                ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                                "'" + lidvid + "' could not be found in the "
+                                                        + "supplied list of registered context products."),
+                                        target, locator.getLineNumber(), -1));
+                            } else {
+                                getListener().addProblem(new ValidationProblem(
+                                        new ProblemDefinition(ExceptionType.WARNING,
+                                                ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                                "'" + lidvid + "' could not be found in the "
+                                                        + "supplied list of registered context products."),
+                                        target, locator.getLineNumber(), -1));
+                            }
                         } else {
                             // Found LidVid, then check name and type
                             LidVid rgp = rgProds.get(rgProds.indexOf(lidvidObj));
@@ -168,58 +179,76 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                             // check the name and type case insensitive match
                             if (name.equalsIgnoreCase(rgp.getName()) && type.equalsIgnoreCase(rgp.getType())) {
                                 // Check name and type case sensitive
-                                if (!name.equals(rgp.getName())) {                                   
-                                    getListener()
-                                            .addProblem(new ValidationProblem(
-                                                    new ProblemDefinition(ExceptionType.WARNING,
-                                                            ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                                            "The name of '" + lidvid
-                                                                    + "' is not case sensitive match. the name in the target file is '"
-                                                                    + name
-                                                                    + "', but the name in the supplied list of registered context products is '"
-                                                                    + rgp.getName() + "'"),
-                                                    target, locator.getLineNumber(), -1));
+                                if (!name.equals(rgp.getName())) {
+                                    getListener().addProblem(new ValidationProblem(
+                                            new ProblemDefinition(ExceptionType.WARNING,
+                                                    ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
+                                                    "The name of '" + lidvid
+                                                            + "' is not case sensitive match. the name in the target file is '"
+                                                            + name
+                                                            + "', but the name in the supplied list of registered context products is '"
+                                                            + rgp.getName() + "'"),
+                                            target, locator.getLineNumber(), -1));
 
                                 }
                                 if (!type.equals(rgp.getType())) {
-                                    getListener()
-                                            .addProblem(new ValidationProblem(
-                                                    new ProblemDefinition(ExceptionType.WARNING,
-                                                            ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                                            "The type of '" + lidvid
-                                                                    + "' is not case sensitive match. the type in the target file is '"
-                                                                    + type
-                                                                    + "', but the type in the supplied list of registered context products is '"
-                                                                    + rgp.getType() +"'"),
-                                                    target, locator.getLineNumber(), -1));
-                                }                                
+                                    getListener().addProblem(new ValidationProblem(
+                                            new ProblemDefinition(ExceptionType.WARNING,
+                                                    ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
+                                                    "The type of '" + lidvid
+                                                            + "' is not case sensitive match. the type in the target file is '"
+                                                            + type
+                                                            + "', but the type in the supplied list of registered context products is '"
+                                                            + rgp.getType() + "'"),
+                                            target, locator.getLineNumber(), -1));
+                                }
                                 getListener().addProblem(new ValidationProblem(
                                         new ProblemDefinition(ExceptionType.INFO, ProblemType.CONTEXT_REFERENCE_FOUND,
                                                 "'" + lidvid + "::" + name + "::" + type + "' was found in the "
                                                         + "supplied list of registered context products."),
                                         target, locator.getLineNumber(), -1));
-                            } else {                                
-                                getListener().addProblem(new ValidationProblem(
-                                        new ProblemDefinition(ExceptionType.ERROR,
-                                                ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
-                                                "'" + lidvid + "' was found in the "
-                                                        + "supplied list of registered context products.but name '" + name + "' and '" + type
-                                                        + "' are different with that in the "
-                                                        + "supplied list of registered context products."),
-                                        target, locator.getLineNumber(), -1));
+                            } else {
+                                if (doValid) {
+                                    getListener().addProblem(new ValidationProblem(new ProblemDefinition(
+                                            ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                            "'" + lidvid + "' was found in the "
+                                                    + "supplied list of registered context products.but name '" + name
+                                                    + "' and '" + type + "' are different with that in the "
+                                                    + "supplied list of registered context products."),
+                                            target, locator.getLineNumber(), -1));
+                                } else {
+                                    getListener().addProblem(new ValidationProblem(new ProblemDefinition(
+                                            ExceptionType.WARNING, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                            "'" + lidvid + "' was found in the "
+                                                    + "supplied list of registered context products.but name '" + name
+                                                    + "' and '" + type + "' are different with that in the "
+                                                    + "supplied list of registered context products."),
+                                            target, locator.getLineNumber(), -1));
+                                }
                             }
 
                         }
 
                     } else {
 
-                        //System.out.println(lidvid + " missing name and/or type!");
-                        getListener().addProblem(new ValidationProblem(
-                                new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
-                                        "'" + lidvid + "::" + name + "::" + type + "' was found  by LidVid '" + lidvid
-                                                + "' in the "
-                                                + "supplied list of registered context products. But there are no name and/or type."),
-                                target, locator.getLineNumber(), -1));
+                        // System.out.println(lidvid + " missing name and/or
+                        // type!");
+                        if (doValid) {
+                            getListener().addProblem(new ValidationProblem(
+                                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                            "'" + lidvid + "::" + name + "::" + type + "' was found  by LidVid '"
+                                                    + lidvid + "' in the "
+                                                    + "supplied list of registered context products. But there are no name and/or type."),
+                                    target, locator.getLineNumber(), -1));
+                        } else {
+                            getListener().addProblem(new ValidationProblem(
+                                    new ProblemDefinition(ExceptionType.WARNING,
+                                            ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
+                                            "'" + lidvid + "::" + name + "::" + type + "' was found  by LidVid '"
+                                                    + lidvid + "' in the "
+                                                    + "supplied list of registered context products. But there are no name and/or type."),
+                                    target, locator.getLineNumber(), -1));
+                        }
                     }
                 }
             }
