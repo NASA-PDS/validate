@@ -53,14 +53,12 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
    * we'll look for the following reference_types:
    * 
    * - is_* (is_instrument, is_facility, is_telescope, etc.)
-   * - collection_to_context
-   * - document_to_* except for document_to_associate
-   * - *_to_target
-   * - data_to_investigation
+   * - *_to_<context> (e.g. data_to_investigation, data_to_instrument, etc.)
    */
   private final String INTERNAL_REF_XPATH =
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | " + 
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+    "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_investigation')] | " +
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | " +
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | " +
     "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | " +
