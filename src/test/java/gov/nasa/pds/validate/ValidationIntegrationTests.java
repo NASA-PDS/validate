@@ -201,7 +201,10 @@ class ValidationIntegrationTests {
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for invalid context reference (Lid, name, value) test.");
+            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+
+            assertEquals(count, 0, "No errors expected for invalid context reference (Lid, name, value) test.");
 
             //get warnings/errors test
             report = new File(outFilePath + File.separator + "report_github15_no-pass.json");
@@ -218,7 +221,9 @@ class ValidationIntegrationTests {
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            assertEquals(reportJson.getAsJsonObject("summary").toString(), reportJson.get("summary").toString(), "No errors expected for invalid context reference (Lid, name, value) test.");
+            count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+            assertEquals(count, 3, "One error expected for invalid context reference (Lid, name, value) test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
