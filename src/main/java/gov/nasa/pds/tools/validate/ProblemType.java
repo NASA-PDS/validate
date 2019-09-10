@@ -42,6 +42,8 @@ public enum ProblemType {
 
     CONTEXT_REFERENCE_NOT_FOUND("error.label.context_ref_not_found"),
 
+    CONTEXT_REFERENCE_FOUND_MISMATCH("error.label.context_ref_mismatch"),
+
     OUT_OF_MEMORY("error.validation.out_of_memory"),
 
     INTERNAL_ERROR("error.validation.internal_error"),
@@ -170,8 +172,6 @@ public enum ProblemType {
 
     UNLABELED_FILE("warning.file.not_referenced_in_label"),
 
-    CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("warning.label.context_ref_found"),
-
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
 
     // Info message types
@@ -210,6 +210,8 @@ public enum ProblemType {
     BIT_FIELD_MATCH("debug.table.bit_field_match"),
 
     CONTEXT_REFERENCE_FOUND("info.label.context_ref_found"),
+    
+    CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
 
     LOCAL_ID_FOUND("info.label.local_identifier_found");
 
