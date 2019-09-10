@@ -19,7 +19,7 @@ package gov.nasa.pds.tools.util;
  * @author mcayanan
  *
  */
-public class LidVid {
+public class ContextProductReference {
 
     /** The logical identifier. */
     private String lid;
@@ -36,11 +36,11 @@ public class LidVid {
     /** Flag to indicate if a version exists. */
     private boolean hasVersion;
 
-    public LidVid(String lid) {
+    public ContextProductReference(String lid) {
         this(lid, null, null, null);
     }
 
-    public LidVid(String lid, String version, String type, String name) {
+    public ContextProductReference(String lid, String version, String type, String name) {
         this.lid = lid;
         this.version = version;
         this.type = type;
@@ -69,6 +69,22 @@ public class LidVid {
     public String getName() {
         return this.name;
     }
+    
+    public void setLid(String lid) {
+        this.lid = lid;
+    }
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public boolean hasVersion() {
         return this.hasVersion;
@@ -88,7 +104,7 @@ public class LidVid {
      */
     public boolean equals(Object o) {
         boolean isEqual = false;
-        LidVid lidvid = (LidVid) o;
+        ContextProductReference lidvid = (ContextProductReference) o;
 
         // if(lidvid.getName().equals("N/A"))
         // System.out.println("obj 1: " + lidvid.getLid() + ", " +

@@ -14,7 +14,7 @@
 package gov.nasa.pds.tools.label;
 
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.tools.util.LidVid;
+import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -269,7 +269,7 @@ public class LocationValidator {
 	  ruleContext.setCheckData(flag);
 	}
 	
-	public void setRegisteredProducts(Map<String, List<LidVid>> products) {
+	public void setRegisteredProducts(Map<String, List<ContextProductReference>> products) {
 	  ruleContext.setRegisteredProducts(products);
 	}
 	

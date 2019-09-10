@@ -36,7 +36,7 @@ import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.tools.util.LidVid;
+import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -218,7 +218,7 @@ public class ValidateLauncher {
 
     private File nonRegisteredProductsFile;
 
-    private Map<String, List<LidVid>> registeredAndNonRegistedProducts;
+    private Map<String, List<ContextProductReference>> registeredAndNonRegistedProducts;
 
     /**
      * Constructor.
@@ -250,7 +250,7 @@ public class ValidateLauncher {
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
         allowUnlabeledFiles = false;
-        registeredAndNonRegistedProducts = new HashMap<String, List<LidVid>>();
+        registeredAndNonRegistedProducts = new HashMap<String, List<ContextProductReference>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
@@ -440,7 +440,7 @@ public class ValidateLauncher {
                     new URL(url));
             pList.add(p1);
             ValidationProblem p2 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
-                    ProblemType.GENERAL_INFO, "Number Found from the latest registered products: " + res.size()),
+                    ProblemType.GENERAL_INFO, res.size() + " registered context products found."),
                     new URL(url));
             pList.add(p2);
 
@@ -879,17 +879,11 @@ public class ValidateLauncher {
         URL url = null;
 
         Gson gson = new Gson();
-        List<LidVid> lidvids = new ArrayList<LidVid>();
+        List<ContextProductReference> contextProducts = new ArrayList<ContextProductReference>();
 
         try {
             JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
             JsonArray array = json.get("Product_Context").getAsJsonArray();
-
-            ValidationProblem p1 = new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                            "number of registered context products used for validation: " + array.size()),
-                    url);
-            pList.add(p1);
 
             for (JsonElement jsonElm : array) {
 
@@ -904,8 +898,8 @@ public class ValidateLauncher {
                     nameString = jsonObj.get("name").getAsString();
                 }
 
-                lidvids.add(
-                        new LidVid(lidvidString.split("::")[0], lidvidString.split("::")[1], typeString, nameString));
+                contextProducts.add(
+                        new ContextProductReference(lidvidString.split("::")[0], lidvidString.split("::")[1], typeString, nameString));
 
             }
         } catch (Exception e) {
@@ -920,11 +914,6 @@ public class ValidateLauncher {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
-                ValidationProblem p2 = new ValidationProblem(
-                        new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                                "number of non-registered context products used for validation: " + arrayN.size()),
-                        url);
-                pList.add(p2);
                 ValidationProblem pW = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
                                 "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
@@ -943,7 +932,7 @@ public class ValidateLauncher {
                     if (!jsonObjN.get("name").isJsonNull()) {
                         nameStringN = jsonObjN.get("name").getAsString();
                     }
-                    lidvids.add(new LidVid(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
+                    contextProducts.add(new ContextProductReference(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
                             nameStringN));
                 }
             } catch (Exception e) {
@@ -954,7 +943,7 @@ public class ValidateLauncher {
 
         }
         ValidationProblem p3 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                "Total number of Product Context: " + lidvids.size()), url);
+                "Total number of context products used for validation: " + contextProducts.size()), url);
         pList.add(p3);
 
         // System.out.println(new Gson().toJson(lidvids));
@@ -963,7 +952,7 @@ public class ValidateLauncher {
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
         }
-        this.registeredAndNonRegistedProducts.put("Product_Context", lidvids);
+        this.registeredAndNonRegistedProducts.put("Product_Context", contextProducts);
         //System.out.println("Total of LIDVID in registeredAndNonRegistedProducts: " + lidvids.size());
     }
 
