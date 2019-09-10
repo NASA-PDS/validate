@@ -15,7 +15,7 @@ package gov.nasa.pds.tools.validate.rule;
 
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.XMLCatalogResolver;
-import gov.nasa.pds.tools.util.LidVid;
+import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
@@ -336,11 +336,11 @@ public class RuleContext extends ContextBase {
 	  putContextValue(ALLOW_UNLABELED_FILES_KEY, flag);
 	}
 	
-	public Map<String, List<LidVid>> getRegisteredProducts() {
+	public Map<String, List<ContextProductReference>> getRegisteredProducts() {
 	  return getContextValue(REGISTERED_PRODUCTS_KEY, Map.class);
 	}
 	
-	public void setRegisteredProducts(Map<String, List<LidVid>> products) {
+	public void setRegisteredProducts(Map<String, List<ContextProductReference>> products) {
 	  putContextValue(REGISTERED_PRODUCTS_KEY, products);
 	}
 }

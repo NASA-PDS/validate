@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1400.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1301.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+ 
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+ xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+ xmlns:sp="http://pds.nasa.gov/pds4/sp/v1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1400.xsd 
+     http://pds.nasa.gov/pds4/disp/v1 http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1301.xsd
+     http://pds.nasa.gov/pds4/sp/v1 http://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1100.xsd">
+ 
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mer_pancam_photometry:mer2:a0708_p242914_02_02v01</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>MER Photometry Cube: a0708_p242914_02_02v01.qub</title>
+    <information_model_version>1.4.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+ 
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2005-12-30T18:06:12.650Z</start_date_time>
+      <stop_date_time>2005-12-30T18:07:35.467Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>MARS EXPLORATION ROVER</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars_exploration_rover</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>MER 2 Pancam</name>
+      <Observing_System_Component>
+        <name>MARS EXPLORATION ROVER 2</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mer2</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>PANORAMIC CAMERA</name>
+       <type>IMAGER</type>
+       <Internal_Reference>
+         <lid_reference>urn:nasa:pds:context:instrument:pancam.mer2</lid_reference>
+         <reference_type>is_instrument</reference_type>
+       </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>PLANET</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+ 
+    <Discipline_Area>
+      <disp:Display_Settings>
+        <disp:Local_Internal_Reference>
+          <local_identifier_reference>Spectral_Qube_Object</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </disp:Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+ 
+      <sp:Spectral_Characteristics>
+        <sp:bin_width_desc>Band shapes are approximately Gaussian.</sp:bin_width_desc>
+        <sp:Local_Internal_Reference>
+          <sp:local_identifier_reference>Spectral_Qube_Object</sp:local_identifier_reference>
+          <sp:local_reference_type>spectral_characteristics_to_array_object</sp:local_reference_type>
+        </sp:Local_Internal_Reference>
+        <sp:Axis_Bin_Set>
+          <sp:Local_Internal_Reference>
+            <sp:local_identifier_reference>Band</sp:local_identifier_reference>
+            <sp:local_reference_type>spectral_characteristics_to_array_axis</sp:local_reference_type>
+          </sp:Local_Internal_Reference>
+          <sp:Bin>
+            <sp:bin_sequence_number>1</sp:bin_sequence_number>
+            <sp:center_value unit="nm">753.000</sp:center_value>
+            <sp:bin_width unit="nm">20.000</sp:bin_width>
+            <sp:Filter>
+               <sp:filter_name>PANL2</sp:filter_name>
+            </sp:Filter>
+          </sp:Bin>
+          <sp:Bin>
+            <sp:bin_sequence_number>2</sp:bin_sequence_number>
+            <sp:center_value unit="nm">601.000</sp:center_value>
+            <sp:bin_width unit="nm">17.000</sp:bin_width>
+            <sp:Filter>
+               <sp:filter_name>PANL4</sp:filter_name>
+            </sp:Filter>
+          </sp:Bin>
+          <sp:Bin>
+            <sp:bin_sequence_number>3</sp:bin_sequence_number>
+            <sp:center_value unit="nm">432.000</sp:center_value>
+            <sp:bin_width unit="nm">32.000</sp:bin_width>
+            <sp:Filter>
+               <sp:filter_name>PANL7</sp:filter_name>
+            </sp:Filter>
+          </sp:Bin>
+          <sp:Bin>
+            <sp:bin_sequence_number>4</sp:bin_sequence_number>
+            <sp:center_value unit="nm">754.000</sp:center_value>
+            <sp:bin_width unit="nm">20.000</sp:bin_width>
+            <sp:Filter>
+               <sp:filter_name>PANR2</sp:filter_name>
+            </sp:Filter>
+          </sp:Bin>
+          <sp:Bin>
+            <sp:bin_sequence_number>5</sp:bin_sequence_number>
+            <sp:center_value unit="nm">1009.000</sp:center_value>
+            <sp:bin_width unit="nm">38.000</sp:bin_width>
+            <sp:Filter>
+               <sp:filter_name>PANR7</sp:filter_name>
+            </sp:Filter>
+          </sp:Bin>
+        </sp:Axis_Bin_Set>
+      </sp:Spectral_Characteristics>
+    </Discipline_Area>
+  </Observation_Area>
+ 
+  <File_Area_Observational>
+    <!-- <File>
+      <file_name>a0708_p242914_02_02v01.qub</file_name>
+      <creation_date_time>2016-06-17T19:48:41Z</creation_date_time>
+      <comment>This product consists of a 5 band image
+         with 19 backplanes and an attached PDS3 label</comment>
+    </File> -->
+    <Header>
+      <name>PDS 3 label</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">8192</object_length>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+    </Header>
+    <Header>
+      <name>History record</name>
+      <offset unit="byte">8192</offset>
+      <object_length unit="byte">2048</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+    </Header>
+ 
+    <!-- Core -->
+    <Array_3D_Spectrum>
+      <local_identifier>Spectral_Qube_Object</local_identifier>
+      <offset unit="byte">10240</offset>
+      <axes>3</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>7.773179532245486E-07</scaling_factor>
+        <value_offset>0.02545871760401042</value_offset>
+      </Element_Array>
+      <Axis_Array>
+         <axis_name>Band</axis_name>
+         <local_identifier>Band</local_identifier>
+         <elements>5</elements>
+         <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>3</sequence_number>
+      </Axis_Array>
+    </Array_3D_Spectrum>
+ 
+    <!-- Backplanes -->
+    <Array_2D_Image>
+      <name>iof_r2</name>
+      <offset unit="byte">10496000</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 1</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>8.365771E-07</scaling_factor>
+        <value_offset>0.01006660</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>iof_r7</name>
+      <offset unit="byte">12593152</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 2</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>1.197438E-06</scaling_factor>
+        <value_offset>9.222369E-12</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>disparity_l_eye_0</name>
+      <offset unit="byte">14690304</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 3</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.01546631</scaling_factor>
+        <value_offset>506.5527</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>disparity_l_eye_1</name>
+      <offset unit="byte">16787456</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 4</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.01553191</scaling_factor>
+        <value_offset>508.7013</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>disparity_r_eye_0</name>
+      <offset unit="byte">18884608</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 5</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.01546001</scaling_factor>
+        <value_offset>506.3463</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>disparity_r_eye_1</name>
+      <offset unit="byte">20981760</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 6</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.01547215</scaling_factor>
+        <value_offset>506.7437</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>xyz_x</name>
+      <offset unit="byte">23078912</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 7</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.0003111659</scaling_factor>
+        <value_offset>-10.19131</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>xyz_y</name>
+      <offset unit="byte">25176064</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 8</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.0005943322</scaling_factor>
+        <value_offset>-19.46557</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>xyz_z</name>
+      <offset unit="byte">27273216</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 9</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>2.991815E-05</scaling_factor>
+        <value_offset>-0.2572381</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>range</name>
+      <offset unit="byte">29370368</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 10</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.0006615943</scaling_factor>
+        <value_offset>21.66854</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>surface_normal_x_comp</name>
+      <offset unit="byte">31467520</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 11</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>2.896866E-05</scaling_factor>
+        <value_offset>-0.05109835</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>surface_normal_y_comp</name>
+      <offset unit="byte">33564672</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 12</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>2.432668E-05</scaling_factor>
+        <value_offset>0.2013510</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>surface_normal_z_comp</name>
+      <offset unit="byte">35661824</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 13</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>2.747847E-05</scaling_factor>
+        <value_offset>-0.1000251</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>incidence_angle</name>
+      <offset unit="byte">37758976</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 14</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.002693009</scaling_factor>
+        <value_offset>88.20142</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>emission_angle</name>
+      <offset unit="byte">39856128</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 15</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.001916981</scaling_factor>
+        <value_offset>62.78498</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>phase_angle</name>
+      <offset unit="byte">41953280</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 16</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.002423206</scaling_factor>
+        <value_offset>79.36485</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>approx_incidence_angle</name>
+      <offset unit="byte">44050432</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 17</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.002718770</scaling_factor>
+        <value_offset>89.04516</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>approx_emission_angle</name>
+      <offset unit="byte">46147584</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 18</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.001918994</scaling_factor>
+        <value_offset>62.85089</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+    <Array_2D_Image>
+      <name>approx_phase_angle</name>
+      <offset unit="byte">48244736</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Backplane 19</description>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <scaling_factor>0.002425131</scaling_factor>
+        <value_offset>79.42788</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D_Image>
+ 
+  </File_Area_Observational>
+</Product_Observational>

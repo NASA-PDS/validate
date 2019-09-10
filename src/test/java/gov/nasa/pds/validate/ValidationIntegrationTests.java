@@ -1,6 +1,33 @@
-/**
- * 
- */
+// Copyright 2019, California Institute of Technology ("Caltech").
+// U.S. Government sponsorship acknowledged.
+//
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// * Redistributions of source code must retain the above copyright notice,
+// this list of conditions and the following disclaimer.
+// * Redistributions must reproduce the above copyright notice, this list of
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
+// * Neither the name of Caltech nor its operating division, the Jet Propulsion
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 package gov.nasa.pds.validate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -112,6 +139,7 @@ class ValidationIntegrationTests {
             File report = new File(outFilePath + File.separator + "report_github28_1.json");
 
             // First test that we get an invalid context product error
+            //System.out.println(testPath + File.separator + "test_add_context_products.xml");
             String[] args = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
@@ -124,7 +152,7 @@ class ValidationIntegrationTests {
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             
             // Make sure we have 1 error as expected
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 1, "One error expected for invalid context reference test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 4, "One error expected for invalid context reference test.");
 
             // Now test with added context products
             report = new File(outFilePath + File.separator + "report_github28_2.json");
@@ -139,7 +167,58 @@ class ValidationIntegrationTests {
 
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "No errors expected for add additional context test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for add additional context test.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub15() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github15");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            
+            //test one. Found all products and the name/type are case match
+            File report = new File(outFilePath + File.separator + "report_github15_pass.json");
+
+            //System.out.println("Test file: " + testPath + File.separator + "test_check-pass_context_products.xml");
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-R", "pds4.label",
+                    testPath + File.separator + "test_check-pass_context_products.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for invalid context reference (Lid, name, value) test.");
+
+            //get warnings/errors test
+            report = new File(outFilePath + File.separator + "report_github15_no-pass.json");
+
+            //System.out.println("Test file: " + testPath + File.separator + "test_check-no-pass_context_products.xml");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    testPath + File.separator + "test_check-no-pass_context_products.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(reportJson.getAsJsonObject("summary").toString(), reportJson.get("summary").toString(), "No errors expected for invalid context reference (Lid, name, value) test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");

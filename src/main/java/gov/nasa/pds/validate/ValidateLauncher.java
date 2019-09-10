@@ -36,7 +36,7 @@ import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.tools.util.LidVid;
+import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -115,6 +115,7 @@ import org.xml.sax.SAXParseException;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 
@@ -146,7 +147,7 @@ public class ValidateLauncher {
 
     /** A flag to enable/disable directory recursion. */
     private boolean traverse;
-    
+
     /** Update register context products flag */
     private boolean updateRegisteredProducts;
 
@@ -156,7 +157,7 @@ public class ValidateLauncher {
     /** Flag to indicated deprecated flag was used **/
     private boolean deprecatedFlagWarning;
 
-	/** The severity level and above to include in the report. */
+    /** The severity level and above to include in the report. */
     private ExceptionType severity;
 
     /** An object representation of a Validate Tool report. */
@@ -214,10 +215,10 @@ public class ValidateLauncher {
     private boolean allowUnlabeledFiles;
 
     private File registeredProductsFile;
-    
+
     private File nonRegisteredProductsFile;
 
-    private Map<String, List<LidVid>> registeredAndNonRegistedProducts;
+    private Map<String, List<ContextProductReference>> registeredAndNonRegistedProducts;
 
     /**
      * Constructor.
@@ -249,7 +250,7 @@ public class ValidateLauncher {
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
         allowUnlabeledFiles = false;
-        registeredAndNonRegistedProducts = new HashMap<String, List<LidVid>>();
+        registeredAndNonRegistedProducts = new HashMap<String, List<ContextProductReference>>();
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
@@ -329,11 +330,10 @@ public class ValidateLauncher {
                 }
                 setSeverity(value);
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
-                setRegExps((List<String>) o.getValuesList());       
+                setRegExps((List<String>) o.getValuesList());
             } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
                 setReportStyle(o.getValue());
-            }
-            else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
+            } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
                 setChecksumManifest(o.getValue());
             } else if (Flag.BASE_PATH.getShortName().equals(o.getOpt())) {
                 setManifestBasePath(o.getValue());
@@ -360,17 +360,21 @@ public class ValidateLauncher {
             } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
                 setAllowUnlabeledFiles(true);
             } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
-            	setUpdateRegisteredProducts(true);
-            }else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
+                setUpdateRegisteredProducts(true);
+            } else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
                 File nonRegProdJson = new File(o.getValue());
                 if (nonRegProdJson.exists()) {
                     nonRegisteredProductsFile = nonRegProdJson;
                 } else {
-                    throw new Exception("The user No Registered Product context file does not exist: " + nonRegProdJson);
+                    throw new Exception(
+                            "The user No Registered Product context file does not exist: " + nonRegProdJson);
                 }
                 setNonRegisteredProducts(true);
             }
-            /** Deprecated per https://github.com/NASA-PDS-Incubator/validate/issues/23 **/
+            /**
+             * Deprecated per
+             * https://github.com/NASA-PDS-Incubator/validate/issues/23
+             **/
             else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
                 setModelVersion(o.getValue());
                 deprecatedFlagWarning = true;
@@ -415,7 +419,10 @@ public class ValidateLauncher {
         SolrQuery solrQuery = new SolrQuery(query);
         solrQuery.setRequestHandler("/" + endpoint);
         solrQuery.setStart(0);
-        solrQuery.setParam("fl", "identifier, version_id");
+        solrQuery.setParam("fl",
+                "identifier, " + "version_id, " + "data_product_type, " + "target_name, " + "instrument_name, "
+                        + "instrument_host_name, " + "resource_name, " + "investigation_name, " + "target_type, "
+                        + "instrument_type, " + "instrument_host_type, " + "resource_type, " + "investigation_type");
 
         QueryResponse resp;
         List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
@@ -428,33 +435,31 @@ public class ValidateLauncher {
             parseJsonObjectWriteTofile(res);
 
             client.close();
-            ValidationProblem p1 = new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                    		"Successfully updated registered context products config file. "),
+            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
+                    ProblemType.GENERAL_INFO, "Successfully updated registered context products config file. "),
                     new URL(url));
             pList.add(p1);
-            ValidationProblem p2 = new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                            "Number Found from the latest registered products: " + res.size()),
+            ValidationProblem p2 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
+                    ProblemType.GENERAL_INFO, res.size() + " registered context products found."),
                     new URL(url));
             pList.add(p2);
-            
+
         } catch (SolrServerException | IOException ex) {
-        	try {
-        	    ValidationProblem p = new ValidationProblem(
-	                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-	                    		"Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
-	                    new URL(url));
-	            report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
-        	} catch (Exception e) {
-		        e.printStackTrace();
-		    }
+            try {
+                ValidationProblem p = new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                                "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
+                        new URL(url));
+                report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        
+
         try {
-        	report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), pList);
+            report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), pList);
         } catch (Exception e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -463,36 +468,50 @@ public class ValidateLauncher {
         try {
             copyFile(registeredProductsFile,
                     new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup"));
-//            System.out.println("back up " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()
-//                    + " to " + System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup");
+            // System.out.println("back up " +
+            // System.getProperty("resources.home") + "/" +
+            // ToolInfo.getOutputFileName()
+            // + " to " + System.getProperty("resources.home") + "/" +
+            // ToolInfo.getOutputFileName() + ".backup");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        List<String> contextIDVer = new ArrayList<String>();
-        for (SolrDocument document : docs) {
-            String id = (String) document.getFirstValue("identifier");
-            String ver = (String) document.getFirstValue("version_id");
-            contextIDVer.add(id + "::" + ver);
-        }
-        
+        JsonWriter jsonWriter;
         try {
-            JsonWriter writer = new JsonWriter(
+            jsonWriter = new JsonWriter(
                     new FileWriter(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()));
-            writer.setIndent("     ");
-            writer.beginObject();
-            writer.name("Product_Context");
-            writer.beginArray();
-            for (String idver : contextIDVer) {
-                writer.value(idver);
+
+            jsonWriter.setIndent("     ");
+            jsonWriter.beginObject(); // start Product_Context
+            jsonWriter.name("Product_Context");
+            jsonWriter.beginArray();
+            for (SolrDocument document : docs) {
+                String id = (String) document.getFirstValue("identifier");
+                String ver = (String) document.getFirstValue("version_id");
+                String data_type = (String) document.getFirstValue("data_product_type");
+                String name = (String) document.getFirstValue(data_type.toLowerCase() + "_name");
+                String type = (String) document.getFirstValue(data_type.toLowerCase() + "_type");
+                /*
+                 * System.out.println("Name: " + name);
+                 * System.out.println("Type: " + type);
+                 */
+
+                jsonWriter.beginObject(); // start a product
+                jsonWriter.name("name").value(name != null ? name : "N/A");
+                jsonWriter.name("type").value(type != null ? type : "N/A");
+                jsonWriter.name("lidvid").value(id + "::" + ver);
+                jsonWriter.endObject(); // end a product
             }
-            writer.endArray();
-            writer.endObject();
-            writer.close();
+            jsonWriter.endArray();
+            jsonWriter.endObject(); // end Product_Context
+            jsonWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        System.out.println("New Registered Products File: " + registeredProductsFile);
+
+        // System.out.println("New Registered Products File: " +
+        // registeredProductsFile);
 
     }
 
@@ -572,7 +591,7 @@ public class ValidateLauncher {
                 } else {
                     setTraverse(true);
                 }
-            }   
+            }
             if (config.containsKey(ConfigKey.STYLE)) {
                 setReportStyle(config.getString(ConfigKey.STYLE));
             }
@@ -612,7 +631,7 @@ public class ValidateLauncher {
                 setUpdateRegisteredProducts(true);
             }
             if (config.containsKey(ConfigKey.NONREGPROD_JSON_FILE)) {
-                nonRegisteredProductsFile = new File (config.getString(ConfigKey.NONREGPROD_JSON_FILE));
+                nonRegisteredProductsFile = new File(config.getString(ConfigKey.NONREGPROD_JSON_FILE));
                 setNonRegisteredProducts(true);
             }
         } catch (Exception e) {
@@ -854,67 +873,94 @@ public class ValidateLauncher {
         this.allowUnlabeledFiles = flag;
     }
 
-    @SuppressWarnings("unchecked")
-    private void setRegisteredProducts() throws Exception {
-        
+    private void setRegisteredProducts() {
+
         List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
-        
-        Gson gson = new Gson();
-        JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
-        JsonArray array = json.get("Product_Context").getAsJsonArray();
-        List<LidVid> lidvids = new ArrayList<LidVid>();
-        List<String> jsonObjList = gson.fromJson(array, ArrayList.class);
         URL url = null;
-        ValidationProblem p1 = new ValidationProblem(
-                new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                        "number of registered context products used for validation: " + jsonObjList.size()),
-                url);
-        pList.add(p1);
-        for (String jsonObj : jsonObjList) {
-            lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+
+        Gson gson = new Gson();
+        List<ContextProductReference> contextProducts = new ArrayList<ContextProductReference>();
+
+        try {
+            JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
+            JsonArray array = json.get("Product_Context").getAsJsonArray();
+
+            for (JsonElement jsonElm : array) {
+
+                JsonObject jsonObj = jsonElm.getAsJsonObject();
+                String lidvidString = jsonObj.get("lidvid").getAsString();
+                String typeString = "N/A";
+                if (!jsonObj.get("type").isJsonNull()) {
+                    typeString = jsonObj.get("type").getAsString();
+                }
+                String nameString = "N/A";
+                if (!jsonObj.get("name").isJsonNull()) {
+                    nameString = jsonObj.get("name").getAsString();
+                }
+
+                contextProducts.add(
+                        new ContextProductReference(lidvidString.split("::")[0], lidvidString.split("::")[1], typeString, nameString));
+
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage()
+                    + "\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
+                    + registeredProductsFile);
         }
-        if(nonRegisteredProducts){
+        
+        if (nonRegisteredProducts) {
+            
             try {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
-                List<String> jsonObjListN = gson.fromJson(arrayN, ArrayList.class);
-                ValidationProblem p2 = new ValidationProblem(
-                        new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                                "number of non-registered context products used for validation: " + jsonObjListN.size()),
-                        url);
-                pList.add(p2);
                 ValidationProblem pW = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
                                 "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
                         url);
                 pList.add(pW);
-                for (String jsonObj : jsonObjListN) {
-                    lidvids.add(new LidVid(jsonObj.split("::")[0], jsonObj.split("::")[1]));
+
+                for (JsonElement jsonElmN : arrayN) {
+
+                    JsonObject jsonObjN = jsonElmN.getAsJsonObject();
+                    String lidvidStringN = jsonObjN.get("lidvid").getAsString();
+                    String typeStringN = "N/A";
+                    if (!jsonObjN.get("type").isJsonNull()) {
+                        typeStringN = jsonObjN.get("type").getAsString();
+                    }
+                    String nameStringN = "N/A";
+                    if (!jsonObjN.get("name").isJsonNull()) {
+                        nameStringN = jsonObjN.get("name").getAsString();
+                    }
+                    contextProducts.add(new ContextProductReference(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
+                            nameStringN));
                 }
             } catch (Exception e) {
-                throw new Exception("Invalid JSON File: Verify format and values match that in default JSON file.");
+                System.out.println(e.getMessage()
+                        + "\nInvalid JSON File: Verify format and values match that in Non RegisteredProducts File JSON file: "
+                        + nonRegisteredProductsFile);
             }
-            
+
         }
-        ValidationProblem p3 = new ValidationProblem(
-                new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-                        "Total number of Product Context: " + lidvids.size()),
-                url);
+        ValidationProblem p3 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+                "Total number of context products used for validation: " + contextProducts.size()), url);
         pList.add(p3);
-        //System.out.println(new Gson().toJson(lidvids));
+
+        // System.out.println(new Gson().toJson(lidvids));
         try {
             report.record(new URI(ValidateLauncher.class.getName()), pList);
         } catch (URISyntaxException e) {
             System.out.println(e.getMessage());
         }
-        this.registeredAndNonRegistedProducts.put("Product_Context", lidvids);
+        this.registeredAndNonRegistedProducts.put("Product_Context", contextProducts);
+        //System.out.println("Total of LIDVID in registeredAndNonRegistedProducts: " + lidvids.size());
     }
 
-	public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
-		this.updateRegisteredProducts = updateRegisteredProducts;
-	}
-	public void setNonRegisteredProducts(boolean nonRegisteredProducts) {
+    public void setUpdateRegisteredProducts(boolean updateRegisteredProducts) {
+        this.updateRegisteredProducts = updateRegisteredProducts;
+    }
+
+    public void setNonRegisteredProducts(boolean nonRegisteredProducts) {
         this.nonRegisteredProducts = nonRegisteredProducts;
     }
 
@@ -1008,13 +1054,11 @@ public class ValidateLauncher {
         if (!regExps.isEmpty()) {
             report.addParameter("   File Filters Used             " + regExps);
         }
-        /* Deprecated issue-23
-        if (force) {
-            report.addParameter("   Force Mode                    on");
-        } else {
-            report.addParameter("   Force Mode                    off");
-        }
-        */
+        /*
+         * Deprecated issue-23 if (force) {
+         * report.addParameter("   Force Mode                    on"); } else {
+         * report.addParameter("   Force Mode                    off"); }
+         */
         if (checksumManifest != null) {
             report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
             report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
@@ -1033,7 +1077,7 @@ public class ValidateLauncher {
         }
         report.addParameter("   Max Errors                    " + maxErrors);
         report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
-        if(nonRegisteredProductsFile != null)
+        if (nonRegisteredProductsFile != null)
             report.addParameter("   Non Registered Contexts File  " + nonRegisteredProductsFile.toString());
         report.printHeader();
     }
@@ -1051,6 +1095,7 @@ public class ValidateLauncher {
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
             try {
+                
                 LocationValidator validator = factory.newInstance(target);
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
@@ -1058,8 +1103,15 @@ public class ValidateLauncher {
                 validator.setCheckData(checkData);
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
-                validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); //this map may include Non registered products  
-                if (!checksumManifest.isEmpty()) {
+                
+                validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); // this
+                                                                                        // map
+                                                                                        // may
+                                                                                        // include
+                                                                                        // Non
+                                                                                        // registered
+                                                                                        // products
+                if (!checksumManifest.isEmpty()) {                   
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());
@@ -1247,9 +1299,9 @@ public class ValidateLauncher {
             // download the latest Registered Context Products JSON file and
             // replace the existing file.
             if (updateRegisteredProducts) {
-            	getLatestJsonContext();
+                getLatestJsonContext();
             }
-            
+
             // Validate schemas and schematrons first before performing label
             // validation
             boolean invalidSchemas = false;
