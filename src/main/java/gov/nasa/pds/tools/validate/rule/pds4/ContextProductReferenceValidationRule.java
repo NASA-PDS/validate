@@ -1,16 +1,33 @@
-// Copyright 2006-2018, by the California Institute of Technology.
-// ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
-// Any commercial use must be negotiated with the Office of Technology Transfer
-// at the California Institute of Technology.
+// Copyright 2019, California Institute of Technology ("Caltech").
+// U.S. Government sponsorship acknowledged.
 //
-// This software is subject to U. S. export control laws and regulations
-// (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
-// is subject to U.S. export control laws and regulations, the recipient has
-// the responsibility to obtain export licenses or other export authority as
-// may be required before exporting such information to foreign countries or
-// providing access to foreign nationals.
+// All rights reserved.
 //
-// $Id$
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// * Redistributions of source code must retain the above copyright notice,
+// this list of conditions and the following disclaimer.
+// * Redistributions must reproduce the above copyright notice, this list of
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
+// * Neither the name of Caltech nor its operating division, the Jet Propulsion
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.URI;
@@ -53,45 +70,34 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
      * At this time, we'll only be getting the referenced Context Products. So,
      * we'll look for the following reference_types:
      * 
-     * - is_* (is_instrument, is_facility, is_telescope, etc.) -
-     * collection_to_context - document_to_* except for document_to_associate -
-     * *_to_target - data_to_investigation
+     * - is_* (is_instrument, is_facility, is_telescope, etc.)
+     * - *_to_<context> (e.g. data_to_investigation, data_to_instrument, etc.)
      */
-    private final String INTERNAL_REF_XPATH = "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_investigation')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_facility')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_telescope')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_airborne')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_laboratory')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_observatory')] | "
-            + "//*:Internal_Reference[namespace-uri()='" + PDS4_NS
-            + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_context')]";
+    private final String INTERNAL_REF_XPATH =
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and starts-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'],'is_')] | " + 
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_investigation')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_instrument_host')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_other')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_facility')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_telescope')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_airborne')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_laboratory')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_observatory')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_target')] | " +
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "' and ends-with(*:reference_type[namespace-uri()='" + PDS4_NS + "'], '_to_context')]";
 
     @Override
     public boolean isApplicable(String location) {
-        if (Utility.isDir(location) || !Utility.canRead(location)) {
-            return false;
-        }
+      if (Utility.isDir(location) || !Utility.canRead(location)) {
+        return false;
+      }
 
-        if (!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
-            return false;
-        }
-        return true;
+      if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
+        return false;
+      }
+      return true;
     }
 
     @ValidationTest
