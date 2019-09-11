@@ -21,6 +21,11 @@ import gov.nasa.pds.tools.validate.rule.RuleContext;
 import gov.nasa.pds.tools.validate.rule.ValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationRuleManager;
 
+import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.label.ExceptionType;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -128,6 +133,19 @@ public class ValidationTask implements Task {
     try {
       rule.execute(context);
     } catch (Throwable ex) {
+    	//ex.printStackTrace();
+    	try {
+    		problemListener.addProblem(
+    	        new ValidationProblem(new ProblemDefinition(
+    	            ExceptionType.ERROR,
+    	            ProblemType.INTERNAL_ERROR,
+    	            "Error executing validationTask: "),
+    	        	new URL(location),
+    	            ex.getCause().toString()));
+    	} catch (Exception e) {
+    	   //e.printStackTrace();
+    	   LOG.error("Malformed URL: " + location, e);
+        }
       LOG.error("Unexpected exception executing validation rule", ex);
     }
 
