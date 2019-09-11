@@ -76,9 +76,9 @@
   
   <File_Area_Observational>
     <File>
-      <file_name>minimal_test_product.tab</file_name>
+      <file_name>minimal_test_product_bad.tab</file_name>
       <file_size unit="byte">101</file_size>
-      <md5_checksum>8251511c48bd21cc3a6ca7fa8067af68</md5_checksum>
+      <md5_checksum>0282028a246b1c06006072e5f9fb224e</md5_checksum>
     </File>
 
     <Table_Character>
