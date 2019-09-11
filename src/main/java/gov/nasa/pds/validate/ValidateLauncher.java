@@ -219,6 +219,8 @@ public class ValidateLauncher {
     private File nonRegisteredProductsFile;
 
     private Map<String, List<ContextProductReference>> registeredAndNonRegistedProducts;
+    
+    private boolean validateContext;
 
     /**
      * Constructor.
@@ -254,6 +256,7 @@ public class ValidateLauncher {
         registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
+        validateContext = true;
 
     }
 
@@ -370,7 +373,10 @@ public class ValidateLauncher {
                             "The user No Registered Product context file does not exist: " + nonRegProdJson);
                 }
                 setNonRegisteredProducts(true);
+            } else if (Flag.SKIP_CONTEXT_VALIDATION.getLongName().equals(o.getLongOpt())) {
+                setValidateContext(false);
             }
+
             /**
              * Deprecated per
              * https://github.com/NASA-PDS-Incubator/validate/issues/23
@@ -633,6 +639,12 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.NONREGPROD_JSON_FILE)) {
                 nonRegisteredProductsFile = new File(config.getString(ConfigKey.NONREGPROD_JSON_FILE));
                 setNonRegisteredProducts(true);
+            }
+            
+            if (config.containsKey(ConfigKey.SKIP_CONTEXT_VALIDATION)) {
+                if (config.getBoolean(ConfigKey.SKIP_CONTEXT_VALIDATION) == true) {
+                    setValidateContext(false);
+                }
             }
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
@@ -963,6 +975,16 @@ public class ValidateLauncher {
     public void setNonRegisteredProducts(boolean nonRegisteredProducts) {
         this.nonRegisteredProducts = nonRegisteredProducts;
     }
+    
+    /**
+     * Sets the flag that enables/disables context validation.
+     * 
+     * @param flag
+     *            True or False.
+     */
+    public void setValidateContext(boolean flag) {
+        this.validateContext = flag;
+    }
 
     /**
      * Displays tool usage.
@@ -1103,6 +1125,7 @@ public class ValidateLauncher {
                 validator.setCheckData(checkData);
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
+                validator.setValidateContext(validateContext);
                 
                 validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); // this
                                                                                         // map

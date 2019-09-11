@@ -104,6 +104,9 @@ public class RuleContext extends ContextBase {
    */
   public static final String REGISTERED_PRODUCTS_KEY = "validate.registered-products";
   
+  /** The key used to indicate whether to disable context validation. */
+  public static final String CONTEXT_VALIDATION_KEY = "validate.validate-context";
+  
   
   private boolean rootTarget = false;
 
@@ -343,4 +346,12 @@ public class RuleContext extends ContextBase {
 	public void setRegisteredProducts(Map<String, List<ContextProductReference>> products) {
 	  putContextValue(REGISTERED_PRODUCTS_KEY, products);
 	}
+	
+    public boolean getValidateContext() {
+        return getContextValue(CONTEXT_VALIDATION_KEY, Boolean.class);
+    }
+
+    public void setValidateContext(boolean flag) {
+        putContextValue(CONTEXT_VALIDATION_KEY, flag);
+    }
 }
