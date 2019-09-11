@@ -300,6 +300,10 @@ public class LocationValidator {
 	  ruleContext.setAllowUnlabeledFiles(flag);
 	}
 	
+    public void  setValidateContext(boolean flag) {
+        ruleContext.setValidateContext(flag);
+    }
+	
 	/**
 	 * Implements a simple problem handler that prints problems to the 
 	 * standout error output.

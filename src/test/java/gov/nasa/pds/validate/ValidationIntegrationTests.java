@@ -223,7 +223,57 @@ class ValidationIntegrationTests {
 
             count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
             count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
-            assertEquals(count, 3, "One error expected for invalid context reference (Lid, name, value) test.");
+            assertEquals(count, 3, "Three errors expected for invalid context reference (Lid, name, value) test.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub47() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github47");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+
+            // test with option: "--skip-context-validation"
+            File report = new File(outFilePath + File.separator + "report_github47_disable-valid.json");
+
+            // System.out.println("Test file: " + testPath + File.separator +
+            // "test_context_products.xml");
+            String[] args = { "-r", report.getAbsolutePath(), "-s", "json", "-R", "pds4.label", "--skip-context-validation",
+                    testPath + File.separator + "test_context_products.xml" };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+            assertEquals(count, 0, "No errors expected. Context validation disabled.");
+
+            // test without option: "--no-context-valid"
+            report = new File(outFilePath + File.separator + "report_github47_enable-valid.json");
+
+            // System.out.println("Test file: " + testPath + File.separator +
+            // "test_context_products.xml");
+            String[] args2 = { "-r", report.getAbsolutePath(), "-s", "json", "-R", "pds4.label",
+                    testPath + File.separator + "test_context_products.xml" };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+            assertEquals(count, 3, "Three errors expected. Context validation enabled.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");

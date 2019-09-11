@@ -118,4 +118,9 @@ public class ConfigKey {
     public static final String LATEST_JSON_FILE = "validate.updateContextProducts";
     
     public static final String NONREGPROD_JSON_FILE = "validate.addContextProducts";
+    
+    /**
+     * Property to disable context validation.
+     */
+    public static final String SKIP_CONTEXT_VALIDATION = "validate.skipContextValidation";
 }
