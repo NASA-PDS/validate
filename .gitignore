@@ -29,6 +29,7 @@
 
 # Temporary files
 *~
+src/test/temp/
 
 # other stuff
 *.xpr
