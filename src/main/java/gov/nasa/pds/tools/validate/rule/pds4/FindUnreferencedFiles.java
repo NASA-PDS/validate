@@ -41,7 +41,9 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
     if (getContext().isRootTarget() && !getContext().getAllowUnlabeledFiles()) {
       for (String location : getRegistrar().getUnreferencedTargets()) {
         try {
-          reportError(PDS4Problems.UNLABELED_FILE, new URL(location), -1, -1);
+          // issue42 - to skip Product level validation
+          if (!getContext().getSkipProductValidation()) 
+            reportError(PDS4Problems.UNLABELED_FILE, new URL(location), -1, -1);
         } catch (MalformedURLException e) {
           reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, e.getMessage());
         }

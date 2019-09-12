@@ -302,7 +302,7 @@ public class LocationValidator {
 	
 	public void setSkipProductValidation(boolean flag) {
 	  ruleContext.setSkipProductValidation(flag);
-	  //or labelValidator.setSkipProductValidation(flag)
+	  labelValidator.setSkipProductValidation(flag);
 	}
 	
 	/**

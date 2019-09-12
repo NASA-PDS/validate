@@ -160,10 +160,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       }
       if (pass) {
         getListener().addLocation(getTarget().toString());
-        
-        // issue #42???
-        //if (!getContext().getSkipProductValidation()) 
-           document = validator.parseAndValidate(processor, getTarget());
+        document = validator.parseAndValidate(processor, getTarget());
       }
       if (document != null) {
         getContext().put(PDS4Context.LABEL_DOCUMENT, document);

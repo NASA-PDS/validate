@@ -51,9 +51,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
     try {
       for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
         try {
-		    // issue42 - to skip Product level validation
-        	if (!getContext().getSkipProductValidation()) 
-        	  labelRule.execute(getChildContext(t.getUrl()));
+          labelRule.execute(getChildContext(t.getUrl()));
         } catch (Exception e) {
           reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
         }

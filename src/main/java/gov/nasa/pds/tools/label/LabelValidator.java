@@ -100,6 +100,7 @@ public class LabelValidator {
   private XMLCatalogResolver resolver;
   private Boolean useLabelSchema;
   private Boolean useLabelSchematron;
+  private Boolean skipProductValidation;
   private Map<String, Transformer> cachedLabelSchematrons;
 
   public static final String SCHEMA_CHECK = 
@@ -343,13 +344,13 @@ public class LabelValidator {
       TransformerException, MissingLabelSchemaException {
     List<String> labelSchematronRefs = new ArrayList<String>();
     Document xml = null;
-    
+  
     // Are we perfoming schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
 
       // Do we need this to clear the cache?
-      
+     
       if (useLabelSchema) {
         cachedValidatorHandler = schemaFactory.newSchema().newValidatorHandler();
       } else {
@@ -477,20 +478,24 @@ public class LabelValidator {
         }
       }
     }
-    if (!externalValidators.isEmpty()) {
-      // Perform any other additional checks that were added
-      for(ExternalValidator ev : externalValidators) {
-        ev.validate(handler, url);
+    
+    // issue_42: skip product-level validation when the flag is on
+    if (!skipProductValidation) {
+      if (!externalValidators.isEmpty()) {
+        // Perform any other additional checks that were added
+        for(ExternalValidator ev : externalValidators) {
+          ev.validate(handler, url);
+        }
       }
-    }
 
-    // Perform any additional checks that were added
-    if (!documentValidators.isEmpty()) {
-      SAXSource saxSource = new SAXSource(Utility.openConnection(url));
-      saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource);
-      for (DocumentValidator dv : documentValidators) {
-        dv.validate(handler, docInfo);
+      // Perform any additional checks that were added
+      if (!documentValidators.isEmpty()) {
+        SAXSource saxSource = new SAXSource(Utility.openConnection(url));
+        saxSource.setSystemId(url.toString());
+        DocumentInfo docInfo = LabelParser.parse(saxSource);
+        for (DocumentValidator dv : documentValidators) {
+          dv.validate(handler, docInfo);
+        }
       }
     }
 
@@ -831,6 +836,10 @@ public class LabelValidator {
   public void setSchematronCheck(Boolean value, Boolean useLabelSchematron) {
     this.setConfiguration(SCHEMATRON_CHECK, value);
     this.useLabelSchematron = useLabelSchematron;
+  }
+  
+  public void setSkipProductValidation(Boolean flag) {
+      this.skipProductValidation = flag;
   }
 
   public Boolean getConfiguration(String key) {
