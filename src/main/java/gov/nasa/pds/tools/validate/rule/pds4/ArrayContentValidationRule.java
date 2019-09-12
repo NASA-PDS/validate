@@ -65,7 +65,7 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
   
   @Override
   public boolean isApplicable(String location) {
-    if (!getContext().getCheckData()) {
+    if (!getContext().getCheckData() || getContext().getSkipProductValidation()) {
       return false;
     }
     boolean isApplicable = false;
