@@ -87,31 +87,33 @@ POSSIBILITY OF SUCH DAMAGE.
 
     <section name="Command-Line Options">
       <p>The following table describes the command-line options available:
-      </p>
-
+      </p>      
       <table>
         <tr><th>Command-Line Option</th><th>Description</th></tr>
         <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-        <tr><td>-R, --rule &lt;validation rule name&gt;</td><td>Specify the validation rules to apply. Valid values are "pds4.bundle", "pds4.collection", "pds4.folder", "pds4.label", or "pds3.volume". Default is to use "pds4.label" for target file inputs and to use "pds4.folder" for target directory inputs. See <a href="#Validation_Rules">Validation Rules</a> for more details.</td></tr>
-        <tr><td>-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
-        <tr><td>-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
-        <tr><td>-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
-        <tr><td>-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
-        <tr><td>-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
-        <tr><td>-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
-        <tr><td>-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
-        <tr><td>-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
-        <tr><td>--spot-check-data &lt;num&gt;</td><td>Specify to skip every nth record (or line in Arrays) during data content validation.</td></tr>
-        <tr><td>--allow-unlabeled-files</td><td>Specify this flag to tell the tool to not check for un-labeled files in a bundle or collection.</td></tr>
-        <tr><td>-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
+        <tr><td nowrap="nowrap">-R, --rule &lt;validation rule name&gt;</td><td>Specify the validation rules to apply. Valid values are "pds4.bundle", "pds4.collection", "pds4.folder", "pds4.label", or "pds3.volume". Default is to use "pds4.label" for target file inputs and to use "pds4.folder" for target directory inputs. See <a href="#Validation_Rules">Validation Rules</a> for more details.</td></tr>
+        <tr><td nowrap="nowrap">-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
+        <tr><td nowrap="nowrap">-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
+        <tr><td nowrap="nowrap">-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
+        <tr><td nowrap="nowrap">-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
+        <tr><td nowrap="nowrap">-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
+        <tr><td nowrap="nowrap">-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
+        <tr><td nowrap="nowrap">-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
+        <tr><td nowrap="nowrap">-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
+        <tr><td nowrap="nowrap">--spot-check-data &lt;num&gt;</td><td>Specify to skip every nth record (or line in Arrays) during data content validation.</td></tr>
+        <tr><td nowrap="nowrap">--allow-unlabeled-files</td><td>Specify this flag to tell the tool to not check for un-labeled files in a bundle or collection.</td></tr>
+        <tr><td nowrap="nowrap">-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
         <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
-        <tr><td>-m, --model-version &lt;model&gt;</td><td>Specify a model version to use during validation. The default is to use the latest PDS4 data model (<i>${model-version}</i>). Refer to the <a href="https://pds.nasa.gov/pds4/doc/im">PDS4 Information Model Page</a> for older models that are supported. The version number should be specified without periods, for example <i>1000</i> for version <i>1.0.0.0</i>.</td></tr>
-        <tr><td>-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
-        <tr><td>-f, --force</td><td>Force the tool to validate against the schemas and schematrons specified in a label.</td></tr>
-        <tr><td>-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
-        <tr><td>-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
-        <tr><td>-V, --version</td><td>Display the release number and copyright information.</td></tr>
-        <tr><td>-h, --help</td><td>Display Harvest usage.</td></tr>
+        <tr><td nowrap="nowrap">-m, --model-version &lt;model&gt;</td><td>DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.</td></tr>
+        <tr><td nowrap="nowrap">-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
+        <tr><td nowrap="nowrap">-f, --force</td><td>DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.</td></tr>
+        <tr><td nowrap="nowrap">-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
+        <tr><td nowrap="nowrap">-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
+		<tr><td nowrap="nowrap">--add-context-products &lt;dir/files&gt;</td><td>Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive.</td></tr>
+		<tr><td nowrap="nowrap">--skip-context-validation</td><td>Disable context validation.Only be enabled during development.</td></tr>
+		<tr><td nowrap="nowrap">-u,--update-context-products</td><td>Update the Context Product information used for validating context product references in labels.</td></tr>
+        <tr><td nowrap="nowrap">-V, --version</td><td>Display the release number and copyright information.</td></tr>
+        <tr><td nowrap="nowrap">-h, --help</td><td>Display Harvest usage.</td></tr>
       </table>
       
     </section>
@@ -627,29 +629,30 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
         </p>
 
         <p>The following table contains valid keywords that can be specified in the configuration file:</p>
-
         <table>
-          <tr><th>Property Keyword</th><th>Associated Command-Line Option</th></tr>
-          <tr><td>validate.target</td><td>-t, --target</td></tr>
-          <tr><td>validate.rule</td><td>-R, --rule</td></tr>
-          <tr><td>validate.checksum</td><td>-M, --checksum-manifest</td></tr>
-          <tr><td>validate.basePath</td><td>-B, --base-path</td></tr>
-          <tr><td>validate.catalog</td><td>-C, --catalog</td></tr>
-          <tr><td>validate.schema</td><td>-x, --xsd</td></tr>
-          <tr><td>validate.schematron</td><td>-S, --schematron</td></tr>
-          <tr><td>validate.noDataCheck</td><td>-D, --no-data-check</td></tr>
-          <tr><td>validate.spotCheckData</td><td>--spot-check-data</td></tr>
-          <tr><td>validate.allowUnlabeledFiles</td><td>--allow-unlabeled-files</td></tr>
-          <tr><td>validate.report</td><td>-r, --report-file</td></tr>
-          <tr><td>validate.verbose</td><td>-v, --verbose</td></tr>
-          <tr><td>validate.reportStyle</td><td>-s, --report-style</td></tr>
-          <tr><td>validate.regexp</td><td>-e, --regexp</td></tr>
-          <tr><td>validate.local</td><td>-L, --local</td></tr>
-          <tr><td>validate.model</td><td>-m, --model-version</td></tr>
-          <tr><td>validate.force</td><td>-f, --force</td></tr>
-          <tr><td>validate.maxErrors</td><td>-E, --max-errors</td></tr>
+          <tr><th>Property Keyword</th><th>Property Value</th><th>Associated Command-Line Option</th></tr>
+          <tr><td>validate.target</td><td>[files,dirs]</td><td>-t, --target</td></tr>
+          <tr><td>validate.rule</td><td>[validation rule name]</td><td>-R, --rule</td></tr>
+          <tr><td>validate.checksum</td><td>[file]</td><td>-M, --checksum-manifest</td></tr>
+          <tr><td>validate.basePath</td><td>[path]</td><td>-B, --base-path</td></tr>
+          <tr><td>validate.catalog</td><td>[catalog files]</td><td>-C, --catalog</td></tr>
+          <tr><td>validate.schema</td><td>[schema files]</td><td>-x, --xsd</td></tr>
+          <tr><td>validate.schematron</td><td>[schematron files]</td><td>-S, --schematron</td></tr>
+          <tr><td>validate.noDataCheck</td><td>true</td><td>-D, --no-data-check</td></tr>
+          <tr><td>validate.spotCheckData</td><td>[number]</td><td>--spot-check-data</td></tr>
+          <tr><td>validate.allowUnlabeledFiles</td><td>true</td><td>--allow-unlabeled-files</td></tr>
+          <tr><td>validate.report</td><td>[file name]</td><td>-r, --report-file</td></tr>
+          <tr><td>validate.verbose</td><td>[1|2|3]</td><td>-v, --verbose</td></tr>
+          <tr><td>validate.reportStyle</td><td>[full|json|xml]</td><td>-s, --report-style</td></tr>
+          <tr><td>validate.regexp</td><td>[patterns]</td><td>-e, --regexp</td></tr>
+          <tr><td>validate.local</td><td>true</td><td>-L, --local</td></tr>
+          <tr><td>validate.model</td><td>[version]</td><td>-m, --model-version (DEPRECATED)</td></tr>
+          <tr><td>validate.force</td><td>true</td><td>-f, --force (DEPRECATED)</td></tr>
+          <tr><td>validate.maxErrors</td><td>[number]</td><td>-E, --max-errors</td></tr>
+		  <tr><td>validate.updateContextProducts</td><td>true</td><td>-u,--update-context-products</td></tr>
+		  <tr><td>validate.addContextProducts</td><td>[dir/files]</td><td>--add-context-products</td></tr>
+		  <tr><td>validate.skipContextValidation</td><td>true</td><td>--skip-context-validation</td></tr>
         </table>
-
         <p>The following example demonstrates how to set a configuration file:
         </p>
 
