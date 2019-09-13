@@ -53,6 +53,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <item name="About Validate Tool" href="index.html"/>
       <item name="Installation" href="install/index.html"/>
       <item name="Operation" href="operate/index.html"/>
+      <item name="Common Errors" href="operate/errors.html"/>
     </menu>
 
     <menu name="Downloads">

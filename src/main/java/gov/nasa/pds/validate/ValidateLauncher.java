@@ -954,7 +954,7 @@ public class ValidateLauncher {
             }
 
         }
-        ValidationProblem p3 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+        ValidationProblem p3 = new ValidationProblem(new ProblemDefinition(ExceptionType.DEBUG, ProblemType.GENERAL_INFO,
                 "Total number of context products used for validation: " + contextProducts.size()), url);
         pList.add(p3);
 
