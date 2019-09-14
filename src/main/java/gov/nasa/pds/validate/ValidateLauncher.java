@@ -886,8 +886,6 @@ public class ValidateLauncher {
     }
 
     private void setRegisteredProducts() {
-
-        List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
         URL url = null;
 
         Gson gson = new Gson();
@@ -926,6 +924,7 @@ public class ValidateLauncher {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
+              List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
                 ValidationProblem pW = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
                                 "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
@@ -947,6 +946,8 @@ public class ValidateLauncher {
                     contextProducts.add(new ContextProductReference(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
                             nameStringN));
                 }
+                
+                report.record(new URI(ValidateLauncher.class.getName()), pList);
             } catch (Exception e) {
                 System.out.println(e.getMessage()
                         + "\nInvalid JSON File: Verify format and values match that in Non RegisteredProducts File JSON file: "
@@ -954,16 +955,7 @@ public class ValidateLauncher {
             }
 
         }
-        ValidationProblem p3 = new ValidationProblem(new ProblemDefinition(ExceptionType.DEBUG, ProblemType.GENERAL_INFO,
-                "Total number of context products used for validation: " + contextProducts.size()), url);
-        pList.add(p3);
 
-        // System.out.println(new Gson().toJson(lidvids));
-        try {
-            report.record(new URI(ValidateLauncher.class.getName()), pList);
-        } catch (URISyntaxException e) {
-            System.out.println(e.getMessage());
-        }
         this.registeredAndNonRegistedProducts.put("Product_Context", contextProducts);
         //System.out.println("Total of LIDVID in registeredAndNonRegistedProducts: " + lidvids.size());
     }
