@@ -67,6 +67,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -81,6 +83,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -324,7 +328,19 @@ public class ValidateLauncher {
                 setForce(false);
             } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
                 targetList.addAll(o.getValuesList());
-            } else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
+            } else if (Flag.TARGET_LIST_FILE.getLongName().equals(o.getLongOpt())) {
+                String fileName = o.getValue();
+                File listF = new File(fileName);               
+                if (listF.exists()) {
+                    List<String> listTgt;
+                    try (Stream<String> lines = Files.lines(Paths.get(fileName))) {
+                        listTgt = lines.collect(Collectors.toList());
+                    }
+                    targetList.addAll(listTgt);
+                } else {
+                    throw new Exception("The file of target list does not exist: " + fileName);
+                }                
+            }else if (Flag.VERBOSE.getShortName().equals(o.getOpt())) {
                 short value = 0;
                 try {
                     value = Short.parseShort(o.getValue());
@@ -558,6 +574,8 @@ public class ValidateLauncher {
             Configuration config = null;
             AbstractConfiguration.setDefaultListDelimiter(',');
             config = new PropertiesConfiguration(configuration);
+            
+            List<String> targetList = new ArrayList<String>();
             if (config.isEmpty()) {
                 throw new ConfigurationException("Configuration file is empty: " + configuration);
             }
@@ -572,9 +590,8 @@ public class ValidateLauncher {
             }
             if (config.containsKey(ConfigKey.TARGET)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(ConfigKey.TARGET);
-                list = Utility.removeQuotes(list);
-                setTargets(list);
+                targetList = config.getList(ConfigKey.TARGET);
+                targetList = Utility.removeQuotes(targetList);
             }
             if (config.containsKey(ConfigKey.VERBOSE)) {
                 setSeverity(config.getShort(ConfigKey.VERBOSE));
@@ -646,6 +663,24 @@ public class ValidateLauncher {
                     setValidateContext(false);
                 }
             }
+            if (config.containsKey(ConfigKey.TARGET_LIST_FILE)) {
+                String fileName = config.getString(ConfigKey.TARGET_LIST_FILE);
+                File listF = new File(fileName);               
+                if (listF.exists()) {
+                    List<String> listTgt;
+                    try (Stream<String> lines = Files.lines(Paths.get(fileName))) {
+                        listTgt = lines.collect(Collectors.toList());
+                    }
+                    targetList.addAll(listTgt);
+                } else {
+                    throw new Exception("The file of target list does not exist: " + fileName);
+                }
+            }
+            
+            if (!targetList.isEmpty()) {
+                setTargets(targetList);
+            }
+            
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
         }
@@ -1130,7 +1165,6 @@ public class ValidateLauncher {
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());
-
                 ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
                 monitor.setMaxErrors(maxErrors);
 

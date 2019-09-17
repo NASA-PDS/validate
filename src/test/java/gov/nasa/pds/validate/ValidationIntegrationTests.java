@@ -457,6 +457,59 @@ class ValidationIntegrationTests {
         }
     }
     
+    /*@Test
+    void testGithub50() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github50");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github50_1.json");
+            
+            // First test that we get file of target list from command line, and add to the target list to validate.
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--target-list-file", testPath + File.separator + "target-list.txt",
+                    "-t", testPath + File.separator + "test_context_products.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count1 = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+            count1 += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+
+            assertEquals(count1, 24, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
+
+            // Now let's test that we get file of target list from the config file, and add to the target list to validate.
+            report = new File(outFilePath + File.separator + "report_github50_2.json");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-c", testPath + File.separator + "config.properties"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+
+            assertEquals(count, 24, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }*/
+    
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
         JsonObject message = null;

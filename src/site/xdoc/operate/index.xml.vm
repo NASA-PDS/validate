@@ -111,6 +111,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <tr><td nowrap="nowrap">-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
 		<tr><td nowrap="nowrap">--add-context-products &lt;dir/files&gt;</td><td>Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive.</td></tr>
 		<tr><td nowrap="nowrap">--skip-context-validation</td><td>Disable context validation.Only be enabled during development.</td></tr>
+		<tr><td nowrap="nowrap">--target-list-file &lt;dir/file&gt;</td><td>Explicitly specify a file that contains a list of files/directories to validate.</td></tr>
 		<tr><td nowrap="nowrap">-u,--update-context-products</td><td>Update the Context Product information used for validating context product references in labels.</td></tr>
         <tr><td nowrap="nowrap">-V, --version</td><td>Display the release number and copyright information.</td></tr>
         <tr><td nowrap="nowrap">-h, --help</td><td>Display Harvest usage.</td></tr>
@@ -652,6 +653,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
 		  <tr><td>validate.updateContextProducts</td><td>true</td><td>-u,--update-context-products</td></tr>
 		  <tr><td>validate.addContextProducts</td><td>[dir/files]</td><td>--add-context-products</td></tr>
 		  <tr><td>validate.skipContextValidation</td><td>true</td><td>--skip-context-validation</td></tr>
+		  <tr><td>validate.targetListFile</td><td>[dir/file]</td><td>--target-list-file</td></tr>
         </table>
         <p>The following example demonstrates how to set a configuration file:
         </p>
