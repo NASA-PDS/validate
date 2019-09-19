@@ -152,7 +152,7 @@ class ValidationIntegrationTests {
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             
             // Make sure we have 1 error as expected
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 4, "One error expected for invalid context reference test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 1, "One error expected for invalid context reference test.");
 
             // Now test with added context products
             report = new File(outFilePath + File.separator + "report_github28_2.json");
@@ -167,7 +167,7 @@ class ValidationIntegrationTests {
 
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 3, "No errors expected for add additional context test.");
+            assertEquals(reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(), 0, "No errors expected for add additional context test.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
