@@ -123,4 +123,9 @@ public class ConfigKey {
      * Property to disable context validation.
      */
     public static final String SKIP_CONTEXT_VALIDATION = "validate.skipContextValidation";
+    
+    /**
+     * Property to specify the file that contains a list of files/directories to validate.
+     */
+    public static final String TARGET_MANIFEST = "validate.targetManifest";
 }

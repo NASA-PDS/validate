@@ -457,6 +457,68 @@ class ValidationIntegrationTests {
         }
     }
     
+    @Test
+    void testGithub50() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github50");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github50_1.json");
+
+            String manifestFile = outFilePath + File.separator + "target-manifest.xml";
+
+            // Create catalog file
+            String manifestText = testPath + "/ele_evt_12hr_orbit_2011-2012.xml\n" +
+                    testPath + "/ele_evt_8hr_orbit_2012-2013.xml";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(manifestFile));
+            writer.write(manifestText);
+            writer.close();
+
+            // First test that we get file of target list from command line, and add to the target list to validate.
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "--target-manifest", manifestFile
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
+
+            assertEquals(count, 2, "2 " + ProblemType.MISSING_REFERENCED_FILE.getKey() + " error messages expected.\n" + reportJson.toString());
+            
+            // Now try with manifest and target
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "--target-manifest", manifestFile,
+                    "-t", testPath + "/ele_evt_8hr_orbit_2014-2015.xml"
+                    };
+
+            ValidateLauncher.main(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
+
+            assertEquals(count, 3, "3 " + ProblemType.MISSING_REFERENCED_FILE.getKey() + " error messages expected.\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
         JsonObject message = null;
