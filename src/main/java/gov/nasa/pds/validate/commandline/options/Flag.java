@@ -157,11 +157,14 @@ public enum Flag {
      * validation. Only be enabled during development
      */
     SKIP_CONTEXT_VALIDATION(null, "skip-context-validation", "Disable context product reference validation. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive."),
+
     /**
      * flag to Flag to specify the file that contains a list of files/directories to validate.
      */
-    TARGET_MANIFEST(null, "target-manifest", "file", String.class, true, "Specify a manifest file of files/directory paths to validate.");
+    TARGET_MANIFEST(null, "target-manifest", "file", String.class, true, "Specify a manifest file of files/directory paths to validate."),
     
+	SKIP_SCHEMA_VALIDATION(null, "skip-schema-validation", "Disble schema and schematron valication. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive.");
+
     /** The short name. */
     private final String shortName;
 

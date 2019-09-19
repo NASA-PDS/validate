@@ -228,6 +228,8 @@ public class ValidateLauncher {
     private Map<String, List<ContextProductReference>> registeredAndNonRegistedProducts;
     
     private boolean validateContext;
+    
+    private boolean validateSchema;
 
     /**
      * Constructor.
@@ -265,7 +267,7 @@ public class ValidateLauncher {
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
         validateContext = true;
-
+        validateSchema = true;
     }
 
     /**
@@ -397,6 +399,8 @@ public class ValidateLauncher {
                 setNonRegisteredProducts(true);
             } else if (Flag.SKIP_CONTEXT_VALIDATION.getLongName().equals(o.getLongOpt())) {
                 setValidateContext(false);
+            } else if (Flag.SKIP_SCHEMA_VALIDATION.getLongName().equals(o.getLongOpt())) {
+                setValidateSchema(false);
             }
 
             /**
@@ -696,6 +700,7 @@ public class ValidateLauncher {
                     setValidateContext(false);
                 }
             }
+<<<<<<< HEAD
             if (config.containsKey(ConfigKey.TARGET_MANIFEST)) {
                 String fileName = config.getString(ConfigKey.TARGET_MANIFEST);
                 File listF = new File(fileName);               
@@ -714,6 +719,13 @@ public class ValidateLauncher {
                 setTargets(targetList);
             }
             
+=======
+            if (config.containsKey(ConfigKey.SKIP_SCHEMA_VALIDATION)) {
+                if (config.getBoolean(ConfigKey.SKIP_SCHEMA_VALIDATION) == true) {
+                    setValidateSchema(false);
+                }
+            }
+>>>>>>> issue_84: Deactivate using online schemas validation
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
         }
@@ -1067,6 +1079,10 @@ public class ValidateLauncher {
     public void setValidateContext(boolean flag) {
         this.validateContext = flag;
     }
+    
+    public void setValidateSchema(boolean flag) {
+    	this.validateSchema = flag;
+    }
 
     /**
      * Displays tool usage.
@@ -1204,9 +1220,8 @@ public class ValidateLauncher {
         factory.setModelVersion(modelVersion);
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
-            try {
-                
-                LocationValidator validator = factory.newInstance(target);
+            try {         	
+                LocationValidator validator = factory.newInstance(target);                                           
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
                 validator.setRecurse(traverse);
@@ -1216,7 +1231,9 @@ public class ValidateLauncher {
                 validator.setValidateContext(validateContext);
                 validator.setSkipProductValidation(skipProductValidation);
                 validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); //this map may include Non registered products  
-                if (!checksumManifest.isEmpty()) {
+                validator.setValidateSchema(validateSchema);
+
+                if (!checksumManifest.isEmpty()) {                   
                     validator.setChecksumManifest(checksumManifest);
                 }
                 validator.setTargetRegistrar(new InMemoryRegistrar());
@@ -1228,15 +1245,15 @@ public class ValidateLauncher {
                 }
 
                 if (!schemas.isEmpty()) {
-                    validator.setSchema(schemas);
-                    validator.setCachedEntityResolver(resolver);
-                    validator.setCachedLSResourceResolver(schemaValidator.getCachedLSResolver());
+                   validator.setSchema(schemas);
+                   validator.setCachedEntityResolver(resolver);
+                   validator.setCachedLSResourceResolver(schemaValidator.getCachedLSResolver());
                 }
                 if (!catalogs.isEmpty()) {
-                    validator.setCatalogs(catalogs);
+                   validator.setCatalogs(catalogs);
                 }
                 if (!transformedSchematrons.isEmpty()) {
-                    validator.setSchematrons(transformedSchematrons);
+                   validator.setSchematrons(transformedSchematrons);
                 }
                 validator.validate(monitor, target);
                 monitor.endValidation();

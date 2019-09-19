@@ -248,9 +248,15 @@ public class LocationValidator {
 	}
 
 	public void setForce(boolean force) {
-    labelValidator.setSchemaCheck(true, force);
-    labelValidator.setSchematronCheck(true, force);
-    ruleContext.setForceLabelSchemaValidation(force);
+      labelValidator.setSchemaCheck(true, force);
+      labelValidator.setSchematronCheck(true, force);
+      ruleContext.setForceLabelSchemaValidation(force);
+	}
+	
+	public void setValidateSchema(boolean flag) {
+       labelValidator.setSchemaCheck(false, flag);
+       labelValidator.setSchematronCheck(false, flag);
+       ruleContext.setForceLabelSchemaValidation(flag);	
 	}
 
 	public void setFileFilters(List<String> regExps) {

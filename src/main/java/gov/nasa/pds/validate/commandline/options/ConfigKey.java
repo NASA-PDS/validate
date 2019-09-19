@@ -130,4 +130,6 @@ public class ConfigKey {
     public static final String TARGET_MANIFEST = "validate.targetManifest";
     
     public static final String SKIP_PRODUCT_VALIDATION = "validate.ignoreProductValidation";
+
+    public static final String SKIP_SCHEMA_VALIDATION = "validate.skipSchemaValidation";
 }
