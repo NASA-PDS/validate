@@ -42,8 +42,6 @@ public enum ProblemType {
 
     CONTEXT_REFERENCE_NOT_FOUND("error.label.context_ref_not_found"),
 
-    CONTEXT_REFERENCE_FOUND_MISMATCH("error.label.context_ref_mismatch"),
-
     OUT_OF_MEMORY("error.validation.out_of_memory"),
 
     INTERNAL_ERROR("error.validation.internal_error"),
@@ -173,6 +171,8 @@ public enum ProblemType {
     UNLABELED_FILE("warning.file.not_referenced_in_label"),
 
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
+    
+    CONTEXT_REFERENCE_FOUND_MISMATCH("warning.label.context_ref_mismatch"),
 
     // Info message types
 
