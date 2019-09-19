@@ -86,36 +86,98 @@ POSSIBILITY OF SUCH DAMAGE.
     </section>
 
     <section name="Command-Line Options">
-      <p>The following table describes the command-line options available:
+      <p>The following shows all command-line options, and can be accessed by running the tool with the -h flag:
       </p>      
-      <table>
-        <tr><th>Command-Line Option</th><th>Description</th></tr>
-        <tr><td nowrap="nowrap">-t, --target &lt;files,directories&gt;</td><td>Explicitly specify the targets (product files, directories) to validate. Targets can be specified implicitly as well (example: Validate product.xml). For more details on target specification, see the <a href="#Specifying_Targets">Specifying Targets</a> section.</td></tr>
-        <tr><td nowrap="nowrap">-R, --rule &lt;validation rule name&gt;</td><td>Specify the validation rules to apply. Valid values are "pds4.bundle", "pds4.collection", "pds4.folder", "pds4.label", or "pds3.volume". Default is to use "pds4.label" for target file inputs and to use "pds4.folder" for target directory inputs. See <a href="#Validation_Rules">Validation Rules</a> for more details.</td></tr>
-        <tr><td nowrap="nowrap">-M, --checksum-manifest &lt;file&gt;</td><td>Specify a Checksum Manifest file to perform additional checksum validation. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
-        <tr><td nowrap="nowrap">-B, --base-path &lt;file&gt;</td><td>Specify a base path in order for the tool to properly resolve relative file references found in a checksum manifest file. For more details on checksum vaildation, see the <a href="#Checksum_Manifest_File_Validation">Checksum Manifest File Validation</a> section.</td></tr>
-        <tr><td nowrap="nowrap">-x, --schema &lt;schemas&gt;</td><td>Specify XML Schema files to use during validation. By using this flag, this will override using the PDS XML Schemas packaged with the tool. When passing in multiple schemas, specify the schema for the <i>pds</i> namespace (otherwise known as the core schema) first, followed by the other schemas. For more details on passing in multiple schemas, see the <a href="#Passing_in_Multiple_Schemas">Passing in Multiple Schemas</a> section.</td></tr>
-        <tr><td nowrap="nowrap">-S, --schematron &lt;schematrons&gt;</td><td>Specify Schematron files to use during validation. By using this flag, this will override using the PDS Schematron files packaged with the tool.</td></tr>
-        <tr><td nowrap="nowrap">-C, --catalog &lt;xml-catalogs&gt;</td><td>Specify XML Catalog files to use during validation.</td></tr>
-        <tr><td nowrap="nowrap">-r, --report-file &lt;file&gt;</td><td>Specify the report file name. Default is to output results to standard out.</td></tr>
-        <tr><td nowrap="nowrap">-s, --report-style &lt;json|xml&gt;</td><td>Specify the standard human-readable report format. Valid values are "full" for a full view, "xml" for an XML view, or "json" for a JSON view. Default is to generate a full report if this option is not specified. For more details on these report styles, see the <a href="#Report_Format">Report Format</a> section.</td></tr>
-        <tr><td nowrap="nowrap">-D, --no-data-check</td><td>Specify to disable data content validation.</td></tr>
-        <tr><td nowrap="nowrap">--spot-check-data &lt;num&gt;</td><td>Specify to skip every nth record (or line in Arrays) during data content validation.</td></tr>
-        <tr><td nowrap="nowrap">--allow-unlabeled-files</td><td>Specify this flag to tell the tool to not check for un-labeled files in a bundle or collection.</td></tr>
-        <tr><td nowrap="nowrap">-v, --verbose &lt;1|2|3&gt;</td><td>Specify the severity level and above to include in the human-readable report: (1=Info, 2=Warning, 3=Error). Default is Warning and above.</td></tr>
-        <tr><td nowrap="nowrap">-e, --regexp &lt;file-patterns&gt;</td><td>Specify file patterns to look for when validating a target directory. This flag is ignored when validating under the pds4.collection or pds4.bundle rules. Each pattern must be surrounded in quotes (example: "*.xml"). Pattern matching is case-insensitive in Windows, but case-sensitive for other systems. The default behavior is to search for files ending in "*.xml" or "*.XML". This flag option will override this default behavior.</td></tr>
-        <tr><td nowrap="nowrap">-m, --model-version &lt;model&gt;</td><td>DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.</td></tr>
-        <tr><td nowrap="nowrap">-L, --local</td><td>Validate files only in the target directory instead of recursively traversing down the sub-directories.</td></tr>
-        <tr><td nowrap="nowrap">-f, --force</td><td>DEPRECATED: Tool performs validation against the schema and schematron specified in a given label by default. Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron.</td></tr>
-        <tr><td nowrap="nowrap">-c, --config</td><td>Specify a configuration file to set the tool behavior.</td></tr>
-        <tr><td nowrap="nowrap">-E, --max-errors</td><td>Specify the max number of errors that the tool will report on before gracefully exiting a validation run. Default is 100,000.</td></tr>
-		<tr><td nowrap="nowrap">--add-context-products &lt;dir/files&gt;</td><td>Explicitly specify a JSON file (or directory of files) containing additional context product information used for validation. WARNING: This should only be used for development purposes. All context products must be registered for validity of a product in an archive.</td></tr>
-		<tr><td nowrap="nowrap">--skip-context-validation</td><td>Disable context validation.Only be enabled during development.</td></tr>
-		<tr><td nowrap="nowrap">--target-list-file &lt;dir/file&gt;</td><td>Explicitly specify a file that contains a list of files/directories to validate.</td></tr>
-		<tr><td nowrap="nowrap">-u,--update-context-products</td><td>Update the Context Product information used for validating context product references in labels.</td></tr>
-        <tr><td nowrap="nowrap">-V, --version</td><td>Display the release number and copyright information.</td></tr>
-        <tr><td nowrap="nowrap">-h, --help</td><td>Display Harvest usage.</td></tr>
-      </table>
+      <source>
+    --add-context-products &lt;dir/files&gt;   Explicitly specify a JSON file (or
+                                         directory of files) containing
+                                         additional context product information
+                                         used for validation. WARNING: This
+                                         should only be used for development
+                                         purposes. All context products must be
+                                         registered for validity of a product in
+                                         an archive.
+    --allow-unlabeled-files              Tells the tool to not check for
+                                         unlabeled files in a bundle or
+                                         collection.
+ -B,--base-path &lt;path&gt;                   Specify a path for the tool to use in
+                                         order to properly resolve relative file
+                                         references found in a checksum manifest
+                                         file.
+ -C,--catalog &lt;catalog files&gt;            Specify catalog files to use during
+                                         validation.
+ -c,--config &lt;file&gt;                      Specify a configuration file to set the
+                                         tool behavior.
+ -D,--no-data-check                      Disable data content validation.
+ -E,--max-errors &lt;value&gt;                 Specify the max number of errors that
+                                         the tool will report on before
+                                         gracefully exiting a validation run.
+                                         Default is 100,000.
+ -e,--regexp &lt;patterns&gt;                  Specify file patterns to look for when
+                                         validating a directory. Each pattern
+                                         should be surrounded by quotes. Default
+                                         is to look for files ending with a
+                                         '.xml' or '.XML' file extension.
+ -f,--force                              DEPRECATED: Tool performs validation
+                                         against the schema and schematron
+                                         specified in a given label by default.
+                                         Use -x and/or -S flag(s) to validate
+                                         with the core PDS or user-specified
+                                         schema and schematron.
+ -h,--help                               Display usage.
+ -L,--local                              Validate files only in the target
+                                         directory rather than recursively
+                                         traversing down the subdirectories.
+ -M,--checksum-manifest &lt;file&gt;           Specify a checksum manifest file to
+                                         perform checksum validation against the
+                                         targets being validated.
+ -m,--model-version &lt;version&gt;            DEPRECATED: Tool performs validation
+                                         against the schema and schematron
+                                         specified in a given label by default.
+                                         Use -x and/or -S flag(s) to validate
+                                         with the core PDS or user-specified
+                                         schema and schematron.
+ -r,--report-file &lt;file name&gt;            Specify the report file name. Default
+                                         is standard out.
+ -R,--rule &lt;validation rule name&gt;        Specifies the validation rules to
+                                         apply.
+                                         (pds4.bundle|pds4.collection|pds4.folde
+                                         r|pds4.label|pds3.volume). Default is
+                                         to auto-detect based on the contents at
+                                         the location specified.
+ -S,--schematron &lt;schematron files&gt;      Specify schematron files.
+ -s,--report-style &lt;full|json|xml&gt;       Specify the level of detail for the
+                                         reporting. Valid values are 'full' for
+                                         a full view, 'json' for a json view,
+                                         and 'xml' for an XML view. Default is
+                                         to see a full report if this flag is
+                                         not specified
+    --skip-context-validation            Disable context product reference
+                                         validation. WARNING: This should only
+                                         be used for development purposes only.
+                                         All context products must be registered
+                                         for validity of a product in an
+                                         archive.
+    --spot-check-data &lt;num&gt;              Tells the tool to skip every nth
+                                         records or lines during data content
+                                         validation.
+ -t,--target &lt;files,dirs&gt;                Explicitly specify the targets (files,
+                                         directories) to validate. Targets can
+                                         be specified implicitly as well.
+                                         (example: validate product.xml)
+    --target-manifest &lt;file&gt;             Specify a manifest file of
+                                         files/directory paths to validate.
+ -u,--update-context-products            Update the Context Product information
+                                         used for validating context product
+                                         references in labels.
+ -v,--verbose &lt;1|2|3&gt;                    Specify the severity level and above to
+                                         include in the human-readable report:
+                                         (1=Info, 2=Warning, 3=Error). Default
+                                         is Warning and above.
+ -V,--version                            Display application version.
+ -x,--schema &lt;schema files&gt;              Specify schema files.
+
+      </source>
       
     </section>
 

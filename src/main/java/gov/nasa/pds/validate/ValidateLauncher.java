@@ -328,7 +328,7 @@ public class ValidateLauncher {
                 setForce(false);
             } else if (Flag.TARGET.getShortName().equals(o.getOpt())) {
                 targetList.addAll(o.getValuesList());
-            } else if (Flag.TARGET_LIST_FILE.getLongName().equals(o.getLongOpt())) {
+            } else if (Flag.TARGET_MANIFEST.getLongName().equals(o.getLongOpt())) {
                 String fileName = o.getValue();
                 File listF = new File(fileName);               
                 if (listF.exists()) {

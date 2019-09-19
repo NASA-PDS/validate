@@ -157,7 +157,7 @@ public enum Flag {
     /**
      * flag to Flag to specify the file that contains a list of files/directories to validate.
      */
-    TARGET_LIST_FILE(null, "target-list-file", "dir/file", String.class, true, "Explicitly specify a file that contains a list of files/directories to validate.");
+    TARGET_MANIFEST(null, "target-manifest", "file", String.class, true, "Specify a manifest file of files/directory paths to validate.");
     
     /** The short name. */
     private final String shortName;

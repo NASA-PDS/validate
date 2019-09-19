@@ -457,7 +457,7 @@ class ValidationIntegrationTests {
         }
     }
     
-    /*@Test
+    @Test
     void testGithub50() {
         try {
             // Setup paths
@@ -465,13 +465,23 @@ class ValidationIntegrationTests {
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github50");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github50_1.json");
-            
+
+            String manifestFile = outFilePath + File.separator + "target-manifest.xml";
+
+            // Create catalog file
+            String manifestText = testPath + "/ele_evt_12hr_orbit_2011-2012.xml\n" +
+                    testPath + "/ele_evt_8hr_orbit_2012-2013.xml";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(manifestFile));
+            writer.write(manifestText);
+            writer.close();
+
             // First test that we get file of target list from command line, and add to the target list to validate.
             String[] args = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
-                    "--target-list-file", testPath + File.separator + "target-list.txt",
-                    "-t", testPath + File.separator + "test_context_products.xml"
+                    "--no-data-check",
+                    "--target-manifest", manifestFile
                     };
 
             ValidateLauncher.main(args);
@@ -479,28 +489,27 @@ class ValidationIntegrationTests {
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            int count1 = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
-            count1 += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            int count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
 
-            assertEquals(count1, 24, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
-
-            // Now let's test that we get file of target list from the config file, and add to the target list to validate.
-            report = new File(outFilePath + File.separator + "report_github50_2.json");
+            assertEquals(count, 2, "2 " + ProblemType.MISSING_REFERENCED_FILE.getKey() + " error messages expected.\n" + reportJson.toString());
+            
+            // Now try with manifest and target
             String[] args2 = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
-                    "-c", testPath + File.separator + "config.properties"
+                    "--no-data-check",
+                    "--target-manifest", manifestFile,
+                    "-t", testPath + "/ele_evt_8hr_orbit_2014-2015.xml"
                     };
 
             ValidateLauncher.main(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-            
-            int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
-            count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 24, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
+            count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
+
+            assertEquals(count, 3, "3 " + ProblemType.MISSING_REFERENCED_FILE.getKey() + " error messages expected.\n" + reportJson.toString());
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -508,7 +517,7 @@ class ValidationIntegrationTests {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
         }
-    }*/
+    }
     
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
