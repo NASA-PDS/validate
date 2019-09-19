@@ -663,8 +663,8 @@ public class ValidateLauncher {
                     setValidateContext(false);
                 }
             }
-            if (config.containsKey(ConfigKey.TARGET_LIST_FILE)) {
-                String fileName = config.getString(ConfigKey.TARGET_LIST_FILE);
+            if (config.containsKey(ConfigKey.TARGET_MANIFEST)) {
+                String fileName = config.getString(ConfigKey.TARGET_MANIFEST);
                 File listF = new File(fileName);               
                 if (listF.exists()) {
                     List<String> listTgt;

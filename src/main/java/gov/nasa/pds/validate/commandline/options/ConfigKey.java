@@ -127,5 +127,5 @@ public class ConfigKey {
     /**
      * Property to specify the file that contains a list of files/directories to validate.
      */
-    public static final String TARGET_LIST_FILE = "validate.targetListFile";
+    public static final String TARGET_MANIFEST = "validate.targetManifest";
 }
