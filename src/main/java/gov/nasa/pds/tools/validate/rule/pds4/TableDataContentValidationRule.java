@@ -97,7 +97,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   
   @Override
   public boolean isApplicable(String location) {
-    if (!getContext().getCheckData() || getContext().getSkipProductValidation()) {
+  	if (!getContext().getCheckData()) {
       return false;
     }
     boolean isApplicable = false;

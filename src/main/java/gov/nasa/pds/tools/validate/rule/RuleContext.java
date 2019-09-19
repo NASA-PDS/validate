@@ -352,7 +352,9 @@ public class RuleContext extends ContextBase {
 	  return getContextValue(SKIP_PRODUCT_VALIDATION_KEY, Boolean.class);
 	}
 	
+	// issue_42: DO NOT check data when --skip-product-validation=true
 	public void setSkipProductValidation(boolean flag) {
 	  putContextValue(SKIP_PRODUCT_VALIDATION_KEY, flag);
+	  if (flag) setCheckData(false);
 	}
 }
