@@ -377,7 +377,10 @@ public class LabelValidator {
       } else {
         cachedValidatorHandler.setResourceResolver(cachedLSResolver);
       }
-      walkNode(xml, cachedValidatorHandler, locator);
+      
+      if (!skipProductValidation) {
+    	  walkNode(xml, cachedValidatorHandler, locator);
+      }
 
       // If validating against the label supplied schema, check
       // if the xsi:schemalocation attribute was defined in the label.
@@ -406,7 +409,10 @@ public class LabelValidator {
       }
       reader.parse(new InputSource(url.openStream()));
     }
-
+    //if (skipProductValidation) {
+    //	return xml;
+    //}
+    
     // If we get here, then there are no XML parsing errors, so we
     // can parse the XML again, below, and assume the parse will
     // succeed.
