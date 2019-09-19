@@ -123,4 +123,6 @@ public class ConfigKey {
      * Property to disable context validation.
      */
     public static final String SKIP_CONTEXT_VALIDATION = "validate.skipContextValidation";
+    
+    public static final String SKIP_SCHEMA_VALIDATION = "validate.skipSchemaValidation";
 }

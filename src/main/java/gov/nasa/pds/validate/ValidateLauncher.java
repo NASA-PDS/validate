@@ -221,6 +221,8 @@ public class ValidateLauncher {
     private Map<String, List<ContextProductReference>> registeredAndNonRegistedProducts;
     
     private boolean validateContext;
+    
+    private boolean validateSchema;
 
     /**
      * Constructor.
@@ -257,7 +259,7 @@ public class ValidateLauncher {
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
         validateContext = true;
-
+        validateSchema = true;
     }
 
     /**
@@ -375,6 +377,8 @@ public class ValidateLauncher {
                 setNonRegisteredProducts(true);
             } else if (Flag.SKIP_CONTEXT_VALIDATION.getLongName().equals(o.getLongOpt())) {
                 setValidateContext(false);
+            } else if (Flag.SKIP_SCHEMA_VALIDATION.getLongName().equals(o.getLongOpt())) {
+                setValidateSchema(false);
             }
 
             /**
@@ -644,6 +648,11 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.SKIP_CONTEXT_VALIDATION)) {
                 if (config.getBoolean(ConfigKey.SKIP_CONTEXT_VALIDATION) == true) {
                     setValidateContext(false);
+                }
+            }
+            if (config.containsKey(ConfigKey.SKIP_SCHEMA_VALIDATION)) {
+                if (config.getBoolean(ConfigKey.SKIP_SCHEMA_VALIDATION) == true) {
+                    setValidateSchema(false);
                 }
             }
         } catch (Exception e) {
@@ -985,6 +994,10 @@ public class ValidateLauncher {
     public void setValidateContext(boolean flag) {
         this.validateContext = flag;
     }
+    
+    public void setValidateSchema(boolean flag) {
+    	this.validateSchema = flag;
+    }
 
     /**
      * Displays tool usage.
@@ -1116,9 +1129,8 @@ public class ValidateLauncher {
         factory.setModelVersion(modelVersion);
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
-            try {
-                
-                LocationValidator validator = factory.newInstance(target);
+            try {         	
+                LocationValidator validator = factory.newInstance(target);                                           
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
                 validator.setRecurse(traverse);
@@ -1126,6 +1138,7 @@ public class ValidateLauncher {
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
                 validator.setValidateContext(validateContext);
+                validator.setValidateSchema(validateSchema);
                 
                 validator.setRegisteredProducts(this.registeredAndNonRegistedProducts); // this
                                                                                         // map
@@ -1147,15 +1160,15 @@ public class ValidateLauncher {
                 }
 
                 if (!schemas.isEmpty()) {
-                    validator.setSchema(schemas);
-                    validator.setCachedEntityResolver(resolver);
-                    validator.setCachedLSResourceResolver(schemaValidator.getCachedLSResolver());
+                   validator.setSchema(schemas);
+                   validator.setCachedEntityResolver(resolver);
+                   validator.setCachedLSResourceResolver(schemaValidator.getCachedLSResolver());
                 }
                 if (!catalogs.isEmpty()) {
-                    validator.setCatalogs(catalogs);
+                   validator.setCatalogs(catalogs);
                 }
                 if (!transformedSchematrons.isEmpty()) {
-                    validator.setSchematrons(transformedSchematrons);
+                   validator.setSchematrons(transformedSchematrons);
                 }
                 validator.validate(monitor, target);
                 monitor.endValidation();

@@ -67,6 +67,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.LATEST_JSON_FILE));
         options.addOption(new ToolsOption(Flag.NONREGPROD_JSON_FILE));
         options.addOption(new ToolsOption(Flag.SKIP_CONTEXT_VALIDATION));
+        options.addOption(new ToolsOption(Flag.SKIP_SCHEMA_VALIDATION));
         /** DEPRECATED Options **/
         options.addOption(new ToolsOption(Flag.FORCE));
         options.addOption(new ToolsOption(Flag.MODEL));

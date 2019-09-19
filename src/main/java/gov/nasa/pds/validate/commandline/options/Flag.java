@@ -153,8 +153,10 @@ public enum Flag {
      * enabled, the output logs will throw WARNING messages instead of failing
      * validation. Only be enabled during development
      */
-    SKIP_CONTEXT_VALIDATION(null, "skip-context-validation", "Disable context product reference validation. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive.");
+    SKIP_CONTEXT_VALIDATION(null, "skip-context-validation", "Disable context product reference validation. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive."),
     
+	SKIP_SCHEMA_VALIDATION(null, "skip-schema-validation", "Disble schema and schematron valication. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive.");
+
     /** The short name. */
     private final String shortName;
 
