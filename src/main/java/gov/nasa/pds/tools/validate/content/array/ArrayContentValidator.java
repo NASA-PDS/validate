@@ -165,7 +165,6 @@ public class ArrayContentValidator {
   
   private void validatePosition(Array array, ArrayObject arrayObject, 
       ArrayLocation location, int[] position) throws IOException {
-    //long t0 = System.currentTimeMillis();
     NumericDataType dataType = Enum.valueOf(NumericDataType.class, 
         array.getElementArray().getDataType());
     Number value = null;

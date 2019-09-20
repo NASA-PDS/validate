@@ -77,6 +77,11 @@ public class Utility {
    *
    */
   public static ValidationTarget getValidationTarget(URL target) {
+    if (target == null) {
+      // for backwards-compatability with previous code, supporting the null case.
+      // This seems to be null in the additional context products case.
+      return new ValidationTarget(null);
+    }
     ValidationTarget valTarget = cachedTargets.get(target.toString());
     if (valTarget == null) {
       valTarget = new ValidationTarget(target);
