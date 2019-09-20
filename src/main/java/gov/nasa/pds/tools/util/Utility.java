@@ -23,12 +23,14 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 
+import gov.nasa.pds.tools.validate.ValidationTarget;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.xml.sax.InputSource;
@@ -40,6 +42,15 @@ import org.xml.sax.InputSource;
  *
  */
 public class Utility {
+
+  // A static cache of the ValidationTargets.
+  // There is no need to re-evaluate and/or create these
+  // as validation proceeds, as they are static things like
+  // a file or a URL.
+  public static HashMap<String,ValidationTarget> cachedTargets;
+  static {
+    cachedTargets = new HashMap<String,ValidationTarget>();
+  }
 
   // Implementation is needed since pds.nasa.gov currently uses SNI
   // which is not supported in Java 6, but is supported in Java 7.
@@ -57,6 +68,22 @@ public class Utility {
         }
     });
    }
+
+  /**
+   * Returns a ValidationTarget for the specified target URL.
+   *
+   * If a cached target already exists in the cache, then that
+   * is returned, otherwise a new ValidationTarget is returned.
+   *
+   */
+  public static ValidationTarget getValidationTarget(URL target) {
+    ValidationTarget valTarget = cachedTargets.get(target.toString());
+    if (valTarget == null) {
+      valTarget = new ValidationTarget(target);
+      cachedTargets.put(target.toString(), valTarget);
+    }
+    return valTarget;
+  }
 
   /**
    * Method that opens a connection. Supports redirects.

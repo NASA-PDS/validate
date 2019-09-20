@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
+import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 
@@ -29,13 +30,13 @@ public class ValidationProblem {
 	private Collection<ValidationTarget> ancestorTargets;
 	private String message;
 
-	public ValidationProblem(ProblemDefinition defn, URL target, 
-	    int lineNumber, int columnNumber, String message) {
-	  this(defn, 
-	      new ValidationTarget(target), 
-	      lineNumber, 
-	      columnNumber, 
-	      message);
+	public ValidationProblem(ProblemDefinition defn, URL target,
+	                         int lineNumber, int columnNumber, String message) {
+		this(defn,
+			Utility.getValidationTarget(target),
+			lineNumber,
+			columnNumber,
+			message);
 	}
 	
 	public ValidationProblem(ProblemDefinition defn, ValidationTarget target,
@@ -55,7 +56,7 @@ public class ValidationProblem {
 
   public ValidationProblem(ProblemDefinition defn, URL target, int lineNumber,
       int columnNumber) {
-    this(defn, new ValidationTarget(target), lineNumber, columnNumber);
+    this(defn, Utility.getValidationTarget(target), lineNumber, columnNumber);
   }
 	
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target, 
@@ -65,17 +66,17 @@ public class ValidationProblem {
 	  
   public ValidationProblem(ProblemDefinition defn, URL target,
       String message) {
-    this(defn, new ValidationTarget(target), message);
+    this(defn, Utility.getValidationTarget(target), message);
   }
   
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target,
       String message) {
     this(defn, target, -1, -1, message);
   }
-	
-  public ValidationProblem(ProblemDefinition defn, URL target) {
-    this(defn, new ValidationTarget(target));
-  }
+
+	public ValidationProblem(ProblemDefinition defn, URL target) {
+		this(defn, Utility.getValidationTarget(target));
+	}
   
 	public ValidationProblem(ProblemDefinition defn, ValidationTarget target) {
 	  this(defn, target, -1, -1, null);
