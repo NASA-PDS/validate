@@ -11,7 +11,7 @@ curl -O https://starbase.jpl.nasa.gov/pds4/1900/dph_examples_v1900.zip
 
 unzip dph_examples_v1900.zip
 
-cd ../../
+cd ../../..
 
 mvn clean
 mvn package -DskipTests
