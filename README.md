@@ -33,10 +33,10 @@ git clone git@github.com:NASA-PDS-Incubator/validate.git
 
 If this release for a [PDS4 Information Model](https://github.com/NASA-PDS-Incubator/pds4-information-model) release.
 
-1. [Create 2 tickets](https://github.com/NASA-PDS-Incubator/pds4-jparser/issues/new/choose) to ingest candidate and released IM, e.g. :
+1. [Create 2 tickets](https://github.com/NASA-PDS-Incubator/validate/issues/new/choose) to ingest candidate and released IM, e.g. :
 ```
-1. Ingest IM 1D00 release candidate for Build 10a
-2. Ingest IM 1D00 operational release for Build 10a
+1. Build release candidate for Build 10a
+2. Build operational release for Build 10a
 ```
 
 2. Upgrade [PDS4 JParser](https://github.com/NASA-PDS-Incubator/pds4-jparser) and IM version in pom.xml:
@@ -86,7 +86,7 @@ git add src/main/resources/util/registered_context_products.json
 Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 
 ```
-# Skip this step if this is a release candidate, we will deploy as SNAPSHOT version for testing
+# Skip this step if this is a RELEASE CANDIDATE, we will deploy as SNAPSHOT version for testing
 VERSION=1.15.0
 mvn versions:set -DnewVersion=$VERSION
 git add pom.xml
@@ -95,8 +95,10 @@ git add pom.xml
 ## Update Changelog
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
-# Set VERSION if skipped above
+# For RELEASE CANDIDATE, set VERSION to future release version.
 github_changelog_generator --future-release v$VERSION
+
+# Only add for OPERATIONAL release, but will be used later on for Github Release
 git add CHANGELOG.md
 ```
 
@@ -109,6 +111,9 @@ git commit -m "[RELEASE] Validate v$VERSION"
 # For release candidate
 CANDIDATE_NUM=1
 git commit -m "[RELEASE] Validate v${VERSION}-rc${CANDIDATE_NUM}"
+
+# Push changes to master
+git push -u origin master
 ```
 
 ## Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
@@ -140,6 +145,11 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ## Push Tagged Release
 ```
+# For operational release
+git tag v${VERSION}
+git push --tags
+
+# For RELEASE CANDIDATE
 git tag v${VERSION}-rc${CANDIDATE_NUM}
 git push --tags
 ```
@@ -172,6 +182,8 @@ git push origin gh-pages
 
 Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin.
 
+For RELEASE CANDIDATE, ignore this step.
+
 ```
 git checkout master
 
@@ -188,7 +200,7 @@ git push -u origin master
 ## Complete Release in Github
 Currently the process to create more formal release notes and attach Assets is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
 
-*NOTE: Be sure to add the `tar.gz` and `zip` from the `target/` directory to the release assets, otherwise the downloads will not work.*
+*NOTE: Be sure to add the `tar.gz` and `zip` from the `target/` directory to the release assets, and use the CHANGELOG generated above to create the RELEASE NOTES.*
 
 # Snapshot Release
 
