@@ -1315,7 +1315,7 @@ public class ValidateLauncher {
             CommandLine cmdLine = parse(args);
             query(cmdLine);
 
-            if (targets.size() == 0) { // Throw error if no targets are specified
+            if (targets.size() == 0 && !updateRegisteredProducts) { // Throw error if no targets are specified
                 throw new InvalidOptionException("No files specified for validation. Check your paths and use -t flag to explicitly denote the set of target data.");
             }
 
@@ -1345,9 +1345,10 @@ public class ValidateLauncher {
                 }
             }
             setupReport();
-            // download the latest Registered Context Products JSON file and
-            // replace the existing file.
+            
             if (updateRegisteredProducts) {
+                // download the latest Registered Context Products JSON file and
+                // replace the existing file.
                 getLatestJsonContext();
             }
 
