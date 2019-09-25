@@ -13,17 +13,8 @@
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
 
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.net.URL;
-import java.util.Arrays;
-
-import org.apache.commons.lang3.Range;
-
 import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
-
 import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.ElementArray;
 import gov.nasa.arc.pds.xml.generated.ObjectStatistics;
@@ -34,6 +25,13 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
+import org.apache.commons.lang3.Range;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.net.URL;
+import java.util.Arrays;
 
 /**
  * Class that performs content validation on Array objects.
@@ -56,7 +54,28 @@ public class ArrayContentValidator {
   private int arrayIndex;
   
   private int spotCheckData;
-  
+
+  private static final Range SignedByte_RANGE = Range.between(Byte.MIN_VALUE, Byte.MAX_VALUE);
+  private static final Range UnsignedByte_RANGE = Range.between(0, 255);
+  private static final Range UnsignedLSB2_RANGE = Range.between(0, 65535);
+  private static final Range SignedLSB2_RANGE = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
+  private static final Range UnsignedMSB2_RANGE = Range.between(0, 65535);
+  private static final Range SignedMSB2_RANGE = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
+  private static final Range UnsignedLSB4_RANGE = Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
+  private static final Range SignedLSB4_RANGE = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
+  private static final Range UnsignedMSB4_RANGE = Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
+  private static final Range SignedMSB4_RANGE = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
+  private static final Range UnsignedLSB8_RANGE = Range.between(UnsignedLong.ZERO, UnsignedLong.MAX_VALUE);
+  private static final Range SignedLSB8_RANGE = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
+  private static final Range UnsignedMSB8_RANGE = Range.between(UnsignedLong.ZERO,UnsignedLong.MAX_VALUE);
+  private static final Range SignedMSB8_RANGE = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
+  private static final Range IEEE754LSBSingle_RANGE = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+  private static final Range IEEE754MSBSingle_RANGE = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+  private static final Range IEEE754LSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+  private static final Range IEEE754MSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+
+  private static int PROGRESS_COUNTER = 0;
+
   /**
    * Constructor.
    * 
@@ -84,10 +103,10 @@ public class ArrayContentValidator {
     for (int i = 0; i < dimensions.length; i++) {
       dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
     }
-    
     try {
-      process(array, arrayObject, dimensions, new int[dimensions.length], 0, 
-          dimensions.length - 1); 
+      process(array, arrayObject, dimensions, new int[dimensions.length], 0,
+          dimensions.length - 1);
+
     } catch (IOException io) {
       listener.addProblem(new ArrayContentProblem(
           new ProblemDefinition(
@@ -118,10 +137,11 @@ public class ArrayContentValidator {
       int[] position, int depth, int maxDepth) throws IOException {
     // Print something to indicate the program is still executing since content
     // validation can take some time
-    System.out.print(".");
+    if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) { PROGRESS_COUNTER = 0; }
+    else if (PROGRESS_COUNTER % 1000 == 0) { System.out.print("."); }
 
     for (int i = 0; i < dimensions[depth];) {
-      if( depth < maxDepth ) { //max depth not reached, do another recursion
+      if( depth < maxDepth ) { // max depth not reached, do another recursion
         position[depth] = i;
         process(array, arrayObject, dimensions, position, depth + 1, maxDepth);
         i++;
@@ -153,81 +173,75 @@ public class ArrayContentValidator {
       switch (dataType) {
       case SignedByte:
         value = (byte) arrayObject.getInt(position);
-        rangeChecker = Range.between(Byte.MIN_VALUE, Byte.MAX_VALUE);
+        rangeChecker = SignedByte_RANGE;
         break;
       case UnsignedByte:
         value = arrayObject.getInt(position);
-        rangeChecker = Range.between(0, 255);
+        rangeChecker = UnsignedByte_RANGE;
         break;
       case UnsignedLSB2:
         value = arrayObject.getInt(position);
-        rangeChecker = Range.between(0, 65535);
+        rangeChecker = UnsignedLSB2_RANGE;
         break;
       case SignedLSB2:
         value = (short) arrayObject.getInt(position);
-        rangeChecker = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
+        rangeChecker = SignedLSB2_RANGE;
         break;
       case UnsignedMSB2:
         value = arrayObject.getInt(position);
-        rangeChecker = Range.between(0, 65535);
+        rangeChecker = UnsignedMSB2_RANGE;
         break;              
       case SignedMSB2:
         value = (short) arrayObject.getInt(position);
-        rangeChecker = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
+        rangeChecker = SignedMSB2_RANGE;
         break;
       case UnsignedLSB4:
         value = UnsignedInteger.valueOf(arrayObject.getLong(position));
-        rangeChecker = Range.between(UnsignedInteger.ZERO, 
-            UnsignedInteger.MAX_VALUE);
+        rangeChecker = UnsignedLSB4_RANGE;
         break;
       case SignedLSB4:
         value = arrayObject.getInt(position);
-        rangeChecker = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        rangeChecker = SignedLSB4_RANGE;
         break;
       case UnsignedMSB4:
         value = UnsignedInteger.valueOf(arrayObject.getLong(position));
-        rangeChecker = Range.between(UnsignedInteger.ZERO, 
-            UnsignedInteger.MAX_VALUE);
+        rangeChecker = UnsignedMSB4_RANGE;
         break;
       case SignedMSB4:
         value = arrayObject.getInt(position);
-        rangeChecker = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
+        rangeChecker = SignedMSB4_RANGE;
         break;
       case UnsignedLSB8:
-        value = UnsignedLong.valueOf(
-            Long.toUnsignedString(arrayObject.getLong(position)));
-        rangeChecker = Range.between(UnsignedLong.ZERO, 
-            UnsignedLong.MAX_VALUE);
+        value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
+        rangeChecker = UnsignedLSB8_RANGE;
         break;
       case SignedLSB8:
         value = arrayObject.getLong(position);
-        rangeChecker = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
+        rangeChecker = SignedLSB8_RANGE;
         break;
       case UnsignedMSB8:
-        value = UnsignedLong.valueOf(
-            Long.toUnsignedString(arrayObject.getLong(position)));
-        rangeChecker = Range.between(UnsignedLong.ZERO, 
-            UnsignedLong.MAX_VALUE);
+        value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
+        rangeChecker = UnsignedMSB8_RANGE;
         break;        
       case SignedMSB8:
         value = arrayObject.getLong(position);
-        rangeChecker = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
+        rangeChecker = SignedMSB8_RANGE;
         break;
       case IEEE754LSBSingle:
         value = (float) arrayObject.getDouble(position);
-        rangeChecker = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+        rangeChecker = IEEE754LSBSingle_RANGE;
         break;
       case IEEE754MSBSingle:
         value = (float) arrayObject.getDouble(position);
-        rangeChecker = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+        rangeChecker = IEEE754MSBSingle_RANGE;
         break;
       case IEEE754LSBDouble:
         value = arrayObject.getDouble(position);
-        rangeChecker = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+        rangeChecker = IEEE754LSBDouble_RANGE;
         break;
       case IEEE754MSBDouble:
         value = arrayObject.getDouble(position);
-        rangeChecker = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+        rangeChecker = IEEE754MSBDouble_RANGE;
         break;
       }
     } catch (Exception ee) {
@@ -268,7 +282,7 @@ public class ArrayContentValidator {
               + value.toString(),
           location
       );              
-    }    
+    }
   }
   
   /**
