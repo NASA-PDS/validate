@@ -158,6 +158,12 @@ POSSIBILITY OF SUCH DAMAGE.
                                          All context products must be registered
                                          for validity of a product in an
                                          archive.
+    --skip-product-validation            Disables product validation when
+                                         attempting to run pds4.bundle or
+                                         pds4.collection validation. The
+                                         software will perform member integrity
+                                         checks but will not validate individual
+                                         products or their labels.
     --spot-check-data &lt;num&gt;              Tells the tool to skip every nth
                                          records or lines during data content
                                          validation.
@@ -176,7 +182,6 @@ POSSIBILITY OF SUCH DAMAGE.
                                          is Warning and above.
  -V,--version                            Display application version.
  -x,--schema &lt;schema files&gt;              Specify schema files.
-
       </source>
       
     </section>

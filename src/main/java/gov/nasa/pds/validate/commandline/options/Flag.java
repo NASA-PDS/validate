@@ -71,7 +71,7 @@ public enum Flag {
      * Flag to display the help.
      */
     HELP("h", "help", "Display usage."),
-
+    
     /**
      * Flag that disables recursion when traversing a target directory.
      */
@@ -137,6 +137,9 @@ public enum Flag {
     RULE("R", "rule", "validation rule name", String.class,
             "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
                     + " Default is to auto-detect based on the contents at the location specified."),
+    
+    SKIP_PRODUCT_VALIDATION(null, "skip-product-validation", 
+    		"Disables product validation when attempting to run pds4.bundle or pds4.collection validation. The software will perform member integrity checks but will not validate individual products or their labels."),
 
     /**
      * Flag to download the latest Registered Context Products JSON file and

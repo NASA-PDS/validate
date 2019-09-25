@@ -187,96 +187,100 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             passFlag = false;
           }
         }
-        List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(
-            FILE_OBJECTS_XPATH);
-        for (TinyNodeImpl fileObject : fileObjects) {
-          String name = "";
-          String checksum = "";
-          String directory = "";
-          List<TinyNodeImpl> children = new ArrayList<TinyNodeImpl>();
-          try {
-            children = extractor.getNodesFromItem("*", fileObject);
-          } catch (XPathExpressionException xpe) {
-            ProblemDefinition def = new ProblemDefinition(
-                ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, 
-                "Problem occurred while trying to get all the children "
-                    + "of the file object node: " + xpe.getMessage());
-            problems.add(new ValidationProblem(def, target, 
-                fileObject.getLineNumber(), -1));
-            passFlag = false;
-            continue;
-          }
-          for (TinyNodeImpl child : children) {
-            if ("file_name".equals(child.getLocalPart())) {
-              name = child.getStringValue();
-            } else if ("md5_checksum".equals(child.getLocalPart())) {
-              checksum = child.getStringValue();
-            } else if ("directory_path_name".equals(child.getLocalPart())) {
-              directory = child.getStringValue();
-            }
-          }
-          if (name.isEmpty()) {
-            ProblemDefinition def = new ProblemDefinition(
-                ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE, 
-                "Missing 'file_name' element tag");
-            problems.add(new ValidationProblem(def, target, 
-                fileObject.getLineNumber(), -1));
-            passFlag = false;
-          } else {
-            URL urlRef = null;
-            if (!directory.isEmpty()) {
-              urlRef = new URL(parent, directory + "/" + name);
-            } else {
-              urlRef = new URL(parent, name);
-            }
+        
+ 	    // issue_42: Add capability to ignore product-level validation
+        if (!getContext().getSkipProductValidation()) {    	   
+          List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(
+              FILE_OBJECTS_XPATH);
+          for (TinyNodeImpl fileObject : fileObjects) {
+            String name = "";
+            String checksum = "";
+            String directory = "";
+            List<TinyNodeImpl> children = new ArrayList<TinyNodeImpl>();
             try {
-              urlRef.openStream().close();
-              // Check that the casing of the file reference matches the
-              // casing of the file located on the file system.
-              try {
-                File fileRef = FileUtils.toFile(urlRef);
-                if (fileRef != null &&
-                    !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
-                  ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, 
-                      ProblemType.FILE_REFERENCE_CASE_MISMATCH, 
-                      "File reference'" + fileRef.toString()
-                        + "' exists but the case doesn't match");
-                  problems.add(new ValidationProblem(def, target, 
-                      fileObject.getLineNumber(), -1));
-                }
-              } catch (IOException io) {
-                ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
-                    ProblemType.INTERNAL_ERROR,
-                    "Error occurred while checking for the existence of the "
-                    + "uri reference '" + urlRef.toString() + "': "
-                    + io.getMessage());
-                problems.add(new ValidationProblem(def, target, 
-                    fileObject.getLineNumber(), -1));
-                passFlag = false;
-              }
-              try {
-                problems.addAll(handleChecksum(target, urlRef,
-                    fileObject, checksum));
-              } catch (Exception e) {
-                ProblemDefinition def = new ProblemDefinition(
-                    ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, 
-                    "Error occurred while calculating checksum for "
-                    + FilenameUtils.getName(urlRef.toString()) + ": "
-                    + e.getMessage());
-                problems.add(new ValidationProblem(def, target, 
-                    fileObject.getLineNumber(), -1));
-                passFlag = false;
-              }
-            } catch (IOException io) {
+              children = extractor.getNodesFromItem("*", fileObject);
+            } catch (XPathExpressionException xpe) {
               ProblemDefinition def = new ProblemDefinition(
-                  ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
-                  "URI reference does not exist: " + urlRef.toString());
+                  ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, 
+                  "Problem occurred while trying to get all the children "
+                      + "of the file object node: " + xpe.getMessage());
               problems.add(new ValidationProblem(def, target, 
                   fileObject.getLineNumber(), -1));
               passFlag = false;
+              continue;
+            }
+            for (TinyNodeImpl child : children) {
+              if ("file_name".equals(child.getLocalPart())) {
+                name = child.getStringValue();
+              } else if ("md5_checksum".equals(child.getLocalPart())) {
+                checksum = child.getStringValue();
+              } else if ("directory_path_name".equals(child.getLocalPart())) {
+                directory = child.getStringValue();
+              }
+            }
+            if (name.isEmpty()) {
+              ProblemDefinition def = new ProblemDefinition(
+                  ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE, 
+                  "Missing 'file_name' element tag");
+              problems.add(new ValidationProblem(def, target, 
+                  fileObject.getLineNumber(), -1));
+              passFlag = false;
+            } else {
+              URL urlRef = null;
+              if (!directory.isEmpty()) {
+                urlRef = new URL(parent, directory + "/" + name);
+              } else {
+                urlRef = new URL(parent, name);
+              }
+              try {
+                urlRef.openStream().close();
+                // Check that the casing of the file reference matches the
+                // casing of the file located on the file system.
+                try {
+                  File fileRef = FileUtils.toFile(urlRef);
+                  if (fileRef != null &&
+                      !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
+                    ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, 
+                        ProblemType.FILE_REFERENCE_CASE_MISMATCH, 
+                        "File reference'" + fileRef.toString()
+                          + "' exists but the case doesn't match");
+                    problems.add(new ValidationProblem(def, target, 
+                        fileObject.getLineNumber(), -1));
+                  }
+                } catch (IOException io) {
+                  ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
+                      ProblemType.INTERNAL_ERROR,
+                      "Error occurred while checking for the existence of the "
+                      + "uri reference '" + urlRef.toString() + "': "
+                      + io.getMessage());
+                  problems.add(new ValidationProblem(def, target, 
+                      fileObject.getLineNumber(), -1));
+                  passFlag = false;
+                }
+                try {
+                  problems.addAll(handleChecksum(target, urlRef,
+                      fileObject, checksum));
+                } catch (Exception e) {
+                  ProblemDefinition def = new ProblemDefinition(
+                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, 
+                      "Error occurred while calculating checksum for "
+                      + FilenameUtils.getName(urlRef.toString()) + ": "
+                      + e.getMessage());
+                  problems.add(new ValidationProblem(def, target, 
+                      fileObject.getLineNumber(), -1));
+                  passFlag = false;
+                }
+              } catch (IOException io) {
+                ProblemDefinition def = new ProblemDefinition(
+                    ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
+                    "URI reference does not exist: " + urlRef.toString());
+                problems.add(new ValidationProblem(def, target, 
+                    fileObject.getLineNumber(), -1));
+                passFlag = false;
+              }
             }
           }
-        }
+        } // end if (!getContext().getSkipProductValidation()) {
       } catch (XPathExpressionException xpe) {
         String message = "Error occurred while evaluating the following xpath expression '"
             + FILE_OBJECTS_XPATH + "': " + xpe.getMessage();

@@ -110,6 +110,7 @@ public class LabelValidationRule extends AbstractValidationRule {
 	 */
 	@ValidationTest
 	public void validateLabel() {
+	
 		ProblemProcessor processor = new ProblemProcessor(
 		    getListener(), getTarget());
 	  
@@ -159,7 +160,6 @@ public class LabelValidationRule extends AbstractValidationRule {
       }
       if (pass) {
         getListener().addLocation(getTarget().toString());
-        
         document = validator.parseAndValidate(processor, getTarget());
       }
       if (document != null) {

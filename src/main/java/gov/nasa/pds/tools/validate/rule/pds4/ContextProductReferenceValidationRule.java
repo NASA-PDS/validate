@@ -98,6 +98,11 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
       if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
         return false;
       }
+      
+      // issue_42: Add capability to ignore product-level validation
+      if (getContext().getSkipProductValidation()) {
+          return false;
+      }
       return true;
     }
 

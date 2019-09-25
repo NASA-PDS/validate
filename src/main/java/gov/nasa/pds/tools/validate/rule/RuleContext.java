@@ -107,6 +107,10 @@ public class RuleContext extends ContextBase {
   /** The key used to indicate whether to disable context validation. */
   public static final String CONTEXT_VALIDATION_KEY = "validate.validate-context";
   
+  /**
+   * Key used to ignore(skip) product level validation.
+   */
+  public static final String SKIP_PRODUCT_VALIDATION_KEY = "validate.skip-product-validation";
   
   private boolean rootTarget = false;
 
@@ -347,6 +351,7 @@ public class RuleContext extends ContextBase {
 	  putContextValue(REGISTERED_PRODUCTS_KEY, products);
 	}
 	
+
     public boolean getValidateContext() {
         return getContextValue(CONTEXT_VALIDATION_KEY, Boolean.class);
     }
@@ -354,4 +359,14 @@ public class RuleContext extends ContextBase {
     public void setValidateContext(boolean flag) {
         putContextValue(CONTEXT_VALIDATION_KEY, flag);
     }
+
+	public boolean getSkipProductValidation() {
+	  return getContextValue(SKIP_PRODUCT_VALIDATION_KEY, Boolean.class);
+	}
+	
+	// issue_42: DO NOT check data when --skip-product-validation=true
+	public void setSkipProductValidation(boolean flag) {
+	  putContextValue(SKIP_PRODUCT_VALIDATION_KEY, flag);
+	  if (flag) setCheckData(false);
+	}
 }
