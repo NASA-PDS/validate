@@ -1131,7 +1131,7 @@ public class ValidateLauncher {
             report.addParameter("   Data Content Validation       off");
         }
         
-        if (skipProductValidation) {
+        if (!skipProductValidation) {
         	report.addParameter("   Product Level Validation      on");
         } else {
             report.addParameter("   Product Level Validation      off");

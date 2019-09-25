@@ -409,9 +409,6 @@ public class LabelValidator {
       }
       reader.parse(new InputSource(url.openStream()));
     }
-    //if (skipProductValidation) {
-    //	return xml;
-    //}
     
     // If we get here, then there are no XML parsing errors, so we
     // can parse the XML again, below, and assume the parse will
