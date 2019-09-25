@@ -1,10 +1,11 @@
 # Change Log
 
-## [v1.16.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.16.0) (2019-09-19)
-[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.3...v1.16.0)
+## [v1.16.0-rc2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.16.0-rc2) (2019-09-19)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.3...v1.16.0-rc2)
 
 **New Features:**
 
+- Enhance content validation to decrease validation time to \<=50% of current benchmark [\#30](https://github.com/NASA-PDS-Incubator/validate/issues/30)
 - Update context name check to throw WARNING instead of ERROR [\#102](https://github.com/NASA-PDS-Incubator/validate/issues/102)
 - Enhance context validation by verifying that all name/type attribute values correspond to names denoted in context products [\#15](https://github.com/NASA-PDS-Incubator/validate/issues/15)
 - Add new target-manifest flag for user to provide a manifest \(file\) of file/directory paths to validate [\#50](https://github.com/NASA-PDS-Incubator/validate/issues/50)
@@ -23,22 +24,6 @@
 - Check that referenced context products are valid [\#45](https://github.com/NASA-PDS-Incubator/validate/issues/45)
 - Perform benchmarking on validate to enable documenting of system requirements [\#41](https://github.com/NASA-PDS-Incubator/validate/issues/41)
 - Improve documentation about usage of flags in config file with latest flags [\#20](https://github.com/NASA-PDS-Incubator/validate/issues/20)
-
-**Merged pull requests:**
-
-- Update context\_ref\_mismatch rule to be WARNING instead of ERROR [\#104](https://github.com/NASA-PDS-Incubator/validate/pull/104) ([jordanpadams](https://github.com/jordanpadams))
-- Add new target-manifest flag for user to provide a manifest of file/directory paths [\#103](https://github.com/NASA-PDS-Incubator/validate/pull/103) ([jordanpadams](https://github.com/jordanpadams))
-- Add skip context validation to class [\#100](https://github.com/NASA-PDS-Incubator/validate/pull/100) ([jordanpadams](https://github.com/jordanpadams))
-- Add new Common Errors page to documentation [\#98](https://github.com/NASA-PDS-Incubator/validate/pull/98) ([jordanpadams](https://github.com/jordanpadams))
-- issue \#3: JAXB warning message with Java 9+ [\#95](https://github.com/NASA-PDS-Incubator/validate/pull/95) ([danyu-pds](https://github.com/danyu-pds))
-- issue \#20: Improve documentation about usage of flags in config file [\#94](https://github.com/NASA-PDS-Incubator/validate/pull/94) ([danyu-pds](https://github.com/danyu-pds))
-- \[\#47\] Add capability for disabling context reference validation [\#93](https://github.com/NASA-PDS-Incubator/validate/pull/93) ([jordanpadams](https://github.com/jordanpadams))
-- Issue 41: Added timing\_metrics.sh [\#92](https://github.com/NASA-PDS-Incubator/validate/pull/92) ([galenatjpl](https://github.com/galenatjpl))
-- Adds `data\_to\_investigation` context references [\#91](https://github.com/NASA-PDS-Incubator/validate/pull/91) ([jordanpadams](https://github.com/jordanpadams))
-- Fix for ASCII\_Integer should fail on space character [\#88](https://github.com/NASA-PDS-Incubator/validate/pull/88) ([hhlee445](https://github.com/hhlee445))
-- issue\_8: Fix for Uncaught Exception Error [\#83](https://github.com/NASA-PDS-Incubator/validate/pull/83) ([hhlee445](https://github.com/hhlee445))
-- Issue 15: Verify that all name/type attribute values correspond to  names denoted context products [\#82](https://github.com/NASA-PDS-Incubator/validate/pull/82) ([danyu-pds](https://github.com/danyu-pds))
-- Issue \#62: Include wider range of context products in validation [\#76](https://github.com/NASA-PDS-Incubator/validate/pull/76) ([jordanpadams](https://github.com/jordanpadams))
 
 ## [v1.15.3](https://github.com/NASA-PDS-Incubator/validate/tree/v1.15.3) (2019-08-20)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.2...v1.15.3)
