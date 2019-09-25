@@ -10,6 +10,7 @@
 - Enhance context validation by verifying that all name/type attribute values correspond to names denoted in context products [\#15](https://github.com/NASA-PDS-Incubator/validate/issues/15)
 - Add new target-manifest flag for user to provide a manifest \(file\) of file/directory paths to validate [\#50](https://github.com/NASA-PDS-Incubator/validate/issues/50)
 - Add flag to temporarily disable context validation [\#47](https://github.com/NASA-PDS-Incubator/validate/issues/47) [\#99](https://github.com/NASA-PDS-Incubator/validate/issues/99)
+- Add capability to pds4.bundle validation to ignore product-level validation [\#42](https://github.com/NASA-PDS-Incubator/validate/issues/42)
 - Update content validation to fail when a space character is used when an ASCII\_Integer type is specified [\#9](https://github.com/NASA-PDS-Incubator/validate/issues/9)
 
 **Bug fixes:**
