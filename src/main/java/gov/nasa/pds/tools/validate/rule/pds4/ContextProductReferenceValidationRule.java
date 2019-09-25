@@ -32,6 +32,7 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.transform.dom.DOMSource;
@@ -130,8 +131,8 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                 Node topNode = references.item(i).getParentNode();
                 NodeList nodesOfParent = topNode.getChildNodes();
     
-                String name = null;
-                String type = null;
+                List<String> names = new ArrayList<String>();
+                List<String> types = new ArrayList<String>();
                 
                 SourceLocation locator = null;
                 ContextProductReference rgp = null;
@@ -141,10 +142,10 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                 for (int n = 0; n < nodesOfParent.getLength(); n++) {
                     Node parantN = nodesOfParent.item(n);
                     if (parantN.getNodeName().equals("name")) {
-                        name = parantN.getTextContent();
+                        names.add(parantN.getTextContent());
                     }
                     if (parantN.getNodeName().equals("type")) {
-                        type = parantN.getTextContent();
+                        types.add(parantN.getTextContent());
                     }
                 }
                 // check LIDVID and name and type
@@ -159,11 +160,11 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                         //System.out.println("lidvid: " + lidvid);
     
                         // check name/type is available
-                        ContextProductReference lidvidObj = parseIdentifier(lidvid, type, name);
+                        ContextProductReference lidvidObj = parseIdentifier(lidvid, types, names);
     
                         //int rpJsonSize = rgProds.size();
                         //System.out.println("rpJsonSize: " + rpJsonSize);
-    
+                        try {
                         if (!rgProds.contains(lidvidObj)) {
                             getListener().addProblem(new ValidationProblem(
                                     new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
@@ -177,60 +178,75 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                                     target, locator.getLineNumber(), -1));
     
                             //now lets check name and type
-                            if (name != null && type != null) {
+                            List<String> rgpNames = null;
+                            List<String> rgpTypes = null;
+                            if (names != null && types != null) {
                                 rgp = rgProds.get(rgProds.indexOf(lidvidObj));
+                                rgpNames = rgp.getNames();
+                                rgpTypes = rgp.getTypes();
                                 // check the name
-                                if (name.equalsIgnoreCase(rgp.getName())) {
-                                    // Check name and type case sensitive
-                                    if (!name.equals(rgp.getName())) {                                   
+                                for (String name : names) {
+                                    if (rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
+//                                    if (name.equalsIgnoreCase(rgp.getName())) {
+                                        // Check name and type case sensitive
+                                        if (!rgpNames.contains(name)) {
+//                                        if (!name.equals(rgp.getName())) {                                   
+                                            getListener().addProblem(new ValidationProblem(
+                                                    new ProblemDefinition(ExceptionType.INFO,
+                                                            ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
+                                                            "Context reference name case mismatch. Value: '" + name + "'"
+                                                                    + " Expected one of: '" + rgp.getNames() + "'"),
+                                                    target, locator.getLineNumber(), -1));
+                                        }
+                                    } else {
                                         getListener().addProblem(new ValidationProblem(
-                                                new ProblemDefinition(ExceptionType.INFO,
-                                                        ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                                        "Context reference name case mismatch. Value: '" + name + "'"
-                                                                + " Expected: '" + rgp.getName() + "'"),
+                                                new ProblemDefinition(ExceptionType.WARNING,
+                                                        ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
+                                                        "Context reference name mismatch. Value: '" + name + "'"
+                                                                + " Expected one of: '" + rgp.getNames() + "'"),
                                                 target, locator.getLineNumber(), -1));
                                     }
-                                } else {
-                                    getListener().addProblem(new ValidationProblem(
-                                            new ProblemDefinition(ExceptionType.WARNING,
-                                                    ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
-                                                    "Context reference name mismatch. Value: '" + name + "'"
-                                                            + " Expected: '" + rgp.getName() + "'"),
-                                            target, locator.getLineNumber(), -1));
                                 }
-                                
                                 // check the type
-                                if (type.equalsIgnoreCase(rgp.getType())) {
-                                    if (!type.equals(rgp.getType())) {
-                                        getListener()
-                                        .addProblem(new ValidationProblem(
-                                                new ProblemDefinition(ExceptionType.INFO,
-                                                        ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                                        "Context reference type case mismatch. Value: '" + type + "'"
-                                                                + " Expected: '" + rgp.getType() + "'"),
+                                for (String type : types) {
+                                    if (rgpTypes.stream().anyMatch(type::equalsIgnoreCase)) {
+//                                    if (type.equalsIgnoreCase(rgp.getType())) {
+                                        if (!rgpTypes.contains(type)) {
+//                                        if (!type.equals(rgp.getType())) {
+                                            getListener()
+                                            .addProblem(new ValidationProblem(
+                                                    new ProblemDefinition(ExceptionType.INFO,
+                                                            ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
+                                                            "Context reference type case mismatch. Value: '" + type + "'"
+                                                                    + " Expected one of: '" + rgp.getTypes() + "'"),
+                                                    target, locator.getLineNumber(), -1));
+                                        }
+                                    } else if (!topNode.getLocalName().equals("Observing_System_Component")) { // TODO For now, we are punting on Observing System Component
+                                        getListener().addProblem(new ValidationProblem(
+                                                new ProblemDefinition(ExceptionType.WARNING,
+                                                        ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
+                                                        "Context reference type mismatch. Value: '" + type + "'"
+                                                        + " Expected one of: '" + rgp.getTypes() + "'"),
                                                 target, locator.getLineNumber(), -1));
                                     }
-                                } else if (!topNode.getLocalName().equals("Observing_System_Component")) { // TODO For now, we are punting on Observing System Component
-                                    getListener().addProblem(new ValidationProblem(
-                                            new ProblemDefinition(ExceptionType.WARNING,
-                                                    ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
-                                                    "Context reference type mismatch. Value: '" + type + "'"
-                                                    + " Expected: '" + rgp.getType() + "'"),
-                                            target, locator.getLineNumber(), -1));
                                 }
                             }
                         }  // if rgProds.contains
+                        } catch (Exception e) {
+                            System.out.println(e);
+                            e.printStackTrace();
+                        }
                     }
                 }  // for loop j
             }  // for loop i
         }
     }
 
-    private ContextProductReference parseIdentifier(String identifier, String type, String name) {
+    private ContextProductReference parseIdentifier(String identifier, List<String> types, List<String> names) {
         if (identifier.indexOf("::") != -1) {
-            return new ContextProductReference(identifier.split("::")[0], identifier.split("::")[1], type, name);
+            return new ContextProductReference(identifier.split("::")[0], identifier.split("::")[1], types, names);
         } else {
-            return new ContextProductReference(identifier.split("::")[0], null, type, name);
+            return new ContextProductReference(identifier.split("::")[0], null, types, names);
         }
     }
 

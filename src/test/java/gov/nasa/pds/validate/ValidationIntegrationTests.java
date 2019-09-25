@@ -190,6 +190,7 @@ class ValidationIntegrationTests {
 
             //System.out.println("Test file: " + testPath + File.separator + "test_check-pass_context_products.xml");
             String[] args = {
+                    "-v1",
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     "-R", "pds4.label",
@@ -197,14 +198,13 @@ class ValidationIntegrationTests {
                     };
 
             ValidateLauncher.main(args);
-
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
             int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
             count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 0, "No errors expected for invalid context reference (Lid, name, value) test.");
+            assertEquals(count, 4, "4 valid context references should be found.");
 
             //get warnings/errors test
             report = new File(outFilePath + File.separator + "report_github15_no-pass.json");
@@ -263,7 +263,9 @@ class ValidationIntegrationTests {
 
             // System.out.println("Test file: " + testPath + File.separator +
             // "test_context_products.xml");
-            String[] args2 = { "-r", report.getAbsolutePath(), "-s", "json", "-R", "pds4.label",
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(), 
+                    "-s", "json", "-R", "pds4.label",
                     testPath + File.separator + "test_context_products.xml" };
 
             ValidateLauncher.main(args2);
@@ -441,7 +443,7 @@ class ValidationIntegrationTests {
                     
                     };
             ValidateLauncher.main(args2);
-            
+
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 

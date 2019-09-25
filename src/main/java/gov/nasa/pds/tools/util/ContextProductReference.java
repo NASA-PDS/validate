@@ -13,6 +13,8 @@
 // $Id: LidVid.java 10921 2012-09-10 22:11:40Z mcayanan $
 package gov.nasa.pds.tools.util;
 
+import java.util.List;
+
 /**
  * Class that represents the lidvid of a PDS4 data product.
  *
@@ -27,11 +29,11 @@ public class ContextProductReference {
     /** The version. */
     private String version;
 
-    /** The type. */
-    private String type;
+    /** The context types. */
+    private List<String> types;
 
-    /** The name. */
-    private String name;
+    /** The context names. */
+    private List<String> names;
 
     /** Flag to indicate if a version exists. */
     private boolean hasVersion;
@@ -40,11 +42,11 @@ public class ContextProductReference {
         this(lid, null, null, null);
     }
 
-    public ContextProductReference(String lid, String version, String type, String name) {
+    public ContextProductReference(String lid, String version, List<String> types, List<String> names) {
         this.lid = lid;
         this.version = version;
-        this.type = type;
-        this.name = name;
+        this.types = types;
+        this.names = names;
         if (this.version == null) {
             hasVersion = false;
         } else {
@@ -62,12 +64,12 @@ public class ContextProductReference {
         return this.version;
     }
 
-    public String getType() {
-        return this.type;
+    public List<String> getTypes() {
+        return this.types;
     }
 
-    public String getName() {
-        return this.name;
+    public List<String> getNames() {
+        return this.names;
     }
     
     public void setLid(String lid) {
@@ -78,12 +80,12 @@ public class ContextProductReference {
         this.version = version;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setTypes(List<String> types) {
+        this.types = types;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(List<String> names) {
+        this.names = names;
     }
 
     public boolean hasVersion() {
