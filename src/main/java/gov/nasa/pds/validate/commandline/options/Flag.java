@@ -139,7 +139,7 @@ public enum Flag {
                     + " Default is to auto-detect based on the contents at the location specified."),
     
     SKIP_PRODUCT_VALIDATION(null, "skip-product-validation", 
-    		"Tells the tool to skip product level valication"),
+    		"Disables product validation when attempting to run pds4.bundle or pds4.collection validation. The software will perform member integrity checks but will not validate individual products or their labels."),
 
     /**
      * Flag to download the latest Registered Context Products JSON file and
