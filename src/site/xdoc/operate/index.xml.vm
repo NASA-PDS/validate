@@ -49,6 +49,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <li><a href="#Command-Line_Options">Command-Line Options</a></li>
         <li><a href="#Advanced_Usage">Advanced Usage</a></li>
         <li><a href="#Report_Format">Report Format</a></li>
+        <li><a href="#Performance">Performance Metrics and Improvements</a></li>
         <li><a href="errors.html">Common Errors</a></li>
       </ul>
 
@@ -922,6 +923,77 @@ validate.regexp = "*.xml"
 
     <section name="Common Errors">
       <p>See <a href="errors.html">Common Errors</a> page for more details.</p>
+    </section>
+    
+    <section name="Performance">
+      <p>Validate does a lot of varying checks on products from the schema/schematron checks to the ensuring the validity the actual product content.
+      We are continuing to improve performance of the software, but there are also things you can do to split up execution in order to maximize your computer's
+      processing power to speed up performance.</p>
+      
+      <subsection name="Metrics">
+        <p>To give you a sense of how long it would take to validate individual products with content validation enabled, the following are
+        are a few benchmarks for validate performance:</p>
+        
+        <table>
+          <tr><th>Product Size</th><th>Validation Time</th><th>Comment</th></tr>
+          <tr><td>4-10 MB</td><td>4-6 sec</td><td></td></tr>
+          <tr><td>50 MB</td><td>6-8 sec</td><td></td></tr>
+          <tr><td>4.8 GB</td><td>~10 min</td><td></td></tr>
+        </table>
+      </subsection>
+      
+      <subsection name="Maximize Performance">
+        <p>There are several flags added to validate so you can split out various parts and run multiple Validate executions to speed up the processing. Here is one example of how to 
+        split up execution. There are other permutations you could do to improve performance, but this is one example:</p>
+        <source>
+          my_bundle/
+          ├── bundle.xml
+          ├── data
+          │   ├── data_collection.tab
+          │   ├── data_collection.xml
+          │   ├── release1
+          │   │   ├── file1.tab
+          │   │   ├── file1.xml
+          │   │   ├── file2.tab
+          │   │   └── file2.xml
+          │   ├── release2
+          │   │   ├── file3.tab
+          │   │   ├── file3.xml
+          │   │   ├── file4.tab
+          │   │   └── file4.xml
+          │   └── release3
+          │       ├── file5.tab
+          │       ├── file5.xml
+          │       ├── file6.tab
+          │       └── file6.xml
+          └── document
+              ├── document_collection.tab
+              └── document_collection.xml
+        </source>
+        <p>Here is how you could execute multiple validates to split out the work. <b>Note: Always make sure if you split out execution 
+        that you execute Bundle Validation (pds4.bundle rule) and content validation.</b></p>
+        <source>
+          
+# Execute bundle validation but only check bundle/collection validity and ignore the products
+validate --skip-product-validation -R pds4.bundle -t my_bundle
+
+# Make sure the labels are valid upon delivery but skip content validation until later since it takes longer
+validate --no-check-data -R pds4.label -t my_bundle
+
+# Point at several targets with different validate runs for parallelizing content validation
+validate -R pds4.label -t my_bundle/document/*.xml
+validate -R pds4.label -t my_bundle/release1/*.xml
+validate -R pds4.label -t my_bundle/release2/*.xml
+validate -R pds4.label -t my_bundle/release3/*.xml
+
+# Or you could do the same thing with target manifests
+validate -R pds4.label --target-manifest documents.txt
+validate -R pds4.label --target-manifest release1_data.txt
+validate -R pds4.label --target-manifest release2_data.txt
+validate -R pds4.label --target-manifest release3_data.txt
+
+        </source>
+      </subsection>
     </section>
   </body>
 </document>

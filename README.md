@@ -98,7 +98,6 @@ Update Changelog using [Github Changelog Generator](https://github.com/github-ch
 # For RELEASE CANDIDATE, set VERSION to future release version.
 github_changelog_generator --future-release v$VERSION
 
-# Only add for OPERATIONAL release, but will be used later on for Github Release
 git add CHANGELOG.md
 ```
 
@@ -150,7 +149,7 @@ git tag v${VERSION}
 git push --tags
 
 # For RELEASE CANDIDATE
-git tag v${VERSION}-rc${CANDIDATE_NUM}
+git tag v${VERSION}-SNAPSHOT
 git push --tags
 ```
 
