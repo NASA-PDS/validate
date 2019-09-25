@@ -518,16 +518,38 @@ public class ValidateLauncher {
                 String id = (String) document.getFirstValue("identifier");
                 String ver = (String) document.getFirstValue("version_id");
                 String data_type = (String) document.getFirstValue("data_product_type");
-                String name = (String) document.getFirstValue(data_type.toLowerCase() + "_name");
-                String type = (String) document.getFirstValue(data_type.toLowerCase() + "_type");
-                /*
-                 * System.out.println("Name: " + name);
-                 * System.out.println("Type: " + type);
-                 */
+                List<Object> names = (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_name");
+                List<Object> types = (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_type");
 
+                System.out.println("Name: " + names);
+                System.out.println("Type: " + types);
+                
                 jsonWriter.beginObject(); // start a product
-                jsonWriter.name("name").value(name != null ? name : "N/A");
-                jsonWriter.name("type").value(type != null ? type : "N/A");
+                
+                jsonWriter.name("name");
+                jsonWriter.beginArray();
+                if (names == null) {
+                    jsonWriter.value("N/A");
+                } else {
+                    for (Object n : names) {
+                        System.out.println((String) n);
+                        jsonWriter.value((String) n);
+                    }
+                }
+                jsonWriter.endArray();
+                
+                jsonWriter.name("type");
+                jsonWriter.beginArray();
+                if (names == null) {
+                    jsonWriter.value("N/A");
+                } else {
+                    for (Object t : types) {
+                        System.out.println((String) t);
+                        jsonWriter.value((String) t);
+                    }
+                }
+                jsonWriter.endArray();
+
                 jsonWriter.name("lidvid").value(id + "::" + ver);
                 jsonWriter.endObject(); // end a product
             }
@@ -947,17 +969,26 @@ public class ValidateLauncher {
 
                 JsonObject jsonObj = jsonElm.getAsJsonObject();
                 String lidvidString = jsonObj.get("lidvid").getAsString();
-                String typeString = "N/A";
+                List<String> types = new ArrayList<String>();
                 if (!jsonObj.get("type").isJsonNull()) {
-                    typeString = jsonObj.get("type").getAsString();
+                    for (JsonElement e : jsonObj.get("type").getAsJsonArray()) {
+                        types.add(e.getAsString());
+                    }
+                } else {
+                    types.add("N/A");
                 }
-                String nameString = "N/A";
+                
+                List<String> names = new ArrayList<String>();
                 if (!jsonObj.get("name").isJsonNull()) {
-                    nameString = jsonObj.get("name").getAsString();
+                    for (JsonElement e : jsonObj.get("name").getAsJsonArray()) {
+                        names.add(e.getAsString());
+                    }
+                } else {
+                    names.add("N/A");
                 }
 
                 contextProducts.add(
-                        new ContextProductReference(lidvidString.split("::")[0], lidvidString.split("::")[1], typeString, nameString));
+                        new ContextProductReference(lidvidString.split("::")[0], lidvidString.split("::")[1], types, names));
 
             }
         } catch (Exception e) {
@@ -983,16 +1014,25 @@ public class ValidateLauncher {
 
                     JsonObject jsonObjN = jsonElmN.getAsJsonObject();
                     String lidvidStringN = jsonObjN.get("lidvid").getAsString();
-                    String typeStringN = "N/A";
+                    List<String> typesN = new ArrayList<String>();
                     if (!jsonObjN.get("type").isJsonNull()) {
-                        typeStringN = jsonObjN.get("type").getAsString();
+                        for (JsonElement e : jsonObjN.get("type").getAsJsonArray()) {
+                            typesN.add(e.getAsString());
+                        }
+                    } else {
+                        typesN.add("N/A");
                     }
-                    String nameStringN = "N/A";
+                    
+                    List<String> namesN = new ArrayList<String>();
                     if (!jsonObjN.get("name").isJsonNull()) {
-                        nameStringN = jsonObjN.get("name").getAsString();
+                        for (JsonElement e : jsonObjN.get("name").getAsJsonArray()) {
+                            namesN.add(e.getAsString());
+                        }
+                    } else {
+                        namesN.add("N/A");
                     }
-                    contextProducts.add(new ContextProductReference(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typeStringN,
-                            nameStringN));
+                    contextProducts.add(new ContextProductReference(lidvidStringN.split("::")[0], lidvidStringN.split("::")[1], typesN,
+                            namesN));
                 }
                 
                 report.record(new URI(ValidateLauncher.class.getName()), pList);

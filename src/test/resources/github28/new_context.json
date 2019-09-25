@@ -1,8 +1,8 @@
 {
 	"Product_Context": [
 		{
-			"name": "FOO",
-			"type": "Spacecraft",
+			"name": [ "FOO" ],
+			"type": [ "Spacecraft" ],
 			"lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.FOO::1.0"
 		}
 	]
