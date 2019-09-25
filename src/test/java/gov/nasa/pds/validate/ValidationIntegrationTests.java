@@ -385,7 +385,6 @@ class ValidationIntegrationTests {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     "-C", catFile,
-                    "--no-data-check",
                     "-t", testPath + File.separator + "ELE_MOM.xml"
                     };
 
@@ -395,6 +394,9 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
             assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " error message not expected.");
+            
+            errors = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+            assertEquals(errors, 2278, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " error message not expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
