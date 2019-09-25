@@ -133,15 +133,14 @@ public class ValidationTask implements Task {
     try {
       rule.execute(context);
     } catch (Throwable ex) {
-    	//ex.printStackTrace();
+    	ex.printStackTrace();
     	try {
     		problemListener.addProblem(
     	        new ValidationProblem(new ProblemDefinition(
     	            ExceptionType.ERROR,
     	            ProblemType.INTERNAL_ERROR,
-    	            "Error executing validationTask: "),
-    	        	new URL(location),
-    	            ex.getCause().toString()));
+    	            "Error executing validationTask: " + ex.getCause().toString()),
+    	        	new URL(location)));
     	} catch (Exception e) {
     	   //e.printStackTrace();
     	   LOG.error("Malformed URL: " + location, e);

@@ -48,7 +48,9 @@ import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.XPaths;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentValidator;
@@ -116,6 +118,17 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
     for (FileArea fileArea : arrayFileAreas) {
       int arrayIndex = -1;
       String fileName = getDataFile(fileArea);
+
+      if (fileName == null) {
+          getListener().addProblem(
+                  new ValidationProblem(
+                          new ProblemDefinition(ExceptionType.FATAL,
+                          ProblemType.INVALID_LABEL,
+                          "Missing File Area."),
+                          getTarget()));
+          continue;
+      }
+
       URL dataFile = new URL(Utility.getParent(getTarget()), fileName);
       if (arrayIndexes.containsKey(dataFile)) {
         arrayIndex = arrayIndexes.get(dataFile).intValue() + 1;
@@ -250,10 +263,15 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
    */
   private String getDataFile(FileArea fileArea) {
     String result = "";
-    if (fileArea instanceof FileAreaObservational) {
-      result = ((FileAreaObservational) fileArea).getFile().getFileName();
-    } else if (fileArea instanceof FileAreaBrowse) {
-      result = ((FileAreaBrowse) fileArea).getFile().getFileName();
+    try {
+        if (fileArea instanceof FileAreaObservational) {
+            result = ((FileAreaObservational) fileArea).getFile().getFileName();
+        } else if (fileArea instanceof FileAreaBrowse) {
+            result = ((FileAreaBrowse) fileArea).getFile().getFileName();
+        }
+    } catch (NullPointerException e) {
+        // Null pointer means the file area is missing
+        return null;
     }
     return result;
   }
