@@ -523,6 +523,42 @@ class ValidationIntegrationTests {
         }
     }
     
+    @Test
+    void testGithub84() {
+        try {
+            // Setup paths
+            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github84");
+            String dataPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github84_1.json");
+
+            String configFile = testPath + File.separator + "config.txt";
+
+            // Test that config file works as expected
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "--no-data-check",
+                    "-c", configFile,
+                    "-t", dataPath + File.separator + "ELE_MOM.xml"
+                    };
+
+            ValidateLauncher.main(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
         JsonObject message = null;

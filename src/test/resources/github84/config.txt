@@ -1,0 +1,3 @@
+validate.schema=src/test/resources/github71/pds/v1/PDS4_PDS_1700.xsd,src/test/resources/github71/test/v1/PDS4_TEST_1700.xsd
+validate.schematron=src/test/resources/github71/pds/v1/PDS4_PDS_1700.sch
+
