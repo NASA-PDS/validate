@@ -144,13 +144,13 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ## Push Tagged Release
 ```
-# For operational release
+# For Release Candidate, you may need to delete old SNAPSHOT tag
+git push origin :v$VERSION
+
+# Now tag and push
 git tag v${VERSION}
 git push --tags
 
-# For RELEASE CANDIDATE
-git tag v${VERSION}-SNAPSHOT
-git push --tags
 ```
 
 ## Deploy Site to Github Pages
@@ -163,7 +163,7 @@ git checkout gh-pages
 mkdir -p $VERSION
 
 # Copy the over to version-specific and default sites
-rsync -av target/site $VERSION
+rsync -av target/site/ $VERSION
 rsync -av $VERSION/* .
 
 git add .
