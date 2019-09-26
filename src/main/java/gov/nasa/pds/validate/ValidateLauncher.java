@@ -629,12 +629,14 @@ public class ValidateLauncher {
                 List<String> list = config.getList(ConfigKey.SCHEMA);
                 list = Utility.removeQuotes(list);
                 setSchemas(list);
+                setForce(false);
             }
             if (config.containsKey(ConfigKey.SCHEMATRON)) {
                 // Removes quotes surrounding each pattern being specified
                 List<String> list = config.getList(ConfigKey.SCHEMATRON);
                 list = Utility.removeQuotes(list);
                 setSchematrons(list);
+                setForce(false);
             }
             if (config.containsKey(ConfigKey.LOCAL)) {
                 if (config.getBoolean(ConfigKey.LOCAL) == true) {
