@@ -700,7 +700,7 @@ public class ValidateLauncher {
                     setValidateContext(false);
                 }
             }
-<<<<<<< HEAD
+
             if (config.containsKey(ConfigKey.TARGET_MANIFEST)) {
                 String fileName = config.getString(ConfigKey.TARGET_MANIFEST);
                 File listF = new File(fileName);               
@@ -719,13 +719,12 @@ public class ValidateLauncher {
                 setTargets(targetList);
             }
             
-=======
             if (config.containsKey(ConfigKey.SKIP_SCHEMA_VALIDATION)) {
                 if (config.getBoolean(ConfigKey.SKIP_SCHEMA_VALIDATION) == true) {
                     setValidateSchema(false);
                 }
             }
->>>>>>> issue_84: Deactivate using online schemas validation
+
         } catch (Exception e) {
             throw new ConfigurationException(e.getMessage());
         }
