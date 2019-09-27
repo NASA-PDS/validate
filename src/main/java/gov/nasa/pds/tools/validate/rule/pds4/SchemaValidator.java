@@ -46,6 +46,7 @@ import javax.xml.XMLConstants;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
@@ -71,11 +72,7 @@ public class SchemaValidator {
     // Support for XSD 1.1
     schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
-    schemaFactory.setResourceResolver(new CachedLSResourceResolver());
-  }
-
-  public ProblemContainer validate(StreamSource schema) {
-      return validate(schema, null);
+    schemaFactory.setResourceResolver(new XMLCatalogResolver());
   }
   
   /**
@@ -88,16 +85,13 @@ public class SchemaValidator {
  * @throws SAXNotSupportedException 
  * @throws SAXNotRecognizedException 
    */
-  public ProblemContainer validate(StreamSource schema, XMLCatalogResolver catalogResolver) {
+  public ProblemContainer validate(StreamSource schema) {
     ProblemContainer container = new ProblemContainer();
     try {
         schemaFactory.setErrorHandler(new LabelErrorHandler(container));
-        
-        if (catalogResolver != null) {
-            schemaFactory.setResourceResolver(catalogResolver);
-        }
-        CachedLSResourceResolver resolver =
-            (CachedLSResourceResolver) schemaFactory.getResourceResolver();
+
+        XMLCatalogResolver resolver =
+            (XMLCatalogResolver) schemaFactory.getResourceResolver();
         resolver.setProblemHandler(container);
         
         schemaFactory.newSchema(schema);
@@ -127,7 +121,14 @@ public class SchemaValidator {
          locations);
   }
 
-  public CachedLSResourceResolver getCachedLSResolver() {
-    return (CachedLSResourceResolver) schemaFactory.getResourceResolver();
+  
+  public XMLCatalogResolver getCachedLSResolver() {
+    return (XMLCatalogResolver) schemaFactory.getResourceResolver();
+  }
+  
+  public void setCatalogResolver(XMLCatalogResolver resolver) {
+      if (resolver != null) {
+          schemaFactory.setResourceResolver(resolver);
+      }
   }
 }

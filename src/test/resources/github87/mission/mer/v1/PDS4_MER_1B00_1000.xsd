@@ -1,0 +1,1169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- PDS4 XML/Schema for Name Space Id:mer  Version:1.0.0.0 - Tue Aug 27 10:43:56 CDT 2019 -->
+  <!-- Generated from the PDS4 Information Model Version 1.11.0.0 - System Build 9a -->
+  <!-- *** This PDS4 product schema is an operational deliverable. *** -->
+  <!--                                                                           -->
+  <!--               Dictionary Stack                                            -->
+  <!-- 1.11.0.0 - pds: - Common Dictionary - N/A                                 -->
+  <!-- 1.0.0.0 - mer: - MER Mission Dictionary - ldd-mer-190827.xml              -->
+  <!--                                                                           -->
+  <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://pds.nasa.gov/pds4/mission/mer/v1"
+    xmlns:mer="http://pds.nasa.gov/pds4/mission/mer/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.0.0.0">
+ 
+    <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd"/>
+ 
+  <xs:annotation>
+    <xs:documentation>
+
+        The MER mission dictionary contains classes and attributes specific to the
+        MER mission and instruments. This dictionary was created for the migration
+        of MER data products from PDS3 to PDS4.
+        
+        Built with LDDTool -plMJ  ldd-mer.xml
+    
+    </xs:documentation>
+  </xs:annotation>
+ 
+  <xs:element name="MER_Parameters" type="mer:MER_Parameters"> </xs:element>
+
+  <xs:complexType name="Angular_Distance_Index">
+    <xs:annotation>
+      <xs:documentation>Subclass for values of angular
+        distance.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="angular_distance" type="mer:angular_distance" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="angular_distance_name" type="mer:angular_distance_name" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:angular_distance_name = ('Dwell Operation', 'Grind Completion')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="MER_Parameters">
+    <xs:annotation>
+      <xs:documentation> Container class for general MER related
+        parameters. </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="product_type" type="mer:product_type" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="product_version_id" type="mer:product_version_id" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="release_id" type="mer:release_id" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="mission_phase_name" type="mer:mission_phase_name" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="sol_number" type="mer:sol_number" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="local_true_solar_time_sol" type="mer:local_true_solar_time_sol" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="spacecraft_clock_count_partition" type="mer:spacecraft_clock_count_partition" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="spacecraft_clock_start_count" type="mer:spacecraft_clock_start_count" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="spacecraft_clock_stop_count" type="mer:spacecraft_clock_stop_count" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="magnet_id" type="mer:magnet_id" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="download_priority" type="mer:download_priority" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="producer_institution_name" type="mer:producer_institution_name" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="RAT_Parameters" type="mer:RAT_Parameters" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="MiniTES_Parameters" type="mer:MiniTES_Parameters" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:mission_phase_name = ('Extended Mission', 'Primary Mission')"/> -->
+    <!-- <xs:assert test="mer:magnet_id = ('Capture', 'Filter', 'Null', 'RAT', 'Sweep')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="MiniTES_Command_Parameters">
+    <xs:annotation>
+      <xs:documentation>Specifies the set of commands used to acquire a
+        miniTES observation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="center_azimuth" type="mer:center_azimuth" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="center_elevation" type="mer:center_elevation" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="columns" type="mer:columns" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="rows" type="mer:rows" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="dwell" type="mer:dwell" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="vertical_space" type="mer:vertical_space" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="horizontal_space" type="mer:horizontal_space" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="co_add" type="mer:co_add" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="cal_frequency" type="mer:cal_frequency" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="cal_dwell" type="mer:cal_dwell" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="cal_co_add" type="mer:cal_co_add" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="phase_algorithm_name" type="mer:phase_algorithm_name" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="low_channel" type="mer:low_channel" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="high_channel" type="mer:high_channel" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="zone2_width" type="mer:zone2_width" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:phase_algorithm_name = ('Mertz', 'None', 'RSS')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="MiniTES_Coordinate_Parameters">
+    <xs:annotation>
+      <xs:documentation>Specifies one of several coordinate parameters
+        for a miniTES observation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="coordinate_name" type="mer:coordinate_name" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="coordinate_value" type="mer:coordinate_value" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="coordinate_unit" type="mer:coordinate_unit" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MiniTES_Parameters">
+    <xs:annotation>
+      <xs:documentation>Main class to hold parameters related to a
+        miniTES observation.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="linear_motor_status_flag" type="mer:linear_motor_status_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="field_of_view" type="mer:field_of_view" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="gain_state" type="mer:gain_state" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="optical_switch_state" type="mer:optical_switch_state" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="laser_1_status_flag" type="mer:laser_1_status_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="laser_2_status_flag" type="mer:laser_2_status_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="laser_heater_status_flag" type="mer:laser_heater_status_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="spare_bit_flag" type="mer:spare_bit_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="coordinate_id" type="mer:coordinate_id" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="MiniTES_Coordinate_Parameters" type="mer:MiniTES_Coordinate_Parameters" minOccurs="0" maxOccurs="3"> </xs:element>
+      <xs:element name="MiniTES_Command_Parameters" type="mer:MiniTES_Command_Parameters" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:linear_motor_status_flag = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="mer:field_of_view = ('20', '8')"/> -->
+    <!-- <xs:assert test="mer:gain_state = ('High', 'Low')"/> -->
+    <!-- <xs:assert test="mer:optical_switch_state = ('Primary', 'Redundant')"/> -->
+    <!-- <xs:assert test="mer:laser_1_status_flag = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="mer:laser_2_status_flag = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="mer:laser_heater_status_flag = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="mer:spare_bit_flag = ('Off', 'On')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Brush_Request_Parameters">
+    <xs:annotation>
+      <xs:documentation>Class for RAT brush request
+        parameters</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="angular_velocity" type="mer:angular_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_voltage" type="mer:rotation_voltage" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_position" type="mer:z_axis_position" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_velocity" type="mer:z_axis_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Diagnostics_Cal_Request_Parameters">
+    <xs:annotation>
+      <xs:documentation>RAT diagnostics and calibration
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="angular_velocity" type="mer:angular_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_voltage" type="mer:rotation_voltage" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_velocity" type="mer:z_axis_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Grind_Request_Parameters">
+    <xs:annotation>
+      <xs:documentation>Class of RAT grind request
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="Angular_Distance_Index" type="mer:Angular_Distance_Index" minOccurs="2" maxOccurs="2"> </xs:element>
+      <xs:element name="angular_velocity" type="mer:angular_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="clearance_distance" type="mer:clearance_distance" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="maximum_angular_velocity" type="mer:maximum_angular_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_torque_parameter" type="mer:rotation_torque_parameter" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_voltage" type="mer:rotation_voltage" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="Torque_Gain_Index" type="mer:Torque_Gain_Index" minOccurs="3" maxOccurs="3"> </xs:element>
+      <xs:element name="timeout_parameter" type="mer:timeout_parameter" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_step_size" type="mer:z_axis_step_size" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_velocity" type="mer:z_axis_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Parameters">
+    <xs:annotation>
+      <xs:documentation>Container class for RAT
+        parameters</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="RAT_Request_Parameters" type="mer:RAT_Request_Parameters" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="RAT_Diagnostics_Cal_Request_Parameters" type="mer:RAT_Diagnostics_Cal_Request_Parameters" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="RAT_Seek_Scan_Request_Parameters" type="mer:RAT_Seek_Scan_Request_Parameters" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="RAT_Grind_Request_Parameters" type="mer:RAT_Grind_Request_Parameters" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="RAT_Brush_Request_Parameters" type="mer:RAT_Brush_Request_Parameters" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Request_Parameters">
+    <xs:annotation>
+<xs:documentation>RAT operation parameters</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="command_opcode" type="mer:command_opcode" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="error_condition" type="mer:error_condition" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="error_state" type="mer:error_state" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="maximum_current_persistence" type="mer:maximum_current_persistence" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="maximum_travel_distance" type="mer:maximum_travel_distance" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="sampling_parameter_interval" type="mer:sampling_parameter_interval" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_noload_current" type="mer:rotation_noload_current" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="torque_constant" type="mer:torque_constant" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_distance" type="mer:z_axis_distance" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:error_condition = ('Both', 'Contact1', 'Contact2', 'None')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="RAT_Seek_Scan_Request_Parameters">
+    <xs:annotation>
+      <xs:documentation>Class of RAT seek scan
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="angular_distance" type="mer:angular_distance" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="maximum_angular_velocity" type="mer:maximum_angular_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_torque_parameter" type="mer:rotation_torque_parameter" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="Rotation_Voltage_Index" type="mer:Rotation_Voltage_Index" minOccurs="2" maxOccurs="2"> </xs:element>
+      <xs:element name="Torque_Gain_Index" type="mer:Torque_Gain_Index" minOccurs="3" maxOccurs="3"> </xs:element>
+      <xs:element name="z_axis_step_size" type="mer:z_axis_step_size" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="Z_Axis_Velocity_Index" type="mer:Z_Axis_Velocity_Index" minOccurs="2" maxOccurs="2"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Rotation_Voltage_Index">
+    <xs:annotation>
+      <xs:documentation>Subclass for values of rotation motor
+        voltages.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="rotation_voltage" type="mer:rotation_voltage" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="rotation_voltage_name" type="mer:rotation_voltage_name" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:rotation_voltage_name = ('Scan', 'Seek')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="Torque_Gain_Index">
+    <xs:annotation>
+      <xs:documentation>Subclass for values of torque
+        gain.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="torque_gain" type="mer:torque_gain" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="torque_gain_name" type="mer:torque_gain_name" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:torque_gain_name = ('Derivative', 'Integral', 'Proportional')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="Z_Axis_Velocity_Index">
+    <xs:annotation>
+      <xs:documentation>Subclass for values of z-axis
+        velocity.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="z_axis_velocity" type="mer:z_axis_velocity" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="z_axis_velocity_name" type="mer:z_axis_velocity_name" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="mer:z_axis_velocity_name = ('Scan', 'Seek')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+    <xs:annotation>
+      <xs:documentation>This section contains the simpleTypes that provide more constraints
+        than those at the base data type level. The simpleTypes defined here build on the base data
+        types. This is another component of the common dictionary and therefore falls within the
+        common namespace.
+      </xs:documentation>
+    </xs:annotation>
+
+  <xs:simpleType name="angular_distance_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="angular_distance">
+    <xs:annotation>
+      <xs:documentation>The amount of radians to move around the RAT
+        revolve axis before a scan completes or amount of radians to
+        move before moving the RAT z-axis down one
+        step.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:angular_distance_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="angular_distance_name">
+    <xs:annotation>
+      <xs:documentation>The name of the operation with the RAT revolve
+        motor movement.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="angular_velocity_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="angular_velocity">
+    <xs:annotation>
+      <xs:documentation>The angular velocity used in the operation of
+        the RAT revolve axis.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:angular_velocity_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angular_Velocity" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="cal_co_add">
+    <xs:annotation>
+      <xs:documentation>Commanded number of calibration observations to
+        average together.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cal_dwell">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the number of icks to acquire
+        during a calibration observation.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="cal_frequency">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the minimum number of icks
+        between internal calibration looks.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="center_azimuth_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="center_azimuth">
+    <xs:annotation>
+      <xs:documentation>The commanded center azimuth of the acquired
+        data.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:center_azimuth_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="center_elevation_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="center_elevation">
+    <xs:annotation>
+      <xs:documentation>The commanded center elevation of the acquired
+        data.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:center_elevation_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="clearance_distance_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="clearance_distance">
+    <xs:annotation>
+      <xs:documentation>The RAT z-axix backoff distance for a dwell
+        operation after a grind to clear the RAT hole of
+        dust.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:clearance_distance_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="co_add">
+    <xs:annotation>
+      <xs:documentation>Commanded number of spectra to average
+        together.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="columns">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the number of columns
+        (azimuth steps) to acquire.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="command_opcode">
+    <xs:annotation>
+      <xs:documentation>This value is a code that defines the command
+        operation.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="coordinate_id">
+    <xs:annotation>
+      <xs:documentation>Identifies the frame in which the coordinate
+        values are given.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="coordinate_name">
+    <xs:annotation>
+      <xs:documentation>Name associated with each coordinate in the
+        Coordinate_Parameters class.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="coordinate_unit">
+    <xs:annotation>
+      <xs:documentation>The unit for the coordinate value by
+        coordinate_name in the Coordinate_Parameters
+        class.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="coordinate_value">
+    <xs:annotation>
+      <xs:documentation>The value of the coordinate named by
+        coordinate_name in the Coordinate_Parameters
+        class.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="download_priority">
+    <xs:annotation>
+      <xs:documentation>The download_priority attribute specifies which
+        data to downlink/transmit, based on order of importance. The
+        lower numerical priority (higher-ranked number) data products
+        are transmitted before higher numerical priority (lower-ranked
+        number) data products. For example, an image with a downlink
+        priority of 24 will be transmitted before an image with a
+        downlink priority of 62. The allowable range is 0 to
+        99.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="99"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="dwell">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the number of icks to acquire
+        at one azimuth/elevation position.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="error_condition">
+    <xs:annotation>
+      <xs:documentation>RAT error condition, mostly likely related to
+        the butterfly contact switchs.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="error_state">
+    <xs:annotation>
+      <xs:documentation>Flags to indicate various RAT error states. See
+        the RAT SIS for more details.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="field_of_view_WO_Units">
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="field_of_view">
+    <xs:annotation>
+      <xs:documentation>The instantaneous field of view of the
+        instrument that was used while acquiring the
+        data.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:field_of_view_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="gain_state">
+    <xs:annotation>
+      <xs:documentation>Specifies the gain state of the MiniTES analog
+        signal amplifier.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="high_channel">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the end channel number to
+        acquire minus one.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="horizontal_space_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="horizontal_space">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the horizontal spacing
+        between consecutive columns.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:horizontal_space_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="laser_1_status_flag">
+    <xs:annotation>
+      <xs:documentation>Status of the primary laser. Only onen laser can
+        be on at one time.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="laser_2_status_flag">
+    <xs:annotation>
+      <xs:documentation>Status of the backup laser. Only onen laser can
+        be on at one time.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="laser_heater_status_flag">
+    <xs:annotation>
+      <xs:documentation>The status of the laser
+        heater.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="linear_motor_status_flag">
+    <xs:annotation>
+      <xs:documentation>Provides the status of the Michelson
+        motor.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="local_true_solar_time_sol">
+    <xs:annotation>
+      <xs:documentation>The local_true_solar_time_sol element specifies
+        the number of solar days elapsed since a reference day (e.g. the
+        day on which a landing vehicle set down) for local true solar
+        time (LTST). Days are measured in rotations of the planet in
+        question from midnight to midnight. The reference day is '1', as
+        landing day is Sol 1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="low_channel">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the start channel number to
+        acquire. Channel numbers start at zero.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="magnet_id">
+    <xs:annotation>
+      <xs:documentation>The magnet_id specifies a magnet that is visible
+        in an image or measured by an instrument.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="maximum_angular_velocity_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="maximum_angular_velocity">
+    <xs:annotation>
+      <xs:documentation>The maximum RAT revolve motor velocity for a
+        scan and grind operation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:maximum_angular_velocity_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angular_Velocity" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="maximum_current_persistence">
+    <xs:annotation>
+      <xs:documentation>Number of RTIs at maximum
+        current.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="maximum_travel_distance_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="maximum_travel_distance">
+    <xs:annotation>
+      <xs:documentation>The maximum allowable travel distance relative
+        to the RAT z-axis hard stop.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:maximum_travel_distance_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="mission_phase_name">
+    <xs:annotation>
+      <xs:documentation>The mission_phase_name identifies a time period
+        within the mission.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Preserved">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="optical_switch_state">
+    <xs:annotation>
+      <xs:documentation>Indicates which of the optical switches was used
+        by the miniTES optical mirror. There are two switches for
+        redundancy in case one fails.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="phase_algorithm_name">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the phase correction
+        algorithm to use on board.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="producer_institution_name">
+    <xs:annotation>
+      <xs:documentation>The producer_institution_name specifies the
+        identity of the facility or institution that produced the
+        product. </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="product_type">
+    <xs:annotation>
+      <xs:documentation>The product_type identifies a group of data
+        products within a collection that have some property in common,
+        such as processing level, resolution, or instrument-specific
+        setting. </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="product_version_id">
+    <xs:annotation>
+      <xs:documentation>The product_version_id specifies the version of
+        the product. It usually begins with a 'V' and followed by an
+        identifier for the controlling camera SIS. </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="release_id">
+    <xs:annotation>
+      <xs:documentation>Release_id is the identifier of a scheduled
+        release of MER data from PDS. The first MER data release is
+        Release 0001. The release_id for a given product is always the
+        first release in which it appears, and does not change if the
+        product is revised later.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rotation_noload_current">
+    <xs:annotation>
+      <xs:documentation>Specifics the RAT noload current value. Units
+        are mA, but not given in the label.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rotation_torque_parameter">
+    <xs:annotation>
+      <xs:documentation>Specifics a torque value for the RAT grinding
+        wheel rotation during a scan or grind operation. Given in units
+        of mN*meter, but units are not listed in the
+        label.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rotation_voltage_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="rotation_voltage">
+    <xs:annotation>
+      <xs:documentation>Value of the voltage applied to the RAT grinding
+        wheel rotation motor.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:rotation_voltage_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Voltage" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="rotation_voltage_name">
+    <xs:annotation>
+      <xs:documentation>The name of the RAT operation that the rotation
+        voltage applies.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rows">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the number of rows (elevation
+        steps) to acquire.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sampling_parameter_interval">
+    <xs:annotation>
+      <xs:documentation>Specifics the number of RTIs that are skipped
+        between telemetry samples in detailed RAT
+        reports.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="sol_number">
+    <xs:annotation>
+      <xs:documentation>Sol_number is the number of the Mars day on
+        which an observation was acquired. Landing day is Sol
+        1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="spacecraft_clock_count_partition">
+    <xs:annotation>
+      <xs:documentation>The spacecraft_clock_count_partition provides
+        the clock partition active for the spacecraft_clock_start_count
+        and spacecraft_clock_stop_count attributes. This attribute may
+        be used when the spacecraft_clock values do not include a
+        partition number.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="spacecraft_clock_start_count">
+    <xs:annotation>
+      <xs:documentation>The spacecraft_clock_start_count is the value of
+        the spacecraft clock at the beginning of an observation. It
+        represents the number of ticks. If a fractional value is
+        present, in some cases it means a true decimal fraction (i.e.
+        milliseconds) while in other cases it stands for a count of
+        1/256th of a second (which stems from the fact that the
+        fractional part was represented by a single byte in the original
+        telemetry stream.) When comparing SCLK times or converting them
+        to other time systems, it is important to know which of the two
+        representations the SCLK string follows. Normally the
+        documentation accompanying a particular data set defines which
+        type of SCLK fractional part was used in that data
+        set.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+    	<xs:pattern value='([1-9]/)?[0-9]{1,10}(\.[0-9]{3})?'/>
+     <xs:minLength value="13"/>
+     <xs:maxLength value="15"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="spacecraft_clock_stop_count">
+    <xs:annotation>
+      <xs:documentation>The spacecraft_clock_stop_count is the value of
+        the spacecraft clock at the end of an observation. It represents
+        the number of ticks. If a fractional value is present, in some
+        cases it means a true decimal fraction (i.e. milliseconds) while
+        in other cases it stands for a count of 1/256th of a second
+        (which stems from the fact that the fractional part was
+        represented by a single byte in the original telemetry stream.)
+        When comparing SCLK times or converting them to other time
+        systems, it is important to know which of the two
+        representations the SCLK string follows. Normally the
+        documentation accompanying a particular data set defines which
+        type of SCLK fractional part was used in that data
+        set.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+    	<xs:pattern value='([1-9]/)?[0-9]{1,10}(\.[0-9]{3})?'/>
+     <xs:minLength value="13"/>
+     <xs:maxLength value="15"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="spare_bit_flag">
+    <xs:annotation>
+      <xs:documentation>The status of the spare bit within the command
+        word.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="timeout_parameter_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="timeout_parameter">
+    <xs:annotation>
+      <xs:documentation>Specifics the time limit for the RAT revolve
+        moter to make a complete revolution during a grind
+        operation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:timeout_parameter_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Time" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="torque_constant">
+    <xs:annotation>
+      <xs:documentation>Ratio of RAT rotate motor torque to current.
+        Units are mN*meter/mA, but unit is not listed in
+        label.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="torque_gain">
+    <xs:annotation>
+      <xs:documentation>RAT torque controller gain value. See RAT SIS,
+        appendix B for units.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="torque_gain_name">
+    <xs:annotation>
+      <xs:documentation>The name for the type of RAT torque
+        gain.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vertical_space_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="vertical_space">
+    <xs:annotation>
+      <xs:documentation>Commanded value of the vertical spacing between
+        consecutive rows.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:vertical_space_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="z_axis_distance_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="z_axis_distance">
+    <xs:annotation>
+      <xs:documentation>This is the offset for the RAT z-axis position
+        at the start of a diagnostic, calibration, grind, or brush
+        command.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:z_axis_distance_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="z_axis_position_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="z_axis_position">
+    <xs:annotation>
+      <xs:documentation>This is the RAT z-axis offset relative to the
+        lower hard stop that the RAT will move to at the start of a
+        brush command.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:z_axis_position_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="z_axis_step_size_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="z_axis_step_size">
+    <xs:annotation>
+      <xs:documentation>The is the distance that the z-axis will step
+        after a complete revolution.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="mer:z_axis_step_size_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="z_axis_velocity">
+    <xs:annotation>
+      <xs:documentation>Specifics the z-axis velocity during a movement.
+        Units are in mm/s, but are not listed in the
+        label.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="z_axis_velocity_name">
+    <xs:annotation>
+      <xs:documentation>The name of the RAT operation that the z-axis
+        velocity applies.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="zone2_width">
+    <xs:annotation>
+      <xs:documentation>Commanded length of the center-burst region of
+        the interferogram, which is compressed separately from zone1 and
+        zone-3.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

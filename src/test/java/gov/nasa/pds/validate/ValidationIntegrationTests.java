@@ -432,7 +432,7 @@ class ValidationIntegrationTests {
                     
                     };
             this.launcher.processMain(args);
-            
+
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
@@ -558,6 +558,58 @@ class ValidationIntegrationTests {
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
             assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub87() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github87");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github87_1.json");
+            String catFile = outFilePath + File.separator + "catalog.xml";
+            String testfile1 = testPath + File.separator + "2t126632959btr0200p3002n0a1.xml";
+            String testfile2 = testPath + File.separator + "2t126646972btr0200p3001n0a1.xml";
+
+            // Create catalog file
+            String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
+                    "<!--\n" + 
+                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
+                    "s/entity/release/1.1/catalog.dtd\">\n" + 
+                    "-->\n" + 
+                    "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
+                    "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
+                    "</catalog>";
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(catFile));
+            writer.write(catText);
+            writer.close();
+            
+            // First test that we get an invalid context product error
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-R", "pds4.label",
+                    "--no-data-check",
+                    "-t", testfile1, testfile2,
+                    "-C", catFile
+                    };
+
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
+            assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " no errors expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");

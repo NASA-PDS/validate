@@ -382,33 +382,48 @@ implements XMLEntityResolver, EntityResolver2 {
         }
       }
       
+      // TODO Improve how we handle the use case where a catalog file is used
+      //      so the systemId / baseURI have already been resolved
       if (resolvedId != null) {
-//        System.out.println("Result: " + resolvedId);
-        return super.resolveResource(type, namespaceURI, publicId, 
+         return super.resolveResource(type, namespaceURI, publicId, 
             resolvedId, baseURI);
-      }
-
-      if (getProblemHandler() != null) {
-        if (systemId != null && namespaceURI != null) {
-          getProblemHandler().addProblem(
-            new ValidationProblem(
-                new ProblemDefinition(ExceptionType.ERROR,
-                    ProblemType.CATALOG_UNRESOLVABLE_RESOURCE,
-                "Could not resolve uri '" + systemId + "' or namespace '"
-                    + namespaceURI + "' with the given catalog file."), 
-                baseUrl));
-        }
-      }
-      return null;
+      } else {
+          return super.resolveResource(type, namespaceURI, publicId, 
+            systemId, baseURI);
+      } 
+      
+//     TODO refactor code to make this error message relevant again
+//
+//      if (getProblemHandler() != null) {
+//        if (systemId != null && namespaceURI != null) {
+//            System.out.println("PROBLEM!!!!");
+//          getProblemHandler().addProblem(
+//            new ValidationProblem(
+//                new ProblemDefinition(ExceptionType.ERROR,
+//                    ProblemType.CATALOG_UNRESOLVABLE_RESOURCE,
+//                "Could not resolve uri '" + systemId + "' or namespace '"
+//                    + namespaceURI + "' with the given catalog file."), 
+//                baseUrl));
+//        }
+//      }
+//      System.out.println();
+//      return input;
+  }
+  
+  public LSInput getLSInputFromResolvableResource(String schemaUrl) {
+      return super.resolveResource("", "", "", schemaUrl,
+              schemaUrl);
   }
   
   private String resolveResource(String namespaceURI, String publicId, 
       String systemId, String baseURI) throws IOException {
     String resolvedId = null;
+
     //URIs specified in the catalog might be referencing the system identifiers
     //so let's use that to do resolution.
     try {
       systemId = Utility.makeAbsolute(baseURI, systemId);
+
     } catch (MalformedURLException mu) {
       throw new IOException(mu.getMessage());
     }
@@ -448,6 +463,7 @@ implements XMLEntityResolver, EntityResolver2 {
         resolvedId = resolveSystem(systemId);
       }
     }
+
     return resolvedId;
   }
   

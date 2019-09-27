@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mer/v1/PDS4_MER_1B00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/msn_surface/v1/PDS4_MSN_SURFACE_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1900.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B10_1710.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:mer="http://pds.nasa.gov/pds4/mission/mer/v1"
+  xmlns:msn_surface="http://pds.nasa.gov/pds4/mission/msn_surface/v1"
+  xmlns:proc="http://pds.nasa.gov/pds4/proc/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1                 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B10.xsd
+  http://pds.nasa.gov/pds4/mission/mer/v1         https://pds.nasa.gov/pds4/mission/mer/v1/PDS4_MER_1B00_1000.xsd
+  http://pds.nasa.gov/pds4/mission/msn_surface/v1 https://pds.nasa.gov/pds4/mission/msn_surface/v1/PDS4_MSN_SURFACE_1A10.xsd
+  http://pds.nasa.gov/pds4/proc/v1                https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1900.xsd
+  http://pds.nasa.gov/pds4/geom/v1                https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B10_1710.xsd">
+
+
+    <Identification_Area>
+      <logical_identifier>urn:nasa:pds:mer2_mtes_derived_temperature:data:2t126646972btr0200p3001n0a1</logical_identifier>
+       <version_id>1.0</version_id>
+       <title>MER2 MTES Raw product: 2t126646972btr0200p3001n0a1</title>
+       <information_model_version>1.11.1.0</information_model_version>
+       <product_class>Product_Observational</product_class>
+       <Modification_History>
+         <Modification_Detail>
+           <modification_date>2019-08-29</modification_date>
+           <version_id>1.0</version_id>
+           <description>Migrated from PDS3 to PDS4.</description>
+         </Modification_Detail>
+       </Modification_History>
+     </Identification_Area>
+     <Observation_Area>
+       <Time_Coordinates>
+         <start_date_time>2004-01-06T07:41:18.573Z</start_date_time>
+         <stop_date_time>2004-01-06T07:42:08.573Z</stop_date_time>
+         <local_true_solar_time>16:09:40</local_true_solar_time>
+         <solar_longitude unit="deg">328.847</solar_longitude>
+       </Time_Coordinates>
+       <Investigation_Area>
+         <name>Mars Exploration Rover</name>
+         <type>Mission</type>
+         <Internal_Reference>
+           <lid_reference>urn:nasa:pds:context:investigation:mission.mars_exploration_rover</lid_reference>
+           <reference_type>data_to_investigation</reference_type>
+         </Internal_Reference>
+       </Investigation_Area>
+       <Observing_System>
+         <Observing_System_Component>
+           <name>Mars Exploration Rover 2</name>
+           <type>Spacecraft</type>
+           <Internal_Reference>
+             <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mer2</lid_reference>
+             <reference_type>is_instrument_host</reference_type>
+           </Internal_Reference>
+         </Observing_System_Component>
+         <Observing_System_Component>
+           <name>Mini Thermal Emission Spectrometer</name>
+           <type>Instrument</type>
+           <Internal_Reference>
+             <lid_reference>urn:nasa:pds:context:instrument:mini-tes.mer2</lid_reference>
+             <reference_type>is_instrument</reference_type>
+           </Internal_Reference>
+         </Observing_System_Component>
+       </Observing_System>
+       <Target_Identification>
+         <name>Mars</name>
+         <type>Planet</type>
+         <Internal_Reference>
+           <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+           <reference_type>data_to_target</reference_type>
+         </Internal_Reference>
+       </Target_Identification>
+
+       <Mission_Area>
+        <mer:MER_Parameters>
+          <mer:product_type>MTES_BTR</mer:product_type>
+          <mer:product_version_id>1.4</mer:product_version_id>
+          <mer:release_id>0001</mer:release_id>
+          <mer:mission_phase_name>Primary Mission</mer:mission_phase_name>
+          <mer:sol_number>3</mer:sol_number>
+          <mer:spacecraft_clock_count_partition>1</mer:spacecraft_clock_count_partition>
+          <mer:spacecraft_clock_start_count>126646972.740</mer:spacecraft_clock_start_count>
+          <mer:spacecraft_clock_stop_count>126647022.740</mer:spacecraft_clock_stop_count>
+          <mer:producer_institution_name>Arizona State University</mer:producer_institution_name>
+
+          <mer:MiniTES_Parameters>
+            <mer:linear_motor_status_flag>On</mer:linear_motor_status_flag>
+            <mer:field_of_view unit="mrad">20</mer:field_of_view>
+            <mer:gain_state>Low</mer:gain_state>
+            <mer:optical_switch_state>Primary</mer:optical_switch_state>
+            <mer:laser_1_status_flag>On</mer:laser_1_status_flag>
+            <mer:laser_2_status_flag>Off</mer:laser_2_status_flag>
+            <mer:laser_heater_status_flag>Off</mer:laser_heater_status_flag>
+            <mer:spare_bit_flag>Off</mer:spare_bit_flag>
+            <mer:coordinate_id>Mast AzEl</mer:coordinate_id>
+            <mer:MiniTES_Coordinate_Parameters>
+              <mer:coordinate_name>Mast_Azimuth</mer:coordinate_name>
+              <mer:coordinate_value>0.123000</mer:coordinate_value>
+              <mer:coordinate_unit>rad</mer:coordinate_unit>
+            </mer:MiniTES_Coordinate_Parameters>
+            <mer:MiniTES_Coordinate_Parameters>
+              <mer:coordinate_name>Mtes_Mirror_Actuator_Angle</mer:coordinate_name>
+              <mer:coordinate_value>-0.816000</mer:coordinate_value>
+              <mer:coordinate_unit>rad</mer:coordinate_unit>
+            </mer:MiniTES_Coordinate_Parameters>
+            <mer:MiniTES_Command_Parameters>
+              <mer:center_azimuth unit="rad">0.123000</mer:center_azimuth>
+              <mer:center_elevation unit="rad">-0.816000</mer:center_elevation>
+              <mer:columns>1</mer:columns>
+              <mer:rows>1</mer:rows>
+              <mer:dwell>5</mer:dwell>
+              <mer:vertical_space unit="rad">0.000000</mer:vertical_space>
+              <mer:horizontal_space unit="rad">0.000000</mer:horizontal_space>
+              <mer:co_add>1</mer:co_add>
+              <mer:cal_frequency>0</mer:cal_frequency>
+              <mer:cal_dwell>5</mer:cal_dwell>
+              <mer:cal_co_add>1</mer:cal_co_add>
+              <mer:phase_algorithm_name>RSS</mer:phase_algorithm_name>
+              <mer:low_channel>34</mer:low_channel>
+              <mer:high_channel>200</mer:high_channel>
+            </mer:MiniTES_Command_Parameters>
+          </mer:MiniTES_Parameters>
+        </mer:MER_Parameters>
+      </Mission_Area>
+
+      <Discipline_Area>
+        <proc:Processing_Information>
+          <Local_Internal_Reference>
+            <local_identifier_reference>MTES_data</local_identifier_reference>
+            <local_reference_type>processing_information_to_data_object</local_reference_type>
+          </Local_Internal_Reference>
+          <proc:Process>
+            <proc:description>CODMAC Level 1 to Level 2 conversion via ASU MTES2EDR</proc:description>
+            <proc:Software>
+              <proc:name>mtes2edr</proc:name>
+              <proc:software_version_id>v3.19</proc:software_version_id>
+              <proc:description>mTES data -> EDR converter</proc:description>
+              <proc:Software_Program>
+              <proc:program_user>pds_mtes</proc:program_user>
+              <proc:program_hostname>meramtes1x</proc:program_hostname>
+              <proc:program_start_date_time>2006-10-06T00:24:19Z</proc:program_start_date_time>
+                <proc:Software_Program_Parameters>
+                  <proc:Parameter>
+                    <proc:name>SPICE File Name</proc:name>
+                    <proc:value>chronos.mer2_pds_sol1-30</proc:value>
+                  </proc:Parameter>
+                </proc:Software_Program_Parameters>
+              </proc:Software_Program>
+            </proc:Software>
+          </proc:Process>
+        </proc:Processing_Information>
+
+        <proc:Processing_Information>
+          <Local_Internal_Reference>
+            <local_identifier_reference>MTES_data</local_identifier_reference>
+            <local_reference_type>processing_information_to_data_object</local_reference_type>
+          </Local_Internal_Reference>
+          <proc:Process>
+            <proc:name>Pancal</proc:name>
+            <proc:Software>
+              <proc:name>calibrate_qube</proc:name>
+              <proc:software_version_id>3.15</proc:software_version_id>
+              <proc:Software_Program>
+                <proc:program_user>pds_mtes</proc:program_user>
+                <proc:Software_Program_Parameters>
+                  <proc:Parameter>
+                    <proc:name>Cal_Det_Temp_Diff</proc:name>
+                    <proc:value>-40.2269</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Option</proc:name>
+                    <proc:value>3</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_1200_1</proc:name>
+                    <proc:value>5.64804</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_1200_2</proc:name>
+                    <proc:value>5.66828</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_2000_1</proc:name>
+                    <proc:value>0.241666</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_2000_2</proc:name>
+                    <proc:value>0.247909</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_800_1</proc:name>
+                    <proc:value>12.2282</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Cal_Signal_800_2</proc:name>
+                    <proc:value>12.2127</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Filter_Size</proc:name>
+                    <proc:value>7</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Threshold_T_Cold</proc:name>
+                    <proc:value>220</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Threshold_T_Warm</proc:name>
+                    <proc:value>230</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Wave1</proc:name>
+                    <proc:value>500</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Wave1_Cold</proc:name>
+                    <proc:value>450</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Wave2</proc:name>
+                    <proc:value>1400</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Em_Wave2_Cold</proc:name>
+                    <proc:value>900</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Fft_Algorithm</proc:name>
+                    <proc:value>0</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Force_Invert_Option</proc:name>
+                    <proc:value>0</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Internal_Cal1</proc:name>
+                    <proc:value>1</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Internal_Cal2</proc:name>
+                    <proc:value>0</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Internal_Cal_Option</proc:name>
+                    <proc:value>2</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Interpolate_Option</proc:name>
+                    <proc:value>2</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Invert_Scene_Option</proc:name>
+                    <proc:value>0</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Inverted_Internal_Cal</proc:name>
+                    <proc:value>1</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Inverted_Scene</proc:name>
+                    <proc:value>0</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Max_Time</proc:name>
+                    <proc:value>43200</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Mtes</proc:name>
+                    <proc:value>1</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Number_Cal_Spectra_1</proc:name>
+                    <proc:value>5</proc:value>
+                  </proc:Parameter>
+                  <proc:Parameter>
+                    <proc:name>Number_Cal_Spectra_2</proc:name>
+                    <proc:value>5</proc:value>
+                  </proc:Parameter>
+                </proc:Software_Program_Parameters>
+              </proc:Software_Program>
+            </proc:Software>
+          </proc:Process>
+        </proc:Processing_Information>
+
+        <msn_surface:Surface_Mission_Parameters>
+          <msn_surface:Command_Execution_Information>
+            <msn_surface:sequence_id>p3001</msn_surface:sequence_id>
+            <msn_surface:sequence_version_id>4</msn_surface:sequence_version_id>
+            <msn_surface:command_sequence_number>1</msn_surface:command_sequence_number>
+            <msn_surface:observation_id>0000000000</msn_surface:observation_id>
+          </msn_surface:Command_Execution_Information>
+          <msn_surface:Telemetry_Information>
+            <msn_surface:application_id>31</msn_surface:application_id>
+            <msn_surface:application_subtype_id>0</msn_surface:application_subtype_id>
+            <msn_surface:application_name>Mini-TES</msn_surface:application_name>
+            <msn_surface:provider_id>SSW_MER_DP_V1.0</msn_surface:provider_id>
+            <msn_surface:telemetry_source_name>p3001-004-0001_001_0126646972-019.dat</msn_surface:telemetry_source_name>
+            <msn_surface:transport_protocol>Data Product</msn_surface:transport_protocol>
+            <msn_surface:earth_received_start_date_time>2004-01-06T21:19:37.157Z</msn_surface:earth_received_start_date_time>
+            <msn_surface:earth_received_stop_date_time>2004-01-06T21:19:39.975Z</msn_surface:earth_received_stop_date_time>
+            <msn_surface:expected_packets>16</msn_surface:expected_packets>
+            <msn_surface:received_packets>16</msn_surface:received_packets>
+           </msn_surface:Telemetry_Information>
+         </msn_surface:Surface_Mission_Parameters>
+
+         <geom:Geometry>
+          <geom:Geometry_Lander>
+            <geom:Coordinate_Space_Definition>
+              <local_identifier>Rover_Frame</local_identifier>
+              <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+              <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+              <geom:Coordinate_Space_Present>
+                <geom:Coordinate_Space_Indexed>
+                  <geom:coordinate_space_frame_type>Rover_Frame</geom:coordinate_space_frame_type>
+                  <geom:Coordinate_Space_Index>
+                    <geom:index_name>Site</geom:index_name>
+                    <geom:index_value_number>2</geom:index_value_number>
+                  </geom:Coordinate_Space_Index>
+                  <geom:Coordinate_Space_Index>
+                    <geom:index_name>Drive</geom:index_name>
+                    <geom:index_value_number>0</geom:index_value_number>
+                  </geom:Coordinate_Space_Index>
+                 <geom:solution_id>telemetry</geom:solution_id>
+                </geom:Coordinate_Space_Indexed>
+              </geom:Coordinate_Space_Present>
+              <geom:Vector_Origin_Offset>
+                <geom:x_position unit="m">-0.060000</geom:x_position>
+                <geom:y_position unit="m">0.000000</geom:y_position>
+                <geom:z_position unit="m">0.300000</geom:z_position>
+              </geom:Vector_Origin_Offset>
+                <geom:Quaternion_Plus_Direction>
+                  <geom:qcos>0.115085</geom:qcos>
+                  <geom:qsin1>0.018923</geom:qsin1>
+                  <geom:qsin2>-0.011988</geom:qsin2>
+                  <geom:qsin3>0.993103</geom:qsin3>
+                  <geom:rotation_direction>Reference to Present</geom:rotation_direction>
+                </geom:Quaternion_Plus_Direction>
+              <geom:quaternion_measurement_method>Fine</geom:quaternion_measurement_method>
+              <geom:Coordinate_Space_Reference>
+                <geom:Coordinate_Space_Indexed>
+                  <geom:coordinate_space_frame_type>Site_Frame</geom:coordinate_space_frame_type>
+                  <geom:Coordinate_Space_Index>
+                    <geom:index_name>Site</geom:index_name>
+                    <geom:index_value_number>2</geom:index_value_number>
+                  </geom:Coordinate_Space_Index>
+                </geom:Coordinate_Space_Indexed>
+              </geom:Coordinate_Space_Reference>
+            </geom:Coordinate_Space_Definition>
+
+            <geom:Motion_Counter>
+              <geom:name>Rover Motion Counter</geom:name>
+              <local_identifier>Rover_Motion_Counter</local_identifier>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Site</geom:index_name>
+                <geom:index_value_number>2</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>Drive</geom:index_name>
+                <geom:index_value_number>0</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>IDD</geom:index_name>
+                <geom:index_value_number>2</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>PMA</geom:index_name>
+                <geom:index_value_number>1495</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+              <geom:Motion_Counter_Index>
+                <geom:index_name>HGA</geom:index_name>
+                <geom:index_value_number>42</geom:index_value_number>
+              </geom:Motion_Counter_Index>
+            </geom:Motion_Counter>
+          </geom:Geometry_Lander>
+        </geom:Geometry>
+      </Discipline_Area>
+    </Observation_Area>
+
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mer2_mtes_raw:data_ancillary:mtes_wavenumbers</lid_reference>
+      <reference_type>data_to_ancillary_data</reference_type>
+      <comment>List of wavenumbers for MiniTES bands</comment>
+    </Internal_Reference>
+  </Reference_List>
+
+  <File_Area_Observational>
+    <File>
+      <file_name>2t126646972btr0200p3001n0a1.qub</file_name>
+      <local_identifier>MTES_data</local_identifier>
+      <creation_date_time>2006-10-06T00:38:56Z</creation_date_time>
+    </File>
+
+    <Header>
+      <local_identifier>PDS3_label</local_identifier>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">9912</object_length>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>Attached PDS3 label.</description>
+    </Header>
+
+
+    <Table_Binary>
+      <name>Brightness_Temperature</name>
+      <local_identifier>Brightness_Temperature</local_identifier>
+      <offset unit="byte">12036</offset>
+      <records>5</records>
+      <description>The original MiniTES Spectral_Qube structure is defined in PDS4 as a binary table because
+        of the presence of suffix bytes at the end of each spectrum.
+      </description>
+      <Record_Binary>
+        <fields>10</fields>
+        <groups>1</groups>
+        <record_length unit="byte">708</record_length>
+        <Group_Field_Binary>
+          <name>Brightness_Temperature</name>
+          <group_number>1</group_number>
+          <repetitions>167</repetitions>
+          <fields>1</fields>
+          <groups>0</groups>
+          <description>Array of brightness temperature values.</description>
+          <group_location unit="byte">1</group_location>
+          <group_length unit="byte">668</group_length>
+          <Field_Binary>
+            <name>Brightness_Temperature</name>
+            <field_number>1</field_number>
+            <field_location unit="byte">1</field_location>
+            <data_type>IEEE754MSBSingle</data_type>
+            <field_length unit="byte">4</field_length>
+            <unit>Kelvin</unit>
+            <scaling_factor>1.000000000000</scaling_factor>
+          </Field_Binary>
+        </Group_Field_Binary>
+        <Field_Binary>
+          <name>ICK</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">669</field_location>
+          <data_type>SignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Azimuth</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">673</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>Radians</unit>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Elevation</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">677</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>Radians</unit>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Local_True_Solar_Time</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">681</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>Hours</unit>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Missing_Cal_Flag</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">685</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Phase_Invert_Flag</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">689</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Ringing_Flag</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">693</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Ringing_Amplitude</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">697</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Ifgm_Spike_Flag</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">701</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Inverted_Spectra_Flag</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">705</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+</Product_Observational>

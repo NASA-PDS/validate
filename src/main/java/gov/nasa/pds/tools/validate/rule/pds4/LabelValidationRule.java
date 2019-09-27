@@ -189,6 +189,8 @@ public class LabelValidationRule extends AbstractValidationRule {
     boolean passFlag = true;
     List<StreamSource> sources = new ArrayList<StreamSource>();
     Map<String, URL> schemaLocations = new LinkedHashMap<String, URL>();
+    this.schemaValidator.setCatalogResolver(resolver);
+
     try {
       schemaLocations = getSchemaLocations(label);  
     } catch (Exception e) {
@@ -210,6 +212,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         try {
           resolvedUrl = resolver.resolveSchema(schemaLocation.getKey(), 
               schemaUrl.toString(), label.toString());
+
           if (resolvedUrl != null) {
             schemaUrl = new URL(resolvedUrl);
           } else {
@@ -234,12 +237,11 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
       }
       
-      // If we found the schema, let's read it
+      // If we found the schema, let's read it into memory
       if (resolvableUrl) {
         schemaValidator.getCachedLSResolver().setProblemHandler(container);
         LSInput input = schemaValidator.getCachedLSResolver()
-            .resolveResource("", "", "", schemaUrl.toString(),
-                schemaUrl.toString());
+            .resolveResource("", "", "", schemaUrl.toString(), schemaUrl.toString());
         boolean addSource = true;
         if (container.getProblems().size() != 0) {
           try {
@@ -260,6 +262,8 @@ public class LabelValidationRule extends AbstractValidationRule {
                 label));
           }
         }
+        
+        // Load the sources
         if (addSource) {
           StreamSource streamSource = new StreamSource(
               input.getByteStream());
@@ -272,7 +276,7 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
     
     if (passFlag) {
-      // Now let's loop through the schemas themselves
+      // Now let's loop through the schemas themselves, and validate them
       for (StreamSource source : sources) {
         try {
           URL schemaUrl = null;
@@ -295,8 +299,10 @@ public class LabelValidationRule extends AbstractValidationRule {
             }
           } else {
             try {
+              // Before validating we need to load all schemas
+              
               // Validate the schema source
-              container = schemaValidator.validate(source, resolver);
+              container = schemaValidator.validate(source);
             } catch (Exception e) {
               container.addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.ERROR,
