@@ -199,6 +199,8 @@ public class LabelValidationRule extends AbstractValidationRule {
           label));
       return false;
     }
+    
+    // Loop through all the schemaLocations from the label and resolve them
     for (Map.Entry<String, URL> schemaLocation : schemaLocations.entrySet()) {
       URL schemaUrl = schemaLocation.getValue();
       ProblemContainer container = new ProblemContainer();
@@ -231,6 +233,8 @@ public class LabelValidationRule extends AbstractValidationRule {
           resolvableUrl = false;
         }
       }
+      
+      // If we found the schema, let's read it
       if (resolvableUrl) {
         schemaValidator.getCachedLSResolver().setProblemHandler(container);
         LSInput input = schemaValidator.getCachedLSResolver()
@@ -266,7 +270,9 @@ public class LabelValidationRule extends AbstractValidationRule {
         passFlag = false;
       }
     }
+    
     if (passFlag) {
+      // Now let's loop through the schemas themselves
       for (StreamSource source : sources) {
         try {
           URL schemaUrl = null;
@@ -289,7 +295,8 @@ public class LabelValidationRule extends AbstractValidationRule {
             }
           } else {
             try {
-              container = schemaValidator.validate(source);
+              // Validate the schema source
+              container = schemaValidator.validate(source, resolver);
             } catch (Exception e) {
               container.addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.ERROR,
