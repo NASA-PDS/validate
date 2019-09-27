@@ -37,7 +37,7 @@ import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.validate.report.Report;
-import gov.nasa.pds.validate.schema.SchemaValidator;
+import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 
 import java.io.File;
 import java.net.URL;

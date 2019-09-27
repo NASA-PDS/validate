@@ -58,6 +58,7 @@ class ValidationIntegrationTests {
     
     private File outputData = null;
 
+    private ValidateLauncher launcher;
     
     /**
      * @throws java.lang.Exception
@@ -66,6 +67,8 @@ class ValidationIntegrationTests {
     void setUp() throws Exception {
         this.outputData = new File(TestConstants.TEST_OUT_DIR);
         FileUtils.forceMkdir(this.outputData);
+        System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+        this.launcher = new ValidateLauncher();
     }
     
     /**
@@ -73,14 +76,14 @@ class ValidationIntegrationTests {
      */
     @AfterEach
     void tearDown() throws Exception {
-        FileUtils.forceDelete(this.outputData);
+//        FileUtils.forceDelete(this.outputData);
+        this.launcher.flushValidators();
     }
 
     @Test
     void testPDS543() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/PDS-543");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_PDS543.json");
@@ -92,7 +95,7 @@ class ValidationIntegrationTests {
                     testPath + File.separator + "ladee_mission_bundle_SIP_4col_manifest_v1.0.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -115,7 +118,9 @@ class ValidationIntegrationTests {
                     testPath + File.separator + "ladee_mission_bundle_SIP_4col_manifest_v1.0.unexpected.xml"
                     };
             
-            ValidateLauncher.main(args2);
+
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
             
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             assertNotEquals(reportJson.get("summary").toString(), expectedJson.get("summary").toString(),
@@ -133,7 +138,6 @@ class ValidationIntegrationTests {
     void testGithub28() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github28");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github28_1.json");
@@ -146,7 +150,7 @@ class ValidationIntegrationTests {
                     testPath + File.separator + "test_add_context_products.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -163,7 +167,9 @@ class ValidationIntegrationTests {
                     "-t" , testPath + File.separator + "test_add_context_products.xml",
                     
                     };
-            ValidateLauncher.main(args2);
+
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
@@ -181,7 +187,6 @@ class ValidationIntegrationTests {
     void testGithub15() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github15");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             
@@ -197,7 +202,8 @@ class ValidationIntegrationTests {
                     testPath + File.separator + "test_check-pass_context_products.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
+
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
@@ -216,7 +222,8 @@ class ValidationIntegrationTests {
                     testPath + File.separator + "test_check-no-pass_context_products.xml"
                     };
 
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -237,7 +244,6 @@ class ValidationIntegrationTests {
     void testGithub47() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github47");
             String outFilePath = TestConstants.TEST_OUT_DIR;
 
@@ -249,7 +255,7 @@ class ValidationIntegrationTests {
             String[] args = { "-r", report.getAbsolutePath(), "-s", "json", "-R", "pds4.label", "--skip-context-validation",
                     testPath + File.separator + "test_context_products.xml" };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -265,10 +271,12 @@ class ValidationIntegrationTests {
             // "test_context_products.xml");
             String[] args2 = {
                     "-r", report.getAbsolutePath(), 
-                    "-s", "json", "-R", "pds4.label",
+                    "-s", "json",
+                    "-R", "pds4.label",
                     testPath + File.separator + "test_context_products.xml" };
 
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -289,7 +297,6 @@ class ValidationIntegrationTests {
     void testGithub62() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github62");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github62_1.json");
@@ -303,7 +310,7 @@ class ValidationIntegrationTests {
                     "-t", testPath + File.separator + "ele_mom_tblChar.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -322,7 +329,8 @@ class ValidationIntegrationTests {
                     "-t", testPath + File.separator + "spacecraft.orex_1.1.xml"
                     };
 
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -344,7 +352,6 @@ class ValidationIntegrationTests {
     void testGithub71() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github71_1.json");
@@ -373,7 +380,7 @@ class ValidationIntegrationTests {
                     "-t", testPath + File.separator + "ELE_MOM.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -387,10 +394,12 @@ class ValidationIntegrationTests {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     "-C", catFile,
+//                    "--no-data-check",
                     "-t", testPath + File.separator + "ELE_MOM.xml"
                     };
 
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -412,7 +421,6 @@ class ValidationIntegrationTests {
     void testGithub09() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github09");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github09_1.json");
@@ -423,7 +431,7 @@ class ValidationIntegrationTests {
                     "-t" , testPath + File.separator + "minimal_test_product_bad.xml",
                     
                     };
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
             
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -442,7 +450,8 @@ class ValidationIntegrationTests {
                     "-t" , testPath + File.separator + "minimal_test_product_good.xml",
                     
                     };
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -465,7 +474,6 @@ class ValidationIntegrationTests {
     void testGithub50() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github50");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github50_1.json");
@@ -488,7 +496,7 @@ class ValidationIntegrationTests {
                     "--target-manifest", manifestFile
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -506,7 +514,8 @@ class ValidationIntegrationTests {
                     "-t", testPath + "/ele_evt_8hr_orbit_2014-2015.xml"
                     };
 
-            ValidateLauncher.main(args2);
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
@@ -527,7 +536,6 @@ class ValidationIntegrationTests {
     void testGithub84() {
         try {
             // Setup paths
-            System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
             String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github84");
             String dataPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
             String outFilePath = TestConstants.TEST_OUT_DIR;
@@ -544,7 +552,7 @@ class ValidationIntegrationTests {
                     "-t", dataPath + File.separator + "ELE_MOM.xml"
                     };
 
-            ValidateLauncher.main(args);
+            this.launcher.processMain(args);
 
             Gson gson = new Gson();
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);

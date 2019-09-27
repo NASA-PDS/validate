@@ -114,5 +114,9 @@ public class ValidatorFactory {
   public void setModelVersion(String modelVersion) {
     this.modelVersion = modelVersion;
   }
+  
+ public void flush() {
+     factory = null;
+ }
 
 }

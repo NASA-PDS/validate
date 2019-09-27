@@ -55,7 +55,7 @@ import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
-import gov.nasa.pds.validate.schema.SchemaValidator;
+import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
@@ -197,6 +197,8 @@ public class ValidateLauncher {
     private List<Transformer> transformedSchematrons;
 
     private CachedEntityResolver resolver;
+    
+    private ValidatorFactory factory;
 
     /**
      * path to use as the base when looking up file references in a manifest
@@ -265,7 +267,8 @@ public class ValidateLauncher {
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
         validateContext = true;
-
+        
+        this.flushValidators();
     }
 
     /**
@@ -520,9 +523,6 @@ public class ValidateLauncher {
                 String data_type = (String) document.getFirstValue("data_product_type");
                 List<Object> names = (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_name");
                 List<Object> types = (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_type");
-
-                System.out.println("Name: " + names);
-                System.out.println("Type: " + types);
                 
                 jsonWriter.beginObject(); // start a product
                 
@@ -532,7 +532,6 @@ public class ValidateLauncher {
                     jsonWriter.value("N/A");
                 } else {
                     for (Object n : names) {
-                        System.out.println((String) n);
                         jsonWriter.value((String) n);
                     }
                 }
@@ -544,7 +543,6 @@ public class ValidateLauncher {
                     jsonWriter.value("N/A");
                 } else {
                     for (Object t : types) {
-                        System.out.println((String) t);
                         jsonWriter.value((String) t);
                     }
                 }
@@ -962,6 +960,7 @@ public class ValidateLauncher {
 
         Gson gson = new Gson();
         List<ContextProductReference> contextProducts = new ArrayList<ContextProductReference>();
+        List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
 
         try {
             JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
@@ -994,9 +993,17 @@ public class ValidateLauncher {
 
             }
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e.getMessage()
                     + "\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
                     + registeredProductsFile);
+            ValidationProblem pW = new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                            e.getMessage()
+                                    + "\nInvalid Registered Context Product JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
+                                    + registeredProductsFile),
+                    url);
+            pList.add(pW);
         }
         
         if (nonRegisteredProducts) {
@@ -1005,7 +1012,6 @@ public class ValidateLauncher {
                 gson = new Gson();
                 JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
-              List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
                 ValidationProblem pW = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
                                 "Non-registered context products should only be used during archive development. All context products must be registered for a valid, released archive bundle. "),
@@ -1200,7 +1206,7 @@ public class ValidateLauncher {
     public void doValidation(Map<URL, String> checksumManifest) throws Exception {
         // Initialize the Factory Class
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
-        ValidatorFactory factory = ValidatorFactory.getInstance();
+        factory = ValidatorFactory.getInstance();
         factory.setModelVersion(modelVersion);
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
@@ -1365,7 +1371,7 @@ public class ValidateLauncher {
      * @param args
      *            list of command-line arguments.
      */
-    private void processMain(String[] args) {
+    public void processMain(String[] args) {
         try {
             CommandLine cmdLine = parse(args);
             query(cmdLine);
@@ -1435,6 +1441,17 @@ public class ValidateLauncher {
             printReportFooter();
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+    
+    /**
+     * Flush ValidatorFactory cache (set to null). The ValidatorFactory
+     * will cache schemas and other validation data between runs, which can
+     * cause issues, specifically when using varying dictionaries and catalog files. 
+     */
+    public void flushValidators() {
+        if (this.factory != null) {
+            this.factory.flush();
         }
     }
 
