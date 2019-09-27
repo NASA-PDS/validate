@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 XML/Schema for Name Space Id:pds  Version:1.13.0.0 - Fri Sep 06 15:36:48 PDT 2019 -->
+  <!-- PDS4 XML/Schema for Name Space Id:pds  Version:1.13.0.0 - Wed Sep 25 08:36:23 PDT 2019 -->
   <!-- Generated from the PDS4 Information Model Version 1.13.0.0 - System Build 10a -->
   <!-- *** This PDS4 product schema is an operational deliverable. *** -->
   <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -505,19 +505,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="DD_Associate_External_Class">
-    <xs:annotation>
-<xs:documentation>TBD_definition</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="namespace_id" type="pds:namespace_id" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="class_name" type="pds:class_name" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="minimum_occurrences" type="pds:minimum_occurrences" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="maximum_occurrences" type="pds:maximum_occurrences" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="DD_Context_Value_List" type="pds:DD_Context_Value_List" minOccurs="1" maxOccurs="1"> </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="DD_Association">
     <xs:annotation>
       <xs:documentation>The DD_Association class defines the association
@@ -624,7 +611,6 @@
       <xs:element name="element_flag" type="pds:element_flag" minOccurs="0" maxOccurs="1"> </xs:element>
       <xs:element ref="pds:Internal_Reference" minOccurs="0" maxOccurs="unbounded"> </xs:element>
       <xs:choice minOccurs="1" maxOccurs="unbounded">
-        <xs:element name="DD_Associate_External_Class" type="pds:DD_Associate_External_Class"> </xs:element>
         <xs:element name="DD_Association" type="pds:DD_Association"> </xs:element>
         <xs:element name="DD_Association_External" type="pds:DD_Association_External"> </xs:element>
       </xs:choice>
@@ -665,16 +651,6 @@
     <xs:sequence>
       <xs:element name="namespace_id" type="pds:namespace_id" minOccurs="1" maxOccurs="1"> </xs:element>
       <xs:element name="name" type="pds:name" minOccurs="1" maxOccurs="1"> </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="DD_Context_Value_List">
-    <xs:annotation>
-<xs:documentation>TBD_definition</xs:documentation>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="attribute_relative_xpath" type="pds:attribute_relative_xpath" minOccurs="1" maxOccurs="1"> </xs:element>
-      <xs:element name="DD_Permissible_Value" type="pds:DD_Permissible_Value" minOccurs="1" maxOccurs="unbounded"> </xs:element>
     </xs:sequence>
   </xs:complexType>
 
@@ -3884,16 +3860,6 @@
         type of information (classification) conveyed by the attribute
         -- e.g., stop_date_time has  attribute_concept =
         date_time.</xs:documentation>
-    </xs:annotation>
-    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
-     <xs:minLength value="1"/>
-     <xs:maxLength value="255"/>
-	   </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="attribute_relative_xpath">
-    <xs:annotation>
-<xs:documentation>TBD_definition</xs:documentation>
     </xs:annotation>
     <xs:restriction base="pds:ASCII_Short_String_Collapsed">
      <xs:minLength value="1"/>

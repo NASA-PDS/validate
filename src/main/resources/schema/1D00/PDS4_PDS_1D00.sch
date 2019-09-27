@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <!-- PDS4 Schematron for Name Space Id:pds  Version:1.13.0.0 - Fri Sep 06 15:36:48 PDT 2019 -->
+  <!-- PDS4 Schematron for Name Space Id:pds  Version:1.13.0.0 - Wed Sep 25 08:36:23 PDT 2019 -->
   <!-- Generated from the PDS4 Information Model Version 1.13.0.0 - System Build 10a -->
   <!-- *** This PDS4 schematron file is an operational deliverable. *** -->
 <sch:schema xmlns:sch="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2">
@@ -1574,8 +1574,8 @@
   </sch:pattern>
   <sch:pattern>
     <sch:rule context="pds:Science_Facets/pds:wavelength_range">
-      <sch:assert test=". = ('Far Infrared', 'Gamma Ray', 'Infrared', 'Microwave', 'Millimeter', 'Near Infrared', 'Radio', 'Submillimeter', 'Ultraviolet', 'Visible', 'X-ray')">
-        The attribute pds:wavelength_range must be equal to one of the following values 'Far Infrared', 'Gamma Ray', 'Infrared', 'Microwave', 'Millimeter', 'Near Infrared', 'Radio', 'Submillimeter', 'Ultraviolet', 'Visible', 'X-ray'.</sch:assert>
+      <sch:assert test="if (not(@xsi:nil eq 'true') and (not(. = ('Far Infrared', 'Gamma Ray', 'Infrared', 'Microwave', 'Millimeter', 'Near Infrared', 'Radio', 'Submillimeter', 'Ultraviolet', 'Visible', 'X-ray')))) then false() else true()">
+        The attribute pds:wavelength_range must be nulled or equal to one of the following values 'Far Infrared', 'Gamma Ray', 'Infrared', 'Microwave', 'Millimeter', 'Near Infrared', 'Radio', 'Submillimeter', 'Ultraviolet', 'Visible', 'X-ray'.</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern>
@@ -1891,8 +1891,8 @@
   </sch:pattern>
   <sch:pattern>
     <sch:rule context="pds:Vector/pds:reference_frame_id">
-      <sch:assert test=". = ('ICRF', 'MOON_ME_DE421')">
-        The attribute pds:reference_frame_id must be equal to one of the following values 'ICRF', 'MOON_ME_DE421'.</sch:assert>
+      <sch:assert test="if (not(@xsi:nil eq 'true') and (not(. = ('ICRF', 'MOON_ME_DE421')))) then false() else true()">
+        The attribute pds:reference_frame_id must be nulled or equal to one of the following values 'ICRF', 'MOON_ME_DE421'.</sch:assert>
     </sch:rule>
   </sch:pattern>
   <sch:pattern>
