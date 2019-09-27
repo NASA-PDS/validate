@@ -1,21 +1,39 @@
-// Copyright 2006-2018, by the California Institute of Technology.
-// ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
-// Any commercial use must be negotiated with the Office of Technology Transfer
-// at the California Institute of Technology.
+// Copyright © 2019, California Institute of Technology ("Caltech").
+// U.S. Government sponsorship acknowledged.
 //
-// This software is subject to U. S. export control laws and regulations
-// (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
-// is subject to U.S. export control laws and regulations, the recipient has
-// the responsibility to obtain export licenses or other export authority as
-// may be required before exporting such information to foreign countries or
-// providing access to foreign nationals.
+// All rights reserved.
 //
-// $Id: SchemaValidator.java 14717 2016-03-24 20:52:00Z mrose $
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+//
+// • Redistributions of source code must retain the above copyright notice,
+//   this list of conditions and the following disclaimer.
+// • Redistributions must reproduce the above copyright notice, this list of
+//   conditions and the following disclaimer in the documentation and/or other
+//   materials provided with the distribution.
+// • Neither the name of Caltech nor its operating division, the Jet Propulsion
+//   Laboratory, nor the names of its contributors may be used to endorse or
+//   promote products derived from this software without specific prior written
+//   permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+// AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+// LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+// CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+// SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+// INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+// CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+// ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+// POSSIBILITY OF SUCH DAMAGE.
+
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelErrorHandler;
+import gov.nasa.pds.tools.label.XMLCatalogResolver;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -52,9 +70,14 @@ public class SchemaValidator {
   public SchemaValidator() {
     // Support for XSD 1.1
     schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+
     schemaFactory.setResourceResolver(new CachedLSResourceResolver());
   }
 
+  public ProblemContainer validate(StreamSource schema) {
+      return validate(schema, null);
+  }
+  
   /**
    * Validate the given schema.
    *
@@ -62,28 +85,35 @@ public class SchemaValidator {
    *
    * @return An ExceptionContainer that contains any problems
    * that were found during validation.
+ * @throws SAXNotSupportedException 
+ * @throws SAXNotRecognizedException 
    */
-  public ProblemContainer validate(StreamSource schema) {
+  public ProblemContainer validate(StreamSource schema, XMLCatalogResolver catalogResolver) {
     ProblemContainer container = new ProblemContainer();
-    schemaFactory.setErrorHandler(new LabelErrorHandler(container));
-    CachedLSResourceResolver resolver =
-        (CachedLSResourceResolver) schemaFactory.getResourceResolver();
-    resolver.setProblemHandler(container);
     try {
-      schemaFactory.newSchema(schema);
+        schemaFactory.setErrorHandler(new LabelErrorHandler(container));
+        
+        if (catalogResolver != null) {
+            schemaFactory.setResourceResolver(catalogResolver);
+        }
+        CachedLSResourceResolver resolver =
+            (CachedLSResourceResolver) schemaFactory.getResourceResolver();
+        resolver.setProblemHandler(container);
+        
+        schemaFactory.newSchema(schema);
     } catch (SAXException se) {
       if ( !(se instanceof SAXParseException) ) {
-        URL url = null;
+        URL schemaUrl = null;
         try {
-          url = new URL(schema.toString());
-        } catch (MalformedURLException u) {
-          //Ignore. Should not happen!!!
+          schemaUrl = new URL(schema.toString());
+        } catch (MalformedURLException e) {
+          //Ignore. Should not happen!!! 
         }
         ValidationProblem problem = new ValidationProblem(
             new ProblemDefinition(ExceptionType.FATAL,
                 ProblemType.SCHEMA_ERROR,
                 se.getMessage()), 
-            url);
+            schemaUrl);
         container.addProblem(problem);
       }
     }
