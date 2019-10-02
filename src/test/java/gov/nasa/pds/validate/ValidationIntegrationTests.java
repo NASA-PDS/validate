@@ -217,6 +217,7 @@ class ValidationIntegrationTests {
 
             //System.out.println("Test file: " + testPath + File.separator + "test_check-no-pass_context_products.xml");
             String[] args2 = {
+                    "-v1",
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     testPath + File.separator + "test_check-no-pass_context_products.xml"
@@ -270,6 +271,7 @@ class ValidationIntegrationTests {
             // System.out.println("Test file: " + testPath + File.separator +
             // "test_context_products.xml");
             String[] args2 = {
+                    "-v1",
                     "-r", report.getAbsolutePath(), 
                     "-s", "json",
                     "-R", "pds4.label",
@@ -360,9 +362,8 @@ class ValidationIntegrationTests {
             // Create catalog file
             String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
                     "<!--\n" + 
-                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
-                    "s/entity/release/1.1/catalog.dtd\">\n" + 
-                    "-->\n" + 
+                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd\">\n" +
+                    "-->\n" +
                     "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
                     "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
                     "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 
@@ -581,8 +582,7 @@ class ValidationIntegrationTests {
             // Create catalog file
             String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
                     "<!--\n" + 
-                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committee\\\n" + 
-                    "s/entity/release/1.1/catalog.dtd\">\n" + 
+                    "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd\">\n" +
                     "-->\n" + 
                     "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n" + 
                     "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"+ testPath +"\" />\n" + 

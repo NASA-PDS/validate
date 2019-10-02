@@ -172,7 +172,6 @@ public enum ProblemType {
 
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
     
-    CONTEXT_REFERENCE_FOUND_MISMATCH("warning.label.context_ref_mismatch"),
 
     // Info message types
 
@@ -193,6 +192,14 @@ public enum ProblemType {
     DUPLICATE_MEMBERS_INFO("info.integrity.duplicate_members"),
 
     PARENT_PREFIX_FOUND("info.integrity.parent_prefix_found"),
+    
+    CONTEXT_REFERENCE_FOUND("info.label.context_ref_found"),
+    
+    CONTEXT_REFERENCE_FOUND_MISMATCH("info.label.context_ref_mismatch"),
+    
+    CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
+
+    LOCAL_ID_FOUND("info.label.local_identifier_found"),
 
     // Debug messages (Should only be used for debugging purposes)
     CRLF_DETECTED("debug.table.record_has_CRLF"),
@@ -207,13 +214,7 @@ public enum ProblemType {
 
     FIELD_VALUE_DATA_TYPE_MATCH("debug.table.field_value_matches_data_type"),
 
-    BIT_FIELD_MATCH("debug.table.bit_field_match"),
-
-    CONTEXT_REFERENCE_FOUND("info.label.context_ref_found"),
-    
-    CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
-
-    LOCAL_ID_FOUND("info.label.local_identifier_found");
+    BIT_FIELD_MATCH("debug.table.bit_field_match");
 
     private final String key;
 

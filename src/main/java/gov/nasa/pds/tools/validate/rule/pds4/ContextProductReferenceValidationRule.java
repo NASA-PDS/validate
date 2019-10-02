@@ -200,7 +200,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                                         }
                                     } else {
                                         getListener().addProblem(new ValidationProblem(
-                                                new ProblemDefinition(ExceptionType.WARNING,
+                                                new ProblemDefinition(ExceptionType.INFO,
                                                         ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
                                                         "Context reference name mismatch. Value: '" + name + "'"
                                                                 + " Expected one of: '" + rgp.getNames() + "'"),
@@ -223,7 +223,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                                         }
                                     } else if (!topNode.getLocalName().equals("Observing_System_Component")) { // TODO For now, we are punting on Observing System Component
                                         getListener().addProblem(new ValidationProblem(
-                                                new ProblemDefinition(ExceptionType.WARNING,
+                                                new ProblemDefinition(ExceptionType.INFO,
                                                         ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
                                                         "Context reference type mismatch. Value: '" + type + "'"
                                                         + " Expected one of: '" + rgp.getTypes() + "'"),
