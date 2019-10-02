@@ -554,7 +554,7 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
     if (schematronRefs.isEmpty()) {
       labelProblems.addProblem(new ValidationProblem(
-          new ProblemDefinition(ExceptionType.ERROR,
+          new ProblemDefinition(ExceptionType.WARNING,
               ProblemType.MISSING_SCHEMATRON_SPEC,
               "No schematrons specified in the label"),
           label));
