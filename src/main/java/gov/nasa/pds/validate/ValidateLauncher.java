@@ -1277,6 +1277,7 @@ public class ValidateLauncher {
                 }
             }
         }
+        System.out.println("\nValidation complete.\n");
     }
 
     /**

@@ -75,6 +75,8 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
   */
 public class TableDataContentValidationRule extends AbstractValidationRule {
   
+  private int PROGRESS_COUNTER = 0;
+
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
   
@@ -234,6 +236,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             try {
               record = reader.readNext();
               while (record != null) {
+                progressCounter();
+
                 fieldValueValidator.validate(record, reader.getFields(), false);
                 if (spotCheckData != -1) {
                   try {
@@ -260,6 +264,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             boolean manuallyParseRecord = false;
             String line = reader.readNextLine();
             while (line != null) {
+              progressCounter();
+
               if (!line.endsWith("\r\n")) {
                 addTableProblem(ExceptionType.ERROR,
                     ProblemType.MISSING_CRLF,
@@ -635,5 +641,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             getTarget(),
             lineNumber,
             -1));
+  }
+  
+  private void progressCounter() {
+      if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) {
+          PROGRESS_COUNTER = 0;
+      } else if (PROGRESS_COUNTER % 1000 == 0) {
+          System.out.print(".");
+      }
   }
 }
