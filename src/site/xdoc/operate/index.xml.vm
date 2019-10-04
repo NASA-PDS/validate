@@ -932,13 +932,19 @@ validate.regexp = "*.xml"
       
       <subsection name="Metrics">
         <p>To give you a sense of how long it would take to validate individual products with content validation enabled, the following are
-        are a few benchmarks for validate performance:</p>
+        are a few benchmarks for validate performance. These times are rough estimates subject to local operating system. Please contact
+        <a href="mailto:pds_operator@jpl.nasa.gov">Engineering Node</a> if these times are significantly different from your execution times:</p>
         
         <table>
-          <tr><th>Product Size</th><th>Validation Time</th><th>Comment</th></tr>
-          <tr><td>4-10 MB</td><td>4-6 sec</td><td></td></tr>
-          <tr><td>50 MB</td><td>6-8 sec</td><td></td></tr>
-          <tr><td>4.8 GB</td><td>~10 min</td><td></td></tr>
+          <tr><th>Number of Products</th><th>Avg. Product Size (MB)</th><th>Total Time to Completion</th><th>Avg. Time/Product</th></tr>
+          <tr><th colspan="4">Content Validation <i>Enabled</i></th></tr>
+          <tr><td>1</td><td>4 MB</td><td>4s</td><td>4s</td></tr>
+          <tr><td>1</td><td>10 MB</td><td>6s</td><td>6s</td></tr>
+          <tr><td>1</td><td>50 MB</td><td>7s</td><td>7s</td></tr>
+          <tr><td>1</td><td>4800 MB</td><td>600s</td><td>600s</td></tr>
+          <tr><td>22164</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><th colspan="4">Content Validation <i>Disabled</i> (--no-data-check)</th></tr>
+          <tr><td>22164</td><td>N/A</td><td>47160s</td><td>2.1s</td></tr>
         </table>
       </subsection>
       
