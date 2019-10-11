@@ -948,7 +948,7 @@ validate.regexp = "*.xml"
           <tr><td>151</td><td>40</td><td>215s</td><td>1.4s</td></tr>
           <tr><td>1347</td><td>40</td><td>1655s</td><td>1.2s</td></tr>
           <tr><td>22164</td><td>40</td><td>47160s</td><td>2.1s</td></tr>
-          <tr><th colspan="4">Content Validation <i>Disabled</i> (--no-data-check) and using Catalog File (local schemas)</th></tr>
+          <tr><th colspan="4">Content Validation <i>Disabled</i> (--skip-content-validation) and using Catalog File (local schemas)</th></tr>
           <tr><th>Number of Labels</th><th>Avg. Label Size (KB)</th><th>Total Time to Completion</th><th>Avg. Time/Label</th></tr>
           <tr><td>151</td><td>40</td><td>196s</td><td>1.3s</td></tr>
           <tr><td>1347</td><td>40</td><td>1454s</td><td>1.1s</td></tr>

@@ -210,7 +210,7 @@ public class ValidateLauncher {
     private String validationRule;
 
     /** Flag to enable/disable data content validation. */
-    private boolean checkData;
+    private boolean contentValidationFlag;
     
     /** Flag to enable/disable product level validation. */
     private boolean skipProductValidation;
@@ -257,7 +257,7 @@ public class ValidateLauncher {
         schematronTransformer = new SchematronTransformer();
         transformedSchematrons = new ArrayList<Transformer>();
         resolver = new CachedEntityResolver();
-        checkData = true;
+        contentValidationFlag = true;
         skipProductValidation = false;
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
@@ -365,8 +365,11 @@ public class ValidateLauncher {
                 setManifestBasePath(o.getValue());
             } else if (Flag.RULE.getShortName().equals(o.getOpt())) {
                 setValidationRule(o.getValue());
-            } else if (Flag.NO_DATA.getShortName().equals(o.getOpt())) {
-                setCheckData(false);
+            } else if (Flag.SKIP_CONTENT_VALIDATION.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
+                setContentValidation(false);
+            } else if (Flag.NO_DATA.getLongName().equals(o.getLongOpt())) {
+                setContentValidation(false);
+                deprecatedFlagWarning = true;
             } else if (Flag.SKIP_PRODUCT_VALIDATION.getLongName().equals(o.getLongOpt())) {
             	setSkipProductValidation(true);
             } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
@@ -664,9 +667,17 @@ public class ValidateLauncher {
             }
             if (config.containsKey(ConfigKey.NO_DATA)) {
                 if (config.getBoolean(ConfigKey.NO_DATA) == true) {
-                    setCheckData(false);
+                    setContentValidation(false);
                 } else {
-                    setCheckData(true);
+                    setContentValidation(true);
+                }
+                deprecatedFlagWarning = true;
+            }
+            if (config.containsKey(ConfigKey.SKIP_CONTENT_VALIDATION)) {
+                if (config.getBoolean(ConfigKey.SKIP_CONTENT_VALIDATION) == true) {
+                    setContentValidation(false);
+                } else {
+                    setContentValidation(true);
                 }
             }
             if (config.containsKey(ConfigKey.SKIP_PRODUCT_VALIDATION)) {
@@ -935,8 +946,8 @@ public class ValidateLauncher {
      * @param flag
      *            True or False.
      */
-    public void setCheckData(boolean flag) {
-        this.checkData = flag;
+    public void setContentValidation(boolean flag) {
+        this.contentValidationFlag = flag;
     }
 
     public void setSkipProductValidation(boolean flag) {
@@ -1173,7 +1184,7 @@ public class ValidateLauncher {
             report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
             report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
         }
-        if (checkData) {
+        if (contentValidationFlag) {
             report.addParameter("   Data Content Validation       on");
         } else {
             report.addParameter("   Data Content Validation       off");
@@ -1216,7 +1227,7 @@ public class ValidateLauncher {
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
                 validator.setRecurse(traverse);
-                validator.setCheckData(checkData);
+                validator.setCheckData(contentValidationFlag);
                 validator.setSpotCheckData(spotCheckData);
                 validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
                 validator.setValidateContext(validateContext);

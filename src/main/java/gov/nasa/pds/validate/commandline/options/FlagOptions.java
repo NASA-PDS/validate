@@ -61,6 +61,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.VERSION));
         options.addOption(new ToolsOption(Flag.STYLE));
         options.addOption(new ToolsOption(Flag.RULE));
+        options.addOption(new ToolsOption(Flag.SKIP_CONTENT_VALIDATION));
         options.addOption(new ToolsOption(Flag.NO_DATA));
         options.addOption(new ToolsOption(Flag.SPOT_CHECK_DATA));
         options.addOption(new ToolsOption(Flag.ALLOW_UNLABELED_FILES));
