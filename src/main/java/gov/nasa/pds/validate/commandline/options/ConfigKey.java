@@ -89,10 +89,16 @@ public class ConfigKey {
     public static final String RULE = "validate.rule";
 
     /**
-     * Property to disable data content validation.
+     * DEPRECATED: Property to disable data content validation.
      */
     public static final String NO_DATA = "validate.noDataCheck";
 
+    /**
+     * Property to disable data content validation.
+     */
+    public static final String SKIP_CONTENT_VALIDATION = "validate.skipContentValidation";
+
+    
     /**
      * Property to specify the maximum number of errors to report before
      * terminating a validation run.

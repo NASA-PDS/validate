@@ -30,6 +30,8 @@
 
 package gov.nasa.pds.validate.commandline.options;
 
+import java.util.List;
+
 /**
  * Class that holds the command-line option flags.
  *
@@ -90,7 +92,10 @@ public enum Flag {
                                                          "Use -x and/or -S flag(s) to validate with the core PDS or user-specified schema and schematron."),
 
     /** Flag to disable data content validation. */
-    NO_DATA("D", "no-data-check", "Disable data content validation."),
+    NO_DATA(null, "no-data-check", "DEPRECATED: This option has been renamed to --skip-content-validation to be more consistent with other argument naming."),
+
+    /** Flag to disable data content validation. */
+    SKIP_CONTENT_VALIDATION("D", "skip-content-validation", "Disable product content validation."),
 
     /**
      * Flag to specify a report file name.

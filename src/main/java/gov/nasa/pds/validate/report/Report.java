@@ -61,11 +61,15 @@ import org.apache.commons.io.FilenameUtils;
  *
  */
 public abstract class Report {
-  private static String DEPRECATED_FLAG_WARNING_MSG = ("NOTE: --force (-f) and --model-version (-m) flags have been deprecated. \n\n" +
+  private static String DEPRECATED_FLAG_WARNING_MSG = ("NOTE: The following flags have been deprecated. These options will no longer be supported after December 20, 2021.\n" +
+                                                    "      Update execution as soon as possible to avoid issues. Contact pds_operator@jpl.nasa.gov if you have issues.\n\n" +
+                                                    "      --force (-f)--model-version (-m) flags have been deprecated. \n" +
                                                     "      The default behavior of the Validate Tool validates against the schemas and \n" +
                                                     "      schematrons specified in a label.  \n\n" +
                                                     "      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified \n" +
-                                                    "      schema and schematron.");
+                                                    "      schema and schematron.\n\n" +
+                                                    "      --no-check-data flag has been deprecated and replaced by --skip-content-validation to avoid confusion in naming " +
+                                                    "      of other flags. Please change software execution to use the new flag to avoid any issues.");
 
   private boolean deprecatedFlagWarning;
   private int totalWarnings;
