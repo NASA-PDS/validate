@@ -936,15 +936,22 @@ validate.regexp = "*.xml"
         <a href="mailto:pds_operator@jpl.nasa.gov">Engineering Node</a> if these times are significantly different from your execution times:</p>
         
         <table>
-          <tr><th>Number of Products</th><th>Avg. Product Size (MB)</th><th>Total Time to Completion</th><th>Avg. Time/Product</th></tr>
           <tr><th colspan="4">Content Validation <i>Enabled</i></th></tr>
-          <tr><td>1</td><td>4 MB</td><td>4s</td><td>4s</td></tr>
-          <tr><td>1</td><td>10 MB</td><td>6s</td><td>6s</td></tr>
-          <tr><td>1</td><td>50 MB</td><td>7s</td><td>7s</td></tr>
-          <tr><td>1</td><td>4800 MB</td><td>600s</td><td>600s</td></tr>
-          <tr><td>22164</td><td>TBD</td><td>TBD</td><td>TBD</td></tr>
+          <tr><th>Number of Products</th><th>Avg. Product Size (MB)</th><th>Total Time to Completion</th><th>Avg. Time/Product</th></tr>
+          <tr><td>1</td><td>4</td><td>4s</td><td>4s</td></tr>
+          <tr><td>1</td><td>10</td><td>6s</td><td>6s</td></tr>
+          <tr><td>1</td><td>50</td><td>7s</td><td>7s</td></tr>
+          <tr><td>1</td><td>4800</td><td>600s</td><td>600s</td></tr>
+          <tr><td>23189</td><td>8.2</td><td>82105s (~23h)</td><td>3.5s</td></tr>
           <tr><th colspan="4">Content Validation <i>Disabled</i> (--no-data-check)</th></tr>
-          <tr><td>22164</td><td>N/A</td><td>47160s</td><td>2.1s</td></tr>
+          <tr><th>Number of Labels</th><th>Avg. Label Size (KB)</th><th>Total Time to Completion</th><th>Avg. Time/Label</th></tr>
+          <tr><td>151</td><td>40</td><td>215s</td><td>1.4s</td></tr>
+          <tr><td>1347</td><td>40</td><td>1655s</td><td>1.2s</td></tr>
+          <tr><td>22164</td><td>40</td><td>47160s</td><td>2.1s</td></tr>
+          <tr><th colspan="4">Content Validation <i>Disabled</i> (--no-data-check) and using Catalog File (local schemas)</th></tr>
+          <tr><th>Number of Labels</th><th>Avg. Label Size (KB)</th><th>Total Time to Completion</th><th>Avg. Time/Label</th></tr>
+          <tr><td>151</td><td>40</td><td>196s</td><td>1.3s</td></tr>
+          <tr><td>1347</td><td>40</td><td>1454s</td><td>1.1s</td></tr>
         </table>
       </subsection>
       
