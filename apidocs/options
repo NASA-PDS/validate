@@ -6,21 +6,21 @@
 -source
 '1.8'
 -sourcepath
-'/Users/jpadams/build/validate/src/main/java'
+'/private/tmp/validate/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2019. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'/Users/jpadams/build/validate/target/site/apidocs'
+'/private/tmp/validate/target/site/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
-'gov.nasa.pds:validate 1.16.0-SNAPSHOT API'
+'gov.nasa.pds:validate 1.16.0 API'
 -linkoffline
-'https://docs.oracle.com/javase/8/docs/api' '/Users/jpadams/build/validate/target/javadoc-bundle-options'
+'https://docs.oracle.com/javase/8/docs/api' '/private/tmp/validate/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'gov.nasa.pds:validate 1.16.0-SNAPSHOT API'
+'gov.nasa.pds:validate 1.16.0 API'

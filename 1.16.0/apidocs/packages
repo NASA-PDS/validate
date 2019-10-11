@@ -5,7 +5,6 @@ gov.nasa.pds.validate
 gov.nasa.pds.validate.crawler
 gov.nasa.pds.validate.status
 gov.nasa.pds.validate.commandline.options
-gov.nasa.pds.validate.schema
 gov.nasa.pds.validate.inventory.reader
 gov.nasa.pds.validate.report
 gov.nasa.pds.validate.checksum
