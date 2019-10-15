@@ -1,7 +1,7 @@
 # Change Log
 
-## [v](https://github.com/NASA-PDS-Incubator/validate/tree/v) (2019-10-15)
-[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.0...v)
+## [v1.17.1](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.1) (2019-10-15)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.0...v1.17.1)
 
 **Implemented enhancements:**
 
