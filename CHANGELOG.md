@@ -1,5 +1,19 @@
 # Change Log
 
+## [v](https://github.com/NASA-PDS-Incubator/validate/tree/v) (2019-10-15)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.0...v)
+
+**Implemented enhancements:**
+
+- Update config to include telescopes and facilities telescopes and facilities [\#135](https://github.com/NASA-PDS-Incubator/validate/issues/135)
+
+**Merged pull requests:**
+
+- Update context product config query to include all context products [\#136](https://github.com/NASA-PDS-Incubator/validate/pull/136) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.17.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.0) (2019-10-15)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.16.0...v1.17.0)
+
 ## [v1.16.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.16.0) (2019-10-11)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.15.3...v1.16.0)
 
