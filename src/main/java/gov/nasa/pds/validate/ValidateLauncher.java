@@ -456,7 +456,8 @@ public class ValidateLauncher {
         solrQuery.setParam("fl",
                 "identifier, " + "version_id, " + "data_product_type, " + "target_name, " + "instrument_name, "
                         + "instrument_host_name, " + "resource_name, " + "investigation_name, " + "target_type, "
-                        + "instrument_type, " + "instrument_host_type, " + "resource_type, " + "investigation_type");
+                        + "instrument_type, " + "instrument_host_type, " + "resource_type, " + "investigation_type, "
+                                + "facility_name, facility_type, airborne_name, airborne_type");
 
         QueryResponse resp;
         List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
