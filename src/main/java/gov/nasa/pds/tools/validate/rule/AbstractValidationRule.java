@@ -13,8 +13,10 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule;
 
+import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -206,6 +208,42 @@ public abstract class AbstractValidationRule implements ValidationRule {
    */
   public final void setCaption(String caption) {
     this.caption = caption;
+  }
+  
+  /**
+   * Verifies that the lid contains the parent bundle/collection lid. Applies to
+   * Bundle and Collection referential integrity (L5.PRP.VA.36)
+   * 
+   * @see gov.nasa.pds.tools.validate.rule.pds4.BundleReferentialIntegrityRule
+   * @see gov.nasa.pds.tools.validate.rule.pds4.CollectionReferentialIntegrityRule
+   * 
+   * @param lid
+   * @param parentLid
+   * @param status
+   * @param url
+   */
+  protected void verifyLidPrefix (String lid, String parentLid, String status,
+          URL url) {
+    if (!status.equalsIgnoreCase("Primary")) {
+        return;
+    }
+    if (!lid.startsWith(parentLid + ":")) {
+      getListener().addProblem(new ValidationProblem(
+          new ProblemDefinition(
+              ExceptionType.ERROR,
+              ProblemType.MISSING_PARENT_PREFIX,
+              "Member LID " + lid + " does not begin with required parent LID " +
+              parentLid),
+          url));
+    } else {
+        getListener().addProblem(new ValidationProblem(
+            new ProblemDefinition(
+                ExceptionType.INFO,
+                ProblemType.PARENT_PREFIX_FOUND,
+                "Member LID " + lid + " begins with required parent LID " +
+                parentLid),
+            url));
+    }
   }
 
 }
