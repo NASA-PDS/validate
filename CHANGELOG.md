@@ -1,6 +1,17 @@
 # Change Log
 
-## [v1.17.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.2) (2019-10-15)
+## [v1.17.3](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.3) (2019-10-16)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.2...v1.17.3)
+
+**Fixed bugs:**
+
+- Revisit PDS-605: L5.PRP.VA.36: Check that the LID for a product has the LID of its parent collection product as its base [\#139](https://github.com/NASA-PDS-Incubator/validate/issues/139)
+
+**Merged pull requests:**
+
+- Updated parent LID check to include ':' [\#140](https://github.com/NASA-PDS-Incubator/validate/pull/140) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.17.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.2) (2019-10-16)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.1...v1.17.2)
 
 **Fixed bugs:**
