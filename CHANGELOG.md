@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.17.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.2) (2019-10-15)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.1...v1.17.2)
+
+**Fixed bugs:**
+
+- Update delimited table handling to allow for empty fields [\#137](https://github.com/NASA-PDS-Incubator/validate/issues/137)
+
+**Merged pull requests:**
+
+- Update field validator to allow empty fields for delimited tables [\#138](https://github.com/NASA-PDS-Incubator/validate/pull/138) ([jordanpadams](https://github.com/jordanpadams))
+
 ## [v1.17.1](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.1) (2019-10-15)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.0...v1.17.1)
 
