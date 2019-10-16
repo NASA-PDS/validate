@@ -457,8 +457,6 @@ class ValidationIntegrationTests {
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
-            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
             count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
 
             assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
@@ -610,6 +608,58 @@ class ValidationIntegrationTests {
 
             int errors = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
             assertEquals(errors, 0, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey() + " no errors expected.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub137() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github137");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github137_1.json");
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "delimited_table_good.xml",
+                    
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
+            
+            // Now test with added context products
+            report = new File(outFilePath + File.separator + "report_github137_2.json");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "delimited_table_bad.xml",
+                    
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
+
+            gson = new Gson();
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 2, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");

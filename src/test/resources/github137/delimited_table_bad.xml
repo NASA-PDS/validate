@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="      
+    http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+  
+  <Identification_Area>
+    <logical_identifier>urn:esa:psa:mission_host_instrument:data_raw:test_product</logical_identifier>
+    <version_id>0.1</version_id>
+    <title>PSA test product</title>
+    <information_model_version>1.11.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2019-03-18</modification_date>
+        <version_id>0.1</version_id>
+        <description>This is the first version of this product</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2018-11-03T12:01:14.9Z</start_date_time>
+      <stop_date_time>2018-11-03T12:01:14.9Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <description>
+          This file contains a raw image from the TEST instrument.
+      </description>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Imaging</discipline_name>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>TEST</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:esa:psa:context:investigation:mission.test</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>TEST instrument</name>
+      <Observing_System_Component>
+        <name>TEST spacecraft</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.test</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>TEST</name>
+        <type>Instrument</type>
+        <description>A test instrument</description>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument:test.spacecraft</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>SPACECRAFT_DECK</name>
+      <type>Calibrator</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:calibrator.spacecraft_deck</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  
+  <File_Area_Observational>
+    <File>
+      <file_name>delimited_table_bad.tab</file_name>
+      <file_size unit="byte">101</file_size>
+    </File>
+
+<!--    <Table_Character>
+      <name>Test Instrument Table Data</name>
+      <offset unit="byte">33</offset>
+      <records>2</records>
+      <description>This table is a Character table</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>2</fields>
+        <groups>0</groups>
+        <record_length unit="byte">33</record_length>
+        <Field_Character>
+          <name>TIME_OBT</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">18</field_length>
+          <description>S/C CLOCK AT OBSERVATION TIME: P/SSSSSSSSSS.FFFFF</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Integer_value</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">19</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>An integer value</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>-->
+    <Table_Delimited>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>This table is a comma delimited table</description>
+      <records>2</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>TIME_OBT</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>S/C CLOCK AT OBSERVATION TIME: P/SSSSSSSSSS.FFFFF</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Integer_value</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>An integer value</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>

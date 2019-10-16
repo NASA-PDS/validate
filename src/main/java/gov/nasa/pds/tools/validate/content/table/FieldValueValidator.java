@@ -149,7 +149,7 @@ public class FieldValueValidator {
   public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
     for (int i = 0; i < fields.length; i++) {
       try {
-        String value = record.getString(i+1);     
+        String value = record.getString(i+1);
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -166,7 +166,12 @@ public class FieldValueValidator {
           }        
         }
         // Check that the value of the field matches the defined data type
-        if (!value.trim().isEmpty()) {
+        if (value.isEmpty()){
+            addTableProblem(ExceptionType.INFO, 
+                    ProblemType.BLANK_FIELD_VALUE,
+                    "Field is blank.", 
+                    record.getLocation(), (i+1));
+        } else {
           try {
             checkType(value.trim(), fields[i].getType());
             addTableProblem(ExceptionType.DEBUG,
@@ -206,22 +211,6 @@ public class FieldValueValidator {
             checkMinMax(value.trim(), fields[i].getMinimum(), 
                 fields[i].getMaximum(), i + 1, record.getLocation());            
           } 
-        } else {
-          try {
-              checkType(value.trim(), fields[i].getType());
-              addTableProblem(ExceptionType.INFO, 
-                      ProblemType.BLANK_FIELD_VALUE,
-                      "Field is blank.", 
-                      record.getLocation(), (i+1));
-            } catch (Exception e) {
-              String message = "Value does not match its data type '"
-                  + fields[i].getType().getXMLType() + "': " + e.getMessage(); 
-              addTableProblem(ExceptionType.ERROR,
-                  ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                  message,
-                  record.getLocation(),
-                  (i + 1));
-            }        
         }
       } catch (Exception e) {
         addTableProblem(ExceptionType.ERROR,
