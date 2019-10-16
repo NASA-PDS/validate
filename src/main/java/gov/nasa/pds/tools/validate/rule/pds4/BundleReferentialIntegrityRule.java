@@ -234,28 +234,4 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
     return results;
   }
   
-  private void verifyLidPrefix (String lid, String parentLid, String status,
-      URL bundle) {
-	if (!status.equalsIgnoreCase("Primary")) {
-		return;
-	}
-	if (!lid.startsWith(parentLid)) {
-      getListener().addProblem(new ValidationProblem(
-	      new ProblemDefinition(
-	          ExceptionType.ERROR,
-	          ProblemType.MISSING_PARENT_PREFIX,
-	          "Member LID " + lid + " does not begin with parent LID " +
-	          parentLid),
-	      bundle));
-	} else {
-		getListener().addProblem(new ValidationProblem(
-			new ProblemDefinition(
-			    ExceptionType.INFO,
-			    ProblemType.PARENT_PREFIX_FOUND,
-			    "Member LID " + lid + " begins with parent LID " +
-			    parentLid),
-			bundle));
-	}
-  }
-  
 }
