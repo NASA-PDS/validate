@@ -31,7 +31,6 @@
 - Registered context product resource lists only one of multiple instrument or target multiple types [\#107](https://github.com/NASA-PDS-Incubator/validate/issues/107)
 - Fix bug introduce by --skip-context-validation feature [\#99](https://github.com/NASA-PDS-Incubator/validate/issues/99)
 - Update Validate to allow specification of schema/schematrons in config file [\#84](https://github.com/NASA-PDS-Incubator/validate/issues/84)
-- Context validation needs to be updated to include all possible product type use cases [\#62](https://github.com/NASA-PDS-Incubator/validate/issues/62)
 - Update content validation to fail when a space character is used when an ASCII\_Integer type is specified [\#9](https://github.com/NASA-PDS-Incubator/validate/issues/9)
 - Large Data File Uncaught Exception Error [\#8](https://github.com/NASA-PDS-Incubator/validate/issues/8)
 - JAXB warning message with Java 9+ [\#3](https://github.com/NASA-PDS-Incubator/validate/issues/3)
@@ -121,6 +120,7 @@
 
 **Fixed bugs:**
 
+- Context validation needs to be updated to include all possible product type use cases [\#62](https://github.com/NASA-PDS-Incubator/validate/issues/62)
 - Content validation does not work properly [\#55](https://github.com/NASA-PDS-Incubator/validate/issues/55)
 - Incorrect package declarations under gov.nasa.tools.web.ui [\#52](https://github.com/NASA-PDS-Incubator/validate/issues/52)
 - JAVA Path does not handle whitespaces in MAC as it used to [\#37](https://github.com/NASA-PDS-Incubator/validate/issues/37)
