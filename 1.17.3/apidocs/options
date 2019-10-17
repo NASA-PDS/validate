@@ -6,20 +6,20 @@
 -source
 '1.8'
 -sourcepath
-'/private/tmp/validate/src/main/java'
+'/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2019. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'/private/tmp/validate/target/site/apidocs'
+'/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/target/site/apidocs'
 -docencoding
 'UTF-8'
 -doctitle
 'gov.nasa.pds:validate 1.17.3 API'
 -linkoffline
-'https://docs.oracle.com/javase/8/docs/api' '/private/tmp/validate/target/javadoc-bundle-options'
+'https://docs.oracle.com/javase/8/docs/api' '/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
