@@ -1,5 +1,21 @@
 # Change Log
 
+## [v1.17.4](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.4) (2019-10-22)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.3...v1.17.4)
+
+**Fixed bugs:**
+
+- Update parent LID integrity checking to fix bug introduced for collection integrity checking [\#146](https://github.com/NASA-PDS-Incubator/validate/issues/146)
+- Incorrect help information for --spot-check-data flag [\#145](https://github.com/NASA-PDS-Incubator/validate/issues/145)
+
+**Closed issues:**
+
+- Validate operational release for Build 10a [\#106](https://github.com/NASA-PDS-Incubator/validate/issues/106)
+
+**Merged pull requests:**
+
+- Fix bug with parent LID integrity checking for collections [\#147](https://github.com/NASA-PDS-Incubator/validate/pull/147) ([jordanpadams](https://github.com/jordanpadams))
+
 ## [v1.17.3](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.3) (2019-10-16)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.2...v1.17.3)
 
@@ -39,13 +55,15 @@
 **Implemented enhancements:**
 
 - Deprecate --no-data-check to --skip-content-validation to fall in line with other argument naming [\#133](https://github.com/NASA-PDS-Incubator/validate/issues/133)
-- Update context name check to throw WARNING instead of ERROR [\#102](https://github.com/NASA-PDS-Incubator/validate/issues/102)
 - Update context checks to include data\_to\_investigation [\#90](https://github.com/NASA-PDS-Incubator/validate/issues/90)
 - Update validate to apply catalog file and local schemas to discipline schema resolution [\#87](https://github.com/NASA-PDS-Incubator/validate/issues/87)
 - Add new target-manifest flag for user to provide a manifest \(file\) of file/directory paths to validate [\#50](https://github.com/NASA-PDS-Incubator/validate/issues/50)
 - Add flag to temporarily disable context validation [\#47](https://github.com/NASA-PDS-Incubator/validate/issues/47)
 - Document multi-threaded architecture for maximized performance [\#43](https://github.com/NASA-PDS-Incubator/validate/issues/43)
+- Perform benchmarking on validate to enable documenting of system requirements [\#41](https://github.com/NASA-PDS-Incubator/validate/issues/41)
 - Enhance content validation to decrease validation time to \<=50% of current benchmark [\#30](https://github.com/NASA-PDS-Incubator/validate/issues/30)
+- Improve pds4.bundle validation performance [\#29](https://github.com/NASA-PDS-Incubator/validate/issues/29)
+- Improve documentation about usage of flags in config file with latest flags [\#20](https://github.com/NASA-PDS-Incubator/validate/issues/20)
 
 **Fixed bugs:**
 
@@ -62,15 +80,13 @@
 
 - Revert name/type checks from context validation until discussed with TWG [\#120](https://github.com/NASA-PDS-Incubator/validate/issues/120)
 - Validate release candidate for Build 10a [\#105](https://github.com/NASA-PDS-Incubator/validate/issues/105)
+- Update context name check to throw WARNING instead of ERROR [\#102](https://github.com/NASA-PDS-Incubator/validate/issues/102)
 - Create new "error message decoder ring" for common validate issues and how to solve them [\#97](https://github.com/NASA-PDS-Incubator/validate/issues/97)
 - Update validate to apply catalogs/schemas used as input across all ingested schemas [\#86](https://github.com/NASA-PDS-Incubator/validate/issues/86)
 - Test and document benchmark metrics from improved content validation [\#80](https://github.com/NASA-PDS-Incubator/validate/issues/80)
 - Implement content validation performance improvements [\#79](https://github.com/NASA-PDS-Incubator/validate/issues/79)
 - Investigate and determine potential content validation performance improvements [\#78](https://github.com/NASA-PDS-Incubator/validate/issues/78)
 - Check that referenced context products are valid [\#45](https://github.com/NASA-PDS-Incubator/validate/issues/45)
-- Perform benchmarking on validate to enable documenting of system requirements [\#41](https://github.com/NASA-PDS-Incubator/validate/issues/41)
-- Improve pds4.bundle validation performance [\#29](https://github.com/NASA-PDS-Incubator/validate/issues/29)
-- Improve documentation about usage of flags in config file with latest flags [\#20](https://github.com/NASA-PDS-Incubator/validate/issues/20)
 - Verify that all name/type attribute values correspond to names denoted context products [\#15](https://github.com/NASA-PDS-Incubator/validate/issues/15)
 
 **Merged pull requests:**
@@ -112,8 +128,8 @@
 
 **Implemented enhancements:**
 
-- Update pom to exclude additional SLF4J bindings [\#70](https://github.com/NASA-PDS-Incubator/validate/issues/70)
 - Complete engineering point build 1.15.1 [\#64](https://github.com/NASA-PDS-Incubator/validate/issues/64)
+- Add capability to pds4.bundle validation to ignore product-level validation [\#42](https://github.com/NASA-PDS-Incubator/validate/issues/42)
 
 **Fixed bugs:**
 
@@ -122,7 +138,7 @@
 
 **Closed issues:**
 
-- Add capability to pds4.bundle validation to ignore product-level validation [\#42](https://github.com/NASA-PDS-Incubator/validate/issues/42)
+- Update pom to exclude additional SLF4J bindings [\#70](https://github.com/NASA-PDS-Incubator/validate/issues/70)
 
 **Merged pull requests:**
 
