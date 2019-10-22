@@ -125,7 +125,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                           + "any product within the given target."), 
                       collection));
             } else if (matchingMembers.size() == 1) {
-              verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
+              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
             	      collection);
               getListener().addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.INFO,
@@ -135,7 +135,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                           + matchingMembers.get(0).getValue()), 
                       collection));
             } else if (matchingMembers.size() > 1) {
-              verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
+              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
             	      collection);
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!id.hasVersion()) {

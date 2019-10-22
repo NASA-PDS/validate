@@ -134,7 +134,7 @@ public enum Flag {
     SCHEMA("x", "schema", "schema files", String.class, true, "Specify schema files."),
 
     SPOT_CHECK_DATA(null, "spot-check-data", "num", int.class,
-            "Tells the tool to skip every nth " + "records or lines during data content validation."),
+            "Tool only checks every nth record or line and skips the rest during data content validation."),
 
     ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files",
             "Tells the tool to not check for unlabeled files in a bundle or collection."),
