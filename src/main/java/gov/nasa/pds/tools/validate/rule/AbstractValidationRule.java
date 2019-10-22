@@ -224,26 +224,24 @@ public abstract class AbstractValidationRule implements ValidationRule {
    */
   protected void verifyLidPrefix (String lid, String parentLid, String status,
           URL url) {
-    if (!status.equalsIgnoreCase("Primary")) {
-        return;
-    }
-    if (!lid.startsWith(parentLid + ":")) {
-      getListener().addProblem(new ValidationProblem(
-          new ProblemDefinition(
-              ExceptionType.ERROR,
-              ProblemType.MISSING_PARENT_PREFIX,
-              "Member LID " + lid + " does not begin with required parent LID " +
-              parentLid),
-          url));
-    } else {
-        getListener().addProblem(new ValidationProblem(
-            new ProblemDefinition(
-                ExceptionType.INFO,
-                ProblemType.PARENT_PREFIX_FOUND,
-                "Member LID " + lid + " begins with required parent LID " +
-                parentLid),
-            url));
+    if (status.equalsIgnoreCase("Primary") || status.equalsIgnoreCase("P")) {
+        if (!lid.startsWith(parentLid + ":")) {
+          getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(
+                  ExceptionType.ERROR,
+                  ProblemType.MISSING_PARENT_PREFIX,
+                  "Member LID " + lid + " does not begin with required parent LID " +
+                  parentLid),
+              url));
+        } else {
+            getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(
+                    ExceptionType.INFO,
+                    ProblemType.PARENT_PREFIX_FOUND,
+                    "Member LID " + lid + " begins with required parent LID " +
+                    parentLid),
+                url));
+        }
     }
   }
-
 }

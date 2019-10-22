@@ -145,8 +145,8 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
                   + "any product within the given target."), 
               bundle));
         } else if (matchingMembers.size() == 1) {
-        	  String parentLid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
-          verifyLidPrefix(id.getLid(), parentLid, memberStatus, bundle);
+          String parentLid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
+          super.verifyLidPrefix(id.getLid(), parentLid, memberStatus, bundle);
           getListener().addProblem(new ValidationProblem(new ProblemDefinition(
               ExceptionType.INFO,
               ProblemType.MEMBER_FOUND,
@@ -156,7 +156,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
               bundle));
         } else if (matchingMembers.size() > 1) {
           String parentLid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
-          verifyLidPrefix(id.getLid(), parentLid, memberStatus, bundle);
+          super.verifyLidPrefix(id.getLid(), parentLid, memberStatus, bundle);
           ExceptionType exceptionType = ExceptionType.ERROR;
           if (!id.hasVersion()) {
             Map<String, List<String>> matchingIds = 
