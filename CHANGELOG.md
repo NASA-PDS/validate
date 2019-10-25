@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.17.5](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.5) (2019-10-25)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.4...v1.17.5)
+
+**Fixed bugs:**
+
+- Line mismatch error possibly associated with memory error [\#2](https://github.com/NASA-PDS-Incubator/validate/issues/2)
+
+**Merged pull requests:**
+
+- Added java.util.logging properties to suppress messages [\#151](https://github.com/NASA-PDS-Incubator/validate/pull/151) ([jordanpadams](https://github.com/jordanpadams))
+
 ## [v1.17.4](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.4) (2019-10-22)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.3...v1.17.4)
 
@@ -72,7 +83,7 @@
 - Fix bug introduce by --skip-context-validation feature [\#99](https://github.com/NASA-PDS-Incubator/validate/issues/99)
 - Update Validate to allow specification of schema/schematrons in config file [\#84](https://github.com/NASA-PDS-Incubator/validate/issues/84)
 - Context validation needs to be updated to include all possible product type use cases [\#62](https://github.com/NASA-PDS-Incubator/validate/issues/62)
-- Update content validation to fail when a space character is used when an ASCII\_Integer type is specified [\#9](https://github.com/NASA-PDS-Incubator/validate/issues/9)
+- Update content validation to fail when the value of an ASCII\_Integer is all spaces [\#9](https://github.com/NASA-PDS-Incubator/validate/issues/9)
 - Large Data File Uncaught Exception Error [\#8](https://github.com/NASA-PDS-Incubator/validate/issues/8)
 - JAXB warning message with Java 9+ [\#3](https://github.com/NASA-PDS-Incubator/validate/issues/3)
 
