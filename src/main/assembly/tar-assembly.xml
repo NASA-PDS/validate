@@ -65,6 +65,15 @@ POSSIBILITY OF SUCH DAMAGE.
       <lineEnding>keep</lineEnding>
     </fileSet>
     <fileSet>
+      <directory>src/main/resources/bin</directory>
+      <outputDirectory>bin</outputDirectory>
+      <includes>
+        <include>logging.properties</include>
+      </includes>
+      <fileMode>664</fileMode>
+      <lineEnding>keep</lineEnding>
+    </fileSet>
+    <fileSet>
       <directory>src/main/resources/util</directory>
       <outputDirectory>resources</outputDirectory>
       <includes>
