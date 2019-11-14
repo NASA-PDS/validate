@@ -136,6 +136,14 @@ public class LocationValidator {
 		} else {
 			LOG.info("Using validation style '{}' for location {}", 
 			    rule.getCaption(), location);
+
+			if (rule.getCaption().startsWith("PDS4 Label")) {
+			  if (ruleContext.getCheckData())
+				 rule = ruleManager.findRuleByName("pds4.label");
+			  else
+			    rule = ruleManager.findRuleByName("pds4.label.skip.content");	
+			}
+			
 			if (!rule.isApplicable(location)) {
 			  LOG.error("'{}' validation style is not applicable for location {}", 
 			      rule.getCaption(), location);
@@ -180,7 +188,7 @@ public class LocationValidator {
 			validationType = validationRule;
 		}
 		ValidationRule rule;
-
+		//System.out.println("validationType = " + validationType);		
 		if (validationType == null) {
 		  URI uri = null;
 		  try {
@@ -307,6 +315,9 @@ public class LocationValidator {
 	public void setSkipProductValidation(boolean flag) {
 	  ruleContext.setSkipProductValidation(flag);
 	  labelValidator.setSkipProductValidation(flag);
+	  
+	  //if (flag)
+		//  ruleContext.setCheckData()
 	}
 	
 	/**

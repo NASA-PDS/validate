@@ -47,6 +47,11 @@ public class LabelInFolderRule extends AbstractValidationRule {
   public void validateLabelsInFolder() {
     ValidationRule labelRule = getContext().getRuleManager().findRuleByName("pds4.label");
     
+    // issue_124: 
+    if (!getContext().getCheckData()) {
+      labelRule = getContext().getRuleManager().findRuleByName("pds4.label.skip.content");
+    }
+    
     Crawler crawler = getContext().getCrawler();
     try {
       for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
