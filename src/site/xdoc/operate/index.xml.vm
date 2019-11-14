@@ -942,12 +942,35 @@ validate.regexp = "*.xml"
           <tr><td>1</td><td>10</td><td>6s</td><td>6s</td></tr>
           <tr><td>1</td><td>50</td><td>7s</td><td>7s</td></tr>
           <tr><td>1</td><td>4800</td><td>600s</td><td>600s</td></tr>
+          <tr><td>1</td><td>0.1</td><td>11.069s</td><td></td></tr>
+          <tr><td>1</td><td>3</td><td>17.208s</td><td></td></tr>	
+		  <tr><td>1</td><td>30</td><td>21.792s,21.591s</td><td></td></tr>	
+		  <tr><td>1</td><td>120</td><td>30.029s,30.291s</td><td></td></tr>	
+		  <tr><td>1</td><td>4945</td><td>43.988s</td><td></td></tr>	
+		  <tr><td>40</td><td>3.44</td><td>77.554s</td><td>1.9s</td></tr>
+		  <tr><td>151</td><td>18.98</td><td>469.003s,464.861s</td><td>3.1s</td></tr>
+		  <tr><td>541</td><td>7</td><td>901.993s,890.327s</td><td>1.68s</td></tr>
+		  <tr><td>925</td><td>9.3</td><td>1734.853s,1732.398s</td><td>1.88s</td></tr>
+		  <tr><td>4099</td><td>10.49</td><td>8629.407s</td><td>2.10s</td></tr>
           <tr><td>23189</td><td>8.2</td><td>82105s (~23h)</td><td>3.5s</td></tr>
           <tr><th colspan="4">Content Validation <i>Disabled</i> (--no-data-check)</th></tr>
           <tr><th>Number of Labels</th><th>Avg. Label Size (KB)</th><th>Total Time to Completion</th><th>Avg. Time/Label</th></tr>
           <tr><td>151</td><td>40</td><td>215s</td><td>1.4s</td></tr>
           <tr><td>1347</td><td>40</td><td>1655s</td><td>1.2s</td></tr>
           <tr><td>22164</td><td>40</td><td>47160s</td><td>2.1s</td></tr>
+          <tr><th colspan="4">Content Validation <i>Disabled</i> (--skip-content-validation)</th></tr>
+          <tr><th>Number of Products</th><th>Avg. Product Size (MB)</th><th>Total Time to Completion</th><th>Avg. Time/Product</th></tr>
+          <tr><td>1</td><td>0.1</td><td>9.207s</td><td></td></tr>	
+		  <tr><td>1</td><td>3</td><td>14.531s</td><td></td></tr>	
+	      <tr><td>1</td><td>30</td><td>14.250s,14.228s</td><td></td></tr>	
+          <tr><td>1</td><td>120</td><td>14.714s,14.533s</td><td></td></tr>	
+          <tr><td>1</td><td>4945</td><td>30.445s,30.211s</td><td></td></tr>	
+          <tr><td>40</td><td>3.44</td><td>45.010s</td><td>1.13s</td></tr>
+          <tr><td>151</td><td>18.98</td><td>115.098s,114.192s</td><td>0.76s</td></tr>
+		  <tr><td>541</td><td>7</td><td>334.860s,333.391s</td><td>0.62s</td></tr>
+	      <tr><td>925</td><td>9.3</td><td>548.309s,552.169s</td><td>0.59s</td></tr>
+		  <tr><td>4099</td><td>10.49</td><td>2326.820s</td><td>0.57s</td></tr>
+		  <tr><td>22164</td><td>N/A</td><td>12323.288s</td><td>0.56s</td></tr>
           <tr><th colspan="4">Content Validation <i>Disabled</i> (--skip-content-validation) and using Catalog File (local schemas)</th></tr>
           <tr><th>Number of Labels</th><th>Avg. Label Size (KB)</th><th>Total Time to Completion</th><th>Avg. Time/Label</th></tr>
           <tr><td>151</td><td>40</td><td>196s</td><td>1.3s</td></tr>
