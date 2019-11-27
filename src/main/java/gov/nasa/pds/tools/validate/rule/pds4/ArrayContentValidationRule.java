@@ -64,27 +64,32 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
   public ArrayContentValidationRule() {
     xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
   }
-  
+
+  private static Object lock = new Object();
+
   @Override
   public boolean isApplicable(String location) {
 	if (!getContext().getCheckData()) {
       return false;
     }
     boolean isApplicable = false;
-    // The rule is applicable if a label has been parsed and tables exist in the label.
-    if (getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
+    synchronized (lock) {
+      // The rule is applicable if a label has been parsed and tables exist in the label.
+      if (getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT,
-          Document.class);
-      
-      DOMSource source = new DOMSource(label);      
-      try {
-        NodeList arrays = (NodeList) xPathFactory.newXPath().evaluate(
-            XPaths.ARRAYS, source, XPathConstants.NODESET);
-        if (arrays.getLength() > 0) {
-          isApplicable = true;
+              Document.class);
+
+      DOMSource source = new DOMSource(label);
+        try {
+          NodeList arrays = (NodeList) xPathFactory.newXPath().evaluate(
+                  XPaths.ARRAYS, source, XPathConstants.NODESET);
+          if (arrays.getLength() > 0) {
+            isApplicable = true;
+          }
+        } catch (XPathExpressionException e) {
+          //Ignore
         }
-      } catch (XPathExpressionException e) {
-        //Ignore
+
       }
     }
     return isApplicable;
@@ -93,8 +98,11 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
   @ValidationTest
   public void validateArray() throws MalformedURLException,
   URISyntaxException {
+    URL target = getTarget();
+    String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
+    long t0 = System.currentTimeMillis();
     ObjectProvider objectAccess = null;
-    objectAccess = new ObjectAccess(getTarget());
+    objectAccess = new ObjectAccess(target);
     List<FileArea> arrayFileAreas = new ArrayList<FileArea>();
     try {
       arrayFileAreas = getArrayFileAreas(objectAccess);
@@ -102,16 +110,19 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
       //Ignore. Shouldn't happen
     }
     NodeList fileAreaNodes = null;
+
     XPath xpath = xPathFactory.newXPath();
     try {
-      fileAreaNodes = (NodeList) xpath.evaluate(
-        XPaths.ARRAY_FILE_AREAS, 
-        new DOMSource(getContext().getContextValue(
-            PDS4Context.LABEL_DOCUMENT, Document.class)), 
-        XPathConstants.NODESET);
+      synchronized (lock) {
+        fileAreaNodes = (NodeList) xpath.evaluate(
+          XPaths.ARRAY_FILE_AREAS,
+          new DOMSource(getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class)),
+          XPathConstants.NODESET);
+      }
     } catch (XPathExpressionException e) {
       addXPathException(null, XPaths.ARRAY_FILE_AREAS, e.getMessage());
     }
+
     Map<String, Integer> numArrays = scanArrays(arrayFileAreas, objectAccess);
     Map<URL, Integer> arrayIndexes = new LinkedHashMap<URL, Integer>();
     int fileAreaObserveIndex = 0;
@@ -120,22 +131,20 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
       String fileName = getDataFile(fileArea);
 
       if (fileName == null) {
-          getListener().addProblem(
-                  new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.FATAL,
-                          ProblemType.INVALID_LABEL,
-                          "Missing File Area."),
-                          getTarget()));
-          continue;
+        getListener().addProblem(
+          new ValidationProblem(
+            new ProblemDefinition(ExceptionType.FATAL,
+              ProblemType.INVALID_LABEL, "Missing File Area."), target));
+        continue;
       }
 
-      URL dataFile = new URL(Utility.getParent(getTarget()), fileName);
+      URL dataFile = new URL(Utility.getParent(target), fileName);
       if (arrayIndexes.containsKey(dataFile)) {
         arrayIndex = arrayIndexes.get(dataFile).intValue() + 1;
-        arrayIndexes.put(dataFile, new Integer(arrayIndex));
+        arrayIndexes.put(dataFile, arrayIndex);
       } else {
         arrayIndex = 1;
-        arrayIndexes.put(dataFile,  new Integer(1));
+        arrayIndexes.put(dataFile, 1);
       }
       List<Array> arrayObjects = objectAccess.getArrays(fileArea);
       for (Array array : arrayObjects) {
@@ -148,36 +157,36 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
               Enum.valueOf(NumericDataType.class, dataType);
             } catch (IllegalArgumentException a) {
               throw new IllegalArgumentException(dataType
-                  + " is not supported at this time.");
+                      + " is not supported at this time.");
             }
-            //The size of the array object is equal to the element size 
-            // times the product of the sizes of all axes 
-            // (i.e. total size = 
+            //The size of the array object is equal to the element size
+            // times the product of the sizes of all axes
+            // (i.e. total size =
             // number of lines * number of samples
             //               * number of bands * element size)
             ArrayObject ao = null;
             try {
               ao = new ArrayObject(
-                  Utility.getParent(getTarget()), 
-                  getFileObject(fileArea), 
-                  array, 
-                  array.getOffset().getValue().longValueExact());
-              
+                      Utility.getParent(target),
+                      getFileObject(fileArea),
+                      array,
+                      array.getOffset().getValue().longValueExact());
+
               //Array elements have values which conform to their data type
-              
-              //Verify that the elements match the object statistics defined 
+
+              //Verify that the elements match the object statistics defined
               //within their associated label, if they exist
               if (!array.getAxisArraies().isEmpty()) {
                 ArrayContentValidator validator = new ArrayContentValidator(
-                  getListener(), getTarget(), dataFile, arrayIndex);
+                        getListener(), target, dataFile, arrayIndex);
                 validator.setSpotCheckData(getContext().getSpotCheckData());
                 validator.validate(array, ao);
               } else {
                 addArrayProblem(ExceptionType.FATAL,
-                    ProblemType.INVALID_LABEL,
-                    "Missing Axis_Array area.", 
-                    dataFile, 
-                    arrayIndex);
+                        ProblemType.INVALID_LABEL,
+                        "Missing Axis_Array area.",
+                        dataFile,
+                        arrayIndex);
               }
             } finally {
               if (ao != null) {
@@ -186,34 +195,38 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
             }
           } catch (IllegalArgumentException ae) {
             addArrayProblem(ExceptionType.FATAL,
-                ProblemType.ARRAY_DATA_FILE_READ_ERROR,
-                "Error while reading array: " + ae.getMessage(), 
-                dataFile, 
-                arrayIndex);
+                    ProblemType.ARRAY_DATA_FILE_READ_ERROR,
+                    "Error while reading array: " + ae.getMessage(),
+                    dataFile,
+                    arrayIndex);
           } catch (UnsupportedOperationException ue) {
-            addArrayProblem(ExceptionType.WARNING, 
-                ProblemType.ARRAY_INTERNAL_WARNING, 
-                ue.getMessage(), 
-                dataFile, 
-                arrayIndex);
+            addArrayProblem(ExceptionType.WARNING,
+                    ProblemType.ARRAY_INTERNAL_WARNING,
+                    ue.getMessage(),
+                    dataFile,
+                    arrayIndex);
           } catch (OutOfMemoryError me) {
             addArrayProblem(ExceptionType.FATAL,
-                ProblemType.OUT_OF_MEMORY,
-                "Out of memory error occurred while processing array. "
-                    + "Please adjust the JVM Heap "
-                    + "Space settings and try again.", dataFile, 
+                    ProblemType.OUT_OF_MEMORY,
+                    "Out of memory error occurred while processing array. "
+                            + "Please adjust the JVM Heap "
+                            + "Space settings and try again.", dataFile,
                     arrayIndex);
           }
         } catch (IOException io) {
-          addArrayProblem(ExceptionType.FATAL, 
-              ProblemType.ARRAY_DATA_FILE_READ_ERROR, 
-              io.getMessage(), 
-              dataFile, 
-              arrayIndex);
+          addArrayProblem(ExceptionType.FATAL,
+                  ProblemType.ARRAY_DATA_FILE_READ_ERROR,
+                  io.getMessage(),
+                  dataFile,
+                  arrayIndex);
         }
         arrayIndex++;
       }
       fileAreaObserveIndex++;
+    }
+
+    if (isInfoLogLevel()) {
+      System.out.println(System.currentTimeMillis() + " :: " + targetFileName + " :: validateArray() in " + (System.currentTimeMillis() - t0) + " ms");
     }
   }
   

@@ -30,6 +30,7 @@
 
 package gov.nasa.pds.validate;
 
+import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
@@ -86,11 +87,10 @@ public class ValidatorFactory {
    * @throws ValidatorException Validator error occurred.
    * @throws TransformerConfigurationException Transformer configuration error occurred.
    */
-  public LocationValidator newInstance(URL target) throws ValidatorException,
+  public LocationValidator newInstance(ExceptionType logLevel) throws ValidatorException,
   TransformerConfigurationException, ParserConfigurationException {
-    Validator validator = null;
     if (cachedValidator == null) {
-    	cachedValidator = new LocationValidator();
+    	cachedValidator = new LocationValidator(logLevel);
     	cachedValidator.setModelVersion(modelVersion);
     	for(DocumentValidator dv : documentValidators) {
     		cachedValidator.addValidator(dv);

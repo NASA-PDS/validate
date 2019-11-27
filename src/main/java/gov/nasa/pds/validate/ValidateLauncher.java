@@ -30,22 +30,18 @@
 
 package gov.nasa.pds.validate;
 
-import gov.nasa.pds.tools.label.CachedEntityResolver;
-import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.LocationValidator;
-import gov.nasa.pds.tools.label.MissingLabelSchemaException;
-import gov.nasa.pds.tools.label.SchematronTransformer;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.stream.JsonWriter;
+import gov.nasa.pds.tools.label.*;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
-import gov.nasa.pds.tools.validate.ContentProblem;
-import gov.nasa.pds.tools.validate.InMemoryRegistrar;
-import gov.nasa.pds.tools.validate.ProblemContainer;
-import gov.nasa.pds.tools.validate.ProblemDefinition;
-import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.ValidateProblemHandler;
-import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.*;
+import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
@@ -55,48 +51,10 @@ import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
-import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.target.Target;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.stream.StreamSource;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.DefaultParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.*;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -112,16 +70,26 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.omg.CORBA.portable.ApplicationException;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.stream.JsonWriter;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.stream.StreamSource;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.channels.FileChannel;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and
@@ -611,8 +579,7 @@ public class ValidateLauncher {
             }
             if (config.containsKey(ConfigKey.REGEXP)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(ConfigKey.REGEXP);
-                list = Utility.removeQuotes(list);
+                List<String> list = Utility.removeQuotes(config.getList(ConfigKey.REGEXP));
                 setRegExps(list);
             }
             if (config.containsKey(ConfigKey.REPORT)) {
@@ -620,23 +587,20 @@ public class ValidateLauncher {
             }
             if (config.containsKey(ConfigKey.TARGET)) {
                 // Removes quotes surrounding each pattern being specified
-                targetList = config.getList(ConfigKey.TARGET);
-                targetList = Utility.removeQuotes(targetList);
+                targetList = Utility.removeQuotes(config.getList(ConfigKey.TARGET));
             }
             if (config.containsKey(ConfigKey.VERBOSE)) {
                 setSeverity(config.getShort(ConfigKey.VERBOSE));
             }
             if (config.containsKey(ConfigKey.SCHEMA)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(ConfigKey.SCHEMA);
-                list = Utility.removeQuotes(list);
+                List<String> list = Utility.removeQuotes(config.getList(ConfigKey.SCHEMA));
                 setSchemas(list);
                 setForce(false);
             }
             if (config.containsKey(ConfigKey.SCHEMATRON)) {
                 // Removes quotes surrounding each pattern being specified
-                List<String> list = config.getList(ConfigKey.SCHEMATRON);
-                list = Utility.removeQuotes(list);
+                List<String> list = Utility.removeQuotes(config.getList(ConfigKey.SCHEMATRON));
                 setSchematrons(list);
                 setForce(false);
             }
@@ -1216,6 +1180,7 @@ public class ValidateLauncher {
      * @throws Exception
      */
     public void doValidation(Map<URL, String> checksumManifest) throws Exception {
+        long t0 = System.currentTimeMillis();
         // Initialize the Factory Class
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
         factory = ValidatorFactory.getInstance();
@@ -1223,8 +1188,10 @@ public class ValidateLauncher {
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
             try {
-                
-                LocationValidator validator = factory.newInstance(target);
+                LocationValidator validator = factory.newInstance(severity);
+
+                //System.out.println("TARGET   : " + target);
+                //System.out.println("SEVERITY : " + severity);
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
                 validator.setRecurse(traverse);
@@ -1289,7 +1256,10 @@ public class ValidateLauncher {
                 }
             }
         }
-        System.out.println("\nValidation complete.\n");
+
+        if (severity.isWarningApplicable()) {
+            System.out.println(System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)");
+        }
     }
 
     /**
@@ -1317,7 +1287,7 @@ public class ValidateLauncher {
                             "Error occurred while processing schematron '" + schematron + "': " + e.getMessage()),
                     schematron));
         }
-        return transformer;
+        return null;
     }
 
     /**
@@ -1385,6 +1355,7 @@ public class ValidateLauncher {
      *            list of command-line arguments.
      */
     public void processMain(String[] args) {
+        long t0 = System.currentTimeMillis();
         try {
             CommandLine cmdLine = parse(args);
             query(cmdLine);
@@ -1452,6 +1423,9 @@ public class ValidateLauncher {
                 doValidation(checksumManifestMap);
             }
             printReportFooter();
+            if (severity.isDebugApplicable()) {
+                System.out.println(System.currentTimeMillis() + " :: processMain() in " + (System.currentTimeMillis() - t0) + " ms\n");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -1477,6 +1451,7 @@ public class ValidateLauncher {
      */
     @SuppressWarnings("deprecation")
     public static void main(String[] args) throws TransformerConfigurationException {
+        long t0 = System.currentTimeMillis();
         System.setProperty("https.protocols", "TLSv1.2");
         if (args.length == 0) {
             System.out.println("\nType 'validate -h' for usage");
@@ -1488,6 +1463,7 @@ public class ValidateLauncher {
         BasicConfigurator.configure(ca);
 
         new ValidateLauncher().processMain(args);
+        System.out.println(System.currentTimeMillis() + " :: main in " + (System.currentTimeMillis()-t0) + " ms\n");
     }
 
     /**

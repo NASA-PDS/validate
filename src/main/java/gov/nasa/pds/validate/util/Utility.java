@@ -35,6 +35,7 @@ import gov.nasa.pds.validate.target.Target;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -57,11 +58,12 @@ public class Utility {
    * @param list A list of strings.
    * @return A list with the quotes removed.
    */
-  public static List<String> removeQuotes(List<String> list) {
-    for (int i = 0; i < list.size(); i++) {
-      list.set(i, list.get(i).toString().replace('"', ' ').trim());
+  public static List<String> removeQuotes(List<Object> list) {
+    List<String> strList = new ArrayList<>();
+    for (Object obj : list) {
+      strList.add(obj.toString().replace('"', ' ').trim());
     }
-    return list;
+    return strList;
   }
 
   public static String toStringNoBraces(JsonObject json) {

@@ -38,6 +38,22 @@ public enum ExceptionType {
     return this.value;
   }
 
+  public boolean isDebugApplicable() {
+    return getValue() >= DEBUG.getValue();
+  }
+
+  public boolean isInfoApplicable() {
+    return getValue() >= INFO.getValue();
+  }
+
+  public boolean isWarningApplicable() {
+    return getValue() >= WARNING.getValue();
+  }
+
+  public boolean isErrorApplicable() {
+    return getValue() >= ERROR.getValue();
+  }
+
   public String getName() {
     return this.name;
   }

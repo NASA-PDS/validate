@@ -74,13 +74,14 @@ public class LocationValidator {
 	 * @throws TransformerConfigurationException if a label validator cannot 
 	 * configure its transformer
 	 */
-	public LocationValidator() throws TransformerConfigurationException, 
+	public LocationValidator(ExceptionType logLevel) throws TransformerConfigurationException,
 	ParserConfigurationException {
 		settingsManager = SettingsManager.INSTANCE;
 		taskManager = new BlockingTaskManager();
 		labelValidator = ValidationResourceManager.INSTANCE.getResource(
 		    LabelValidator.class);
 		ruleContext = new RuleContext();
+		ruleContext.setLogLevel(logLevel);
 		
 		ConfigParser parser = new ConfigParser();
 		URL commandsURL = ClassLoader.getSystemResource("validation-commands.xml");
