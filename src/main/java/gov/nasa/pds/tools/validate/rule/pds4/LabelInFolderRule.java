@@ -16,16 +16,13 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
-import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
-import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
-import gov.nasa.pds.tools.validate.rule.GenericProblems;
-import gov.nasa.pds.tools.validate.rule.ValidationRule;
-import gov.nasa.pds.tools.validate.rule.ValidationTest;
+import gov.nasa.pds.tools.validate.rule.*;
 
-import java.io.File;
 import java.io.IOException;
-
-import org.apache.commons.io.FilenameUtils;
+import java.net.URISyntaxException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Implements the rule that all files that look like labels in a folder
@@ -34,6 +31,8 @@ import org.apache.commons.io.FilenameUtils;
 public class LabelInFolderRule extends AbstractValidationRule {
 
   private static final String XML_SUFFIX = ".xml";
+
+  private ExecutorService validateThreadExecutor = Executors.newFixedThreadPool(1);
 
   @Override
   public boolean isApplicable(String location) {
@@ -45,25 +44,52 @@ public class LabelInFolderRule extends AbstractValidationRule {
    */
   @ValidationTest
   public void validateLabelsInFolder() {
-    ValidationRule labelRule = getContext().getRuleManager().findRuleByName("pds4.label");
-    
-    // issue_124: 
-    if (!getContext().getCheckData()) {
-      labelRule = getContext().getRuleManager().findRuleByName("pds4.label.skip.content");
-    }
-    
-    Crawler crawler = getContext().getCrawler();
-    try {
-      for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
-        try {
-          labelRule.execute(getChildContext(t.getUrl()));
-        } catch (Exception e) {
-          reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
-        }
+      ValidationRule labelRuleTmp = null;
+
+      // issue_124:
+      if (!getContext().getCheckData()) {
+        labelRuleTmp = getContext().getRuleManager().findRuleByName("pds4.label.skip.content");
       }
-    } catch (IOException io) {
-      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
-    }
+      else {
+        labelRuleTmp = getContext().getRuleManager().findRuleByName("pds4.label");
+      }
+      final ValidationRule labelRule = labelRuleTmp;
+
+      Crawler crawler = getContext().getCrawler();
+      try {
+        int targetCount = 0;
+        for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
+
+          validateThreadExecutor.execute(new Runnable() {
+            public void run() {
+              //System.out.println("\nVALIDATING : " + t.getUrl());
+
+              try {
+                labelRule.execute(getChildContext(t.getUrl()));
+              } catch (Exception e) {
+                System.out.println("ERROR: " + e.getMessage());
+                e.printStackTrace();
+                reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
+              }
+            }
+          });
+
+          targetCount++;
+
+        } // end for
+
+        try {
+          validateThreadExecutor.shutdown();
+          validateThreadExecutor.awaitTermination(100, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+
+        System.out.println("COMPLETED " + targetCount + " targets.");
+
+      } catch (IOException io) {
+        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
+      }
   }
 
 }

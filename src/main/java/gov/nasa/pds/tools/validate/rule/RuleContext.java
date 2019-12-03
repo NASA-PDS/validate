@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule;
 
+import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.XMLCatalogResolver;
 import gov.nasa.pds.tools.util.ContextProductReference;
@@ -114,6 +115,8 @@ public class RuleContext extends ContextBase {
   
   private boolean rootTarget = false;
 
+  private ExceptionType logLevel;
+
   /**
    * Gets a value from the context in a type-safe manner.
    *
@@ -138,6 +141,12 @@ public class RuleContext extends ContextBase {
    */
   public <T> void putContextValue(String key, T value) {
     put(key, value);
+  }
+
+  public ExceptionType getLogLevel() { return logLevel; }
+
+  public void setLogLevel(ExceptionType logLevel) {
+      this.logLevel = logLevel;
   }
 
   public URL getTarget() {  

@@ -75,7 +75,9 @@ public class LabelValidationRule extends AbstractValidationRule {
   private Map<URL, ProblemContainer> labelSchematronResults;
   private Map<URL, Transformer> labelSchematrons;
   private XMLExtractor extractor;
-	
+
+  private static Object lock = new Object();
+
   public LabelValidationRule() throws TransformerConfigurationException {
     schemaValidator = new SchemaValidator();
     schematronTransformer = new SchematronTransformer();
@@ -110,78 +112,89 @@ public class LabelValidationRule extends AbstractValidationRule {
 	 */
 	@ValidationTest
 	public void validateLabel() {
-	
-		ProblemProcessor processor = new ProblemProcessor(
-		    getListener(), getTarget());
-	  
-    LabelValidator validator = 
-        ValidationResourceManager.INSTANCE.getResource(LabelValidator.class);
-		try {
-      Document document = null;
-      boolean pass = true;
-      ProblemContainer problemContainer = new ProblemContainer();
-      if (getContext().getCatalogResolver() != null || 
-          getContext().isForceLabelSchemaValidation()) {
-        // Validate the label's schema and schematron first before doing
-        // label validation
-        boolean hasValidSchemas = validateLabelSchemas(getTarget(),
-            problemContainer, getContext().getCatalogResolver());
+      long t0 = System.currentTimeMillis();
+      URL target = getTarget();
+      String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
+      ProblemProcessor processor = new ProblemProcessor(
+              getListener(), target);
 
-        Map<String, Transformer> labelSchematrons = validateLabelSchematrons(
-            getTarget(), problemContainer, getContext().getCatalogResolver());
+      LabelValidator validator =
+              ValidationResourceManager.INSTANCE.getResource(LabelValidator.class);
+      try {
+        Document document = null;
+        boolean pass = true;
+        ProblemContainer problemContainer = new ProblemContainer();
+        if (getContext().getCatalogResolver() != null ||
+                getContext().isForceLabelSchemaValidation()) {
+          boolean hasValidSchemas = false;
+          Map<String, Transformer> labelSchematrons = null;
+          synchronized (lock) {
+            // Validate the label's schema and schematron first before doing
+            // label validation
+            hasValidSchemas = validateLabelSchemas(target,
+                    problemContainer, getContext().getCatalogResolver());
 
-        if (hasValidSchemas && !labelSchematrons.isEmpty()) {
-          CachedEntityResolver resolver = new CachedEntityResolver();
-          resolver.addCachedEntities(schemaValidator.getCachedLSResolver()
-              .getCachedEntities());
-          validator.setCachedEntityResolver(resolver);
-          validator.setCachedLSResourceResolver(
-              schemaValidator.getCachedLSResolver());
-          validator.setLabelSchematrons(labelSchematrons);
-          if (getContext().isForceLabelSchemaValidation()) {
-            try {
-              schemaValidator.setExternalLocations(
-                  getExtractor(getTarget()).getSchemaLocation());
-            } catch (Exception ignore) {
-              //Should not throw an exception
+            labelSchematrons = validateLabelSchematrons(
+                    target, problemContainer, getContext().getCatalogResolver());
+          }
+
+            if (hasValidSchemas && !labelSchematrons.isEmpty()) {
+              CachedEntityResolver resolver = new CachedEntityResolver();
+              resolver.addCachedEntities(schemaValidator.getCachedLSResolver()
+                      .getCachedEntities());
+              validator.setCachedEntityResolver(resolver);
+              validator.setCachedLSResourceResolver(
+                      schemaValidator.getCachedLSResolver());
+              validator.setLabelSchematrons(labelSchematrons);
+              if (getContext().isForceLabelSchemaValidation()) {
+                try {
+                  schemaValidator.setExternalLocations(
+                          getExtractor(target).getSchemaLocation());
+                } catch (Exception ignore) {
+                  //Should not throw an exception
+                }
+              }
+            } else {
+              // Print any label problems that occurred during schema and schematron
+              // validation.
+              if (problemContainer.getProblems().size() != 0) {
+                for (ValidationProblem problem : problemContainer.getProblems()) {
+                  problem.setSource(target.toString());
+                  getListener().addProblem(problem);
+                }
+              }
+              pass = false;
             }
+        }
+        if (pass) {
+          getListener().addLocation(target.toString());
+          document = validator.parseAndValidate(processor, target);
+        }
+        if (document != null) {
+          getContext().put(PDS4Context.LABEL_DOCUMENT, document);
+        }
+      } catch (SAXException | IOException | ParserConfigurationException
+              | TransformerException | MissingLabelSchemaException e) {
+        if (e instanceof XPathException) {
+          XPathException xe = (XPathException) e;
+          if (!xe.hasBeenReported()) {
+            reportError(GenericProblems.UNCAUGHT_EXCEPTION, target, -1, -1,
+                    e.getMessage());
           }
         } else {
-          // Print any label problems that occurred during schema and schematron
-          // validation.
-          if (problemContainer.getProblems().size() != 0) {
-            for (ValidationProblem problem : problemContainer.getProblems()) {
-              problem.setSource(getTarget().toString());
-              getListener().addProblem(problem);
-            }
+          // Don't need to report SAXParseException messages as they have already
+          // been reported by the LabelValidator's error handler
+          if (!(e instanceof SAXParseException)) {
+            reportError(GenericProblems.UNCAUGHT_EXCEPTION, target, -1, -1,
+                    e.getMessage());
           }
-          pass = false;
         }
       }
-      if (pass) {
-        getListener().addLocation(getTarget().toString());
-        document = validator.parseAndValidate(processor, getTarget());
+      long t1 = System.currentTimeMillis();
+
+      if (isInfoLogLevel()) {
+        System.out.println(System.currentTimeMillis() + " :: " + targetFileName + " :: validateLabel() in " + (t1 - t0) + " ms");
       }
-      if (document != null) {
-        getContext().put(PDS4Context.LABEL_DOCUMENT, document);
-      }
-		} catch (SAXException | IOException | ParserConfigurationException
-				| TransformerException | MissingLabelSchemaException e) {
-		  if (e instanceof XPathException) {
-		    XPathException xe = (XPathException) e;
-		    if (!xe.hasBeenReported()) {
-          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getTarget(), -1, -1,
-              e.getMessage());		      
-		    }
-		  } else {
-  		  // Don't need to report SAXParseException messages as they have already 
-  		  // been reported by the LabelValidator's error handler
-  		  if (!(e instanceof SAXParseException)) {
-  		    reportError(GenericProblems.UNCAUGHT_EXCEPTION, getTarget(), -1, -1,
-  		        e.getMessage());
-  		  }
-		  }
-		}
 	}
 	
   private boolean validateLabelSchemas(URL label,

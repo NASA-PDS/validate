@@ -90,6 +90,7 @@ public abstract class AbstractValidationRule implements ValidationRule {
 	    throws MalformedURLException, URISyntaxException {
     RuleContext newContext = new RuleContext();
 
+    newContext.setLogLevel(context.getLogLevel());
     newContext.setProblemListener(context.getProblemListener());
     newContext.setRuleManager(context.getRuleManager());
     newContext.setTargetRegistrar(context.getTargetRegistrar());
@@ -243,5 +244,9 @@ public abstract class AbstractValidationRule implements ValidationRule {
                 url));
         }
     }
+  }
+
+  protected boolean isInfoLogLevel() {
+  	return getContext().getLogLevel().isInfoApplicable();
   }
 }

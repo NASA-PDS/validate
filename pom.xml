@@ -164,6 +164,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>1.4</version>
         <executions>
           <execution>
             <phase>validate</phase>
@@ -183,8 +184,8 @@ POSSIBILITY OF SUCH DAMAGE.
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.1.1</version>
         <executions>
           <execution>
             <id>bin-release</id>
@@ -197,6 +198,7 @@ POSSIBILITY OF SUCH DAMAGE.
                 <descriptor>src/main/assembly/tar-assembly.xml</descriptor>
                 <descriptor>src/main/assembly/zip-assembly.xml</descriptor>
               </descriptors>
+              <tarLongFileMode>posix</tarLongFileMode>
             </configuration>
           </execution>
         </executions>
@@ -211,11 +213,11 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
       <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0-M3</version>
       </plugin>
       <plugin>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0-M3</version>
       </plugin>
     </plugins>
   </build>
@@ -242,10 +244,10 @@ POSSIBILITY OF SUCH DAMAGE.
       <id>snapshots-repo</id>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
       <releases>
-  <enabled>false</enabled>
+        <enabled>false</enabled>
       </releases>
       <snapshots>
-  <enabled>true</enabled>
+        <enabled>true</enabled>
       </snapshots>
     </repository>
   </repositories>
@@ -258,6 +260,7 @@ POSSIBILITY OF SUCH DAMAGE.
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-source-plugin</artifactId>
+            <version>3.1.0</version>
             <executions>
               <execution>
                 <id>attach-sources</id>
@@ -272,6 +275,7 @@ POSSIBILITY OF SUCH DAMAGE.
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.1.1</version>
             <configuration>
               <source>1.8</source>
               <failOnError>false</failOnError>
@@ -288,7 +292,7 @@ POSSIBILITY OF SUCH DAMAGE.
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
-            <version>1.5</version>
+            <version>1.6</version>
             <executions>
                 <execution>
                     <id>sign-artifacts</id>
@@ -326,7 +330,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>commons-configuration</groupId>
       <artifactId>commons-configuration</artifactId>
-      <version>1.6</version>
+      <version>1.7</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -347,7 +351,7 @@ POSSIBILITY OF SUCH DAMAGE.
    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
-      <version>1.7.25</version>
+      <version>1.7.28</version>
     </dependency>         
     <dependency>
       <groupId>com.jamesmurty.utils</groupId>
@@ -367,12 +371,12 @@ POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.16</version>
+      <version>1.19</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>18.0</version>
+      <version>23.0</version>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
@@ -439,6 +443,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>3.0.0</version>
         <reportSets>
           <reportSet>
             <reports>
@@ -455,6 +460,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-changes-plugin</artifactId>
+        <version>2.12.1</version>
         <reportSets>
           <reportSet>
             <reports>
