@@ -149,7 +149,7 @@ public class FieldValueValidator {
   public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
     for (int i = 0; i < fields.length; i++) {
       try {
-        String value = record.getString(i+1);
+        String value = record.getString(i+1);     
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -165,13 +165,22 @@ public class FieldValueValidator {
                 (i + 1));              
           }        
         }
+        
+        //System.out.println("value = " + value + "  fields[i].getType() = " + fields[i].getType() + 
+        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength());
+        // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
+        if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
+ 	      String message = "The field is overlapping with the next field. Current field ends at " 
+ 		    	+ (fields[i].getOffset()+fields[i].getLength()) 
+ 			    + ". Next field starts at " + fields[i+1].getOffset();
+ 	      addTableProblem(ExceptionType.ERROR,
+ 			  ProblemType.FIELD_VALUE_OVERLAP,
+ 			  message,
+ 			  record.getLocation(),
+ 			  (i+1));
+        }
         // Check that the value of the field matches the defined data type
-        if (value.isEmpty()){
-            addTableProblem(ExceptionType.INFO, 
-                    ProblemType.BLANK_FIELD_VALUE,
-                    "Field is blank.", 
-                    record.getLocation(), (i+1));
-        } else {
+        if (!value.trim().isEmpty()) {
           try {
             checkType(value.trim(), fields[i].getType());
             addTableProblem(ExceptionType.DEBUG,
@@ -211,6 +220,22 @@ public class FieldValueValidator {
             checkMinMax(value.trim(), fields[i].getMinimum(), 
                 fields[i].getMaximum(), i + 1, record.getLocation());            
           } 
+        } else {
+          try {
+              checkType(value.trim(), fields[i].getType());
+              addTableProblem(ExceptionType.INFO, 
+                      ProblemType.BLANK_FIELD_VALUE,
+                      "Field is blank.", 
+                      record.getLocation(), (i+1));
+            } catch (Exception e) {
+              String message = "Value does not match its data type '"
+                  + fields[i].getType().getXMLType() + "': " + e.getMessage(); 
+              addTableProblem(ExceptionType.ERROR,
+                  ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+                  message,
+                  record.getLocation(),
+                  (i + 1));
+            }        
         }
       } catch (Exception e) {
         addTableProblem(ExceptionType.ERROR,
