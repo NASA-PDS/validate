@@ -133,6 +133,8 @@ public enum ProblemType {
     FIELD_VALUE_TOO_LONG("error.table.field_value_too_long"),
 
     FIELD_VALUE_DATA_TYPE_MISMATCH("error.table.field_value_data_type_mismatch"),
+    
+    FIELD_VALUE_OVERLAP("error.table.field_value_overlap"),
 
     BAD_FIELD_READ("error.table.bad_field_read"),
 
