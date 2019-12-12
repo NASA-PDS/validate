@@ -216,7 +216,9 @@ public enum ProblemType {
 
     FIELD_VALUE_DATA_TYPE_MATCH("debug.table.field_value_matches_data_type"),
 
-    BIT_FIELD_MATCH("debug.table.bit_field_match");
+    BIT_FIELD_MATCH("debug.table.bit_field_match"),
+    
+    TIMING_METRICS("debug.execution.time");
 
     private final String key;
 

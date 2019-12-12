@@ -1257,8 +1257,8 @@ public class ValidateLauncher {
             }
         }
 
-        if (severity.isWarningApplicable()) {
-            System.out.println(System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)");
+        if (severity.isDebugApplicable()) {
+            System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)\n");
         }
     }
 
@@ -1354,7 +1354,7 @@ public class ValidateLauncher {
      * @param args
      *            list of command-line arguments.
      */
-    public void processMain(String[] args) {
+    public void processMain(String[] args) throws Exception {
         long t0 = System.currentTimeMillis();
         try {
             CommandLine cmdLine = parse(args);
@@ -1424,10 +1424,10 @@ public class ValidateLauncher {
             }
             printReportFooter();
             if (severity.isDebugApplicable()) {
-                System.out.println(System.currentTimeMillis() + " :: processMain() in " + (System.currentTimeMillis() - t0) + " ms\n");
+                System.out.println("DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: processMain() in " + (System.currentTimeMillis() - t0) + " ms\n");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new Exception(e);
         }
     }
     
@@ -1462,8 +1462,12 @@ public class ValidateLauncher {
         ca.setThreshold(Priority.FATAL);
         BasicConfigurator.configure(ca);
 
-        new ValidateLauncher().processMain(args);
-        System.out.println(System.currentTimeMillis() + " :: main in " + (System.currentTimeMillis()-t0) + " ms\n");
+        try {
+            new ValidateLauncher().processMain(args);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Completed execution in " + (System.currentTimeMillis()-t0) + " ms\n");
     }
 
     /**

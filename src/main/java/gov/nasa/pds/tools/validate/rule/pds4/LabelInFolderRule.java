@@ -85,7 +85,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
           e.printStackTrace();
         }
 
-        System.out.println("COMPLETED " + targetCount + " targets.");
+//        System.out.println("COMPLETED " + targetCount + " targets.");
 
       } catch (IOException io) {
         reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
