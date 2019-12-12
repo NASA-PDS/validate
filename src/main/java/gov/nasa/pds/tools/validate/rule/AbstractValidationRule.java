@@ -249,4 +249,8 @@ public abstract class AbstractValidationRule implements ValidationRule {
   protected boolean isInfoLogLevel() {
   	return getContext().getLogLevel().isInfoApplicable();
   }
+
+  protected boolean isDebugLogLevel() {
+      return getContext().getLogLevel().isDebugApplicable();
+    }
 }

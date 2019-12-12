@@ -225,8 +225,8 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
       fileAreaObserveIndex++;
     }
 
-    if (isInfoLogLevel()) {
-      System.out.println(System.currentTimeMillis() + " :: " + targetFileName + " :: validateArray() in " + (System.currentTimeMillis() - t0) + " ms");
+    if (isDebugLogLevel()) {
+      System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: " + targetFileName + " :: validateArray() in " + (System.currentTimeMillis() - t0) + " ms\n");
     }
   }
   
