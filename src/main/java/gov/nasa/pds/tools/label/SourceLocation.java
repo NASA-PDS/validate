@@ -73,7 +73,7 @@ public final class SourceLocation {
 
 		SourceLocation other = (SourceLocation) obj;
 		return lineNumber==other.lineNumber && columnNumber==other.columnNumber 
-		    && url==other.getUrl();
+		    && url.equals(other.getUrl());
 	}
 
 	@Override
