@@ -371,24 +371,28 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     tableIndex,
                     reader.getCurrentRow());                
               }
+              
+              if (spotCheckData > 1) {
+                  // If spot checking is turned on, we want to skip to
+                  // the record just before the one we want to read
+                  try {
+                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1));
+                  } catch (IllegalArgumentException iae) {
+                    line = null;
+                    continue;
+                  } catch (IOException io) {
+                    throw new IOException("Error occurred "
+                        + "while reading table '" + tableIndex + "', "
+                        + "record '"
+                        + (reader.getCurrentRow() + spotCheckData) + "'");
+                  }
+              }
+              
+              // WARNING: All checks must happen before this in case we
+              // reach end of the table
               if (table instanceof TableDelimited && 
                   definedNumRecords == reader.getCurrentRow()) {
                 break;
-              }
-              if (spotCheckData > 1) {
-                // If spot checking is turned on, we want to skip to
-                // the record just before the one we want to read
-                try {
-                  record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1));
-                } catch (IllegalArgumentException iae) {
-                  line = null;
-                  continue;
-                } catch (IOException io) {
-                  throw new IOException("Error occurred "
-                      + "while reading table '" + tableIndex + "', "
-                      + "record '"
-                      + (reader.getCurrentRow() + spotCheckData) + "'");
-                }
               }
               line = reader.readNextLine();            
             }
