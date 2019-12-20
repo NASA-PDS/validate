@@ -32,7 +32,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
 
   private static final String XML_SUFFIX = ".xml";
 
-  private ExecutorService validateThreadExecutor = Executors.newFixedThreadPool(1);
+  private ExecutorService validateThreadExecutor;
 
   @Override
   public boolean isApplicable(String location) {
@@ -44,6 +44,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
    */
   @ValidationTest
   public void validateLabelsInFolder() {
+      validateThreadExecutor = Executors.newFixedThreadPool(1);
       ValidationRule labelRuleTmp = null;
 
       // issue_124:
