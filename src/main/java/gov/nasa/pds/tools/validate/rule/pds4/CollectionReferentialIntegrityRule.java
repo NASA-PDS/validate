@@ -59,6 +59,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   
   private String lid = null;
   
+  private int numOfCollections = 0;
+  
   @Override
   public boolean isApplicable(String location) {
     if (Utility.isDir(location)) {
@@ -104,6 +106,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       InventoryTableReader reader = new InventoryTableReader(collection);
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
         if (!entry.isEmpty()) {
+          numOfCollections++;
           String identifier = entry.getIdentifier();
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
@@ -185,6 +188,17 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           }
         }
         entry = reader.getNext();
+      }
+      int records = reader.getNumRecords();
+      if (this.numOfCollections>0 && records>0 && this.numOfCollections!=records) {
+    	  String message = "Number of records read is not equal "
+                  + "to the defined number of records in the collection (expected "
+                  + records + ", got " + this.numOfCollections + ").";
+    	  getListener().addProblem(new ValidationProblem(
+                  new ProblemDefinition(ExceptionType.ERROR,
+                      ProblemType.RECORDS_MISMATCH,
+                      message),
+                  collection));
       }
     } catch (InventoryReaderException e) {
       reportError(GenericProblems.UNCAUGHT_EXCEPTION, collection, -1, -1,
