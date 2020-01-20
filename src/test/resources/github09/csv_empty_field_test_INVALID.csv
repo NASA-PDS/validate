@@ -1,0 +1,10 @@
+Activity Sol,Location,Feature,Target Type,Target Name,Target Notes,RAT Brush,RAT Grind,MI Archive Sol,MB Archive Sol,APXS Archive Sol,Site,Drive,Target Location,Target Normal,APXS Alias,MB Alias,MI Alias,RAT Alias
+13, Plains,First_Soil,Soil,First_Soil1_Final,,0,0,13,, ,3,9,"0.406622, -0.859749, 0.275765","0.095748, -0.031037, -0.994659",,,FirstSoil1Final ,
+14, Plains,First_Soil,Soil,First_Soil1_Final,,0,0,,14,14,3,9,"0.406622, -0.859749, 0.275765","0.095748, -0.031037, -0.994659",Gusev_Soil,FirstSoil1Final,,
+15, Plains,First_Soil,Soil,First_Soil1_Final,,0,0,15,,,3,9,"0.406622, -0.859749, 0.275765","0.095748, -0.031037, -0.994659",,,FirstSoil1Final ,
+17, Plains,Adirondack,Rock,Prospect,,0,0,17,18,,3,27,"-3.122620, -0.991388, 0.046595","0.808194, 0.537922, -0.239715",,Prospect,Prospect ,
+18, Plains,Adirondack,Rock,Prospect,,0,0,,,18,3,27,"-3.122620, -0.991388, 0.046595","0.808194, 0.537922, -0.239715",Adirondack_asis,,,
+33, Plains,Adirondack,Rock,Blue,,0,0,,33,,3,27,"-3.084790, -0.864048, 0.132294","0.579051, 0.431888, -0.690718",,Blue,,
+33, Plains,Adirondack,Rock,Prospect,,1,0,33,,33,3,27,"-3.122620, -0.991388, 0.046595","0.808194, 0.537922, -0.239715",Adirondack_brush,,Prospect ,Prospect
+34, Plains,Adirondack,Rock,Blue,,0,0,,34,,3,27,"-3.084790, -0.864048, 0.132294","0.579051, 0.431888, -0.690718",,Blue,,
+34, Plains,Adirondack,Rock,Prospect,,2,1,34,,34,3,27,"-3.122620, -0.991388, 0.046595","0.808194, 0.537922, -0.239715",Adirondack_RAT,,Prospect ,Prospect

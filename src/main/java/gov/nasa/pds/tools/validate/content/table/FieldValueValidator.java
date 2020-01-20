@@ -179,8 +179,14 @@ public class FieldValueValidator {
  			  record.getLocation(),
  			  (i+1));
         }
-        // Check that the value of the field matches the defined data type
-        if (!value.trim().isEmpty()) {
+
+        // Per the DSV standard in section 4C.1 of the Standards Reference, empty fields are ok
+        if (value.isEmpty()) {
+          addTableProblem(ExceptionType.DEBUG, 
+                  ProblemType.BLANK_FIELD_VALUE,
+                  "Field is blank.", 
+                  record.getLocation(), (i+1));
+        } else if (!value.trim().isEmpty()) {  // Check that the value of the field matches the defined data type
           try {
             checkType(value.trim(), fields[i].getType());
             addTableProblem(ExceptionType.DEBUG,
@@ -222,8 +228,8 @@ public class FieldValueValidator {
           } 
         } else {
           try {
-              checkType(value.trim(), fields[i].getType());
-              addTableProblem(ExceptionType.INFO, 
+              checkType(value, fields[i].getType());
+              addTableProblem(ExceptionType.DEBUG, 
                       ProblemType.BLANK_FIELD_VALUE,
                       "Field is blank.", 
                       record.getLocation(), (i+1));
