@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    <Identification_Area>
+      <logical_identifier>urn:nasa:pds:mer_cs_target_list:data:mera_cs_target_list</logical_identifier>
+      <version_id>1.0</version_id>
+      <title>MER-A Contact Science Target List</title>
+      <information_model_version>1.11.0.0</information_model_version>
+      <product_class>Product_Observational</product_class>
+        <Modification_History>
+        <Modification_Detail>
+          <modification_date>2019-12-18</modification_date>
+          <version_id>1.0</version_id>
+          <description>First release</description>
+        </Modification_Detail>
+      </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+      <Time_Coordinates>
+        <start_date_time>2004-01-04T00:00:00Z</start_date_time>
+        <stop_date_time>2010-03-23T00:00:00Z</stop_date_time>
+      </Time_Coordinates>
+      <Primary_Result_Summary>
+        <purpose>Science</purpose>
+        <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+      <Investigation_Area>
+        <name>Mars Exploration Rover</name>
+        <type>Mission</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:investigation:mission.mars_exploration_rover</lid_reference>
+          <reference_type>data_to_investigation</reference_type>
+        </Internal_Reference>
+      </Investigation_Area>
+      <Observing_System>
+        <Observing_System_Component>
+          <name>Mars Exploration Rover 2</name>
+          <type>Spacecraft</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mer2</lid_reference>
+            <reference_type>is_instrument_host</reference_type>
+          </Internal_Reference>
+        </Observing_System_Component>
+      </Observing_System>
+      <Target_Identification>
+        <name>Mars</name>
+        <type>Planet</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+          <reference_type>data_to_target</reference_type>
+        </Internal_Reference>
+      </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+      <File>
+        <file_name>csv_empty_field_test_VALID.csv</file_name>
+        <creation_date_time>2019-12-18T19:00:00Z</creation_date_time>
+      </File>
+      <Header>
+        <offset unit="byte">0</offset>
+        <object_length unit="byte">214</object_length>
+        <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+        <description>The header is the first row in the file and contains column headings.</description>
+      </Header>
+      <Table_Delimited>
+        <offset unit="byte">215</offset>
+        <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+        <description>
+          This table contains a summary of MER-A targets analyzed by the Alpha Particle X-ray Spectrometer (APXS),
+		  Microscopic Imager (MI), Mossbauer (MB), and/or Rock Abrasion Tool (RAT). Target localization is provided
+		  where available, but accuracy on a target-by-target basis has not been confirmed. Target locations overlaid
+		  onto rover images are available in the Mars Exploration Rover Analyst's Notebook. The target names used by
+		  APXS, MI, MB, and RAT in their instrument data archives within the PDS are noted as aliases.
+        </description>
+        <records>9</records>
+        <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        <field_delimiter>Comma</field_delimiter>
+        <Record_Delimited>
+          <fields>19</fields>
+          <groups>0</groups>
+          <Field_Delimited>
+            <name>Activity Sol</name>
+            <field_number>1</field_number>
+            <data_type>ASCII_Real</data_type>
+            <description>
+              Sol measurement was planned.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Location</name>
+            <field_number>2</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              General location area of target.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Feature</name>
+            <field_number>3</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Feature associated with target.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Target Type</name>
+            <field_number>4</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target classification: soil, rock, trench, or scuff.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Target Name</name>
+            <field_number>5</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Name of the target.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Target Notes</name>
+            <field_number>6</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Additional notes related to the target or its location.
+            </description>
+          </Field_Delimited>    
+          <Field_Delimited>
+            <name>RAT Brush</name>
+            <field_number>7</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Number of RAT brushes complete on target for the noted sol.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>RAT Grind</name>
+            <field_number>8</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Number of RAT grinds complete on the target for the noted sol.
+            </description>
+          </Field_Delimited>      
+          <Field_Delimited>
+            <name>MI Archive Sol</name>
+            <field_number>6</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Expected PDS archive sol containing Microscopic Imager images related to the target.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>MB Archive Sol</name>
+            <field_number>10</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Expected PDS archive sol containing Mossbauer data related to the target.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>APXS Archive Sol</name>
+            <field_number>11</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Expected PDS archive sol containing Alpha Particle X-ray Spectrometer data related to the target.
+            </description>
+          </Field_Delimited>     
+          <Field_Delimited>
+            <name>Site Location</name>
+            <field_number>12</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Target location: site frame number.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Drive Location</name>
+            <field_number>13</field_number>
+            <data_type>ASCII_Integer</data_type>
+            <description>
+              Target location: drive number.
+            </description>
+          </Field_Delimited>     
+          <Field_Delimited>
+            <name>Site Frame Location</name>
+            <field_number>14</field_number>
+            <data_type>ASCII_String</data_type>
+            <unit>m</unit>
+            <description>
+              Target location, (x,y,z) in meters, within site frame.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>Site Frame Normal</name>
+            <field_number>15</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target surface normal unit vector.
+            </description>
+          </Field_Delimited>    
+          <Field_Delimited>
+            <name>APXS Alias</name>
+            <field_number>16</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target Alpha Particle X-ray Spectrometer archive name.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>MB Alias</name>
+            <field_number>17</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target Mossbauer archive name.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>MI Alias</name>
+            <field_number>18</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target Microscopic Imager archive name.
+            </description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>RAT Alias</name>
+            <field_number>19</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>
+              Target Rock Abrasion Tool archive name.
+            </description>
+          </Field_Delimited>        
+        </Record_Delimited>
+      </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>
