@@ -52,6 +52,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <excludes>
         <exclude>*-sources.jar</exclude>
         <exclude>*-test-sources.jar</exclude>
+        <exclude>*-javadoc.jar</exclude>
       </excludes>
     </fileSet>
     <fileSet>
