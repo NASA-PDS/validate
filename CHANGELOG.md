@@ -1,11 +1,49 @@
 # Change Log
 
+## [v1.18.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.18.0) (2020-01-20)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.5...v1.18.0)
+
+**Implemented enhancements:**
+
+- Update POM to use PDS Parent POM [\#158](https://github.com/NASA-PDS-Incubator/validate/issues/158)
+- L5.PRP.VA.42	The tool shall average less than 1 second execution time when content validation is disabled. [\#124](https://github.com/NASA-PDS-Incubator/validate/issues/124)
+- Validate that Table\_Character/Table\_Binary fields match the field length definitions in the label [\#56](https://github.com/NASA-PDS-Incubator/validate/issues/56)
+
+**Fixed bugs:**
+
+- Update validate to allow for empty fields in delimited tables [\#170](https://github.com/NASA-PDS-Incubator/validate/issues/170)
+- Content validation multi-threading issue [\#167](https://github.com/NASA-PDS-Incubator/validate/issues/167)
+- Spot check bug throws internal\_error when record number is multiple of spot check number [\#165](https://github.com/NASA-PDS-Incubator/validate/issues/165)
+- Remove erroneous timing messages from log output [\#160](https://github.com/NASA-PDS-Incubator/validate/issues/160)
+- Update software to check number of records specified in label matches the records in the table [\#149](https://github.com/NASA-PDS-Incubator/validate/issues/149)
+- Fix string == comparison issues per vulnerability scan [\#144](https://github.com/NASA-PDS-Incubator/validate/issues/144)
+
+**Closed issues:**
+
+- Introduce label and array timing metrics logging [\#156](https://github.com/NASA-PDS-Incubator/validate/issues/156)
+- Document new test case for I&T and delivery to I&T engineer [\#127](https://github.com/NASA-PDS-Incubator/validate/issues/127)
+- Document new performance benchmarks [\#126](https://github.com/NASA-PDS-Incubator/validate/issues/126)
+- Implement validation performance improvements [\#125](https://github.com/NASA-PDS-Incubator/validate/issues/125)
+
+**Merged pull requests:**
+
+- Update field value validator to allow empty fields [\#172](https://github.com/NASA-PDS-Incubator/validate/pull/172) ([jordanpadams](https://github.com/jordanpadams))
+- issue\_149: Update to check number of records specified in label and from the table [\#169](https://github.com/NASA-PDS-Incubator/validate/pull/169) ([hhlee445](https://github.com/hhlee445))
+- Fix spotCheckData bug for content validation of tables [\#166](https://github.com/NASA-PDS-Incubator/validate/pull/166) ([jordanpadams](https://github.com/jordanpadams))
+- Update pom to use PDS Parent POM [\#163](https://github.com/NASA-PDS-Incubator/validate/pull/163) ([jordanpadams](https://github.com/jordanpadams))
+- Update string comparison to use .equals\(\) [\#162](https://github.com/NASA-PDS-Incubator/validate/pull/162) ([jordanpadams](https://github.com/jordanpadams))
+- Update all timing metrics to only appear for DEBUG [\#161](https://github.com/NASA-PDS-Incubator/validate/pull/161) ([jordanpadams](https://github.com/jordanpadams))
+- issue\_56: Added error message when the definition of two fields in a … [\#159](https://github.com/NASA-PDS-Incubator/validate/pull/159) ([hhlee445](https://github.com/hhlee445))
+- issue\_156:  Performance Log Metrics and more [\#157](https://github.com/NASA-PDS-Incubator/validate/pull/157) ([galenatjpl](https://github.com/galenatjpl))
+- Issue 126 [\#154](https://github.com/NASA-PDS-Incubator/validate/pull/154) ([hhlee445](https://github.com/hhlee445))
+- Issue \#124: The tool shall average less than 1 second execution time when content validation is disabled [\#152](https://github.com/NASA-PDS-Incubator/validate/pull/152) ([hhlee445](https://github.com/hhlee445))
+
 ## [v1.17.5](https://github.com/NASA-PDS-Incubator/validate/tree/v1.17.5) (2019-10-25)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.4...v1.17.5)
 
 **Fixed bugs:**
 
-- Line mismatch error possibly associated with memory error [\#2](https://github.com/NASA-PDS-Incubator/validate/issues/2)
+- Suppress INFO messages related to initial fix for JAXB vulnerability [\#2](https://github.com/NASA-PDS-Incubator/validate/issues/2)
 
 **Merged pull requests:**
 
