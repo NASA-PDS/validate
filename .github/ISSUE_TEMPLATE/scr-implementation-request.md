@@ -2,7 +2,7 @@
 name: SCR implementation request
 about: CCB-approved SCR queued for implementation
 title: 'CCB-xxx: Copy SCR title here'
-labels: high, triage-needed, approved-scr
+labels: approved-scr, high, triage-needed
 assignees: jordanpadams
 
 ---
