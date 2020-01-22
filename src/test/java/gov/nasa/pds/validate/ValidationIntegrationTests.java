@@ -705,6 +705,61 @@ class ValidationIntegrationTests {
         }
     }
     
+    @Test
+    void testGithub173() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github173");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github173_1.json");
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-R", "pds4.bundle",
+                    "-t" , testPath + File.separator + "valid" + File.separator,
+                    "--skip-content-validation"
+                    
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = this.getMessageCount(reportJson, ProblemType.RECORDS_MISMATCH.getKey());
+
+            assertEquals(count, 0, ProblemType.RECORDS_MISMATCH.getKey() + " info/error messages expected.");
+            
+            // Now test with added context products
+            report = new File(outFilePath + File.separator + "report_github173_2.json");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-R", "pds4.bundle",
+                    "-t" , testPath + File.separator + "invalid" + File.separator,
+                    "--skip-content-validation"
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
+
+            gson = new Gson();
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.RECORDS_MISMATCH.getKey());
+
+            assertEquals(count, 1, ProblemType.RECORDS_MISMATCH.getKey() + " info/error messages not expected.");
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
     int getMessageCount(JsonObject reportJson, String messageTypeName) {
         int i = 0;
         JsonObject message = null;
