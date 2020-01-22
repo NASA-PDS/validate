@@ -1,5 +1,19 @@
 # Change Log
 
+## [v1.18.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.18.2) (2020-01-22)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.18.1...v1.18.2)
+
+**Fixed bugs:**
+
+- Bug with \#149 fix: Product counter is invalid and does not reset after each collection [\#173](https://github.com/NASA-PDS-Incubator/validate/issues/173)
+
+**Merged pull requests:**
+
+- Fix bug introduced from \#149 fix [\#174](https://github.com/NASA-PDS-Incubator/validate/pull/174) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.18.1](https://github.com/NASA-PDS-Incubator/validate/tree/v1.18.1) (2020-01-21)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.18.0...v1.18.1)
+
 ## [v1.18.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.18.0) (2020-01-21)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.17.5...v1.18.0)
 
