@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.transform.Source;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.commons.io.FileUtils;
@@ -68,7 +67,7 @@ public class FileReferenceValidator implements DocumentValidator {
   }
 
   @Override
-  public boolean validate(ProblemHandler handler, Source xml) {
+  public boolean validate(ProblemHandler handler, DocumentInfo xml) {
     boolean passFlag = true;
     URL systemIdUrl = null;
     try {

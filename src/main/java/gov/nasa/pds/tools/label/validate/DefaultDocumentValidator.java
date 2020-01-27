@@ -31,8 +31,6 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
-import javax.xml.transform.Source;
-
 /**
  * The intent of this class is to perform some default semantic validation
  * on the parsed PDS4 label.
@@ -46,7 +44,7 @@ public class DefaultDocumentValidator implements DocumentValidator {
       "/processing-instruction('xml-model')";
 
   @Override
-  public boolean validate(ProblemHandler handler, Source xml) {
+  public boolean validate(ProblemHandler handler, DocumentInfo xml) {
     boolean passFlag = true;
     // Check the xml-model processing instructions specification
     List<TinyNodeImpl> xmlModels = new ArrayList<TinyNodeImpl>();
