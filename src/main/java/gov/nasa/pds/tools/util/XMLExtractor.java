@@ -21,6 +21,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -28,6 +29,7 @@ import javax.xml.xpath.XPathExpressionException;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
 import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.xpath.XPathEvaluator;
@@ -41,7 +43,7 @@ import org.xml.sax.InputSource;
 */
 public class XMLExtractor {
     /** The DOM source. */
-    private DocumentInfo xml = null;
+    private Source xml = null;
 
     /** The XPath evaluator object. */
     private XPathEvaluator xpath = null;
@@ -65,11 +67,12 @@ public class XMLExtractor {
      * the default namespace.
      *
      */
-    public XMLExtractor(DocumentInfo xml) throws XPathExpressionException,
+    public XMLExtractor(Source xml) throws XPathExpressionException,
     XPathException {
       this.xml = xml;
-      this.xpath = new XPathEvaluator(this.xml.getConfiguration());
-      Configuration configuration = xpath.getConfiguration();
+      this.xpath = new XPathEvaluator();
+        Configuration configuration = xpath.getConfiguration();
+
       configuration.setLineNumbering(true);
       configuration.setXIncludeAware(Utility.supportXincludes());
       String definedNamespace = getValueFromDoc("namespace-uri(/*)");
@@ -151,7 +154,8 @@ public class XMLExtractor {
      */
     public String getValueFromDoc(String expression)
     throws XPathExpressionException, XPathException {
-        return getValueFromItem(expression, xpath.setSource(xml));
+        TreeInfo ti = xpath.getConfiguration().buildDocumentTree(xml);
+        return getValueFromItem(expression, ti); //xpath.setSource(xml));
     }
 
     /**
@@ -180,8 +184,8 @@ public class XMLExtractor {
      * @throws XPathExpressionException If the given expression was malformed.
      */
     public TinyNodeImpl getNodeFromDoc(String expression)
-    throws XPathExpressionException, XPathException {
-        return getNodeFromItem(expression, xml);
+            throws XPathExpressionException, XPathException {
+        return getNodeFromItem(expression, xpath.getConfiguration().buildDocumentTree(xml));
     }
 
     /**
@@ -211,8 +215,8 @@ public class XMLExtractor {
      * @throws XPathExpressionException If the given expression was malformed.
      */
     public List<String> getValuesFromDoc(String expression)
-    throws XPathExpressionException, XPathException {
-        return getValuesFromItem(expression, xml);
+            throws XPathExpressionException, XPathException {
+        return getValuesFromItem(expression, xpath.getConfiguration().buildDocumentTree(xml));
     }
 
     /**
@@ -246,8 +250,8 @@ public class XMLExtractor {
      * @return The Document Node.
      * @throws XPathException
      */
-    public DocumentInfo getDocNode() throws XPathException {
-        return xpath.setSource(xml).getDocumentRoot();
+    public Source getDocNode() throws XPathException {
+        return xml;
     }
 
     /**
@@ -260,8 +264,8 @@ public class XMLExtractor {
      * @throws XPathExpressionException If the given expression was malformed.
      */
     public List<TinyNodeImpl> getNodesFromDoc(String expression)
-    throws XPathExpressionException, XPathException {
-        return getNodesFromItem(expression, xml);
+            throws XPathExpressionException, XPathException {
+        return getNodesFromItem(expression, xpath.getConfiguration().buildDocumentTree(xml));
     }
 
     /**
