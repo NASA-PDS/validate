@@ -1,6 +1,17 @@
 # Change Log
 
-## [v1.19.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.19.0) (2020-01-30)
+## [v1.20.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.20.0) (2020-02-03)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.19.0...v1.20.0)
+
+**Fixed bugs:**
+
+- Memory leak issue has returned after Saxon downgrade [\#183](https://github.com/NASA-PDS-Incubator/validate/issues/183)
+
+**Merged pull requests:**
+
+- Upgrade Saxon to help prevent memory leak [\#185](https://github.com/NASA-PDS-Incubator/validate/pull/185) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.19.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.19.0) (2020-01-31)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.18.2...v1.19.0)
 
 **Fixed bugs:**
