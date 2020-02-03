@@ -977,8 +977,8 @@ validate.regexp = "*.xml"
           <tr><td>1347</td><td>40</td><td>1454s</td><td>1.1s</td></tr>
         </table>
       </subsection>
-      
-      <subsection name="Maximize Performance">
+
+    <subsection name="Maximize Performance">
         <p>There are several flags added to validate so you can split out various parts and run multiple Validate executions to speed up the processing. Here is one example of how to 
         split up execution. There are other permutations you could do to improve performance, but this is one example:</p>
         <source>
@@ -1029,7 +1029,72 @@ validate -R pds4.label --target-manifest release2_data.txt
 validate -R pds4.label --target-manifest release3_data.txt
 
         </source>
-      </subsection>
+    </subsection>
+        <subsection name="validate-parallel">
+        <p>To facilitate the splitting up, and running in parallel the data, one may use the <b>validate-parallel</b> script in the <a href="https://github.com/NASA-PDS-Incubator/validate/tree/master/src/main/resources/bin">src/main/resources/bin</a> directory.
+        <br/>This script has two prerequisites:
+            <ul>
+                <li>the <b>validate</b> program be on your system path</li>
+                <li>the <b><a href="https://www.gnu.org/software/parallel/">GNU Parallel</a></b> program be installed, and be on your system path</li>
+            </ul>
+        The usage looks like this:
+        </p>
+        <source>
+
+./validate-parallel.sh /directory/containing/products
+        </source>
+        <p>By default, this program will split your input files up into N groups, where N is the number of available cores on your machine.
+        There are some circumstances where overriding this value may improve performance.  If you wish to do so, you may use the "-n" or "--num-groups" argument. </p>
+        <source>
+
+./validate-parallel.sh /dir/containing/products --num-groups 3
+        </source>
+        When this runs, it will break your inputs up into groups, and run validate on them in parallel.
+        Here's an example showing a run with three groups:
+        <source>
+
+$ ./validate-parallel.sh -d /data/0001 --num-groups 3
+  validate binary is available (/usr/bin/validate) [OK]
+  GNU parallel binary is available (/usr/local/bin/parallel) [OK]
+  Directory to process is : /data/0001
+  Number of effective cores on this system: 8
+  Total number of products found to validate:      118
+  Cleaning up files from previous runs...
+  Splitting up inputs into 3 groups...
+  (40 files per group)
+  +--------------------+----------------+
+  |       Group        |   # in Group   |
+  +--------------------+----------------+
+  | ./validate_set_aa  |   40
+  | ./validate_set_ac  |   38
+  | ./validate_set_ab  |   40
+  +--------------------+-----------------
+
+Running all 3 groups in parallel now...
+
+validate -R pds4.label --target-manifest ./validate_set_aa
+validate -R pds4.label --target-manifest ./validate_set_ac
+validate -R pds4.label --target-manifest ./validate_set_ab
+
+Each validate command will output to an individual log.
+
+real	1m8.957s
+user	4m46.441s
+sys	0m9.094s
+
+./validate_set_aa.log  :
+0 error(s)
+0 warning(s)
+
+./validate_set_ac.log  :
+0 error(s)
+0 warning(s)
+
+./validate_set_ab.log  :
+0 error(s)
+0 warning(s)
+        </source>
+        </subsection>
     </section>
   </body>
 </document>
