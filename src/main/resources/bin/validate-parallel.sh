@@ -76,13 +76,17 @@ else
 fi
 
 NUM_CORES=`getconf _NPROCESSORS_ONLN`
-if [[ "${NUM_GROUPS}" -eq "" ]]; then
-  echo "  Splitting up into groups, based on number of cores this machine has..."
-  NUM_GROUPS=`echo $NUM_CORES`
-fi
-
+HALF_CORES=$((($NUM_CORES/2)))
 echo "  Directory to process is : ${PRODUCT_DIR}"
 echo "  Number of effective cores on this system: ${NUM_CORES}"
+echo "  Half of effective cores on this system  : ${HALF_CORES} (usually better than running all cores)"
+
+if [[ "${NUM_GROUPS}" -eq "" ]]; then
+  echo "  Splitting up into groups, based on number of cores this machine has..."
+  NUM_GROUPS=`echo $HALF_CORES`
+else
+  echo "  Splitting up into groups, based on --num-groups (${NUM_GROUPS}) specified on command-line..."
+fi
 
 find  ${PRODUCT_DIR} -name "*.xml" > validate_all_files.txt
 

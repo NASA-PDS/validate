@@ -1043,7 +1043,7 @@ validate -R pds4.label --target-manifest release3_data.txt
 
 ./validate-parallel.sh /directory/containing/products
         </source>
-        <p>By default, this program will split your input files up into N groups, where N is the number of available cores on your machine.
+        <p>By default, this program will split your input files up into N groups.  By default N is half the number of available cores on your machine.
         There are some circumstances where overriding this value may improve performance.  If you wish to do so, you may use the "-n" or "--num-groups" argument. </p>
         <source>
 
