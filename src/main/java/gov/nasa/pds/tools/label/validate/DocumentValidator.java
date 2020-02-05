@@ -17,6 +17,8 @@ package gov.nasa.pds.tools.label.validate;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import net.sf.saxon.om.DocumentInfo;
 
+import javax.xml.transform.Source;
+
 public interface DocumentValidator {
 
   /**
@@ -27,5 +29,5 @@ public interface DocumentValidator {
    *
    * @return flag indicating whether or not the step in validation was passed.
    */
-  public boolean validate(ProblemHandler handler, DocumentInfo xml);
+  public boolean validate(ProblemHandler handler, Source xml);
 }

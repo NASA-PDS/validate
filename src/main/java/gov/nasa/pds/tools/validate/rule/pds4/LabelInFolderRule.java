@@ -13,15 +13,23 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
+import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.rule.*;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,8 +39,10 @@ import java.util.concurrent.TimeUnit;
 public class LabelInFolderRule extends AbstractValidationRule {
 
   private static final String XML_SUFFIX = ".xml";
+  private static final long THREAD_TIMEOUT = 100; // HOURS
 
   private ExecutorService validateThreadExecutor;
+  List<Future<?>> futures = new ArrayList<Future<?>>();
 
   @Override
   public boolean isApplicable(String location) {
@@ -45,6 +55,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
   @ValidationTest
   public void validateLabelsInFolder() {
       validateThreadExecutor = Executors.newFixedThreadPool(1);
+
       ValidationRule labelRuleTmp = null;
 
       // issue_124:
@@ -57,36 +68,44 @@ public class LabelInFolderRule extends AbstractValidationRule {
       final ValidationRule labelRule = labelRuleTmp;
 
       Crawler crawler = getContext().getCrawler();
+      URL target = getTarget();
       try {
         int targetCount = 0;
-        for (Target t : crawler.crawl(getTarget(), false, getContext().getFileFilters())) {
+        for (Target t : crawler.crawl(target, false, getContext().getFileFilters())) {
 
-          validateThreadExecutor.execute(new Runnable() {
+            Future<?> f = validateThreadExecutor.submit(new Runnable() {
             public void run() {
               //System.out.println("\nVALIDATING : " + t.getUrl());
 
               try {
                 labelRule.execute(getChildContext(t.getUrl()));
               } catch (Exception e) {
-                System.out.println("ERROR: " + e.getMessage());
-                e.printStackTrace();
                 reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
+                e.printStackTrace();
               }
             }
           });
+
+          futures.add(f);
 
           targetCount++;
 
         } // end for
 
         try {
+          // Wait for threads to complete
+          for(Future<?> future : futures)
+              future.get();
+
           validateThreadExecutor.shutdown();
-          validateThreadExecutor.awaitTermination(100, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
           e.printStackTrace();
         }
 
-//        System.out.println("COMPLETED " + targetCount + " targets.");
+        getListener().addProblem(
+                new ValidationProblem(
+                  new ProblemDefinition(ExceptionType.DEBUG,
+                    ProblemType.GENERAL_INFO, "Targets completed: " + targetCount), target));
 
       } catch (IOException io) {
         reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());

@@ -1,5 +1,31 @@
 # Change Log
 
+## [v1.20.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.20.0) (2020-02-03)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.19.0...v1.20.0)
+
+**Fixed bugs:**
+
+- Memory leak issue has returned after Saxon downgrade [\#183](https://github.com/NASA-PDS-Incubator/validate/issues/183)
+
+**Merged pull requests:**
+
+- Upgrade Saxon to help prevent memory leak [\#185](https://github.com/NASA-PDS-Incubator/validate/pull/185) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.19.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.19.0) (2020-01-31)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.18.2...v1.19.0)
+
+**Fixed bugs:**
+
+- Fix multi-threading bug where reporting finishes prior to threads completing execution [\#180](https://github.com/NASA-PDS-Incubator/validate/issues/180)
+- Improve performance when content validation is disabled [\#178](https://github.com/NASA-PDS-Incubator/validate/issues/178)
+- Fix schematron parsing bug introduced during performance improvements [\#175](https://github.com/NASA-PDS-Incubator/validate/issues/175)
+
+**Merged pull requests:**
+
+- Fixes multi-threading and MD5 checksum generation bugs [\#181](https://github.com/NASA-PDS-Incubator/validate/pull/181) ([jordanpadams](https://github.com/jordanpadams))
+- issue\_63: Modify pom.xml to use latest pds4-jparser pkg [\#179](https://github.com/NASA-PDS-Incubator/validate/pull/179) ([hhlee445](https://github.com/hhlee445))
+- Revert back to Saxon 9.5.1-3 to avoid schematron bug [\#176](https://github.com/NASA-PDS-Incubator/validate/pull/176) ([jordanpadams](https://github.com/jordanpadams))
+
 ## [v1.18.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.18.2) (2020-01-22)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.18.1...v1.18.2)
 

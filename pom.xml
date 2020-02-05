@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>1.19.0-SNAPSHOT</version>
+  <version>1.21.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -160,7 +160,8 @@ POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
-      <version>9.5.1-3</version>
+      <!--<version>9.6.0-5</version>-->
+      <version>9.9.1-4</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>

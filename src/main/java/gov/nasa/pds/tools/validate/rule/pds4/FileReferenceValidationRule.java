@@ -330,79 +330,83 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   private List<ValidationProblem> handleChecksum(ValidationTarget target, URL urlRef,
       TinyNodeImpl fileObject, String checksumInLabel)
   throws Exception {
-    List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
-    String generatedChecksum = MD5Checksum.getMD5Checksum(urlRef);
-    int lineNumber = -1;
-    if (fileObject != null) {
-      lineNumber = fileObject.getLineNumber();
+    if (checksumManifest.isEmpty() && (checksumInLabel == null || checksumInLabel.isEmpty())) {
+        return new ArrayList<ValidationProblem>();
+    } else {
+        List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
+        String generatedChecksum = MD5Checksum.getMD5Checksum(urlRef);
+        int lineNumber = -1;
+        if (fileObject != null) {
+          lineNumber = fileObject.getLineNumber();
+        }
+        if (!checksumManifest.isEmpty()) {
+          if (checksumManifest.containsKey(urlRef)) {
+            String suppliedChecksum = checksumManifest.get(urlRef);
+            String message = "";
+            ProblemType type = null;
+            ExceptionType severity = null;
+            if (!suppliedChecksum.equals(generatedChecksum)) {
+              message = "Generated checksum '" + generatedChecksum
+                  + "' does not match supplied checksum '"
+                  + suppliedChecksum + "' in the manifest for '"
+                  + urlRef + "'";
+              severity = ExceptionType.ERROR;
+              type = ProblemType.CHECKSUM_MISMATCH;
+            } else {
+              message =  "Generated checksum '" + generatedChecksum
+                  + "' matches the supplied checksum '" + suppliedChecksum
+                  + "' in the manifest for '" + urlRef
+                  + "'";
+              severity = ExceptionType.INFO;
+              type = ProblemType.CHECKSUM_MATCHES;
+            }
+            if (!message.isEmpty()) {
+              ProblemDefinition def = new ProblemDefinition(severity, type, 
+                  message);
+              messages.add(new ValidationProblem(def, target, lineNumber, -1));
+            }
+          } else {
+            String message = "No checksum found in the manifest for '"
+                + urlRef + "'";
+            ProblemDefinition def = new ProblemDefinition(
+                ExceptionType.ERROR, ProblemType.MISSING_CHECKSUM, message);
+            messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          }
+        }
+        if (checksumInLabel != null) {
+          if (!checksumInLabel.isEmpty()) {
+            String message = "";
+            ProblemType type = null;
+            ExceptionType severity = null;
+            if (!generatedChecksum.equals(checksumInLabel)) {
+              message = "Generated checksum '" + generatedChecksum
+                  + "' does not match supplied checksum '"
+                  + checksumInLabel + "' in the product label for '"
+                  + urlRef + "'";
+              type = ProblemType.CHECKSUM_MISMATCH;
+              severity = ExceptionType.ERROR;
+            } else {
+              message = "Generated checksum '" + generatedChecksum
+                  + "' matches the supplied checksum '" + checksumInLabel
+                  + "' in the product label for '"
+                  + urlRef + "'";
+              type = ProblemType.CHECKSUM_MATCHES;
+              severity = ExceptionType.INFO;
+            }
+            if (!message.isEmpty()) {
+              ProblemDefinition def = new ProblemDefinition(severity, type, 
+                  message);
+              messages.add(new ValidationProblem(def, target, lineNumber, -1));
+            }
+          } else {
+            String message = "No checksum to compare against in the product label "
+                + "for '" + urlRef + "'";
+            ProblemDefinition def = new ProblemDefinition(
+                ExceptionType.INFO, ProblemType.MISSING_CHECKSUM_INFO, message);
+            messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          }
+        }
+        return messages;
     }
-    if (!checksumManifest.isEmpty()) {
-      if (checksumManifest.containsKey(urlRef)) {
-        String suppliedChecksum = checksumManifest.get(urlRef);
-        String message = "";
-        ProblemType type = null;
-        ExceptionType severity = null;
-        if (!suppliedChecksum.equals(generatedChecksum)) {
-          message = "Generated checksum '" + generatedChecksum
-              + "' does not match supplied checksum '"
-              + suppliedChecksum + "' in the manifest for '"
-              + urlRef + "'";
-          severity = ExceptionType.ERROR;
-          type = ProblemType.CHECKSUM_MISMATCH;
-        } else {
-          message =  "Generated checksum '" + generatedChecksum
-              + "' matches the supplied checksum '" + suppliedChecksum
-              + "' in the manifest for '" + urlRef
-              + "'";
-          severity = ExceptionType.INFO;
-          type = ProblemType.CHECKSUM_MATCHES;
-        }
-        if (!message.isEmpty()) {
-          ProblemDefinition def = new ProblemDefinition(severity, type, 
-              message);
-          messages.add(new ValidationProblem(def, target, lineNumber, -1));
-        }
-      } else {
-        String message = "No checksum found in the manifest for '"
-            + urlRef + "'";
-        ProblemDefinition def = new ProblemDefinition(
-            ExceptionType.ERROR, ProblemType.MISSING_CHECKSUM, message);
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
-      }
-    }
-    if (checksumInLabel != null) {
-      if (!checksumInLabel.isEmpty()) {
-        String message = "";
-        ProblemType type = null;
-        ExceptionType severity = null;
-        if (!generatedChecksum.equals(checksumInLabel)) {
-          message = "Generated checksum '" + generatedChecksum
-              + "' does not match supplied checksum '"
-              + checksumInLabel + "' in the product label for '"
-              + urlRef + "'";
-          type = ProblemType.CHECKSUM_MISMATCH;
-          severity = ExceptionType.ERROR;
-        } else {
-          message = "Generated checksum '" + generatedChecksum
-              + "' matches the supplied checksum '" + checksumInLabel
-              + "' in the product label for '"
-              + urlRef + "'";
-          type = ProblemType.CHECKSUM_MATCHES;
-          severity = ExceptionType.INFO;
-        }
-        if (!message.isEmpty()) {
-          ProblemDefinition def = new ProblemDefinition(severity, type, 
-              message);
-          messages.add(new ValidationProblem(def, target, lineNumber, -1));
-        }
-      } else {
-        String message = "No checksum to compare against in the product label "
-            + "for '" + urlRef + "'";
-        ProblemDefinition def = new ProblemDefinition(
-            ExceptionType.INFO, ProblemType.MISSING_CHECKSUM_INFO, message);
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
-      }
-    }
-    return messages;
   }  
 }
