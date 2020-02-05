@@ -54,6 +54,7 @@ import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.ObjectAccess;
 import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
+import gov.nasa.pds.objectAccess.InvalidTableException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.Utility;
@@ -176,15 +177,30 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
+
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
+      //System.out.println("------in TableDataContentValidation.....after getTableObjects()....");
       FieldValueValidator fieldValueValidator = new FieldValueValidator(
           getListener());
+      //System.out.println("------in TableDataContentValidation..after fieldValueValidator....");
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
           reader = new RawTableReader(table, dataFile, getTarget(), 
               tableIndex, false);
-        } catch (Exception ex) {
+        } 
+        catch (InvalidTableException ex) { // issue_63???
+        	//ex.printStackTrace();
+        	addTableProblem(ExceptionType.ERROR, 
+                    ProblemType.TABLE_FILE_READ_ERROR,
+                    "" + ex.getMessage(),
+                    dataFile,
+                    tableIndex,
+                    -1);
+                tableIndex++;
+                continue;
+        }
+        catch (Exception ex) { 
           addTableProblem(ExceptionType.ERROR, 
               ProblemType.TABLE_FILE_READ_ERROR,
               "Error occurred while trying to read table: " + ex.getMessage(),
@@ -229,6 +245,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           }
           definedNumRecords = tc.getRecords().intValueExact();
         }
+        
         TableRecord record = null;
         // We have either a character or delimited table
         try {
