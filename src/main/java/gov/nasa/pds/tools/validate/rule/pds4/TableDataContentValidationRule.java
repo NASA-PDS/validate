@@ -189,7 +189,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           reader = new RawTableReader(table, dataFile, getTarget(), 
               tableIndex, false);
         } 
-        catch (InvalidTableException ex) { // issue_63???
+        catch (InvalidTableException ex) {
         	//ex.printStackTrace();
         	addTableProblem(ExceptionType.ERROR, 
                     ProblemType.TABLE_FILE_READ_ERROR,
