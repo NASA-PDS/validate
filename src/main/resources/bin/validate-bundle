@@ -4,34 +4,48 @@
 # Script that assists with splitting up PDS-4 products into multiple
 # groups, so that they can be run in parallel by the validate program.
 #
-# Author  :  Galen Hollins
-# Updated :  2020-02-02
 #
 
 usage()
 {
     echo
-    echo "USAGE:"
+    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>]"
     echo
-    echo "  validate-parallel [-d directory] [-n num-groups]"
+    echo "  Script to run Validate Tool on a bundle parallelizing across "
+    echo "  multiple cores. This script will split up the PDS4 products in "
+    echo "  the bundle into multiple groups, and run in parallel across "
+    echo "  multiple cores. By default,the software uses half the number of "
+    echo "  available cores on the machine, or the -n flag can be used to "
+    echo "  specify a custom number of cores."
     echo
-    echo "  If no directory is specified, the current directory is used."
+    echo "  Dependencies:"
+    echo "      * GNU Parallels is installed (See https://www.gnu.org/software/parallel/)"
+    echo "      * Validate Tool is in your PATH"
+    echo "        % export PATH=\${PATH}:/path/to/validate-x.x.x/bin"
     echo
-    echo "  If num-groups is specified, then the inputs are split up into"
-    echo "  num-groups groups.  Otherwise the inputs are split up into the"
-    echo "  same amount of groups as there are processing cores on this"
-    echo "  system."
+    echo "  Arguments: "
+    echo
+    echo "  -t, --target-bundle  </path/to/bundle.xml>  Indicate the bundle to be validated "
+    echo "                                              by specifying the bundle.xml product."
+    echo
+    echo "  -n, --num-groups     <num-groups>           Optional argument to specify the number  "
+    echo "                                              of groups and cores to use for the validation."
+    echo "                                              Default: half the number of cores on the machine"
+    echo
 }
 
 ##### Main
 
-PRODUCT_DIR=.
+PRODUCT_DIR=
 NUM_GROUPS=
+RUN_DIR=validate_$(date +%Y%m%d_%H%M%S)
+mkdir -p $RUN_DIR
+cd $RUN_DIR
 
 while [ "$1" != "" ]; do
     case $1 in
-        -d | --directory )      shift
-                                PRODUCT_DIR=$1
+        -t | --target-bundle )  shift
+                                PRODUCT_DIR=$(dirname $1)
                                 ;;
         -n | --num-groups )     shift
                                 NUM_GROUPS=$1
@@ -45,6 +59,11 @@ while [ "$1" != "" ]; do
     shift
 done
 
+if [ "$PRODUCT_DIR" == "" ]; then
+    usage
+    exit 1
+fi
+
 #
 # Check to make sure validate is on the path
 #
@@ -55,7 +74,7 @@ else
   echo
   echo "  ERROR: No 'validate' found on your path."
   echo "         Please ensure this is on your environment PATH, before running this script."
-  echo "         NOTE: this script requires that the name of the binary is 'validate'."
+  echo "         See https://nasa-pds-incubator.github.io/validate/install/index.html#UNIX-Based_Environment."
   echo
   exit 1
 fi
@@ -114,21 +133,37 @@ for line in $(find . -name 'validate_set*'); do
 done
 echo "  +--------------------+-----------------"
 
-rm validate_all_files.txt
+# rm validate_all_files.txt
 
 echo
 echo "Running all $NUM_GROUPS groups in parallel now..."
 echo
 find . -name "validate_set_*" | parallel --max-args 1  echo validate -R pds4.label --target-manifest {}
 echo
+echo "Performing XML and Content validation..."
 echo "Each validate command will output to an individual log."
 time find . -name "validate_set_*" | parallel --max-args 1  "validate -R pds4.label --target-manifest {} > {}.log"
 echo
 
-for line in $(find . -name 'validate_set*.log'); do
-     echo $line " :"
-     echo "   " `grep "error(s)" $line`
-     echo "   " `grep "warning(s)" $line`
-     echo
+echo
+echo "Performing Referential Integrity validation..."
+validate -R pds4.bundle --skip-content-validation --skip-product-validation ${PRODUCT_DIR} -r validate_referential.log
+echo
+echo
+
+rm -f validate_summary.log
+for line in $(find . -name "validate_set*.log" -o -name "validate_referential.log"); do
+    echo | tee -a validate_summary.log
+    echo ">>>>>>>>>>>>>>> $line:" | tee -a validate_summary.log
+    sed -n '/Summary:/,/End of Report/p' $line | tee -a validate_summary.log
+    echo | tee -a validate_summary.log
+    echo ">>>>>>>>>>>>>>>" | tee -a validate_summary.log
+    echo | tee -a validate_summary.log
 done
 
+cd ..
+
+echo "Validation complete. See $RUN_DIR/validate_summary.log for a summary of results."
+echo "All Validate Tool execution reports can be found in $RUN_DIR."
+
+exit 0
