@@ -71,12 +71,18 @@ public class LabelInFolderRule extends AbstractValidationRule {
       URL target = getTarget();
       try {
         int targetCount = 0;
-        for (Target t : crawler.crawl(target, false, getContext().getFileFilters())) {
-
-            Future<?> f = validateThreadExecutor.submit(new Runnable() {
+        List<Target> targetList = crawler.crawl(getTarget(), false, getContext().getFileFilters());
+        
+        if (targetList.size()>0) {
+           getListener().addProblem(
+                new ValidationProblem(
+                  new ProblemDefinition(ExceptionType.DEBUG,
+                    ProblemType.GENERAL_INFO, "Targets need to be validated: " + targetList.size()), target));
+        //System.out.println("LabelInFolderRule.....Targets need to be validated: " + targetList.size()); 
+        }   
+        for (Target t : targetList) {
+        	Future<?> f = validateThreadExecutor.submit(new Runnable() {
             public void run() {
-              //System.out.println("\nVALIDATING : " + t.getUrl());
-
               try {
                 labelRule.execute(getChildContext(t.getUrl()));
               } catch (Exception e) {
@@ -85,11 +91,9 @@ public class LabelInFolderRule extends AbstractValidationRule {
               }
             }
           });
-
           futures.add(f);
-
+          
           targetCount++;
-
         } // end for
 
         try {
@@ -101,12 +105,10 @@ public class LabelInFolderRule extends AbstractValidationRule {
         } catch (Exception e) {
           e.printStackTrace();
         }
-
         getListener().addProblem(
                 new ValidationProblem(
                   new ProblemDefinition(ExceptionType.DEBUG,
                     ProblemType.GENERAL_INFO, "Targets completed: " + targetCount), target));
-
       } catch (IOException io) {
         reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
       }

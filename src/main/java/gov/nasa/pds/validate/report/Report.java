@@ -78,6 +78,8 @@ public abstract class Report {
   private int numSkipped;
   private int numFailed;
   private int numPassed;
+  protected int totalProducts; 
+  protected int numProducts;
   protected final List<String> parameters;
   protected final List<String> configurations;
   protected PrintWriter writer;
@@ -253,7 +255,10 @@ public abstract class Report {
     } else {
       this.numPassed++;
     }
+    this.numProducts++;
+    this.totalProducts = this.numFailed + this.numPassed + this.numSkipped;
     printRecordMessages(this.writer, status, sourceUri, problems);
+    //this.writer.println(" *Targets completed: " + numProducts + " product(s) of " + totalProducts + ".");
     this.writer.flush();
     return status;
   }
@@ -317,6 +322,7 @@ public abstract class Report {
     if (problem.getProblem().getSeverity().getValue() <= this.level.getValue()) {
       printRecordSkip(this.writer, sourceUri, problem);
     }
+    this.numProducts++;
     return Status.SKIP;
   }
 
@@ -353,6 +359,12 @@ public abstract class Report {
     writer.println("  " + totalErrors + " error(s)");
     writer.println("  " + totalWarnings + " warning(s)");
     writer.println();
+    writer.println("  Number of Passed product(s)/folder(s):  " + getNumPassed());
+    writer.println("  Number of Failed product(s)/folder(s):  " + getNumFailed());
+    writer.println("  Number of Skipped product(s)/folder(s): " + getNumSkipped());
+    writer.println("  Total Number of product(s)/folder(s):   " + getTotalProducts());
+    writer.println();
+    
     if (!this.messageSummary.isEmpty()) {
       writer.println("  Message Types:");
       Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
@@ -365,6 +377,8 @@ public abstract class Report {
     }
     writer.println();
     writer.println("End of Report");
+    
+    
 
 	if (this.deprecatedFlagWarning) {
       writer.println();
@@ -404,6 +418,10 @@ public abstract class Report {
    */
   public int getNumSkipped() {
     return this.numSkipped;
+  }
+  
+  public int getTotalProducts() {
+	return this.totalProducts;
   }
 
   /**

@@ -124,7 +124,8 @@ public class FullReport extends Report {
       }
       writer.print("    End Content Validation: ");
       writer.println(dataFile);
-    }    
+    }  
+    writer.println("   ** Targets completed: " + numProducts + " product(s)/folder(s).");
   }
 
   private void printProblem(PrintWriter writer,
