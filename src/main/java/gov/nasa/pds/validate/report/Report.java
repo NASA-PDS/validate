@@ -258,7 +258,6 @@ public abstract class Report {
     this.numProducts++;
     this.totalProducts = this.numFailed + this.numPassed + this.numSkipped;
     printRecordMessages(this.writer, status, sourceUri, problems);
-    //this.writer.println(" *Targets completed: " + numProducts + " product(s) of " + totalProducts + ".");
     this.writer.flush();
     return status;
   }
