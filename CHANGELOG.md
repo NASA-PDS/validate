@@ -1,5 +1,27 @@
 # Change Log
 
+## [v1.21.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.21.0) (2020-03-11)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.20.0...v1.21.0)
+
+**Implemented enhancements:**
+
+- Develop validate-bundle script for Validation performance improvements using parallelization approach [\#128](https://github.com/NASA-PDS-Incubator/validate/issues/128)
+
+**Fixed bugs:**
+
+- Validate Table\_Character groups and their specified lengths match the specified group\_length [\#63](https://github.com/NASA-PDS-Incubator/validate/issues/63)
+
+**Closed issues:**
+
+- Document new test case for I&T and deliver to I&T engineer [\#130](https://github.com/NASA-PDS-Incubator/validate/issues/130)
+- Document new performance benchmarks [\#129](https://github.com/NASA-PDS-Incubator/validate/issues/129)
+- Enhance validate performance to average \<1 second with content validation enabled [\#123](https://github.com/NASA-PDS-Incubator/validate/issues/123)
+
+**Merged pull requests:**
+
+- Validate Table\_Character groups and group\_lengths do not overlap [\#186](https://github.com/NASA-PDS-Incubator/validate/pull/186) ([hhlee445](https://github.com/hhlee445))
+- Implement validate-bundle script [\#184](https://github.com/NASA-PDS-Incubator/validate/pull/184) ([galenatjpl](https://github.com/galenatjpl))
+
 ## [v1.20.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.20.0) (2020-02-03)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.19.0...v1.20.0)
 
