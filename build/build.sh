@@ -9,5 +9,6 @@ tar -xvzf target/validate-*-bin.tar.gz
 validate-*/bin/validate -u
 cp validate-*/resources/registered_context_products.json src/main/resources/util/
 git add src/main/resources/util/
-git commit -m "Update context products"
+git commit -m "Update context products for release"
+
 set +x
