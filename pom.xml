@@ -49,10 +49,10 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
-    The Validate Tool project contains software for validating PDS4 product labels and product data.
+    The Validate Tool project contains software for validating PDS4 product labels and product data according to the PDS4 Standards.
   </description>
 
-  <url>https://pds-engineering.jpl.nasa.gov/development/pds4/current/preparation/validate/</url>
+  <url>https://nasa-pds-incubator.github.io/validate/</url>
 
   <licenses>
     <license>
@@ -151,9 +151,9 @@ POSSIBILITY OF SUCH DAMAGE.
   </build>
 
   <scm>
-    <url>https://github.com/NASA-PDS-Incubator/pds3-product-tools/tree/master</url>
-    <connection>scm:git:git://github.com/NASA-PDS-Incubator/pds3-product-tools.git</connection>
-    <developerConnection>scm:git:ssh://github.com:NASA-PDS-Incubator/pds3-product-tools.git</developerConnection>
+    <url>https://github.com/NASA-PDS-Incubator/validate/tree/master</url>
+    <connection>scm:git:git://github.com/NASA-PDS-Incubator/validate.git</connection>
+    <developerConnection>scm:git:ssh://github.com:NASA-PDS-Incubator/validate.git</developerConnection>
   </scm>
 
   <dependencies>
