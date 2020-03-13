@@ -115,7 +115,7 @@ public class SchematronTransformer {
       isoTransformer.transform(source, new StreamResult(
           schematronStyleSheet));
       transformer = transformerFactory.newTransformer(
-          new StreamSource(new StringReader(cleanSchematronStylesheet(schematronStyleSheet.toString()))));
+          new StreamSource(new StringReader(schematronStyleSheet.toString())));
     }
     return transformer;
   }
@@ -169,7 +169,7 @@ public class SchematronTransformer {
           schematronStyleSheet));
         transformer = transformerFactory.newTransformer(
             new StreamSource(new StringReader(
-                    cleanSchematronStylesheet(schematronStyleSheet.toString()))));
+                schematronStyleSheet.toString())));
       } catch (TransformerException te) {
         // Only throw problem if a handler was not set.
         if (handler == null) {
@@ -197,9 +197,5 @@ public class SchematronTransformer {
       }
     }
     return transformer;
-  }
-  
-  public String cleanSchematronStylesheet(String stylesheet) {
-    return stylesheet.replace("parent::node()", "node()[child::node()]");
   }
 }
