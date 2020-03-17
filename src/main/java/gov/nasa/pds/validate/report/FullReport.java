@@ -36,6 +36,7 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
+import gov.nasa.pds.tools.util.Utility;
 
 import java.io.PrintWriter;
 import java.net.URI;
@@ -125,7 +126,9 @@ public class FullReport extends Report {
       writer.print("    End Content Validation: ");
       writer.println(dataFile);
     }  
-    writer.println("   ** Targets completed: " + numProducts + " product(s)/folder(s).");
+    // issue_132: for the progress monitoring
+    if (!Utility.isDir(sourceUri.toString())) 
+      writer.println("   ** Targets completed: " + totalProducts + " product(s)."); 
   }
 
   private void printProblem(PrintWriter writer,

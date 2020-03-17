@@ -33,6 +33,7 @@ package gov.nasa.pds.validate.report;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.status.Status;
+import gov.nasa.pds.tools.util.Utility;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -78,6 +79,9 @@ public abstract class Report {
   private int numSkipped;
   private int numFailed;
   private int numPassed;
+  private int numPassedProds;
+  private int numFailedProds;
+  private int numSkippedProds;
   protected int totalProducts; 
   protected int numProducts;
   protected final List<String> parameters;
@@ -96,8 +100,11 @@ public abstract class Report {
     this.totalErrors = 0;
     this.totalInfos = 0;
     this.numFailed = 0;
+    this.numFailedProds = 0;
     this.numPassed = 0;
+    this.numPassedProds = 0;
     this.numSkipped = 0;
+    this.numSkippedProds = 0;
     this.deprecatedFlagWarning = false;
     this.parameters = new ArrayList<String>();
     this.configurations = new ArrayList<String>();
@@ -252,11 +259,18 @@ public abstract class Report {
     if (numErrors > 0) {
       this.numFailed++;
       status = Status.FAIL;
+      if (!Utility.isDir(sourceUri.toString())) 
+    	  this.numFailedProds++;
     } else {
       this.numPassed++;
+      if (!Utility.isDir(sourceUri.toString())) 
+    	  this.numPassedProds++;
     }
+    
+    //System.out.println("SourceUri: " + sourceUri.toString() + "    isDir = " + Utility.isDir(sourceUri.toString()));
     this.numProducts++;
-    this.totalProducts = this.numFailed + this.numPassed + this.numSkipped;
+
+    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds;
     printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();
     return status;
@@ -318,6 +332,8 @@ public abstract class Report {
   
   public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
     this.numSkipped++;
+    if (!Utility.isDir(sourceUri.toString())) 
+    	this.numSkippedProds++;
     if (problem.getProblem().getSeverity().getValue() <= this.level.getValue()) {
       printRecordSkip(this.writer, sourceUri, problem);
     }
@@ -358,10 +374,11 @@ public abstract class Report {
     writer.println("  " + totalErrors + " error(s)");
     writer.println("  " + totalWarnings + " warning(s)");
     writer.println();
-    writer.println("  Number of Passed product(s)/folder(s):  " + getNumPassed());
-    writer.println("  Number of Failed product(s)/folder(s):  " + getNumFailed());
-    writer.println("  Number of Skipped product(s)/folder(s): " + getNumSkipped());
-    writer.println("  Total Number of product(s)/folder(s):   " + getTotalProducts());
+    // issue_132: summary of passed/failed products
+    writer.println("  Number of Passed product(s):  " + this.numPassedProds);
+    writer.println("  Number of Failed product(s):  " + this.numFailedProds);
+    writer.println("  Number of Skipped product(s): " + this.numSkippedProds);
+    writer.println("  Number of Total product(s):   " + getTotalProducts());
     writer.println();
     
     if (!this.messageSummary.isEmpty()) {
