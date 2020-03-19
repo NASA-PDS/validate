@@ -93,7 +93,6 @@ public class LabelValidator {
   private List<URL> userSchemaFiles;
   private List<URL> userSchematronFiles;
   private List<Transformer> userSchematronTransformers;
-  private String modelVersion;
   private XMLReader cachedParser;
   private ValidatorHandler cachedValidatorHandler;
   private List<Transformer> cachedSchematron;
@@ -134,7 +133,6 @@ public class LabelValidator {
   TransformerConfigurationException {
     this.configurations.put(SCHEMA_CHECK, true);
     this.configurations.put(SCHEMATRON_CHECK, true);
-    modelVersion = VersionInfo.getDefaultModelVersion();
     cachedParser = null;
     cachedValidatorHandler = null;
     cachedSchematron = new ArrayList<Transformer>();
@@ -283,18 +281,6 @@ public class LabelValidator {
     return sources;
   }
 
-  private List<StreamSource> loadSchemaSourcesFromJar() {
-    String[] schemaFiles = VersionInfo.getSchemasFromJar(modelVersion).toArray(
-        new String[0]);
-    List<StreamSource> sources = new ArrayList<StreamSource>();
-    for (String schemaFile : schemaFiles) {
-      sources.add(new StreamSource(LabelValidator.class
-          .getResourceAsStream(VersionInfo.getSchemaRefFromJar(modelVersion,
-              schemaFile))));
-    }
-    return sources;
-  }
-
   public synchronized void validate(ProblemHandler handler, File labelFile)
   throws SAXException, IOException, ParserConfigurationException,
   TransformerException, MissingLabelSchemaException {
@@ -425,17 +411,6 @@ public class LabelValidator {
         if (useLabelSchematron) {
           cachedSchematron = loadLabelSchematrons(labelSchematronRefs, url,
               handler);
-        } else if ( (userSchematronTransformers.isEmpty()) &&
-            (userSchematronFiles == null) ) {
-          // If user does not provide schematron then use ones in jar if available
-          for (String schematronFile : VersionInfo
-              .getSchematronsFromJar(modelVersion)) {
-            cachedSchematron.add(schematronTransformer.transform(
-                new StreamSource(LabelValidator.class.getResourceAsStream(
-                    VersionInfo.getSchematronRefFromJar(
-                        modelVersion, schematronFile)))
-                ));
-          }
         } else {
           if (!userSchematronTransformers.isEmpty()) {
             cachedSchematron = userSchematronTransformers;
@@ -534,13 +509,6 @@ public class LabelValidator {
       } else if (resolver == null) {
         if (useLabelSchema) {
           validatingSchema = schemaFactory.newSchema();
-        } else if (VersionInfo.isInternalMode()) {
-          // There is no catalog file
-
-          // No external schema directory was specified so load from jar
-          validatingSchema = schemaFactory
-              .newSchema(loadSchemaSourcesFromJar().toArray(
-                  new StreamSource[0]));
         } else {
           // Load from user specified external directory
           validatingSchema = schemaFactory.newSchema(loadSchemaSources(
@@ -800,19 +768,6 @@ public class LabelValidator {
        columnNumber
     );
 
-  }
-
-  public String getModelVersion() {
-    return modelVersion;
-  }
-
-  public void setModelVersion(String modelVersion) throws ValidatorException {
-    if (!VersionInfo.getSupportedModels().contains(modelVersion)) {
-      throw new ValidatorException(ExceptionType.ERROR, "Unsupported model version \""
-          + modelVersion + "\" use one of "
-          + VersionInfo.getSupportedModels().toString());
-    }
-    this.modelVersion = modelVersion;
   }
 
   public Boolean performsSchemaValidation() {

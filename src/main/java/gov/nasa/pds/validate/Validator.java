@@ -109,7 +109,6 @@ public abstract class Validator {
     this.report = report;
     this.catalogs = new ArrayList<String>();
     this.labelValidator = new LabelValidator();
-    this.labelValidator.setModelVersion(modelVersion);
     this.force = false;
     schemaValidator = new SchemaValidator();
   }

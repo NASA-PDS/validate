@@ -50,8 +50,6 @@ public class VersionInfo {
 
   public final static String COPYRIGHT = "core.copyright";
 
-  public final static String MODEL_VERSION = "model.version";
-
   public final static String SCHEMA_DIR = "schema";
 
   public final static String SCHEMA_DIR_PROP = "core.schema.dir";
@@ -117,10 +115,6 @@ public class VersionInfo {
     return props.getProperty(COPYRIGHT);
   }
 
-  public static String getDefaultModelVersion() {
-    return props.getProperty(MODEL_VERSION);
-  }
-
   public static String getSchematronNamespace() {
     return props.getProperty(SCHEMATRON_NAMESPACE);
   }
@@ -169,11 +163,7 @@ public class VersionInfo {
   }
   
   public static List<String> getSchemas() {
-    if (internalMode) {
-      return getSchemasFromJar(getDefaultModelVersion());
-    } else {
-      return getDirectoryFileNames(schemaDir);
-    }
+    return getDirectoryFileNames(schemaDir);
   }
   
   public static List<String> getDirectoryFileNames(File directory) {

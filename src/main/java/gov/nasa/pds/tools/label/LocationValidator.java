@@ -213,10 +213,6 @@ public class LocationValidator {
 		return rule;
 	}
 
-	public void setModelVersion(String modelVersion) throws ValidatorException {
-		labelValidator.setModelVersion(modelVersion);
-	}
-
 	public void setSchema(List<URL> schemaFiles) {
 		labelValidator.setSchema(schemaFiles);
 	}

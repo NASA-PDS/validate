@@ -91,7 +91,6 @@ public class ValidatorFactory {
   TransformerConfigurationException, ParserConfigurationException {
     if (cachedValidator == null) {
     	cachedValidator = new LocationValidator(logLevel);
-    	cachedValidator.setModelVersion(modelVersion);
     	for(DocumentValidator dv : documentValidators) {
     		cachedValidator.addValidator(dv);
     	}

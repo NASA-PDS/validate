@@ -138,9 +138,6 @@ public class ValidateLauncher {
     /** Indicates the report style format. */
     private String reportStyle;
 
-    /** The model version to use during validation. */
-    private String modelVersion;
-
     /**
      * Flag to force the tool to validate against the schema and schematron
      * specified in the given label.
@@ -216,7 +213,6 @@ public class ValidateLauncher {
         reportFile = null;
         traverse = true;
         severity = ExceptionType.WARNING;
-        modelVersion = VersionInfo.getDefaultModelVersion();
         report = null;
         reportStyle = "full";
         force = true;
@@ -378,7 +374,6 @@ public class ValidateLauncher {
              * https://github.com/NASA-PDS-Incubator/validate/issues/23
              **/
             else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
-                setModelVersion(o.getValue());
                 deprecatedFlagWarning = true;
             } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
                 setForce(true);
@@ -867,16 +862,6 @@ public class ValidateLauncher {
             ;
     }
 
-    /**
-     * Sets the model version to use during validation.
-     *
-     * @param version
-     *            The model version.
-     */
-    public void setModelVersion(String version) {
-        this.modelVersion = version;
-    }
-
     public void setForce(boolean value) {
         this.force = value;
     }
@@ -1067,16 +1052,9 @@ public class ValidateLauncher {
      *             information.
      */
     public void displayVersion() throws IOException {
-        String schema = VersionInfo.getSchemasFromJar(VersionInfo.getDefaultModelVersion()).toString()
-                .replaceAll("[\\[\\]]", "");
-        String schematron = VersionInfo.getSchematronsFromJar(VersionInfo.getDefaultModelVersion()).toString()
-                .replaceAll("[\\[\\]]", "");
-
         System.err.println("\n" + ToolInfo.getName());
         System.err.println(ToolInfo.getVersion());
         System.err.println("Release Date: " + ToolInfo.getReleaseDate());
-        System.err.println("Core Schema: " + schema);
-        System.err.println("Core Schematron: " + schematron);
         System.err.println(ToolInfo.getCopyright() + "\n");
     }
 
@@ -1107,21 +1085,8 @@ public class ValidateLauncher {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = Calendar.getInstance().getTime();
-        List<String> coreSchemas = VersionInfo.getSchemasFromJar(modelVersion);
-        List<String> coreSchematrons = VersionInfo.getSchematronsFromJar(modelVersion);
         report.addConfiguration("   Version                       " + version);
         report.addConfiguration("   Date                          " + df.format(date));
-        if (!force) {
-            if (schemas.isEmpty() && catalogs.isEmpty()) {
-                report.addConfiguration("   Core Schemas                  " + coreSchemas);
-            }
-            if (schematrons.isEmpty() && catalogs.isEmpty()) {
-                report.addConfiguration("   Core Schematrons              " + coreSchematrons);
-            }
-            if (((schematrons.isEmpty() || schemas.isEmpty()) && catalogs.isEmpty())) {
-                report.addConfiguration("   Model Version                 " + modelVersion);
-            }
-        }
         report.addParameter("   Targets                       " + targets);
         if (validationRule != null) {
             report.addParameter("   Rule Type                     " + validationRule);
@@ -1184,7 +1149,6 @@ public class ValidateLauncher {
         // Initialize the Factory Class
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
         factory = ValidatorFactory.getInstance();
-        factory.setModelVersion(modelVersion);
         factory.setDocumentValidators(docValidators);
         for (URL target : targets) {
             try {
