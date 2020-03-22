@@ -9,7 +9,7 @@
 usage()
 {
     echo
-    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>]"
+    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>] [-r <report-file-path>]"
     echo
     echo "  Script to run Validate Tool on a bundle parallelizing across "
     echo "  multiple cores. This script will split up the PDS4 products in "
@@ -17,6 +17,15 @@ usage()
     echo "  multiple cores. By default,the software uses half the number of "
     echo "  available cores on the machine, or the -n flag can be used to "
     echo "  specify a custom number of cores."
+    echo
+    echo "  NOTE: This tool is intended for *archival validation* of a bundle only and does not accept"
+    echo "  the same parameters as validate. It performs the following validation by default:"
+    echo "  * Syntactic and Semantic Product Validation - uses Schema and Schematron to validate"
+    echo "    every product in the bundle."
+    echo "  * Product Content Validation - validate the content of a product matches that described in"
+    echo "    label."
+    echo "  * Bundle Referential Integrity Validation - ensure accuracy of relationships between bundle,"
+    echo "    collections, and products (validate -R pds4.bundle)."
     echo
     echo "  Dependencies:"
     echo "      * GNU Parallels is installed (See https://www.gnu.org/software/parallel/)"
@@ -32,15 +41,19 @@ usage()
     echo "                                              of groups and cores to use for the validation."
     echo "                                              Default: half the number of cores on the machine"
     echo
+    echo "  -r, --report-file    <report-file-path>     Optional argument to specify the file path to output"
+    echo "                                              the final summary report."
+    echo "                                              NOTE: Reports from all parallel executed validation"
+    echo "                                                    runs will be output to the parent directory of"
+    echo "                                                    this file path."
+    echo
 }
 
 ##### Main
 
 PRODUCT_DIR=
 NUM_GROUPS=
-RUN_DIR=validate_$(date +%Y%m%d_%H%M%S)
-mkdir -p $RUN_DIR
-cd $RUN_DIR
+REPORT_FILE=$(pwd)/validate_summary.log
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -49,6 +62,9 @@ while [ "$1" != "" ]; do
                                 ;;
         -n | --num-groups )     shift
                                 NUM_GROUPS=$1
+                                ;;
+        -r | --report-file )     shift
+                                REPORT_FILE=$1
                                 ;;
         -h | --help )           usage
                                 exit
@@ -63,6 +79,14 @@ if [ "$PRODUCT_DIR" == "" ]; then
     usage
     exit 1
 fi
+
+
+# Setup the directory to run the the parallel processes
+RUN_DIR=$(dirname $REPORT_FILE)/validate_$(date +%Y%m%d_%H%M%S)
+mkdir -p $RUN_DIR
+cd $RUN_DIR
+
+REPORT_FILE=$(basename $REPORT_FILE)
 
 #
 # Check to make sure validate is on the path
@@ -151,19 +175,19 @@ validate -R pds4.bundle --skip-content-validation --skip-product-validation ${PR
 echo
 echo
 
-rm -f validate_summary.log
+rm -f $REPORT_FILE
 for line in $(find . -name "validate_set*.log" -o -name "validate_referential.log"); do
-    echo | tee -a validate_summary.log
-    echo ">>>>>>>>>>>>>>> $line:" | tee -a validate_summary.log
-    sed -n '/Summary:/,/End of Report/p' $line | tee -a validate_summary.log
-    echo | tee -a validate_summary.log
-    echo ">>>>>>>>>>>>>>>" | tee -a validate_summary.log
-    echo | tee -a validate_summary.log
+    echo | tee -a $REPORT_FILE
+    echo ">>>>>>>>>>>>>>> $line:" | tee -a $REPORT_FILE
+    sed -n '/Summary:/,/End of Report/p' $line | tee -a $REPORT_FILE
+    echo | tee -a $REPORT_FILE
+    echo ">>>>>>>>>>>>>>>" | tee -a $REPORT_FILE
+    echo | tee -a $REPORT_FILE
 done
 
 cd ..
 
-echo "Validation complete. See $RUN_DIR/validate_summary.log for a summary of results."
+echo "Validation complete. See $RUN_DIR/$REPORT_FILE for a summary of results."
 echo "All Validate Tool execution reports can be found in $RUN_DIR."
 
 exit 0
