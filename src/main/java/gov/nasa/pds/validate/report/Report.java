@@ -73,6 +73,7 @@ public abstract class Report {
                                                     "      of other flags. Please change software execution to use the new flag to avoid any issues.");
 
   private boolean deprecatedFlagWarning;
+  protected boolean integrityCheckFlag;
   private int totalWarnings;
   private int totalErrors;
   private int totalInfos;
@@ -82,8 +83,12 @@ public abstract class Report {
   private int numPassedProds;
   private int numFailedProds;
   private int numSkippedProds;
-  protected int totalProducts; 
+  protected int totalProducts;
   protected int numProducts;
+  private int numPassedIntegrityChecks;
+  private int numFailedIntegrityChecks;
+  private int numSkippedIntegrityChecks;
+  protected int totalIntegrityChecks;
   protected final List<String> parameters;
   protected final List<String> configurations;
   protected PrintWriter writer;
@@ -105,6 +110,10 @@ public abstract class Report {
     this.numPassedProds = 0;
     this.numSkipped = 0;
     this.numSkippedProds = 0;
+    this.numFailedIntegrityChecks = 0;
+    this.numPassedIntegrityChecks = 0;
+    this.numSkippedIntegrityChecks = 0;
+    this.integrityCheckFlag = false;
     this.deprecatedFlagWarning = false;
     this.parameters = new ArrayList<String>();
     this.configurations = new ArrayList<String>();
@@ -259,18 +268,29 @@ public abstract class Report {
     if (numErrors > 0) {
       this.numFailed++;
       status = Status.FAIL;
-      if (!Utility.isDir(sourceUri.toString())) 
-    	  this.numFailedProds++;
+      if (!Utility.isDir(sourceUri.toString())) {
+    	  if (!this.integrityCheckFlag) {
+    	      this.numFailedProds++;
+    	  } else {
+    	      this.numFailedIntegrityChecks++;
+    	  }
+      }
     } else {
       this.numPassed++;
-      if (!Utility.isDir(sourceUri.toString())) 
-    	  this.numPassedProds++;
+      if (!Utility.isDir(sourceUri.toString())) {
+          if (!this.integrityCheckFlag) { 
+              this.numPassedProds++;
+          } else {
+              this.numPassedIntegrityChecks++;
+          }
+      }
     }
     
     //System.out.println("SourceUri: " + sourceUri.toString() + "    isDir = " + Utility.isDir(sourceUri.toString()));
     this.numProducts++;
 
     this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds;
+    this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks + this.numSkippedIntegrityChecks;
     printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();
     return status;
@@ -332,8 +352,13 @@ public abstract class Report {
   
   public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
     this.numSkipped++;
-    if (!Utility.isDir(sourceUri.toString())) 
-    	this.numSkippedProds++;
+    if (!Utility.isDir(sourceUri.toString())) { 
+        if (!this.integrityCheckFlag) { 
+            this.numSkippedProds++;
+        } else {
+            this.numSkippedIntegrityChecks++;
+        }
+    }
     if (problem.getProblem().getSeverity().getValue() <= this.level.getValue()) {
       printRecordSkip(this.writer, sourceUri, problem);
     }
@@ -375,10 +400,18 @@ public abstract class Report {
     writer.println("  " + totalWarnings + " warning(s)");
     writer.println();
     // issue_132: summary of passed/failed products
-    writer.println("  Number of Passed product(s):  " + this.numPassedProds);
-    writer.println("  Number of Failed product(s):  " + this.numFailedProds);
-    writer.println("  Number of Skipped product(s): " + this.numSkippedProds);
-    writer.println("  Number of Total product(s):   " + getTotalProducts());
+    writer.println("  Product Validation Summary:");
+    writer.printf("    %-10d product(s) passed\n", this.numPassedProds);
+    writer.printf("    %-10d product(s) failed\n", this.numFailedProds);
+    writer.printf("    %-10d product(s) skipped\n", this.numSkippedProds);
+//    writer.println("  Total # of Product(s) processed:   " + getTotalProducts());
+    writer.println();
+    writer.println("  Referential Integrity Check Summary:");
+    writer.printf("    %-10d check(s) passed\n", this.numPassedIntegrityChecks);
+    writer.printf("    %-10d check(s) failed\n", this.numFailedIntegrityChecks);
+    writer.printf("    %-10d check(s) skipped\n", this.numSkippedIntegrityChecks);
+//    writer.println("  Total # of Integrity Check(s) processed:   " + getTotalIntegrityChecks());
+    
     writer.println();
     
     if (!this.messageSummary.isEmpty()) {
@@ -438,6 +471,10 @@ public abstract class Report {
   
   public int getTotalProducts() {
 	return this.totalProducts;
+  }
+  
+  public int getTotalIntegrityChecks() {
+      return this.totalIntegrityChecks;
   }
 
   /**
