@@ -36,6 +36,7 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
+import gov.nasa.pds.tools.util.Utility;
 
 import java.io.PrintWriter;
 import java.net.URI;
@@ -59,6 +60,14 @@ public class FullReport extends Report {
   @Override
   protected void printHeader(PrintWriter writer, String title) {
     //writer.println("Validation Details:");
+
+    // A hacky way to properly track when we are completing product validation versus integrity 
+    // checks. Once we try to print a header other than the initial product level validation,
+    // we are now into integrity checks.
+    if (title.toLowerCase().contains("pds4 bundle") || title.toLowerCase().contains("pds4 collection")) {
+        this.integrityCheckFlag = true;
+    }
+
     writer.println();
     writer.println();
     writer.println(title);
@@ -124,7 +133,20 @@ public class FullReport extends Report {
       }
       writer.print("    End Content Validation: ");
       writer.println(dataFile);
-    }    
+    }  
+    // issue_132: for the progress monitoring
+    if (!Utility.isDir(sourceUri.toString())) {
+      String msg = "";
+      if (totalProducts > 0) {
+        msg = "        " + totalProducts + " product validation(s) completed";
+      }
+      
+      if (totalIntegrityChecks > 0) {
+        msg = "        " + totalIntegrityChecks + " integrity check(s) completed";
+      }
+
+      writer.println(msg);
+    }
   }
 
   private void printProblem(PrintWriter writer,
