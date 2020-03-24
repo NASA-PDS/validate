@@ -52,7 +52,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </ul>
     </section>
     
-    <section name="Getting Started">
+    <section name="Quick Start">
       <p>Initially, Validate Tool works out of the box without needing to perform any additional function:</p>
       
       <ul>
@@ -112,11 +112,11 @@ or
     </section>
 
     <section name="System Requirements">
-      <p>This section details the system requirements for installing and operating the Validate Tool.
+      <p>If you run into issues attempting to run Validate out of the box, this section details the system requirements for installing and operating the Validate Tool.
       </p>
 
       <subsection name="Java Runtime Environment">
-        <p>The Validate Tool was developed using Java and will run on any platform with a supported Java Runtime Environment (JRE). The software was specifically compiled for and tested in Java version 1.8. The following commands test the local Java installation in a UNIX-based environment:
+        <p>The Validate Tool was developed using Java and will run on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a>. The software was specifically compiled for and tested in Java version 1.8. The following commands test the local Java installation in a UNIX-based environment:
         </p>
 
         <source>
@@ -129,13 +129,13 @@ Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
         </source>
 
-        <p>The first command above checks whether the <i>java</i> executable is in the environment's path and the second command reports the version. If Java is not installed or the version is not at least 1.8, Java will need to be downloaded and installed in the current environment. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="http://www.oracle.com/technetwork/java/javase/downloads/" target="_blank">Oracle Java Download</a> page. The suggested software package is the Java Standard Edition (SE) 8, either the JDK or the JRE package. The JDK package is not necessary to run the software but could be useful if development and compilation of Java software will also occur in the current environment.
+        <p>If the either of these commands fail, it indicates Java is not installed or the version is not at least 1.8. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="https://openjdk.java.net/install/" target="_blank">Java Download</a> page.
         </p>
       </subsection>
     </section>
 
     <section name="Configuring the Environment">
-      <p>In order to execute the Validate Tool, the local environment must first be configured appropriately. This section describes how to setup the user environment on UNIX-based and Windows machines.
+      <p>If you want to run Validate from anywhere on your system, you will need to configure your PATH to know where Validate is located. This section describes how to setup the user environment on UNIX-based and Windows machines.
       </p>
 
       <subsection name="UNIX-Based Environment">
@@ -146,7 +146,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
         </p>
 
         <source>
+# For a Bash Unix system, add the following to your $HOME/.bashrc
 % export PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin
+
+# For a C-Shell Unix system, add the following to your $HOME/.cshrc
+% set "PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin"
         </source>
 
         <p>In addition, it is recommended that the <i>JAVA_HOME</i> environment variable be set. It should point to the appropriate location of the Java installation on the local machine. If this is not set, then the shell script tries to resolve it via the <i>which java</i> command. If it still cannot find Java at this point, then an error is returned.
@@ -155,7 +159,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
         <p>The following command demonstrates how to set the <i>JAVA_HOME</i> environment variable:
         </p>
         <source>
+# For a Bash Unix system, add the following to your $HOME/.bashrc
 % export JAVA_HOME=/path/to/java/home
+
+# For a C-Shell Unix system, add the following to your $HOME/.cshrc
+% set JAVA_HOME=/usr
         </source>
 
         <p>The system administrator for the local machine may need to be consulted for this location. The path specified should have a <i>bin</i> sub-directory that contains the <i>java</i> executable. This variable may also be defined within the scripts. Edit the scripts (files without the .bat extension) and change the line in the example above to represent the local Java installation.

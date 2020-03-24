@@ -42,7 +42,16 @@ POSSIBILITY OF SUCH DAMAGE.
     <section name="About Validate Tool">
       <p>The Validate Tool project contains software for validating PDS4 product labels and product data. The associated specific schema for the product label specifies syntactic and semantic constraints. The product label itself specifies the constraints for the data.
       </p>
-      
+     
+      <ul>
+        <li><a href="#Tool_Overview">Tool Overview</a></li>
+        <li><a href="#Contribute">Contribute</a></li>
+        <li><a href="#Contribute">Found a bug? New Feature request?</a></li>
+      </ul>
+     
+    </section>
+
+    <section name="Tool Overview">
       <p>The Validate Tool currently supports the following features:
       </p>
       
@@ -99,8 +108,22 @@ POSSIBILITY OF SUCH DAMAGE.
          <li>Verify that the elements match the object statistics defined within their associated label, if they exist</li>
       </ul>
 
-      <p>Please send comments, change requests and bug reports to the <a href="mailto:pds_operator@jpl.nasa.gov">PDS Operator</a> at pds_operator@jpl.nasa.gov.
+    </section>
+    
+    <section name="Contribute">
+      <p><b><i>Found a bug?</i></b> Or <b><i>want a new feature?</i></b> would love your feedback and contributions. Here are some links to our public Github repository for submitting issues, contributing documentation, or
+        code updates:</p>
+      
+      <ul>
+        <li>Issue Tracker: <a href="https://github.com/NASA-PDS-Incubator/validate/issues">https://github.com/NASA-PDS-Incubator/validate/issues</a></li>
+        <li>Source Code: <a href="https://github.com/NASA-PDS-Incubator/validate/">https://github.com/NASA-PDS-Incubator/validate</a></li>
+        <li>Wiki: <a href="https://github.com/NASA-PDS-Incubator/validate/wiki">https://github.com/NASA-PDS-Incubator/validate/wiki</a></li>
+      </ul>
+      
+      <p>Any other additional feedback, please contact us at <a href="mailto:pds_operator@jpl.nasa.gov">pds_operator@jpl.nasa.gov</a>.
       </p>
+      
+      <p></p>
     </section>
   </body>
 </document>
