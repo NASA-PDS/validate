@@ -53,7 +53,7 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
   static {
     for (int i=0; i < ALLOWED_BUNDLE_NAME_PREFIXES.length; ++i) {
       StringBuilder builder = new StringBuilder(ALLOWED_BUNDLE_NAME_PREFIXES[i]);
-      builder.append("(_");
+      builder.append("(");
       builder.append(DIRECTORY_ALLOWED_CHARACTERS);
       builder.append("*)?");
 
@@ -62,9 +62,9 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
   }
 
   private static final String ALLOWED_FILE_NAMES[] = {
-    "bundle(_[A-Za-z0-9_.-]*)?\\.xml",
+    "bundle([A-Za-z0-9_.-]*)?\\.xml",
     "readme.html",
-    "readme(_[A-Za-z0-9_.-]*)?\\.txt"
+    "readme([A-Za-z0-9_.-]*)?\\.txt"
   };
 
   private static final Pattern[] ALLOWED_FILE_NAME_PATTERNS = new Pattern[ALLOWED_FILE_NAMES.length];
