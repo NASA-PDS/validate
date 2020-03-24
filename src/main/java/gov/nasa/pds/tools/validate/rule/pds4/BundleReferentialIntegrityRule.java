@@ -46,7 +46,7 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
  */
 public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   private static final Pattern BUNDLE_LABEL_PATTERN = 
-      Pattern.compile("(.*_)*bundle(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
+      Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
   
   private static final String PRODUCT_CLASS =
       "//*[starts-with(name(),'Identification_Area')]/product_class";
@@ -86,7 +86,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   public void bundleReferentialIntegrityRule() {
     try {
       List<Target> children = getContext().getCrawler().crawl(getTarget());
-      // Check for bundle(_.*)?\.xml file.
+      // Check for bundle(.*)?\.xml file.
       for (Target child : children) {
         Matcher matcher = BUNDLE_LABEL_PATTERN.matcher(
             FilenameUtils.getName(child.toString()));
