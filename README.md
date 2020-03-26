@@ -29,59 +29,34 @@ A release candidate should be created after the community has determined that a 
 git clone git@github.com:NASA-PDS-Incubator/validate.git
 ```
 
-## Update IM and PDS4 JParser Versions
 
-If this release for a [PDS4 Information Model](https://github.com/NASA-PDS-Incubator/pds4-information-model) release.
-
-1. [Create 2 tickets](https://github.com/NASA-PDS-Incubator/validate/issues/new/choose) to ingest candidate and released IM, e.g. :
-```
-1. Build release candidate for Build 10a
-2. Build operational release for Build 10a
-```
-
-2. Upgrade [PDS4 JParser](https://github.com/NASA-PDS-Incubator/pds4-jparser) and IM version in pom.xml:
-```
-<project >
-...
-  <properties>
-    <pds4-jparser.version>1.2.0</pds4-jparser.version>
-    <model-version>1D00</model-version>
-    ...
-  <properties>
-...
-</project>
-```
-
-3. And add latest IM schema/schematron:
-```
-mkdir src/main/resources/schema/1D00
-cd src/main/resources/schema/1D00
-wget https://pds.jpl.nasa.gov/datastandards/schema/develop/pds/PDS4_PDS_1D00.xsd
-wget https://pds.jpl.nasa.gov/datastandards/schema/develop/pds/PDS4_PDS_1D00.sch
-```
-
-4. Commit updates.
-```
-IM_VERSION=1D00
-git add pom.xml src/main/resources/schema/$IM_VERSION
-git commit -m "Update to latest PDS4 Information Model v$IM_VERSION"
-```
-
-## Update Registered Context Products JSON
+## Run pre-build software
 
 Until we automate this, we must manually generate this file. Follow [semantic versioning](https://semver.org/) for version numbers.
 
 ```
-mvn clean package
-tar -xvzf target/validate-*-bin.tar.gz
-validate-*/bin/validate -u -t /tmp
-cp validate-*/resources/registered_context_products.json src/main/resources/util/
-rm -fr validate-*
-git add src/main/resources/util/registered_context_products.json
-# Will commit later on
+$ build/pre-build.sh
+
++ rm -fr validate-1.22.0-SNAPSHOT/
++ mvn clean package -DskipTests
+...
++ cp validate-1.22.0-SNAPSHOT/resources/registered_context_products.json src/main/resources/util/
++ git add src/main/resources/util/
++ git commit -m 'Update context products for release'
+[master a54fc34] Update context products for release
+ 3 files changed, 4842 insertions(+), 18478 deletions(-)
+ rename build/{build.sh => pre-build.sh} (100%)
+ rewrite src/main/resources/util/registered_context_products.json (73%)
++ set +x
 ```
 
-## Update Version Numbers
+## Release with ConMan
+
+For internal JPL use, the ConMan software package can be used for releasing software, otherwise the following sections outline how to complete these steps manually.
+
+## Manual Release
+
+### Update Version Numbers
 
 Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 
@@ -92,7 +67,7 @@ mvn versions:set -DnewVersion=$VERSION
 git add pom.xml
 ```
 
-## Update Changelog
+### Update Changelog
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
 # For RELEASE CANDIDATE, set VERSION to future release version.
@@ -101,7 +76,7 @@ github_changelog_generator --future-release v$VERSION
 git add CHANGELOG.md
 ```
 
-## Commit Changes
+### Commit Changes
 Commit changes using following template commit message:
 ```
 # For operational release
@@ -115,7 +90,7 @@ git commit -m "[RELEASE] Validate v${VERSION}-rc${CANDIDATE_NUM}"
 git push -u origin master
 ```
 
-## Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
+### Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
 
 ```
 # For operational release
@@ -142,7 +117,7 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ```
 
-## Push Tagged Release
+### Push Tagged Release
 ```
 # For Release Candidate, you may need to delete old SNAPSHOT tag
 git push origin :v$VERSION
@@ -153,7 +128,7 @@ git push --tags
 
 ```
 
-## Deploy Site to Github Pages
+### Deploy Site to Github Pages
 
 From cloned repo:
 ```
@@ -177,7 +152,7 @@ git commit -m "Deploy ${VERSION}-rc${CANDIDATE_NUM} docs"
 git push origin gh-pages
 ```
 
-## Update Versions For Development
+### Update Versions For Development
 
 Update `pom.xml` with the next SNAPSHOT version either manually or using Github Versions Plugin.
 
@@ -196,7 +171,7 @@ git commit -m "Update version for $VERSION development"
 git push -u origin master
 ```
 
-## Complete Release in Github
+### Complete Release in Github
 Currently the process to create more formal release notes and attach Assets is done manually through the [Github UI](https://github.com/NASA-PDS-Incubator/validate/releases/new) but should eventually be automated via script.
 
 *NOTE: Be sure to add the `tar.gz` and `zip` from the `target/` directory to the release assets, and use the CHANGELOG generated above to create the RELEASE NOTES.*
