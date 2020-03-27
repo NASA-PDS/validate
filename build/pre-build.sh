@@ -25,5 +25,9 @@ git add src/main/resources/util/
 git commit -m "Update context products for release"
 
 mvn versions:set-property -Dproperty=pds4-jparser.version -DnewVersion=$version
+git add pom.xml
+git commit -m "Upgrade pds4-jparser"
+
+git push origin master
 
 set +x
