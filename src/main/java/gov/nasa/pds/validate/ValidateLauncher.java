@@ -452,6 +452,8 @@ public class ValidateLauncher {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
@@ -506,7 +508,7 @@ public class ValidateLauncher {
                 
                 jsonWriter.name("type");
                 jsonWriter.beginArray();
-                if (names == null) {
+                if (types == null) {
                     jsonWriter.value("N/A");
                 } else {
                     for (Object t : types) {
