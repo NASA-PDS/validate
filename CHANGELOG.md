@@ -1,5 +1,32 @@
 # Change Log
 
+## [v1.22.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.0) (2020-03-27)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.21.0...v1.22.0)
+
+**Implemented enhancements:**
+
+- Change behaviour for printing of "dots" to show progress [\#197](https://github.com/NASA-PDS-Incubator/validate/issues/197)
+- Improve installation procedure [\#195](https://github.com/NASA-PDS-Incubator/validate/issues/195)
+- Update validate-bundle to include report filepath flag [\#194](https://github.com/NASA-PDS-Incubator/validate/issues/194)
+- Update documentation to include more details about how/where to file bug reports [\#187](https://github.com/NASA-PDS-Incubator/validate/issues/187)
+- Upgrade to Saxon 9.9.1-7 to fix Schematron bug [\#182](https://github.com/NASA-PDS-Incubator/validate/issues/182)
+- Add validated product counter to pass/fail reporting and end summary [\#132](https://github.com/NASA-PDS-Incubator/validate/issues/132)
+
+**Fixed bugs:**
+
+- Fix schematron parsing bug introduced during performance improvements [\#175](https://github.com/NASA-PDS-Incubator/validate/issues/175)
+
+**Closed issues:**
+
+- CCB-282: Revert validation checks on strict file naming requirements [\#192](https://github.com/NASA-PDS-Incubator/validate/issues/192)
+
+**Merged pull requests:**
+
+- Lessen restriciton on file/directory naming [\#200](https://github.com/NASA-PDS-Incubator/validate/pull/200) ([jordanpadams](https://github.com/jordanpadams))
+- Add report file path flag to validate-bundle [\#198](https://github.com/NASA-PDS-Incubator/validate/pull/198) ([jordanpadams](https://github.com/jordanpadams))
+- Update to Saxon v9.9.1-7 [\#193](https://github.com/NASA-PDS-Incubator/validate/pull/193) ([jordanpadams](https://github.com/jordanpadams))
+- Add validated product counter to pass/fail reporting and end summary [\#191](https://github.com/NASA-PDS-Incubator/validate/pull/191) ([hhlee445](https://github.com/hhlee445))
+
 ## [v1.21.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.21.0) (2020-03-11)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.20.0...v1.21.0)
 
@@ -40,7 +67,6 @@
 
 - Fix multi-threading bug where reporting finishes prior to threads completing execution [\#180](https://github.com/NASA-PDS-Incubator/validate/issues/180)
 - Improve performance when content validation is disabled [\#178](https://github.com/NASA-PDS-Incubator/validate/issues/178)
-- Fix schematron parsing bug introduced during performance improvements [\#175](https://github.com/NASA-PDS-Incubator/validate/issues/175)
 
 **Merged pull requests:**
 
