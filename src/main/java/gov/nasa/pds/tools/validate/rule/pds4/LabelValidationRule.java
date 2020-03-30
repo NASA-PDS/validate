@@ -29,6 +29,7 @@ import gov.nasa.pds.tools.validate.ValidationResourceManager;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
+import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.trans.XPathException;
 
@@ -529,9 +530,7 @@ public class LabelValidationRule extends AbstractValidationRule {
               + "the XPath '" + XMLExtractor.XML_MODEL_XPATH + "': "
               + e.getMessage());
     }
-    Pattern pattern = Pattern.compile(
-        "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")?"
-        );
+    Pattern pattern = Pattern.compile(Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);
     for (TinyNodeImpl xmlModel : xmlModels) {
       String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");
       filteredData = filteredData.trim();
