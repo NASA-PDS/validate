@@ -95,7 +95,7 @@ POSSIBILITY OF SUCH DAMAGE.
   <files>
     <file>
       <source>LICENSE.txt</source>
-      <outputDirectory>/</outputDirectory>
+      <outputDirectory/>
       <fileMode>644</fileMode>
       <lineEnding>unix</lineEnding>
     </file>
