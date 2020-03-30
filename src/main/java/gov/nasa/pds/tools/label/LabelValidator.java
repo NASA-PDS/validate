@@ -27,6 +27,7 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.validate.constants.Constants;
 
 import java.io.File;
 import java.io.IOException;
@@ -623,8 +624,7 @@ public class LabelValidator {
       if (nodeList.item(i).getNodeType() == Node.PROCESSING_INSTRUCTION_NODE) {
         ProcessingInstruction pi = (ProcessingInstruction) nodeList.item(i);
         if ("xml-model".equalsIgnoreCase(pi.getTarget())) {
-          Pattern pattern = Pattern.compile(
-              "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")?");
+          Pattern pattern = Pattern.compile(Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);
           String filteredData = pi.getData().replaceAll("\\s+", " ");
           Matcher matcher = pattern.matcher(filteredData);
           if (matcher.matches()) {

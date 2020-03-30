@@ -28,6 +28,7 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
@@ -69,8 +70,7 @@ public class DefaultDocumentValidator implements DocumentValidator {
               "No schematron specification found in the label."), 
           systemIdUrl));
     } else {
-      Pattern pattern = Pattern.compile(
-          "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")?");
+      Pattern pattern = Pattern.compile(Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);
       for (TinyNodeImpl xmlModel : xmlModels) {
         String filteredValue = 
             xmlModel.getStringValue().replaceAll("\\s+", " ");
