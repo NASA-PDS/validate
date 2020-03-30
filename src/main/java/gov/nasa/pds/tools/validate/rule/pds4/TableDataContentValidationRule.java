@@ -67,6 +67,7 @@ import gov.nasa.pds.tools.validate.content.table.RawTableReader;
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
+import gov.nasa.pds.validate.constants.Constants;
 
  /**
   * Class that does data content validation of tables. 
@@ -667,7 +668,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   private void progressCounter() {
       if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) {
           PROGRESS_COUNTER = 0;
-      } else if (PROGRESS_COUNTER % 1000 == 0) {
+      } else if (PROGRESS_COUNTER % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) {
           System.out.print(".");
       }
   }

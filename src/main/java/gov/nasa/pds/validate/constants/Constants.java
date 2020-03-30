@@ -32,5 +32,6 @@ package gov.nasa.pds.validate.constants;
 
 public final class Constants {
 
-    public static final String SCHEMATRON_SCHEMATYPENS_PATTERN = "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")[ ]*?"; 
+    public static final String SCHEMATRON_SCHEMATYPENS_PATTERN = "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")[ ]*?";
+    public static final int CONTENT_VAL_PROGRESS_COUNTER = 100000;
 }

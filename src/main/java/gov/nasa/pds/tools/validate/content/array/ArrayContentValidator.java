@@ -25,6 +25,8 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.validate.constants.Constants;
+
 import org.apache.commons.lang3.Range;
 
 import java.io.IOException;
@@ -137,7 +139,7 @@ public class ArrayContentValidator {
     // Print something to indicate the program is still executing since content
     // validation can take some time
     if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) { PROGRESS_COUNTER = 0; }
-    else if (PROGRESS_COUNTER % 10000 == 0) { System.out.print("."); }
+    else if (PROGRESS_COUNTER % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) { System.out.print("."); }
 
     for (int i = 0; i < dimensions[depth];) {
       if( depth < maxDepth ) { // max depth not reached, do another recursion
