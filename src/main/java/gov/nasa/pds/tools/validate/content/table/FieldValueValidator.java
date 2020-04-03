@@ -149,7 +149,17 @@ public class FieldValueValidator {
   public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
     for (int i = 0; i < fields.length; i++) {
       try {
-        String value = record.getString(i+1);     
+    	// issue_206: Validate incorrectly fails for ASCII_Integer value in Table_Character
+    	// for the DSV, empty_field is okay
+        String value = "";
+    	if (record instanceof DelimitedTableRecord) {
+    	  // value can have leading or trailing spaces, we need to trim it
+    	  value = record.getString(i+1).trim();  
+    	}
+    	else { // instance of FixedTableRecord
+    	  value = record.getString(i+1);  
+    	}
+    	  
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -167,7 +177,7 @@ public class FieldValueValidator {
         }
         
         //System.out.println("value = " + value + "  fields[i].getType() = " + fields[i].getType() + 
-        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength());
+        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength() + "    checkFieldFormat = " + checkFieldFormat);
         // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
         if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
  	      String message = "The field is overlapping with the next field. Current field ends at " 
@@ -228,6 +238,7 @@ public class FieldValueValidator {
           } 
         } else {
           try {
+        	  
               checkType(value, fields[i].getType());
               addTableProblem(ExceptionType.DEBUG, 
                       ProblemType.BLANK_FIELD_VALUE,

@@ -480,23 +480,6 @@ class ValidationIntegrationTests {
 
             assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
             
-            report = new File(outFilePath + File.separator + "report_github09_3.json");
-            String[] args4 = {
-                    "-r", report.getAbsolutePath(),
-                    "-s", "json",
-                    "-t" , testPath + File.separator + "csv_empty_field_test_INVALID.xml",
-                    
-                    };
-            this.launcher = new ValidateLauncher();
-            this.launcher.processMain(args4);
-
-            gson = new Gson();
-            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-            count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
-
-            assertEquals(count, 1, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
-
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
@@ -695,7 +678,7 @@ class ValidationIntegrationTests {
 
             count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
 
-            assertEquals(count, 2, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
+            assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -752,6 +735,57 @@ class ValidationIntegrationTests {
 
             assertEquals(count, 1, ProblemType.RECORDS_MISMATCH.getKey() + " info/error messages not expected.");
 
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub206() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github206");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github206_1.json");
+
+            // Try with a bad example tha will throw 2 errors
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "val9a.xml",
+                    
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 1, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
+
+            // Try with a good example that will throw no errors
+            report = new File(outFilePath + File.separator + "report_github206_2.json");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "val9b.xml",
+                    
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
