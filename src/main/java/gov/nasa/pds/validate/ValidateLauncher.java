@@ -153,7 +153,7 @@ public class ValidateLauncher {
     /**
      * Default file filters.
      */
-    private String[] DEFAULT_FILE_FILTERS = { "*.xml"};
+    private String[] DEFAULT_FILE_FILTERS = { "*.xml", "*.XML" };
 
     private SchemaValidator schemaValidator;
 
