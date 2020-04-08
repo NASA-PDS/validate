@@ -34,8 +34,6 @@ POSSIBILITY OF SUCH DAMAGE.
 <document>
   <properties>
     <title>About Validate Tool</title>
-    <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
-    <author email="Michael.Cayanan@jpl.nasa.gov">Michael Cayanan</author>
   </properties>
 
   <body>
@@ -45,11 +43,12 @@ POSSIBILITY OF SUCH DAMAGE.
      
       <ul>
         <li><a href="#Tool_Overview">Tool Overview</a></li>
-        <li><a href="#Contribute">Contribute</a></li>
-        <li><a href="#Contribute">Found a bug? New Feature request?</a></li>
+        <li><a href="#Support">Support</a></li>
       </ul>
      
     </section>
+    
+    <hr />
 
     <section name="Tool Overview">
       <p>The Validate Tool currently supports the following features:
@@ -107,20 +106,20 @@ POSSIBILITY OF SUCH DAMAGE.
          <li>Array elements have values which conform to their data type</li>
          <li>Verify that the elements match the object statistics defined within their associated label, if they exist</li>
       </ul>
-
     </section>
     
-    <section name="Contribute">
-      <p><b><i>Found a bug?</i></b> Or <b><i>want a new feature?</i></b> would love your feedback and contributions. Here are some links to our public Github repository for submitting issues, contributing documentation, or
-        code updates:</p>
+    <hr />
+    
+    <section name="Support">
+      <p><b><i>Found a bug?</i></b> Or <b><i>want a new feature?</i></b> We would love your feedback and contributions. Here are some links to our public Github repository for source code and submitting issues:</p>
       
       <ul>
         <li>Issue Tracker: <a href="https://github.com/NASA-PDS-Incubator/validate/issues">https://github.com/NASA-PDS-Incubator/validate/issues</a></li>
         <li>Source Code: <a href="https://github.com/NASA-PDS-Incubator/validate/">https://github.com/NASA-PDS-Incubator/validate</a></li>
-        <li>Wiki: <a href="https://github.com/NASA-PDS-Incubator/validate/wiki">https://github.com/NASA-PDS-Incubator/validate/wiki</a></li>
       </ul>
       
-      <p>Any other additional feedback, please contact us at <a href="mailto:pds_operator@jpl.nasa.gov">pds_operator@jpl.nasa.gov</a>.
+      <p>Any other additional feedback or need help with installation or operation of the software, please contact us at 
+        <a href="mailto:pds_operator@jpl.nasa.gov">pds_operator@jpl.nasa.gov</a>.
       </p>
       
       <p></p>

@@ -35,8 +35,6 @@ POSSIBILITY OF SUCH DAMAGE.
 <document>
   <properties>
     <title>Installation</title>
-    <author email="Paul.Ramirez@jpl.nasa.gov">Paul Ramirez</author>
-    <author email="Sean.Hardman@jpl.nasa.gov">Sean Hardman</author>
   </properties>
 
   <body>
@@ -49,6 +47,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <li><a href="#Unpacking_the_Package">Unpacking the Package</a></li>
         <li><a href="#System_Requirements">System Requirements</a></li>
         <li><a href="#Configuring_the_Environment">Configuring the Environment</a></li>
+        <li><a href="../index.html#Support">Tool Support</a></li>
       </ul>
     </section>
     
