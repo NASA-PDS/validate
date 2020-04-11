@@ -149,7 +149,8 @@ public class FieldValueValidator {
   public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
     for (int i = 0; i < fields.length; i++) {
       try {
-        String value = record.getString(i+1);     
+        String value = record.getString(i+1);
+
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -162,12 +163,12 @@ public class FieldValueValidator {
                 ProblemType.FIELD_VALUE_TOO_LONG,
                 message,
                 record.getLocation(),
-                (i + 1));              
+                (i + 1));
           }        
         }
         
         //System.out.println("value = " + value + "  fields[i].getType() = " + fields[i].getType() + 
-        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength());
+        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength() + "    checkFieldFormat = " + checkFieldFormat);
         // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
         if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
  	      String message = "The field is overlapping with the next field. Current field ends at " 
@@ -180,8 +181,9 @@ public class FieldValueValidator {
  			  (i+1));
         }
 
-        // Per the DSV standard in section 4C.1 of the Standards Reference, empty fields are ok
-        if (value.isEmpty()) {
+        // Per the DSV standard in section 4C.1 of the Standards Reference,
+        // empty fields are ok for DelimitedTableRecord and space-padded empty fields are ok for FixedTableRecord
+        if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord)) {
           addTableProblem(ExceptionType.DEBUG, 
                   ProblemType.BLANK_FIELD_VALUE,
                   "Field is blank.", 
@@ -228,6 +230,7 @@ public class FieldValueValidator {
           } 
         } else {
           try {
+        	  
               checkType(value, fields[i].getType());
               addTableProblem(ExceptionType.DEBUG, 
                       ProblemType.BLANK_FIELD_VALUE,

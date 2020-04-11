@@ -430,7 +430,7 @@ class ValidationIntegrationTests {
             String[] args = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
-                    "-t" , testPath + File.separator + "minimal_test_product_bad.xml",
+                    "-t" , testPath + File.separator + "minimal_test_product_good2.xml",
                     
                     };
             this.launcher.processMain(args);
@@ -442,7 +442,7 @@ class ValidationIntegrationTests {
 
             int count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
 
-            assertEquals(count, 2, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
+            assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
 
             // Try with a good example that will throw no errors
             report = new File(outFilePath + File.separator + "report_github09_2.json");
@@ -480,15 +480,50 @@ class ValidationIntegrationTests {
 
             assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages not expected.");
             
-            report = new File(outFilePath + File.separator + "report_github09_3.json");
+            report = new File(outFilePath + File.separator + "report_github09_4.json");
             String[] args4 = {
                     "-r", report.getAbsolutePath(),
                     "-s", "json",
                     "-t" , testPath + File.separator + "csv_empty_field_test_INVALID.xml",
-                    
+
                     };
             this.launcher = new ValidateLauncher();
             this.launcher.processMain(args4);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 1, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
+            
+            // Issue #206 - updated tested per issue with space-padded fields in Table_Character validation
+            report = new File(outFilePath + File.separator + "report_github09_5.json");
+            String[] args5 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "val9a.xml",
+
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args5);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
+
+            assertEquals(count, 0, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey() + " info/error messages expected.");
+            
+            report = new File(outFilePath + File.separator + "report_github09_6.json");
+            String[] args6 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "val9b.xml",
+
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args6);
 
             gson = new Gson();
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
