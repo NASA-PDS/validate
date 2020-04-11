@@ -1,5 +1,26 @@
 # Change Log
 
+## [v1.22.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.2) (2020-04-11)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.22.1...v1.22.2)
+
+**Fixed bugs:**
+
+- validate outputs an extra '.' [\#214](https://github.com/NASA-PDS-Incubator/validate/issues/214)
+- Validate incorrectly fails ASCII\_Integer field that is space-padded \(empty\) in Table\_Character [\#206](https://github.com/NASA-PDS-Incubator/validate/issues/206)
+- Assembly plugin non-fatal errors on Windows [\#203](https://github.com/NASA-PDS-Incubator/validate/issues/203)
+- Schematron doesn't fire if \<?xml-model ...\> has an extra space at the end [\#201](https://github.com/NASA-PDS-Incubator/validate/issues/201)
+- Validate Table\_Character groups and their specified lengths match the specified group\_length [\#63](https://github.com/NASA-PDS-Incubator/validate/issues/63)
+
+**Merged pull requests:**
+
+- Revert "Remove confusion about XML file filters" [\#213](https://github.com/NASA-PDS-Incubator/validate/pull/213) ([jordanpadams](https://github.com/jordanpadams))
+- Validate incorrectly fails for ASCII\_Integer value in Table\_Character [\#207](https://github.com/NASA-PDS-Incubator/validate/pull/207) ([hhlee445](https://github.com/hhlee445))
+- Fixed \#203, Assembly plugin non-fatal errors on Windows [\#205](https://github.com/NASA-PDS-Incubator/validate/pull/205) ([tdddblog](https://github.com/tdddblog))
+- Update schematron schematyphens pattern with whitespace check [\#202](https://github.com/NASA-PDS-Incubator/validate/pull/202) ([jordanpadams](https://github.com/jordanpadams))
+
+## [v1.22.1](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.1) (2020-03-28)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.22.0...v1.22.1)
+
 ## [v1.22.0](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.0) (2020-03-28)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.21.0...v1.22.0)
 
@@ -33,10 +54,6 @@
 **Implemented enhancements:**
 
 - Develop validate-bundle script for Validation performance improvements using parallelization approach [\#128](https://github.com/NASA-PDS-Incubator/validate/issues/128)
-
-**Fixed bugs:**
-
-- Validate Table\_Character groups and their specified lengths match the specified group\_length [\#63](https://github.com/NASA-PDS-Incubator/validate/issues/63)
 
 **Closed issues:**
 
@@ -103,7 +120,6 @@
 - Content validation multi-threading issue [\#167](https://github.com/NASA-PDS-Incubator/validate/issues/167)
 - Spot check bug throws internal\_error when record number is multiple of spot check number [\#165](https://github.com/NASA-PDS-Incubator/validate/issues/165)
 - Remove erroneous timing messages from log output [\#160](https://github.com/NASA-PDS-Incubator/validate/issues/160)
-- Update software to check number of records specified in label matches the records in the table [\#149](https://github.com/NASA-PDS-Incubator/validate/issues/149)
 - Fix string == comparison issues per vulnerability scan [\#144](https://github.com/NASA-PDS-Incubator/validate/issues/144)
 
 **Closed issues:**
