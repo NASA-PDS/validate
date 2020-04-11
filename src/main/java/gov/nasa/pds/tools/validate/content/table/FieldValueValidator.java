@@ -149,17 +149,8 @@ public class FieldValueValidator {
   public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
     for (int i = 0; i < fields.length; i++) {
       try {
-    	// issue_206: Validate incorrectly fails for ASCII_Integer value in Table_Character
-    	// for the DSV, empty_field is okay
-        String value = "";
-    	if (record instanceof DelimitedTableRecord) {
-    	  // value can have leading or trailing spaces, we need to trim it
-    	  value = record.getString(i+1).trim();  
-    	}
-    	else { // instance of FixedTableRecord
-    	  value = record.getString(i+1);  
-    	}
-    	  
+        String value = record.getString(i+1);
+
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -172,7 +163,7 @@ public class FieldValueValidator {
                 ProblemType.FIELD_VALUE_TOO_LONG,
                 message,
                 record.getLocation(),
-                (i + 1));              
+                (i + 1));
           }        
         }
         
@@ -190,8 +181,9 @@ public class FieldValueValidator {
  			  (i+1));
         }
 
-        // Per the DSV standard in section 4C.1 of the Standards Reference, empty fields are ok
-        if (value.isEmpty()) {
+        // Per the DSV standard in section 4C.1 of the Standards Reference,
+        // empty fields are ok for DelimitedTableRecord and space-padded empty fields are ok for FixedTableRecord
+        if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord)) {
           addTableProblem(ExceptionType.DEBUG, 
                   ProblemType.BLANK_FIELD_VALUE,
                   "Field is blank.", 
