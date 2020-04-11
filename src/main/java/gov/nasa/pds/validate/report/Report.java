@@ -162,6 +162,7 @@ public abstract class Report {
    * library reports. This is the standard header across all reports.
    */
   public void printHeader() {
+    writer.println();
     writer.println("PDS Validate Tool Report");
     writer.println();
     writer.println("Configuration:");
