@@ -32,8 +32,10 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 import gov.nasa.arc.pds.xml.generated.FileArea;
+import gov.nasa.arc.pds.xml.generated.FileAreaAncillary;
 import gov.nasa.arc.pds.xml.generated.FileAreaBrowse;
 import gov.nasa.arc.pds.xml.generated.FileAreaInventory;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
@@ -43,6 +45,7 @@ import gov.nasa.arc.pds.xml.generated.InformationPackageComponent;
 import gov.nasa.arc.pds.xml.generated.Inventory;
 import gov.nasa.arc.pds.xml.generated.Product;
 import gov.nasa.arc.pds.xml.generated.ProductAIP;
+import gov.nasa.arc.pds.xml.generated.ProductAncillary;
 import gov.nasa.arc.pds.xml.generated.ProductBrowse;
 import gov.nasa.arc.pds.xml.generated.ProductCollection;
 import gov.nasa.arc.pds.xml.generated.ProductObservational;
@@ -154,6 +157,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             PDS4Context.LABEL_DOCUMENT, Document.class)), 
         XPathConstants.NODESET);
     } catch (XPathExpressionException e) {
+      //e.printStackTrace();
       addXPathException(null, XPaths.TABLE_FILE_AREAS, e.getMessage());
     }
     Map<String, Integer> numTables = scanTables(tableFileAreas, objectAccess);
@@ -178,12 +182,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
-
+      
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
-      //System.out.println("------in TableDataContentValidation.....after getTableObjects()....");
-      FieldValueValidator fieldValueValidator = new FieldValueValidator(
-          getListener());
-      //System.out.println("------in TableDataContentValidation..after fieldValueValidator....");
+      FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
@@ -245,8 +246,22 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
           }
           definedNumRecords = tc.getRecords().intValueExact();
-        }
+        } 
         
+        int recordNumber= reader.getRecordSize();
+        if (recordNumber>definedNumRecords) {
+        	String message = "Number of records read is not equal "
+                + "to the defined number of records in the label (expected "
+                + definedNumRecords + ", got " + recordNumber + ").";
+              addTableProblem(ExceptionType.ERROR,
+                  ProblemType.RECORDS_MISMATCH,
+                  message,
+                  dataFile,
+                  tableIndex,
+                  -1); 
+           break;
+        }
+     
         TableRecord record = null;
         // We have either a character or delimited table
         try {
@@ -283,7 +298,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             String line = reader.readNextLine();
             while (line != null) {
               progressCounter();
-
+              
               if (!line.endsWith("\r\n")) {
                 addTableProblem(ExceptionType.ERROR,
                     ProblemType.MISSING_CRLF,
@@ -412,7 +427,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   definedNumRecords == reader.getCurrentRow()) {
                 break;
               }
-              line = reader.readNextLine();            
+              line = reader.readNextLine();
             }
             if (definedNumRecords != -1 && 
                 definedNumRecords != reader.getCurrentRow() && spotCheckData == -1) {
@@ -507,6 +522,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         pc.getFileAreaInventory().getInventory() != null) {
         results.add(pc.getFileAreaInventory());
       }
+    } else if (product instanceof ProductAncillary) {
+    	ProductAncillary pa = (ProductAncillary) product;
+    	if (pa.getFileAreaAncillaries() != null &&
+    		pa.getFileAreaAncillaries().size()>0)
+    	  results.addAll(pa.getFileAreaAncillaries());
     } else if (product instanceof ProductBrowse) {
       results.addAll(((ProductBrowse) product).getFileAreaBrowses());
     }
@@ -532,6 +552,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       result = ((FileAreaInventory) fileArea).getFile().getFileName();
     } else if (fileArea instanceof FileAreaBrowse) {
       result = ((FileAreaBrowse) fileArea).getFile().getFileName();
+    } else if (fileArea instanceof FileAreaAncillary) {
+      result = ((FileAreaAncillary) fileArea).getFile().getFileName();
     }
     return result;
   }
