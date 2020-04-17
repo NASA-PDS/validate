@@ -216,6 +216,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         int recordMaxLength = -1;
         int definedNumRecords = -1;
         boolean inventoryTable = false;
+        int actualRecordNumber = reader.getRecordSize();
         //Check if record length is equal to the defined record length in
         // the label (or maximum length)
         if (table instanceof TableDelimited) {
@@ -239,6 +240,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
+  		  actualRecordNumber = (int)(reader.getRecordSize()/recordLength);          
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -248,11 +250,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           definedNumRecords = tc.getRecords().intValueExact();
         } 
         
-        int recordNumber= reader.getRecordSize();
-        if (recordNumber>definedNumRecords) {
+        if (actualRecordNumber!=definedNumRecords) {
         	String message = "Number of records read is not equal "
                 + "to the defined number of records in the label (expected "
-                + definedNumRecords + ", got " + recordNumber + ").";
+                + definedNumRecords + ", got " + actualRecordNumber + ").";
               addTableProblem(ExceptionType.ERROR,
                   ProblemType.RECORDS_MISMATCH,
                   message,
