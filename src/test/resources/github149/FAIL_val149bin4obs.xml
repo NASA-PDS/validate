@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation=
+    "http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.ola:data_reduced:20181204_ola_scil1id01000.dat</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>OSIRIS-REx OLA Calibrated Science (L1) Data Product 2018-12-04T14:32:10.506Z</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2019-02-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-12-04T14:32:10.506Z</start_date_time>
+            <stop_date_time>2018-12-04T15:54:10.305Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Partially Processed</processing_level>
+            <description>OLA Level 1 Lidar Science Data</description>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>OSIRIS-REx Laser Altimeter (OLA)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OLA</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ola.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(101955) BENNU</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>val149bin.dat</file_name>
+            <creation_date_time>2019-08-09T16:06:06.971Z</creation_date_time>
+            <file_size unit="byte">246</file_size>
+        </File>
+        <Table_Binary>
+            <name>reduced</name>
+            <offset unit="byte">0</offset>
+            <records>4</records>
+            <Record_Binary>
+                <fields>13</fields>
+                <groups>0</groups>
+                <record_length unit="byte">82</record_length>
+                <Field_Binary>
+                    <name>met</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <field_format>%18s</field_format>
+                    <unit>s/c_ticks</unit>
+                    <description>Spacecraft clock time.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>met_offset</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">19</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s/c_ticks</unit>
+                    <description>Value in units of ticks (2^-16 seconds) that should be added to MET to give precise time. This is needed because there is not enough precision in the MET field. Example: If MET is 1/0521165299.31170 and MET OFFSET is 0.5, then the lidar point was acquired at exactly midway between 1/0521165299.31170 and 1/0521165299.31171.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_ola_time</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">27</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s</unit>
+                    <description>Ola Time tag for this scan record.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>power_cycle</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">35</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Power Cycle counter. Incremented by 1 for every POST.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_selection</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">37</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Specifies whether scan command applies to High Energy (0) or Low Energy Laser (1)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_mode</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">39</field_location>
+                    <data_type>SignedByte</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%4d</field_format>
+                    <description>Selected Scan Pattern (0: Raster, 1: Linear, 2: Fixed)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sw_version_detected</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">40</field_location>
+                    <data_type>UnsignedByte</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%3d</field_format>
+                    <description>new FSW version detected. (0) old FSW, (1) new FSW.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>flag_status</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">41</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Status of return. (0: valid return, 1: valid return with overflow, 2: no return, 3: missing sample)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>range</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">43</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mm</unit>
+                    <description>Range in millimeters.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>azimuth</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">51</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mrad</unit>
+                    <description>Azimuth in milliradians.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>elevation</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">59</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mrad</unit>
+                    <description>Elevation in milliradians.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>intensity_t0</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">67</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>DN</unit>
+                    <description>Intensity of outgoing pulse.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>intensity_trr</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">75</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>DN</unit>
+                    <description>Intensity of received pulse.</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+    </File_Area_Observational>
+</Product_Observational>

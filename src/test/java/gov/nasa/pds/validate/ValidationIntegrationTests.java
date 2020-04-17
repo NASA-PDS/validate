@@ -36,6 +36,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -741,6 +745,65 @@ class ValidationIntegrationTests {
     }
     
     @Test
+    void testGithub149() {
+        try {
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github149");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File dir = new File(testPath);
+            
+            // Check all VALID examples
+            File[] files = dir.listFiles((d, name) -> name.startsWith("VALID") && name.endsWith(".xml"));
+            int expectedErrorCount = 0;
+            for (File xmlfile : files) {
+                File report = new File(outFilePath + File.separator + "report_github149_" + xmlfile.getName() + ".json");
+                
+                String[] args = {
+                        "-r", report.getAbsolutePath(),
+                        "-s", "json",
+                        "-t" , xmlfile.getAbsolutePath(),
+                        };
+                this.launcher.processMain(args);
+
+                Gson gson = new Gson();
+                JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                int count = this.getMessageCount(reportJson, "totalErrors");
+                assertEquals(count, 0, count + " error messages expected. See validation report: " + report.getAbsolutePath());
+            }
+            
+            // Check all INVALID examples
+            files = dir.listFiles((d, name) -> name.startsWith("FAIL") && name.endsWith(".xml"));
+            expectedErrorCount = 1;
+            for (File xmlfile : files) {
+                File report = new File(outFilePath + File.separator + "report_github149_" + xmlfile.getName() + ".json");
+                
+                String[] args = {
+                        "-r", report.getAbsolutePath(),
+                        "-s", "json",
+                        "-t" , xmlfile.getAbsolutePath(),
+                        };
+                this.launcher.processMain(args);
+
+                Gson gson = new Gson();
+                JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                int count = this.getMessageCount(reportJson, "totalErrors");
+                assertEquals(count, expectedErrorCount, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
+            }
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
     void testGithub173() {
         try {
             // Setup paths
@@ -799,6 +862,9 @@ class ValidationIntegrationTests {
         int i = 0;
         JsonObject message = null;
         int count = 0;
+        if (messageTypeName.equals("totalErrors")) {
+            return reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt();
+        }
         while (true) {
             try {
                 message = reportJson.getAsJsonObject("summary").get("messageTypes").getAsJsonArray().get(i).getAsJsonObject();

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:gaskell.phoebe.shape-model:data</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>data collection for the "GASKELL PHOEBE SHAPE MODEL" bundle</title>
+    <information_model_version>1.10.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>Gaskell, R.W.</author_list>
+      <publication_year>2013</publication_year>
+      <description>This is the data collection for the gaskell.phoebe.shape-model bundle. 
+The shape model of Phoebe derived by    
+        Robert Gaskell from Cassini images.  The model is provided in the     
+        implicitly connected quadrilateral (ICQ) format.  This version of the 
+        model was prepared on August 4, 2012.  Vertex-facet versions of the   
+        models are also provided.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2020-02-28</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migrated from CO-SA-ISSNA-5-PHOEBESHAPE-V2.0</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2004-06-11Z</start_date_time>
+      <stop_date_time>2004-06-12Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Shape Model</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>CASSINI-HUYGENS</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>CO + ISSNA</name>
+      <description>CASSINI ORBITER with IMAGING SCIENCE SUBSYSTEM - NARROW      
+        ANGLE</description>
+      <Observing_System_Component>
+        <name>IMAGING SCIENCE SUBSYSTEM - NARROW      
+        ANGLE</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:issna.co</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>CASSINI ORBITER</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <name>CO + ISSWA</name>
+      <description>CASSINI ORBITER with IMAGING SCIENCE SUBSYSTEM - WIDE ANGLE</description>
+      <Observing_System_Component>
+        <name>IMAGING SCIENCE SUBSYSTEM - WIDE ANGLE</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:isswa.co</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>CASSINI ORBITER</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Saturn IX (Phoebe)</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.saturn.phoebe</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Collection>
+    <collection_type>Data</collection_type>
+  </Collection>
+  <File_Area_Inventory>
+    <File>
+      <file_name>val149col.csv</file_name>
+      <local_identifier>data</local_identifier>
+      <file_size unit="byte">651</file_size>
+      <records>3</records>
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>3</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>
+
