@@ -7,10 +7,10 @@
       <offline/>
       <pluginGroups/>
       <servers>
-<server>
- <id>github-oauth</id>
- <passphrase>${env.GITHUB_TOKEN}</passphrase>
-</server>
+	<server>
+	 <id>github-oauth</id>
+	 <passphrase>${env.GITHUB_TOKEN}</passphrase>
+	</server>
       </servers>
       <mirrors/>
       <proxies/>
