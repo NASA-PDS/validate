@@ -1,0 +1,42 @@
+# This workflow will build a package using Maven and then publish it to GitHub packages when a release is created
+# For more information see: https://github.com/actions/setup-java#apache-maven-with-a-settings-path
+
+name: Maven Build
+
+on:
+   schedule:
+      - cron: '0 8 * * *'
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+        settings-path: ${{ github.workspace }} # location for the settings.xml file
+
+    - name: Set up Python 3
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.7'
+
+    - name: Install dependencies
+      run: python -m pip install --upgrade pip setuptools wheel
+
+    - name: Build with Maven
+      run: mvn -B test package --file pom.xml
+      
+    - name: Adding dependencies
+      run: |
+         sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
+    - name: Publish new snapshot release
+      run: |
+         pip install pds-github-util
+         snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
