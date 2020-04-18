@@ -32,8 +32,10 @@ import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 import gov.nasa.arc.pds.xml.generated.FileArea;
+import gov.nasa.arc.pds.xml.generated.FileAreaAncillary;
 import gov.nasa.arc.pds.xml.generated.FileAreaBrowse;
 import gov.nasa.arc.pds.xml.generated.FileAreaInventory;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
@@ -43,6 +45,7 @@ import gov.nasa.arc.pds.xml.generated.InformationPackageComponent;
 import gov.nasa.arc.pds.xml.generated.Inventory;
 import gov.nasa.arc.pds.xml.generated.Product;
 import gov.nasa.arc.pds.xml.generated.ProductAIP;
+import gov.nasa.arc.pds.xml.generated.ProductAncillary;
 import gov.nasa.arc.pds.xml.generated.ProductBrowse;
 import gov.nasa.arc.pds.xml.generated.ProductCollection;
 import gov.nasa.arc.pds.xml.generated.ProductObservational;
@@ -154,6 +157,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             PDS4Context.LABEL_DOCUMENT, Document.class)), 
         XPathConstants.NODESET);
     } catch (XPathExpressionException e) {
+      //e.printStackTrace();
       addXPathException(null, XPaths.TABLE_FILE_AREAS, e.getMessage());
     }
     Map<String, Integer> numTables = scanTables(tableFileAreas, objectAccess);
@@ -178,12 +182,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
-
+      
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
-      //System.out.println("------in TableDataContentValidation.....after getTableObjects()....");
-      FieldValueValidator fieldValueValidator = new FieldValueValidator(
-          getListener());
-      //System.out.println("------in TableDataContentValidation..after fieldValueValidator....");
+      FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
+      int definedTotalRecords = 0, actualTotalRecords = 0;
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
@@ -215,6 +217,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         int recordMaxLength = -1;
         int definedNumRecords = -1;
         boolean inventoryTable = false;
+        int actualRecordNumber = reader.getRecordSize();
+        actualTotalRecords += actualRecordNumber;
         //Check if record length is equal to the defined record length in
         // the label (or maximum length)
         if (table instanceof TableDelimited) {
@@ -238,6 +242,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
+  		  actualRecordNumber = (int)(reader.getRecordSize()/recordLength); 
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -245,8 +250,39 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
           }
           definedNumRecords = tc.getRecords().intValueExact();
-        }
+        } 
         
+        if (tableObjects.size()==1) {
+          if (actualRecordNumber!=definedNumRecords) {
+            String message = "Number of records read is not equal "
+        				+ "to the defined number of records in the label (expected "
+        				+ definedNumRecords + ", got " + actualRecordNumber + ").";
+        	addTableProblem(ExceptionType.ERROR,
+        				ProblemType.RECORDS_MISMATCH,
+        				message,
+        				dataFile,
+        				tableIndex,
+        				-1); 
+        	break;
+          }
+        }
+        else {
+          definedTotalRecords += definedNumRecords;  
+ 		  if (tableObjects.size()==tableIndex) {
+ 			 if (actualTotalRecords!=definedTotalRecords) {
+ 	            String message = "Number of records read is not equal "
+ 	        				+ "to the defined number of records in the label (expected "
+ 	        				+ definedTotalRecords + ", got " + actualRecordNumber + ").";
+ 	        	addTableProblem(ExceptionType.ERROR,
+ 	        				ProblemType.RECORDS_MISMATCH,
+ 	        				message,
+ 	        				dataFile,
+ 	        				tableIndex,
+ 	        				-1);  
+ 			 }
+          }
+        }
+     
         TableRecord record = null;
         // We have either a character or delimited table
         try {
@@ -283,7 +319,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             String line = reader.readNextLine();
             while (line != null) {
               progressCounter();
-
+              
               if (!line.endsWith("\r\n")) {
                 addTableProblem(ExceptionType.ERROR,
                     ProblemType.MISSING_CRLF,
@@ -412,7 +448,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   definedNumRecords == reader.getCurrentRow()) {
                 break;
               }
-              line = reader.readNextLine();            
+              line = reader.readNextLine();
             }
             if (definedNumRecords != -1 && 
                 definedNumRecords != reader.getCurrentRow() && spotCheckData == -1) {
@@ -507,6 +543,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         pc.getFileAreaInventory().getInventory() != null) {
         results.add(pc.getFileAreaInventory());
       }
+    } else if (product instanceof ProductAncillary) {
+    	ProductAncillary pa = (ProductAncillary) product;
+    	if (pa.getFileAreaAncillaries() != null &&
+    		pa.getFileAreaAncillaries().size()>0)
+    	  results.addAll(pa.getFileAreaAncillaries());
     } else if (product instanceof ProductBrowse) {
       results.addAll(((ProductBrowse) product).getFileAreaBrowses());
     }
@@ -532,6 +573,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       result = ((FileAreaInventory) fileArea).getFile().getFileName();
     } else if (fileArea instanceof FileAreaBrowse) {
       result = ((FileAreaBrowse) fileArea).getFile().getFileName();
+    } else if (fileArea instanceof FileAreaAncillary) {
+      result = ((FileAreaAncillary) fileArea).getFile().getFileName();
     }
     return result;
   }

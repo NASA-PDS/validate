@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/rings/v1/PDS4_RINGS_1D00_1900.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:rings="http://pds.nasa.gov/pds4/rings/v1"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+    http://pds.nasa.gov/pds4/rings/v1 https://pds.nasa.gov/pds4/rings/v1/PDS4_RINGS_1D00_1900.xsd">
+    <Identification_Area>
+         <logical_identifier>urn:nasa:pds:uranus_occ_support:data:uranus_occultation_ring_fit_rfrench_20191221</logical_identifier>
+        <version_id>1.0</version_id>
+         <title>Uranus ring orbit model R. French 12-21-2019.</title>
+        <information_model_version>1.13.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>French, R. G.; McGhee-French, C. A.; Gordon, M. K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>orbit model uranus rings</keyword>
+            <description>Uranus ring orbit model R. French 12-21-2019.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-01-29</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+   <Observation_Area>
+        <Time_Coordinates> <start_date_time>1966Z</start_date_time> <stop_date_time>2066Z</stop_date_time> </Time_Coordinates>
+        <Investigation_Area> <name>OSIRIS-REx</name> <type>Mission</type> <Internal_Reference> <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference> <reference_type>data_to_investigation</reference_type> </Internal_Reference> </Investigation_Area>
+        <Observing_System> <Observing_System_Component> <name>OLA</name> <type>Instrument</type> <Internal_Reference> <lid_reference>urn:nasa:pds:context:instrument:ola.orex</lid_reference> <reference_type>is_instrument</reference_type> </Internal_Reference> </Observing_System_Component> </Observing_System>
+        <Target_Identification>
+            <name>Uranian Ring System</name>
+            <alternate_designation>U Rings</alternate_designation>
+            <type>Ring</type>
+        </Target_Identification>
+        <Discipline_Area>
+            <rings:Ring_Moon_Systems>
+                <rings:Ring_Model>
+                    <rings:Global_Model_Parameters>
+                        <rings:Reference_Frame_Ident>
+                            <rings:frame_spice_name>J2000</rings:frame_spice_name>
+                        </rings:Reference_Frame_Ident>
+                        <rings:epoch_ring_fit_utc unit="s">1977-03-10T20:00:00Z</rings:epoch_ring_fit_utc>
+                    </rings:Global_Model_Parameters>
+                    <rings:Central_Body_Parameters>
+                        <rings:body_spice_name>799</rings:body_spice_name>
+                        <rings:name>Uranus</rings:name>
+                        <rings:gmass unit="km**3s**-2">5.7939513220000E+06</rings:gmass>
+                        <rings:grav_ref_radius unit="km">2.5559000000000E+04</rings:grav_ref_radius>
+                        <rings:j2>3.5104284703060E-03</rings:j2>
+                        <rings:j4>-3.4522557269151E-05</rings:j4>
+                        <rings:j6>0.0000000000000E+00</rings:j6>
+                        <rings:pole_right_ascension_angle unit="deg">7.7310227554782E+01</rings:pole_right_ascension_angle>
+                        <rings:pole_right_ascension_angle_uncert unit="deg">3.6166296506017E-04</rings:pole_right_ascension_angle_uncert>
+                        <rings:pole_declination_angle unit="deg">1.5171600103520E+01</rings:pole_declination_angle>
+                        <rings:pole_declination_angle_uncert unit="deg">3.3850111640515E-04</rings:pole_declination_angle_uncert>
+                    </rings:Central_Body_Parameters>
+                    <rings:Satellite_Parameters>
+                        <rings:Satellite_Identification>
+                            <rings:body_spice_name>701</rings:body_spice_name>
+                            <rings:name>Areil</rings:name>
+                        </rings:Satellite_Identification>
+                        <rings:gmass unit="km**3s**-2">8.3500000000000E+01</rings:gmass>
+                        <rings:semimajor_axis unit="km">1.9090000000000E+05</rings:semimajor_axis>
+                    </rings:Satellite_Parameters>
+                </rings:Ring_Model>
+            </rings:Ring_Moon_Systems>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <External_Reference>
+            <doi>10.1088/0004-6256/139/4/1649</doi>
+            <reference_text>French, R. G. et al. (2010)
+                "Occultation Observations of Saturn's B Ring and Cassini Division", Astron. J. 139, 1649-1667.
+            </reference_text>
+        </External_Reference>
+    </Reference_List>
+
+<!-- Input Stars  -->
+
+    <File_Area_Observational>
+        <File>
+            <file_name>val149del.csv</file_name>
+            <local_identifier>input-stars</local_identifier>
+            <creation_date_time>2019-12-21T00:14:00Z</creation_date_time>
+            <comment>This file contains star positions for occultation stars used in the
+               ring orbit model uranus_occultation_ring_fit_rfrench_data_20191221.tab.</comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">185</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <description>Provides the column headers, separated by commas, for the data table. The second provides the units for the field.</description>
+        </Header>
+        <Table_Delimited>
+            <offset unit="byte">185</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>4</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>15</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">300</maximum_record_length>
+                <Field_Delimited>
+                    <name>Star Number</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Reference ID number used to identify star position used in ring orbit fit.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Star Name</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Internal shorthand name for occultation star.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Source Catalog</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of source catalog for star position (e.g., Hipparcos, 2MASS, UCAC4).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Catalog ID</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The identification number of the star within the Source Catalog.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>RA(ICRS)</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean right ascencion International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DE(ICRS)</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean declination International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Epoch</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The epoch of RA(ICRS)/DE(ICRS).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Plx</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc</unit>
+                    <description>Trigonometric parallax in millisecond of arc milli-second of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmRA</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in RA in equatorial coordinates in millisecond of arc milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmDE</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in DE in equatorial coordinates in milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_RAdeg</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in RA*cos(delta) in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_DEdeg</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in DE in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_Plx</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in Plx in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmRA</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmRA in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmDE</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmDE in millisecond of arc.</description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

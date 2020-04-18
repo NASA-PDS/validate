@@ -73,11 +73,15 @@ public class XPaths {
   public static final String FILE_AREA_BROWSE = 
       "//*:File_Area_Browse[namespace-uri()='" + PDS4_NS + "']";
   
+  /** XPath to the File_Area_Browse element. */
+  public static final String FILE_AREA_ANCILLARY = 
+      "//*:File_Area_Ancillary[namespace-uri()='" + PDS4_NS + "']";
+  
   /** XPath to the different File_Area elements for tables. */
   public static final String TABLE_FILE_AREAS = 
       FILE_AREA_OBSERVATIONAL + " | " + FILE_AREA_SIP_DEEP_ARCHIVE
       + " | " + FILE_AREA_TRANSFER_MANIFEST + " | "
-      + FILE_AREA_INVENTORY + " | " + FILE_AREA_BROWSE;
+      + FILE_AREA_INVENTORY + " | " + FILE_AREA_BROWSE + " | " + FILE_AREA_ANCILLARY;
   
   /** Xpath to the Array objects. */
   public static final String ARRAYS = "//*[starts-with(name(), 'Array')]";
