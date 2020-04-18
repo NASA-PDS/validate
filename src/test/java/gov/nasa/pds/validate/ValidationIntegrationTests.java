@@ -36,15 +36,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.PathMatcher;
-import java.nio.file.Paths;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.google.gson.Gson;
@@ -88,7 +83,7 @@ class ValidationIntegrationTests {
     void testPDS543() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/PDS-543");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "PDS-543");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_PDS543.json");
             File expected = new File(testPath + File.separator + "report.expected.json");
@@ -142,7 +137,7 @@ class ValidationIntegrationTests {
     void testGithub28() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github28");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github28");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github28_1.json");
 
@@ -191,7 +186,7 @@ class ValidationIntegrationTests {
     void testGithub15() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github15");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github15");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             
             //test one. Found all products and the name/type are case match
@@ -249,7 +244,7 @@ class ValidationIntegrationTests {
     void testGithub47() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github47");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github47");
             String outFilePath = TestConstants.TEST_OUT_DIR;
 
             // test with option: "--skip-context-validation"
@@ -303,7 +298,7 @@ class ValidationIntegrationTests {
     void testGithub62() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github62");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github62");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github62_1.json");
             
@@ -358,7 +353,7 @@ class ValidationIntegrationTests {
     void testGithub71() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github71");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github71_1.json");
             String catFile =outFilePath + File.separator + "catalog.xml";
@@ -426,7 +421,7 @@ class ValidationIntegrationTests {
     void testGithub09() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github09");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github09");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github09_1.json");
 
@@ -548,15 +543,15 @@ class ValidationIntegrationTests {
     void testGithub50() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github50");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github50");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github50_1.json");
 
             String manifestFile = outFilePath + File.separator + "target-manifest.xml";
 
             // Create catalog file
-            String manifestText = testPath + "/ele_evt_12hr_orbit_2011-2012.xml\n" +
-                    testPath + "/ele_evt_8hr_orbit_2012-2013.xml";
+            String manifestText = testPath + File.separator + "ele_evt_12hr_orbit_2011-2012.xml\n" +
+                    testPath + File.separator + "ele_evt_8hr_orbit_2012-2013.xml";
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(manifestFile));
             writer.write(manifestText);
@@ -585,7 +580,7 @@ class ValidationIntegrationTests {
                     "-s", "json",
                     "--no-data-check",
                     "--target-manifest", manifestFile,
-                    "-t", testPath + "/ele_evt_8hr_orbit_2014-2015.xml"
+                    "-t", testPath + File.separator + "ele_evt_8hr_orbit_2014-2015.xml"
                     };
 
             this.launcher = new ValidateLauncher();
@@ -610,8 +605,8 @@ class ValidationIntegrationTests {
     void testGithub84() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github84");
-            String dataPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github71");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github84");
+            String dataPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github71");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github84_1.json");
 
@@ -645,7 +640,7 @@ class ValidationIntegrationTests {
     void testGithub87() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github87");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github87");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github87_1.json");
             String catFile = outFilePath + File.separator + "catalog.xml";
@@ -696,7 +691,7 @@ class ValidationIntegrationTests {
     void testGithub137() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github137");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github137");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github137_1.json");
 
@@ -747,7 +742,7 @@ class ValidationIntegrationTests {
     @Test
     void testGithub149() {
         try {
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github149");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github149");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File dir = new File(testPath);
             
@@ -771,6 +766,7 @@ class ValidationIntegrationTests {
 
                 int count = this.getMessageCount(reportJson, "totalErrors");
                 assertEquals(expectedErrorCount, count, expectedErrorCount + " error messages expected. See validation report: " + report.getAbsolutePath());
+                this.launcher.flushValidators();
             }
             
             // Check all INVALID examples
@@ -793,6 +789,7 @@ class ValidationIntegrationTests {
 
                 int count = this.getMessageCount(reportJson, "totalErrors");
                 assertEquals(expectedErrorCount, count, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
+                this.launcher.flushValidators();
             }
 
         } catch (ExitException e) {
@@ -807,7 +804,7 @@ class ValidationIntegrationTests {
     void testGithub173() {
         try {
             // Setup paths
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + "/github173");
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github173");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File report = new File(outFilePath + File.separator + "report_github173_1.json");
 
