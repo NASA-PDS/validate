@@ -49,10 +49,10 @@ jobs:
          pip install pds-github-util
          snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
          
-    - name: Deploy SNAPSHOT to Maven Central
-      uses: samuelmeuli/action-maven-publish@v1
-      with:
-        gpg_private_key: ${{ secrets.gpg_private_key }}
-        gpg_passphrase: ${{ secrets.gpg_passphrase }}
-        nexus_username: ${{ secrets.nexus_username }}
-        nexus_password: ${{ secrets.nexus_password }}
+#    - name: Deploy SNAPSHOT to Maven Central
+#      uses: samuelmeuli/action-maven-publish@v1
+#      with:
+#        gpg_private_key: ${{ secrets.gpg_private_key }}
+#        gpg_passphrase: ${{ secrets.gpg_passphrase }}
+#        nexus_username: ${{ secrets.nexus_username }}
+#        nexus_password: ${{ secrets.nexus_password }}
