@@ -35,7 +35,13 @@ jobs:
       env:
         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-      
+     
+    - name: Test Output
+      uses: actions/upload-artifact@v1
+      with:
+        name: test-reports
+        path: target/surefire-reports/
+
     - name: Adding dependencies
       run: |
          sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
