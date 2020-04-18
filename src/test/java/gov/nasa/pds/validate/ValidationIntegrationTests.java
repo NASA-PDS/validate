@@ -770,7 +770,7 @@ class ValidationIntegrationTests {
                 reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
                 int count = this.getMessageCount(reportJson, "totalErrors");
-                assertEquals(count, 0, count + " error messages expected. See validation report: " + report.getAbsolutePath());
+                assertEquals(expectedErrorCount, count, expectedErrorCount + " error messages expected. See validation report: " + report.getAbsolutePath());
             }
             
             // Check all INVALID examples
@@ -792,7 +792,7 @@ class ValidationIntegrationTests {
                 reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
                 int count = this.getMessageCount(reportJson, "totalErrors");
-                assertEquals(count, expectedErrorCount, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
+                assertEquals(expectedErrorCount, count, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
             }
 
         } catch (ExitException e) {
