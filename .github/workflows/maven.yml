@@ -2,18 +2,11 @@
 # For more information see: https://github.com/actions/setup-java#apache-maven-with-a-settings-path
 
 name: Maven Build
-
-#on:
-#   schedule:
-#      - cron: '0 8 * * *'
         
-on: # test github action only
-  # Trigger the workflow on push or pull request,
-  # but only for the master branch
+on:
   push:
     branches:
-      - master  
-
+      - master
 
 jobs:
   build:
@@ -38,16 +31,16 @@ jobs:
       run: python -m pip install --upgrade pip setuptools wheel
 
     - name: Build with Maven
-      run: mvn -B test package --file pom.xml
+      run: mvn -B package --file pom.xml
       
-    - name: Adding dependencies
-      run: |
-         sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
+#    - name: Adding dependencies
+#      run: |
+#         sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
 
-    - name: Tag and Publish SNAPSHOT release to Github
-      run: |
-         pip install pds-github-util
-         snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
+#    - name: Tag and Publish SNAPSHOT release to Github
+#      run: |
+#         pip install pds-github-util
+#         snapshot-release --token ${{ secrets.deploy_token }}
          
 #    - name: Deploy SNAPSHOT to Maven Central
 #      uses: samuelmeuli/action-maven-publish@v1
