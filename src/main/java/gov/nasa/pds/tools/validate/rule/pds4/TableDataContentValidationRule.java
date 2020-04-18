@@ -185,6 +185,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
       FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
+      int definedTotalRecords = 0, actualTotalRecords = 0;
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
@@ -217,6 +218,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         int definedNumRecords = -1;
         boolean inventoryTable = false;
         int actualRecordNumber = reader.getRecordSize();
+        actualTotalRecords += actualRecordNumber;
         //Check if record length is equal to the defined record length in
         // the label (or maximum length)
         if (table instanceof TableDelimited) {
@@ -240,7 +242,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
-  		  actualRecordNumber = (int)(reader.getRecordSize()/recordLength);          
+  		  actualRecordNumber = (int)(reader.getRecordSize()/recordLength); 
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -250,17 +252,35 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           definedNumRecords = tc.getRecords().intValueExact();
         } 
         
-        if (actualRecordNumber!=definedNumRecords) {
-        	String message = "Number of records read is not equal "
-                + "to the defined number of records in the label (expected "
-                + definedNumRecords + ", got " + actualRecordNumber + ").";
-              addTableProblem(ExceptionType.ERROR,
-                  ProblemType.RECORDS_MISMATCH,
-                  message,
-                  dataFile,
-                  tableIndex,
-                  -1); 
-           break;
+        if (tableObjects.size()==1) {
+          if (actualRecordNumber!=definedNumRecords) {
+            String message = "Number of records read is not equal "
+        				+ "to the defined number of records in the label (expected "
+        				+ definedNumRecords + ", got " + actualRecordNumber + ").";
+        	addTableProblem(ExceptionType.ERROR,
+        				ProblemType.RECORDS_MISMATCH,
+        				message,
+        				dataFile,
+        				tableIndex,
+        				-1); 
+        	break;
+          }
+        }
+        else {
+          definedTotalRecords += definedNumRecords;  
+ 		  if (tableObjects.size()==tableIndex) {
+ 			 if (actualTotalRecords!=definedTotalRecords) {
+ 	            String message = "Number of records read is not equal "
+ 	        				+ "to the defined number of records in the label (expected "
+ 	        				+ definedTotalRecords + ", got " + actualRecordNumber + ").";
+ 	        	addTableProblem(ExceptionType.ERROR,
+ 	        				ProblemType.RECORDS_MISMATCH,
+ 	        				message,
+ 	        				dataFile,
+ 	        				tableIndex,
+ 	        				-1);  
+ 			 }
+          }
         }
      
         TableRecord record = null;
