@@ -1,5 +1,16 @@
 # Change Log
 
+## [v1.22.3](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.3) (2020-04-17)
+[Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.22.2...v1.22.3)
+
+**Fixed bugs:**
+
+- Update software to check number of records specified in label matches the records in the table [\#149](https://github.com/NASA-PDS-Incubator/validate/issues/149)
+
+**Merged pull requests:**
+
+- Update software to check number of records specified in label matches the records in the table [\#216](https://github.com/NASA-PDS-Incubator/validate/pull/216) ([hhlee445](https://github.com/hhlee445))
+
 ## [v1.22.2](https://github.com/NASA-PDS-Incubator/validate/tree/v1.22.2) (2020-04-11)
 [Full Changelog](https://github.com/NASA-PDS-Incubator/validate/compare/v1.22.1...v1.22.2)
 
