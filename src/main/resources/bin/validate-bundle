@@ -98,7 +98,7 @@ else
   echo
   echo "  ERROR: No 'validate' found on your path."
   echo "         Please ensure this is on your environment PATH, before running this script."
-  echo "         See https://nasa-pds-incubator.github.io/validate/install/index.html#UNIX-Based_Environment."
+  echo "         See https://NASA-PDS.github.io/validate/install/index.html#UNIX-Based_Environment."
   echo
   exit 1
 fi

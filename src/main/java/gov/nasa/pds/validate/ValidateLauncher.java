@@ -371,7 +371,7 @@ public class ValidateLauncher {
 
             /**
              * Deprecated per
-             * https://github.com/NASA-PDS-Incubator/validate/issues/23
+             * https://github.com/NASA-PDS/validate/issues/23
              **/
             else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
                 deprecatedFlagWarning = true;
