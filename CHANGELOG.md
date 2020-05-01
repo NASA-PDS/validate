@@ -1,6 +1,20 @@
 # Change Log
 
-## [v1.22.3](https://github.com/NASA-PDS/validate/tree/v1.22.3) (2020-04-17)
+## [v1.22.4](https://github.com/NASA-PDS/validate/tree/v1.22.4) (2020-05-01)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.23.0-SNAPSHOT...v1.22.4)
+
+**Fixed bugs:**
+
+- validate unexpectedly throws error for subdir named data/data/ [\#221](https://github.com/NASA-PDS/validate/issues/221)
+
+**Merged pull requests:**
+
+- Update software to properly return error codes [\#223](https://github.com/NASA-PDS/validate/pull/223) ([jordanpadams](https://github.com/jordanpadams))
+
+## [1.23.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.23.0-SNAPSHOT) (2020-04-18)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.3...1.23.0-SNAPSHOT)
+
+## [v1.22.3](https://github.com/NASA-PDS/validate/tree/v1.22.3) (2020-04-18)
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.2...v1.22.3)
 
 **Fixed bugs:**
