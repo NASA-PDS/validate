@@ -167,18 +167,19 @@ public class FieldValueValidator {
           }        
         }
         
-        //System.out.println("value = " + value + "  fields[i].getType() = " + fields[i].getType() + 
-        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength() + "    checkFieldFormat = " + checkFieldFormat);
-        // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
-        if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
- 	      String message = "The field is overlapping with the next field. Current field ends at " 
- 		    	+ (fields[i].getOffset()+fields[i].getLength()) 
- 			    + ". Next field starts at " + fields[i+1].getOffset();
- 	      addTableProblem(ExceptionType.ERROR,
- 			  ProblemType.FIELD_VALUE_OVERLAP,
- 			  message,
- 			  record.getLocation(),
- 			  (i+1));
+        // issue_209: when checkFieldFormat=false, it's Table_Binary, should we check for the overlap as well???
+        if (checkFieldFormat) { 
+            // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
+        	if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
+        		String message = "The field is overlapping with the next field. Current field ends at " 
+        				+ (fields[i].getOffset()+fields[i].getLength()) 
+        				+ ". Next field starts at " + fields[i+1].getOffset();
+        		addTableProblem(ExceptionType.ERROR,
+        				ProblemType.FIELD_VALUE_OVERLAP,
+        				message,
+        				record.getLocation(),
+        				(i+1));
+        	}
         }
 
         // Per the DSV standard in section 4C.1 of the Standards Reference,
