@@ -166,8 +166,8 @@ public class FieldValueValidator {
                 (i + 1));
           }        
         }
-        
-        // issue_209: when checkFieldFormat=false, it's Table_Binary, should we check for the overlap as well???
+
+        // issue_209: when checkFieldFormat=false, it's Table_Binary
         if (checkFieldFormat) { 
             // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
         	if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
