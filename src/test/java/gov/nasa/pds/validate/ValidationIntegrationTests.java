@@ -742,56 +742,14 @@ class ValidationIntegrationTests {
     @Test
     void testGithub149() {
         try {
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github149");
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github173");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File dir = new File(testPath);
+
+            validateRunner(dir, outFilePath, "VALID", 0);
             
-            // Check all VALID examples
-            File[] files = dir.listFiles((d, name) -> name.startsWith("VALID") && name.endsWith(".xml"));
-            int expectedErrorCount = 0;
-            for (File xmlfile : files) {
-                File report = new File(outFilePath + File.separator + "report_github149_" + xmlfile.getName() + ".json");
-                
-                String[] args = {
-                        "-r", report.getAbsolutePath(),
-                        "-s", "json",
-                        "-t" , xmlfile.getAbsolutePath(),
-                        };
-                this.launcher.processMain(args);
-
-                Gson gson = new Gson();
-                JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-                reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-                int count = this.getMessageCount(reportJson, "totalErrors");
-                assertEquals(expectedErrorCount, count, expectedErrorCount + " error messages expected. See validation report: " + report.getAbsolutePath());
-                this.launcher.flushValidators();
-            }
-            
-            // Check all INVALID examples
-            files = dir.listFiles((d, name) -> name.startsWith("FAIL") && name.endsWith(".xml"));
-            expectedErrorCount = 1;
-            for (File xmlfile : files) {
-                File report = new File(outFilePath + File.separator + "report_github149_" + xmlfile.getName() + ".json");
-                
-                String[] args = {
-                        "-r", report.getAbsolutePath(),
-                        "-s", "json",
-                        "-t" , xmlfile.getAbsolutePath(),
-                        };
-                this.launcher.processMain(args);
-
-                Gson gson = new Gson();
-                JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-                reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
-
-                int count = this.getMessageCount(reportJson, "totalErrors");
-                assertEquals(expectedErrorCount, count, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
-                this.launcher.flushValidators();
-            }
-
+            validateRunner(dir, outFilePath, "FAIL", 1);
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
@@ -852,6 +810,53 @@ class ValidationIntegrationTests {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub209() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github209");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File dir = new File(testPath);
+
+//            validateRunner(dir, outFilePath, "VALID", 0);
+            validateRunner(dir, outFilePath, "FAIL", 1);
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    void validateRunner(File dir, String outFilePath, String validity, int expectedCount) throws Exception {
+        File[] files = dir.listFiles((d, name) -> name.startsWith(validity) && name.endsWith(".xml"));
+        for (File xmlfile : files) {
+            File report = new File(outFilePath + File.separator + "report_" + System.currentTimeMillis() + xmlfile.getName() + ".json");
+            
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , xmlfile.getAbsolutePath(),
+                    };
+            this.launcher.processMain(args);
+    
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+    
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            String messageVar = "totalErrors";
+            String msg = "error";
+            if (validity.startsWith("WARN")) {
+                messageVar = "totalWarnings";
+                msg = "warning";
+            }
+            int count = this.getMessageCount(reportJson, messageVar);
+            assertEquals(expectedCount, count, expectedCount + " " + msg + " message(s) expected. See validation report: " + report.getAbsolutePath());
+            this.launcher.flushValidators();
         }
     }
     
