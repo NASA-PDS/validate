@@ -1,20 +1,13 @@
 # Changelog
 
-## [Unreleased](https://github.com/NASA-PDS/pds-registry-app/tree/HEAD)
-
-[Full Changelog](https://github.com/NASA-PDS/pds-registry-app/compare/0.2.0-SNAPSHOT...HEAD)
-
-**Improvements:**
-
-- Update Schema Generator for handling special cases where ancestor classes are needed [\#20](https://github.com/NASA-PDS/pds-registry-app/issues/20)
-- Develop PDS4 Attribute Search capability [\#6](https://github.com/NASA-PDS/pds-registry-app/issues/6)
-
-## [0.2.0-SNAPSHOT](https://github.com/NASA-PDS/pds-registry-app/tree/0.2.0-SNAPSHOT) (2020-05-02)
+## [0.2.0-SNAPSHOT](https://github.com/NASA-PDS/pds-registry-app/tree/0.2.0-SNAPSHOT) (2020-05-08)
 
 [Full Changelog](https://github.com/NASA-PDS/pds-registry-app/compare/0.1.0...0.2.0-SNAPSHOT)
 
 **Improvements:**
 
+- Update Schema Generator for handling special cases where ancestor classes are needed [\#20](https://github.com/NASA-PDS/pds-registry-app/issues/20)
+- Develop PDS4 Attribute Search capability [\#6](https://github.com/NASA-PDS/pds-registry-app/issues/6)
 - update package and documentation after sub-packages updates \(harvest, registry\) [\#1](https://github.com/NASA-PDS/pds-registry-app/issues/1)
 
 **Defects:**
