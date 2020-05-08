@@ -769,6 +769,28 @@ class ValidationIntegrationTests {
                 this.launcher.flushValidators();
             }
             
+            // Check all WARNING examples
+            files = dir.listFiles((d, name) -> name.startsWith("WARN") && name.endsWith(".xml"));
+            for (File xmlfile : files) {
+                File report = new File(outFilePath + File.separator + "report_github149_" + xmlfile.getName() + ".json");
+                
+                String[] args = {
+                        "-r", report.getAbsolutePath(),
+                        "-s", "json",
+                        "-t" , xmlfile.getAbsolutePath(),
+                        };
+                this.launcher.processMain(args);
+
+                Gson gson = new Gson();
+                JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+                int count = this.getMessageCount(reportJson, "totalErrors");
+                assertEquals(expectedErrorCount, count, expectedErrorCount + " error messages expected. See validation report: " + report.getAbsolutePath());
+                this.launcher.flushValidators();
+            }
+            
             // Check all INVALID examples
             files = dir.listFiles((d, name) -> name.startsWith("FAIL") && name.endsWith(".xml"));
             expectedErrorCount = 1;

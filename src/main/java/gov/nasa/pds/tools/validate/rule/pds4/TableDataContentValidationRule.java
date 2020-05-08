@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+//import java.net.URLConnection;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -58,6 +59,7 @@ import gov.nasa.pds.objectAccess.ObjectAccess;
 import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.objectAccess.InvalidTableException;
+import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.Utility;
@@ -157,7 +159,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             PDS4Context.LABEL_DOCUMENT, Document.class)), 
         XPathConstants.NODESET);
     } catch (XPathExpressionException e) {
-      //e.printStackTrace();
       addXPathException(null, XPaths.TABLE_FILE_AREAS, e.getMessage());
     }
     Map<String, Integer> numTables = scanTables(tableFileAreas, objectAccess);
@@ -182,10 +183,24 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
-      
+            
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
       FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
-      int definedTotalRecords = 0, actualTotalRecords = 0;
+      long definedTotalRecords = 0, actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
+      
+      // Get total record size first before validation
+      // issue_220 & issue_219
+      try {
+    	  TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
+    	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
+      }
+      catch (InvalidTableException ex) {
+    	 //ex.printStackTrace();
+      }
+      catch (Exception ex) { 
+    	 //ex.printStackTrace();
+      }
+
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
@@ -193,7 +208,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               tableIndex, false);
         } 
         catch (InvalidTableException ex) {
-        	//ex.printStackTrace();
         	addTableProblem(ExceptionType.ERROR, 
                     ProblemType.TABLE_FILE_READ_ERROR,
                     "" + ex.getMessage(),
@@ -217,8 +231,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         int recordMaxLength = -1;
         int definedNumRecords = -1;
         boolean inventoryTable = false;
-        int actualRecordNumber = reader.getRecordSize();
-        actualTotalRecords += actualRecordNumber;
         //Check if record length is equal to the defined record length in
         // the label (or maximum length)
         if (table instanceof TableDelimited) {
@@ -229,9 +241,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 .getMaximumRecordLength().getValue().intValueExact();
           }
           definedNumRecords = td.getRecords().intValueExact();
+          recordsToRemove = (long)definedNumRecords;
           if (td instanceof Inventory) {
         	    inventoryTable = true;
           }
+//System.out.println("TableDelimited.....recordMaxLength = " + recordMaxLength + "    definedNumrecords = " + definedNumRecords + "   offset = " + reader.getOffset());
         } else if (table instanceof TableBinary) {
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
@@ -242,7 +256,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
-  		  actualRecordNumber = (int)(reader.getRecordSize()/recordLength); 
+          actualRecordNumber = (actualTotalRecords - (reader.getOffset() + (definedNumRecords*recordLength))) / recordLength;
+//System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
+//		"   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
+//		"   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -250,39 +267,38 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
           }
           definedNumRecords = tc.getRecords().intValueExact();
+          recordsToRemove = (long)definedNumRecords;
+          //System.out.println("TableCharacter....recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + "  offset = " + reader.getOffset());
         } 
         
-        if (tableObjects.size()==1) {
-          if (actualRecordNumber!=definedNumRecords) {
-            String message = "Number of records read is not equal "
+        { // issue_220
+        	definedTotalRecords += definedNumRecords;  
+        	if (tableObjects.size()==tableIndex) {   		
+        		String message = "Number of records read is not equal "
         				+ "to the defined number of records in the label (expected "
         				+ definedNumRecords + ", got " + actualRecordNumber + ").";
-        	addTableProblem(ExceptionType.ERROR,
-        				ProblemType.RECORDS_MISMATCH,
-        				message,
-        				dataFile,
-        				tableIndex,
-        				-1); 
-        	break;
-          }
+        		if (actualRecordNumber<definedNumRecords) {
+        			addTableProblem(ExceptionType.ERROR,
+        					ProblemType.RECORDS_MISMATCH,
+        					message,
+        					dataFile,
+        					tableIndex,
+        					-1);  
+        			break;
+        		}
+        		else {
+        		  if (actualRecordNumber>definedNumRecords) {
+        			addTableProblem(ExceptionType.WARNING,
+        					ProblemType.RECORDS_MISMATCH,
+        					message,
+        					dataFile,
+        					tableIndex,
+        					-1);  
+        		  }
+        		}   		
+        	}
         }
-        else {
-          definedTotalRecords += definedNumRecords;  
- 		  if (tableObjects.size()==tableIndex) {
- 			 if (actualTotalRecords!=definedTotalRecords) {
- 	            String message = "Number of records read is not equal "
- 	        				+ "to the defined number of records in the label (expected "
- 	        				+ definedTotalRecords + ", got " + actualRecordNumber + ").";
- 	        	addTableProblem(ExceptionType.ERROR,
- 	        				ProblemType.RECORDS_MISMATCH,
- 	        				message,
- 	        				dataFile,
- 	        				tableIndex,
- 	        				-1);  
- 			 }
-          }
-        }
-     
+   
         TableRecord record = null;
         // We have either a character or delimited table
         try {
@@ -461,7 +477,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   dataFile,
                   tableIndex,
                   -1); 
-            }
+            }  
           }
         } catch (IOException io) {
           // Error occurred while reading the data file
@@ -472,12 +488,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               -1,
               -1);
         }
+        actualRecordNumber -= recordsToRemove;
         tableIndex++;
       }
       fileAreaObserveIndex++;
     }
   }
-  
+
   /**
    * Creates a mapping to detect the number of tables found in
    * each data file defined in the label.

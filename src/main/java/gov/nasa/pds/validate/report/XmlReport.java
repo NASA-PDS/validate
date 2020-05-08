@@ -158,8 +158,12 @@ public class XmlReport extends Report {
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
-        xmlBuilder = xmlBuilder.a("table", tcProblem.getTable().toString());
-      }
+      //if (tcProblem.getTable() != null) {
+        //if (tcProblem.getTable() != -1) 
+		  xmlBuilder = xmlBuilder.a("table", tcProblem.getTable().toString());
+		//else
+		//  xmlBuilder = xmlBuilder.a("table", "0");
+      } 
       if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
         xmlBuilder = xmlBuilder.a("record", tcProblem.getRecord().toString());
       }
