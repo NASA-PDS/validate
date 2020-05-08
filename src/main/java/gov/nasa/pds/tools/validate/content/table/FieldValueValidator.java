@@ -177,18 +177,7 @@ public class FieldValueValidator {
     	    // we should check for overlapping bit fields
     	    if (fields[i].getStopBit() > 0 && fields[i].getStopBit() != fields[i].getLength()*8) {
     	        // first check if the stop bit is longer than the field length
-    	        if (fields[i].getStopBit() > fields[i].getLength()*8) {
-                    String message = "The bit fields are larger than the described Field_Binary. "
-                            + "stop_bit_location: "
-                            + (fields[i].getStopBit()+1) 
-                            + ". field length (in bits): " + (fields[i].getLength()*8);
-                    addTableProblem(ExceptionType.ERROR,
-                            ProblemType.FIELD_VALUE_OVERLAP,
-                            message,
-                            record.getLocation(),
-                            (i+1));
-                    fatalError = true;
-    	        } else if (fields[i+1].getStartBit() > 1) {  // only check overlap is next start bit
+    	        if (fields[i+1].getStartBit() > 1) {  // only check overlap is next start bit
     	            // Next, if next startBit > -1 we know we have another bit field to check  
         	        
         	        // Let's check the bit fields aren't overlapping
