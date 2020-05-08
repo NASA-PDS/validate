@@ -885,8 +885,9 @@ class ValidationIntegrationTests {
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File dir = new File(testPath);
 
-//            validateRunner(dir, outFilePath, "VALID", 0);
-            validateRunner(dir, outFilePath, "FAIL", 1);
+            validateRunner(dir, outFilePath, "VALID", 0);
+            validateRunner(dir, outFilePath, "FAIL1", 1);
+            validateRunner(dir, outFilePath, "FAIL2", 2);
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
