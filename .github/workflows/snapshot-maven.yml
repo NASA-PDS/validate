@@ -58,7 +58,7 @@ jobs:
     - name: Create changelog
       run: |
         sudo gem install github_changelog_generator
-        github_changelog_generator --user NASA-PDS --project pds-registry-app  --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["enhancement"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
+        github_changelog_generator --user NASA-PDS --project validate --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["enhancement"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
     - name: Commit CHANGELOG.md file
       run: |
         git config --local user.email "action@github.com"
