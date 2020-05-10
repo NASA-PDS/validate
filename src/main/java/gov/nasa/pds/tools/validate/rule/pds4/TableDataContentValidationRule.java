@@ -193,6 +193,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       try {
     	  TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
     	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
+    	  //System.out.println("tmpReader.....actualTotalRecords = " + actualTotalRecords);
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
@@ -245,7 +246,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (td instanceof Inventory) {
         	    inventoryTable = true;
           }
-//System.out.println("TableDelimited.....recordMaxLength = " + recordMaxLength + "    definedNumrecords = " + definedNumRecords + "   offset = " + reader.getOffset());
+           //System.out.println("TableDelimited.....recordMaxLength = " + recordMaxLength + "    definedNumrecords = " + definedNumRecords + "   offset = " + reader.getOffset());
         } else if (table instanceof TableBinary) {
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
@@ -256,10 +257,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
-          actualRecordNumber = (actualTotalRecords - (reader.getOffset() + (definedNumRecords*recordLength))) / recordLength;
-//System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
-//		"   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
-//		"   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
+          if (tableObjects.size()==1)
+        	  actualRecordNumber = actualTotalRecords/ recordLength;
+          else
+        	  actualRecordNumber = (actualTotalRecords - (reader.getOffset() + (definedNumRecords*recordLength))) / recordLength;      	 
+          //System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
+		  //"   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
+		  //"   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
