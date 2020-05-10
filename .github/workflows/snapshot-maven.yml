@@ -45,9 +45,28 @@ jobs:
 
     - name: Adding dependencies
       run: |
-         sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
+         sudo apt-get update && sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
 
     - name: Publish new snapshot release
       run: |
          pip install pds-github-util
-         snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
+         maven-snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
+    # the changelog will be available on https://nasa-pds.github.io/<your repo>/CHANGELOG
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+    - name: Create changelog
+      run: |
+        sudo gem install github_changelog_generator
+        github_changelog_generator --user NASA-PDS --project validate --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["enhancement"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
+    - name: Commit CHANGELOG.md file
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add CHANGELOG.md
+        git commit -m "update changelog" --allow-empty
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages

@@ -742,7 +742,8 @@ class ValidationIntegrationTests {
     @Test
     void testGithub149() {
         try {
-            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github149");
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github173");
             String outFilePath = TestConstants.TEST_OUT_DIR;
             File dir = new File(testPath);
             
@@ -813,7 +814,6 @@ class ValidationIntegrationTests {
                 assertEquals(expectedErrorCount, count, expectedErrorCount + " error message(s) expected. See validation report: " + report.getAbsolutePath());
                 this.launcher.flushValidators();
             }
-
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
@@ -874,6 +874,54 @@ class ValidationIntegrationTests {
         } catch (Exception e) {
             e.printStackTrace();
             fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    @Test
+    void testGithub209() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github209");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File dir = new File(testPath);
+
+            validateRunner(dir, outFilePath, "VALID", 0);
+            validateRunner(dir, outFilePath, "FAIL1", 1);
+            validateRunner(dir, outFilePath, "FAIL2", 2);
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+    
+    void validateRunner(File dir, String outFilePath, String validity, int expectedCount) throws Exception {
+        File[] files = dir.listFiles((d, name) -> name.startsWith(validity) && name.endsWith(".xml"));
+        for (File xmlfile : files) {
+            File report = new File(outFilePath + File.separator + "report_" + System.currentTimeMillis() + xmlfile.getName() + ".json");
+            
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , xmlfile.getAbsolutePath(),
+                    };
+            this.launcher.processMain(args);
+    
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+    
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            
+            String messageVar = "totalErrors";
+            String msg = "error";
+            if (validity.startsWith("WARN")) {
+                messageVar = "totalWarnings";
+                msg = "warning";
+            }
+            int count = this.getMessageCount(reportJson, messageVar);
+            assertEquals(expectedCount, count, expectedCount + " " + msg + " message(s) expected. See validation report: " + report.getAbsolutePath());
+            this.launcher.flushValidators();
         }
     }
     

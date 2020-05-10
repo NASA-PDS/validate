@@ -44,7 +44,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>1.23.0-SNAPSHOT</version>
+  <version>1.24.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -52,7 +52,7 @@ POSSIBILITY OF SUCH DAMAGE.
     The Validate Tool project contains software for validating PDS4 product labels and product data according to the PDS4 Standards.
   </description>
 
-  <url>https://nasa-pds-incubator.github.io/validate/</url>
+  <url>https://NASA-PDS.github.io/validate/</url>
 
   <organization>
     <name>Jet Propulsion Laboratory, California Institute of Technology</name>

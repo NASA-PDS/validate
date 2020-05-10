@@ -45,7 +45,7 @@ POSSIBILITY OF SUCH DAMAGE.
         very light on helpful information at this time, but it will continue to grow as we come across additional use cases.
       </p>
       <p>
-        If you would like to contribute to this page, please create a pull request or issue on our <a href="https://github.com/NASA-PDS-Incubator/validate/">GitHub</a> 
+        If you would like to contribute to this page, please create a pull request or issue on our <a href="https://github.com/NASA-PDS/validate/">GitHub</a> 
         repository or email the <a href="mailto:pds_operator@jpl.nasa.gov">PDS Operator</a> with input. Thanks in advance for helping your fellow users.
       </p>
 
@@ -132,7 +132,7 @@ FAIL: file:/home/pds4/dph_example_archive_VG2PLS/browse/Collection_browse.xml
       <p><b>Debugging</b></p>
       <p>The error indicates the fields do not match the table defined in the label. Here are some things you can check to find out where it is failing:</p>
       <ul>
-        <li>Table <i>offset</i> value - if the offset is incorrect, the validate reader will start in the incorrect place in the data product, causing the fields to not line up properly. See <a href="https://github.com/NASA-PDS-Incubator/validate/issues/96">this issue on Github</a> as an example.</li>
+        <li>Table <i>offset</i> value - if the offset is incorrect, the validate reader will start in the incorrect place in the data product, causing the fields to not line up properly. See <a href="https://github.com/NASA-PDS/validate/issues/96">this issue on Github</a> as an example.</li>
         <li>Table <i>field_delimiter</i> - make sure this value is as expected</li>
         <li>Record <i>fields</i> value</li>
       </ul>

@@ -371,7 +371,7 @@ public class ValidateLauncher {
 
             /**
              * Deprecated per
-             * https://github.com/NASA-PDS-Incubator/validate/issues/23
+             * https://github.com/NASA-PDS/validate/issues/23
              **/
             else if (Flag.MODEL.getShortName().equals(o.getOpt())) {
                 deprecatedFlagWarning = true;
@@ -1008,7 +1008,7 @@ public class ValidateLauncher {
                 
                 report.record(new URI(ValidateLauncher.class.getName()), pList);
             } catch (Exception e) {
-                System.out.println(e.getMessage()
+                System.err.println(e.getMessage()
                         + "\nInvalid JSON File: Verify format and values match that in Non RegisteredProducts File JSON file: "
                         + nonRegisteredProductsFile);
             }
@@ -1144,9 +1144,14 @@ public class ValidateLauncher {
     /**
      * Performs validation.
      * 
+     * @param checksumManifest
+     * @return boolean
+     *         true - success
+     *         false - fail
      * @throws Exception
      */
-    public void doValidation(Map<URL, String> checksumManifest) throws Exception {
+    public boolean doValidation(Map<URL, String> checksumManifest) throws Exception {
+        boolean success = true;
         long t0 = System.currentTimeMillis();
         // Initialize the Factory Class
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
@@ -1191,6 +1196,8 @@ public class ValidateLauncher {
                 }
                 validator.validate(monitor, target);
                 monitor.endValidation();
+                
+                if (monitor.numErrors > 0) { success = false; }
             } catch (Exception e) {
                 ValidationProblem p = null;
                 if (e instanceof MissingLabelSchemaException) {
@@ -1226,6 +1233,8 @@ public class ValidateLauncher {
         if (severity.isDebugApplicable()) {
             System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)\n");
         }
+
+        return success;
     }
 
     /**
@@ -1292,7 +1301,8 @@ public class ValidateLauncher {
                             + e.getMessage());
                 }
             } else {
-                System.out.println("Error while trying to read in '" + schema.toString() + "'");
+                System.err.println("Error while trying to read in '" + schema.toString() + "'");
+                isValid = false;
             }
         }
         schemaValidator.setExternalLocations(locations);
@@ -1313,14 +1323,16 @@ public class ValidateLauncher {
     public void printReportFooter() {
         report.printFooter();
     }
-
+    
     /**
-     * Wrapper method for the main class.
+     * Wrapper method for the main class that returns valid exitCode
+     * for execution.
      *
      * @param args
      *            list of command-line arguments.
      */
-    public void processMain(String[] args) throws Exception {
+    public int processMain(String[] args) throws Exception {
+        boolean success = true;
         long t0 = System.currentTimeMillis();
         try {
             CommandLine cmdLine = parse(args);
@@ -1369,6 +1381,7 @@ public class ValidateLauncher {
             if (!schemas.isEmpty()) {
                 if (!validateSchemas(schemas)) {
                     invalidSchemas = true;
+                    success = false;
                 }
             }
             boolean invalidSchematron = false;
@@ -1379,6 +1392,7 @@ public class ValidateLauncher {
                     if (container.getProblems().size() != 0) {
                         report.record(schematron.toURI(), container.getProblems());
                         invalidSchematron = true;
+                        success = false;
                     } else {
                         transformedSchematrons.add(transformer);
                     }
@@ -1386,7 +1400,7 @@ public class ValidateLauncher {
             }
             if (!(invalidSchemas) && !(invalidSchematron)) {
                 setRegisteredProducts();
-                doValidation(checksumManifestMap);
+                if (!doValidation(checksumManifestMap)) success = false;
             }
             printReportFooter();
             if (severity.isDebugApplicable()) {
@@ -1395,6 +1409,8 @@ public class ValidateLauncher {
         } catch (Exception e) {
             throw new Exception(e);
         }
+
+        return (success) ? 0 : 1;
     }
     
     /**
@@ -1428,12 +1444,15 @@ public class ValidateLauncher {
         ca.setThreshold(Priority.FATAL);
         BasicConfigurator.configure(ca);
 
+        int exitCode = 0;
         try {
-            new ValidateLauncher().processMain(args);
+            exitCode = new ValidateLauncher().processMain(args);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
+            System.exit(1);
         }
         System.out.println("Completed execution in " + (System.currentTimeMillis()-t0) + " ms\n");
+        System.exit(exitCode);
     }
 
     /**
@@ -1469,7 +1488,7 @@ public class ValidateLauncher {
                 }
                 addLocation(location);
                 exceptions.get(location).addProblem(problem);
-                if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
+                if (problem.getProblem().getSeverity() == ExceptionType.ERROR || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
                     numErrors++;
                 }
                 if (numErrors >= maxErrors) {

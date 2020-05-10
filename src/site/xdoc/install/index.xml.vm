@@ -67,7 +67,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </section>
     
     <section name="Unpacking the Package">
-      <p>Download the <i>${project.artifactId}</i> package from <a href="https://github.com/NASA-PDS-Incubator/${project.artifactId}/releases/download/v${project.version}" target="_blank">Github</a>. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
+      <p>Download the <i>${project.artifactId}</i> package from <a href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/v${project.version}" target="_blank">Github</a>. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
       </p>
       
       <source>

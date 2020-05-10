@@ -1030,7 +1030,7 @@ validate -R pds4.label --target-manifest release3_data.txt
         </source>
     </subsection>
         <subsection name="validate-bundle">
-        <p>To facilitate the splitting up, and running in parallel the data, one may use the <b>validate-bundle</b> script in the <a href="https://github.com/NASA-PDS-Incubator/validate/tree/master/src/main/resources/bin">src/main/resources/bin</a> directory.
+        <p>To facilitate the splitting up, and running in parallel the data, one may use the <b>validate-bundle</b> script in the <a href="https://github.com/NASA-PDS/validate/tree/master/src/main/resources/bin">src/main/resources/bin</a> directory.
         <br/>This script has two prerequisites:
             <ul>
                 <li>the <b>validate</b> program be on your system path</li>

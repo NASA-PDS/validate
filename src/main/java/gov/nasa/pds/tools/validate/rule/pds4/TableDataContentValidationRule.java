@@ -67,6 +67,7 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.XPaths;
+import gov.nasa.pds.tools.validate.content.table.FieldContentFatalException;
 import gov.nasa.pds.tools.validate.content.table.FieldValueValidator;
 import gov.nasa.pds.tools.validate.content.table.RawTableReader;
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
@@ -193,7 +194,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       try {
     	  TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
     	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
-    	  //System.out.println("tmpReader.....actualTotalRecords = " + actualTotalRecords);
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
@@ -246,7 +246,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (td instanceof Inventory) {
         	    inventoryTable = true;
           }
-           //System.out.println("TableDelimited.....recordMaxLength = " + recordMaxLength + "    definedNumrecords = " + definedNumRecords + "   offset = " + reader.getOffset());
         } else if (table instanceof TableBinary) {
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
@@ -312,7 +311,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               while (record != null) {
                 progressCounter();
 
-                fieldValueValidator.validate(record, reader.getFields(), false);
+                try {
+                    fieldValueValidator.validate(record, reader.getFields(), false);
+                } catch (FieldContentFatalException e) {
+                    // If we get a fatal error, we can avoid an overflow of error output
+                    // by killing the loop through all the table records
+                    break;
+                }
                 if (spotCheckData != -1) {
                   try {
                     record = reader.getRecord(reader.getCurrentRow() + spotCheckData);
@@ -412,7 +417,14 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   record = reader.getRecord(reader.getCurrentRow());
                 }
                 //Validate fields within the record here
-                fieldValueValidator.validate(record, reader.getFields());
+                try {
+                    fieldValueValidator.validate(record, reader.getFields());
+                } catch (FieldContentFatalException e) {
+                    // If we get a fatal error, we can avoid an overflow of error output
+                    // by killing the loop through all the table records
+                    break;
+                }
+
                 //Validate collection inventory member status
                 if (inventoryTable) {
                 	  Map<String, Integer> fieldMap = reader.getFieldMap();

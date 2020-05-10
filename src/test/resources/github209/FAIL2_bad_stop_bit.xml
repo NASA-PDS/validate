@@ -1,0 +1,1882 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1100.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd
+
+      http://pds.nasa.gov/pds4/mission/mess/v1
+      https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1100.xsd
+">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:mess-rs-raw:data.odf:mess_rs_07155_156_60s_odf</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>MESSENGER Radio Science Orbit Data File (ODF)</title>
+             <information_model_version>1.11.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+             <Citation_Information>
+                   <author_list>Verma, A. K.; Perry, M. E.; Lemoine, F. G.; Smith, D. E.; Ensor, S.; Reid, M. R.</author_list>
+                   <publication_year>2019</publication_year>
+                   <description>MESSENGER Radio Science Orbit Data File</description>
+             </Citation_Information>
+             <Modification_History>
+                   <Modification_Detail>
+                         <modification_date>2018-10-18</modification_date>
+                         <version_id>1.0</version_id>
+                         <description>Migration from PDS3</description>
+                  </Modification_Detail>
+             </Modification_History>
+       </Identification_Area>
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>2007-06-04T10:00:39Z</start_date_time>
+                   <stop_date_time>2007-06-05T21:00:41Z</stop_date_time>
+             </Time_Coordinates>
+             <Primary_Result_Summary>
+                   <purpose>Science</purpose>
+                   <processing_level>Raw</processing_level>
+                   <description>MESSENGER raw radio tracking data</description>
+             </Primary_Result_Summary>
+             <Investigation_Area>
+                   <name>MErcury Surface, Space ENvironment, GEochemistry, and Ranging Mission</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.messenger</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+             <Observing_System>
+                   <Observing_System_Component>
+                         <name>MESSENGER</name>
+                         <type>Spacecraft</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mess</lid_reference>
+                               <reference_type>is_instrument_host</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>RSS</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:rss.mess</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             <Target_Identification>
+                   <name>Mercury</name>
+                   <type>Planet</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:target:planet.mercury</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+             <Mission_Area>
+	         <MESSENGER xmlns="http://pds.nasa.gov/pds4/mission/mess/v1">
+                      <mission_phase_name>Venus 2 Flyby</mission_phase_name>
+		 </MESSENGER>     
+             </Mission_Area>
+       </Observation_Area>
+       <Reference_List>
+            <Internal_Reference>
+                  <lid_reference>urn:nasa:pds:messenger:document-rs:sis-odf</lid_reference>
+                  <reference_type>data_to_document</reference_type>
+		  <comment>
+		           Orbit Data Files (ODFs) are
+                           produced by the NASA/JPL Multi-Mission Navigation Radio
+                           Metric Data Conditioning Team for use in determining
+                           spacecraft trajectories, gravity fields affecting them,
+                           and radio propagation conditions.  Each ODF consists of
+                           many 36-byte logical records, which fall into 7 primary
+                           groups plus an End-of-File Group.  An ODF usually
+                           contains most groups, but may not have all.  The first
+                           record in each of the 7 primary groups is a header
+                           record; depending on the group, there may be from zero
+                           to many data records following each header.  The ODF is
+                           described in  JPL/DSN Document 820-13, TRK-2-18
+                           (various versions, with significant changes in April
+                           1997). 
+		  </comment>
+            </Internal_Reference>
+            <Source_Product_External>
+                  <external_source_product_identifier>MESS-V/H-RSS-1-EDR-RAWDATA-V1.0:MESS_RS_07155_156_60S_ODF</external_source_product_identifier>
+                  <reference_type>data_to_raw_source_product</reference_type>
+            </Source_Product_External>
+       </Reference_List>
+        <File_Area_Observational>
+             <File>
+                   <file_name>odf07155.dat</file_name>
+                   <creation_date_time>2018-10-18T10:03:16</creation_date_time>
+                   <file_size unit="byte">88704</file_size>
+                   <md5_checksum>36c4097bbc449693ca7e4e0b758a5ddb</md5_checksum>
+             </File>
+             <Table_Binary>
+                   <name>ODF File Label Group Header</name>
+                   <offset unit="byte">0</offset>
+                   <records>1</records>
+                   <description>
+                                The File Label Group
+                                is usually the first of several groups of records in
+                                an Orbit Data File (ODF). It identifies the spacecraft,
+                                the file creation time, the hardware, and the software
+                                associated with the ODF.  The File Label Group Header
+                                is the first record in the File Label Group.  It is one
+                                36-byte record and is followed by one 36-byte data
+                                record.  Occasionally, the File Label Group is omitted
+                                from an ODF.  The row suffix bytes in the File Label
+                                Group Header are set to 0.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1: The Primary Key indicates the type of data records to 
+                                           follow. In the File Label Group Header this field is set to 101.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: The Secondary Key is not used in the ODF. It is set to 0.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3: The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in a File Label Group data record.  For the File Label
+                                           Group it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4: The Group Start Packet Number
+                                           gives the number of the ODF packet containing the File
+                                           Label Group Header.  Set to 0, since the File Label Group
+                                           Header, when it appears, is always first.
+                               </description>
+                         </Field_Binary>
+                         <Group_Field_Binary>
+                               <name>Items 5-9</name>
+                               <repetitions>5</repetitions>
+                               <fields>1</fields>
+                               <groups>0</groups>
+                               <group_location unit="byte">17</group_location>
+                               <group_length unit="byte">20</group_length>
+                               <Field_Binary>
+                                     <name>Suffix Bytes</name>
+                                     <field_number>1</field_number>
+                                     <field_location unit="byte">1</field_location>
+                                     <data_type>UnsignedMSB4</data_type>
+                                     <field_length unit="byte">4</field_length>
+				     <description>
+				                 The bytes to fill the record; set to 0.
+				     </description>		 
+                               </Field_Binary>
+                         </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF File Label Group Data</name>
+                   <offset unit="byte">36</offset>
+                   <records>1</records>
+                   <description>
+                                The File Label Group
+                                is usually the first of several groups of records in
+                                an Orbit Data File (ODF). It identifies the spacecraft,
+                                the file creation time, the hardware, and the software
+                                associated with the ODF.  The File Label Group data
+                                record is the second record in the File Label Group. It
+                                is one 36-byte record and is preceded by one 36-byte
+                                File Label Group header record.  Occasionally, the File
+                                Label Group is omitted from an ODF.
+                   </description>
+                   <Record_Binary>
+                         <fields>7</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>System ID</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 1:  A character string identifying
+                                           the hardware on which the ODF was created.
+                                           Left-justified and padded with blanks.   					   
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Program ID</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 2:  A character string identifying
+                                           the program under which the ODF was created.
+                                           Left-justified and padded with blanks.      					   
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Spacecraft ID Number</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  ID number for the spacecraft.  These
+                                           are specified in DSN document 820-013, OPS-6-21. 
+					   Representative values include
+                                                            Magellan              18
+                                                            Voyager 1             31
+                                                            Voyager 2             32
+                                                            Clementine            64
+                                                            Galileo Orbiter       77
+                                                            Mars Global Surveyor  94
+							    MESSENGER             236.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>File Creation Date (YYMMDD)</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">21</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The date on which the ODF was
+                                           created, given as a single number of the form YYMMDD.
+                                           where
+                                                    YY   is the two least significant digits of the year
+                                                    MM   is the month (01 through 12)
+                                                    DD   is the day of month (01 through 31).
+                               </description>
+                         </Field_Binary>
+                          <Field_Binary>
+                               <name>File Creation Time (hhmmss)</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">25</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 5:  The time at which the ODF was
+                                           created, given as a single number of the form HHMMSS.
+                                           where
+                                                    HH   is the two-digit hour (00 through 23)
+                                                    MM   is the two-digit minute (00 through 59)
+                                                    SS   is the two-digit second (00 through 59).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>File Reference Date (YYYYMMDD)</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 6:  The reference date for ODF
+                                           time tags -- for example, 19500101
+                                           for EME50. Older files which have
+                                           reference dates of zero will be
+                                           assumed to be EME50.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>File Reference Time (HHMMSS)</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">33</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 7:  The reference time for ODF
+                                           time tags in the format HHMMSS.
+                               </description>
+                         </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Identifier Group Header</name>
+                   <offset unit="byte">72</offset>
+                   <records>1</records>
+                   <description>
+                               The Identifier Group
+                               is usually the second of several groups of records in
+                               an Orbit Data File (ODF).  It is sometimes used to
+                               identify contents of data records that follow.  The
+                               Identifier Group Header is the first record in the
+                               Identifier Group.  It is one 36-byte record and is
+                               followed by one 36-byte Identifier Group data record.
+                               Occasionally the Identifier Group is omitted from an
+                               ODF. The row suffix bytes in the Identifier Group
+                               Header are set to 0."
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1: The Primary Key indicates the type of data records to 
+                                           follow. In the Identifier Group Header this field is set to 107.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: The Secondary Key is not used in the ODF. It is set to 0.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in an Identifier Group data record.  For the
+                                           Identifier Group it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           Identifier Group Header.  Usually set to 2, since the
+                                           Identifier Group usually follows the Label Group
+                                           immediately in the ODF.
+                               </description>
+                         </Field_Binary>
+                         <Group_Field_Binary>
+                               <name>Items 5-9</name>
+                               <repetitions>5</repetitions>
+                               <fields>1</fields>
+                               <groups>0</groups>
+                               <group_location unit="byte">17</group_location>
+                               <group_length unit="byte">20</group_length>
+                               <Field_Binary>
+                                     <name>Suffix Bytes</name>
+                                     <field_number>1</field_number>
+                                     <field_location unit="byte">1</field_location>
+                                     <data_type>UnsignedMSB4</data_type>
+                                     <field_length unit="byte">4</field_length>
+				     <description>
+				                 The bytes to fill the record; set to 0.
+				     </description>		 
+                               </Field_Binary>
+                         </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Identifier Group Data</name>
+                   <offset unit="byte">108</offset>
+                   <records>1</records>
+                   <description>
+                                The Identifier Group
+                                is usually the second of several groups of records in
+                                an Orbit Data File (ODF).  It is sometimes used to
+                                identify contents of data records that follow.  The
+                                Identifier Group data record is the second record in
+                                the Identifier Group.  It is one 36-byte record and is
+                                preceded by one 36-byte Identifier Group header record.
+                                Occasionally the Identifier Group is omitted from an
+                                ODF.
+                   </description>
+                   <Record_Binary>
+                         <fields>3</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Identifier 1</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 1:  A character string sometimes used to
+                                           identify contents of data records to follow. Set to the
+                                           ASCII characters 'TIMETAG' followed by one ASCII 'blank'.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Identifier 2</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 2:  A character string sometimes used to
+                                           identify contents of data records to follow. Set to the
+                                           ASCII characters 'OBSRVBL' followed by one ASCII 'blank'.
+                               </description>
+                         </Field_Binary>
+			 <Field_Binary>
+			       <name>Identifier 3</name>
+                               <field_number>3</field_number>
+			       <field_location unit="byte">17</field_location>
+			       <data_type>ASCII_String</data_type>
+			       <field_length unit="byte">20</field_length>
+			       <description>
+			                   Item 3: A character string sometimes used to
+			          	 identify contents of data records to follow. Set to the
+			          	 ASCII characters 'OD-SAMPL-ID FRQ RSD' followed by one ASCII blank.
+			       </description>
+		        </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Orbit Data Group Header</name>
+                   <offset unit="byte">144</offset>
+                   <records>1</records>
+                   <description>
+                               The Orbit Data Group
+                               is usually the third of several groups of records in an
+                               Orbit Data File (ODF).  It contains the majority of the
+                               data included in the file.  The Orbit Data Group Header
+                               is the first record in the Orbit Data Group; it is
+                               usually followed by many Orbit Data Group data records,
+                               ordered by time.  All records in the Orbit Data Group
+                               have 36 bytes.  The row suffix bytes in the Orbit Data
+                               Group Header are set to 0.  This Orbit Data Group
+                               follows TRK-2-18, Revision E of 29 February 2008.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1:  The Primary Key indicates the
+                                           type of data records to follow.  In the Orbit Data
+                                           Group Header this field is set to 109.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: The Secondary Key is not used in the ODF. It is set to 0.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in an Orbit Data Group data record.  For the Orbit
+                                           Data Group it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           Orbit Data Group Header.  Since the Orbit Data Group
+                                           usually follows immediately after the File Label Group
+                                           and the Identifier Group, it is usually set to 4.
+                               </description>
+                         </Field_Binary>
+			 <Group_Field_Binary>
+			       <name>Items 5-9</name>                                             
+			       <repetitions>5</repetitions>
+			       <fields>1</fields>
+			       <groups>0</groups>
+			       <group_location unit="byte">17</group_location>
+			       <group_length unit="byte">20</group_length>
+			       <Field_Binary>
+			             <name>Suffix Bytes</name>
+			             <field_number>1</field_number>
+			             <field_location unit="byte">1</field_location>
+			             <data_type>UnsignedMSB4</data_type>
+			             <field_length unit="byte">4</field_length>
+			             <description>
+			                         The bytes to fill the record; set to 0.
+			             </description>              
+			       </Field_Binary>
+			 </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Orbit Data Group Data</name>
+                   <offset unit="byte">180</offset>
+                   <records>2228</records>
+                   <description>
+                                The Orbit Data Group
+                                is usually the third of several groups of records in an
+                                Orbit Data File (ODF). It contains the majority of the
+                                data included in the file. The Orbit Data Group Header
+                                is the first record in the Orbit Data Group; it is
+                                usually followed by many Orbit Data Group data records,
+                                ordered by time. All records in the Orbit Data Group
+                                have 36 bytes. Their format and content follow the
+                                specification in TRK-2-18, Revision E of 29 February 2008.
+                   </description>
+                   <Record_Binary>
+                         <fields>7</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Record Time Tag, integer part</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1:  The integer part of the record
+                                           time tag in seconds, measured from the File Reference Date and Time
+                                           in the ODF File Label Group Data (usually 0 hours UTC on 1 January 1950).
+                                           The fractional part of the time tag is in the next Field_Binary.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 2-3</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Items 2-3 of the ODF Orbit Data Group Data.
+                               </description>
+<!--                               <Packed_Data_Fields>
+                                      <bit_fields>2</bit_fields>
+                                      <Field_Bit>
+                                            <name>Record Time Tag, fractional part</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>10</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 2:  The fractional part of the record
+                                                        time tag (see Item 1) in milliseconds.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Primary Receiving Station Downlink Delay</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>11</start_bit_location>
+                                            <stop_bit_location>32</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 3:  Downlink delay for the primary
+                                                        receiving station in nanoseconds.
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Observable, integer part</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The integer part of the observable.
+                                           The fractional part is in Field 4 (Item 5).  See Item
+                                           10 for the data type stored in these fields.
+                                    
+                                           A Doppler observable (in Hertz) is computed according
+                                           to the following equation.  The time tag  tr  is the
+                                           mid-point of the compression interval  ti  to  tj.
+                                    
+                                              Observable = [B/|B|]*[(Nj-Ni)/(tj-ti) - |Fb*K + B|]
+                                    
+                                           where:
+                                              B  = bias placed on receiver
+                                              Ni = Doppler count at time  ti
+                                              Nj = Doppler count at time  tj
+                                              ti = start time of interval
+                                              tj = end time of interval
+                                    
+                                              K = spacecraft transponder turnaround ratio, which varies
+                                                   with band used (see Item 11); set to
+                                                        1       for S-band receivers
+                                                        11/3    for X-band receivers
+                                                        176/27  for Ku-band receivers
+                                                        209/15  for Ka-band receivers
+                                                           (Note: future spacecraft transponders may
+                                                            require different values of K)
+                                    
+                                              Fb = (X1/X2)*(X3*Fr + X4)
+                                                      -Fsc + R3                     for one-way Doppler
+                                                 = (X1/X2)*(X3*Fr + X4)
+                                                      -(T1/T2)*(T3*Ft + T4)         for all other Doppler
+                                                 where:
+                                                    Fr  = receiver (VCO) frequency at time  tr
+                                                    Fsc = spacecraft (beacon) frequency
+                                                    Ft  = transmitter frequency at time  tr-RTLT
+                                                    R3  = 0             for S-band receivers
+                                                        = 0             for X-band receivers
+                                                        = 0             for Ku-band receivers
+                                                        = 0             for Ka-band receivers
+                                                    T1  = 240  for S-band transmitters (see Item 12)
+                                                        = 240  for X-band transmitters
+                                                        = 142  for Ku-band transmitters
+                                                        = 14   for Ka-band transmitters
+                                                    T2  = 221  for S-band transmitters
+                                                        = 749  for X-band transmitters
+                                                        = 153  for Ku-band transmitters
+                                                        = 15   for Ka-band transmitters
+                                                    T3  =  96  for S-band transmitters
+                                                        =  32  for X-band transmitters
+                                                        = 1000 for Ku-band transmitters
+                                                        = 1000 for Ka-band transmitters
+                                                    T4  =    0        for S-band transmitters
+                                                        =  6.5 10^9   for X-band transmitters
+                                                        = -7.0 10^9   for Ku-band transmitters
+                                                        =  1.0 10^10  for Ka-band transmitters
+                                                    X1 to X4 have the same values as T1 to T4 but
+                                                         are dependent on the exciter band (Item 13)
+                                                    RTLT is the round-trip light time
+                                    
+                                           For Doppler data the residual (sometimes called the
+                                           pseudo-residual) is the observed Doppler minus the predicted
+                                           Doppler
+                                    
+                                           A range observable is computed as follows:
+                                    
+                                              Observable = R - C + Z - S
+                                    
+                                           where:
+                                              R = range measurement
+                                              C = station delay calibration
+                                              Z = Z correction, which is the delay resulting from DSN
+                                                  station optics that is not included in routine closed
+                                                  loop calibrations (C)
+                                              S = spacecraft delay
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Observable, fractional part</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 5:  The fractional part of the observable.
+                                           Multiply the value in this field by 10^-9 and
+                                           add the result to the result in Field 3.  See DESCRIPTION
+                                           under Field 3 for details.
+                               </description>
+                         </Field_Binary>
+                          <Field_Binary>
+                               <name>Items 6-14</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Items 6-14 of the ODF Orbit Data Group Data.
+                               </description>
+                               <!--<Packed_Data_Fields>
+                                      <bit_fields>9</bit_fields>
+                                      <Field_Bit>
+                                            <name>Format ID</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>3</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 6:  The Format ID.  Set to 2.  
+                                                        If this value is 1, the ODF was created on or before
+                                                        1997-04-14 and will not be accurately described by this
+                                                        set of object definitions.  In that case, see:
+                                                                  JPL/DSN Document 820-13; Rev A
+                                                                     DSN System Requirements
+                                                                     Detail Interface Design
+                                                                            TRK-2-18
+                                                                  DSN Tracking System Interfaces
+                                                                    Orbit Data File Interface
+                                                                            Mark IVA
+                                                                   Effective Date: May 15, 1984
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Receiving Station ID</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>4</start_bit_location>
+                                            <stop_bit_location>10</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 7:  The ID number of the primary
+                                                        receiving antenna.  Numbers can be found
+                                                        in DSN document 810-047, DSN Antenna and
+                                                        Facility Identifiers, DSN Standard Practice.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Transmitting Station ID</name>
+                                            <field_number>3</field_number>
+                                            <start_bit_location>11</start_bit_location>
+                                            <stop_bit_location>17</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 8:  The ID number of the transmitting antenna.
+                                                        Set to zero if no transmitter was involved (quasar VLBI,
+                                                        one-way (Doppler, phase, or range), or angles data.
+                                                        Numbers can be found in DSN document 810-047, DSN
+                                                        Antenna and Facility Identifiers, DSN Standard Practice.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Network ID</name>
+                                            <field_number>4</field_number>
+                                            <start_bit_location>18</start_bit_location>
+                                            <stop_bit_location>19</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 9:  Network ID Number for the transmitting
+                                                        antenna:  Set to:
+                                                                     0   for DSN
+                                                                     1   for other
+                                                                     2   for UPL (Uplink Tracking and
+                                                                         Command System)
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Data Type ID</name>
+                                            <field_number>5</field_number>
+                                            <start_bit_location>20</start_bit_location>
+                                            <stop_bit_location>25</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 10:  Data Type ID Number.
+                                                        Allowed data type values include:
+                                                           01 = Delta Differential One-way Doppler (D-DOD), Doppler mode, in Hz
+                                                           02 = Delta Differential One-way Doppler (D-DOD), phase mode, in cycles
+                                                           03 = Delta Differential One-way Doppler (D-DOD), Doppler mode, in Hz
+                                                           04 = Delta Differential One-way Doppler (D-DOD), phase mode, in cycles
+                                                           05 = Delta Differential One-way Ranging (D-DOR), in nanoseconds
+                                                           06 = Delta Differential One-way Ranging (D-DOR), in nanoseconds
+                                                           11 = One-way Doppler, in Hertz
+                                                           12 = Two-way Doppler, in Hertz
+                                                           13 = Three-way Doppler, in Hertz
+                                                           37 = Sequential Range, in Range Units (RU)
+                                                           41 = RE (Tone) Range, in nanoseconds
+                                                           51 = Azimuth angle, in degrees
+                                                           52 = Elevation angle, in degrees
+                                                           53 = Hour angle, in degrees
+                                                           54 = Declination angle, in degrees
+                                                           55 = X angle (where +X is east), in degrees
+                                                           56 = Y angle (where +X is east), in degrees
+                                                           57 = X angle (where +X is south), in degrees
+                                                           58 = Y angle (where +X is south), in degrees
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Downlink Band ID</name>
+                                            <field_number>6</field_number>
+                                            <start_bit_location>26</start_bit_location>
+                                            <stop_bit_location>27</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 11:  Downlink Band ID.  Allowed
+                                                        values include:
+                                                           0 = Not applicable if angle data,
+                                                               Ku-band otherwise
+                                                           1 = S-band
+                                                           2 = X-band
+                                                           3 = Ka-band
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Uplink Band ID</name>
+                                            <field_number>7</field_number>
+                                            <start_bit_location>28</start_bit_location>
+                                            <stop_bit_location>29</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 12:  Uplink Band ID.  Allowed
+                                                        values include:
+                                                           0 = Not applicable if angle data or 1-way data,
+                                                               Ku-band otherwise
+                                                           1 = S-band
+                                                           2 = X-band
+                                                           3 = Ka-band
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Reference Frequency Band ID</name>
+                                            <field_number>8</field_number>
+                                            <start_bit_location>30</start_bit_location>
+                                            <stop_bit_location>31</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 13: Reference frequency band ID. Allowed
+                                                        values include:
+                                                           0 = Not applicable if angle data,
+                                                               Ku-band otherwise
+                                                           1 = S-band
+                                                           2 = X-band
+                                                           3 = Ka-band
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Data Validity Indicator</name>
+                                            <field_number>9</field_number>
+                                            <start_bit_location>32</start_bit_location>
+                                            <stop_bit_location>32</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 14:  The data validity flag.  Values are:
+                                                        0 = valid
+                                                        1 = invalid
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 15-19</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">21</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 15-19 of the ODF Orbit Data Group Data.
+                               </description>
+                               <!--<Packed_Data_Fields>
+                                      <bit_fields>5</bit_fields>
+                                      <Field_Bit>
+                                            <name>Item 15</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>7</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 15: If data type (Item 10) is:
+                                                          01-06, the ID number of the second receiving antenna, per 810-047;
+                                                          11-13, the receiver channel number (0-24);
+                                                          37,    the ranging component with the lowest frequency (1-24);
+                                                          41,    integer seconds of the observable;
+                                                          51-58, reserved (set to 0).
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 16</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>8</start_bit_location>
+                                            <stop_bit_location>17</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 16: If data type (Item 10) is:
+                                                        01-06, the Quasar ID (per DSN document 810-005 Module 107 or
+                                                               the Spacecraft ID (per DSN document 820-013, OPS-6-21);
+                                                        11-58, the Spacecraft ID (per DSN document 820-013, OPS-6-21).
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 17</name>
+                                            <field_number>3</field_number>
+                                            <start_bit_location>18</start_bit_location>
+                                            <stop_bit_location>18</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 17: If data type (Item 10) is:
+                                                        01-04, the Phase Point Indicator (set to 0);
+                                                        05-06, the Modulus Indicator (0 = modded, 1 = unmodded);
+                                                        11-13, a flag that indicates whether ramps (if available) should
+                                                               be used to replace the receiver reference frequency 
+                                                               (0 = both transmitter and receiver are ramped,
+                                                                1 = transmitter is ramped, receiver is not ramped);
+                                                        37,    reserved (set to 1)
+                                                        41-58, reserved (set to 0)
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 18</name>
+                                            <field_number>4</field_number>
+                                            <start_bit_location>19</start_bit_location>
+                                            <stop_bit_location>40</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 18: If data type (Item 10) is:
+                                                        01-41, the Reference Frequency (High-Part), in 2^24 mHz,
+                                                               where Reference Frequency (High-Part) is 
+                                                               trunc(1000*Variable/2^24) and
+                                                               Variable is Reference Frequency in Hz;
+                                                        51-58, reserved (set to 0).
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 19</name>
+                                            <field_number>5</field_number>
+                                            <start_bit_location>41</start_bit_location>
+                                            <stop_bit_location>64</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 19: If data type (Item 10) is:
+                                                        01-41, Reference Frequency (Low-Part), in mHz,
+                                                               where Reference Frequency (Low-Part) is 
+                                                               trunc((1000*Variable) modulo 2^24) and
+                                                               Variable is Reference Frequency in Hz;
+                                                        51-58, reserved (set to 0).
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 20-22</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                           Items 20-22 of the ODF Orbit Data Group Data.
+                               </description>
+                               <!--<Packed_Data_Fields>
+                                      <bit_fields>3</bit_fields>
+                                      <Field_Bit>
+                                            <name>Item 20</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>20</stop_bit_location>
+                                            <data_type>SignedBitString</data_type>
+                                            <description>
+                                                        Item 20: If data type (Item 10) is:
+                                                        01-04, the value is called Composite 1 and is calculated as
+                                                               (Phase Calibration Flag minus 1) times 100000, plus
+                                                               Channel ID times 10000 where Phase Calibration Flag is
+                                                                 1 = no calibration,
+                                                                 2 = default calibration,
+                                                                 3 = quasar calibration only,
+                                                                 4 = spacecraft calibration only, or
+                                                                 5 = quasar and spacecraft calibration;
+                                                        05-06, the value is called Composite 1 and is calculated as
+                                                               (Channel Sampling Flag minus 1) times 100000, plus
+                                                               Mode ID times 10000 plus Modulus High-Part in 
+                                                               10^-1 nanoseconds where 
+                                                               Channel Sampling Flag is
+                                                                 1 = multiplexed, or
+                                                                 2 = parallel,
+                                                               Mode ID is
+                                                                 0 = one-way, or
+                                                                 1 = two-way
+                                                               Modulus High-Part is trunc(Variable*10), and
+                                                               Variable is Modulus in nanoseconds;
+                                                        11-13, reserved (set to 0);
+                                                        37,    the uplink ranging coder in-phase time offset from 
+                                                               the sample time tag, in seconds;
+                                                        41-58  reserved (set to 0);
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 21</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>21</start_bit_location>
+                                            <stop_bit_location>42</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 21: If data type (Item 10) is:
+                                                        01-04, the Compression Time, in 0.01 seconds;
+                                                        05-06, the Modulus (Low-Part), in 10^-7 seconds, where
+                                                               Modulus (Low-Part) is trunc((10^7*Variable) modulo 10^6)
+                                                               and Variable is Modulus in nanoseconds;
+                                                        11-13, the Compression Time, in 0.01 seconds;
+                                                        37,    the value is called Composite 2 and is calculated as
+                                                               the highest ranging component times 100000, plus the downlink
+                                                               ranging coder in-phase time offset from the sample time tag,
+                                                               in seconds;
+                                                        41-58, reserved (set to 0).
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Item 22</name>
+                                            <field_number>3</field_number>
+                                            <start_bit_location>43</start_bit_location>
+                                            <stop_bit_location>64</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 22: If data type (Item 10) is:
+                                                        01-06, the second receiving antenna downlink delay, in nanoseconds;
+                                                        11-41, the transmitting antenna uplink delay, in nanoseconds, 
+                                                               which is always zero for one-way;
+                                                        51-58, reserved (set to 0).
+                                                        If VLBI data:
+                                                          Second Receiving Station Downlink Delay in nanoseconds.
+                                                        If Doppler, phase, or range data:
+                                                          Transmitting Station Uplink Delay in nanoseconds.
+                                                        Otherwise, set to 0.
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Header (Station 63)</name>
+                   <offset unit="byte">80388</offset>
+                   <records>1</records>
+                   <description>
+                               Ramp Groups usually begin as
+                               the fourth of several groups of records in an
+                               Orbit Data File (ODF).  They contain information on
+                               tuning of receivers or transmitters.  There is usually
+                               one Ramp Group for each DSN station.  The Ramp Group
+                               Header is the first record in each Ramp Group.  It is
+                               one 36-byte record and is followed by one or more 36-
+                               byte Ramp Group data records.  Data records are time
+                               ordered within each Ramp Group.  The Ramp Group may be
+                               omitted from an ODF.  The row suffix bytes in the Ramp
+                               Group Header are set to 0.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1:  The Primary Key indicates the type
+                                           of data records to follow.  In the Ramp Group Header
+                                           this field is set to 2030.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: Set to the Station (antenna) ID Number.
+                                           Numbers may be found in DSN document 810-047.
+                                           If not applicable, the value is set to zero.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in a Ramp Group data record.  For the Ramp Group
+                                           it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           Ramp Group Header; packet numbering starts with 0
+                                           for the File Label Group Header.
+                               </description>
+                         </Field_Binary>
+			 <Group_Field_Binary>
+			       <name>Items 5-9</name>                                             
+			       <repetitions>5</repetitions>
+			       <fields>1</fields>
+			       <groups>0</groups>
+			       <group_location unit="byte">17</group_location>
+			       <group_length unit="byte">20</group_length>
+			       <Field_Binary>
+			             <name>Suffix Bytes</name>
+			             <field_number>1</field_number>
+			             <field_location unit="byte">1</field_location>
+			             <data_type>UnsignedMSB4</data_type>
+			             <field_length unit="byte">4</field_length>
+			             <description>
+			                         The bytes to fill the record; set to 0.
+			             </description>              
+			       </Field_Binary>
+			 </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Data (Station 63)</name>
+                   <offset unit="byte">80424</offset>
+                   <records>97</records>
+                   <description>
+                                Ramp Groups usually begin as 
+                                the fourth of several groups of records in an
+                                Orbit Data File (ODF). They contain information on
+                                tuning of receivers or transmitters. There is usually
+                                one Ramp Group for each DSN station. The Ramp Group
+                                Header is the first record in each Ramp Group.  It is
+                                one 36-byte record and is followed by one or more 36-
+                                byte Ramp Group data records. Data records are time
+                                ordered within each Ramp Group. The Ramp Group may be
+                                omitted from an ODF.
+                   </description>
+                   <Record_Binary>
+                         <fields>9</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Ramp Start Time, integer part</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 1:  The integer part of the ramp
+                                           start time, measured in seconds from the
+                                           Reference Time (usually 0 hours UTC on 
+                                           1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Time, fractional part</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 2:  The fractional part of the ramp
+                                           start time - see field 1 (Item 1).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, integer part</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hz/second</unit>
+                               <description>
+                                           Item 3:  The integer part of the ramp rate.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, fractional part</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanohertz/second</unit>
+                               <description>
+                                           Item 4:  The fractional part of the ramp
+                                           rate, in units of 10^-9 of field 3i (Item 3).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 5-6</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Items 5-6 of the ODF.
+                               </description>
+<!--                               <Packed_Data_Fields>
+                                      <bit_fields>2</bit_fields>
+                                      <Field_Bit>
+                                            <name>Ramp Start Frequency, integer GHz</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>22</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <unit>GHz</unit>
+                                            <description>
+                                                        Item 5: Ramp Start Frequency, integer GHz.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Transmitting Station ID</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>23</start_bit_location>
+                                            <stop_bit_location>32</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 6:Transmitting Station ID number.
+                                                        Numbers can be found in DSN document 810-047.
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, integer part modulo 10^9</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">21</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hertz</unit>
+                               <description>
+                                           Item 7:  The integer part of the
+                                           Ramp Start Frequency, modulo 10^9.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, fractional part</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">25</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 8:  The fractional part of the
+                                           Ramp Start Frequency, in units of 10^-9 of field 6 (Item 7).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, integer part</name>
+                               <field_number>8</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 9:  The integer part of the ramp
+                                           end time, measured from the Reference Time
+                                           (usually 0 hours UTC on 1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, fractional part</name>
+                               <field_number>9</field_number>
+                               <field_location unit="byte">33</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 10:  The fractional part of the ramp
+                                           end time (see field 8, Item 9).
+                               </description>
+                         </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Header (Station 14)</name>
+                   <offset unit="byte">83916</offset>
+                   <records>1</records>
+                   <description>
+                               Ramp Groups usually begin as
+                               the fourth of several groups of records in an
+                               Orbit Data File (ODF).  They contain information on
+                               tuning of receivers or transmitters.  There is usually
+                               one Ramp Group for each DSN station.  The Ramp Group
+                               Header is the first record in each Ramp Group.  It is
+                               one 36-byte record and is followed by one or more 36-
+                               byte Ramp Group data records.  Data records are time
+                               ordered within each Ramp Group.  The Ramp Group may be
+                               omitted from an ODF.  The row suffix bytes in the Ramp
+                               Group Header are set to 0.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1:  The Primary Key indicates the type
+                                           of data records to follow.  In the Ramp Group Header
+                                           this field is set to 2030.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: Set to the Station (antenna) ID Number.
+                                           Numbers may be found in DSN document 810-047.
+                                           If not applicable, the value is set to zero.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in a Ramp Group data record.  For the Ramp Group
+                                           it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           Ramp Group Header; packet numbering starts with 0
+                                           for the File Label Group Header.
+                               </description>
+                         </Field_Binary>
+			 <Group_Field_Binary>
+			       <name>Items 5-9</name>                                             
+			       <repetitions>5</repetitions>
+			       <fields>1</fields>
+			       <groups>0</groups>
+			       <group_location unit="byte">17</group_location>
+			       <group_length unit="byte">20</group_length>
+			       <Field_Binary>
+			             <name>Suffix Bytes</name>
+			             <field_number>1</field_number>
+			             <field_location unit="byte">1</field_location>
+			             <data_type>UnsignedMSB4</data_type>
+			             <field_length unit="byte">4</field_length>
+			             <description>
+			                         The bytes to fill the record; set to 0.
+			             </description>              
+			       </Field_Binary>
+			 </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Data (Station 14)</name>
+                   <offset unit="byte">83952</offset>
+                   <records>48</records>
+                   <description>
+                                Ramp Groups usually begin as 
+                                the fourth of several groups of records in an
+                                Orbit Data File (ODF). They contain information on
+                                tuning of receivers or transmitters. There is usually
+                                one Ramp Group for each DSN station. The Ramp Group
+                                Header is the first record in each Ramp Group.  It is
+                                one 36-byte record and is followed by one or more 36-
+                                byte Ramp Group data records. Data records are time
+                                ordered within each Ramp Group. The Ramp Group may be
+                                omitted from an ODF.
+                   </description>
+                   <Record_Binary>
+                         <fields>9</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Ramp Start Time, integer part</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 1:  The integer part of the ramp
+                                           start time, measured in seconds from the
+                                           Reference Time (usually 0 hours UTC on 
+                                           1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Time, fractional part</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 2:  The fractional part of the ramp
+                                           start time - see field 1 (Item 1).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, integer part</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hz/second</unit>
+                               <description>
+                                           Item 3:  The integer part of the ramp rate.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, fractional part</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanohertz/second</unit>
+                               <description>
+                                           Item 4:  The fractional part of the ramp
+                                           rate, in units of 10^-9 of field 3i (Item 3).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 5-6</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Items 5-6 of the ODF.
+                               </description>
+<!--                               <Packed_Data_Fields>
+                                      <bit_fields>2</bit_fields>
+                                      <Field_Bit>
+                                            <name>Ramp Start Frequency, integer GHz</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>22</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <unit>GHz</unit>
+                                            <description>
+                                                        Item 5: Ramp Start Frequency, integer GHz.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Transmitting Station ID</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>23</start_bit_location>
+                                            <stop_bit_location>32</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 6:Transmitting Station ID number.
+                                                        Numbers can be found in DSN document 810-047.
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>-->
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, integer part modulo 10^9</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">21</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hertz</unit>
+                               <description>
+                                           Item 7:  The integer part of the
+                                           Ramp Start Frequency, modulo 10^9.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, fractional part</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">25</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 8:  The fractional part of the
+                                           Ramp Start Frequency, in units of 10^-9 of field 6 (Item 7).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, integer part</name>
+                               <field_number>8</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 9:  The integer part of the ramp
+                                           end time, measured from the Reference Time
+                                           (usually 0 hours UTC on 1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, fractional part</name>
+                               <field_number>9</field_number>
+                               <field_location unit="byte">33</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 10:  The fractional part of the ramp
+                                           end time (see field 8, Item 9).
+                               </description>
+                         </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Header (Station 43)</name>
+                   <offset unit="byte">85680</offset>
+                   <records>1</records>
+                   <description>
+                               Ramp Groups usually begin as
+                               the fourth of several groups of records in an
+                               Orbit Data File (ODF).  They contain information on
+                               tuning of receivers or transmitters.  There is usually
+                               one Ramp Group for each DSN station.  The Ramp Group
+                               Header is the first record in each Ramp Group.  It is
+                               one 36-byte record and is followed by one or more 36-
+                               byte Ramp Group data records.  Data records are time
+                               ordered within each Ramp Group.  The Ramp Group may be
+                               omitted from an ODF.  The row suffix bytes in the Ramp
+                               Group Header are set to 0.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1:  The Primary Key indicates the type
+                                           of data records to follow.  In the Ramp Group Header
+                                           this field is set to 2030.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: Set to the Station (antenna) ID Number.
+                                           Numbers may be found in DSN document 810-047.
+                                           If not applicable, the value is set to zero.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length gives the
+                                           number of 36-byte physical records making up each logical
+                                           record in a Ramp Group data record.  For the Ramp Group
+                                           it is set to 1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           Ramp Group Header; packet numbering starts with 0
+                                           for the File Label Group Header.
+                               </description>
+                         </Field_Binary>
+			 <Group_Field_Binary>
+			       <name>Items 5-9</name>                                             
+			       <repetitions>5</repetitions>
+			       <fields>1</fields>
+			       <groups>0</groups>
+			       <group_location unit="byte">17</group_location>
+			       <group_length unit="byte">20</group_length>
+			       <Field_Binary>
+			             <name>Suffix Bytes</name>
+			             <field_number>1</field_number>
+			             <field_location unit="byte">1</field_location>
+			             <data_type>UnsignedMSB4</data_type>
+			             <field_length unit="byte">4</field_length>
+			             <description>
+			                         The bytes to fill the record; set to 0.
+			             </description>              
+			       </Field_Binary>
+			 </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF Ramp Group Data (Station 43)</name>
+                   <offset unit="byte">85716</offset>
+                   <records>24</records>
+                   <description>
+                                Ramp Groups usually begin as 
+                                the fourth of several groups of records in an
+                                Orbit Data File (ODF). They contain information on
+                                tuning of receivers or transmitters. There is usually
+                                one Ramp Group for each DSN station. The Ramp Group
+                                Header is the first record in each Ramp Group.  It is
+                                one 36-byte record and is followed by one or more 36-
+                                byte Ramp Group data records. Data records are time
+                                ordered within each Ramp Group. The Ramp Group may be
+                                omitted from an ODF.
+                   </description>
+                   <Record_Binary>
+                         <fields>9</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Ramp Start Time, integer part</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 1:  The integer part of the ramp
+                                           start time, measured in seconds from the
+                                           Reference Time (usually 0 hours UTC on 
+                                           1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Time, fractional part</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 2:  The fractional part of the ramp
+                                           start time - see field 1 (Item 1).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, integer part</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hz/second</unit>
+                               <description>
+                                           Item 3:  The integer part of the ramp rate.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Rate, fractional part</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanohertz/second</unit>
+                               <description>
+                                           Item 4:  The fractional part of the ramp
+                                           rate, in units of 10^-9 of field 3i (Item 3).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Items 5-6</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Items 5-6 of the ODF.
+                               </description>
+                               <Packed_Data_Fields>
+                                      <bit_fields>2</bit_fields>
+                                      <Field_Bit>
+                                            <name>Ramp Start Frequency, integer GHz</name>
+                                            <field_number>1</field_number>
+                                            <start_bit_location>1</start_bit_location>
+                                            <stop_bit_location>23</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <unit>GHz</unit>
+                                            <description>
+                                                        Item 5: Ramp Start Frequency, integer GHz.
+                                            </description>
+                                      </Field_Bit>
+                                      <Field_Bit>
+                                            <name>Transmitting Station ID</name>
+                                            <field_number>2</field_number>
+                                            <start_bit_location>23</start_bit_location>
+                                            <stop_bit_location>33</stop_bit_location>
+                                            <data_type>UnsignedBitString</data_type>
+                                            <description>
+                                                        Item 6:Transmitting Station ID number.
+                                                        Numbers can be found in DSN document 810-047.
+                                            </description>
+                                      </Field_Bit>
+                               </Packed_Data_Fields>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, integer part modulo 10^9</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">21</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>Hertz</unit>
+                               <description>
+                                           Item 7:  The integer part of the
+                                           Ramp Start Frequency, modulo 10^9.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp Start Frequency, fractional part</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">25</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 8:  The fractional part of the
+                                           Ramp Start Frequency, in units of 10^-9 of field 6 (Item 7).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, integer part</name>
+                               <field_number>8</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>second</unit>
+                               <description>
+                                           Item 9:  The integer part of the ramp
+                                           end time, measured from the Reference Time
+                                           (usually 0 hours UTC on 1 January 1950).
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Ramp End Time, fractional part</name>
+                               <field_number>9</field_number>
+                               <field_location unit="byte">33</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <unit>nanosecond</unit>
+                               <description>
+                                           Item 10:  The fractional part of the ramp
+                                           end time (see field 8, Item 9).
+                               </description>
+                         </Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+             <Table_Binary>
+                   <name>ODF End-of-File Group</name>
+                   <offset unit="byte">86580</offset>
+                   <records>1</records>
+                   <description>
+                               The End of File Group
+                               is usually the eighth and last of several groups of
+                               records in an Orbit Data File (ODF).  It is a single
+                               record of 36-bytes and denotes the logical end of the
+                               ODF. Row suffix bytes are set to 0.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">36</record_length> 
+                         <Field_Binary>
+                               <name>Primary Key</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>SignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 1: The Primary Key indicates the type of data records to 
+                                           follow. In the End of File Group Header this field is set to -1.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Secondary Key</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">5</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 2: The Secondary Key is not used in the ODF. It is set to 0.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Logical Record Length (in packets)</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 3:  The Logical Record Length is set
+                                           to 0 in the End of File Group, indicating that no
+                                           logical records follow.
+                               </description>
+                         </Field_Binary>
+                         <Field_Binary>
+                               <name>Group Start Packet Number</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>UnsignedMSB4</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                           Item 4:  The Group Start Packet Number
+                                           gives the number of the ODF packet containing the
+                                           End of File Group; packet numbering starts with 0
+                                           for the File Label Group Header.
+                               </description>
+                         </Field_Binary>
+			 <Group_Field_Binary>
+			       <name>Items 5-9</name>                                             
+			       <repetitions>5</repetitions>
+			       <fields>1</fields>
+			       <groups>0</groups>
+			       <group_location unit="byte">17</group_location>
+			       <group_length unit="byte">20</group_length>
+			       <Field_Binary>
+			             <name>Suffix Bytes</name>
+			             <field_number>1</field_number>
+			             <field_location unit="byte">1</field_location>
+			             <data_type>UnsignedMSB4</data_type>
+			             <field_length unit="byte">4</field_length>
+			             <description>
+			                         The bytes to fill the record; set to 0.
+			             </description>              
+			       </Field_Binary>
+			 </Group_Field_Binary>
+                   </Record_Binary>
+             </Table_Binary>
+      </File_Area_Observational>
+</Product_Observational>

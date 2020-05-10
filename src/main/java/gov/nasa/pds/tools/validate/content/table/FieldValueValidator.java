@@ -134,7 +134,7 @@ public class FieldValueValidator {
    * @param record The record containing the fields to validate.
    * @param fields An array of the field descriptions.
    */
-  public void validate(TableRecord record, FieldDescription[] fields) {
+  public void validate(TableRecord record, FieldDescription[] fields) throws FieldContentFatalException {
     validate(record, fields, true);
   }
   
@@ -146,7 +146,10 @@ public class FieldValueValidator {
    * @param checkFieldFormat A flag to determine whether to check the field
    *  values against its specified field format, if present in the label.
    */
-  public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) {
+  public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) throws FieldContentFatalException{
+    // Set variable if we get an error that will be a problem for all records
+    boolean fatalError = false;
+
     for (int i = 0; i < fields.length; i++) {
       try {
         String value = record.getString(i+1);
@@ -166,20 +169,44 @@ public class FieldValueValidator {
                 (i + 1));
           }        
         }
-        
-        //System.out.println("value = " + value + "  fields[i].getType() = " + fields[i].getType() + 
-        //		 "  offset = " + fields[i].getOffset() + "  length = " + fields[i].getLength() + "    checkFieldFormat = " + checkFieldFormat);
-        // issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
-        if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
- 	      String message = "The field is overlapping with the next field. Current field ends at " 
- 		    	+ (fields[i].getOffset()+fields[i].getLength()) 
- 			    + ". Next field starts at " + fields[i+1].getOffset();
- 	      addTableProblem(ExceptionType.ERROR,
- 			  ProblemType.FIELD_VALUE_OVERLAP,
- 			  message,
- 			  record.getLocation(),
- 			  (i+1));
-        }
+
+        // issue_56: Validate that fields do not overlap based upon field length definitions
+    	if ((i+1)<fields.length) {
+
+    	    // If stopBit is set and we aren't at the end of the field, 
+    	    // we should check for overlapping bit fields
+    	    if (fields[i].getStopBit() > 0 && fields[i].getStopBit() != fields[i].getLength()*8) {
+    	        // first check if the stop bit is longer than the field length
+    	        if (fields[i+1].getStartBit() > 1) {  // only check overlap is next start bit
+    	            // Next, if next startBit > -1 we know we have another bit field to check  
+        	        
+        	        // Let's check the bit fields aren't overlapping
+        	        if (fields[i].getStopBit() >= fields[i+1].getStartBit()) {
+                        String message = "The bit field is overlapping with the next field. "
+                                + "Current stop_bit_location: "
+                                + (fields[i].getStopBit()+1) 
+                                + ". Next start_bit_location: " + (fields[i+1].getStartBit()+1);
+                        addTableProblem(ExceptionType.ERROR,
+                                ProblemType.FIELD_VALUE_OVERLAP,
+                                message,
+                                record.getLocation(),
+                                (i+1));
+                        fatalError = true;
+        	        }
+    	        }
+    	    // Otherwise, we are just reading a normal Field_Character or Field_Binary
+        	} else if ((fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
+        		String message = "The field is overlapping with the next field. Current field ends at " 
+        				+ (fields[i].getOffset()+fields[i].getLength()) 
+        				+ ". Next field starts at " + fields[i+1].getOffset();
+        		addTableProblem(ExceptionType.ERROR,
+        				ProblemType.FIELD_VALUE_OVERLAP,
+        				message,
+        				record.getLocation(),
+        				(i+1));
+        		fatalError = true;
+        	}
+    	}
 
         // Per the DSV standard in section 4C.1 of the Standards Reference,
         // empty fields are ok for DelimitedTableRecord and space-padded empty fields are ok for FixedTableRecord
@@ -252,8 +279,13 @@ public class FieldValueValidator {
             "Error while getting field value: " + e.getMessage(),
             record.getLocation(),
             (i + 1));
+        fatalError = true;
       }
     }
+    
+    // Raise exception of we get a fatal error to avoid overflow of error messages
+    // for every records
+    if (fatalError) throw new FieldContentFatalException("Fatal field content read error. Discontinue reading records."); 
   }
   
   /**
