@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/NASA-PDS/validate/tree/HEAD)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0-SNAPSHOT...HEAD)
+
+**Defects:**
+
+- Incorrect validation of number of records [\#220](https://github.com/NASA-PDS/validate/issues/220)
+
 ## [1.24.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.24.0-SNAPSHOT) (2020-05-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.23.0...1.24.0-SNAPSHOT)
@@ -15,7 +23,6 @@
 
 **Defects:**
 
-- Incorrect validation of number of records [\#220](https://github.com/NASA-PDS/validate/issues/220)
 - validate v1.22.3 has large performance degradation on products with many tables [\#219](https://github.com/NASA-PDS/validate/issues/219)
 - Packed\_Data\_Fields and bit fields do not validate as expected [\#209](https://github.com/NASA-PDS/validate/issues/209)
 - Software raises a field\_value\_overlap error on Table\_Binary Packed data fields [\#177](https://github.com/NASA-PDS/validate/issues/177)
