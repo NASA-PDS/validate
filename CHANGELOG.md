@@ -6,6 +6,7 @@
 
 **Defects:**
 
+- Incorrect validation of number of records [\#220](https://github.com/NASA-PDS/validate/issues/220)
 - Packed\_Data\_Fields and bit fields do not validate as expected [\#209](https://github.com/NASA-PDS/validate/issues/209)
 
 ## [1.24.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.24.0-SNAPSHOT) (2020-05-08)
