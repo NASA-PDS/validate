@@ -1,8 +1,8 @@
 # Changelog
 
-## [Unreleased](https://github.com/NASA-PDS/validate/tree/HEAD)
+## [v1.23.1](https://github.com/NASA-PDS/validate/tree/v1.23.1) (2020-05-16)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0-SNAPSHOT...HEAD)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0-SNAPSHOT...v1.23.1)
 
 **Defects:**
 
