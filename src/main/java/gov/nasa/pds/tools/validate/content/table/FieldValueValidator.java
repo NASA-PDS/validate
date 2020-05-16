@@ -150,10 +150,16 @@ public class FieldValueValidator {
     // Set variable if we get an error that will be a problem for all records
     boolean fatalError = false;
 
+    int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
       try {
         String value = record.getString(i+1);
-
+        // issue_209: fix for incorrect field number
+        if (i<(fields.length-1) ) {
+           if (fields[i+1].getOffset()!=fields[i].getOffset())
+        	   actualFieldNumber++;   
+        }
+        
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
         if (fields[i].getMaxLength() != -1) {
@@ -169,34 +175,12 @@ public class FieldValueValidator {
                 (i + 1));
           }        
         }
-
-        // issue_56: Validate that fields do not overlap based upon field length definitions
-    	if ((i+1)<fields.length) {
-
-    	    // If stopBit is set and we aren't at the end of the field, 
-    	    // we should check for overlapping bit fields
-    	    if (fields[i].getStopBit() > 0 && fields[i].getStopBit() != fields[i].getLength()*8) {
-    	        // first check if the stop bit is longer than the field length
-    	        if (fields[i+1].getStartBit() > 1) {  // only check overlap is next start bit
-    	            // Next, if next startBit > -1 we know we have another bit field to check  
-        	        
-        	        // Let's check the bit fields aren't overlapping
-        	        if (fields[i].getStopBit() >= fields[i+1].getStartBit()) {
-                        String message = "The bit field is overlapping with the next field. "
-                                + "Current stop_bit_location: "
-                                + (fields[i].getStopBit()+1) 
-                                + ". Next start_bit_location: " + (fields[i+1].getStartBit()+1);
-                        addTableProblem(ExceptionType.ERROR,
-                                ProblemType.FIELD_VALUE_OVERLAP,
-                                message,
-                                record.getLocation(),
-                                (i+1));
-                        fatalError = true;
-        	        }
-    	        }
-    	    // Otherwise, we are just reading a normal Field_Character or Field_Binary
-        	} else if ((fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
-        		String message = "The field is overlapping with the next field. Current field ends at " 
+        
+        // issue_209: when checkFieldFormat=false, it's Table_Binary
+        if (checkFieldFormat) { 
+        	// issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
+        	if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
+        		String message = "This field overlaps the next field. Current field ends at " 
         				+ (fields[i].getOffset()+fields[i].getLength()) 
         				+ ". Next field starts at " + fields[i+1].getOffset();
         		addTableProblem(ExceptionType.ERROR,
@@ -204,7 +188,47 @@ public class FieldValueValidator {
         				message,
         				record.getLocation(),
         				(i+1));
-        		fatalError = true;
+        	}
+        }
+
+        // issue_56: Validate that fields do not overlap based upon field length definitions
+    	if ((i+1)<fields.length) {
+    	    // If stopBit is set and we aren't at the end of the field, 
+    	    // we should check for overlapping bit fields
+    	    if (fields[i].getStopBit()>0 && fields[i].getStopBit()!=fields[i].getLength()*8) {
+    	    	
+    	        // first check if the stop bit is longer than the field length
+    	        if (fields[i+1].getStartBit() > 1) {  // only check overlap is next start bit
+    	            // Next, if next startBit > -1 we know we have another bit field to check  
+        	        // Let's check the bit fields aren't overlapping
+        	        if (fields[i].getStopBit() >= fields[i+1].getStartBit()) {
+                        String message = "The bit field overlaps the next field. "
+                                + "Current stop_bit_location: "
+                                + (fields[i].getStopBit()+1) 
+                                + ". Next start_bit_location: " + (fields[i+1].getStartBit()+1);
+                        addTableProblem(ExceptionType.ERROR,
+                                ProblemType.FIELD_VALUE_OVERLAP,
+                                message,
+                                record.getLocation(),
+                                actualFieldNumber);
+                              //  (i+1));
+                        fatalError = true;
+        	        }
+    	        }
+    	    // Otherwise, we are just reading a normal Field_Character or Field_Binary
+        	} else {
+        		// issue_209: incorrect error when the current offset and next offset are same
+        		if ((fields[i].getOffset()>fields[i+1].getOffset()) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {       
+        			String message = "This field overlaps the next field. Current field ends at " 
+        					+ (fields[i].getOffset()+fields[i].getLength()+1) 
+        					+ ". Next field starts at " + (fields[i+1].getOffset()+1);
+        			addTableProblem(ExceptionType.ERROR,
+        					ProblemType.FIELD_VALUE_OVERLAP,
+        					message,
+        					record.getLocation(),
+        					(i+1));
+        			fatalError = true;
+        		}
         	}
     	}
 
