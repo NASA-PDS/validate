@@ -259,10 +259,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (tableObjects.size()==1)
         	  actualRecordNumber = actualTotalRecords/ recordLength;
           else
-        	  actualRecordNumber = (actualTotalRecords - (reader.getOffset() + (definedNumRecords*recordLength))) / recordLength;      	 
+        	  actualRecordNumber = (actualTotalRecords - reader.getOffset()) / recordLength;
           //System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
-		  //"   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
-		  //"   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
+		  //  "   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
+		  //  "   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
