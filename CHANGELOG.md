@@ -31,10 +31,6 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.23.0-SNAPSHOT...v1.22.4)
 
-**Defects:**
-
-- validate unexpectedly throws error for subdir named data/data/ [\#221](https://github.com/NASA-PDS/validate/issues/221)
-
 ## [1.23.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.23.0-SNAPSHOT) (2020-04-18)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.3...1.23.0-SNAPSHOT)
