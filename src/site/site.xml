@@ -39,13 +39,16 @@ POSSIBILITY OF SUCH DAMAGE.
     <version>1.8</version>
   </skin>
 
+
   <bannerLeft>
-    <src>images/pds4_logo.png</src>
-    <href>https://github.com/NASA-PDS/${project.artifactId}</href>
+    <src>images/pds_banner.png</src>
+    <href>https://pds.nasa.gov</href>
+    <width>500</width>
   </bannerLeft>
 
   <bannerRight>
     <name>Validate Tool</name>
+    <href>https://github.com/NASA-PDS/${project.artifactId}</href>
   </bannerRight>
 
   <version/>
