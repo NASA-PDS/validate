@@ -57,7 +57,7 @@ jobs:
         ref: gh-pages
     - name: Create changelog
       run: |
-        sudo gem install github_changelog_generator
+        sudo gem install github_changelog_generator -v 1.15.0
         github_changelog_generator --user NASA-PDS --project validate --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --issue-line-labels low,medium,high
     - name: Commit CHANGELOG.md file
       run: |
