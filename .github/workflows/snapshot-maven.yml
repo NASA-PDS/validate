@@ -51,21 +51,23 @@ jobs:
       run: |
          pip install pds-github-util
          maven-snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
-    # the changelog will be available on https://nasa-pds.github.io/<your repo>/CHANGELOG
+    # the changelog will be available on https://nasa-pds.github.io/<your repo>/pdsen-corral/CHANGELOG
     - uses: actions/checkout@v2
       with:
         ref: gh-pages
+    - name: Create requirements report
+      run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository validate --token ${{ secrets.GITHUB_TOKEN }} --output pdsen-corral --dev)
     - name: Create changelog
       run: |
-        # bug in version 1.15.2 (TBConfirmed)
         sudo gem install github_changelog_generator
-        github_changelog_generator --user NASA-PDS --project validate --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
-    - name: Commit CHANGELOG.md file
+        github_changelog_generator --user NASA-PDS --project validate --output pdsen-corral/CHANGELOG.md --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["enhancement"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
+    - name: Commit CHANGELOG.md and requirement files
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add CHANGELOG.md
-        git commit -m "update changelog" --allow-empty
+        echo "commit pdsen-corral/CHANGELOG.md and ${{ env.REQUIREMENT_FILE }}on gh-pages branch"
+        git add pdsen-corral/CHANGELOG.md ${{ env.REQUIREMENT_FILE }}
+        git commit -m "update changelog and requirements" --allow-empty
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
