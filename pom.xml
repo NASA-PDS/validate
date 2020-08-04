@@ -66,8 +66,8 @@ POSSIBILITY OF SUCH DAMAGE.
   </licenses>
   
   <properties>
-    <pds4-jparser.version>1.9.0-SNAPSHOT</pds4-jparser.version>
-    <model-version>1D00</model-version>
+    <pds4-jparser.version>1.8.1</pds4-jparser.version>
+    <model-version>1E00</model-version>
     <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
   </properties>
 
