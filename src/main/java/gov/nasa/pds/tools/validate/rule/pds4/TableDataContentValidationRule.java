@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-//import java.net.URLConnection;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -35,6 +34,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Element;
 
+import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.FileArea;
 import gov.nasa.arc.pds.xml.generated.FileAreaAncillary;
 import gov.nasa.arc.pds.xml.generated.FileAreaBrowse;
@@ -42,6 +42,7 @@ import gov.nasa.arc.pds.xml.generated.FileAreaInventory;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
 import gov.nasa.arc.pds.xml.generated.FileAreaSIPDeepArchive;
 import gov.nasa.arc.pds.xml.generated.FileAreaTransferManifest;
+import gov.nasa.arc.pds.xml.generated.Header;
 import gov.nasa.arc.pds.xml.generated.InformationPackageComponent;
 import gov.nasa.arc.pds.xml.generated.Inventory;
 import gov.nasa.arc.pds.xml.generated.Product;
@@ -60,6 +61,7 @@ import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.objectAccess.InvalidTableException;
 import gov.nasa.pds.objectAccess.TableReader;
+import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.Utility;
@@ -98,6 +100,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final String CHILD_TABLE_BINARY_XPATH = 
       "child::*[name()='Table_Binary']";
   
+  /** XPath to find child Header elements from a given node. */
+  //private static final String CHILD_HEADER_XPATH = 
+  //    "child::*[name()='Header']";
+  
   /**
    * Creates a new instance.
    */
@@ -135,6 +141,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   @ValidationTest
   public void validateTableDataContents() throws MalformedURLException, 
   URISyntaxException {
+	  
+    //System.out.println("getTarget() = " + getTarget());
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
     int spotCheckData = getContext().getSpotCheckData();
@@ -184,7 +192,42 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
-            
+      
+      // issue_234: Validate gives incorrect records mismatch WARNING for interleaved data objects 
+      // need to subtract many header objects from total filesize 
+      List<Object> headerObjects = objectAccess.getHeaderObjects(fileArea);
+      int headerSize = 0;
+      for (Object header: headerObjects) {
+    	  Header hdr = (Header)header;
+    	  headerSize += hdr.getObjectLength().getValue().intValueExact();
+      }
+ 	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
+      List<Array> arrayObjects = objectAccess.getArrays(fileArea);
+      long arraySize = 1;
+      if (arrayObjects.size()>0) {
+    	  for (Array array : arrayObjects) {
+    		  String dataTypeStr = "";
+    		  try {
+    			  dataTypeStr = array.getElementArray().getDataType();
+    			  NumericDataType dataType = Enum.valueOf(NumericDataType.class, dataTypeStr);
+    			  // element size = bits/8
+    			  arraySize = dataType.getBits()/8;
+    		  } catch (IllegalArgumentException a) {
+    			  throw new IllegalArgumentException(dataTypeStr + " is not supported at this time.");
+    		  }
+          
+    		  /* total size = number of lines * number of samples
+    		   *             * number of bands * element size)
+    		   */
+    		  int[] dimensions = new int[array.getAxisArraies().size()];
+    		  for (int i = 0; i < dimensions.length; i++) {
+    			  dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
+    			  arraySize *= dimensions[i];
+    		  } 
+    	  }
+      }
+      else arraySize = 0;
+
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
       FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
       long definedTotalRecords = 0, actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
@@ -193,7 +236,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // issue_220 & issue_219
       try {
     	  TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
+      	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
+    	  // set records size with the table index 1
     	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
+    	  //System.out.println("arraySize = " + arraySize + "   headerSize = " + headerSize + "   totalRecordsSize = " + actualTotalRecords);
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
@@ -246,6 +292,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (td instanceof Inventory) {
         	    inventoryTable = true;
           }
+         //System.out.println("TableDelimited..... definedNumRecords = " + definedNumRecords + "   actualRecordNumber = " + actualRecordNumber +
+        //	 "  recordMaxLength = " + recordMaxLength + "  definedTotalRecords = " + definedTotalRecords + "  offset = " + reader.getOffset());
         } else if (table instanceof TableBinary) {
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
@@ -256,13 +304,20 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
-          if (tableObjects.size()==1)
-        	  actualRecordNumber = actualTotalRecords/ recordLength;
-          else
-        	  actualRecordNumber = (actualTotalRecords - reader.getOffset()) / recordLength;
-          //System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
-		  //  "   definedTotalRecords = " + definedTotalRecords + "   recordsToRemove = " + recordsToRemove + 
-		  //  "   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
+          if (tableObjects.size()==1) {
+        	 actualTotalRecords = actualTotalRecords - arraySize - headerSize;
+        	 actualRecordNumber = actualTotalRecords/recordLength;
+        	 //System.out.println("***actualTotalRecords = " + actualTotalRecords + "  actualRecordNumber = " + actualRecordNumber + "    recordLength = " + recordLength);
+          }
+          else {
+        	  // issue_243: Fix for choke on a probably good file
+        	  // record size for the table index i
+        	  long actualRecordSize = actualTotalRecords - reader.getOffset();
+        	  actualRecordNumber = actualRecordSize/recordLength;
+        	 // System.out.println("****actualTotalRecords = " + actualTotalRecords + "  actualRecordSize = " + actualRecordSize + "  actualRecordNumber = " + actualRecordNumber + "    recordLength = " + recordLength);
+          }
+         // System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
+		 // "   definedTotalRecords = " + definedTotalRecords + "   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -271,7 +326,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           }
           definedNumRecords = tc.getRecords().intValueExact();
           recordsToRemove = (long)definedNumRecords;
-          //System.out.println("TableCharacter....recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + "  offset = " + reader.getOffset());
+          try {
+             actualRecordNumber = reader.getRecordSize(dataFile, table);
+          }
+          catch (Exception e) {}        
+          //System.out.println("TableCharacter..tableIndex = " + tableIndex + "  recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
+          //	  "   actualRecordNumber = " + actualRecordNumber + "  offset = " + reader.getOffset() + "   recordsToRemove = " + recordsToRemove);
         } 
         
         { // issue_220
@@ -289,6 +349,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         					-1);  
         			break;
         		}
+        		/*
+        		 * issue_234: Validate gives incorrect records mismatch WARNING for interleaved data objects 
         		else {
         		  if (actualRecordNumber>definedNumRecords) {
         			addTableProblem(ExceptionType.WARNING,
@@ -298,7 +360,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         					tableIndex,
         					-1);  
         		  }
-        		}   		
+        		}   
+        		*/		
         	}
         }
    
