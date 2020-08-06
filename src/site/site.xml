@@ -67,12 +67,12 @@ POSSIBILITY OF SUCH DAMAGE.
     </menu>
 
     <menu name="Downloads">
-      <item name="Current Release (tar.gz)" href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.tar.gz"/>
-      <item name="Current Release (zip)" href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
+      <item name="Current Release (tar.gz)" href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/${project.version}/${project.artifactId}-${project.version}-bin.tar.gz"/>
+      <item name="Current Release (zip)" href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
     </menu>
 
     <menu name="Change Log">
-      <item name="Since v1.15.1" href="https://github.com/NASA-PDS/${project.artifactId}/blob/v${project.version}/CHANGELOG.md#v${project.version}" />
+      <item name="Since v1.15.1" href="https://github.com/NASA-PDS/${project.artifactId}/blob/${project.version}/CHANGELOG.md#${project.version}" />
       <item name="Prior to v1.15.1" href="changes-report.html" />
     </menu>
 
