@@ -31,14 +31,11 @@ jobs:
     - name: Install dependencies
       run: python -m pip install --upgrade pip setuptools wheel
 
-    - name: Build package
-      run: mvn clean site package --file pom.xml
+    - name: Publish package
+      run: mvn -B deploy --file pom.xml
       env:
          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-
-    # - name: Publish package
-    #   run: mvn -B deploy --file pom.xml
      
     - name: Test Output
       uses: actions/upload-artifact@v1
