@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.23.3](https://github.com/NASA-PDS/validate/tree/1.23.3) (2020-08-06)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.23.2...1.23.3)
+
+**Defects:**
+
+- validate 1.24.0-SNAPSHOT chokes on a probably good file [\#243](https://github.com/NASA-PDS/validate/issues/243)
+
+## [1.23.2](https://github.com/NASA-PDS/validate/tree/1.23.2) (2020-08-04)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.23.1...1.23.2)
+
+**Defects:**
+
+- Validate gives incorrect records mismatch WARNING for interleaved data objects [\#234](https://github.com/NASA-PDS/validate/issues/234)
+- Product validation does not detect the number of table records correctly for Table + Array object [\#233](https://github.com/NASA-PDS/validate/issues/233)
+
+**Closed issues:**
+
+- The tool shall verify bundle directories adhere directory naming standards [\#239](https://github.com/NASA-PDS/validate/issues/239)
+
 ## [v1.23.1](https://github.com/NASA-PDS/validate/tree/v1.23.1) (2020-05-16)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0-SNAPSHOT...v1.23.1)
