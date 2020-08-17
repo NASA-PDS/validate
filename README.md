@@ -71,7 +71,7 @@ git add pom.xml
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
 # For RELEASE CANDIDATE, set VERSION to future release version.
-github_changelog_generator --future-release v$VERSION
+github_changelog_generator --future-release $VERSION
 
 git add CHANGELOG.md
 ```
@@ -80,11 +80,11 @@ git add CHANGELOG.md
 Commit changes using following template commit message:
 ```
 # For operational release
-git commit -m "[RELEASE] Validate v$VERSION"
+git commit -m "[RELEASE] Validate $VERSION"
 
 # For release candidate
 CANDIDATE_NUM=1
-git commit -m "[RELEASE] Validate v${VERSION}-rc${CANDIDATE_NUM}"
+git commit -m "[RELEASE] Validate ${VERSION}-rc${CANDIDATE_NUM}"
 
 # Push changes to master
 git push -u origin master
@@ -120,10 +120,10 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 ### Push Tagged Release
 ```
 # For Release Candidate, you may need to delete old SNAPSHOT tag
-git push origin :v$VERSION
+git push origin :$VERSION
 
 # Now tag and push
-git tag v${VERSION}
+git tag ${VERSION}
 git push --tags
 
 ```
@@ -144,7 +144,7 @@ rsync -av $VERSION/* .
 git add .
 
 # For operational release
-git commit -m "Deploy v$VERSION docs"
+git commit -m "Deploy $VERSION docs"
 
 # For release candidate
 git commit -m "Deploy ${VERSION}-rc${CANDIDATE_NUM} docs"
