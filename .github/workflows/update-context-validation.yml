@@ -26,6 +26,6 @@ jobs:
       run: |
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
-            git config --local github.token ${{ secrets.GITHUB_TOKEN }}
+            git config --local github.token ${{ secrets.ADMIN_GITHUB_TOKEN }}
             build/update_context.sh
 
