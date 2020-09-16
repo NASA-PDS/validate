@@ -1,0 +1,216 @@
+#!/bin/bash
+
+#
+# Script that assists with splitting up PDS-4 products into multiple
+# groups, so that they can be run in parallel by the validate program.
+#
+#
+
+usage()
+{
+    echo
+    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>] [-r <report-file-path>]"
+    echo
+    echo "  Script to run Validate Tool on a bundle parallelizing across "
+    echo "  multiple cores. This script will split up the PDS4 products in "
+    echo "  the bundle into multiple groups, and run in parallel across "
+    echo "  multiple cores. By default,the software uses half the number of "
+    echo "  available cores on the machine, or the -n flag can be used to "
+    echo "  specify a custom number of cores."
+    echo
+    echo "  NOTE: This tool is intended for *archival validation* of a bundle only and does not accept"
+    echo "  the same parameters as validate. It performs the following validation by default:"
+    echo "  * Syntactic and Semantic Product Validation - uses Schema and Schematron to validate"
+    echo "    every product in the bundle."
+    echo "  * Product Content Validation - validate the content of a product matches that described in"
+    echo "    label."
+    echo "  * Bundle Referential Integrity Validation - ensure accuracy of relationships between bundle,"
+    echo "    collections, and products (validate -R pds4.bundle)."
+    echo
+    echo "  Dependencies:"
+    echo "      * GNU Parallels is installed (See https://www.gnu.org/software/parallel/)"
+    echo "      * Validate Tool is in your PATH"
+    echo "        % export PATH=\${PATH}:/path/to/validate-x.x.x/bin"
+    echo
+    echo "  Arguments: "
+    echo
+    echo "  -t, --target-bundle  </path/to/bundle.xml>  Indicate the bundle to be validated "
+    echo "                                              by specifying the bundle.xml product."
+    echo
+    echo "  -n, --num-groups     <num-groups>           Optional argument to specify the number  "
+    echo "                                              of groups and cores to use for the validation."
+    echo "                                              Default: half the number of cores on the machine"
+    echo
+    echo "  -r, --report-file    <report-file-path>     Optional argument to specify the file path to output"
+    echo "                                              the final summary report."
+    echo "                                              NOTE: Reports from all parallel executed validation"
+    echo "                                                    runs will be output to the parent directory of"
+    echo "                                                    this file path."
+    echo
+}
+
+##### Main
+
+PRODUCT_DIR=
+NUM_GROUPS=
+REPORT_FILE=$(pwd)/validate_$(date +%Y%m%d_%H%M%S)/validate_summary.log
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -t | --target-bundle )  shift
+                                PRODUCT_DIR=$(dirname $1)
+                                ;;
+        -n | --num-groups )     shift
+                                NUM_GROUPS=$1
+                                ;;
+        -r | --report-file )     shift
+                                REPORT_FILE=$1
+                                ;;
+        -h | --help )           usage
+                                exit
+                                ;;
+        * )                     usage
+                                exit 1
+    esac
+    shift
+done
+
+if [ "$PRODUCT_DIR" == "" ]; then
+    usage
+    exit 1
+fi
+
+
+# Setup the directory to run the the parallel processes
+RUN_DIR=$(dirname $REPORT_FILE)
+mkdir -p $RUN_DIR
+cd $RUN_DIR
+
+REPORT_FILE=$(basename $REPORT_FILE)
+
+#
+# Check to make sure validate is on the path
+#
+VALIDATE_ON_PATH=`which validate | wc -l`
+if [[ "${VALIDATE_ON_PATH}" -eq "1" ]]; then
+  echo "  validate binary is available (`which validate`) [OK]"
+else
+  echo
+  echo "  ERROR: No 'validate' found on your path."
+  echo "         Please ensure this is on your environment PATH, before running this script."
+  echo "         See https://NASA-PDS.github.io/validate/install/index.html#UNIX-Based_Environment."
+  echo
+  exit 1
+fi
+
+#
+# Check to make sure GNU parallel is on the path
+#
+PARALLEL_ON_PATH=`which parallel | wc -l`
+if [[ "${PARALLEL_ON_PATH}" -eq "1" ]]; then
+  echo "  GNU parallel binary is available (`which parallel`) [OK]"
+else
+  echo
+  echo "  ERROR: No GNU parallel found on your path."
+  echo "         Please ensure this is on your environment PATH, before running this script."
+  echo "         See also:  https://www.gnu.org/software/parallel"
+  echo
+  exit 1
+fi
+
+NUM_CORES=`getconf _NPROCESSORS_ONLN`
+HALF_CORES=$((($NUM_CORES/2)))
+echo "  Directory to process is : ${PRODUCT_DIR}"
+echo "  Number of effective cores on this system: ${NUM_CORES}"
+echo "  Half of effective cores on this system  : ${HALF_CORES} (usually better than running all cores)"
+
+if [[ "${NUM_GROUPS}" -eq "" ]]; then
+  echo "  Splitting up into groups, based on number of cores this machine has..."
+  NUM_GROUPS=`echo $HALF_CORES`
+else
+  echo "  Splitting up into groups, based on --num-groups (${NUM_GROUPS}) specified on command-line..."
+fi
+
+find  ${PRODUCT_DIR} -name "*.xml" > validate_all_files.txt
+
+TOTAL_PRODUCTS=`wc -l < validate_all_files.txt`
+
+if [[ "${TOTAL_PRODUCTS}" -eq "0" ]]; then
+  echo "  No products found under directory (${PRODUCT_DIR}) to validate."
+  exit 1
+else
+  echo "  Total number of products found to validate: $TOTAL_PRODUCTS"
+fi
+
+echo "  Cleaning up files from previous runs..."
+rm -rf validate_set_*
+
+FILES_PER_VALIDATE=$(((`wc -l < validate_all_files.txt`/${NUM_GROUPS})+1))
+echo "  Splitting up inputs into ${NUM_GROUPS} groups..."
+echo "    ($FILES_PER_VALIDATE files per group)"
+echo "  +--------------------+----------------+"
+echo "  |       Group        |   # in Group   |"
+echo "  +--------------------+----------------+"
+split -l${FILES_PER_VALIDATE} validate_all_files.txt validate_set_
+for line in $(find . -name 'validate_set*'); do 
+     echo "  | $line  |  " `cat $line | wc -l`
+done
+echo "  +--------------------+-----------------"
+
+# rm validate_all_files.txt
+
+echo
+echo "Running all $NUM_GROUPS groups in parallel now..."
+echo
+find . -name "validate_set_*" | parallel --max-args 1  echo validate -R pds4.label --target-manifest {} > {}.log
+echo
+echo "* Performing Syntactic, Semantic, and Content validation..."
+echo "  NOTE: Each validate command will output to an individual log."
+echo "* Execution time:"
+time find . -name "validate_set_*" | parallel --max-args 1  "validate -R pds4.label --target-manifest {} > {}.log"
+echo
+
+echo
+echo "* Performing Referential Integrity validation..."
+echo "* Execution time:"
+validate -R pds4.bundle --skip-content-validation --skip-product-validation ${PRODUCT_DIR} > validate_referential.log
+echo
+echo
+
+rm -f $REPORT_FILE
+errors=0
+warnings=0
+for line in $(find . -name "validate_set*.log" -o -name "validate_referential.log"); do
+    # Loop through all the validate summaries and combine into one log
+    echo | tee -a $REPORT_FILE
+    echo ">>>>>>>>>>>>>>> $line:" | tee -a $REPORT_FILE
+    sed -n '/Summary:/,/End of Report/p' $line | tee -a $REPORT_FILE
+    echo | tee -a $REPORT_FILE
+    echo "<<<<<<<<<<<<<<<" | tee -a $REPORT_FILE
+    echo | tee -a $REPORT_FILE
+
+    # Get numbers of errors and warnings and output overall summary
+    errors="$errors + $(egrep "error\(s\)" $line | awk '{print $1}')"
+    warnings="$warnings + $(egrep "warning\(s\)" $line | awk '{print $1}')"
+done
+
+echo ">>>>>>>>>>>>>>> OVERALL SUMMARY:" | tee -a $REPORT_FILE
+echo "Summary:" | tee -a $REPORT_FILE
+echo | tee -a $REPORT_FILE
+echo "  $(echo $errors | bc -l) error(s)" | tee -a $REPORT_FILE
+echo "  $(echo $warnings | bc -l) warnings(s)" | tee -a $REPORT_FILE
+echo | tee -a $REPORT_FILE
+echo "End of Report" | tee -a $REPORT_FILE
+echo | tee -a $REPORT_FILE
+echo "<<<<<<<<<<<<<<<" | tee -a $REPORT_FILE
+echo | tee -a $REPORT_FILE
+
+cd ..
+
+echo "Validation complete."
+echo "* See $RUN_DIR/$REPORT_FILE for a summary of results."
+echo "* See $RUN_DIR for individual Validate Tool execution reports."
+echo
+echo
+
+exit 0
