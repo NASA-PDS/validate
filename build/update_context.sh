@@ -21,3 +21,4 @@ git commit -m "Update config with latest context product metadata"
 
 git push origin master
 set +x
+
