@@ -24,7 +24,4 @@ jobs:
 
     - name: Updating context products
       run: |
-            git config --local user.email "pdsen-ci@jpl.nasa.gov"
-            git config --local user.name "PDSEN CI Bot"
-            git config --local github.token ${{ secrets.ADMIN_GITHUB_TOKEN }}
-            build/update_context.sh
+            build/update_context.sh pdsen-ci@jpl.nasa.gov "PDSEN CI Bot" ${{ secrets.ADMIN_GITHUB_TOKEN }}
