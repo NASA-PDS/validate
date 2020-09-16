@@ -3,9 +3,9 @@
 
 name: Weekly Updates
 
-on:
-  schedule:
-    - cron:  '0 0 * * 0'
+on: push
+  # schedule:
+  #   - cron:  '0 0 * * 0'
 
 jobs:
   build:
@@ -24,8 +24,8 @@ jobs:
 
     - name: Updating context products
       run: |
-            git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"
+            git config --local user.email "pdsen-ci@jpl.nasa.gov"
+            git config --local user.name "PDSEN CI Bot"
             git config --local github.token ${{ secrets.ADMIN_GITHUB_TOKEN }}
             build/update_context.sh
 
