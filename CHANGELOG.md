@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-09-16)
+## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-09-17)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0...1.25.0-SNAPSHOT)
 
@@ -31,7 +31,7 @@
 
 ## [v1.23.1](https://github.com/NASA-PDS/validate/tree/v1.23.1) (2020-05-16)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0-SNAPSHOT...v1.23.1)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.23.0...v1.23.1)
 
 **Improvements:**
 
@@ -40,10 +40,6 @@
 **Defects:**
 
 - Incorrect validation of number of records [\#220](https://github.com/NASA-PDS/validate/issues/220) [[high](https://github.com/NASA-PDS/validate/labels/high)]
-
-## [1.24.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.24.0-SNAPSHOT) (2020-05-08)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.23.0...1.24.0-SNAPSHOT)
 
 ## [v1.23.0](https://github.com/NASA-PDS/validate/tree/v1.23.0) (2020-05-08)
 
@@ -61,11 +57,7 @@
 
 ## [v1.22.4](https://github.com/NASA-PDS/validate/tree/v1.22.4) (2020-05-01)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.23.0-SNAPSHOT...v1.22.4)
-
-## [1.23.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.23.0-SNAPSHOT) (2020-04-18)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.3...1.23.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.3...v1.22.4)
 
 ## [v1.22.3](https://github.com/NASA-PDS/validate/tree/v1.22.3) (2020-04-18)
 
