@@ -13,9 +13,14 @@ jobs:
     name: Build, Test, Generate Docs, and Deploy SNAPSHOT
 
     runs-on: ubuntu-latest
+    if: github.actor != 'pdsen-ci'
 
     steps:
     - uses: actions/checkout@v2
+      with:
+         lfs: true
+         token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -31,46 +36,58 @@ jobs:
 
     - name: Install dependencies
       run: python -m pip install --upgrade pip setuptools wheel
-      
-    - name: Publish package
-      run: mvn -B deploy --file pom.xml
-      env:
-         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
-     
-    - name: Test Output
-      uses: actions/upload-artifact@v1
-      with:
-        name: test-reports
-        path: target/surefire-reports/
 
     - name: Adding dependencies
       run: |
          sudo apt-get update && sudo apt-get install -y libxml2-dev libxslt1-dev python-libxml2
 
+    # the changelog will be available on https://nasa-pds.github.io/<your repo>/pdsen-corral/CHANGELOG
+    # - uses: actions/checkout@v2
+    #   with:
+    #     ref: gh-pages
+    - name: Create requirements report
+      run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository pds4-information-model --token ${{ secrets.GITHUB_TOKEN }} --output docs/requirements --dev)
+    - name: create changelog
+      run: |
+        #sudo gem install github_changelog_generator
+        # deploy from source, does no work yet, nice to have for a feature to have issues' labels in changelog
+        git clone https://github.com/github-changelog-generator/github-changelog-generator.git
+        #gem sources --add https://rubygems.org/
+        cd github-changelog-generator
+        git checkout 322e30a78115ab948e358cd916a9f78e55fe21c1
+        gem build github_changelog_generator.gemspec
+        sudo gem install github_changelog_generator-1.15.2.gem  --source http://rubygems.org
+        cd ..
+        github_changelog_generator --user NASA-PDS --project pds4-information-model  --output CHANGELOG.md --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests  --issues-label '**Other closed issues:**' --issue-line-labels high,low,medium
+    - name: Commit CHANGELOG.md and requirement files
+      run: |
+        git config --local user.email "pdsen-ci@jpl.nasa.gov"
+        git config --local user.name "PDSEN CI Bot"
+        git pull origin master
+        echo "update CHANGELOG.md and ${{ env.REQUIREMENT_FILE }} on master branch"
+        git add CHANGELOG.md ${{ env.REQUIREMENT_FILE }}
+        git commit -m "update changelog and requirements" --allow-empty
+
+    - name: Publish package
+      run: mvn -B deploy --file pom.xml
+      env:
+         MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+         MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+    - name: Clean previous dev/snapsoht tags
+      run: |
+        git fetch --prune --unshallow --tags
+        git tag -l | grep 'SNAPSHOT' | xargs -t -I arg sh -c 'git tag -d arg;git push --delete origin arg;'
     - name: Publish new snapshot release
       run: |
          pip install pds-github-util
          maven-snapshot-release --token ${{ secrets.GITHUB_TOKEN }}
-    # the changelog will be available on https://nasa-pds.github.io/<your repo>/pdsen-corral/CHANGELOG
-    - uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-    - name: Create requirements report
-      run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository validate --token ${{ secrets.GITHUB_TOKEN }} --output pdsen-corral --dev)
-    - name: Create changelog
-      run: |
-        sudo gem install github_changelog_generator
-        github_changelog_generator --user NASA-PDS --project validate --output pdsen-corral/CHANGELOG.md --token ${{ secrets.GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["enhancement"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests
-    - name: Commit CHANGELOG.md and requirement files
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        echo "commit pdsen-corral/CHANGELOG.md and ${{ env.REQUIREMENT_FILE }}on gh-pages branch, go"
-        git add pdsen-corral/CHANGELOG.md ${{ env.REQUIREMENT_FILE }}
-        git commit -m "update changelog and requirements" --allow-empty
+
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: gh-pages
+        github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
+        branch: ${{ env.GITHUB_REF }}
+    - name: Ping pdsen-corral
+      run: |
+        pip install pds-github-util
+        git-ping --repo nasa-pds/pdsen-corral --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --branch master --message 'pds4-information-model has been upgrade to ${{ github.ref }}'
