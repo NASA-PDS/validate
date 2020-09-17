@@ -45,8 +45,10 @@ jobs:
     # - uses: actions/checkout@v2
     #   with:
     #     ref: gh-pages
+
     - name: Create requirements report
       run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository validate --token ${{ secrets.GITHUB_TOKEN }} --output docs/requirements --dev)
+
     - name: create changelog
       run: |
         #sudo gem install github_changelog_generator
