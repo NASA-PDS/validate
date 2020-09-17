@@ -61,6 +61,7 @@ jobs:
         sudo gem install github_changelog_generator-1.15.2.gem  --source http://rubygems.org
         cd ..
         github_changelog_generator --user NASA-PDS --project validate  --output CHANGELOG.md --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests  --issues-label '**Other closed issues:**' --issue-line-labels high,low,medium
+
     - name: Commit CHANGELOG.md and requirement files
       run: |
         git config --local user.email "pdsen-ci@jpl.nasa.gov"
@@ -75,10 +76,12 @@ jobs:
       env:
          MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
          MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
+
     - name: Clean previous dev/snapsoht tags
       run: |
         git fetch --prune --unshallow --tags
         git tag -l | grep 'SNAPSHOT' | xargs -t -I arg sh -c 'git tag -d arg;git push --delete origin arg;'
+
     - name: Publish new snapshot release
       run: |
          pip install pds-github-util
@@ -89,6 +92,7 @@ jobs:
       with:
         github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
         branch: ${{ env.GITHUB_REF }}
+
     - name: Ping pdsen-corral
       run: |
         pip install pds-github-util
