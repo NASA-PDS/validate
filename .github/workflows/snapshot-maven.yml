@@ -46,7 +46,7 @@ jobs:
     #   with:
     #     ref: gh-pages
     - name: Create requirements report
-      run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository pds4-information-model --token ${{ secrets.GITHUB_TOKEN }} --output docs/requirements --dev)
+      run: echo ::set-env name=REQUIREMENT_FILE::$(requirement-report --organization NASA-PDS --repository validate --token ${{ secrets.GITHUB_TOKEN }} --output docs/requirements --dev)
     - name: create changelog
       run: |
         #sudo gem install github_changelog_generator
@@ -58,7 +58,7 @@ jobs:
         gem build github_changelog_generator.gemspec
         sudo gem install github_changelog_generator-1.15.2.gem  --source http://rubygems.org
         cd ..
-        github_changelog_generator --user NASA-PDS --project pds4-information-model  --output CHANGELOG.md --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests  --issues-label '**Other closed issues:**' --issue-line-labels high,low,medium
+        github_changelog_generator --user NASA-PDS --project validate  --output CHANGELOG.md --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests  --issues-label '**Other closed issues:**' --issue-line-labels high,low,medium
     - name: Commit CHANGELOG.md and requirement files
       run: |
         git config --local user.email "pdsen-ci@jpl.nasa.gov"
@@ -90,4 +90,4 @@ jobs:
     - name: Ping pdsen-corral
       run: |
         pip install pds-github-util
-        git-ping --repo nasa-pds/pdsen-corral --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --branch master --message 'pds4-information-model has been upgrade to ${{ github.ref }}'
+        git-ping --repo nasa-pds/pdsen-corral --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --branch master --message 'validate has been upgrade to ${{ github.ref }}'
