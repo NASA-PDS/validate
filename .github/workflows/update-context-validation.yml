@@ -10,6 +10,7 @@ on: push
 jobs:
   build:
     name: 'Update Context Products from Registry'
+    runs-on: ubuntu-latest
     if: github.actor != 'pdsen-ci'
 
     steps:
