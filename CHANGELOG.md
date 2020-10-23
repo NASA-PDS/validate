@@ -1,6 +1,6 @@
 # Changelog
 
-## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-09-17)
+## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-10-13)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0...1.25.0-SNAPSHOT)
 
