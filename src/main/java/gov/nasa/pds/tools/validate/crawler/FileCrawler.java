@@ -25,6 +25,9 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Class that crawls a given file url.
  *
@@ -32,10 +35,12 @@ import org.apache.commons.io.filefilter.IOFileFilter;
  *
  */
 public class FileCrawler extends Crawler {
+    private static final Logger LOG = LoggerFactory.getLogger(FileCrawler.class);
+
     public FileCrawler() {
       super();
     }
-      
+
   /**
    * Crawl a given directory url.
    *
@@ -47,6 +52,10 @@ public class FileCrawler extends Crawler {
    */
   public List<Target> crawl(URL fileUrl, boolean getDirectories, IOFileFilter fileFilter) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
+    LOG.info("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
+    LOG.info("crawl:this.fileFilter {}",this.fileFilter);
+    LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
+    LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
     if ( !directory.isDirectory() ) {
       throw new IllegalArgumentException("Input file is not a directory: "
           + directory);
@@ -62,6 +71,24 @@ public class FileCrawler extends Crawler {
         results.add(new Target(dir.toURI().toURL(), true));
       }
     }
+    LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
+    for (Target target : results) {
+        LOG.debug("crawl:target: {}",target);
+    }
+    LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
+    for (Target ignoreItem : this.ignoreList) {
+        LOG.debug("crawl:ignoreItem: {}",ignoreItem);
+    }
+
+    // Remove all items from results list if they occur in ignoreList.
+    results.removeAll(this.ignoreList);
+
+    for (Target target : results) {
+        LOG.debug("crawl:final:target: {}",target.getUrl());
+    }
+
+    LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
+
     return results;
   }
 }

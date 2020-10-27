@@ -31,9 +31,16 @@ public abstract class Crawler {
   /** A directory filter. */
   protected FileFilter directoryFilter;
 
+  protected ArrayList<Target> ignoreList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
+
   public Crawler() {
     fileFilter = new WildcardOSFilter("*");
     directoryFilter = FileFilterUtils.directoryFileFilter();
+  }
+
+  public void addAllIgnoreItems(ArrayList<Target> ignoreList) {
+      // Function allow all item named to be removed from the crawl() function.
+      this.ignoreList = ignoreList;
   }
 
   public Crawler(IOFileFilter fileFilter) {
