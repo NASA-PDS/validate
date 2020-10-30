@@ -49,12 +49,6 @@ POSSIBILITY OF SUCH DAMAGE.
     </section>
     
     <hr />
-    <section name="New pds-validate scripts">
-      <p><b>NOTE: New <i>pds-validate</i>, <i>pds-validate.bat</i>, and <i>pds-validate-bundle</i> are now included in the package. These perform the 
-        exact same functionality as <i>validate*</i> scripts, but have been renamed to attempt to consolidate all PDS Tools to use the <i>pds-</i> prefix. 
-        We will continue to maintain the <i>validate*</i> versions to maintain backwards compatibility.
-        </b></p>
-    </section>
 
     <section name="Tool Overview">
       <p>The Validate Tool currently supports the following features:

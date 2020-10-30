@@ -92,9 +92,7 @@ or
           </p>
         </li>
         <li><b>bin/</b><br/>
-          <p>This directory contains batch and shell scripts for executing the tool.<br/>
-            NOTE: This directory contains duplicate scripts for <i>validate*</i> and <i>pds-validate*</i>. The <i>pds-validate</i> scripts are the preferred
-            tool to use, but the <i>validate</i> scripts were kept for backwards compatibility purposes.
+          <p>This directory contains batch and shell scripts for executing the tool.
           </p>
         </li>
         <li><b>doc/</b><br/>
