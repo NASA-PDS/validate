@@ -1,6 +1,18 @@
 # Changelog
 
-## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-10-13)
+## [Unreleased](https://github.com/NASA-PDS/validate/tree/HEAD)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.25.0-SNAPSHOT...HEAD)
+
+**Defects:**
+
+- Missing documentation about deprecated flags [\#260](https://github.com/NASA-PDS/validate/issues/260) [[low](https://github.com/NASA-PDS/validate/labels/low)]
+
+**Other closed issues:**
+
+- rename validate CLI tool to pds-validate [\#259](https://github.com/NASA-PDS/validate/issues/259)
+
+## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-10-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0...1.25.0-SNAPSHOT)
 
