@@ -66,7 +66,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </p>
 
       <source>
- % pds-validate product.xml -r validate-report.txt
+ % validate product.xml -r validate-report.txt
       </source>
 
       <p>This validates the given product against the latest core schema and schematron packaged with the tool and writes the results to a file.
@@ -78,7 +78,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </p>
 
       <source>
-% pds-validate $HOME/pds/bundle -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
+% validate $HOME/pds/bundle -M checksum-manifest.txt -r validate-report.txt -R pds4.bundle
       </source>
 
       <p>The <i>-R</i> flag indicates to the tool to apply bundle validation rules to the target bundle. This means that validation at the bundle level will be performed, which includes referential integrity checking among other things. Please see the <a href="#Validation_Rules">Validation Rules</a> section for more details. The <i>-M</i> flag performs additional checksum validation.
@@ -120,7 +120,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate /home/pds/collection
+% validate /home/pds/collection
         </source>
 
         <p><b><i>Validating Against User-Specified Schemas and Schematrons</i></b></p>
@@ -129,14 +129,14 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml -x /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd, /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_DPH_1700.xsd -S /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.sch        
+% validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml -x /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.xsd, /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_DPH_1700.xsd -S /home/pds/dph_example_archive_VG2PLS/xml_schema/PDS4_PDS_1700.sch        
         </source>
 
         <p>The following command demonstrates the validation of a set of target files against a set of user-specified schemas:
         </p>
 
         <source>
-% pds-validate producta.xml, productb.xml -x producta.xsd, productb.xsd
+% validate producta.xml, productb.xml -x producta.xsd, productb.xsd
         </source>
 
         <p><b><i>Validating Against User-Specified XML Catalogs</i></b></p>
@@ -145,7 +145,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate product.xml -C catalog.xml
+% validate product.xml -C catalog.xml
         </source>
 
         <p><b><i>Validating Against Label Specified Schemas and Schematrons</i></b></p>
@@ -154,7 +154,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate product.xml -f
+% validate product.xml -f
         </source>
         
         <p>Note that validating with the force flag option versus passing in the label specified schemas using the <i>-x</i> flag may yield different validation results. This is due to how the underlying Xerces library treats these 2 scenarios. Basically, with the force flag behavior, namespaces are resolved by matching the element namespace in the label to one of the namespaces declared in the <i>schemaLocation</i> attribute of the label. When passing in schemas using the <i>-x</i> flag, those user given schemas override any schemas specified in the <i>schemaLocation</i> attribute of the label. They are read in and cached in memory prior to the validation step. Namespaces are then resolved by matching the element namespace to one defined in one of those schemas cached in memory.
@@ -166,7 +166,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source>
-% pds-validate product.xml --spot-check-data 100
+% validate product.xml --spot-check-data 100
         </source>
         
         <p>In the above example, assuming the data is a table, the tool will perform content validation on every 100th record in the table. If the data content is an array, the tool will perform content validation on every 100th line in the array.
@@ -178,7 +178,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate product.xml -m 1000
+% validate product.xml -m 1000
         </source>
 
         <p><b><i>Ignoring Sub-Directories During Validation</i></b></p>
@@ -187,7 +187,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate /home/pds/collection -L
+% validate /home/pds/collection -L
         </source>
 
         <p><b><i>Changing Tool Behaviors With The Configuration File</i></b></p>
@@ -199,7 +199,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate -c config.txt
+% validate -c config.txt
         </source>
       </subsection>
 
@@ -210,19 +210,19 @@ POSSIBILITY OF SUCH DAMAGE.
         <p>To specify targets implicitly, it is best to specify them first on the command-line before any other command-line option flags. The following command demonstrates the validation of an implicitly defined, single target product label:
         </p>
         <source>
-% pds-validate product.xml
+% validate product.xml
         </source>
 
         <p>The following command demonstrates the validation of implicitly defined, multiple targets:
         </p>
         <source>
-% pds-validate product.xml, /home/pds/collection
+% validate product.xml, /home/pds/collection
         </source>
 
         <p>Note: Implicit targets should not be specified after option flags that allow multiple arguments (see example below). Unexpected results can occur.
         </p>
         <source>
-% pdsvalidate -x product.xsd product.xml
+% validate -x product.xsd product.xml
         </source>
 
         <p>In this example, the Validate Tool will inadvertently treat the implicit target, <i>product.xml</i>, as a schema file.
@@ -235,7 +235,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate producta.xml, productb.xml -t productc.xml, /home/pds/collection
+% validate producta.xml, productb.xml -t productc.xml, /home/pds/collection
         </source>
 
         <p>In this example, <i>producta.xml</i> and <i>productb.xml</i> will get validated first, then <i>productc.xml</i> and the product labels in <i>/home/pds/collection</i> will get validated next.
@@ -277,7 +277,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source> 
-%> pds-validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
+%> validate /home/pds/dph_example_archive_VG2PLS/data/ele_mom_tblChar.xml
         </source>
         
         <p><b><i>pds4.folder</i></b></p>
@@ -289,7 +289,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source>
-%> pds-validate /home/pds/dph_example_archive_VG2PLS        
+%> validate /home/pds/dph_example_archive_VG2PLS        
         </source>
         
         <p><b><i>pds4.collection</i></b></p>
@@ -312,7 +312,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source>
-%> pds-validate /home/pds/dph_example_archive_VG2PLS/data -R pds4.collection
+%> validate /home/pds/dph_example_archive_VG2PLS/data -R pds4.collection
         </source>
         
         <p>Note that the <i>-e</i> flag option to filter on specific files is ignored when validating under the <i>pds4.collection</i> rules.
@@ -333,7 +333,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source>
-%> pds-validate /home/pds/dph_example_archive_VG2PLS -R pds4.bundle
+%> validate /home/pds/dph_example_archive_VG2PLS -R pds4.bundle
         </source>
         
         <p>Note that the <i>-e</i> flag option to filter on specific files is ignored when validating under the <i>pds4.bundle</i> rules.
@@ -348,7 +348,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
         
         <source>
-%> pds-validate /home/pds/VG2-J-PLS-5-SUMM-ELE-MOM-96.0SEC-V1.0 -R pds3.volume
+%> validate /home/pds/VG2-J-PLS-5-SUMM-ELE-MOM-96.0SEC-V1.0 -R pds3.volume
         </source>
         
       </subsection>
@@ -381,7 +381,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate ${HOME}/bundle/collection -R pds4.collection
+% validate ${HOME}/bundle/collection -R pds4.collection
         </source>
 
         <p>In this case, the tool will not report that the given Collection is not referenced by a Bundle product.
@@ -391,7 +391,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </p>
 
         <source>
-% pds-validate ${HOME}/bundle1 -R pds4.bundle -v1
+% validate ${HOME}/bundle1 -R pds4.bundle -v1
         </source>
 
         <p>Below is a snippet of an example report of a validation run using the pds4.bundle rules and the severity level set to <i>INFO</i> and above:
@@ -427,7 +427,7 @@ PDS4 Bundle Level Validation Results
         </p>
 
         <source>
-% pds-validate ${HOME}/bundle1, ${HOME}/bundle2 -R pds4.bundle
+% validate ${HOME}/bundle1, ${HOME}/bundle2 -R pds4.bundle
         </source>
 
         <p>The tool will perform referential integrity checking within the products located in the <i>${HOME}/bundle1</i> target, then will perform referential integrity checking within the products located in the <i>${HOME}/bundle2</i> target. In other words, the tool will not cross over to the <i>${HOME}/bundle2</i> directory to find LID/LIDVID references of a product in the <i>${HOME}/bundle1</i> directory.
@@ -461,7 +461,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
         </p>
         
         <source>
-% pds-validate /home/pds4/dph_example_archive_VG2PLS -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
+% validate /home/pds4/dph_example_archive_VG2PLS -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt
         </source>
         
         <p>In the example above, the base path of the file references in the <i>bundle_checksums.txt</i> file is assumed to be <i>/home/pds4/dph_example_archive_VG2PLS</i>.
@@ -471,7 +471,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
         </p>
         
         <source>
-% pds-validate /home/pds4/dph_example_archive_VG2PLS/browse -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt -B /home/pds4/dph_example_archive_VG2PLS
+% validate /home/pds4/dph_example_archive_VG2PLS/browse -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt -B /home/pds4/dph_example_archive_VG2PLS
         </source>
         
         <p>In the command line example above, the base path is set to <i>/home/pds4/dph_example_archive_VG2PLS</i>.
@@ -481,7 +481,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
         </p>
 
         <source>
-% pds-validate /home/pds4/dph_example_archive_VG2PLS/browse, /home/pds4/dph_example_archive_VG2PLS/context \ 
+% validate /home/pds4/dph_example_archive_VG2PLS/browse, /home/pds4/dph_example_archive_VG2PLS/context \ 
 -M /home/pds4/dph_example_archive_VG2PLS/bundle_checksums.txt \
 -B /home/pds4/dph_example_archive_VG2PLS
         </source>
@@ -690,7 +690,7 @@ validate.regexp = "*.xml"
         <p>This configuration allows the tool to validate files with a <i>.xml</i> extension in the <i>collection</i> directory. To change the behavior to validate all files instead of just files ending in <i>.xml</i>, then specify the <i>regexp</i> flag option on the command-line to overwrite the <i>validate.regexp</i> property:
         </p>
         <source>
-% pds-validate -c config.txt -e "*"
+% validate -c config.txt -e "*"
         </source>
       </subsection>
 
@@ -792,7 +792,7 @@ validate.regexp = "*.xml"
         </p>
 
         <source>
-% pds-validate product.xml -x schema1.xsd, schema2.xsd
+% validate product.xml -x schema1.xsd, schema2.xsd
         </source>
 
         <p>then the <i>File_Area_Browse</i> definition from the <i>schema1.xsd</i> file takes precedence over the <i>schema2.xsd</i> file. If it was passed into the tool in the reverse order, then the <i>File_Area_Browse</i> definition in the <i>schema2.xsd</i> file will take precedence over the one in the <i>schema1.xsd</i> file.
@@ -918,22 +918,22 @@ validate.regexp = "*.xml"
         <source>
           
 # Execute bundle validation but only check bundle/collection validity and ignore the products
-pds-validate --skip-product-validation -R pds4.bundle -t my_bundle
+validate --skip-product-validation -R pds4.bundle -t my_bundle
 
 # Make sure the labels are valid upon delivery but skip content validation until later since it takes longer
-pds-validate --no-check-data -R pds4.label -t my_bundle
+validate --no-check-data -R pds4.label -t my_bundle
 
 # Point at several targets with different validate runs for parallelizing content validation
-pds-validate -R pds4.label -t my_bundle/document/*.xml
-pds-validate -R pds4.label -t my_bundle/release1/*.xml
-pds-validate -R pds4.label -t my_bundle/release2/*.xml
-pds-validate -R pds4.label -t my_bundle/release3/*.xml
+validate -R pds4.label -t my_bundle/document/*.xml
+validate -R pds4.label -t my_bundle/release1/*.xml
+validate -R pds4.label -t my_bundle/release2/*.xml
+validate -R pds4.label -t my_bundle/release3/*.xml
 
 # Or you could do the same thing with target manifests
-pds-validate -R pds4.label --target-manifest documents.txt
-pds-validate -R pds4.label --target-manifest release1_data.txt
-pds-validate -R pds4.label --target-manifest release2_data.txt
-pds-validate -R pds4.label --target-manifest release3_data.txt
+validate -R pds4.label --target-manifest documents.txt
+validate -R pds4.label --target-manifest release1_data.txt
+validate -R pds4.label --target-manifest release2_data.txt
+validate -R pds4.label --target-manifest release3_data.txt
 
         </source>
     </subsection>
@@ -948,20 +948,20 @@ pds-validate -R pds4.label --target-manifest release3_data.txt
         </p>
         <source>
 
-./pds-validate-bundle -t /path/to/bundle/bundle.xml
+./validate-bundle -t /path/to/bundle/bundle.xml
         </source>
         <p>By default, this program will split your input files up into N groups.  By default N is half the number of available cores on your machine.
         There are some circumstances where overriding this value may improve performance.  If you wish to do so, you may use the "-n" or "--num-groups" argument. </p>
         <source>
 
-./pds-validate-bundle -t /dir/containing/products --num-groups 3
+./validate-bundle -t /dir/containing/products --num-groups 3
         </source>
         When this runs, it will break your inputs up into groups, and run validate on them in parallel.
         Here's an example showing a run using the default number of cores:
         <source>
 
-$ ./pds-validate-bundle -t ~/dph_example_archive_VG2PLS/bundle.xml
-validate binary is available (/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/validate-1.20.0-SNAPSHOT/bin/pds-validate) [OK]
+$ ./validate-bundle -t ~/dph_example_archive_VG2PLS/bundle.xml
+validate binary is available (/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/validate-1.20.0-SNAPSHOT/bin/validate) [OK]
 GNU parallel binary is available (/usr/local/bin/parallel) [OK]
 Directory to process is : /Users/jpadams/dph_example_archive_VG2PLS
 Number of effective cores on this system: 8
@@ -982,10 +982,10 @@ Splitting up inputs into 4 groups...
 
 Running all 4 groups in parallel now...
 
-pds-validate -R pds4.label --target-manifest ./validate_set_aa
-pds-validate -R pds4.label --target-manifest ./validate_set_ac
-pds-validate -R pds4.label --target-manifest ./validate_set_ad
-pds-validate -R pds4.label --target-manifest ./validate_set_ab
+validate -R pds4.label --target-manifest ./validate_set_aa
+validate -R pds4.label --target-manifest ./validate_set_ac
+validate -R pds4.label --target-manifest ./validate_set_ad
+validate -R pds4.label --target-manifest ./validate_set_ab
 
 Performing XML and Content validation...
 Each validate command will output to an individual log.

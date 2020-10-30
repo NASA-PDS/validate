@@ -59,7 +59,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <li>Run the software:
         <source>
 
-% ${project.artifactId}-${project.version}/bin/pds-validate --help
+% ${project.artifactId}-${project.version}/bin/validate --help
         </source></li>
         <li>If this doesn't work, see <a href="#System_Requirements">System Requirements</a> for more details.</li>
         <li>Additionally, you can install the software globally on your machine using <a href="#Configuring_the_Environment">Configuring Your Environment</a>.</li>
