@@ -53,6 +53,7 @@ public class BundleManager {
 
     private static ArrayList<Target> m_ignoreList = new ArrayList<Target>();
     private static String m_location = null;
+    private static Target m_latestBundle = null;
 
     /**
      * Returns the modified location.
@@ -60,6 +61,13 @@ public class BundleManager {
 
 	public static String getLocation() { 
         return(m_location);
+    }
+
+    /**
+     * Returns the target containing the latest bundle (one with the largest version).
+     */
+	public static Target getLatestBundle() { 
+        return(m_latestBundle);
     }
 
     /**
@@ -193,6 +201,78 @@ public class BundleManager {
         return(children);
     }
 
+
+    /**
+     * Find collection(s) with matching reference.
+     * @param url the url of where to start looking for files from.
+     * @return a list of files with matching reference.
+     */
+    public static List<Target> findCollectionWithMatchingReference(URL url, URL bundleUrl) {
+        List<Target> children = new ArrayList<Target>();
+        try {
+            IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
+            Crawler crawler = CrawlerFactory.newInstance(url);
+            List<Target> dirs = new ArrayList<Target>();
+            dirs = crawler.crawl(url, true);
+            LOG.debug("findCollectionWithMatchingReference: url,dirs.size() {},{}",url,dirs.size());
+            LOG.debug("findCollectionWithMatchingReference: url,dirs {},{}",url,dirs);
+            List<Target> kids = new ArrayList<Target>();
+            // For each sub directory found, get all collection files.
+            for (Target dir : dirs) {
+                if (dir.isDir()) {
+                    kids = crawler.crawl(dir.getUrl(), regexFileFilter);
+                    LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
+                    children.addAll(kids);
+                }
+            }
+            LOG.debug("findCollectionWithMatchingReference:children {}",children);
+            LOG.debug("findCollectionWithMatchingReference:children.size() {}",children.size());
+
+            ArrayList<String> bundleIdList  = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Identification_Area","logical_identifier","version_id");
+            ArrayList<String> bundleLidList = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Bundle_Member_Entry","lidvid_reference","reference_type");
+            LOG.debug("findAllCollectionFiles:bundleIdList {}",bundleIdList);
+            LOG.debug("findAllCollectionFiles:bundleLidList {}",bundleLidList);
+
+            String collectionReferenceToMatch = bundleLidList.get(0);
+            String collectionVersionToMatch   = null;
+            // If the reference contains "::" get it.
+            if (collectionReferenceToMatch.indexOf("::") >= 0) {
+                collectionVersionToMatch = collectionReferenceToMatch.split("::")[1];
+                collectionReferenceToMatch = bundleLidList.get(0).split("::")[0];
+            } else {
+                collectionVersionToMatch   = bundleIdList.get(1);
+            }
+
+            // Purge all children unless they are the version referred to by the bundle.
+            // After these statements, there should only be one element in children list.
+            List<Target> childrenSelected = new ArrayList<Target>();
+            // Look through all children for matching reference.  Only keep the child with matching reference.
+            for (Target target : children) {
+                ArrayList<String> collectionIdList = TargetExaminer.getTargetContent(target.getUrl(),"Product_Collection/Identification_Area","logical_identifier","version_id");
+                // If the reference and version id matches, keep it.
+                // Note that the first element has to be split using "::" in case it does contain it.
+                LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
+                LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
+                if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
+                    childrenSelected.add(target);
+                }
+            }
+
+            LOG.debug("findCollectionWithMatchingReference:childrenSelected.size() {}",childrenSelected.size());
+            LOG.debug("findCollectionWithMatchingReference:collectionReferenceToMatch " + collectionReferenceToMatch);
+            LOG.debug("findCollectionWithMatchingReference:collectionVersionToMatch   " + collectionVersionToMatch);
+
+            children = childrenSelected;
+            LOG.debug("after:reduceToLatestTargetOnly:children.size() {}",children.size());
+        } catch (IOException io) {
+            LOG.error("Cannot crawl for files at url {}",url);
+        }
+
+        LOG.debug("findCollectionWithMatchingReference:children {}",children);
+        LOG.debug("findCollectionWithMatchingReference:children.size() {}",children.size());
+        return(children);
+    }
+
     /**
      * Build a list of bundle files to ignore.
      * @param url the url of where to start looking for files from.
@@ -204,6 +284,7 @@ public class BundleManager {
         LOG.debug("latestBundles.size() ",latestBundles.size());
         LOG.debug("latestBundles {}",latestBundles);
         if (latestBundles.size() > 0)  {
+            m_latestBundle = latestBundles.get(0);   //  Save this bundle for reference later on.
             LOG.debug("latestBundles[0] {}",latestBundles.get(0).getUrl());
             ignoreBundleList = BundleManager.findOtherBundleFiles(latestBundles.get(0).getUrl());
         }
@@ -218,7 +299,7 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files that are other than the given url.
      */
-    public static ArrayList<Target> buildCollectionIgnoreList(URL url) {
+    public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl) {
         LOG.debug("url {}",url);
         List<Target> ignoreCollectionList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
         try {
@@ -233,8 +314,7 @@ public class BundleManager {
             return((ArrayList)ignoreCollectionList);
         }
 
-        //List<Target> ignoreCollectionList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
-        List<Target> latestCollections = BundleManager.findCollectionWithLatestVersion(url);
+        List<Target> latestCollections = BundleManager.findCollectionWithMatchingReference(url,bundleUrl);
 
         LOG.debug("latestCollections.size() {}",latestCollections.size());
         LOG.debug("latestCollections {}",latestCollections);
@@ -383,7 +463,7 @@ public class BundleManager {
             return;
         }
 
-        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL);
+        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL,url);
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
         BundleManager.m_ignoreList.addAll(ignoreCollectionList);  // Add a list of collection to ignore in the crawler.
     }

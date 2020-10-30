@@ -65,7 +65,6 @@ public class LidVid {
 
       if (lastVersionTokens.length < 2) {
           LOG.error("Cannot split lastElement on dot . {}",lastElement);
-          System.out.println("ERROR:Cannot split lastElement on dot . " + lastElement);
           return(largestVersion);
       } else {
           String lastMajorVersion = lastVersionTokens[0];
@@ -132,7 +131,7 @@ public class LidVid {
             }
           } catch (Exception e) {
             //Ignore. This isn't a valid Bundle/Collection label so skip it.
-            System.out.println("reduceToLatestTargetOnly: Skipping " + child.getUrl());
+            LOG.debug("Target not a Bundle/Collection, skipping {}",child.getUrl());
           }
       }
 

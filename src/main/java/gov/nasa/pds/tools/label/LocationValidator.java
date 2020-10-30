@@ -177,7 +177,6 @@ public class LocationValidator {
                     try {
           		        rule = getRule(new File(location).toURI().toURL());
                     } catch (Exception e) {
-                        System.out.println("ERROR: Cannot get rule for location. " + location + ": " + e.getMessage()); 
                         LOG.error("Cannot get rule for location. " + location + ": " + e.getMessage()); 
                         return;
                     }
@@ -194,7 +193,8 @@ public class LocationValidator {
                     // New logic: Build two list of files to ignore so the crawler will only process the latest Bundle and Collection.
                     ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url); 
                     ignoreList.addAll(ignoreBundleList);
-                    ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url);
+                    Target latestBundle = BundleManager.getLatestBundle(); 
+                    ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
                     ignoreList.addAll(ignoreCollectionList);
 			        LOG.debug("url,ignoreBundleList.size() {},{}",url,ignoreBundleList.size());
 			        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
@@ -218,8 +218,6 @@ public class LocationValidator {
 			Crawler crawler = CrawlerFactory.newInstance(url);
             // Set filter so the crawler will ignore other bundle/collection files that are not latest.
             crawler.addAllIgnoreItems(ignoreList);
-            System.out.println("LocationValidator:validate:location,rule.isApplicable " + location + " " + rule.isApplicable(location));
-            System.out.println("LocationValidator:validate:ignoreList.size() " + Integer.toString(ignoreList.size()));
 
 			ruleContext.setCrawler(crawler);
 			ruleContext.setRule(rule);
@@ -255,7 +253,6 @@ public class LocationValidator {
 			validationType = validationRule;
 		}
 		ValidationRule rule;
-		//System.out.println("validationType = " + validationType);		
         LOG.debug("getRule:validationType {}",validationType);
 		if (validationType == null) {
 		  URI uri = null;

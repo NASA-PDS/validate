@@ -118,12 +118,12 @@ public class TargetExaminer extends Target {
             SAXSource saxSource = new SAXSource(Utility.openConnection(url));
             saxSource.setSystemId(url.toString());
             DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
-            LOG.info("tagMatches:docInfo {},{}",docInfo,docInfo.getClass());
+            LOG.debug("tagMatches:docInfo {},{}",docInfo,docInfo.getClass());
             List<TinyNodeImpl> xmlModels = new ArrayList<TinyNodeImpl>();
             try {
                 XMLExtractor extractor = new XMLExtractor(docInfo);
                 xmlModels = extractor.getNodesFromDoc(tagCheck);
-                LOG.info("tagMatches:url,tagCheck,xmlModels.size() {},{},{}",url,tagCheck,xmlModels.size());
+                LOG.debug("tagMatches:url,tagCheck,xmlModels.size() {},{},{}",url,tagCheck,xmlModels.size());
                 if (xmlModels.size() > 0) {
                     tagMatchedFlag = true;  // If xmlModels has more than one element, the tag matches.
                     // Should only print debug if you really mean it.  Too busy for operation.
@@ -142,5 +142,53 @@ public class TargetExaminer extends Target {
 
         LOG.debug("tagMatches:url,tagCheck,tagMatchedFlag {},{},{}",url,tagCheck,tagMatchedFlag);
         return(tagMatchedFlag);
+    }
+
+    /**
+     * Return the content of the field within a node.
+     * @param url the url of file to check.
+     * @param nodeCheck the tag of the node to check.
+     * @param fieldCheck the tag of the field within node to check.
+     * @param fieldCheck2 additional tag of the field within node to check.
+     * @return the content of the field within a node as string.
+     */
+    public static ArrayList<String> getTargetContent(URL url, String nodeCheck, String fieldCheck, String fieldCheck2) {
+        // Given a target URL, read the content and return the content of the given fieldCheck(s) in a given nodeCheck.
+
+        LOG.debug("getTargetContent:url,nodeCheck,fieldCheck {},{},{},{}",url,nodeCheck,fieldCheck,fieldCheck2);
+        ArrayList<String> fieldContent = new ArrayList<String>();
+
+        try {
+            SAXSource saxSource = new SAXSource(Utility.openConnection(url));
+            saxSource.setSystemId(url.toString());
+            DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+            LOG.debug("getTargetContent:docInfo {},{}",docInfo,docInfo.getClass());
+            List<TinyNodeImpl> xmlModels = new ArrayList<TinyNodeImpl>();
+            try {
+                XMLExtractor extractor = new XMLExtractor(docInfo);
+                xmlModels = extractor.getNodesFromDoc(nodeCheck);
+                LOG.debug("getTargetContent:url,nodeCheck,xmlModels.size() {},{},{}",url,nodeCheck,xmlModels.size());
+                if (xmlModels.size() > 0) {
+                    for (TinyNodeImpl xmlModel : xmlModels) {
+                        fieldContent.add(extractor.getValueFromItem(fieldCheck,xmlModel));
+                        if (fieldCheck2 != null) {
+                            fieldContent.add(extractor.getValueFromItem(fieldCheck2,xmlModel));
+                        }
+                        // We only need one value.
+                        break;
+                    }
+                }
+            } catch (Exception e) {
+                LOG.error("Exception encountered in getTargetContent:url {},{}",url,e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            LOG.error("Exception encountered in getTargetContent:url {},{}",url,e.getMessage());
+            e.printStackTrace();
+        }
+
+        LOG.debug("getTargetContent:url,nodeCheck,fieldCheck,fieldContent {},{},{},{}",url,nodeCheck,fieldCheck,fieldContent);
+
+        return(fieldContent);
     }
 }
