@@ -94,7 +94,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceede
       <p><i>For Unix-Based Environments,</i> 
       </p>
       
-      <p>Update the JVM heap space allocation settings in the <i>validate</i> shell script to the following:
+      <p>Update the JVM heap space allocation settings in the <i>pds-validate</i> shell script to the following:
       </p>
       
       <source>
@@ -104,7 +104,7 @@ Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceede
       <p><i>For Windows Environments,</i> 
       </p>
       
-      <p>Update the JVM heap space allocation settings in the <i>validate.bat</i> batch file to the following:
+      <p>Update the JVM heap space allocation settings in the <i>pds-validate.bat</i> batch file to the following:
       </p>
       
       <source>
