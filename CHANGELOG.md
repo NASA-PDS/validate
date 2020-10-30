@@ -4,10 +4,6 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0...1.25.0-SNAPSHOT)
 
-**Improvements:**
-
-- rename validate CLI tool to pds-validate [\#259](https://github.com/NASA-PDS/validate/issues/259)
-
 **Defects:**
 
 - Missing documentation about deprecated flags [\#260](https://github.com/NASA-PDS/validate/issues/260) [[low](https://github.com/NASA-PDS/validate/labels/low)]
