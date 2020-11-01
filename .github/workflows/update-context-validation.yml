@@ -33,13 +33,13 @@ jobs:
         git config --local user.email "pdsen-ci@jpl.nasa.gov"
         git config --local user.name "PDSEN CI Bot"
         git pull origin master
-        echo "update CHANGELOG.md and ${{ env.REQUIREMENT_FILE }} on master branch"
-        git add CHANGELOG.md ${{ env.REQUIREMENT_FILE }}
-        git commit -m "update context metadata with latest products" --allow-empty
+        echo "weekly update context product info from registry"
+        git add .
+        git commit -m "weekly update context product info from registry" --allow-empty
 
 
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.ADMIN_GITHUB_TOKEN }}
-        branch: ${{ env.GITHUB_REF }}
+        branch: master
