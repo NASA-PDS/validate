@@ -230,8 +230,8 @@ public class BundleManager {
 
             ArrayList<String> bundleIdList  = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Identification_Area","logical_identifier","version_id");
             ArrayList<String> bundleLidList = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Bundle_Member_Entry","lidvid_reference","reference_type");
-            LOG.debug("findAllCollectionFiles:bundleIdList {}",bundleIdList);
-            LOG.debug("findAllCollectionFiles:bundleLidList {}",bundleLidList);
+            LOG.debug("findCollectionWithMatchingReference:bundleIdList {}",bundleIdList);
+            LOG.debug("findCollectionWithMatchingReference:bundleLidList {}",bundleLidList);
 
             String collectionReferenceToMatch = bundleLidList.get(0);
             String collectionVersionToMatch   = null;
@@ -251,10 +251,14 @@ public class BundleManager {
                 ArrayList<String> collectionIdList = TargetExaminer.getTargetContent(target.getUrl(),"Product_Collection/Identification_Area","logical_identifier","version_id");
                 // If the reference and version id matches, keep it.
                 // Note that the first element has to be split using "::" in case it does contain it.
+                LOG.debug("findCollectionWithMatchingReference:collectionIdList {} {}",collectionIdList,collectionIdList.size());
                 LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
                 LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
+                LOG.debug("findCollectionWithMatchingReference:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
+                LOG.debug("findCollectionWithMatchingReference:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
                 if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
                     childrenSelected.add(target);
+                    LOG.debug("findCollectionWithMatchingReference:ADD_TARGET {}",target);
                 }
             }
 
@@ -263,7 +267,8 @@ public class BundleManager {
             LOG.debug("findCollectionWithMatchingReference:collectionVersionToMatch   " + collectionVersionToMatch);
 
             children = childrenSelected;
-            LOG.debug("after:reduceToLatestTargetOnly:children.size() {}",children.size());
+            LOG.debug("findCollectionWithMatchingReference:after:reduceToLatestTargetOnly:children {}",children);
+            LOG.debug("findCollectionWithMatchingReference:after:reduceToLatestTargetOnly:children.size() {}",children.size());
         } catch (IOException io) {
             LOG.error("Cannot crawl for files at url {}",url);
         }

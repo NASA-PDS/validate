@@ -196,6 +196,9 @@ public class LocationValidator {
                     Target latestBundle = BundleManager.getLatestBundle(); 
                     ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
                     ignoreList.addAll(ignoreCollectionList);
+			        LOG.debug("url,latestBundle {},{}",url,latestBundle);
+			        LOG.debug("url,ignoreBundleList {},{}",url,ignoreBundleList);
+			        LOG.debug("url,ignoreCollectionList {},{}",url,ignoreCollectionList);
 			        LOG.debug("url,ignoreBundleList.size() {},{}",url,ignoreBundleList.size());
 			        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
                 } else {
@@ -208,6 +211,7 @@ public class LocationValidator {
 			      rule.getCaption(), location);
 			  return;
 			}
+
 			ProblemListener listener = new ListenerExceptionPropagator(
 			    problemHandler);
 			ValidationTask task = new ValidationTask(listener, ruleContext,
