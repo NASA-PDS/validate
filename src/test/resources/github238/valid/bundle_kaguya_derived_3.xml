@@ -123,7 +123,7 @@
         <bundle_type>Archive</bundle_type>
     </Bundle>
     <Bundle_Member_Entry>
-        <lid_reference>urn:nasa:pds:kaguya_grs_spectra:data_spectra</lid_reference>
+        <lidvid_reference>urn:nasa:pds:kaguya_grs_spectra:data_spectra::3.0</lidvid_reference>
         <member_status>Primary</member_status>
         <reference_type>bundle_has_data_collection</reference_type>
     </Bundle_Member_Entry>
