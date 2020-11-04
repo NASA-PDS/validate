@@ -52,11 +52,10 @@ public class FileCrawler extends Crawler {
    */
   public List<Target> crawl(URL fileUrl, boolean getDirectories, IOFileFilter fileFilter) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
-    LOG.info("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
-    LOG.info("crawl:this.fileFilter {}",this.fileFilter);
     LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
     LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
     if ( !directory.isDirectory() ) {
+      LOG.error("Input file is not a directory: " + directory);
       throw new IllegalArgumentException("Input file is not a directory: "
           + directory);
     }

@@ -156,7 +156,6 @@ public class LidVid {
       }
 
       LOG.debug("reduceToLatestTargetOnly:reducedKids {}",reducedKids);
-      LOG.info("reduceToLatestTargetOnly:reducedKids {}",reducedKids);
 
       return(reducedKids);
     }

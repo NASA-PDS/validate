@@ -170,9 +170,15 @@ public class TargetExaminer extends Target {
                 LOG.debug("getTargetContent:url,nodeCheck,xmlModels.size() {},{},{}",url,nodeCheck,xmlModels.size());
                 if (xmlModels.size() > 0) {
                     for (TinyNodeImpl xmlModel : xmlModels) {
-                        fieldContent.add(extractor.getValueFromItem(fieldCheck,xmlModel));
+                        // It is possible that the tag we look for does not exist, function getValueFromItem will return an empty string.
+                        if (!extractor.getValueFromItem(fieldCheck,xmlModel).equals("")) {
+                            fieldContent.add(extractor.getValueFromItem(fieldCheck,xmlModel));
+                        }
+                        LOG.debug("getTargetContent:url,fieldCheck,getValueFromItem {},{},[{}]",url,fieldCheck,extractor.getValueFromItem(fieldCheck,xmlModel));
                         if (fieldCheck2 != null) {
-                            fieldContent.add(extractor.getValueFromItem(fieldCheck2,xmlModel));
+                            if (!extractor.getValueFromItem(fieldCheck2,xmlModel).equals("")) {
+                                fieldContent.add(extractor.getValueFromItem(fieldCheck2,xmlModel));
+                            }
                         }
                         // We only need one value.
                         break;

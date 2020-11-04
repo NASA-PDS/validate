@@ -51,6 +51,15 @@ public class BundleManager {
     private static final Pattern BUNDLE_LABEL_PATTERN =
       Pattern.compile("(.*_)*bundle(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
 
+    private static final String PRODUCT_BUNDLE_ID_AREA_TAG      = "Product_Bundle/Identification_Area";
+    private static final String PRODUCT_COLLECTION_ID_AREA_TAG  = "Product_Collection/Identification_Area";
+    private static final String PRODUCT_BUNDLE_MEMBER_ENTRY_TAG = "Product_Bundle/Bundle_Member_Entry";
+    private static final String LOGICAL_IDENTIFIER_TAG     = "logical_identifier";
+    private static final String VERSION_ID_TAG             = "version_id";
+    private static final String LIDVID_REFERENCE_TAG       = "lidvid_reference";
+    private static final String LID_REFERENCE_TAG          = "lid_reference";
+    private static final String REFERENCE_TYPE_TAG         = "reference_type";
+
     private static ArrayList<Target> m_ignoreList = new ArrayList<Target>();
     private static String m_location = null;
     private static Target m_latestBundle = null;
@@ -173,19 +182,19 @@ public class BundleManager {
             Crawler crawler = CrawlerFactory.newInstance(url);
             List<Target> dirs = new ArrayList<Target>();
             dirs = crawler.crawl(url, true);
-            LOG.debug("findAllCollectionFiles: url,dirs.size() {},{}",url,dirs.size());
-            LOG.debug("findAllCollectionFiles: url,dirs {},{}",url,dirs);
+            LOG.debug("findCollectionWithLatestVersion: url,dirs.size() {},{}",url,dirs.size());
+            LOG.debug("findCollectionWithLatestVersion: url,dirs {},{}",url,dirs);
             List<Target> kids = new ArrayList<Target>();
             // For each sub directory found, get all collection files.
             for (Target dir : dirs) {
                 if (dir.isDir()) {
                     kids = crawler.crawl(dir.getUrl(), regexFileFilter); 
-                    LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
+                    LOG.debug("findCollectionWithLatestVersion: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
             }
-            LOG.debug("findAllCollectionFiles:children {}",children);
-            LOG.debug("findAllCollectionFiles:children.size() {}",children.size());
+            LOG.debug("findCollectionWithLatestVersion:children {}",children);
+            LOG.debug("findCollectionWithLatestVersion:children.size() {}",children.size());
 
             // Purge all children unless they are the latest (largest version).
             // After this next statement, there should only be one element in children list.
@@ -201,6 +210,39 @@ public class BundleManager {
         return(children);
     }
 
+    private static List<Target> selectMatchingReferenceFromCollection(List<Target> collectionList, List<String> bundleLidList, List<String> bundleIdList) {
+        // Purge all children unless they are the version referred to by the bundle.
+        // After these statements, there should only be one element in childrenSelected list.
+        List<Target> childrenSelected = new ArrayList<Target>();
+        String collectionReferenceToMatch = bundleLidList.get(0);
+        String collectionVersionToMatch   = null;
+        // If the reference contains "::" get it.
+        if (collectionReferenceToMatch.indexOf("::") >= 0) {
+            collectionVersionToMatch = collectionReferenceToMatch.split("::")[1];
+            collectionReferenceToMatch = bundleLidList.get(0).split("::")[0];
+        } else {
+            collectionVersionToMatch   = bundleIdList.get(1);
+        }
+
+        // Purge all collectionList unless they are the version referred to by the bundle.
+        // After these statements, there should only be one element in childrenSelected list.
+        // Look through all collectionList for matching reference.  Only keep the child with matching reference.
+        for (Target target : collectionList) {
+            ArrayList<String> collectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
+            // If the reference and version id matches, keep it.
+            // Note that the first element has to be split using "::" in case it does contain it.
+            LOG.debug("selectMatchingReferenceFromCollection:collectionIdList {} {}",collectionIdList,collectionIdList.size());
+            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
+            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
+            LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
+            LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
+            if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
+                childrenSelected.add(target);
+                LOG.debug("selectMatchingReferenceFromCollection:ADD_TARGET {}",target);
+            }
+        }
+        return(childrenSelected);
+     }
 
     /**
      * Find collection(s) with matching reference.
@@ -228,53 +270,49 @@ public class BundleManager {
             LOG.debug("findCollectionWithMatchingReference:children {}",children);
             LOG.debug("findCollectionWithMatchingReference:children.size() {}",children.size());
 
-            ArrayList<String> bundleIdList  = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Identification_Area","logical_identifier","version_id");
-            ArrayList<String> bundleLidList = TargetExaminer.getTargetContent(bundleUrl,"Product_Bundle/Bundle_Member_Entry","lidvid_reference","reference_type");
-            LOG.debug("findCollectionWithMatchingReference:bundleIdList {}",bundleIdList);
-            LOG.debug("findCollectionWithMatchingReference:bundleLidList {}",bundleLidList);
+            boolean bundleReferToCollectionViaLidvidFlag = true;  //  Flag is true if bundle using LIDVID_REFERENCE_TAG to refer to collection, false if otherwise.
+            ArrayList<String> bundleIdList  = TargetExaminer.getTargetContent(bundleUrl,PRODUCT_BUNDLE_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
+            // Attempt to fetch the LIDVID_REFERENCE_TAG only.  The last parameter is null on purpose.
+            ArrayList<String> bundleLidList = TargetExaminer.getTargetContent(bundleUrl,PRODUCT_BUNDLE_MEMBER_ENTRY_TAG,LIDVID_REFERENCE_TAG,null);
 
-            String collectionReferenceToMatch = bundleLidList.get(0);
-            String collectionVersionToMatch   = null;
-            // If the reference contains "::" get it.
-            if (collectionReferenceToMatch.indexOf("::") >= 0) {
-                collectionVersionToMatch = collectionReferenceToMatch.split("::")[1];
-                collectionReferenceToMatch = bundleLidList.get(0).split("::")[0];
-            } else {
-                collectionVersionToMatch   = bundleIdList.get(1);
-            }
-
-            // Purge all children unless they are the version referred to by the bundle.
-            // After these statements, there should only be one element in children list.
-            List<Target> childrenSelected = new ArrayList<Target>();
-            // Look through all children for matching reference.  Only keep the child with matching reference.
-            for (Target target : children) {
-                ArrayList<String> collectionIdList = TargetExaminer.getTargetContent(target.getUrl(),"Product_Collection/Identification_Area","logical_identifier","version_id");
-                // If the reference and version id matches, keep it.
-                // Note that the first element has to be split using "::" in case it does contain it.
-                LOG.debug("findCollectionWithMatchingReference:collectionIdList {} {}",collectionIdList,collectionIdList.size());
-                LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
-                LOG.debug("findCollectionWithMatchingReference:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
-                LOG.debug("findCollectionWithMatchingReference:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
-                LOG.debug("findCollectionWithMatchingReference:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
-                if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
-                    childrenSelected.add(target);
-                    LOG.debug("findCollectionWithMatchingReference:ADD_TARGET {}",target);
+            // If the size of bundleLidList is zero, make another effort to use LID_REFERENCE_TAG to get to the collection reference.
+            LOG.debug("findCollectionWithMatchingReference:bundleLidList.size(),bundleUrl.toString() {},{}",bundleLidList.size(),bundleUrl.toString());
+            if (bundleLidList.size() == 0) {
+                LOG.info("findCollectionWithMatchingReference:The bundle {} does not refer to collection using '{}', will fetch using '{}'",bundleUrl.toString(),LIDVID_REFERENCE_TAG,LID_REFERENCE_TAG);
+                bundleLidList = TargetExaminer.getTargetContent(bundleUrl,PRODUCT_BUNDLE_MEMBER_ENTRY_TAG,LID_REFERENCE_TAG,null);
+                bundleReferToCollectionViaLidvidFlag = false;
+                // Do a sanity check now that we have checked using both LIDVID_REFERENCE_TAG and LID_REFERENCE_TAG, there should be one element.
+                if (bundleLidList.size() == 0) {
+                    LOG.error("Failed to find neither either {} or {} tags from target {}",LIDVID_REFERENCE_TAG,LID_REFERENCE_TAG,bundleUrl);
+                    throw new IOException("Failed to find lidvid or lid reference tags from bundleUrl " + bundleUrl.toString());
                 }
             }
 
-            LOG.debug("findCollectionWithMatchingReference:childrenSelected.size() {}",childrenSelected.size());
-            LOG.debug("findCollectionWithMatchingReference:collectionReferenceToMatch " + collectionReferenceToMatch);
-            LOG.debug("findCollectionWithMatchingReference:collectionVersionToMatch   " + collectionVersionToMatch);
+            LOG.debug("findCollectionWithMatchingReference:bundleIdList,bundleUrl.toString() {},{}",bundleIdList,bundleUrl.toString());
+            LOG.debug("findCollectionWithMatchingReference:bundleLidList,bundleUrl.toString() {},{}",bundleLidList,bundleUrl.toString());
+            LOG.debug("findCollectionWithMatchingReference:bundleReferToCollectionViaLidvidFlag,bundleUrl.toString() {},{}",bundleReferToCollectionViaLidvidFlag,bundleUrl.toString());
 
-            children = childrenSelected;
-            LOG.debug("findCollectionWithMatchingReference:after:reduceToLatestTargetOnly:children {}",children);
-            LOG.debug("findCollectionWithMatchingReference:after:reduceToLatestTargetOnly:children.size() {}",children.size());
+            // If bundleReferToCollectionViaLidvidFlag is not true, a specific collection cannot be found since no version of collection
+            // is specified by the bundle, the largest (latest) collection must be now look for.
+            if (!bundleReferToCollectionViaLidvidFlag) {
+                children = BundleManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl));
+            } else {
+                children = BundleManager.selectMatchingReferenceFromCollection(children,bundleLidList,bundleIdList);
+            }
+
+            // Do a sanity check on the list of collection file selected from the reference in bundle and report the error.
+            if (children.size() == 0) {
+                LOG.error("Could not find any collection from bundle {}",bundleUrl.toString());
+            } else {
+                LOG.info("BUNDLE_COLLECTION_SELECTED {},{}",bundleUrl.toString(),children.get(0));
+            }
         } catch (IOException io) {
             LOG.error("Cannot crawl for files at url {}",url);
         }
 
         LOG.debug("findCollectionWithMatchingReference:children {}",children);
         LOG.debug("findCollectionWithMatchingReference:children.size() {}",children.size());
+
         return(children);
     }
 
@@ -335,7 +373,6 @@ public class BundleManager {
         return((ArrayList)ignoreCollectionList);
     }
 
-
     /**
      * Find other bundle file(s).
      * @param url the url of where to start looking for files from.
@@ -371,7 +408,7 @@ public class BundleManager {
                 //    LOG.info("findOtherBundleFiles: Skipping bundle file {}",target.toString());
                 //   continue;
                 //}
-                LOG.info("findOtherBundleFiles: (new File(target.toString())).getName() {}",(new File(target.toString())).getName());
+                LOG.debug("findOtherBundleFiles: (new File(target.toString())).getName() {}",(new File(target.toString())).getName());
                 // Add target if it is not the same as given url and is not a directory.
                 if ((!target.getUrl().equals(url)) && !target.isDir()) {
                     if (TargetExaminer.isTargetBundleType(target.getUrl())) {
@@ -435,7 +472,7 @@ public class BundleManager {
      * @param location the location of where to start looking for files from.
      */
     public static void makeException(URL url, String location) {
-        // If the target a bundle, the exception can now be made.
+        // If the target is a bundle, the exception can now be made.
         // Make the following changes:
         //     1.  Change the location from a file into a directory.
         //     2.  Create a list of other bundle files to ignore so only the provided bundle is processed.
