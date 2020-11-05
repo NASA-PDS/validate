@@ -1,6 +1,14 @@
 # Changelog
 
-## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-10-30)
+## [Unreleased](https://github.com/NASA-PDS/validate/tree/HEAD)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/1.25.0-SNAPSHOT...HEAD)
+
+**Other closed issues:**
+
+- validate does not perform full bundle validation when using a specific bundle.xml [\#238](https://github.com/NASA-PDS/validate/issues/238) [[high](https://github.com/NASA-PDS/validate/labels/high)]
+
+## [1.25.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/1.25.0-SNAPSHOT) (2020-11-01)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/1.24.0...1.25.0-SNAPSHOT)
 
