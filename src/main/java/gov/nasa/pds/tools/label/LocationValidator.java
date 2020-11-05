@@ -18,6 +18,9 @@ import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemListener;
+import gov.nasa.pds.tools.validate.BundleManager;
+import gov.nasa.pds.tools.validate.Target;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.ValidateProblemHandler;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -36,6 +39,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +50,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import org.apache.commons.chain.Catalog;
 import org.apache.commons.chain.CatalogFactory;
 import org.apache.commons.chain.config.ConfigParser;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +63,7 @@ public class LocationValidator {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(
 	    LocationValidator.class);
-	
+
 	private TargetRegistrar targetRegistrar;
 	private SettingsManager settingsManager;
 	private ValidationRuleManager ruleManager;
@@ -85,6 +90,8 @@ public class LocationValidator {
 		
 		ConfigParser parser = new ConfigParser();
 		URL commandsURL = ClassLoader.getSystemResource("validation-commands.xml");
+        LOG.debug("logLevel {}",logLevel);
+        LOG.debug("commandsURL {}",commandsURL);
 		try {
 			parser.parse(commandsURL);
 		} catch (Exception e) {
@@ -132,24 +139,79 @@ public class LocationValidator {
 
 		ValidationRule rule = getRule(url);
 		String location = url.toString();
+        LOG.info("location " + location);
 		if (rule == null) {
 			LOG.error("No matching validation rule found for location {}", location);
 		} else {
 			LOG.info("Using validation style '{}' for location {}", 
 			    rule.getCaption(), location);
 
+			LOG.debug("validate:ruleContext.getCheckData() " + ruleContext.getCheckData());
+			LOG.debug("validate:rule.isApplicable() {} location {}",rule.isApplicable(location),location);
+			LOG.debug("validate:rule.getCaption () {} location {}",rule.getCaption(),location);
 			if (rule.getCaption().startsWith("PDS4 Label")) {
+			  LOG.debug("validate:rule.getCaption().startsWith('PDS4 Label')) is true");
 			  if (ruleContext.getCheckData())
 				 rule = ruleManager.findRuleByName("pds4.label");
 			  else
 			    rule = ruleManager.findRuleByName("pds4.label.skip.content");	
+			  LOG.debug("validate:rule.getCaption() {}",rule.getCaption());
 			}
-			
+
+            ArrayList<Target> ignoreList = new ArrayList<Target>();  // List of items to be ignored from result of crawl() function.
+
+            // Make an initial check whether the rule is applicable  and if the rule is not applicable,
+            // check to see if target is a bundle type and attempt to process the bundle product.
+			if (!rule.isApplicable(location)) {
+			    LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}",url,TargetExaminer.isTargetBundleType(url));
+                if (TargetExaminer.isTargetBundleType(url)) {
+                    // If the target a bundle, the exception can now be made.
+                    // Make the following changes:
+                    //     1.  Change the location from a file into a directory.
+                    //     2.  Create a list of other bundle files to ignore so only the provided bundle is processed
+                    //     3.  Create a list of collection files to ignore so only the latest collection file is processed.
+                    //     4.  Create new rule based on new location.
+                    BundleManager.makeException(url,location);
+                    ignoreList = BundleManager.getIgnoreList();
+                    location   = BundleManager.getLocation();
+                    try {
+          		        rule = getRule(new File(location).toURI().toURL());
+                    } catch (Exception e) {
+                        LOG.error("Cannot get rule for location. " + location + ": " + e.getMessage()); 
+                        return;
+                    }
+			        LOG.debug("after:url,ignoreList.size {},{}",url,ignoreList.size());
+			        LOG.debug("after:url,location {},{}",url,location);
+                }
+            } else {
+                // Rule is applicable for given location.
+                // Check to see if url is a directory and crawl for bundle and collection files.
+                // Note that the crawler does not allow crawling if the url is a file.
+                File directory = FileUtils.toFile(url);
+                if (directory.isDirectory() ) {
+			        LOG.debug("Input url is a directory, will indeed crawl for bundle/collection files {}",url);
+                    // New logic: Build two list of files to ignore so the crawler will only process the latest Bundle and Collection.
+                    ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url); 
+                    ignoreList.addAll(ignoreBundleList);
+                    Target latestBundle = BundleManager.getLatestBundle(); 
+                    ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
+                    ignoreList.addAll(ignoreCollectionList);
+			        LOG.debug("url,latestBundle {},{}",url,latestBundle);
+			        LOG.debug("url,ignoreBundleList {},{}",url,ignoreBundleList);
+			        LOG.debug("url,ignoreCollectionList {},{}",url,ignoreCollectionList);
+			        LOG.debug("url,ignoreBundleList.size() {},{}",url,ignoreBundleList.size());
+			        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
+                } else {
+			        LOG.debug("Input url is a file, will not crawl for bundle/collection files {}",url);
+                }
+            }
+
 			if (!rule.isApplicable(location)) {
 			  LOG.error("'{}' validation style is not applicable for location {}", 
 			      rule.getCaption(), location);
 			  return;
 			}
+
 			ProblemListener listener = new ListenerExceptionPropagator(
 			    problemHandler);
 			ValidationTask task = new ValidationTask(listener, ruleContext,
@@ -158,9 +220,15 @@ public class LocationValidator {
 			task.setRule(rule);
 			task.setRuleManager(ruleManager);
 			Crawler crawler = CrawlerFactory.newInstance(url);
+            // Set filter so the crawler will ignore other bundle/collection files that are not latest.
+            crawler.addAllIgnoreItems(ignoreList);
+
 			ruleContext.setCrawler(crawler);
 			ruleContext.setRule(rule);
-			taskManager.submit(task);
+
+            LOG.debug("validate:Submitting task to taskManager location {} rule {} ",location, rule.getCaption());
+            taskManager.submit(task);
+            LOG.debug("validate:Returning from task to taskManager location {} rule {} ",location, rule.getCaption());
 		}
 	}
 
@@ -189,7 +257,7 @@ public class LocationValidator {
 			validationType = validationRule;
 		}
 		ValidationRule rule;
-		//System.out.println("validationType = " + validationType);		
+        LOG.debug("getRule:validationType {}",validationType);
 		if (validationType == null) {
 		  URI uri = null;
 		  try {
@@ -197,6 +265,7 @@ public class LocationValidator {
 		  } catch (URISyntaxException e) {
 		    //Can't happen
 		  }
+            LOG.debug("getRule:uri {}",uri.normalize().toString());
 			rule = ruleManager.findApplicableRule(uri.normalize().toString());
 			if (rule == null) {
 				System.err.println("No validation type specified and no applicable"
@@ -209,7 +278,7 @@ public class LocationValidator {
 				    + validationType);
 			}
 		}
-		
+
 		return rule;
 	}
 
