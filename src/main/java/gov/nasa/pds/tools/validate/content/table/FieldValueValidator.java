@@ -26,6 +26,9 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.common.primitives.UnsignedLong;
 
 import gov.nasa.pds.label.object.FieldDescription;
@@ -47,6 +50,7 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
  *
  */
 public class FieldValueValidator {
+  private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
   private final List<String> INF_NAN_VALUES = Arrays.asList(
       "INF", "-INF", "+INF", "NAN", "-NAN", "+NAN");
@@ -150,6 +154,10 @@ public class FieldValueValidator {
     // Set variable if we get an error that will be a problem for all records
     boolean fatalError = false;
 
+    LOG.debug("validate:checkFieldFormat,fields.length {},{}",checkFieldFormat,fields.length);
+    LOG.debug("validate:checkFieldFormat,fields {}",fields);
+    LOG.debug("validate:record.getLocation().getRecord() {}",record.getLocation().getRecord());
+
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
       try {
@@ -159,6 +167,9 @@ public class FieldValueValidator {
            if (fields[i+1].getOffset()!=fields[i].getOffset())
         	   actualFieldNumber++;   
         }
+        // Adding debug could be time consuming for large files.  Uncommenting should be done by developer only for debugging.
+        //LOG.debug("validate:i,value,fields[i] {},{},{}",i,value,fields[i]);
+        //LOG.debug("validate:i,fields[i].getLength(),fields[i].getMaxLength() {},{},{}",i,fields[i].getLength(),fields[i].getMaxLength());
         
         // Check that the length of the field value does not exceed the
         // maximum field length, if specified
@@ -175,14 +186,18 @@ public class FieldValueValidator {
                 (i + 1));
           }        
         }
-        
+
         // issue_209: when checkFieldFormat=false, it's Table_Binary
         if (checkFieldFormat) { 
         	// issue_56: Validate that Table_Character fields do not overlap based upon field length definitions
+            // Better line
+            // if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength() > fields[i+1].getOffset()))
+            // The next line is hard to read.  Perhaps the parenthesis should surround the 2nd > comparison.
         	if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
         		String message = "This field overlaps the next field. Current field ends at " 
         				+ (fields[i].getOffset()+fields[i].getLength()) 
         				+ ". Next field starts at " + fields[i+1].getOffset();
+                LOG.error(message);
         		addTableProblem(ExceptionType.ERROR,
         				ProblemType.FIELD_VALUE_OVERLAP,
         				message,
@@ -218,10 +233,15 @@ public class FieldValueValidator {
     	    // Otherwise, we are just reading a normal Field_Character or Field_Binary
         	} else {
         		// issue_209: incorrect error when the current offset and next offset are same
-        		if ((fields[i].getOffset()>fields[i+1].getOffset()) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {       
+                // Adding debug could be time consuming for large files.  Uncommenting should be done by developer only for debugging.
+                //LOG.debug("validate:i,fields[i].getOffset(),fields[i].getLength(),fields[i+1].getOffset() {},{},{},{}",i,fields[i].getOffset(),fields[i].getLength(),fields[i+1].getOffset());
+                // issue_257: Product with incorrect table binary definition pass validation
+                // Corrected logic: using the OR logic || and put parenthesis surround the 2nd check for readability.
+        		if ((fields[i].getOffset()>fields[i+1].getOffset()) || (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {       
         			String message = "This field overlaps the next field. Current field ends at " 
         					+ (fields[i].getOffset()+fields[i].getLength()+1) 
         					+ ". Next field starts at " + (fields[i+1].getOffset()+1);
+                    LOG.error("{}",message);
         			addTableProblem(ExceptionType.ERROR,
         					ProblemType.FIELD_VALUE_OVERLAP,
         					message,
@@ -229,6 +249,10 @@ public class FieldValueValidator {
         					(i+1));
         			fatalError = true;
         		}
+                // Adding debug could be time consuming for large files.  Uncommenting should be done by developer only for debugging.
+                //else {
+                //    LOG.debug("validate:column valid i {}",i);
+                //}
         	}
     	}
 
@@ -307,9 +331,12 @@ public class FieldValueValidator {
       }
     }
     
-    // Raise exception of we get a fatal error to avoid overflow of error messages
+    // Raise exception if we get a fatal error to avoid overflow of error messages
     // for every records
-    if (fatalError) throw new FieldContentFatalException("Fatal field content read error. Discontinue reading records."); 
+    if (fatalError) {
+        LOG.error("Fatal field content read error. Discontinue reading records.  Last read record {}",record.getLocation().getRecord()); 
+        throw new FieldContentFatalException("Fatal field content read error. Discontinue reading records."); 
+    }
   }
   
   /**

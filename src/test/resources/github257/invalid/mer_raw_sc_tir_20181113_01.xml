@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://psa.esa.int/psa/v1/PDS4_PSA_1101.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+    xmlns:psa="http://psa.esa.int/psa/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xsi:schemaLocation="
+    http://pds.nasa.gov/pds4/pds/v1
+    http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd
+    http://pds.nasa.gov/pds4/geom/v1
+    http://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.xsd
+    http://psa.esa.int/psa/v1
+    http://psa.esa.int/psa/v1/PDS4_PSA_1101.xsd
+    http://psa.esa.int/psa/bc/v1
+    http://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.xsd
+    http://pds.nasa.gov/pds4/disp/v1
+    http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.xsd
+    http://pds.nasa.gov/pds4/img/v1
+    http://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1A10.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:esa:psa:bc_mpo_mertis:data_raw:mer_raw_sc_sc_tir_20181113_01</logical_identifier>
+        <version_id>0.1</version_id>
+        <title>BepiColombo MPO MERTIS MERCURY ORBIT RAW HOUSEKEEPING DATA PRODUCT</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2019-12-06</modification_date>
+                <version_id>0.1</version_id>
+                <description>standard description for version 0.1</description>
+            </Modification_Detail>
+        </Modification_History>
+
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-11-13T14:51:11.969Z</start_date_time>
+            <stop_date_time>2018-11-13T17:13:33.541Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <description>TBW</description>
+            <Science_Facets>
+              <wavelength_range>Infrared</wavelength_range>
+              <discipline_name>Imaging</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area><!-- Mission -->
+            <name>BepiColombo</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:esa:psa:context:investigation:mission.bc</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>BepiColombo MPO MERTIS</name>
+            <Observing_System_Component><!-- Instrument Host -->
+                <name>Mercury Planetary Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mpo</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component><!-- Instrument -->
+                <name>MERTIS</name>
+                <type>Instrument</type>
+                <description>Mercury Thermal Infrared Spectrometer</description>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument:mertis.mpo</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification><!-- Target -->
+            <name>NON SCIENCE</name>
+            <type>Calibrator</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:calibrator.non_science</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area><!-- Mission Area: Attributes specific to PSA & BepiColombo (from their Local Data Dictionary) -->
+            <psa:Mission_Information>
+                <psa:spacecraft_clock_start_count>1/0606840670.14623</psa:spacecraft_clock_start_count>
+                <psa:spacecraft_clock_stop_count>1/0606840670.14623</psa:spacecraft_clock_stop_count>
+                <psa:mission_phase_name>Near-Earth Commissioning Phase</psa:mission_phase_name>
+                <psa:mission_phase_identifier>necp</psa:mission_phase_identifier>
+                <psa:start_orbit_number>0</psa:start_orbit_number>
+                <psa:stop_orbit_number>0</psa:stop_orbit_number>
+            </psa:Mission_Information>
+            <psa:Sub-Instrument>
+                <psa:identifier>TIR</psa:identifier>
+                <psa:name>Thermal Infrared Radiometer</psa:name>
+                <psa:type>Spectrometer</psa:type>
+            </psa:Sub-Instrument>
+            <psa:Observation_Context>
+                <psa:instrument_pointing_mode>No pointing</psa:instrument_pointing_mode>
+                <psa:instrument_pointing_description>POINTING_DESCRIPTION</psa:instrument_pointing_description>
+                <psa:observation_identifier>mer_raw_sc_tir_20181113_01</psa:observation_identifier>
+            </psa:Observation_Context>
+            <psa:Processing_Context>
+                <psa:processing_software_title>bscs-tm2raw-mer</psa:processing_software_title>
+                <psa:processing_software_version>0.1</psa:processing_software_version>
+                <psa:Processing_Inputs>
+                    <psa:Processing_Input_Identification>
+                        <psa:type>telemetry</psa:type>
+                        <psa:file_name>small.xml</psa:file_name>
+                    </psa:Processing_Input_Identification>
+                </psa:Processing_Inputs>
+            </psa:Processing_Context>
+        </Mission_Area>
+        <Discipline_Area><!-- Discipline Area: Attributes specific to a given discipline e.g. geometry -->
+            <img:Imaging>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>MERTIS_TIR_CHANNEL_A_RAW_SCIENCE_DATA</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>MERTIS_TIR_CHANNEL_B_RAW_SCIENCE_DATA</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>
+                <img:Image_Product_Information>
+                    <img:Exposure_Parameters>
+                        <img:exposure_duration unit="ms">800</img:exposure_duration>
+                    </img:Exposure_Parameters>
+                </img:Image_Product_Information>
+            </img:Imaging>
+            <geom:Geometry>
+                 <geom:SPICE_Kernel_Files>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>mk</geom:kernel_type>
+                        <geom:spice_kernel_file_name>bc_v210_20191025_001_ops.tm</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                </geom:SPICE_Kernel_Files>
+                <geom:Geometry_Orbiter>
+                    <geom:geometry_reference_time_utc>2018-11-13T14:51:11.969Z</geom:geometry_reference_time_utc>
+                    <geom:geometry_start_time_utc>2018-11-13T14:51:11.969Z</geom:geometry_start_time_utc>
+                    <geom:geometry_stop_time_utc>2018-11-13T17:13:33.541Z</geom:geometry_stop_time_utc>
+                    <geom:Distances>
+                        <geom:Distances_Specific>
+                            <geom:spacecraft_heliocentric_distance unit="km">140909285.12464237</geom:spacecraft_heliocentric_distance>
+                            <geom:spacecraft_target_center_distance unit="km">0</geom:spacecraft_target_center_distance>
+                            <geom:spacecraft_target_boresight_intercept_distance unit="km">0</geom:spacecraft_target_boresight_intercept_distance>
+                            <geom:spacecraft_target_subspacecraft_distance unit="km">0</geom:spacecraft_target_subspacecraft_distance>
+                            <geom:target_geocentric_distance unit="km">0</geom:target_geocentric_distance>
+                            <geom:target_heliocentric_distance unit="km">0</geom:target_heliocentric_distance>
+                        </geom:Distances_Specific>
+                    </geom:Distances>
+                    <geom:Surface_Geometry>
+                        <geom:Surface_Geometry_Specific>
+                            <geom:subsolar_azimuth unit="deg">0</geom:subsolar_azimuth>
+                            <geom:subsolar_latitude unit="deg">0</geom:subsolar_latitude>
+                            <geom:subsolar_longitude unit="deg">0</geom:subsolar_longitude>
+                            <geom:subspacecraft_azimuth unit="deg">0</geom:subspacecraft_azimuth>
+                            <geom:subspacecraft_latitude unit="deg">0</geom:subspacecraft_latitude>
+                            <geom:subspacecraft_longitude unit="deg">0</geom:subspacecraft_longitude>
+                        </geom:Surface_Geometry_Specific>
+                    </geom:Surface_Geometry>
+                    <geom:Illumination_Geometry>
+                        <geom:Illumination_Min_Max>
+                            <geom:minimum_emission_angle unit="deg">0</geom:minimum_emission_angle>
+                            <geom:maximum_emission_angle unit="deg">0</geom:maximum_emission_angle>
+                            <geom:minimum_incidence_angle unit="deg">0</geom:minimum_incidence_angle>
+                            <geom:maximum_incidence_angle unit="deg">0</geom:maximum_incidence_angle>
+                            <geom:minimum_phase_angle unit="deg">0</geom:minimum_phase_angle>
+                            <geom:maximum_phase_angle unit="deg">0</geom:maximum_phase_angle>
+                        </geom:Illumination_Min_Max>
+                    </geom:Illumination_Geometry>
+                </geom:Geometry_Orbiter>
+            </geom:Geometry>
+        </Discipline_Area>
+    </Observation_Area>
+    <File_Area_Observational><!--physical file description: tir sensor metadata and data cha+chb in one fits file-->
+        <File><!--physical file Attributes-->
+            <file_name>mer_raw_sc_tir_20181113_01.fits</file_name>
+            <creation_date_time>2019-12-06T14:46:06.708Z</creation_date_time>
+            <file_size unit="byte">46080</file_size>
+            <md5_checksum>7e14313d3a1fe13d5103d05503bee24e</md5_checksum>
+        </File>
+        <Header><!--primary fits header, no data -->
+            <name>FITS HEADER</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>FITS primary header</description>
+        </Header>
+        <Header><!--METADATA Table fits header-->
+            <name>FITS EXTENSION HEADER</name>
+            <offset unit="byte">2880</offset>
+            <object_length unit="byte">8640</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>FITS extension header for the MERTIS TIR metadata</description>
+        </Header>
+        <Table_Binary><!--METADATA Table fits data-->
+            <name>MERTIS_TIR_METADATA</name>
+            <local_identifier>MERTIS_TIR_METADATA</local_identifier>
+            <offset unit="byte">11520</offset>
+            <records>29</records>
+            <Record_Binary>
+                <fields>20</fields>
+                <groups>0</groups>
+                <record_length unit="byte">190</record_length>
+                <Field_Binary>
+                    <name>TIME_UTC</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <unit>None</unit>
+                    <description>UTC time of acquisition</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>TIME_OBT</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">24</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>None</unit>
+                    <description>OBT time of acquisition converted from UTC</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>TimeStamp</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">42</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>seconds</unit>
+                    <description>TimeStamp</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DATA_ACQ_ID</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">50</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>Acquisition number TIR, incremented for each data product</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DATA_ACQ_TYPE</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">58</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>none</unit>
+                    <description>Type of TIR science data</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DATA_ACQ_TARGET</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">68</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>none</unit>
+                    <description>Target of TIR science data acquisition</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DATA_ACQ_TIME</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">78</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>seconds</unit>
+                    <description>TIR data time stamp at first acquisition (CUC format)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_NUM_OVERSAMP</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">86</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>Number of oversamplings performed</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_RAD_CHA</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">94</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>Radiometer temperature obtained by science data acquisition channel A</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_RAD_CHB</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">102</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>Radiometer temperature obtained by science data acquisition channel B</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DAT_OUT_OF_RANGE_CHA</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">110</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>TIR data channel A out of range 0=no, 1=yes</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DAT_PROC_ERROR_CHA</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">118</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>TIR data channel A processing error (less data used for oversampling) 0=no, 1=yes</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DAT_OUT_OF_RANGE_CHB</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">126</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>TIR data channel B out of range 0=no, 1=yes</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_STAT_TIR_DAT_PROC_ERROR_CHB</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">134</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                    <description>TIR data channel B processing error (less data used for oversampling), 0=no, 1=yes</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_BB3_RAW</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">142</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>DN</unit>
+                    <description>BB300 temperature sensor raw value</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_BB3_REF_RAW</name>
+                    <field_number>16</field_number>
+                    <field_location unit="byte">150</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>DN</unit>
+                    <description>BB300 reference temperature sensor raw value</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_BB3_OFFSET_RAW</name>
+                    <field_number>17</field_number>
+                    <field_location unit="byte">158</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>DN</unit>
+                    <description>BB300 temperature sensor offset raw value</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_BB3_REF_OFFSET_RAW</name>
+                    <field_number>18</field_number>
+                    <field_location unit="byte">166</field_location>
+                    <data_type>SignedMSB8</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>DN</unit>
+                    <description>BB300 reference temperature sensor offset raw value</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_STS</name>
+                    <field_number>19</field_number>
+                    <field_location unit="byte">174</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>degC</unit>
+                    <description>Shutter temperature</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>HK_TEMP_OST_BASE_PLATE</name>
+                    <field_number>20</field_number>
+                    <field_location unit="byte">182</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>degC</unit>
+                    <description>Optics structure / Base Plate temperature</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+        <Header><!--TIS Channel A Table fits header-->
+            <name>FITS EXTENSION HEADER</name>
+            <offset unit="byte">17280</offset>
+            <object_length unit="byte">8640</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>FITS extension header for the MERTIS TIR channel A raw science data</description>
+        </Header>
+        <Array_2D>
+            <name>MERTIS_TIR_CHANNEL_A_RAW_SCIENCE_DATA</name>
+            <local_identifier>MERTIS_TIR_CHANNEL_A_RAW_SCIENCE_DATA</local_identifier>
+            <offset unit="byte">25920</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>SignedMSB8</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>CHANNEL_A_Frames</axis_name>
+                <elements>29</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>CHANNEL_A_Spectral</axis_name>
+                <elements>15</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Object_Statistics>
+                <local_identifier>MERTIS_TIR_CHANNEL_A_RAW_SCIENCE_DATA_STATISTICS</local_identifier>
+                <maximum>4294967104.0000</maximum>
+                <minimum>167.0000</minimum>
+                <mean>395022772.8391</mean>
+                <standard_deviation>1241404781.5763</standard_deviation>
+            </Object_Statistics>
+        </Array_2D>
+        <Header><!--TIS Channel B Table fits header-->
+            <name>FITS EXTENSION HEADER</name>
+            <offset unit="byte">31680</offset>
+            <object_length unit="byte">8640</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>FITS extension header for the MERTIS TIR channel B raw science data</description>
+        </Header>
+        <Array_2D><!--TIS Channel B Table fits data-->
+            <name>MERTIS_TIR_CHANNEL_B_RAW_SCIENCE_DATA</name>
+            <local_identifier>MERTIS_TIR_CHANNEL_B_RAW_SCIENCE_DATA</local_identifier>
+            <offset unit="byte">40320</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>SignedMSB8</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>CHANNEL_B_Frames</axis_name>
+                <elements>29</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>CHANNEL_B_Spectral</axis_name>
+                <elements>15</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Object_Statistics>
+                <local_identifier>MERTIS_TIR_CHANNEL_B_RAW_SCIENCE_DATA_STATISTICS</local_identifier>
+                <maximum>4294957032.0000</maximum>
+                <minimum>19143.0000</minimum>
+                <mean>444137370.7448</mean>
+                <standard_deviation>1306755412.6782</standard_deviation>
+            </Object_Statistics>
+        </Array_2D>
+    </File_Area_Observational>
+</Product_Observational>
