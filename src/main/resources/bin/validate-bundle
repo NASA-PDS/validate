@@ -9,7 +9,7 @@
 usage()
 {
     echo
-    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>] [-r <report-file-path>]"
+    echo "usage: validate-bundle -t </path/to/bundle.xml> [-n <num-groups>] [-r <report-file-path>] [-d <dir-path>] [--dry-run]"
     echo
     echo "  Script to run Validate Tool on a bundle parallelizing across "
     echo "  multiple cores. This script will split up the PDS4 products in "
@@ -46,14 +46,29 @@ usage()
     echo "                                              NOTE: Reports from all parallel executed validation"
     echo "                                                    runs will be output to the parent directory of"
     echo "                                                    this file path."
+    echo "  -d, --dir-path       <dir-path>             Optional argument to specify the directory to output"
+    echo "                                              the final summary report."
+    echo "  --dry-run                                   Optional argument to make a dry run to confirm the created output directory"
+    echo "                                              specified in the --dir-path parameter."
     echo
 }
 
 ##### Main
 
+dry_run_flag='false'
+now_as_text=$(date +%Y%m%d_%H%M%S)
 PRODUCT_DIR=
 NUM_GROUPS=
-REPORT_FILE=$(pwd)/validate_$(date +%Y%m%d_%H%M%S)/validate_summary.log
+REPORT_FILE=''
+REPORT_DIR=''
+
+# Build the unique directory where to write report files to.
+
+DEFAULT_UNIQUE_REPORT_DIR_STEM=validate_$now_as_text
+DEFAULT_UNIQUE_REPORT_DIR_DIR='./$DEFAULT_UNIQUE_REPORT_DIR_STEM'
+
+# Save where the code is ran from so the default directory can be returned.
+my_default_dir=$(pwd)
 
 while [ "$1" != "" ]; do
     case $1 in
@@ -65,6 +80,12 @@ while [ "$1" != "" ]; do
                                 ;;
         -r | --report-file )     shift
                                 REPORT_FILE=$1
+                                ;;
+        -d | --report-dir )     shift
+                                REPORT_DIR=$1
+                                ;;
+        --dry-run)
+                                dry_run_flag='true'
                                 ;;
         -h | --help )           usage
                                 exit
@@ -80,9 +101,18 @@ if [ "$PRODUCT_DIR" == "" ]; then
     exit 1
 fi
 
+# If the user has provided the REPORT_DIR (not a blank space), append the unique directory.
+if [ $REPORT_DIR != "" ]; then
+    REPORT_DIR=$REPORT_DIR/$DEFAULT_UNIQUE_REPORT_DIR_STEM
+fi
+# If the user has not provided the REPORT_FILE (not a blank space), set to unique file beneath the default dir.
+if [ "$REPORT_FILE" = "" ]; then
+    REPORT_FILE=$REPORT_DIR/validate_summary.log
+fi
 
 # Setup the directory to run the the parallel processes
 RUN_DIR=$(dirname $REPORT_FILE)
+
 mkdir -p $RUN_DIR
 cd $RUN_DIR
 
@@ -117,6 +147,7 @@ else
   echo
   exit 1
 fi
+
 
 NUM_CORES=`getconf _NPROCESSORS_ONLN`
 HALF_CORES=$((($NUM_CORES/2)))
@@ -158,6 +189,17 @@ done
 echo "  +--------------------+-----------------"
 
 # rm validate_all_files.txt
+
+# If this is a dry run, print the directory create and exit.
+if [ "$dry_run_flag" == "true" ]; then
+    echo "* dry_run_flag is true"
+    echo "* The following directory has been created: $RUN_DIR"
+    echo "* Variables inspection:"
+    echo "*   REPORT_FILE = $REPORT_FILE"
+    echo "*   RUN_DIR     = $RUN_DIR"
+    echo "* Program exiting"
+    exit
+fi
 
 echo
 echo "Running all $NUM_GROUPS groups in parallel now..."
@@ -205,7 +247,8 @@ echo | tee -a $REPORT_FILE
 echo "<<<<<<<<<<<<<<<" | tee -a $REPORT_FILE
 echo | tee -a $REPORT_FILE
 
-cd ..
+# Go back to where ran the code from.
+cd $my_default_dir
 
 echo "Validation complete."
 echo "* See $RUN_DIR/$REPORT_FILE for a summary of results."
