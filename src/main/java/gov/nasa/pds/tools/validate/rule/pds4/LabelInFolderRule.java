@@ -32,14 +32,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Implements the rule that all files that look like labels in a folder
  * must be valid labels.
  */
 public class LabelInFolderRule extends AbstractValidationRule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(LabelInFolderRule.class);
   private static final String XML_SUFFIX = ".xml";
   private static final long THREAD_TIMEOUT = 100; // HOURS
+  private double totalTimeElapsed = 0.0;
 
   private ExecutorService validateThreadExecutor;
   List<Future<?>> futures = new ArrayList<Future<?>>();
@@ -54,6 +60,8 @@ public class LabelInFolderRule extends AbstractValidationRule {
    */
   @ValidationTest
   public void validateLabelsInFolder() {
+      //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
+
       validateThreadExecutor = Executors.newFixedThreadPool(1);
 
       ValidationRule labelRuleTmp = null;
@@ -69,6 +77,8 @@ public class LabelInFolderRule extends AbstractValidationRule {
 
       Crawler crawler = getContext().getCrawler();
       URL target = getTarget();
+      long startTime = System.currentTimeMillis();
+      LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
       try {
         int targetCount = 0;
         List<Target> targetList = crawler.crawl(getTarget(), false, getContext().getFileFilters());
@@ -112,6 +122,10 @@ public class LabelInFolderRule extends AbstractValidationRule {
       } catch (IOException io) {
         reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
       }
+      long finishTime = System.currentTimeMillis();
+      long timeElapsed = finishTime - startTime;
+      this.totalTimeElapsed += timeElapsed;
+      LOG.info("validateLabelsInFolder:END_PROCESSING_FOLDER:target,timeElapsed,this.totalTimeElapsed {},{} ms",target,timeElapsed,this.totalTimeElapsed);
   }
 
 }

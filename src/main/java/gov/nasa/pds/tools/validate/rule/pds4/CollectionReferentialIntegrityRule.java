@@ -23,6 +23,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
 import gov.nasa.pds.tools.inventory.reader.InventoryReaderException;
@@ -48,6 +50,7 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  *
  */
 public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
+  private static final Logger LOG = LoggerFactory.getLogger(CollectionReferentialIntegrityRule.class);
   private static final Pattern COLLECTION_LABEL_PATTERN = 
       Pattern.compile("(.*_)*collection(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
   
@@ -56,8 +59,12 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   
   private static final String LOGICAL_IDENTIFIER =
       "//*[starts-with(name(),'Identification_Area')]/logical_identifier";
+
+  private static final String VERSION_ID =
+      "//*[starts-with(name(),'Identification_Area')]/version_id";
   
   private String lid = null;
+  private double totalTimeElapsed = 0.0;
   
   @Override
   public boolean isApplicable(String location) {
@@ -100,6 +107,12 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   }
   
   private void getCollectionMembers(URL collection) {
+    LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {}",collection);
+    //if (2 == 2) {
+    //LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {} SKIPPING",collection);
+    //return;
+    //}
+    long startTime = System.currentTimeMillis();
     try {
       int numOfCollectionMembers = 0;
       numOfCollectionMembers = 0;
@@ -109,9 +122,12 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         if (!entry.isEmpty()) {
             numOfCollectionMembers++;
           String identifier = entry.getIdentifier();
+          //LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
+          //LOG.debug("getCollectionMembers: identifier {}",identifier);
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);
+            //LOG.debug("getCollectionMembers: id {}",id);
             List<Map.Entry<Identifier, String>> matchingMembers = 
                 new ArrayList<Map.Entry<Identifier, String>>();
             for (Map.Entry<Identifier, String> idEntry : 
@@ -120,6 +136,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                 matchingMembers.add(idEntry);
               }
             }
+            //LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}",id,matchingMembers.size());
+            //LOG.debug("getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",id,matchingMembers.isEmpty(),entry.getMemberStatus());
             if (matchingMembers.isEmpty() && 
                 "P".equalsIgnoreCase(entry.getMemberStatus())) {
               getListener().addProblem(new ValidationProblem(
@@ -138,6 +156,10 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                           + "the following product: "
                           + matchingMembers.get(0).getValue()), 
                       collection));
+              //LOG.debug("getCollectionMembers: id {} SUCCESS",id);
+              //LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id + "' is identified in "
+              //                                                + "the following product: "
+              //                                                + matchingMembers.get(0).getValue());
             } else if (matchingMembers.size() > 1) {
               super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
             	      collection);
@@ -201,6 +223,11 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                       message),
                   collection));
       }
+      long finishTime = System.currentTimeMillis();
+      long timeElapsed = finishTime - startTime;
+      totalTimeElapsed += timeElapsed;
+
+      LOG.info("getCollectionMembers: END_PROCESSING_COLLECTION:collection,totalTimeElapsed,numOfCollectionMembers {},{},{}",collection,totalTimeElapsed,numOfCollectionMembers);
     } catch (InventoryReaderException e) {
       reportError(GenericProblems.UNCAUGHT_EXCEPTION, collection, -1, -1,
           e.getMessage());

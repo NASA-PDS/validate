@@ -19,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.Identifier;
@@ -34,8 +36,11 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  * referenced by some label.
  */
 public class FindUnreferencedIdentifiers extends AbstractValidationRule {
+  private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
   private static final Pattern COLLECTION_LABEL_PATTERN = 
       Pattern.compile("collection(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
+  private long filesProcessed = 0;
+  private double totalTimeElapsed = 0.0;
   
   @Override
   public boolean isApplicable(String location) {
@@ -50,6 +55,9 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   public void findUnreferencedIdentifiers() {
     // Only run the test if we are the root target, to avoid duplicate errors.
     if (getContext().isRootTarget()) {
+      LOG.info("findUnreferencedIdentifiers:Context is indeed root: {}",getContext().getTarget());
+      LOG.info("findUnreferencedIdentifiers:getRegistrar().getIdentifierDefinitions().keySet().size() {}",getRegistrar().getIdentifierDefinitions().keySet().size());
+      long startTime = System.currentTimeMillis();
       for (Identifier id : getRegistrar().getIdentifierDefinitions().keySet()) {  
         String location = getRegistrar().getTargetForIdentifier(id);
         URL locationUrl = null;
@@ -58,6 +66,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
         } catch (MalformedURLException mu) {
           //Ignore. Should not happen!!!
         }
+        this.filesProcessed += 1;
         getListener().addLocation(location);
         boolean found = false;
         for (Identifier ri : getRegistrar().getReferencedIdentifiers()) {
@@ -73,6 +82,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
             break;
           }
         }
+        LOG.debug("findUnreferencedIdentifiers:id,location,found,filesProcessed: {},{},{},{}",id,location,found,this.filesProcessed);
         if (!found) {
           String memberType = "collection";
           Matcher matcher = COLLECTION_LABEL_PATTERN.matcher(
@@ -99,6 +109,13 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
           lp.record(getTarget().toString());
         }
       }
+    long finishTime = System.currentTimeMillis();
+    long timeElapsed = finishTime - startTime;
+    this.totalTimeElapsed += timeElapsed;
+    LOG.info("findUnreferencedIdentifiers:getContext().getTarget(),filesProcessed,totalTimeElapsed: {},{},{}",getContext().getTarget(),this.filesProcessed,this.totalTimeElapsed);
+
+    } else {
+        LOG.info("findUnreferencedIdentifiers:Context is not root: {}",getContext(),getTarget());
     }
   }
 
