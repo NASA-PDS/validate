@@ -42,10 +42,7 @@ public class RawTableReader extends TableReader {
   private int nextCh = SOL;
   
   private static final int SOL = -10;
-  
-  /** To track which line in the data file we're in. */
-  //private int currentLine;
-  
+    
   /**
    * Constructor.
    * 
@@ -62,7 +59,6 @@ public class RawTableReader extends TableReader {
     this.dataFile = dataFile;
     this.label = label;
     this.table = tableIndex;
-    //this.currentLine = 0;
   }
   
   /**
@@ -132,7 +128,7 @@ public class RawTableReader extends TableReader {
         line = lineBuffer.toString();
         setCurrentRow(getCurrentRow() + 1);
       }
-    }
+    } 
     return line;
   }
   
