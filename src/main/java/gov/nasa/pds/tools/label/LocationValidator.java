@@ -226,10 +226,8 @@ public class LocationValidator {
 			ruleContext.setCrawler(crawler);
 			ruleContext.setRule(rule);
 
-            LOG.info("validate:Submitting task {} to taskManager location {} rule {} ",task,location, rule.getCaption());
             LOG.debug("validate:Submitting task to taskManager location {} rule {} ",location, rule.getCaption());
             taskManager.submit(task);
-            LOG.info("validate:Returning from task {} to taskManager location {} rule {} ",task,location, rule.getCaption());
             LOG.debug("validate:Returning from task to taskManager location {} rule {} ",location, rule.getCaption());
 		}
 	}

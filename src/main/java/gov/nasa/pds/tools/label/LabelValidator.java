@@ -26,6 +26,7 @@ import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
 
@@ -337,13 +338,13 @@ public class LabelValidator {
       // Function return true if the validation against the schematron should be done or not.
       // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
       // If the flag skipProductValidation is true, the labels belong to data files should not be done.
-      String nameOnly = Paths.get(url.getPath()).getFileName().toString();
       Boolean validateAgainstSchematronFlag;
       if (!this.skipProductValidation) {
           validateAgainstSchematronFlag = true;
       } else {
           // If skip product validation is true, perform schematron validation bundle/collection labels only.
-          if (nameOnly.contains("bundle") || nameOnly.contains("collection")) {
+          // Since the bundle and collection are not required to have the same token in the name, we must inspect the content of each file.
+          if (TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url)) {
               validateAgainstSchematronFlag = true;
           } else {
               // Do not validate labels belonging to data files.
@@ -490,7 +491,7 @@ public class LabelValidator {
       // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
       // If the flag skipProductValidation is true, the labels belong to data files should not be done.
       Boolean validateAgainstSchematronFlag = this.determineSchematronValidationFlag(url);
-      //LOG.debug("parseAndValidate:url,skipProductValidation,validateAgainstSchematronFlag {},{},{}",url,skipProductValidation,validateAgainstSchematronFlag);
+      LOG.debug("parseAndValidate:url,skipProductValidation,validateAgainstSchematronFlag {},{},{}",url,skipProductValidation,validateAgainstSchematronFlag);
 
       for (Transformer schematron : cachedSchematron) {
         if (!validateAgainstSchematronFlag) continue;  // Skip the validation if validateAgainstSchematronFlag is not true.

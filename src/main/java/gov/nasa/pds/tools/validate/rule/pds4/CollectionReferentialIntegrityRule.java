@@ -60,9 +60,6 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   private static final String LOGICAL_IDENTIFIER =
       "//*[starts-with(name(),'Identification_Area')]/logical_identifier";
 
-  private static final String VERSION_ID =
-      "//*[starts-with(name(),'Identification_Area')]/version_id";
-  
   private String lid = null;
   private double totalTimeElapsed = 0.0;
   
