@@ -100,10 +100,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final String CHILD_TABLE_BINARY_XPATH = 
       "child::*[name()='Table_Binary']";
   
-  /** XPath to find child Header elements from a given node. */
-  //private static final String CHILD_HEADER_XPATH = 
-  //    "child::*[name()='Header']";
-  
   /**
    * Creates a new instance.
    */
@@ -142,7 +138,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   public void validateTableDataContents() throws MalformedURLException, 
   URISyntaxException {
 	  
-    //System.out.println("getTarget() = " + getTarget());
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
     int spotCheckData = getContext().getSpotCheckData();
@@ -239,7 +234,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
     	  // set records size with the table index 1
     	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
-    	  //System.out.println("arraySize = " + arraySize + "   headerSize = " + headerSize + "   totalRecordsSize = " + actualTotalRecords);
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
@@ -292,8 +286,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (td instanceof Inventory) {
         	    inventoryTable = true;
           }
-         //System.out.println("TableDelimited..... definedNumRecords = " + definedNumRecords + "   actualRecordNumber = " + actualRecordNumber +
-        //	 "  recordMaxLength = " + recordMaxLength + "  definedTotalRecords = " + definedTotalRecords + "  offset = " + reader.getOffset());
+          actualRecordNumber = actualTotalRecords;
         } else if (table instanceof TableBinary) {
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
@@ -307,17 +300,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (tableObjects.size()==1) {
         	 actualTotalRecords = actualTotalRecords - arraySize - headerSize;
         	 actualRecordNumber = actualTotalRecords/recordLength;
-        	 //System.out.println("***actualTotalRecords = " + actualTotalRecords + "  actualRecordNumber = " + actualRecordNumber + "    recordLength = " + recordLength);
           }
           else {
         	  // issue_243: Fix for choke on a probably good file
         	  // record size for the table index i
         	  long actualRecordSize = actualTotalRecords - reader.getOffset();
         	  actualRecordNumber = actualRecordSize/recordLength;
-        	 // System.out.println("****actualTotalRecords = " + actualTotalRecords + "  actualRecordSize = " + actualRecordSize + "  actualRecordNumber = " + actualRecordNumber + "    recordLength = " + recordLength);
           }
-         // System.out.println("TableBinary.......recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
-		 // "   definedTotalRecords = " + definedTotalRecords + "   actualRecordnumber = " + actualRecordNumber + "    actualTotalRecords = " + actualTotalRecords + "   offset = " + reader.getOffset());
         } else {
           TableCharacter tc = (TableCharacter) table;
           if (tc.getRecordCharacter() != null && 
@@ -330,8 +319,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
              actualRecordNumber = reader.getRecordSize(dataFile, table);
           }
           catch (Exception e) {}        
-          //System.out.println("TableCharacter..tableIndex = " + tableIndex + "  recordLength = " + recordLength + "    definedNumRecords = " + definedNumRecords + 
-          //	  "   actualRecordNumber = " + actualRecordNumber + "  offset = " + reader.getOffset() + "   recordsToRemove = " + recordsToRemove);
         } 
         
         { // issue_220
@@ -366,7 +353,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         }
    
         TableRecord record = null;
-        // We have either a character or delimited table
         try {
           if (table instanceof TableBinary) {
             try {
@@ -402,7 +388,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                       + tableIndex
                       + "', record '" + reader.getCurrentRow() + "'");
             }
-          } else {
+          } else {  // We have either a character or delimited table
             boolean manuallyParseRecord = false;
             String line = reader.readNextLine();
             while (line != null) {
@@ -477,6 +463,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 if (manuallyParseRecord && !(table instanceof TableDelimited)) {
                   record = reader.toRecord(line, reader.getCurrentRow());
                 } else {
+                	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
                   record = reader.getRecord(reader.getCurrentRow());
                 }
                 //Validate fields within the record here
@@ -545,8 +532,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               }
               line = reader.readNextLine();
             }
+            // only give error message when the actual record number is smaller than the defined in the label
             if (definedNumRecords != -1 && 
-                definedNumRecords != reader.getCurrentRow() && spotCheckData == -1) {
+                (definedNumRecords>reader.getCurrentRow()) && spotCheckData == -1) {
               String message = "Number of records read is not equal "
                 + "to the defined number of records in the label (expected "
                 + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
@@ -555,8 +543,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   message,
                   dataFile,
                   tableIndex,
-                  -1); 
-            }  
+                  -1);
+            } 
           }
         } catch (IOException io) {
           // Error occurred while reading the data file
