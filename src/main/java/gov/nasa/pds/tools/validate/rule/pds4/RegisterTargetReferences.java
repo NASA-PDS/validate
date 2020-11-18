@@ -29,6 +29,8 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -38,6 +40,7 @@ import org.w3c.dom.NodeList;
  * reference to the label itself.
  */
 public class RegisterTargetReferences extends AbstractValidationRule {
+  private static final Logger LOG = LoggerFactory.getLogger(RegisterTargetReferences.class);
 
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
@@ -71,6 +74,9 @@ public class RegisterTargetReferences extends AbstractValidationRule {
   public void registerFileReferences() throws XPathExpressionException {
     // We have a reference to the current target, since it is a label.
     URL target = getTarget();
+    // Debugging and info can be time consuming, should only be uncommented by developer only.
+    //LOG.debug("registerFileReferences:target {}",target);
+
     getRegistrar().setTargetIsLabel(target.toString(), true);
     
     if (!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {

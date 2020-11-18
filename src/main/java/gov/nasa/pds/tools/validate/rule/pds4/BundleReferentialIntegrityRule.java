@@ -23,6 +23,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
@@ -45,6 +47,8 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
  *
  */
 public class BundleReferentialIntegrityRule extends AbstractValidationRule {
+  private static final Logger LOG = LoggerFactory.getLogger(BundleReferentialIntegrityRule.class);
+
   private static final Pattern BUNDLE_LABEL_PATTERN = 
       Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
   
@@ -72,6 +76,8 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
    */
   private static final String VERSION_ID =
       "//*[starts-with(name(),'Identification_Area')]/version_id";
+
+  private double totalTimeElapsed = 0.0;
   
   @Override
   public boolean isApplicable(String location) {
@@ -86,10 +92,15 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   public void bundleReferentialIntegrityRule() {
     try {
       List<Target> children = getContext().getCrawler().crawl(getTarget());
+      //LOG.debug("bundleReferentialIntegrityRule:getTarget() {}",getTarget());
+      //LOG.debug("bundleReferentialIntegrityRule:children.size():afor_reduced: {}",children.size());
+
       // Check for bundle(.*)?\.xml file.
       for (Target child : children) {
         Matcher matcher = BUNDLE_LABEL_PATTERN.matcher(
             FilenameUtils.getName(child.toString()));
+        //LOG.debug("bundleReferentialIntegrityRule:child.toString() {}",child.toString());
+        LOG.debug("bundleReferentialIntegrityRule:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
         if (matcher.matches()) {
           try {
             XMLExtractor extractor = new XMLExtractor(child.getUrl());
@@ -116,6 +127,8 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   }
   
   private void getBundleMembers(URL bundle) {
+    LOG.info("getBundleMembers:BEGIN_PROCESSING_BUNDLE:bundle {}",bundle);
+    long startTime = System.currentTimeMillis();
     try {
       XMLExtractor extractor = new XMLExtractor(bundle);
       List<TinyNodeImpl> nodes = extractor.getNodesFromDoc(
@@ -128,16 +141,20 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
             MEMBER_STATUS,
             node);
         Identifier id = parseIdentifier(reference);
+        LOG.debug("getBundleMembers:reference,memberStatus,id {},{},{}",reference,memberStatus,id);
         List<Map.Entry<Identifier, String>> matchingMembers = 
             new ArrayList<Map.Entry<Identifier, String>>();
         for (Map.Entry<Identifier, String> idEntry : 
           getRegistrar().getIdentifierDefinitions().entrySet()) {
+          LOG.debug("getBundleMembers:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",reference,memberStatus,id,idEntry.getKey());
           if (id.equals(idEntry.getKey())) {
             matchingMembers.add(idEntry);
+            LOG.debug("getBundleMembers:ADDING_IDENTRY:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",reference,memberStatus,id,idEntry.getKey());
           }
         }
         if (matchingMembers.isEmpty() && 
             "Primary".equalsIgnoreCase(memberStatus)) {
+          LOG.debug("getBundleMembers:MATCHING_MEMBER_ID_IS_EMPTY {}",id);
           getListener().addProblem(new ValidationProblem(new ProblemDefinition(
               ExceptionType.WARNING,
               ProblemType.MEMBER_NOT_FOUND,
@@ -207,6 +224,11 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       reportError(GenericProblems.UNCAUGHT_EXCEPTION, bundle, -1, -1, 
           e.getMessage());
     }
+    long finishTime = System.currentTimeMillis();
+    long timeElapsed = finishTime - startTime;
+    totalTimeElapsed += timeElapsed;
+
+    LOG.info("getBundleMembers:END_PROCESSING_BUNDLE:bundle,totalTimeElapsed {},{}",bundle,totalTimeElapsed/1000.0);
   }
   
   private Identifier parseIdentifier(String identifier) {

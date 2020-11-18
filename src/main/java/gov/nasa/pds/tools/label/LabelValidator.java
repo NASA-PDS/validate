@@ -26,6 +26,7 @@ import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
 
@@ -33,6 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,6 +64,8 @@ import javax.xml.xpath.XPathFactory;
 
 import net.sf.saxon.om.DocumentInfo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.CharacterData;
 import org.w3c.dom.Comment;
@@ -90,6 +94,7 @@ import org.xml.sax.helpers.AttributesImpl;
  *
  */
 public class LabelValidator {
+  private static final Logger LOG = LoggerFactory.getLogger(LabelValidator.class);
   private Map<String, Boolean> configurations = new HashMap<String, Boolean>();
   private List<URL> userSchemaFiles;
   private List<URL> userSchematronFiles;
@@ -118,6 +123,23 @@ public class LabelValidator {
   private Schema validatingSchema;
   private SchematronTransformer schematronTransformer;
   private XPathFactory xPathFactory;
+
+  private long filesProcessed = 0;
+  private double totalTimeElapsed = 0.0;
+
+  /**
+   * Returns the number of files processed by the validation function. 
+   */
+  public long getFilesProcessed() {
+      return(this.filesProcessed);
+  }
+
+  /**
+   * Returns the duration it took to run the validation function. 
+   */
+  public double getTotalTimeElapsed() {
+      return(this.totalTimeElapsed);
+  }
 
   /**
    * Default constructor.
@@ -312,6 +334,26 @@ public class LabelValidator {
 
   }
 
+  private Boolean determineSchematronValidationFlag(URL url) {
+      // Function return true if the validation against the schematron should be done or not.
+      // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
+      // If the flag skipProductValidation is true, the labels belong to data files should not be done.
+      Boolean validateAgainstSchematronFlag;
+      if (!this.skipProductValidation) {
+          validateAgainstSchematronFlag = true;
+      } else {
+          // If skip product validation is true, perform schematron validation bundle/collection labels only.
+          // Since the bundle and collection are not required to have the same token in the name, we must inspect the content of each file.
+          if (TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url)) {
+              validateAgainstSchematronFlag = true;
+          } else {
+              // Do not validate labels belonging to data files.
+              validateAgainstSchematronFlag = false;
+          }
+      }
+      return(validateAgainstSchematronFlag);
+  }
+
   /**
    * Parses and validates a label against the schema and Schematron files,
    * and returns the parsed XML.
@@ -331,7 +373,13 @@ public class LabelValidator {
       TransformerException, MissingLabelSchemaException {
     List<String> labelSchematronRefs = new ArrayList<String>();
     Document xml = null;
-  
+
+    // Printing debug is expensive.  Should uncomment by developer only.
+    long startTime = System.currentTimeMillis();
+
+    //LOG.info("parseAndValidate:entering:url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
+    //LOG.info("url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
+
     // Are we perfoming schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
@@ -439,7 +487,14 @@ public class LabelValidator {
         }
       }
 
+      // Determine if schematron validation should be done or not.
+      // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
+      // If the flag skipProductValidation is true, the labels belong to data files should not be done.
+      Boolean validateAgainstSchematronFlag = this.determineSchematronValidationFlag(url);
+      LOG.debug("parseAndValidate:url,skipProductValidation,validateAgainstSchematronFlag {},{},{}",url,skipProductValidation,validateAgainstSchematronFlag);
+
       for (Transformer schematron : cachedSchematron) {
+        if (!validateAgainstSchematronFlag) continue;  // Skip the validation if validateAgainstSchematronFlag is not true.
         DOMResult result = new DOMResult();
         DOMSource domSource = new DOMSource(xml);
         domSource.setSystemId(url.toString());
@@ -478,6 +533,11 @@ public class LabelValidator {
       }
     }
 
+    this.filesProcessed += 1;
+    long finishTime = System.currentTimeMillis();
+    long timeElapsed = finishTime - startTime;
+    this.totalTimeElapsed += timeElapsed;
+    //LOG.debug("parseAndValidate:url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0 {},{},{},{},{}",url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0);
     return xml;
   }
 

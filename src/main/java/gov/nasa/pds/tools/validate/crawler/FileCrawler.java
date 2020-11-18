@@ -52,8 +52,8 @@ public class FileCrawler extends Crawler {
    */
   public List<Target> crawl(URL fileUrl, boolean getDirectories, IOFileFilter fileFilter) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
-    LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
-    LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
+    //LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
+    //LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
     if ( !directory.isDirectory() ) {
       LOG.error("Input file is not a directory: " + directory);
       throw new IllegalArgumentException("Input file is not a directory: "
@@ -70,23 +70,23 @@ public class FileCrawler extends Crawler {
         results.add(new Target(dir.toURI().toURL(), true));
       }
     }
-    LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
+    //LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
     for (Target target : results) {
-        LOG.debug("crawl:target: {}",target);
+        //LOG.debug("crawl:target: {}",target);
     }
-    LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
+    //LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
     for (Target ignoreItem : this.ignoreList) {
-        LOG.debug("crawl:ignoreItem: {}",ignoreItem);
+        //LOG.debug("crawl:ignoreItem: {}",ignoreItem);
     }
 
     // Remove all items from results list if they occur in ignoreList.
     results.removeAll(this.ignoreList);
 
     for (Target target : results) {
-        LOG.debug("crawl:final:target: {}",target.getUrl());
+        //LOG.debug("crawl:final:target: {}",target.getUrl());
     }
 
-    LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
+    //LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
 
     return results;
   }

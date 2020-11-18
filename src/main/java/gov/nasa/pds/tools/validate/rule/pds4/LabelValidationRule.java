@@ -54,6 +54,8 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.SAXException;
@@ -65,6 +67,7 @@ import org.xml.sax.SAXParseException;
  */
 public class LabelValidationRule extends AbstractValidationRule {
 
+    private static final Logger LOG = LoggerFactory.getLogger(LabelValidationRule.class);
 	private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", 
 	    Pattern.CASE_INSENSITIVE);
 
@@ -169,6 +172,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
         if (pass) {
           getListener().addLocation(target.toString());
+          LOG.debug("validateLabel:afor:target {}",target);
           document = validator.parseAndValidate(processor, target);
         }
         if (document != null) {

@@ -20,12 +20,15 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Implements a validation rule that checks that all files are
  * referenced by some label.
  */
 public class FindUnreferencedFiles extends AbstractValidationRule {
-
+  private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
   @Override
   public boolean isApplicable(String location) {
     // This rule is applicable at the top level only.
@@ -37,6 +40,7 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
    */
   @ValidationTest
   public void findUnreferencedTargets() {
+    LOG.debug("findUnreferencedTargets:getContext().getTarget(): {}",getContext().getTarget());
     // Only run the test if we are the root target, to avoid duplicate errors.
     if (getContext().isRootTarget() && !getContext().getAllowUnlabeledFiles()) {
       for (String location : getRegistrar().getUnreferencedTargets()) {

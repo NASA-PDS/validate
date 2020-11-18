@@ -31,6 +31,8 @@ import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import gov.nasa.pds.tools.label.ExceptionType;
@@ -55,6 +57,7 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
  */
 public class FileReferenceValidationRule extends AbstractValidationRule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
   private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
   
   /**
@@ -112,6 +115,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             new ValidationTarget(getTarget())));        
       }
     }
+    LOG.debug("validateFileReferences:leaving:uri {}",uri);
   }
     
   private boolean validate(DocumentInfo xml) {
