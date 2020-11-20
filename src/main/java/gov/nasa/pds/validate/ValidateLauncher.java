@@ -70,6 +70,8 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
@@ -99,9 +101,14 @@ import java.util.stream.Stream;
  *
  */
 public class ValidateLauncher {
+    private static Logger LOG = LoggerFactory.getLogger(
+        ValidateLauncher.class);
 
     /** List of targets to validate. */
     private List<URL> targets;
+
+    /** Additional paths to be specified when attempting referential integrity validation (pds4.bundle or pds4.collection rules) */
+    private ArrayList<URL> alternateReferentialPaths;
 
     /** List of regular expressions for the file filter. */
     private List<String> regExps;
@@ -208,6 +215,7 @@ public class ValidateLauncher {
         catalogs = new ArrayList<String>();
         schemas = new ArrayList<URL>();
         schematrons = new ArrayList<URL>();
+        this.alternateReferentialPaths = new ArrayList<URL>();
         checksumManifest = null;
         manifestBasePath = null;
         reportFile = null;
@@ -271,6 +279,8 @@ public class ValidateLauncher {
             }
         }
         for (Option o : processedOptions) {
+            LOG.debug("query:o.getOpt() {}",o.getOpt());
+            LOG.debug("query:o.getLongOpt() {}",o.getLongOpt());
             if (Flag.HELP.getShortName().equals(o.getOpt())) {
                 displayHelp();
                 System.exit(0);
@@ -321,6 +331,10 @@ public class ValidateLauncher {
                 setSeverity(value);
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
                 setRegExps((List<String>) o.getValuesList());
+            } else if (Flag.ALTERNATE_FILE_PATHS.getLongName().equals(o.getLongOpt())) {
+                LOG.debug("query:o.getValues() {},{}",o.getValues(),o.getValues().getClass().getSimpleName());
+                LOG.debug("query:o.getValuesList() {},{}",o.getValuesList(),o.getValuesList().getClass().getSimpleName());
+                this.setAdditionalPaths((List<String>) o.getValuesList());
             } else if (Flag.STYLE.getShortName().equals(o.getOpt())) {
                 setReportStyle(o.getValue());
             } else if (Flag.CHECKSUM_MANIFEST.getShortName().equals(o.getOpt())) {
@@ -690,6 +704,43 @@ public class ValidateLauncher {
         }
     }
 
+
+    /**
+     * Set additional paths to be specified when attempting referential integrity validation (pds4.bundle or pds4.collection rules)
+     *
+     * @param additionalPaths 
+     *            A list of paths.
+     * @throws MalformedURLException
+     */
+    public void setAdditionalPaths(List<String> additionalPaths) throws MalformedURLException {
+        // Due to the fact that each element in additionalPaths may be a separated comma, each entry
+        // must be further split using comma inside the for loop below.
+        LOG.debug("setAdditionalPaths:additionalPaths {},{}",additionalPaths,additionalPaths.size());
+        this.alternateReferentialPaths.clear();
+        while (alternateReferentialPaths.remove(""))
+            ;
+        for (String pathEntries: additionalPaths) {
+            LOG.debug("setAdditionalPaths:pathEntries {}",pathEntries);
+            // The value of pathEntries are comma separated values.
+            String[] pathTokens = pathEntries.split(",");
+            for (String pathEntry : pathTokens) {
+                URL url = null;
+                try {
+                    url = new URL(pathEntry);
+                    LOG.debug("setAdditionalPaths:url {}",url);
+                    this.alternateReferentialPaths.add(url);
+                } catch (MalformedURLException u) {
+                    File file = new File(pathEntry);
+                    LOG.debug("setAdditionalPaths:file.toURI().normalize().toURL() {}",file.toURI().normalize().toURL());
+                    this.alternateReferentialPaths.add(file.toURI().normalize().toURL());
+                }
+            }
+        }
+
+        LOG.debug("setAdditionalPaths:additionalPaths {}",additionalPaths);
+        LOG.debug("setAdditionalPaths:alternateReferentialPaths {},{}",this.alternateReferentialPaths,this.alternateReferentialPaths.size());
+    }
+
     /**
      * Set the target.
      *
@@ -698,6 +749,7 @@ public class ValidateLauncher {
      * @throws MalformedURLException
      */
     public void setTargets(List<String> targets) throws MalformedURLException {
+        LOG.debug("setTargets:afor:this.targets.size() {}",this.targets.size());
         this.targets.clear();
         while (targets.remove(""))
             ;
@@ -705,12 +757,15 @@ public class ValidateLauncher {
             URL url = null;
             try {
                 url = new URL(t);
+                LOG.debug("setTargets:ADD_TO_TARGET_URL:url {}",url);
                 this.targets.add(url);
             } catch (MalformedURLException u) {
                 File file = new File(t);
+                LOG.debug("setTargets:ADD_TO_TARGET_FILE:file.toURI().normalize().toURL() {}",file.toURI().normalize().toURL());
                 this.targets.add(file.toURI().normalize().toURL());
             }
         }
+        LOG.debug("setTargets:after:this.targets.size() {}",this.targets.size());
     }
 
     /**
@@ -1194,10 +1249,15 @@ public class ValidateLauncher {
                 if (!transformedSchematrons.isEmpty()) {
                     validator.setSchematrons(transformedSchematrons);
                 }
+                if (!this.alternateReferentialPaths.isEmpty()) {
+                    validator.setExtraTargetInContext(this.alternateReferentialPaths);
+                }
+                LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}",target);
                 validator.validate(monitor, target);
                 monitor.endValidation();
                 
                 if (monitor.numErrors > 0) { success = false; }
+                LOG.debug("ValidateLauncher:doValidation: monitor.numErrors,target,success {},{},{}",monitor.numErrors,target,success);
             } catch (Exception e) {
                 ValidationProblem p = null;
                 if (e instanceof MissingLabelSchemaException) {
@@ -1234,7 +1294,38 @@ public class ValidateLauncher {
             System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)\n");
         }
 
+        // Print some WARNING messages if the user specified additional paths for referential integrity checks.
+        if (!this.alternateReferentialPaths.isEmpty()) {
+            this.printWarningCollocatedData(alternateReferentialPaths);
+        }
+
         return success;
+    }
+
+    /**
+     * Print WARNING messages for collocated data.  If data does not exist, print ERROR message.
+     * @param alternateReferentialPaths
+     *    List of URL of alternate paths to bundle/collection data.
+    */
+    private void printWarningCollocatedData(ArrayList<URL> alternateReferentialPaths) {
+        for (URL url : alternateReferentialPaths) {
+          // Do a sanity check if url exist first before attempting to report on collocated data.
+          try {
+            boolean fileExistFlag = false;
+            LOG.debug("printWarningCollocatedData:url.getPath(),(new File(url.getPath()).exists() {},{}",url.getPath(),(new File(url.getPath()).exists()));
+            if (new File(url.getPath()).exists()) {
+                ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                    ProblemType.GENERAL_INFO, "This data should be collocated with the other bundle data"),url);
+                report.record(url.toURI(), p1);
+            } else {
+                ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+                    ProblemType.GENERAL_INFO, "This provided data directory does not exist"),url);
+                report.record(url.toURI(), p1);
+            }
+          } catch (Exception e) {
+            LOG.error("Cannot perform checking on existence of url {}",url);
+          }
+        }
     }
 
     /**

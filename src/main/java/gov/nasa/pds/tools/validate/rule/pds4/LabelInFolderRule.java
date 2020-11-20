@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
@@ -56,12 +57,13 @@ public class LabelInFolderRule extends AbstractValidationRule {
   }
 
   /**
-   * Validates each file with a label suffix as a PDS4 label.
+   * Perform the validation of files in a directory (each with a file with a label suffix as a PDS4 label).
+   * @param target
+   *     The location of the directory of files (labels) to validate. 
    */
-  @ValidationTest
-  public void validateLabelsInFolder() {
-      //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
-
+  private void doValidateLabelsInFolder(URL target) {
+      // issue_51: https://github.com/NASA-PDS/validate/issues/51: Provide the capability to specify multiple locations for pds4.bundle validation
+      // This function is a re-fractor of validateLabelsInFolder() to receive an input.
       validateThreadExecutor = Executors.newFixedThreadPool(1);
 
       ValidationRule labelRuleTmp = null;
@@ -76,12 +78,12 @@ public class LabelInFolderRule extends AbstractValidationRule {
       final ValidationRule labelRule = labelRuleTmp;
 
       Crawler crawler = getContext().getCrawler();
-      URL target = getTarget();
+      // The target is already provided no need to call getTarget()
       long startTime = System.currentTimeMillis();
-      LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
+      LOG.info("doValidateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
       try {
         int targetCount = 0;
-        List<Target> targetList = crawler.crawl(getTarget(), false, getContext().getFileFilters());
+        List<Target> targetList = crawler.crawl(target, false, getContext().getFileFilters());
         
         if (targetList.size()>0) {
            getListener().addProblem(
@@ -94,6 +96,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
         	Future<?> f = validateThreadExecutor.submit(new Runnable() {
             public void run() {
               try {
+                LOG.debug("doValidateLabelsInFolder:t.getUrl() {}",t.getUrl());
                 labelRule.execute(getChildContext(t.getUrl()));
               } catch (Exception e) {
                 reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
@@ -125,7 +128,34 @@ public class LabelInFolderRule extends AbstractValidationRule {
       long finishTime = System.currentTimeMillis();
       long timeElapsed = finishTime - startTime;
       this.totalTimeElapsed += timeElapsed;
-      LOG.info("validateLabelsInFolder:END_PROCESSING_FOLDER:target,timeElapsed,this.totalTimeElapsed {},{} ms",target,timeElapsed,this.totalTimeElapsed);
+      LOG.info("doValidateLabelsInFolder:END_PROCESSING_FOLDER:target,timeElapsed,this.totalTimeElapsed {},{} ms",target,timeElapsed,this.totalTimeElapsed);
+  }
+
+
+  /**
+   * Validates each file with a label suffix as a PDS4 label.
+   */
+  @ValidationTest
+  public void validateLabelsInFolder() {
+      //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
+
+      // Do the validation on default target.
+      URL target = getTarget();
+      this.doValidateLabelsInFolder(target);
+
+      // Do the validation on any additional targets provided. 
+      AdditionalTarget additionalTarget = getExtraTarget();
+      if (additionalTarget == null) {
+          LOG.debug("validateLabelsInFolder:additionalTarget is null.  Nothing to do.");
+      } else {
+          LOG.debug("validateLabelsInFolder:additionalTarget.getExtraTargetList() {}",additionalTarget.getExtraTargetList());
+          ArrayList<URL> additionalFolders = additionalTarget.getExtraTargetList();
+          LOG.debug("validateLabelsInFolder:additionalFolders.size() {}",additionalFolders.size());
+          LOG.debug("validateLabelsInFolder:additionalFolders {}",additionalFolders);
+          for (URL additionalFolder : additionalFolders) {
+              this.doValidateLabelsInFolder(additionalFolder);
+          }
+      }
   }
 
 }

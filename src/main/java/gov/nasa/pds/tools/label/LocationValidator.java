@@ -232,6 +232,14 @@ public class LocationValidator {
 		}
 	}
 
+    public void setExtraTargetInContext(ArrayList<URL> alternateReferentialPaths) {
+        try {
+            this.ruleContext.setExtraTarget(alternateReferentialPaths);
+		} catch (Exception e) {
+            LOG.error("Cannot set alternateReferentialPaths in ruleContext: {}",alternateReferentialPaths);
+		}
+    }
+
 	/**
 	 * Sets the target registrar for the next validation.
 	 * 
