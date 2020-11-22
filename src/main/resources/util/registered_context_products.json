@@ -2,6 +2,15 @@
      "Product_Context": [
           {
                "name": [
+                    "DEEP IMPACT FLYBY SPACECRAFT"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.dif::1.1"
+          },
+          {
+               "name": [
                     "OMEGA VIRGINIS"
                ],
                "type": [
@@ -215,6 +224,15 @@
                     "DUST"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:sdc.nh::1.0"
+          },
+          {
+               "name": [
+                    "MAGNETOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.mag::1.0"
           },
           {
                "name": [
@@ -539,15 +557,6 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.160148_2001_kv76::1.0"
-          },
-          {
-               "name": [
-                    "NEUTRON SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ns.lp::1.0"
           },
           {
                "name": [
@@ -1305,15 +1314,6 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.alf_vir::1.0"
-          },
-          {
-               "name": [
-                    "VENUS EXPRESS"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vex::1.1"
           },
           {
                "name": [
@@ -3531,15 +3531,6 @@
           },
           {
                "name": [
-                    "GAMMA RAY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:grs.lp::1.0"
-          },
-          {
-               "name": [
                     "COSMIC DUST ANALYZER"
                ],
                "type": [
@@ -3628,6 +3619,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.300223_2006_xk32::1.0"
+          },
+          {
+               "name": [
+                    "GAMMA RAY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.grs::1.0"
           },
           {
                "name": [
@@ -5640,6 +5640,15 @@
           },
           {
                "name": [
+                    "VENUS EXPRESS VISIBLE AND INFRARED THERMAL IMAGING SPECTROMETER (VIRTIS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vex.virtis::1.0"
+          },
+          {
+               "name": [
                     "STARDUST"
                ],
                "type": [
@@ -5983,6 +5992,15 @@
           },
           {
                "name": [
+                    "LUNAR PROSPECTOR"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.lunar_prospector::1.1"
+          },
+          {
+               "name": [
                     "WINDSOCK"
                ],
                "type": [
@@ -6178,15 +6196,6 @@
                     "ATMOSPHERIC SCIENCES"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:imperial_college-hydraulics.bagnold_wt::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.lp::1.0"
           },
           {
                "name": [
@@ -6676,15 +6685,6 @@
           },
           {
                "name": [
-                    "ALPHA PARTICLE SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:aps.lp::1.0"
-          },
-          {
-               "name": [
                     "MERCURY DUAL IMAGING SYSTEM WIDE ANGLE CAMERA"
                ],
                "type": [
@@ -6700,6 +6700,15 @@
                     "SPECTROMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:mount_bigelow.1m54.finkspec::1.0"
+          },
+          {
+               "name": [
+                    "LP ENGINEERING"
+               ],
+               "type": [
+                    "REGOLITH PROPERTIES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.eng::1.0"
           },
           {
                "name": [
@@ -6754,6 +6763,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:cpi.p11::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.rss::1.0"
           },
           {
                "name": [
@@ -7352,33 +7370,6 @@
           },
           {
                "name": [
-                    "50P/AREND"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.50p_arend::1.0"
-          },
-          {
-               "name": [
-                    "MAGNETOMETER - ELECTRON REFLECTOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mager.lp::1.0"
-          },
-          {
-               "name": [
-                    "CAL"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.cal::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -7439,6 +7430,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.geoscience::1.0"
+          },
+          {
+               "name": [
+                    "AUXILIARY PAYLOAD SENSOR SUBSYSTEM PRESSURE SENSOR"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:apss-ps.insight::1.0"
           },
           {
                "name": [
@@ -7556,15 +7556,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.hst::1.1"
-          },
-          {
-               "name": [
-                    "LUNAR PROSPECTOR"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.lunar_prospector::1.1"
           },
           {
                "name": [
@@ -8909,6 +8900,15 @@
           },
           {
                "name": [
+                    "MAGNETOMETER - ELECTRON REFLECTOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.mager::1.0"
+          },
+          {
+               "name": [
                     "PASIPHAE"
                ],
                "type": [
@@ -9854,6 +9854,15 @@
           },
           {
                "name": [
+                    "ALPHA PARTICLE SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.aps::1.0"
+          },
+          {
+               "name": [
                     "IMAGING ULTRAVIOLET SPECTROGRAPH"
                ],
                "type": [
@@ -10625,15 +10634,6 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.300256_2007_gv60::1.0"
-          },
-          {
-               "name": [
-                    "LUNAR PROSPECTOR"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.lp::1.1"
           },
           {
                "name": [
@@ -11724,15 +11724,6 @@
                     "Observatory"
                ],
                "lidvid": "urn:nasa:pds:context:facility:observatory.smt::1.0"
-          },
-          {
-               "name": [
-                    "MAGNETOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mag.lp::1.0"
           },
           {
                "name": [
@@ -14069,6 +14060,15 @@
           },
           {
                "name": [
+                    "ELECTRON REFLECTOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.er::1.0"
+          },
+          {
+               "name": [
                     "ROCK"
                ],
                "type": [
@@ -14790,12 +14790,21 @@
           },
           {
                "name": [
-                    "DEEP IMPACT FLYBY SPACECRAFT"
+                    "50P/AREND"
                ],
                "type": [
-                    "Spacecraft"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.dif::1.1"
+               "lidvid": "urn:nasa:pds:context:target:comet.50p_arend::1.0"
+          },
+          {
+               "name": [
+                    "CAL"
+               ],
+               "type": [
+                    "CALIBRATOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibrator.cal::1.0"
           },
           {
                "name": [
@@ -14979,15 +14988,6 @@
           },
           {
                "name": [
-                    "ELECTRON REFLECTOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:er.lp::1.0"
-          },
-          {
-               "name": [
                     "DAWN MISSION TO VESTA AND CERES"
                ],
                "type": [
@@ -15147,6 +15147,15 @@
                     "Individual Investigation"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:individual_investigation.lab.hydrocarbon_spectra::1.0"
+          },
+          {
+               "name": [
+                    "LUNAR PROSPECTOR"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.lp::1.2"
           },
           {
                "name": [
@@ -17495,15 +17504,6 @@
           },
           {
                "name": [
-                    "LP ENGINEERING"
-               ],
-               "type": [
-                    "REGOLITH PROPERTIES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:eng.lp::1.0"
-          },
-          {
-               "name": [
                     "C/1999 H1 (LEE)"
                ],
                "type": [
@@ -19138,6 +19138,15 @@
           },
           {
                "name": [
+                    "NEUTRON SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lp.ns::1.0"
+          },
+          {
+               "name": [
                     "(6369) 1983 UC"
                ],
                "type": [
@@ -20074,6 +20083,15 @@
           },
           {
                "name": [
+                    "VENUS EXPRESS"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vex::1.2"
+          },
+          {
+               "name": [
                     "(300253) 2007 GP7"
                ],
                "type": [
@@ -20963,15 +20981,6 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_sd278::1.0"
-          },
-          {
-               "name": [
-                    "AUXILIARY PAYLOAD SENSOR SUBSYSTEM PRESSURE SENSOR"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:apss-ps.insight::1.0"
           },
           {
                "name": [
