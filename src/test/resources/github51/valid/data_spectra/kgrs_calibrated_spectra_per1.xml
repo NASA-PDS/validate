@@ -121,7 +121,7 @@
           pointing, and correction factors with the corrected spectra. Note that the UTC time and ephemeris time
           included in the EPG file correspond to the midpoint of the accumulation interval.
         </description>
-        <records>0</records>
+        <records>10</records>
 	    <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
 	    <field_delimiter>Comma</field_delimiter>
         <Record_Delimited>
