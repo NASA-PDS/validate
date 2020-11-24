@@ -876,6 +876,77 @@ class ValidationIntegrationTests {
             fail("Test Failed Due To Exception: " + e.getMessage());
         }
     }
+
+    @Test
+    void testGithub51() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github51");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github51_1.json");
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath,
+                    "--skip-content-validation"
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            //int count = this.getMessageCount(reportJson, ProblemType.RECORDS_MISMATCH.getKey());
+
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+            // Test with the 'valid' directory appended.
+            report = new File(outFilePath + File.separator + "report_github51_2.json");
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid" + File.separator,
+                    "--skip-content-validation"
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args2);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+            // Test with --alternate_file_paths option.
+            report = new File(outFilePath + File.separator + "report_github51_3.json");
+            String[] args3 = {
+                    "-r", report.getAbsolutePath(),
+                    "-s", "json",
+                    "-R", "pds4.bundle",
+                    "--alternate_file_paths",
+                    "src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra",
+                    "-t" , testPath + File.separator + "valid" + File.separator + "bundle_kaguya_derived.xml",
+                    "--skip-content-validation",
+                    "--skip-product-validation"
+                    };
+            this.launcher = new ValidateLauncher();
+            this.launcher.processMain(args3);
+
+            gson = new Gson();
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+            int count = this.getMessageCount(reportJson, ProblemType.GENERAL_INFO.getKey());
+            assertEquals(count, 2, ProblemType.GENERAL_INFO.getKey() + " info/error messages expected.");
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
     
     @Test
     void testGithub209() {
