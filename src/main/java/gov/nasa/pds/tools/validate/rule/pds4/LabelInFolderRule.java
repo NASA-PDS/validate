@@ -60,10 +60,12 @@ public class LabelInFolderRule extends AbstractValidationRule {
    * Perform the validation of files in a directory (each with a file with a label suffix as a PDS4 label).
    * @param target
    *     The location of the directory of files (labels) to validate. 
+   * @param  getDirectories
+   *     Boolean flag to either crawler recursively or not.
    */
-  private void doValidateLabelsInFolder(URL target) {
+  private void doValidateLabelsInFolder(URL target, boolean getDirectories) {
       // issue_51: https://github.com/NASA-PDS/validate/issues/51: Provide the capability to specify multiple locations for pds4.bundle validation
-      // This function is a re-fractor of validateLabelsInFolder() to receive an input.
+      // This function is a re-fractor of validateLabelsInFolder() to receive an input and a flag to crawl recursively or not.
       validateThreadExecutor = Executors.newFixedThreadPool(1);
 
       ValidationRule labelRuleTmp = null;
@@ -83,7 +85,9 @@ public class LabelInFolderRule extends AbstractValidationRule {
       LOG.info("doValidateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
       try {
         int targetCount = 0;
-        List<Target> targetList = crawler.crawl(target, false, getContext().getFileFilters());
+        // Crawl recursively or not depending on value of getDirectories.
+        // Previously, it was always false.
+        List<Target> targetList = crawler.crawl(target, getDirectories, getContext().getFileFilters());
         
         if (targetList.size()>0) {
            getListener().addProblem(
@@ -139,9 +143,10 @@ public class LabelInFolderRule extends AbstractValidationRule {
   public void validateLabelsInFolder() {
       //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
 
+      boolean getDirectories = false;
       // Do the validation on default target.
       URL target = getTarget();
-      this.doValidateLabelsInFolder(target);
+      this.doValidateLabelsInFolder(target,getDirectories);
 
       // Do the validation on any additional targets provided. 
       AdditionalTarget additionalTarget = getExtraTarget();
@@ -152,8 +157,9 @@ public class LabelInFolderRule extends AbstractValidationRule {
           ArrayList<URL> additionalFolders = additionalTarget.getExtraTargetList();
           LOG.debug("validateLabelsInFolder:additionalFolders.size() {}",additionalFolders.size());
           LOG.debug("validateLabelsInFolder:additionalFolders {}",additionalFolders);
+          getDirectories = true;
           for (URL additionalFolder : additionalFolders) {
-              this.doValidateLabelsInFolder(additionalFolder);
+              this.doValidateLabelsInFolder(additionalFolder,getDirectories);
           }
       }
   }
