@@ -128,6 +128,8 @@ Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
 Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
         </source>
 
+        <p><i>NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In version output above, note the line <b>Java HotSpot(TM) 64-Bit Server VM</b></i></p>
+
         <p>If the either of these commands fail, it indicates Java is not installed or the version is not at least 1.8. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="https://openjdk.java.net/install/" target="_blank">Java Download</a> page.
         </p>
       </subsection>
