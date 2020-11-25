@@ -23,7 +23,9 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.rule.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -54,6 +56,22 @@ public class LabelInFolderRule extends AbstractValidationRule {
   @Override
   public boolean isApplicable(String location) {
     return Utility.isDir(location);
+  }
+
+  private boolean verifyTargetValid(URL target) {
+      // Verify that the target is valid by checking that it is a directory and does exist.
+      boolean targetIsValidFlag = false;
+      URI uri = null;
+      try {
+          uri = target.toURI();
+          if (Utility.isDir(target) && (new File(uri)).exists()) {
+              targetIsValidFlag = true;
+          }
+      } catch (URISyntaxException e) {
+          LOG.error("URI Syntax Error: " + e.getMessage());
+      }
+
+      return(targetIsValidFlag);
   }
 
   /**
@@ -159,7 +177,16 @@ public class LabelInFolderRule extends AbstractValidationRule {
           LOG.debug("validateLabelsInFolder:additionalFolders {}",additionalFolders);
           getDirectories = true;
           for (URL additionalFolder : additionalFolders) {
-              this.doValidateLabelsInFolder(additionalFolder,getDirectories);
+              // The additionalFolder need to be verified that it is a directory and does exist.
+              boolean targetIsValidFlag = this.verifyTargetValid(additionalFolder);
+              if (targetIsValidFlag)  {
+                  this.doValidateLabelsInFolder(additionalFolder,getDirectories);
+              } else {
+                  getListener().addProblem(
+                       new ValidationProblem(
+                         new ProblemDefinition(ExceptionType.ERROR,
+                           ProblemType.GENERAL_INFO, "Additional path is either not a directory or does not exist"), additionalFolder));
+              }
           }
       }
   }
