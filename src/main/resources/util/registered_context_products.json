@@ -7361,15 +7361,6 @@
           },
           {
                "name": [
-                    "HYDRA"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.134340_pluto.hydra::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14787,6 +14778,15 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:mission.mariner69::1.1"
+          },
+          {
+               "name": [
+                    "HYDRA"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.134340_pluto.hydra::1.1"
           },
           {
                "name": [
