@@ -14,6 +14,7 @@
 package gov.nasa.pds.tools.validate.rule;
 
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -26,8 +27,13 @@ import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import org.apache.commons.chain.Context;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * The base class for validation rules. To implement validation rules,
@@ -37,6 +43,7 @@ import org.apache.commons.chain.Context;
  */
 public abstract class AbstractValidationRule implements ValidationRule {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractValidationRule.class);
 	private RuleContext context;
 	private ProblemListener listener;
   private String caption;
@@ -60,6 +67,7 @@ public abstract class AbstractValidationRule implements ValidationRule {
   		for (Method m : getClass().getMethods()) {
   			Annotation a = m.getAnnotation(ValidationTest.class);
   			if (a != null) {
+                LOG.debug("AbstractValidationRule:execute: m,a {},{}",m,a);
   				m.invoke(this, new Object[0]);
   			}
   		}
@@ -121,6 +129,10 @@ public abstract class AbstractValidationRule implements ValidationRule {
 	 */
 	protected URL getTarget() {
 		return context.getTarget();
+	}
+
+	protected AdditionalTarget getExtraTarget() {
+		return context.getExtraTarget();
 	}
 
 	/**

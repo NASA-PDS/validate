@@ -46,9 +46,21 @@ POSSIBILITY OF SUCH DAMAGE.
         <li><a href="#Quick_Start">Quick Start</a></li>
         <li><a href="#Command-Line_Options">Command-Line Options</a></li>
         <li><a href="#Advanced_Usage">Advanced Usage</a></li>
+        <ul>
+          <li><a href="#Tool_Execution">Tool Execution</a></li>
+          <li><a href="#Specifying Targets">Specifying Targets</a></li>
+          <li><a href="#Validation Rules">Validation Rules</a></li>
+          <li><a href="#Referential Integrity Checking">Referential Integrity Checking</a></li>
+          <li><a href="#Advanced Bundle Validation">Advanced Bundle Validation</a></li>
+          <li><a href="#Checksum Manifest File Validation">Checksum Manifest File Validation</a></li>
+          <li><a href="#Using an XML Catalog">Using an XML Catalog</a></li>
+          <li><a href="#Using a Configuration File">Using a Configuration File</a></li>
+          <li><a href="#Passing in Multiple Schemas">Passing in Multiple Schemas</a></li>
+          <li><a href="#Context Product Reference Validation">Context Product Reference Validation</a></li>
+        </ul>
         <li><a href="#Report_Format">Report Format</a></li>
-        <li><a href="#Performance">Performance Metrics and Improvements</a></li>
-        <li><a href="../index.html#Support">Tool Support</a></li>
+        <li><a href="#Performance">Performance Metrics</a></li>
+        <li><a href="../index.html#Support">Support</a></li>
         <li><a href="errors.html">Common Errors</a></li>
       </ul>
 
@@ -432,6 +444,238 @@ PDS4 Bundle Level Validation Results
 
         <p>The tool will perform referential integrity checking within the products located in the <i>${HOME}/bundle1</i> target, then will perform referential integrity checking within the products located in the <i>${HOME}/bundle2</i> target. In other words, the tool will not cross over to the <i>${HOME}/bundle2</i> directory to find LID/LIDVID references of a product in the <i>${HOME}/bundle1</i> directory.
         </p>
+      </subsection>
+      
+      <subsection name="Advanced Bundle Validation">
+        <p>There are a few ways you can enhance the way validate executes PDS4 Bundle validation using several options. There are several flags added to validate so you can split out various parts
+          and run multiple Validate executions to speed up the processing. However, to ensure proper validity of the archive, several of these flags should 
+          only be used during development or staging of data prior to release.
+        </p>
+        
+        <p><b><i>Referential Integrity Checking Only</i></b></p>
+        
+        <p>The <i>--skip-product-validation</i> flag when used with the <i>pds4.bundle</i> rule will only perform referential integrity checking 
+        for the bundle, and ignore validation of the individual products themselves.</p>
+        
+        <source>
+# Execute bundle validation but only check bundle/collection validity and ignore the products
+% validate --skip-product-validation -R pds4.bundle -t my_bundle
+        </source>
+        
+        <p><b><i>Specify Additional File Paths for Accumulating Bundles</i></b></p>
+        
+        <p>When staging an accumulating bundle for release, there may be a case where you want to perform validation on the entire bundle 
+          with the new data to-be-released, as well as the old data that is in the archive. The <i>--alternate_file_paths</i> flag can be 
+        used to specify additional file paths you would like validate to check for files in.</p>
+        
+        <p>NOTE: This should be used for staging and development purposes only, and validate should be re-run one the data once it has been released
+        and is in line with the other bundle data.</p>
+        
+        <source>
+% validate --skip-product-validation -R pds4.bundle -t path/to/staged/bundle_v2 --alternate_file_paths path/to/online/bundle_v1
+        </source>
+
+          
+        <p><b><i>Example of using multiple-flags to improve performance</i></b></p>
+        <p>
+          Here is one example of how to 
+          split up execution. There are other permutations you could do to improve performance, but this is one example:</p>
+        <source>
+my_bundle/
+├── bundle.xml
+├── data
+│   ├── data_collection.tab
+│   ├── data_collection.xml
+│   ├── release1
+│   │   ├── file1.tab
+│   │   ├── file1.xml
+│   │   ├── file2.tab
+│   │   └── file2.xml
+│   ├── release2
+│   │   ├── file3.tab
+│   │   ├── file3.xml
+│   │   ├── file4.tab
+│   │   └── file4.xml
+│   └── release3
+│       ├── file5.tab
+│       ├── file5.xml
+│       ├── file6.tab
+│       └── file6.xml
+└── document
+├── document_collection.tab
+└── document_collection.xml
+        </source>
+        <p>Here is how you could execute multiple validates to split out the work. <b>Note: Always make sure if you split out execution 
+          that you execute Bundle Validation (pds4.bundle rule) and content validation.</b></p>
+        <source>
+
+# Execute bundle validation but only check bundle/collection validity and ignore the products
+validate --skip-product-validation -R pds4.bundle -t my_bundle
+
+# Make sure the labels are valid upon delivery but skip content validation until later since it takes longer
+validate --skip-content-validation -R pds4.label -t my_bundle
+
+# Point at several targets with different validate runs for parallelizing content validation
+validate -R pds4.label -t my_bundle/document/*.xml
+validate -R pds4.label -t my_bundle/release1/*.xml
+validate -R pds4.label -t my_bundle/release2/*.xml
+validate -R pds4.label -t my_bundle/release3/*.xml
+
+# Or you could do the same thing with target manifests
+validate -R pds4.label --target-manifest documents.txt
+validate -R pds4.label --target-manifest release1_data.txt
+validate -R pds4.label --target-manifest release2_data.txt
+validate -R pds4.label --target-manifest release3_data.txt
+          
+        </source>
+        
+        <p><b><i>Using validate-bundle parallelization</i></b></p>
+        <p>To facilitate the splitting up, and running in parallel the data, one may use the <b>validate-bundle</b> script in the <a href="https://github.com/NASA-PDS/validate/tree/master/src/main/resources/bin">src/main/resources/bin</a> directory.
+          <br/>This script has two prerequisites:
+          <ul>
+            <li>the <b>validate</b> program be on your system path</li>
+            <li>the <b><a href="https://www.gnu.org/software/parallel/">GNU Parallel</a></b> program be installed, and be on your system path</li>
+          </ul>
+          The usage looks like this:
+        </p>
+        <source>
+          
+./validate-bundle -t /path/to/bundle/bundle.xml
+        </source>
+        <p>By default, this program will split your input files up into N groups.  By default N is half the number of available cores on your machine.
+          There are some circumstances where overriding this value may improve performance.  If you wish to do so, you may use the "-n" or "--num-groups" argument. </p>
+        <source>
+          
+./validate-bundle -t /dir/containing/products --num-groups 3
+        </source>
+        When this runs, it will break your inputs up into groups, and run validate on them in parallel.
+        Here's an example showing a run using the default number of cores:
+        <source>
+          
+$ ./validate-bundle -t ~/dph_example_archive_VG2PLS/bundle.xml
+validate binary is available (/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/validate-1.20.0-SNAPSHOT/bin/validate) [OK]
+GNU parallel binary is available (/usr/local/bin/parallel) [OK]
+Directory to process is : /Users/jpadams/dph_example_archive_VG2PLS
+Number of effective cores on this system: 8
+Half of effective cores on this system  : 4 (usually better than running all cores)
+Splitting up into groups, based on number of cores this machine has...
+Total number of products found to validate:       18
+Cleaning up files from previous runs...
+Splitting up inputs into 4 groups...
+(5 files per group)
++--------------------+----------------+
+|       Group        |   # in Group   |
++--------------------+----------------+
+| ./validate_set_aa  |   5
+| ./validate_set_ac  |   5
+| ./validate_set_ad  |   3
+| ./validate_set_ab  |   5
++--------------------+-----------------
+
+Running all 4 groups in parallel now...
+
+validate -R pds4.label --target-manifest ./validate_set_aa
+validate -R pds4.label --target-manifest ./validate_set_ac
+validate -R pds4.label --target-manifest ./validate_set_ad
+validate -R pds4.label --target-manifest ./validate_set_ab
+
+Performing XML and Content validation...
+Each validate command will output to an individual log.
+
+real	0m13.615s
+user	1m25.390s
+sys	0m4.082s
+
+
+Performing Referential Integrity validation...
+Completed execution in 5365 ms
+
+
+
+
+>>>>>>>>>>>>>>> ./validate_set_ad.log :
+Summary:
+
+2281 error(s)
+0 warning(s)
+
+Message Types:
+2278         error.table.field_value_data_type_mismatch
+2            error.label.context_ref_not_found
+1            error.table.missing_CRLF
+
+End of Report
+
+>>>>>>>>>>>>>>>
+
+
+>>>>>>>>>>>>>>> ./validate_set_aa.log :
+Summary:
+
+6 error(s)
+1 warning(s)
+
+Message Types:
+2            error.label.context_ref_not_found
+2            error.table.fields_mismatch
+2            error.table.missing_CRLF
+1            warning.label.schematron
+
+End of Report
+
+>>>>>>>>>>>>>>>
+
+
+>>>>>>>>>>>>>>> ./validate_set_ac.log :
+Summary:
+
+12 error(s)
+0 warning(s)
+
+Message Types:
+6            error.label.context_ref_not_found
+4            error.table.missing_CRLF
+2            error.table.fields_mismatch
+
+End of Report
+
+>>>>>>>>>>>>>>>
+
+
+>>>>>>>>>>>>>>> ./validate_set_ab.log :
+Summary:
+
+6 error(s)
+0 warning(s)
+
+Message Types:
+6            error.label.context_ref_not_found
+
+End of Report
+
+>>>>>>>>>>>>>>>
+
+
+>>>>>>>>>>>>>>> ./validate_referential.log :
+Summary:
+
+1 error(s)
+2 warning(s)
+
+Message Types:
+1            error.file.name_has_invalid_characters
+1            warning.label.schematron
+1            warning.integrity.unreferenced_member
+
+End of Report
+
+>>>>>>>>>>>>>>>
+
+Validation complete. See validate_20200217_151431/validate_summary.log for a summary of results.
+All Validate Tool execution reports can be found in validate_20200217_151431.
+          
+        </source>
+        
       </subsection>
 
       <subsection name="Checksum Manifest File Validation">
@@ -886,204 +1130,8 @@ validate.regexp = "*.xml"
       </subsection>
 
     <subsection name="Maximize Performance">
-        <p>There are several flags added to validate so you can split out various parts and run multiple Validate executions to speed up the processing. Here is one example of how to 
-        split up execution. There are other permutations you could do to improve performance, but this is one example:</p>
-        <source>
-          my_bundle/
-          ├── bundle.xml
-          ├── data
-          │   ├── data_collection.tab
-          │   ├── data_collection.xml
-          │   ├── release1
-          │   │   ├── file1.tab
-          │   │   ├── file1.xml
-          │   │   ├── file2.tab
-          │   │   └── file2.xml
-          │   ├── release2
-          │   │   ├── file3.tab
-          │   │   ├── file3.xml
-          │   │   ├── file4.tab
-          │   │   └── file4.xml
-          │   └── release3
-          │       ├── file5.tab
-          │       ├── file5.xml
-          │       ├── file6.tab
-          │       └── file6.xml
-          └── document
-              ├── document_collection.tab
-              └── document_collection.xml
-        </source>
-        <p>Here is how you could execute multiple validates to split out the work. <b>Note: Always make sure if you split out execution 
-        that you execute Bundle Validation (pds4.bundle rule) and content validation.</b></p>
-        <source>
-          
-# Execute bundle validation but only check bundle/collection validity and ignore the products
-validate --skip-product-validation -R pds4.bundle -t my_bundle
-
-# Make sure the labels are valid upon delivery but skip content validation until later since it takes longer
-validate --no-check-data -R pds4.label -t my_bundle
-
-# Point at several targets with different validate runs for parallelizing content validation
-validate -R pds4.label -t my_bundle/document/*.xml
-validate -R pds4.label -t my_bundle/release1/*.xml
-validate -R pds4.label -t my_bundle/release2/*.xml
-validate -R pds4.label -t my_bundle/release3/*.xml
-
-# Or you could do the same thing with target manifests
-validate -R pds4.label --target-manifest documents.txt
-validate -R pds4.label --target-manifest release1_data.txt
-validate -R pds4.label --target-manifest release2_data.txt
-validate -R pds4.label --target-manifest release3_data.txt
-
-        </source>
+      <p>See <i>Advanced Bundle Validation</i> above for more details on how to maximize performance when validating bundles.</p>
     </subsection>
-        <subsection name="validate-bundle">
-        <p>To facilitate the splitting up, and running in parallel the data, one may use the <b>validate-bundle</b> script in the <a href="https://github.com/NASA-PDS/validate/tree/master/src/main/resources/bin">src/main/resources/bin</a> directory.
-        <br/>This script has two prerequisites:
-            <ul>
-                <li>the <b>validate</b> program be on your system path</li>
-                <li>the <b><a href="https://www.gnu.org/software/parallel/">GNU Parallel</a></b> program be installed, and be on your system path</li>
-            </ul>
-        The usage looks like this:
-        </p>
-        <source>
-
-./validate-bundle -t /path/to/bundle/bundle.xml
-        </source>
-        <p>By default, this program will split your input files up into N groups.  By default N is half the number of available cores on your machine.
-        There are some circumstances where overriding this value may improve performance.  If you wish to do so, you may use the "-n" or "--num-groups" argument. </p>
-        <source>
-
-./validate-bundle -t /dir/containing/products --num-groups 3
-        </source>
-        When this runs, it will break your inputs up into groups, and run validate on them in parallel.
-        Here's an example showing a run using the default number of cores:
-        <source>
-
-$ ./validate-bundle -t ~/dph_example_archive_VG2PLS/bundle.xml
-validate binary is available (/Users/jpadams/Documents/proj/pds/pdsen/workspace/validate/validate-1.20.0-SNAPSHOT/bin/validate) [OK]
-GNU parallel binary is available (/usr/local/bin/parallel) [OK]
-Directory to process is : /Users/jpadams/dph_example_archive_VG2PLS
-Number of effective cores on this system: 8
-Half of effective cores on this system  : 4 (usually better than running all cores)
-Splitting up into groups, based on number of cores this machine has...
-Total number of products found to validate:       18
-Cleaning up files from previous runs...
-Splitting up inputs into 4 groups...
-(5 files per group)
-+--------------------+----------------+
-|       Group        |   # in Group   |
-+--------------------+----------------+
-| ./validate_set_aa  |   5
-| ./validate_set_ac  |   5
-| ./validate_set_ad  |   3
-| ./validate_set_ab  |   5
-+--------------------+-----------------
-
-Running all 4 groups in parallel now...
-
-validate -R pds4.label --target-manifest ./validate_set_aa
-validate -R pds4.label --target-manifest ./validate_set_ac
-validate -R pds4.label --target-manifest ./validate_set_ad
-validate -R pds4.label --target-manifest ./validate_set_ab
-
-Performing XML and Content validation...
-Each validate command will output to an individual log.
-
-real	0m13.615s
-user	1m25.390s
-sys	0m4.082s
-
-
-Performing Referential Integrity validation...
-Completed execution in 5365 ms
-
-
-
-
->>>>>>>>>>>>>>> ./validate_set_ad.log :
-Summary:
-
-2281 error(s)
-0 warning(s)
-
-Message Types:
-2278         error.table.field_value_data_type_mismatch
-2            error.label.context_ref_not_found
-1            error.table.missing_CRLF
-
-End of Report
-
->>>>>>>>>>>>>>>
-
-
->>>>>>>>>>>>>>> ./validate_set_aa.log :
-Summary:
-
-6 error(s)
-1 warning(s)
-
-Message Types:
-2            error.label.context_ref_not_found
-2            error.table.fields_mismatch
-2            error.table.missing_CRLF
-1            warning.label.schematron
-
-End of Report
-
->>>>>>>>>>>>>>>
-
-
->>>>>>>>>>>>>>> ./validate_set_ac.log :
-Summary:
-
-12 error(s)
-0 warning(s)
-
-Message Types:
-6            error.label.context_ref_not_found
-4            error.table.missing_CRLF
-2            error.table.fields_mismatch
-
-End of Report
-
->>>>>>>>>>>>>>>
-
-
->>>>>>>>>>>>>>> ./validate_set_ab.log :
-Summary:
-
-6 error(s)
-0 warning(s)
-
-Message Types:
-6            error.label.context_ref_not_found
-
-End of Report
-
->>>>>>>>>>>>>>>
-
-
->>>>>>>>>>>>>>> ./validate_referential.log :
-Summary:
-
-1 error(s)
-2 warning(s)
-
-Message Types:
-1            error.file.name_has_invalid_characters
-1            warning.label.schematron
-1            warning.integrity.unreferenced_member
-
-End of Report
-
->>>>>>>>>>>>>>>
-
-Validation complete. See validate_20200217_151431/validate_summary.log for a summary of results.
-All Validate Tool execution reports can be found in validate_20200217_151431.
-
-        </source>
-        </subsection>
     </section>
   </body>
 </document>

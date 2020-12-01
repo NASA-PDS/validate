@@ -33,6 +33,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.XMLCatalogResolver;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
@@ -42,6 +43,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.apache.commons.chain.impl.ContextBase;
@@ -72,6 +74,10 @@ public class RuleContext extends ContextBase {
    * execution context.
    */
   public static final String TARGET_KEY = "validation.target";
+
+  /** Key used to retrieve additional targets. */
+  public static final String ADDITIONAL_TARGET_KEY = "validation.additional-target";
+
   /** The key used to retrieve the definition listener from the
    * execution context.
    */
@@ -173,6 +179,19 @@ public class RuleContext extends ContextBase {
     URISyntaxException {
     target = target.toURI().normalize().toURL();
     putContextValue(TARGET_KEY, target);
+  }
+
+  public AdditionalTarget getExtraTarget() {
+    return getContextValue(ADDITIONAL_TARGET_KEY, AdditionalTarget.class);
+  }
+
+  public void setExtraTarget(ArrayList<URL> targets) throws MalformedURLException,
+    URISyntaxException {
+    ArrayList<URL> additionalTarget = new ArrayList<URL>();
+    for (URL target : targets) {
+        additionalTarget.add(target.toURI().normalize().toURL());
+    }
+    putContextValue(ADDITIONAL_TARGET_KEY, new AdditionalTarget(additionalTarget));
   }
 
   public ProblemListener getProblemListener() {

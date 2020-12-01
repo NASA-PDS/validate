@@ -39,6 +39,8 @@ import java.util.List;
  *
  */
 public enum Flag {
+    ALTERNATE_FILE_PATHS(null, "alternate_file_paths", "path", String.class, "This flag will allow for additional paths to be specified when attempting referential integrity validation (pds4.bundle or pds4.collection rules).  FOR DEVELOPMENT PURPOSES ONLY"),
+
     BASE_PATH("B", "base-path", "path", String.class,
             "Specify a path " + "for the tool to use in order to properly resolve relative file "
                     + "references found in a checksum manifest file."),

@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
@@ -22,7 +23,9 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.rule.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -55,13 +58,57 @@ public class LabelInFolderRule extends AbstractValidationRule {
     return Utility.isDir(location);
   }
 
-  /**
-   * Validates each file with a label suffix as a PDS4 label.
-   */
-  @ValidationTest
-  public void validateLabelsInFolder() {
-      //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
+  private boolean verifyTargetValid(URL target) {
+      // Verify that the target is valid by checking that it is a directory and does exist.
+      boolean targetIsValidFlag = false;
+      URI uri = null;
+      try {
+          uri = target.toURI();
+          if (Utility.isDir(target) && (new File(uri)).exists()) {
+              targetIsValidFlag = true;
+          }
+      } catch (URISyntaxException e) {
+          LOG.error("URI Syntax Error: " + e.getMessage());
+      }
 
+      return(targetIsValidFlag);
+  }
+
+  private List<Target> recursiveCrawl(URL target, Crawler crawler) {
+      // Perform recursive crawl to the leaf node for files only.
+      List<Target> allTargets = new ArrayList<Target>();
+      List<Target> targetList = new ArrayList<Target>();
+      try {
+          targetList = crawler.crawl(target, true, getContext().getFileFilters());
+      } catch (IOException io) {
+          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
+      }
+      //LOG.debug("recursiveCrawl:target,targetList,targetList.size() {},{},{}",target,targetList,targetList.size());
+      for (Target t : targetList) {
+          URL url = null;
+          url = t.getUrl();
+          //LOG.debug("recursiveCrawl:target,url,Utility.isDir(url) {},{},{}",target,url,Utility.isDir(url));
+          // If the target is a directory, call this function recursively until the leaf node.
+          if (Utility.isDir(url.toString())) {
+              allTargets.addAll(recursiveCrawl(url, crawler));
+          } else {
+              allTargets.add(t);
+              //LOG.debug("recursiveCrawl:ADD_FILE:target,url,t {},{},{}",target,url,t);
+          }
+      }
+      return(allTargets);
+  }
+
+  /**
+   * Perform the validation of files in a directory (each with a file with a label suffix as a PDS4 label).
+   * @param target
+   *     The location of the directory of files (labels) to validate. 
+   * @param  getDirectories
+   *     Boolean flag to either crawler recursively or not.
+   */
+  private void doValidateLabelsInFolder(URL target, boolean getDirectories) {
+      // issue_51: https://github.com/NASA-PDS/validate/issues/51: Provide the capability to specify multiple locations for pds4.bundle validation
+      // This function is a re-fractor of validateLabelsInFolder() to receive an input and a flag to crawl recursively or not.
       validateThreadExecutor = Executors.newFixedThreadPool(1);
 
       ValidationRule labelRuleTmp = null;
@@ -76,12 +123,21 @@ public class LabelInFolderRule extends AbstractValidationRule {
       final ValidationRule labelRule = labelRuleTmp;
 
       Crawler crawler = getContext().getCrawler();
-      URL target = getTarget();
+      // The target is already provided no need to call getTarget()
       long startTime = System.currentTimeMillis();
-      LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
+      LOG.info("doValidateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
+      //LOG.debug("doValidateLabelsInFolder:target,getDirectories {},{}",target,getDirectories);
       try {
         int targetCount = 0;
-        List<Target> targetList = crawler.crawl(getTarget(), false, getContext().getFileFilters());
+        // Crawl recursively or not depending on value of getDirectories.
+        // Previously, it was always false.
+        List<Target> targetList = new ArrayList<Target>();
+        if (getDirectories) {
+            targetList = this.recursiveCrawl(target,crawler);
+        } else {
+            targetList = crawler.crawl(target, false, getContext().getFileFilters());
+        }
+        //LOG.debug("doValidateLabelsInFolder:target,getDirectories,targetList {},{},{}",target,getDirectories,targetList);
         
         if (targetList.size()>0) {
            getListener().addProblem(
@@ -94,6 +150,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
         	Future<?> f = validateThreadExecutor.submit(new Runnable() {
             public void run() {
               try {
+                LOG.debug("doValidateLabelsInFolder:t.getUrl() {}",t.getUrl());
                 labelRule.execute(getChildContext(t.getUrl()));
               } catch (Exception e) {
                 reportError(GenericProblems.UNCAUGHT_EXCEPTION, t.getUrl(), -1, -1, e.getMessage());
@@ -125,7 +182,45 @@ public class LabelInFolderRule extends AbstractValidationRule {
       long finishTime = System.currentTimeMillis();
       long timeElapsed = finishTime - startTime;
       this.totalTimeElapsed += timeElapsed;
-      LOG.info("validateLabelsInFolder:END_PROCESSING_FOLDER:target,timeElapsed,this.totalTimeElapsed {},{} ms",target,timeElapsed,this.totalTimeElapsed);
+      LOG.info("doValidateLabelsInFolder:END_PROCESSING_FOLDER:target,timeElapsed,this.totalTimeElapsed {},{} ms",target,timeElapsed,this.totalTimeElapsed);
+  }
+
+
+  /**
+   * Validates each file with a label suffix as a PDS4 label.
+   */
+  @ValidationTest
+  public void validateLabelsInFolder() {
+      //LOG.info("validateLabelsInFolder:BEGIN_PROCESSING_FOLDER");
+
+      boolean getDirectories = false;
+      // Do the validation on default target.
+      URL target = getTarget();
+      this.doValidateLabelsInFolder(target,getDirectories);
+
+      // Do the validation on any additional targets provided. 
+      AdditionalTarget additionalTarget = getExtraTarget();
+      if (additionalTarget == null) {
+          LOG.debug("validateLabelsInFolder:additionalTarget is null.  Nothing to do.");
+      } else {
+          //LOG.debug("validateLabelsInFolder:additionalTarget.getExtraTargetList() {}",additionalTarget.getExtraTargetList());
+          ArrayList<URL> additionalFolders = additionalTarget.getExtraTargetList();
+          //LOG.debug("validateLabelsInFolder:additionalFolders.size() {}",additionalFolders.size());
+          //LOG.debug("validateLabelsInFolder:additionalFolders {}",additionalFolders);
+          getDirectories = true;
+          for (URL additionalFolder : additionalFolders) {
+              // The additionalFolder need to be verified that it is a directory and does exist.
+              boolean targetIsValidFlag = this.verifyTargetValid(additionalFolder);
+              if (targetIsValidFlag)  {
+                  this.doValidateLabelsInFolder(additionalFolder,getDirectories);
+              } else {
+                  getListener().addProblem(
+                       new ValidationProblem(
+                         new ProblemDefinition(ExceptionType.ERROR,
+                           ProblemType.GENERAL_INFO, "Additional path is either not a directory or does not exist"), additionalFolder));
+              }
+          }
+      }
   }
 
 }

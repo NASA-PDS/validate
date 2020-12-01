@@ -45,6 +45,7 @@ public class FlagOptions {
     static {
         options = new Options();
 
+        options.addOption(new ToolsOption(Flag.ALTERNATE_FILE_PATHS));
         options.addOption(new ToolsOption(Flag.BASE_PATH));
         options.addOption(new ToolsOption(Flag.CATALOG));
         options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));

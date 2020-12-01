@@ -30,12 +30,16 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Registers identifiers defined within a label, and verifies that
  * the same identifier is not registered twice.
  */
 public class RegisterLabelIdentifiers extends AbstractValidationRule {
 
+  private static final Logger LOG = LoggerFactory.getLogger(RegisterLabelIdentifiers.class);
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
   private static final String IDENTIFIERS_PATH
@@ -87,6 +91,7 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
       Node name = versions.item(i);
       vid = name.getTextContent();
     }
+    LOG.debug("RegisterLabelIdentifiers:registerIdentifiers:getTarget(),lid,vid {},{},{}",getTarget(),lid,vid);
     registerIdentifier(new Identifier(lid, vid));
   }
 
@@ -98,6 +103,7 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
     } catch (URISyntaxException e) {
       //Should never happen
     }
+    LOG.debug("RegisterLabelIdentifiers:registerIdentifier:getTarget(),identifier {},{}",getTarget(),identifier);
     if (registrar.getTargetForIdentifier(identifier) == null) {
       registrar.setTargetIdentifier(target.normalize().toString(), identifier);
     } else {

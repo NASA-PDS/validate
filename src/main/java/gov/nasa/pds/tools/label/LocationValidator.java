@@ -194,13 +194,19 @@ public class LocationValidator {
                     ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url); 
                     ignoreList.addAll(ignoreBundleList);
                     Target latestBundle = BundleManager.getLatestBundle(); 
-                    ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
-                    ignoreList.addAll(ignoreCollectionList);
+
+                    // Only build collection ignore list if latestBundle is not null.  The reason is a bundle
+                    // contains collection and if there is no bundle, then there is no collection
+                    // information to be gathered.
+                    if (latestBundle != null ) {
+                        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
+                        ignoreList.addAll(ignoreCollectionList);
+	    		        LOG.debug("url,ignoreCollectionList {},{}",url,ignoreCollectionList);
+	    		        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
+                    }
 			        LOG.debug("url,latestBundle {},{}",url,latestBundle);
 			        LOG.debug("url,ignoreBundleList {},{}",url,ignoreBundleList);
-			        LOG.debug("url,ignoreCollectionList {},{}",url,ignoreCollectionList);
 			        LOG.debug("url,ignoreBundleList.size() {},{}",url,ignoreBundleList.size());
-			        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
                 } else {
 			        LOG.debug("Input url is a file, will not crawl for bundle/collection files {}",url);
                 }
@@ -231,6 +237,14 @@ public class LocationValidator {
             LOG.debug("validate:Returning from task to taskManager location {} rule {} ",location, rule.getCaption());
 		}
 	}
+
+    public void setExtraTargetInContext(ArrayList<URL> alternateReferentialPaths) {
+        try {
+            this.ruleContext.setExtraTarget(alternateReferentialPaths);
+		} catch (Exception e) {
+            LOG.error("Cannot set alternateReferentialPaths in ruleContext: {}",alternateReferentialPaths);
+		}
+    }
 
 	/**
 	 * Sets the target registrar for the next validation.

@@ -24,10 +24,14 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gov.nasa.pds.tools.util.Utility;
 
 public class InMemoryRegistrar implements TargetRegistrar {
 
+  private static Logger LOG = LoggerFactory.getLogger(InMemoryRegistrar.class);
   private ValidationTarget rootTarget;
   private Map<String, ValidationTarget> targets = new HashMap<String, ValidationTarget>();
   private Map<String, String> references = new HashMap<String, String>();
@@ -109,6 +113,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   @Override
   public synchronized void setTargetIdentifier(String location, Identifier identifier) {
     targets.get(location).setIdentifier(identifier);
+    LOG.debug("setTargetIdentifier:identifier,location {},{}",identifier,location);
     identifierDefinitions.put(identifier, location);
   }
 
