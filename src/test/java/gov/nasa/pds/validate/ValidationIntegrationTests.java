@@ -947,6 +947,69 @@ class ValidationIntegrationTests {
             fail("Test Failed Due To Exception: " + e.getMessage());
         }
     }
+
+    @Test
+    void testGithub230() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github230");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github230_invalid.json");
+
+            // Run the invalid test.
+            // The content does not have LIDVID for 'P' member:
+           //  cat -n src/test/resources/github230/invalid/cocirs_c2h4abund/data/collection_cocirs_c2h4abund_inventory.txt
+           //      1  P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles
+           //      2  P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_temp_profiles
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml",
+                    "--skip-content-validation"
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            assertEquals(2, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "2 error messages expected.\n" + reportJson.toString());
+
+            int count = this.getMessageCount(reportJson, ProblemType.MISSING_VERSION.getKey());
+            assertEquals(2, count,  "2 " + ProblemType.MISSING_VERSION.getKey() + "  messages expected.\n" + reportJson.toString());
+
+
+            // Run the valid test.
+            // The content has proper LIDVID  for 'P' member:
+            // cat -n src/test/resources/github230/valid/cocirs_c2h4abund/data/collection_cocirs_c2h4abund_inventory.txt
+            //    1  P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles::1.0
+            //    2  P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_temp_profiles::1.0
+
+            File report2 = new File(outFilePath + File.separator + "report_github230_valid.json");
+
+            String[] args2 = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml",
+                    "--skip-content-validation"
+                    };
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+            int count2 = this.getMessageCount(reportJson, ProblemType.MISSING_VERSION.getKey());
+            assertEquals(0, count2,  "0 " + ProblemType.MISSING_VERSION.getKey() + "  messages expected.\n" + reportJson.toString());
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
     
     @Test
     void testGithub209() {

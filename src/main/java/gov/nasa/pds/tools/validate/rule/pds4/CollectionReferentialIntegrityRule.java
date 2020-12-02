@@ -105,14 +105,9 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   
   private void getCollectionMembers(URL collection) {
     LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {}",collection);
-    //if (2 == 2) {
-    //LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {} SKIPPING",collection);
-    //return;
-    //}
     long startTime = System.currentTimeMillis();
     try {
       int numOfCollectionMembers = 0;
-      numOfCollectionMembers = 0;
 
       InventoryTableReader reader = new InventoryTableReader(collection);
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
@@ -125,6 +120,23 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
             //Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);
             //LOG.debug("getCollectionMembers: id {}",id);
+            //LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}",id,id.hasVersion(),id.getVersion());
+            //LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}",id,id.hasVersion(),collection);
+
+            // https://github.com/NASA-PDS/validate/issues/230
+            // New requirement: The 'P' entry must be a LIDVID (logical identifier and version id separated by '::').
+            // Report as error if not a LIDVID.
+            if ("P".equalsIgnoreCase(entry.getMemberStatus())) {
+                // If identifier has no version, it is not a LIDVID and should be flagged as an error with the new type ProblemType.MISSING_VERSION.
+                if (!id.hasVersion()) {
+                    getListener().addProblem(new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.ERROR,
+                            ProblemType.MISSING_VERSION,
+                            "The primary member '" + id + "' should include the version number"),
+                            collection));
+                }
+            }
+
             List<Map.Entry<Identifier, String>> matchingMembers = 
                 new ArrayList<Map.Entry<Identifier, String>>();
             for (Map.Entry<Identifier, String> idEntry : 
@@ -188,7 +200,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                       new ProblemDefinition(ExceptionType.INFO,
                           ProblemType.DUPLICATE_MEMBERS_INFO,
                           "The member '" + id + "' is identified "
-                              + "in multiple proudcts: " + targets.toString()),
+                              + "in multiple products: " + targets.toString()),
                       collection));
                 }
               } else {
@@ -200,7 +212,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                     new ProblemDefinition(exceptionType,
                         ProblemType.DUPLICATE_MEMBERS,
                         "The member '" + id + "' is identified "
-                            + "in multiple proudcts: " + targets.toString()),
+                            + "in multiple products: " + targets.toString()),
                     collection));
               }
             }
@@ -210,6 +222,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         entry = reader.getNext();
       }
       int records = reader.getNumRecords();
+      //LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",collection,numOfCollectionMembers,records);
+
       if (numOfCollectionMembers>0 && records>0 && numOfCollectionMembers!=records) {
     	  String message = "Number of records read is not equal "
                   + "to the defined number of records in the collection (expected "
@@ -232,11 +246,17 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   }
   
   private Identifier parseIdentifier(String identifier) {
+    // Even though the below identifier contains errors (blanks around '::' and too many digits)
+    // and may be caught by other validation rules, this function need to remove any leading or trailing blanks from
+    // tokens after the split() function:
+    //
+    //     [urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles :: 1.2.3.4]`
+
     if (identifier.indexOf("::") != -1) {
-      return new Identifier(identifier.split("::")[0],
-          identifier.split("::")[1]);
+      return new Identifier(identifier.split("::")[0].trim(),
+          identifier.split("::")[1].trim());
     } else {
-      return new Identifier(identifier.split("::")[0]);
+      return new Identifier(identifier.split("::")[0].trim());
     }
   }
   
