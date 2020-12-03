@@ -990,7 +990,7 @@ class ValidationIntegrationTests {
             File report2 = new File(outFilePath + File.separator + "report_github230_valid.json");
 
             String[] args2 = {
-                    "-r", report.getAbsolutePath(),
+                    "-r", report2.getAbsolutePath(),
                     "-R", "pds4.bundle",
                     "-s", "json",
                     "-t" , testPath + File.separator + "valid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml",
