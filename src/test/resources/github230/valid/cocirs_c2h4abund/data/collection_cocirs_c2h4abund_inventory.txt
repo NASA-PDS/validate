@@ -1,0 +1,3 @@
+P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles::1.0
+P,urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_temp_profiles::1.0
+

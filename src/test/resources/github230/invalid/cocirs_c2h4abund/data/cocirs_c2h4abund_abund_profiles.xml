@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 
+         https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>C2H4 mole fraction and temperature profiles after the 2010 Saturn Storm</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2011-03-03T00:00:00Z</start_date_time>
+            <stop_date_time>2012-04-16T00:00:00Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+      		<Science_Facets>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+      		    <facet1>Meteorology</facet1>
+      		</Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Cassini</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Observing system for Cassini Orbiter CIRS</name>
+            <Observing_System_Component>
+                <name>cocirs</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:cirs.co</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Cassini Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Saturn</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.saturn</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:cocirs_c2h4abund:document:cocirs_c2h4abund_document</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>c2h4_abund_profiles.csv</file_name>
+            <local_identifier>c2h4_abund_profiles</local_identifier>
+            <creation_date_time>2016-06-21T09:17:00</creation_date_time>
+            <file_size unit="byte">1502</file_size>
+            <records>20</records>
+        </File>
+        <Table_Delimited>
+            <name>hesman_c2h4_abund_profiles</name>
+            <local_identifier>hesman_c2h4_abund</local_identifier>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">1502</object_length>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>
+                Ethylene (C2H4) mole fractions after the 2010 Saturn Storm
+            </description>
+            <records>20</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>9</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>Row</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>
+                        Row number
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Pressure</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>mbar</unit>
+                    <description>
+                        Atmospheric pressure
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2011-062</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2011-062
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2011-188</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2011-188
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2011-199</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2011-199
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2012-013</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2012-013
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2012-014</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2012-014
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2012-047</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2012-047
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4 MF 2012-107</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Ethylene (C2H4) mole fraction on 2012-107
+                    </description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+    <File_Area_Observational_Supplemental>
+        <File>
+            <file_name>c2h4_abund_errors.csv</file_name>
+            <local_identifier>c2h4_abund_errors</local_identifier>
+            <creation_date_time>2016-06-21T09:26:00</creation_date_time>
+            <file_size unit="byte">1502</file_size>
+            <records>20</records>
+            <comment>
+                C2H4 mole fraction error values
+            </comment>
+        </File>
+        <Table_Delimited>
+            <name>hesman_c2h4_abund_errors</name>
+            <local_identifier>hesman_c2h4_errors</local_identifier>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">1502</object_length>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>
+                Errors in the ethylene (C2H4) mole fraction during the 2010 Saturn Storm
+            </description>
+            <records>20</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>9</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>Row</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>
+                        Row number
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Pressure</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>mbar</unit>
+                    <description>
+                        Atmospheric pressure
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2011-062</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2011-062
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2011-188</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2011-188
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2011-199</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2011-199
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2012-013</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2012-013
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2012-014</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2012-014
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2012-047</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2012-047
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>C2H4ERR MF 2012-107</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>
+                        Errors in the ethylene (C2H4) mole fraction on 2012-107
+                    </description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational_Supplemental>
+    <File_Area_Observational_Supplemental>
+        <File>
+            <file_name>c2h4_abund_profiles.dat</file_name>
+            <local_identifier>c2h4_abund_profiles_table</local_identifier>
+            <creation_date_time>2016-06-21T09:22:00</creation_date_time>
+            <file_size unit="byte">6280</file_size>
+            <records>44</records>
+            <comment>
+                Original table from Hesman of ethylene mole fractions
+            </comment>
+        </File>
+        <Stream_Text>
+            <local_identifier>c2h4_abund_table</local_identifier>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">6280</object_length>
+            <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+            <description>
+                Table contains data as originally provided by Hesman
+                of ethylene mole fractions on various dates, with
+                a conjoined table containing the errors in these
+                measurements.
+            </description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Observational_Supplemental>
+</Product_Observational>

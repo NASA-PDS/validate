@@ -90,6 +90,8 @@ public enum ProblemType {
 
     MISSING_PARENT_PREFIX("error.integrity.missing_parent_prefix"),
 
+    MISSING_VERSION("error.integrity.missing_version"),
+
     // Catalog related messages
 
     CATALOG_UNRESOLVABLE_RESOURCE("error.catalog.unresolvable_resource"),
