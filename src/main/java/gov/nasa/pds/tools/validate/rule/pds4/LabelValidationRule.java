@@ -33,6 +33,7 @@ import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.trans.XPathException;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -110,6 +111,27 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
 	}
 
+    private void flagNonExistentFile(URL target) throws IOException {
+      LOG.debug("flagNonExistentFile: target {}",target);
+      // Do a sanity check on existence of the label and flag it.
+      try {
+        if (!new File(target.toURI()).exists()) {
+            // Option 1: Throw the exception.
+            // Throwing the exception will cause the callee of this function to report the error as "Uncaught exception".
+            String message = "Label " + target.toString() + " is not found";
+            LOG.error(message);
+
+            throw new IOException(message);
+
+            // Option 2: Report the error here.
+            //reportError(GenericProblems.UNCAUGHT_EXCEPTION, target, -1, -1,
+            //        message);
+        }
+      } catch (Exception e) {
+          throw new IOException(e.getMessage());
+      }
+    }
+
 	/**
 	 * Parses the label and records any errors resulting from the parse,
 	 * including schema and schematron errors.
@@ -117,6 +139,7 @@ public class LabelValidationRule extends AbstractValidationRule {
 	@ValidationTest
 	public void validateLabel() {
       long t0 = System.currentTimeMillis();
+      boolean labelIsValidFlag = false;  // Explicit flag to indicate if target is valid or not.  Value is set to true if parsed successfully.
       URL target = getTarget();
       String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
       ProblemProcessor processor = new ProblemProcessor(
@@ -124,7 +147,13 @@ public class LabelValidationRule extends AbstractValidationRule {
 
       LabelValidator validator =
               ValidationResourceManager.INSTANCE.getResource(LabelValidator.class);
+
+      LOG.debug("validateLabel:target,targetFileName {},{}",target,targetFileName);
+
       try {
+        // Do a sanity check on existence of the label.
+	    this.flagNonExistentFile(target);
+
         Document document = null;
         boolean pass = true;
         ProblemContainer problemContainer = new ProblemContainer();
@@ -141,6 +170,26 @@ public class LabelValidationRule extends AbstractValidationRule {
             labelSchematrons = validateLabelSchematrons(
                     target, problemContainer, getContext().getCatalogResolver());
           }
+
+            // https://github.com/NASA-PDS/validate/issues/17
+            // Important note:  Any errors found in the above two functions:
+            //
+            //     validateLabelSchemas(),
+            //    `validateLabelSchematrons()
+            //
+            // would have been reported already to the listener.  There is no need to keep them around
+            // because the same errors would be added again later in this function.
+            // The errors need to be cleared either by the object problemContainer performing an
+            // explicit clear function or by creating a new ProblemContainer object.
+            //
+            // Option 1: problemContainer.clear()  [Chosen in this function]
+            // Option 2: problemContainer = new ProblemContainer()
+
+            // Option 1: problemContainer.clear() [Chosen in this function]
+            problemContainer.clear();
+
+            LOG.debug("validateLabel:problemContainer.clear() called");
+            LOG.debug("validateLabel:target,hasValidSchemas,labelSchematrons.size() {},{},{}",target,hasValidSchemas,labelSchematrons.size());
 
             if (hasValidSchemas && !labelSchematrons.isEmpty()) {
               CachedEntityResolver resolver = new CachedEntityResolver();
@@ -165,11 +214,13 @@ public class LabelValidationRule extends AbstractValidationRule {
                 for (ValidationProblem problem : problemContainer.getProblems()) {
                   problem.setSource(target.toString());
                   getListener().addProblem(problem);
+                  LOG.debug("validateLabel:addProblem(problem) {}",problem);
                 }
               }
               pass = false;
             }
         }
+        LOG.debug("validateLabel:target,pass {},{}",target,pass);
         if (pass) {
           getListener().addLocation(target.toString());
           LOG.debug("validateLabel:afor:target {}",target);
@@ -177,6 +228,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
         if (document != null) {
           getContext().put(PDS4Context.LABEL_DOCUMENT, document);
+          labelIsValidFlag = true;  // A non-null document signified that the label is valid.
         }
       } catch (SAXException | IOException | ParserConfigurationException
               | TransformerException | MissingLabelSchemaException e) {
@@ -200,6 +252,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (isDebugLogLevel()) {
         System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: " + targetFileName + " :: validateLabel() in " + (t1 - t0) + " ms\n");
       }
+      LOG.debug("validateLabel:target,labelIsValidFlag {},{}",target,labelIsValidFlag);
 	}
 	
   private boolean validateLabelSchemas(URL label,
@@ -208,21 +261,27 @@ public class LabelValidationRule extends AbstractValidationRule {
     List<StreamSource> sources = new ArrayList<StreamSource>();
     Map<String, URL> schemaLocations = new LinkedHashMap<String, URL>();
     this.schemaValidator.setCatalogResolver(resolver);
+    LOG.debug("validateLabelSchemas: label {}",label);
 
     try {
       schemaLocations = getSchemaLocations(label);  
+      LOG.debug("validateLabelSchemas: schemaLocations,schemaLocations.size() {},{}",schemaLocations,schemaLocations.size());
     } catch (Exception e) {
       labelProblems.addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.FATAL,
               ProblemType.SCHEMA_ERROR,
               e.getMessage()), 
           label));
+      LOG.debug("validateLabelSchemas: passFlag {}",false);
       return false;
     }
     
+    LOG.debug("validateLabelSchemas: label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
+    LOG.debug("validateLabelSchemas: schemaLocations.entrySet().size {}",schemaLocations.entrySet().size());
     // Loop through all the schemaLocations from the label and resolve them
     for (Map.Entry<String, URL> schemaLocation : schemaLocations.entrySet()) {
       URL schemaUrl = schemaLocation.getValue();
+      LOG.debug("validateLabelSchemas: schemaUrl {}",schemaUrl);
       ProblemContainer container = new ProblemContainer();
       boolean resolvableUrl = true;
       if (resolver != null) {
@@ -255,6 +314,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
       }
       
+      LOG.debug("validateLabelSchemas: schemaUrl,resolvableUrl {},{}",schemaUrl,resolvableUrl);
       // If we found the schema, let's read it into memory
       if (resolvableUrl) {
         schemaValidator.getCachedLSResolver().setProblemHandler(container);
@@ -293,6 +353,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       }
     }
     
+    LOG.debug("validateLabelSchemas: afor:validate schema:passFlag {}",passFlag);
     if (passFlag) {
       // Now let's loop through the schemas themselves, and validate them
       for (StreamSource source : sources) {
@@ -303,6 +364,7 @@ public class LabelValidationRule extends AbstractValidationRule {
           } catch(MalformedURLException ignore) {
             //Should never throw an exception
           }
+          LOG.debug("validateLabelSchemas: schemaUrl {}",schemaUrl);
           ProblemContainer container = new ProblemContainer();
           if (labelSchemaResults.containsKey(schemaUrl)) {
             container = labelSchemaResults.get(schemaUrl);
@@ -321,6 +383,7 @@ public class LabelValidationRule extends AbstractValidationRule {
               
               // Validate the schema source
               container = schemaValidator.validate(source);
+              LOG.debug("validateLabelSchemas: schemaUrl,passFlag {},{}",schemaUrl,passFlag);
             } catch (Exception e) {
               container.addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.ERROR,
@@ -349,6 +412,8 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
       }
     }
+    LOG.debug("validateLabelSchemas: after:validate schema:passFlag {}",passFlag);
+    LOG.debug("validateLabelSchemas: label,passFlag {},{}",label,passFlag);
     return passFlag;
   }
 
@@ -359,9 +424,11 @@ public class LabelValidationRule extends AbstractValidationRule {
     List<URL> schematronRefs = new ArrayList<URL>();
     try {
       schematronRefs = getSchematrons(label, labelProblems);
+      LOG.debug("validateLabelSchematrons:labelProblems.getWarningCount() {}",labelProblems.getWarningCount());
       if (labelProblems.getProblems().size() != 0) {
         for (ValidationProblem le : labelProblems.getProblems()) {
           getListener().addProblem(le);
+          LOG.debug("validateLabelSchematrons:addProblem(le) {}",le);
         }
         passFlag = false;
       }
@@ -374,6 +441,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       passFlag = false;
     }
     
+    LOG.debug("validateLabelSchematrons:schematronRefs.size() {}",schematronRefs.size());
     //Now validate the schematrons
     for (URL schematronRef : schematronRefs) {
       try {
@@ -467,6 +535,7 @@ public class LabelValidationRule extends AbstractValidationRule {
     if (!passFlag) {
       results.clear();
     }
+    LOG.debug("validateLabelSchematrons:label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
     return results;
   }
   
@@ -520,6 +589,45 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
     return schemaLocations;
   }
+
+  private void spaceCheckSchematypensPattern(URL label, ProblemContainer labelProblems, List<TinyNodeImpl> xmlModels) {
+    // Check for case when there is no space before schematypens and report it.
+    // <?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch"schematypens="http://purl.oclc.org/dsdl/schematron"
+    // A better xml-model statement:
+    // <?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"
+
+    // https://github.com/NASA-PDS/validate/issues/17 Validate schematron references and throw fatal error if invalid URI specified
+
+    String SCHEMATYPENS_PATTERN_ONLY = "schematypens=";
+    Pattern pattern = Pattern.compile(" " + Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);  // Prepend a space before the pattern.
+    for (TinyNodeImpl xmlModel : xmlModels) {
+      String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");
+      filteredData = filteredData.trim();
+      LOG.debug("spaceCheckSchematypensPattern:label,filteredData {},{}",label,filteredData);
+      if (filteredData.contains(SCHEMATYPENS_PATTERN_ONLY)) {
+          int posOfSchemaType = filteredData.indexOf(SCHEMATYPENS_PATTERN_ONLY);
+          if (posOfSchemaType > 0) {
+              LOG.debug("spaceCheckSchematypensPattern:label,substring {},[{}],{}",label,filteredData.substring(posOfSchemaType-1,posOfSchemaType),filteredData.substring(posOfSchemaType-1,posOfSchemaType).length());
+              // If the character before SCHEMATYPENS_PATTERN_ONLY is not a space, report a WARNING message.
+              if (!filteredData.substring(posOfSchemaType-1,posOfSchemaType).equals(" ")) {
+
+                  LOG.debug("spaceCheckSchematypensPattern:label,message,xmlModel.getParent().getLineNumber() {},{},{}",label,"Expecting a space before pattern [" + SCHEMATYPENS_PATTERN_ONLY + "]",xmlModel.getParent().getLineNumber());
+                  LOG.error("Expecting a space before pattern:SCHEMATYPENS_PATTERN_ONLY,lineNumber,label {},{},{}",SCHEMATYPENS_PATTERN_ONLY,xmlModel.getParent().getLineNumber(),label);
+                  labelProblems.addProblem(new ValidationProblem(
+                      new ProblemDefinition(ExceptionType.WARNING,
+                          ProblemType.BAD_SCHEMATYPENS,
+                          "Invalid xml-model statement.  Expecting a space before pattern [" + SCHEMATYPENS_PATTERN_ONLY + "] in " + filteredData),
+                      label,
+                      -1,
+                      -1));
+                  break;
+              }
+          } 
+      }
+    }
+
+    LOG.debug("spaceCheckSchematypensPattern:label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
+  }
   
   private List<URL> getSchematrons(URL label, ProblemContainer labelProblems)
       throws Exception {
@@ -535,18 +643,31 @@ public class LabelValidationRule extends AbstractValidationRule {
               + e.getMessage());
     }
     Pattern pattern = Pattern.compile(Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);
+
+    LOG.debug("getSchematrons:afor:xmlModels.size() {}",xmlModels.size());
+
+    // Add a space check before the pattern and put a WARNING message.
+
+    spaceCheckSchematypensPattern(label,labelProblems,xmlModels);
+
+    LOG.debug("getSchematrons:labelProblems.getWarningCount() {}",labelProblems.getWarningCount());
+    LOG.debug("getSchematrons:after:xmlModels.size() {}",xmlModels.size());
+
     for (TinyNodeImpl xmlModel : xmlModels) {
       String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");
       filteredData = filteredData.trim();
+      LOG.debug("validateLabel:label,filteredData {},{}",label,filteredData);
       Matcher matcher = pattern.matcher(filteredData);
       if (matcher.matches()) {
         String value = matcher.group(1).trim();
         URL schematronRef = null;
         URL parent = Utility.getParent(label);
+        LOG.debug("validateLabel:label,parent {},{}",label,parent);
         try {
           schematronRef = new URL(value);
           schematronRef = new URL(Utility.makeAbsolute(parent.toString(), 
               schematronRef.toString()));
+          LOG.debug("validateLabel:label,schematronRef {},{}",label,schematronRef);
         } catch (MalformedURLException ue) {
           // The schematron specification value does not appear to be
           // a URL. Assume a local reference to the schematron and
@@ -568,6 +689,9 @@ public class LabelValidationRule extends AbstractValidationRule {
         schematronRefs.add(schematronRef);
       }
     }
+
+    LOG.debug("validateLabel:label,schematronRefs.isEmpty() {},{}",label,schematronRefs.isEmpty());
+
     if (schematronRefs.isEmpty()) {
       labelProblems.addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.WARNING,
@@ -575,6 +699,7 @@ public class LabelValidationRule extends AbstractValidationRule {
               "No schematrons specified in the label"),
           label));
     } 
+    LOG.debug("validateLabel:label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
     return schematronRefs;
   }
   
