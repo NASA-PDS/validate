@@ -39,6 +39,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A class that transforms Schematron files based on the isoSchematron
@@ -48,6 +50,7 @@ import org.apache.commons.io.IOUtils;
  *
  */
 public class SchematronTransformer {
+  private static final Logger LOG = LoggerFactory.getLogger(SchematronTransformer.class);
   private Transformer isoTransformer;
   private TransformerFactory transformerFactory;
   private Map<String, Transformer> cachedTransformers;
@@ -148,6 +151,7 @@ public class SchematronTransformer {
   public Transformer transform(URL schematron, ProblemHandler handler)
       throws TransformerException {
     Transformer transformer = null;
+    LOG.debug("transform:schematron {}",schematron);
 
     if (cachedTransformers.containsKey(schematron.toString())) {
       transformer = cachedTransformers.get(schematron.toString());
@@ -181,8 +185,11 @@ public class SchematronTransformer {
           message = "Cannot read schematron as URL cannot be found: "
             + io.getMessage();
         } else {
-          message = io.getMessage();
+          //message = io.getMessage();
+          // Put a more detail message since io.getMessage only return the schematron file name.
+          message = "Cannot read schematron from URL " + schematron;
         }
+        LOG.debug("transform:message {}",message);
         if (handler != null) {
           handler.addProblem(new ValidationProblem(
               new ProblemDefinition(ExceptionType.FATAL,

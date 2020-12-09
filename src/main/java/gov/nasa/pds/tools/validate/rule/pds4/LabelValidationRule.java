@@ -447,6 +447,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       try {
         ProblemContainer container = null;
         boolean resolvableUrl = true;
+        LOG.debug("validateLabelSchematrons:schematronRef,resolver {},{}",schematronRef,resolver);
         if (resolver != null) {
           String resolvedUrl = null;
           try {
@@ -454,6 +455,7 @@ public class LabelValidationRule extends AbstractValidationRule {
                 Utility.getParent(label).toString(),
                 schematronRef.toString());
             resolvedUrl = resolver.resolveSchematron(absoluteUrl);
+            LOG.debug("validateLabelSchematrons:resolvedUrl {}",resolvedUrl);
             if (resolvedUrl != null) {
               schematronRef = new URL(resolvedUrl);
             } else {
@@ -476,6 +478,7 @@ public class LabelValidationRule extends AbstractValidationRule {
             resolvableUrl = false;
           }
         }
+        LOG.debug("validateLabelSchematrons:schematronRef,resolvableUrl {},{}",schematronRef,resolvableUrl);
         if (resolvableUrl) {
           if (labelSchematrons.containsKey(schematronRef)) {
             container = labelSchematronResults.get(schematronRef);
@@ -600,6 +603,7 @@ public class LabelValidationRule extends AbstractValidationRule {
 
     String SCHEMATYPENS_PATTERN_ONLY = "schematypens=";
     Pattern pattern = Pattern.compile(" " + Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);  // Prepend a space before the pattern.
+    LOG.debug("spaceCheckSchematypensPattern:label,xmlModels.size() {},{}",label,xmlModels.size());
     for (TinyNodeImpl xmlModel : xmlModels) {
       String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");
       filteredData = filteredData.trim();
@@ -623,6 +627,15 @@ public class LabelValidationRule extends AbstractValidationRule {
                   break;
               }
           } 
+      } else {
+          LOG.error("Could not find expected pattern [{}] in label {}",SCHEMATYPENS_PATTERN_ONLY,label);
+          labelProblems.addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.WARNING,
+                  ProblemType.BAD_SCHEMATYPENS,
+                  "Could not find expected pattern [" + SCHEMATYPENS_PATTERN_ONLY + "] in label " + label),
+                  label,
+                  -1,
+                  -1));
       }
     }
 
@@ -700,6 +713,9 @@ public class LabelValidationRule extends AbstractValidationRule {
           label));
     } 
     LOG.debug("validateLabel:label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
+    LOG.debug("validateLabel:label,schematronRefs {},{}",label,schematronRefs);
+    //System.out.println("validateLabel:early#exit#0002");
+    //System.exit(0);
     return schematronRefs;
   }
   
