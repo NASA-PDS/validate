@@ -1010,7 +1010,55 @@ class ValidationIntegrationTests {
             fail("Test Failed Due To Exception: " + e.getMessage());
         }
     }
-    
+
+    @Test
+    void testGithub17() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github17");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github17_invalid.json");
+
+            // Run the invalid test.
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "delimited_table_bad.xml",
+                    "--skip-context-validation",
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            assertEquals(2, reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt(),  "2 warning messages expected.\n" + reportJson.toString());
+
+            // Run the valid test.
+
+            File report2 = new File(outFilePath + File.separator + "report_github17_valid.json");
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "delimited_table_good.xml",
+                    "--skip-context-validation",
+                    };
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
     @Test
     void testGithub209() {
         try {
