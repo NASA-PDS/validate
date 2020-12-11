@@ -228,6 +228,11 @@ public class BundleManager {
         // After these statements, there should only be one element in childrenSelected list.
         // Look through all collectionList for matching reference.  Only keep the child with matching reference.
         for (Target target : collectionList) {
+            // Check if target is a directory and ignore it since it cannot be inspect to be a collection or not.
+            if (Utility.isDir(target.getUrl())) {
+                LOG.debug("selectMatchingReferenceFromCollection:IGNORING_DIRECTORY: target.getUrl() {}",target.getUrl());
+                continue;
+            }
             ArrayList<String> collectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
             // If the reference and version id matches, keep it.
             // Note that the first element has to be split using "::" in case it does contain it.

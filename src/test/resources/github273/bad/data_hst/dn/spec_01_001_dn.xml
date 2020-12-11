@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:ast.uv.reflectance-spectra:data_hst:dn_spec_01_001_dn_csv</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Ceres UV raw spectrum</title>
+    <information_model_version>1.10.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Li, J.-Y.</author_list>
+      <publication_year>2020</publication_year>
+      <description>Extracted raw spectrum of Ceres</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2007-11-25T13:19:42Z</start_date_time>
+      <stop_date_time>2007-11-25T13:52:33Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Partially Processed</processing_level>
+      <Science_Facets>
+        <discipline_name>Spectroscopy</discipline_name>
+        <facet1>Tabulated</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Hubble Space Telescope</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.hst</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Advance Camera For Surveys</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:hstacs.hst</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>(1) Ceres</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>spec_01_001_dn.csv</file_name>
+      <local_identifier>file</local_identifier>
+      <creation_date_time>2020-03-24</creation_date_time>
+    </File>
+    <Table_Delimited>
+      <local_identifier>TABLE</local_identifier>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>201</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>5</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>wavelength</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>Angstrom</unit>
+          <description>Wavelength</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>count</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>DN/s/Angstrom</unit>
+          <description>Count rate</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>error</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>DN/s/Angstrom</unit>
+          <description>Counte rate error</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>bandwidth_lo</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>Angstrom</unit>
+          <description>Bandwidth low end</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>bandwidth_hi</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>Angstrom</unit>
+          <description>Bandwidth high end</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
+

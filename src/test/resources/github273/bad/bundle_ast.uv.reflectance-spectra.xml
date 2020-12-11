@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:ast.uv.reflectance-spectra</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>UV spectra of asteroids from various instruments</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+
+        <Citation_Information>
+            <author_list>Hendrix, A.R.; Li J.-Y., ;Vilas, F.</author_list>
+            <publication_year>2020</publication_year>
+            <description>
+                This bundle collects UV spectra for a number of asteroid targets from several sources: 
+                International Ultraviolet Explorer (Hendrix), Hubble Space Telescope (Li), and ground-based data from MMT (Vilas). For detailed information, 
+                access the corresponding collections directly. Further datasets and sources will be added in future versions of the collections.
+            </description>
+        </Citation_Information>
+
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-09-16</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    Initial revision.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>1978-05-21T14:24:00Z</start_date_time>
+            <stop_date_time>2013-06-18T11:04:56Z</stop_date_time>
+        </Time_Coordinates>
+
+        <Investigation_Area>
+            <name>None</name>
+            <type>Other Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+
+        <Observing_System>
+            <Observing_System_Component>
+                <name>International Ultraviolet Explorer</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.iue</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>LONG-WAVELENGTH PRIME for IUE</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:lwp.iue</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Hubble Space Telescope</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.hst</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Advance Camera For Surveys</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:hstacs.hst</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>6.5-m Single Mirror (MMT)</name>
+                <type>Telescope</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:telescope:mmt.single_mirror6m5</lid_reference>
+                    <reference_type>is_telescope</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MMT Observatory</name>
+                <type>Observatory</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:observatory.mmt</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MMT Blue Channel Spectrograph</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mmt.single_mirror6m5.bluespec</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+
+        <Target_Identification>
+            <name>(1) Ceres</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(349) Dembowska</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(4179) Toutatis</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(324) Bamberga</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(88) Thisbe</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(42) Isis</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(18) Melpomene</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(21) Lutetia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(23) Thalia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(54) Alexandra</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(16) Psyche</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(308) Polyxo</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(471) Papagena</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(511) Davida</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(51) Nemausa</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(654) Zelinda</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(704) Interamnia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(44) Nysa</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(433) Eros</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(40) Harmonia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(9) Metis</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(10) Hygiea</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(15) Eunomia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(20) Massalia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(354) Eleonora</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(63) Ausonia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(8) Flora</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(135) Hertha</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(532) Herculina</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(1620) Geographos</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(27) Euterpe</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(129) Antigone</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(12) Victoria</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(75) Eurydike</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(410) Chloris</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(29) Amphitrite</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(216) Kleopatra</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(41) Daphne</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(14) Irene</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(1566) Icarus</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(163249) 2002 GT</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(3507) Vilas</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(89) Julia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(42) Isis</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(18) Melpomene</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(1270) Datura</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(41) Daphne</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(54) Alexandra</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(253) Mathilde</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(471) Papagena</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Taylor SA 93-101</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Taylor SA 107-998</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(250322) 2003 SC7</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>SAO 93936</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(81550) 2000 HU23</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(118208) 1995 TH10</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(10783) 1991 RB9</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(93690) 2000 VE21</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(150781) 2001 QO282</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(165) Loreley</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(326) Tamara</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>HR 2208</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>HR 3626</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(20) Massalia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(7341) 1991 VK</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(5407) 1992 AX</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>GSPC P177-D</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Landolt SA 115-271</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>SAO 94114</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(28) Bellona</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(93632) 2000 UE79</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(14627) Emilkowalski</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(363305) 2002 NV16</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(40) Harmonia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(7) Iris</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(23) Thalia</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(6) Hebe</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(85350) 1995 UN13</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>(3) Juno</name>
+            <type>Asteroid</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Landolt SA 110-361</name>
+            <type>Star</type>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Landolt SA 115-271</name>
+            <type>Star</type>
+        </Target_Identification>
+    </Context_Area>
+
+    <Bundle>
+        <bundle_type>Archive</bundle_type>
+    </Bundle>
+
+    <Bundle_Member_Entry>
+        <lidvid_reference>urn:nasa:pds:ast.uv.reflectance-spectra:data_hst::1.0</lidvid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_member_collection</reference_type>
+    </Bundle_Member_Entry>
+</Product_Bundle>
