@@ -24,6 +24,7 @@ import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationResourceManager;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
@@ -132,6 +133,28 @@ public class LabelValidationRule extends AbstractValidationRule {
       }
     }
 
+    private void flagBadFilename(URL target) {
+        // It is possible that the file name violate naming rules.  Check them here.  If there are problems,
+        // add each problem to the listener in this class.
+        //
+        // Example: 3juno_lwr01896_ines%20fits%20headers.pdfa.xml contains spaces between the characters.
+        //
+        // Note that the class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule but re-implement
+        // with new function checkFileAndDirectoryNamingWithChecker() to not call reportError() but to return a list of ValidationProblem.
+
+        FileAndDirectoryNamingChecker FileAndDirectoryNamingChecker = new FileAndDirectoryNamingChecker();
+        List<Target> list = new ArrayList<Target>();
+        list.add(new Target(target,false)); // Make a list of just one name.
+        List<ValidationProblem> validationProblems = FileAndDirectoryNamingChecker.checkFileAndDirectoryNamingWithChecker(list);
+        if (validationProblems.size() > 0) {
+            for (ValidationProblem problem : validationProblems) {
+                problem.setSource(target.toString()); // Because all problems with the filename are for target, set the source with target.
+                getListener().addProblem(problem);    // Add the problem of the file name to this listener.
+                LOG.debug("flagBadFilename:addProblem(problem) {},{}",problem,target.toString());
+            }
+        }
+    }
+
 	/**
 	 * Parses the label and records any errors resulting from the parse,
 	 * including schema and schematron errors.
@@ -153,6 +176,9 @@ public class LabelValidationRule extends AbstractValidationRule {
       try {
         // Do a sanity check on existence of the label.
 	    this.flagNonExistentFile(target);
+
+        // Do a sanity check on bad file name.
+	    this.flagBadFilename(target);
 
         Document document = null;
         boolean pass = true;

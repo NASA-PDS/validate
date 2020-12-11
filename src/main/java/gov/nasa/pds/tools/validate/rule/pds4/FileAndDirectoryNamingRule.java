@@ -39,11 +39,11 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class FileAndDirectoryNamingRule extends AbstractValidationRule {
 
-	private static final int MAXIMUM_FILE_NAME_LENGTH = 255;
+	protected static final int MAXIMUM_FILE_NAME_LENGTH = 255;
 
-  private static final Pattern NAMING_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z0-9_.-]*");
+  protected static final Pattern NAMING_PATTERN = Pattern.compile("[A-Za-z0-9][A-Za-z0-9_.-]*");
 
-	private static final Set<String> PROHIBITED_BASE_NAMES = new HashSet<String>();
+	protected static final Set<String> PROHIBITED_BASE_NAMES = new HashSet<String>();
 	static {
 		PROHIBITED_BASE_NAMES.add("aux");
 		PROHIBITED_BASE_NAMES.add("com1");

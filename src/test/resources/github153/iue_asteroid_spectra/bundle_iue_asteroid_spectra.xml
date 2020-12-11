@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:iue_asteroid_spectra</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>IUE_Collection V1.0</title>
+    <information_model_version>1.10.0.0</information_model_version>
+    <product_class>Product_Bundle</product_class>
+    <Citation_Information>
+      <author_list>Hendrix, A.R.</author_list>
+      <publication_year>2019</publication_year>
+      <description>-In this archive we create a one-stop shop of ultraviolet (UV) data of asteroids for
+easy use by planetary scientists. Currently several of the existing UV datasets are
+not in the PDS and are unavailable for scientific use by the broad community; others
+are available only in their raw form. Because UV wavelengths deliver critical access
+to the uppermost layers of the regoliths of these airless bodies, and can often offer
+unique compositional information, providing these data in one location will allow for
+comparative studies over wider ranges of wavelengths, studies of compositional and
+space weathering effects throughout the solar system, and the often numerous
+observations of each body will allow for the study of possible temporal and spatial
+variability. This archive includes derived International Ultraviolet Observer (IUE)
+reflectance spectra for five asteroid targets.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>1978-07-26T08:36:00Z</start_date_time>
+      <stop_date_time>1982-01-08T06:31:25Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Individual Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>bundle_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+  </Context_Area>
+  <Bundle>
+    <bundle_type>Archive</bundle_type>
+    <description>-The raw IUE data used in this study were obtained from the INES (IUE Newly Extracted
+Spectra) Web site. The NEWSIPS versions of these spectra have been published were
+published by Roettger &amp; Buratti (1994). The INES files benefit from an improved
+geometric correction, a more accurate photometric correction, and an increased
+signal-to-noise ratio of the extracted IUE data through the use of new processing
+algorithms (Wamsteker &amp; Gonzelez-Riestra 1998). Spectra were taken with the Long
+Wavelength Redundant (LWR) spectrograph, which covers the 185-335 nm wavelength range
+with a spectral spacing of 0.27 nm. 
+To determine the reflectance measured in the IUE observations, we used the equations
+outlined by Hendrix and Vilas (2006). we converted the spectra to photons cm-2 s-1
+Angstrom-1 for division by the solar spectrum. For all observations we used a solar
+spectrum from UARS SOLSTICE (Rottman et al. 1993), corrected to an Earth-Sun distance
+of 1.0 AU. The observations were corrected for satellite-Sun and satellite-Earth
+distances at the time of each measurement. 
+The archive includes individual reflectance spectra for each observation, along with
+average spectra where multiple observations at similar phase angles exist. The
+archive also includes thumbnail plots of reflectance spectra, and the original IUE
+header files. 
+
+References:
+Hendrix, A. R. and F. Vilas 2006. The Effects of Space Weathering at UV Wavelengths:
+S-class Asteroids, Astron. J.: 132: 1396-1404.
+Roettger, E. E., &amp; Buratti, B. J. 1994, Icarus, 112, 496
+Rottman G. J., Woods, T. N., &amp; Sparn, T. P. 1993, J. Geophys. Res., 98, 10667 
+Wamsteker &amp; Gonzelez-Riestra 1998. in Ultraviolet Astrophysics beyond the IUE Final
+Archive, ed. W. Wamsteker &amp; R. Gonzalez Riestra ( ESA SP-413; Noordwijk: ESA)</description>
+  </Bundle>
+  <Bundle_Member_Entry>
+    <lidvid_reference>urn:nasa:pds:iue_asteroid_spectra:document::1.0</lidvid_reference>
+    <member_status>Primary</member_status>
+    <reference_type>bundle_has_document_collection</reference_type>
+  </Bundle_Member_Entry>
+</Product_Bundle>
+
