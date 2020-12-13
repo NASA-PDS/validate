@@ -56,6 +56,24 @@
           },
           {
                "name": [
+                    "146 LUCINA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.146_lucina::1.1"
+          },
+          {
+               "name": [
+                    "2000 QL251"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ql251::1.0"
+          },
+          {
+               "name": [
                     "THEBE"
                ],
                "type": [
@@ -7468,30 +7486,12 @@
           },
           {
                "name": [
-                    "INFRARED SPECTROGRAPH (IRS)"
+                    "OSIRIS-REX"
                ],
                "type": [
-                    "N/A"
+                    "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:spitzer.irs::1.0"
-          },
-          {
-               "name": [
-                    "2001 QX297"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qx297::1.0"
-          },
-          {
-               "name": [
-                    "VLT IMAGER AND SPECTROMETER FOR MID-INFRARED (VISIR)"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:eso-paranal.vlt_8m2.visir::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.orex::1.1"
           },
           {
                "name": [
@@ -14816,21 +14816,30 @@
           },
           {
                "name": [
-                    "146 LUCINA"
+                    "INFRARED SPECTROGRAPH (IRS)"
                ],
                "type": [
-                    "ASTEROID"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.146_lucina::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:spitzer.irs::1.0"
           },
           {
                "name": [
-                    "2000 QL251"
+                    "2001 QX297"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ql251::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qx297::1.0"
+          },
+          {
+               "name": [
+                    "VLT IMAGER AND SPECTROMETER FOR MID-INFRARED (VISIR)"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:eso-paranal.vlt_8m2.visir::1.0"
           },
           {
                "name": [
@@ -20963,15 +20972,6 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.kallichore::1.1"
-          },
-          {
-               "name": [
-                    "OSIRIS-REX"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.orex::1.1"
           },
           {
                "name": [
