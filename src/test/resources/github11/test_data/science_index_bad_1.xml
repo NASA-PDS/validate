@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1600.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1600.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars_spectra_reddy:data:science_index_tab</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>SCIENCE INDEX</title>
+    <information_model_version>1.6.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2001-09-29Z</start_date_time>
+      <stop_date_time>2008-09-21Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <Science_Facets>
+        <wavelength_range>Near Infrared</wavelength_range>
+        <discipline_name>Spectroscopy</discipline_name>
+        <facet1>Linear</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Individual Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>SpeX</name>
+        <type>Instrument</type>
+        <description>The description for SpeX can be found in the document collection for this bundle.</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:irtf3m0.spex</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Mauna Kea Observatory</name>
+        <type>Observatory</type>
+        <description>The description for Mauna Kea Observatory can be found in the document collection for this bundle.</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.mauna_kea</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Infrared Telescope Facility</name>
+        <type>Telescope</type>
+        <description>The description for Infrared Telescope Facility can be found in the document collection for this bundle.</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:mauna_kea.irtf3m0</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple Asteroids</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars_spectra_reddy:document:bundle_description</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>science_index.tab</file_name>
+      <local_identifier>SCIENCE_INDEX_TAB</local_identifier>
+      <file_size unit="byte">3591</file_size>
+      <records>3</records>
+    </File>
+    <Table_Character>
+      <local_identifier>TABLE</local_identifier>
+      <offset unit="byte">0</offset>
+      <records>3</records>
+      <description>Science Index Table</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>14</fields>
+        <groups>0</groups>
+        <record_length unit="byte">133</record_length>
+        <Field_Character>
+          <name>FILE_NAME</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">26</field_length>
+          <field_format>%-26s</field_format>
+          <description>Name of the file.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>NUMBER</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">28</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">8</field_length>
+          <field_format>%+8s</field_format>
+          <description>Number of the asteroid.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>NAME</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">37</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">8</field_length>
+          <field_format>%-8s</field_format>
+          <description>Name of the asteroid.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>START_TIME</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">46</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">19</field_length>
+          <field_format>%-19s</field_format>
+          <description>Observation start time (UTC).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>STOP_TIME</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">66</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">19</field_length>
+          <field_format>%-19s</field_format>
+          <description>Observation stop time (UTC).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>EXPOSURES</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">86</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">2</field_length>
+          <field_format>%2d</field_format>
+          <description>Number of exposures.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>INTEGRATION_TIME</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">89</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <field_format>%3d</field_format>
+          <description>Net integration time per spectrum.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>V_APPARENT_MAGNITUDE</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">93</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">4</field_length>
+          <field_format>%4.1f</field_format>
+          <description>Apparent visual magnitude.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PHASE_ANGLE</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">98</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">4</field_length>
+          <field_format>%4.1f</field_format>
+          <description>Phase angle.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>GEO_DISTANCE</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">103</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5.3f</field_format>
+          <description>Geocentric distance (AU).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>HELIO_DISTANCE</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">109</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">4</field_length>
+          <field_format>%4.2f</field_format>
+          <description>Heliocentric distance (AU).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SOLAR_ANALOG_STAR</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">114</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">9</field_length>
+          <field_format>%-9s</field_format>
+          <description>Solar analog star.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SLIT_WIDTH</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">124</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">3</field_length>
+          <field_format>%3.1f</field_format>
+          <description>Slit width.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>AIRMASS</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">128</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">4</field_length>
+          <field_format>%4.2f</field_format>
+          <description>Mean airmass for the combined spectrum.</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>
+
