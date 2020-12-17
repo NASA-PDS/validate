@@ -119,6 +119,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       ASCII_NUMBER_TYPE_LIST.add("ASCII_Integer".toUpperCase());
   }
 
+  private static String PRODUCT_OBSERVATIONAL = "Product_Observational";
+  private static String TABLE_CHARACTER = "Product_Observational/File_Area_Observational/Table_Character";
   private static String RECORD_CHARACTER = "Product_Observational/File_Area_Observational/Table_Character/Record_Character";
   private static String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
   private static String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
@@ -237,11 +239,23 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
      try {
         XMLExtractor extractor = new XMLExtractor(getTarget());
-        TinyNodeImpl recordCharacterNode = extractor.getNodeFromDoc(this.RECORD_CHARACTER); 
-        numFields = Integer.parseInt(extractor.getValueFromDoc(this.RECORD_CHARACTER_FIELDS));
+        TinyNodeImpl productObservationalNode = extractor.getNodeFromDoc(this.PRODUCT_OBSERVATIONAL);
+        TinyNodeImpl tableCharacterNode       = extractor.getNodeFromDoc(this.TABLE_CHARACTER);
+        TinyNodeImpl recordCharacterNode      = extractor.getNodeFromDoc(this.RECORD_CHARACTER); 
 
+        // If any of the nodes are null, cannot continue.  Not all labels are expected to contain the PRODUCT_OBSERVATIONAL nodes.
+        if (productObservationalNode == null ||
+            tableCharacterNode       == null ||
+            recordCharacterNode      == null) { 
+            LOG.info("Label " + getTarget() + " does not contain any fields pertaining to " + this.TABLE_CHARACTER + " or " + this.RECORD_CHARACTER + " to valid ASCII field formats on");
+            return;
+        }
+
+        // At this point, all nodes are valid and should be able to perform validation on. 
+
+        numFields = Integer.parseInt(extractor.getValueFromDoc(this.RECORD_CHARACTER_FIELDS));
         //LOG.debug("numFields,getTarget() {}",numFields,getTarget());
-        //LOG.debug("recordCharacterNode {}",recordCharacterNode);
+        LOG.info("validateFieldFormats:target,recordCharacterNode {},{}",getTarget(),recordCharacterNode);
 
         List<String> fieldFormatList = extractor.getValuesFromItem(this.FIELD_CHARACTER_FIELD_FORMAT,recordCharacterNode.getRoot());
         //List<String> fieldDescriptionList = extractor.getValuesFromItem(this.FIELD_CHARACTER_DESCRIPTION,recordCharacterNode.getRoot());
@@ -275,7 +289,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         this.validateAsciiNumberFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
 
      } catch (Exception e) {
-        LOG.error("Cannot extract {} from {}",this.RECORD_CHARACTER,getContext());
+        LOG.error("Cannot extract {} from label {}",this.RECORD_CHARACTER,getTarget());
           getListener().addProblem(
               new ValidationProblem(new ProblemDefinition(
                   ExceptionType.ERROR,
