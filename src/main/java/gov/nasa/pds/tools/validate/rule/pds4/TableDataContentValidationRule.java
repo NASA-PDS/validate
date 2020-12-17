@@ -22,10 +22,12 @@ import java.nio.BufferUnderflowException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.RandomAccess;
+import java.util.Set;
 
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPath;
@@ -96,6 +98,35 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
   private int PROGRESS_COUNTER = 0;
 
+  /** Used in checking for ASCII String related fields: should not have '+' in the format. */
+  private static final  Set<String> ASCII_STRING_TYPE_LIST = new HashSet<String>(); 
+  static {
+      ASCII_STRING_TYPE_LIST.add("ASCII_Short_String_Collapsed".toUpperCase());
+      ASCII_STRING_TYPE_LIST.add("ASCII_Short_String_Preserved".toUpperCase());
+      ASCII_STRING_TYPE_LIST.add("ASCII_String"                .toUpperCase());
+      ASCII_STRING_TYPE_LIST.add("ASCII_Text_Collapsed"        .toUpperCase());
+      ASCII_STRING_TYPE_LIST.add("ASCII_Text_Preserved"        .toUpperCase());
+  }
+
+  /** Used in checking ASCII Number related fields: should not have '-' in the format. */
+  private static final Set<String> ASCII_NUMBER_TYPE_LIST = new HashSet<String>();
+  static {
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_NonNegative_Integer".toUpperCase());
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_Numeric_Base16".toUpperCase());
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_Numeric_Base2".toUpperCase());
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_Numeric_Base8".toUpperCase());
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_Real".toUpperCase());
+      ASCII_NUMBER_TYPE_LIST.add("ASCII_Integer".toUpperCase());
+  }
+
+  private static String RECORD_CHARACTER = "Product_Observational/File_Area_Observational/Table_Character/Record_Character";
+  private static String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
+  private static String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
+  private static String FIELD_CHARACTER_FIELD_FORMAT = FIELD_CHARACTER + "/field_format";
+  private static String FIELD_CHARACTER_DESCRIPTION  = FIELD_CHARACTER + "/description";
+  private static String FIELD_CHARACTER_TYPE         = FIELD_CHARACTER + "/data_type";
+  private static String FIELD_CHARACTER_NUMBER       = FIELD_CHARACTER + "/field_number";
+
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
   
@@ -145,24 +176,18 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
   private void validateAsciiStringFieldsFormat(List<String> fieldFormatList, List<String> fieldTypeList, List<String> fieldNumberList) {
     // ASCII String related fields should not have '+' in the format.
-    List<String> ASCII_TYPE_LIST = new ArrayList<String>(); 
-    ASCII_TYPE_LIST.add("ASCII_Short_String_Collapsed".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Short_String_Preserved".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_String"                .toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Text_Collapsed"        .toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Text_Preserved"        .toUpperCase());
 
     int indexToList = 0;
-    // Loop through all elements fieldFormatList.  If field is in ASCII_TYPE_LIST, check if prohibited '+' is in the format.
+    // Loop through all elements fieldFormatList.  If field is in ASCII_STRING_TYPE_LIST, check if prohibited '+' is in the format.
     for (String oneFieldFormat : fieldFormatList) {
         //LOG.debug("validateAsciiStringFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)  {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
         // Check for prohibited plus symbol '+' in format field : %+8s
-        if (ASCII_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
+        if (this.ASCII_STRING_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
             if (oneFieldFormat.contains("%+")) {
-                LOG.error("ASCII String related fields should not containing '+' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
+                LOG.error("ASCII String related fields should not contain '+' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
                 addTableProblem(ExceptionType.ERROR, 
                     ProblemType.TABLE_FILE_READ_ERROR,
-                    "ASCII String related fields should not containing '+' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
+                    "ASCII String related fields should not contain '+' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
                     getTarget(),
                     -1,
                     -1);
@@ -174,25 +199,18 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
   private void validateAsciiNumberFieldsFormat(List<String> fieldFormatList, List<String> fieldTypeList, List<String> fieldNumberList) {
     // ASCII Number related fields should not have '-' in the format.
-    List<String> ASCII_TYPE_LIST = new ArrayList<String>();
-    ASCII_TYPE_LIST.add("ASCII_NonNegative_Integer".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Numeric_Base16".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Numeric_Base2".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Numeric_Base8".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Real".toUpperCase());
-    ASCII_TYPE_LIST.add("ASCII_Integer".toUpperCase());
 
     int indexToList = 0;
-    // Loop through all elements fieldFormatList.  If field is in ASCII_TYPE_LIST, check if prohibited '-' is in the format.
+    // Loop through all elements fieldFormatList.  If field is in ASCII_NUMBER_TYPE_LIST, check if prohibited '-' is in the format.
     for (String oneFieldFormat : fieldFormatList) {
         //LOG.debug("validateAsciiNumberFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)  {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
         // Check for prohibited minus symbol '-' in format field : %-2d
-        if (ASCII_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
+        if (this.ASCII_NUMBER_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
             if (oneFieldFormat.contains("%-")) {
-                LOG.error("ASCII Number related fields should not containing '-' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
+                LOG.error("ASCII Number related fields should not contain '-' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
                 addTableProblem(ExceptionType.ERROR, 
                     ProblemType.TABLE_FILE_READ_ERROR,
-                    "ASCII Number related fields should not containing '-' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
+                    "ASCII Number related fields should not contain '-' symbol in field_format [" + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
                     getTarget(),
                     -1,
                     -1);
@@ -216,41 +234,56 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
      //          <field_format>%+8s</field_format>
      //          <description>Number of the asteroid.</description>
      int numFields = 0;
-     String RECORD_CHARACTER = "Product_Observational/File_Area_Observational/Table_Character/Record_Character";
-     String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
-     String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
-     String FIELD_CHARACTER_FIELD_FORMAT = RECORD_CHARACTER + "/Field_Character/field_format";
-     String FIELD_CHARACTER_DESCRIPTION  = RECORD_CHARACTER + "/Field_Character/description";
-     String FIELD_CHARACTER_TYPE         = RECORD_CHARACTER + "/Field_Character/data_type";
-     String FIELD_CHARACTER_NUMBER       = RECORD_CHARACTER + "/Field_Character/field_number";
 
-          try {
-            XMLExtractor extractor = new XMLExtractor(getTarget());
-            TinyNodeImpl recordCharacterNode = extractor.getNodeFromDoc(RECORD_CHARACTER); 
-            numFields = Integer.parseInt(extractor.getValueFromDoc(RECORD_CHARACTER_FIELDS));
+     try {
+        XMLExtractor extractor = new XMLExtractor(getTarget());
+        TinyNodeImpl recordCharacterNode = extractor.getNodeFromDoc(this.RECORD_CHARACTER); 
+        numFields = Integer.parseInt(extractor.getValueFromDoc(this.RECORD_CHARACTER_FIELDS));
 
-            //LOG.debug("numFields,getTarget() {}",numFields,getTarget());
-            //LOG.debug("recordCharacterNode {}",recordCharacterNode);
+        //LOG.debug("numFields,getTarget() {}",numFields,getTarget());
+        //LOG.debug("recordCharacterNode {}",recordCharacterNode);
 
-            List<String> fieldFormatList = extractor.getValuesFromItem(FIELD_CHARACTER_FIELD_FORMAT,recordCharacterNode.getRoot());
-            List<String> fieldDescriptionList = extractor.getValuesFromItem(FIELD_CHARACTER_DESCRIPTION,recordCharacterNode.getRoot());
-            List<String> fieldTypeList = extractor.getValuesFromItem(FIELD_CHARACTER_TYPE,recordCharacterNode.getRoot());
-            List<String> fieldNumberList = extractor.getValuesFromItem(FIELD_CHARACTER_NUMBER,recordCharacterNode.getRoot());
+        List<String> fieldFormatList = extractor.getValuesFromItem(this.FIELD_CHARACTER_FIELD_FORMAT,recordCharacterNode.getRoot());
+        //List<String> fieldDescriptionList = extractor.getValuesFromItem(this.FIELD_CHARACTER_DESCRIPTION,recordCharacterNode.getRoot());
+        List<String> fieldTypeList = extractor.getValuesFromItem(this.FIELD_CHARACTER_TYPE,recordCharacterNode.getRoot());
+        List<String> fieldNumberList = extractor.getValuesFromItem(this.FIELD_CHARACTER_NUMBER,recordCharacterNode.getRoot());
 
-            //LOG.debug("fieldFormatList {},{}",fieldFormatList,fieldFormatList.size());
-            //LOG.debug("fieldDescriptionList {},{}",fieldDescriptionList,fieldDescriptionList.size());
-            //LOG.debug("fieldTypeList {},{}",fieldTypeList,fieldTypeList.size());
-            //LOG.debug("fieldNumberList {},{}",fieldNumberList,fieldNumberList.size());
+        //LOG.debug("fieldFormatList {},{}",fieldFormatList,fieldFormatList.size());
+        //LOG.debug("fieldDescriptionList {},{}",fieldDescriptionList,fieldDescriptionList.size());
+        //LOG.debug("fieldTypeList {},{}",fieldTypeList,fieldTypeList.size());
+        //LOG.debug("fieldNumberList {},{}",fieldNumberList,fieldNumberList.size());
 
-            this.validateAsciiStringFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
-            this.validateAsciiNumberFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+        // Check to make sure all arrays are the same size as numFields.
+        if (numFields != fieldFormatList.size() ||
+            numFields != fieldTypeList.size()   ||
+            numFields != fieldNumberList.size()) {
+          String errorMessage = ("The number of fields " + Integer.toString(numFields) + " do not match with fields provided: fieldFormatList.size() " + 
+                     Integer.toString(fieldFormatList.size()) + ",fieldTypeList.size() " + Integer.toString(fieldTypeList.size()) + ",fieldNumberList.size() " +
+                     Integer.toString(fieldNumberList.size()));
+          LOG.error(errorMessage);
+          getListener().addProblem(
+              new ValidationProblem(new ProblemDefinition(
+                  ExceptionType.ERROR,
+                  ProblemType.INVALID_LABEL,
+                  errorMessage),
+              getTarget()));
+          return;
+        }
 
-          } catch (Exception e) {
-            //Ignore. This isn't a valid Bundle/Collection label so skip it.
-            LOG.debug("Cannot extract Record_Character from {}",getContext());
-          }
+        // Validate both ASCIII String and ASCII Number fields format.
+        this.validateAsciiStringFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+        this.validateAsciiNumberFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+
+     } catch (Exception e) {
+        LOG.error("Cannot extract {} from {}",this.RECORD_CHARACTER,getContext());
+          getListener().addProblem(
+              new ValidationProblem(new ProblemDefinition(
+                  ExceptionType.ERROR,
+                  ProblemType.INVALID_LABEL,
+                  "Cannot extract " + this.RECORD_CHARACTER + " from label"),
+              getTarget()));
+     }
   }
-
    
   @ValidationTest
   public void validateTableDataContents() throws MalformedURLException, 
