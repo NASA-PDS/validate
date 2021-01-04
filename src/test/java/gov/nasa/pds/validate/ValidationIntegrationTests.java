@@ -1131,8 +1131,8 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
             //assertEquals(3, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "3 error messages expected.\n" + reportJson.toString());
 
-            int count = this.getMessageCount(reportJson, ProblemType.TABLE_FILE_READ_ERROR.getKey());
-            assertEquals(1, count,  "1 " + ProblemType.TABLE_FILE_READ_ERROR.getKey() + "  messages expected.\n" + reportJson.toString());
+            int count = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
 
             // Run the invalid test #2 with bad format [%-2d] in field_number 6.
             File report2 = new File(outFilePath + File.separator + "report_github11_invalid_2.json");
@@ -1148,8 +1148,8 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
             //assertEquals(3, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "3 error messages expected.\n" + reportJson.toString());
 
-            int count2 = this.getMessageCount(reportJson, ProblemType.TABLE_FILE_READ_ERROR.getKey());
-            assertEquals(1, count2,  "1 " + ProblemType.TABLE_FILE_READ_ERROR.getKey() + "  messages expected.\n" + reportJson.toString());
+            int count2 = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(1, count2,  "1 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
 
             // Run the valid test with good formats.
             // Note that because we want the test to pass we use --skip-context-validation so as it is easier to 
@@ -1169,8 +1169,8 @@ class ValidationIntegrationTests {
             reportJson = gson.fromJson(new FileReader(report3), JsonObject.class);
             assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
 
-            int count3 = this.getMessageCount(reportJson, ProblemType.TABLE_FILE_READ_ERROR.getKey());
-            assertEquals(0, count3,  "0 " + ProblemType.TABLE_FILE_READ_ERROR.getKey() + "  messages expected.\n" + reportJson.toString());
+            int count3 = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(0, count3,  "0 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
