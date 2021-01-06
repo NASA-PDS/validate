@@ -29,6 +29,9 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -84,7 +87,7 @@ import gov.nasa.pds.validate.constants.Constants;
   *
   */
 public class TableDataContentValidationRule extends AbstractValidationRule {
-  
+  private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
   private int PROGRESS_COUNTER = 0;
 
   /** Used in evaluating xpath expressions. */
@@ -106,7 +109,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   public TableDataContentValidationRule() {
     xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
   }
-  
+
   @Override
   public boolean isApplicable(String location) {
   	if (!getContext().getCheckData()) {
@@ -133,11 +136,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     }
     return isApplicable;
   }
-   
+
   @ValidationTest
   public void validateTableDataContents() throws MalformedURLException, 
   URISyntaxException {
 	  
+    LOG.debug("Entering validateTableDataContents");
+    LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
     int spotCheckData = getContext().getSpotCheckData();
@@ -154,24 +159,32 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           getTarget()));
       return;
     }
+    LOG.debug("validateTableDataContents:tableFileAreas.size() {}",tableFileAreas.size());
     NodeList fileAreaNodes = null;
     XPath xpath = xPathFactory.newXPath();
+    LOG.debug("validateTableDataContents:xpath {}",xpath);
     try {
       fileAreaNodes = (NodeList) xpath.evaluate(
         XPaths.TABLE_FILE_AREAS, 
         new DOMSource(getContext().getContextValue(
             PDS4Context.LABEL_DOCUMENT, Document.class)), 
         XPathConstants.NODESET);
+        LOG.debug("validateTableDataContents:fileAreaNodes {}",fileAreaNodes);
+        LOG.debug("validateTableDataContents:fileAreaNodes.getLength() {}",fileAreaNodes.getLength());
     } catch (XPathExpressionException e) {
       addXPathException(null, XPaths.TABLE_FILE_AREAS, e.getMessage());
     }
+
     Map<String, Integer> numTables = scanTables(tableFileAreas, objectAccess);
     Map<URL, Integer> tableIndexes = new LinkedHashMap<URL, Integer>();
+    LOG.debug("validateTableDataContents:numTables {}",numTables.size());
+    LOG.debug("validateTableDataContents:tableIndexes {}",tableIndexes.size());
     int fileAreaObserveIndex = 0;
     for (FileArea fileArea : tableFileAreas) {
       int tableIndex = -1;
       String fileName = getDataFile(fileArea);
       URL dataFile = new URL(Utility.getParent(getTarget()), fileName);
+      LOG.debug("validateTableDataContents:fileAreaObserveIndex,fileName,dataFile {},{},{}",fileAreaObserveIndex,fileName,dataFile);
       if (tableIndexes.containsKey(dataFile)) {
         tableIndex = tableIndexes.get(dataFile).intValue() + 1;
         tableIndexes.put(dataFile, new Integer(tableIndex));
@@ -179,6 +192,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         tableIndex = 1;
         tableIndexes.put(dataFile, new Integer(1));
       }
+      LOG.debug("validateTableDataContents:tableIndex,fileAreaObserveIndex,fileName,dataFile {},{},{}",tableIndex,fileAreaObserveIndex,fileName,dataFile);
       NodeList binaryTableNodes = null;
       try {
         binaryTableNodes = (NodeList) xpath.evaluate(CHILD_TABLE_BINARY_XPATH, 
@@ -187,18 +201,23 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         addXPathException(fileAreaNodes.item(fileAreaObserveIndex), 
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
+      LOG.debug("validateTableDataContents:binaryTableNodes.getLength() {}",binaryTableNodes.getLength());
       
       // issue_234: Validate gives incorrect records mismatch WARNING for interleaved data objects 
       // need to subtract many header objects from total filesize 
       List<Object> headerObjects = objectAccess.getHeaderObjects(fileArea);
       int headerSize = 0;
+      LOG.debug("validateTableDataContents:headerObjects.size {}",headerObjects.size());
       for (Object header: headerObjects) {
     	  Header hdr = (Header)header;
     	  headerSize += hdr.getObjectLength().getValue().intValueExact();
+          LOG.debug("validateTableDataContents:headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact() {},{},{}",headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact());
       }
+      LOG.debug("validateTableDataContents:headerSize {}",headerSize);
  	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
       List<Array> arrayObjects = objectAccess.getArrays(fileArea);
       long arraySize = 1;
+      LOG.debug("validateTableDataContents:arrayObjects.size {}",arrayObjects.size());
       if (arrayObjects.size()>0) {
     	  for (Array array : arrayObjects) {
     		  String dataTypeStr = "";
@@ -207,6 +226,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     			  NumericDataType dataType = Enum.valueOf(NumericDataType.class, dataTypeStr);
     			  // element size = bits/8
     			  arraySize = dataType.getBits()/8;
+                  LOG.debug("validateTableDataContents:dataTypeStr,dataType,arraySize {},{},{}",dataTypeStr,dataType,arraySize);
     		  } catch (IllegalArgumentException a) {
     			  throw new IllegalArgumentException(dataTypeStr + " is not supported at this time.");
     		  }
@@ -217,8 +237,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     		  int[] dimensions = new int[array.getAxisArraies().size()];
     		  for (int i = 0; i < dimensions.length; i++) {
     			  dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
+                  LOG.debug("validateTableDataContents:i,dimensions[i],arraySize {},{},{}",i,dimensions[i],arraySize);
     			  arraySize *= dimensions[i];
     		  } 
+              LOG.debug("validateTableDataContents:post_loop:arraySize {}",arraySize);
     	  }
       }
       else arraySize = 0;
@@ -242,6 +264,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     	 //ex.printStackTrace();
       }
 
+      LOG.debug("validateTableDataContents:arraySize,actualTotalRecords {},{}",arraySize,actualTotalRecords);
+      LOG.debug("validateTableDataContents:dataFile,tableObjects.size() {},{}",dataFile,tableObjects.size());
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
@@ -272,9 +296,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         int recordMaxLength = -1;
         int definedNumRecords = -1;
         boolean inventoryTable = false;
+        LOG.debug("validateTableDataContents:tableIndex {}",tableIndex);
         //Check if record length is equal to the defined record length in
         // the label (or maximum length)
         if (table instanceof TableDelimited) {
+          LOG.debug("validateTableDataContents:table instanceof TableDelimited");
           TableDelimited td = (TableDelimited) table;
           if (td.getRecordDelimited() != null &&
               td.getRecordDelimited().getMaximumRecordLength() != null) {
@@ -284,10 +310,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           definedNumRecords = td.getRecords().intValueExact();
           recordsToRemove = (long)definedNumRecords;
           if (td instanceof Inventory) {
+                LOG.debug("validateTableDataContents:table instanceof Inventory");
         	    inventoryTable = true;
           }
           actualRecordNumber = actualTotalRecords;
         } else if (table instanceof TableBinary) {
+          LOG.debug("validateTableDataContents:table instanceof TableBinary");
           TableBinary tb = (TableBinary) table;
           if (tb.getRecordBinary() != null &&
               tb.getRecordBinary().getRecordLength() != null) {
@@ -297,9 +325,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (binaryTableNodes != null) {
             validatePackedFields(binaryTableNodes.item(tableIndex-1));
           }
+          LOG.debug("validateTableDataContents:recordLength,definedNumRecords,binaryTableNodes,tableObjects.size() {},{},{},{}",recordLength,definedNumRecords,binaryTableNodes,tableObjects.size());
           if (tableObjects.size()==1) {
         	 actualTotalRecords = actualTotalRecords - arraySize - headerSize;
         	 actualRecordNumber = actualTotalRecords/recordLength;
+              LOG.debug("validateTableDataContents:actualTotalRecords,actualRecordNumber {},{}",actualTotalRecords,actualRecordNumber);
           }
           else {
         	  // issue_243: Fix for choke on a probably good file
@@ -308,7 +338,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         	  actualRecordNumber = actualRecordSize/recordLength;
           }
         } else {
+          LOG.debug("table instanceof TableCharacter: else");
           TableCharacter tc = (TableCharacter) table;
+          LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
+          LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
+          LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
           if (tc.getRecordCharacter() != null && 
               tc.getRecordCharacter().getRecordLength() != null) {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
@@ -319,6 +353,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
              actualRecordNumber = reader.getRecordSize(dataFile, table);
           }
           catch (Exception e) {}        
+          LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
         } 
         
         { // issue_220
@@ -557,9 +592,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         }
         actualRecordNumber -= recordsToRemove;
         tableIndex++;
+        LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
       }
       fileAreaObserveIndex++;
     }
+    LOG.debug("Leaving validateTableDataContents");
+//System.exit(0);
   }
 
   /**
@@ -670,6 +708,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    * @param binaryTable The Table_Binary node.
    */
   private void validatePackedFields(Node binaryTable) {
+    LOG.debug("Entering validatePackedField");
     NodeList packedDataFields = null;
     try {
       packedDataFields = (NodeList) xPathFactory.newXPath().evaluate(
@@ -677,6 +716,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     } catch (XPathExpressionException e) {
       addXPathException(binaryTable, PACKED_DATA_FIELD_XPATH, e.getMessage());
     }
+    LOG.debug("validatePackedFields:PACKED_DATA_FIELD_XPATH,XPathConstants.NODESET,XPathConstants.NODE {},{},{}",PACKED_DATA_FIELD_XPATH,XPathConstants.NODESET,XPathConstants.NODE);
+    LOG.debug("validatePackedFields:packedDataFields.getLength() {}",packedDataFields.getLength());
     for (int i = 0; i < packedDataFields.getLength(); i++) {
       Node packedDataField = packedDataFields.item(i);
       SourceLocation nodeLocation = 
@@ -690,6 +731,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           Number definedBitFields = (Number) xPathFactory.newXPath()
               .evaluate("child::*[name()='bit_fields']/text()", 
                   packedDataField, XPathConstants.NUMBER);
+          LOG.debug("validatePackedFields:i,packedDataFields.getLength(),definedBitFields.intValue(),fieldBits.getLength() {},{},{},{}",i,packedDataFields.getLength(),definedBitFields.intValue(),fieldBits.getLength());
           if ( definedBitFields.intValue() != fieldBits.getLength()) {
             getListener().addProblem(
                 new ValidationProblem(new ProblemDefinition(
@@ -724,6 +766,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             xe.getMessage());       
       }
     }
+    LOG.debug("Leaving validatePackedFields");
   }
     
   /**

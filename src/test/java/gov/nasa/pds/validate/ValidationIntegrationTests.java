@@ -1107,10 +1107,77 @@ class ValidationIntegrationTests {
         }
     }
 
+    @Test
+    void testGithub11() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github11");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github11_invalid_1.json");
 
+            // Run the invalid test #1 with bad format [%+8s] in field_number 2
 
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "test_data/science_index_bad_1.xml",
+                    };
+            this.launcher.processMain(args);
 
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
 
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+            //assertEquals(3, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "3 error messages expected.\n" + reportJson.toString());
+
+            int count = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // Run the invalid test #2 with bad format [%-2d] in field_number 6.
+            File report2 = new File(outFilePath + File.separator + "report_github11_invalid_2.json");
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "test_data/science_index_bad_2.xml",
+                    };
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+            //assertEquals(3, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "3 error messages expected.\n" + reportJson.toString());
+
+            int count2 = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(1, count2,  "1 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // Run the valid test with good formats.
+            // Note that because we want the test to pass we use --skip-context-validation so as it is easier to 
+            // see if the format is good.  We are only interested in validating the format of the table, not the file in archive.
+
+            File report3 = new File(outFilePath + File.separator + "report_github11_valid.json");
+
+            String[] args3 = {
+                    "-r", report3.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "test_data/science_index_good.xml",
+                    "--skip-context-validation",
+                    };
+            this.launcher.processMain(args3);
+
+            reportJson = gson.fromJson(new FileReader(report3), JsonObject.class);
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "No error messages expected.\n" + reportJson.toString());
+
+            int count3 = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
+            assertEquals(0, count3,  "0 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
 
     @Test
     void testGithub209() {
