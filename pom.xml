@@ -40,7 +40,7 @@ POSSIBILITY OF SUCH DAMAGE.
   <parent>
     <groupId>gov.nasa</groupId>
     <artifactId>pds</artifactId>
-    <version>1.5.0</version>
+    <version>1.7.0</version>
   </parent>
 
   <groupId>gov.nasa.pds</groupId>
