@@ -36,7 +36,7 @@
         <type>Instrument</type>
         <description>The description for SpeX can be found in the document collection for this bundle.</description>
         <Internal_Reference>
-          <lid_reference>urn:nasa:pds:context:instrument:irtf3m0.spex</lid_reference>
+          <lid_reference>urn:nasa:pds:context:instrument:telescope.spex.irtf3m0</lid_reference>
           <reference_type>is_instrument</reference_type>
         </Internal_Reference>
       </Observing_System_Component>
@@ -47,15 +47,6 @@
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:facility:observatory.mauna_kea</lid_reference>
           <reference_type>is_facility</reference_type>
-        </Internal_Reference>
-      </Observing_System_Component>
-      <Observing_System_Component>
-        <name>Infrared Telescope Facility</name>
-        <type>Telescope</type>
-        <description>The description for Infrared Telescope Facility can be found in the document collection for this bundle.</description>
-        <Internal_Reference>
-          <lid_reference>urn:nasa:pds:context:telescope:mauna_kea.irtf3m0</lid_reference>
-          <reference_type>is_telescope</reference_type>
         </Internal_Reference>
       </Observing_System_Component>
     </Observing_System>
