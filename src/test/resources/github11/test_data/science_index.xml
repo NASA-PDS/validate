@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1600.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1600.xsd">
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
   <Identification_Area>
     <logical_identifier>urn:nasa:pds:mars_spectra_reddy:data:science_index_tab</logical_identifier>
     <version_id>1.0</version_id>
     <title>SCIENCE INDEX</title>
-    <information_model_version>1.6.0.0</information_model_version>
+    <information_model_version>1.15.0.0</information_model_version>
     <product_class>Product_Observational</product_class>
   </Identification_Area>
   <Observation_Area>
@@ -42,7 +42,7 @@
       </Observing_System_Component>
       <Observing_System_Component>
         <name>Mauna Kea Observatory</name>
-        <type>Observatory</type>
+        <type>Host</type>
         <description>The description for Mauna Kea Observatory can be found in the document collection for this bundle.</description>
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:facility:observatory.mauna_kea</lid_reference>
