@@ -318,7 +318,7 @@ class ValidationIntegrationTests {
 
             int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
 
-            assertEquals(infos, 4, "info.label.context_ref_found info messages expected.\n" + reportJson.toString());
+            assertEquals(infos, 4, "Found " + Integer.toString(infos) + " but expecting 4 info.label.context_ref_found info messages.\n" + reportJson.toString());
 
             // Now let's test for additional context products in another product
             report = new File(outFilePath + File.separator + "report_github62_2.json");
@@ -339,7 +339,7 @@ class ValidationIntegrationTests {
             int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
             count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 8, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
+            assertEquals(count, 8, "8 " + ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -1205,16 +1205,16 @@ class ValidationIntegrationTests {
             int count = 0;
 
             count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
-            assertEquals(5, count,  "5 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(5, count,  "5 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
 
             count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
-            assertEquals(3, count,  "3 " + ProblemType.UNALLOWED_BASE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(3, count,  "3 " + ProblemType.UNALLOWED_BASE_NAME.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
 
             count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
-            assertEquals(1, count,  "1 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(0, count,  "0 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
 
             count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
-            assertEquals(1, count,  "1 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(0, count,  "0 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
 
             // Run the valid bundle test.
             File report2 = new File(outFilePath + File.separator + "report_github5_bundle_valid.json");
