@@ -69,9 +69,11 @@ public class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule {
 
 	private ValidationProblem checkFileOrDirectoryNameWithChecker(URL u, Map<String, String> seenNames, boolean isDirectory) {
         String name = FilenameUtils.getName(Utility.removeLastSlash(u.toString()));
+        LOG.debug("checkFileOrDirectoryNameWithChecker: u,name [{}],[{}]",u,name);
 
         // File names must be no longer than 255 characters.
-        if (name.length() > MAXIMUM_FILE_NAME_LENGTH) {
+        // Use member function to perform the check.
+        if (isFilenameTooLong(name)) {
             LOG.debug("File names must be no longer than 255 characters: {}",name);
             return(this.constructError(isDirectory ? PDS4Problems.DIRECTORY_NAME_TOO_LONG : PDS4Problems.FILE_NAME_TOO_LONG,
 				u,
@@ -80,8 +82,9 @@ public class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule {
         }
     
 		// File names must use legal characters.
-		Matcher matcher = NAMING_PATTERN.matcher(name);
-		if (!matcher.matches()) {
+        // Use member function to perform the check.
+        if (!isFilenameContainingLegalCharacters(name)) {
+            LOG.error("File containing invalid characters " + name);
             LOG.debug("File names must use legal characters: {}",name);
             return(this.constructError(isDirectory ? PDS4Problems.DIRECTORY_NAME_USES_INVALID_CHARACTER : PDS4Problems.FILE_NAME_USES_INVALID_CHARACTER,
                                        u,
@@ -90,7 +93,8 @@ public class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule {
 		}
 
 		// Additionally, directories cannot have extensions.
-		if (isDirectory && name.contains(".")) {
+        // Use member function to perform the check.
+        if (isDirectoryContainingInvalidCharacter(name,isDirectory)) {
             LOG.debug("Directories cannot have extensions: {}",name);
             return(this.constructError(PDS4Problems.DIRECTORY_NAME_USES_INVALID_CHARACTER,
 					u,
@@ -111,15 +115,14 @@ public class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule {
 		}
 
 		// Prohibited file names.
-		if (!isDirectory && ("a.out".equalsIgnoreCase(name) || "core".equalsIgnoreCase(name))) {
+        // The file "core" is checked below in isFilenameProhibited() function so no need to check here.
+        if (!isDirectory && ("a.out".equalsIgnoreCase(name))) {
             LOG.debug("Prohibited file name: {}",name);
 			return(this.constructError(PDS4Problems.UNALLOWED_FILE_NAME, u, -1, -1));
 		}
 
-		// Prohibited base names or directory names.
-		int lastDotPos = name.lastIndexOf('.');
-		String baseName = (lastDotPos < 0 ? name : name.substring(0, lastDotPos));
-		if (PROHIBITED_BASE_NAMES.contains(baseName)) {
+        // Use the common isFilenameProhibited() function to check against prohibited basename.
+		if (isFilenameProhibited(name)) {
             LOG.debug("Prohibited base name or directory name: {}",name);
 			return(this.constructError(
 					isDirectory ? PDS4Problems.UNALLOWED_DIRECTORY_NAME : PDS4Problems.UNALLOWED_BASE_NAME,

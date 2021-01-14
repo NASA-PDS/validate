@@ -28,6 +28,7 @@ import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationResourceManager;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
+import gov.nasa.pds.tools.validate.rule.FileAreaExtractor;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import gov.nasa.pds.validate.constants.Constants;
@@ -146,6 +147,8 @@ public class LabelValidationRule extends AbstractValidationRule {
         List<Target> list = new ArrayList<Target>();
         list.add(new Target(target,false)); // Make a list of just one name.
         List<ValidationProblem> validationProblems = FileAndDirectoryNamingChecker.checkFileAndDirectoryNamingWithChecker(list);
+        LOG.debug("flagBadFilename:target {}",target);
+        LOG.debug("flagBadFilename:validationProblems.size() {}",validationProblems.size());
         if (validationProblems.size() > 0) {
             for (ValidationProblem problem : validationProblems) {
                 problem.setSource(target.toString()); // Because all problems with the filename are for target, set the source with target.
@@ -179,6 +182,14 @@ public class LabelValidationRule extends AbstractValidationRule {
 
         // Do a sanity check on bad file name.
 	    this.flagBadFilename(target);
+
+        // Also check any file names referred to in this label.
+        try {
+            FileAreaExtractor fileAreaExtractor = new FileAreaExtractor();
+            fileAreaExtractor.findAndFlagBadFilenames(target,getListener());
+        } catch (Exception ignore) {
+            LOG.error("Function findAndFlagBadFilenames() failed for target {}",target);
+        }
 
         Document document = null;
         boolean pass = true;
@@ -252,6 +263,7 @@ public class LabelValidationRule extends AbstractValidationRule {
           LOG.debug("validateLabel:afor:target {}",target);
           document = validator.parseAndValidate(processor, target);
         }
+        LOG.debug("validateLabel:target,document {},{}",target,document);
         if (document != null) {
           getContext().put(PDS4Context.LABEL_DOCUMENT, document);
           labelIsValidFlag = true;  // A non-null document signified that the label is valid.
@@ -575,15 +587,18 @@ public class LabelValidationRule extends AbstractValidationRule {
       XMLExtractor extractor = getExtractor(label);
       value = extractor.getSchemaLocation();
     } catch (Exception e) {
+      LOG.error("getSchemaLocations:Error occurred while attempting to find schemas using the XPath '" + XMLExtractor.SCHEMA_LOCATION_XPATH + "': " + e.getMessage());
       throw new Exception(
           "Error occurred while attempting to find schemas using the XPath '"
           + XMLExtractor.SCHEMA_LOCATION_XPATH + "': " + e.getMessage());
     }
     if (value == null || value.isEmpty()) {
+      LOG.error("getSchemaLocations:No schema(s) found in the label.");
       throw new Exception("No schema(s) found in the label.");
     } else {
       StringTokenizer tokenizer = new StringTokenizer(value);
       if ((tokenizer.countTokens() % 2) != 0) {
+        LOG.error("getSchemaLocations:schemaLocation value does not appear to have matching sets of " + "namespaces to uris: '" + schemaLocations + "'");
         throw new Exception(
             "schemaLocation value does not appear to have matching sets of "
             + "namespaces to uris: '" + schemaLocations + "'");
@@ -605,6 +620,7 @@ public class LabelValidationRule extends AbstractValidationRule {
               URL parent = label.toURI().resolve(".").toURL();
               schemaUrl = new URL(parent, uri);
             } catch (MalformedURLException mue) {
+              LOG.error("getSchemaLocations:Cannot resolve schema specification '" + uri + "': " + mue.getMessage());
               throw new Exception(
                   "Cannot resolve schema specification '"
                       + uri + "': " + mue.getMessage());
@@ -616,6 +632,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         }
       }
     }
+    //LOG.debug("getSchemaLocations:schemaLocations.size() {}",schemaLocations.size());
     return schemaLocations;
   }
 

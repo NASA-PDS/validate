@@ -318,7 +318,7 @@ class ValidationIntegrationTests {
 
             int infos = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
 
-            assertEquals(infos, 4, "info.label.context_ref_found info messages expected.\n" + reportJson.toString());
+            assertEquals(infos, 4, "Found " + Integer.toString(infos) + " but expecting 4 info.label.context_ref_found info messages.\n" + reportJson.toString());
 
             // Now let's test for additional context products in another product
             report = new File(outFilePath + File.separator + "report_github62_2.json");
@@ -339,7 +339,7 @@ class ValidationIntegrationTests {
             int count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
             count += this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
 
-            assertEquals(count, 8, ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
+            assertEquals(count, 8, "8 " + ProblemType.CONTEXT_REFERENCE_FOUND.getKey() + " and " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + " info/error messages expected.\n" + reportJson.toString());
 
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
@@ -1171,6 +1171,97 @@ class ValidationIntegrationTests {
 
             int count3 = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
             assertEquals(0, count3,  "0 " + ProblemType.INVALID_LABEL.getKey() + "  messages expected.\n" + reportJson.toString());
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testGithub5() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github5");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github5_bundle_invalid.json");
+
+            // Run the invalid test #1 with bad file names and bad directory name with dot '.' character.
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/bundle_kaguya_derived.xml",
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = 0;
+
+            count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(5, count,  "5 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
+            assertEquals(3, count,  "3 " + ProblemType.UNALLOWED_BASE_NAME.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            // Run the valid bundle test.
+            File report2 = new File(outFilePath + File.separator + "report_github5_bundle_valid.json");
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/bundle_kaguya_derived.xml",
+                    };
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "0 error messages expected.\n" + reportJson.toString());
+
+            // Run the invalid label test to catch file with invalid character.  
+            File report3 = new File(outFilePath + File.separator + "report_github5_label_invalid.json");
+
+            String[] args3 = {
+                    "-r", report3.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/VALID_odf07155_msgr_11_with_bad_char_#_.xml",
+                    };   
+            this.launcher.processMain(args3);
+
+            reportJson = gson.fromJson(new FileReader(report3), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // Run the valid label test.
+            File report4 = new File(outFilePath + File.separator + "report_github5_label_valid.json");
+
+            String[] args4 = {
+                    "-r", report4.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/VALID_odf07155_msgr_11.xml",
+                    "--skip-content-validation"
+                    };
+            this.launcher.processMain(args4);
+
+            reportJson = gson.fromJson(new FileReader(report4), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
         } catch (ExitException e) {
             assertEquals(0, e.status, "Exit status");
         } catch (Exception e) {
