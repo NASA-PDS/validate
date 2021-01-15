@@ -1271,6 +1271,58 @@ class ValidationIntegrationTests {
     }
 
     @Test
+    void testGithub278() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github278");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github278_label_invalid.json");
+
+            // Run the invalid label test with version id greater than registered context.
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/trk-2-34-revn-l5_tnf_invalid.xml",
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = 0;
+
+            count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            // Run the valid label test.
+            File report2 = new File(outFilePath + File.separator + "report_github278_label_valid.json");
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/trk-2-34-revn-l5_tnf.xml",
+                    };
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
+    @Test
     void testGithub209() {
         try {
             // Setup paths

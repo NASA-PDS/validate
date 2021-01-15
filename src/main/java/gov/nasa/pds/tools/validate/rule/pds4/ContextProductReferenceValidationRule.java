@@ -44,6 +44,9 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.ContextProductReference;
@@ -63,6 +66,7 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  *
  */
 public class ContextProductReferenceValidationRule extends AbstractValidationRule {
+    private static final Logger LOG = LoggerFactory.getLogger(ContextProductReferenceValidationRule.class);
 
     private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
@@ -107,8 +111,50 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
       return true;
     }
 
+    private boolean performVersionIdSearch(List<ContextProductReference> rgProds, ContextProductReference lidvidObj) {
+        // The list of registered products only contain the latest version as of 01/08/2021.
+        // If the exact lidvid cannot be found in the list of registered products, do an additional check on the
+        // version id (vid).  As long as the registered version is greater than the provided
+        // version, the provided lidvid is considered good.
+        //
+        // Provided lidvid:   urn:nasa:pds:context:investigation:mission.insight::1.0
+        // Registered lidvid: urn:nasa:pds:context:investigation:mission.insight::2.0
+        //
+        // Parameters:
+        // List<ContextProductReference> rgProds   = a list of all registered products parsed from registered_context_products.json file.
+        // ContextProductReference       lidvidObj = the lidvid to check against the list registered products.
+
+        boolean contextReferenceFoundFlag = false;
+        LOG.debug("performVersionIdSearch:lidvidObj,rgProds.size() {},{}",lidvidObj,rgProds.size());
+
+        // If is possible for older version of lidvid to not have the version id.  Must first perform a check.
+        // If no version is provided, return immediately.
+        if (lidvidObj.hasVersion()) {
+            double providedVersionId = Double.parseDouble(lidvidObj.getVersion());
+            String providedLogicalId = lidvidObj.getLid();
+
+            ContextProductReference contextProductReference = null;
+            int refIndex = 0;
+            while (!contextReferenceFoundFlag && refIndex < rgProds.size()) { 
+                contextProductReference = rgProds.get(refIndex);
+                //LOG.debug("performVersionIdSearch:refIndex,providedLogicalId,providedVersionId,contextProductReference.getVersion() {},{}",refIndex,providedLogicalId,providedVersionId,contextProductReference.getVersion());
+                if (contextProductReference.getLid().equals(providedLogicalId)) {
+                    // If the provided logical id is the same and the provided version id is greater or equal to registered,
+                    // the reference is good.
+                    if (contextProductReference.hasVersion()  && (Double.parseDouble(contextProductReference.getVersion()) >= providedVersionId)) {
+                        contextReferenceFoundFlag = true;
+                    }
+                }
+                refIndex += 1;
+            
+            }
+        }
+        return(contextReferenceFoundFlag);
+    }
+
     @ValidationTest
     public void checkContextReferences() throws XPathExpressionException {
+        LOG.debug("checkContextReferences: getContext().getValidateContext() {}",getContext().getValidateContext());
         if (getContext().getValidateContext()) {            
             URI uri = null;
             try {
@@ -125,6 +171,8 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                     XPathConstants.NODESET);
     
             List<ContextProductReference> rgProds = getContext().getRegisteredProducts().get("Product_Context");
+            LOG.debug("checkContextReferences: uri,references.getLength() {},{}",uri,references.getLength());
+            LOG.debug("checkContextReferences: uri,rgProds () {},{}",uri,rgProds);
             for (int i = 0; i < references.getLength(); i++) {
     
                 // get name and type from parent
@@ -139,6 +187,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
     
                 // System.out.println("Nubmber of nodes parent: " +
                 // nodesOfParent.getLength());
+LOG.debug("checkContextReferences: uri,nodesOfParent.getLength() {},{}",uri,nodesOfParent.getLength());
                 for (int n = 0; n < nodesOfParent.getLength(); n++) {
                     Node parantN = nodesOfParent.item(n);
                     if (parantN.getNodeName().equals("name")) {
@@ -151,12 +200,14 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                 // check LIDVID and name and type
                 NodeList children = references.item(i).getChildNodes();
                 for (int j = 0; children != null && j < children.getLength(); j++) {
+                    //LOG.debug("checkContextReferences: uri,j,children.item(j).getLocalName() {},{},{}",uri,j,children.item(j).getLocalName());
                     if ("lidvid_reference".equalsIgnoreCase(children.item(j).getLocalName())
                             || "lid_reference".equalsIgnoreCase(children.item(j).getLocalName())) {
     
                         locator = (SourceLocation) children.item(j)
                                 .getUserData(SourceLocation.class.getName());
                         String lidvid = children.item(j).getTextContent();
+                        //LOG.debug("checkContextReferences: uri,j,lidvid {},{},{}",uri,j,lidvid);
                         //System.out.println("lidvid: " + lidvid);
     
                         // check name/type is available
@@ -164,14 +215,31 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
     
                         //int rpJsonSize = rgProds.size();
                         //System.out.println("rpJsonSize: " + rpJsonSize);
+                        //LOG.debug("checkContextReferences: uri,j,lidvid,lidvidObj {},{},{},{}",uri,j,lidvid,lidvidObj);
                         try {
                         if (!rgProds.contains(lidvidObj)) {
+                          // The list of registered products only contain the latest version as of 01/08/2021.
+                          // If the exact lidvid cannot be found in the list of registered products, do an additional check on the
+                          // version id (vid).  As long as the registered version is greater than the provided
+                          // version, the provided lidvid is considered good.
+                          //
+                          // Provided lidvid:   urn:nasa:pds:context:investigation:mission.insight::1.0
+                          // Registered lidvid: urn:nasa:pds:context:investigation:mission.insight::2.0
+
+                          boolean contextReferenceFoundFlag = performVersionIdSearch(rgProds,lidvidObj);
+
+                          LOG.debug("checkContextReferences: lidvidObj,contextReferenceFoundFlag {},{}",lidvidObj,contextReferenceFoundFlag);
+
+                          // Finally if the version id indeed not found, then report the error.
+                          if (!contextReferenceFoundFlag) {
                             getListener().addProblem(new ValidationProblem(
                                     new ProblemDefinition(ExceptionType.ERROR, ProblemType.CONTEXT_REFERENCE_NOT_FOUND,
                                             "'Context product not found: " + lidvid),
                                     target, locator.getLineNumber(), -1));
+                           }
                         } else {
                             // Found LidVid
+                            //LOG.debug("checkContextReferences: " + "'Context product indeed found: " + lidvid); 
                             getListener().addProblem(new ValidationProblem(
                                     new ProblemDefinition(ExceptionType.INFO, ProblemType.CONTEXT_REFERENCE_FOUND,
                                             "Context product found: '" + lidvid + "'"),
