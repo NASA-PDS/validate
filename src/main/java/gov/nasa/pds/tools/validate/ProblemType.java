@@ -50,6 +50,10 @@ public enum ProblemType {
 
     MISSING_CHECKSUM("error.label.missing_checksum"),
 
+    FILESIZE_MISMATCH("error.label.filesize_mismatch"),
+
+    MISSING_FILESIZE("error.label.missing_filesize"),
+
     SCHEMA_ERROR("error.label.schema"),
 
     SCHEMATRON_ERROR("error.label.schematron"),
@@ -183,7 +187,11 @@ public enum ProblemType {
 
     CHECKSUM_MATCHES("info.label.checksum_matches"),
 
+    FILESIZE_MATCHES("info.label.filesize_matches"),
+
     MISSING_CHECKSUM_INFO("info.label.missing_checksum"),
+
+    MISSING_FILESIZE_INFO("info.label.missing_filesize"),
 
     SCHEMATRON_INFO("info.label.schematron"),
 

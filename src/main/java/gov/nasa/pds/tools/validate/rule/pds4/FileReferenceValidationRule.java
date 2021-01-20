@@ -36,6 +36,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.MD5Checksum;
 import gov.nasa.pds.tools.util.Utility;
@@ -200,6 +201,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             String name = "";
             String checksum = "";
             String directory = "";
+            String filesize  = "";
             List<TinyNodeImpl> children = new ArrayList<TinyNodeImpl>();
             try {
               children = extractor.getNodesFromItem("*", fileObject);
@@ -220,8 +222,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 checksum = child.getStringValue();
               } else if ("directory_path_name".equals(child.getLocalPart())) {
                 directory = child.getStringValue();
+              } else if ("file_size".equals(child.getLocalPart())) { // Fetch the file_size value from label.
+                filesize = child.getStringValue();
               }
             }
+
             if (name.isEmpty()) {
               ProblemDefinition def = new ProblemDefinition(
                   ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE, 
@@ -274,6 +279,22 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                       fileObject.getLineNumber(), -1));
                   passFlag = false;
                 }
+
+                // Check for provided file_size value and against the calculated size.
+                try {
+                  problems.addAll(handleFilesize(target, urlRef,
+                      fileObject, filesize));
+                } catch (Exception e) {
+                  ProblemDefinition def = new ProblemDefinition(
+                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, 
+                      "Error occurred while calculating filesize for "
+                      + FilenameUtils.getName(urlRef.toString()) + ": "
+                      + e.getMessage());
+                  problems.add(new ValidationProblem(def, target, 
+                      fileObject.getLineNumber(), -1));
+                  passFlag = false;
+                }
+
               } catch (IOException io) {
                 ProblemDefinition def = new ProblemDefinition(
                     ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
@@ -334,7 +355,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   private List<ValidationProblem> handleChecksum(ValidationTarget target, URL urlRef,
       TinyNodeImpl fileObject, String checksumInLabel)
   throws Exception {
+    LOG.debug("handleChecksum:target,urlRef,checksumInLabel {},{},{}",target,urlRef,checksumInLabel);
     if (checksumManifest.isEmpty() && (checksumInLabel == null || checksumInLabel.isEmpty())) {
+        String message = "No checksum found in the manifest for '"
+            + urlRef + "'";
+        LOG.debug("handleChecksum:"+message);
         return new ArrayList<ValidationProblem>();
     } else {
         List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
@@ -405,8 +430,91 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
           } else {
             String message = "No checksum to compare against in the product label "
                 + "for '" + urlRef + "'";
+            LOG.debug("handleChecksum:"+message);
             ProblemDefinition def = new ProblemDefinition(
                 ExceptionType.INFO, ProblemType.MISSING_CHECKSUM_INFO, message);
+            messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          }
+        }
+        return messages;
+    }
+  }  
+
+  private List<ValidationProblem> handleFilesize(ValidationTarget target, URL fileRef)
+  throws Exception {
+    return handleFilesize(target, fileRef, null, null);
+  }
+
+  /**
+   * Method to handle filesize processing.
+   *
+   * @param target The source (product label).
+   * @param urlRef The uri of the file being processed.
+   * @param fileObject The Node representation of the file object.
+   * @param filesizeInLabel Supplied filesize in the label. Can pass in
+   * an empty value. If a null value is passed instead, it tells the
+   * method to not do a check to see if the generated value matches
+   * a supplied value. This would be in cases where a label's own
+   * filesize is being validated.
+   *
+   * @return The resulting list of problems with filesize processing.
+   *
+   * @throws Exception If there was an error generating the filesize
+   *  (if the flag was on)
+   */
+  private List<ValidationProblem> handleFilesize(ValidationTarget target, URL urlRef,
+      TinyNodeImpl fileObject, String filesizeInLabel)
+  throws Exception {
+    LOG.debug("handleFilesize:target,urlRef,filesizeInLabel {},{},{}",target,urlRef,filesizeInLabel);
+    if (filesizeInLabel == null || filesizeInLabel.isEmpty())  {
+        String message = "No filesize to compare against in the product label "
+                + "for '" + urlRef + "'";
+        LOG.debug("handleFilesize:"+message);
+        return new ArrayList<ValidationProblem>();  // Return an empty list.
+    } else {
+        List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
+        int fileSizeAsInt = FileSizesUtil.getExternalFilesize(urlRef);  // Get the actual file size.
+        String generatedFilesize = Integer.toString(fileSizeAsInt); 
+        int lineNumber = -1;
+        if (fileObject != null) {
+          lineNumber = fileObject.getLineNumber();
+        }
+
+        // For dealing with file size, there is no manifest to check like the checksum processing.
+        // If the file size is provided, compare it with the actual file size generated.
+
+        if (filesizeInLabel != null) {
+          if (!filesizeInLabel.isEmpty()) {
+            String message = "";
+            ProblemType type = null;
+            ExceptionType severity = null;
+            if (!generatedFilesize.equals(filesizeInLabel)) {
+              message = "Generated filesize '" + generatedFilesize
+                  + "' does not match supplied filesize '"
+                  + filesizeInLabel + "' in the product label for '"
+                  + urlRef + "'";
+              type = ProblemType.FILESIZE_MISMATCH;
+              severity = ExceptionType.ERROR;
+            } else {
+              message = "Generated filesize '" + generatedFilesize
+                  + "' matches the supplied filesize '" + filesizeInLabel
+                  + "' in the product label for '"
+                  + urlRef + "'";
+              type = ProblemType.FILESIZE_MATCHES;
+              severity = ExceptionType.INFO;
+            }
+            if (!message.isEmpty()) {
+              ProblemDefinition def = new ProblemDefinition(severity, type, 
+                  message);
+              messages.add(new ValidationProblem(def, target, lineNumber, -1));
+            }
+          } else {
+            // The file size is not provided, report for info only.
+            String message = "No filesize to compare against in the product label "
+                + "for '" + urlRef + "'";
+            LOG.debug("handleFilesize:"+message);
+            ProblemDefinition def = new ProblemDefinition(
+                ExceptionType.INFO, ProblemType.MISSING_FILESIZE_INFO, message);
             messages.add(new ValidationProblem(def, target, lineNumber, -1));
           }
         }

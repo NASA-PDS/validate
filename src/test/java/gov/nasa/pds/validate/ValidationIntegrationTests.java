@@ -1322,6 +1322,122 @@ class ValidationIntegrationTests {
         }
     }
 
+
+
+
+    @Test
+    void testGithub281() {
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github281");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github281_label_invalid_1.json.json");
+
+            // Run the invalid label test with bad file size.
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/collection_gwe_spk_invalid_1_bad_filesize.xml",
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = 0;
+
+            count = this.getMessageCount(reportJson, ProblemType.FILESIZE_MISMATCH.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.FILESIZE_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+
+            File report2 = new File(outFilePath + File.separator + "report_github281_label_invalid_2.json");
+
+            // Run the invalid label test with bad checksum.
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/collection_gwe_spk_invalid_2_bad_checksum.xml",
+                    };   
+            this.launcher.processMain(args2);
+
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.CHECKSUM_MISMATCH.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.CHECKSUM_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+
+            File report3 = new File(outFilePath + File.separator + "report_github281_label_invalid_3.json");
+
+            // Run the invalid label test with bad checksum, no file size.
+
+            String[] args3 = {
+                    "-r", report3.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/collection_gwe_spk_invalid_3_bad_checksum_no_filesize.xml",
+                    };   
+            this.launcher.processMain(args3);
+            reportJson = gson.fromJson(new FileReader(report3), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.CHECKSUM_MISMATCH.getKey());
+            assertEquals(1, count,  "1 " + ProblemType.CHECKSUM_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            // Run the valid label test 1.
+            File report4 = new File(outFilePath + File.separator + "report_github281_label_valid_1.json");
+
+            String[] args4 = {
+                    "-r", report4.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/collection_gwe_spk_valid_1.xml",
+                    };
+            this.launcher.processMain(args4);
+            reportJson = gson.fromJson(new FileReader(report4), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FILESIZE_MISMATCH.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.FILESIZE_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            File report5 = new File(outFilePath + File.separator + "report_github281_label_valid_2.json");
+
+            String[] args5 = {
+                    "-r", report5.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/collection_gwe_spk_valid_2_no_filesize.xml",
+                    };
+            this.launcher.processMain(args5);
+            reportJson = gson.fromJson(new FileReader(report5), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FILESIZE_MISMATCH.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.FILESIZE_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+
+            File report6 = new File(outFilePath + File.separator + "report_github281_label_valid_3.json");
+
+            String[] args6 = {
+                    "-r", report6.getAbsolutePath(),
+                    "-R", "pds4.label",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/collection_gwe_spk_valid_3_no_filesize_no_checksum.xml",
+                    };
+            this.launcher.processMain(args6);
+            reportJson = gson.fromJson(new FileReader(report6), JsonObject.class);
+
+            count = this.getMessageCount(reportJson, ProblemType.FILESIZE_MISMATCH.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.FILESIZE_MISMATCH.getKey() + "  messages expected, received " + Integer.toString(count) + ".\n" + reportJson.toString());
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
     @Test
     void testGithub209() {
         try {

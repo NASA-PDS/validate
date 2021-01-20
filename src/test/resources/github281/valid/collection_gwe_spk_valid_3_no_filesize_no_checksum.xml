@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Collection
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:cassini.rss.raw.gwe:calib.spk</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Cassini Radio Science GWE SPICE SPK Calibration Products Collection</title>
+    <information_model_version>1.13.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>Simpson, R. A.</author_list>
+      <publication_year>2021</publication_year>
+      <description>
+          Cassini Orbiter ephemeris kernel (SPK) files for radio science GWE 
+          observations, migrated from the original PDS3 archive.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+<!--        <modification_date>2020-12-21</modification_date>   -->
+        <modification_date>2020-12-30</modification_date>
+        <version_id>1.0</version_id>
+<!-- Two additional lines added to the description value   -->
+        <description>
+          Collection of Cassini GWE SPK data migrated from PDS3 to PDS4.
+          Duplicate files (same content, but different file names) have been omitted.
+          Because of the LID construction algorithm, the duplicates would have been assigned identical LIDs.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2001-11-26T03:59:55.817Z</start_date_time>
+      <stop_date_time>2003-11-28T23:58:55.817Z</stop_date_time>
+    </Time_Coordinates>
+
+    <Primary_Result_Summary>
+      <purpose>Calibration</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+
+    <Investigation_Area>
+      <name>Cassini-Huygens</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+
+    <Observing_System>
+          <Observing_System_Component>
+                <name>Cassini Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                      <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+                      <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+          </Observing_System_Component>
+<!--          <Observing_System_Component> 
+                <name>Radio Science Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                      <lid_reference>urn:nasa:pds:context:instrument:co.rss</lid_reference>
+                      <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+          </Observing_System_Component>   -->
+          <Observing_System_Component>
+            <name>NASA Deep Space Network</name>
+                <type>Facility</type>
+                <Internal_Reference>
+                      <lid_reference>urn:nasa:pds:context:facility:observatory.dsn</lid_reference>
+                      <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+          </Observing_System_Component>
+          <Observing_System_Component>
+                <name>Deep Space Network Instrumentation</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                      <lid_reference>urn:nasa:pds:context:instrument:dsn.rss</lid_reference>
+                      <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+          </Observing_System_Component>
+    </Observing_System>
+
+    <Target_Identification>
+          <name>Gravitational Waves</name>
+          <type>Astrophysical</type>
+          <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:astrophysical.gravitational_waves</lid_reference>
+                <reference_type>collection_to_target</reference_type>
+          </Internal_Reference>
+    </Target_Identification>
+
+  </Context_Area>
+
+  <Reference_List>
+       <Internal_Reference>
+             <lid_reference>urn:nasa:pds:cassini.rss.raw.gwe:document:sis.spk</lid_reference>
+             <reference_type>collection_to_document</reference_type>
+       </Internal_Reference>
+  </Reference_List>
+
+  <Collection>
+    <collection_type>Calibration</collection_type>
+    <description>
+       Cassini Orbiter ephemeris kernel (SPK) files for radio science 
+       observations, migrated from the original PDS3 archive.
+    </description>
+  </Collection>
+
+  <File_Area_Inventory>
+    <File>
+      <file_name>collection_gwe_spk.csv</file_name>
+      <creation_date_time>2020-12-16T23:05:39.866Z</creation_date_time>
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>3</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <maximum_record_length unit="byte">257</maximum_record_length>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>
