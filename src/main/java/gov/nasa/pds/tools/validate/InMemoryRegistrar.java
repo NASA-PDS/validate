@@ -152,11 +152,26 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized Collection<String> getUnreferencedTargets() {
     Set<String> unreferencedTargets = new TreeSet<String>();
     //Ignore directory targets
+    //LOG.debug("getUnreferencedTargets: targets.keySet(),targets.keySet().size() {},{}",targets.keySet(),targets.keySet().size());
+    int fileCount = 0;
+    int unreferencedCount = 0;
+
+    // The function Utility.isDir() has a bug as of 01/20/2021.  It thinks a file with no extension is a directory.
+    // This bug causes any files without extension to be ignored to be checked for unreferenced.
+    // Until the bug in Utility.java is fixed, the code is this class will not have a correct accounting
+    // of unreferenced files.
+
     for (String target : targets.keySet()) {
+      fileCount += 1;
+      LOG.debug("getUnreferencedTargets: fileCount,target,Utility.isDir(target) {},{},{}",fileCount,target,Utility.isDir(target));
       if (!Utility.isDir(target)) {
+        unreferencedCount += 1;
         unreferencedTargets.add(target);
+        LOG.debug("getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,target,Utility.isDir(target),unreferencedCount {},{},{},{}",fileCount,target,Utility.isDir(target),unreferencedCount);
+        LOG.debug("getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,unreferencedCount,target {},{},{}",fileCount,unreferencedCount,target);
       }
     }
+    LOG.debug("getUnreferencedTargets: UNREFERENCED_COUNT fileCount,unreferencedCount {},{}",fileCount,unreferencedCount);
     unreferencedTargets.removeAll(referencedTargetLocations);
     return unreferencedTargets;
   }
