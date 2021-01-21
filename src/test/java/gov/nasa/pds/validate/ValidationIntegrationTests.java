@@ -1477,8 +1477,9 @@ class ValidationIntegrationTests {
             count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
             assertEquals(3, count,  "3 " + ProblemType.UNALLOWED_BASE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
 
+            // The file a.out cannot be easily added to github.  The decision to not use a.out as a test artifact.
             count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
-            assertEquals(1, count,  "1 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(0, count,  "0 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
 
             count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
             assertEquals(1, count,  "1 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
