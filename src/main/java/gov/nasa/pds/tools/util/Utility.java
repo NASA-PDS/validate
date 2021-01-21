@@ -213,7 +213,6 @@ public class Utility {
       //    (FilenameUtils.getExtension(file.toString()).length() == 0)) {
       
       // Checking using isDirectory() is sufficient to determine if a given url is a directory or not.
-      // TODO: Uncomment below line to fix the bug above.
       if (file.isDirectory()) {
         LOG.debug("isDir:isDir(),url,file {},{},{}",true,url,file);
         return true;
