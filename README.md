@@ -65,13 +65,14 @@ Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 VERSION=1.15.0
 mvn versions:set -DnewVersion=$VERSION
 git add pom.xml
+git add */pom.xml
 ```
 
 ### Update Changelog
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
 # For RELEASE CANDIDATE, set VERSION to future release version.
-github_changelog_generator --future-release $VERSION
+github_changelog_generator --future-release v$VERSION
 
 git add CHANGELOG.md
 ```
@@ -80,11 +81,7 @@ git add CHANGELOG.md
 Commit changes using following template commit message:
 ```
 # For operational release
-git commit -m "[RELEASE] Validate $VERSION"
-
-# For release candidate
-CANDIDATE_NUM=1
-git commit -m "[RELEASE] Validate ${VERSION}-rc${CANDIDATE_NUM}"
+git commit -m "[RELEASE] Validate v$VERSION"
 
 # Push changes to master
 git push -u origin master
@@ -94,10 +91,10 @@ git push -u origin master
 
 ```
 # For operational release
-mvn clean site deploy -P release
+mvn clean site site:stage package deploy -P release
 
 # For release candidate
-mvn clean site deploy
+mvn clean site site:stage package deploy
 ```
 
 Note: If you have issues with GPG, be sure to make sure you've created your GPG key, sent to server, and have the following in your `~/.m2/settings.xml`:
@@ -120,10 +117,11 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 ### Push Tagged Release
 ```
 # For Release Candidate, you may need to delete old SNAPSHOT tag
-git push origin :$VERSION
+git push origin :v$VERSION
 
 # Now tag and push
-git tag ${VERSION}
+REPO=validate
+git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION. See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/master/CHANGELOG.md) for more details."
 git push --tags
 
 ```
@@ -134,20 +132,16 @@ From cloned repo:
 ```
 git checkout gh-pages
 
-# Create specific version site
-mkdir -p $VERSION
-
 # Copy the over to version-specific and default sites
-rsync -av target/site/ $VERSION
-rsync -av $VERSION/* .
+rsync -av target/staging/ .
 
 git add .
 
 # For operational release
-git commit -m "Deploy $VERSION docs"
+git commit -m "Deploy v$VERSION docs"
 
 # For release candidate
-git commit -m "Deploy ${VERSION}-rc${CANDIDATE_NUM} docs"
+git commit -m "Deploy v${VERSION}-rc${CANDIDATE_NUM} docs"
 
 git push origin gh-pages
 ```
