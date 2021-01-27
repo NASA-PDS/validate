@@ -41,9 +41,12 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
   @ValidationTest
   public void findUnreferencedTargets() {
     LOG.debug("findUnreferencedTargets:getContext().getTarget(): {}",getContext().getTarget());
+    LOG.debug("findUnreferencedTargets:getContext().isRootTarget(),getContext().getAllowUnlabeledFiles() {},{}",getContext().isRootTarget(),getContext().getAllowUnlabeledFiles());
+    LOG.debug("findUnreferencedTargets:getRegistrar().getUnreferencedTargets().size() {}",getRegistrar().getUnreferencedTargets().size());
     // Only run the test if we are the root target, to avoid duplicate errors.
     if (getContext().isRootTarget() && !getContext().getAllowUnlabeledFiles()) {
       for (String location : getRegistrar().getUnreferencedTargets()) {
+        LOG.debug("findUnreferencedTargets:location: {}",location);
         try {
           // issue42 - to skip Product level validation
           if (!getContext().getSkipProductValidation()) 

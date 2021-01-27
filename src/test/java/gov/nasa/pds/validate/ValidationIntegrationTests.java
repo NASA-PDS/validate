@@ -1438,6 +1438,74 @@ class ValidationIntegrationTests {
         }
     }
 
+
+
+    @Test
+    void testGithub6() {
+        // Note: This test testGithub6 is very similar to testGithub5, except for the test resource containing an extra file:
+        //
+        //           data_spectra/000DANGLING_FILE_WITHOUT_EXTENSION
+        //
+        //       to demonstrate that the code now is able to 'see' a file without extension.
+
+        try {
+            // Setup paths
+            String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + "github6");
+            String outFilePath = TestConstants.TEST_OUT_DIR;
+            File report = new File(outFilePath + File.separator + "report_github6_bundle_invalid.json");
+
+            // Run the invalid test #1 with bad file names and bad directory name with dot '.' character.
+
+            String[] args = {
+                    "-r", report.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "invalid/bundle_kaguya_derived.xml",
+                    };
+            this.launcher.processMain(args);
+
+            Gson gson = new Gson();
+            JsonObject reportJson = null;
+
+            reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
+
+            int count = 0;
+
+            count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(6, count,  "6 " + ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
+            assertEquals(3, count,  "3 " + ProblemType.UNALLOWED_BASE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // The file a.out cannot be easily added to github.  The decision to not use a.out as a test artifact.
+            count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // The directory my_dir.ext cannot be easily added to github.  The decision to not use directory my_dir.ext as a test artifact.
+            count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
+            assertEquals(0, count,  "0 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+
+            // Run the valid bundle test.
+            File report2 = new File(outFilePath + File.separator + "report_github6_bundle_valid.json");
+
+            String[] args2 = {
+                    "-r", report2.getAbsolutePath(),
+                    "-R", "pds4.bundle",
+                    "-s", "json",
+                    "-t" , testPath + File.separator + "valid/bundle_kaguya_derived.xml",
+                    };
+            this.launcher.processMain(args2);
+            reportJson = gson.fromJson(new FileReader(report2), JsonObject.class);
+            assertEquals(0, reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt(),  "0 error messages expected.\n" + reportJson.toString());
+
+        } catch (ExitException e) {
+            assertEquals(0, e.status, "Exit status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Test Failed Due To Exception: " + e.getMessage());
+        }
+    }
+
     @Test
     void testGithub209() {
         try {
