@@ -1481,8 +1481,9 @@ class ValidationIntegrationTests {
             count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
             assertEquals(0, count,  "0 " + ProblemType.UNALLOWED_FILE_NAME.getKey() + "  messages expected.\n" + reportJson.toString());
 
+            // The directory my_dir.ext cannot be easily added to github.  The decision to not use directory my_dir.ext as a test artifact.
             count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
-            assertEquals(1, count,  "1 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
+            assertEquals(0, count,  "0 " + ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey() + "  messages expected.\n" + reportJson.toString());
 
             // Run the valid bundle test.
             File report2 = new File(outFilePath + File.separator + "report_github6_bundle_valid.json");
