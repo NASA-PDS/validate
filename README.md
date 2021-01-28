@@ -123,7 +123,7 @@ git push origin :v$VERSION
 
 # Now tag and push
 REPO=validate
-git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION. See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/master/CHANGELOG.md) for more details."
+git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION. \nSee [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/master/CHANGELOG.md) for more details."
 git push --tags
 
 ```
