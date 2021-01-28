@@ -29,6 +29,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implements a rule that checks for children of a directory
@@ -36,7 +38,7 @@ import org.apache.commons.io.filefilter.FalseFileFilter;
  * occur in the root directory of a bundle.
  */
 public class SubdirectoryNamingRule extends AbstractValidationRule {
-
+  private static final Logger LOG = LoggerFactory.getLogger(SubdirectoryNamingRule.class);
   private static final String[] ILLEGAL_DIRECTORY_NAMES = {
     "browse",
     "calibration",
@@ -87,11 +89,15 @@ public class SubdirectoryNamingRule extends AbstractValidationRule {
   public void checkIllegalDirectoryNames() {
     try {
       Crawler crawler = getContext().getCrawler();
+      LOG.debug("checkIllegalDirectoryNames:getTarget() {}",getTarget());
       List<Target> targets = crawler.crawl(getTarget(), FalseFileFilter.INSTANCE);
       for (Target target : targets) {
+          LOG.debug("checkIllegalDirectoryNames:target,target.isDir() {},{}",target,target.isDir());
+          LOG.debug("checkIllegalDirectoryNames:target,FilenameUtils.getName(Utility.removeLastSlash(target.toString())) {},{}",target,FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
           if (target.isDir()) {
               Matcher matcher = ILLEGAL_NAME_PATTERN.matcher(FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
               if (matcher.matches()) {
+                  LOG.debug("checkIllegalDirectoryNames:Problem UNALLOWED_BUNDLE_SUBDIRECTORY_NAME found for directory " + target);
                   reportError(PDS4Problems.UNALLOWED_BUNDLE_SUBDIRECTORY_NAME, target.getUrl(), -1, -1);
               }
           }

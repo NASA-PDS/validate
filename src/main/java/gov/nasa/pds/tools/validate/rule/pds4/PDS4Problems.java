@@ -126,9 +126,9 @@ public final class PDS4Problems {
 
     /** Indicates a directory name that is explicitly disallowed by the standard. */
     public static final ProblemDefinition UNALLOWED_BUNDLE_SUBDIRECTORY_NAME = new ProblemDefinition(
-    		ExceptionType.ERROR,
+    		ExceptionType.WARNING,
             ProblemType.UNALLOWED_BUNDLE_SUBDIR_NAME,
-            "Directory name is not allowed except in the bundle root directory",
+            "Directory name is reserved and not in the recommended location in the bundle root directory",
             Standard.PDS4_STANDARDS_REFERENCE,
             "6C.2.2"
     );
