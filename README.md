@@ -72,7 +72,9 @@ git add */pom.xml
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```
 # For RELEASE CANDIDATE, set VERSION to future release version.
-github_changelog_generator --future-release v$VERSION
+GITHUB_ORG=NASA-PDS
+GITHUB_REPO=validate
+github_changelog_generator --future-release v$VERSION --user $GITHUB_ORG --project $GITHUB_REPO --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --token $GITHUB_TOKEN
 
 git add CHANGELOG.md
 ```
