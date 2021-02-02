@@ -1,10 +1,14 @@
 package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.label.LabelValidator;
+import gov.nasa.pds.tools.util.FileFinder;
 import gov.nasa.pds.tools.validate.rule.RuleContext;
 import gov.nasa.pds.tools.validate.rule.ValidationRuleManager;
 
+import java.io.File;
 import java.net.URL;
+
+import java.security.ProtectionDomain;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
@@ -34,10 +38,17 @@ public enum ValidationResourceManager {
     private ValidationResourceManager() {
 	ConfigParser parser = new ConfigParser();
 	URL commandsURL = ClassLoader.getSystemResource("validation-commands.xml");
+
+    // The below are used by the cucumber because the commandsURL will be null.
+    if (commandsURL == null) {
+        commandsURL = FileFinder.findMyFile("." + File.separator + "target" + File.separator + "classes","validation-commands",".xml");
+    }
+
 	try {
 	    parser.parse(commandsURL);
 	} catch (Exception e) {
 	    System.err.println("Could not parse validation configuration from " + commandsURL);
+	    System.err.println("ValidationResourceManager: Could not parse validation configuration from commandsURL " + commandsURL +  " resource " + "validation-commands.xml" );
 	}
 
 	catalog = CatalogFactory.getInstance().getCatalog();

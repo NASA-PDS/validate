@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.label;
 
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.util.FileFinder;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -71,7 +72,7 @@ public class LocationValidator {
 	private LabelValidator labelValidator;
 	private RuleContext ruleContext;
 	private String validationRule;
-	
+
 	/**
 	 * Creates a new instance.
 	 * @throws ParserConfigurationException if a label validator cannot 
@@ -90,6 +91,12 @@ public class LocationValidator {
 		
 		ConfigParser parser = new ConfigParser();
 		URL commandsURL = ClassLoader.getSystemResource("validation-commands.xml");
+
+        // The below are used by the cucumber because the commandsURL will be null.
+        if (commandsURL == null) {
+            commandsURL = FileFinder.findMyFile("." + File.separator + "target" + File.separator + "classes","validation-commands",".xml");
+        }
+
         LOG.debug("logLevel {}",logLevel);
         LOG.debug("commandsURL {}",commandsURL);
 		try {
@@ -97,6 +104,8 @@ public class LocationValidator {
 		} catch (Exception e) {
 			System.err.println("Could not parse validation configuration from "
 			    + commandsURL + ": " + e);
+			System.err.println("LocationValidator: commandsURL [" + commandsURL);
+			System.err.println("LocationValidator: e [" + e + "]");
 		}
 		Catalog catalog = CatalogFactory.getInstance().getCatalog();
 		
