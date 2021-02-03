@@ -240,38 +240,28 @@ POSSIBILITY OF SUCH DAMAGE.
     </dependency>
     <dependency>
         <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>5.5.1</version>
-        <scope>compile</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>5.5.1</version>
-        <scope>compile</scope>
-    </dependency>
-    <dependency>
-         <groupId>io.cucumber</groupId>
-         <artifactId>cucumber-junit</artifactId>
-         <version>6.9.1</version>
-         <scope>compile</scope>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-core</artifactId>
+        <artifactId>cucumber-java</artifactId>
         <version>6.9.1</version>
-        <scope>compile</scope>
-    </dependency>
-<!--
--->
-    <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>4.13.1</version>
         <scope>test</scope>
     </dependency>
-<!--
--->
+    <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>6.9.1</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.vintage</groupId>
+        <artifactId>junit-vintage-engine</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
@@ -298,66 +288,13 @@ POSSIBILITY OF SUCH DAMAGE.
       <version>${pds3-product-tools.version}</version>
       <scope>compile</scope>
     </dependency>
-    <dependency>
-      <groupId>io.cucumber</groupId>
-      <artifactId>cucumber-java</artifactId>
-      <version>6.9.1</version>
-      <scope>compile</scope>
-    </dependency>
-<!--
--->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.28</version>
-      <scope>compile</scope>
-    </dependency>
 
 
   </dependencies>
 
   <!-- Inherit from parent -->
   <developers />
-<!--
   <profiles />
--->
-  <!-- Profile to run cucumber testing with: mvn test -Pcucumber-test-run -->
-
-  <profiles> 
-      <profile>
-      <id>cucumber-test-run</id>
-      <build>
-       <plugins>
-        <plugin>
-         <groupId>org.codehaus.mojo</groupId>
-         <artifactId>exec-maven-plugin</artifactId>
-         <version>3.0.0</version>
-         <executions>
-          <execution>
-           <phase>test</phase>
-           <goals>
-            <goal>java</goal>
-           </goals>
-           <configuration>
-            <mainClass>io.cucumber.core.cli.Main</mainClass>
-    <additionalClasspathElements>
-                <additionalClasspathElement>target/test-classes</additionalClasspathElement>
-                <additionalClasspathElement>target/test-classes/cucumber</additionalClasspathElement>
-                <additionalClasspathElement>target/{$project.version}/lib/*</additionalClasspathElement>
-    </additionalClasspathElements>
-            <arguments>
-             <argument>src/test/resources/features</argument>
-             <argument>--glue</argument>
-             <argument>cucumber</argument>
-            </arguments>
-           </configuration>
-          </execution>
-         </executions>
-        </plugin>
-       </plugins>
-      </build>
-     </profile>
-  </profiles>  
   <distributionManagement />
   <reporting />
 </project>
