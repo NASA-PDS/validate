@@ -3,9 +3,6 @@ package cucumber;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import io.cucumber.java.ParameterType;
-import io.cucumber.java.DataTableType;
-
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
@@ -15,15 +12,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,8 +62,6 @@ public class StepDefs {
     /**
      * @throws java.lang.Exception
      */
-    //@BeforeEach
-    // The above notation does not seem to work so commented out.
     void setUp() throws Exception {
         LOG.info("BeforeEach:Entering setUp()");
         this.outputData = new File(TestConstants.TEST_OUT_DIR);
@@ -79,14 +69,12 @@ public class StepDefs {
         System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
         this.launcher = new ValidateLauncher();
     }
-
+    
     /**
      * @throws java.lang.Exception
      */
-    //@AfterEach
-    // The above notation does not seem to work so commented out.
     void tearDown() throws Exception {
-        LOG.info("AfterEach:Entering tearDown()");
+//        FileUtils.forceDelete(this.outputData);
         this.launcher.flushValidators();
     }
 
@@ -265,7 +253,7 @@ public class StepDefs {
         System.out.println("execute_a_validate_command:testDir " + this.testDir);
 
         try {
-                this.setUp();  // This needs to be done explitly even though document says not.
+                this.setUp();
                 // Setup paths
                 String testPath = Utility.getAbsolutePath(TestConstants.TEST_DATA_DIR + File.separator + this.testDir);
                 String outFilePath = TestConstants.TEST_OUT_DIR;
@@ -287,8 +275,9 @@ public class StepDefs {
                 String[] args = this.resolveArgumentStrings();
 
                 this.launcher.processMain(args);
+                
+                this.tearDown();
 
-                this.tearDown();  // This needs to be done explitly even though document says not.
                 // Will do the compare of the report in another function.
            } catch (ExitException e) {
                 assertEquals(0, e.status, "Exit status");

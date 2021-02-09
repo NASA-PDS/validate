@@ -11,6 +11,6 @@ import io.cucumber.junit.CucumberOptions;
     glue = "cucumber")
 public class CucumberTest {
     
-    public CucumberTest() { }
+    public CucumberTest() {  }
 
 }
