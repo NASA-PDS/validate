@@ -9,14 +9,106 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
-# The below 2 are for practice only.
+ |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
+ |"NASA-PDS/validate#173 2" | "github173" | 1 | "1 info/error messages not expected." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_2.json -s json -R pds4.bundle -t {resourceDir}/github173/invalid/ --skip-content-validation" | "report_github173_2.json" |
+|"NASA-PDS/validate#149 1" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_1.json -s json -t {resourceDir}/github173/valid/bundle_kaguya_derived.xml" | "report_github149_1.json" |
+# "The attribute pds:information_model_version must be equal to the value '1.7.0.0'."}]
+# {pds-dev3.jpl.nasa.gov}/home/qchau/sandbox/validate 168 % grep -n information_model_version ./src/test/resources/github173/invalid/bundle_kaguya_derived.xml
+#11:        <information_model_version>1.11.0.0</information_model_version>
+ |"NASA-PDS/validate#149 2" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_2.json -s json -t {resourceDir}/github173/invalid/bundle_kaguya_derived.xml" | "report_github149_2.json" |
+
+ |"NASA-PDS/validate#5 1" | "github5" | 8 | "8 FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME messages expected." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github5_bundle_invalid.json -s json -t {resourceDir}/github5/invalid/bundle_kaguya_derived.xml" | "report_github5_bundle_invalid.json" |
+ |"NASA-PDS/validate#5 2" | "github5" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github5_bundle_valid.json -s json -t {resourceDir}/github5/valid/bundle_kaguya_derived.xml" | "report_github5_bundle_valid.json" |
+ |"NASA-PDS/validate#11 1" | "github11" | 1 | "1 INVALID_LABEL messages expected." | "INVALID_LABEL" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github11_invalid_1.json -s json -t {resourceDir}/github11/test_data/science_index_bad_1.xml" | "report_github11_invalid_1.json" |
+ |"NASA-PDS/validate#11 2" | "github11" | 1 | "1 INVALID_LABEL messages expected." | "INVALID_LABEL" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github11_invalid_2.json -s json -t {resourceDir}/github11/test_data/science_index_bad_2.xml" | "report_github11_invalid_2.json" |
+ |"NASA-PDS/validate#11 3" | "github11" | 0 | "0 INVALID_LABEL messages expected." | "INVALID_LABEL" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github11_valid.json -s json -t {resourceDir}/github11/test_data/science_index_good.xml" | "report_github11_valid.json" |
+ |"NASA-PDS/validate#153 1" | "github153" | 1 | "1 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github153_invalid.json -s json -t {resourceDir}/github153/iue_asteroid_spectra/document/3juno_lwr01896_ines_fits_headers.pdfa%.xml" | "report_github153_invalid.json" |
+ |"NASA-PDS/validate#153 2" | "github153" | 0 | "No error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github153_valid.json -s json -t {resourceDir}/github153/iue_asteroid_spectra/document/collection_iue_asteroid_spectra_document.xml" | "report_github153_valid.json" |
+ |"NASA-PDS/validate#17 1" | "github17" | 2 | "2 warning expected." | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github17_invalid.json -s json -t {resourceDir}/github17/delimited_table_bad.xml" | "report_github17_invalid.json" |
+ |"NASA-PDS/validate#17 2" | "github17" | 0 | "No error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github17_valid.json -s json -t {resourceDir}/github17/delimited_table_good.xml" | "report_github17_valid.json" |
+
+ |"NASA-PDS/validate#230 1" | "github230" | 2 | "2 errors expected for MISSING_VERSION." | "MISSING_VERSION" | "src/test/resources" | "target/test" | "--skip-content-validation -R pds4.bundle -r {reportDir}/report_github230_invalid.json -s json -t {resourceDir}/github230/invalid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml" | "report_github230_invalid.json" |
+ |"NASA-PDS/validate#230 2" | "github230" | 0 | "0 errors expected for MISSING_VERSION." | "MISSING_VERSION" | "src/test/resources" | "target/test" | "--skip-content-validation -R pds4.bundle -r {reportDir}/report_github230_valid.json -s json -t {resourceDir}/github230/valid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml" | "report_github230_valid.json" |
+
+ |"NASA-PDS/validate#51 1" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_1.json -s json -t {resourceDir}/github51" | "report_github51_1.json" |
+ |"NASA-PDS/validate#51 2" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_2.json -s json -t {resourceDir}/github51/valid" | "report_github51_2.json" |
+ |"NASA-PDS/validate#51 3" | "github51" | 2 | "2 errors expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --alternate_file_paths src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra --skip-product-validation --skip-content-validation -r {reportDir}/report_github51_3.json -s json -t {resourceDir}/github51/valid" | "report_github51_3.json" |
+
+ |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
+ |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
+ |"NASA-PDS/validate#240 1" | "github240" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_valid_cucumber.json -s json {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github240_bundle_valid_cucumber.json" |
+ |"NASA-PDS/validate#240 2" | "github240" | 3 | "3 errors expected for UNALLOWED_BUNDLE_SUBDIR_NAME." | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_invalid_cucumber.json -s json {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github240_bundle_invalid_cucumber.json" |
 
 # https://github.com/NASA-PDS/validate/issues/15 Verify that all name/type attribute values correspond to names denoted context products
 
-# |"github15" | "github15" | 4 | "4 valid context references should be found" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_pass.json -s json -R pds4.label -t {resourceDir}/github15/test_check-pass_context_products.xml" | "report_github15_pass.json" |
-# |"github15_2" | "github15" | 3 | "3 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
+ |"NASA-PDS/validate#15 1" | "github15" | 4 | "4 valid context references should be found" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_pass.json -s json -R pds4.label -t {resourceDir}/github15/test_check-pass_context_products.xml" | "report_github15_pass.json" |
+ |"NASA-PDS/validate#15 2" | "github15" | 3 | "3 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
 
 # The below tests are for real.
+
+ |"NASA-PDS/validate#28 1" | "github28" | 1 | "1 error expected for invalid context reference test." | "summary_message_only" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github28_1.json -s json {resourceDir}/github28/test_add_context_products.xml" | "report_github28_1.json" |
+ |"NASA-PDS/validate#28 2" | "github28" | 0 | "No errors expected for add additional context test" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github28_2.json -s json --add-context-products {resourceDir}/github28/new_context.json -t {resourceDir}/github28/test_add_context_products.xml" | "report_github28_2.json" |
+
+ |"NASA-PDS/validate#137 1" | "github137" | 0 | "FIELD_VALUE_DATA_TYPE_MISMATCH info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_1.json -s json -t {resourceDir}/github137/delimited_table_good.xml" | "report_github137_1.json" |
+ |"NASA-PDS/validate#137 1" | "github137" | 2 | "FIELD_VALUE_DATA_TYPE_MISMATCH info/error messages not expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" |  "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_2.json -s json -t {resourceDir}/github137/delimited_table_bad.xml" | "report_github137_2.json" |
+
+## Note that the reference code re-use the JSON report file for both tests but we won't
+ |"NASA-PDS/validate#47 1" | "github47" | 0 | "No errors expected. Context validation disabled" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github47_disable-valid.json -s json -R pds4.label --skip-context-validation {resourceDir}/github47/test_context_products.xml" | "report_github47_disable-valid.json" |
+ |"NASA-PDS/validate#47 2" | "github47" | 3 | "3 errors expected. Context validation enabled." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github47_enable-valid.json -s json -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
+
+ |"NASA-PDS/validate#62 1"   | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --no-data-check -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
+ |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --no-data-check -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
+
+ |"NASA-PDS/validate#71 1" | "github71" | 1 | "1 error message expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_1.json -s json --no-data-check -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_1.json" |
+ |"NASA-PDS/validate#71 2" | "github71" | 0 | "0 error message not expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_2.json -s json  -C {reportDir}/catalog.xml -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_2.json" |
+
+ |"NASA-PDS/validate#9 1" | "github09" | 0 | "info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_1.json -s json -t {resourceDir}/github09/minimal_test_product_good2.xml" | "report_github09_1.json" |
+ |"NASA-PDS/validate#9 2" | "github09" | 0 | "0 info/error messages not expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_2.json -s json -t {resourceDir}/github09/minimal_test_product_good.xml" | "report_github09_2.json" |
+ |"NASA-PDS/validate#9 3" | "github09" | 0 | "0 info/error messages not expected" | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_3.json -s json -t {resourceDir}/github09/csv_empty_field_test_VALID.xml" | "report_github09_3.json" |
+ |"NASA-PDS/validate#9 4" | "github09" | 1 | "1 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_4.json -s json -t {resourceDir}/github09/csv_empty_field_test_INVALID.xml" | "report_github09_4.json" |
+ |"NASA-PDS/validate#9 5" | "github09" | 0 | "0 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_5.json -s json -t {resourceDir}/github09/val9a.xml.xml" | "report_github09_5.json" |
+ |"NASA-PDS/validate#9 6" | "github09" | 1 | "1 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_6.json -s json -t {resourceDir}/github09/val9b.xml" | "report_github09_6.json" |
+
+ |"NASA-PDS/validate#50 1" | "github50" | 2 | "2 error messages expected.\n" | "MISSING_REFERENCED_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github50_1.json -s json --no-data-check --target-manifest {reportDir}/target-manifest.xml" | "report_github50_1.json" |
+ |"NASA-PDS/validate#50 2" | "github50" | 3 | "3 error messages expected.\n" | "MISSING_REFERENCED_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github50_2.json -s json --no-data-check --target-manifest {reportDir}/target-manifest.xml  -t {resourceDir}/github50/ele_evt_8hr_orbit_2014-2015.xml" | "report_github50_2.json" |
+## Very special note: Test github84 must be specified after github71 and github71_2 due to dependency.
+## That means if github84 is included in this table, github71 and github71_2 MUST also be included,
+## otherwise you will see errors and not know why.
+ |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --no-data-check -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
+ |"NASA-PDS/validate#87 1" | "github87" | 0 | "no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {resourceDir}/catalog.xml" | "report_github87_1.json" |
+
+ |"NASA-PDS/validate#137 1" | "github137" | 0 | "0 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_1.json -s json -t {resourceDir}/github137/delimited_table_good.xml" | "report_github137_1.json" |
+ |"NASA-PDS/validate#137 2" | "github137" | 2 | "2 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" |  "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_2.json -s json -t {resourceDir}/github137/delimited_table_bad.xml" | "report_github137_2.json" |
+# BIG_NOTE: The tests for github173 has to be moved toward the beginning as leave them here results in error in information model.
+
+# |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
+# |"NASA-PDS/validate#173 2" | "github173" | 1 | "1 info/error messages not expected." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_2.json -s json -R pds4.bundle -t {resourceDir}/github173/invalid/ --skip-content-validation" | "report_github173_2.json" |
+
+# Note: Test github149 depends on github173 so if both have to be included and test github173 should be ran first.
+# Something weird with the below test.  If included everything above and then added this test, it failed.
+# "The attribute pds:information_model_version must be equal to the value '1.7.0.0'."}],
+# {pds-dev3.jpl.nasa.gov}/home/qchau/sandbox/validate 167 % grep -n information_model_version ./src/test/resources/github173/valid/bundle_kaguya_derived.xml
+#11:        <information_model_version>1.11.0.0</information_model_version>
+# BIG_NOTE: The tests for github149 has to be moved toward the beginning as leave them here results in error in information model.
+#
+#|"NASA-PDS/validate#149 1" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_1.json -s json -t {resourceDir}/github173/valid/bundle_kaguya_derived.xml" | "report_github149_1.json" |
+# "The attribute pds:information_model_version must be equal to the value '1.7.0.0'."}]
+# {pds-dev3.jpl.nasa.gov}/home/qchau/sandbox/validate 168 % grep -n information_model_version ./src/test/resources/github173/invalid/bundle_kaguya_derived.xml
+#11:        <information_model_version>1.11.0.0</information_model_version>
+# |"NASA-PDS/validate#149 2" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_2.json -s json -t {resourceDir}/github173/invalid/bundle_kaguya_derived.xml" | "report_github149_2.json" |
+
+# The 3 tests below are from "github209"
+ |"NASA-PDS/validate#209 VALID" | "github209" | 0 | "0 message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json  -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
+# For some reason, when ran, the actual number is 4 instead of 1.
+# [{"severity":"ERROR","type":"error.table.field_value_overlap","table":12,"record":1,"field":5,"message":"The bit field overlaps the next field. Current stop_bit_location: 23. Next start_bit_location: 20"}]}]}],"summary":{"totalErrors":4,
+ |"NASA-PDS/validate#209 FAIL1" | "github209" | 1 | "1 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_2.json -s json  -t {resourceDir}/github209/FAIL1_overlapping_bit_fields.xml" | "report_github209_2.json" |
+# ,{"severity":"ERROR","type":"error.table.bad_field_read","table":12,"record":1,"field":6,"message":"Error while getting field value: Stop bit past end of packed field (32 > 31)"}]}]}],"summary":{"totalErrors":5,
+ |"NASA-PDS/validate#209 FAIL2" | "github209" | 2 | "2 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP,BAD_FIELD_READ" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_3.json -s json  -t {resourceDir}/github209/FAIL2_bad_stop_bit.xml" | "report_github209_3.json" |
+#
+#
+ |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {resourceDir}/catalog.xml" | "report_github87_1.json" |
+
+# The below works.  Commented out for now.
 
 # https://github.com/NASA-PDS/validate/issues/281 Validate fails to report error in File.file_size
 
@@ -32,11 +124,15 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#278 1" | "github278" | 1 | "1 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_invalid_cucumber.json -s json {resourceDir}/github278/invalid/trk-2-34-revn-l5_tnf_invalid.xml" | "report_github278_label_invalid_cucumber.json" |
  |"NASA-PDS/validate#278 2" | "github278" | 0 | "0 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_valid_cucumber.json -s json {resourceDir}/github278/valid/trk-2-34-revn-l5_tnf.xml" | "report_github278_label_valid_cucumber.json" |
 
- |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
- |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
+# BIG_NOTE: The tests for github6 has to be moved toward the beginning as leave them here results in error in information model.
+
+# |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
+# |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
 
 # https://github.com/NASA-PDS/validate/issues/240 Unexpected error for data collection in a sub-directory
 
- |"NASA-PDS/validate#240 1" | "github240" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_valid_cucumber.json -s json {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github240_bundle_valid_cucumber.json" |
- |"NASA-PDS/validate#240 2" | "github240" | 3 | "3 errors expected for UNALLOWED_BUNDLE_SUBDIR_NAME." | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_invalid_cucumber.json -s json {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github240_bundle_invalid_cucumber.json" |
+# BIG_NOTE: The tests for github240 has to be moved toward the beginning as leave them here results in error in information model.
+
+# |"NASA-PDS/validate#240 1" | "github240" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_valid_cucumber.json -s json {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github240_bundle_valid_cucumber.json" |
+# |"NASA-PDS/validate#240 2" | "github240" | 3 | "3 errors expected for UNALLOWED_BUNDLE_SUBDIR_NAME." | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_invalid_cucumber.json -s json {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github240_bundle_invalid_cucumber.json" |
 

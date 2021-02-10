@@ -168,6 +168,10 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BUNDLE_SUBDIR_NAME.getKey());
             } else if (strTemp.equals("UNALLOWED_BASE_NAME")) {
                 count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
+            } else if (strTemp.equals("FIELD_VALUE_OVERLAP")) {
+                count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_OVERLAP.getKey());
+            } else if (strTemp.equals("BAD_FIELD_READ")) {
+                count = this.getMessageCount(reportJson, ProblemType.BAD_FIELD_READ.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {
@@ -251,6 +255,7 @@ public class StepDefs {
         // Write code here that turns the phrase above into concrete actions
         //throw new io.cucumber.java.PendingException();
         System.out.println("execute_a_validate_command:testDir " + this.testDir);
+        System.out.println("execute_a_validate_command:testName " + this.testName);
 
         try {
                 this.setUp();
@@ -263,7 +268,7 @@ public class StepDefs {
                 this.createManifestFileDo(testPath);
 
                 // A particular test 'github71' has a different way of creating the catalog file.
-                if (this.testName.indexOf("github71") >= 0) {
+                if (this.testName.indexOf("validate#71") >= 0) {
                     this.createCatalogFileDo(catFile,testPath,true);
                 } else {
                     this.createCatalogFileDo(catFile,testPath,false);
