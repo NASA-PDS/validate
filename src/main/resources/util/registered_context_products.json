@@ -11,6 +11,195 @@
           },
           {
                "name": [
+                    "2000 YH2"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_yh2::1.0"
+          },
+          {
+               "name": [
+                    "AGILE IMAGER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:apache_point.arc3m5.agile::1.0"
+          },
+          {
+               "name": [
+                    "MCDONALD OBSERVATORY LINEAR POLARIMETER"
+               ],
+               "type": [
+                    "POLARIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mcdonald.struve2m1.molp::1.0"
+          },
+          {
+               "name": [
+                    "44 NYSA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.44_nysa::1.1"
+          },
+          {
+               "name": [
+                    "444 GYPTIS"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.444_gyptis::1.1"
+          },
+          {
+               "name": [
+                    "MARS GLOBAL SURVEYOR"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mgs::1.2"
+          },
+          {
+               "name": [
+                    "PIONEER VENUS"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.pioneer_venus::1.0"
+          },
+          {
+               "name": [
+                    "(119070) 2001 KP77"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.119070_2001_kp77::1.0"
+          },
+          {
+               "name": [
+                    "GALILEO PROBE NEPHELOMETER"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nep.gp::1.0"
+          },
+          {
+               "name": [
+                    "COMETARY SECONDARY ION MASS ANALYZER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cosima.ro::1.0"
+          },
+          {
+               "name": [
+                    "18 MELPOMENE"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.18_melpomene::1.1"
+          },
+          {
+               "name": [
+                    "CAL TARGET"
+               ],
+               "type": [
+                    "CALIBRATION FIELD"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibration_field.cal_target::1.0"
+          },
+          {
+               "name": [
+                    "1998 WZ31"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wz31::1.0"
+          },
+          {
+               "name": [
+                    "2003 BG91"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_bg91::1.0"
+          },
+          {
+               "name": [
+                    "IMAGER FOR MARS PATHFINDER"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:imp.mpfl::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss13_34m::1.0"
+          },
+          {
+               "name": [
+                    "NEAR INFRARED CAMERA 2"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nir2.lcross::1.0"
+          },
+          {
+               "name": [
+                    "VENUS EXPRESS"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venus_express::1.0"
+          },
+          {
+               "name": [
+                    "(10783) 1991 RB9"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.10783_1991_rb9::1.0"
+          },
+          {
+               "name": [
+                    "(13807) 1998 XE13"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.13807_1998_xe13::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.dif::1.0"
+          },
+          {
+               "name": [
                     "MNEME"
                ],
                "type": [
@@ -774,7 +963,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mmt::1.1"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mmt::1.0"
           },
           {
                "name": [
@@ -3746,7 +3935,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4::0.0"
           },
           {
                "name": [
@@ -7059,259 +7248,6 @@
           },
           {
                "name": [
-                    "SI 600-386"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mount_lemmon.1m54.4kccd::1.0"
-          },
-          {
-               "name": [
-                    "2001 QD298"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qd298::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:mauna_kea.2m24::0.0"
-          },
-          {
-               "name": [
-                    "(469615) 2004 PT107"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.469615_2004_pt107::1.0"
-          },
-          {
-               "name": [
-                    "VISUAL IMAGING SUBSYSTEM - CAMERA B"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:visb.vo1::1.0"
-          },
-          {
-               "name": [
-                    "SOLAR WIND PLASMA EXPERIMENT"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:swp.ice::1.0"
-          },
-          {
-               "name": [
-                    "14P/WOLF"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.14p_wolf::1.0"
-          },
-          {
-               "name": [
-                    "Lick Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.lick::1.0"
-          },
-          {
-               "name": [
-                    "(15875) 1996 TP66"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15875_1996_tp66::1.0"
-          },
-          {
-               "name": [
-                    "INSIGHT WIND AND THERMAL SHIELD"
-               ],
-               "type": [
-                    "EQUIPMENT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:equipment.insight.wts::1.0"
-          },
-          {
-               "name": [
-                    "PLASMA SCIENCE EXPERIMENT"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pls.vg1::1.0"
-          },
-          {
-               "name": [
-                    "PIONEER"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.p12::1.0"
-          },
-          {
-               "name": [
-                    "Apache Point Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.apache_point::1.1"
-          },
-          {
-               "name": [
-                    "D/1993 F2-E (SHOEMAKER-LEVY 9-E)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-e_shoemaker-levy_9-e::1.0"
-          },
-          {
-               "name": [
-                    "106P/SCHUSTER"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
-          },
-          {
-               "name": [
-                    "WASP-3"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.wasp-3::1.0"
-          },
-          {
-               "name": [
-                    "VISIBLE AND INFRARED THERMAL IMAGING SPECTROMETER"
-               ],
-               "type": [
-                    "IMAGER",
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:virtis.ro::1.0"
-          },
-          {
-               "name": [
-                    "532 HERCULINA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.532_herculina::1.1"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.0m5::0.0"
-          },
-          {
-               "name": [
-                    "HEAT FLOW AND PHYSICAL PROPERTIES PACKAGE"
-               ],
-               "type": [
-                    "REGOLITH PROPERTIES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:hp3.insight::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:chuguevskaya.0m7::0.0"
-          },
-          {
-               "name": [
-                    "CAMERA 1"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cam1.vl2::1.0"
-          },
-          {
-               "name": [
-                    "ORBITING RADAR"
-               ],
-               "type": [
-                    "RADIO-RADAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:orad.p12::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.vo1::1.0"
-          },
-          {
-               "name": [
-                    "2006 CH69"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_ch69::1.0"
-          },
-          {
-               "name": [
-                    "MID-INFRARED ARRAY CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.mirac2::1.0"
-          },
-          {
-               "name": [
-                    "NGC 6543"
-               ],
-               "type": [
-                    "PLANETARY NEBULA"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:planetary_nebula.ngc_6543::1.0"
-          },
-          {
-               "name": [
-                    "ALPHA PROTON X-RAY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:apxs.mpfr::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -7390,6 +7326,177 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
+          },
+          {
+               "name": [
+                    "VEGA 1"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_1::1.1"
+          },
+          {
+               "name": [
+                    "D/1993 F2-P2 (SHOEMAKER-LEVY 9-P2)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-p2_shoemaker-levy_9-p2::1.0"
+          },
+          {
+               "name": [
+                    "(82158) 2001 FP185"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.82158_2001_fp185::1.0"
+          },
+          {
+               "name": [
+                    "596 SCHEILA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.596_scheila::1.1"
+          },
+          {
+               "name": [
+                    "Center for Planetary Exploration at Stony Brook University"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.sbu_cpex::1.0"
+          },
+          {
+               "name": [
+                    "CHARON"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.134340_pluto.charon::1.1"
+          },
+          {
+               "name": [
+                    "CALLIRRHOE"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.callirrhoe::1.1"
+          },
+          {
+               "name": [
+                    "9860 ARCHAEOPTERYX"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.9860_archaeopteryx::1.1"
+          },
+          {
+               "name": [
+                    "GREIP"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.greip::1.1"
+          },
+          {
+               "name": [
+                    "(55565) 2002 AW197"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.55565_2002_aw197::1.0"
+          },
+          {
+               "name": [
+                    "SATELLITE"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.satellite::1.0"
+          },
+          {
+               "name": [
+                    "4P/FAYE"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.4p_faye::1.0"
+          },
+          {
+               "name": [
+                    "UNKNOWN"
+               ],
+               "type": [
+                    "CALIBRATOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibrator.unk::1.0"
+          },
+          {
+               "name": [
+                    "2004 PA108"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_pa108::1.0"
+          },
+          {
+               "name": [
+                    "(300256) 2007 GV60"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300256_2007_gv60::1.0"
+          },
+          {
+               "name": [
+                    "2000 PL30"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_pl30::1.0"
+          },
+          {
+               "name": [
+                    "ULTRAVIOLET PHOTOMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uv.p10::1.0"
+          },
+          {
+               "name": [
+                    "PLASMA EXPERIMENT FOR PLANETARY EXPLORATION"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pepe.ds1::1.0"
+          },
+          {
+               "name": [
+                    "2002 PU170"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_pu170::1.0"
           },
           {
                "name": [
@@ -11227,7 +11334,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.magdalena_ridge::1.1"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.magdalena_ridge::1.0"
           },
           {
                "name": [
@@ -14613,195 +14720,6 @@
                     "CENTAUR"
                ],
                "lidvid": "urn:nasa:pds:context:target:centaur.2007_rh283::1.0"
-          },
-          {
-               "name": [
-                    "2000 YH2"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_yh2::1.0"
-          },
-          {
-               "name": [
-                    "AGILE IMAGER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:apache_point.arc3m5.agile::1.0"
-          },
-          {
-               "name": [
-                    "MCDONALD OBSERVATORY LINEAR POLARIMETER"
-               ],
-               "type": [
-                    "POLARIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mcdonald.struve2m1.molp::1.0"
-          },
-          {
-               "name": [
-                    "44 NYSA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.44_nysa::1.1"
-          },
-          {
-               "name": [
-                    "444 GYPTIS"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.444_gyptis::1.1"
-          },
-          {
-               "name": [
-                    "MARS GLOBAL SURVEYOR"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mgs::1.2"
-          },
-          {
-               "name": [
-                    "PIONEER VENUS"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.pioneer_venus::1.0"
-          },
-          {
-               "name": [
-                    "(119070) 2001 KP77"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.119070_2001_kp77::1.0"
-          },
-          {
-               "name": [
-                    "GALILEO PROBE NEPHELOMETER"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nep.gp::1.0"
-          },
-          {
-               "name": [
-                    "COMETARY SECONDARY ION MASS ANALYZER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cosima.ro::1.0"
-          },
-          {
-               "name": [
-                    "18 MELPOMENE"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.18_melpomene::1.1"
-          },
-          {
-               "name": [
-                    "CAL TARGET"
-               ],
-               "type": [
-                    "CALIBRATION FIELD"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibration_field.cal_target::1.0"
-          },
-          {
-               "name": [
-                    "1998 WZ31"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wz31::1.0"
-          },
-          {
-               "name": [
-                    "2003 BG91"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_bg91::1.0"
-          },
-          {
-               "name": [
-                    "IMAGER FOR MARS PATHFINDER"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:imp.mpfl::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss13_34m::1.0"
-          },
-          {
-               "name": [
-                    "NEAR INFRARED CAMERA 2"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nir2.lcross::1.0"
-          },
-          {
-               "name": [
-                    "VENUS EXPRESS"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venus_express::1.0"
-          },
-          {
-               "name": [
-                    "(10783) 1991 RB9"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.10783_1991_rb9::1.0"
-          },
-          {
-               "name": [
-                    "(13807) 1998 XE13"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.13807_1998_xe13::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.dif::1.0"
           },
           {
                "name": [
@@ -19045,177 +18963,6 @@
           },
           {
                "name": [
-                    "VEGA 1"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_1::1.1"
-          },
-          {
-               "name": [
-                    "D/1993 F2-P2 (SHOEMAKER-LEVY 9-P2)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-p2_shoemaker-levy_9-p2::1.0"
-          },
-          {
-               "name": [
-                    "(82158) 2001 FP185"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.82158_2001_fp185::1.0"
-          },
-          {
-               "name": [
-                    "596 SCHEILA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.596_scheila::1.1"
-          },
-          {
-               "name": [
-                    "Center for Planetary Exploration at Stony Brook University"
-               ],
-               "type": [
-                    "Laboratory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:laboratory.sbu_cpex::1.0"
-          },
-          {
-               "name": [
-                    "CHARON"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.134340_pluto.charon::1.1"
-          },
-          {
-               "name": [
-                    "CALLIRRHOE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.callirrhoe::1.1"
-          },
-          {
-               "name": [
-                    "9860 ARCHAEOPTERYX"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.9860_archaeopteryx::1.1"
-          },
-          {
-               "name": [
-                    "GREIP"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.greip::1.1"
-          },
-          {
-               "name": [
-                    "(55565) 2002 AW197"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.55565_2002_aw197::1.0"
-          },
-          {
-               "name": [
-                    "SATELLITE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.satellite::1.0"
-          },
-          {
-               "name": [
-                    "4P/FAYE"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.4p_faye::1.0"
-          },
-          {
-               "name": [
-                    "UNKNOWN"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.unk::1.0"
-          },
-          {
-               "name": [
-                    "2004 PA108"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_pa108::1.0"
-          },
-          {
-               "name": [
-                    "(300256) 2007 GV60"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300256_2007_gv60::1.0"
-          },
-          {
-               "name": [
-                    "2000 PL30"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_pl30::1.0"
-          },
-          {
-               "name": [
-                    "ULTRAVIOLET PHOTOMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:uv.p10::1.0"
-          },
-          {
-               "name": [
-                    "PLASMA EXPERIMENT FOR PLANETARY EXPLORATION"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pepe.ds1::1.0"
-          },
-          {
-               "name": [
-                    "2002 PU170"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_pu170::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19240,6 +18987,259 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.sbn::1.0"
+          },
+          {
+               "name": [
+                    "SI 600-386"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mount_lemmon.1m54.4kccd::1.0"
+          },
+          {
+               "name": [
+                    "2001 QD298"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qd298::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mauna_kea.2m24::0.0"
+          },
+          {
+               "name": [
+                    "(469615) 2004 PT107"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.469615_2004_pt107::1.0"
+          },
+          {
+               "name": [
+                    "VISUAL IMAGING SUBSYSTEM - CAMERA B"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:visb.vo1::1.0"
+          },
+          {
+               "name": [
+                    "SOLAR WIND PLASMA EXPERIMENT"
+               ],
+               "type": [
+                    "PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:swp.ice::1.0"
+          },
+          {
+               "name": [
+                    "14P/WOLF"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.14p_wolf::1.0"
+          },
+          {
+               "name": [
+                    "Lick Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.lick::1.0"
+          },
+          {
+               "name": [
+                    "(15875) 1996 TP66"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15875_1996_tp66::1.0"
+          },
+          {
+               "name": [
+                    "INSIGHT WIND AND THERMAL SHIELD"
+               ],
+               "type": [
+                    "EQUIPMENT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:equipment.insight.wts::1.0"
+          },
+          {
+               "name": [
+                    "PLASMA SCIENCE EXPERIMENT"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pls.vg1::1.0"
+          },
+          {
+               "name": [
+                    "PIONEER"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.p12::1.0"
+          },
+          {
+               "name": [
+                    "Apache Point Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.apache_point::1.0"
+          },
+          {
+               "name": [
+                    "D/1993 F2-E (SHOEMAKER-LEVY 9-E)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-e_shoemaker-levy_9-e::1.0"
+          },
+          {
+               "name": [
+                    "106P/SCHUSTER"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
+          },
+          {
+               "name": [
+                    "WASP-3"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.wasp-3::1.0"
+          },
+          {
+               "name": [
+                    "VISIBLE AND INFRARED THERMAL IMAGING SPECTROMETER"
+               ],
+               "type": [
+                    "IMAGER",
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:virtis.ro::1.0"
+          },
+          {
+               "name": [
+                    "532 HERCULINA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.532_herculina::1.1"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.0m5::0.0"
+          },
+          {
+               "name": [
+                    "HEAT FLOW AND PHYSICAL PROPERTIES PACKAGE"
+               ],
+               "type": [
+                    "REGOLITH PROPERTIES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hp3.insight::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:chuguevskaya.0m7::0.0"
+          },
+          {
+               "name": [
+                    "CAMERA 1"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cam1.vl2::1.0"
+          },
+          {
+               "name": [
+                    "ORBITING RADAR"
+               ],
+               "type": [
+                    "RADIO-RADAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:orad.p12::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.vo1::1.0"
+          },
+          {
+               "name": [
+                    "2006 CH69"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_ch69::1.0"
+          },
+          {
+               "name": [
+                    "MID-INFRARED ARRAY CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.mirac2::1.0"
+          },
+          {
+               "name": [
+                    "NGC 6543"
+               ],
+               "type": [
+                    "PLANETARY NEBULA"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planetary_nebula.ngc_6543::1.0"
+          },
+          {
+               "name": [
+                    "ALPHA PROTON X-RAY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:apxs.mpfr::1.0"
           },
           {
                "name": [
@@ -19735,7 +19735,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:mmt.single_mirror6m5::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:mmt.single_mirror6m5::0.0"
           },
           {
                "name": [
