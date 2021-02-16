@@ -9,6 +9,17 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+ |"NASA-PDS/validate#291 VALID" | "github291" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_valid.json -s json -R pds4.bundle -t {resourceDir}/github291/valid/bundle_kaguya_derived.xml" | "report_github291_bundle_valid.json" |
+ |"NASA-PDS/validate#291 INVALID" | "github291" | 1 | "1 warning message expected for BAD_SCHEMATYPENS." | "BAD_SCHEMATYPENS" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_invalid.json -s json -R pds4.bundle -t {resourceDir}/github291/invalid/bundle_kaguya_derived.xml" | "report_github291_bundle_invalid.json" |
+
+ |"NASA-PDS/validate#292 VALID LF" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_valid_lf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_lf.xml" | "report_github292_label_valid_lf.json" |
+ |"NASA-PDS/validate#292 VALID CR" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_valid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_crlf.xml" | "report_github292_label_valid_crlf.json" |
+ |"NASA-PDS/validate#292 INVALID LF" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_invalid_lf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_lf.xml" | "report_github292_label_invalid_lf.json" |
+ |"NASA-PDS/validate#292 INVALID CR" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_invalid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_crlf.xml" | "report_github292_label_invalid_crlf.json" |
+
+ |"NASA-PDS/validate#294 VALID" | "github294" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_valid.json -s json -R pds4.label -t {resourceDir}/github294/valid/minmax-error.xml" | "report_github294_bundle_valid.json" |
+ |"NASA-PDS/validate#294 INVALID" | "github294" | 1 | "1 error messages expected for RECORDS_MISMATCH." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_invalid.json -s json -R pds4.label -t {resourceDir}/github294/invalid/minmax-error.xml" | "report_github294_bundle_invalid.json" |
+
  |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
  |"NASA-PDS/validate#173 2" | "github173" | 1 | "1 info/error messages not expected." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_2.json -s json -R pds4.bundle -t {resourceDir}/github173/invalid/ --skip-content-validation" | "report_github173_2.json" |
 |"NASA-PDS/validate#149 1" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_1.json -s json -t {resourceDir}/github173/valid/bundle_kaguya_derived.xml" | "report_github149_1.json" |
@@ -75,10 +86,10 @@ Scenario Outline: Execute validate command for tests below.
 ## That means if github84 is included in this table, github71 and github71_2 MUST also be included,
 ## otherwise you will see errors and not know why.
  |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --no-data-check -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
- |"NASA-PDS/validate#87 1" | "github87" | 0 | "no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {resourceDir}/catalog.xml" | "report_github87_1.json" |
+# Remove duplicate test: "NASA-PDS/validate#87 1"
 
- |"NASA-PDS/validate#137 1" | "github137" | 0 | "0 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_1.json -s json -t {resourceDir}/github137/delimited_table_good.xml" | "report_github137_1.json" |
- |"NASA-PDS/validate#137 2" | "github137" | 2 | "2 info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" |  "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_2.json -s json -t {resourceDir}/github137/delimited_table_bad.xml" | "report_github137_2.json" |
+# Remove duplicate tests: "NASA-PDS/validate#137 1" and "NASA-PDS/validate#137 2"
+
 # BIG_NOTE: The tests for github173 has to be moved toward the beginning as leave them here results in error in information model.
 
 # |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
@@ -106,9 +117,9 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#209 FAIL2" | "github209" | 2 | "2 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP,BAD_FIELD_READ" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_3.json -s json  -t {resourceDir}/github209/FAIL2_bad_stop_bit.xml" | "report_github209_3.json" |
 #
 #
- |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {resourceDir}/catalog.xml" | "report_github87_1.json" |
-
-# The below works.  Commented out for now.
+# The correct location of file catalog.xml is in {reportDir} and not {resourceDir}
+#
+ |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
 
 # https://github.com/NASA-PDS/validate/issues/281 Validate fails to report error in File.file_size
 

@@ -208,26 +208,31 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
         //LOG.debug("fieldTypeList {},{}",fieldTypeList,fieldTypeList.size());
         //LOG.debug("fieldNumberList {},{}",fieldNumberList,fieldNumberList.size());
 
-        // Check to make sure all arrays are the same size as numFields.
-        if (numFields != fieldFormatList.size() ||
-            numFields != fieldTypeList.size()   ||
-            numFields != fieldNumberList.size()) {
-          String errorMessage = ("The number of fields " + Integer.toString(numFields) + " do not match with fields provided: fieldFormatList.size() " + 
-                     Integer.toString(fieldFormatList.size()) + ",fieldTypeList.size() " + Integer.toString(fieldTypeList.size()) + ",fieldNumberList.size() " +
-                     Integer.toString(fieldNumberList.size()));
-          LOG.error(errorMessage);
-          getListener().addProblem(
-              new ValidationProblem(new ProblemDefinition(
-                  ExceptionType.ERROR,
-                  ProblemType.INVALID_LABEL,
-                  errorMessage),
-              getTarget()));
-          return;
-        }
+        // The field 'field_format' is optional so the value of fieldFormatList.size() can be zero.
+        // Only perform a check on the field format if it is available and everything matches.
 
-        // Validate both ASCIII String and ASCII Number fields format.
-        this.validateAsciiStringFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
-        this.validateAsciiNumberFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+        if (fieldFormatList.size() > 0) {
+            // Check to make sure all arrays are the same size as numFields.
+            if (numFields != fieldFormatList.size() ||
+                numFields != fieldTypeList.size()   ||
+                numFields != fieldNumberList.size()) {
+              String errorMessage = ("The number of fields " + Integer.toString(numFields) + " do not match with fields provided: fieldFormatList.size() " + 
+                         Integer.toString(fieldFormatList.size()) + ",fieldTypeList.size() " + Integer.toString(fieldTypeList.size()) + ",fieldNumberList.size() " +
+                         Integer.toString(fieldNumberList.size()));
+              LOG.error(errorMessage);
+              getListener().addProblem(
+                  new ValidationProblem(new ProblemDefinition(
+                      ExceptionType.ERROR,
+                      ProblemType.INVALID_LABEL,
+                      errorMessage),
+                  getTarget()));
+              return;
+            }
+
+            // Validate both ASCIII String and ASCII Number fields format.
+            this.validateAsciiStringFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+            this.validateAsciiNumberFieldsFormat(fieldFormatList, fieldTypeList, fieldNumberList);
+        }
 
      } catch (Exception e) {
         LOG.error("Cannot extract {} from label {}",RECORD_CHARACTER,getTarget());

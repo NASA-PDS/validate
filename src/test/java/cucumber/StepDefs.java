@@ -172,6 +172,12 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_OVERLAP.getKey());
             } else if (strTemp.equals("BAD_FIELD_READ")) {
                 count = this.getMessageCount(reportJson, ProblemType.BAD_FIELD_READ.getKey());
+            } else if (strTemp.equals("BAD_SCHEMATYPENS")) {
+                count = this.getMessageCount(reportJson, ProblemType.BAD_SCHEMATYPENS.getKey());
+            } else if (strTemp.equals("MISSING_SCHEMATRON_SPEC")) {
+                count = this.getMessageCount(reportJson, ProblemType.MISSING_SCHEMATRON_SPEC.getKey());
+            } else if (strTemp.equals("RECORD_LENGTH_MISMATCH")) {
+                count = this.getMessageCount(reportJson, ProblemType.RECORD_LENGTH_MISMATCH.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {
@@ -268,7 +274,9 @@ public class StepDefs {
                 this.createManifestFileDo(testPath);
 
                 // A particular test 'github71' has a different way of creating the catalog file.
-                if (this.testName.indexOf("validate#71") >= 0) {
+                // A particular test 'github87' has a different way of creating the catalog file.
+                if ((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) {
+                    System.out.println("execute_a_validate_command:testName,catFile " + this.testName + " " + catFile);
                     this.createCatalogFileDo(catFile,testPath,true);
                 } else {
                     this.createCatalogFileDo(catFile,testPath,false);

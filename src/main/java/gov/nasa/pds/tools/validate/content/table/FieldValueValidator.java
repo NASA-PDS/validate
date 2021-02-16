@@ -154,9 +154,9 @@ public class FieldValueValidator {
     // Set variable if we get an error that will be a problem for all records
     boolean fatalError = false;
 
-    LOG.debug("validate:checkFieldFormat,fields.length {},{}",checkFieldFormat,fields.length);
-    LOG.debug("validate:checkFieldFormat,fields {}",fields);
-    LOG.debug("validate:record.getLocation().getRecord() {}",record.getLocation().getRecord());
+    //LOG.debug("validate:checkFieldFormat,fields.length {},{}",checkFieldFormat,fields.length);
+    //LOG.debug("validate:checkFieldFormat,fields {}",fields);
+    //LOG.debug("validate:record.getLocation().getRecord() {}",record.getLocation().getRecord());
 
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
@@ -351,7 +351,20 @@ public class FieldValueValidator {
       int fieldIndex, RecordLocation recordLocation) {
     value = value.trim();
     if (NumberUtils.isCreatable(value)) {
-      Number number = NumberUtils.createNumber(value);
+      // In comparing double or floats, it is important how these values are built.
+      // Since the values of 'minimum' and 'maximum' variables are both of types Double,
+      // it may be best to convert the String variable 'value' to Double as well.
+      //
+      // Note that is OK to use Number number = NumberUtils.createNumber(value) but some precision is lost even
+      // when both values 0.12345 (one built with createDouble() and one built with createNumber()) should be identical: 
+      //
+      //     Field has a value '0.12345' that is greater than the defined maximum value '0.12345'.
+      //
+      // The below is line is commented out and kept for education purpose.
+      //
+      //Number number = NumberUtils.createNumber(value);
+
+      Double number = NumberUtils.createDouble(value);  // Create a Double value from '0.12345' to match 'mininum' and 'maximum' variables' type.
       if (minimum != null) {
         if (number.doubleValue() < minimum.doubleValue()) {
           String message = "Field has a value '" + value

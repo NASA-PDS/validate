@@ -1,0 +1,82 @@
+1  S. K. Vsekhsvyatskii, 1964. "Physical Characteristics of Comets",          
+   trans. Israel Program for Scientific Translations, NASA TT F-80 /          
+   OTS 62-11031.                                                              
+                                                                              
+   The original publication ran approximately 600 pages and included          
+   a table titled "Catalogue of Absolute Magnitudes" which comprises          
+   the data in this data set; plus a second, far more extensive               
+   table called "Observations and Physical Characteristics".  The             
+   second table was not included in the English translation used to           
+   prepare these files.  There are no head diameters or tail lengths          
+   listed in the Absolute Magnitude table; thus no record from                
+   this reference is included in the "pccds.tab" file.                        
+                                                                              
+   The description of the table values in this reference indicates that       
+   the quality of the H10 values is given on the following scale:             
+                                                                              
+        1   possible error of up to 1 magnitude                               
+        2   error does not exceed 0.4 - 0.6 magnitudes                        
+        3   error within 0.1 - 0.2 magnitudes                                 
+                                                                              
+2  S. K. Vsekhsvyatskii, 1963. "Absolute Magnitudes of 1954-1960 Comets",     
+   Soviet Astronomy - AJ [in English], Vol. 6, 849-853.                       
+                                                                              
+   This article continues the compilation begun in the 1964 book.             
+   Updated parameters are included for those comets from the first            
+   publication which were further observed, in addition to the new            
+   comets listed.  Head diameters and tail lengths are included in            
+   this and all subsequent publications.  H10 quality codes and tail          
+   visibility indicators are also included in this article.                   
+                                                                              
+   The description of the table values in this reference indicates that       
+   the quality of the H10 values is given on the following scale:             
+                                                                              
+        1   possible error of up to 1 magnitude                               
+        2   error does not exceed 0.4 magnitudes                              
+        3   error does not exceed 0.1 - 0.2 magnitudes                        
+                                                                              
+3  S. K. Vsekhsvyatskii, 1967. "Physical Characteristics of Comets            
+   Observed During 1961-1965", Soviet Astronomy - AJ [in English],            
+   Vol. 10, 1034-41.                                                          
+                                                                              
+   H10 quality codes are included, but from this point forward none           
+   of the publications include the tail visibility flags.  Included           
+   in the article are notes concerning the individual observations            
+   and objects.                                                               
+                                                                              
+   The description of the table values in this reference indicates that       
+   the quality of the H10 values is given on the following scale:             
+                                                                              
+        1   possible error of order 1 magnitude                               
+        2   error does not exceed 0.3 - 0.4 magnitudes                        
+        3   error is less than 0.1 magnitudes                                 
+                                                                              
+4  S. K. Vsekhsvyatskii and Il'ichishina, N. I., 1971. "Absolute              
+   Magnitudes of Comets, 1965-1969", Soviet Astronomy - AJ [in English],      
+   Vol. 15, 310-313.                                                          
+                                                                              
+   This article was completely superceded by the next publication.  There     
+   were no comets listed here which were not also listed in the 1974          
+   reference.  Since the present data set was compiled only from the latest   
+   available data for each object, there are no records originating from      
+   the table in this article.  It is included here for completeness, and      
+   because it is the last of the series available in an English translation.  
+   (The notes regarding objects and observations found in most of the other   
+   articles are not present here.)                                            
+                                                                              
+5  S. K. Vsekhsvyatskii and Il'ichishina, N. I., 1974. "Fizicheski            
+   Kharakteristiki Komet, 1965-1970gg" [in Russian] (Moskva:                  
+   Izdatel'stva Nauka).                                                       
+                                                                              
+   Neither H10 quality codes nor tail visibility indicators are               
+   included in this publication, nor are tail type indicators.                
+   There are extensive notes included on the various observations             
+   contributing to the collection.                                            
+                                                                              
+6  S. K. Vsekhsvyatskii, 1979. "Fizicheskie Kharakteristiki Komet             
+   1971-1975gg" [in Russian] (Kiev: Naukova Dumka).                           
+                                                                              
+   This publication includes neither H10 quality codes or tail                
+   visibility indicators, but it does include the tail type flags             
+   which have been incorporated into the "pccds.tab" file.  Also              
+   included are extensive notes about the individual observations.            

@@ -89,6 +89,7 @@ import gov.nasa.pds.validate.constants.Constants;
 public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
   private int PROGRESS_COUNTER = 0;
+  private static final int LINE_FEED_IN_ASCII = (int) '\n';
 
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
@@ -135,6 +136,26 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       
     }
     return isApplicable;
+  }
+
+  private boolean checkIfLineEndsWithLineFeed(String line) {
+      // If a line does ends with a line feed (lineFeedInAscii 10) it is acceptable.
+      //
+      //     lineFeedInAscii       = 10 = '\n'
+      //     carriageReturnInAscii = 13 = '\r'
+
+      boolean lineEndsInLineFeed = false;
+      int lastCharInAscii = (int) line.charAt(line.length() - 1);
+      if (lastCharInAscii == LINE_FEED_IN_ASCII) {
+          lineEndsInLineFeed = true;
+      }
+
+      //LOG.debug("checkIfLineEndsWithLineFeed:line.substring(line.length() - 1,1) [{}]",line.substring(line.length() - 1,line.length()));
+      //LOG.debug("checkIfLineEndsWithLineFeed:LINE_FEED_IN_ASCII {}",LINE_FEED_IN_ASCII);
+      //LOG.debug("checkIfLineEndsWithLineFeed:lastCharInAscii {}",lastCharInAscii);
+      //LOG.debug("checkIfLineEndsWithLineFeed:lineEndsInLineFeed {}",lineEndsInLineFeed);
+
+      return(lineEndsInLineFeed);
   }
 
   @ValidationTest
@@ -426,14 +447,38 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           } else {  // We have either a character or delimited table
             boolean manuallyParseRecord = false;
             String line = reader.readNextLine();
+            int lineNumber = 0;
             while (line != null) {
               progressCounter();
+              lineNumber += 1;
               
               if (!line.endsWith("\r\n")) {
+                  // Perform a check if the record ends in line feed or not ("\n")
+                  // https://github.com/nasa-pds/validate/issues/292
+                  boolean lineEndsInLineFeed = checkIfLineEndsWithLineFeed(line);
+                  if (lineEndsInLineFeed == true) {
+                      LOG.debug("validateTableDataContents:Record does end with line feed and is acceptable");
+                  } else { 
+/*--->
+int lastCharInAscii = (int) line.charAt(line.length() - 1);
+int carriageReturnAscii = (int) '\r';
+int lineFeedInAscii = (int) '\n';
+LOG.debug("validateTableDataContents:line.substring(line.length() - 1,1) [{}]",line.substring(line.length() - 1,line.length()));
+LOG.debug("validateTableDataContents:lineFeedInAscii {}",lineFeedInAscii);
+LOG.debug("validateTableDataContents:carriageReturnAscii {}",carriageReturnAscii);
+LOG.debug("validateTableDataContents:lastCharInAscii {}",lastCharInAscii);
+LOG.debug("validateTableDataContents:lineNumber {}",Integer.toString(lineNumber));
+LOG.debug("validateTableDataContents:line.length() {}",Integer.toString(line.length()));
+//LOG.debug("validateTableDataContents:lastCharInAscii {}",Integer.toString(lastCharInAscii));
+//String errorString = "hello";
+String errorString = "Record does not end in carriage-return line feed: lineNumber,line.length(),lastCharInAscii,line " + Integer.toString(lineNumber) + ", " + Integer.toString(line.length()) + "," + Integer.toString(lastCharInAscii) + "[" + line + "]";
+LOG.error(errorString);
+<---*/
                 addTableProblem(ExceptionType.ERROR,
                     ProblemType.MISSING_CRLF,
                     "Record does not end in carriage-return line feed.", 
                     dataFile, tableIndex, reader.getCurrentRow());
+                }
                 manuallyParseRecord = true;
               } else {
                 addTableProblem(ExceptionType.DEBUG,

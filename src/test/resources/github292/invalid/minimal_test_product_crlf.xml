@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="      
+    http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+  
+  <Identification_Area>
+    <logical_identifier>urn:esa:psa:mission_host_instrument:data_raw:test_product</logical_identifier>
+    <version_id>0.1</version_id>
+    <title>PSA test product</title>
+    <information_model_version>1.11.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2019-03-18</modification_date>
+        <version_id>0.1</version_id>
+        <description>This is the first version of this product</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+
+
+    <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2019-08-06T00:00:00Z</start_date_time>
+      <stop_date_time>2019-08-06T00:03:00Z</stop_date_time>
+    </Time_Coordinates>
+
+
+    <Investigation_Area>
+      <name>BepiColombo</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:esa:psa:context:investigation:mission.bc</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>BepiColombo Monitoring Camera</name>
+      <Observing_System_Component>
+        <name>Mercury Transfer Module</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mtm</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>MCAM</name>
+        <type>Instrument</type>
+        <description>Monitoring camera</description>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument:mcam.mtm</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>SPACECRAFT_DECK</name>
+      <type>Calibrator</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:calibrator.spacecraft_deck</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    </Observation_Area>
+
+  <File_Area_Observational>
+    <File>
+      <file_name>minimal_test_product_crlf.tab</file_name>
+      <file_size unit="byte">240</file_size>
+      <md5_checksum>5bc560bb3554b8d705ec36e3905726f5</md5_checksum>
+    </File>
+
+    <Table_Character>
+      <name>Test Instrument Table Data</name>
+      <offset unit="byte">0</offset>
+      <records>4</records>
+      <description>This table is a Character table</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>6</fields>
+        <groups>0</groups>
+        <record_length unit="byte">999</record_length>
+        <Field_Character>
+          <name>TIME_UTC</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Date_Time_YMD</data_type>
+          <field_length unit="byte">20</field_length>
+          <description>Time in UTC</description>
+        </Field_Character>
+        <Field_Character>
+          <name>A text string</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">22</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">17</field_length>
+          <description>An text string</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Numeric #1</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">40</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>A numeric field</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Numeric #2</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">45</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>A numeric field</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Numeric #3</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">50</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>A numeric field</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Numeric #4</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">55</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>A numeric field</description>
+        </Field_Character>
+
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>

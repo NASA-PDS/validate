@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FileSizesUtil;
+import gov.nasa.pds.tools.util.FileReferencedMapList;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.MD5Checksum;
 import gov.nasa.pds.tools.util.Utility;
@@ -60,6 +61,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
   private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
+
+  private static final FileReferencedMapList fileReferencedMapList = new FileReferencedMapList();
   
   /**
    * XPath to the file references within a PDS4 data product label.
@@ -102,6 +105,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     source.setSystemId(uri.toString());
     try {
       DocumentInfo xml = LabelParser.parse(source);
+LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
       validate(xml);
     } catch (TransformerException te) {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, 
@@ -153,6 +157,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             // casing of the file located on the file system.
             try {
               File fileRef = FileUtils.toFile(xincludeUrl);
+LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {},{}",xincludeUrl,fileRef.getPath());
               if (fileRef != null &&
                   !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
                 ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, 
@@ -218,6 +223,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             for (TinyNodeImpl child : children) {
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
+LOG.debug("FileReferenceValidationRule:validate:name {}",name);
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
               } else if ("directory_path_name".equals(child.getLocalPart())) {
@@ -255,7 +261,16 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                           + "' exists but the case doesn't match");
                     problems.add(new ValidationProblem(def, target, 
                         fileObject.getLineNumber(), -1));
-                  }
+                  } else {
+                      LOG.debug("FileReferenceValidationRule:validate:getTarget,name,urlRef {},{},{},",getTarget(),name,urlRef);
+                      // For every label that referenced urlRef, keep track of this list of labels.
+                      // If more othan one label referenced a file, this will be flagged as an error.
+                      //FileReferencedMap fileReferencedMap = this.fileReferencedMapList.setLabels(urlRef,getTarget().toString());
+                      //if (fileReferencedMap.getNumLabelsReferencedFile() > 1) { 
+                      //    LOG.error("File " + urlRef.toString() + "  is referenced by more than one labels " + fileReferencedMap.toString());
+                      //    System.exit(1);
+                      //}
+                 }
                 } catch (IOException io) {
                   ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
                       ProblemType.INTERNAL_ERROR,

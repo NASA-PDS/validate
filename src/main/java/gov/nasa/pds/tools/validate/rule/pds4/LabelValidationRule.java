@@ -193,10 +193,12 @@ public class LabelValidationRule extends AbstractValidationRule {
 
         Document document = null;
         boolean pass = true;
+        boolean forcedValidateLabel = true;  // Force the validation of the label even if there are issues with schematron.
+        boolean hasValidSchemas = false;
         ProblemContainer problemContainer = new ProblemContainer();
         if (getContext().getCatalogResolver() != null ||
                 getContext().isForceLabelSchemaValidation()) {
-          boolean hasValidSchemas = false;
+          //boolean hasValidSchemas = false;
           Map<String, Transformer> labelSchematrons = null;
           synchronized (lock) {
             // Validate the label's schema and schematron first before doing
@@ -206,6 +208,7 @@ public class LabelValidationRule extends AbstractValidationRule {
 
             labelSchematrons = validateLabelSchematrons(
                     target, problemContainer, getContext().getCatalogResolver());
+            LOG.debug("validateLabel:target,hasValidSchemas,labelSchematrons.size() {},{},{}",target,hasValidSchemas,labelSchematrons.size());
           }
 
             // https://github.com/NASA-PDS/validate/issues/17
@@ -255,10 +258,14 @@ public class LabelValidationRule extends AbstractValidationRule {
                 }
               }
               pass = false;
+              LOG.debug("validateLabel:PASS_TO_FALSE:target,pass {},{}",target,pass);
             }
         }
+        LOG.debug("validateLabel:target,hasValidSchemas,labelSchematrons.isEmpty() {},{},{}",target,hasValidSchemas,labelSchematrons.isEmpty());
         LOG.debug("validateLabel:target,pass {},{}",target,pass);
-        if (pass) {
+        // If forcedValidateLabel is true, call parseAndValidate() regardless.
+        if (pass || forcedValidateLabel) {
+        //if (2 == 2) {
           getListener().addLocation(target.toString());
           LOG.debug("validateLabel:afor:target {}",target);
           document = validator.parseAndValidate(processor, target);
@@ -480,6 +487,7 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
     
     LOG.debug("validateLabelSchematrons:schematronRefs.size() {}",schematronRefs.size());
+    LOG.debug("validateLabelSchematrons:label,schematronRefs.size() {},{}",label,schematronRefs.size());
     //Now validate the schematrons
     for (URL schematronRef : schematronRefs) {
       try {
