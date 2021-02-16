@@ -459,21 +459,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   if (lineEndsInLineFeed == true) {
                       LOG.debug("validateTableDataContents:Record does end with line feed and is acceptable");
                   } else { 
-/*--->
-int lastCharInAscii = (int) line.charAt(line.length() - 1);
-int carriageReturnAscii = (int) '\r';
-int lineFeedInAscii = (int) '\n';
-LOG.debug("validateTableDataContents:line.substring(line.length() - 1,1) [{}]",line.substring(line.length() - 1,line.length()));
-LOG.debug("validateTableDataContents:lineFeedInAscii {}",lineFeedInAscii);
-LOG.debug("validateTableDataContents:carriageReturnAscii {}",carriageReturnAscii);
-LOG.debug("validateTableDataContents:lastCharInAscii {}",lastCharInAscii);
-LOG.debug("validateTableDataContents:lineNumber {}",Integer.toString(lineNumber));
-LOG.debug("validateTableDataContents:line.length() {}",Integer.toString(line.length()));
-//LOG.debug("validateTableDataContents:lastCharInAscii {}",Integer.toString(lastCharInAscii));
-//String errorString = "hello";
-String errorString = "Record does not end in carriage-return line feed: lineNumber,line.length(),lastCharInAscii,line " + Integer.toString(lineNumber) + ", " + Integer.toString(line.length()) + "," + Integer.toString(lastCharInAscii) + "[" + line + "]";
-LOG.error(errorString);
-<---*/
                 addTableProblem(ExceptionType.ERROR,
                     ProblemType.MISSING_CRLF,
                     "Record does not end in carriage-return line feed.", 
