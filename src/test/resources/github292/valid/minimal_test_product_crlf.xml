@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 
 <Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="      
-    http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
   
   <Identification_Area>
     <logical_identifier>urn:esa:psa:mission_host_instrument:data_raw:test_product</logical_identifier>
     <version_id>0.1</version_id>
     <title>PSA test product</title>
-    <information_model_version>1.11.0.0</information_model_version>
+    <information_model_version>1.16.0.0</information_model_version>
     <product_class>Product_Observational</product_class>
     <Modification_History>
       <Modification_Detail>
@@ -41,7 +41,7 @@
       <name>BepiColombo Monitoring Camera</name>
       <Observing_System_Component>
         <name>Mercury Transfer Module</name>
-        <type>Spacecraft</type>
+        <type>Host</type>
         <Internal_Reference>
           <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mtm</lid_reference>
           <reference_type>is_instrument_host</reference_type>
