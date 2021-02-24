@@ -278,7 +278,6 @@ public class StepDefs {
                 // A particular test 'github71' has a different way of creating the catalog file.
                 // A particular test 'github87' has a different way of creating the catalog file.
                 // A particular test 'github292' has a different way of creating the catalog file.
-                //if ((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) { 
                 if (((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) ||
                      (this.testName.indexOf("validate#292") >= 0))  {
                     System.out.println("execute_a_validate_command:testName,catFile " + this.testName + " " + catFile);
