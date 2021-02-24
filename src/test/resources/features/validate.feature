@@ -12,10 +12,10 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#291 VALID" | "github291" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_valid.json -s json -R pds4.bundle -t {resourceDir}/github291/valid/bundle_kaguya_derived.xml" | "report_github291_bundle_valid.json" |
  |"NASA-PDS/validate#291 INVALID" | "github291" | 1 | "1 warning message expected for BAD_SCHEMATYPENS." | "BAD_SCHEMATYPENS" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_invalid.json -s json -R pds4.bundle -t {resourceDir}/github291/invalid/bundle_kaguya_derived.xml" | "report_github291_bundle_invalid.json" |
 
- |"NASA-PDS/validate#292 VALID LF" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_valid_lf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_lf.xml" | "report_github292_label_valid_lf.json" |
- |"NASA-PDS/validate#292 VALID CR" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_valid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_crlf.xml" | "report_github292_label_valid_crlf.json" |
- |"NASA-PDS/validate#292 INVALID LF" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_invalid_lf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_lf.xml" | "report_github292_label_invalid_lf.json" |
- |"NASA-PDS/validate#292 INVALID CR" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github292_label_invalid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_crlf.xml" | "report_github292_label_invalid_crlf.json" |
+# Moved github292 tests to the end as they interfere with other test with the following error message:
+#
+# The attribute pds:information_model_version must be equal to the value '1.16.0.0'.
+#
 
  |"NASA-PDS/validate#294 VALID" | "github294" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_valid.json -s json -R pds4.label -t {resourceDir}/github294/valid/minmax-error.xml" | "report_github294_bundle_valid.json" |
  |"NASA-PDS/validate#294 INVALID" | "github294" | 1 | "1 error messages expected for RECORDS_MISMATCH." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_invalid.json -s json -R pds4.label -t {resourceDir}/github294/invalid/minmax-error.xml" | "report_github294_bundle_invalid.json" |
@@ -70,8 +70,9 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#62 1"   | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --no-data-check -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
  |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --no-data-check -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
 
- |"NASA-PDS/validate#71 1" | "github71" | 1 | "1 error message expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_1.json -s json --no-data-check -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_1.json" |
- |"NASA-PDS/validate#71 2" | "github71" | 0 | "0 error message not expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_2.json -s json  -C {reportDir}/catalog.xml -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_2.json" |
+# Move github278 before github71 as it causing issues
+ |"NASA-PDS/validate#278 1" | "github278" | 1 | "1 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_invalid_cucumber.json -s json {resourceDir}/github278/invalid/trk-2-34-revn-l5_tnf_invalid.xml" | "report_github278_label_invalid_cucumber.json" |
+ |"NASA-PDS/validate#278 2" | "github278" | 0 | "0 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_valid_cucumber.json -s json {resourceDir}/github278/valid/trk-2-34-revn-l5_tnf.xml" | "report_github278_label_valid_cucumber.json" |
 
  |"NASA-PDS/validate#9 1" | "github09" | 0 | "info/error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_1.json -s json -t {resourceDir}/github09/minimal_test_product_good2.xml" | "report_github09_1.json" |
  |"NASA-PDS/validate#9 2" | "github09" | 0 | "0 info/error messages not expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github09_2.json -s json -t {resourceDir}/github09/minimal_test_product_good.xml" | "report_github09_2.json" |
@@ -85,15 +86,12 @@ Scenario Outline: Execute validate command for tests below.
 ## Very special note: Test github84 must be specified after github71 and github71_2 due to dependency.
 ## That means if github84 is included in this table, github71 and github71_2 MUST also be included,
 ## otherwise you will see errors and not know why.
- |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --no-data-check -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
+# |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --no-data-check -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
 # Remove duplicate test: "NASA-PDS/validate#87 1"
 
 # Remove duplicate tests: "NASA-PDS/validate#137 1" and "NASA-PDS/validate#137 2"
 
 # BIG_NOTE: The tests for github173 has to be moved toward the beginning as leave them here results in error in information model.
-
-# |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
-# |"NASA-PDS/validate#173 2" | "github173" | 1 | "1 info/error messages not expected." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_2.json -s json -R pds4.bundle -t {resourceDir}/github173/invalid/ --skip-content-validation" | "report_github173_2.json" |
 
 # Note: Test github149 depends on github173 so if both have to be included and test github173 should be ran first.
 # Something weird with the below test.  If included everything above and then added this test, it failed.
@@ -102,11 +100,6 @@ Scenario Outline: Execute validate command for tests below.
 #11:        <information_model_version>1.11.0.0</information_model_version>
 # BIG_NOTE: The tests for github149 has to be moved toward the beginning as leave them here results in error in information model.
 #
-#|"NASA-PDS/validate#149 1" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_1.json -s json -t {resourceDir}/github173/valid/bundle_kaguya_derived.xml" | "report_github149_1.json" |
-# "The attribute pds:information_model_version must be equal to the value '1.7.0.0'."}]
-# {pds-dev3.jpl.nasa.gov}/home/qchau/sandbox/validate 168 % grep -n information_model_version ./src/test/resources/github173/invalid/bundle_kaguya_derived.xml
-#11:        <information_model_version>1.11.0.0</information_model_version>
-# |"NASA-PDS/validate#149 2" | "github173" | 0 | "0 error messages expected. See validation report: " | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github149_2.json -s json -t {resourceDir}/github173/invalid/bundle_kaguya_derived.xml" | "report_github149_2.json" |
 
 # The 3 tests below are from "github209"
  |"NASA-PDS/validate#209 VALID" | "github209" | 0 | "0 message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json  -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
@@ -118,8 +111,7 @@ Scenario Outline: Execute validate command for tests below.
 #
 #
 # The correct location of file catalog.xml is in {reportDir} and not {resourceDir}
-#
- |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --no-data-check -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
+# Move github87 as it is interfering with github292 tests
 
 # https://github.com/NASA-PDS/validate/issues/281 Validate fails to report error in File.file_size
 
@@ -130,20 +122,26 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#281 5" | "github281" | 0 | "0 errors expected for FILESIZE_MISMATCH." | "FILESIZE_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github281_label_valid_2_cucumber.json -s json {resourceDir}/github281/valid/collection_gwe_spk_valid_2_no_filesize.xml" | "report_github281_label_valid_2_cucumber.json" |
  |"NASA-PDS/validate#281 6" | "github281" | 0 | "0 errors expected for FILESIZE_MISMATCH." | "FILESIZE_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github281_label_valid_3_cucumber.json -s json {resourceDir}/github281/valid/collection_gwe_spk_valid_3_no_filesize_no_checksum.xml" | "report_github281_label_valid_3_cucumber.json" |
 
-# https://github.com/NASA-PDS/validate/issues/278 Registered context products file does not retain older versions of context products
-
- |"NASA-PDS/validate#278 1" | "github278" | 1 | "1 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_invalid_cucumber.json -s json {resourceDir}/github278/invalid/trk-2-34-revn-l5_tnf_invalid.xml" | "report_github278_label_invalid_cucumber.json" |
- |"NASA-PDS/validate#278 2" | "github278" | 0 | "0 errors expected for CONTEXT_REFERENCE_NOT_FOUND." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github278_label_valid_cucumber.json -s json {resourceDir}/github278/valid/trk-2-34-revn-l5_tnf.xml" | "report_github278_label_valid_cucumber.json" |
-
 # BIG_NOTE: The tests for github6 has to be moved toward the beginning as leave them here results in error in information model.
-
-# |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
-# |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
-
-# https://github.com/NASA-PDS/validate/issues/240 Unexpected error for data collection in a sub-directory
-
 # BIG_NOTE: The tests for github240 has to be moved toward the beginning as leave them here results in error in information model.
 
-# |"NASA-PDS/validate#240 1" | "github240" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_valid_cucumber.json -s json {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github240_bundle_valid_cucumber.json" |
-# |"NASA-PDS/validate#240 2" | "github240" | 3 | "3 errors expected for UNALLOWED_BUNDLE_SUBDIR_NAME." | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github240_bundle_invalid_cucumber.json -s json {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github240_bundle_invalid_cucumber.json" |
+ |"NASA-PDS/validate#71 1" | "github71" | 0 | "0 error message expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_1.json -C {reportDir}/catalog.xml -s json --skip-content-validation -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_1.json" |
+ |"NASA-PDS/validate#71 2" | "github71" | 0 | "0 error message expected" | "totalErrors" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_2.json -s json  -C {reportDir}/catalog.xml -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_2.json" |
+ |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --skip-content-validation -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
 
+ |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --skip-content-validation -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
+
+# Moved github292 tests to the end as they interfer with other test with the following error message:
+#
+# The attribute pds:information_model_version must be equal to the value '1.16.0.0'.
+#
+# Notes:
+#   1.  The file catalog.xml must have been created by the Java test code in the expected location.
+#   2.  The  -C {reportDir}/catalog.xml is needed otherwise the code will to use github87/pds/v1/PDS4_PDS_1G00.xsd (from the run above row)
+#       which would result in (No such file or directory) error
+#       Using schema/schematron from the previous run may be an issue with the validate software not flushing successfully.
+#
+ |"NASA-PDS/validate#292 VALID LF" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -C {reportDir}/catalog.xml -schema  src/test/resources/github292/pds/v1/PDS4_PDS_1G00.xsd -schematron src/test/resources/github292/pds/v1/PDS4_PDS_1G00.sch -r {reportDir}/report_github292_label_valid_lf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_lf.xml" | "report_github292_label_valid_lf.json" |
+ |"NASA-PDS/validate#292 VALID CR" | "github292" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -C {reportDir}/catalog.xml -schema  src/test/resources/github292/pds/v1/PDS4_PDS_1G00.xsd -schematron src/test/resources/github292/pds/v1/PDS4_PDS_1G00.sch -r {reportDir}/report_github292_label_valid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/valid/minimal_test_product_crlf.xml" | "report_github292_label_valid_crlf.json" |
+ |"NASA-PDS/validate#292 INVALID LF" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -C {reportDir}/catalog.xml -schema  src/test/resources/github292/pds/v1/PDS4_PDS_1G00.xsd -schematron src/test/resources/github292/pds/v1/PDS4_PDS_1G00.sch -r {reportDir}/report_github292_label_invalid_lf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_lf.xml" | "report_github292_label_invalid_lf.json" |
+ |"NASA-PDS/validate#292 INVALID CR" | "github292" | 4 | "4 error messages expected for RECORD_LENGTH_MISMATCH." | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -C {reportDir}/catalog.xml -schema  src/test/resources/github292/pds/v1/PDS4_PDS_1G00.xsd -schematron src/test/resources/github292/pds/v1/PDS4_PDS_1G00.sch -r {reportDir}/report_github292_label_invalid_crlf.json -s json -R pds4.label -t {resourceDir}/github292/invalid/minimal_test_product_crlf.xml" | "report_github292_label_invalid_crlf.json" |

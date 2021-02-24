@@ -76,6 +76,8 @@ public class StepDefs {
     void tearDown() throws Exception {
 //        FileUtils.forceDelete(this.outputData);
         this.launcher.flushValidators();
+        // It seems the launcher does not completely flush any references to schematron
+        // which causes problem for subsequent tests.
     }
 
     private void createManifestFileDo(String testPath) {
@@ -275,7 +277,10 @@ public class StepDefs {
 
                 // A particular test 'github71' has a different way of creating the catalog file.
                 // A particular test 'github87' has a different way of creating the catalog file.
-                if ((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) {
+                // A particular test 'github292' has a different way of creating the catalog file.
+                //if ((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) { 
+                if (((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) ||
+                     (this.testName.indexOf("validate#292") >= 0))  {
                     System.out.println("execute_a_validate_command:testName,catFile " + this.testName + " " + catFile);
                     this.createCatalogFileDo(catFile,testPath,true);
                 } else {
