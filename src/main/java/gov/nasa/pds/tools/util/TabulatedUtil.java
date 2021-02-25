@@ -12,7 +12,6 @@ import java.util.List;
 
 import javax.xml.transform.sax.SAXSource;
 
-import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.om.DocumentInfo;
 
 import gov.nasa.pds.tools.util.LabelParser;
@@ -43,21 +42,22 @@ public class TabulatedUtil {
 
       String recordDelimiter = null;
 
-      List<TinyNodeImpl> xmlModels = new ArrayList<TinyNodeImpl>();
       try {
           SAXSource saxSource = new SAXSource(Utility.openConnection(getTarget()));
           DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
           XMLExtractor extractor = new XMLExtractor(docInfo);
-          xmlModels = extractor.getNodesFromDoc("Product_Observational/File_Area_Observational/Table_Character");
           String fieldCheck = "record_delimiter";
-          for (TinyNodeImpl xmlModel : xmlModels) {
-              recordDelimiter = extractor.getValueFromItem(fieldCheck,xmlModel);
+
+          // Since 'record_delimiter' does not have to be in Table_Character element, prepend with "//" to get to the field's value. 
+          recordDelimiter = extractor.getValueFromDoc("//" + fieldCheck);
+          // If the tag does not exist, it is returned as an empty string.  Reset to null for later use.
+          if (recordDelimiter.length() == 0) {
+             recordDelimiter = null;
           }
       } catch (Exception e) {
           LOG.error("Exception encountered in getFieldDelimiter:getTarget() {},{}",getTarget());
           e.printStackTrace();
       }
-
       return(recordDelimiter);
   }
 }
