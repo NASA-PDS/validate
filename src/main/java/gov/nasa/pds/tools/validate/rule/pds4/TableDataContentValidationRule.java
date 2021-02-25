@@ -67,6 +67,7 @@ import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
+import gov.nasa.pds.tools.util.TabulatedUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -138,32 +139,16 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     return isApplicable;
   }
 
-  private boolean checkIfLineEndsWithLineFeed(String line) {
-      // If a line does ends with a line feed (lineFeedInAscii 10) it is acceptable.
-      //
-      //     lineFeedInAscii       = 10 = '\n'
-      //     carriageReturnInAscii = 13 = '\r'
-
-      boolean lineEndsInLineFeed = false;
-      int lastCharInAscii = (int) line.charAt(line.length() - 1);
-      if (lastCharInAscii == LINE_FEED_IN_ASCII) {
-          lineEndsInLineFeed = true;
-      }
-
-      //LOG.debug("checkIfLineEndsWithLineFeed:line.substring(line.length() - 1,1) [{}]",line.substring(line.length() - 1,line.length()));
-      //LOG.debug("checkIfLineEndsWithLineFeed:LINE_FEED_IN_ASCII {}",LINE_FEED_IN_ASCII);
-      //LOG.debug("checkIfLineEndsWithLineFeed:lastCharInAscii {}",lastCharInAscii);
-      //LOG.debug("checkIfLineEndsWithLineFeed:lineEndsInLineFeed {}",lineEndsInLineFeed);
-
-      return(lineEndsInLineFeed);
-  }
-
   @ValidationTest
   public void validateTableDataContents() throws MalformedURLException, 
   URISyntaxException {
 	  
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
+    TabulatedUtil tabulatedUtil = new TabulatedUtil(getTarget());
+    // Get the record delimiter if can be found.
+    String recordDelimiter = tabulatedUtil.getRecordDelimiter();
+
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
     int spotCheckData = getContext().getSpotCheckData();
@@ -451,28 +436,51 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             while (line != null) {
               progressCounter();
               lineNumber += 1;
-              
-              if (!line.endsWith("\r\n")) {
-                  // Perform a check if the record ends in line feed or not ("\n")
-                  // https://github.com/nasa-pds/validate/issues/292
-                  boolean lineEndsInLineFeed = checkIfLineEndsWithLineFeed(line);
-                  if (lineEndsInLineFeed == true) {
-                      LOG.debug("validateTableDataContents:Record does end with line feed and is acceptable");
-                  } else { 
-                addTableProblem(ExceptionType.ERROR,
-                    ProblemType.MISSING_CRLF,
-                    "Record does not end in carriage-return line feed.", 
-                    dataFile, tableIndex, reader.getCurrentRow());
-                }
-                manuallyParseRecord = true;
+
+              if (recordDelimiter != null) {
+                  // Check for how the line ends keying off what was provided in the label.
+                  // If the delimiter is "Carriage-Return Line-Feed" then the line should end with a carriage return and a line feed.
+                  if (recordDelimiter.equals("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
+                    addTableProblem(ExceptionType.ERROR,
+                        ProblemType.MISSING_CRLF,
+                        "Record does not end in carriage-return line feed.",
+                        dataFile, tableIndex, reader.getCurrentRow());
+                    manuallyParseRecord = true;
+                  } else if (recordDelimiter.equals("Line-Feed") && !line.endsWith("\n")) {
+                      // Perform a check if the record ends in line feed or not ("\n")
+                      // https://github.com/nasa-pds/validate/issues/292
+                      // If the delimiter is "Line-Feed" then the line should end with a line feed.
+                      addTableProblem(ExceptionType.ERROR,
+                          ProblemType.MISSING_LF,
+                          "Record does not end in line feed.",
+                          dataFile, tableIndex, reader.getCurrentRow());
+                    manuallyParseRecord = true;
+                  } else {
+                    addTableProblem(ExceptionType.DEBUG,
+                        ProblemType.CRLF_DETECTED,
+                        "Record ends in carriage-return line feed.",
+                        dataFile,
+                        tableIndex,
+                        reader.getCurrentRow());
+                  }
               } else {
-                addTableProblem(ExceptionType.DEBUG,
-                    ProblemType.CRLF_DETECTED,
-                    "Record ends in carriage-return line feed.",
-                    dataFile,
-                    tableIndex,
-                    reader.getCurrentRow());              
+                  // If cannot find a record delimiter, check for the default carriage return line feed.
+                  if (!line.endsWith("\r\n")) {
+                    addTableProblem(ExceptionType.ERROR,
+                        ProblemType.MISSING_CRLF,
+                        "Record does not end in carriage-return line feed.",
+                        dataFile, tableIndex, reader.getCurrentRow());
+                    manuallyParseRecord = true;
+                  } else {
+                    addTableProblem(ExceptionType.DEBUG,
+                        ProblemType.CRLF_DETECTED,
+                        "Record ends in carriage-return line feed.",
+                        dataFile,
+                        tableIndex,
+                        reader.getCurrentRow());              
+                  }
               }
+
               if (recordLength != -1) {
                 if (line.length() != recordLength) {
                   addTableProblem(ExceptionType.ERROR,
