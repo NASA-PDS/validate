@@ -69,9 +69,7 @@
 
   <File_Area_Observational>
     <File>
-      <file_name>minimal_test_product_lf.tab</file_name>
-      <file_size unit="byte">240</file_size>
-      <md5_checksum>101a46e33185ebbe7624eb2942955f48</md5_checksum>
+      <file_name>minimal_test_product_crlf.tab</file_name>
     </File>
 
     <Table_Character>
@@ -83,7 +81,7 @@
       <Record_Character>
         <fields>6</fields>
         <groups>0</groups>
-        <record_length unit="byte">999</record_length>
+        <record_length unit="byte">59</record_length>
         <Field_Character>
           <name>TIME_UTC</name>
           <field_number>1</field_number>
