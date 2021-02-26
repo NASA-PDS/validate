@@ -145,9 +145,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 	  
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
-    TabulatedUtil tabulatedUtil = new TabulatedUtil(getTarget());
-    // Get the record delimiter if can be found.
-    String recordDelimiter = tabulatedUtil.getRecordDelimiter();
+    String recordDelimiter = null;  // Specify how each record ends: null, carriage return line feed or line feed.
 
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
@@ -346,6 +344,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         } else {
           LOG.debug("table instanceof TableCharacter: else");
           TableCharacter tc = (TableCharacter) table;
+          recordDelimiter = tc.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
           LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
           LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
           LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
@@ -440,13 +439,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               if (recordDelimiter != null) {
                   // Check for how the line ends keying off what was provided in the label.
                   // If the delimiter is "Carriage-Return Line-Feed" then the line should end with a carriage return and a line feed.
-                  if (recordDelimiter.equals("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
+                  if (recordDelimiter.equalsIgnoreCase("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
                     addTableProblem(ExceptionType.ERROR,
                         ProblemType.MISSING_CRLF,
                         "Record does not end in carriage-return line feed.",
                         dataFile, tableIndex, reader.getCurrentRow());
                     manuallyParseRecord = true;
-                  } else if (recordDelimiter.equals("Line-Feed") && !line.endsWith("\n")) {
+                  } else if (recordDelimiter.equalsIgnoreCase("Line-Feed") && !line.endsWith("\n")) {
                       // Perform a check if the record ends in line feed or not ("\n")
                       // https://github.com/nasa-pds/validate/issues/292
                       // If the delimiter is "Line-Feed" then the line should end with a line feed.
