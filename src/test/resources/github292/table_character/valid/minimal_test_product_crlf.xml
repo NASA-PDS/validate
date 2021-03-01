@@ -79,11 +79,11 @@
       <offset unit="byte">0</offset>
       <records>4</records>
       <description>This table is a Character table</description>
-      <record_delimiter>Line-Feed</record_delimiter>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <Record_Character>
         <fields>6</fields>
         <groups>0</groups>
-        <record_length unit="byte">1000</record_length>
+        <record_length unit="byte">60</record_length>
         <Field_Character>
           <name>TIME_UTC</name>
           <field_number>1</field_number>
