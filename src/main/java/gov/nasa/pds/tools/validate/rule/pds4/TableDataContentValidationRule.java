@@ -306,6 +306,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         if (table instanceof TableDelimited) {
           LOG.debug("validateTableDataContents:table instanceof TableDelimited");
           TableDelimited td = (TableDelimited) table;
+          recordDelimiter = td.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
+          LOG.debug("td.getRecordDelimiter() [{}]",td.getRecordDelimiter());
+
           if (td.getRecordDelimited() != null &&
               td.getRecordDelimited().getMaximumRecordLength() != null) {
             recordMaxLength = td.getRecordDelimited()
@@ -445,14 +448,22 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                         "Record does not end in carriage-return line feed.",
                         dataFile, tableIndex, reader.getCurrentRow());
                     manuallyParseRecord = true;
-                  } else if (recordDelimiter.equalsIgnoreCase("Line-Feed") && !line.endsWith("\n")) {
-                      // Perform a check if the record ends in line feed or not ("\n")
-                      // https://github.com/nasa-pds/validate/issues/292
-                      // If the delimiter is "Line-Feed" then the line should end with a line feed.
-                      addTableProblem(ExceptionType.ERROR,
-                          ProblemType.MISSING_LF,
-                          "Record does not end in line feed.",
-                          dataFile, tableIndex, reader.getCurrentRow());
+                  } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
+                      if (!line.endsWith("\n")) {  // If the delimiter is Line-Feed, then the line should end with "\n"
+                          // Perform a check if the record ends in line feed or not ("\n")
+                          // https://github.com/nasa-pds/validate/issues/292
+                          // If the delimiter is "Line-Feed" then the line should end with a line feed.
+                          addTableProblem(ExceptionType.ERROR,
+                              ProblemType.MISSING_LF,
+                              "Record does not end in line feed.",
+                              dataFile, tableIndex, reader.getCurrentRow());
+                       }
+                       if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
+                          addTableProblem(ExceptionType.ERROR,
+                              ProblemType.MISSING_LF,
+                              "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
+                              dataFile, tableIndex, reader.getCurrentRow());
+                       }
                     manuallyParseRecord = true;
                   } else {
                     addTableProblem(ExceptionType.DEBUG,

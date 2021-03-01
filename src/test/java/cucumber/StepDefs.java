@@ -180,6 +180,10 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_SCHEMATRON_SPEC.getKey());
             } else if (strTemp.equals("RECORD_LENGTH_MISMATCH")) {
                 count = this.getMessageCount(reportJson, ProblemType.RECORD_LENGTH_MISMATCH.getKey());
+            } else if (strTemp.equals("MISSING_LF")) {
+                count = this.getMessageCount(reportJson, ProblemType.MISSING_LF.getKey());
+            } else if (strTemp.equals("MISSING_CRLF")) {
+                count = this.getMessageCount(reportJson, ProblemType.MISSING_CRLF.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {
