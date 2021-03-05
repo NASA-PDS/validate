@@ -35,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Element;
 
 import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.FileArea;
@@ -67,7 +66,6 @@ import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
-import gov.nasa.pds.tools.util.TabulatedUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -445,7 +443,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   if (recordDelimiter.equalsIgnoreCase("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
                     addTableProblem(ExceptionType.ERROR,
                         ProblemType.MISSING_CRLF,
-                        "Record does not end in carriage-return line feed.",
+                        "Unexpected record delimiter. Expected: 'Carriage-Return Line-Feed'",
                         dataFile, tableIndex, reader.getCurrentRow());
                     manuallyParseRecord = true;
                   } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
@@ -455,20 +453,20 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           // If the delimiter is "Line-Feed" then the line should end with a line feed.
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
-                              "Record does not end in line feed.",
+                              "Unexpected record delimiter. Expected: 'Line-Feed'",
                               dataFile, tableIndex, reader.getCurrentRow());
                        }
                        if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
-                              "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
+                              "Expected record delimiter: 'Line-Feed'. Actual: 'Carriage-Return Line-Feed'",
                               dataFile, tableIndex, reader.getCurrentRow());
                        }
                     manuallyParseRecord = true;
                   } else {
                     addTableProblem(ExceptionType.DEBUG,
                         ProblemType.CRLF_DETECTED,
-                        "Record ends in carriage-return line feed.",
+                        "Record ends in 'Carriage-Return Line-Feed' (OK)",
                         dataFile,
                         tableIndex,
                         reader.getCurrentRow());
