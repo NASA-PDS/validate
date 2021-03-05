@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:mars_target_encyclopedia:mpf:sentences</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>MTE Mars Pathfinder Sentences Table</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Wagstaff, K.; Francis, R.; Golombek, M.; Lu,
+            S.; Riloff, E.; Tamppari, L.</author_list>
+            <editor_list>VanBommel, S.</editor_list>
+            <publication_year>2021</publication_year>
+            <description>
+                This is MTE MPF components table
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-01-13</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1997-07-04Z</start_date_time>
+            <stop_date_time>2020-03-16Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Mars Pathfinder</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars_pathfinder</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Mars Pathfinder Lander</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mpfl</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Imager for Mars Pathfinder</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:imp.mpfl</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Mars Pathfinder Rover</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mpfr</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Alpha Proton X-ray Spectrometer</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:apxs.mpfr</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Mars</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>sentences.csv</file_name>
+            <file_size unit="byte">46426</file_size>
+            <records>285</records>
+        </File>
+        <Header>
+            <name>Header</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">29</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+        </Header>
+        <Table_Delimited>
+            <name>sentences</name>
+            <offset unit="byte">29</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>285</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>3</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">557</maximum_record_length>
+                <Field_Delimited>
+                    <name>doc_id</name>
+                    <field_number>1</field_number>
+                    <data_type>UTF8_String</data_type>
+                    <maximum_field_length unit="byte">9</maximum_field_length>
+                    <description>id of source document: consists of year + '_' + abstract id</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sentence_id</name>
+                    <field_number>2</field_number>
+                    <data_type>UTF8_String</data_type>
+                    <maximum_field_length unit="byte">12</maximum_field_length>
+                    <description>sentence identifier: consists of doc_id + '-' + sentence_number</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sentence</name>
+                    <field_number>3</field_number>
+                    <data_type>UTF8_String</data_type>
+                    <maximum_field_length unit="byte">531</maximum_field_length>
+                    <description>text of the sentence</description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

@@ -38,6 +38,7 @@ import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.DelimitedTableRecord;
 import gov.nasa.pds.objectAccess.FixedTableRecord;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
@@ -138,8 +139,8 @@ public class FieldValueValidator {
    * @param record The record containing the fields to validate.
    * @param fields An array of the field descriptions.
    */
-  public void validate(TableRecord record, FieldDescription[] fields) throws FieldContentFatalException {
-    validate(record, fields, true);
+  public void validate(TableRecord record, FieldDescription[] fields, Boolean[] fieldsStartWithQuoteList) throws FieldContentFatalException {
+    validate(record, fields, true, fieldsStartWithQuoteList);
   }
   
   /**
@@ -150,18 +151,53 @@ public class FieldValueValidator {
    * @param checkFieldFormat A flag to determine whether to check the field
    *  values against its specified field format, if present in the label.
    */
-  public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat) throws FieldContentFatalException{
+  public void validate(TableRecord record, FieldDescription[] fields, boolean checkFieldFormat, Boolean[] fieldsStartWithQuoteList) throws FieldContentFatalException{
     // Set variable if we get an error that will be a problem for all records
     boolean fatalError = false;
 
     //LOG.debug("validate:checkFieldFormat,fields.length {},{}",checkFieldFormat,fields.length);
     //LOG.debug("validate:checkFieldFormat,fields {}",fields);
     //LOG.debug("validate:record.getLocation().getRecord() {}",record.getLocation().getRecord());
+    //LOG.debug("validate:fieldsStartWithQuoteList.length {}",fieldsStartWithQuoteList.length);
 
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
+      String value = "dummy_value";   // Set to a dummy value to allow inspection when the value changed to a legitimate value.
+      //LOG.info("validate:i,fields.length {},{}",i,fields.length);
       try {
-        String value = record.getString(i+1);
+        //String value = record.getString(i+1);
+        value = record.getString(i+1);
+
+        //LOG.debug("FieldValueValidator:validate:record.getLocation().getRecord(),value {},[{}]",record.getLocation().getRecord(),value);
+        //LOG.debug("FieldValueValidator:validate:i,getClass().getName() {},{}",i,fields[i].getClass().getName());
+        // issue_298: validate misses double quotes within a delimited table
+        //
+        // It should also be pointed out the String value comes from the code that parses a record and it does two things:
+        //
+        //   1.  The double quotes (at beginning and end of field) that may enlosed the fields are removed.
+        //       so it is not possible to know if it starts with a double.  The extra list fieldsStartWithQuoteList provides that information.
+        //   2.  The two adjacent double quotes (inside the field) are converted to one double quote.
+        //
+        //  so we can safely use "value.contains("\"") to check if it contains a double quote without worrying about the leading
+        //  and trailing double quote.
+        //
+        // New logic to check if the field starts with a double quote and then also contain a double quote inside.
+
+        //LOG.info("validate:i,fieldsStartWithQuoteList.length,value {},{},[{}]",i,fieldsStartWithQuoteList.length,value);
+        //if (fieldsStartWithQuoteList.length > 0 && (fieldsStartWithQuoteList[i] && value.contains("\""))) {
+        // Care must be taken to check for i versus fieldsStartWithQuoteList.length otherwise will get "index out of bound error"
+        if ((fieldsStartWithQuoteList.length > 0) && (i < fieldsStartWithQuoteList.length)) {
+            if (fieldsStartWithQuoteList[i] == true && value.contains("\"")) {
+                String message = "The field value '" + value.trim()
+                  + "' that starts with double quote should not contain double quote(s)";
+                addTableProblem(ExceptionType.ERROR,
+                    ProblemType.INVALID_FIELD_VALUE,
+                    message,
+                    record.getLocation(),
+                    (i + 1));
+            }
+        }
+
         // issue_209: fix for incorrect field number
         if (i<(fields.length-1) ) {
            if (fields[i+1].getOffset()!=fields[i].getOffset())
@@ -328,6 +364,9 @@ public class FieldValueValidator {
             record.getLocation(),
             (i + 1));
         fatalError = true;
+
+        // Print the stack trace to an external file for inspection.
+        FileService.printStackTraceToFile(null,e);
       }
     }
     
