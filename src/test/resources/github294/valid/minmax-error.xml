@@ -1,0 +1,1441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:mars2020="http://pds.nasa.gov/pds4/mission/mars2020/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+    xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1              https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:mars2020_rimfax:data_calibrated:rdr9</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Mars 2020 RIMFAX Calibrated Data Product rdr9</title>
+        <information_model_version>1.15.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-01-14</modification_date>
+                <version_id>1.0</version_id>
+                <description>Draft</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2021-05-01T00:00:00.000Z</start_date_time>
+            <stop_date_time>2021-05-01T00:19:06.342Z</stop_date_time>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Mars 2020</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Mars 2020</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Radar Imager for Mars Subsurface Exploration</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mars2020.rimfax</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Mars</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+
+    <File_Area_Observational>
+        <File>
+            <file_name>minmax-error.csv</file_name>
+            <creation_date_time>2021-01-09T12:59</creation_date_time>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">10264</object_length>
+            <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+            <description>The first line in the file contains column headings.</description>
+        </Header>
+         <Table_Delimited>
+            <local_identifier>rdr9</local_identifier>
+             <offset unit="byte">10264</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>357</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>           
+            <Record_Delimited>
+                <fields>127</fields>
+                <groups>1</groups>
+                <Field_Delimited>
+                    <name>utc</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Universal Time Coordinated</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>jdate</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Julian date</description>
+                    <Field_Statistics>
+                        <local_identifier>jdate_stats</local_identifier>
+                        <maximum>2459335.5132678</maximum>
+                        <minimum>2459335.5000000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>year</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Earth year</description>
+                    <Field_Statistics>
+                        <local_identifier>year_stats</local_identifier>
+                        <maximum>2021</maximum>
+                        <minimum>2021</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>doy</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Day of Earth year</description>
+                    <Field_Statistics>
+                        <local_identifier>doy_stats</local_identifier>
+                        <maximum>121</maximum>
+                        <minimum>121</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>mars_year</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Mars year number, measured from [April 11, 1955 = start of Year 1 OR May 24, 1953 = start of Year 0]</description>
+                    <Field_Statistics>
+                        <local_identifier>mars_year_stats</local_identifier>
+                        <maximum>36</maximum>
+                        <minimum>36</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>m2020_sol</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Sol of the Mars 2020 Perseverance mission</description>
+                    <Field_Statistics>
+                        <local_identifier>m2020_sol_stats</local_identifier>
+                        <maximum>81</maximum>
+                        <minimum>81</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ls</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Solar longitude, measured from northern spring equinox = 0</description>
+                    <Field_Statistics>
+                        <local_identifier>ls_stats</local_identifier>
+                        <maximum>38.8000000</maximum>
+                        <minimum>38.8000000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>soltime_mean</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Local mean solar time</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>soltime_true</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Local true solar time</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sclk</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>System time in SCLK seconds, measured from [Time 0=midnight on 1-Jan-1980]</description>
+                    <Field_Statistics>
+                        <local_identifier>sclk_stats</local_identifier>
+                        <maximum>633688703</maximum>
+                        <minimum>633687556</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sclk_sub_ns</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>System time SCLK subseconds in nanoseconds, measured from [Time 0=midnight on 1-Jan-1980]</description>
+                    <Field_Statistics>
+                        <local_identifier>sclk_sub_ns_stats</local_identifier>
+                        <maximum>991178334</maximum>
+                        <minimum>22740498</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sun_lat</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Sub-solar latitude</description>
+                    <Field_Statistics>
+                        <local_identifier>sun_lat_stats</local_identifier>
+                        <maximum>-10.38100000</maximum>
+                        <minimum>-10.38100000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sun_lon</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Sub-solar longitude</description>
+                    <Field_Statistics>
+                        <local_identifier>sun_lon_stats</local_identifier>
+                        <maximum>44.78200000</maximum>
+                        <minimum>44.78200000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sun_dist</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Distance to Sun</description>
+                    <Field_Statistics>
+                        <local_identifier>sun_dist_stats</local_identifier>
+                        <maximum>1.52345678</maximum>
+                        <minimum>1.52345678</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sun_inc</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Sun incidence angle, relative to ellipsoid, measured from planetary zenith = 0</description>
+                    <Field_Statistics>
+                        <local_identifier>sun_inc_stats</local_identifier>
+                        <maximum>59.9801</maximum>
+                        <minimum>59.9445</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sun_az</name>
+                    <field_number>16</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Sun azimuth direction, measured from North = 0</description>
+                    <Field_Statistics>
+                        <local_identifier>sun_az_stats</local_identifier>
+                        <maximum>270.0359</maximum>
+                        <minimum>270.0003</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_lat</name>
+                    <field_number>17</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[Planetocentric] Latitude of center of rover</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_lat_stats</local_identifier>
+                        <maximum>18.10345678</maximum>
+                        <minimum>18.10345678</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_lon</name>
+                    <field_number>18</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[East] Longitude of center of rover</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_lon_stats</local_identifier>
+                        <maximum>77.10345678</maximum>
+                        <minimum>77.10345678</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_elev</name>
+                    <field_number>19</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[Planetary] Elevation of center of rover</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_elev_stats</local_identifier>
+                        <maximum>-2451.1234</maximum>
+                        <minimum>-2451.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_speed</name>
+                    <field_number>20</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Speed of center of rover over ground</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_speed_stats</local_identifier>
+                        <maximum>0.011456</maximum>
+                        <minimum>0.011456</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_left_bogie</name>
+                    <field_number>21</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Angle of left bogie joint</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_left_bogie_stats</local_identifier>
+                        <maximum>-0.002286</maximum>
+                        <minimum>-0.002286</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_left_differential</name>
+                    <field_number>22</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Angle of left differential joint</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_left_differential_stats</local_identifier>
+                        <maximum>0.002296</maximum>
+                        <minimum>0.002296</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_right_bogie</name>
+                    <field_number>23</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Angle of right bogie joint</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_right_bogie_stats</local_identifier>
+                        <maximum>-0.017596</maximum>
+                        <minimum>-0.017596</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_right_differential</name>
+                    <field_number>24</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Angle of right differential joint</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_right_differential_stats</local_identifier>
+                        <maximum>-0.006486</maximum>
+                        <minimum>-0.006486</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_sapp_quality</name>
+                    <field_number>25</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Attitude quality flag: list possibilities for VALUE=MEANING</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_sapp_quality_stats</local_identifier>
+                        <maximum>2</maximum>
+                        <minimum>2</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_steer_lf</name>
+                    <field_number>26</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Steer angle of left-front wheel</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_steer_lf_stats</local_identifier>
+                        <maximum>0.000006</maximum>
+                        <minimum>0.000006</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_steer_lr</name>
+                    <field_number>27</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Steer angle of left-rear wheel</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_steer_lr_stats</local_identifier>
+                        <maximum>-0.000596</maximum>
+                        <minimum>-0.000596</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_steer_rf</name>
+                    <field_number>28</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Steer angle of right-front wheel</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_steer_rf_stats</local_identifier>
+                        <maximum>0.000426</maximum>
+                        <minimum>0.000426</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rover_steer_rr</name>
+                    <field_number>29</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Steer angle of right-rear wheel</description>
+                    <Field_Statistics>
+                        <local_identifier>rover_steer_rr_stats</local_identifier>
+                        <maximum>0.000126</maximum>
+                        <minimum>0.000126</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_arm</name>
+                    <field_number>30</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Arm rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_arm_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_bit_carousel</name>
+                    <field_number>31</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Bit Carousel rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_bit_carousel_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_drill</name>
+                    <field_number>32</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Drill rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_drill_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_drive</name>
+                    <field_number>33</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Drive rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_drive_stats</local_identifier>
+                        <maximum>122</maximum>
+                        <minimum>122</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_hga</name>
+                    <field_number>34</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>HGA rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_hga_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_pose</name>
+                    <field_number>35</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Pose rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_pose_stats</local_identifier>
+                        <maximum>2</maximum>
+                        <minimum>2</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_rsm</name>
+                    <field_number>36</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>RSM rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_rsm_stats</local_identifier>
+                        <maximum>2</maximum>
+                        <minimum>2</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_sealing_station</name>
+                    <field_number>37</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Sealing Station rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_sealing_station_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_sha</name>
+                    <field_number>38</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>SHA rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_sha_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>system_rmc_site</name>
+                    <field_number>39</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Site rover motion counter</description>
+                    <Field_Statistics>
+                        <local_identifier>system_rmc_site_stats</local_identifier>
+                        <maximum>1</maximum>
+                        <minimum>1</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_lat</name>
+                    <field_number>40</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[Planetocentric] Latitude of center of antenna</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_lat_stats</local_identifier>
+                        <maximum>18.02345678</maximum>
+                        <minimum>18.02345678</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_lon</name>
+                    <field_number>41</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[East] Longitude of center of antenna</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_lon_stats</local_identifier>
+                        <maximum>77.02345678</maximum>
+                        <minimum>77.02345678</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_elev</name>
+                    <field_number>42</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>[Planetary] Elevation of center of antenna</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_elev_stats</local_identifier>
+                        <maximum>-2450.1234</maximum>
+                        <minimum>-2450.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_speed</name>
+                    <field_number>43</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Speed of center of antenna over ground</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_speed_stats</local_identifier>
+                        <maximum>0.010456</maximum>
+                        <minimum>0.010456</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_az</name>
+                    <field_number>44</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Azimuth direction of antenna, measured clockwise from North = 0</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_az_stats</local_identifier>
+                        <maximum>180.1234</maximum>
+                        <minimum>180.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_pitch</name>
+                    <field_number>45</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Pitch angle of antenna, relative to [local surface OR planetary/ellipsoid?]</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_pitch_stats</local_identifier>
+                        <maximum>-52.1234</maximum>
+                        <minimum>-52.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_roll</name>
+                    <field_number>46</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Roll angle of antenna, relative to [local surface OR planetary/ellipsoid?]</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_roll_stats</local_identifier>
+                        <maximum>-1.1234</maximum>
+                        <minimum>-1.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_tilt</name>
+                    <field_number>47</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Tilt angle of antenna, relative to [local surface OR planetary/ellipsoid?]</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_tilt_stats</local_identifier>
+                        <maximum>53.1234</maximum>
+                        <minimum>53.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ant_tiltaz</name>
+                    <field_number>48</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Azimuth direction of antenna tilt, measured clockwise from North = 0</description>
+                    <Field_Statistics>
+                        <local_identifier>ant_tiltaz_stats</local_identifier>
+                        <maximum>359.1234</maximum>
+                        <minimum>359.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>housekeeping</name>
+                    <field_number>49</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>1 = measurement is housekeeping data, 0 = measurement is sounding data, (2 = interpolated hk data?)</description>
+                    <Field_Statistics>
+                        <local_identifier>housekeeping_stats</local_identifier>
+                        <maximum>1</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>config</name>
+                    <field_number>50</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Identifier of current Rimfax configuration mode</description>
+                    <Field_Statistics>
+                        <local_identifier>config_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca0</name>
+                    <field_number>51</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V3v3_D1</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca0_stats</local_identifier>
+                        <maximum>2079.0000</maximum>
+                        <minimum>2079.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca1</name>
+                    <field_number>52</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V2v5_D2</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca1_stats</local_identifier>
+                        <maximum>3154.0000</maximum>
+                        <minimum>3154.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca2</name>
+                    <field_number>53</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V1v5_D3</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca2_stats</local_identifier>
+                        <maximum>1916.0000</maximum>
+                        <minimum>1916.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca3</name>
+                    <field_number>54</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V3v3_A1</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca3_stats</local_identifier>
+                        <maximum>2085.0000</maximum>
+                        <minimum>2085.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca4</name>
+                    <field_number>55</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V2v5_A2</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca4_stats</local_identifier>
+                        <maximum>3191.0000</maximum>
+                        <minimum>3191.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca5</name>
+                    <field_number>56</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V5v_A3</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca5_stats</local_identifier>
+                        <maximum>3240.0000</maximum>
+                        <minimum>3240.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca6</name>
+                    <field_number>57</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage Vm5v_A4</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca6_stats</local_identifier>
+                        <maximum>2335.0000</maximum>
+                        <minimum>2335.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadca7</name>
+                    <field_number>58</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage_reference</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadca7_stats</local_identifier>
+                        <maximum>3174.0000</maximum>
+                        <minimum>3174.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb0</name>
+                    <field_number>59</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage V3v_A8</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb0_stats</local_identifier>
+                        <maximum>1881.0000</maximum>
+                        <minimum>1881.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb1</name>
+                    <field_number>60</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Voltage Vm3V_A9</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb1_stats</local_identifier>
+                        <maximum>1460.0000</maximum>
+                        <minimum>1460.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb2</name>
+                    <field_number>61</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_D1</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb2_stats</local_identifier>
+                        <maximum>2104.0000</maximum>
+                        <minimum>2104.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb3</name>
+                    <field_number>62</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_RF1</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb3_stats</local_identifier>
+                        <maximum>2105.0000</maximum>
+                        <minimum>2105.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb4</name>
+                    <field_number>63</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_RF2</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb4_stats</local_identifier>
+                        <maximum>2111.0000</maximum>
+                        <minimum>2111.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb5</name>
+                    <field_number>64</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_P1</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb5_stats</local_identifier>
+                        <maximum>2102.0000</maximum>
+                        <minimum>2102.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb6</name>
+                    <field_number>65</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_P2</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb6_stats</local_identifier>
+                        <maximum>2099.0000</maximum>
+                        <minimum>2099.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>hkadcb7</name>
+                    <field_number>66</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature Term_D2</description>
+                    <Field_Statistics>
+                        <local_identifier>hkadcb7_stats</local_identifier>
+                        <maximum>2121.0000</maximum>
+                        <minimum>2121.0000</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>framingerrors</name>
+                    <field_number>67</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>framingerrors_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>overrunerrors</name>
+                    <field_number>68</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>overrunerrors_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invaliderrors</name>
+                    <field_number>69</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invaliderrors_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>parityerrors</name>
+                    <field_number>70</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>parityerrors_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invaliderrorsctrltypes</name>
+                    <field_number>71</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invaliderrorsctrltypes_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invalidresstatusflags</name>
+                    <field_number>72</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invalidresstatusflags_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invalidcmdcondcodes</name>
+                    <field_number>73</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invalidcmdcondcodes_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invaliddatalength</name>
+                    <field_number>74</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invaliddatalength_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invalidcrc</name>
+                    <field_number>75</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invalidcrc_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>invaliddata</name>
+                    <field_number>76</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>invaliddata_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>stateviolation</name>
+                    <field_number>77</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Error count</description>
+                    <Field_Statistics>
+                        <local_identifier>stateviolation_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>buildid</name>
+                    <field_number>78</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Identifer for FPGA build</description>
+                    <Field_Statistics>
+                        <local_identifier>buildid_stats</local_identifier>
+                        <maximum>32</maximum>
+                        <minimum>32</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>avg_temp</name>
+                    <field_number>79</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Temperature of VAMP UHFA/RMFX Base, 10-second average</description>
+                    <Field_Statistics>
+                        <local_identifier>avg_temp_stats</local_identifier>
+                        <maximum>-5.1234</maximum>
+                        <minimum>-5.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>avg_temp_status</name>
+                    <field_number>80</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Status of the temperature data: list possibilities for VALUE=MEANING</description>
+                    <Field_Statistics>
+                        <local_identifier>avg_temp_status_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pwr_switch_state</name>
+                    <field_number>81</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Power state: 0 = OFF, 1 = ON [need confirmation]</description>
+                    <Field_Statistics>
+                        <local_identifier>pwr_switch_state_stats</local_identifier>
+                        <maximum>1</maximum>
+                        <minimum>1</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>bcb1_rpam_a_i_eu</name>
+                    <field_number>82</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Current for BCB1 RPAM A</description>
+                    <Field_Statistics>
+                        <local_identifier>bcb1_rpam_a_i_eu_stats</local_identifier>
+                        <maximum>0.1234</maximum>
+                        <minimum>0.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>bcb2_rpam_a_i_eu</name>
+                    <field_number>83</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Current for BCB2 RPAM A</description>
+                    <Field_Statistics>
+                        <local_identifier>bcb2_rpam_a_i_eu_stats</local_identifier>
+                        <maximum>0.0234</maximum>
+                        <minimum>0.0234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>bcb1_rpam_b_i_eu</name>
+                    <field_number>84</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Current for BCB1 RPAM B</description>
+                    <Field_Statistics>
+                        <local_identifier>bcb1_rpam_b_i_eu_stats</local_identifier>
+                        <maximum>0.2134</maximum>
+                        <minimum>0.2134</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>bcb2_rpam_b_i_eu</name>
+                    <field_number>85</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Current for BCB2 RPAM B</description>
+                    <Field_Statistics>
+                        <local_identifier>bcb2_rpam_b_i_eu_stats</local_identifier>
+                        <maximum>0.2034</maximum>
+                        <minimum>0.2034</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>config_id</name>
+                    <field_number>86</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Identifier of current Rimfax configuration mode</description>
+                    <Field_Statistics>
+                        <local_identifier>config_id_stats</local_identifier>
+                        <maximum>30</maximum>
+                        <minimum>30</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>mode_name</name>
+                    <field_number>87</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>General name or type of the sounding mode/configuration, eg Shallow, Surface, Deep, ...</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>activity_name</name>
+                    <field_number>88</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of Rimfax Activity as labeled in Activity Dictionary</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sequence_id</name>
+                    <field_number>89</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Identifier name of command sequence that produced this measurement, unique within spacecraft</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sequence_version_id</name>
+                    <field_number>90</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Identifier name of version of this command sequence</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sequence_execution_count</name>
+                    <field_number>91</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Number of times this command sequence has executed since last reset of the flight computer, ie last startup of the Rover Compute Element</description>
+                    <Field_Statistics>
+                        <local_identifier>sequence_execution_count_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>command_sequence_counter</name>
+                    <field_number>92</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Numeric identifier of command sequence that produced this measurement</description>
+                    <Field_Statistics>
+                        <local_identifier>command_sequence_counter_stats</local_identifier>
+                        <maximum>45</maximum>
+                        <minimum>45</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sequence_file</name>
+                    <field_number>93</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of command sequence file that produced this measurement</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>setup_file</name>
+                    <field_number>94</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of Rimfax setup file used in commanding this measurement</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>spice_file</name>
+                    <field_number>95</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of spice data file assoiated with this measurement</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>telem_file</name>
+                    <field_number>96</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of telemetry source file associated with this measurement</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>source_product_id</name>
+                    <field_number>97</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Identifier name of EDR product containing this measurement</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>receive_only</name>
+                    <field_number>98</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>1 = measurement is passive with receive only, 0 = measurement is active with radiate and receive</description>
+                    <Field_Statistics>
+                        <local_identifier>receive_only_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>calibration_cable</name>
+                    <field_number>99</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>1 = generated signal sent to calibration cable, 0 = generated signal sent to antenna</description>
+                    <Field_Statistics>
+                        <local_identifier>calibration_cable_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>traverse</name>
+                    <field_number>100</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>1 = sounding is part of a Traverse set, 0 = sounding is Stationary</description>
+                    <Field_Statistics>
+                        <local_identifier>traverse_stats</local_identifier>
+                        <maximum>1</maximum>
+                        <minimum>1</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>lis</name>
+                    <field_number>101</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>1 = Long Integration Sounding (LIS, with bit growth), 0 = regular sounding</description>
+                    <Field_Statistics>
+                        <local_identifier>lis_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sweep_gate_frequency</name>
+                    <field_number>102</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Frequency of the gate signal</description>
+                    <Field_Statistics>
+                        <local_identifier>sweep_gate_frequency_stats</local_identifier>
+                        <maximum>4.2034</maximum>
+                        <minimum>4.2034</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sweep_time</name>
+                    <field_number>103</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Duration of radar bandwidth sweep</description>
+                    <Field_Statistics>
+                        <local_identifier>sweep_time_stats</local_identifier>
+                        <maximum>6.2534</maximum>
+                        <minimum>6.2534</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sweep_start_frequency</name>
+                    <field_number>104</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Start frequency of the radar bandwidth sweep</description>
+                    <Field_Statistics>
+                        <local_identifier>sweep_start_frequency_stats</local_identifier>
+                        <maximum>150</maximum>
+                        <minimum>150</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sweep_stop_frequency</name>
+                    <field_number>105</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Stop frequency of the radar bandwidth sweep</description>
+                    <Field_Statistics>
+                        <local_identifier>sweep_stop_frequency_stats</local_identifier>
+                        <maximum>600</maximum>
+                        <minimum>600</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sample_frequency_increment</name>
+                    <field_number>106</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Frequency increment covered by each sample in a radar bandwidth sweep</description>
+                    <Field_Statistics>
+                        <local_identifier>sample_frequency_increment_stats</local_identifier>
+                        <maximum>1.1234</maximum>
+                        <minimum>1.1234</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>number_of_samples_frequency</name>
+                    <field_number>107</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Number of frequency-domain samples in a radar bandwidth sweep</description>
+                    <Field_Statistics>
+                        <local_identifier>number_of_samples_frequency_stats</local_identifier>
+                        <maximum>610</maximum>
+                        <minimum>610</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>number_of_sweeps_per_sounding</name>
+                    <field_number>108</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Number of radar bandwidth sweeps integrated and recorded in one sounding</description>
+                    <Field_Statistics>
+                        <local_identifier>number_of_sweeps_per_sounding_stats</local_identifier>
+                        <maximum>16</maximum>
+                        <minimum>16</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>tx_delay</name>
+                    <field_number>109</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Time delay of transmitter gate</description>
+                    <Field_Statistics>
+                        <local_identifier>tx_delay_stats</local_identifier>
+                        <maximum>10</maximum>
+                        <minimum>10</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>tx_attenuation</name>
+                    <field_number>110</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Attenuation in the trasmit path, higher value represents lower output power</description>
+                    <Field_Statistics>
+                        <local_identifier>tx_attenuation_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rx_delay</name>
+                    <field_number>111</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Time delay of receiver gate</description>
+                    <Field_Statistics>
+                        <local_identifier>rx_delay_stats</local_identifier>
+                        <maximum>40</maximum>
+                        <minimum>40</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rx_attenuation</name>
+                    <field_number>112</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Attenuation in the receive path, higher value represents more dampening of the received signal</description>
+                    <Field_Statistics>
+                        <local_identifier>rx_attenuation_stats</local_identifier>
+                        <maximum>0</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>group_spacing</name>
+                    <field_number>113</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Distance between sounding groups (collections of one or more soundings as given by the activity definition)</description>
+                    <Field_Statistics>
+                        <local_identifier>group_spacing_stats</local_identifier>
+                        <maximum>5</maximum>
+                        <minimum>5</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sounding_counter</name>
+                    <field_number>114</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Absolute total count of soundings since start of mission</description>
+                    <Field_Statistics>
+                        <local_identifier>sounding_counter_stats</local_identifier>
+                        <maximum>1000003</maximum>
+                        <minimum>1000003</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sounding_number</name>
+                    <field_number>115</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Count of soundings since last RIMFAX Power On</description>
+                    <Field_Statistics>
+                        <local_identifier>sounding_number_stats</local_identifier>
+                        <maximum>3</maximum>
+                        <minimum>3</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sounding_number_sol</name>
+                    <field_number>116</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Count of soundings since start of sol</description>
+                    <Field_Statistics>
+                        <local_identifier>sounding_number_sol_stats</local_identifier>
+                        <maximum>13</maximum>
+                        <minimum>13</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>antenna_amplitude_correction</name>
+                    <field_number>117</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>antenna_amplitude_correction_stats</local_identifier>
+                        <maximum>0.023</maximum>
+                        <minimum>0.023</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>antenna_phase_correction</name>
+                    <field_number>118</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>antenna_phase_correction_stats</local_identifier>
+                        <maximum>0.123</maximum>
+                        <minimum>0.123</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>electronics_amplitude_correction</name>
+                    <field_number>119</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>electronics_amplitude_correction_stats</local_identifier>
+                        <maximum>0.223</maximum>
+                        <minimum>0.223</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>electronics_phase_correction</name>
+                    <field_number>120</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>electronics_phase_correction_stats</local_identifier>
+                        <maximum>0.323</maximum>
+                        <minimum>0.323</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>time_zero_correction</name>
+                    <field_number>121</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>time_zero_correction_stats</local_identifier>
+                        <maximum>20.12345</maximum>
+                        <minimum>20.12345</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>window_function_type</name>
+                    <field_number>122</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Type of window function applied to original frequency-domain data</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>zero_padded_total_samples</name>
+                    <field_number>123</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Total number of samples after zero-padding the number of frequency-domain samples in the original data</description>
+                    <Field_Statistics>
+                        <local_identifier>zero_padded_total_samples_stats</local_identifier>
+                        <maximum>8192</maximum>
+                        <minimum>8192</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>gating_amplitude_correction</name>
+                    <field_number>124</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>need definition from FFI</description>
+                    <Field_Statistics>
+                        <local_identifier>gating_amplitude_correction_stats</local_identifier>
+                        <maximum>0.003</maximum>
+                        <minimum>0.003</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>max_time_depth</name>
+                    <field_number>125</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Maximum time-depth of this RDR-processed sounding</description>
+                    <Field_Statistics>
+                        <local_identifier>max_time_depth_stats</local_identifier>
+                        <maximum>9000.12345</maximum>
+                        <minimum>9000.12345</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sample_time_increment</name>
+                    <field_number>126</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Time increment covered by each sample in this RDR-processed sounding</description>
+                    <Field_Statistics>
+                        <local_identifier>sample_time_increment_stats</local_identifier>
+                        <maximum>0.12345</maximum>
+                        <minimum>0.12345</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>number_of_samples_time</name>
+                    <field_number>127</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Number of time-domain samples in this RDR-processed sounding</description>
+                    <Field_Statistics>
+                        <local_identifier>number_of_samples_time_stats</local_identifier>
+                        <maximum>1410</maximum>
+                        <minimum>0</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Group_Field_Delimited>
+                    <repetitions>1410</repetitions>
+                    <fields>1</fields>
+                    <groups>0</groups>
+                    <Field_Delimited>
+                        <name>sounding_samples</name>
+                        <data_type>ASCII_Real</data_type>
+                        <maximum_field_length unit="byte">16</maximum_field_length>
+                        <field_format>%16.9e</field_format>
+                        <unit>amplitude_ratio</unit>
+                        <description>Sounding Samples</description>
+                        <Special_Constants></Special_Constants>
+                        <Field_Statistics>
+                             <local_identifier>sounding_samples_stats</local_identifier>
+                             <maximum>3.502209833e-02</maximum>
+                             <minimum>-2.567480395e-02</minimum>
+                        </Field_Statistics>
+                    </Field_Delimited>
+                </Group_Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

@@ -338,12 +338,28 @@ public class LabelValidator {
       // Function return true if the validation against the schematron should be done or not.
       // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
       // If the flag skipProductValidation is true, the labels belong to data files should not be done.
+      String nameOnly = Paths.get(url.getPath()).getFileName().toString();
+
+      //LOG.debug("url.getPath() {}",url.getPath()); 
+      //LOG.debug("nameOnly {}",nameOnly); 
+      //LOG.debug("nameOnly.contains('bundle') {}",nameOnly.contains("bundle")); 
+      //LOG.debug("nameOnly.contains('collection') {}",nameOnly.contains("collection")); 
+
       Boolean validateAgainstSchematronFlag;
       if (!this.skipProductValidation) {
           validateAgainstSchematronFlag = true;
       } else {
           // If skip product validation is true, perform schematron validation bundle/collection labels only.
-          // Since the bundle and collection are not required to have the same token in the name, we must inspect the content of each file.
+          // Note: To inspect the file is time consuming
+          // If the name of the file contains 'bundle' or 'collection' do the schematron validation.
+          //if (TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url))
+          // Comment out the file inspection in favor of checking the name only as it can be time consuming.
+          // 6C.1.3 Reserved File Names
+          //     The following file names are reserved for specific purposes within PDS archives and may not be used otherwise:
+          //         bundle*.xml
+          //         collection*.[xml,csv]
+
+          //if ((nameOnly.startsWith("bundle") || nameOnly.startsWith("collection")) && nameOnly.endsWith(".xml")) {
           if (TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url)) {
               validateAgainstSchematronFlag = true;
           } else {
@@ -351,6 +367,7 @@ public class LabelValidator {
               validateAgainstSchematronFlag = false;
           }
       }
+      LOG.debug("url,validateAgainstSchematronFlag {},{}",url,validateAgainstSchematronFlag);
       return(validateAgainstSchematronFlag);
   }
 
@@ -380,6 +397,7 @@ public class LabelValidator {
     //LOG.info("parseAndValidate:entering:url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
     //LOG.info("url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
 
+    LOG.debug("parseAndValidate:url,performsSchematronValidation() {},{}",url,performsSchematronValidation());
     // Are we perfoming schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);

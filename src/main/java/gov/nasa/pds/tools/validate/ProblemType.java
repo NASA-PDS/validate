@@ -126,6 +126,8 @@ public enum ProblemType {
 
     MISSING_CRLF("error.table.missing_CRLF"),
 
+    MISSING_LF("error.table.missing_LF"),
+
     RECORD_LENGTH_MISMATCH("error.table.record_length_mismatch"),
 
     RECORDS_MISMATCH("error.table.records_mismatch"),
