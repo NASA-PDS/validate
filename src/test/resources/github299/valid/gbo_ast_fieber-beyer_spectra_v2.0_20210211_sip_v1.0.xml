@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_SIP_Deep_Archive xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:system_bundle:product_sip_deep_archive:gbo_ast_fieber-beyer_spectra_v2.0_20210211</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Submission Information Package for the Fieber-Beyer IRTF Mainbelt Asteroid Spectra V2.0</title>
+    <information_model_version>1.13.0.0</information_model_version>
+    <product_class>Product_SIP_Deep_Archive</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-02-11</modification_date>
+        <version_id>1.0</version_id>
+        <description>SIP was versioned and created</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Information_Package_Component_Deep_Archive>
+    <!--MD5 digest checksum for the manifest file-->
+    <manifest_checksum>8bdb79a12467a3ca6eb62e95fb568644</manifest_checksum>
+    <checksum_type>MD5</checksum_type>
+    <manifest_url>https://pds.nasa.gov/data/pds4/manifests/gbo_ast_fieber-beyer_spectra_v2.0_20210211_sip_v1.0.tab</manifest_url>
+    <aip_lidvid>urn:nasa:pds:system_bundle:product_aip:gbo_ast_fieber-beyer_spectra_v2.0_20210211::1.0</aip_lidvid>
+    <aip_label_checksum>c4891a2541f584f882841b63a3a11daa</aip_label_checksum>
+    <File_Area_SIP_Deep_Archive>
+      <File>
+        <file_name>gbo_ast_fieber-beyer_spectra_v2.0_20210211_sip_v1.0.tab</file_name>
+        <!--Creation date time in formation YYYY-MM-DDTHH:mm:ss-->
+        <creation_date_time>2021-02-11T13:57:45</creation_date_time>
+        <file_size unit="byte">32689</file_size>
+        <records>145</records>
+      </File>
+      <Manifest_SIP_Deep_Archive>
+        <name>Delivery Manifest Table</name>
+        <local_identifier>Table</local_identifier>
+        <offset unit="byte">0</offset>
+        <!--Size the of the SIP manifest in bytes-->
+        <object_length unit="byte">32689</object_length>
+        <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+        <description>Tab-separated manifest table for delivering one bundle to the Deep Archive</description>
+        <!--Number of rows in the manifest-->
+        <records>145</records>
+        <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        <field_delimiter>Horizontal Tab</field_delimiter>
+        <Record_Delimited>
+          <fields>4</fields>
+          <groups>0</groups>
+          <Field_Delimited>
+            <name>checksum</name>
+            <field_number>1</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>Checksum Value</description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>checksum_type</name>
+            <field_number>2</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>Checksum Type</description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>file_specification_url</name>
+            <field_number>3</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>URL to file associated with checksum in field #1 and product lidvid in field #3</description>
+          </Field_Delimited>
+          <Field_Delimited>
+            <name>LIDVID</name>
+            <field_number>4</field_number>
+            <data_type>ASCII_String</data_type>
+            <description>Unique product lidvid that contains this file</description>
+          </Field_Delimited>
+        </Record_Delimited>
+      </Manifest_SIP_Deep_Archive>
+    </File_Area_SIP_Deep_Archive>
+    <!--Include reference to the Bundle being described-->
+    <Internal_Reference>
+      <!--The LIDVID from the bundle label (combination of logical_identifier and version_id)-->
+      <lidvid_reference>urn:nasa:pds:gbo_ast_fieber-beyer_spectra::2.0</lidvid_reference>
+      <reference_type>package_has_bundle</reference_type>
+      <comment>Links this SIP to the specific version of the bundle product in the PDS registry system</comment>
+    </Internal_Reference>
+  </Information_Package_Component_Deep_Archive>
+  <SIP_Deep_Archive>
+    <description>Submission Information Package for theFieber-Beyer IRTF Mainbelt Asteroid Spectra V2.0</description>
+    <!--Provider Site ID input by user-->
+    <provider_site_id>PDS_PSI</provider_site_id>
+  </SIP_Deep_Archive>
+</Product_SIP_Deep_Archive>
