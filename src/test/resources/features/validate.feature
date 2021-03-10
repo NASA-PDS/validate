@@ -122,6 +122,14 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#281 5" | "github281" | 0 | "0 errors expected for FILESIZE_MISMATCH." | "FILESIZE_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github281_label_valid_2_cucumber.json -s json {resourceDir}/github281/valid/collection_gwe_spk_valid_2_no_filesize.xml" | "report_github281_label_valid_2_cucumber.json" |
  |"NASA-PDS/validate#281 6" | "github281" | 0 | "0 errors expected for FILESIZE_MISMATCH." | "FILESIZE_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github281_label_valid_3_cucumber.json -s json {resourceDir}/github281/valid/collection_gwe_spk_valid_3_no_filesize_no_checksum.xml" | "report_github281_label_valid_3_cucumber.json" |
 
+# https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
+ |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
+ |"NASA-PDS/validate#297 INVALID" | "github297" | 1 | "1 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_invalid.json  -s json -t {resourceDir}/github297/invalid/rimfax_rdr_0081_example.xml" | "report_github297_label_invalid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a bundle with a single-character filename
+ |"NASA-PDS/validate#299 VALID" | "github299" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_valid.json  -s json -t {resourceDir}/github299/valid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_valid.json" |
+ |"NASA-PDS/validate#299 INVALID" | "github299" | 3 | "3 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_invalid.json  -s json -t {resourceDir}/github299/invalid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_invalid.json" |
+
 # BIG_NOTE: The tests for github6 has to be moved toward the beginning as leave them here results in error in information model.
 # BIG_NOTE: The tests for github240 has to be moved toward the beginning as leave them here results in error in information model.
 

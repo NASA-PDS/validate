@@ -117,8 +117,15 @@ public class FieldValueValidator {
       "[1-9][0-9]*\\.[0-9]+(\\.[0-9]+)?(\\.[0-9]+)?");
   private static final Pattern asciiDirPathNamePattern = Pattern.compile(
       "[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]");
+
+  // https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a bundle with a single-character filename
+  // A better pattern allows for at least one character file name.
   private static final Pattern asciiFileNamePattern = Pattern.compile(
-      "[A-Za-z0-9][A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
+      "[A-Za-z0-9]*[A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
+// buggy: Commented out and kept for reference.
+// buggy: The below pattern forces the file name to be at least 2 characters.
+// buggy: private static final Pattern asciiFileNamePattern = Pattern.compile(
+// buggy:     "[A-Za-z0-9][A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
   private static final Pattern dirPattern = Pattern.compile(
       "/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?)*");
   
@@ -301,7 +308,8 @@ public class FieldValueValidator {
           if (fields[i].getMinimum() != null || 
               fields[i].getMaximum() != null) {
             checkMinMax(value.trim(), fields[i].getMinimum(), 
-                fields[i].getMaximum(), i + 1, record.getLocation());            
+                fields[i].getMaximum(), i + 1, record.getLocation(),
+                fields[i].getType());
           } 
         } else {
           try {
@@ -338,7 +346,7 @@ public class FieldValueValidator {
         throw new FieldContentFatalException("Fatal field content read error. Discontinue reading records."); 
     }
   }
-  
+
   /**
    * Checks that the given value is within the min/max range.
    * 
@@ -346,11 +354,46 @@ public class FieldValueValidator {
    * @param minimum The minimum value.
    * @param maximum The maximum value.
    * @param recordLocation The record location where the field is located.
+   * @param type The field type of the column value to validate.
    */
   private void checkMinMax(String value, Double minimum, Double maximum, 
-      int fieldIndex, RecordLocation recordLocation) {
+      int fieldIndex, RecordLocation recordLocation, FieldType type) {
     value = value.trim();
-    if (NumberUtils.isCreatable(value)) {
+
+    // https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
+    // Some values may start with a zero but the user may not intend for it to be an Octal so
+    // the leading zeros have to be removed:
+    //
+    //       "000810"  gets corrected to "810"
+    //       "-00810"  gets corrected to "-810"
+    //
+    // Only perform the leading zeros correction for these field types:
+    //
+    //     FieldType.ASCII_REAL
+    //     FieldType.ASCII_INTEGER
+    //     FieldType.ASCII_NONNEGATIVE_INTEGER
+    //
+    boolean issueWithLeadingZerosRemovalFlag = false;
+    if ((type == FieldType.ASCII_REAL || type == FieldType.ASCII_INTEGER || type == FieldType.ASCII_NONNEGATIVE_INTEGER) &&
+        (value.startsWith("0") || value.startsWith("-0")))  {
+        String originalValue = value;
+        try {
+            // Attempt to convert from string to double, then back to string:  "000810" >> 810.0 >> "810.0"
+            value = Double.toString(Double.parseDouble(value));
+        } catch (java.lang.NumberFormatException ex) {
+            // If there is problem with the value because it contains letters, set issueWithLeadingZerosRemovalFlag to true
+            // so we know not to make another attempt with NumberUtils.isCreatable() below. 
+            issueWithLeadingZerosRemovalFlag = true;
+        }
+
+        LOG.debug("checkMinMax:originalValue,value,minimum,maximum {},{},{},{}",originalValue,value,minimum,maximum);
+        System.out.println("checkMinMax:originalValue,value " + originalValue + " " + value);
+    }
+
+    LOG.debug("checkMinMax:FIELD_VALUE,FIELD_LENGTH [{}],{}",value,value.length());
+
+    //if (NumberUtils.isCreatable(value)) 
+    if (!issueWithLeadingZerosRemovalFlag || NumberUtils.isCreatable(value)) {
       // In comparing double or floats, it is important how these values are built.
       // Since the values of 'minimum' and 'maximum' variables are both of types Double,
       // it may be best to convert the String variable 'value' to Double as well.
@@ -360,7 +403,7 @@ public class FieldValueValidator {
       //
       //     Field has a value '0.12345' that is greater than the defined maximum value '0.12345'.
       //
-      // The below is line is commented out and kept for education purpose.
+      // The below line is commented out and kept for education purpose.
       //
       //Number number = NumberUtils.createNumber(value);
 

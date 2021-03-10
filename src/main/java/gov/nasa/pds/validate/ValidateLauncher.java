@@ -235,7 +235,7 @@ public class ValidateLauncher {
         spotCheckData = -1;
         allowUnlabeledFiles = false;
         registeredAndNonRegistedProducts = new HashMap<String, List<ContextProductReference>>();
-        registeredProductsFile = new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName());
+        registeredProductsFile = new File(System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName());
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
         validateContext = true;
@@ -462,7 +462,7 @@ public class ValidateLauncher {
                         new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
                                 "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
                         new URL(url));
-                report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), p);
+                report.record(new URI(System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()), p);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -471,7 +471,7 @@ public class ValidateLauncher {
         }
 
         try {
-            report.record(new URI(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()), pList);
+            report.record(new URI(System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()), pList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -481,7 +481,7 @@ public class ValidateLauncher {
         // backup old file
         try {
             copyFile(registeredProductsFile,
-                    new File(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName() + ".backup"));
+                    new File(System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName() + ".backup"));
             // System.out.println("back up " +
             // System.getProperty("resources.home") + "/" +
             // ToolInfo.getOutputFileName()
@@ -494,7 +494,7 @@ public class ValidateLauncher {
         JsonWriter jsonWriter;
         try {
             jsonWriter = new JsonWriter(
-                    new FileWriter(System.getProperty("resources.home") + "/" + ToolInfo.getOutputFileName()));
+                    new FileWriter(System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()));
 
             jsonWriter.setIndent("     ");
             jsonWriter.beginObject(); // start Product_Context
