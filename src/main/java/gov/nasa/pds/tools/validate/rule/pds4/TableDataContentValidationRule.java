@@ -69,7 +69,6 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.DOMSourceManager;
 import gov.nasa.pds.tools.util.FileService;
-import gov.nasa.pds.tools.util.TabulatedUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -166,8 +165,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
 
     String recordDelimiter = null;  // Specify how each record ends: null, carriage return line feed or line feed.
-    TabulatedUtil tabulatedUtil = new TabulatedUtil(getTarget());
-    Boolean[] fieldsStartWithQuoteList = new Boolean[0];
 
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(getTarget());
@@ -342,7 +339,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("validateTableDataContents:table instanceof TableDelimited");
           TableDelimited td = (TableDelimited) table;
           recordDelimiter = td.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
-          tabulatedUtil.setFieldDelimiter(td.getFieldDelimiter());
+          //tabulatedUtil.setFieldDelimiter(td.getFieldDelimiter());
           LOG.debug("td.getRecordDelimiter() [{}]",td.getRecordDelimiter());
 
           if (td.getRecordDelimited() != null &&
@@ -450,7 +447,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 progressCounter();
 
                 try {
-                    fieldValueValidator.validate(record, reader.getFields(), false, fieldsStartWithQuoteList);
+                    fieldValueValidator.validate(record, reader.getFields(), false);
                 } catch (FieldContentFatalException e) {
                     // If we get a fatal error, we can avoid an overflow of error output
                     // by killing the loop through all the table records
@@ -486,8 +483,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             while (line != null) {
               progressCounter();
               lineNumber += 1;
-
-              fieldsStartWithQuoteList = tabulatedUtil.getListOfBooleanFieldsStartWithQuote(line);
 
               if (recordDelimiter != null) {
                   // Check for how the line ends keying off what was provided in the label.
@@ -601,7 +596,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 }
                 //Validate fields within the record here
                 try {
-                    fieldValueValidator.validate(record, reader.getFields(), fieldsStartWithQuoteList);
+                    fieldValueValidator.validate(record, reader.getFields());
                 } catch (FieldContentFatalException e) {
                     // If we get a fatal error, we can avoid an overflow of error output
                     // by killing the loop through all the table records
