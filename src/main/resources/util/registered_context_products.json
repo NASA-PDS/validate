@@ -11,6 +11,24 @@
           },
           {
                "name": [
+                    "VEGA 1"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.2"
+          },
+          {
+               "name": [
+                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
+               ],
+               "type": [
+                    "PLASMA WAVE SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ds1.ids::1.0"
+          },
+          {
+               "name": [
                     "ALPHA PARTICLE X-RAY SPECTROMETER"
                ],
                "type": [
@@ -1730,15 +1748,6 @@
           },
           {
                "name": [
-                    "MAGELLAN"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mgn::1.0"
-          },
-          {
-               "name": [
                     "(300198) 2006 WH100"
                ],
                "type": [
@@ -2728,6 +2737,15 @@
                     "DUST"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:leam.a17a::2.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nh.rex::1.0"
           },
           {
                "name": [
@@ -5617,6 +5635,15 @@
           },
           {
                "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mgn.rss::1.0"
+          },
+          {
+               "name": [
                     "2001 KG76"
                ],
                "type": [
@@ -7391,24 +7418,6 @@
           },
           {
                "name": [
-                    "GAMMA LUPI"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.gam_lup::1.0"
-          },
-          {
-               "name": [
-                    "TETHYS"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.tethys::1.1"
-          },
-          {
-               "name": [
                     "JUNO"
                ],
                "type": [
@@ -9099,6 +9108,16 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.bet_lib::1.0"
+          },
+          {
+               "name": [
+                    "RADAR SYSTEM"
+               ],
+               "type": [
+                    "RADIOMETER",
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mgn.rdrs::1.0"
           },
           {
                "name": [
@@ -12777,6 +12796,15 @@
           },
           {
                "name": [
+                    "MAGELLAN"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mgn::1.1"
+          },
+          {
+               "name": [
                     "HUYGENS ATMOSPHERIC STRUCTURE INSTRUMENT"
                ],
                "type": [
@@ -14786,24 +14814,6 @@
           },
           {
                "name": [
-                    "VEGA 1"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.2"
-          },
-          {
-               "name": [
-                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
-               ],
-               "type": [
-                    "PLASMA WAVE SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ds1.ids::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14882,6 +14892,24 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
+          },
+          {
+               "name": [
+                    "GAMMA LUPI"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.gam_lup::1.0"
+          },
+          {
+               "name": [
+                    "TETHYS"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.tethys::1.1"
           },
           {
                "name": [
