@@ -298,11 +298,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
       LOG.debug("validateTableDataContents:arraySize,actualTotalRecords {},{}",arraySize,actualTotalRecords);
       LOG.debug("validateTableDataContents:dataFile,tableObjects.size() {},{}",dataFile,tableObjects.size());
+      boolean keepQuotationsFlag = true;  // Flag to optionally ask RawTableReader to preserve the leading and trailing quotes.
+
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
           reader = new RawTableReader(table, dataFile, getTarget(), 
-              tableIndex, false);
+              tableIndex, false, keepQuotationsFlag);
         } 
         catch (InvalidTableException ex) {
         	addTableProblem(ExceptionType.ERROR, 
@@ -457,7 +459,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 }
                 if (spotCheckData != -1) {
                   try {
-                    record = reader.getRecord(reader.getCurrentRow() + spotCheckData);
+                    record = reader.getRecord(reader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
                   } catch (IllegalArgumentException iae) {
                     record = null;
                   } catch (IOException io) {
@@ -592,7 +594,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   record = reader.toRecord(line, reader.getCurrentRow());
                 } else {
                 	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
-                  record = reader.getRecord(reader.getCurrentRow());
+                  record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
                 }
                 //Validate fields within the record here
                 try {
@@ -642,7 +644,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   // If spot checking is turned on, we want to skip to
                   // the record just before the one we want to read
                   try {
-                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1));
+                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
                   } catch (IllegalArgumentException iae) {
                     line = null;
                     continue;

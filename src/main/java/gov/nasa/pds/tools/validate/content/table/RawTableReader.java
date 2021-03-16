@@ -67,6 +67,25 @@ public class RawTableReader extends TableReader {
     this.label = label;
     this.table = tableIndex;
   }
+
+  /**
+   * Constructor.
+   * 
+   * @param table The table object.
+   * @param dataFile The data file.
+   * @param label The label.
+   * @param tableIndex The index of the table.
+   * @param readEntireFile Set to 'true' to read in entire data file.
+   * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes. 
+   * @throws Exception If table offset is null.
+   */
+  public RawTableReader(Object table, URL dataFile, 
+      URL label, int tableIndex, boolean readEntireFile, boolean keepQuotationsFlag) throws Exception {
+    super(table, dataFile, false, readEntireFile, keepQuotationsFlag);
+    this.dataFile = dataFile;
+    this.label = label;
+    this.table = tableIndex;
+  }
   
   /**
    * Previews the next line in the data file.
@@ -180,10 +199,10 @@ public class RawTableReader extends TableReader {
    * 
    * @return a table record, with the location set.
    */
-  public TableRecord getRecord(int index) 
+  public TableRecord getRecord(int index, boolean keepQuotationsFlag) 
       throws IllegalArgumentException, IOException {
    try {
-    TableRecord record = super.getRecord(index);
+    TableRecord record = super.getRecord(index,keepQuotationsFlag);
     record.setLocation(getLocation());
     return record;
    } catch (CsvValidationException ex) {
