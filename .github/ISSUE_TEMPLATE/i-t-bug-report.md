@@ -2,8 +2,8 @@
 name: I&T Bug Report
 about: Report a bug found or test case failure during PDS System I&T
 title: "<system feature> <is not/does not> <expected behaviour>"
-labels: I&T, bug, triage-needed
-assignees: ''
+labels: I&T, bug, needs:triage
+assignees: jordanpadams
 
 ---
 
@@ -21,5 +21,5 @@ Document related test cases here
 
 **Related issues**
 Reference relates issues here, e.g.
-* for issues in this repo: #1, #2, #3
+* for issues in this repo: `#1` (remove back ticks)
 * for issues in other repos: NASA-PDS/my_repo#1, NASA-PDS/her_repo#2

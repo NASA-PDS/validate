@@ -1,24 +1,23 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: ''
-labels: enhancement, triage-needed, requirement-needed
-assignees: ''
+about: Suggest a new idea for this project
+title: As a <what is the user's role?> I want to <what is the user trying to accomplish?>
+labels: requirement, needs:triage
+assignees: jordanpadams
 
 ---
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+For more information on how to populate this new feature request, see the PDS Wiki on User Story Development:
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+https://github.com/NASA-PDS/nasa-pds.github.io/wiki/Issue-Tracking#user-story-development
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+## Motivation
+...so that I can <why do you want to do this?>
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+## Additional Details
+<Please prove any additional details or information that could help provide some context for the user story.>
 
-**Applicable requirements**
-:unicorn: #1
-:unicorn: #2
+## Acceptance Criteria
+**Given** *<a condition>*
+**When I perform** *<an action>*
+**Then I expect** *<the result>*
