@@ -1,0 +1,46 @@
+
+PDS Validate Tool Report
+
+Configuration:
+   Version                       1.24.0
+   Date                          2021-02-16T22:49:45Z
+
+Parameters:
+   Targets                       [file:/W:/missionweb/mars2020_reviews/rimfax/RDR_review/urn-nasa-pds-mars2020_rimfax/data_calibrated/rimfax_rdr_0081_example.xml]
+   Severity Level                WARNING
+   Recurse Directories           true
+   File Filters Used             [*.xml, *.XML]
+   Data Content Validation       on
+   Product Level Validation      on
+   Max Errors                    100000
+   Registered Contexts File      \\isilon-pri-data\pds-san\stage\tools\pds4_validate\validate-1.24.0\bin\..\resources\registered_context_products.json
+
+
+
+Product Level Validation Results
+
+  FAIL: file:/W:/missionweb/mars2020_reviews/rimfax/RDR_review/urn-nasa-pds-mars2020_rimfax/data_calibrated/rimfax_rdr_0081_example.xml
+    Begin Content Validation: file:/W:/missionweb/mars2020_reviews/rimfax/RDR_review/urn-nasa-pds-mars2020_rimfax/data_calibrated/rimfax_rdr_0081_example.csv
+      ERROR  [error.table.field_value_not_a_number]   table 1, record 2, field 7: Cannot cast field value '00081' to a Number data type to validate against the min/max values defined in the label.
+    End Content Validation: file:/W:/missionweb/mars2020_reviews/rimfax/RDR_review/urn-nasa-pds-mars2020_rimfax/data_calibrated/rimfax_rdr_0081_example.csv
+        1 product validation(s) completed
+
+Summary:
+
+  1 error(s)
+  0 warning(s)
+
+  Product Validation Summary:
+    0          product(s) passed
+    1          product(s) failed
+    0          product(s) skipped
+
+  Referential Integrity Check Summary:
+    0          check(s) passed
+    0          check(s) failed
+    0          check(s) skipped
+
+  Message Types:
+    1            error.table.field_value_not_a_number
+
+End of Report
