@@ -38,6 +38,7 @@ import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.DelimitedTableRecord;
 import gov.nasa.pds.objectAccess.FixedTableRecord;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
@@ -167,8 +168,39 @@ public class FieldValueValidator {
 
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
+      String value = "dummy_value";   // Set to a dummy value to allow inspection when the value changed to a legitimate value.
+      //LOG.info("validate:i,fields.length {},{}",i,fields.length);
       try {
-        String value = record.getString(i+1);
+        //String value = record.getString(i+1);
+        value = record.getString(i+1);
+        LOG.debug("validate:i,value {},[{}]",i,value);
+
+        //LOG.debug("FieldValueValidator:validate:record.getLocation().getRecord(),value {},[{}]",record.getLocation().getRecord(),value);
+        //LOG.debug("FieldValueValidator:validate:i,getClass().getName() {},{}",i,fields[i].getClass().getName());
+        // issue_298: validate misses double quotes within a delimited table
+        //
+        // New logic to check if the field starts with a double quote and then also contain a double quote inside.
+
+        String sanitizedValue = value;
+        boolean fieldIsEnclosedByQuotes = false;
+        // Remove the leading and trailing quotes from value if the field is enclosed by it.
+        if (value.startsWith("\"") && value.endsWith("\"")) {
+            fieldIsEnclosedByQuotes = true;
+            sanitizedValue = value.substring(1, value.length()-1);
+        }
+
+        LOG.debug("fieldIsEnclosedByQuotes,value,sanitizedValue [{}],[{}]",fieldIsEnclosedByQuotes,value,sanitizedValue);
+
+        if (fieldIsEnclosedByQuotes && sanitizedValue.contains("\"")) {
+                String message = "The field value '" + value.trim()
+                  + "' that starts with double quote should not contain double quote(s)";
+                addTableProblem(ExceptionType.ERROR,
+                    ProblemType.INVALID_FIELD_VALUE,
+                    message,
+                    record.getLocation(),
+                    (i + 1));
+        }
+
         // issue_209: fix for incorrect field number
         if (i<(fields.length-1) ) {
            if (fields[i+1].getOffset()!=fields[i].getOffset())
@@ -336,6 +368,9 @@ public class FieldValueValidator {
             record.getLocation(),
             (i + 1));
         fatalError = true;
+
+        // Print the stack trace to an external file for inspection.
+        FileService.printStackTraceToFile(null,e);
       }
     }
     

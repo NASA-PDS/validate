@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:test="http://pds.nasa.gov/pds4/test/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd
+    http://pds.nasa.gov/pds4/test/v1 https://pds.nasa.gov/pds4/test/v1/PDS4_TEST_1700.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:example.dph.sample_archive_bundle:data:tablechar.vg2-j-pls-5-summ-ele-mom-96.0sec-v1.0</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager Electron density and moment temperature Plasma Experiment</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2012-01-10</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    conversion of PDS3 PPI archive to comply with PDS4 Information Model
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <comment>Observational Intent</comment>
+        <Time_Coordinates>
+            <start_date_time>1979-07-06T00:00:42.687Z</start_date_time>
+            <stop_date_time>1979-07-09T23:59:06.436Z</stop_date_time>
+        </Time_Coordinates>
+       
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <description>
+                This is where a generic description of the product goes.
+            </description>
+            <Science_Facets>
+                <wavelength_range>Gamma Ray</wavelength_range>
+                <domain>Magnetosphere</domain>
+                <discipline_name>Particles</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>VOYAGER</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Observing System for VG+PLS</name>
+            <Observing_System_Component>
+                <name>VG2</name>
+                <type>Spacecraft</type>
+                <description>instrument_host VG2</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg2</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>PLS</name>
+                <type>Instrument</type>
+                <description>instrument PLS</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:pls.vg2</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>       
+        <Target_Identification>
+            <name>JUPITER</name>
+            <type>Planet</type>
+            <description>description of JUPITER goes here</description>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.jupiter</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        
+        <!-- ============================================================ -->
+        <!-- Reference the attributes that were imported from the         -->
+        <!-- local dictionary (using the local namespace (test)            -->
+        <!-- ============================================================ -->                   
+        <Mission_Area>
+            <test:spacecraft_clock_start_count>2/20541:22:726</test:spacecraft_clock_start_count>
+            <test:spacecraft_clock_stop_count>2/20661:20:726</test:spacecraft_clock_stop_count>            
+        </Mission_Area>
+        <Discipline_Area>
+        </Discipline_Area>
+    </Observation_Area>
+        
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:node:node.ppi-ucla</lid_reference>
+            <reference_type>data_curated_by_node</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    
+     <File_Area_Observational>
+        <File>
+            <file_name>ELE_MOM.TAB</file_name>
+            <local_identifier>ELE_MOM.TAB</local_identifier>
+            <creation_date_time>1999-02-26T10:55</creation_date_time>
+            <file_size unit="byte">104788</file_size>
+            <records>2278</records>
+            <md5_checksum>2b555c42a7e7b4981407c9a824237f4a</md5_checksum>
+        </File>
+        <Table_Character>
+            <local_identifier>VG2-J-PLS-5-SUMM-ELE-MOM_TABLE_CHAR</local_identifier>
+            <offset unit="byte">0</offset>
+            <records>2278</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            
+            <Record_Character>
+                <fields>3</fields>
+                <groups>0</groups>
+                <record_length unit="byte">46</record_length>
+                
+                <Field_Character>
+                    <name>TIME</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <description>
+                        Time column. This field contains time in PDS format     
+                        yyyy-mm-ddThh:mm:ss.sssZ. The individual elements of the         
+                        time field can be read using the format                          
+                        (i4,4(1x,i2),1x,f6.3) yr, mon, day, hr, min, sec.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>ELE_DEN</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>count/cm**3</unit>
+                    <description>
+                        Column contains total electron moment density in counts/cm^3.    
+                    </description>
+                    <Special_Constants>
+                       <missing_constant>-9.99e+10</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>ELE_TEMP</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">35</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>electronvolt</unit>
+                    <description>
+                        Column contains total electron moment temperature in units of
+                        electron volts.                   
+                    </description>
+                    <Special_Constants>
+                       <missing_constant>-9.99e+10</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

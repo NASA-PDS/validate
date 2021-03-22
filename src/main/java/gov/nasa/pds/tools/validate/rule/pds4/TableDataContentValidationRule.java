@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
 
 import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.FileArea;
@@ -66,6 +67,8 @@ import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
+import gov.nasa.pds.tools.util.DOMSourceManager;
+import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -121,16 +124,33 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     if (getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT,
           Document.class);
-      
-      DOMSource source = new DOMSource(label);      
+
+      DOMSource source = new DOMSource(label); 
+
+      // Note that the value of label is [#document: null] if attempt to print using LOG.debug
+      //FileService.printDocumentToFile("validate_document_dump.log",label);
+      //FileService.printDocumentToFile("validate_dom_source.log",source);
+
+      //LOG.debug("isApplicable:getContext): [{}]",getContext());
+      //LOG.debug("isApplicable:label: [{}]",label);   The value of label is [#document: null] and not as useful.
+      //LOG.debug("isApplicable:source: [{}]",source);
+
       try {
+        // Check to see how many tables are contained in the label.
         NodeList tables = (NodeList) xPathFactory.newXPath().evaluate(
             XPaths.TABLE_TYPES, source, XPathConstants.NODESET);
+
+        // The rule of TableDataContentValidationRule is only applicable if it contains at least 1 table.
         if (tables.getLength() > 0) {
           isApplicable = true;
+
+          DOMSourceManager.saveDOM(location,source);
+          LOG.debug("TableDataContentValidationRule:isApplicable: location [{}]",location);
+          LOG.debug("TableDataContentValidationRule:isApplicable: getTarget() [{}][{}]",getTarget(),getTarget().toString());
         }
       } catch (XPathExpressionException e) {
-        //Ignore
+        // Print the stack trace to an external file for inspection.
+        FileService.printStackTraceToFile(null,e);
       }
       
     }
@@ -143,6 +163,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 	  
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
+
     String recordDelimiter = null;  // Specify how each record ends: null, carriage return line feed or line feed.
 
     ObjectProvider objectAccess = null;
@@ -166,10 +187,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     XPath xpath = xPathFactory.newXPath();
     LOG.debug("validateTableDataContents:xpath {}",xpath);
     try {
+      DOMSource source = DOMSourceManager.reuseDOM(getTarget().toString());
+      if (source == null) {
+          source = new DOMSource(getContext().getContextValue(
+                       PDS4Context.LABEL_DOCUMENT, Document.class));
+      }
+
       fileAreaNodes = (NodeList) xpath.evaluate(
         XPaths.TABLE_FILE_AREAS, 
-        new DOMSource(getContext().getContextValue(
-            PDS4Context.LABEL_DOCUMENT, Document.class)), 
+        source,
         XPathConstants.NODESET);
         LOG.debug("validateTableDataContents:fileAreaNodes {}",fileAreaNodes);
         LOG.debug("validateTableDataContents:fileAreaNodes.getLength() {}",fileAreaNodes.getLength());
@@ -261,18 +287,24 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
+         // Print the stack trace to an external file for inspection.
+         FileService.printStackTraceToFile(null,ex);
       }
       catch (Exception ex) { 
     	 //ex.printStackTrace();
+         // Print the stack trace to an external file for inspection.
+         FileService.printStackTraceToFile(null,ex);
       }
 
       LOG.debug("validateTableDataContents:arraySize,actualTotalRecords {},{}",arraySize,actualTotalRecords);
       LOG.debug("validateTableDataContents:dataFile,tableObjects.size() {},{}",dataFile,tableObjects.size());
+      boolean keepQuotationsFlag = true;  // Flag to optionally ask RawTableReader to preserve the leading and trailing quotes.
+
       for (Object table : tableObjects) {
         RawTableReader reader = null;
         try {
           reader = new RawTableReader(table, dataFile, getTarget(), 
-              tableIndex, false);
+              tableIndex, false, keepQuotationsFlag);
         } 
         catch (InvalidTableException ex) {
         	addTableProblem(ExceptionType.ERROR, 
@@ -281,6 +313,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     dataFile,
                     tableIndex,
                     -1);
+                // Print the stack trace to an external file for inspection.
+                FileService.printStackTraceToFile(null,ex);
                 tableIndex++;
                 continue;
         }
@@ -291,6 +325,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               dataFile,
               tableIndex,
               -1);
+          // Print the stack trace to an external file for inspection.
+          FileService.printStackTraceToFile(null,ex);
           tableIndex++;
           continue;
         }
@@ -305,6 +341,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("validateTableDataContents:table instanceof TableDelimited");
           TableDelimited td = (TableDelimited) table;
           recordDelimiter = td.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
+          //tabulatedUtil.setFieldDelimiter(td.getFieldDelimiter());
           LOG.debug("td.getRecordDelimiter() [{}]",td.getRecordDelimiter());
 
           if (td.getRecordDelimited() != null &&
@@ -346,9 +383,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("table instanceof TableCharacter: else");
           TableCharacter tc = (TableCharacter) table;
           recordDelimiter = tc.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
+          // Note that TableCharacter class does not contain a function getFieldDelimiter() because there is not separator between fields since
+          // they are positional.
           LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
           LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
           LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
+//System.exit(0);
           if (tc.getRecordCharacter() != null && 
               tc.getRecordCharacter().getRecordLength() != null) {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
@@ -358,8 +398,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           try {
              actualRecordNumber = reader.getRecordSize(dataFile, table);
           }
-          catch (Exception e) {}        
+          catch (Exception e) {
+              FileService.printStackTraceToFile(null,e);
+          }
+           
           LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
+          // Print the stack trace to an external file for inspection.
         } 
         
         { // issue_220
@@ -396,6 +440,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         TableRecord record = null;
         try {
           if (table instanceof TableBinary) {
+            LOG.debug("table instanceof TableBinary");
+//LOG.info("table instanceof TableBinary");
+//System.out.println("TableDataContentValidationRule:table instanceof TableBinary");
             try {
               record = reader.readNext();
               while (record != null) {
@@ -406,11 +453,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 } catch (FieldContentFatalException e) {
                     // If we get a fatal error, we can avoid an overflow of error output
                     // by killing the loop through all the table records
+                    // Print the stack trace to an external file for inspection.
+                    FileService.printStackTraceToFile(null,e);
                     break;
                 }
                 if (spotCheckData != -1) {
                   try {
-                    record = reader.getRecord(reader.getCurrentRow() + spotCheckData);
+                    record = reader.getRecord(reader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
                   } catch (IllegalArgumentException iae) {
                     record = null;
                   } catch (IOException io) {
@@ -443,7 +492,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   if (recordDelimiter.equalsIgnoreCase("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
                     addTableProblem(ExceptionType.ERROR,
                         ProblemType.MISSING_CRLF,
-                        "Unexpected record delimiter. Expected: 'Carriage-Return Line-Feed'",
+                        "Record does not end in carriage-return line feed.",
                         dataFile, tableIndex, reader.getCurrentRow());
                     manuallyParseRecord = true;
                   } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
@@ -453,20 +502,20 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           // If the delimiter is "Line-Feed" then the line should end with a line feed.
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
-                              "Unexpected record delimiter. Expected: 'Line-Feed'",
+                              "Record does not end in line feed.",
                               dataFile, tableIndex, reader.getCurrentRow());
                        }
                        if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
-                              "Expected record delimiter: 'Line-Feed'. Actual: 'Carriage-Return Line-Feed'",
+                              "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
                               dataFile, tableIndex, reader.getCurrentRow());
                        }
                     manuallyParseRecord = true;
                   } else {
                     addTableProblem(ExceptionType.DEBUG,
                         ProblemType.CRLF_DETECTED,
-                        "Record ends in 'Carriage-Return Line-Feed' (OK)",
+                        "Record ends in carriage-return line feed.",
                         dataFile,
                         tableIndex,
                         reader.getCurrentRow());
@@ -545,7 +594,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   record = reader.toRecord(line, reader.getCurrentRow());
                 } else {
                 	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
-                  record = reader.getRecord(reader.getCurrentRow());
+                  record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
                 }
                 //Validate fields within the record here
                 try {
@@ -553,6 +602,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 } catch (FieldContentFatalException e) {
                     // If we get a fatal error, we can avoid an overflow of error output
                     // by killing the loop through all the table records
+                    // Print the stack trace to an external file for inspection.
+                    FileService.printStackTraceToFile(null,e);
                     break;
                 }
 
@@ -593,7 +644,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   // If spot checking is turned on, we want to skip to
                   // the record just before the one we want to read
                   try {
-                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1));
+                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
                   } catch (IllegalArgumentException iae) {
                     line = null;
                     continue;
@@ -635,6 +686,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               dataFile,
               -1,
               -1);
+           // Print the stack trace to an external file for inspection.
+           FileService.printStackTraceToFile(null,io);
         }
         actualRecordNumber -= recordsToRemove;
         tableIndex++;

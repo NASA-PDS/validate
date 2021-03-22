@@ -21,6 +21,11 @@ import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.FixedTableRecord;
 import gov.nasa.pds.objectAccess.TableReader;
 
+import com.opencsv.exceptions.CsvValidationException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Table reader that provides the capability to read a table
  * line by line rather than record by record, which is more
@@ -30,6 +35,8 @@ import gov.nasa.pds.objectAccess.TableReader;
  *
  */
 public class RawTableReader extends TableReader {
+  private static final Logger LOG = LoggerFactory.getLogger(RawTableReader.class);
+
   /** The data file. */
   private URL dataFile;
   
@@ -56,6 +63,25 @@ public class RawTableReader extends TableReader {
   public RawTableReader(Object table, URL dataFile, 
       URL label, int tableIndex, boolean readEntireFile) throws Exception {
     super(table, dataFile, false, readEntireFile);
+    this.dataFile = dataFile;
+    this.label = label;
+    this.table = tableIndex;
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param table The table object.
+   * @param dataFile The data file.
+   * @param label The label.
+   * @param tableIndex The index of the table.
+   * @param readEntireFile Set to 'true' to read in entire data file.
+   * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes. 
+   * @throws Exception If table offset is null.
+   */
+  public RawTableReader(Object table, URL dataFile, 
+      URL label, int tableIndex, boolean readEntireFile, boolean keepQuotationsFlag) throws Exception {
+    super(table, dataFile, false, readEntireFile, keepQuotationsFlag);
     this.dataFile = dataFile;
     this.label = label;
     this.table = tableIndex;
@@ -154,11 +180,16 @@ public class RawTableReader extends TableReader {
    * @return a table record, with the location set.
    */
   public TableRecord readNext() throws IOException {
+   try {
     TableRecord record = super.readNext();
     if (record != null) {
       record.setLocation(getLocation());
     }
     return record;
+   } catch (CsvValidationException ex) {
+     LOG.error("Function readNext() has failed");
+     throw new IOException(ex.getMessage());
+   }
   }
   
   /**
@@ -168,11 +199,16 @@ public class RawTableReader extends TableReader {
    * 
    * @return a table record, with the location set.
    */
-  public TableRecord getRecord(int index) 
+  public TableRecord getRecord(int index, boolean keepQuotationsFlag) 
       throws IllegalArgumentException, IOException {
-    TableRecord record = super.getRecord(index);
+   try {
+    TableRecord record = super.getRecord(index,keepQuotationsFlag);
     record.setLocation(getLocation());
     return record;
+   } catch (CsvValidationException ex) {
+     LOG.error("Function getRecord has failed");
+     throw new IOException(ex.getMessage());
+   }
   }
   
   /**
