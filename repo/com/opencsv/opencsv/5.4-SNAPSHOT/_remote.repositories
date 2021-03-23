@@ -1,0 +1,8 @@
+#NOTE: This is a Maven Resolver internal implementation file, its format can be changed without prior notice.
+#Thu Mar 11 14:08:50 PST 2021
+opencsv-5.4-SNAPSHOT.pom>=
+opencsv-5.4-SNAPSHOT-javadoc.jar>=
+opencsv-5.4-SNAPSHOT-sources.jar>=
+opencsv-5.4-SNAPSHOT.jar>=
+opencsv-5.4-SNAPSHOT.pom>project.local=
+opencsv-5.4-SNAPSHOT.jar>project.local=
