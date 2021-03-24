@@ -99,6 +99,9 @@ public enum Flag {
     /** Flag to disable data content validation. */
     SKIP_CONTENT_VALIDATION("D", "skip-content-validation", "Disable product content validation."),
 
+    /** Flag to enable a warning if not all version of the Informmation Model (IM) in the run are the same. */
+    PREFER_ALL_LABELS_SAME_INFORMATION_MODEL_VERSION("P", "prefer-all-labels-same-information-model-version", "Enable a warning if not all versions of the Information Model (IM) are the same."),
+
     /**
      * Flag to specify a report file name.
      */

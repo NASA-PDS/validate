@@ -175,6 +175,23 @@ public class LabelValidationRule extends AbstractValidationRule {
               ValidationResourceManager.INSTANCE.getResource(LabelValidator.class);
 
       LOG.debug("validateLabel:target,targetFileName {},{}",target,targetFileName);
+      LOG.debug("validateLabel:getContext().isForceLabelSchemaValidation() {}",getContext().isForceLabelSchemaValidation());
+
+      // https://github.com/NASA-PDS/validate/issues/188 As a user, I want to validate a bundle that uses multiple versions of the Information Model / Discipline LDDs 
+      //
+      // Each label may contain different schemas and different versions between each other.
+      // The list of schema locations must be updated for every label in the schemaValidator object.
+      // If not, subsequent label(s) will be using the schema location from a previous label and
+      // if the versions differ, there will be errors and it will be very difficult to understand
+      // since the user assuming the correct schema was being used. 
+      if (getContext().isForceLabelSchemaValidation()) {
+          try {
+              schemaValidator.setExternalLocations(
+              getExtractor(target).getSchemaLocation());
+          } catch (Exception ignore) {
+              //Should not throw an exception
+          }
+      }
 
       try {
         // Do a sanity check on existence of the label.
@@ -299,40 +316,19 @@ public class LabelValidationRule extends AbstractValidationRule {
       }
       LOG.debug("validateLabel:target,labelIsValidFlag {},{}",target,labelIsValidFlag);
 	}
-	
-  private boolean validateLabelSchemas(URL label,
-      ProblemContainer labelProblems, XMLCatalogResolver resolver) {
-    boolean passFlag = true;
-    List<StreamSource> sources = new ArrayList<StreamSource>();
-    Map<String, URL> schemaLocations = new LinkedHashMap<String, URL>();
-    this.schemaValidator.setCatalogResolver(resolver);
-    LOG.debug("validateLabelSchemas: label {}",label);
 
-    try {
-      schemaLocations = getSchemaLocations(label);  
-      LOG.debug("validateLabelSchemas: schemaLocations,schemaLocations.size() {},{}",schemaLocations,schemaLocations.size());
-    } catch (Exception e) {
-      labelProblems.addProblem(new ValidationProblem(
-          new ProblemDefinition(ExceptionType.FATAL,
-              ProblemType.SCHEMA_ERROR,
-              e.getMessage()), 
-          label));
-      LOG.debug("validateLabelSchemas: passFlag {}",false);
-      return false;
-    }
-    
-    LOG.debug("validateLabelSchemas: label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
-    LOG.debug("validateLabelSchemas: schemaLocations.entrySet().size {}",schemaLocations.entrySet().size());
-    // Loop through all the schemaLocations from the label and resolve them
-    for (Map.Entry<String, URL> schemaLocation : schemaLocations.entrySet()) {
-      URL schemaUrl = schemaLocation.getValue();
-      LOG.debug("validateLabelSchemas: schemaUrl {}",schemaUrl);
-      ProblemContainer container = new ProblemContainer();
+  private boolean resolveSingleSchema(URL label, Map.Entry<String, URL> schemaLocation,
+                                      URL schemaUrl, ProblemContainer container,
+                                      ProblemContainer labelProblems, XMLCatalogResolver resolver) {
       boolean resolvableUrl = true;
+
+      LOG.debug("resolveSingleSchema:schemaUrl {}",schemaUrl);
+      LOG.debug("resolveSingleSchema:schemaUrl,key {},{}",schemaUrl,schemaLocation.getKey());
+
       if (resolver != null) {
         String resolvedUrl = null;
         try {
-          resolvedUrl = resolver.resolveSchema(schemaLocation.getKey(), 
+          resolvedUrl = resolver.resolveSchema(schemaLocation.getKey(),
               schemaUrl.toString(), label.toString());
 
           if (resolvedUrl != null) {
@@ -343,7 +339,7 @@ public class LabelValidationRule extends AbstractValidationRule {
                     ProblemType.CATALOG_UNRESOLVABLE_SCHEMA,
                     "Could not resolve schema '"
                     + schemaLocation.getValue().toString()
-                    + "' through the catalog"), 
+                    + "' through the catalog"),
                 label));
             resolvableUrl = false;
           }
@@ -353,28 +349,36 @@ public class LabelValidationRule extends AbstractValidationRule {
                   ProblemType.CATALOG_UNRESOLVABLE_SCHEMA,
                   "Error while trying to resolve schema '"
                   + schemaLocation.getValue().toString()
-                  + "' through the catalog: " + io.getMessage()), 
+                  + "' through the catalog: " + io.getMessage()),
               label));
           resolvableUrl = false;
         }
       }
-      
-      LOG.debug("validateLabelSchemas: schemaUrl,resolvableUrl {},{}",schemaUrl,resolvableUrl);
-      // If we found the schema, let's read it into memory
-      if (resolvableUrl) {
-        schemaValidator.getCachedLSResolver().setProblemHandler(container);
+
+      LOG.debug("resolveSingleSchema:schemaUrl,resolvableUrl {},{}",schemaUrl,resolvableUrl);
+      return(resolvableUrl);
+  }
+
+  private boolean loadSingleSchemaIntoSources(URL label, URL schemaUrl, ProblemContainer problemContainer, 
+                                        ProblemContainer labelProblems, List<StreamSource> streamSources) {
+        // Note that these 2 parameters will serve as both input and output: labelProblems, and streamSources.
+        // for holding problems with the label and the streamSources will grow as a list.
+
+        boolean streamSourcePassFlag = true;
+
+        schemaValidator.getCachedLSResolver().setProblemHandler(problemContainer);
         LSInput input = schemaValidator.getCachedLSResolver()
             .resolveResource("", "", "", schemaUrl.toString(), schemaUrl.toString());
-        boolean addSource = true;
-        if (container.getProblems().size() != 0) {
+        boolean addSourceFlag = true;
+        if (problemContainer.getProblems().size() != 0) {
           try {
-            for (ValidationProblem le : container.getProblems()) {
+            for (ValidationProblem le : problemContainer.getProblems()) {
               le.setSource(label.toURI().toString());
               getListener().addProblem(le);
             }
-            if (container.hasError() || container.hasFatal()) {
-              passFlag = false;
-              addSource = false;
+            if (problemContainer.hasError() || problemContainer.hasFatal()) {
+              streamSourcePassFlag = false;
+              addSourceFlag = false;
             }
           } catch (URISyntaxException u) {
             labelProblems.addProblem(new ValidationProblem(
@@ -385,31 +389,33 @@ public class LabelValidationRule extends AbstractValidationRule {
                 label));
           }
         }
-        
-        // Load the sources
-        if (addSource) {
+
+        // Load the streamSource to streamSources if there are no problems.
+        if (addSourceFlag) {
           StreamSource streamSource = new StreamSource(
               input.getByteStream());
           streamSource.setSystemId(schemaUrl.toString());
-          sources.add(streamSource);
+          streamSources.add(streamSource);
         }
-      } else {
-        passFlag = false;
-      }
-    }
-    
-    LOG.debug("validateLabelSchemas: afor:validate schema:passFlag {}",passFlag);
-    if (passFlag) {
-      // Now let's loop through the schemas themselves, and validate them
-      for (StreamSource source : sources) {
+
+       LOG.debug("loadSingleSchemaIntoSources:label,schemaUrl,addSourceFlag,streamSourcePassFlag,streamSources.size() {},{},{},{},{}",label,schemaUrl,addSourceFlag,streamSourcePassFlag,streamSources.size());
+       return(streamSourcePassFlag);
+  }
+
+  private boolean validateLoadedSchemas(URL label, List<StreamSource> streamSources,
+                                                    ProblemContainer labelProblems) {
+      // Validate the loaded Schemas that are in streamSources, a list of StreamSource for correctness.
+      boolean passFlag = true; // Will be set to false if at least one schema did not validate.
+      for (StreamSource source : streamSources) {
         try {
           URL schemaUrl = null;
           try {
+            LOG.debug("validateAllLoadedSchemas:source.getSystemId() {}",source.getSystemId());
             schemaUrl = new URL(source.getSystemId());
           } catch(MalformedURLException ignore) {
             //Should never throw an exception
           }
-          LOG.debug("validateLabelSchemas: schemaUrl {}",schemaUrl);
+          LOG.debug("validateAllLoadedSchemas:schemaUrl {}",schemaUrl);
           ProblemContainer container = new ProblemContainer();
           if (labelSchemaResults.containsKey(schemaUrl)) {
             container = labelSchemaResults.get(schemaUrl);
@@ -420,33 +426,39 @@ public class LabelValidationRule extends AbstractValidationRule {
               }
               if (container.hasError() || container.hasFatal()) {
                 passFlag = false;
+                LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_FALSE_1 {},{}",schemaUrl,passFlag);
               }
             }
           } else {
             try {
               // Before validating we need to load all schemas
-              
+
               // Validate the schema source
               container = schemaValidator.validate(source);
-              LOG.debug("validateLabelSchemas: schemaUrl,passFlag {},{}",schemaUrl,passFlag);
+              LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag {},{}",schemaUrl,passFlag);
             } catch (Exception e) {
+              LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_ERROR_1 {},{}",schemaUrl,passFlag);
               container.addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.ERROR,
                       ProblemType.SCHEMA_ERROR,
                       "Error reading schema: " + e.getMessage()),
                   schemaUrl));
             }
+            LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_ERROR_2,container.hasError,container.hasFatal {},{},{},{}",schemaUrl,passFlag,container.hasError(),container.hasFatal());
             if (container.getProblems().size() != 0) {
               for (ValidationProblem le : container.getProblems()) {
                 le.setSource(label.toURI().toString());
                 getListener().addProblem(le);
+                LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag,message SET_TO_ERROR_3 {},{},[{}]",schemaUrl,passFlag,le.getMessage());
               }
               if (container.hasError() || container.hasFatal()) {
                 passFlag = false;
+                LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_FALSE_2 {},{}",schemaUrl,passFlag);
               }
             }
             labelSchemaResults.put(schemaUrl, container);
           }
+          LOG.debug("validateAllLoadedSchemas:label,schemaUrl,passFlag {},{},{}",label,schemaUrl,passFlag);
         } catch (URISyntaxException u) {
           labelProblems.addProblem(new ValidationProblem(
               new ProblemDefinition(ExceptionType.FATAL,
@@ -455,45 +467,96 @@ public class LabelValidationRule extends AbstractValidationRule {
                       + source.getSystemId() + "': " + u.getMessage()),
               label));
         }
+      } // end for (StreamSource source : streamSources) {
+      return(passFlag);
+  }
+
+  private boolean validateLabelSchemas(URL label,
+      ProblemContainer labelProblems, XMLCatalogResolver resolver) {
+
+    // Each label has a list of schemas that describe the format of the content of the label that should adhere to.
+    // For example:
+    //     schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd"
+    // This function will:
+    //   1. Retrieve these locations with getSchemaLocations(),  return false if cannot retrieve them.
+    //   2. For each location, ensure that the location exists and can be resolved with resolveSingleSchema() function.
+    //   3. Load each schema into a list of stream sources with loadSingleSchemaIntoSources() function.
+    //   4. And finally, validate the schema for correctness.
+
+    boolean passFlag = true;
+    List<StreamSource> sources = new ArrayList<StreamSource>();
+    Map<String, URL> schemaLocations = new LinkedHashMap<String, URL>();
+    this.schemaValidator.setCatalogResolver(resolver);
+    LOG.debug("validateLabelSchemas:MARKER_MARKER_MARKER");
+    LOG.debug("validateLabelSchemas: label {}",label);
+
+    try {
+      schemaLocations = getSchemaLocations(label);  
+      LOG.debug("validateLabelSchemas: schemaLocations,schemaLocations.size() {},{}",schemaLocations,schemaLocations.size());
+      LOG.debug("validateLabelSchemas: label,schemaLocations.size() {},{}",label,schemaLocations.size());
+      LOG.debug("validateLabelSchemas: label,schemaLocations,schemaLocations.size() {},{},{}",label,schemaLocations,schemaLocations.size());
+    } catch (Exception e) {
+      labelProblems.addProblem(new ValidationProblem(
+          new ProblemDefinition(ExceptionType.FATAL,
+              ProblemType.SCHEMA_ERROR,
+              e.getMessage()), 
+          label));
+      LOG.debug("validateLabelSchemas: passFlag {}",false);
+      return false;
+    }
+    
+    LOG.debug("validateLabelSchemas: label,labelProblems.getProblemCount():START_LOOP {},{}",label,labelProblems.getProblemCount());
+    LOG.debug("validateLabelSchemas: label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
+    LOG.debug("validateLabelSchemas: schemaLocations.entrySet().size {}",schemaLocations.entrySet().size());
+    // Loop through all the schemaLocations from the label and resolve them
+    //boolean resolvableUrl = false;
+    for (Map.Entry<String, URL> schemaLocation : schemaLocations.entrySet()) {
+
+      URL schemaUrl = schemaLocation.getValue();
+      ProblemContainer container = new ProblemContainer();
+
+      // Make sure the schema is a valid address or a file.
+      // Break up long code into resolveSingleSchema() function for readability.
+      boolean resolvableUrl = resolveSingleSchema(label, schemaLocation, schemaUrl, container,
+                                                  labelProblems, resolver);
+
+      //LOG.debug("validateLabelSchemas: schemaUrl,resolvableUrl {},{}",schemaUrl,resolvableUrl);
+      // If we found the schema, let's read it into memory
+      if (resolvableUrl) {
+
+        // Break up long code into loadSingleSchemaIntoSources() function for readability.
+        passFlag = loadSingleSchemaIntoSources(label, schemaUrl, container,
+                                               labelProblems, sources);
+      } else {
+        passFlag = false;
       }
+    }
+
+    
+    LOG.debug("validateLabelSchemas: afor:validate schema:passFlag {}",passFlag);
+    if (passFlag) {
+      // Now let's loop through the schemas themselves, and validate them
+      // Break up long code into validateLoadedSchemas() function for readability.
+      passFlag = validateLoadedSchemas(label, sources,
+                                       labelProblems);
     }
     LOG.debug("validateLabelSchemas: after:validate schema:passFlag {}",passFlag);
     LOG.debug("validateLabelSchemas: label,passFlag {},{}",label,passFlag);
     return passFlag;
   }
 
-  private Map<String, Transformer> validateLabelSchematrons(URL label,
-      ProblemContainer labelProblems, XMLCatalogResolver resolver) {
-    boolean passFlag = true;
-    Map<String, Transformer> results = new HashMap<String, Transformer>();
-    List<URL> schematronRefs = new ArrayList<URL>();
-    try {
-      schematronRefs = getSchematrons(label, labelProblems);
-      LOG.debug("validateLabelSchematrons:labelProblems.getWarningCount() {}",labelProblems.getWarningCount());
-      if (labelProblems.getProblems().size() != 0) {
-        for (ValidationProblem le : labelProblems.getProblems()) {
-          getListener().addProblem(le);
-          LOG.debug("validateLabelSchematrons:addProblem(le) {}",le);
-        }
-        passFlag = false;
-      }
-    } catch (Exception e) {
-      labelProblems.addProblem(new ValidationProblem(
-          new ProblemDefinition(ExceptionType.ERROR,
-              ProblemType.SCHEMATRON_ERROR,
-              e.getMessage()), 
-          label));
-      passFlag = false;
-    }
-    
-    LOG.debug("validateLabelSchematrons:schematronRefs.size() {}",schematronRefs.size());
-    LOG.debug("validateLabelSchematrons:label,schematronRefs.size() {},{}",label,schematronRefs.size());
-    //Now validate the schematrons
-    for (URL schematronRef : schematronRefs) {
+  private boolean validateSingleSchematron(URL label, URL schematronRef,
+                                           XMLCatalogResolver resolver,
+                                           ProblemContainer labelProblems, Map<String, Transformer> results) { 
+      // Note that these 2 parameters will serve as both input and output: labelProblems, and results.
+      // for holding problems with the label and the results will grow as a map.
+
+      // Validate a single schematron related to a label for correctness.
+      boolean schematronPassFlag = true;
       try {
         ProblemContainer container = null;
         boolean resolvableUrl = true;
-        LOG.debug("validateLabelSchematrons:schematronRef,resolver {},{}",schematronRef,resolver);
+        LOG.debug("validateSingleSchematron:schematronRef,resolver {},{}",schematronRef,resolver);
         if (resolver != null) {
           String resolvedUrl = null;
           try {
@@ -501,7 +564,7 @@ public class LabelValidationRule extends AbstractValidationRule {
                 Utility.getParent(label).toString(),
                 schematronRef.toString());
             resolvedUrl = resolver.resolveSchematron(absoluteUrl);
-            LOG.debug("validateLabelSchematrons:resolvedUrl {}",resolvedUrl);
+            LOG.debug("validateSingleSchematron:resolvedUrl {}",resolvedUrl);
             if (resolvedUrl != null) {
               schematronRef = new URL(resolvedUrl);
             } else {
@@ -524,7 +587,7 @@ public class LabelValidationRule extends AbstractValidationRule {
             resolvableUrl = false;
           }
         }
-        LOG.debug("validateLabelSchematrons:schematronRef,resolvableUrl {},{}",schematronRef,resolvableUrl);
+        LOG.debug("validateSingleSchematron:schematronRef,resolvableUrl {},{}",schematronRef,resolvableUrl);
         if (resolvableUrl) {
           if (labelSchematrons.containsKey(schematronRef)) {
             container = labelSchematronResults.get(schematronRef);
@@ -534,7 +597,7 @@ public class LabelValidationRule extends AbstractValidationRule {
                 getListener().addProblem(le);
               }
               if (container.hasError() || container.hasFatal()) {
-                passFlag = false;
+                schematronPassFlag = false;
               }
             } else {
               results.put(schematronRef.toString(),
@@ -564,13 +627,13 @@ public class LabelValidationRule extends AbstractValidationRule {
                 getListener().addProblem(le);
               }
               if (container.hasError() || container.hasFatal()) {
-                passFlag = false;
+                schematronPassFlag = false;
               }
             }
             labelSchematronResults.put(schematronRef, container);
           }
         } else {
-          passFlag = false;
+          schematronPassFlag = false;
         }
       } catch (URISyntaxException u) {
         labelProblems.addProblem(new ValidationProblem(
@@ -580,10 +643,53 @@ public class LabelValidationRule extends AbstractValidationRule {
                     + schematronRef.toString() + "': " + u.getMessage()),
             label));
       }
+      LOG.debug("validateSingleSchematron:label,schematronRef,schematronPassFlag {},{},{}",label,schematronRef,schematronPassFlag);
+      return(schematronPassFlag);
+  }
+
+  private Map<String, Transformer> validateLabelSchematrons(URL label,
+      ProblemContainer labelProblems, XMLCatalogResolver resolver) {
+    boolean passFlag = true;
+    Map<String, Transformer> results = new HashMap<String, Transformer>();
+    List<URL> schematronRefs = new ArrayList<URL>();
+    try {
+      schematronRefs = getSchematrons(label, labelProblems);
+      LOG.debug("validateLabelSchematrons:labelProblems.getWarningCount() {}",labelProblems.getWarningCount());
+      if (labelProblems.getProblems().size() != 0) {
+        for (ValidationProblem le : labelProblems.getProblems()) {
+          getListener().addProblem(le);
+          LOG.debug("validateLabelSchematrons:addProblem(le) {}",le);
+        }
+        passFlag = false;
+      }
+    } catch (Exception e) {
+      labelProblems.addProblem(new ValidationProblem(
+          new ProblemDefinition(ExceptionType.ERROR,
+              ProblemType.SCHEMATRON_ERROR,
+              e.getMessage()), 
+          label));
+      passFlag = false;
     }
-    if (!passFlag) {
+    
+    LOG.debug("validateLabelSchematrons:schematronRefs.size() {}",schematronRefs.size());
+    LOG.debug("validateLabelSchematrons:label,schematronRefs.size() {},{}",label,schematronRefs.size());
+    //Now validate the schematrons
+    boolean allSchematronsPassFlag = true;
+    for (URL schematronRef : schematronRefs) {
+       // Break up long code into validateSingleSchematron() function for readability.
+       passFlag = validateSingleSchematron(label, schematronRef,
+                                           resolver,
+                                           labelProblems, results);
+
+       // If one schematron does not pass, the whole label does not get pass.
+       if (passFlag == false) {
+           allSchematronsPassFlag = false;
+       }
+    }
+    if (!allSchematronsPassFlag) {
       results.clear();
     }
+    LOG.debug("validateLabelSchematrons:label,allSchematronsPassFlag,schematronRefs.size() {},{},{}",label,allSchematronsPassFlag,schematronRefs.size());
     LOG.debug("validateLabelSchematrons:label,labelProblems.getProblemCount() {},{}",label,labelProblems.getProblemCount());
     return results;
   }

@@ -19,6 +19,7 @@ import gov.nasa.pds.tools.label.validate.DefaultDocumentValidator;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.label.validate.ExternalValidator;
 import gov.nasa.pds.tools.util.LabelParser;
+import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -213,6 +214,7 @@ public class LabelValidator {
    */
   public void setSchema(List<URL> schemaFiles) {
     this.userSchemaFiles = schemaFiles;
+    LOG.debug("setSchema:schemaFiles.size(),schemaFiles {},{}",schemaFiles.size(),schemaFiles);
   }
 
   /**
@@ -223,6 +225,7 @@ public class LabelValidator {
    */
   public void setSchematrons(List<Transformer> schematrons) {
     userSchematronTransformers = schematrons;
+    LOG.debug("setSchematrons:schematrons.size(),schematrons {},{}",schematrons.size(),schematrons);
   }
 
   /**
@@ -244,6 +247,7 @@ public class LabelValidator {
    */
   public void setSchematronFiles(List<URL> schematronFiles) {
     userSchematronFiles = schematronFiles;
+    LOG.debug("setSchematronFiles:schematronFiles.size(),schematronFiles {},{}",schematronFiles.size(),schematronFiles);
   }
 
   /**
@@ -257,6 +261,8 @@ public class LabelValidator {
     resolver.setPreferPublic(true);
     resolver.setCatalogList(catalogFiles);
     useLabelSchematron = true;
+    LOG.debug("setCatalogs:catalogFiles {}",catalogFiles);
+    LOG.debug("setCatalogs:useLabelSchematron explitly set to true");
   }
   
   public XMLCatalogResolver getCatalogResolver() {
@@ -266,6 +272,7 @@ public class LabelValidator {
   private List<StreamSource> loadSchemaSources(List<URL> schemas)
       throws IOException, SAXException {
     List<StreamSource> sources = new ArrayList<StreamSource>();
+    LOG.debug("loadSchemaSources:schemas {}",schemas);
     String externalLocations = "";
     for (URL schema : schemas) {
       LSInput input = cachedLSResolver.resolveResource("", "", "",
@@ -293,13 +300,16 @@ public class LabelValidator {
     schemaFactory.setProperty(
         "http://apache.org/xml/properties/schema/external-schemaLocation",
         externalLocations);
+    LOG.debug("loadSchemaSources:schemas,externalLocations,sources {}",schemas,externalLocations,sources);
     return sources;
   }
 
   private List<StreamSource> loadSchemaSources(String[] schemaFiles) {
     List<StreamSource> sources = new ArrayList<StreamSource>();
+    LOG.debug("loadSchemaSources:sources.size() {}",sources.size());
     for (String schemaFile : schemaFiles) {
       sources.add(new StreamSource(schemaFile));
+      LOG.debug("loadSchemaSources:schemaFile {}",schemaFile);
     }
     return sources;
   }
@@ -398,6 +408,10 @@ public class LabelValidator {
     //LOG.info("url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
 
     LOG.debug("parseAndValidate:url,performsSchematronValidation() {},{}",url,performsSchematronValidation());
+    LOG.debug("parseAndValidate:url,useLabelSchematron {},{}",url,useLabelSchematron);
+    LOG.debug("parseAndValidate:url,useLabelSchema {},{}",url,useLabelSchema);
+    LOG.debug("parseAndValidate:url,performsSchemaValidation() {},{}",url,performsSchemaValidation());
+
     // Are we perfoming schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
@@ -405,35 +419,48 @@ public class LabelValidator {
       // Do we need this to clear the cache?
      
       if (useLabelSchema) {
+        LOG.debug("parseAndValidate:#00AA0");
         cachedValidatorHandler = schemaFactory.newSchema().newValidatorHandler();
       } else {
+        LOG.debug("parseAndValidate:#00AA1");
         cachedValidatorHandler = validatingSchema.newValidatorHandler();
       }    
       
       // Capture messages in a container
       if (handler != null) {
+        LOG.debug("parseAndValidate:#00AA2");
         ErrorHandler eh = new LabelErrorHandler(handler);
         cachedParser.setErrorHandler(eh);
         cachedValidatorHandler.setErrorHandler(eh);
 
       }
+      LOG.debug("parseAndValidate:#00AA3");
       // Finally parse and validate the file
       xml = docBuilder.newDocument();
       cachedParser.setContentHandler(new DocumentCreator(xml));
       cachedParser.parse(Utility.openConnection(url));
 
+      // Each version of the Information Model (IM) must be registered so in the end, multiple versions can be reported.
+      LabelUtil.setLocation(url.toString());
+      String informationModelVersion = LabelUtil.getIMVersion(new DOMSource(xml),url);
+      LabelUtil.registerIMVersion(informationModelVersion);
+
       DOMLocator locator = new DOMLocator(url);
       cachedValidatorHandler.setDocumentLocator(locator);
       if (resolver != null) {
+        LOG.debug("parseAndValidate:#00AA4");
         cachedValidatorHandler.setResourceResolver(resolver);
         resolver.setProblemHandler(handler);
       } else {
+        LOG.debug("parseAndValidate:#00AA5");
         cachedValidatorHandler.setResourceResolver(cachedLSResolver);
       }
       
       if (!skipProductValidation) {
+          LOG.debug("parseAndValidate:#00AA6");
     	  walkNode(xml, cachedValidatorHandler, locator);
       }
+      LOG.debug("parseAndValidate:#00AA7");
 
       // If validating against the label supplied schema, check
       // if the xsi:schemalocation attribute was defined in the label.
@@ -467,6 +494,7 @@ public class LabelValidator {
     // can parse the XML again, below, and assume the parse will
     // succeed.
 
+    LOG.debug("parseAndValidate:0001:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
     // Validate with any schematron files we have
     if (performsSchematronValidation()) {
       // Look for schematron files specified in a label
@@ -474,6 +502,7 @@ public class LabelValidator {
         labelSchematronRefs = getSchematrons(xml.getChildNodes(), url,
             handler);
       }
+      LOG.debug("parseAndValidate:0002:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
       if (cachedSchematron.isEmpty()) {
         if (useLabelSchematron) {
           cachedSchematron = loadLabelSchematrons(labelSchematronRefs, url,
@@ -481,6 +510,7 @@ public class LabelValidator {
         } else {
           if (!userSchematronTransformers.isEmpty()) {
             cachedSchematron = userSchematronTransformers;
+            LOG.debug("parseAndValidate:0003:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
           } else if (userSchematronFiles != null) {
             List<Transformer> transformers = new ArrayList<Transformer>();
             for (URL schematron : userSchematronFiles) {
@@ -491,10 +521,13 @@ public class LabelValidator {
               transformers.add(transformer);
             }
             cachedSchematron = transformers;
+            LOG.debug("parseAndValidate:0004:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
           }
         }
+        LOG.debug("parseAndValidate:0010:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
       } else {
         // If there are cached schematrons....
+        LOG.debug("parseAndValidate:0011:url,useLabelSchematron,userSchematronTransformers.isEmpty() {},{},{}",url,useLabelSchematron,userSchematronTransformers.isEmpty());
         if (useLabelSchematron) {
           if (!userSchematronTransformers.isEmpty()) {
             cachedSchematron = userSchematronTransformers;
@@ -503,7 +536,9 @@ public class LabelValidator {
               handler);
           }
         }
+        LOG.debug("parseAndValidate:0020:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
       }
+      LOG.debug("parseAndValidate:0030:url,useLabelSchematron,cachedSchematron.size() {},{},{}",url,useLabelSchematron,cachedSchematron.size());
 
       // Determine if schematron validation should be done or not.
       // Note: schematron validation can be time consuming.  Only the bundle or collection should be validated against schematron.
@@ -563,50 +598,68 @@ public class LabelValidator {
       throws SAXNotRecognizedException, SAXNotSupportedException, SAXException,
       IOException, ParserConfigurationException {
     // Do we have a schema we have loaded previously?
+    LOG.debug("createParserIfNeeded:cachedParser,resolver,handler {},{},{}",cachedParser,resolver,handler);
+    LOG.debug("createParserIfNeeded:#00BB0");
     if (cachedParser == null) {
+    LOG.debug("createParserIfNeeded:#00BB1");
       // If catalog is used, allow resources to be loaded for schemas
       // and the document parser
       if (resolver != null) {
+        LOG.debug("createParserIfNeeded:#00BB2");
         schemaFactory.setProperty(
             "http://apache.org/xml/properties/internal/entity-resolver",
             resolver);
       }
+      LOG.debug("createParserIfNeeded:#00BB3");
       // Allow errors that happen in the schema to be logged there
       if (handler != null) {
+        LOG.debug("createParserIfNeeded:#00BB4");
         schemaFactory.setErrorHandler(new LabelErrorHandler(handler));
         cachedLSResolver = new CachedLSResourceResolver(handler);
         schemaFactory.setResourceResolver(cachedLSResolver);
       } else {
+        LOG.debug("createParserIfNeeded:#00BB5");
         cachedLSResolver = new CachedLSResourceResolver();
         schemaFactory.setResourceResolver(cachedLSResolver);
       }
+      LOG.debug("createParserIfNeeded:#00BB6");
       // Time to load schema that will be used for validation
       if (userSchemaFiles != null) {
+        LOG.debug("createParserIfNeeded:#00BB7");
         // User has specified schema files to use
         validatingSchema = schemaFactory.newSchema(loadSchemaSources(
             userSchemaFiles).toArray(new StreamSource[0]));
       } else if (resolver == null) {
+        LOG.debug("createParserIfNeeded:#00BB8");
         if (useLabelSchema) {
+          LOG.debug("createParserIfNeeded:#00BB9");
           validatingSchema = schemaFactory.newSchema();
         } else {
+          LOG.debug("createParserIfNeeded:#00BC0");
           // Load from user specified external directory
           validatingSchema = schemaFactory.newSchema(loadSchemaSources(
               VersionInfo.getSchemasFromDirectory().toArray(new String[0]))
               .toArray(new StreamSource[0]));
         }
       } else {
+        LOG.debug("createParserIfNeeded:#00BC1");
         // We're only going to use the catalog to validate against.
         validatingSchema = schemaFactory.newSchema();
       }
 
+      LOG.debug("createParserIfNeeded:#00BC2");
       cachedParser = saxParserFactory.newSAXParser().getXMLReader();
       cachedValidatorHandler = validatingSchema.newValidatorHandler();
       if (resolver != null) {
+        LOG.debug("createParserIfNeeded:#00BC3");
         cachedParser.setEntityResolver(resolver);
         docBuilder.setEntityResolver(resolver);
       } else if (useLabelSchema) {
+        LOG.debug("createParserIfNeeded:#00BC4");
         cachedParser.setEntityResolver(cachedEntityResolver);
       }
+      LOG.debug("createParserIfNeeded:#00BC5");
+      LOG.debug("createParserIfNeeded:cachedParser,cachedValidatorHandler,resolver {},{},{}",cachedParser,cachedValidatorHandler,resolver);
     } else {
       //TODO: This code doesn't look right. It says that if we have
       //  a cached parser, but we are using the label schema, then
@@ -616,11 +669,14 @@ public class LabelValidator {
 
       // Create a new instance of the DocumentBuilder if validating
       // against a label's schema.
+      LOG.debug("createParserIfNeeded:#00BC6");
       if (useLabelSchema) {
+        LOG.debug("createParserIfNeeded:#00BC7");
       	cachedParser = saxParserFactory.newSAXParser().getXMLReader();
       	cachedValidatorHandler = schemaFactory.newSchema().newValidatorHandler();
       	cachedParser.setEntityResolver(cachedEntityResolver);
       }
+      LOG.debug("createParserIfNeeded:#00BC8");
     }
   }
 
@@ -698,6 +754,8 @@ public class LabelValidator {
       ProblemHandler handler) {
     List<String> results = new ArrayList<String>();
 
+    LOG.debug("getSchematrons:url {}",url);
+
     for (int i = 0; i < nodeList.getLength(); i++) {
       if (nodeList.item(i).getNodeType() == Node.PROCESSING_INSTRUCTION_NODE) {
         ProcessingInstruction pi = (ProcessingInstruction) nodeList.item(i);
@@ -735,18 +793,21 @@ public class LabelValidator {
         }
       }
     }
+    LOG.debug("getSchematrons:url,results {},{},{}",url,results,results.size());
     return results;
   }
 
   private List<Transformer> loadLabelSchematrons(List<String> schematronSources,
       URL url, ProblemHandler handler) {
     List<Transformer> transformers = new ArrayList<Transformer>();
+    LOG.debug("loadLabelSchematrons:resolver,schematronSources {},{}",resolver,schematronSources);
     for (String source : schematronSources) {
       try {
         if (resolver != null) {
           try {
             String absoluteUrl = Utility.makeAbsolute(Utility.getParent(url).toString(), source);  
             String resolvedUrl = resolver.resolveSchematron(absoluteUrl);
+            LOG.debug("loadLabelSchematrons:resolver,absoluteUrl,resolvedUrl {},{}",resolver,absoluteUrl,resolvedUrl);
             if (resolvedUrl == null) {
               throw new Exception("'" + source + "' was not resolvable through the catalog file.");
             } else {
@@ -760,8 +821,10 @@ public class LabelValidator {
         Transformer transformer = cachedLabelSchematrons.get(source);
         if (transformer != null) {
           transformers.add(transformer);
+          LOG.debug("loadLabelSchematrons:transformers.add:source {}",source);
         } else {
           URL sourceUrl = new URL(source);
+          LOG.debug("loadLabelSchematrons:sourceUrl {}",sourceUrl);
           try {
             transformer = schematronTransformer.transform(sourceUrl);
             cachedLabelSchematrons.put(source, transformer);
@@ -872,6 +935,7 @@ public class LabelValidator {
   public void setSchematronCheck(Boolean value, Boolean useLabelSchematron) {
     this.setConfiguration(SCHEMATRON_CHECK, value);
     this.useLabelSchematron = useLabelSchematron;
+    LOG.debug("setSchematronCheck:useLabelSchematron explitly set to value,useLabelSchematron {},{}",value,useLabelSchematron);
   }
   
   public void setSkipProductValidation(Boolean flag) {

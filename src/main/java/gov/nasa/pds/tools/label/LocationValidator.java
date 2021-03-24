@@ -307,6 +307,7 @@ public class LocationValidator {
 
 	public void setSchema(List<URL> schemaFiles) {
 		labelValidator.setSchema(schemaFiles);
+        LOG.debug("setSchema:schemaFiles {}",schemaFiles);
 	}
 
 	public void setSchematrons(List<Transformer> schematrons) {
@@ -345,9 +346,12 @@ public class LocationValidator {
 	}
 
 	public void setForce(boolean force) {
-    labelValidator.setSchemaCheck(true, force);
-    labelValidator.setSchematronCheck(true, force);
-    ruleContext.setForceLabelSchemaValidation(force);
+        labelValidator.setSchemaCheck(true, force);
+        LOG.debug("setForce:setSchemaCheck:force {}",force);
+        labelValidator.setSchematronCheck(true, force);
+        LOG.debug("setForce:setSchematronCheck:force {}",force);
+        ruleContext.setForceLabelSchemaValidation(force);
+        LOG.debug("setForce:force {}",force);
 	}
 
 	public void setFileFilters(List<String> regExps) {

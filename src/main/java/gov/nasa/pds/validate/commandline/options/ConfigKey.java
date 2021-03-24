@@ -98,6 +98,11 @@ public class ConfigKey {
      */
     public static final String SKIP_CONTENT_VALIDATION = "validate.skipContentValidation";
 
+    /**
+     * Property to enable a WARNING if more than one versions of the Information Model (IM) is used in this run. 
+     */
+    public static final String PREFER_ALL_LABELS_SAME_INFORMATION_MODEL_VERSION = "validate.preferAllLabelsSameInformationModelVersion";
+
     
     /**
      * Property to specify the maximum number of errors to report before
