@@ -52,7 +52,7 @@ public class LabelUtil {
   private static final Logger LOG = LoggerFactory.getLogger(LabelUtil.class);
   private static URL contextValue = null;
   private static String location = null;
-  private static boolean produceWarningIfMultipleIMVersionProcessedFlag = true;  // By default set to true.  Set to false by developer to test this function.
+  
   private static XPathFactory xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
 
   private static HashSet<String> informationModelVersions = new HashSet<>();
@@ -198,12 +198,12 @@ public class LabelUtil {
       String versions = "";
       int numDifferentVersions = 0;
       for(String str : informationModelVersions) {
-          versions += " " + str;
+          versions += str + ", ";
           numDifferentVersions += 1;
       }
+      versions = versions.substring(0, versions.length() - 2);
       LOG.debug("reportIfMoreThanOneVersion:target,informationModelVersions.size(),MY_VERSIONS {},{},{}",location,informationModelVersions.size(),versions);
       LOG.debug("reportIfMoreThanOneVersion:informationModelVersions {}",informationModelVersions);
-      LOG.debug("reportIfMoreThanOneVersion:LabelUtil.produceWarningIfMultipleIMVersionProcessedFlag,numDifferentVersions {},{}",LabelUtil.produceWarningIfMultipleIMVersionProcessedFlag,numDifferentVersions);
       if (versions.equals("")) {
           // This means that the function reportIfMoreThanOneVersion() is called too early and no labels has been parsed yet.
           LOG.warn("reportIfMoreThanOneVersion:There has been no versions added to informationModelVersions set yet.");
@@ -213,7 +213,7 @@ public class LabelUtil {
       }
 
       try {
-          if (LabelUtil.produceWarningIfMultipleIMVersionProcessedFlag && numDifferentVersions > 1) {
+          if (numDifferentVersions > 1) {
               String message = "";
               URL url = null; // The warning message will be for the entire run so no need to set specific url.
               String forRuleStr = "";
@@ -226,7 +226,7 @@ public class LabelUtil {
                   // Print specific bundle name to identify a location name with an actual bundle.
                   forBundleStr = " for bundle " + LabelUtil.bundleLocation;
               }
-              message = "Multiple versions (" + Integer.toString(numDifferentVersions) + ") of Information Model (IM) found in this run: " + versions + forRuleStr + forBundleStr;
+              message = "Multiple versions (" + Integer.toString(numDifferentVersions) + ") of Information Model (IM) found in this run: [" + versions + "]" + forRuleStr + forBundleStr;
               LOG.debug(message);
 
               // Build the ValidationProblem and add it to the report.
