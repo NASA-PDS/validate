@@ -52,6 +52,9 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.SAXParseException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Class to validate schemas.
  *
@@ -59,6 +62,7 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class SchemaValidator {
+  private static final Logger LOG = LoggerFactory.getLogger(SchemaValidator.class);
   /**
    * Schema factory.
    */
@@ -119,14 +123,17 @@ public class SchemaValidator {
     schemaFactory.setProperty(
         "http://apache.org/xml/properties/schema/external-schemaLocation",
          locations);
+    LOG.debug("setExternalLocations:locations {}",locations);
   }
 
   
   public XMLCatalogResolver getCachedLSResolver() {
+    LOG.debug("getCachedLSResolver:");
     return (XMLCatalogResolver) schemaFactory.getResourceResolver();
   }
   
   public void setCatalogResolver(XMLCatalogResolver resolver) {
+      LOG.debug("setCatalogResolver:resolver {}",resolver);
       if (resolver != null) {
           schemaFactory.setResourceResolver(resolver);
       }

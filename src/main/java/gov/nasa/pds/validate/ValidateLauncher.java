@@ -39,6 +39,7 @@ import gov.nasa.pds.tools.label.*;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.VersionInfo;
+import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.*;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
@@ -183,7 +184,7 @@ public class ValidateLauncher {
 
     /** Flag to enable/disable data content validation. */
     private boolean contentValidationFlag;
-    
+
     /** Flag to enable/disable product level validation. */
     private boolean skipProductValidation;
 
@@ -1212,6 +1213,11 @@ public class ValidateLauncher {
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
         factory = ValidatorFactory.getInstance();
         factory.setDocumentValidators(docValidators);
+
+        // Set the name of this executable and the report in LabelUtil so any errors/warnings can be reported.
+        LabelUtil.setLauncherURIName(new URI(ValidateLauncher.class.getName()).toString());
+        LabelUtil.setReport(report);
+
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
@@ -1252,6 +1258,7 @@ public class ValidateLauncher {
                 if (!this.alternateReferentialPaths.isEmpty()) {
                     validator.setExtraTargetInContext(this.alternateReferentialPaths);
                 }
+
                 LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}",target);
                 validator.validate(monitor, target);
                 monitor.endValidation();
@@ -1289,6 +1296,13 @@ public class ValidateLauncher {
                 }
             }
         }
+
+        // https://github.com/NASA-PDS/validate/issues/210 As a user, I want validate to raise a WARNING when differing versions of IM are used within a bundle
+        // Report a WARNING if more than one versions of the Information Model (IM) is used in this run.
+        // At this point, all the versions of the IM would have been collected by the class LabelUtil, we merely need to call reportIfMoreThanOneVersion()
+        // to request appending any warning messages to the report.
+
+        LabelUtil.reportIfMoreThanOneVersion(validationRule);
 
         if (severity.isDebugApplicable()) {
             System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)\n");

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:cassini-huygens-coradar</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Cassini RADAR Data Archive</title>
+        <information_model_version>1.10.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <publication_year>2018</publication_year>
+            <description>
+                Cassini RADAR Data Archive      
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-09-30</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    conversion of PDS3 CO RADAR archive to comply with PDS4 Information Model
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:node:node.imaging</lid_reference>
+            <reference_type>bundle_to_associate</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+            <reference_type>bundle_to_investigation</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+
+    
+    <Bundle>
+       <bundle_type>Archive</bundle_type>
+     </Bundle>
+    
+
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0245</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0131_v03</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0065</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0277</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0283</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+        <Bundle_Member_Entry>
+            <lid_reference>urn:nasa:pds:cassini-huygens-coradar:coradr_0284</lid_reference>
+            <member_status>Primary</member_status>
+            <reference_type>bundle_has_data_collection</reference_type>
+        </Bundle_Member_Entry>
+</Product_Bundle>

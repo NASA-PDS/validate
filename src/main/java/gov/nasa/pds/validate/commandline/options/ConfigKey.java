@@ -98,7 +98,6 @@ public class ConfigKey {
      */
     public static final String SKIP_CONTENT_VALIDATION = "validate.skipContentValidation";
 
-    
     /**
      * Property to specify the maximum number of errors to report before
      * terminating a validation run.
