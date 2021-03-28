@@ -11,6 +11,24 @@
           },
           {
                "name": [
+                    "URANUS"
+               ],
+               "type": [
+                    "PLANET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planet.uranus::1.2"
+          },
+          {
+               "name": [
+                    "PLUTO ENERGETIC PARTICLE SPECTROMETER SCIENCE INVESTIGATION"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pepssi.nh::1.0"
+          },
+          {
+               "name": [
                     "(24380) 2000 AA160"
                ],
                "type": [
@@ -7346,33 +7364,6 @@
           },
           {
                "name": [
-                    "MARS RECONNAISSANCE ORBITER"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mro::1.0"
-          },
-          {
-               "name": [
-                    "2005 EO304"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_eo304::1.0"
-          },
-          {
-               "name": [
-                    "10199 CHARIKLO"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.10199_chariklo::1.0"
-          },
-          {
-               "name": [
                     "7968 ELST-PIZARRO"
                ],
                "type": [
@@ -11409,6 +11400,15 @@
           },
           {
                "name": [
+                    "MARINER 9 ULTRAVIOLET SPECTROMETER (UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uvs.mr9::1.0"
+          },
+          {
+               "name": [
                     "NEW HORIZONS"
                ],
                "type": [
@@ -13157,6 +13157,15 @@
           },
           {
                "name": [
+                    "MARINER 7 ULTRAVIOLET SPECTROMETER (UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uvs.mr7::1.0"
+          },
+          {
+               "name": [
                     "1999 RY214"
                ],
                "type": [
@@ -14706,24 +14715,6 @@
           },
           {
                "name": [
-                    "URANUS"
-               ],
-               "type": [
-                    "PLANET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:planet.uranus::1.2"
-          },
-          {
-               "name": [
-                    "PLUTO ENERGETIC PARTICLE SPECTROMETER SCIENCE INVESTIGATION"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pepssi.nh::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14802,6 +14793,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
+          },
+          {
+               "name": [
+                    "MARS RECONNAISSANCE ORBITER"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mro::1.0"
+          },
+          {
+               "name": [
+                    "2005 EO304"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_eo304::1.0"
+          },
+          {
+               "name": [
+                    "10199 CHARIKLO"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.10199_chariklo::1.0"
           },
           {
                "name": [
@@ -21782,6 +21800,15 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.bd-21_4376::1.0"
+          },
+          {
+               "name": [
+                    "MARINER 6 ULTRAVIOLET SPECTROMETER (UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uvs.mr6::1.0"
           },
           {
                "name": [
