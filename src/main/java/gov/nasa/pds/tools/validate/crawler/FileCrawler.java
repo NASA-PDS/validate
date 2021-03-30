@@ -17,9 +17,11 @@ import gov.nasa.pds.tools.validate.Target;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.StringBuilder;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -41,6 +43,60 @@ public class FileCrawler extends Crawler {
       super();
     }
 
+  private List<Target> refinedFoundList(Collection<File> collections, URL fileUrl, File directory, boolean getDirectories, String nameToken) throws IOException {
+    // Given a list of file names found, refine the list (ignoring any files that should be ignore).
+    // or the file name matching any specified nameToken value, e.g 'bundle' is in bundle_kaguya_derived.xml file
+    LOG.debug("refinedFoundList:directory,fileUrl,getDirectories,nameToken,collections.size() {},{},{},{},{}",directory,fileUrl,getDirectories,nameToken,collections.size());
+    List<Target> results = new ArrayList<Target>();
+
+    for (File file : collections) {
+      // Keep the file if it contains a token.
+      if (nameToken != null) {
+         if (file.getName().contains(nameToken)) {
+             LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]",directory,file.getName(),nameToken);
+             results.add(new Target(file.toURI().toURL(), false));
+         }
+      } else {
+          LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]",directory.getName(),file,nameToken);
+          results.add(new Target(file.toURI().toURL(), false));
+      }
+    }
+
+    //Visit sub-directories if the recurse flag is set
+    LOG.debug("refinedFoundList:getDirectories {}",getDirectories);
+    if (getDirectories) {
+      for (File dir :Arrays.asList(directory.listFiles(directoryFilter))) {
+        // Keep the file if it contains a token.
+        if (nameToken != null) {
+          if (dir.getName().contains(nameToken)) {
+             results.add(new Target(dir.toURI().toURL(), true));
+          }
+        } else {
+          results.add(new Target(dir.toURI().toURL(), true));
+        }
+      }
+    }
+    LOG.debug("refinedFoundList:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
+    for (Target target : results) {
+        LOG.debug("refinedFoundList:target: {}",target);
+    }
+    LOG.debug("refinedFoundList:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
+    for (Target ignoreItem : this.ignoreList) {
+        LOG.debug("refinedFoundList:ignoreItem: {}",ignoreItem);
+    }
+
+    // Remove all items from results list if they occur in ignoreList.
+    results.removeAll(this.ignoreList);
+
+    for (Target target : results) {
+        LOG.debug("refinedFoundList:final:target: {}",target.getUrl());
+    }
+
+    LOG.debug("refinedFoundList:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
+
+    return results;
+  }
+
   /**
    * Crawl a given directory url.
    *
@@ -52,7 +108,7 @@ public class FileCrawler extends Crawler {
    */
   public List<Target> crawl(URL fileUrl, boolean getDirectories, IOFileFilter fileFilter) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
-    //LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
+    LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
     //LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
     if ( !directory.isDirectory() ) {
       LOG.error("Input file is not a directory: " + directory);
@@ -61,33 +117,81 @@ public class FileCrawler extends Crawler {
     }
     List<Target> results = new ArrayList<Target>();
     //Find files only first
-    for (File file : FileUtils.listFiles(directory, fileFilter, null)) {
+    LOG.debug("crawl:getDirectories {}",getDirectories);
+
+// Used by developer to print the stack of this function to debug infinite loop.
+//    StackTraceElement[] ste = Thread.currentThread().getStackTrace();
+//    StringBuilder sb = new StringBuilder();
+//    for (StackTraceElement st : ste) {
+//        //sb.append(st.toString() + System.lineSeparator());
+//        sb.append(st.toString() + " :: ");
+//    }
+//    System.out.println("STACK_TRACE [" + sb.toString() + "]");
+//    LOG.debug("STACK_TRACE [{}]",sb.toString());
+
+
+    LOG.debug("crawl:LISTING_FILES:directory,fileFilter,this.fileFilter {},[{}],[{}]",directory,fileFilter,this.fileFilter);
+
+    Collection<File> collections = FileUtils.listFiles(directory, fileFilter, null);
+//if (2 == 3) {
+//String[] extensions = new String[1];
+//extensions[0] = "xml"; 
+//    //Collection<File> collections = FileUtils.listFiles(directory, extensions, false);
+//    collections = FileUtils.listFiles(directory, extensions, false);
+//} else {
+//    //Collection<File> collections = FileUtils.listFiles(directory, fileFilter, null);
+//    collections = FileUtils.listFiles(directory, fileFilter, null);
+//}
+
+    results = this.refinedFoundList(collections, fileUrl, directory, getDirectories, null);
+
+if (2 == 3) {
+    LOG.debug("crawl:LISTING_FILES:directory,DIR_SIZE: {},{}",directory,collections.size());
+    for (File file : collections) {
+      LOG.debug("crawl:ADDING_FILE:directory,file {},[{}]",directory,file);
       results.add(new Target(file.toURI().toURL(), false));
     }
+
     //Visit sub-directories if the recurse flag is set
+    LOG.debug("crawl:getDirectories {}",getDirectories);
     if (getDirectories) {
       for (File dir :Arrays.asList(directory.listFiles(directoryFilter))) {
         results.add(new Target(dir.toURI().toURL(), true));
       }
     }
-    //LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
+    LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
     for (Target target : results) {
-        //LOG.debug("crawl:target: {}",target);
+        LOG.debug("crawl:target: {}",target);
     }
-    //LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
+    LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
     for (Target ignoreItem : this.ignoreList) {
-        //LOG.debug("crawl:ignoreItem: {}",ignoreItem);
+        LOG.debug("crawl:ignoreItem: {}",ignoreItem);
     }
 
     // Remove all items from results list if they occur in ignoreList.
     results.removeAll(this.ignoreList);
 
     for (Target target : results) {
-        //LOG.debug("crawl:final:target: {}",target.getUrl());
+        LOG.debug("crawl:final:target: {}",target.getUrl());
     }
 
-    //LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
+    LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
+}
 
+    return results;
+  }
+
+  public List<Target> crawl(URL fileUrl, String[] extensions, boolean getDirectories, String nameToken) throws IOException {
+    File directory = FileUtils.toFile(fileUrl);
+    LOG.debug("SPECIAL_CRAWL:crawl:directory,fileUrl,extensions,getDirectories,nameToken {},{},{},{},{}",directory,fileUrl,extensions,getDirectories,nameToken);
+    //LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
+    if ( !directory.isDirectory() ) {
+      LOG.error("Input file is not a directory: " + directory);
+      throw new IllegalArgumentException("Input file is not a directory: "
+          + directory);
+    }
+    Collection<File> collections = FileUtils.listFiles(directory, extensions, false);
+    List<Target> results = this.refinedFoundList(collections, fileUrl, directory, getDirectories, nameToken);
     return results;
   }
 }

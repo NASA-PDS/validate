@@ -31,14 +31,16 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
+import gov.nasa.pds.validate.constants.Constants;
+
 /**
  * Implements a validation rule that checks that all identifiers are
  * referenced by some label.
  */
 public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
-  private static final Pattern COLLECTION_LABEL_PATTERN = 
-      Pattern.compile("collection(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
+  // Must use the SIMPLE_COLLECTION_LABEL_PATTERN since the other pattern Constants.COLLECTION_LABEL_PATTERN seems to cause the crawler to pause.
+  private static final Pattern COLLECTION_LABEL_PATTERN = Constants.SIMPLE_COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'. 
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
   
@@ -90,6 +92,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
           if (matcher.matches()) {
             memberType = "bundle";
           }
+          LOG.debug("findUnreferencedIdentifiers:id,location,memberType: {},{},{}",id,location,memberType);
           // Don't print out messages if were validating using collection rules
           // and the identifier in question is a collection
           if ( !("bundle".equals(memberType) && 
@@ -101,6 +104,8 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
                     "Identifier '" + id.toString() + "' is not a member "
                     +"of any " + memberType + " within the given target"), 
                 locationUrl));
+            //String errorMessage = "Identifier '" + id.toString() + "' is not a member " +"of any " + memberType + " within the given target";
+            //LOG.error(errorMessage);
           }     
         }
         if (getListener() instanceof ListenerExceptionPropagator) {

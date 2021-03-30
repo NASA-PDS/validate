@@ -422,7 +422,7 @@ public class FieldValueValidator {
         }
 
         LOG.debug("checkMinMax:originalValue,value,minimum,maximum {},{},{},{}",originalValue,value,minimum,maximum);
-        System.out.println("checkMinMax:originalValue,value " + originalValue + " " + value);
+        //System.out.println("checkMinMax:originalValue,value " + originalValue + " " + value);
     }
 
     LOG.debug("checkMinMax:FIELD_VALUE,FIELD_LENGTH [{}],{}",value,value.length());

@@ -32,6 +32,8 @@ import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 
+import gov.nasa.pds.validate.constants.Constants; 
+
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
 
@@ -46,10 +48,8 @@ import org.slf4j.LoggerFactory;
 
 public class BundleManager {
 	private static final Logger LOG = LoggerFactory.getLogger(BundleManager.class);
-    private static final Pattern COLLECTION_LABEL_PATTERN =
-      Pattern.compile("(.*_)*collection(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
-    private static final Pattern BUNDLE_LABEL_PATTERN =
-      Pattern.compile("(.*_)*bundle(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
+    private static final Pattern COLLECTION_LABEL_PATTERN = Constants.COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'.
+    private static final Pattern BUNDLE_LABEL_PATTERN     = Constants.BUNDLE_LABEL_PATTERN;     // Ease the requirement to have an underscore after 'bundle'.
 
     private static final String PRODUCT_BUNDLE_ID_AREA_TAG      = "Product_Bundle/Identification_Area";
     private static final String PRODUCT_COLLECTION_ID_AREA_TAG  = "Product_Collection/Identification_Area";
@@ -188,7 +188,12 @@ public class BundleManager {
             // For each sub directory found, get all collection files.
             for (Target dir : dirs) {
                 if (dir.isDir()) {
-                    kids = crawler.crawl(dir.getUrl(), regexFileFilter); 
+                    //kids = crawler.crawl(dir.getUrl(), regexFileFilter); 
+                    // Note: For some strange reason, the crawler goes into an infinite loop using the above call
+                    //       so we will use an alternate call to get the list of files.
+                    String[] extensions = new String[1];
+                    extensions[0] = "xml";  // Note that the extension does not contain the dot.
+                    kids = crawler.crawl(dir.getUrl(), extensions, false, "collection");
                     LOG.debug("findCollectionWithLatestVersion: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -267,7 +272,12 @@ public class BundleManager {
             // For each sub directory found, get all collection files.
             for (Target dir : dirs) {
                 if (dir.isDir()) {
-                    kids = crawler.crawl(dir.getUrl(), regexFileFilter);
+                    //kids = crawler.crawl(dir.getUrl(), regexFileFilter);
+                    // Note: For some strange reason, the crawler goes into an infinite loop using the above call
+                    //       so we will use an alternate call to get the list of files.
+                    String[] extensions = new String[1];
+                    extensions[0] = "xml";  // Note that the extension does not contain the dot.
+                    kids = crawler.crawl(dir.getUrl(), extensions, false, "collection");
                     LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -402,7 +412,14 @@ public class BundleManager {
             Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
 
             LOG.debug("findOtherBundleFiles:crawler {}",crawler);
-            allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
+
+            //allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
+            // Note: For some strange reason, the crawler goes into an infinite loop using the above call
+            //       so we will use an alternate call to get the list of files.
+            String[] extensions = new String[1];
+            extensions[0] = "xml";  // Note that the extension does not contain the dot.
+            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), extensions, false, "bundle");
+
             for (Target target : allFiles) {
                 LOG.debug("findOtherBundleFiles:target {}",target);
                 // Skip target if it starts with or ends with '#'.
@@ -414,6 +431,7 @@ public class BundleManager {
                 //   continue;
                 //}
                 LOG.debug("findOtherBundleFiles: (new File(target.toString())).getName() {}",(new File(target.toString())).getName());
+//if (target.toString().contains("bundle")) {
                 // Add target if it is not the same as given url and is not a directory.
                 if ((!target.getUrl().equals(url)) && !target.isDir()) {
                     if (TargetExaminer.isTargetBundleType(target.getUrl())) {
@@ -422,6 +440,7 @@ public class BundleManager {
                         otherBundleFilesList.add(target);
                     }
                 }
+//}
             }
         } catch (Exception e) {
             LOG.error(" Cannot crawl for files in: " + url + ": " + e.getMessage());
@@ -452,7 +471,12 @@ public class BundleManager {
             Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
             IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
             LOG.debug("findOtherBundleFiles:crawler {}",crawler);
-            allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
+            //allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
+            // Note: For some strange reason, the crawler goes into an infinite loop using the above call
+            //       so we will use an alternate call to get the list of files.
+            String[] extensions = new String[1];
+            extensions[0] = "xml";  // Note that the extension does not contain the dot.
+            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), extensions, false, "collection");
 
             for (Target target : allFiles) {
                 LOG.debug("findOtherBundleFiles:target {}",target);
