@@ -104,8 +104,6 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
                     "Identifier '" + id.toString() + "' is not a member "
                     +"of any " + memberType + " within the given target"), 
                 locationUrl));
-            //String errorMessage = "Identifier '" + id.toString() + "' is not a member " +"of any " + memberType + " within the given target";
-            //LOG.error(errorMessage);
           }     
         }
         if (getListener() instanceof ListenerExceptionPropagator) {

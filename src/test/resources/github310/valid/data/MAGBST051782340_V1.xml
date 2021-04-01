@@ -109,8 +109,8 @@
         <File>
             <file_name>MAGBST051782340_V1.TAB</file_name>
             <creation_date_time>2007-11-29T19:14:32.000Z</creation_date_time>
-            <file_size unit="byte">355200</file_size>
-            <md5_checksum>f756756e05bfc3c5111c9b492ede30fe</md5_checksum>
+            <file_size unit="byte">0</file_size>
+            <md5_checksum>d41d8cd98f00b204e9800998ecf8427e</md5_checksum>
             <comment>This data file is unmodified from the PDS3 version.</comment>
         </File>
         <Table_Character>

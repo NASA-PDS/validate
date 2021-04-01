@@ -118,65 +118,10 @@ public class FileCrawler extends Crawler {
     List<Target> results = new ArrayList<Target>();
     //Find files only first
     LOG.debug("crawl:getDirectories {}",getDirectories);
-
-// Used by developer to print the stack of this function to debug infinite loop.
-//    StackTraceElement[] ste = Thread.currentThread().getStackTrace();
-//    StringBuilder sb = new StringBuilder();
-//    for (StackTraceElement st : ste) {
-//        //sb.append(st.toString() + System.lineSeparator());
-//        sb.append(st.toString() + " :: ");
-//    }
-//    System.out.println("STACK_TRACE [" + sb.toString() + "]");
-//    LOG.debug("STACK_TRACE [{}]",sb.toString());
-
-
     LOG.debug("crawl:LISTING_FILES:directory,fileFilter,this.fileFilter {},[{}],[{}]",directory,fileFilter,this.fileFilter);
 
     Collection<File> collections = FileUtils.listFiles(directory, fileFilter, null);
-//if (2 == 3) {
-//String[] extensions = new String[1];
-//extensions[0] = "xml"; 
-//    //Collection<File> collections = FileUtils.listFiles(directory, extensions, false);
-//    collections = FileUtils.listFiles(directory, extensions, false);
-//} else {
-//    //Collection<File> collections = FileUtils.listFiles(directory, fileFilter, null);
-//    collections = FileUtils.listFiles(directory, fileFilter, null);
-//}
-
     results = this.refinedFoundList(collections, fileUrl, directory, getDirectories, null);
-
-if (2 == 3) {
-    LOG.debug("crawl:LISTING_FILES:directory,DIR_SIZE: {},{}",directory,collections.size());
-    for (File file : collections) {
-      LOG.debug("crawl:ADDING_FILE:directory,file {},[{}]",directory,file);
-      results.add(new Target(file.toURI().toURL(), false));
-    }
-
-    //Visit sub-directories if the recurse flag is set
-    LOG.debug("crawl:getDirectories {}",getDirectories);
-    if (getDirectories) {
-      for (File dir :Arrays.asList(directory.listFiles(directoryFilter))) {
-        results.add(new Target(dir.toURI().toURL(), true));
-      }
-    }
-    LOG.debug("crawl:directory,fileUrl,results.size() {},{},{}",directory,fileUrl,results.size());
-    for (Target target : results) {
-        LOG.debug("crawl:target: {}",target);
-    }
-    LOG.debug("crawl:this.ignoreList.size(),fileUrl {},{}",this.ignoreList.size(),fileUrl);
-    for (Target ignoreItem : this.ignoreList) {
-        LOG.debug("crawl:ignoreItem: {}",ignoreItem);
-    }
-
-    // Remove all items from results list if they occur in ignoreList.
-    results.removeAll(this.ignoreList);
-
-    for (Target target : results) {
-        LOG.debug("crawl:final:target: {}",target.getUrl());
-    }
-
-    LOG.debug("crawl:fileUrl,this.ignoreList.size(),results.size() {},{},{}",fileUrl,this.ignoreList.size(),results.size());
-}
 
     return results;
   }
@@ -184,7 +129,6 @@ if (2 == 3) {
   public List<Target> crawl(URL fileUrl, String[] extensions, boolean getDirectories, String nameToken) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
     LOG.debug("SPECIAL_CRAWL:crawl:directory,fileUrl,extensions,getDirectories,nameToken {},{},{},{},{}",directory,fileUrl,extensions,getDirectories,nameToken);
-    //LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
     if ( !directory.isDirectory() ) {
       LOG.error("Input file is not a directory: " + directory);
       throw new IllegalArgumentException("Input file is not a directory: "
