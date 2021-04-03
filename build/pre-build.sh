@@ -17,12 +17,6 @@ version=$1
 
 set -x
 rm -fr validate-*/
-mvn clean package -DskipTests
-tar -xvzf target/validate-*-bin.tar.gz
-validate-*/bin/validate -u
-cp validate-*/resources/registered_context_products.json src/main/resources/util/
-git add src/main/resources/util/
-git commit -m "Update context products for release"
 
 mvn versions:set-property -Dproperty=pds4-jparser.version -DnewVersion=$version
 git add pom.xml
