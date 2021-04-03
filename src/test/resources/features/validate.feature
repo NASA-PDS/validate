@@ -133,6 +133,12 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/210 As a user, I want validate to raise a WARNING when differing versions of IM are used within a bundle
  |"NASA-PDS/validate#210 WITH_WARNING" | "github210" | 1 | "1 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github210_label_valid_both_with_warning.json  -s json -t {resourceDir}/github210/bundle_cassini-huygens-coradar.xml {resourceDir}/github210/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github210_label_valid_both_with_warning.json" |
 
+# https://github.com/NASA-PDS/validate/issues/310 Validate missing collections in bundle after CCB-282 updates
+ |"NASA-PDS/validate#310 WITHOUT_WARNING" | "github310" | 0 | "0 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_valid.json  -s json -t {resourceDir}/github310/valid/bundle.xml" | "report_github310_bundle_valid.json" |
+ |"NASA-PDS/validate#310 WITH_WARNING" | "github310" | 2 | "2 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_invalid.json  -s json -t {resourceDir}/github310/invalid/bundle.xml" | "report_github310_bundle_invalid.json" |
+
+
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

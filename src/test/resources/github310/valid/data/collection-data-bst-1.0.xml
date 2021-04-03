@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd
+    ">
+   <Identification_Area>
+      <logical_identifier>urn:nasa:pds:mess-mag-raw:data-bst</logical_identifier>
+      <version_id>1.0</version_id>
+      <title>MESSENGER MAG Raw Burst Science Data Collection</title>
+      <information_model_version>1.11.0.0</information_model_version>
+      <product_class>Product_Collection</product_class>
+      <Citation_Information>
+         <author_list>Anderson, B. J.; Korth, H.</author_list>
+         <publication_year>2021</publication_year>
+         <description>
+            This collection contains snapshots of MAG vector samples, or burst sampling, over a time span 
+         </description>
+      </Citation_Information>
+      <Modification_History>
+         <Modification_Detail>
+            <modification_date>2021-03-16</modification_date>
+            <version_id>1.0</version_id>
+            <description>
+                The data in this collection were originally released in 2015 as part of the PDS3 
+                MESS-E/V/H/SW-MAG-2-EDR-RAWDATA-V1.0
+                dataset. The metadata have been migrated to PDS4. The data themselves are unchanged.
+            </description>
+         </Modification_Detail>
+      </Modification_History>
+   </Identification_Area>
+   <Context_Area>
+      <Time_Coordinates>
+         <start_date_time>2005-06-27T23:32:48.000Z</start_date_time>
+         <stop_date_time>2012-03-18T22:47:58.000Z</stop_date_time>
+      </Time_Coordinates>
+      <Primary_Result_Summary>
+         <purpose>Science</purpose>
+         <processing_level>Raw</processing_level>
+         <Science_Facets>
+           <domain>Magnetosphere</domain>
+            <discipline_name>Fields</discipline_name>
+            <facet1>Magnetic</facet1>
+            <facet2>Background</facet2>
+         </Science_Facets>
+      </Primary_Result_Summary>
+      <Investigation_Area>
+         <name>MErcury Surface, Space ENvironment, GEochemistry, and Ranging</name>
+         <type>Mission</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:investigation:mission.messenger</lid_reference>
+            <reference_type>collection_to_investigation</reference_type>
+         </Internal_Reference>
+      </Investigation_Area>
+      <Observing_System>
+         <Observing_System_Component>
+            <name>MESSENGER</name>
+            <type>Spacecraft</type>   
+            <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mess</lid_reference>
+               <reference_type>is_instrument_host</reference_type>
+            </Internal_Reference>
+         </Observing_System_Component>
+         <Observing_System_Component>
+            <name>Magnetometer</name>
+            <type>Instrument</type>   
+            <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:instrument:mag.mess</lid_reference>
+               <reference_type>is_instrument</reference_type>
+            </Internal_Reference>
+         </Observing_System_Component>
+      </Observing_System>
+      <Target_Identification>
+         <name>Calibration</name>
+         <type>Calibrator</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:calibrator.calibration</lid_reference>
+            <reference_type>collection_to_target</reference_type>
+         </Internal_Reference>
+      </Target_Identification>
+      <Target_Identification>
+         <name>Earth</name>
+         <type>Planet</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:planet.earth</lid_reference>
+            <reference_type>collection_to_target</reference_type>
+         </Internal_Reference>
+      </Target_Identification>
+      <Target_Identification>
+         <name>Mercury</name>
+         <type>Planet</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:planet.mercury</lid_reference>
+            <reference_type>collection_to_target</reference_type>
+         </Internal_Reference>
+      </Target_Identification>
+   </Context_Area>
+   <Collection>
+      <collection_type>Data</collection_type>
+      <description>MESSENGER MAG Raw Burst Science Data Collection</description>
+   </Collection>
+   <File_Area_Inventory>
+      <File>
+         <file_name>collection-data-bst-1.0.csv</file_name>
+         <creation_date_time>2021-03-16T02:59:28</creation_date_time>
+         <file_size unit="byte">118</file_size>
+         <md5_checksum>e7460fa735c8e1335eac1ef42b037d2c</md5_checksum>
+      </File>
+      <Inventory>
+         <offset unit="byte">0</offset>
+         <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+         <records>2</records>
+         <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+         <field_delimiter>Comma</field_delimiter>
+         <Record_Delimited>
+            <fields>2</fields>
+            <groups>0</groups>
+            <maximum_record_length unit="byte">257</maximum_record_length>               
+            <Field_Delimited>
+               <name>Member Status</name>
+               <field_number>1</field_number>
+               <data_type>ASCII_String</data_type>
+               <maximum_field_length unit="byte">1</maximum_field_length>
+            </Field_Delimited>
+            <Field_Delimited>
+               <name>LIDVID_LID</name>
+               <field_number>2</field_number>
+               <data_type>ASCII_LIDVID_LID</data_type>
+               <maximum_field_length unit="byte">255</maximum_field_length>    
+            </Field_Delimited>
+         </Record_Delimited>
+         <reference_type>inventory_has_member_product</reference_type>
+      </Inventory>
+   </File_Area_Inventory>
+</Product_Collection>

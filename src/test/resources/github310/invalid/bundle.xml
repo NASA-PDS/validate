@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Bundle
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    http://pds.nasa.gov/pds4/pds/v1
+    https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd
+    
+    http://pds.nasa.gov/pds4/mission/mess/v1
+    https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1101.xsd
+    ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:mess-mag-raw</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>MESSENGER MAG Raw Data Bundle</title>
+        <information_model_version>1.11.0.0</information_model_version>         
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <publication_year>2021</publication_year>
+            <description>
+                This bundle contains the MESSENGER MAG raw observations, also known 
+                as EDRs.  The MAG experiment is a miniature three-axis ring-core fluxgate 
+                magnetometer with low-noise electronics.  There are eight MAG raw data 
+                products, including standard data, burst-mode data, and status and                 
+                housekeeping data.
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-03-16</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    The data in this bundle were originally released in 2015 as part of the PDS3
+                    MESS-E/V/H/SW-MAG-2-EDR-RAWDATA-V1.0
+                    dataset. The metadata have been migrated to PDS4. The data themselves are unchanged.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2004-09-13T00:00:00Z</start_date_time>
+            <stop_date_time>2015-04-30T15:08:14Z</stop_date_time>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>MESSENGER</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.messenger</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>MESSENGER</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mess</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Earth</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.earth</lid_reference>
+                <reference_type>is_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Bundle>
+        <bundle_type>Archive</bundle_type>
+    </Bundle>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:mess-mag-raw:data-bst</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+</Product_Bundle>

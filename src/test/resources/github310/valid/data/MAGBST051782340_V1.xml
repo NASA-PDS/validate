@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1101.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:mess="http://pds.nasa.gov/pds4/mission/mess/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd
+
+      http://pds.nasa.gov/pds4/mission/mess/v1
+      https://pds.nasa.gov/pds4/mission/mess/v1/PDS4_MESS_1B00_1101.xsd
+     ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:mess-mag-raw:data-bst:magbst051782340</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>MESSENGER MAG Raw Burst Data 2005-06-27 23:32:48 - 2005-06-27 23:40:47</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Korth, H.</author_list>
+            <publication_year>2021</publication_year>
+            <description>The table contains the data from one burst observation.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-03-15</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    This product, MAGBST051782340_V1.TAB, was originally released in 2015 
+                    as part of the PDS3 MESS-E/V/H/SW-MAG-2-EDR-RAWDATA-V1.0 dataset. 
+                    The metadata have been migrated to PDS4. The data themselves are unchanged.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2005-06-27T23:32:48.000Z</start_date_time>
+            <stop_date_time>2005-06-27T23:40:47.000Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <Science_Facets>
+                <domain>Heliosphere</domain>
+                <domain>Magnetosphere</domain>
+                <discipline_name>Fields</discipline_name>
+                <facet1>Magnetic</facet1>
+                <facet2>Background</facet2>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>MESSENGER</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.messenger</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Magnetometer</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mag.mess</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MESSENGER</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mess</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Calibration</name>
+            <type>Calibrator</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:calibrator.calibration</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <mess:MESSENGER>
+                <mess:mission_phase_name>Earth Cruise</mess:mission_phase_name>
+                <mess:spacecraft_clock_start_count>1/028402312</mess:spacecraft_clock_start_count>
+                <mess:spacecraft_clock_stop_count>1/028402791</mess:spacecraft_clock_stop_count>
+            </mess:MESSENGER>
+        </Mission_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Source_Product_External>
+            <external_source_product_identifier>MESS-E/V/H/SW-MAG-2-EDR-RAWDATA-V1.0:magbst051782340</external_source_product_identifier>
+            <reference_type>data_to_raw_source_product</reference_type>
+            <doi>10.17189/1519744</doi>
+            <curating_facility>NASA Planetary Data System</curating_facility>
+            <description>This is the first version of this product converted to PDS4. The DOI provided
+                references the PDS3 source data set.</description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>MAGBST051782340_V1.TAB</file_name>
+            <creation_date_time>2007-11-29T19:14:32.000Z</creation_date_time>
+            <file_size unit="byte">0</file_size>
+            <md5_checksum>d41d8cd98f00b204e9800998ecf8427e</md5_checksum>
+            <comment>This data file is unmodified from the PDS3 version.</comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>9600</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>4</fields>
+                <groups>0</groups>
+                <record_length unit="byte">37</record_length>
+                <Field_Character> 
+                    <name>TIME_TAG</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">14</field_length>
+                    <description>A derived value for the timetag associated with the data
+    values in each record. The length of the observation (8 minutes) and the 
+    sample rate results in a total of 9600 records. However, the burst packet
+    can only contain up to 640 records. Fifteen burst packets are required to
+    download all the records for one burst observation. The timetag for each 
+    record is created by:                                
+       MET + 0.05*delta_t - 0.05*(9600-640*(i-1)-j)
+    MET is mission elapsed time for the last burst record of the observation.
+    delta_t is the delta time for the last burst record of the observation,
+    giving a 50ms resolution to the timestamp.
+    i is the 'ith' record in a given burst packet.</description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SAMPLE_X</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">17</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <description>X axis field value in signed integer counts. If DN
+    is greater than 32768 then this value is DN - 65536. DN is the
+    telemetry value stored in the downloaded burst packet.</description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SAMPLE_Y</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">24</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <description>Y axis field value in signed integer counts. If DN
+    is greater than 32768 then this value is DN - 65536. DN is the
+    telemetry value stored in the downloaded burst packet.</description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SAMPLE_Z</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">31</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <description>Z axis field value in signed integer counts. If DN
+    is greater than 32768 then this value is DN - 65536. DN is the
+    telemetry value stored in the downloaded burst packet.</description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational> 
+</Product_Observational>

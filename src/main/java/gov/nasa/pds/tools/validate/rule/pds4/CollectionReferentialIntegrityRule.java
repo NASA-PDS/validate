@@ -42,6 +42,8 @@ import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
+import gov.nasa.pds.validate.constants.Constants;
+
 /**
  * Validation rule that performs referential integrity checking
  * on a Product_Collection product label.
@@ -51,8 +53,9 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  */
 public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(CollectionReferentialIntegrityRule.class);
-  private static final Pattern COLLECTION_LABEL_PATTERN = 
-      Pattern.compile("(.*_)*collection(_.*)*\\.xml", Pattern.CASE_INSENSITIVE);
+  private static final Pattern COLLECTION_LABEL_PATTERN = Constants.COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'.
+  private static final String  COLLECTION_NAME_TOKEN    = Constants.COLLECTION_NAME_TOKEN;    // Used to look for a token in a filename. 
+  private static final String  LABEL_EXTENSION          = Constants.LABEL_EXTENSION;          // Used to look for label files. Note that the extension does not contain the dot.
   
   private static final String PRODUCT_CLASS =
       "//*[starts-with(name(),'Identification_Area')]/product_class";
@@ -77,7 +80,13 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     Crawler crawler = getContext().getCrawler();
     try {
       IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
-      List<Target> children = crawler.crawl(getTarget(), regexFileFilter);
+      //List<Target> children = crawler.crawl(getTarget(), regexFileFilter);
+      // Note: For some strange reason, the crawler goes into an infinite loop using the above call
+      //       so we will use an alternate call to get the list of collection files.
+      String[] extensions = new String[1];
+      extensions[0] = LABEL_EXTENSION; // Note that the extension does not contain the dot.
+      List<Target> children = crawler.crawl(getTarget(), extensions, false, COLLECTION_NAME_TOKEN);
+
       // Check for collection(_.*)?\.xml file.
       for (int i = 0; i < children.size(); i++) {
         Target child = children.get(i);
