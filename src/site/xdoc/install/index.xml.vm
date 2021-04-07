@@ -67,7 +67,7 @@ POSSIBILITY OF SUCH DAMAGE.
     </section>
     
     <section name="Unpacking the Package">
-      <p>Download the <i>${project.artifactId}</i> package from <a href="https://github.com/NASA-PDS/${project.artifactId}/releases/${project.version}" target="_blank">Github</a>. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
+      <p>Download the <i>${project.artifactId}</i> package from <a href="https://github.com/NASA-PDS/${project.artifactId}/releases/v${project.version}" target="_blank">Github</a>. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
       </p>
       
       <source>
@@ -115,7 +115,7 @@ or
       </p>
 
       <subsection name="Java Runtime Environment">
-        <p>The Validate Tool was developed using Java and will run on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a>. The software was specifically compiled for and tested in Java version 1.8. The following commands test the local Java installation in a UNIX-based environment:
+        <p>The Validate Tool was developed using Java and runs on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a> > Java  version 9.0. The software was specifically compiled for and tested in OpenJDK 15.0.1. The following commands test the local Java installation in a UNIX-based environment:
         </p>
 
         <source>
@@ -123,14 +123,14 @@ or
 /usr/bin/java
 
 % java -version
-java version "1.8.0_101"
-Java(TM) SE Runtime Environment (build 1.8.0_101-b13)
-Java HotSpot(TM) 64-Bit Server VM (build 25.101-b13, mixed mode)
+openjdk version "15.0.1" 2020-10-20
+OpenJDK Runtime Environment (build 15.0.1+9)
+OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
         </source>
 
         <p><i>NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In version output above, note the line <b>Java HotSpot(TM) 64-Bit Server VM</b></i></p>
 
-        <p>If the either of these commands fail, it indicates Java is not installed or the version is not at least 1.8. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="https://openjdk.java.net/install/" target="_blank">Java Download</a> page.
+        <p>If the either of these commands fail, it indicates Java is not installed or the version is not at least 1.9. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="https://openjdk.java.net/install/" target="_blank">Java Download</a> page.
         </p>
       </subsection>
     </section>

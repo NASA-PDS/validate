@@ -44,3 +44,4 @@ pom.xml.versionsBackup
 *.javac
 .gwt/
 target/
+validate_stack_traces*
