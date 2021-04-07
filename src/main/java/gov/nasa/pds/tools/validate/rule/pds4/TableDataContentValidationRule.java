@@ -69,6 +69,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.DOMSourceManager;
 import gov.nasa.pds.tools.util.FileService;
+import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -105,7 +106,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   /** XPath to find child Table_Binary elements from a given node. */
   private static final String CHILD_TABLE_BINARY_XPATH = 
       "child::*[name()='Table_Binary']";
-  
+
+    private boolean getCheckInbetweenFields() {
+        if (getContext() == null) {
+            LOG.error("Cannot get CHECK_INBETWEEN_FIELDS in ruleContext because ruleContext is null");
+            return(false);
+        }
+       return(getContext().getCheckInbetweenFields());
+    }
+
   /**
    * Creates a new instance.
    */
@@ -164,6 +173,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
 
+    TableCharacterUtil tableCharacterUtil = null;  // If processing a TableCharacter, instantiate this object to perform check in between fields (columns).
     String recordDelimiter = null;  // Specify how each record ends: null, carriage return line feed or line feed.
 
     ObjectProvider objectAccess = null;
@@ -381,6 +391,14 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           }
         } else {
           LOG.debug("table instanceof TableCharacter: else");
+
+          // Instantiate a TableCharacterUtil class so we can perform the check in between fields (columns).
+          if ((this.getCheckInbetweenFields()) && (tableCharacterUtil == null)) {
+              // Only instantiate the object TableCharacterUtil once.
+              tableCharacterUtil = new TableCharacterUtil(getTarget(),getListener());
+              tableCharacterUtil.parseFieldsInfo();
+          }
+
           TableCharacter tc = (TableCharacter) table;
           recordDelimiter = tc.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
           // Note that TableCharacter class does not contain a function getFieldDelimiter() because there is not separator between fields since
@@ -388,7 +406,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
           LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
           LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
-//System.exit(0);
+
           if (tc.getRecordCharacter() != null && 
               tc.getRecordCharacter().getRecordLength() != null) {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
@@ -596,6 +614,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
                   record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
                 }
+
+                // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
+                if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
+                    tableCharacterUtil.validateInBetweenFields(line,lineNumber);
+                }
+
                 //Validate fields within the record here
                 try {
                     fieldValueValidator.validate(record, reader.getFields());

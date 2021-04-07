@@ -19,6 +19,7 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 import java.net.URL;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,6 +103,10 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
     private static String FIELD_CHARACTER_DESCRIPTION  = FIELD_CHARACTER + "/description";
     private static String FIELD_CHARACTER_TYPE         = FIELD_CHARACTER + "/data_type";
     private static String FIELD_CHARACTER_NUMBER       = FIELD_CHARACTER + "/field_number";
+
+    private static String FIELD_FORMAT_SIMPLE = "field_format";  // Used to retrieve individual field from node and not document.
+    private static String DATA_TYPE_SIMPLE    = "data_type";     // Used to retrieve individual field from node and not document.
+    private static String FIELD_NUMBER_SIMPLE = "field_number";  // Used to retrieve individual field from node and not document.
 
 
     /**
@@ -198,15 +203,28 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
         //LOG.debug("numFields,getTarget() {}",numFields,getTarget());
         LOG.info("validateFieldFormats:target,recordCharacterNode {},{}",getTarget(),recordCharacterNode);
 
-        List<String> fieldFormatList = extractor.getValuesFromItem(FIELD_CHARACTER_FIELD_FORMAT,recordCharacterNode.getRoot());
-        //List<String> fieldDescriptionList = extractor.getValuesFromItem(FIELD_CHARACTER_DESCRIPTION,recordCharacterNode.getRoot());
-        List<String> fieldTypeList = extractor.getValuesFromItem(FIELD_CHARACTER_TYPE,recordCharacterNode.getRoot());
-        List<String> fieldNumberList = extractor.getValuesFromItem(FIELD_CHARACTER_NUMBER,recordCharacterNode.getRoot());
+        // New way of extracting fields in the 'Field_Character' node since not every tag is required to be present for every node.
+        // This new way guarantees all the lists are the same size make it easy to index between lists.
 
-        //LOG.debug("fieldFormatList {},{}",fieldFormatList,fieldFormatList.size());
-        //LOG.debug("fieldDescriptionList {},{}",fieldDescriptionList,fieldDescriptionList.size());
-        //LOG.debug("fieldTypeList {},{}",fieldTypeList,fieldTypeList.size());
-        //LOG.debug("fieldNumberList {},{}",fieldNumberList,fieldNumberList.size());
+        List<String> fieldFormatList = new ArrayList<String>();
+        List<String> fieldTypeList   = new ArrayList<String>();
+        List<String> fieldNumberList = new ArrayList<String>();
+        List<TinyNodeImpl> FieldCharacterNodeList = extractor.getNodesFromDoc(FIELD_CHARACTER);
+        String fieldValue = ""; 
+
+        // Note that the function getValueFromItem() returns an empty string if the field we seek is not present in the node.
+        for (TinyNodeImpl node : FieldCharacterNodeList) {
+            fieldValue = extractor.getValueFromItem(FIELD_NUMBER_SIMPLE,node);
+            fieldNumberList.add(fieldValue);
+            fieldValue = extractor.getValueFromItem(FIELD_FORMAT_SIMPLE,node);
+            fieldFormatList.add(fieldValue);
+            fieldValue = extractor.getValueFromItem(DATA_TYPE_SIMPLE,node);
+            fieldTypeList.add(fieldValue);
+        }
+
+        LOG.debug("validateFieldFormats:fieldFormatList {}",fieldFormatList);
+        LOG.debug("validateFieldFormats:fieldTypeList {}",fieldTypeList);
+        LOG.debug("validateFieldFormats:fieldNumberList{}",fieldNumberList);
 
         // The field 'field_format' is optional so the value of fieldFormatList.size() can be zero.
         // Only perform a check on the field format if it is available and everything matches.
@@ -223,7 +241,7 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
               getListener().addProblem(
                   new ValidationProblem(new ProblemDefinition(
                       ExceptionType.ERROR,
-                      ProblemType.INVALID_LABEL,
+                          ProblemType.INVALID_LABEL,
                       errorMessage),
                   getTarget()));
               return;

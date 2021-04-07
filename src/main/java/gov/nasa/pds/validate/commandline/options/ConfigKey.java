@@ -99,6 +99,11 @@ public class ConfigKey {
     public static final String SKIP_CONTENT_VALIDATION = "validate.skipContentValidation";
 
     /**
+     * Property to enable check in between fields validation for Table_Character file.
+     */
+    public static final String CHECK_INBETWEEN_FIELDS = "validate.checkInbetweenFields";
+
+    /**
      * Property to specify the maximum number of errors to report before
      * terminating a validation run.
      */

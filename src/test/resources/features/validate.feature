@@ -137,6 +137,15 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#310 WITHOUT_WARNING" | "github310" | 0 | "0 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_valid.json  -s json -t {resourceDir}/github310/valid/bundle.xml" | "report_github310_bundle_valid.json" |
  |"NASA-PDS/validate#310 WITH_WARNING" | "github310" | 2 | "2 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_invalid.json  -s json -t {resourceDir}/github310/invalid/bundle.xml" | "report_github310_bundle_invalid.json" |
 
+# https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
+ |"NASA-PDS/validate#57 WITH_WARNING" | "github57" | 5 | "5 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --check-inbetween-fields --skip-context-validation -r {reportDir}/report_github57_label_valid_with_warning.json  -s json -t {resourceDir}/github57/validate_57a_valid.xml" | "report_github57_label_valid_with_warning.json" |
+ |"NASA-PDS/validate#57 WITHOUT_WARNING" | "github57" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github57_label_valid_without_warning.json  -s json -t {resourceDir}/github57/validate_57a_valid.xml" | "report_github57_label_valid_without_warning.json" |
+ |"NASA-PDS/validate#57 INVALID" | "github57" | 4 | "4 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --check-inbetween-fields --skip-context-validation -r {reportDir}/report_github57_label_invalid.json  -s json -t {resourceDir}/github57/validate_57a_invalid.xml" | "report_github57_label_invalid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/303 As a user, I want to the raise a WARNING if the object-defined size in the label does not match the file_size value
+
+ |"NASA-PDS/validate#303 INVALID" | "github303" | 1 | "1 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github303_label_invalid.json  -s json -t {resourceDir}/github303/invalid/I52_20210207_1A_U1B03A_01_0001.avgs.xml" | "report_github303_label_invalid.json" |
+ |"NASA-PDS/validate#303 VALID" | "github303" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github303_label_valid.json  -s json -t {resourceDir}/github303/valid/I52_20210207_1A_U1B03A_01_0001.avgs.xml" | "report_github303_label_valid.json" |
 
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
