@@ -29,6 +29,7 @@
 
 # Temporary files
 *~
+src/test/temp/
 
 # other stuff
 *.xpr
@@ -36,11 +37,11 @@
 /bin/
 .*.swp
 *.sublime-*
-.DS_Store
-.metadata
+*.DS_Store
 pom.xml.versionsBackup
 
 # Java stuff
 *.javac
 .gwt/
 target/
+validate_stack_traces*
