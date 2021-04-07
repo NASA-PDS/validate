@@ -1,1 +1,1 @@
-/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/jre/../bin/javadoc @options @packages
+/usr/local/Cellar/openjdk/15.0.1/bin/javadoc @options @packages
