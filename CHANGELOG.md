@@ -79,6 +79,7 @@
 
 - Validate gives incorrect records mismatch WARNING for interleaved data objects [\#234](https://github.com/NASA-PDS/validate/issues/234)
 - Product validation does not detect the number of table records correctly for Table + Array object [\#233](https://github.com/NASA-PDS/validate/issues/233)
+- Incorrect errors with heterogeneous root tags and prologs [\#208](https://github.com/NASA-PDS/validate/issues/208)
 
 ## [v1.23.1](https://github.com/NASA-PDS/validate/tree/v1.23.1) (2020-05-16)
 
@@ -149,7 +150,6 @@
 
 **Defects:**
 
-- Incorrect errors with heterogeneous root tags and prologs [\#208](https://github.com/NASA-PDS/validate/issues/208)
 - Fix schematron parsing bug introduced during performance improvements [\#175](https://github.com/NASA-PDS/validate/issues/175)
 
 **Other closed issues:**
