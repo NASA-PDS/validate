@@ -11,6 +11,78 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:node:node.imaging::1.0"
+          },
+          {
+               "name": [
+                    "(90428) 2004 BL30"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.90428_2004_bl30::1.0"
+          },
+          {
+               "name": [
+                    "FOCAL PLANE ARRAY"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:fpa.iras::1.0"
+          },
+          {
+               "name": [
+                    "MARINER69"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.mariner69::1.1"
+          },
+          {
+               "name": [
+                    "OMEGA VIRGINIS"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.ome_vir::1.0"
+          },
+          {
+               "name": [
+                    "APOLLO 12"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_12::1.1"
+          },
+          {
+               "name": [
+                    "2006 UZ184"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_uz184::1.0"
+          },
+          {
+               "name": [
+                    "CAROUSEL WIND TUNNEL"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pal.cwt::1.0"
+          },
+          {
+               "name": [
                     "2001 KY76"
                ],
                "type": [
@@ -1614,6 +1686,15 @@
           },
           {
                "name": [
+                    "SPACE TELESCOPE IMAGING SPECTROGRAPH"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.stis::1.0"
+          },
+          {
+               "name": [
                     "MICROSCOPIC IMAGER"
                ],
                "type": [
@@ -2781,6 +2862,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:rpclap.ro::1.0"
+          },
+          {
+               "name": [
+                    "FINE GUIDANCE SENSOR"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.fgs::1.0"
           },
           {
                "name": [
@@ -4415,6 +4505,15 @@
           },
           {
                "name": [
+                    "WIDE FIELD CAMERA 3"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.wfc3::1.0"
+          },
+          {
+               "name": [
                     "(139775) 2001 QG298"
                ],
                "type": [
@@ -4799,6 +4898,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.300197_2006_wx99::1.0"
+          },
+          {
+               "name": [
+                    "HST FAINT OBJECT SPECTROGRAPH"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.fos::1.0"
           },
           {
                "name": [
@@ -5715,6 +5823,15 @@
           },
           {
                "name": [
+                    "FAINT OBJECT CAMERA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.foc::1.0"
+          },
+          {
+               "name": [
                     "SINOPE"
                ],
                "type": [
@@ -6469,15 +6586,6 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1999_xy143::1.0"
-          },
-          {
-               "name": [
-                    "WIDE FIELD PLANETARY CAMERA 2"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:hst.wfpc2::1.0"
           },
           {
                "name": [
@@ -10744,6 +10852,15 @@
           },
           {
                "name": [
+                    "NEAR INFRARED CAMERA AND MULTI-OBJECT SPECTROMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.nicmos::1.0"
+          },
+          {
+               "name": [
                     "N/A"
                ],
                "type": [
@@ -11952,6 +12069,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.300168_2006_va144::1.0"
+          },
+          {
+               "name": [
+                    "HIGH SPEED PHOTOMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.hsp::1.0"
           },
           {
                "name": [
@@ -13362,6 +13488,15 @@
           },
           {
                "name": [
+                    "ADVANCED CAMERA FOR SURVEYS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.acs::1.0"
+          },
+          {
+               "name": [
                     "DOPPLER WIND EXPERIMENT"
                ],
                "type": [
@@ -13800,6 +13935,69 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:nav_right_a.msl::1.0"
+          },
+          {
+               "name": [
+                    "MARINER 6 ULTRAVIOLET SPECTROMETER (UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uvs.mr6::1.0"
+          },
+          {
+               "name": [
+                    "U138"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.bd-20_5937::1.0"
+          },
+          {
+               "name": [
+                    "82P/GEHRELS 3"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.82p_gehrels_3::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_yepun_8m2_ut4::1.0"
+          },
+          {
+               "name": [
+                    "SAMPLE ANALYSIS AT MARS"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:sam.msl::1.0"
+          },
+          {
+               "name": [
+                    "GALILEO"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.galileo::1.1"
+          },
+          {
+               "name": [
+                    "(437915) 2002 GD32"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.437915_2002_gd32::1.0"
           },
           {
                "name": [
@@ -14367,6 +14565,15 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.saturn.epimetheus::1.1"
+          },
+          {
+               "name": [
+                    "COSMIC ORIGINS SPECTROGRAPH"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.cos::1.0"
           },
           {
                "name": [
@@ -15501,6 +15708,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.82780_2001_qf18::1.0"
+          },
+          {
+               "name": [
+                    "WIDE FIELD PLANETARY CAMERA 2"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hst.wfpc2::2.0"
           },
           {
                "name": [
@@ -21077,78 +21293,6 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:node:node.imaging::1.0"
-          },
-          {
-               "name": [
-                    "(90428) 2004 BL30"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.90428_2004_bl30::1.0"
-          },
-          {
-               "name": [
-                    "FOCAL PLANE ARRAY"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:fpa.iras::1.0"
-          },
-          {
-               "name": [
-                    "MARINER69"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.mariner69::1.1"
-          },
-          {
-               "name": [
-                    "OMEGA VIRGINIS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.ome_vir::1.0"
-          },
-          {
-               "name": [
-                    "APOLLO 12"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_12::1.1"
-          },
-          {
-               "name": [
-                    "2006 UZ184"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_uz184::1.0"
-          },
-          {
-               "name": [
-                    "CAROUSEL WIND TUNNEL"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pal.cwt::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
           },
           {
@@ -22590,7 +22734,7 @@
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.hst::1.2"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.hst::1.3"
           },
           {
                "name": [
@@ -23024,69 +23168,6 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.bd-21_4376::1.0"
-          },
-          {
-               "name": [
-                    "MARINER 6 ULTRAVIOLET SPECTROMETER (UVS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:uvs.mr6::1.0"
-          },
-          {
-               "name": [
-                    "U138"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.bd-20_5937::1.0"
-          },
-          {
-               "name": [
-                    "82P/GEHRELS 3"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.82p_gehrels_3::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_yepun_8m2_ut4::1.0"
-          },
-          {
-               "name": [
-                    "SAMPLE ANALYSIS AT MARS"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:sam.msl::1.0"
-          },
-          {
-               "name": [
-                    "GALILEO"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.galileo::1.1"
-          },
-          {
-               "name": [
-                    "(437915) 2002 GD32"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.437915_2002_gd32::1.0"
           },
           {
                "name": [
