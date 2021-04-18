@@ -11,6 +11,69 @@
           },
           {
                "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vg2.rss::1.0"
+          },
+          {
+               "name": [
+                    "2000 CK105"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ck105::1.0"
+          },
+          {
+               "name": [
+                    "(24449) 2000 QL63"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.24449_2000_ql63::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:node:node.atmos::1.0"
+          },
+          {
+               "name": [
+                    "THETA HYDRAE"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.tet_hya::1.0"
+          },
+          {
+               "name": [
+                    "HUYGENS PROBE HOUSEKEEPING"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:huygens_hk.hp::1.0"
+          },
+          {
+               "name": [
+                    "Observatory of Haute-Provence"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.haute-provence::1.0"
+          },
+          {
+               "name": [
                     "N/A"
                ],
                "type": [
@@ -13938,6 +14001,24 @@
           },
           {
                "name": [
+                    "Mount Bigelow (Catalina) Station"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_bigelow::1.1"
+          },
+          {
+               "name": [
+                    "U17"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.bd-21_4376::1.0"
+          },
+          {
+               "name": [
                     "MARINER 6 ULTRAVIOLET SPECTROMETER (UVS)"
                ],
                "type": [
@@ -21225,69 +21306,6 @@
           },
           {
                "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:vg2.rss::1.0"
-          },
-          {
-               "name": [
-                    "2000 CK105"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ck105::1.0"
-          },
-          {
-               "name": [
-                    "(24449) 2000 QL63"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.24449_2000_ql63::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:node:node.atmos::1.0"
-          },
-          {
-               "name": [
-                    "THETA HYDRAE"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.tet_hya::1.0"
-          },
-          {
-               "name": [
-                    "HUYGENS PROBE HOUSEKEEPING"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:huygens_hk.hp::1.0"
-          },
-          {
-               "name": [
-                    "Observatory of Haute-Provence"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.haute-provence::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -23150,24 +23168,6 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.131696_2001_xt254::1.0"
-          },
-          {
-               "name": [
-                    "Mount Bigelow (Catalina) Station"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_bigelow::1.1"
-          },
-          {
-               "name": [
-                    "U17"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.bd-21_4376::1.0"
           },
           {
                "name": [
