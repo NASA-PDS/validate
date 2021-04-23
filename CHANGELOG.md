@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.2...v2.1.0-SNAPSHOT)
 
+**Requirements:**
+
+- As a user, I want to be warned when there are alphanumeric characters between fields in Table\_Character [\#57](https://github.com/NASA-PDS/validate/issues/57)
+
 ## [v2.0.2](https://github.com/NASA-PDS/validate/tree/v2.0.2) (2021-04-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.0...v2.0.2)
