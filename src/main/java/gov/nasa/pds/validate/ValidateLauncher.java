@@ -204,6 +204,8 @@ public class ValidateLauncher {
     
     private boolean validateContext;
 
+    private boolean checkInbetweenFields = false; // Flag to enable checking of values in between fields.
+
     /**
      * Constructor.
      * 
@@ -240,6 +242,7 @@ public class ValidateLauncher {
         updateRegisteredProducts = false;
         deprecatedFlagWarning = false;
         validateContext = true;
+        checkInbetweenFields = false;
         
         this.flushValidators();
     }
@@ -346,6 +349,8 @@ public class ValidateLauncher {
                 setValidationRule(o.getValue());
             } else if (Flag.SKIP_CONTENT_VALIDATION.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
                 setContentValidation(false);
+            } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
+                setCheckInbetweenFields(true);
             } else if (Flag.NO_DATA.getLongName().equals(o.getLongOpt())) {
                 setContentValidation(false);
                 deprecatedFlagWarning = true;
@@ -657,6 +662,13 @@ public class ValidateLauncher {
                     setContentValidation(true);
                 }
             }
+            if (config.containsKey(ConfigKey.CHECK_INBETWEEN_FIELDS)) {
+                if (config.getBoolean(ConfigKey.CHECK_INBETWEEN_FIELDS) == true) {
+                    setCheckInbetweenFields(true);
+                } else {
+                    setCheckInbetweenFields(false);
+                }
+            }
             if (config.containsKey(ConfigKey.SKIP_PRODUCT_VALIDATION)) {
                 setSkipProductValidation(true);
             }
@@ -958,6 +970,10 @@ public class ValidateLauncher {
         this.contentValidationFlag = flag;
     }
 
+    public void setCheckInbetweenFields(boolean flag) {
+        this.checkInbetweenFields = flag;
+    }
+
     public void setSkipProductValidation(boolean flag) {
     	this.skipProductValidation = flag;
     }
@@ -1221,6 +1237,15 @@ public class ValidateLauncher {
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
+
+                // If the user requested to check in between the fields, set it here in the validator.
+                // Note that it is important to perform a set regardless of the value of checkInbetweenFields,
+                // otherwise when the code performs a get, it won't have a value in the dictionary to fetch.
+                if (this.checkInbetweenFields) {
+                    validator.setCheckInbetweenFields(true);
+                } else {
+                    validator.setCheckInbetweenFields(false);
+                }
 
                 //System.out.println("TARGET   : " + target);
                 //System.out.println("SEVERITY : " + severity);

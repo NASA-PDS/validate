@@ -48,11 +48,17 @@ import java.util.Map;
 
 import org.apache.commons.chain.impl.ContextBase;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Implements a type-safe context for using validation rules
  * in commands and chains.
  */
 public class RuleContext extends ContextBase {
+
+  private static Logger LOG = LoggerFactory.getLogger(RuleContext.class);
 
   private static final long serialVersionUID = 1L;
   
@@ -134,6 +140,8 @@ public class RuleContext extends ContextBase {
    * Key used to ignore(skip) product level validation.
    */
   public static final String SKIP_PRODUCT_VALIDATION_KEY = "validate.skip-product-validation";
+
+  public static final String CHECK_INBETWEEN_FIELDS      = "validate.strict-field-checks";
   
   private boolean rootTarget = false;
 
@@ -412,5 +420,15 @@ public class RuleContext extends ContextBase {
 	public void setSkipProductValidation(boolean flag) {
 	  putContextValue(SKIP_PRODUCT_VALIDATION_KEY, flag);
 	  if (flag) setCheckData(false);
+	}
+
+	public boolean getCheckInbetweenFields() {
+      LOG.debug("getCheckInbetweenFields {}",getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class));
+	  return getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class);
+	}
+	
+	public void setCheckInbetweenFields(boolean flag) {
+      LOG.debug("setCheckInbetweenFields:flag {}",flag);
+	  putContextValue(CHECK_INBETWEEN_FIELDS, flag);
 	}
 }

@@ -73,6 +73,26 @@ public class LocationValidator {
 	private RuleContext ruleContext;
 	private String validationRule;
 
+    public boolean getCheckInbetweenFields() {
+        if (this.ruleContext == null) {
+            LOG.error("Cannot get CHECK_INBETWEEN_FIELDS in ruleContext because ruleContext is null");
+            return(false);
+        }
+	   return(this.ruleContext.getCheckInbetweenFields());
+    }
+
+    public void setCheckInbetweenFields(boolean flag) {
+        if (this.ruleContext == null) {
+            LOG.error("Cannot set CHECK_INBETWEEN_FIELDS in ruleContext because ruleContext is null");
+            return;
+        }
+        try {
+            this.ruleContext.setCheckInbetweenFields(flag);
+		} catch (Exception e) {
+            LOG.error("Cannot set CHECK_INBETWEEN_FIELDS in ruleContext: {}",flag);
+		}
+    }
+
 	/**
 	 * Creates a new instance.
 	 * @throws ParserConfigurationException if a label validator cannot 

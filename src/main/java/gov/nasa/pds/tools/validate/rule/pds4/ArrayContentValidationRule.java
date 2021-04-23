@@ -14,6 +14,7 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -37,6 +38,7 @@ import gov.nasa.arc.pds.xml.generated.File;
 import gov.nasa.arc.pds.xml.generated.FileArea;
 import gov.nasa.arc.pds.xml.generated.FileAreaBrowse;
 import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
+import gov.nasa.arc.pds.xml.generated.Offset;
 import gov.nasa.arc.pds.xml.generated.Product;
 import gov.nasa.arc.pds.xml.generated.ProductBrowse;
 import gov.nasa.arc.pds.xml.generated.ProductObservational;
@@ -47,6 +49,7 @@ import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
+import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -57,7 +60,14 @@ import gov.nasa.pds.tools.validate.content.array.ArrayContentValidator;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class ArrayContentValidationRule extends AbstractValidationRule {
+  private static final Logger LOG = LoggerFactory.getLogger(ArrayContentValidationRule.class);
+
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
   
@@ -95,12 +105,64 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
     return isApplicable;
   }
 
+  private void validateMinimumFileSize(URL target, Array array, URL dataFile, String fileName, String dataType) {
+
+    BigInteger minimalFileSize = BigInteger.valueOf(0);
+    long arrayFinalSize  = 1;
+    long numArrayElements = 1;
+
+    Offset offset = array.getOffset();
+
+    // Get all the dimensions and calculate the size of the array by getting the product of all the dimensions.
+    int[] dimensions = new int[array.getAxisArraies().size()];
+    for (int i = 0; i < dimensions.length; i++) {
+      dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
+
+      numArrayElements = numArrayElements * dimensions[i];
+
+      LOG.debug("validateMinimumFileSize:fileName,i,dimensions[i],numArrayElements {},{},{},{}",fileName,i,dimensions[i],numArrayElements);
+    }
+
+    LOG.debug("validateMinimumFileSize:fileName,offset.getUnit().value(),offset.getValue(),numArrayElements {},{},{},{}",fileName,offset.getUnit().value(),offset.getValue(),numArrayElements);
+    LOG.debug("validateMinimumFileSize:dataType {},{}",dataType,Enum.valueOf(NumericDataType.class, dataType).getBits());
+
+    // Using the dimensions, the dataType, the offset, to calculate the minimum size of the file to be able
+    // to accommodate reading in a 2D or 3D array.
+    // the array size is the product of the number of elements in the array by the size of each element.
+
+    arrayFinalSize  = numArrayElements * (Enum.valueOf(NumericDataType.class, dataType).getBits() / 8);  // How many elements times the size of each elements in bytes
+    minimalFileSize = offset.getValue().add(BigInteger.valueOf(arrayFinalSize));
+
+    long actualFileSize = -1;
+    try {
+        actualFileSize = FileSizesUtil.getExternalFilesize(dataFile);
+    } catch (Exception ex) {
+        LOG.error("Cannot retrieve file size from file " + dataFile.toString());
+    }
+            
+    LOG.debug("validateMinimumFileSize:dataType,bits,arrayFinalSize,minimalFileSize,actualFileSize {},{},{},{},{}",dataType,Enum.valueOf(NumericDataType.class, dataType).getBits(),minimalFileSize,actualFileSize);
+
+    // Now compare the minimalFileSize with the actual file size extract from the file system and report any error.
+
+    if (minimalFileSize.longValue() > actualFileSize) {
+        LOG.error("Object-defined size+offset is greater than actualFileSize in file: {},{},{}",minimalFileSize.longValue(),actualFileSize,dataFile.toString());
+        String errorMessage = "Object-defined size+offset is greater than actual file size in data file: " + String.valueOf(minimalFileSize.longValue()) + " > " + String.valueOf(actualFileSize) + " " + dataFile.toString();
+        getListener().addProblem(
+          new ValidationProblem(
+            new ProblemDefinition(ExceptionType.WARNING,
+              ProblemType.FILESIZE_MISMATCH, errorMessage), target));
+    }
+  }
+
   @ValidationTest
   public void validateArray() throws MalformedURLException,
   URISyntaxException {
     URL target = getTarget();
     String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
     long t0 = System.currentTimeMillis();
+
+    LOG.debug("validateArray:targetFileName {}",targetFileName);
+
     ObjectProvider objectAccess = null;
     objectAccess = new ObjectAccess(target);
     List<FileArea> arrayFileAreas = new ArrayList<FileArea>();
@@ -129,6 +191,7 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
     for (FileArea fileArea : arrayFileAreas) {
       int arrayIndex = -1;
       String fileName = getDataFile(fileArea);
+      LOG.debug("validateArray:fileName {}",fileName);
 
       if (fileName == null) {
         getListener().addProblem(
@@ -159,6 +222,10 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
               throw new IllegalArgumentException(dataType
                       + " is not supported at this time.");
             }
+
+            // Validate if the file has enough content to be able to be read into the 2D array.
+            this.validateMinimumFileSize(target, array, dataFile, fileName, dataType);
+
             //The size of the array object is equal to the element size
             // times the product of the sizes of all axes
             // (i.e. total size =
