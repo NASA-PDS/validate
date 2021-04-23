@@ -182,6 +182,8 @@ public enum ProblemType {
 
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
     
+    CHARS_BETWEEN_FIELDS("warning.table.characters_between_fields"),
+    
 
     // Info message types
 

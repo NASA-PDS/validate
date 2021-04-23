@@ -166,7 +166,7 @@ public enum Flag {
     SKIP_CONTEXT_VALIDATION(null, "skip-context-validation", "Disable context product reference validation. WARNING: This should only be used for development purposes only. All context products must be registered for validity of a product in an archive."),
 
     // Flag to allow user to check in between fields for non-blank characters for Table_Character validation.
-    CHECK_INBETWEEN_FIELDS(null, "check-inbetween-fields", "Enable WARNING messages when check in between fields for Table_Character validation. WARNING: This should only be used for development purposes only."),
+    CHECK_INBETWEEN_FIELDS(null, "strict-field-checks", "Specific to character tables (Table_Character) validation, enable checks to ensure no unexpected alphanumeric characters appear in between in between fields."),
 
     /**
      * flag to Flag to specify the file that contains a list of files/directories to validate.

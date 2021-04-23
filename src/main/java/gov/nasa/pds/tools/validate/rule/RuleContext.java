@@ -141,7 +141,7 @@ public class RuleContext extends ContextBase {
    */
   public static final String SKIP_PRODUCT_VALIDATION_KEY = "validate.skip-product-validation";
 
-  public static final String CHECK_INBETWEEN_FIELDS      = "validate.check-inbetween-fields";
+  public static final String CHECK_INBETWEEN_FIELDS      = "validate.strict-field-checks";
   
   private boolean rootTarget = false;
 

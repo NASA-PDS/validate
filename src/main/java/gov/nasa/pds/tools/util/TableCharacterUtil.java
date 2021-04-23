@@ -197,12 +197,12 @@ public class TableCharacterUtil  {
                   LOG.error("validateInBetweenFields:Values in between gap of field number (starts with 1) {} and {} is non-blanks:[{}]",fieldNumberList.get(ii-1),fieldNumberList.get(ii),gapValue);
               }
               if ((columnsWarningFlagList.get(ii) == Boolean.FALSE) && (this.reportedErrorFlag == false)) {
-                  String errorMessage = "Values in between gap of record number " + Integer.toString(recordNumber) + ", field number (starts with 1) " + fieldNumberList.get(ii-1) + " and " + fieldNumberList.get(ii) + " is non-blanks: [" + gapValue + "]";
+                  String errorMessage = "Unexpected alphanumeric characters found between fields in record " + Integer.toString(recordNumber) + ": " + " [" + gapValue + "]" + " found between fields " + fieldNumberList.get(ii-1) + " and " + fieldNumberList.get(ii);
                   LOG.error(errorMessage);
                   getListener().addProblem(
                       new ValidationProblem(new ProblemDefinition(
                           ExceptionType.WARNING,
-                              ProblemType.GENERAL_INFO,
+                              ProblemType.CHARS_BETWEEN_FIELDS,
                           errorMessage),
                       getTarget()));
                   columnsWarningFlagList.set(ii,Boolean.TRUE);
