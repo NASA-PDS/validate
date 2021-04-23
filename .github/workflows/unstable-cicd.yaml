@@ -52,12 +52,12 @@ jobs:
                 with:
                     lfs: true
                     token: ${{secrets.ADMIN_GITHUB_TOKEN}}
+
             -
                 name: 🤠 Roundup
                 uses: NASA-PDS/roundup-action@master
                 with:
                     assembly: unstable
-                    packages: openjdk11-jdk
                 env:
                     ossrh_username: ${{secrets.OSSRH_USERNAME}}
                     ossrh_password: ${{secrets.OSSRH_PASSWORD}}
