@@ -1287,6 +1287,13 @@ public class ValidateLauncher {
                 LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}",target);
                 validator.validate(monitor, target);
                 monitor.endValidation();
+
+                // If the rule is pds4.label, clear out the list of Information Model Versions except the first element.
+                if (validationRule != null) {
+                    if (validationRule.equals("pds4.label")) {
+                        LabelUtil.reduceInformationModelVersions();
+                    }
+                }
                 
                 if (monitor.numErrors > 0) { success = false; }
                 LOG.debug("ValidateLauncher:doValidation: monitor.numErrors,target,success {},{},{}",monitor.numErrors,target,success);

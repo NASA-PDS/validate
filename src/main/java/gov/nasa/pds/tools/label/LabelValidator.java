@@ -547,9 +547,11 @@ public class LabelValidator {
       LOG.debug("parseAndValidate:url,skipProductValidation,validateAgainstSchematronFlag {},{},{}",url,skipProductValidation,validateAgainstSchematronFlag);
 
       for (Transformer schematron : cachedSchematron) {
+        long singleSchematronStartTime = System.currentTimeMillis();
         if (!validateAgainstSchematronFlag) continue;  // Skip the validation if validateAgainstSchematronFlag is not true.
         DOMResult result = new DOMResult();
         DOMSource domSource = new DOMSource(xml);
+        LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:START {} against schematron",url);
         domSource.setSystemId(url.toString());
         // Apply the rules specified in the schematron file
         schematron.transform(domSource, result);
@@ -563,7 +565,11 @@ public class LabelValidator {
           // Add an error for each failed asssert
           handler.addProblem(processFailedAssert(url, node, xml));
         }
+        long singleSchematronFinishTime = System.currentTimeMillis();
+        long singleSchematronTimeElapsed = singleSchematronFinishTime - singleSchematronStartTime;
+        LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:ELAPSED {} {}",url,singleSchematronTimeElapsed);
       }
+      LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:DONE {} against schematron",url);
     }
     
     // issue_42: skip product-level validation when the flag is on
@@ -590,7 +596,8 @@ public class LabelValidator {
     long finishTime = System.currentTimeMillis();
     long timeElapsed = finishTime - startTime;
     this.totalTimeElapsed += timeElapsed;
-    //LOG.debug("parseAndValidate:url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0 {},{},{},{},{}",url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0);
+    LOG.debug("parseAndValidate:url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0 {},{},{},{},{}",url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0);
+    //LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:DONE:EXITING {} against schematron",url);
     return xml;
   }
 
