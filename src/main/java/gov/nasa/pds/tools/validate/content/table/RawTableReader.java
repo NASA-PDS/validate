@@ -155,6 +155,13 @@ public class RawTableReader extends TableReader {
         setCurrentRow(getCurrentRow() + 1);
       }
     } 
+
+    if (line != null) {
+        LOG.debug("readNextLine:line:{},[{}]",line.length(),line);
+    } else {
+        LOG.debug("readNextLine:line is null");
+    }
+
     return line;
   }
   

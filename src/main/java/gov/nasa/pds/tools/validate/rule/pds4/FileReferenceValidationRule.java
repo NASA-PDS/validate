@@ -108,7 +108,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     source.setSystemId(uri.toString());
     try {
       DocumentInfo xml = LabelParser.parse(source);
-LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
+      LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
       validate(xml);
     } catch (TransformerException te) {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, 
@@ -167,7 +167,7 @@ LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
             // casing of the file located on the file system.
             try {
               File fileRef = FileUtils.toFile(xincludeUrl);
-LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {},{}",xincludeUrl,fileRef.getPath());
+              LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {},{}",xincludeUrl,fileRef.getPath());
               if (fileRef != null &&
                   !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
                 ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, 
@@ -212,7 +212,7 @@ LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {}
         if (!getContext().getSkipProductValidation()) {    	   
           List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(
               FILE_OBJECTS_XPATH);
-LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",fileObjects.size());
+          LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",fileObjects.size());
           for (TinyNodeImpl fileObject : fileObjects) {
             String name = "";
             String checksum = "";
@@ -263,13 +263,13 @@ LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",fileObjec
                 }
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
-LOG.debug("FileReferenceValidationRule:validate:checksum {}",checksum);
+                LOG.debug("FileReferenceValidationRule:validate:checksum {}",checksum);
               } else if ("directory_path_name".equals(child.getLocalPart())) {
                 directory = child.getStringValue();
-LOG.debug("FileReferenceValidationRule:validate:directory {}",directory);
+                LOG.debug("FileReferenceValidationRule:validate:directory {}",directory);
               } else if ("file_size".equals(child.getLocalPart())) { // Fetch the file_size value from label.
                 filesize = child.getStringValue();
-LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
+                LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
               }
             }
 
@@ -380,7 +380,7 @@ LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
     for (ValidationProblem problem : problems) {
       getListener().addProblem(problem);
     }
-LOG.debug("FileReferenceValidationRule:validate:DONE: passFlag {}",passFlag);
+    LOG.debug("FileReferenceValidationRule:validate:DONE: passFlag {}",passFlag);
     return passFlag;
   }
 
