@@ -360,6 +360,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 .getMaximumRecordLength().getValue().intValueExact();
           }
           definedNumRecords = td.getRecords().intValueExact();
+          LOG.debug("TableDelimited:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
           recordsToRemove = (long)definedNumRecords;
           if (td instanceof Inventory) {
                 LOG.debug("validateTableDataContents:table instanceof Inventory");
@@ -412,6 +413,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
           }
           definedNumRecords = tc.getRecords().intValueExact();
+          LOG.debug("TableCharacter:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
           recordsToRemove = (long)definedNumRecords;
           try {
              actualRecordNumber = reader.getRecordSize(dataFile, table);

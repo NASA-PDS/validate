@@ -40,6 +40,7 @@ import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.FileReferencedMapList;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.MD5Checksum;
+import gov.nasa.pds.tools.util.PDFUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -61,6 +62,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
   private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
+  private static final String PDF_ENDS_WITH_PATTERN = ".pdf";
 
   private static final FileReferencedMapList fileReferencedMapList = new FileReferencedMapList();
   
@@ -69,6 +71,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    */
   private final String FILE_OBJECTS_XPATH =
     "//*[starts-with(name(), 'File_Area')]/File | //Document_File";
+
   
   private Map<URL, String> checksumManifest;
   
@@ -105,7 +108,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     source.setSystemId(uri.toString());
     try {
       DocumentInfo xml = LabelParser.parse(source);
-LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
+      LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
       validate(xml);
     } catch (TransformerException te) {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, 
@@ -140,24 +143,31 @@ LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}",uri);
       passFlag = false;
     }
     try {
+      LOG.debug("FileReferenceValidationRule:validate:building extractor");
       XMLExtractor extractor = new XMLExtractor(xml);
+      LOG.debug("FileReferenceValidationRule:validate:extractor {}",extractor);
       URL labelUrl = new URL(xml.getSystemId());
+      LOG.debug("FileReferenceValidationRule:validate:labelUrl {}",labelUrl);
       URL parent = labelUrl.toURI().getPath().endsWith("/") ?
           labelUrl.toURI().resolve("..").toURL() :
             labelUrl.toURI().resolve(".").toURL();
+      LOG.debug("FileReferenceValidationRule:validate:parent {}",parent);
       try {
         // Search for "xml:base" attributes within the merged XML. This will
         // tell us if there are any xincludes.
+        LOG.debug("FileReferenceValidationRule:validate:getValuesFromDoc(//@xml:base");
         List<String> xincludes = extractor.getValuesFromDoc("//@xml:base");
+        LOG.debug("FileReferenceValidationRule:validate:xincludes.size {}",xincludes.size());
         for (String xinclude : xincludes) {
           URL xincludeUrl = new URL(parent, xinclude);
+          LOG.debug("FileReferenceValidationRule:validate:xincludeUrl {}",xincludeUrl);
           try {
             xincludeUrl.openStream().close();
             // Check that the casing of the file reference matches the
             // casing of the file located on the file system.
             try {
               File fileRef = FileUtils.toFile(xincludeUrl);
-LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {},{}",xincludeUrl,fileRef.getPath());
+              LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {},{}",xincludeUrl,fileRef.getPath());
               if (fileRef != null &&
                   !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
                 ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, 
@@ -202,6 +212,7 @@ LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {}
         if (!getContext().getSkipProductValidation()) {    	   
           List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(
               FILE_OBJECTS_XPATH);
+          LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",fileObjects.size());
           for (TinyNodeImpl fileObject : fileObjects) {
             String name = "";
             String checksum = "";
@@ -220,16 +231,45 @@ LOG.debug("FileReferenceValidationRule:validate:xincludeUrl,fileRef.getPath() {}
               passFlag = false;
               continue;
             }
+
+            boolean pdfValidateFlag = false;
+            PDFUtil pdfUtil = null;
             for (TinyNodeImpl child : children) {
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
-LOG.debug("FileReferenceValidationRule:validate:name {}",name);
+                LOG.debug("FileReferenceValidationRule:validate:name {}",name);
+
+                // If the name is a PDF file, validate it.
+                if (name.endsWith(PDF_ENDS_WITH_PATTERN)) {
+                    if (pdfUtil == null) {
+                        pdfUtil = new PDFUtil(getTarget());
+                    }
+                    pdfValidateFlag = pdfUtil.validateFileStandardConformity(name);
+                    // Report a  warning if the PDF file is not PDF/A compliant.
+                    if (!pdfValidateFlag) {
+                        URL urlRef = null;
+                        if (!directory.isEmpty()) {
+                          urlRef = new URL(parent, directory + "/" + name);
+                        } else {
+                          urlRef = new URL(parent, name);
+                        }
+                        ProblemDefinition def = new ProblemDefinition(
+                            ExceptionType.WARNING, ProblemType.NON_PDFA_FILE,
+                            urlRef.toString() + " is not valid PDF/A file or does not exist");
+                        problems.add(new ValidationProblem(def, target,
+                            fileObject.getLineNumber(), -1));
+                        passFlag = false;
+                    }
+                }
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
+                LOG.debug("FileReferenceValidationRule:validate:checksum {}",checksum);
               } else if ("directory_path_name".equals(child.getLocalPart())) {
                 directory = child.getStringValue();
+                LOG.debug("FileReferenceValidationRule:validate:directory {}",directory);
               } else if ("file_size".equals(child.getLocalPart())) { // Fetch the file_size value from label.
                 filesize = child.getStringValue();
+                LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
               }
             }
 
@@ -340,6 +380,7 @@ LOG.debug("FileReferenceValidationRule:validate:name {}",name);
     for (ValidationProblem problem : problems) {
       getListener().addProblem(problem);
     }
+    LOG.debug("FileReferenceValidationRule:validate:DONE: passFlag {}",passFlag);
     return passFlag;
   }
 
@@ -488,8 +529,8 @@ LOG.debug("FileReferenceValidationRule:validate:name {}",name);
         return new ArrayList<ValidationProblem>();  // Return an empty list.
     } else {
         List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
-        int fileSizeAsInt = FileSizesUtil.getExternalFilesize(urlRef);  // Get the actual file size.
-        String generatedFilesize = Integer.toString(fileSizeAsInt); 
+        long fileSizeAsInt = FileSizesUtil.getExternalFilesize(urlRef);  // Get the actual file size.
+        String generatedFilesize = Long.toString(fileSizeAsInt); 
         int lineNumber = -1;
         if (fileObject != null) {
           lineNumber = fileObject.getLineNumber();

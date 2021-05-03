@@ -18,7 +18,7 @@ import java.io.File;
 import java.net.URI;
 import java.net.URL;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathConstants;
@@ -55,11 +55,25 @@ public class LabelUtil {
   
   private static XPathFactory xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
 
-  private static HashSet<String> informationModelVersions = new HashSet<>();
+  private static ArrayList<String> informationModelVersions = new ArrayList<>();
   private static Report report              = null;
   private static boolean bundleLabelSetFlag = false;
   private static String bundleLocation      = null;
   private static String launcherURIName     = null;
+
+  /**
+   * Reduce Information Model Versions List to just one if it contains more than one elements
+   * @param  None
+   * @return None
+   */
+  public static synchronized void reduceInformationModelVersions() {
+      if (informationModelVersions.size() > 1) {
+          String firstElement = informationModelVersions.get(0);
+          LabelUtil.informationModelVersions.clear();
+          LabelUtil.informationModelVersions.add(firstElement);
+      }
+      LOG.debug("LabelUtil:reduceInformationModelVersions");
+  }
 
   /**
    * Reset all list(s) and variables back to their default states.
@@ -109,7 +123,9 @@ public class LabelUtil {
    * @return None
    */
   public static synchronized void registerIMVersion(String informationModelVersion) {
-      LabelUtil.informationModelVersions.add(informationModelVersion);
+      if (!LabelUtil.informationModelVersions.contains(informationModelVersion)) {
+          LabelUtil.informationModelVersions.add(informationModelVersion);
+      }
       LOG.debug("registerIMVersion:informationModelVersion {}",informationModelVersions);
   }
 
@@ -117,7 +133,7 @@ public class LabelUtil {
    * Returns the list of IMs registered so far.
    * @return informationModelVersions the list of IMs registered: {1.12.0.0, 1.10.0.0}
    */
-  public static synchronized HashSet<String> getInformationModelVersions() {
+  public static synchronized ArrayList<String> getInformationModelVersions() {
      return(LabelUtil.informationModelVersions);
   }
 
@@ -193,7 +209,7 @@ public class LabelUtil {
    */
   public static synchronized void reportIfMoreThanOneVersion(String validationRule) {
       // After all the labels have been validated, fetch all the information_model_version encountered.
-      HashSet<String> informationModelVersions = LabelUtil.getInformationModelVersions();
+      ArrayList<String> informationModelVersions = LabelUtil.getInformationModelVersions();
 
       String versions = "";
       int numDifferentVersions = 0;
@@ -201,9 +217,6 @@ public class LabelUtil {
           versions += str + ", ";
           numDifferentVersions += 1;
       }
-      versions = versions.substring(0, versions.length() - 2);
-      LOG.debug("reportIfMoreThanOneVersion:target,informationModelVersions.size(),MY_VERSIONS {},{},{}",location,informationModelVersions.size(),versions);
-      LOG.debug("reportIfMoreThanOneVersion:informationModelVersions {}",informationModelVersions);
       if (versions.equals("")) {
           // This means that the function reportIfMoreThanOneVersion() is called too early and no labels has been parsed yet.
           LOG.warn("reportIfMoreThanOneVersion:There has been no versions added to informationModelVersions set yet.");
@@ -211,6 +224,10 @@ public class LabelUtil {
           LabelUtil.reset();
           return;
       }
+
+      versions = versions.substring(0, versions.length() - 2);
+      LOG.debug("reportIfMoreThanOneVersion:target,informationModelVersions.size(),MY_VERSIONS {},{},{}",location,informationModelVersions.size(),versions);
+      LOG.debug("reportIfMoreThanOneVersion:informationModelVersions {}",informationModelVersions);
 
       try {
           if (numDifferentVersions > 1) {

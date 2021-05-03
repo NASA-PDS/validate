@@ -180,6 +180,8 @@ public enum ProblemType {
 
     UNLABELED_FILE("warning.file.not_referenced_in_label"),
 
+    NON_PDFA_FILE("warning.pdf.file.not_pdfa_compliant"),
+
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
     
     CHARS_BETWEEN_FIELDS("warning.table.characters_between_fields"),
