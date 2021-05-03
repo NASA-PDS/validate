@@ -1,14 +1,18 @@
 # Changelog
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-03)
+## [v2.0.3](https://github.com/NASA-PDS/validate/tree/v2.0.3) (2021-05-03)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.2...v2.1.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.2...v2.0.3)
 
 **Requirements:**
 
 - As a user, I want to the raise a WARNING if the object-defined size in the label does not match the file\_size value [\#303](https://github.com/NASA-PDS/validate/issues/303)
 - As a user, I want to validate PDF files are PDF/A [\#164](https://github.com/NASA-PDS/validate/issues/164)
 - As a user, I want to be warned when there are alphanumeric characters between fields in Table\_Character [\#57](https://github.com/NASA-PDS/validate/issues/57)
+
+**Defects:**
+
+- verified that version 2.0.2 can break when running on java 8 [\#332](https://github.com/NASA-PDS/validate/issues/332)
 
 ## [v2.0.2](https://github.com/NASA-PDS/validate/tree/v2.0.2) (2021-04-08)
 
@@ -38,6 +42,7 @@
 - Improvements for validating accumulating bundles / collections [\#249](https://github.com/NASA-PDS/validate/issues/249)
 - Add output directory flag to validate-bundle tool [\#246](https://github.com/NASA-PDS/validate/issues/246)
 - validate does not perform full bundle validation when using a specific bundle.xml [\#238](https://github.com/NASA-PDS/validate/issues/238)
+- For accumulating bundles, validate latest version of collections only [\#231](https://github.com/NASA-PDS/validate/issues/231)
 - Update validate per SR requirements for collection inventories [\#230](https://github.com/NASA-PDS/validate/issues/230)
 - Validate and throw error when duplicate LIDs are found in Bundle [\#81](https://github.com/NASA-PDS/validate/issues/81)
 - Provide the capability to specify multiple locations for pds4.bundle validation [\#51](https://github.com/NASA-PDS/validate/issues/51)
@@ -45,11 +50,11 @@
 
 **Defects:**
 
-- Validate missing collections in bundle after CCB-282 updates [\#310](https://github.com/NASA-PDS/validate/issues/310) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- unclear error message for field count matching [\#301](https://github.com/NASA-PDS/validate/issues/301) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate missing collections in bundle after CCB-282 updates [\#310](https://github.com/NASA-PDS/validate/issues/310)
+- unclear error message for field count matching [\#301](https://github.com/NASA-PDS/validate/issues/301)
 - validate -u flag reports an error on Windows [\#300](https://github.com/NASA-PDS/validate/issues/300)
 - Validate tool does not PASS a bundle with a single-character filename [\#299](https://github.com/NASA-PDS/validate/issues/299)
-- validate misses double quotes within a delimited table [\#298](https://github.com/NASA-PDS/validate/issues/298) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate misses double quotes within a delimited table [\#298](https://github.com/NASA-PDS/validate/issues/298)
 - Content validation of ASCII\_Integer field does not accept value with leading zeroes [\#297](https://github.com/NASA-PDS/validate/issues/297)
 - Content validation incorrectly reports error for floating-point values out of specified min/max range [\#294](https://github.com/NASA-PDS/validate/issues/294)
 - When validating a product with a bad schematron definition, bundle validation also fails indicating the associated product does not exist [\#291](https://github.com/NASA-PDS/validate/issues/291)
@@ -60,18 +65,22 @@
 - Missing documentation about deprecated flags [\#260](https://github.com/NASA-PDS/validate/issues/260)
 - Product with incorrect table binary definition pass validation [\#257](https://github.com/NASA-PDS/validate/issues/257)
 - validate should only do integrity checking on latest version of a collection when referenced by LID [\#256](https://github.com/NASA-PDS/validate/issues/256)
-- Unexpected error for data collection in a sub-directory [\#240](https://github.com/NASA-PDS/validate/issues/240) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Unexpected error for data collection in a sub-directory [\#240](https://github.com/NASA-PDS/validate/issues/240)
 - Validate error reading tables \> 2GiB [\#189](https://github.com/NASA-PDS/validate/issues/189)
-- Update validate to throw error when a file has a space in the filename [\#153](https://github.com/NASA-PDS/validate/issues/153) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Update allowable field\_format values per Standards Reference definition regarding \[+|-\] characters [\#11](https://github.com/NASA-PDS/validate/issues/11) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-- Improve pds4.bundle unlabeled files check to handle files without a file suffix [\#6](https://github.com/NASA-PDS/validate/issues/6) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Improve file base name check according to Standards Reference [\#5](https://github.com/NASA-PDS/validate/issues/5) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Update validate to throw error when a file has a space in the filename [\#153](https://github.com/NASA-PDS/validate/issues/153)
+- Investigate grammar pool warning message [\#18](https://github.com/NASA-PDS/validate/issues/18)
+- Update allowable field\_format values per Standards Reference definition regarding \[+|-\] characters [\#11](https://github.com/NASA-PDS/validate/issues/11)
+- Improve pds4.bundle unlabeled files check to handle files without a file suffix [\#6](https://github.com/NASA-PDS/validate/issues/6)
+- Improve file base name check according to Standards Reference [\#5](https://github.com/NASA-PDS/validate/issues/5)
 
 **Other closed issues:**
 
 - Implement initial test to exercise framework [\#283](https://github.com/NASA-PDS/validate/issues/283)
 - Implement initial framework to be able to start developing tests [\#282](https://github.com/NASA-PDS/validate/issues/282)
 - Retrofit validate CI to use roundup-action [\#255](https://github.com/NASA-PDS/validate/issues/255)
+- Add the round up action for continuous integration [\#253](https://github.com/NASA-PDS/validate/issues/253)
+- Improvements to meet updated Standards Reference since initial requirements implementation [\#250](https://github.com/NASA-PDS/validate/issues/250)
+- The tool shall verify that a digital objects which comprise observational data may be used in one and only one product [\#248](https://github.com/NASA-PDS/validate/issues/248)
 
 ## [1.24.0](https://github.com/NASA-PDS/validate/tree/1.24.0) (2020-09-09)
 
@@ -93,6 +102,7 @@
 
 - Validate gives incorrect records mismatch WARNING for interleaved data objects [\#234](https://github.com/NASA-PDS/validate/issues/234)
 - Product validation does not detect the number of table records correctly for Table + Array object [\#233](https://github.com/NASA-PDS/validate/issues/233)
+- Incorrect errors with heterogeneous root tags and prologs [\#208](https://github.com/NASA-PDS/validate/issues/208)
 
 ## [v1.23.1](https://github.com/NASA-PDS/validate/tree/v1.23.1) (2020-05-16)
 
@@ -203,6 +213,10 @@
 ## [v1.18.2](https://github.com/NASA-PDS/validate/tree/v1.18.2) (2020-01-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.18.1...v1.18.2)
+
+**Improvements:**
+
+- Add "Validation Complete" to logging object instead of stdout [\#168](https://github.com/NASA-PDS/validate/issues/168)
 
 **Defects:**
 
@@ -351,6 +365,7 @@
 **Other closed issues:**
 
 - Update pom to exclude additional SLF4J bindings [\#70](https://github.com/NASA-PDS/validate/issues/70)
+- Document the use of boolean flags in config files [\#67](https://github.com/NASA-PDS/validate/issues/67)
 
 ## [v1.15.1](https://github.com/NASA-PDS/validate/tree/v1.15.1) (2019-08-08)
 
@@ -375,6 +390,10 @@
 - JAVA Path does not handle whitespaces in MAC as it used to [\#37](https://github.com/NASA-PDS/validate/issues/37)
 - Add missing core.properties dependency [\#34](https://github.com/NASA-PDS/validate/issues/34)
 - Validation succeeds despite throwing exception [\#33](https://github.com/NASA-PDS/validate/issues/33)
+
+**Other closed issues:**
+
+- Performance benchmarking on validate to enable documenting of system requirements [\#48](https://github.com/NASA-PDS/validate/issues/48)
 
 
 
