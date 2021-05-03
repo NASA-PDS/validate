@@ -1,11 +1,13 @@
 # Changelog
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-04-23)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.2...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
+- As a user, I want to the raise a WARNING if the object-defined size in the label does not match the file\_size value [\#303](https://github.com/NASA-PDS/validate/issues/303)
+- As a user, I want to validate PDF files are PDF/A [\#164](https://github.com/NASA-PDS/validate/issues/164)
 - As a user, I want to be warned when there are alphanumeric characters between fields in Table\_Character [\#57](https://github.com/NASA-PDS/validate/issues/57)
 
 ## [v2.0.2](https://github.com/NASA-PDS/validate/tree/v2.0.2) (2021-04-08)
