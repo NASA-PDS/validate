@@ -168,6 +168,17 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     return isApplicable;
   }
 
+  /**
+   * Validate a table content one record at a time.
+   * 
+   * @param fieldValueValidator The FieldValueValidator to validate each field
+   * @param table The table has an Object
+   * @param dataFile The URL of the data file
+   * @param tableIndex The index into a list of tables
+   * @param spotCheckData The number of records to spot check
+   * @param keepQuotationsFlag Flag to keep the double quote or not
+   * @return None 
+   */
   private void validateTableContentRecordWise(FieldValueValidator fieldValueValidator, Object table, URL dataFile, int tableIndex, int spotCheckData, boolean keepQuotationsFlag) throws IOException {
       // Validate a table content record by record.
 
@@ -229,10 +240,28 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   }
 
 
+  /**
+   * Validate a table content one line at a time.
+   * 
+   * @param fieldValueValidator The FieldValueValidator to validate each field
+   * @param table The table has an Object
+   * @param record A TableRecord in a table.
+   * @param reader A read to read a line at a time
+   * @param dataFile The URL of the data file
+   * @param tableIndex The index into the list of tables
+   * @param spotCheckData The number of records to spot check
+   * @param keepQuotationsFlag Flag to keep the double quote or not
+   * @param recordDelimiter How the record ends
+   * @param recordLength The length of each record
+   * @param recordMaxLength The maximum length of all records 
+   * @param definedNumRecords The length specified in the label
+   * @param inventoryTable Flag indicating if this table is an inventory table
+   * @param tableCharacterUtil Util object to parse in between fields
+   * @return None 
+   */
   private void validateTableContentLineWise(FieldValueValidator fieldValueValidator, Object table, TableRecord record, RawTableReader reader, URL dataFile, int tableIndex,
                int spotCheckData, boolean keepQuotationsFlag, String recordDelimiter, int recordLength, int recordMaxLength, int definedNumRecords, boolean inventoryTable,
                TableCharacterUtil tableCharacterUtil) throws IOException {
-      // Validate a table as if it is line by line.
       // The content of this function was copied from the main validate function to reduced the function size.
       boolean manuallyParseRecord = false;
       String line = reader.readNextLine();
@@ -442,8 +471,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   }
 
 
+  /**
+   * Given a text data file, read the first and inspect the line length.
+   * 
+   * @param dataFile The URL to the data file
+   * @return length of first line
+   */
   private long getFirstLineLength(URL dataFile) {
-      // Take a peek and read the first line from the file and retrieve the line length.
       long firstLineLength = 0;
       LOG.debug("getFirstLineLength:dataFile,dataFile.getPath() {},{}",dataFile,dataFile.getPath());
       BufferedReader reader;
@@ -462,9 +496,14 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       return(firstLineLength);
   }
 
+  /**
+   * Given a text table object, determine if it a line oriented table or not.  A line-oriented table contains some record delimiter and optional record_length.
+   * 
+   * @param table The table object
+   * @param dataFile The URL to the data file
+   * @return true if the line is line-oriented and false if not
+   */
   private boolean isTableLineOriented(Object table, URL dataFile) {
-      // Given a text table object, determine if it a line oriented table or not.  A line-oriented table contains some record delimiter and optional record_length.
-
       boolean tableIsLineOrientedFlag = false;
 
       LOG.debug("isTableLineOriented:table isinstanceof {}",table.getClass().getSimpleName());
