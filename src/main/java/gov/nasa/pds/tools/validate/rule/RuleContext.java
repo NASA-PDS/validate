@@ -423,7 +423,15 @@ public class RuleContext extends ContextBase {
 	}
 
 	public boolean getCheckInbetweenFields() {
+      LOG.debug("getCheckInbetweenFields:CHECK_INBETWEEN_FIELDS {}",CHECK_INBETWEEN_FIELDS);
       LOG.debug("getCheckInbetweenFields {}",getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class));
+
+      // https://github.com/NASA-PDS/validate/issues/335 validate gives a NullPointerException during validation of a directory containing Table_Character products
+      // Check for null-ness before attempting to perform the actual return line at the end of this function.
+      // otherwise will result in null pointer exception.
+      if (getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class) == null)
+          return(false);
+
 	  return getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class);
 	}
 	

@@ -151,6 +151,15 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#164 WITH_WARNING" | "github164" | 1 | "1 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_invalid.json  -s json -t {resourceDir}/github164/invalid/document_test_1_pdf.xml" | "report_github164_label_pdfa_invalid.json" |
  |"NASA-PDS/validate#164 VALID" | "github164" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_valid.json  -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github164_label_pdfa_valid.json" |
 
+# https://github.com/NASA-PDS/validate/issues/325 Validate Incorrectly Throws Error When Embedded Field_Character Contains <CR><LF>
+
+ |"NASA-PDS/validate#325 VALID" | "github325" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github325_label_valid.json -s json -R pds4.label -t {resourceDir}/github325/crs009x.xml" | "report_github325_label_valid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/335 validate gives a NullPointerException during validation of a directory containing Table_Character products
+
+ |"NASA-PDS/validate#335 VALID_1" | "github335" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github335_as_label_valid.json -s json -R pds4.label -t {resourceDir}/github335/minimal_test_product.xml" | "report_github335_as_label_valid.json" |
+ |"NASA-PDS/validate#335 VALID_3" | "github335" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github335_as_dir_valid.json -s json -t {resourceDir}/github335/" | "report_github335_as_dir_valid.json" | 
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
