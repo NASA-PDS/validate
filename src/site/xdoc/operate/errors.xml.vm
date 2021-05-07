@@ -55,6 +55,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <li><a href="#No_checksum_found_in_the_manifest_errors">No checksum found in the manifest errors</a></li>
         <li><a href="#error.table.fields_mismatch">error.table.fields_mismatch</a></li>
         <li><a href="#error.label.context_ref_mismatch">error.label.context_ref_mismatch</a></li>
+        <li><a href="#Hangs_when_I_run_bundle_validation">Hangs when I run bundle validation (pds4.bundle)</a></li>
       </ul>
     </section>
 
@@ -176,6 +177,24 @@ openjdk version "15.0.1" 2020-10-20
 OpenJDK Runtime Environment (build 15.0.1+9)
 OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
       </source>
+    </section>
+    
+    <section name="Hangs when I run bundle validation">
+      <p><b>Description</b></p>
+      <p>
+        When attempting to run validate with bundle validation enabled against a directory, the tool just hangs. e.g.
+      </p>
+      <source>
+ ./validate -R pds4.bundle -t /path/to/my/bundle
+      </source>
+      
+      <p><b>Fixing the problem</b></p>
+      <p>Unfortunately this is a backwards compatibility issue with running Java8. There are two workarounds:
+        <ul>
+          <li>Upgrade to a new version of Java (preferably OpenJDK 11+)</li>
+          <li>Input the bundle.xml directly via the target path, e.g. instead of <i>/path/to/my/bundle</i> specify <i>/path/to/my/bundle/bundle.xml</i>.</li>
+        </ul>
+      </p>
     </section>
     
   </body>
