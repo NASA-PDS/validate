@@ -19,6 +19,7 @@ import java.security.MessageDigest;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -91,7 +92,7 @@ public class MD5Checksum {
                     // If the pointer is not repositioned, printing out the buffer will shows an empty array.
                     //byteBuffer.position(0);
                     md5.update(byteBuffer.array(), 0, bytesRead);
-                    byteBuffer.clear();  // This must be done to receive new content and reposition the pointer to the beginning.
+                    ((Buffer) byteBuffer).clear();  // This must be done to receive new content and reposition the pointer to the beginning.
                 } else {
                     // If the file is empty, the number of bytes read will be zero.  This flag will allow to code to exit an infinite loop.
                     // Also if the channel reached end of stream, the returned value can also be -1.

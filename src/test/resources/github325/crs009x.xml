@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:voyager1_rss_titan_raw:calib_geom:crs009x</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>
+	            Test file for investigating behavior of delimiters within Record_Character.
+             </title>
+             <information_model_version>1.13.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+       </Identification_Area>
+      
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>1980-11-12T04:47:00Z</start_date_time>
+                   <stop_date_time>1980-11-12T08:30:00Z</stop_date_time>
+             </Time_Coordinates>
+             <Investigation_Area>
+                   <name>Voyager</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+             <Observing_System>                                                                                                                                          
+                   <Observing_System_Component>
+                         <name>Voyager 1</name>
+                         <type>Spacecraft</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg1</lid_reference>
+                               <reference_type>is_instrument_host</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             <Target_Identification>
+                   <name>Voyager 1</name>
+                   <type>Equipment</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg1</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+      
+       <File_Area_Observational>
+             <File>
+                   <file_name>crs009x.tab</file_name>
+                   <creation_date_time>2021-04-09T18:15:00</creation_date_time>
+                   <file_size unit="byte">492</file_size>
+                   <md5_checksum>721efdc536e9a5ac21f0dd002bb7e0ea</md5_checksum>
+             </File>
+             
+             <Table_Character>
+                   <name>Bodies Table</name>
+                   <offset unit="byte">0</offset>
+                   <records>2</records>
+                   <description>
+                         The Bodies Table identifies the planetary bodies for which vectors 
+                         are provided in the Data Table.  80-byte card images are delimited 
+                         by ASCII carriage-return line-feed pairs.  Each 246-byte row in the 
+                         Bodies Table describes one body -- its GM, radii, gravitational field                     
+                         coefficients, and its pole vector.  There are no delimiters between               
+                         columns.  Character fields are NOT set off by quotes.
+                   </description>                        
+                   <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+                   
+                   <Record_Character>
+                         <fields>14</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">246</record_length> 
+                         
+                         <Field_Character>
+                               <name>Body Name</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">17</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">6</field_length>
+                               <field_format>%6s</field_format>
+                               <description>
+                                     The name of the body, abbreviated to 6 characters,              
+                                     if necessary.  Value is left justified in the field.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>GM</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">23</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">26</field_length>
+                               <field_format>%26.18e</field_format>
+                               <unit>km**3/s**2/kg**2</unit>
+                               <description>
+                                     Gravitational constant for the body.  Set to zero if                 
+                                     unknown or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>Req</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">49</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <unit>km</unit>
+                               <description>
+                                     Mean equatorial radius for the oblate spheroid model                 
+                                     of the body.  Set to zero if unknown or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>Rpol</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">65</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <unit>km</unit>
+                               <description>
+                                     Polar radius for the oblate spheroid model of the body.              
+                                     Set to zero if unknown or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>D1</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">81</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                     A Carriage-Return Line-Feed pair included to improve display.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>Rref</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">83</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <unit>km</unit>
+                               <description>
+                                     Reference radius for gravity field coefficients.  
+                                     Set to zero if unknown or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>J2</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">99</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <description>
+                                     J2 coefficient for the gravity field.  
+                                     Set to zero if unknown or not available
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>J4</name>
+                               <field_number>8</field_number>
+                               <field_location unit="byte">115</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <description>
+                                     J4 coefficient for the gravity field.  
+                                     Set to zero if unknown or not available
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>J6</name>
+                               <field_number>9</field_number>
+                               <field_location unit="byte">131</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <description>
+                                     J6 coefficient for the gravity field.  
+                                     Set to zero if unknown or not available
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>J8</name>
+                               <field_number>10</field_number>
+                               <field_location unit="byte">147</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.8e</field_format>
+                               <description>
+                                     J8 coefficient for the gravity field.  
+                                     Set to zero if unknown or not available
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>D2</name>
+                               <field_number>11</field_number>
+                               <field_location unit="byte">163</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                     A Carriage-Return Line-Feed pair included to improve display.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>North Pole Unit Vector X-Component</name>
+                               <field_number>12</field_number>
+                               <field_location unit="byte">165</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">26</field_length>
+                               <field_format>%26.18e</field_format>
+                               <description>
+                                     Unit vector indicating rotational north pole of                  
+                                     the body (x-component).  Set to zero if  unknown               
+                                     or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>North Pole Unit Vector Y-Component</name>
+                               <field_number>13</field_number>
+                               <field_location unit="byte">191</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">26</field_length>
+                               <field_format>%26.18e</field_format>
+                               <description>
+                                     Unit vector indicating rotational north pole of                  
+                                     the body (y-component).  Set to zero if  unknown               
+                                     or not available.
+                               </description>
+                         </Field_Character>
+                         
+                         <Field_Character>
+                               <name>North Pole Unit Vector Z-Component</name>
+                               <field_number>14</field_number>
+                               <field_location unit="byte">217</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">26</field_length>
+                               <field_format>%26.18e</field_format>
+                               <description>
+                                     Unit vector indicating rotational north pole of                  
+                                     the body (z-component).  Set to zero if  unknown               
+                                     or not available.
+                               </description>
+                         </Field_Character>
+                         
+                   </Record_Character>
+                   
+             </Table_Character>
+             
+      </File_Area_Observational>
+      
+</Product_Observational>

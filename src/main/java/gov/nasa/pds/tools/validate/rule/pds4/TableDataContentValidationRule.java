@@ -13,6 +13,8 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -164,6 +166,378 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       
     }
     return isApplicable;
+  }
+
+  /**
+   * Validate a table content one record at a time.
+   * 
+   * @param fieldValueValidator The FieldValueValidator to validate each field
+   * @param table The table has an Object
+   * @param dataFile The URL of the data file
+   * @param tableIndex The index into a list of tables
+   * @param spotCheckData The number of records to spot check
+   * @param keepQuotationsFlag Flag to keep the double quote or not
+   * @return None 
+   */
+  private void validateTableContentRecordWise(FieldValueValidator fieldValueValidator, Object table, URL dataFile, int tableIndex, int spotCheckData, boolean keepQuotationsFlag) throws IOException {
+      // Validate a table content record by record.
+
+      LOG.debug("validateTableContentRecordWise:table instanceof TableCharacter");
+      LOG.debug("validateTableContentRecordWise:tableIndex,spotCheckData,keepQuotationsFlag {},{},{}",tableIndex,spotCheckData,keepQuotationsFlag);
+      TableRecord record = null;
+      int recordNumber = 0;
+
+      RawTableReader tableReader = null;
+      try {
+          LOG.debug("validateTableDataContents:pre-getRecord:dataFile {}",dataFile);
+          tableReader = new RawTableReader(table, dataFile, getTarget(), 0, false, false);
+          long recordSize = tableReader.getRecordSize(dataFile, table);
+          LOG.debug("validateTableContentRecordWise:dataFile,recordSize {},{}",dataFile,recordSize);
+      } catch (Exception ex) {
+          LOG.error("ERROR: Cannot open data file {}",dataFile);
+          // Print the stack trace to an external file for inspection.
+          FileService.printStackTraceToFile(dataFile.getPath(),ex);
+      }
+
+      try {
+           record = tableReader.readNext();
+           while (record != null) {
+               recordNumber++; 
+               LOG.debug("validateTableContentRecordWise: recordNumber {}",recordNumber);
+               progressCounter();
+
+               try {
+                    fieldValueValidator.validate(record, tableReader.getFields(), false);
+               } catch (FieldContentFatalException e) {
+                   // If we get a fatal error, we can avoid an overflow of error output
+                   // by killing the loop through all the table records
+                   // Print the stack trace to an external file for inspection.
+                   FileService.printStackTraceToFile(dataFile.getPath(),e);
+                   break;
+               }
+               if (spotCheckData != -1) {
+                   try {
+                        record = tableReader.getRecord(tableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+                   } catch (Exception ioEx) {
+                       record = null;
+                        throw new IOException("Error occurred "
+                            + "while reading table '" + tableIndex + "', "
+                            + "record '"
+                            + (tableReader.getCurrentRow() + spotCheckData) + "'");
+                  }
+               } else {
+                   record = tableReader.readNext();
+               }
+           } // end  while (record != null)
+       } catch (Exception ioEx) {
+           FileService.printStackTraceToFile(dataFile.getPath(),ioEx);
+           LOG.error("Unxpected exeption reached while reading data file {}",dataFile);
+            throw new IOException(
+                "Unexpected exception reached while reading table '"
+                + tableIndex
+                + "', record '" + tableReader.getCurrentRow() + "'");
+       }
+  }
+
+
+  /**
+   * Validate a table content one line at a time.
+   * 
+   * @param fieldValueValidator The FieldValueValidator to validate each field
+   * @param table The table has an Object
+   * @param record A TableRecord in a table.
+   * @param reader A read to read a line at a time
+   * @param dataFile The URL of the data file
+   * @param tableIndex The index into the list of tables
+   * @param spotCheckData The number of records to spot check
+   * @param keepQuotationsFlag Flag to keep the double quote or not
+   * @param recordDelimiter How the record ends
+   * @param recordLength The length of each record
+   * @param recordMaxLength The maximum length of all records 
+   * @param definedNumRecords The length specified in the label
+   * @param inventoryTable Flag indicating if this table is an inventory table
+   * @param tableCharacterUtil Util object to parse in between fields
+   * @return None 
+   */
+  private void validateTableContentLineWise(FieldValueValidator fieldValueValidator, Object table, TableRecord record, RawTableReader reader, URL dataFile, int tableIndex,
+               int spotCheckData, boolean keepQuotationsFlag, String recordDelimiter, int recordLength, int recordMaxLength, int definedNumRecords, boolean inventoryTable,
+               TableCharacterUtil tableCharacterUtil) throws IOException {
+      // The content of this function was copied from the main validate function to reduced the function size.
+      boolean manuallyParseRecord = false;
+      String line = reader.readNextLine();
+      int lineNumber = 0;
+      while (line != null) {
+          progressCounter();
+          lineNumber += 1;
+
+          if (recordDelimiter != null) {
+              // Check for how the line ends keying off what was provided in the label.
+              // If the delimiter is "Carriage-Return Line-Feed" then the line should end with a carriage return and a line feed.
+              if (recordDelimiter.equalsIgnoreCase("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
+                    addTableProblem(ExceptionType.ERROR,
+                        ProblemType.MISSING_CRLF,
+                        "Record does not end in carriage-return line feed.",
+                        dataFile, tableIndex, reader.getCurrentRow());
+                    manuallyParseRecord = true;
+              } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
+                  if (!line.endsWith("\n")) {  // If the delimiter is Line-Feed, then the line should end with "\n"
+                          // Perform a check if the record ends in line feed or not ("\n")
+                          // https://github.com/nasa-pds/validate/issues/292
+                          // If the delimiter is "Line-Feed" then the line should end with a line feed.
+                          addTableProblem(ExceptionType.ERROR,
+                              ProblemType.MISSING_LF,
+                              "Record does not end in line feed.",
+                              dataFile, tableIndex, reader.getCurrentRow());
+                  }
+                  if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
+                          addTableProblem(ExceptionType.ERROR,
+                              ProblemType.MISSING_LF,
+                              "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
+                              dataFile, tableIndex, reader.getCurrentRow());
+                  }
+                    manuallyParseRecord = true;
+              } else {
+                    addTableProblem(ExceptionType.DEBUG,
+                        ProblemType.CRLF_DETECTED,
+                        "Record ends in carriage-return line feed.",
+                        dataFile,
+                        tableIndex,
+                        reader.getCurrentRow());
+              }
+          } else {
+              // If cannot find a record delimiter, check for the default carriage return line feed.
+              if (!line.endsWith("\r\n")) {
+                    addTableProblem(ExceptionType.ERROR,
+                        ProblemType.MISSING_CRLF,
+                        "Record does not end in carriage-return line feed.",
+                        dataFile, tableIndex, reader.getCurrentRow());
+                    manuallyParseRecord = true;
+              } else {
+                    addTableProblem(ExceptionType.DEBUG,
+                        ProblemType.CRLF_DETECTED,
+                        "Record ends in carriage-return line feed.",
+                        dataFile,
+                        tableIndex,
+                        reader.getCurrentRow());              
+              }
+          }
+
+          if (recordLength != -1) {
+              if (line.length() != recordLength) {
+                  addTableProblem(ExceptionType.ERROR,
+                      ProblemType.RECORD_LENGTH_MISMATCH,
+                      "Record does not equal the defined record length "
+                          + "(expected " + recordLength
+                          + ", got " + line.length() + ").",
+                      dataFile,
+                      tableIndex,
+                      reader.getCurrentRow()); 
+                  manuallyParseRecord = true;
+              } else {
+                  addTableProblem(ExceptionType.DEBUG,
+                      ProblemType.RECORD_MATCH,
+                      "Record equals the defined record length "
+                          + "(expected " + recordLength
+                          + ", got " + line.length() + ").",
+                      dataFile,
+                      tableIndex,
+                      reader.getCurrentRow());              
+              }
+          }
+          if (recordMaxLength != -1) {
+              if (line.length() > recordMaxLength) {
+                  addTableProblem(ExceptionType.ERROR,
+                      ProblemType.RECORD_LENGTH_MISMATCH,
+                      "Record length exceeds the max defined record length "
+                          + "(expected " + recordMaxLength
+                          + ", got " + line.length() + ").",
+                      dataFile,
+                      tableIndex,
+                      reader.getCurrentRow());
+                  manuallyParseRecord = true;
+              } else {
+                  addTableProblem(ExceptionType.DEBUG,
+                      ProblemType.GOOD_RECORD_LENGTH,
+                      "Record length is less than or equal to the max "
+                          + "defined record length "
+                          + "(max " + recordMaxLength
+                          + ", got " + line.length() + ").",
+                      dataFile,
+                      tableIndex,
+                      reader.getCurrentRow());
+              }
+          }
+          // Need to manually parse the line if we're past the defined
+          // number of records. The PDS4-Tools library won't let us
+          // read past the defined number of records.
+          if (reader.getCurrentRow() > definedNumRecords) {
+              manuallyParseRecord = true;
+          }
+          try {
+              if (manuallyParseRecord && !(table instanceof TableDelimited)) {
+                  record = reader.toRecord(line, reader.getCurrentRow());
+              } else {
+                	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
+                  record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
+              }
+
+              // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
+              if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
+                    tableCharacterUtil.validateInBetweenFields(line,lineNumber);
+              }
+
+              //Validate fields within the record here
+              try {
+                  fieldValueValidator.validate(record, reader.getFields());
+              } catch (FieldContentFatalException e) {
+                  // If we get a fatal error, we can avoid an overflow of error output
+                  // by killing the loop through all the table records
+                  // Print the stack trace to an external file for inspection.
+                  FileService.printStackTraceToFile(null,e);
+                  break;
+              }
+
+              //Validate collection inventory member status
+              if (inventoryTable) {
+                	  Map<String, Integer> fieldMap = reader.getFieldMap();
+                	  String memberStatus = null;
+                	  if (fieldMap.containsKey("Member_Status")) {
+                	    memberStatus = record.getString(
+                	        fieldMap.get("Member_Status").intValue());
+                	  }else if (fieldMap.containsKey("Member Status")) {
+                	    memberStatus = record.getString(
+                	        fieldMap.get("Member Status").intValue());
+                	  }
+                	  if (!memberStatus.startsWith("P") &&
+                      !memberStatus.startsWith("S")) {
+                    addTableProblem(ExceptionType.ERROR,
+                        ProblemType.INVALID_MEMBER_STATUS,
+                        "Invalid member status " + memberStatus +
+                            ".  It should begin with 'P' or 'S'.",
+                        dataFile,
+                        tableIndex,
+                        reader.getCurrentRow());
+                	  }
+              }
+          } catch (IOException io) {
+                //An exception here means that the number of fields read in
+                //did not equal the number of fields exepected
+                addTableProblem(ExceptionType.ERROR,
+                    ProblemType.FIELDS_MISMATCH,
+                    io.getMessage(),
+                    dataFile,
+                    tableIndex,
+                    reader.getCurrentRow());                
+         }
+              
+         if (spotCheckData > 1) {
+                  // If spot checking is turned on, we want to skip to
+                  // the record just before the one we want to read
+                  try {
+                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
+                  } catch (IllegalArgumentException iae) {
+                    line = null;
+                    continue;
+                  } catch (IOException io) {
+                    throw new IOException("Error occurred "
+                        + "while reading table '" + tableIndex + "', "
+                        + "record '"
+                        + (reader.getCurrentRow() + spotCheckData) + "'");
+                  }
+          }
+              
+          // WARNING: All checks must happen before this in case we
+          // reach end of the table
+          if (table instanceof TableDelimited && 
+              definedNumRecords == reader.getCurrentRow()) {
+              break;
+          }
+          line = reader.readNextLine();
+      }
+      // only give error message when the actual record number is smaller than the defined in the label
+      if (definedNumRecords != -1 && 
+                (definedNumRecords>reader.getCurrentRow()) && spotCheckData == -1) {
+          String message = "Number of records read is not equal "
+                + "to the defined number of records in the label (expected "
+                + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
+          addTableProblem(ExceptionType.ERROR,
+                  ProblemType.RECORDS_MISMATCH,
+                  message,
+                  dataFile,
+                  tableIndex,
+                  -1);
+      } 
+      LOG.debug("validateTableContentLineWise:DONE_VALIDATING");
+  }
+
+
+  /**
+   * Given a text data file, read the first and inspect the line length.
+   * 
+   * @param dataFile The URL to the data file
+   * @return length of first line
+   */
+  private long getFirstLineLength(URL dataFile) {
+      long firstLineLength = 0;
+      LOG.debug("getFirstLineLength:dataFile,dataFile.getPath() {},{}",dataFile,dataFile.getPath());
+      BufferedReader reader;
+      try {
+          reader = new BufferedReader(new FileReader(dataFile.getPath()));
+          String line = reader.readLine();
+          if (line != null) {
+              firstLineLength = line.length(); 
+          }
+          reader.close();
+      } catch (IOException e) {
+          LOG.error("Cannot read from file {}",dataFile);
+          e.printStackTrace();
+      }
+      LOG.debug("getFirstLineLength:dataFile,firstLineLength {},{}",dataFile,firstLineLength);
+      return(firstLineLength);
+  }
+
+  /**
+   * Given a text table object, determine if it a line oriented table or not.  A line-oriented table contains some record delimiter and optional record_length.
+   * 
+   * @param table The table object
+   * @param dataFile The URL to the data file
+   * @return true if the line is line-oriented and false if not
+   */
+  private boolean isTableLineOriented(Object table, URL dataFile) {
+      boolean tableIsLineOrientedFlag = false;
+
+      LOG.debug("isTableLineOriented:table isinstanceof {}",table.getClass().getSimpleName());
+
+      // Must check to see that the record_delimiter tag is not "Line-Feed" or "Carriage-Return Line-Feed" as the function validateTableContentRecordWise cannot process such a file.
+      if (table instanceof TableCharacter) {
+          TableCharacter tableCharacter = (TableCharacter) table;
+          LOG.debug("isTableLineOriented:tableCharacter.getRecordDelimiter().toLowerCase() {}",tableCharacter.getRecordDelimiter().toLowerCase());
+          if (tableCharacter.getRecordDelimiter().toLowerCase().contains("line-feed"))
+              tableIsLineOrientedFlag = true;
+
+          // If a record_length is provided, it takes precedent over the carriage return/line feed.
+          if (tableCharacter.getRecordCharacter() != null &&  tableCharacter.getRecordCharacter().getRecordLength() != null) {
+              long recordLength = tableCharacter.getRecordCharacter().getRecordLength().getValue().intValueExact();
+              if (recordLength > 0)
+                  tableIsLineOrientedFlag = false; // A record has length, it is not a line oriented table.  Validate should read until it gets all the bytes specified in record_length.
+
+              // Inspect the length of first line.
+              // If it is less than the record_length, then it is not a line oriented table because the actual line is less than the advertised record_length value.
+              // For comparison between the first line and the record_length, remember that the readLine() strips any carriage return or linefeed so we need to add 1 before doing the comparison.
+              long firstLineLength = this.getFirstLineLength(dataFile);
+              if ((firstLineLength+1) < recordLength) {
+                  tableIsLineOrientedFlag = false;
+              } else {
+                  tableIsLineOrientedFlag = true; // The first line length is same or more than record length, it needs to processed line by line.
+              }
+              LOG.debug("isTableLineOriented:dataFile,firstLineLength,recordLength {},{},{}",dataFile,firstLineLength,recordLength);
+          }
+      } else if (table instanceof TableDelimited) {
+          // Table_Delimiter is processed line by line via a record_delimiter field.
+          tableIsLineOrientedFlag = true;
+      }
+      LOG.debug("isTableLineOriented:dataFile,tableIsLineOrientedFlag {},{}",dataFile,tableIsLineOrientedFlag);
+      return(tableIsLineOrientedFlag);
   }
 
   @ValidationTest
@@ -499,211 +873,31 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                       + "', record '" + reader.getCurrentRow() + "'");
             }
           } else {  // We have either a character or delimited table
-            boolean manuallyParseRecord = false;
-            String line = reader.readNextLine();
-            int lineNumber = 0;
-            while (line != null) {
-              progressCounter();
-              lineNumber += 1;
 
-              if (recordDelimiter != null) {
-                  // Check for how the line ends keying off what was provided in the label.
-                  // If the delimiter is "Carriage-Return Line-Feed" then the line should end with a carriage return and a line feed.
-                  if (recordDelimiter.equalsIgnoreCase("Carriage-Return Line-Feed") && !line.endsWith("\r\n")) {
-                    addTableProblem(ExceptionType.ERROR,
-                        ProblemType.MISSING_CRLF,
-                        "Record does not end in carriage-return line feed.",
-                        dataFile, tableIndex, reader.getCurrentRow());
-                    manuallyParseRecord = true;
-                  } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
-                      if (!line.endsWith("\n")) {  // If the delimiter is Line-Feed, then the line should end with "\n"
-                          // Perform a check if the record ends in line feed or not ("\n")
-                          // https://github.com/nasa-pds/validate/issues/292
-                          // If the delimiter is "Line-Feed" then the line should end with a line feed.
-                          addTableProblem(ExceptionType.ERROR,
-                              ProblemType.MISSING_LF,
-                              "Record does not end in line feed.",
-                              dataFile, tableIndex, reader.getCurrentRow());
-                       }
-                       if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
-                          addTableProblem(ExceptionType.ERROR,
-                              ProblemType.MISSING_LF,
-                              "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
-                              dataFile, tableIndex, reader.getCurrentRow());
-                       }
-                    manuallyParseRecord = true;
-                  } else {
-                    addTableProblem(ExceptionType.DEBUG,
-                        ProblemType.CRLF_DETECTED,
-                        "Record ends in carriage-return line feed.",
-                        dataFile,
-                        tableIndex,
-                        reader.getCurrentRow());
-                  }
-              } else {
-                  // If cannot find a record delimiter, check for the default carriage return line feed.
-                  if (!line.endsWith("\r\n")) {
-                    addTableProblem(ExceptionType.ERROR,
-                        ProblemType.MISSING_CRLF,
-                        "Record does not end in carriage-return line feed.",
-                        dataFile, tableIndex, reader.getCurrentRow());
-                    manuallyParseRecord = true;
-                  } else {
-                    addTableProblem(ExceptionType.DEBUG,
-                        ProblemType.CRLF_DETECTED,
-                        "Record ends in carriage-return line feed.",
-                        dataFile,
-                        tableIndex,
-                        reader.getCurrentRow());              
-                  }
-              }
+              // Must check to see that the record_delimiter tag is not "Line-Feed" or "Carriage-Return Line-Feed" as the function validateTableContentRecordWise cannot process such a file.
+              boolean tableIsLineOrientedFlag = this.isTableLineOriented(table,dataFile);
 
-              if (recordLength != -1) {
-                if (line.length() != recordLength) {
-                  addTableProblem(ExceptionType.ERROR,
-                      ProblemType.RECORD_LENGTH_MISMATCH,
-                      "Record does not equal the defined record length "
-                          + "(expected " + recordLength
-                          + ", got " + line.length() + ").",
-                      dataFile,
-                      tableIndex,
-                      reader.getCurrentRow()); 
-                  manuallyParseRecord = true;
-                } else {
-                  addTableProblem(ExceptionType.DEBUG,
-                      ProblemType.RECORD_MATCH,
-                      "Record equals the defined record length "
-                          + "(expected " + recordLength
-                          + ", got " + line.length() + ").",
-                      dataFile,
-                      tableIndex,
-                      reader.getCurrentRow());              
-                }
-              }
-              if (recordMaxLength != -1) {
-                if (line.length() > recordMaxLength) {
-                  addTableProblem(ExceptionType.ERROR,
-                      ProblemType.RECORD_LENGTH_MISMATCH,
-                      "Record length exceeds the max defined record length "
-                          + "(expected " + recordMaxLength
-                          + ", got " + line.length() + ").",
-                      dataFile,
-                      tableIndex,
-                      reader.getCurrentRow());
-                  manuallyParseRecord = true;
-                } else {
-                  addTableProblem(ExceptionType.DEBUG,
-                      ProblemType.GOOD_RECORD_LENGTH,
-                      "Record length is less than or equal to the max "
-                          + "defined record length "
-                          + "(max " + recordMaxLength
-                          + ", got " + line.length() + ").",
-                      dataFile,
-                      tableIndex,
-                      reader.getCurrentRow());
-                }
-              }
-              // Need to manually parse the line if we're past the defined
-              // number of records. The PDS4-Tools library won't let us
-              // read past the defined number of records.
-              if (reader.getCurrentRow() > definedNumRecords) {
-                manuallyParseRecord = true;
-              }
-              try {
-                if (manuallyParseRecord && !(table instanceof TableDelimited)) {
-                  record = reader.toRecord(line, reader.getCurrentRow());
-                } else {
-                	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
-                  record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
-                }
+             // Determine if we should proceed with calling validateTableContentRecordWise() function.
+             // Note that the function validateTableContentRecordWise() can only be applied if the user had specify a length of each record.
+             if (tableIsLineOrientedFlag == false && this.getCheckInbetweenFields() == false) {
+                 LOG.debug("validateTableDataContents:TABLE_LINEWISE_FALSE {}",dataFile);
+                 try {
 
-                // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
-                if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
-                    tableCharacterUtil.validateInBetweenFields(line,lineNumber);
-                }
+                     this.validateTableContentRecordWise(fieldValueValidator, table, dataFile, tableIndex, spotCheckData, keepQuotationsFlag);
 
-                //Validate fields within the record here
-                try {
-                    fieldValueValidator.validate(record, reader.getFields());
-                } catch (FieldContentFatalException e) {
-                    // If we get a fatal error, we can avoid an overflow of error output
-                    // by killing the loop through all the table records
-                    // Print the stack trace to an external file for inspection.
-                    FileService.printStackTraceToFile(null,e);
-                    break;
-                }
+                 } catch (Exception ex) {
+                     LOG.error("ERROR: Cannot validate data file {}",dataFile);
+                     // Print the stack trace to an external file for inspection.
+                     FileService.printStackTraceToFile(null,ex);
+                 }
+             } else {
+                 LOG.debug("validateTableDataContents:TABLE_LINEWISE_TRUE {}",dataFile);
 
-                //Validate collection inventory member status
-                if (inventoryTable) {
-                	  Map<String, Integer> fieldMap = reader.getFieldMap();
-                	  String memberStatus = null;
-                	  if (fieldMap.containsKey("Member_Status")) {
-                	    memberStatus = record.getString(
-                	        fieldMap.get("Member_Status").intValue());
-                	  }else if (fieldMap.containsKey("Member Status")) {
-                	    memberStatus = record.getString(
-                	        fieldMap.get("Member Status").intValue());
-                	  }
-                	  if (!memberStatus.startsWith("P") &&
-                      !memberStatus.startsWith("S")) {
-                    addTableProblem(ExceptionType.ERROR,
-                        ProblemType.INVALID_MEMBER_STATUS,
-                        "Invalid member status " + memberStatus +
-                            ".  It should begin with 'P' or 'S'.",
-                        dataFile,
-                        tableIndex,
-                        reader.getCurrentRow());
-                	  }
-                }
-              } catch (IOException io) {
-                //An exception here means that the number of fields read in
-                //did not equal the number of fields exepected
-                addTableProblem(ExceptionType.ERROR,
-                    ProblemType.FIELDS_MISMATCH,
-                    io.getMessage(),
-                    dataFile,
-                    tableIndex,
-                    reader.getCurrentRow());                
-              }
-              
-              if (spotCheckData > 1) {
-                  // If spot checking is turned on, we want to skip to
-                  // the record just before the one we want to read
-                  try {
-                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
-                  } catch (IllegalArgumentException iae) {
-                    line = null;
-                    continue;
-                  } catch (IOException io) {
-                    throw new IOException("Error occurred "
-                        + "while reading table '" + tableIndex + "', "
-                        + "record '"
-                        + (reader.getCurrentRow() + spotCheckData) + "'");
-                  }
-              }
-              
-              // WARNING: All checks must happen before this in case we
-              // reach end of the table
-              if (table instanceof TableDelimited && 
-                  definedNumRecords == reader.getCurrentRow()) {
-                break;
-              }
-              line = reader.readNextLine();
+                 this.validateTableContentLineWise(fieldValueValidator, table, record, reader, dataFile, tableIndex,
+                     spotCheckData, keepQuotationsFlag, recordDelimiter, recordLength, recordMaxLength, definedNumRecords, inventoryTable,
+                     tableCharacterUtil);
             }
-            // only give error message when the actual record number is smaller than the defined in the label
-            if (definedNumRecords != -1 && 
-                (definedNumRecords>reader.getCurrentRow()) && spotCheckData == -1) {
-              String message = "Number of records read is not equal "
-                + "to the defined number of records in the label (expected "
-                + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
-              addTableProblem(ExceptionType.ERROR,
-                  ProblemType.RECORDS_MISMATCH,
-                  message,
-                  dataFile,
-                  tableIndex,
-                  -1);
-            } 
-          }
+         }
         } catch (IOException io) {
           // Error occurred while reading the data file
           addTableProblem(ExceptionType.FATAL,
