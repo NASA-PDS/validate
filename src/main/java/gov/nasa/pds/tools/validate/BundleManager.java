@@ -50,7 +50,6 @@ public class BundleManager {
 	private static final Logger LOG = LoggerFactory.getLogger(BundleManager.class);
     private static final Pattern COLLECTION_LABEL_PATTERN = Constants.COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'.
     private static final Pattern BUNDLE_LABEL_PATTERN     = Constants.BUNDLE_LABEL_PATTERN;     // Ease the requirement to have an underscore after 'bundle'.
-    public static final String COLLECTION_NAME_TOKEN = Constants.COLLECTION_NAME_TOKEN;
     public static final String BUNDLE_NAME_TOKEN     = Constants.BUNDLE_NAME_TOKEN;
     public static final String LABEL_EXTENSION       = Constants.LABEL_EXTENSION;   // Used to look for label files.  Note that the extension does not contain the dot.
     public static final String[] LABEL_EXTENSIONS_LIST = new String[1]; 
@@ -196,7 +195,7 @@ public class BundleManager {
                     // Note: For some strange reason, the crawler goes into an infinite loop using the above call
                     //       so we will use an alternate call to get the list of files.
                     LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, COLLECTION_NAME_TOKEN);
+                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
                     LOG.debug("findCollectionWithLatestVersion: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -279,7 +278,7 @@ public class BundleManager {
                     // Note: For some strange reason, the crawler goes into an infinite loop using the above call
                     //       so we will use an alternate call to get the list of files.
                     LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, COLLECTION_NAME_TOKEN);
+                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
                     LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -474,7 +473,7 @@ public class BundleManager {
             // Note: For some strange reason, the crawler goes into an infinite loop using the above call
             //       so we will use an alternate call to get the list of files.
             LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), LABEL_EXTENSIONS_LIST, false, COLLECTION_NAME_TOKEN);
+            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
 
             for (Target target : allFiles) {
                 LOG.debug("findOtherCollectionFiles:target {}",target);

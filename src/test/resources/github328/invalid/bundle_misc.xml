@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:misc</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>PDS4 Miscellaneous Bundle</title>
+        <information_model_version>1.15.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <author_list>PDS</author_list>
+            <editor_list>PDS</editor_list>
+            <publication_year>2021</publication_year>
+            <description>
+                This Bundle contains miscellaneous products, mostly stragglers
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-08</modification_date>
+                <version_id>1.0</version_id>
+                <description>This is the initial version of the System Misc product.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+  
+    <Bundle>
+        <bundle_type>Supplemental</bundle_type>   
+        <description>The System Misc Bundle will be archived and is considered supplementary information; 
+                      in particular in support of archive preparation.
+        </description>
+    </Bundle>
+    
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:misc:document_cassini</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_document_collection</reference_type>
+    </Bundle_Member_Entry>
+    
+</Product_Bundle>

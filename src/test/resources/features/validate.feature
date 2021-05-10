@@ -102,7 +102,8 @@ Scenario Outline: Execute validate command for tests below.
 #
 
 # The 3 tests below are from "github209"
- |"NASA-PDS/validate#209 VALID" | "github209" | 1 | "1 message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json  -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
+# There should be no WARN message for VALID test.
+ |"NASA-PDS/validate#209 VALID" | "github209" | 0 | "0 WARN message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json  -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
 # For some reason, when ran, the actual number is 4 instead of 1.
 # [{"severity":"ERROR","type":"error.table.field_value_overlap","table":12,"record":1,"field":5,"message":"The bit field overlaps the next field. Current stop_bit_location: 23. Next start_bit_location: 20"}]}]}],"summary":{"totalErrors":4,
  |"NASA-PDS/validate#209 FAIL1" | "github209" | 1 | "1 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_2.json -s json  -t {resourceDir}/github209/FAIL1_overlapping_bit_fields.xml" | "report_github209_2.json" |
@@ -158,7 +159,18 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/335 validate gives a NullPointerException during validation of a directory containing Table_Character products
 
  |"NASA-PDS/validate#335 VALID_1" | "github335" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github335_as_label_valid.json -s json -R pds4.label -t {resourceDir}/github335/minimal_test_product.xml" | "report_github335_as_label_valid.json" |
- |"NASA-PDS/validate#335 VALID_3" | "github335" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github335_as_dir_valid.json -s json -t {resourceDir}/github335/" | "report_github335_as_dir_valid.json" | 
+ |"NASA-PDS/validate#335 VALID_2" | "github335" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github335_as_dir_valid.json -s json -t {resourceDir}/github335/" | "report_github335_as_dir_valid.json" | 
+
+# https://github.com/NASA-PDS/validate/issues/328 validate bundle incorrectly reports "not a member of any collection" that it passed before
+
+ |"NASA-PDS/validate#328 VALID" | "github328" | 0 | "0 warning messages expected." | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_valid.json -s json -t {resourceDir}/github328/valid/bundle_misc.xml" | "report_github328_bundle_valid.json" |
+ |"NASA-PDS/validate#328 INVALID" | "github328" | 1 | "1 warning messages expected." | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_invalid.json -s json -t {resourceDir}/github328/invalid/bundle_misc.xml" | "report_github328_bundle_invalid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/334 validate 2.1.0 snapshot fails on a label with 2 table_character
+
+ |"NASA-PDS/validate#334 VALID" | "github334" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_valid.json -s json -t {resourceDir}/github334/valid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_valid.json" |
+ |"NASA-PDS/validate#334 VALID" | "github334" | 2 | "2 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_invalid.json -s json -t {resourceDir}/github334/invalid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_invalid.json" |
+
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

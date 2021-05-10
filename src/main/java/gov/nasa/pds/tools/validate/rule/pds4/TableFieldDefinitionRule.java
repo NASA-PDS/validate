@@ -199,7 +199,12 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
 
         // At this point, all nodes are valid and should be able to perform validation on. 
 
-        numFields = Integer.parseInt(extractor.getValueFromDoc(RECORD_CHARACTER_FIELDS));
+        // Care must be taken to get a list of values since there may be multiple tables.
+        List<String> listofFields = extractor.getValuesFromDoc(RECORD_CHARACTER_FIELDS);
+        for (String singleFieldsValue : listofFields) {
+            numFields += Integer.parseInt(singleFieldsValue);
+        }
+
         //LOG.debug("numFields,getTarget() {}",numFields,getTarget());
         LOG.info("validateFieldFormats:target,recordCharacterNode {},{}",getTarget(),recordCharacterNode);
 
@@ -222,9 +227,11 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
             fieldTypeList.add(fieldValue);
         }
 
-        LOG.debug("validateFieldFormats:fieldFormatList {}",fieldFormatList);
-        LOG.debug("validateFieldFormats:fieldTypeList {}",fieldTypeList);
-        LOG.debug("validateFieldFormats:fieldNumberList{}",fieldNumberList);
+        LOG.debug("validateFieldFormats:fieldFormatList {},{}",fieldFormatList,fieldFormatList.size());
+        LOG.debug("validateFieldFormats:fieldTypeList {},{}",fieldTypeList,fieldTypeList.size());
+        LOG.debug("validateFieldFormats:fieldNumberList{},{}",fieldNumberList,fieldNumberList.size());
+        LOG.debug("validateFieldFormats:fieldFormatList.size() {}",fieldFormatList.size());
+        LOG.debug("validateFieldFormats:field:numFields {}",numFields);
 
         // The field 'field_format' is optional so the value of fieldFormatList.size() can be zero.
         // Only perform a check on the field format if it is available and everything matches.

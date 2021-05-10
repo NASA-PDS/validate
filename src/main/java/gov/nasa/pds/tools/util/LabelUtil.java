@@ -76,6 +76,18 @@ public class LabelUtil {
   }
 
   /**
+   * Reset Information Model Versions List to zero size.
+   * @param  None
+   * @return None
+   */
+  public static synchronized void hardResetInformationModelVersions() {
+      if (informationModelVersions.size() > 0) {
+          LabelUtil.informationModelVersions.clear();
+      }
+      LOG.debug("LabelUtil:hardResetInformationModelVersions");
+  }
+
+  /**
    * Reset all list(s) and variables back to their default states.
    * @param  None
    * @return None
