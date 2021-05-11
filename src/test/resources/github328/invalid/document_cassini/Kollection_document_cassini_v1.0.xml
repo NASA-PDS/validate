@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1         https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:misc:document_cassini</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Miscellaneous PDS documents</title>
+        <information_model_version>1.15.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+            <author_list>PDS Data Design Working Group (DDWG)</author_list>
+            <editor_list>PDS Change Control Board (CCB)</editor_list>
+            <publication_year>2021</publication_year>
+            <description>Miscellaneous Cassini documents not otherwise referenced by a PDS4 xml label.  For the docs with PDS3 labels:
+    LID = "pds3_" + PRODUCT_ID (collision if >1 Cassini DATA_SET use the same PRODUCT_ID)
+    title = "PDS3 " + DOCUMENT_NAME
+These LIDs are
+u:n:p:misc:document_cassini:pds3_caps_pds_user_guide_v1_00
+u:n:p:misc:document_cassini:pds3_cassini_mag_user_guide-131008
+u:n:p:misc:document_cassini:pds3_inms_pds_ug_jul2011
+u:n:p:misc:document_cassini:pds3_mimi_user_guide_v2
+u:n:p:misc:document_cassini:pds3_titan_ion_ug_itar_mar2012
+u:n:p:misc:document_cassini:pds3_titan_neutrals_ug_itar_sep2011
+
+The ones with no good PDS3 label, by LID,filename,title
+u:n:p:misc:document_cassini:pds3_radioscience_ug_20180930
+  Cassini_Radio_Science_Users_Guide_30Sep2018.pdf (was Cassini Radio Science Users Guide - 30 Sep 2018.pdf)
+  PDS3 Cassini Radio Science User's Guide
+u:n:p:misc:document_cassini:pds3_cda_datahandbook_20120723
+  cdaDataHB-5-4-17.pdf
+  PDS3 The Cosmic Dust Analyser Data Handbook
+u:n:p:misc:document_cassini:pds3_cassini_uvis_ug_20180706
+  Cassini_UVIS_Users_Guide_20180706.pdf (was Cassini_UVIS_Users_Guide.pdf from https://pds-rings.seti.org/holdings/archives-volumes/COUVIS_8xxx/COUVIS_8001.tar.gz)
+  PDS3 Cassini UVIS User's Guide
+u:n:p:misc:document_cassini:pds3_radar_ug_201909
+  Cassini_RADAR_Users_Guide_2nd_Ed_191004_cmp_200421.pdf
+  PDS3 Cassini RADAR Users Guide - Second Edition  
+</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-20</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:misc</lid_reference>
+            <reference_type>collection_to_bundle</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <Collection>
+        <collection_type>Document</collection_type>
+    </Collection>
+    <File_Area_Inventory>
+        <File>
+            <file_name>Collection_document_cassini_v1.0.csv</file_name>
+            <creation_date_time>2021-04-20T02:04:23Z</creation_date_time>
+            <file_size unit="byte">79</file_size>
+            <records>1</records>
+            <md5_checksum>94412a4a34fd6d59be52d590a9313e18</md5_checksum>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>1</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">79</maximum_record_length>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <field_format>%1s</field_format>
+                    <description>Member Status of the files in the collection.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                    <field_format>%-255s</field_format>
+                    <description>LIDVIDs of the files.</description>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>

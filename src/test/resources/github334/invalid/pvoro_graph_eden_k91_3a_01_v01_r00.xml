@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1800.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1800.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orse.pvo:data_derived:pvoro_graph_eden_k91_3a_01</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Pioneer Venus Orbiter Radio Occultation Profiles Derived Data</title>
+        <information_model_version>1.8.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1980-10-01T18:24:18.927Z</start_date_time>
+            <stop_date_time>1980-10-01T18:24:18.927Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+      		<Science_Facets>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+      		    <facet1>Structure</facet1>
+      		</Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Pioneer Venus</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.pioneer_venus</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Pioneer Venus</name>
+            <Observing_System_Component>
+                <name>Pioneer Venus Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.pvo</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Radio Science Experiment</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:pvo.orse</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orse.pvo:document:userguide</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>pvoro_graph_eden_k91_3a_01_v01_r00.tab</file_name>
+            <local_identifier>pvoro_graph_eden_k91_3a_01_file</local_identifier>
+            <creation_date_time>2020-08-13T23:11:47.051Z</creation_date_time>
+            <file_size unit="byte">2878</file_size>
+        </File>
+        <Table_Character>
+            <name>Pioneer Venus Orbiter Occultation Graphical Electron Density Header Table</name>
+            <local_identifier>pvoro_graph_eden_k91_3a_01_header_table</local_identifier>
+            <offset unit="byte">0</offset>
+            <records>1</records>
+            <description>A one record table with observing conditions for this observation</description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>8</fields>
+                <groups>0</groups>
+                <record_length unit="byte">122</record_length>
+                <Field_Character>
+                    <name>SOURCEID</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <unit>Dimensionless</unit>
+                    <description>
+                    Identification of the original source of the data product, 
+                    graph_aaa_bb_cc where "graph" indicates a graphical profile, 
+                    "aaa" is either "k91" (Kliore and Luhmann, 1991) or "k92" 
+                    (Kliore, 1992), "bb” is the number of the figure in the
+                    relevant publication, and "cc" is an index identifying the 
+                    location of the relevant profile in the figure, counting from 
+                    left to right. An example is graph_k91_3a_01, which identifies 
+                    the first profile in Figure 3a of Kliore and Luhmann (1991).
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SZA_ORIG</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>degree</unit>
+                    <description>
+                    Solar zenith angle reported for this profile in the original source.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>UTC_SPICE</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">37</field_location>
+                    <data_type>ASCII_Date_Time_YMD</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <unit>Dimensionless</unit>
+                    <description>
+                    UTC at Venus at time of occultation, as found from SPICE.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>NX</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">61</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>Dimensionless</unit>
+                    <description>
+                    Value of "0" if an ingress occultation, "1" if an egress occultation.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SZA_SPICE</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">73</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>degree</unit>
+                    <description>
+                    Solar zenith angle at time and location of occultation, as found from SPICE.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>LAT_SPICE</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">85</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>degree</unit>
+                    <description>
+                    Planetocentric north latitude at time and location of occultation, as found from SPICE.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>LON_SPICE</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">97</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>degree</unit>
+                    <description>
+                    Planetocentric east longitude at time and location of occultation, as found from SPICE.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>LST_SPICE</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">109</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>hour</unit>
+                    <description>
+                    Local solar time at time and location of occultation, as found from SPICE.
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+        <Table_Character>
+            <name>Pioneer Venus Orbiter Occultation Graphical Electron Density Body Table</name>
+            <local_identifier>pvoro_graph_eden_k91_3a_01_body_table</local_identifier>
+            <offset unit="byte">122</offset>
+            <records>106</records>
+            <description>Vertical profile of electron density from graphical source</description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>77</fields>
+                <groups>0</groups>
+                <record_length unit="byte">26</record_length>
+                <Field_Character>
+                    <name>Z</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>kilometer</unit>
+                    <description>
+                    Altitude of measurement, zero if undefined.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EDEN</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">13</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <unit>1/(cubic centimeter)</unit>
+                    <description>
+                    Electron density measurement, zero if undefined.
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

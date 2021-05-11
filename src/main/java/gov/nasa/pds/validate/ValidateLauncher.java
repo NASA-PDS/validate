@@ -1234,6 +1234,11 @@ public class ValidateLauncher {
         LabelUtil.setLauncherURIName(new URI(ValidateLauncher.class.getName()).toString());
         LabelUtil.setReport(report);
 
+        // Explicitly clear out all elements in the list of Information Model Versions.
+        // The reason is for regression tests, the list of Information Model Versions grows if a previous run for label may contains
+        // one IM version and the current bundle may contains another version, the code will incorrectly gives a WARNING that it has multiple versions.
+        LabelUtil.hardResetInformationModelVersions();
+
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
@@ -1288,13 +1293,13 @@ public class ValidateLauncher {
                 validator.validate(monitor, target);
                 monitor.endValidation();
 
-                // If the rule is pds4.label, clear out the list of Information Model Versions except the first element.
                 if (validationRule != null) {
+                    // If the rule is pds4.label, clear out the list of Information Model Versions except the first element.
                     if (validationRule.equals("pds4.label")) {
                         LabelUtil.reduceInformationModelVersions();
                     }
                 }
-                
+
                 if (monitor.numErrors > 0) { success = false; }
                 LOG.debug("ValidateLauncher:doValidation: monitor.numErrors,target,success {},{},{}",monitor.numErrors,target,success);
             } catch (Exception e) {
