@@ -1,15 +1,6 @@
 # Changelog
 
-## [Unreleased](https://github.com/NASA-PDS/validate/tree/HEAD)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...HEAD)
-
-**Defects:**
-
-- validate gives a NullPointerException during validation of a directory containing Table\_Character products [\#335](https://github.com/NASA-PDS/validate/issues/335) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- File-size check fails for large data files [\#326](https://github.com/NASA-PDS/validate/issues/326) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-07)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-11)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.3...v2.1.0-SNAPSHOT)
 
@@ -17,8 +8,12 @@
 
 - Validate fails with Java Error [\#337](https://github.com/NASA-PDS/validate/issues/337) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate2.0.3 throws unexpected JavaExceptions, and after fix, it hangs when trying bundle validation [\#336](https://github.com/NASA-PDS/validate/issues/336) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate gives a NullPointerException during validation of a directory containing Table\_Character products [\#335](https://github.com/NASA-PDS/validate/issues/335) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate 2.1.0 snapshot fails on a label with 2 table\_character [\#334](https://github.com/NASA-PDS/validate/issues/334) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate -u exits badly [\#333](https://github.com/NASA-PDS/validate/issues/333)
+- validate bundle incorrectly reports "not a member of any collection" that it passed before [\#328](https://github.com/NASA-PDS/validate/issues/328) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate fails to process large data file [\#327](https://github.com/NASA-PDS/validate/issues/327) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- File-size check fails for large data files [\#326](https://github.com/NASA-PDS/validate/issues/326) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate Incorrectly Throws Error When Embedded Field\_Character Contains \<CR\>\<LF\> [\#325](https://github.com/NASA-PDS/validate/issues/325) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v2.0.3](https://github.com/NASA-PDS/validate/tree/v2.0.3) (2021-05-03)
