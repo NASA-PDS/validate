@@ -32,8 +32,8 @@ name: 🤪 Unstable integration & delivery
 on:
     push:
         branches:
-            -   **
-            -   !master
+            -   '**'
+            -   '!master'
 
 
 # What to Do
