@@ -43,7 +43,8 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#51 1" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_1.json -s json -t {resourceDir}/github51" | "report_github51_1.json" |
  |"NASA-PDS/validate#51 2" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_2.json -s json -t {resourceDir}/github51/valid" | "report_github51_2.json" |
- |"NASA-PDS/validate#51 3" | "github51" | 2 | "2 errors expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --alternate_file_paths src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra --skip-product-validation --skip-content-validation -r {reportDir}/report_github51_3.json -s json -t {resourceDir}/github51/valid" | "report_github51_3.json" |
+# Previous 2 info.validation.general plus 5 new ones from warning messages from code changes in https://github.com/NASA-PDS/validate/issues/308
+ |"NASA-PDS/validate#51 3" | "github51" | 7 | "7 errors expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --alternate_file_paths src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra --skip-product-validation --skip-content-validation -r {reportDir}/report_github51_3.json -s json -t {resourceDir}/github51/valid" | "report_github51_3.json" |
 
  |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
  |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
@@ -171,6 +172,13 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#334 VALID" | "github334" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_valid.json -s json -t {resourceDir}/github334/valid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_valid.json" |
  |"NASA-PDS/validate#334 VALID" | "github334" | 2 | "2 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_invalid.json -s json -t {resourceDir}/github334/invalid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_invalid.json" |
 
+# https://github.com/NASA-PDS/validate/issues/308 As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle
+
+ |"NASA-PDS/validate#308 VALID" | "github308" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github308_bundle_valid.json -s json -t {resourceDir}/github308/valid/bundle_kaguya_derived.xml" | "report_github308_bundle_valid.json" |
+# 2 warning.integrity.unreferenced_member
+# 4 info.validation.general
+#
+ |"NASA-PDS/validate#308 INVALID" | "github308" | 6 | "6 warning messages expected." | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github308_bundle_invalid.json -s json -t {resourceDir}/github308/invalid/bundle_kaguya_derived.xml" | "report_github308_bundle_invalid.json" |
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

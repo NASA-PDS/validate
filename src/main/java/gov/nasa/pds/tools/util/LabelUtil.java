@@ -19,6 +19,7 @@ import java.net.URI;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathConstants;
@@ -50,6 +51,16 @@ public class LabelUtil {
   // functions and variables, some will be synchronized to protect the data from concurrent access.
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelUtil.class);
+
+  private static String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
+  private static String INFORMATION_MODEL_VERSION = "information_model_version";
+  private static String IDENTIFICATION_AREA = "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']";
+  private static String INTERNAL_REFERENCE_AREA = "//*:Reference_List/*:Internal_Reference[namespace-uri()='" + PDS4_NS + "']";
+  private static String LIDVID_REFERENCE = "lidvid_reference";
+  private static String LID_REFERENCE = "lid_reference";
+  private static String LOGICAL_IDENTIFIER_TAG = "logical_identifier";
+  private static String VERSION_ID_TAG = "version_id";
+
   private static URL contextValue = null;
   private static String location = null;
   
@@ -98,6 +109,7 @@ public class LabelUtil {
       LabelUtil.bundleLabelSetFlag = false;
       LabelUtil.bundleLocation     = null;
       LabelUtil.launcherURIName    = null;
+      LOG.debug("LabelUtil:reset()");
   }
 
   /**
@@ -191,9 +203,6 @@ public class LabelUtil {
    */
   public static String getIMVersion(DOMSource source, URL context) {
       String informationModelVersion = null;
-      String INFORMATION_MODEL_VERSION = "information_model_version";
-      String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
-      String IDENTIFICATION_AREA = "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']";
       LOG.debug("getIMVersion:MY_SOURCE[{}]",source);
       try {
           NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFICATION_AREA,source,XPathConstants.NODESET);
@@ -212,6 +221,84 @@ public class LabelUtil {
      }
      LOG.debug("getIMVersion:context,informationModelVersion {},{}",context,informationModelVersion);
      return(informationModelVersion);
+  }
+
+
+  /**
+   * Get the LIDVID references in the label  (as a DOMSource)
+   * @param source The content of context as a DOMSource.
+   # @param context The location of the label being parsed from.
+   * @return lidOrLidVidReference The LID or LIDVID referenced in this label.
+   */
+  public static ArrayList<String> getLidVidReferences(DOMSource source, URL context) {
+      ArrayList<String> lidOrLidVidReferences = new ArrayList<String>(0);
+      LOG.debug("getLidVidReferences:MY_SOURCE[{}]",source);
+
+      try {
+          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(INTERNAL_REFERENCE_AREA,source,XPathConstants.NODESET);
+          LOG.debug("context,nodeList.getLength() {},{}",context,nodeList.getLength());
+          for (int i = 0; i < nodeList.getLength(); ++i) {
+              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
+              for (int j = 0; j < childList.getLength(); ++j) {
+                  Node node = childList.item(j);
+                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  if (node.getNodeName().equals(LIDVID_REFERENCE) || node.getNodeName().equals(LID_REFERENCE)) {
+                      lidOrLidVidReferences.add(node.getTextContent().trim());
+                  }
+              }
+         }
+     } catch (XPathExpressionException ex) {
+         LOG.error("Cannot extract field " + LIDVID_REFERENCE + " or " + LID_REFERENCE + " from context " + context.toString());
+     }
+     LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}",context,lidOrLidVidReferences);
+     return(lidOrLidVidReferences);
+  }
+
+  /**
+   * Get the local identifiers the label (as a DOMSource)
+   * @param source The content of context as a DOMSource.
+   # @param context The location of the label being parsed from.
+   * @return logicalIdentifiers A list of logical identifiers in this label.
+   */
+  public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context) {
+      ArrayList<String> logicalIdentifiers = new ArrayList<String>(0);
+      LOG.debug("getLogicalIdentifiers:MY_SOURCE[{}]",source);
+
+      try {
+          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFICATION_AREA,source,XPathConstants.NODESET);
+          LOG.debug("context,nodeList.getLength() {},{}",context,nodeList.getLength());
+          for (int i = 0; i < nodeList.getLength(); ++i) {
+              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
+              String singleLogicalIdentifier = null;
+              String singleVersion = null;
+              String singleLidvidValue = null;
+              for (int j = 0; j < childList.getLength(); ++j) {
+                  Node node = childList.item(j);
+                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  if (node.getNodeName().equals(LOGICAL_IDENTIFIER_TAG) || node.getNodeName().equals(VERSION_ID_TAG)) {
+                      if (node.getNodeName().equals(LOGICAL_IDENTIFIER_TAG)) 
+                          singleLogicalIdentifier = node.getTextContent().trim();
+                      if (node.getNodeName().equals(VERSION_ID_TAG))
+                         singleVersion = node.getTextContent().trim();
+                  }
+              }
+              if (singleLogicalIdentifier != null) {
+                  if (singleVersion != null) {
+                      // Append the version if it is available.
+                      singleLidvidValue = singleLogicalIdentifier + "::" + singleVersion;
+                  } else {
+                      singleLidvidValue = singleLogicalIdentifier;
+                  }
+                  logicalIdentifiers.add(singleLidvidValue); 
+              }
+         }
+     } catch (XPathExpressionException ex) {
+         LOG.error("Cannot extract field " + LOGICAL_IDENTIFIER_TAG + " or " + VERSION_ID_TAG + " from context " + context.toString());
+     }
+     LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}",context,logicalIdentifiers);
+     return(logicalIdentifiers);
   }
 
   /**
