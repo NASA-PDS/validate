@@ -223,6 +223,55 @@ public class LabelUtil {
      return(informationModelVersion);
   }
 
+  private static ArrayList<String> getIdentifiersCommon(DOMSource source, URL context, String[] tagsList, String searchPathName) {
+      // Common function to retrieve values either from logical_identifier or lid_reference/lidvid_reference tags.
+      // Note that because a node for logical_identifier can have a version id in another tag, they both must be check
+      // before combining them together to .
+      ArrayList<String> commonIdentifiers = new ArrayList<String>(0);
+      LOG.debug("getIdentifiersCommon:MY_SOURCE[{}]",source);
+
+      try {
+          // Get to the node containing the searchPathName
+          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(searchPathName,source,XPathConstants.NODESET);
+          LOG.debug("getIdentifiersCommon:context,nodeList.getLength() {},{}",context,nodeList.getLength());
+          for (int i = 0; i < nodeList.getLength(); ++i) {
+              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
+              String singleIdentifier = null;
+              String singleVersion = null;
+              String singleLidvidValue = null;
+              for (int j = 0; j < childList.getLength(); ++j) {
+                  Node node = childList.item(j);
+                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  // Because the tagsList is an array, loop through to check for each tag
+
+                  for (int kk = 0; kk < tagsList.length; kk++) {
+
+                      if (node.getNodeName().equals(tagsList[kk]) || node.getNodeName().equals(VERSION_ID_TAG)) {
+                          if (node.getNodeName().equals(tagsList[kk])) 
+                              singleIdentifier = node.getTextContent().trim();
+                          if (node.getNodeName().equals(VERSION_ID_TAG))
+                             singleVersion = node.getTextContent().trim();
+                      }
+
+                  }
+              }
+              if (singleIdentifier != null) {
+                  if (singleVersion != null) {
+                      // Append the version if it is available.
+                      singleLidvidValue = singleIdentifier + "::" + singleVersion;
+                  } else {
+                      singleLidvidValue = singleIdentifier;
+                  }
+                  commonIdentifiers.add(singleLidvidValue); 
+              }
+         }
+     } catch (XPathExpressionException ex) {
+         LOG.error("Cannot extract field(s) {} or {} from context {}",tagsList,VERSION_ID_TAG,context.toString());
+     }
+     LOG.debug("getIdentifiersCommon:context,commonIdentifiers {},{}",context,commonIdentifiers);
+     return(commonIdentifiers);
+  }
 
   /**
    * Get the LIDVID references in the label  (as a DOMSource)
@@ -231,28 +280,16 @@ public class LabelUtil {
    * @return lidOrLidVidReference The LID or LIDVID referenced in this label.
    */
   public static ArrayList<String> getLidVidReferences(DOMSource source, URL context) {
-      ArrayList<String> lidOrLidVidReferences = new ArrayList<String>(0);
       LOG.debug("getLidVidReferences:MY_SOURCE[{}]",source);
 
-      try {
-          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(INTERNAL_REFERENCE_AREA,source,XPathConstants.NODESET);
-          LOG.debug("context,nodeList.getLength() {},{}",context,nodeList.getLength());
-          for (int i = 0; i < nodeList.getLength(); ++i) {
-              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
-              for (int j = 0; j < childList.getLength(); ++j) {
-                  Node node = childList.item(j);
-                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
-                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
-                  if (node.getNodeName().equals(LIDVID_REFERENCE) || node.getNodeName().equals(LID_REFERENCE)) {
-                      lidOrLidVidReferences.add(node.getTextContent().trim());
-                  }
-              }
-         }
-     } catch (XPathExpressionException ex) {
-         LOG.error("Cannot extract field " + LIDVID_REFERENCE + " or " + LID_REFERENCE + " from context " + context.toString());
-     }
-     LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}",context,lidOrLidVidReferences);
-     return(lidOrLidVidReferences);
+      String[] tagsList = new String[2];
+      tagsList[0] = LIDVID_REFERENCE;
+      tagsList[1] = LID_REFERENCE;
+
+      ArrayList<String> lidOrLidVidReferences = LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA);
+
+      LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}",context,lidOrLidVidReferences);
+      return(lidOrLidVidReferences);
   }
 
   /**
@@ -262,43 +299,15 @@ public class LabelUtil {
    * @return logicalIdentifiers A list of logical identifiers in this label.
    */
   public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context) {
-      ArrayList<String> logicalIdentifiers = new ArrayList<String>(0);
       LOG.debug("getLogicalIdentifiers:MY_SOURCE[{}]",source);
 
-      try {
-          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFICATION_AREA,source,XPathConstants.NODESET);
-          LOG.debug("context,nodeList.getLength() {},{}",context,nodeList.getLength());
-          for (int i = 0; i < nodeList.getLength(); ++i) {
-              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
-              String singleLogicalIdentifier = null;
-              String singleVersion = null;
-              String singleLidvidValue = null;
-              for (int j = 0; j < childList.getLength(); ++j) {
-                  Node node = childList.item(j);
-                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
-                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
-                  if (node.getNodeName().equals(LOGICAL_IDENTIFIER_TAG) || node.getNodeName().equals(VERSION_ID_TAG)) {
-                      if (node.getNodeName().equals(LOGICAL_IDENTIFIER_TAG)) 
-                          singleLogicalIdentifier = node.getTextContent().trim();
-                      if (node.getNodeName().equals(VERSION_ID_TAG))
-                         singleVersion = node.getTextContent().trim();
-                  }
-              }
-              if (singleLogicalIdentifier != null) {
-                  if (singleVersion != null) {
-                      // Append the version if it is available.
-                      singleLidvidValue = singleLogicalIdentifier + "::" + singleVersion;
-                  } else {
-                      singleLidvidValue = singleLogicalIdentifier;
-                  }
-                  logicalIdentifiers.add(singleLidvidValue); 
-              }
-         }
-     } catch (XPathExpressionException ex) {
-         LOG.error("Cannot extract field " + LOGICAL_IDENTIFIER_TAG + " or " + VERSION_ID_TAG + " from context " + context.toString());
-     }
-     LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}",context,logicalIdentifiers);
-     return(logicalIdentifiers);
+      String[] tagsList = new String[1];
+      tagsList[0] = LOGICAL_IDENTIFIER_TAG;
+
+      ArrayList<String> logicalIdentifiers = LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA);
+
+      LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}",context,logicalIdentifiers);
+      return(logicalIdentifiers);
   }
 
   /**

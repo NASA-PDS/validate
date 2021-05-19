@@ -88,7 +88,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   private ArrayList<String> lidOrLidVidReferencesCumulative = new ArrayList<String>(0);
   private ArrayList<URL> lidOrLidVidReferencesCumulativeFileNames = new ArrayList<URL>(0); // This array and lidOrLidVidReferencesCumulative should have the same size 
   private String bundleBaseID = null; 
-  private HashMap<String, String> filenameToLogicalIdentifierMap =  new HashMap<String, String>(); // A map to allow getting a logical identifier from a filename.
+  private HashMap<String, String> lidOrLidvidReferenceToLogicalIdentifierMap =  new HashMap<String, String>(); // A map to allow getting a logical identifier from lid_reference or lidvid_reference.
   
   @Override
   public boolean isApplicable(String location) {
@@ -165,18 +165,18 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
                     // We also need to check if the product is actually a product in the bundle.
                     // We should not throw a WARNING if the product does not belong to the bundle.
                     String filename = this.lidOrLidVidReferencesCumulativeFileNames.get(indexToFilenames).toString(); 
-                    String logicalIdentifierPerFilename = this.filenameToLogicalIdentifierMap.get(filename);
+                    String logicalIdentifierPerLidReference = this.lidOrLidvidReferenceToLogicalIdentifierMap.get(singleLidOrLidvidReference);
 
-                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
 
-                    boolean productBelongToBundleFlag = this.isIdentiferMatchingBundleBaseID(logicalIdentifierPerFilename);
+                    boolean productBelongToBundleFlag = this.isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
 
                     // Only throw a WARNING if the product does belong to this bundle.
                     if (productBelongToBundleFlag == true) {
-                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
                         this.performReporting(singleLidOrLidvidReference, false, indexToFilenames);
                     } else {
-                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
                     }
                 } else {
                     LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:LID_REFERENCE:singleLidOrLidvidReference {} is in logicalIdentifiersCumulative",singleLidOrLidvidReference);
@@ -187,17 +187,20 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
                     // We also need to check if the product is actually a product in the bundle.
                     // We should not throw a WARNING if the product does not belong to the bundle.
                     String filename = this.lidOrLidVidReferencesCumulativeFileNames.get(indexToFilenames).toString();
-                    String logicalIdentifierPerFilename = this.filenameToLogicalIdentifierMap.get(filename);
-                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                    String logicalIdentifierPerLidReference = this.lidOrLidvidReferenceToLogicalIdentifierMap.get(singleLidOrLidvidReference);
 
-                    boolean productBelongToBundleFlag = this.isIdentiferMatchingBundleBaseID(logicalIdentifierPerFilename);
+                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
+
+
+                    //boolean productBelongToBundleFlag = this.isIdentiferMatchingBundleBaseID(logicalIdentifierPerFilename);
+                    boolean productBelongToBundleFlag = this.isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
 
                     // Only throw a WARNING if the product does belong to this bundle.
                     if (productBelongToBundleFlag == true) {
-                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
                         this.performReporting(singleLidOrLidvidReference, true, indexToFilenames);
                     } else {
-                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerFilename {},{}",filename,logicalIdentifierPerFilename);
+                        LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
                     }
                 } else {
                     LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:LIDVID_REFERENCE:singleLidOrLidvidReference {} is in logicalIdentifiersCumulative",singleLidOrLidvidReference);
@@ -213,10 +216,12 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   private boolean hasReferenceIDAndFilenameComboAdded(String singleLidorLidVidReference, URL filename) {
       boolean referenceIDAndFilenameComboAddedFlag = false;
       // Build the combo of reference and filename together from input parameters.
-      String referenceIDAndFilenameComboValue = singleLidorLidVidReference + "/" + filename.toString();
+      // Remove the use of the slash '/' to avoid confusion.   We are merely looking at the combination of the lid_reference (or lidvid_reference) plus filename as strings for comparison.
+      String referenceIDAndFilenameComboValue = singleLidorLidVidReference + filename.toString();
       for (int ii=0; ii < this.lidOrLidVidReferencesCumulative.size(); ii++) {
           // Build the combo of reference and filename together from each value in this.lidOrLidVidReferencesCumulative.get and this.lidOrLidVidReferencesCumulativeFileNames.get.
-          String singleComboValue = this.lidOrLidVidReferencesCumulative.get(ii) + "/" + this.lidOrLidVidReferencesCumulativeFileNames.get(ii);
+          // Remove the use of the slash '/' to avoid confusion.   We are merely looking at the combination of the lid_reference (or lidvid_reference) plus filename as strings for comparison.
+          String singleComboValue = this.lidOrLidVidReferencesCumulative.get(ii) + this.lidOrLidVidReferencesCumulativeFileNames.get(ii);
           LOG.debug("hasReferenceIDAndFilenameComboAdded:referenceIDAndFilenameComboValue,singleComboValue {},{}",referenceIDAndFilenameComboValue,singleComboValue);
           if (referenceIDAndFilenameComboValue.equals(singleComboValue)) {
               // If there is a compare, we have found our answer and will break out of loop.
@@ -305,12 +310,6 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
                 if (matcher.matches()) {
                     this.bundleBaseID = this.getBundleBaseID(logicalIdentifiers, child.toString());
                 }
-
-                // Every file name is connected to a logical identifier.
-                // Save that in a Map so a logical identifier can be retrieved from a filename as key.
-
-                this.filenameToLogicalIdentifierMap.put(child.toString(), logicalIdentifiers.get(0));
-
             }
 
             if ((lidOrLidVidReferences != null) && !lidOrLidVidReferences.isEmpty()) {
@@ -324,6 +323,14 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
                         this.lidOrLidVidReferencesCumulativeFileNames.add(url);  // Save the file name as well so it can be referred to.
 
                         LOG.debug("bundleAdditionalReferentialIntegrityChecks:ADDING_REFERENCE {}",lidOrLidVidReferences.get(ii),lidOrLidVidReferencesCumulative.size());
+                    }
+
+                    // Every lid_reference or lidvid_reference is connected to a logical identifier.
+                    // Save that in a Map so a logical identifier can be retrieved from a lid_reference or lidvid_reference as key.
+                    if ((logicalIdentifiers != null) && !logicalIdentifiers.isEmpty()) {
+                        this.lidOrLidvidReferenceToLogicalIdentifierMap.put(lidOrLidVidReferences.get(ii), logicalIdentifiers.get(0));
+                    } else {
+                        LOG.error("Expecting the logicalIdentifiers array to be non-empty for label {}",url);
                     }
                 }
             }
