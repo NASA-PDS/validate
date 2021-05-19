@@ -660,14 +660,20 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
       FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
       long definedTotalRecords = 0, actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
+
+      LOG.debug("validateTableDataContents:getTarget,tableObjects.size {},{}",getTarget(),tableObjects.size());
       
       // Get total record size first before validation
       // issue_220 & issue_219
       try {
-    	  TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
-      	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
-    	  // set records size with the table index 1
-    	  actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
+          // github.com/NASA-PDS/validate/issues/344 Validate inexplicably writes to validate_stack_traces.log 
+          // Check for size of tableObjects to avoid the IndexOutOfBoundsException exception.
+          if (tableObjects.size() > 0) {
+              TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
+              // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
+              // set records size with the table index 1
+              actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
+          }
       }
       catch (InvalidTableException ex) {
     	 //ex.printStackTrace();
