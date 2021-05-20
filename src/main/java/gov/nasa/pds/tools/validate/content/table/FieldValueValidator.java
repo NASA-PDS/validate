@@ -17,6 +17,7 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +43,7 @@ import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
+import gov.nasa.pds.validate.util.Utility;
 
 /**
  * Class that performs content validation on the field values of a given
@@ -508,6 +510,18 @@ public class FieldValueValidator {
   private void checkType(String value, FieldType type) throws Exception {
     //File and directory naming rules are checked in the
     //FileAndDirectoryNamingRule class
+
+    LOG.debug("checkType:value,type:afor [{}],[{}]",value,type);
+
+    // https://github.com/NASA-PDS/validate/issues/345  validate incorrectly flags integers bounded by "" in a .csv
+    // Remove leading or trailing quotes if there are any.
+
+    List<Object> valuesList = new ArrayList<Object>(0);
+    valuesList.add(value);
+    value = (String) Utility.removeQuotes(valuesList).get(0);
+
+    LOG.debug("checkType:value,type:after [{}],[{}]",value,type);
+
     if (INF_NAN_VALUES.contains(value)) {
       throw new Exception(value + " is not allowed");
     }

@@ -1,0 +1,3 @@
+sample_id,sampleNum,sampleCode,expedition.id,expedition.name,geoFeatures.name,geoFeatures.id,geoFeatures.type,material.code,material.name,parent.sampleCode,parent.sampleNum,parent.id,sampleCollection.collectionTypeCode,sampleCollection.collectionTypeName,sampleType,taxons.name,taxons.type
+"MAxoQXUBT57IHjVoIXD1","232465","E AND A","","None",,,,"None","None","","","","","","ReferenceMaterial",,
+"btt2l3QBpybrwNsBphEP","173967","22001section#18#210#1","","None",,,,"COM","Composite","","","","","","Specimen",,

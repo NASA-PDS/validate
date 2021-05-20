@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B10_1700.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Collection 
+	xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd
+                      http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1B10_1700.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:data</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Data Collection for Uranus System Occultation of Star u36 (UCAC4 133-156970) Observed from the Maunakea UKIRT 380cm Telescope</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+            <author_list>French, Richard G.; McGhee-French, Colleen A.; Gordon, Mitchell K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>uranus rings</keyword>
+            <keyword>uranus rings stellar occultation</keyword>
+            <keyword>uranus rings stellar occultation radial profiles</keyword>
+            <description>This collection contains calibrated and derived data resulting from the occultation of star u36 (UCAC4 333-124092) by the rings of Uranus.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-05</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>1987-03-30T12:27:07.8210Z</start_date_time>
+            <stop_date_time>1987-03-30T16:05:55.9010Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>This collection contains calibrated and derived data resulting from the occultation of star u36 (UCAC4 333-124092) by the rings of Uranus.</description>
+            <Science_Facets>
+                <wavelength_range>Infrared</wavelength_range>
+                <discipline_name>Ring-Moon Systems</discipline_name>
+                <facet1>Ring Occultation Profile</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Earth-based Observations of Uranus System Stellar Occultations</name>
+            <type>Observing Campaign</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.juno</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Maunakea 380cm Telescope</name>
+            <Observing_System_Component>
+                <name>Maunakea Observatory</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:observatory.keck</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Uranus Rings</name>
+            <alternate_designation>U Rings</alternate_designation>
+            <type>Ring</type>
+            <description>
+                Any or all of the rings in the ring system of Uranus.
+                Center of motion: Uranus;
+                LID of central body: urn:nasa:pds:context:target:planet.uranus;
+                NAIF ID of central body: 799.
+            </description>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.uranus</lid_reference>
+                <reference_type>collection_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <geom:Geometry>
+                <geom:SPICE_Kernel_Files>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>ura111.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>vgr2.ura111.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>earthstns_itrf93_040916.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>BPC</geom:kernel_type>
+                        <geom:spice_kernel_file_name>earth_720101_031229.bpc</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>LSK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>naif0012.tls</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:comment>These kernel files were used in the generation of the products in the parent bundle. Some or all of them may not have been used directly in the generation of this product.</geom:comment>
+                </geom:SPICE_Kernel_Files>
+            </geom:Geometry>
+        </Discipline_Area>
+    </Context_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_support:document:earth-based-uranus-stellar-occultations-user-guide</lid_reference>            
+            <reference_type>collection_to_document</reference_type>
+            <comment>The User Guide for Earth-based Uranus Stellar Occultations.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_obs_geom</lid_reference>            
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Diagram of the Uranus system showing the occultation track.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_earth</lid_reference>            
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Diagram of the view of the Earth from Uranus at mid-occultation Time.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_alt</lid_reference>
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Plot of the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the occulation.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_counts-v-time_occult</lid_reference>
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Low resolution plot of counts vs. time for the entire occultation.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_counts-v-time_normalization</lid_reference>
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Illustrates some of the processing steps involved in normalizing a time-series occultation light curve from counts per second to units of stellar flux.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:browse:2200nm_ring_sqw_gallery</lid_reference>
+            <reference_type>collection_to_browse</reference_type>
+            <comment>Gallery of square-well diffraction model fits to individual ring profiles.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_support</lid_reference>
+            <reference_type>collection_to_resource</reference_type>
+            <comment>The support bundle for all of the Earth-based Uranus system occultations.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lidvid_reference>urn:nasa:pds:uranus_occ_support:data:uranus_occultation_ring_fit_rfrench_20201201::1.0</lidvid_reference>
+            <reference_type>collection_to_resource</reference_type>
+            <comment>The fitted model of the ring system upon which the data are based.</comment>
+        </Internal_Reference>
+        <External_Reference>
+            <reference_text>Elliot et al. (1984). "Structure of the Uranian rings. I. Square-well model and particle-size constraints" Astron J. 89, 1587-1603. http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1984AJ.....89.1587E&amp;data_type=PDF_HIGH&amp;whole_paper=YES&amp;type=PRINTER&amp;filetype=.pdf</reference_text>
+        </External_Reference>
+    </Reference_List>
+    <Collection>
+        <collection_type>Data</collection_type>
+    </Collection>
+    <File_Area_Inventory>
+        <File>
+            <file_name>collection_data.csv</file_name>
+            <creation_date_time>2021-04-05T12:44:43Z</creation_date_time>
+            <records>1</records>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>1</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>

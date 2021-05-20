@@ -1,0 +1,111 @@
+rfrench@Achilles.fios-router.home:/Volumes/PromisePegasus28TB_backup/dione_raid2/Research/uranus/PDART2014/programs/pro_rp_fit_sqw_batch_pds4_v3.pro
+ run Mon Apr  5 08:43:30 2021
+bundleID: uranus_occ_u36_maunakea_380cm
+Parameter file list command: 
+  cd /Volumes/dione_raid2/Research/uranus/u36/profile_fits/ukirt/sqw/final/; ls u36_maunakea_380cm_2200nm_ring_*gress.sqw
+ 
+Run flags:
+    PLOT = 1
+    SAVE = 1
+    OUTFITLIST = 1
+    DIAGNOSTICS = 0
+    ZEROFINAL = 0
+    FT2EWED = 1
+ 
+Event: u36
+Observatory: maunakea
+Telescope: 380cm
+Instrument: Generic InSb High Speed Photometer
+Ring: beta
+Ingress/Egress: ingress
+ 
+SQW parameter file: u36_maunakea_380cm_2200nm_ring_beta_ingress.sqw
+ 
+----------------------------------------------------------------
+DATA FILE_INFORMATION
+HSP File "u36_ukirt_ingress.hsp" Created on 2020 07 05 at 17 45 31
+U36 UKIRT 1987 MAR 30 12:27:07.8210 to 1987 MAR 30 16:05:55.8920 (ingress)
+Obs:1987 03 30 12:27:07.821000 UT-clk: 0.0000s dur:  13128.071s int:  0.008000s
+File: clock-start: 12:27:07.821000 dur:  13128.080s avgd at:   0.008000 s
+File data are from 1987 MAR 30 12:27:07.82100 to 1987 MAR 30 16:05:55.90100
+Observation from 1987 MAR 30 12:27:07.82100 to 1987 MAR 30 16:05:55.89200
+Ch:  1 (2200nm) data format: long??? (per unit along abcissa)
+
+Channel to Fit :1
+Seconds to Skip:  9720.00000
+Seconds to Read:   120.00000
+Seconds to Avg.:     0.08000
+Pts to Skip: 1215000
+Pts to Read:   15000
+Pts to Avg.:      10
+Model File: u36_ukirt_beta_ingress_model.hsp
+----------------------------------------------------------------
+EVENT INFORMATION
+Occultation Date: 1987 04 30
+Telescope: UKIRT 3.8m
+Instrument: Generic InSb High Speed Photometer
+Occulted Object: U36
+Ring Name: Beta
+Ingress/Egress flag: I
+Ring Plane Radial Velocity (km/s)       :     0.33491
+Sine of Orientation Angle of Ring Plane :     0.97770
+Observer to Ring Distance (km)          :  2835763749.2
+----------------------------------------------------------------
+SQUARE WELL MODEL INFORMATION
+Number of Mesh Points: 11
+Smooth over Integration Time? Y
+Wavelength File: 22000_ukirt.wl
+Double Pole Time Constant Function
+Duration of Time Constant Function (sec):    0.00000
+----------------------------------------------------------------
+
+perform_rp_fit_sqw 
+Run on Mon Apr  5 08:43:30 2021
+
+SQUARE WELL MODEL FIT RESULTS
+ 5 parameters fitted until epsilon <  1.000E-11 or 100 iterations
+Fit converged after   1 iterations
+Fit converged after       1.21 seconds
+Sum of squared residuals =             31007.877291
+RMS residual PDF =                 4.554235 counts/sec
+RMS residual PDF =                 0.119848 in units of stellar flux
+
+Analytic derivatives
+
+  Parameter       Initial Value     Final Value         Std. Dev.
+-------------------------------------------------------------------
+MID_TIME(s)   *     9774.308840     9774.308840          0.280642
+MID_TIME(UTC) *   15:10:02.1298   15:10:02.1298          0.280642
+WIDTH(s)      *       25.446000       25.446000          0.615147
+WIDTH(km)     *        8.522155        8.522155          0.206020
+V_PERP(km/s)           0.328207        0.328207    
+STAR_CTS(/s)          38.000000       38.000000    
+BASE_CTS(/s)  *     2191.797993     2191.797993          0.138532
+FRACTRANS     *        0.831044        0.831044          0.008057
+STARDIAM(s)            1.980454        1.980454    
+STARDIAM(km)           0.649999        0.649999    
+SLOPE         *       -0.050261       -0.050261          0.003424
+EQ_WIDTH(s)            4.299243        4.299243    
+EQ_WIDTH(km)           1.407756        1.407756    
+EQ_DEPTH(s)            4.709343        4.709343    
+EQ_DEPTH(km)           1.542039        1.542039    
+LIMB_DARKEN            0.000000        0.000000    
+TIME_CON(s)            0.000000        0.000000    
+TIME_CON(km)           0.000000        0.000000    
+R_DOT(km/s)           -0.334911       -0.334911    
+SIN_B                  0.977699        0.977699    
+
+Correlation matrix
+
+       MT    WI    BC    FT    SL    
+MT    1.00 -0.00 -0.12  0.01  0.09
+WI   -0.00  1.00  0.15  0.19 -0.03
+BC   -0.12  0.15  1.00 -0.44 -0.20
+FT    0.01  0.19 -0.44  1.00  0.08
+SL    0.09 -0.03 -0.20  0.08  1.00
+
+----------------------------------------------------------------
+Results saved in 
+ /Volumes/dione_raid2/Research/uranus/u36/profile_fits/ukirt/sqw/final/savefiles/
+ u36_maunakea_380cm_2200nm_ring_beta_ingress.sqw.sav
+----------------------------------------------------------------
