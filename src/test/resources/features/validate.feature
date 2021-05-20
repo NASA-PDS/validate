@@ -172,6 +172,7 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#334 VALID" | "github334" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_valid.json -s json -t {resourceDir}/github334/valid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_valid.json" |
  |"NASA-PDS/validate#334 VALID" | "github334" | 2 | "2 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github334_label_invalid.json -s json -t {resourceDir}/github334/invalid/pvoro_graph_eden_k91_3a_01_v01_r00.xml" | "report_github334_label_invalid.json" |
 
+
 # https://github.com/NASA-PDS/validate/issues/308 As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle
 
  |"NASA-PDS/validate#308 VALID" | "github308" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github308_bundle_valid.json -s json -t {resourceDir}/github308/valid/bundle_kaguya_derived.xml" | "report_github308_bundle_valid.json" |
@@ -179,6 +180,14 @@ Scenario Outline: Execute validate command for tests below.
 # 4 info.validation.general
 #
  |"NASA-PDS/validate#308 INVALID" | "github308" | 6 | "6 warning messages expected." | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github308_bundle_invalid.json -s json -t {resourceDir}/github308/invalid/bundle_kaguya_derived.xml" | "report_github308_bundle_invalid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/344 validate inexplicably writes to validate_stack_traces.log
+
+ |"NASA-PDS/validate#344 VALID" | "github344" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github344_bundle_valid.json -s json -t {resourceDir}/github344/bundle.xml" | "report_github344_bundle_valid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/345 validate incorrectly flags integers bounded by "" in a .csv
+
+ |"NASA-PDS/validate#345 VALID" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid.json -s json -t {resourceDir}/github345/astro_sample_t.xml" | "report_github345_label_valid.json" |
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

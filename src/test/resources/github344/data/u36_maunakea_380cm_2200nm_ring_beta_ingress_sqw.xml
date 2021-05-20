@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd">
+     <Identification_Area>
+        <logical_identifier>urn:nasa:pds:uranus_occ_u36_maunakea_380cm:data:2200nm_ring_beta_ingress_sqw</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Diffraction square well model fit to the occultation profile of u36 (UCAC4 333-124092) by Uranus Ring beta.</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Ancillary</product_class>
+        <Citation_Information>
+            <author_list>French, Richard G.; McGhee-French, Colleen A.; Gordon, Mitchell K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>model fit uranus rings</keyword>
+            <keyword>model fit uranus alpha</keyword>
+            <description>Input data and results of non-linear least squares fits of a diffraction square well model to the occultation profile of u36 (UCAC4 333-124092) by Uranus Ring beta.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-05</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+   <Context_Area>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Input ... profile.</description>
+            <Science_Facets>
+                <discipline_name>Ring-Moon Systems</discipline_name>
+                <facet1>Ring Occultation Profile</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Earth-based Observations of Uranus System Stellar Occultations</name>
+            <type>Observing Campaign</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.juno</lid_reference>
+                <reference_type>ancillary_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Target_Identification>
+            <name>Uranus Rings</name>
+            <alternate_designation>Uranian Ring System</alternate_designation>
+            <type>Ring</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.uranus</lid_reference>
+                <reference_type>ancillary_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_support:document:earth-based-uranus-stellar-occultations-user-guide</lid_reference>            
+            <reference_type>ancillary_to_document</reference_type>
+            <comment>The User Guide for Earth-based Uranus Stellar Occultations.</comment>
+        </Internal_Reference>
+    </Reference_List>
+
+    <File_Area_Ancillary>
+        <File>
+            <file_name>u36_maunakea_380cm_2200nm_ring_beta_ingress_sqw.txt</file_name>
+            <local_identifier>summary</local_identifier>
+            <creation_date_time>2021-04-05T12:43:43Z</creation_date_time>
+            <comment>This ...  </comment>
+        </File>
+        <Stream_Text>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Ancillary>
+
+    <File_Area_Ancillary>
+        <File>
+            <file_name>u36_maunakea_380cm_2200nm_ring_beta_ingress_sqw_p.tab</file_name>
+            <local_identifier>model-results</local_identifier>
+            <creation_date_time>2021-04-05T12:43:43Z</creation_date_time>
+            <comment>Time ... data.</comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">123</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <description>Provides the column headers, separated by commas, for the data table.</description>
+        </Header>
+        <Table_Character>
+            <offset unit="byte">123</offset>
+            <records>2</records>
+            <description>Time ... -9.9999900000E+99.</description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>15</fields>
+                <groups>0</groups>
+                <record_length unit="byte">285</record_length>
+                <Field_Character>
+                    <name>TSEC</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">17</field_length>
+                    <unit>s</unit>
+                    <description>Time in seconds from the start of the time series data file used for the fit, for the middle of each time bin.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>DATA</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">19</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <description>Observed counts per second, for each time bin.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>P</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">38</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>counts/s</unit>
+                    <description>P gives the model value for the recorded signal for each time bin. In Eq. 13, Elliot et al. (1984), P corresponds to n(t_i), where t_i is the time of the bin.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dT0</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">57</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>counts/(s*2)</unit>
+                    <description>Partial derivative dP/dt0, where P is the model and t0 is the midtime of the square well model. dP/dT0 is given in counts/s^2.  (Elliot et al. (1984), Table 1)</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dW</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">76</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>Seconds</unit>
+                    <description>Partial derivative dP/dW, where P is the model and W is the duration of the square well in seconds. dP/dW is given in counts/s^2. (Elliot et al. (1984), Table 1)</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dV</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">95</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>km*(-1)</unit>
+                    <description>Partial derivative dP/dv_perp, where P is the model and vperp is the component of the sky plane velocity of the star perpendicular to the local elliptical ring edge measured in km/sec. dP/dv_perp is given in inverse kilometers. (Elliot et al. (1984), Table 1)</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dSTAR_CTS</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">114</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <description>dP/dSTAR_CTS: Partial derivative dP/dnbar_star, where P is the model and nbar_star is unocculted star level in counts/second. (Elliot et al. (1984), Table 1).</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dBASE</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">133</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <description>dP/dBASE: Partical derivative dP/dnbar_b, where P is the model and nbar_b is the free-space background count rate in counts per second (Elliot et al. (1984), Table 1).</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dF</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">152</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>counts/s</unit>
+                    <description>Partial derivative dP/df_0, where P is the model and f_0 is the fractional transmission. dP/dF is given in counts/second. (Elliot et al. (1984), Table 1).</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dSTAR</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">171</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s*(-2)</unit>
+                    <description>Partial derivative dP/dT_star, where P is the model and T_star is the star diameter in seconds. dP/dSTAR is given in inverse seconds squared. (Elliot et al. (1984), Table 1).</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dSLOPE</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">190</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s</unit>
+                    <description>Partial derivative dP/d_ndot_b, where P is the model and n_dot_b is the background slope in counts/sec^2.	dP/dSLOPE is given is seconds. (Elliot et al. (1984), Table 1)</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dEW</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">209</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s*(-2)</unit>
+                    <description>Partial derivative dP/dE_0, where P is the model and E_0 is the equivalent width in seconds. dP/dEW is given in inverse seconds squared. (Elliot et al. (1984), Table 1). </description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dED</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">228</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s*(-2)</unit>
+                    <description>Partial derivative dP/dA_0, where P is the model and A_0 is the equivalent depth in seconds. dP/dED is given in inverse seconds squared. (Elliot et al. (1984), Table 1)</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dLIMB</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">247</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s*(-2)</unit>
+                    <description>Partial derivative dP/db, where P is the model and b is the limb darkening parameter.  dP/dLIMB is given in inverse seconds squared. (Elliot et al. dP/dLIMB  (1984), Table 1). </description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>dP/dTC</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">266</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>s*(-2)</unit>
+                    <description>Partial derivative dP/t_c, where P is the model and t_c is the time constant of the detector. dP/dEW is given in inverse seconds squared. (Elliot et al. (1984), Table 1)	Refer to the details of the fitted model function to determine whether the time constant is for a single- or double-pole filter - see also Eq. 9, Elliot et al. (1984).</description>
+                    <Special_Constants>
+                        <not_applicable_constant>-9.9999900000E+99</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Ancillary>
+
+</Product_Ancillary>

@@ -38,4 +38,4 @@ Steps to reproduce the behavior:
 
 <!-- FOR INTERNAL USE -->
 
-** :unicorn: Applicable requirements**
+## :unicorn: Applicable requirements**
