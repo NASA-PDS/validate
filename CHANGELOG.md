@@ -1,17 +1,13 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-05-20)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-20)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.4...v2.1.0-SNAPSHOT)
 
 **Defects:**
 
 - validate incorrectly flags integers bounded by "" in a .csv [\#345](https://github.com/NASA-PDS/validate/issues/345) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate inexplicably writes to validate\_stack\_traces.log [\#344](https://github.com/NASA-PDS/validate/issues/344) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-18)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.4...v2.1.0-SNAPSHOT)
 
 ## [v2.0.4](https://github.com/NASA-PDS/validate/tree/v2.0.4) (2021-05-11)
 
