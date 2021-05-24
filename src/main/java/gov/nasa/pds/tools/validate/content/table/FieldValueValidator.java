@@ -183,17 +183,16 @@ public class FieldValueValidator {
         //
         // New logic to check if the field starts with a double quote and then also contain a double quote inside.
 
-        String sanitizedValue = value;
         boolean fieldIsEnclosedByQuotes = false;
         // Remove the leading and trailing quotes from value if the field is enclosed by it.
         if (value.startsWith("\"") && value.endsWith("\"")) {
             fieldIsEnclosedByQuotes = true;
-            sanitizedValue = value.substring(1, value.length()-1);
+            String preSanitizedValue = value;
+            value  = value.substring(1, value.length()-1);  // Set the value as if it never had starting and ending quotes for this point on.
+            LOG.debug("validate:VALUE_SET_TO_SANITIZED:preSanitizedValue,value [{}],[{}]",preSanitizedValue,value);
         }
 
-        LOG.debug("fieldIsEnclosedByQuotes,value,sanitizedValue [{}],[{}]",fieldIsEnclosedByQuotes,value,sanitizedValue);
-
-        if (fieldIsEnclosedByQuotes && sanitizedValue.contains("\"")) {
+        if (fieldIsEnclosedByQuotes && value.contains("\"")) {
                 String message = "The field value '" + value.trim()
                   + "' that starts with double quote should not contain double quote(s)";
                 addTableProblem(ExceptionType.ERROR,
@@ -299,7 +298,13 @@ public class FieldValueValidator {
 
         // Per the DSV standard in section 4C.1 of the Standards Reference,
         // empty fields are ok for DelimitedTableRecord and space-padded empty fields are ok for FixedTableRecord
+
+        // https://github.com/NASA-PDS/validate/issues/345  validate incorrectly flags integers bounded by "" in a .csv
+        // Remove leading or trailing quotes if there are any.
+        // Because DSV can have quotes around the value, the value should have been stripped of any double quotes above.
+
         if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord)) {
+          LOG.debug("VALUE_IS_EMPTY_OR_VALUE_TRIM_IS_EMPTY_AND_FIXED_TABLE_RECORD_IS_OK [{}][{}]",value,record.getClass().getName());
           addTableProblem(ExceptionType.DEBUG, 
                   ProblemType.BLANK_FIELD_VALUE,
                   "Field is blank.", 
@@ -515,10 +520,9 @@ public class FieldValueValidator {
 
     // https://github.com/NASA-PDS/validate/issues/345  validate incorrectly flags integers bounded by "" in a .csv
     // Remove leading or trailing quotes if there are any.
-
-    List<Object> valuesList = new ArrayList<Object>(0);
-    valuesList.add(value);
-    value = (String) Utility.removeQuotes(valuesList).get(0);
+    // Note that the Utility.removeQuotes() function is taking [ ] and change to [] which is not what we want.
+    // The space should stay as is since the checking of the type is depending on it.
+    // What is in value should have been removed of any leading or trailing quotes already no need to do it again.
 
     LOG.debug("checkType:value,type:after [{}],[{}]",value,type);
 
