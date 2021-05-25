@@ -178,6 +178,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/345 validate incorrectly flags integers bounded by "" in a .csv
 
  |"NASA-PDS/validate#345 VALID" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid.json -s json -t {resourceDir}/github345/astro_sample_t.xml" | "report_github345_label_valid.json" |
+ |"NASA-PDS/validate#345 VALID_2" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid_2.json -s json -t {resourceDir}/github345/astro_sample_data_t.xml" | "report_github345_label_valid_2.json" |
 
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
