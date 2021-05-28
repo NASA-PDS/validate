@@ -19,6 +19,7 @@ import java.net.URI;
 import java.net.URL;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathConstants;
@@ -50,6 +51,16 @@ public class LabelUtil {
   // functions and variables, some will be synchronized to protect the data from concurrent access.
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelUtil.class);
+
+  private static String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
+  private static String INFORMATION_MODEL_VERSION = "information_model_version";
+  private static String IDENTIFICATION_AREA = "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']";
+  private static String INTERNAL_REFERENCE_AREA = "//*:Reference_List/*:Internal_Reference[namespace-uri()='" + PDS4_NS + "']";
+  private static String LIDVID_REFERENCE = "lidvid_reference";
+  private static String LID_REFERENCE = "lid_reference";
+  private static String LOGICAL_IDENTIFIER_TAG = "logical_identifier";
+  private static String VERSION_ID_TAG = "version_id";
+
   private static URL contextValue = null;
   private static String location = null;
   
@@ -98,6 +109,7 @@ public class LabelUtil {
       LabelUtil.bundleLabelSetFlag = false;
       LabelUtil.bundleLocation     = null;
       LabelUtil.launcherURIName    = null;
+      LOG.debug("LabelUtil:reset()");
   }
 
   /**
@@ -191,9 +203,6 @@ public class LabelUtil {
    */
   public static String getIMVersion(DOMSource source, URL context) {
       String informationModelVersion = null;
-      String INFORMATION_MODEL_VERSION = "information_model_version";
-      String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
-      String IDENTIFICATION_AREA = "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']";
       LOG.debug("getIMVersion:MY_SOURCE[{}]",source);
       try {
           NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFICATION_AREA,source,XPathConstants.NODESET);
@@ -212,6 +221,93 @@ public class LabelUtil {
      }
      LOG.debug("getIMVersion:context,informationModelVersion {},{}",context,informationModelVersion);
      return(informationModelVersion);
+  }
+
+  private static ArrayList<String> getIdentifiersCommon(DOMSource source, URL context, String[] tagsList, String searchPathName) {
+      // Common function to retrieve values either from logical_identifier or lid_reference/lidvid_reference tags.
+      // Note that because a node for logical_identifier can have a version id in another tag, they both must be check
+      // before combining them together to .
+      ArrayList<String> commonIdentifiers = new ArrayList<String>(0);
+      LOG.debug("getIdentifiersCommon:MY_SOURCE[{}]",source);
+
+      try {
+          // Get to the node containing the searchPathName
+          NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(searchPathName,source,XPathConstants.NODESET);
+          LOG.debug("getIdentifiersCommon:context,nodeList.getLength() {},{}",context,nodeList.getLength());
+          for (int i = 0; i < nodeList.getLength(); ++i) {
+              NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
+              String singleIdentifier = null;
+              String singleVersion = null;
+              String singleLidvidValue = null;
+              for (int j = 0; j < childList.getLength(); ++j) {
+                  Node node = childList.item(j);
+                  LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  //LOG.debug("node.getTextContent().trim() {}",node.getTextContent().trim());
+                  // Because the tagsList is an array, loop through to check for each tag
+
+                  for (int kk = 0; kk < tagsList.length; kk++) {
+
+                      if (node.getNodeName().equals(tagsList[kk]) || node.getNodeName().equals(VERSION_ID_TAG)) {
+                          if (node.getNodeName().equals(tagsList[kk])) 
+                              singleIdentifier = node.getTextContent().trim();
+                          if (node.getNodeName().equals(VERSION_ID_TAG))
+                             singleVersion = node.getTextContent().trim();
+                      }
+
+                  }
+              }
+              if (singleIdentifier != null) {
+                  if (singleVersion != null) {
+                      // Append the version if it is available.
+                      singleLidvidValue = singleIdentifier + "::" + singleVersion;
+                  } else {
+                      singleLidvidValue = singleIdentifier;
+                  }
+                  commonIdentifiers.add(singleLidvidValue); 
+              }
+         }
+     } catch (XPathExpressionException ex) {
+         LOG.error("Cannot extract field(s) {} or {} from context {}",tagsList,VERSION_ID_TAG,context.toString());
+     }
+     LOG.debug("getIdentifiersCommon:context,commonIdentifiers {},{}",context,commonIdentifiers);
+     return(commonIdentifiers);
+  }
+
+  /**
+   * Get the LIDVID references in the label  (as a DOMSource)
+   * @param source The content of context as a DOMSource.
+   # @param context The location of the label being parsed from.
+   * @return lidOrLidVidReference The LID or LIDVID referenced in this label.
+   */
+  public static ArrayList<String> getLidVidReferences(DOMSource source, URL context) {
+      LOG.debug("getLidVidReferences:MY_SOURCE[{}]",source);
+
+      String[] tagsList = new String[2];
+      tagsList[0] = LIDVID_REFERENCE;
+      tagsList[1] = LID_REFERENCE;
+
+      ArrayList<String> lidOrLidVidReferences = LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA);
+
+      LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}",context,lidOrLidVidReferences);
+      return(lidOrLidVidReferences);
+  }
+
+  /**
+   * Get the local identifiers the label (as a DOMSource)
+   * @param source The content of context as a DOMSource.
+   # @param context The location of the label being parsed from.
+   * @return logicalIdentifiers A list of logical identifiers in this label.
+   */
+  public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context) {
+      LOG.debug("getLogicalIdentifiers:MY_SOURCE[{}]",source);
+
+      String[] tagsList = new String[1];
+      tagsList[0] = LOGICAL_IDENTIFIER_TAG;
+
+      ArrayList<String> logicalIdentifiers = LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA);
+
+      LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}",context,logicalIdentifiers);
+      return(logicalIdentifiers);
   }
 
   /**

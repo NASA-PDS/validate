@@ -84,6 +84,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       extensions[0] = Constants.LABEL_EXTENSION; // Note that the extension does not contain the dot.
       List<Target> children = crawler.crawl(getTarget(), extensions, false, Constants.COLLECTION_NAME_TOKEN);
 
+      LOG.debug("collectionReferentialIntegrityRule:getTarget(),children.size() {},{}",getTarget(),children.size());
+
       // Check for collection(_.*)?\.xml file.
       for (int i = 0; i < children.size(); i++) {
         Target child = children.get(i);
@@ -120,14 +122,17 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         if (!entry.isEmpty()) {
             numOfCollectionMembers++;
           String identifier = entry.getIdentifier();
-          //LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
-          //LOG.debug("getCollectionMembers: identifier {}",identifier);
+
+          LOG.debug("getCollectionMembers:getTarget,collection,numOfCollectionMembers {},{},{}",getTarget(),collection,numOfCollectionMembers);
+
+          LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
+          LOG.debug("getCollectionMembers: identifier,getTarget(),collection {},{},{}",identifier,getTarget(),collection);
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);
-            //LOG.debug("getCollectionMembers: id {}",id);
-            //LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}",id,id.hasVersion(),id.getVersion());
-            //LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}",id,id.hasVersion(),collection);
+            LOG.debug("getCollectionMembers: id {}",id);
+            LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}",id,id.hasVersion(),id.getVersion());
+            LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}",id,id.hasVersion(),collection);
 
             // https://github.com/NASA-PDS/validate/issues/230
             // New requirement: The 'P' entry must be a LIDVID (logical identifier and version id separated by '::').
@@ -151,8 +156,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                 matchingMembers.add(idEntry);
               }
             }
-            //LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}",id,matchingMembers.size());
-            //LOG.debug("getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",id,matchingMembers.isEmpty(),entry.getMemberStatus());
+            LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}",id,matchingMembers.size());
+            LOG.debug("getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",id,matchingMembers.isEmpty(),entry.getMemberStatus());
             if (matchingMembers.isEmpty() && 
                 "P".equalsIgnoreCase(entry.getMemberStatus())) {
               getListener().addProblem(new ValidationProblem(
@@ -228,7 +233,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         entry = reader.getNext();
       }
       int records = reader.getNumRecords();
-      //LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",collection,numOfCollectionMembers,records);
+      LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",collection,numOfCollectionMembers,records);
 
       if (numOfCollectionMembers>0 && records>0 && numOfCollectionMembers!=records) {
     	  String message = "Number of records read is not equal "
