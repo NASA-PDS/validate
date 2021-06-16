@@ -154,14 +154,6 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
     </plugins>
   </build>
-
-  <repositories>
-    <repository>
-      <id>project.local</id>
-      <name>project</name>
-      <url>file:${project.basedir}/repo</url>
-    </repository>
-  </repositories>
   
   <dependencies>
     <!-- https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl -->
