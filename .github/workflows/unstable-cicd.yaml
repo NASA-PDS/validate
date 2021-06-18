@@ -32,7 +32,7 @@ name: 🤪 Unstable integration & delivery
 on:
     push:
         branches:
-             - '**'
+             - main
 
 
 # What to Do
