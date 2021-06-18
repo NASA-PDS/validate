@@ -55,7 +55,7 @@ jobs:
 
             -
                 name: 🤠 Roundup
-                uses: NASA-PDS/roundup-action@master
+                uses: NASA-PDS/roundup-action@main
                 with:
                     assembly: unstable
                     packages: openjdk8
