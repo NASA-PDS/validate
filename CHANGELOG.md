@@ -1,16 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-05-28)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-28)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
 - As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-25)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
 ## [v2.0.6](https://github.com/NASA-PDS/validate/tree/v2.0.6) (2021-05-25)
 
@@ -58,7 +54,7 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.0...v2.0.2)
 
-**Requirements:**
+**Improvements:**
 
 - Upgrade to Java 9+ [\#323](https://github.com/NASA-PDS/validate/issues/323)
 - Update installation documentation to require Java 1.9+ [\#322](https://github.com/NASA-PDS/validate/issues/322)
@@ -169,9 +165,9 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.2...v1.22.3)
 
-**Defects:**
+**Requirements:**
 
-- Update software to check number of records specified in label matches the records in the table [\#149](https://github.com/NASA-PDS/validate/issues/149)
+- As a user, I want validate to check number of records/fields specified in label matches the records in the actual data table [\#149](https://github.com/NASA-PDS/validate/issues/149)
 
 ## [v1.22.2](https://github.com/NASA-PDS/validate/tree/v1.22.2) (2020-04-11)
 
