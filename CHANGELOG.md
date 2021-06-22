@@ -1,8 +1,8 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-06-21)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-06-21)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
