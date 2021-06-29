@@ -108,9 +108,21 @@ public class LabelValidationRule extends AbstractValidationRule {
 	 */
 	@ValidationTest
 	public void checkLabelExtension() {
-	  if (!FilenameUtils.getName(getTarget().toString()).endsWith(XML_SUFFIX)) {
-		  reportError(PDS4Problems.INVALID_LABEL_EXTENSION, getTarget(), -1, -1);
-    }
+      // Because the label extension is allowed for any case, we must lowercase the extension before comparing.
+
+      // For comparison purpose, we must prepend a "." in front of the extension
+      // received from getExtension() since it returns "xml" but we need ".xml" to make an exact compare with XML_SUFFIX.
+      String labelSuffix = "." + FilenameUtils.getExtension(getTarget().toString());
+      LOG.debug("checkLabelExtension:getTarget(),labelSuffix,XML_SUFFIX {},[{}],[{}]",getTarget(),labelSuffix,XML_SUFFIX);
+
+      // Modified from a straight check of endsWith() to comparing the label suffix ignoring case.
+      //   Old (strict method: (!FilenameUtils.getName(getTarget().toString()).endsWith(XML_SUFFIX))
+      //   Improved method   : (!labelSuffix.equalsIgnoreCase(XML_SUFFIX)) 
+
+      if (!labelSuffix.equalsIgnoreCase(XML_SUFFIX)) {
+          LOG.error("checkLabelExtension:Label extension [{}] does not match expected [{}] from target {}",labelSuffix,XML_SUFFIX,getTarget());
+          reportError(PDS4Problems.INVALID_LABEL_EXTENSION, getTarget(), -1, -1);
+      }
 	}
 
     private void flagNonExistentFile(URL target) throws IOException {

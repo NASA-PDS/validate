@@ -76,7 +76,7 @@ public enum ProblemType {
 
     DIR_NAME_HAS_INVALID_CHARS("error.directory.name_has_invalid_characters"),
 
-    UNALLOWED_BUNDLE_SUBDIR_NAME("error.sub_directory.unallowed_name"),
+    UNALLOWED_BUNDLE_SUBDIR_NAME("warning.sub_directory.unallowed_name"),
 
     UNALLOWED_DIRECTORY_NAME("error.directory.unallowed_name"),
 

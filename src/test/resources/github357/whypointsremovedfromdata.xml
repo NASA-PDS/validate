@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A10.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:compil-comet:halebopp:whypointsremovedfromdata_csv</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Original ICQ Data with Reasons Points were Removed</title>
+    <information_model_version>1.10.1.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Womack, M., Curtis, A., Lastra, N., Harrington Pinto, O., Rabson, D.A., Wierzchos,
+K., Cox, T., Rivera, I., Mentzer, C., Ruffini, N., Jackson, C., and Micciche, A.</author_list>
+      <publication_year>2017</publication_year>
+      <description>This is a dataset of comet C/1995 O1 (Hale Bopp) visual magnitudes that was compiled
+from 17 observers submissions to the International Comet Quarterly</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>1995-07-24T14:09:36Z</start_date_time>
+      <stop_date_time>1999-09-23T04:33:36Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <Science_Facets>
+        <discipline_name>Spectroscopy</discipline_name>
+        <facet1>Tabulated</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <discipline_name>Spectroscopy</discipline_name>
+        <facet1>Linear</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <discipline_name>Flux Measurements</discipline_name>
+        <facet1>Photometry</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Lightcurve</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Literature search</name>
+        <type>Literature Search</type>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>C/1995 O1 (HALE-BOPP)</name>
+      <type>Comet</type>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>whypointsremovedfromdata.csv</file_name>
+      <local_identifier>file</local_identifier>
+    </File>
+    <Table_Delimited>
+      <local_identifier>TABLE</local_identifier>
+      <offset unit="byte">2934</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>2241</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>27</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>col 1-3</name>
+          <data_type>UTF8_String</data_type>
+          <description>short period comet designation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 4-9"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Standard comet designation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 10"</name>
+          <data_type>UTF8_String</data_type>
+          <description>multiple nuclei present</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 12-15"</name>
+          <data_type>UTF8_String</data_type>
+          <description>year observed</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 17-18"</name>
+          <data_type>UTF8_String</data_type>
+          <description>month observed</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 20-24"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Reported Visual Magnitude</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 26"</name>
+          <data_type>UTF8_String</data_type>
+          <description>special note / extinction note</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 27"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Magnitude collection method</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 28-32"</name>
+          <data_type>UTF8_String</data_type>
+          <description>visual magnitude estimate</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 33"</name>
+          <data_type>UTF8_String</data_type>
+          <description>poor conditions</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 34-35"</name>
+          <data_type>UTF8_String</data_type>
+          <description>reference catalog</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 36-40"</name>
+          <data_type>UTF8_String</data_type>
+          <unit>centimeters</unit>
+          <description>instrument aperture in centimeters</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 41"</name>
+          <data_type>UTF8_String</data_type>
+          <description>instrument type</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 42-43"</name>
+          <data_type>UTF8_String</data_type>
+          <description>focal ratio</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 44-47"</name>
+          <data_type>UTF8_String</data_type>
+          <description>magnification used</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 49"</name>
+          <data_type>UTF8_String</data_type>
+          <description>error estimate for coma diameter</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 50-54"</name>
+          <data_type>UTF8_String</data_type>
+          <unit>arcminutes</unit>
+          <description>coma diameter in arcminutes</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 55"</name>
+          <data_type>UTF8_String</data_type>
+          <description>special note on central condensation of comet</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 56-57"</name>
+          <data_type>UTF8_String</data_type>
+          <description>degree of condensation (note / means estimate)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 59-64"</name>
+          <data_type>UTF8_String</data_type>
+          <description>error of tail approximation and tail approximation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 65-67"</name>
+          <data_type>UTF8_String</data_type>
+          <description>direction tail is pointed</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 69-74"</name>
+          <data_type>UTF8_String</data_type>
+          <description>ICQ reference publication</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 75"</name>
+          <data_type>UTF8_String</data_type>
+          <description>second special note / extinction note</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"col 76-80"</name>
+          <data_type>UTF8_String</data_type>
+          <description>observer name</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"Reason_Point_was_removed"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Reason Point Was Removed</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"Observer_failed_stationary_test_pre"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Observer Removed Pre-perihelion for failing Stationary test</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>"Observer_failed_stationary_test_post"</name>
+          <data_type>UTF8_String</data_type>
+          <description>Observer Removed Post-perihelion for Failing Stationary Test</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
+

@@ -186,6 +186,8 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_CRLF.getKey());
             } else if (strTemp.equals("INVALID_FIELD_VALUE")) {
                 count = this.getMessageCount(reportJson, ProblemType.INVALID_FIELD_VALUE.getKey());
+            } else if (strTemp.equals("BAD_EXTENSION")) {
+                count = this.getMessageCount(reportJson, ProblemType.BAD_EXTENSION.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {
