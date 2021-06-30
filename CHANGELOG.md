@@ -1,6 +1,20 @@
 # Changelog
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-06-22)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-06-30)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+
+**Improvements:**
+
+- Improve validate reporting when trying to read a null row [\#355](https://github.com/NASA-PDS/validate/issues/355)
+
+**Defects:**
+
+- validate does not allow ".XML" as an extension for a label file [\#364](https://github.com/NASA-PDS/validate/issues/364) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate allows CRLF within a Table\_Delimited field [\#357](https://github.com/NASA-PDS/validate/issues/357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate labels error.sub\_directory.unallowed\_name as a warning [\#356](https://github.com/NASA-PDS/validate/issues/356) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-06-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
