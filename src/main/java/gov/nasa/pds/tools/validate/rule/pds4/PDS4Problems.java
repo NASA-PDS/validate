@@ -23,7 +23,7 @@ public final class PDS4Problems {
     public static final ProblemDefinition INVALID_LABEL_EXTENSION = new ProblemDefinition(
     		ExceptionType.ERROR,
             ProblemType.BAD_EXTENSION,
-            "Label file names must end with the extension '.xml'",
+            "Label file names must end with the extension '.xml' or '.XML'",
             Standard.PDS4_STANDARDS_REFERENCE,
             "3"
     );

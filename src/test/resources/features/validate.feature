@@ -190,6 +190,25 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#345 VALID" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid.json -s json -t {resourceDir}/github345/astro_sample_t.xml" | "report_github345_label_valid.json" |
  |"NASA-PDS/validate#345 VALID_2" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid_2.json -s json -t {resourceDir}/github345/astro_sample_data_t.xml" | "report_github345_label_valid_2.json" |
 
+
+# https://github.com/NASA-PDS/validate/issues/355 Improve validate reporting when trying to read a null row
+# https://github.com/nasa-pds/validate/issues/357 Validate allows CRLF within a Table_Delimited field
+ 
+ |"NASA-PDS/validate#357 INVALID_1" | "github357" | 2 | "2 error messages expected: 1 error.validation.invalid_field_value and 1 error.table.bad_field_read." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github357_label_invalid_1.json -s json -t {resourceDir}/github357/whypointsremovedfromdata.xml" | "report_github357_label_invalid_1.json" |
+ |"NASA-PDS/validate#357 INVALID_2" | "github357" | 1 | "1 error messages expected: 1 error.validation.invalid_field_value" | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github357_label_invalid_2.json -s json -t {resourceDir}/github357/whypointsremovedfromdata_2240_records.xml" | "report_github357_label_invalid_2.json" |
+ |"NASA-PDS/validate#357 INVALID_3" | "github357" | 1 | "1 error messages expected: 1 error.table.records_mismatch" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github357_label_invalid_3.json -s json -t {resourceDir}/github357/whypointsremovedfromdata_2250_records.xml" | "report_github357_label_invalid_3.json" |
+ |"NASA-PDS/validate#357 INVALID_4" | "github357" | 1 | "1 error messages expected: 1 error.validation.invalid_field_value." | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github357_label_invalid_4.json -s json -t {resourceDir}/github357/whypointsremovedfromdata_4_records.xml" | "report_github357_label_invalid_4.json" |
+
+# https://github.com/nasa-pds/validate/issues/356 validate labels error.sub_directory.unallowed_name as a warning 
+
+ |"NASA-PDS/validate#356 VALID" | "github356" | 0 | "0 warning messages expected: 0 warning.sub_directory.unallowed_name (uses github240 input directory)" | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle  --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github356_bundle_valid.json -s json -t {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github356_bundle_valid.json" |
+ |"NASA-PDS/validate#356 INVALID" | "github356" | 3 | "3 warning messages expected: 3 warning.sub_directory.unallowed_name (uses github240 input directory)" | "UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources" | "target/test" | "-R pds4.bundle  --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github356_bundle_invalid.json -s json -t {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github356_bundle_invalid.json" |
+
+# https://github.com/nasa-pds/validate/issues/364 validate does not allow ".XML" as an extension for a label file  
+
+ |"NASA-PDS/validate#364 VALID" | "github364" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github364_label_valid.json -s json -t {resourceDir}/github364//MIS000XXX_2021001T000000_DEV0_2021001T0000_RAW010.XML" | "report_github364_label_valid.json" |
+ |"NASA-PDS/validate#364 INVALID" | "github364" | 1 | "1 error messages expected: 1 error.label.bad_extension" | "BAD_EXTENSION" | "src/test/resources" | "target/test" | "-R pds4.label --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github364_label_invalid.json -s json -t {resourceDir}/github364//MIS000XXX_2021001T000000_DEV0_2021001T0000_RAW010" | "report_github364_label_invalid.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

@@ -266,6 +266,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       boolean manuallyParseRecord = false;
       String line = reader.readNextLine();
       int lineNumber = 0;
+      int recordsRead = 0;
+      if (line != null) {
+          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+      } else {
+          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
+      }
       while (line != null) {
           progressCounter();
           lineNumber += 1;
@@ -370,24 +376,33 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           // Need to manually parse the line if we're past the defined
           // number of records. The PDS4-Tools library won't let us
           // read past the defined number of records.
+          LOG.debug("validateTableContentLineWise:POSITION_4");
           if (reader.getCurrentRow() > definedNumRecords) {
               manuallyParseRecord = true;
+              LOG.debug("validateTableContentLineWise:POSITION_5");
           }
           try {
+              LOG.debug("validateTableContentLineWise:POSITION_6");
               if (manuallyParseRecord && !(table instanceof TableDelimited)) {
                   record = reader.toRecord(line, reader.getCurrentRow());
+                  LOG.debug("validateTableContentLineWise:POSITION_7");
               } else {
                 	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
                   record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
+                  recordsRead += 1;  // Keep track of how any records read so far.
+                  LOG.debug("validateTableContentLineWise:POSITION_8");
               }
 
               // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
               if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
+                    LOG.debug("validateTableContentLineWise:POSITION_9");
                     tableCharacterUtil.validateInBetweenFields(line,lineNumber);
               }
 
+              LOG.debug("validateTableContentLineWise:POSITION_10");
               //Validate fields within the record here
               try {
+                  LOG.debug("validateTableContentLineWise:POSITION_11");
                   fieldValueValidator.validate(record, reader.getFields());
               } catch (FieldContentFatalException e) {
                   // If we get a fatal error, we can avoid an overflow of error output
@@ -396,6 +411,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   FileService.printStackTraceToFile(null,e);
                   break;
               }
+              LOG.debug("validateTableContentLineWise:POSITION_12");
 
               //Validate collection inventory member status
               if (inventoryTable) {
@@ -450,9 +466,16 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           // reach end of the table
           if (table instanceof TableDelimited && 
               definedNumRecords == reader.getCurrentRow()) {
+              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,definedNumRecords {},{} BREAKING_FROM_LOOP",lineNumber,definedNumRecords);
+              // The break statement assures that the code does not read passed what was advertised in the label "records" field.
               break;
           }
           line = reader.readNextLine();
+          if (line != null) {
+              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+          } else {
+              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
+          }
       }
       // only give error message when the actual record number is smaller than the defined in the label
       if (definedNumRecords != -1 && 
@@ -460,6 +483,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           String message = "Number of records read is not equal "
                 + "to the defined number of records in the label (expected "
                 + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
+          LOG.error("validateTableContentLineWise:POSITION_2:{}",message);
           addTableProblem(ExceptionType.ERROR,
                   ProblemType.RECORDS_MISMATCH,
                   message,
@@ -467,6 +491,23 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   tableIndex,
                   -1);
       } 
+
+      // Provide a warning if for some reason the number of records read is more than advertised
+      // (perhaps due to an extra carriage return in a field value which can bumps the number of lines by 1)
+      if (recordsRead > definedNumRecords) {
+          String message = "Number of records read is more than "
+                + "the defined number of records in the label (expected "
+                + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
+          LOG.warn("validateTableContentLineWise:POSITION_2:{}",message);
+          addTableProblem(ExceptionType.WARNING,
+                  ProblemType.RECORDS_MISMATCH,
+                  message,
+                  dataFile,
+                  tableIndex,
+                  -1);
+      }
+
+      LOG.debug("validateTableContentLineWise:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
       LOG.debug("validateTableContentLineWise:DONE_VALIDATING");
   }
 
@@ -812,6 +853,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         		String message = "Number of records read is not equal "
         				+ "to the defined number of records in the label (expected "
         				+ definedNumRecords + ", got " + actualRecordNumber + ").";
+                LOG.debug("POSITION_1:definedNumRecords,actualRecordNumber {},{}",definedNumRecords,actualRecordNumber);
+                LOG.debug("POSITION_1:message [{}]",message);
+                // Example: (expected 2241, got 2302).
+
+                // Original logic: only report a mismatch error if the number of record read is less than defined records.
         		if (actualRecordNumber<definedNumRecords) {
         			addTableProblem(ExceptionType.ERROR,
         					ProblemType.RECORDS_MISMATCH,
@@ -882,6 +928,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
               // Must check to see that the record_delimiter tag is not "Line-Feed" or "Carriage-Return Line-Feed" as the function validateTableContentRecordWise cannot process such a file.
               boolean tableIsLineOrientedFlag = this.isTableLineOriented(table,dataFile);
+              LOG.debug("validateTableDataContents:tableIsLineOrientedFlag,dataFile {},{}",tableIsLineOrientedFlag,dataFile);
 
              // Determine if we should proceed with calling validateTableContentRecordWise() function.
              // Note that the function validateTableContentRecordWise() can only be applied if the user had specify a length of each record.
