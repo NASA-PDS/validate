@@ -29,6 +29,69 @@
           },
           {
                "name": [
+                    "COMETARY AND INTERSTELLAR DUST ANALYZER"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cida.sdu::1.0"
+          },
+          {
+               "name": [
+                    "NEAR LASER RANGEFINDER"
+               ],
+               "type": [
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nlr.near::1.0"
+          },
+          {
+               "name": [
+                    "NEAR INFRARED CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nir.clem1::1.0"
+          },
+          {
+               "name": [
+                    "LUNAR ORBITER LASER ALTIMETER"
+               ],
+               "type": [
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lro.lola::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:leura.0m25::0.0"
+          },
+          {
+               "name": [
+                    "BIANCA"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.bianca::1.1"
+          },
+          {
+               "name": [
+                    "2006 HW122"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
+          },
+          {
+               "name": [
                     "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
                ],
                "type": [
@@ -6757,75 +6820,39 @@
           },
           {
                "name": [
-                    "(15535) 2000 AT177"
+                    "87P/BUS"
                ],
                "type": [
-                    "ASTEROID"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.15535_2000_at177::1.0"
+               "lidvid": "urn:nasa:pds:context:target:comet.87p_bus::1.0"
           },
           {
                "name": [
-                    "60558 ECHECLUS"
+                    "153P/IKEYA-ZHANG"
                ],
                "type": [
-                    "CENTAUR"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.60558_echeclus::1.0"
+               "lidvid": "urn:nasa:pds:context:target:comet.153p_ikeya-zhang::1.0"
           },
           {
                "name": [
-                    "2001 KA77"
+                    "ATMOSPHERIC STRUCTURE INSTRUMENT / METEOROLOGY PACKAGE"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "ATMOSPHERIC SCIENCES"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_ka77::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:asimet.mpfl::1.0"
           },
           {
                "name": [
-                    "2005 RP43"
+                    "C/1987 F1 (TORRES)"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_rp43::1.0"
-          },
-          {
-               "name": [
-                    "2000 JF81"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_jf81::1.0"
-          },
-          {
-               "name": [
-                    "NEAR INFRARED SPECTROMETER (NIRS3)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.nirs3::1.0"
-          },
-          {
-               "name": [
-                    "BRUKER IFS 125HR FOURIER TRANSFORM INFRARED SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:multi-host.brukifs125hr_ftspec::1.0"
-          },
-          {
-               "name": [
-                    "XO-3"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.xo-3::1.0"
+               "lidvid": "urn:nasa:pds:context:target:comet.c1987_f1_torres::1.1"
           },
           {
                "name": [
@@ -20982,69 +21009,6 @@
           },
           {
                "name": [
-                    "COMETARY AND INTERSTELLAR DUST ANALYZER"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cida.sdu::1.0"
-          },
-          {
-               "name": [
-                    "NEAR LASER RANGEFINDER"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nlr.near::1.0"
-          },
-          {
-               "name": [
-                    "NEAR INFRARED CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nir.clem1::1.0"
-          },
-          {
-               "name": [
-                    "LUNAR ORBITER LASER ALTIMETER"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:lro.lola::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:leura.0m25::0.0"
-          },
-          {
-               "name": [
-                    "BIANCA"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.bianca::1.1"
-          },
-          {
-               "name": [
-                    "2006 HW122"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -22675,39 +22639,75 @@
           },
           {
                "name": [
-                    "87P/BUS"
+                    "(15535) 2000 AT177"
                ],
                "type": [
-                    "COMET"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.87p_bus::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.15535_2000_at177::1.0"
           },
           {
                "name": [
-                    "153P/IKEYA-ZHANG"
+                    "60558 ECHECLUS"
                ],
                "type": [
-                    "COMET"
+                    "CENTAUR"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.153p_ikeya-zhang::1.0"
+               "lidvid": "urn:nasa:pds:context:target:centaur.60558_echeclus::1.0"
           },
           {
                "name": [
-                    "ATMOSPHERIC STRUCTURE INSTRUMENT / METEOROLOGY PACKAGE"
+                    "2001 KA77"
                ],
                "type": [
-                    "ATMOSPHERIC SCIENCES"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:asimet.mpfl::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_ka77::1.0"
           },
           {
                "name": [
-                    "C/1987 F1 (TORRES)"
+                    "2005 RP43"
                ],
                "type": [
-                    "COMET"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.c1987_f1_torres::1.1"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_rp43::1.0"
+          },
+          {
+               "name": [
+                    "2000 JF81"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_jf81::1.0"
+          },
+          {
+               "name": [
+                    "NEAR INFRARED SPECTROMETER (NIRS3)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.nirs3::1.0"
+          },
+          {
+               "name": [
+                    "BRUKER IFS 125HR FOURIER TRANSFORM INFRARED SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:multi-host.brukifs125hr_ftspec::1.0"
+          },
+          {
+               "name": [
+                    "XO-3"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.xo-3::1.0"
           },
           {
                "name": [
