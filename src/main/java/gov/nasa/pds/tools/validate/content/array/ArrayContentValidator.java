@@ -483,8 +483,6 @@ public class ArrayContentValidator {
    */
   private void addArrayProblem(ExceptionType exceptionType, 
       ProblemType problemType, String message, ArrayLocation location) {
-    this.errorsEncountered += 1;  // Keep track of how many errors have been encountered so far.
-    //LOG.debug("addArrayProblem: errorsEncountered {}",this.errorsEncountered);
     //LOG.debug("addArrayProblem: message [{}]",message);
     listener.addProblem(
         new ArrayContentProblem(exceptionType,
