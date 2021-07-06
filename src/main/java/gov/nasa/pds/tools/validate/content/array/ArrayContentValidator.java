@@ -16,6 +16,7 @@ package gov.nasa.pds.tools.validate.content.array;
 import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
 import gov.nasa.arc.pds.xml.generated.Array;
+import gov.nasa.arc.pds.xml.generated.ByteStream;
 import gov.nasa.arc.pds.xml.generated.ElementArray;
 import gov.nasa.arc.pds.xml.generated.ObjectStatistics;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
@@ -35,6 +36,9 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Arrays;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Class that performs content validation on Array objects.
  * 
@@ -42,7 +46,8 @@ import java.util.Arrays;
  *
  */
 public class ArrayContentValidator {
-  
+  private static final Logger LOG = LoggerFactory.getLogger(ArrayContentValidator.class);
+
   /** Container to capture messages. */
   private ProblemListener listener;
   
@@ -77,6 +82,9 @@ public class ArrayContentValidator {
   private static final Range IEEE754MSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
 
   private static int PROGRESS_COUNTER = 0;
+  private static String tableName = null;
+  private static String tableNameReportStr = "";
+  private static int errorsEncountered = 0; 
 
   /**
    * Constructor.
@@ -105,6 +113,18 @@ public class ArrayContentValidator {
     for (int i = 0; i < dimensions.length; i++) {
       dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
     }
+
+    this.tableName = ((ByteStream) array).getName(); // Update the name of the table this array belong to so it can be reported if something goes wrong.
+    if (this.tableName != null) {
+        // If the table name is provided, build the string to report the name of the table.
+        tableNameReportStr = "table_name:(" + this.tableName +") ";
+    } else {
+        // If the table name is not provided, the string to report is an empty string.
+        tableNameReportStr = "";
+    }
+    //LOG.debug("validate:tableName {}",this.tableName);
+    //LOG.debug("validate:tableNameReportStr {}",this.tableNameReportStr);
+
     try {
       process(array, arrayObject, dimensions, new int[dimensions.length], 0,
           dimensions.length - 1);
@@ -170,6 +190,8 @@ public class ArrayContentValidator {
         array.getElementArray().getDataType());
     Number value = null;
     Range rangeChecker = null;
+    // LOG.debug("validatePosition:dataType,array.getObjectStatistics() {},{}",dataType,array.getObjectStatistics());
+
     try {
       switch (dataType) {
       case SignedByte:
@@ -261,11 +283,15 @@ public class ArrayContentValidator {
     if (array.getSpecialConstants() != null) {
       isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants());
     }
+
+    // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants() {},{},{}",dataType,isSpecialConstant,array.getSpecialConstants());
+    // LOG.debug("validatePosition:dataType,value,rangeChecker.contains(value) {},{},{}",dataType,value,rangeChecker.contains(value));
+
     if (!isSpecialConstant) {
       if (!rangeChecker.contains(value)) {
           addArrayProblem(ExceptionType.ERROR,
               ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE,
-              "Value is not within the valid range of the data type '"
+              this.tableNameReportStr + "Value is not within the valid range of the data type '" 
                   + dataType.name() + "': " + value.toString(),
             location
              );
@@ -279,7 +305,7 @@ public class ArrayContentValidator {
     } else {
       addArrayProblem(ExceptionType.INFO,
           ProblemType.ARRAY_VALUE_IS_SPECIAL_CONSTANT,
-          "Value is a special constant defined in the label: "
+          this.tableNameReportStr + "Value is a special constant defined in the label: "
               + value.toString(),
           location
       );              
@@ -374,7 +400,7 @@ public class ArrayContentValidator {
       if (value.doubleValue() < objectStats.getMinimum()) {
         addArrayProblem(ExceptionType.ERROR,
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
-            "Value is less than the minimum value in the label (min="
+            this.tableNameReportStr + " Value is less than the minimum value in the label (min="
             + objectStats.getMinimum().toString()
             + ", got=" + value.toString() + ").", location);
       }
@@ -383,7 +409,7 @@ public class ArrayContentValidator {
       if (value.doubleValue() > objectStats.getMaximum()) {
         addArrayProblem(ExceptionType.ERROR, 
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
-            "Value is greater than the maximum value in the label (max="
+            this.tableNameReportStr + "Value is greater than the maximum value in the label (max="
             + objectStats.getMaximum().toString()
             + ", got=" + value.toString() + ").", location);        
       }
@@ -405,7 +431,7 @@ public class ArrayContentValidator {
         if (compare(scaledValue, objectStats.getMinimumScaledValue()) == -1) {
           addArrayProblem(ExceptionType.ERROR,
               ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
-              "Scaled value is less than the scaled minimum value in the "
+              this.tableNameReportStr + "Scaled value is less than the scaled minimum value in the "
               + "label (min=" + objectStats.getMinimumScaledValue().toString()
               + ", got=" + value.toString() + ").", location);          
         }
@@ -458,6 +484,9 @@ public class ArrayContentValidator {
    */
   private void addArrayProblem(ExceptionType exceptionType, 
       ProblemType problemType, String message, ArrayLocation location) {
+    this.errorsEncountered += 1;  // Keep track of how many errors have been encountered so far.
+    //LOG.debug("addArrayProblem: errorsEncountered {}",this.errorsEncountered);
+    //LOG.debug("addArrayProblem: message [{}]",message);
     listener.addProblem(
         new ArrayContentProblem(exceptionType,
             problemType,
