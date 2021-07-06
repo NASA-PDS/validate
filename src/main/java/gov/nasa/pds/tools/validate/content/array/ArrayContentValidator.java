@@ -84,7 +84,6 @@ public class ArrayContentValidator {
   private static int PROGRESS_COUNTER = 0;
   private static String tableName = null;
   private static String tableNameReportStr = "";
-  private static int errorsEncountered = 0; 
 
   /**
    * Constructor.
@@ -122,8 +121,8 @@ public class ArrayContentValidator {
         // If the table name is not provided, the string to report is an empty string.
         tableNameReportStr = "";
     }
-    //LOG.debug("validate:tableName {}",this.tableName);
-    //LOG.debug("validate:tableNameReportStr {}",this.tableNameReportStr);
+    LOG.debug("validate:tableName {}",this.tableName);
+    LOG.debug("validate:tableNameReportStr {}",this.tableNameReportStr);
 
     try {
       process(array, arrayObject, dimensions, new int[dimensions.length], 0,
