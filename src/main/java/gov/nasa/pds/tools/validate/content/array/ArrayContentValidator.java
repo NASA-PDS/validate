@@ -265,6 +265,9 @@ public class ArrayContentValidator {
         value = arrayObject.getDouble(position);
         rangeChecker = IEEE754MSBDouble_RANGE;
         break;
+      default:
+        LOG.warn("validatePosition:Unhandled dataType {}",dataType);
+        break;
       }
     } catch (Exception ee) {
       String loc = Arrays.toString(location.getLocation());
