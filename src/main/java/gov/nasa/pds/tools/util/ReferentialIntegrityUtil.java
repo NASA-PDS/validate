@@ -89,6 +89,8 @@ public class ReferentialIntegrityUtil {
   private static boolean contextReferenceCheck = true;  // By default, this class will collect all references and check them from the context area.
     // Used in parsing for "_reference" tags.
   private static String[] tagsList = new String[2];
+  private static HashSet<String> reportedErrorsReferenceSet = new HashSet<String>();
+  private static URL parentBundleURL = null; 
 
   /**
    * Initialize this class to ready for doing referential checks.
@@ -131,6 +133,8 @@ public class ReferentialIntegrityUtil {
       ReferentialIntegrityUtil.lidOrLidvidReferenceToLogicalIdentifierMap.clear();
       ReferentialIntegrityUtil.bundleURLMap.clear();
       ReferentialIntegrityUtil.urlsParsedCumulative.clear();
+      ReferentialIntegrityUtil.reportedErrorsReferenceSet.clear();
+      ReferentialIntegrityUtil.parentBundleURL = null; 
   }
 
   /**
@@ -399,12 +403,29 @@ public class ReferentialIntegrityUtil {
                     LOG.warn("reportContextReferencesUnreferenced:The context reference '{}' could not be found in the parent {} reference list.",singleLidOrLidvidReference,ReferentialIntegrityUtil.getReferenceType());
                     LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
                     LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,contextReferenceCheck {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,ReferentialIntegrityUtil.contextReferenceCheck);
-                    getListener().addProblem(new ValidationProblem(new ProblemDefinition(
-                        ExceptionType.WARNING,
-                        ProblemType.MISSING_CONTEXT_REFERENCE,
-                        "The context reference '" + singleLidOrLidvidReference + "' could not be found in "
-                            + "the parent " + ReferentialIntegrityUtil.getReferenceType() + " reference list." + ReferentialIntegrityUtil.MESSAGE_TO_DISABLE_WARNINGS), 
-                        hashSetReferenceInfo.getParentLabelFilename()));
+
+
+                    // Only report the error/warning if it has not been reported before.  Also, use the URL of the parent bundle if it is not null.
+                    if (!ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference)) {
+                        URL urlToReport;
+                        if (ReferentialIntegrityUtil.parentBundleURL != null) {
+                            urlToReport = ReferentialIntegrityUtil.parentBundleURL;
+                        } else {
+                            urlToReport = hashSetReferenceInfo.getParentLabelFilename(); 
+                        }
+
+                        String errorMessage = "The context reference '" + singleLidOrLidvidReference + "' could not be found in this bundle but it was defined in " + hashKey + "." + ReferentialIntegrityUtil.MESSAGE_TO_DISABLE_WARNINGS;
+                        getListener().addProblem(new ValidationProblem(new ProblemDefinition(
+                            ExceptionType.WARNING,
+                            ProblemType.MISSING_CONTEXT_REFERENCE,
+                            errorMessage),
+                            urlToReport));
+
+                        // Add this reference to reportedErrorsReferenceSet so it won't be reported again.
+                        ReferentialIntegrityUtil.reportedErrorsReferenceSet.add(singleLidOrLidvidReference);
+                    } else {
+                        LOG.debug("reportContextReferencesUnreferenced:ERROR_REPORTED_FOR_REFERENCE {}",singleLidOrLidvidReference);
+                    }
                 } else {
                     LOG.debug("reportContextReferencesUnreferenced:Reference {} does indeed occur in bundle/collection Reference_List",singleLidOrLidvidReference);
                     LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_TRUE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
@@ -692,15 +713,20 @@ public class ReferentialIntegrityUtil {
                 ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.bundleReferenceMap,
                                                                   allContextLidOrLidVidReferencesPerLabel,url,logicalIdentifiers.get(0));
                 // Add all references listed in Reference_List
-                ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.bundleReferenceMap,
-                                                                  lidOrLidVidReferences,url,logicalIdentifiers.get(0));
+                //ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.bundleReferenceMap,
+                //                                                  lidOrLidVidReferences,url,logicalIdentifiers.get(0));
+                // The [lid/lidvid] references in the Reference_List are not context references so they are not added.
+                // They were added erroneously previously.
             } else if (labelIsCollectionFlag) {
                 // Add all references listed in Context_Area
                 ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.collectionReferenceMap,
                                                                   allContextLidOrLidVidReferencesPerLabel,url,logicalIdentifiers.get(0));
                 // Add all references listed in Reference_List
-                ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.collectionReferenceMap,
-                                                                  lidOrLidVidReferences,url,logicalIdentifiers.get(0));
+                //ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.collectionReferenceMap,
+                //                                                  lidOrLidVidReferences,url,logicalIdentifiers.get(0));
+                // The [lid/lidvid] references in the Reference_List are not context references so they are not added.
+                // They were added erroneously previously.
+                LOG.debug("collectAllContextReferences:NON_CONTEXT_REFERENCES_NOT_ADDED:lidOrLidVidReferences {},{}",lidOrLidVidReferences,lidOrLidVidReferences.size());
             } else { 
                 LOG.error("This function does not support referenceType {}",ReferentialIntegrityUtil.getReferenceType());
             }
@@ -713,6 +739,40 @@ public class ReferentialIntegrityUtil {
     }
 
     LOG.debug("collectAllContextReferences:url,contextReferencesCumulative {},{},{}",url,contextReferencesCumulative,contextReferencesCumulative.size());
+  }
+
+  private static List<Target> crawlParentForBundleLabel(URL crawlTarget) {
+    // Given a crawl target, crawl the parent target for any Bundle labels.
+    URL parentURL = Utility.getParent(crawlTarget);
+    URL url = null;
+
+    List<Target> children = new ArrayList<Target>();
+    try {
+      children = getContext().getCrawler().crawl(parentURL,false);  // Get also the directories.
+      for (Target child : children) {
+        LOG.debug("crawlParentForBundleLabel:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
+        url = child.getUrl();
+        if (url.toString().endsWith(".xml")) {
+            //labelIsCollectionFlag = false;
+            //labelIsBundleFlag = false;
+            // Check to see if the label is collection or a bundle (instead of regular label).
+            Matcher matcherBundleCollection = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
+            if (matcherBundleCollection.matches()) {
+                //labelIsBundleFlag = true;
+                // Save the URL of the bundle to be used to report the error.
+                ReferentialIntegrityUtil.parentBundleURL = url;
+            }
+        }
+      }
+    } catch (IOException io) {
+      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getTarget(), -1, -1,
+          io.getMessage());
+    } catch (Exception ex) {
+      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getTarget(), -1, -1,
+          ex.getMessage());
+    }
+
+    return(children);
   }
 
   /**
@@ -736,6 +796,10 @@ public class ReferentialIntegrityUtil {
       List<Target> children = getContext().getCrawler().crawl(crawlTarget,true);  // Get also the directories.
       LOG.debug("additionalReferentialIntegrityChecks:crawlTarget {}",crawlTarget);
       LOG.debug("additionalReferentialIntegrityChecks:crawlTarget,children.size():afor_reduced: {},{}",crawlTarget,children.size());
+
+      // Because a collection is one directory below the bundle, 
+      // crawl the parent directory for bundle label to collect the bundle name so a message can be attached to the parent bundle.
+      List<Target> children_2 = ReferentialIntegrityUtil.crawlParentForBundleLabel(crawlTarget);
 
       db = dbf.newDocumentBuilder();
 
@@ -761,6 +825,8 @@ public class ReferentialIntegrityUtil {
             Matcher matcherBundleCollection = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
             if (matcherBundleCollection.matches()) {
                 labelIsBundleFlag = true;
+                // Save the URL of the bundle to be used to report the error.
+                ReferentialIntegrityUtil.parentBundleURL = url;
             }
             matcherBundleCollection = COLLECTION_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
             if (matcherBundleCollection.matches()) {
