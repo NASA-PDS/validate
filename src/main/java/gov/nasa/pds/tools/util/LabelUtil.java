@@ -68,7 +68,6 @@ public class LabelUtil {
   private static String LOGICAL_IDENTIFIER_TAG = "logical_identifier";
   private static String VERSION_ID_TAG = "version_id";
 
-  private static URL contextValue = null;
   private static String location = null;
   
   private static XPathFactory xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();

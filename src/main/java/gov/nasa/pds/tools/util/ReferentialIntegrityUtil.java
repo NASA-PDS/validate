@@ -44,6 +44,7 @@ import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.RuleContext;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -381,6 +382,12 @@ public class ReferentialIntegrityUtil {
         String hashKey = null;
         boolean parentReferToChildFlag = false;
 
+        // Check that iterator is not null
+        if (iterator == null) {
+            LOG.warn("reportContextReferencesUnreferenced:Variable iterator is null");
+            return;
+        }
+
         while (iterator.hasNext()) {
             mapElement = (Map.Entry) iterator.next(); 
             hashSetReferenceInfo = (HashSetReferenceInfo) mapElement.getValue();
@@ -500,7 +507,10 @@ public class ReferentialIntegrityUtil {
       // the parent id: urn:nasa:pds:kaguya_grs_spectra
       String parentId = null;
 
-      String[] tokens = bundleLogicalId.split(":");
+      String[] tokens = {}; 
+      if (bundleLogicalId != null) {
+          tokens = bundleLogicalId.split(":");
+      }
       if (tokens.length >= 4) {
           parentId = tokens[0] + ":" + tokens[1] + ":" +  tokens[2] + ":" + tokens[3];
       } else {
@@ -517,7 +527,7 @@ public class ReferentialIntegrityUtil {
 
       for (String singleReference : contextLidOrLidVidReferences) {
           // Check if parentId exist yet in contextReferencesCumulative.  If yes, add the new singleReference to the list of references for parentId
-          if (ReferentialIntegrityUtil.contextReferencesCumulative.keySet().contains(parentId)) {
+          if (ReferentialIntegrityUtil.contextReferencesCumulative != null && ReferentialIntegrityUtil.contextReferencesCumulative.keySet().contains(parentId)) {
               HashSetReferenceInfo setOfReferences = ReferentialIntegrityUtil.contextReferencesCumulative.get(parentId);
               if (setOfReferences.doesReferenceExist(singleReference) == false) {
                   // Add the new reference if setOfReferences does not already contains it.
@@ -580,7 +590,7 @@ public class ReferentialIntegrityUtil {
           // Check if parentId exist yet in hashMap.  If yes, add the new singleReference to the list of references for parentId
           if (hashMap.keySet().contains(parentId)) {
               HashSetReferenceInfo  setOfReferences = hashMap.get(parentId);
-              if (setOfReferences.doesReferenceExist(singleReference) == false) {
+              if (setOfReferences != null && setOfReferences.doesReferenceExist(singleReference) == false) {
                   // Add the new reference if setOfReferences does not already contains it.
                   setOfReferences.addReference(singleReference,url);
                   numReferencesAdded += 1;
@@ -624,17 +634,21 @@ public class ReferentialIntegrityUtil {
      boolean setsContainsReference = false;
 
      ArrayList<String> references = null;
-     for (String singleKey : keysToMap) {
-            LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey);
-            HashSetReferenceInfo hashSetReferenceInfo = (HashSetReferenceInfo) hashMap.get(singleKey);
-
-            references = hashSetReferenceInfo.getReferences();
-            LOG.debug("isSetContainingReference:getReferenceType,parentId,singleKey,references {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleKey,references);
-            LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey,references.size {},{},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey,references.size());
-            if (references != null && references.contains(singleReference)) {
-                setsContainsReference = true;
-                break;
-            }
+     if (keysToMap == null) {
+         return(setsContainsReference);
+     } else {
+         for (String singleKey : keysToMap) {
+                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey);
+                HashSetReferenceInfo hashSetReferenceInfo = (HashSetReferenceInfo) hashMap.get(singleKey);
+    
+                references = hashSetReferenceInfo.getReferences();
+                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleKey,references {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleKey,references);
+                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey,references.size {},{},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey,references.size());
+                if (references != null && references.contains(singleReference)) {
+                    setsContainsReference = true;
+                    break;
+                }
+          }
       }
       return(setsContainsReference);
   }
@@ -748,7 +762,11 @@ public class ReferentialIntegrityUtil {
 
     List<Target> children = new ArrayList<Target>();
     try {
-      children = getContext().getCrawler().crawl(parentURL,false);  // Get also the directories.
+      if (getContext().getCrawler() != null) {
+          children = getContext().getCrawler().crawl(parentURL,false);  // Get also the directories.
+      } else {
+          LOG.warn("crawlParentForBundleLabel:getContext().getCrawler() is null for URL {}",crawlTarget);
+      }
       for (Target child : children) {
         LOG.debug("crawlParentForBundleLabel:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
         url = child.getUrl();
@@ -784,6 +802,12 @@ public class ReferentialIntegrityUtil {
   public static void additionalReferentialIntegrityChecks(URL crawlTarget) {
     URL url = null;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    try {
+        dbf.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+    } catch (javax.xml.parsers.ParserConfigurationException ex) {
+        LOG.error("additionalReferentialIntegrityChecks:Exception found with message {}",ex.getMessage());
+        return;
+    }
     DocumentBuilder db = null;
     Document xml = null;
     DOMSource domSource = null;
@@ -793,7 +817,12 @@ public class ReferentialIntegrityUtil {
     String parentId = null;
 
     try {
-      List<Target> children = getContext().getCrawler().crawl(crawlTarget,true);  // Get also the directories.
+      List<Target> children = new ArrayList<Target>();
+      if (getContext().getCrawler() != null) {
+          children = getContext().getCrawler().crawl(crawlTarget,true);  // Get also the directories.
+      } else {
+          LOG.warn("additionalReferentialIntegrityChecks:getContext().getCrawler() is null");
+      }
       LOG.debug("additionalReferentialIntegrityChecks:crawlTarget {}",crawlTarget);
       LOG.debug("additionalReferentialIntegrityChecks:crawlTarget,children.size():afor_reduced: {},{}",crawlTarget,children.size());
 
