@@ -64,6 +64,10 @@
         <Investigation_Area>
           <name>Kaguya</name>
           <type>Mission</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:investigation:mission.kaguya</lid_reference>
+            <reference_type>data_to_investigation</reference_type>
+          </Internal_Reference>
         </Investigation_Area>
         <Observing_System>
           <name>Kaguya</name>
