@@ -168,6 +168,8 @@ public class FieldValueValidator {
     //LOG.debug("validate:checkFieldFormat,fields {}",fields);
     //LOG.debug("validate:record.getLocation().getRecord() {}",record.getLocation().getRecord());
 
+    LOG.debug("validate:fields.length {}",fields.length);
+
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
       String value = "dummy_value";   // Set to a dummy value to allow inspection when the value changed to a legitimate value.
@@ -176,6 +178,21 @@ public class FieldValueValidator {
         //String value = record.getString(i+1);
         value = record.getString(i+1);
         LOG.debug("validate:i,value {},[{}]",i,value);
+
+        // https://github.com/NASA-PDS/validate/issues/357 Validate allows CRLF within a Table_Delimited field
+        // For DelimitedTableRecord, we make an additional check to make sure it does not contain a carriage return or linefeed.
+        if (record instanceof DelimitedTableRecord) {
+            // Check if value contains a carriage return or line feed.
+           if (value.contains("\r") || value.contains("\n")) {
+                LOG.error("validate:Field value cannot contain a carriage return or linefeed for Table_Delimited: field {}, value [{}]",i+1,value);
+                addTableProblem(ExceptionType.ERROR,
+                    ProblemType.INVALID_FIELD_VALUE,
+                    "Field value cannot contain a carriage return or linefeed for Table_Delimited",
+                    record.getLocation(),
+                    (i + 1));
+                continue;
+           }
+        }
 
         //LOG.debug("FieldValueValidator:validate:record.getLocation().getRecord(),value {},[{}]",record.getLocation().getRecord(),value);
         //LOG.debug("FieldValueValidator:validate:i,getClass().getName() {},{}",i,fields[i].getClass().getName());
@@ -374,10 +391,13 @@ public class FieldValueValidator {
             "Error while getting field value: " + e.getMessage(),
             record.getLocation(),
             (i + 1));
+        LOG.error("Error while getting field value: {} at field {}",e.getMessage(),(i + 1));  // The value of i starts at 0 so field number is i + 1
         fatalError = true;
 
         // Print the stack trace to an external file for inspection.
         FileService.printStackTraceToFile(null,e);
+
+        break;  // This error is fatal, get out of for loop since no need to continue.
       }
     }
     

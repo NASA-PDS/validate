@@ -3,6 +3,7 @@ Project containing software for validating PDS4 products and PDS3 volumes.
 The software is packaged in a JAR file with a command-line wrapper script
 to execute validation.
 
+
 # Documentation
 The documentation for the latest release of the Validate Tool, including release notes, installation and operation of the software are online at https://NASA-PDS.github.io/validate/.
 
@@ -43,7 +44,7 @@ $ build/pre-build.sh
 + cp validate-1.22.0-SNAPSHOT/resources/registered_context_products.json src/main/resources/util/
 + git add src/main/resources/util/
 + git commit -m 'Update context products for release'
-[master a54fc34] Update context products for release
+[main a54fc34] Update context products for release
  3 files changed, 4842 insertions(+), 18478 deletions(-)
  rename build/{build.sh => pre-build.sh} (100%)
  rewrite src/main/resources/util/registered_context_products.json (73%)
@@ -85,8 +86,8 @@ Commit changes using following template commit message:
 # For operational release
 git commit -m "[RELEASE] Validate v$VERSION"
 
-# Push changes to master
-git push -u origin master
+# Push changes to main
+git push -u origin main
 ```
 
 ### Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
@@ -123,7 +124,7 @@ git push origin :v$VERSION
 
 # Now tag and push
 REPO=validate
-git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/master/CHANGELOG.md) for more details."
+git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/main/CHANGELOG.md) for more details."
 git push --tags
 
 ```
@@ -155,16 +156,16 @@ Update `pom.xml` with the next SNAPSHOT version either manually or using Github 
 For RELEASE CANDIDATE, ignore this step.
 
 ```
-git checkout master
+git checkout main
 
-# For release candidates, skip to push changes to master
+# For release candidates, skip to push changes to main
 VERSION=1.16.0-SNAPSHOT
 mvn versions:set -DnewVersion=$VERSION
 git add pom.xml
 git commit -m "Update version for $VERSION development"
 
-# Push changes to master
-git push -u origin master
+# Push changes to main
+git push -u origin main
 ```
 
 ### Complete Release in Github

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1G00_1850.sch" 
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1G00_1500.sch" 
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<Product_Observational 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd
+                      http://pds.nasa.gov/pds4/img/v1
+                      https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1G00_1850.xsd
+                      http://pds.nasa.gov/pds4/disp/v1
+                      https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1G00_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clipper.mis:data.raw.cube:000.xxx.2021001t0000</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>MISE Raw Science Image Cube 000 XXX 2021-001T00:00</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Lundeen, S.</author_list>
+      <publication_year>2021</publication_year>
+      <description>Test product.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-01-01</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial version.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-01-01T00:00:00.000Z</start_date_time>
+      <stop_date_time>2021-01-01T01:00:00.000Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <!-- Consider adding a Science_Facets section. -->
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Europa Clipper</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Europa Clipper</name>
+      <Observing_System_Component>
+        <name>Europa Clipper</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Mapping Imaging Spectrometer for Europa</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:clipper.mis</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Europa</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.jupiter.europa</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <!-- Clipper Mission Dictionary classes/attributes. -->
+      <!-- Classes and Attributes can be validated once the "clipper:"
+           namespace is officially registered.
+      <clipper:Observation_Information>
+        <clipper:mission_phase_name>Quiet Cruise</clipper:mission_phase_name>
+        <clipper:orbit_number>0</clipper:orbit_number>
+        <clipper:spacecraft_clock_start_count>22751163187200</clipper:spacecraft_clock_start_count>
+        <clipper:spacecraft_clock_stop_count>22751399116800</clipper:spacecraft_clock_stop_count>
+        <clipper:spacecraft_clock_count_partition>1</clipper:spacecraft_clock_count_partition>
+      </clipper:Observation_Information>
+      -->
+    </Mission_Area>
+    <Discipline_Area>
+      <!-- Geometry Discipline Dictionary classes/attributes. -->
+      <!--
+      <geom:Geometry>
+      </geom:Geometry>
+      -->
+      <!-- Imaging Discipline Dictionary classes/attributes. -->
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>data.raw.cube_000.xxx.2021001t0000</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+      </img:Imaging>
+      <!-- Display Discipline Dictionary classes/attributes. -->
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>data.raw.cube_000.xxx.2021001t0000</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>MIS000XXX_2021001T000000_DEV0_2021001T0000_RAW010.IMG</file_name>
+      <creation_date_time>2021-01-01T01:00:00.000Z</creation_date_time>
+      <file_size unit="byte">3379200</file_size>
+      <md5_checksum>d9b6a33f62d1f77eddd0a95b47b21718</md5_checksum>
+      <comment>Test product image.</comment>
+    </File>
+    <Array_3D_Image>
+      <local_identifier>data.raw.cube_000.xxx.2021001t0000</local_identifier>
+      <offset unit="byte">0</offset>
+      <axes>3</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <unit>DN</unit>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>11</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Band</axis_name>
+        <elements>480</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>320</elements>
+        <sequence_number>3</sequence_number>
+      </Axis_Array>
+    </Array_3D_Image>
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>MIS000XXX_2021001T000000_DEV0_2021001T0000_RAW010.HDR</file_name>
+      <creation_date_time>2021-01-01T01:00:00.000Z</creation_date_time>
+      <file_size unit="byte">223</file_size>
+      <md5_checksum>7f2cc9a4c09a65d54da936dfab53c198</md5_checksum>
+      <comment>Test product ENVI header.</comment>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">223</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <description>ENVI Header</description>
+    </Header>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>

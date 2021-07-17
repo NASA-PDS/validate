@@ -22,6 +22,6 @@ mvn versions:set-property -Dproperty=pds4-jparser.version -DnewVersion=$version
 git add pom.xml
 git commit -m "Upgrade pds4-jparser"
 
-git push origin master
+git push origin main
 
 set +x

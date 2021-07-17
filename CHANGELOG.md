@@ -1,16 +1,34 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-05-28)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-08)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...«unknown»)
+
+**Defects:**
+
+- validate does not parse colon in Windows path [\#360](https://github.com/NASA-PDS/validate/issues/360) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
+## [v2.0.7](https://github.com/NASA-PDS/validate/tree/v2.0.7) (2021-07-03)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...v2.0.7)
+
+**Improvements:**
+
+- Improve validate reporting when trying to read a null row [\#355](https://github.com/NASA-PDS/validate/issues/355)
+
+**Defects:**
+
+- validate does not allow ".XML" as an extension for a label file [\#364](https://github.com/NASA-PDS/validate/issues/364) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate allows CRLF within a Table\_Delimited field [\#357](https://github.com/NASA-PDS/validate/issues/357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate labels error.sub\_directory.unallowed\_name as a warning [\#356](https://github.com/NASA-PDS/validate/issues/356) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-06-22)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
 - As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-05-25)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
 
 ## [v2.0.6](https://github.com/NASA-PDS/validate/tree/v2.0.6) (2021-05-25)
 
@@ -58,7 +76,7 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.0...v2.0.2)
 
-**Requirements:**
+**Improvements:**
 
 - Upgrade to Java 9+ [\#323](https://github.com/NASA-PDS/validate/issues/323)
 - Update installation documentation to require Java 1.9+ [\#322](https://github.com/NASA-PDS/validate/issues/322)
@@ -169,9 +187,9 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v1.22.2...v1.22.3)
 
-**Defects:**
+**Requirements:**
 
-- Update software to check number of records specified in label matches the records in the table [\#149](https://github.com/NASA-PDS/validate/issues/149)
+- As a user, I want validate to check number of records/fields specified in label matches the records in the actual data table [\#149](https://github.com/NASA-PDS/validate/issues/149)
 
 ## [v1.22.2](https://github.com/NASA-PDS/validate/tree/v1.22.2) (2020-04-11)
 

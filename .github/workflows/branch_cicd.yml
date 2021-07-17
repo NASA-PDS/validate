@@ -1,0 +1,48 @@
+# 🏃‍♀️ Continuous Integration and Delivery: Branch Testing
+# ======================================================
+
+
+---
+
+name: 🔁 Branch integration testing
+
+
+# Driving Event
+# -------------
+#
+# What event starts this workflow: a push to any branch other than main
+
+on:
+    push:
+        branches:
+            -   '**'
+            -   '!main'
+
+
+# What to Do
+# ----------
+#
+# Test the software with mvn test
+
+jobs:
+    branch_testing:
+        name: 🧩 Branch Testing
+        runs-on: ubuntu-latest
+        if: github.actor != 'pdsen-ci'
+
+        strategy:
+          matrix:
+            java-version: [8, 11]
+
+        steps:
+          - uses: actions/checkout@v2
+          - name: Set up OpenJDK
+            uses: actions/setup-java@v2
+            with:
+              distribution: 'adopt'
+              java-version: ${{ matrix.java-version }}
+
+          - name: Test Software
+            run: mvn test
+
+# -*- mode: yaml; indent: 4; fill-column: 120; coding: utf-8 -*-

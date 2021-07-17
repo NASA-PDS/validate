@@ -190,6 +190,10 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_CONTEXT_REFERENCE.getKey());
             } else if (strTemp.equals("UNREFERENCED_MEMBER")) {
                 count = this.getMessageCount(reportJson, ProblemType.UNREFERENCED_MEMBER.getKey());
+            } else if (strTemp.equals("BAD_EXTENSION")) {
+                count = this.getMessageCount(reportJson, ProblemType.BAD_EXTENSION.getKey());
+            } else if (strTemp.equals("ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE")) {
+                count = this.getMessageCount(reportJson, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {
