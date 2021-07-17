@@ -41,6 +41,7 @@ import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.LabelUtil;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.*;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
@@ -186,6 +187,9 @@ public class ValidateLauncher {
     /** Flag to enable/disable data content validation. */
     private boolean contentValidationFlag;
 
+    /** Flag to enable/disable context reference check. */
+    private boolean contextReferenceCheck;
+
     /** Flag to enable/disable product level validation. */
     private boolean skipProductValidation;
 
@@ -234,6 +238,7 @@ public class ValidateLauncher {
         transformedSchematrons = new ArrayList<Transformer>();
         resolver = new CachedEntityResolver();
         contentValidationFlag = true;
+        contextReferenceCheck = true;
         skipProductValidation = false;
         maxErrors = MAX_ERRORS;
         spotCheckData = -1;
@@ -355,6 +360,8 @@ public class ValidateLauncher {
             } else if (Flag.SKIP_CONTENT_VALIDATION.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
                 setContentValidation(false);
                 FlagsUtil.setContentValidationFlag(false);
+            } else if (Flag.SKIP_CONTEXT_REFERENCE_CHECK.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
+                setContextReferenceCheck(false);
             } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
                 setCheckInbetweenFields(true);
             } else if (Flag.NO_DATA.getLongName().equals(o.getLongOpt())) {
@@ -671,6 +678,13 @@ public class ValidateLauncher {
                     FlagsUtil.setContentValidationFlag(true);
                 }
             }
+            if (config.containsKey(ConfigKey.SKIP_CONTEXT_REFERENCE_CHECK)) {
+                if (config.getBoolean(ConfigKey.SKIP_CONTEXT_REFERENCE_CHECK) == true) {
+                    setContextReferenceCheck(false);
+                } else {
+                    setContextReferenceCheck(true);
+                }
+            }
             if (config.containsKey(ConfigKey.CHECK_INBETWEEN_FIELDS)) {
                 if (config.getBoolean(ConfigKey.CHECK_INBETWEEN_FIELDS) == true) {
                     setCheckInbetweenFields(true);
@@ -980,6 +994,10 @@ public class ValidateLauncher {
         this.contentValidationFlag = flag;
     }
 
+    public void setContextReferenceCheck(boolean flag) {
+        this.contextReferenceCheck = flag;
+    }
+
     public void setCheckInbetweenFields(boolean flag) {
         this.checkInbetweenFields = flag;
     }
@@ -1249,6 +1267,9 @@ public class ValidateLauncher {
         // one IM version and the current bundle may contains another version, the code will incorrectly gives a WARNING that it has multiple versions.
         LabelUtil.hardResetInformationModelVersions();
 
+        // Due to the util class ReferentialIntegrityUtil being static, the flag contextReferenceCheck must be set manually to skip reference check.
+        ReferentialIntegrityUtil.setContextReferenceCheckFlag(this.contextReferenceCheck);
+
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
@@ -1359,6 +1380,9 @@ public class ValidateLauncher {
         if (!this.alternateReferentialPaths.isEmpty()) {
             this.printWarningCollocatedData(alternateReferentialPaths);
         }
+
+        // Due to the util class ReferentialIntegrityUtil being static, it need to be reset() if running a regression test.
+        ReferentialIntegrityUtil.reset();
 
         return success;
     }
