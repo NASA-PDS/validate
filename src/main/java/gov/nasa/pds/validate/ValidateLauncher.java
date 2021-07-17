@@ -38,6 +38,7 @@ import com.google.gson.stream.JsonWriter;
 import gov.nasa.pds.tools.label.*;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
@@ -287,6 +288,10 @@ public class ValidateLauncher {
                 targetList.add(values[index].trim());
             }
         }
+
+        // Initialize flags in FlagsUtil to their default states.
+        FlagsUtil.initialize();
+
         for (Option o : processedOptions) {
             LOG.debug("query:o.getOpt() {}",o.getOpt());
             LOG.debug("query:o.getLongOpt() {}",o.getLongOpt());
@@ -354,6 +359,7 @@ public class ValidateLauncher {
                 setValidationRule(o.getValue());
             } else if (Flag.SKIP_CONTENT_VALIDATION.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
                 setContentValidation(false);
+                FlagsUtil.setContentValidationFlag(false);
             } else if (Flag.SKIP_CONTEXT_REFERENCE_CHECK.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
                 setContextReferenceCheck(false);
             } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
@@ -363,6 +369,7 @@ public class ValidateLauncher {
                 deprecatedFlagWarning = true;
             } else if (Flag.SKIP_PRODUCT_VALIDATION.getLongName().equals(o.getLongOpt())) {
             	setSkipProductValidation(true);
+                FlagsUtil.setSkipProductValidation(true);
             } else if (Flag.MAX_ERRORS.getShortName().equals(o.getOpt())) {
                 long value = 0;
                 try {
@@ -665,8 +672,10 @@ public class ValidateLauncher {
             if (config.containsKey(ConfigKey.SKIP_CONTENT_VALIDATION)) {
                 if (config.getBoolean(ConfigKey.SKIP_CONTENT_VALIDATION) == true) {
                     setContentValidation(false);
+                    FlagsUtil.setContentValidationFlag(false);
                 } else {
                     setContentValidation(true);
+                    FlagsUtil.setContentValidationFlag(true);
                 }
             }
             if (config.containsKey(ConfigKey.SKIP_CONTEXT_REFERENCE_CHECK)) {
@@ -685,6 +694,7 @@ public class ValidateLauncher {
             }
             if (config.containsKey(ConfigKey.SKIP_PRODUCT_VALIDATION)) {
                 setSkipProductValidation(true);
+                FlagsUtil.setSkipProductValidation(true);
             }
             if (config.containsKey(ConfigKey.MAX_ERRORS)) {
                 setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));
