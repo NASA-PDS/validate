@@ -1,8 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-17)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+
+**Requirements:**
+
+- As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
+
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-08)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
 **Defects:**
 
@@ -10,7 +18,11 @@
 
 ## [v2.0.7](https://github.com/NASA-PDS/validate/tree/v2.0.7) (2021-07-03)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...v2.0.7)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.0.7)
+
+**Requirements:**
+
+- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
 
 **Improvements:**
 
@@ -21,14 +33,6 @@
 - validate does not allow ".XML" as an extension for a label file [\#364](https://github.com/NASA-PDS/validate/issues/364) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate allows CRLF within a Table\_Delimited field [\#357](https://github.com/NASA-PDS/validate/issues/357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate labels error.sub\_directory.unallowed\_name as a warning [\#356](https://github.com/NASA-PDS/validate/issues/356) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-06-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.1.0-SNAPSHOT)
-
-**Requirements:**
-
-- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
 
 ## [v2.0.6](https://github.com/NASA-PDS/validate/tree/v2.0.6) (2021-05-25)
 
@@ -109,18 +113,18 @@
 
 - Validate missing collections in bundle after CCB-282 updates [\#310](https://github.com/NASA-PDS/validate/issues/310) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - unclear error message for field count matching [\#301](https://github.com/NASA-PDS/validate/issues/301) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- validate -u flag reports an error on Windows [\#300](https://github.com/NASA-PDS/validate/issues/300)
-- Validate tool does not PASS a bundle with a single-character filename [\#299](https://github.com/NASA-PDS/validate/issues/299)
+- validate -u flag reports an error on Windows [\#300](https://github.com/NASA-PDS/validate/issues/300) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate tool does not PASS a bundle with a single-character filename [\#299](https://github.com/NASA-PDS/validate/issues/299) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate misses double quotes within a delimited table [\#298](https://github.com/NASA-PDS/validate/issues/298) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Content validation of ASCII\_Integer field does not accept value with leading zeroes [\#297](https://github.com/NASA-PDS/validate/issues/297)
-- Content validation incorrectly reports error for floating-point values out of specified min/max range [\#294](https://github.com/NASA-PDS/validate/issues/294)
-- When validating a product with a bad schematron definition, bundle validation also fails indicating the associated product does not exist [\#291](https://github.com/NASA-PDS/validate/issues/291)
-- Validate fails to report error in   File.file\_size [\#281](https://github.com/NASA-PDS/validate/issues/281)
-- Registered context products file does not retain older versions of context products [\#278](https://github.com/NASA-PDS/validate/issues/278)
-- Bug performing bundle validation with nested directories [\#273](https://github.com/NASA-PDS/validate/issues/273)
-- validate 1.25.0-SNAPSHOT raises an exception when validating a product [\#271](https://github.com/NASA-PDS/validate/issues/271)
-- Missing documentation about deprecated flags [\#260](https://github.com/NASA-PDS/validate/issues/260)
-- Product with incorrect table binary definition pass validation [\#257](https://github.com/NASA-PDS/validate/issues/257)
+- Content validation of ASCII\_Integer field does not accept value with leading zeroes [\#297](https://github.com/NASA-PDS/validate/issues/297) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Content validation incorrectly reports error for floating-point values out of specified min/max range [\#294](https://github.com/NASA-PDS/validate/issues/294) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- When validating a product with a bad schematron definition, bundle validation also fails indicating the associated product does not exist [\#291](https://github.com/NASA-PDS/validate/issues/291) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate fails to report error in   File.file\_size [\#281](https://github.com/NASA-PDS/validate/issues/281) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Registered context products file does not retain older versions of context products [\#278](https://github.com/NASA-PDS/validate/issues/278) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Bug performing bundle validation with nested directories [\#273](https://github.com/NASA-PDS/validate/issues/273) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate 1.25.0-SNAPSHOT raises an exception when validating a product [\#271](https://github.com/NASA-PDS/validate/issues/271) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Missing documentation about deprecated flags [\#260](https://github.com/NASA-PDS/validate/issues/260) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Product with incorrect table binary definition pass validation [\#257](https://github.com/NASA-PDS/validate/issues/257) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate should only do integrity checking on latest version of a collection when referenced by LID [\#256](https://github.com/NASA-PDS/validate/issues/256)
 - Unexpected error for data collection in a sub-directory [\#240](https://github.com/NASA-PDS/validate/issues/240) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate error reading tables \> 2GiB [\#189](https://github.com/NASA-PDS/validate/issues/189)
