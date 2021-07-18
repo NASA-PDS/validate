@@ -29,6 +29,24 @@
           },
           {
                "name": [
+                    "2001 QQ322"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qq322::1.0"
+          },
+          {
+               "name": [
+                    "(144897) 2004 UX10"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.144897_2004_ux10::1.0"
+          },
+          {
+               "name": [
                     "COMETARY AND INTERSTELLAR DUST ANALYZER"
                ],
                "type": [
@@ -6802,21 +6820,12 @@
           },
           {
                "name": [
-                    "N/A"
+                    "ROVER CAMERA REAR"
                ],
                "type": [
-                    "N/A"
+                    "IMAGER"
                ],
-               "lidvid": "urn:nasa:pds:context:node:node.sbn::1.0"
-          },
-          {
-               "name": [
-                    "DOPPLER WIND EXPERIMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dwe.hp::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:mpfr.rcrr::1.0"
           },
           {
                "name": [
@@ -20991,24 +21000,6 @@
           },
           {
                "name": [
-                    "2001 QQ322"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_qq322::1.0"
-          },
-          {
-               "name": [
-                    "(144897) 2004 UX10"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.144897_2004_ux10::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -22630,12 +22621,21 @@
           },
           {
                "name": [
-                    "ROVER CAMERA REAR"
+                    "N/A"
                ],
                "type": [
-                    "IMAGER"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:mpfr.rcrr::1.0"
+               "lidvid": "urn:nasa:pds:context:node:node.sbn::1.0"
+          },
+          {
+               "name": [
+                    "DOPPLER WIND EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dwe.hp::1.0"
           },
           {
                "name": [
