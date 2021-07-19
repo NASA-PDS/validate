@@ -92,6 +92,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
+        <version>3.2.0</version>
         <configuration>
           <archive>
             <manifest>
@@ -126,7 +127,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.1.1</version>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>bin-release</id>
@@ -143,14 +144,6 @@ POSSIBILITY OF SUCH DAMAGE.
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.0.0-M3</version>
-      </plugin>
-      <plugin>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.0.0-M3</version>
       </plugin>
     </plugins>
   </build>
