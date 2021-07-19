@@ -1,16 +1,20 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-17)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-19)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-17)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-08)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
 **Defects:**
 
