@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a new idea for this project
+about: Suggest a new idea or new requirement for this project
 title: As a <what is the user's role?> I want to <what is the user trying to accomplish?>
 labels: needs:triage, requirement
 assignees: jordanpadams
@@ -12,19 +12,21 @@ assignees: jordanpadams
    https://github.com/NASA-PDS/nasa-pds.github.io/wiki/Issue-Tracking#user-story-development
 -->
 
-## Motivation
+## 💪 Motivation
 ...so that I can <!-- why do you want to do this? -->
 
-## Additional Details
+## 📖 Additional Details
 <!-- Please prove any additional details or information that could help provide some context for the user story. -->
 
-## Acceptance Criteria
+## ⚖️ Acceptance Criteria
 **Given** <!-- a condition -->
 **When I perform** <!-- an action -->
 **Then I expect** <!-- the result -->
 
-## Engineering Details
+<!-- For Internal Dev Team Use -->
+
+## ⚙️ Engineering Details
 <!--
-    For dev team. Provide some design / implementation details and/or a sub-task checklist as needed. 
+    Provide some design / implementation details and/or a sub-task checklist as needed. 
     Convert issue to Epic if estimate is outside the scope of 1 sprint.
 -->

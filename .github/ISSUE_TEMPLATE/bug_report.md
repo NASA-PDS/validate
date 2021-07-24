@@ -35,7 +35,9 @@ Steps to reproduce the behavior:
  - Version [e.g. 22]
 
 ---
+<!-- FOR DEV TEAM USE -->
 
-<!-- FOR INTERNAL USE -->
+## 🦄 Related requirements
 
-## :unicorn: Applicable requirements**
+
+## ⚙️ Engineering Details

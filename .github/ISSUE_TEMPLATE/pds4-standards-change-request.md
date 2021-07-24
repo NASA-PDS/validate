@@ -3,7 +3,7 @@ name: PDS4 Standards Change Request
 about: Tasks related to PDS4 Standards Change Request in design and implementation
   queue
 title: 'CCB-xxx: Copy SCR title here'
-labels: p.must-have, pending-scr
+labels: requirement, pending-scr, p.must-have, needs:triage
 assignees: jordanpadams
 
 ---
