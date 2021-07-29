@@ -1,14 +1,14 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-19)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
 
 **Defects:**
 
-- validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-17)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-19)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
@@ -18,6 +18,7 @@
 
 **Defects:**
 
+- validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not parse colon in Windows path [\#360](https://github.com/NASA-PDS/validate/issues/360) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 
 ## [v2.0.7](https://github.com/NASA-PDS/validate/tree/v2.0.7) (2021-07-03)
