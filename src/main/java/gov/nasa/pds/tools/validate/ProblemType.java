@@ -174,6 +174,8 @@ public enum ProblemType {
 
     ARRAY_INTERNAL_WARNING("warning.array.internal_warning"),
 
+    REFERENCE_NOT_FOUND("warning.integrity.reference_not_found"),
+
     MEMBER_NOT_FOUND("warning.integrity.member_not_found"),
 
     // A warning when a reference is in the Context_Area but not listed in a bundle/collection's Reference_List tag. 
