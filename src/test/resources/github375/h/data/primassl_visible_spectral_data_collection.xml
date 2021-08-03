@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:gbo.ast.primass-l.spectra:data:primassl_visible_spectral_data_xxx</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>PRIMASS-L Visible Spectroscopy</title>
+    <information_model_version>1.15.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Pinilla-Alonso, N., De Pra, M., De Leon, J., Morate, D., Lorenzi, V., Arredondo, A.,
+Campins, H., Licandro, J., Delbo, M., Cabrera-Lavers, A., Walsh, K., and DeMeo, F.</author_list>
+      <publication_year>2021</publication_year>
+      <description>Library of spectra, observing conditions and physical parameters of the PRIMitive
+Ateroids Spectroscopic Surveey: visible spectral range.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2010-10-12Z</start_date_time>
+      <stop_date_time>2018-04-01Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>SOAR</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:ctio.smarts1m0</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple Asteroids</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>primassl_visible_spectral_data_collection.csv</file_name>
+      <local_identifier>file</local_identifier>
+      <creation_date_time>2021-06-04</creation_date_time>
+    </File>
+    <Table_Delimited>
+      <local_identifier>TABLE</local_identifier>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>24</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>File_name</name>
+          <data_type>UTF8_String</data_type>
+          <description>Name of the file containing the spectrum</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Number</name>
+          <data_type>ASCII_Integer</data_type>
+          <description>Number o the asteroid according to the MPC</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Name</name>
+          <data_type>UTF8_String</data_type>
+          <description>Name of the asteroid according to the MPC</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Family</name>
+          <data_type>UTF8_String</data_type>
+          <description>Collisonal family name</description>
+          <Special_Constants>
+            <missing_constant>-</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Family ref</name>
+          <data_type>UTF8_String</data_type>
+          <description>Flag to the reference where the family is defined</description>
+          <Special_Constants>
+            <missing_constant>-</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>H</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>mag</unit>
+          <description>Absolute magnitude extracted from the JPL-HORIZONS shystem</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>a</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>au</unit>
+          <description>Proper semi-major axis as calculated in the family definition. Note: For objects in
+the Hildas and Cybeles groups we provide osculating elements</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>e</name>
+          <data_type>ASCII_Real</data_type>
+          <description>Proper eccentricity as calculated in the family definition. Note: For objects in the
+Hildas and Cybeles groups we provide osculating elements</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>i</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>degrees</unit>
+          <description>Proper inclination as calculated in the family definition. Note: For objects in the
+Hildas and Cybeles groups we provide osculating elements</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Albedo</name>
+          <data_type>ASCII_Real</data_type>
+          <description>Geometric albedo at 0.55 microns as provided by NEOWISE (Mainzer et al. XXX)</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Albedo_err</name>
+          <data_type>ASCII_Real</data_type>
+          <description>Error associated with the geometric albedo</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Diameter</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>km</unit>
+          <description>Diameter of the asteroid as provided by NEOWISE (Mainzer et al. XXX)</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Diameter_err</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>km</unit>
+          <description>Error associated with the diameter</description>
+          <Special_Constants>
+            <missing_constant>-1</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Start_t</name>
+          <data_type>ASCII_Date_Time_YMD</data_type>
+          <description>Time for the starting of the observations</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Stop_t</name>
+          <data_type>ASCII_Date_Time_YMD</data_type>
+          <description>Time for the ending of the observations</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>N_exp</name>
+          <data_type>ASCII_Integer</data_type>
+          <description>Number of exposures</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Tot_exp</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>seconds</unit>
+          <description>Total exposure time</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Airmass</name>
+          <data_type>ASCII_Real</data_type>
+          <description>Airmass at the starting of the observation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>M_v</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>mag</unit>
+          <description>V magnitude from JPL-HORIZONS (ver cómo se llama oficialmente) at the time of the
+observations</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>alpha</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>degrees</unit>
+          <description>Phase angle at the time of the observation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>r</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>au</unit>
+          <description>Geocentric distance at the time of the observation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>delta</name>
+          <data_type>ASCII_Real</data_type>
+          <unit>au</unit>
+          <description>Heliocentric distance at the time of the observation</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Solar_analog</name>
+          <data_type>UTF8_String</data_type>
+          <description>List of the solar analogs used to obtain the relative reflectance spectrum</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectrum ref</name>
+          <data_type>UTF8_String</data_type>
+          <description>Flag to the reference where the spectrum is published</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
+

@@ -227,6 +227,10 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#366 VALID_1_WITH_CONTENT_VALIDATION" | "github366" | 0 | "0 warn message expected: 0 NON_PDFA_FILE, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_with_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_with_content_validation.json" |
  |"NASA-PDS/validate#366 VALID_2_SKIP_CONTENT_VALIDATION" | "github366" | 0 | "0 error messages expected: 0 totalErrors, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-content-validation --skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_skip_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_skip_content_validation.json" |
 
+# https://github.com/nasa-pds/validate/issues/375 validate halts if label has name "collection" embedded 
+
+ |"NASA-PDS/validate#375 VALID" | "github375" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation --skip-context-validation -r {reportDir}/report_github375_bundle_valid.json -s json -t {resourceDir}/github375/h/bundle_gbo.ast.primass-l.spectra.xml" | "report_github375_bundle_valid.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
