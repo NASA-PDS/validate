@@ -23,6 +23,8 @@ import java.io.StringWriter;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 
+import gov.nasa.pds.tools.util.FlagsUtil;
+
 import org.apache.commons.io.FileUtils;
 
 import org.slf4j.Logger;
@@ -106,11 +108,23 @@ public class FileService {
         //File file = new File("validate_stack_traces.log");
 
         // If a name is not provided, use the hard-code filename.
+        LOG.debug("FileService:printStackTraceToFile:afor: filename [" + filename + "]");
         if (filename == null) {
             filename = "validate_stack_traces.log";
         }
+        LOG.debug("FileService:printStackTraceToFile:after: filename [" + filename + "]");
+
+        // Only attempt to write to stack trace if the user had enabled it or running in debug mode.
+        if (FlagsUtil.getStackPrintingFlag() == false) {
+            LOG.info("Stack trace printing to an external file is an important tool for debugging but it is disabled.  Please use --enable-stack-printing  and re-run your command if desire to see a stack trace log.");
+            return;
+        }
+
+        // Continue with stack trace printing.
+
         // Do a sanity check that the name should end with .log or .txt so as not to overwrite a source code.
         if (!filename.endsWith(".txt") && !filename.endsWith(".log")) {
+            LOG.error("printStackTraceToFile:ERROR: This function can only write to file that ends with .txt or .log.  Name provided [" + filename + "]");
             System.out.println("FileService:printStackTraceToFile:ERROR: This function can only write to file that ends with .txt or .log");
             System.exit(0);
         }

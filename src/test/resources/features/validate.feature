@@ -227,6 +227,16 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#366 VALID_1_WITH_CONTENT_VALIDATION" | "github366" | 0 | "0 warn message expected: 0 NON_PDFA_FILE, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_with_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_with_content_validation.json" |
  |"NASA-PDS/validate#366 VALID_2_SKIP_CONTENT_VALIDATION" | "github366" | 0 | "0 error messages expected: 0 totalErrors, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-content-validation --skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_skip_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_skip_content_validation.json" |
 
+# https://github.com/nasa-pds/validate/issues/379 FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields
+
+ |"NASA-PDS/validate#379 INVALID" | "github379" | 1 | "1 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github379_label_invalid.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github379_label_invalid.json" |
+
+# https://github.com/nasa-pds/validate/issues/380 stack trace being created during successful validate execution
+
+ |"NASA-PDS/validate#380 INVALID_1" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --enable-stack-printing --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ 
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

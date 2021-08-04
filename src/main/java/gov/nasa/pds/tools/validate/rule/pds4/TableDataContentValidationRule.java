@@ -152,7 +152,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             XPaths.TABLE_TYPES, source, XPathConstants.NODESET);
 
         // The rule of TableDataContentValidationRule is only applicable if it contains at least 1 table.
-        if (tables.getLength() > 0) {
+        // Also check for null-ness of tables if no tables are provided.
+        if (tables != null && tables.getLength() > 0) {
           isApplicable = true;
 
           DOMSourceManager.saveDOM(location,source);
@@ -195,8 +196,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("validateTableContentRecordWise:dataFile,recordSize {},{}",dataFile,recordSize);
       } catch (Exception ex) {
           LOG.error("ERROR: Cannot open data file {}",dataFile);
+          // This error is FATAL, print the stack trace.
           // Print the stack trace to an external file for inspection.
-          FileService.printStackTraceToFile(dataFile.getPath(),ex);
+          FileService.printStackTraceToFile(null,ex); // The filename sent to printStackTraceToFile() should be a file that ends with .txt or .log
       }
 
       try {
@@ -211,8 +213,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                } catch (FieldContentFatalException e) {
                    // If we get a fatal error, we can avoid an overflow of error output
                    // by killing the loop through all the table records
+                   // This error is FATAL, print the stack trace.
                    // Print the stack trace to an external file for inspection.
-                   FileService.printStackTraceToFile(dataFile.getPath(),e);
+                   FileService.printStackTraceToFile(null,e); // The filename sent to printStackTraceToFile() should be a file that ends with .txt or .log
                    break;
                }
                if (spotCheckData != -1) {
@@ -230,7 +233,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                }
            } // end  while (record != null)
        } catch (Exception ioEx) {
-           FileService.printStackTraceToFile(dataFile.getPath(),ioEx);
+           FileService.printStackTraceToFile(null,ioEx); // The filename sent to printStackTraceToFile() should be a file that ends with .txt or .log
            LOG.error("Unxpected exeption reached while reading data file {}",dataFile);
             throw new IOException(
                 "Unexpected exception reached while reading table '"
@@ -408,7 +411,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   // If we get a fatal error, we can avoid an overflow of error output
                   // by killing the loop through all the table records
                   // Print the stack trace to an external file for inspection.
+                   // This error is FATAL, print the stack trace.
                   FileService.printStackTraceToFile(null,e);
+                  LOG.error("TableDataContentValidationRule:isApplicable:message:" + e.getMessage());
                   break;
               }
               LOG.debug("validateTableContentLineWise:POSITION_12");
@@ -709,7 +714,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       try {
           // github.com/NASA-PDS/validate/issues/344 Validate inexplicably writes to validate_stack_traces.log 
           // Check for size of tableObjects to avoid the IndexOutOfBoundsException exception.
-          if (tableObjects.size() > 0) {
+          // Also check for null-ness of tableObjects if there are no tables provided.
+          if (tableObjects != null && tableObjects.size() > 0) {
               TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
               // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
               // set records size with the table index 1
@@ -900,7 +906,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     // If we get a fatal error, we can avoid an overflow of error output
                     // by killing the loop through all the table records
                     // Print the stack trace to an external file for inspection.
+                    // This is FATAL error: "Fatal field content read error. Discontinue reading records"
                     FileService.printStackTraceToFile(null,e);
+                    LOG.error("TableDataContentValidationRule:message:" + e.getMessage());
                     break;
                 }
                 if (spotCheckData != -1) {
