@@ -33,10 +33,19 @@ public class FileSizesUtil {
 
       if (url.getProtocol().equals("file")) {
             long fileSize = -1;
-            LOG.debug("getExternalFilesize:url,fileSize {}",url,fileSize);
-            File file = new File(url.getPath());
+            LOG.debug("getExternalFilesize:url,fileSize {},{}",url,fileSize);
+            LOG.debug("getExternalFilesize:afor:path [{}]",url.getPath());
+            // For some strange reason, the File class does not handle well with the "%20" in the name.  It needs to be an actual space.
+            String actualPath = url.getPath().replace("%20"," ");  // Replace the "%20" with one space " "
+            LOG.debug("getExternalFilesize:after:path [{}]",actualPath);
+            File file = new File(actualPath);
+            if (!file.exists()) {
+                LOG.error("getExternalFilesize:Cannot find file [{}]",actualPath);
+            } else {
+                LOG.debug("getExternalFilesize:File exist [{}]",actualPath);
+            }
             fileSize = file.length();
-           LOG.debug("getExternalFilesize:url,fileSize {}",url,fileSize);
+            LOG.debug("getExternalFilesize:url,fileSize {},{}",url,fileSize);
             return(fileSize);
       } else {
         URLConnection conn = null;
