@@ -176,6 +176,8 @@ public enum ProblemType {
 
     MEMBER_NOT_FOUND("warning.integrity.member_not_found"),
 
+    INTEGRITY_PDS4_VERSION_MISMATCH("warning.integrity.pds4_version_mismatch"),
+
     // A warning when a reference is in the Context_Area but not listed in a bundle/collection's Reference_List tag. 
     // Will become an ERROR once it is documented in the Standards Reference
     MISSING_CONTEXT_REFERENCE("warning.integrity.missing_context_reference"),
