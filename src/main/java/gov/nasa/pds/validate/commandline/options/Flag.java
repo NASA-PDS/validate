@@ -97,10 +97,10 @@ public enum Flag {
     NO_DATA(null, "no-data-check", "DEPRECATED: This option has been renamed to --skip-content-validation to be more consistent with other argument naming."),
 
     /** Flag to disable data content validation. */
-    SKIP_CONTENT_VALIDATION("D", "skip-content-validation", "Disable product content validation."),
+    SKIP_CONTENT_VALIDATION("D", "skip-content-validation", "Disable product content validation. The tool will skip check the bytes within the content of the data file."),
 
     /** Flag to disable context reference check. */
-    SKIP_CONTEXT_REFERENCE_CHECK("T", "skip-context-reference-check", "Disable context reference check."),
+    SKIP_CONTEXT_REFERENCE_CHECK(null, "skip-context-reference-check", "Disable context reference check. The tool will skip checking if context references are included in the parent collection/bundle."),
 
     /**
      * Flag to specify a report file name.
