@@ -233,6 +233,11 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#368 VALID" | "github368" | 0 | "0 warnings expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-context-reference-check --skip-product-validation -r {reportDir}/report_github368_valid.json -s json -t {resourceDir}/github368/valid//bundle_kaguya_derived.xml " | "report_github368_valid.json" |
 
+# https://github.com/nasa-pds/validate/issues/373 Update pds4 version mismatch warning message and problem type 
+
+ |"NASA-PDS/validate#373 VALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_valid.json -s json -t {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github373_bundle_valid.json" |
+ |"NASA-PDS/validate#373 INVALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_invalid.json -s json -t {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github373_bundle_invalid.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

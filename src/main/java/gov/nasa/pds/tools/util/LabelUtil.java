@@ -364,7 +364,7 @@ public class LabelUtil {
 
               // Build the ValidationProblem and add it to the report.
               ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                                                 ProblemType.GENERAL_INFO, message),url);
+                                                                                 ProblemType.INTEGRITY_PDS4_VERSION_MISMATCH, message),url);
               LOG.debug("reportIfMoreThanOneVersion:bundleLabelSetFlag,url {},{}",LabelUtil.bundleLabelSetFlag,url);
 
               // Append the WARNING message to the report.
