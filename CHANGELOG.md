@@ -1,14 +1,14 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-29)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-08-07)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
 
-**Defects:**
+**Requirements:**
 
-- validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
+- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-19)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
@@ -18,6 +18,7 @@
 
 **Defects:**
 
+- validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
 - validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not parse colon in Windows path [\#360](https://github.com/NASA-PDS/validate/issues/360) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 
