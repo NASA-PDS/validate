@@ -360,7 +360,7 @@ public class ValidateLauncher {
             } else if (Flag.SKIP_CONTENT_VALIDATION.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
                 setContentValidation(false);
                 FlagsUtil.setContentValidationFlag(false);
-            } else if (Flag.SKIP_CONTEXT_REFERENCE_CHECK.getShortName().equals(o.getOpt())) { // Updated to handle deprecated flag name
+            } else if (Flag.SKIP_CONTEXT_REFERENCE_CHECK.getLongName().equals(o.getLongOpt())) { // Updated to handle deprecated flag name
                 setContextReferenceCheck(false);
             } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
                 setCheckInbetweenFields(true);
