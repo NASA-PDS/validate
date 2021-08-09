@@ -241,8 +241,7 @@ public class ReferentialIntegrityUtil {
       // https://github.com/NASA-PDS/validate/issues/368 Product referential integrity check throws invalid WARNINGs
       // Per request of user, we will disable the reporting until further instructions.
       // Set the reportFlag to true if desire to do the reporting of this warning.
-      //boolean reportFlag = false;
-      boolean reportFlag = true;
+      boolean reportFlag = false;
 
       try {
           String message = "";
