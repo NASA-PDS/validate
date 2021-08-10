@@ -90,61 +90,6 @@ public class BundleManager {
     }
 
     /**
-     * Find all bundle files.
-     * @param url the url of where to start looking for bundle files from.
-     * @return a list of all bundle files.
-     */
-    public static List<Target> findAllBundleFiles(URL url) {
-        List<Target> children = new ArrayList<Target>();
-        try {
-            IOFileFilter regexFileFilter = new RegexFileFilter(BUNDLE_LABEL_PATTERN);
-            Crawler crawler = CrawlerFactory.newInstance(url);
-            children = crawler.crawl(url, regexFileFilter);
-        } catch (IOException io) {
-            LOG.error("Cannot crawl for files at url {}",url);
-        }
-
-        LOG.debug("findAllBundleFiles: children {}",children);
-        LOG.debug("findAllBundleFiles: children.size() {}",children.size());
-        return(children);
-    }
-
-    /**
-     * Find all collection files.
-     * @param url the url of where to start looking for collection files from.
-     * @return a list of all collection files.
-     */
-    public static List<Target> findAllCollectionFiles(URL url) {
-        List<Target> children = new ArrayList<Target>();
-        try {
-            IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
-            Crawler crawler = CrawlerFactory.newInstance(url);
-
-            List<Target> dirs = new ArrayList<Target>();
-            dirs = crawler.crawl(url, true);
-            LOG.debug("findAllCollectionFiles: url,dirs.size() {},{}",url,dirs.size());
-            LOG.debug("findAllCollectionFiles: url,dirs {},{}",url,dirs);
-            List<Target> kids = new ArrayList<Target>();
-            // For each sub directory found, get all collection files.
-            for (Target dir : dirs) {
-                if (dir.isDir()) {
-                    kids = crawler.crawl(dir.getUrl(), regexFileFilter); 
-                    LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
-                    children.addAll(kids);
-                }
-            }
-            LOG.debug("findAllCollectionFiles:children {}",children);
-            LOG.debug("findAllCollectionFiles:children.size() {}",children.size());
-        } catch (IOException io) {
-            LOG.error("Cannot crawl for files at url {}",url);
-        }
-
-        LOG.debug("findAllCollectionFiles: url,children {},{}",url,children);
-        LOG.debug("findAllCollectionFiles: url,children.size() {},{}",url,children.size());
-        return(children);
-    }
-
-    /**
      * Find bundle(s) with the latest version.
      * @param url the url of where to start looking for files from.
      * @return a list of files with latest version.
@@ -279,10 +224,12 @@ public class BundleManager {
                     //       so we will use an alternate call to get the list of files.
                     LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
                     kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
-                    LOG.debug("findAllCollectionFiles: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
+                    LOG.debug("findCollectionWithMatchingReference: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
             }
+            // At this point, the value of children is a list of collection labels found from crawling.
+            // It still need to be trimmmed to contain the list of collections explicitly referenced by the bundle.
             LOG.debug("findCollectionWithMatchingReference:children {}",children);
             LOG.debug("findCollectionWithMatchingReference:children.size() {}",children.size());
 
@@ -313,6 +260,7 @@ public class BundleManager {
             if (!bundleReferToCollectionViaLidvidFlag) {
                 children = BundleManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl));
             } else {
+                // Get the list of collections that were explicitly referenced by the bundle's tags: lidvid_reference or lid_reference
                 children = BundleManager.selectMatchingReferenceFromCollection(children,bundleLidList,bundleIdList);
             }
 
@@ -322,6 +270,17 @@ public class BundleManager {
             } else {
                 LOG.info("BUNDLE_COLLECTION_SELECTED {},{}",bundleUrl.toString(),children.get(0));
             }
+
+            // At this point, the value of children is a list of collection labels explicitly referenced by the bundle.
+            // As an example, for the below lidvid_reference tag in the bundle label:
+            //
+            //     <lidvid_reference>urn:nasa:pds:kaguya_grs_spectra:data_spectra::1.0</lidvid_reference>
+            //
+            // Only collection that contains the logical_identifier "urn:nasa:pds:kaguya_grs_spectra:data_spectra" and version_id "1.0" will be selected.
+            // So if the label containing the following logical_identifier and version_id will be selected:
+            //     <logical_identifier>urn:nasa:pds:kaguya_grs_spectra:data_spectra</logical_identifier>
+            //     <version_id>1.0</version_id>
+
         } catch (IOException io) {
             LOG.error("Cannot crawl for files at url {}",url);
         }
@@ -331,6 +290,66 @@ public class BundleManager {
 
         return(children);
     }
+
+    private static ArrayList<Target> _getCollectionFilesWithSameLogicalIdentifier(List<Target> latestCollectionList, List<Target> otherCollectionList) {
+        // Given a list of targets containing collection labels and a list of other collection targets, returns the list of Targets
+        // that do share the same logical_identifier as the provided targets in latestCollectionList.
+        // Function will fetch the logical_identifier from the list of targets in latestCollectionList and check the logical_identifier against the list of provided collection files.
+        // If the logical_identifier in each of the collection list is the same, add it to the "trimmed" lists of collection files.
+        // If it is different, ignore it because the collection does not belong to the bundle.
+        //
+        // As an example, if the logical_identifier tag of one of the target in latestCollectionList is:
+        //
+        //     <logical_identifier>urn:nasa:pds:kaguya_grs_spectra:data_spectra</logical_identifier>
+        //
+        // This function will look for all collection with the same logical_idenfitier value "urn:nasa:pds:kaguya_grs_spectra:data_spectra" and save it because
+        // there is already one collection containing that identifier and there is no need to select the same collection id.
+        // If the logical_identifier is different, say:
+        //
+        //     <logical_identifier>urn:nasa:pds:insight_documents:document_rise</logical_identifier>
+        //
+        // then that collection label will not be added to the "trimmed" collection list.
+
+        List<Target> trimmedCollectionList = new ArrayList<Target>();
+
+        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:latestCollectionList {}",latestCollectionList);
+        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:otherCollectionList {}",otherCollectionList);
+
+        ArrayList<String> collectionIdList = new ArrayList<String>(0);
+
+        // Loop through latestCollectionList to collect all the logical_identifiers to collectionIdList
+        for (Target target : latestCollectionList) {
+            ArrayList<String> latestIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
+            // It is possible that the file does not contain the logical_identifier tag so null-ness must be checked.
+            if (latestIdList != null && latestIdList.size() > 0) {
+                collectionIdList.add(latestIdList.get(0)); // Save the logical_identifier (with index 0.  Index 1 is the version_id which we don't need)
+            }
+        }
+
+        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:collectionIdList {}",collectionIdList);
+        for (Target target : otherCollectionList) {
+            ArrayList<String> otherCollectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
+            LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:collectionIdList2 {}",otherCollectionIdList);
+            if (otherCollectionIdList  != null && collectionIdList.size() >= 0) {
+                // Loop through all logical_identifier in collectionIdList and compare with otherCollectionIdList
+                // If the logical_identifier matches the logical_identifier from the latestCollectionList, add it to trimmedCollectionList.
+                for (String latestCollectionId : collectionIdList) {
+                    if (latestCollectionId.equals(otherCollectionIdList.get(0))) {
+                        trimmedCollectionList.add(target);
+                        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_TRUE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                    } else {
+                        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_FALSE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                    }
+                }
+            }
+        }
+
+        // Return a list of targets whose logical_identifier matches those in latestCollectionList.
+        // This list can then be used by the crawler to ignore these collection files since they do not belong to the bundle.
+        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",trimmedCollectionList.size());
+        return((ArrayList)trimmedCollectionList);
+    }   
+
 
     /**
      * Build a list of bundle files to ignore.
@@ -375,12 +394,21 @@ public class BundleManager {
 
         List<Target> latestCollections = BundleManager.findCollectionWithMatchingReference(url,bundleUrl);
 
-        LOG.debug("latestCollections.size() {}",latestCollections.size());
-        LOG.debug("latestCollections {}",latestCollections);
+        LOG.debug("buildCollectionIgnoreList:latestCollections.size() {}",latestCollections.size());
+        LOG.debug("buildCollectionIgnoreList:latestCollections {}",latestCollections);
 
         if (latestCollections.size() > 0)  {
-            LOG.debug("latestCollections[0] {}",latestCollections.get(0).getUrl());
-            ignoreCollectionList = BundleManager.findOtherCollectionFiles(latestCollections.get(0).getUrl());
+            LOG.debug("buildCollectionIgnoreList:latestCollections[0] {}",latestCollections.get(0).getUrl());
+
+            List<Target> otherCollectionFiles = BundleManager.findOtherCollectionFiles(latestCollections.get(0).getUrl());
+
+            LOG.debug("buildCollectionIgnoreList:otherCollectionFiles.size {}",otherCollectionFiles.size());
+            LOG.debug("buildCollectionIgnoreList:otherCollectionFiles {}",otherCollectionFiles);
+
+            // From the list of other collection files trim it down to the list of collections
+            // that share the same logical_identifier with the ones in latestCollections.
+            // These collection will be the ones the crawler will ignore while crawling.
+            ignoreCollectionList = BundleManager._getCollectionFilesWithSameLogicalIdentifier(latestCollections,otherCollectionFiles);
         }
 
         LOG.debug("buildCollectionIgnoreList:ignoreCollectionList.size() {}",ignoreCollectionList.size());
@@ -454,11 +482,11 @@ public class BundleManager {
      */
     public static ArrayList<Target> findOtherCollectionFiles(URL url) {
         // Given a url containing the given collection, crawl parent directory and look for all the other
-        // collection bundle files (which are just .xml files).
+        // collection files (which are just .xml files).
 
         ArrayList<Target> otherBundleFilesList = new ArrayList<Target>();
 
-        LOG.debug("findOtherBundleFiles:url:" + url);
+        LOG.debug("findOtherCollectionFiles:url:" + url);
 
         List<Target> allFiles = null;
 
@@ -504,9 +532,22 @@ public class BundleManager {
         //     2.  Create a list of other bundle files to ignore so only the provided bundle is processed.
         //     3.  Create a list of collection files to ignore so only the latest collection file is processed.
 
+        LOG.debug("makeException:url,location {},{}",url,location);
+
         // First, find any other bundle files so they can be eliminated from crawling later.
         ArrayList<Target> otherBundleFiles = BundleManager.findOtherBundleFiles(url);
         BundleManager.m_ignoreList.addAll(otherBundleFiles);
+
+        // Because this function has knowledge of why a particular file is being ignored while crawling
+        // we will log it here.
+        if (otherBundleFiles != null) {
+            for (Target target : otherBundleFiles) {
+                LOG.info("SKIP: {} due to not being selected as the bundle target",target.getUrl());
+            }
+        }
+
+        LOG.debug("makeException:url,otherBundleFiles {},{}",url,otherBundleFiles);
+        LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
 
         String parentToLocation = null;
         try {
@@ -532,6 +573,15 @@ public class BundleManager {
         }
 
         ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL,url);
+        LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
+        if (ignoreCollectionList != null) {
+            LOG.debug("makeException:url,ignoreCollectionList {},{},{}",url,ignoreCollectionList.size(),ignoreCollectionList);
+            // Because this function has knowledge of why a particular file is being ignored while crawling
+            // we will log it here.
+            for (Target target : ignoreCollectionList) {
+                LOG.info("SKIP: {} due to logical_identifier the same as selected collection but different version",target.getUrl());
+            }
+        }
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
         BundleManager.m_ignoreList.addAll(ignoreCollectionList);  // Add a list of collection to ignore in the crawler.
     }
