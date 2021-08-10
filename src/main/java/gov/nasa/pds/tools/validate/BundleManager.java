@@ -541,13 +541,14 @@ public class BundleManager {
         // Because this function has knowledge of why a particular file is being ignored while crawling
         // we will log it here.
         if (otherBundleFiles != null) {
+            // Only print the size if we know that otherBundleFiles is not null.
+            LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
             for (Target target : otherBundleFiles) {
                 LOG.info("SKIP: {} due to not being selected as the bundle target",target.getUrl());
             }
         }
 
         LOG.debug("makeException:url,otherBundleFiles {},{}",url,otherBundleFiles);
-        LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
 
         String parentToLocation = null;
         try {
