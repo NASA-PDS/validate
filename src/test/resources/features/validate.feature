@@ -234,7 +234,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/nasa-pds/validate/issues/380 stack trace being created during successful validate execution
 
  |"NASA-PDS/validate#380 INVALID_1" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
- |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --enable-stack-printing --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --debug-mode --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
  
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.

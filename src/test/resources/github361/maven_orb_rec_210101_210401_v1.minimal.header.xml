@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:maven.spice:miscellaneous:orbnum_maven_orb_rec_210101_210401_v1.orb</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>maven_orb_rec_210101_210401_v1.orb</title>
+    <information_model_version>1.5.0.0</information_model_version>
+    <product_class>Product_Ancillary</product_class>
+    <Citation_Information>
+      <publication_year>2021</publication_year>
+      <keyword>Observation Geometry</keyword>
+      <description>SPICE text orbit number file containing orbit numbers and start times for orbits numbered by/starting at periapsis events, and sets of selected geometric parameters at the orbit start times. SPICE text PCK file constants from the IAU 2009 report (pck0010.tpc). This file supersedes the following orbit number file: maven_orb_rec_210101_210401.orb. Since the SPK file(s) used to generate this orbit number file did not provide continuous coverage, the file contains 598 records that only provide the orbit number in the first field (No.) with all other fields set to blanks. These records correspond to No. 13071, 13072, 13073, 13074, 13075, 13076, 13077, 13078, 13079, 13080, 13081, 13082, 13083, 13084, 13085, 13086, 13087, 13088, 13089, 13090, 13091, 13092, 13093, 13094, 13095, 13096, 13097, 13098, 13099, 13100, 13101, 13102, 13103, 13104, 13105, 13106, 13107, 13108, 13109, 13110, 13111, 13112, 13113, 13114, 13115, 13116, 13117, 13118, 13119, 13120, 13121, 13122, 13123, 13124, 13125, 13126, 13127, 13128, 13129, 13130, 13131, 13132, 13133, 13134, 13135, 13136, 13137, 13138, 13139, 13140, 13141, 13142, 13143, 13144, 13145, 13146, 13147, 13148, 13149, 13150, 13151, 13152, 13153, 13154, 13155, 13156, 13157, 13158, 13159, 13160, 13161, 13162, 13163, 13164, 13165, 13166, 13167, 13168, 13169, 13170, 13171, 13172, 13173, 13174, 13175, 13176, 13177, 13178, 13179, 13180, 13181, 13182, 13183, 13184, 13185, 13186, 13187, 13188, 13189, 13190, 13191, 13192, 13193, 13194, 13195, 13196, 13197, 13198, 13199, 13200, 13201, 13202, 13203, 13204, 13205, 13206, 13207, 13208, 13209, 13210, 13211, 13212, 13213, 13214, 13215, 13216, 13217, 13218, 13219, 13220, 13221, 13222, 13223, 13224, 13225, 13226, 13227, 13228, 13229, 13230, 13231, 13232, 13233, 13234, 13235, 13236, 13237, 13238, 13239, 13240, 13241, 13242, 13243, 13244, 13245, 13246, 13247, 13248, 13249, 13250, 13251, 13252, 13253, 13254, 13255, 13256, 13257, 13258, 13259, 13260, 13261, 13262, 13263, 13264, 13265, 13266, 13267, 13268, 13269, 13270, 13271, 13272, 13273, 13274, 13275, 13276, 13277, 13278, 13279, 13280, 13281, 13282, 13283, 13284, 13285, 13286, 13287, 13288, 13289, 13290, 13291, 13292, 13293, 13294, 13295, 13296, 13297, 13298, 13299, 13300, 13301, 13302, 13303, 13304, 13305, 13306, 13307, 13308, 13309, 13310, 13311, 13312, 13313, 13314, 13315, 13316, 13317, 13318, 13319, 13320, 13321, 13322, 13323, 13324, 13325, 13326, 13327, 13328, 13329, 13330, 13331, 13332, 13333, 13334, 13335, 13336, 13337, 13338, 13339, 13340, 13341, 13342, 13343, 13344, 13345, 13346, 13347, 13348, 13349, 13350, 13351, 13352, 13353, 13354, 13355, 13356, 13357, 13358, 13359, 13360, 13361, 13362, 13363, 13364, 13365, 13366, 13367, 13368, 13369, 13370, 13371, 13372, 13373, 13374, 13375, 13376, 13377, 13378, 13379, 13380, 13381, 13382, 13383, 13384, 13385, 13386, 13387, 13388, 13389, 13390, 13391, 13392, 13393, 13394, 13395, 13396, 13397, 13398, 13399, 13400, 13401, 13402, 13403, 13404, 13405, 13406, 13407, 13408, 13409, 13410, 13411, 13412, 13413, 13414, 13415, 13416, 13417, 13418, 13419, 13420, 13421, 13422, 13423, 13424, 13425, 13426, 13427, 13428, 13429, 13430, 13431, 13432, 13433, 13434, 13435, 13436, 13437, 13438, 13439, 13440, 13441, 13442, 13443, 13444, 13445, 13446, 13447, 13448, 13449, 13450, 13451, 13452, 13453, 13454, 13455, 13456, 13457, 13458, 13459, 13460, 13461, 13462, 13463, 13464, 13465, 13466, 13467, 13468, 13469, 13470, 13471, 13472, 13473, 13474, 13475, 13476, 13477, 13478, 13479, 13480, 13481, 13482, 13483, 13484, 13485, 13486, 13487, 13488, 13489, 13490, 13491, 13492, 13493, 13494, 13495, 13496, 13497, 13498, 13499, 13500, 13501, 13502, 13503, 13504, 13505, 13506, 13507, 13508, 13509, 13510, 13511, 13512, 13513, 13514, 13515, 13516, 13517, 13518, 13519, 13520, 13521, 13522, 13523, 13524, 13525, 13526, 13527, 13528, 13529, 13530, 13531, 13532, 13533, 13534, 13535, 13536, 13537, 13538, 13539, 13540, 13541, 13542, 13543, 13544, 13545, 13546, 13547, 13548, 13549, 13550, 13551, 13552, 13553, 13554, 13555, 13556, 13557, 13558, 13559, 13560, 13561, 13562, 13563, 13564, 13565, 13566, 13567, 13568, 13569, 13570, 13571, 13572, 13573, 13574, 13575, 13576, 13577, 13578, 13579, 13580, 13581, 13582, 13583, 13584, 13585, 13586, 13587, 13588, 13589, 13590, 13591, 13592, 13593, 13594, 13595, 13596, 13597, 13598, 13599, 13600, 13601, 13602, 13603, 13604, 13605, 13606, 13607, 13608, 13609, 13610, 13611, 13612, 13613, 13614, 13615, 13616, 13617, 13618, 13619, 13620, 13621, 13622, 13623, 13624, 13625, 13626, 13627, 13628, 13629, 13630, 13631, 13632, 13633, 13634, 13635, 13636, 13637, 13638, 13639, 13640, 13641, 13642, 13643, 13644, 13645, 13646, 13647, 13648, 13649, 13650, 13651, 13652, 13653, 13654, 13655, 13656, 13657, 13658, 13659, 13660, 13661, 13662, 13663, 13664, 13665, 13666, 13667, and 13668. Created by NAIF, JPL.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-01-01T00:00:00Z</start_date_time>
+      <stop_date_time>2021-04-01T00:00:00Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Observation Geometry</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>MAVEN</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.maven</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>MAVEN</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.maven</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:maven.spice:document:spiceds</lid_reference>
+      <reference_type>ancillary_to_data</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Ancillary>
+    <File>
+        <file_name>maven_orb_rec_210101_210401_v1.minimal.orb</file_name>
+        <creation_date_time>2021-06-15T18:33:11</creation_date_time>
+        <file_size unit="byte">943</file_size>
+        <md5_checksum>127aa14d27b0a7b8f55345f43febd06f</md5_checksum>
+    </File>
+    <Header>
+      <name>Orbit number header</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">1</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+    </Header>
+    <Table_Character>
+      <name>Orbit number table</name>
+      <offset unit="byte">268</offset>
+      <records>5</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>10</fields>
+        <groups>0</groups>
+        <record_length unit="byte">135</record_length>
+        <Field_Character>
+          <name>No.</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>I5</field_format>
+          <description>Number that provides an incremental orbit count determined by the pericenter event.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Event UTC PERI</name>
+          <field_number>2</field_number>
+          <!-- <field_location unit="byte">8 is the correct value.  Set to 2 below to force overlap.</field_location>-->
+          <field_location unit="byte">2</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>A20</field_format>
+          <description>UTC time of the pericenter event that signifies the start of an orbit.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Event SCLK PERI</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">30</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>A20</field_format>
+          <description>SCKL time of the pericenter event that signifies the start of an orbit.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>OP-Event UTC APO</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">52</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>A20</field_format>
+          <description>UTC time of opposite event (apocenter).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SolLon</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">74</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>F7.2</field_format>
+          <unit>deg</unit>
+          <description>Sub-solar planetodetic longitude at the pericenter event time in the Mars body-fixed frame (IAU_MARS).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SolLat</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">83</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>F7.2</field_format>
+          <unit>deg</unit>
+          <description>Sub-solar planetodetic latitude at the pericenter event time in the Mars body-fixed frame (IAU_MARS).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SC Lon</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">92</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>F7.2</field_format>
+          <unit>deg</unit>
+          <description>Sub-target planetodetic longitude at the pericenter event time in the Mars body-fixed frame (IAU_MARS).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SC Lat</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">101</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>F7.2</field_format>
+          <unit>deg</unit>
+          <description>Sub-target planetodetic latitude at at the pericenter event time in the Mars body-fixed frame (IAU_MARS).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Alt</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">110</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">10</field_length>
+          <field_format>F10.2</field_format>
+          <unit>km</unit>
+          <description>Altitude of the target above the observer body at the pericenter event time relative to the Mars ellipsoid.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Sol Dist</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">122</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">12</field_length>
+          <field_format>F12.1</field_format>
+          <unit>km</unit>
+          <description>Solar distance from target at the pericenter event time.</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Ancillary>
+</Product_Ancillary>

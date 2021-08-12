@@ -366,6 +366,9 @@ public class ValidateLauncher {
                 setCheckInbetweenFields(true);
             } else if (Flag.ENABLE_STACK_PRINTING.getLongName().equals(o.getLongOpt())) {
                 FlagsUtil.setStackPrintingFlag(true);
+                // Also call setSeverity to 0.
+                short value = 0;
+                setSeverity(value);
             } else if (Flag.NO_DATA.getLongName().equals(o.getLongOpt())) {
                 setContentValidation(false);
                 deprecatedFlagWarning = true;
