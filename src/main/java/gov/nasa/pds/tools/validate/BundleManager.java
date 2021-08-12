@@ -257,7 +257,8 @@ public class BundleManager {
                 LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
                 LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
                 LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
-                if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
+                // Per documentation, use split(String regexp, int limit) to avoid surprising behavior 
+                if (collectionIdList.get(0).split("::",2)[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
                     childrenSelected.add(target);
                     LOG.debug("selectMatchingReferenceFromCollection:ADD_TARGET {}",target);
                 }
