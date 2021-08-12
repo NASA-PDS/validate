@@ -291,7 +291,7 @@ public class BundleManager {
         return(children);
     }
 
-    private static ArrayList<Target> _getCollectionFilesWithSameLogicalIdentifier(List<Target> latestCollectionList, List<Target> otherCollectionList) {
+    private static ArrayList<Target> getCollectionFilesWithSameLogicalIdentifier(List<Target> latestCollectionList, List<Target> otherCollectionList) {
         // Given a list of targets containing collection labels and a list of other collection targets, returns the list of Targets
         // that do share the same logical_identifier as the provided targets in latestCollectionList.
         // Function will fetch the logical_identifier from the list of targets in latestCollectionList and check the logical_identifier against the list of provided collection files.
@@ -312,8 +312,8 @@ public class BundleManager {
 
         List<Target> trimmedCollectionList = new ArrayList<Target>();
 
-        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:latestCollectionList {}",latestCollectionList);
-        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:otherCollectionList {}",otherCollectionList);
+        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:latestCollectionList {}",latestCollectionList);
+        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:otherCollectionList {}",otherCollectionList);
 
         ArrayList<String> collectionIdList = new ArrayList<String>(0);
 
@@ -326,19 +326,19 @@ public class BundleManager {
             }
         }
 
-        LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:collectionIdList {}",collectionIdList);
+        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:collectionIdList {}",collectionIdList);
         for (Target target : otherCollectionList) {
             ArrayList<String> otherCollectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
-            LOG.debug("_getCollectionFilesWithSameLogicalIdentifier:collectionIdList2 {}",otherCollectionIdList);
+            LOG.debug("getCollectionFilesWithSameLogicalIdentifier:collectionIdList2 {}",otherCollectionIdList);
             if (otherCollectionIdList  != null && collectionIdList.size() >= 0) {
                 // Loop through all logical_identifier in collectionIdList and compare with otherCollectionIdList
                 // If the logical_identifier matches the logical_identifier from the latestCollectionList, add it to trimmedCollectionList.
                 for (String latestCollectionId : collectionIdList) {
                     if (latestCollectionId.equals(otherCollectionIdList.get(0))) {
                         trimmedCollectionList.add(target);
-                        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_TRUE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                        LOG.info("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_TRUE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
                     } else {
-                        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_FALSE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                        LOG.info("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_FALSE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
                     }
                 }
             }
@@ -346,7 +346,7 @@ public class BundleManager {
 
         // Return a list of targets whose logical_identifier matches those in latestCollectionList.
         // This list can then be used by the crawler to ignore these collection files since they do not belong to the bundle.
-        LOG.info("_getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",trimmedCollectionList.size());
+        LOG.info("getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",trimmedCollectionList.size());
         return((ArrayList)trimmedCollectionList);
     }   
 
@@ -408,7 +408,7 @@ public class BundleManager {
             // From the list of other collection files trim it down to the list of collections
             // that share the same logical_identifier with the ones in latestCollections.
             // These collection will be the ones the crawler will ignore while crawling.
-            ignoreCollectionList = BundleManager._getCollectionFilesWithSameLogicalIdentifier(latestCollections,otherCollectionFiles);
+            ignoreCollectionList = BundleManager.getCollectionFilesWithSameLogicalIdentifier(latestCollections,otherCollectionFiles);
         }
 
         LOG.debug("buildCollectionIgnoreList:ignoreCollectionList.size() {}",ignoreCollectionList.size());
