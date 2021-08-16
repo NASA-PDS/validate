@@ -343,6 +343,10 @@ public class ValidateLauncher {
                     throw new InvalidOptionException("Problems parsing severity level " + "value.");
                 }
                 setSeverity(value);
+
+                // Save this value in FlagsUtil so we know to print debug statements.
+                FlagsUtil.setSeverity(value);
+
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
                 setRegExps((List<String>) o.getValuesList());
             } else if (Flag.ALTERNATE_FILE_PATHS.getLongName().equals(o.getLongOpt())) {

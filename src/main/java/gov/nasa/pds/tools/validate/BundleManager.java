@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 
 import javax.xml.transform.sax.SAXSource;
 
+import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.LidVid;
 import gov.nasa.pds.tools.util.Utility;
@@ -545,6 +546,9 @@ public class BundleManager {
             LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
             for (Target target : otherBundleFiles) {
                 LOG.info("SKIP: {} due to not being selected as the bundle target",target.getUrl());
+                if (FlagsUtil.getSeverity().isDebugApplicable()) { 
+                    System.out.println("SKIP: " + target.getUrl() + " due to not being selected as the bundle target");
+                }
             }
         }
 
@@ -581,6 +585,9 @@ public class BundleManager {
             // we will log it here.
             for (Target target : ignoreCollectionList) {
                 LOG.info("SKIP: {} due to logical_identifier the same as selected collection but different version",target.getUrl());
+                if (FlagsUtil.getSeverity().isDebugApplicable()) { 
+                    System.out.println("SKIP: " + target.getUrl() + " due to logical_identifier the same as selected collection but different version");
+                }
             }
         }
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);

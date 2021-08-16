@@ -13,6 +13,8 @@
 
 package gov.nasa.pds.tools.util;
 
+import gov.nasa.pds.tools.label.ExceptionType;
+
 //import java.io.File;
 //
 //import java.net.URI;
@@ -53,6 +55,8 @@ public class FlagsUtil {
 
     /** Flag to enable/disable product level validation. */
     private static boolean skipProductValidation = false;
+
+    private static ExceptionType severityType;
 
   /**
    * Initialize flags to their default states
@@ -103,5 +107,32 @@ public class FlagsUtil {
    */
     public static boolean getSkipProductValidation() {
         return(FlagsUtil.skipProductValidation);
+    }
+
+
+  /**
+   * Set the severity value
+   * @param  value The boolean value to set skipProductValidation to 
+   * @return None
+   */
+    public static void setSeverity(int level) {
+        if (level == 0) {
+            FlagsUtil.severityType = ExceptionType.DEBUG;
+        } else if (level == 1) {
+            FlagsUtil.severityType = ExceptionType.INFO;
+        } else if (level == 2) {
+            FlagsUtil.severityType = ExceptionType.WARNING;
+        } else if (level == 3) {
+            FlagsUtil.severityType = ExceptionType.ERROR;
+        }
+    }
+
+  /**
+   * Get the severity value
+   * @param  None
+   * @return the severityType value
+   */
+    public static ExceptionType getSeverity() {
+        return(FlagsUtil.severityType);
     }
 }
