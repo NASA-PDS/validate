@@ -171,6 +171,8 @@ public enum Flag {
     // Flag to allow user to check in between fields for non-blank characters for Table_Character validation.
     CHECK_INBETWEEN_FIELDS(null, "strict-field-checks", "Specific to character tables (Table_Character) validation, enable checks to ensure no unexpected alphanumeric characters appear in between in between fields."),
 
+    ENABLE_STACK_PRINTING(null, "debug-mode", "Enable stack trace printing to an external log file if an unexpected exception is caught."),
+
     /**
      * flag to Flag to specify the file that contains a list of files/directories to validate.
      */

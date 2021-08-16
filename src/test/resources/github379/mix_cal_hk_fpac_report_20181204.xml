@@ -1,0 +1,1198 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://psa.esa.int/psa/v1/PDS4_PSA_1101.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.xsd http://psa.esa.int/psa/v1 https://psa.esa.int/psa/v1/PDS4_PSA_1101.xsd http://psa.esa.int/psa/bc/v1 https://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.xsd" xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" xmlns:psa="http://psa.esa.int/psa/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Identification_Area>
+        <logical_identifier>urn:esa:psa:bc_mpo_mixs:data_calibrated:mix_cal_hk_fpac_report_20181204</logical_identifier>
+        <version_id>0.1</version_id>
+        <title>BepiColombo MPO MIXS-C Calibrated Housekeeping Report</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>$AUTHOR_LIST</author_list>
+            <editor_list>$EDITOR_LIST</editor_list>
+            <publication_year>2017</publication_year>
+            <keyword>$KEYWORD</keyword>
+            <description>$CITATION_DESCRIPTION</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-01-01</modification_date>
+                <version_id>0.1</version_id>
+                <description>This is the first version of this product</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-12-04T13:33:11.833Z</start_date_time>
+            <stop_date_time>2018-12-04T23:59:19.833Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Engineering</purpose>
+            <processing_level>Calibrated</processing_level>
+            <Science_Facets>
+                <wavelength_range>X-ray</wavelength_range>
+                <domain>Surface</domain>
+                <discipline_name>Spectroscopy</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>BepiColombo</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:esa:psa:context:investigation:mission.bc</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>BepiColombo MPO MIXS</name>
+            <Observing_System_Component>
+                <name>Mercury Planetary Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mpo</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MIXS</name>
+                <type>Instrument</type>
+                <description>Mercury Imaging X-Ray Spectrometer</description>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument:mixs.mpo</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>MERCURY</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mercury</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <psa:Mission_Information>
+                <psa:spacecraft_clock_start_count>1/0608650390.04522</psa:spacecraft_clock_start_count>
+                <psa:spacecraft_clock_stop_count>1/0608687958.04522</psa:spacecraft_clock_stop_count>
+                <psa:mission_phase_name>Near-Earth Commissioning Phase</psa:mission_phase_name>
+                <psa:mission_phase_identifier>necp</psa:mission_phase_identifier>
+                <psa:start_orbit_number>0</psa:start_orbit_number>
+                <psa:stop_orbit_number>0</psa:stop_orbit_number>
+            </psa:Mission_Information>
+            <psa:Processing_Context>
+                <psa:processing_software_title>bscs-raw2cal-mix</psa:processing_software_title>
+                <psa:processing_software_version>1.14.0-SNAPSHOT</psa:processing_software_version>
+                <psa:Processing_Inputs>
+                    <psa:Processing_Input_Identification>
+                        <psa:type>SPICE kernel</psa:type>
+                        <psa:file_name>bc_ops_v200_20190128_001.tm</psa:file_name>
+                    </psa:Processing_Input_Identification>
+                </psa:Processing_Inputs>
+            </psa:Processing_Context>
+            <psa:Sub-Instrument>
+                <psa:identifier>MIXS-C</psa:identifier>
+                <psa:name>MIXS-C</psa:name>
+                <psa:type>Spectrometer</psa:type>
+            </psa:Sub-Instrument>
+        </Mission_Area>
+        <Discipline_Area>
+            <geom:Geometry/>
+        </Discipline_Area>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>mix_cal_hk_fpac_report_20181204.tab</file_name>
+            <creation_date_time>2019-07-25T08:47:31</creation_date_time>
+            <file_size unit="byte">432003</file_size>
+            <records>583</records>
+            <md5_checksum>a556a97f50bef80a5205503c4d67e371</md5_checksum>
+        </File>
+        <Table_Character>
+            <name>MIXS-C Calibrated Housekeeping Report Table</name>
+            <offset unit="byte">0</offset>
+            <records>583</records>
+            <description>                                        
+                This table is a Character table containing the archived                           
+                MIXS calibrated fpaC housekeeping parameters
+            </description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>93</fields>
+                <groups>0</groups>
+                <record_length unit="byte">741</record_length>
+                <Field_Character>
+                    <name>TIME_UTC</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <unit>None</unit>
+                    <description>
+                     UTC timestamp of packet
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TIME_OBT</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">26</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <unit>None</unit>
+                    <description>
+                     S/C clock at packet time
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>FPA_POWER_STATUS</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">45</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                     Valid states are OFF, ON
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>MIXS_C_MODE</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">49</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>None</unit>
+                    <description>
+                     Valid states are OFF, SAFE, STANDBY, SCIENCE, ANNEALING
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>RAM_ADDRESS_REGISTER</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">59</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 0.  Address for read/write in offset table, sequencer program and image buffer. Auto-incremented when one of these registers (1,3 and 4) is read or written to (note they are not telemetered in this report).
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SEQUENCER_XY_REGISTER</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">65</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 2.  Address currently being read by the sequencer
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>OFFSET_XY_REGISTER</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">71</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 5.  Offset table address currently being read by the sequencer
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>DAC_DIVISOR_REGISTER</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">77</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 6 bits 3-0
+					 Divisor used to calculate DAC clocks. Valid values are in the range 8-23
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>BIAS_DIVISOR_REGISTER</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">80</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 6 bits 9-8
+					 Divisor used to calculate VbiasClock and Vdrift3Clock frequencies. Valid values are 2, 4, 8
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONTROL_REGISTER_RUN</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">82</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 9 bit 0
+					Sequencer enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONTROL_REGISTER_SET_RUN</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">91</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 9 bit 1
+					Action of run bit (previous parameter) enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONTROL_REGISTER_EN_CAPTURE</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">100</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 9 bit 3
+					Capture of raw images enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONTROL_REGISTER_EN_OUTPUT</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">109</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 9 bit 4
+					Detector data output enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONTROL_REGISTER_SET_OUTPUT</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">118</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 9 bit 5
+					Action of enOutput bit (previous parameter) enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>THRESHOLD_REGISTER</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">127</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>DN</unit>
+                    <description>
+                     FPA register 10
+					Threshold for event detection -calibration is not meaningful unless applied pixel by pixel. This will be calibrated in future steps
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>BLACK_LEVEL_REGISTER</name>
+                    <field_number>16</field_number>
+                    <field_location unit="byte">131</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 11
+					Rate at which black level events are produced - one pixel every n frames
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>COMMAND_COUNT_REGISTER</name>
+                    <field_number>17</field_number>
+                    <field_location unit="byte">135</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 13
+					Number of commands received; never reset (but wraps around at 255)
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TIMING_SIGNATURE_REGISTER</name>
+                    <field_number>18</field_number>
+                    <field_location unit="byte">139</field_location>
+                    <data_type>ASCII_Numeric_Base16</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 14
+					Sequencer check. This is the output of a checking algorithm defined in REF and should always have the value of 0xNNNN
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_BIAS_REGISTER</name>
+                    <field_number>19</field_number>
+                    <field_location unit="byte">144</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 16
+					Detector bias voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRIFT_3_REGISTER</name>
+                    <field_number>20</field_number>
+                    <field_location unit="byte">154</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 17
+					Voltage on the outer drift ring
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRIFT_1_REGISTER</name>
+                    <field_number>21</field_number>
+                    <field_location unit="byte">163</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 19
+                     Voltage on the inner drift ring
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_INNER_SUBSTRATE_REGISTER</name>
+                    <field_number>22</field_number>
+                    <field_location unit="byte">171</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 20
+                     Voltage on the inner substrate
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_BIAS_ENABLE_REGISTER</name>
+                    <field_number>23</field_number>
+                    <field_location unit="byte">178</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 15 bit 0
+					VbiasClock enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRIFT_ENABLE_REGISTER</name>
+                    <field_number>24</field_number>
+                    <field_location unit="byte">187</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 15 bit 1
+					Vdrift3Clock enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SWITCHER_BOOST_ENABLE_REGISTER</name>
+                    <field_number>25</field_number>
+                    <field_location unit="byte">196</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 15 bit 2
+					Current boost in switchers enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_N</name>
+                    <field_number>26</field_number>
+                    <field_location unit="byte">205</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 8
+					heartbeatN signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_S</name>
+                    <field_number>27</field_number>
+                    <field_location unit="byte">214</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 9
+					heartbeatS signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_CDS_MUX_OUT_N</name>
+                    <field_number>28</field_number>
+                    <field_location unit="byte">223</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 10
+					CDSmuxOutN signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_CDS_MUX_OUT_S</name>
+                    <field_number>29</field_number>
+                    <field_location unit="byte">232</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 11
+					CDSmuxOutS signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_NE</name>
+                    <field_number>30</field_number>
+                    <field_location unit="byte">241</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 12
+					heartbeatNE signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_NW</name>
+                    <field_number>31</field_number>
+                    <field_location unit="byte">250</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 13
+					heartbeatNW signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_SE</name>
+                    <field_number>32</field_number>
+                    <field_location unit="byte">259</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 14
+					heartbeatSE signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EN_SIGNATURE_REGISTER_HEARTBEAT_SW</name>
+                    <field_number>33</field_number>
+                    <field_location unit="byte">268</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 21 bit 15
+					heartbeatSW signal monitoring enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRAIN_REGISTER</name>
+                    <field_number>34</field_number>
+                    <field_location unit="byte">277</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 24
+                     Detector DEPFET drain voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_HIGH_REGISTER</name>
+                    <field_number>35</field_number>
+                    <field_location unit="byte">285</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 25
+                     Clear switch high voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_LOW_REGISTER</name>
+                    <field_number>36</field_number>
+                    <field_location unit="byte">293</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 26
+                     Clear switch low voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_GATE_HIGH_REGISTER</name>
+                    <field_number>37</field_number>
+                    <field_location unit="byte">301</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 27
+                     Clear gate switch high voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_GATE_LOW_REGISTER</name>
+                    <field_number>38</field_number>
+                    <field_location unit="byte">308</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 28
+                     Clear gate switch low voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_GATE_HIGH_REGISTER</name>
+                    <field_number>39</field_number>
+                    <field_location unit="byte">316</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 29
+                     Gate switch high voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_GATE_LOW_REGISTER</name>
+                    <field_number>40</field_number>
+                    <field_location unit="byte">323</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 30
+                     Gate switch low voltage
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_SOURCE_N_REGISTER</name>
+                    <field_number>41</field_number>
+                    <field_location unit="byte">331</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 31
+                     DEPFET current set for the N sector
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_SOURCE_S_REGISTER</name>
+                    <field_number>42</field_number>
+                    <field_location unit="byte">341</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 32
+                     DEPFET current set for the S sector
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_BIAS_N_REGISTER</name>
+                    <field_number>43</field_number>
+                    <field_location unit="byte">347</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 33
+                     DEPFET current set for the N sector in conjunction with I_SOURCE_N
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_BIAS_S_REGISTER</name>
+                    <field_number>44</field_number>
+                    <field_location unit="byte">355</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 34
+                     DEPFET current set for the S sector in conjunction with I_SOURCE_S
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>OFFSET_N_REGISTER</name>
+                    <field_number>45</field_number>
+                    <field_location unit="byte">363</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 35
+                     Global offset for the N sector
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>OFFSET_S_REGISTER</name>
+                    <field_number>46</field_number>
+                    <field_location unit="byte">370</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>V</unit>
+                    <description>
+                     FPA register 36
+                     Global offset for the S sector
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_TEST_REGISTER</name>
+                    <field_number>47</field_number>
+                    <field_location unit="byte">377</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>DN</unit>
+                    <description>
+                     FPA register 39
+					Test voltage for the Asteroid
+					Valid values are 0-7
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TEST_FREQUENCY_REGISTER</name>
+                    <field_number>48</field_number>
+                    <field_location unit="byte">379</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <unit>DN</unit>
+                    <description>
+                     FPA register 38
+					Frequency for the Asteroid test signal
+					Valid values are 0-16
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_S_1_ANALOGUE</name>
+                    <field_number>49</field_number>
+                    <field_location unit="byte">382</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 0
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_S_2_ANALOGUE</name>
+                    <field_number>50</field_number>
+                    <field_location unit="byte">391</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 1
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_S_3_ANALOGUE</name>
+                    <field_number>51</field_number>
+                    <field_location unit="byte">400</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 2
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CC_ANALOGUE</name>
+                    <field_number>52</field_number>
+                    <field_location unit="byte">409</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 3
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DD_1_ANALOGUE</name>
+                    <field_number>53</field_number>
+                    <field_location unit="byte">417</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 4
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DD_2_ANALOGUE</name>
+                    <field_number>54</field_number>
+                    <field_location unit="byte">425</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 5
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DD_A_ANALOGUE</name>
+                    <field_number>55</field_number>
+                    <field_location unit="byte">433</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 6
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_SS_A_ANALOGUE</name>
+                    <field_number>56</field_number>
+                    <field_location unit="byte">441</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 7
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_EE_ANALOGUE</name>
+                    <field_number>57</field_number>
+                    <field_location unit="byte">449</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 8
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_BIAS_ANALOGUE</name>
+                    <field_number>58</field_number>
+                    <field_location unit="byte">458</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 9
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRIFT_3_ANALOGUE</name>
+                    <field_number>59</field_number>
+                    <field_location unit="byte">468</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 10
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRIFT_1_ANALOGUE</name>
+                    <field_number>60</field_number>
+                    <field_location unit="byte">478</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 11
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_DRAIN_ANALOGUE</name>
+                    <field_number>61</field_number>
+                    <field_location unit="byte">487</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 12
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_HIGH_ANALOGUE</name>
+                    <field_number>62</field_number>
+                    <field_location unit="byte">496</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 13
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_LOW_ANALOGUE</name>
+                    <field_number>63</field_number>
+                    <field_location unit="byte">505</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 14
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_GATE_HIGH_ANALOGUE</name>
+                    <field_number>64</field_number>
+                    <field_location unit="byte">514</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 15
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_CLEAR_GATE_LOW_ANALOGUE</name>
+                    <field_number>65</field_number>
+                    <field_location unit="byte">523</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 16
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_GATE_HIGH_ANALOGUE</name>
+                    <field_number>66</field_number>
+                    <field_location unit="byte">532</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 17
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>V_GATE_LOW_ANALOGUE</name>
+                    <field_number>67</field_number>
+                    <field_location unit="byte">541</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>V</unit>
+                    <description>
+                     Analogue 18
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>I_SOURCE_N_ANALOGUE</name>
+                    <field_number>68</field_number>
+                    <field_location unit="byte">550</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>mA</unit>
+                    <description>
+                     Analogue 19
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>I_SOURCE_S_ANALOGUE</name>
+                    <field_number>69</field_number>
+                    <field_location unit="byte">559</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>mA</unit>
+                    <description>
+                     Analogue 20
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TEMPERATURE_N_ANALOGUE</name>
+                    <field_number>70</field_number>
+                    <field_location unit="byte">568</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>degC</unit>
+                    <description>
+                     Analogue 21
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TEMPERATURE_S_ANALOGUE</name>
+                    <field_number>71</field_number>
+                    <field_location unit="byte">578</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>degC</unit>
+                    <description>
+                     Analogue 22
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TEMPERATURE_I_ANALOGUE</name>
+                    <field_number>72</field_number>
+                    <field_location unit="byte">588</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>degC</unit>
+                    <description>
+                     Analogue 23
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>NORMAL_COUNT_RATE</name>
+                    <field_number>73</field_number>
+                    <field_location unit="byte">598</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>s**-1</unit>
+                </Field_Character>
+                <Field_Character>
+                    <name>OVER_RANGE_COUNT_RATE</name>
+                    <field_number>74</field_number>
+                    <field_location unit="byte">609</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>s**-1</unit>
+                </Field_Character>
+                <Field_Character>
+                    <name>PIXEL_LIST_FRACTION</name>
+                    <field_number>75</field_number>
+                    <field_location unit="byte">620</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>DN</unit>
+                </Field_Character>
+                <Field_Character>
+                    <name>OVER_RANGE_ENABLE</name>
+                    <field_number>76</field_number>
+                    <field_location unit="byte">626</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     Over-range filtering enabled/disabled
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>HEATER_ON_TIME</name>
+                    <field_number>77</field_number>
+                    <field_location unit="byte">635</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>s</unit>
+                </Field_Character>
+                <Field_Character>
+                    <name>CONFIG_ERROR_COUNT</name>
+                    <field_number>78</field_number>
+                    <field_location unit="byte">639</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                    Number of FPA configuration error events. Never reset but wraps around at 255
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>TIMING_ERROR_COUNT</name>
+                    <field_number>79</field_number>
+                    <field_location unit="byte">643</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                    Number of FPA timing error events. Never reset but wraps around at 255.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>RESPONSE_TIMEOUT_COUNT</name>
+                    <field_number>80</field_number>
+                    <field_location unit="byte">647</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>None</unit>
+                    <description>
+                    Number of FPA response timeout events. Never reset but wraps around at 255.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SPLIT_PIXEL_COUNT_RATE</name>
+                    <field_number>81</field_number>
+                    <field_location unit="byte">651</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>s**-1</unit>
+                    <description>
+                     FPA register 42
+					Threshold for split pixel identification - calibration is not meaningful unless applied pixel by pixel. This will be calibrated in future steps
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SPLIT_PIXEL_IDENTIFICATION_THRESHOLD</name>
+                    <field_number>82</field_number>
+                    <field_location unit="byte">662</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <unit>DN</unit>
+                    <description>
+                     FPA register 42
+					Threshold for split pixel identification - calibration is not meaningful unless applied pixel by pixel. This will be calibrated in future steps
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SPLIT_PIXEL_PROCESSING_MODE</name>
+                    <field_number>83</field_number>
+                    <field_location unit="byte">666</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 41 bits 1-0
+					Split pixel mode. 4 modes numbered Mode 0 to Mode 3 - see [EAICD?] for descriptions of these modes
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>PIXEL_ZERO_CONTROL</name>
+                    <field_number>84</field_number>
+                    <field_location unit="byte">668</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 41 bit 2
+					Specifies which neighbouring pixels are zeroed when a split pixel is identified. See [EAICD?] for details
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>CHARGED_PARTICLE_PROCESSING_CONTROL</name>
+                    <field_number>85</field_number>
+                    <field_location unit="byte">670</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 41 bit 3
+					Charged particle processing control
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>BLACK_LEVEL_PIXEL_COMPARISON</name>
+                    <field_number>86</field_number>
+                    <field_location unit="byte">672</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 41 bit 4
+					Threshold against which black level pixels are compared. Valid values are THRESHOLD and SPIT
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>FIFO_OVERFLOW_REGISTER</name>
+                    <field_number>87</field_number>
+                    <field_location unit="byte">682</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">11</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 0
+					Whether output FIFO buffer has overflowed since last reset. Valid values are OVERFLOW and NO_OVERFLOW
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>FIFO_PARITY_ERROR</name>
+                    <field_number>88</field_number>
+                    <field_location unit="byte">694</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 1
+					Whether output FIFO has had a parity error since last reset. Valid values are ERROR and NO_ERROR
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>OFFSET_TABLE_PARITY_ERROR</name>
+                    <field_number>89</field_number>
+                    <field_location unit="byte">703</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 2
+					Whether parity error is detected in offset table memory. Valid values are ERROR and NO_ERROR
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>IMAGE_BUFFER_PARITY_ERROR</name>
+                    <field_number>90</field_number>
+                    <field_location unit="byte">712</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 3
+					Whether parity error is detected in image buffer memory. Valid values are ERROR and NO_ERROR
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>NORTH_DATA_PROCESSING_PARITY_ERROR</name>
+                    <field_number>91</field_number>
+                    <field_location unit="byte">721</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 4
+					Whether parity error is detected in North data processing chain. Valid values are ERROR and NO_ERROR
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SOUTH_DATA_PROCESSING_PARITY_ERROR</name>
+                    <field_number>92</field_number>
+                    <field_location unit="byte">730</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>None</unit>
+                    <description>
+                     FPA register 37 bit 5
+					Whether parity error is detected in South data processing chain. Valid values are ERROR and NO_ERROR
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>SCIENCE_TM_PACKING_OPTION_THRESHOLD</name>
+                    <field_number>93</field_number>
+                    <field_location unit="byte">739</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <unit>None</unit>
+                    <description>
+                     Defines method by which pixel events are packed into records.
+					Valid values are 0,1,2, and 3. Each value refers to a different packing method described in [EAICD?]
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

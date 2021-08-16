@@ -54,6 +54,9 @@ public class FlagsUtil {
     /** Flag to enable/disable product level validation. */
     private static boolean skipProductValidation = false;
 
+    /** Flag to enable/disable stack trace printing. */
+    private static boolean stackPrintingFlag = false;
+
   /**
    * Initialize flags to their default states
    * @param  None
@@ -62,9 +65,30 @@ public class FlagsUtil {
     public static void initialize() {
         FlagsUtil.contentValidationFlag = true;
         FlagsUtil.skipProductValidation = false;
+        FlagsUtil.stackPrintingFlag = false;
         LOG.debug("initialize:contentValidationFlag {}",FlagsUtil.contentValidationFlag);
         LOG.debug("initialize:skipProductValidation {}",FlagsUtil.skipProductValidation);
     }
+
+  /**
+   * Set the stackPrintingFlag value
+   * @param  flag The boolean value to set stackPrintingFlag to 
+   * @return None
+   */
+    public static void setStackPrintingFlag(boolean flag) {
+        FlagsUtil.stackPrintingFlag = flag;
+        LOG.debug("setStackPrintingFlag: {}",FlagsUtil.stackPrintingFlag);
+    }
+
+  /**
+   * Get the stackPrintingFlag value
+   * @param  None
+   * @return the stackPrintingFlag value
+   */
+    public static boolean getStackPrintingFlag() {
+        return(FlagsUtil.stackPrintingFlag);
+    }
+
 
   /**
    * Set the contentValidationFlagvalue
