@@ -244,13 +244,24 @@ public class BundleManager {
             // If the reference and version id matches, keep it.
             // Note that the first element has to be split using "::" in case it does contain it.
             LOG.debug("selectMatchingReferenceFromCollection:collectionIdList {} {}",collectionIdList,collectionIdList.size());
-            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
-            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
-            LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
-            LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
-            if (collectionIdList.get(0).split("::")[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
-                childrenSelected.add(target);
-                LOG.debug("selectMatchingReferenceFromCollection:ADD_TARGET {}",target);
+            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() collectionReferenceToMatch {},{}",target.getUrl(), collectionReferenceToMatch);
+            LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() collectionVersionToMatch   {},{}",target.getUrl(), collectionVersionToMatch);
+
+            // Because the size returned of collectionIdList is not guaranteed to have at least 2 elements, make the check to
+            // avoid the java.lang.IndexOutOfBoundsException violation.
+            //if (2 == 3) {
+            if (collectionIdList.size() < 2) {
+                LOG.warn("selectMatchingReferenceFromCollection:Expecting at least 2 elements from collectionIdList: target.getUrl() {}",target.getUrl());
+            } else {
+                LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing reference {} {} {}",target.getUrl(),collectionIdList.get(0), collectionReferenceToMatch);
+                LOG.debug("selectMatchingReferenceFromCollection:target.getUrl() comparing version   {} {} {}",target.getUrl(),collectionIdList.get(1), collectionVersionToMatch);
+                LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(0).split('::')[0],collectionReferenceToMatch [{}] [{}]",collectionIdList.get(0).split("::")[0],collectionReferenceToMatch);
+                LOG.debug("selectMatchingReferenceFromCollection:collectionIdList.get(1),collectionVersionToMatch {} {}",collectionIdList.get(1),collectionVersionToMatch);
+                // Per documentation, use split(String regexp, int limit) to avoid surprising behavior 
+                if (collectionIdList.get(0).split("::",2)[0].equals(collectionReferenceToMatch) && collectionIdList.get(1).equals(collectionVersionToMatch)) {
+                    childrenSelected.add(target);
+                    LOG.debug("selectMatchingReferenceFromCollection:ADD_TARGET {}",target);
+                }
             }
         }
         return(childrenSelected);
