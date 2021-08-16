@@ -1,23 +1,18 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-07-29)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-07-19)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-08-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
 **Requirements:**
 
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
+- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
 **Defects:**
 
+- validate does not work correctly when the path name contains a space [\#381](https://github.com/NASA-PDS/validate/issues/381) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
 - validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not parse colon in Windows path [\#360](https://github.com/NASA-PDS/validate/issues/360) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 

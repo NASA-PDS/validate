@@ -44,7 +44,9 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#51 1" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_1.json -s json -t {resourceDir}/github51" | "report_github51_1.json" |
  |"NASA-PDS/validate#51 2" | "github51" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github51_2.json -s json -t {resourceDir}/github51/valid" | "report_github51_2.json" |
 # Previous 2 info.validation.general plus 5 new ones from warning messages from code changes in https://github.com/NASA-PDS/validate/issues/308
- |"NASA-PDS/validate#51 3" | "github51" | 7 | "7 errors expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --alternate_file_paths src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra --skip-product-validation --skip-content-validation -r {reportDir}/report_github51_3.json -s json -t {resourceDir}/github51/valid" | "report_github51_3.json" |
+# Per https://github.com/NASA-PDS/validate/issues/368 will change 7 back to 2.
+
+ |"NASA-PDS/validate#51 3" | "github51" | 2 | "2 errors expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --alternate_file_paths src/test/resources/github51_additionals/additional_dir1/data_spectra,src/test/resources/github51_additionals/additional_dir2/data_spectra --skip-product-validation --skip-content-validation -r {reportDir}/report_github51_3.json -s json -t {resourceDir}/github51/valid" | "report_github51_3.json" |
 
  |"NASA-PDS/validate#6 1" | "github6" | 9 | "9 errors expected for FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS." | "FILE_NAME_HAS_INVALID_CHARS,UNALLOWED_BASE_NAME,UNALLOWED_FILE_NAME,DIR_NAME_HAS_INVALID_CHARS" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_invalid_cucumber.json -s json {resourceDir}/github6/invalid/bundle_kaguya_derived.xml" | "report_github6_bundle_invalid_cucumber.json" |
  |"NASA-PDS/validate#6 2" | "github6" | 0 | "0 errors expected for totalErrors." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github6_bundle_valid_cucumber.json -s json {resourceDir}/github6/valid/bundle_kaguya_derived.xml" | "report_github6_bundle_valid_cucumber.json" |
@@ -236,6 +238,18 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#380 INVALID_1" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
  |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --debug-mode --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
  
+# https://github.com/nasa-pds/validate/issues/375 validate halts if label has name "collection" embedded 
+
+ |"NASA-PDS/validate#375 VALID" | "github375" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation --skip-context-validation -r {reportDir}/report_github375_bundle_valid.json -s json -t {resourceDir}/github375/h/bundle_gbo.ast.primass-l.spectra.xml" | "report_github375_bundle_valid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/368 Product referential integrity check throws invalid WARNINGs
+
+ |"NASA-PDS/validate#368 VALID" | "github368" | 0 | "0 warnings expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-context-reference-check --skip-product-validation -r {reportDir}/report_github368_valid.json -s json -t {resourceDir}/github368/valid//bundle_kaguya_derived.xml " | "report_github368_valid.json" |
+
+# https://github.com/nasa-pds/validate/issues/373 Update pds4 version mismatch warning message and problem type 
+
+ |"NASA-PDS/validate#373 VALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_valid.json -s json -t {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github373_bundle_valid.json" |
+ |"NASA-PDS/validate#373 INVALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_invalid.json -s json -t {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github373_bundle_invalid.json" |
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

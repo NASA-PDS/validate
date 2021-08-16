@@ -182,6 +182,8 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_SCHEMATRON_SPEC.getKey());
             } else if (strTemp.equals("RECORD_LENGTH_MISMATCH")) {
                 count = this.getMessageCount(reportJson, ProblemType.RECORD_LENGTH_MISMATCH.getKey());
+            } else if (strTemp.equals("INTEGRITY_PDS4_VERSION_MISMATCH")) {
+                count = this.getMessageCount(reportJson, ProblemType.INTEGRITY_PDS4_VERSION_MISMATCH.getKey());
             } else if (strTemp.equals("MISSING_LF")) {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_LF.getKey());
             } else if (strTemp.equals("MISSING_CRLF")) {

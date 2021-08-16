@@ -238,6 +238,11 @@ public class ReferentialIntegrityUtil {
   }
 
   private static void performReporting(String singleLidOrLidvidReference, boolean referenceIsLidvid, int indexToFilenames) {
+      // https://github.com/NASA-PDS/validate/issues/368 Product referential integrity check throws invalid WARNINGs
+      // Per request of user, we will disable the reporting until further instructions.
+      // Set the reportFlag to true if desire to do the reporting of this warning.
+      boolean reportFlag = false;
+
       try {
           String message = "";
           URL url = ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames.get(indexToFilenames); // The warning message will be for this label.
@@ -246,13 +251,16 @@ public class ReferentialIntegrityUtil {
           } else {
               message = "A LID reference " + singleLidOrLidvidReference + " is referencing a logical identifier for a product not found in this " + ReferentialIntegrityUtil.getReferenceType(); 
           }
-          LOG.debug(message);
+          LOG.debug("performReporting:" + message);
 
-          // Build the ValidationProblem and add it to the report.
-          ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                                                 ProblemType.GENERAL_INFO, message),url);
-          // Append the WARNING message to the report.
-          getListener().addProblem(p1);
+          if (reportFlag) {
+              // Build the ValidationProblem and add it to the report.
+              // The problem type is now ProblemType.REFERENCE_NOT_FOUND and not ProblemType.GENERAL_INFO
+              ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                                                 ProblemType.REFERENCE_NOT_FOUND, message),url);
+              // Append the WARNING message to the report.
+              getListener().addProblem(p1);
+          }
 
       } catch (Exception e) {
           e.printStackTrace();
@@ -263,6 +271,7 @@ public class ReferentialIntegrityUtil {
       // Given a LID or LIDVID reference, check to see if it is in logicalIdentifiersCumulative.
       // Because the reference may not contain the version, we must do a brute-force check since the logicalIdentifiersCumulative contains a version number.
       boolean referenceIsValid = false;
+      LOG.debug("bruteForceCheckForNonExistLogicalReferences:ReferentialIntegrityUtil.logicalIdentifiersCumulative.size,singleLidOrLidvidReference  {},{}",ReferentialIntegrityUtil.logicalIdentifiersCumulative.size(),singleLidOrLidvidReference);
 
       for (String singleLogicalIdentifier : ReferentialIntegrityUtil.logicalIdentifiersCumulative) {
           LOG.debug("bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier {},{}",singleLidOrLidvidReference,singleLogicalIdentifier);
@@ -278,7 +287,7 @@ public class ReferentialIntegrityUtil {
 
   /**
    * Report a WARNING if any LID or LIDVID references does not resolve to at least one element in the list of logical identifiers.
-   * @param validationRule The rule of the validation, e.g. pds4.label, pds4.bundle.  This value can be null since a rule is is not required within validate module.
+   * @param validationRule The rule of the validation, e.g. pds4.label, pds4.bundle.  This value can be null since a rule is not required within validate module.
    * @return None
    */
   public static void reportLidOrLidvidReferenceToNonExistLogicalReferences() {
@@ -298,7 +307,7 @@ public class ReferentialIntegrityUtil {
                     String filename = ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames.get(indexToFilenames).toString(); 
                     String logicalIdentifierPerLidReference = ReferentialIntegrityUtil.lidOrLidvidReferenceToLogicalIdentifierMap.get(singleLidOrLidvidReference);
 
-                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
+                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:REFERENCE_WITH_VERSION:filename,singleLidOrLidvidReference,logicalIdentifierPerLidReference {},{},{}",filename,singleLidOrLidvidReference,logicalIdentifierPerLidReference);
 
                     boolean productBelongToBundleFlag = ReferentialIntegrityUtil.isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
 
@@ -320,7 +329,7 @@ public class ReferentialIntegrityUtil {
                     String filename = ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames.get(indexToFilenames).toString();
                     String logicalIdentifierPerLidReference = ReferentialIntegrityUtil.lidOrLidvidReferenceToLogicalIdentifierMap.get(singleLidOrLidvidReference);
 
-                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:filename,logicalIdentifierPerLidReference {},{}",filename,logicalIdentifierPerLidReference);
+                    LOG.debug("reportLidOrLidvidReferenceToNonExistLogicalReferences:REFERENCE_WITHOUT_VERSION:filename,singleLidOrLidvidReference,logicalIdentifierPerLidReference {},{},{}",filename,singleLidOrLidvidReference,logicalIdentifierPerLidReference);
 
                     boolean productBelongToBundleFlag = ReferentialIntegrityUtil.isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
 
@@ -755,7 +764,7 @@ public class ReferentialIntegrityUtil {
     LOG.debug("collectAllContextReferences:url,contextReferencesCumulative {},{},{}",url,contextReferencesCumulative,contextReferencesCumulative.size());
   }
 
-  private static List<Target> crawlParentForBundleLabel(URL crawlTarget) {
+  private static void crawlParentForBundleLabel(URL crawlTarget) {
     // Given a crawl target, crawl the parent target for any Bundle labels.
     URL parentURL = Utility.getParent(crawlTarget);
     URL url = null;
@@ -767,6 +776,7 @@ public class ReferentialIntegrityUtil {
       } else {
           LOG.warn("crawlParentForBundleLabel:getContext().getCrawler() is null for URL {}",crawlTarget);
       }
+      LOG.debug("crawlParentForBundleLabel:crawlTarget,children.size() {},{}",crawlTarget,children.size());
       for (Target child : children) {
         LOG.debug("crawlParentForBundleLabel:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
         url = child.getUrl();
@@ -779,6 +789,9 @@ public class ReferentialIntegrityUtil {
                 //labelIsBundleFlag = true;
                 // Save the URL of the bundle to be used to report the error.
                 ReferentialIntegrityUtil.parentBundleURL = url;
+                LOG.debug("crawlParentForBundleLabel:BUNDLE_LABEL_FOUND_TRUE:parentBundleURL,url {},{}",ReferentialIntegrityUtil.parentBundleURL,url);
+            } else {
+                LOG.debug("crawlParentForBundleLabel:BUNDLE_LABEL_FOUND_FALSE:parentBundleURL,url {},{}",ReferentialIntegrityUtil.parentBundleURL,url);
             }
         }
       }
@@ -790,7 +803,7 @@ public class ReferentialIntegrityUtil {
           ex.getMessage());
     }
 
-    return(children);
+    return;
   }
 
   /**
@@ -828,7 +841,7 @@ public class ReferentialIntegrityUtil {
 
       // Because a collection is one directory below the bundle, 
       // crawl the parent directory for bundle label to collect the bundle name so a message can be attached to the parent bundle.
-      List<Target> children_2 = ReferentialIntegrityUtil.crawlParentForBundleLabel(crawlTarget);
+      ReferentialIntegrityUtil.crawlParentForBundleLabel(crawlTarget);
 
       db = dbf.newDocumentBuilder();
 
@@ -864,6 +877,10 @@ public class ReferentialIntegrityUtil {
 
             xml = db.parse(url.openStream());
             domSource = new DOMSource(xml);
+
+            // Note that the function getLidVidReferences() collects all references in the Reference_List group in Internal_Reference tags.
+            // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all references collected in lidOrLidVidReferences for each label.
+
             ArrayList<String> lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource,url);
             ArrayList<String> logicalIdentifiers    = LabelUtil.getLogicalIdentifiers(domSource,url);
 
