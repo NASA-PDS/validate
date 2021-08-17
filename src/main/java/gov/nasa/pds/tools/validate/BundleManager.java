@@ -567,15 +567,7 @@ public class BundleManager {
                     // Write a record to report that we are skipping this file.
                     if (BundleManager.m_report != null) {
                         try {
-                            // Reminder for enumerated values of ExceptionType:
-                            // public enum ExceptionType {
-                            //   DEBUG(5,"DEBUG"),
-                            //   INFO(4,"INFO"),
-                            //   WARNING(3,"WARNING"),
-                            //   ERROR(2,"ERROR"),
-                            //   FATAL(1,"FATAL_ERROR");
-                            // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
-                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
                                                                                                ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to not being selected as the bundle target"),
                                                                              target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
@@ -626,8 +618,7 @@ public class BundleManager {
                     // Write a record to report that we are skipping this file.
                     if (BundleManager.m_report != null) {
                         try {
-                            // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
-                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
                                                                                                ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to logical_identifier the same as selected collection but different version"),
                                                                          target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
