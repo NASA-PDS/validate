@@ -575,18 +575,9 @@ public class BundleManager {
                             //   ERROR(2,"ERROR"),
                             //   FATAL(1,"FATAL_ERROR");
                             // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
-                            ValidationProblem p1 = null;
-                            if ((FlagsUtil.getSeverity() != null) &&
-                                (FlagsUtil.getSeverity().isInfoApplicable() || FlagsUtil.getSeverity().isDebugApplicable())) {
-                                // Include a message if the severity level is INFO or DEBUG. 
-                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to not being selected as the bundle target"),
-                                                           target.getUrl());
-                            } else {
-                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                                ProblemType.UNREFERENCED_FILE, null),
-                                                           target.getUrl());
-                            }
+                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to not being selected as the bundle target"),
+                                                                             target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                         } catch (Exception e) {
                               e.printStackTrace();
@@ -636,18 +627,9 @@ public class BundleManager {
                     if (BundleManager.m_report != null) {
                         try {
                             // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
-                            ValidationProblem p1 = null;
-                            if ((FlagsUtil.getSeverity() != null) &&
-                                (FlagsUtil.getSeverity().isInfoApplicable() || FlagsUtil.getSeverity().isDebugApplicable())) {
-                                // Include a message if the severity level is INFO or DEBUG. 
-                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to logical_identifier the same as selected collection but different version"),
-                                                           target.getUrl());
-                            } else {
-                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                                                                ProblemType.UNREFERENCED_FILE, null),
-                                                           target.getUrl());
-                            }
+                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to logical_identifier the same as selected collection but different version"),
+                                                                         target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                         } catch (Exception e) {
                               e.printStackTrace();
