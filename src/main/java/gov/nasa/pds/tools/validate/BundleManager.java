@@ -349,7 +349,7 @@ public class BundleManager {
         for (Target target : otherCollectionList) {
             ArrayList<String> otherCollectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
             LOG.debug("getCollectionFilesWithSameLogicalIdentifier:collectionIdList2 {}",otherCollectionIdList);
-            if (otherCollectionIdList  != null && collectionIdList.size() >= 0) {
+            if (otherCollectionIdList  != null && collectionIdList.size() >= 1) {
                 // Loop through all logical_identifier in collectionIdList and compare with otherCollectionIdList
                 // If the logical_identifier matches the logical_identifier from the latestCollectionList, add it to trimmedCollectionList.
                 for (String latestCollectionId : collectionIdList) {
@@ -525,7 +525,7 @@ public class BundleManager {
             for (Target target : allFiles) {
                 LOG.debug("findOtherCollectionFiles:target {}",target);
                 // Add target if it is not the same as given url and is not a directory.
-                if ((!target.getUrl().equals(url)) && !target.isDir()) {
+                if (!target.getUrl().equals(url) && !target.isDir()) {
                     if (TargetExaminer.isTargetCollectionType(target.getUrl())) {
                         LOG.debug("findOtherCollectionFiles:TARGET_ADD {}",target);
                         otherBundleFilesList.add(target);
@@ -572,7 +572,7 @@ public class BundleManager {
                                                                              target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                         } catch (Exception e) {
-                              e.printStackTrace();
+                            LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
                         }
                     } else {
                         LOG.warn("makeException:Object BundleManager.m_report is null");
@@ -623,7 +623,7 @@ public class BundleManager {
                                                                          target.getUrl());
                             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                         } catch (Exception e) {
-                              e.printStackTrace();
+                            LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
                         }
                     } else {
                         LOG.warn("makeException:Object BundleManager.m_report is null");
