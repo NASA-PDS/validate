@@ -1277,6 +1277,7 @@ public class ValidateLauncher {
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
+                validator.setReport(report);
 
                 // If the user requested to check in between the fields, set it here in the validator.
                 // Note that it is important to perform a set regardless of the value of checkInbetweenFields,

@@ -53,6 +53,10 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**
  * Abstract class that represents a Report for the Vtool command line API. This
  * class handles basic utilities for reporting and calling customized portions
@@ -62,6 +66,7 @@ import org.apache.commons.io.FilenameUtils;
  *
  */
 public abstract class Report {
+  private static final Logger LOG = LoggerFactory.getLogger(Report.class);
   private static String DEPRECATED_FLAG_WARNING_MSG = ("NOTE: The following flags have been deprecated. These options will no longer be supported after December 20, 2021.\n" +
                                                     "      Update execution as soon as possible to avoid issues. Contact pds_operator@jpl.nasa.gov if you have issues.\n\n" +
                                                     "      --force (-f)--model-version (-m) flags have been deprecated. \n" +
@@ -353,7 +358,11 @@ public abstract class Report {
   
   public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
     this.numSkipped++;
+    LOG.debug("recordSkip:sourceUri,numSkipped {},{}",sourceUri,this.numSkipped);
+    LOG.debug("recordSkip:sourceUri,problem.getProblem().getSeverity().getValue(),this.level.getValue() {},{},{},{}",sourceUri, problem.getProblem().getSeverity().getValue(),
+              this.level.getValue(), (problem.getProblem().getSeverity().getValue() <= this.level.getValue()));
     if (!Utility.isDir(sourceUri.toString())) { 
+        LOG.debug("recordSkip:sourceUri,integrityCheckFlag {},{}",sourceUri,this.integrityCheckFlag);
         if (!this.integrityCheckFlag) { 
             this.numSkippedProds++;
         } else {

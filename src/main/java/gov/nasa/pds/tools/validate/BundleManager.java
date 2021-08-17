@@ -15,12 +15,15 @@ package gov.nasa.pds.tools.validate;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import javax.xml.transform.sax.SAXSource;
+
+import gov.nasa.pds.tools.label.ExceptionType;
 
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.LabelParser;
@@ -32,6 +35,10 @@ import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
+import gov.nasa.pds.tools.validate.ValidateProblemHandler;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+
+import gov.nasa.pds.validate.report.Report;
 
 import gov.nasa.pds.validate.constants.Constants; 
 
@@ -67,6 +74,17 @@ public class BundleManager {
     private static ArrayList<Target> m_ignoreList = new ArrayList<Target>();
     private static String m_location = null;
     private static Target m_latestBundle = null;
+    private static Report m_report = null; 
+
+    /**
+     * Set the report object.
+     * @param report The Report object.
+     * @return None 
+     */
+
+    public static void setReport(Report report) {
+        BundleManager.m_report = report;
+    }
 
     /**
      * Returns the modified location.
@@ -269,7 +287,7 @@ public class BundleManager {
             if (children.size() == 0) {
                 LOG.error("Could not find any collection from bundle {}",bundleUrl.toString());
             } else {
-                LOG.info("BUNDLE_COLLECTION_SELECTED {},{}",bundleUrl.toString(),children.get(0));
+                LOG.debug("BUNDLE_COLLECTION_SELECTED {},{}",bundleUrl.toString(),children.get(0));
             }
 
             // At this point, the value of children is a list of collection labels explicitly referenced by the bundle.
@@ -337,9 +355,9 @@ public class BundleManager {
                 for (String latestCollectionId : collectionIdList) {
                     if (latestCollectionId.equals(otherCollectionIdList.get(0))) {
                         trimmedCollectionList.add(target);
-                        LOG.info("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_TRUE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_TRUE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
                     } else {
-                        LOG.info("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_FALSE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
+                        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:COLLECTION_FILE_MATCHES_FALSE:logical_identifier,logical_identifier_2,target {},{},{}",latestCollectionId,otherCollectionIdList.get(0),target.getUrl());
                     }
                 }
             }
@@ -347,7 +365,7 @@ public class BundleManager {
 
         // Return a list of targets whose logical_identifier matches those in latestCollectionList.
         // This list can then be used by the crawler to ignore these collection files since they do not belong to the bundle.
-        LOG.info("getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",trimmedCollectionList.size());
+        LOG.debug("getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",trimmedCollectionList.size());
         return((ArrayList)trimmedCollectionList);
     }   
 
@@ -546,9 +564,38 @@ public class BundleManager {
             LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
             for (Target target : otherBundleFiles) {
                 LOG.info("SKIP: {} due to not being selected as the bundle target",target.getUrl());
-                if (FlagsUtil.getSeverity().isDebugApplicable()) { 
-                    System.out.println("SKIP: " + target.getUrl() + " due to not being selected as the bundle target");
-                }
+                    // Write a record to report that we are skipping this file.
+                    if (BundleManager.m_report != null) {
+                        try {
+                            // Reminder for enumerated values of ExceptionType:
+                            // public enum ExceptionType {
+                            //   DEBUG(5,"DEBUG"),
+                            //   INFO(4,"INFO"),
+                            //   WARNING(3,"WARNING"),
+                            //   ERROR(2,"ERROR"),
+                            //   FATAL(1,"FATAL_ERROR");
+                            // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
+                            ValidationProblem p1 = null;
+                            if ((FlagsUtil.getSeverity() != null) &&
+                                (FlagsUtil.getSeverity().isInfoApplicable() || FlagsUtil.getSeverity().isDebugApplicable())) {
+                                // Include a message if the severity level is INFO or DEBUG. 
+                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to not being selected as the bundle target"),
+                                                           target.getUrl());
+                            } else {
+                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                                ProblemType.UNREFERENCED_FILE, null),
+                                                           target.getUrl());
+                            }
+                            BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+                        } catch (Exception e) {
+                              e.printStackTrace();
+                        }
+                    } else {
+                        LOG.warn("makeException:Object BundleManager.m_report is null");
+                    }
+                    // Remove System.out.println() so as keeping output from pipeline clean.
+                //}
             }
         }
 
@@ -584,10 +631,30 @@ public class BundleManager {
             // Because this function has knowledge of why a particular file is being ignored while crawling
             // we will log it here.
             for (Target target : ignoreCollectionList) {
-                LOG.info("SKIP: {} due to logical_identifier the same as selected collection but different version",target.getUrl());
-                if (FlagsUtil.getSeverity().isDebugApplicable()) { 
-                    System.out.println("SKIP: " + target.getUrl() + " due to logical_identifier the same as selected collection but different version");
-                }
+                    LOG.info("SKIP: {} due to logical_identifier the same as selected collection but different version",target.getUrl());
+                    // Write a record to report that we are skipping this file.
+                    if (BundleManager.m_report != null) {
+                        try {
+                            // In our case, we want ExceptionType to be WARNING so it gets printed in the report for default verbose level of 3 (WARNING)
+                            ValidationProblem p1 = null;
+                            if ((FlagsUtil.getSeverity() != null) &&
+                                (FlagsUtil.getSeverity().isInfoApplicable() || FlagsUtil.getSeverity().isDebugApplicable())) {
+                                // Include a message if the severity level is INFO or DEBUG. 
+                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to logical_identifier the same as selected collection but different version"),
+                                                           target.getUrl());
+                            } else {
+                                p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                                                                ProblemType.UNREFERENCED_FILE, null),
+                                                           target.getUrl());
+                            }
+                            BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+                        } catch (Exception e) {
+                              e.printStackTrace();
+                        }
+                    } else {
+                        LOG.warn("makeException:Object BundleManager.m_report is null");
+                    }
             }
         }
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
