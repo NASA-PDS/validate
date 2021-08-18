@@ -395,7 +395,7 @@ public class BundleManager {
             if (BundleManager.m_report != null) {
                 try {
                     ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
-                                                                     ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due version not latest version"),
+                                                                     ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to version not latest version"),
                                                                  target.getUrl());
                     BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                 } catch (Exception e) {
