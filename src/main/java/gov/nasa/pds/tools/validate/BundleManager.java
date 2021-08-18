@@ -378,15 +378,33 @@ public class BundleManager {
     public static ArrayList<Target> buildBundleIgnoreList(URL url) {
         List<Target> ignoreBundleList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
         List<Target> latestBundles = BundleManager.findBundleWithLatestVersion(url);
-        LOG.debug("latestBundles.size() ",latestBundles.size());
-        LOG.debug("latestBundles {}",latestBundles);
+        LOG.debug("buildBundleIgnoreList:latestBundles.size() ",latestBundles.size());
+        LOG.debug("buildBundleIgnoreList:latestBundles {}",latestBundles);
         if (latestBundles.size() > 0)  {
             m_latestBundle = latestBundles.get(0);   //  Save this bundle for reference later on.
-            LOG.debug("latestBundles[0] {}",latestBundles.get(0).getUrl());
+            LOG.debug("buildBundleIgnoreList:latestBundles[0] {}",latestBundles.get(0).getUrl());
             ignoreBundleList = BundleManager.findOtherBundleFiles(latestBundles.get(0).getUrl());
         }
-        LOG.debug("ignoreBundleList {}",ignoreBundleList);
-        LOG.debug("ignoreBundleList.size() {}",ignoreBundleList.size());
+        LOG.debug("buildBundleIgnoreList:ignoreBundleList {}",ignoreBundleList);
+        LOG.debug("buildBundleIgnoreList:ignoreBundleList.size() {}",ignoreBundleList.size());
+
+        // This function has knowledge of why a bundle file is ignored.  Write to the report here.
+        for (Target target : ignoreBundleList) {
+            LOG.info("buildBundleIgnoreList:SKIP: {} due to not being selected as the bundle target",target.getUrl());
+            // Write a record to report that we are skipping this file.
+            if (BundleManager.m_report != null) {
+                try {
+                    ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
+                                                                     ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due version not latest version"),
+                                                                 target.getUrl());
+                    BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+                } catch (Exception e) {
+                    LOG.error("buildBundleIgnoreList:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
+                }
+            } else {
+                LOG.warn("buildBundleIgnoreList:Object BundleManager.m_report is null");
+            }
+        }
 
         return((ArrayList)ignoreBundleList);
     }
