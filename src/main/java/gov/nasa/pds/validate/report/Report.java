@@ -369,9 +369,8 @@ public abstract class Report {
             this.numSkippedIntegrityChecks++;
         }
     }
-    if (problem.getProblem().getSeverity().getValue() <= this.level.getValue()) {
-      printRecordSkip(this.writer, sourceUri, problem);
-    }
+
+    printRecordSkip(this.writer, sourceUri, problem);
     this.numProducts++;
     return Status.SKIP;
   }
