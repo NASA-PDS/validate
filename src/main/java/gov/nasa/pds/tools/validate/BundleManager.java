@@ -604,7 +604,10 @@ public class BundleManager {
         } catch (Exception e) {
             LOG.error(" Cannot crawl for files in: " + urlCrawl + ": " + e.getMessage());
         }
-        LOG.debug("allFiles.size(),otherCollectionFilesList.size() {},{}",allFiles.size(),otherCollectionFilesList.size());
+        // Check for null-ness before getting list size.
+        if (allFiles != null) {
+            LOG.debug("allFiles.size(),otherCollectionFilesList.size() {},{}",allFiles.size(),otherCollectionFilesList.size());
+        }
         return(otherCollectionFilesList);
     }
 
