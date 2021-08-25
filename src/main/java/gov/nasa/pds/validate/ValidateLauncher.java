@@ -39,7 +39,6 @@ import gov.nasa.pds.tools.label.*;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FlagsUtil;
-import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -343,6 +342,10 @@ public class ValidateLauncher {
                     throw new InvalidOptionException("Problems parsing severity level " + "value.");
                 }
                 setSeverity(value);
+
+                // Save this value in FlagsUtil so we know to print debug statements.
+                FlagsUtil.setSeverity(value);
+
             } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
                 setRegExps((List<String>) o.getValuesList());
             } else if (Flag.ALTERNATE_FILE_PATHS.getLongName().equals(o.getLongOpt())) {
@@ -1278,6 +1281,7 @@ public class ValidateLauncher {
         for (URL target : targets) {
             try {
                 LocationValidator validator = factory.newInstance(severity);
+                validator.setReport(report);
 
                 // If the user requested to check in between the fields, set it here in the validator.
                 // Note that it is important to perform a set regardless of the value of checkInbetweenFields,
@@ -1401,7 +1405,6 @@ public class ValidateLauncher {
         for (URL url : alternateReferentialPaths) {
           // Do a sanity check if url exist first before attempting to report on collocated data.
           try {
-            boolean fileExistFlag = false;
             LOG.debug("printWarningCollocatedData:url.getPath(),(new File(url.getPath()).exists() {},{}",url.getPath(),(new File(url.getPath()).exists()));
             if (new File(url.getPath()).exists()) {
                 ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,

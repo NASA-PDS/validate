@@ -13,28 +13,7 @@
 
 package gov.nasa.pds.tools.util;
 
-//import java.io.File;
-//
-//import java.net.URI;
-//import java.net.URL;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import javax.xml.transform.dom.DOMSource;
-//import javax.xml.xpath.XPathConstants;
-//import javax.xml.xpath.XPathExpressionException;
-//import javax.xml.xpath.XPathFactory;
-//
-//import org.w3c.dom.Element;
-//import org.w3c.dom.Node;
-//import org.w3c.dom.NodeList;
-//
-//import gov.nasa.pds.tools.label.ExceptionType;
-//import gov.nasa.pds.tools.validate.ProblemDefinition;
-//import gov.nasa.pds.tools.validate.ProblemType;
-//import gov.nasa.pds.validate.report.Report;
-//import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.label.ExceptionType;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +32,8 @@ public class FlagsUtil {
 
     /** Flag to enable/disable product level validation. */
     private static boolean skipProductValidation = false;
+
+    private static ExceptionType severityType;
 
     /** Flag to enable/disable stack trace printing. */
     private static boolean stackPrintingFlag = false;
@@ -127,5 +108,32 @@ public class FlagsUtil {
    */
     public static boolean getSkipProductValidation() {
         return(FlagsUtil.skipProductValidation);
+    }
+
+
+  /**
+   * Set the severity value
+   * @param  value The boolean value to set skipProductValidation to 
+   * @return None
+   */
+    public static void setSeverity(int level) {
+        if (level == 0) {
+            FlagsUtil.severityType = ExceptionType.DEBUG;
+        } else if (level == 1) {
+            FlagsUtil.severityType = ExceptionType.INFO;
+        } else if (level == 2) {
+            FlagsUtil.severityType = ExceptionType.WARNING;
+        } else if (level == 3) {
+            FlagsUtil.severityType = ExceptionType.ERROR;
+        }
+    }
+
+  /**
+   * Get the severity value
+   * @param  None
+   * @return the severityType value
+   */
+    public static ExceptionType getSeverity() {
+        return(FlagsUtil.severityType);
     }
 }

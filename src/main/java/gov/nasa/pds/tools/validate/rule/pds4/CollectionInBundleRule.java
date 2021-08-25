@@ -16,14 +16,11 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
-import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 

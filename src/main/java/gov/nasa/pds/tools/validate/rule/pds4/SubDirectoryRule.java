@@ -16,7 +16,6 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
-import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationRule;
@@ -28,7 +27,6 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.filefilter.FalseFileFilter;
-import org.apache.commons.io.filefilter.IOFileFilter;
 
 /**
  * Implements a rule that iterates over subdirectories, validating

@@ -331,7 +331,6 @@ public class StepDefs {
         System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = " + this.refOutputValue);
 
         try {
-            String outFilePath = TestConstants.TEST_OUT_DIR;
             Gson gson = new Gson();
             File report = new File(this.reportDir + File.separator + this.refOutputValue);
             System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:report = [" + report.getName() + "]");

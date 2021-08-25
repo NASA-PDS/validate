@@ -220,13 +220,13 @@ public class ReferentialIntegrityUtil {
    * @return None 
    */
   public static void setReferenceType(String referenceType) {
-      LOG.error("setReferenceType:afor:referenceType,ReferentialIntegrityUtil.referenceType [{}],[{}]",referenceType,ReferentialIntegrityUtil.referenceType);
+      LOG.debug("setReferenceType:afor:referenceType,ReferentialIntegrityUtil.referenceType [{}],[{}]",referenceType,ReferentialIntegrityUtil.referenceType);
       if (Arrays.asList(ReferentialIntegrityUtil.VALID_REFERENCE_TYPES).contains(referenceType)) {
           ReferentialIntegrityUtil.referenceType = referenceType; 
       } else {
           LOG.error("setReferenceType: Unrecognized value for referenceType {}, valid types are {}",referenceType,ReferentialIntegrityUtil.VALID_REFERENCE_TYPES);
       }
-      LOG.error("setReferenceType:after:referenceType,ReferentialIntegrityUtil.referenceType [{}],[{}]",referenceType,ReferentialIntegrityUtil.referenceType);
+      LOG.debug("setReferenceType:after:referenceType,ReferentialIntegrityUtil.referenceType [{}],[{}]",referenceType,ReferentialIntegrityUtil.referenceType);
   }
 
   private static boolean doesReferenceContainsVersion(String singleLidOrLidvidReference) {

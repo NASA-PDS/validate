@@ -218,6 +218,8 @@ public enum ProblemType {
     DUPLICATE_MEMBERS_INFO("info.integrity.duplicate_members"),
 
     PARENT_PREFIX_FOUND("info.integrity.parent_prefix_found"),
+
+    UNREFERENCED_FILE("info.integrity.unreferenced_file"),
     
     CONTEXT_REFERENCE_FOUND("info.label.context_ref_found"),
     

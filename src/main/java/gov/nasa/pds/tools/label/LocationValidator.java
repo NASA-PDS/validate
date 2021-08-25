@@ -35,6 +35,8 @@ import gov.nasa.pds.tools.validate.task.BlockingTaskManager;
 import gov.nasa.pds.tools.validate.task.TaskManager;
 import gov.nasa.pds.tools.validate.task.ValidationTask;
 
+import gov.nasa.pds.validate.report.Report;
+
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -72,6 +74,14 @@ public class LocationValidator {
 	private LabelValidator labelValidator;
 	private RuleContext ruleContext;
 	private String validationRule;
+
+   /*
+    * Sets the report object in BundleManager static class.
+    * @param The report Object
+    */
+    public void setReport(Report report) {
+        BundleManager.setReport(report);
+    }
 
     public boolean getCheckInbetweenFields() {
         if (this.ruleContext == null) {
