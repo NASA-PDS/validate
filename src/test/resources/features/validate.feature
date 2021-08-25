@@ -229,6 +229,19 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#366 VALID_1_WITH_CONTENT_VALIDATION" | "github366" | 0 | "0 warn message expected: 0 NON_PDFA_FILE, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_with_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_with_content_validation.json" |
  |"NASA-PDS/validate#366 VALID_2_SKIP_CONTENT_VALIDATION" | "github366" | 0 | "0 error messages expected: 0 totalErrors, reuse github164" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-content-validation --skip-context-validation -r {reportDir}/report_github366_label_pdfa_valid_skip_content_validation.json -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github366_label_pdfa_valid_skip_content_validation.json" |
 
+# https://github.com/nasa-pds/validate/issues/379 FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields
+
+ |"NASA-PDS/validate#379 INVALID" | "github379" | 1 | "1 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github379_label_invalid.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github379_label_invalid.json" |
+
+# https://github.com/nasa-pds/validate/issues/380 stack trace being created during successful validate execution
+
+ |"NASA-PDS/validate#380 INVALID_1" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --debug-mode --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ 
+# https://github.com/nasa-pds/validate/issues/375 validate halts if label has name "collection" embedded 
+
+ |"NASA-PDS/validate#375 VALID" | "github375" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation --skip-context-validation -r {reportDir}/report_github375_bundle_valid.json -s json -t {resourceDir}/github375/h/bundle_gbo.ast.primass-l.spectra.xml" | "report_github375_bundle_valid.json" |
+
 # https://github.com/NASA-PDS/validate/issues/368 Product referential integrity check throws invalid WARNINGs
 
  |"NASA-PDS/validate#368 VALID" | "github368" | 0 | "0 warnings expected for GENERAL_INFO." | "GENERAL_INFO" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-context-reference-check --skip-product-validation -r {reportDir}/report_github368_valid.json -s json -t {resourceDir}/github368/valid//bundle_kaguya_derived.xml " | "report_github368_valid.json" |

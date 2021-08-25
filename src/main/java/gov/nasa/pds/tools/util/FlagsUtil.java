@@ -15,29 +15,6 @@ package gov.nasa.pds.tools.util;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 
-//import java.io.File;
-//
-//import java.net.URI;
-//import java.net.URL;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import javax.xml.transform.dom.DOMSource;
-//import javax.xml.xpath.XPathConstants;
-//import javax.xml.xpath.XPathExpressionException;
-//import javax.xml.xpath.XPathFactory;
-//
-//import org.w3c.dom.Element;
-//import org.w3c.dom.Node;
-//import org.w3c.dom.NodeList;
-//
-//import gov.nasa.pds.tools.label.ExceptionType;
-//import gov.nasa.pds.tools.validate.ProblemDefinition;
-//import gov.nasa.pds.tools.validate.ProblemType;
-//import gov.nasa.pds.validate.report.Report;
-//import gov.nasa.pds.tools.validate.ValidationProblem;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,6 +35,9 @@ public class FlagsUtil {
 
     private static ExceptionType severityType;
 
+    /** Flag to enable/disable stack trace printing. */
+    private static boolean stackPrintingFlag = false;
+
   /**
    * Initialize flags to their default states
    * @param  None
@@ -66,9 +46,30 @@ public class FlagsUtil {
     public static void initialize() {
         FlagsUtil.contentValidationFlag = true;
         FlagsUtil.skipProductValidation = false;
+        FlagsUtil.stackPrintingFlag = false;
         LOG.debug("initialize:contentValidationFlag {}",FlagsUtil.contentValidationFlag);
         LOG.debug("initialize:skipProductValidation {}",FlagsUtil.skipProductValidation);
     }
+
+  /**
+   * Set the stackPrintingFlag value
+   * @param  flag The boolean value to set stackPrintingFlag to 
+   * @return None
+   */
+    public static void setStackPrintingFlag(boolean flag) {
+        FlagsUtil.stackPrintingFlag = flag;
+        LOG.debug("setStackPrintingFlag: {}",FlagsUtil.stackPrintingFlag);
+    }
+
+  /**
+   * Get the stackPrintingFlag value
+   * @param  None
+   * @return the stackPrintingFlag value
+   */
+    public static boolean getStackPrintingFlag() {
+        return(FlagsUtil.stackPrintingFlag);
+    }
+
 
   /**
    * Set the contentValidationFlagvalue

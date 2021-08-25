@@ -65,6 +65,7 @@ public class FlagOptions {
         options.addOption(new ToolsOption(Flag.SKIP_CONTENT_VALIDATION));
         options.addOption(new ToolsOption(Flag.SKIP_CONTEXT_REFERENCE_CHECK));
         options.addOption(new ToolsOption(Flag.CHECK_INBETWEEN_FIELDS));
+        options.addOption(new ToolsOption(Flag.ENABLE_STACK_PRINTING));
         options.addOption(new ToolsOption(Flag.NO_DATA));
         options.addOption(new ToolsOption(Flag.SPOT_CHECK_DATA));
         options.addOption(new ToolsOption(Flag.ALLOW_UNLABELED_FILES));
