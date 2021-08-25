@@ -25,10 +25,8 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -42,10 +40,6 @@ import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.dom.DOMSource;
-
 /**
  * Validation rule that performs referential integrity checking on
  * a Product_Bundle product label.
@@ -58,9 +52,6 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
 
   private static final Pattern BUNDLE_LABEL_PATTERN = 
       Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
-
-  private static final Pattern COLLECTION_LABEL_PATTERN = 
-      Pattern.compile(".*collection.*\\.xml", Pattern.CASE_INSENSITIVE);
   
   private static final String PRODUCT_CLASS =
       "//*[starts-with(name(),'Identification_Area')]/product_class";
@@ -88,11 +79,6 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       "//*[starts-with(name(),'Identification_Area')]/version_id";
 
   private double totalTimeElapsed = 0.0;
-  private ArrayList<String> logicalIdentifiersCumulative = new ArrayList<String>(0);
-  private ArrayList<String> lidOrLidVidReferencesCumulative = new ArrayList<String>(0);
-  private ArrayList<URL> lidOrLidVidReferencesCumulativeFileNames = new ArrayList<URL>(0); // This array and lidOrLidVidReferencesCumulative should have the same size 
-  private String bundleBaseID = null; 
-  private HashMap<String, String> lidOrLidvidReferenceToLogicalIdentifierMap =  new HashMap<String, String>(); // A map to allow getting a logical identifier from lid_reference or lidvid_reference.
   
   @Override
   public boolean isApplicable(String location) {

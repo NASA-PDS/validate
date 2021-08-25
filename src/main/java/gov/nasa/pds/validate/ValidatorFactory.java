@@ -35,7 +35,6 @@ import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 

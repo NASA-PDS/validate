@@ -24,8 +24,6 @@ import java.util.regex.Pattern;
  */
 public class DirectoryValidationRule extends AbstractValidationChain {
 
-	private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
-
 	@Override
 	public boolean isApplicable(String location) {
 	  return Utility.isDir(location);

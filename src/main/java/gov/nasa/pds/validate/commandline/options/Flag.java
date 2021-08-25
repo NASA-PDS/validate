@@ -30,8 +30,6 @@
 
 package gov.nasa.pds.validate.commandline.options;
 
-import java.util.List;
-
 /**
  * Class that holds the command-line option flags.
  *

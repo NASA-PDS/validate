@@ -39,7 +39,6 @@ import gov.nasa.pds.tools.label.*;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FlagsUtil;
-import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -1401,7 +1400,6 @@ public class ValidateLauncher {
         for (URL url : alternateReferentialPaths) {
           // Do a sanity check if url exist first before attempting to report on collocated data.
           try {
-            boolean fileExistFlag = false;
             LOG.debug("printWarningCollocatedData:url.getPath(),(new File(url.getPath()).exists() {},{}",url.getPath(),(new File(url.getPath()).exists()));
             if (new File(url.getPath()).exists()) {
                 ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,

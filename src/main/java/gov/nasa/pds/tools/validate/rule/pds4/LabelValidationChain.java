@@ -13,12 +13,7 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
-import java.io.File;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.apache.commons.io.FilenameUtils;
-
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationChain;
 
