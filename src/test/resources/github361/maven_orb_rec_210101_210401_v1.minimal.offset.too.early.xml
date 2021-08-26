@@ -72,7 +72,8 @@
     </Header>
     <Table_Character>
       <name>Orbit number table</name>
-      <offset unit="byte">267</offset>
+      <!-- Setting to 222 (table starts before header ends) to cause havoc in validate</offset>-->
+      <offset unit="byte">222</offset>
       <records>5</records>
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <Record_Character>

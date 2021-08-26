@@ -72,6 +72,7 @@
     </Header>
     <Table_Character>
       <name>Orbit number table</name>
+      <!-- The offset can be any values including 267 and after since it does not overlap with header. -->
       <offset unit="byte">267</offset>
       <records>5</records>
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
