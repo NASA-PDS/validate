@@ -1,0 +1,69 @@
+# 🏃‍♀️ Continuous Integration and Delivery: Branch Testing
+# ======================================================
+
+
+---
+
+name: 🔁 Branch integration testing
+
+
+# Driving Event
+# -------------
+#
+# What event starts this workflow: a push to any branch other than main
+
+on:
+    push:
+        branches:
+            -   '**'
+            -   '!main'
+
+
+# What to Do
+# ----------
+#
+# Test the software with mvn test
+
+jobs:
+    branch-testing:
+        name: 🪵 Branch Testing
+        runs-on: ubuntu-latest
+        if: github.actor != 'pdsen-ci'
+
+        strategy:
+            matrix:
+                java-version: [8, 11]
+
+        steps:
+            -
+                name: 💳 Checkout
+                uses: actions/checkout@v2
+                with:
+                    lfs: true
+                    fetch-depth: 0
+                    token: ${{secrets.ADMIN_GITHUB_TOKEN}}
+            -
+                name: 💵 Maven Cache
+                uses: actions/cache@v2
+                with:
+                    path: ~/.m2/repository
+                    # The "key" used to indicate a set of cached files is the operating system runner
+                    # plus "mvn" for Maven-specific builds, plus a hash of the `pom.xml` files, which
+                    # should uniquely identify the dependent jars; plus "pds" because we pds-prefix
+                    # everything with "pds" in PDS—even when the context is obvious! 😅
+                    key: pds-${{runner.os}}-mvn-${{hashFiles('**/pom.xml')}}
+                    # To restore a set of files, we only need to match a prefix of the saved key.
+                    restore-keys: pds-${{runner.os}}-mvn-
+            -
+                name: ☕️ Set up OpenJDK
+                uses: actions/setup-java@v2
+                with:
+                    distribution: 'adopt'
+                    java-version: ${{ matrix.java-version }}
+            -
+                name: 🩺 Test Software
+                run: mvn test
+
+...
+
+# -*- mode: yaml; indent: 4; fill-column: 120; coding: utf-8 -*-

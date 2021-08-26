@@ -1,8 +1,8 @@
-# 🏃‍♀️ Continuous Integration and Delivery: Unstable
-# =================================================
+# 🏃‍♀️ Continuous Integration and Delivery: Stable
+# ===============================================
 #
 # Note: for this workflow to succeed, the following secrets must be installed
-# in the repository or inherited from the organization:
+# in the repository:
 #
 # ``ADMIN_GITHUB_TOKEN``
 #     A personal access token of a user with collaborator or better access to
@@ -16,23 +16,25 @@
 #     Username for the Central Repository.
 # ``OSSRH_USERNAME``
 #     Password for the Central Repository.
+#
 
 
 ---
 
-name: 🤪 Unstable integration & delivery
+name: 😌 Stable integration & delivery
 
 
 # Driving Event
 # -------------
 #
-# What event starts this workflow: a push to ``main`` (or ``master`` in old
-# parlance).
+# What event starts this workflow: a push of a release tag. Note: according to
+# https://git.io/JJZQt we have been doing our tag matching wrong. It's not
+# regexp, it's not glob…it's more like…glob++ 😮
 
 on:
     push:
         branches:
-             - main
+            - 'release/*'
 
 
 # What to Do
@@ -41,18 +43,17 @@ on:
 # Round up, yee-haw!
 
 jobs:
-    unstable-assembly:
-        name: 🧩 Unstable Assembly
+    stable-assembly:
+        name: 🐴 Stable Assembly
         runs-on: ubuntu-latest
-        if: github.actor != 'pdsen-ci'
         steps:
             -
                 name: 💳 Checkout
                 uses: actions/checkout@v2
                 with:
                     lfs: true
-                    fetch-depth: 0
                     token: ${{secrets.ADMIN_GITHUB_TOKEN}}
+                    fetch-depth: 0
             -
                 name: 💵 Maven Cache
                 uses: actions/cache@v2
@@ -69,7 +70,7 @@ jobs:
                 name: 🤠 Roundup
                 uses: NASA-PDS/roundup-action@main
                 with:
-                    assembly: unstable
+                    assembly: stable
                 env:
                     ossrh_username: ${{secrets.OSSRH_USERNAME}}
                     ossrh_password: ${{secrets.OSSRH_PASSWORD}}
