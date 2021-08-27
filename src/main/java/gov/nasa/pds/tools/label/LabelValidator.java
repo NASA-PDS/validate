@@ -65,6 +65,7 @@ import javax.xml.xpath.XPathFactory;
 
 import net.sf.saxon.om.DocumentInfo;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -113,6 +114,8 @@ public class LabelValidator {
       "gov.nasa.pds.tools.label.SchemaCheck";
   public static final String SCHEMATRON_CHECK = 
       "gov.nasa.pds.tools.label.SchematronCheck";
+  private static Pattern BUNDLE_LABEL_PATTERN = Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
+  private static Pattern COLLECTION_LABEL_PATTERN = Pattern.compile(".*collection.*\\.xml", Pattern.CASE_INSENSITIVE);
 
   private List<ExternalValidator> externalValidators;
   private List<DocumentValidator> documentValidators;
@@ -363,11 +366,20 @@ public class LabelValidator {
           //         bundle*.xml
           //         collection*.[xml,csv]
 
-          if (TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url)) {
+          // Remove time consuming check of reading the file in favor of checking the filename.
+          // The file name should be enough to know if it is a bundle or a collection.
+          validateAgainstSchematronFlag = false;
+          Matcher matcher = null;
+          matcher = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(url.toString()));
+          if (matcher.matches()) {
+              // File is indeed a bundle.
               validateAgainstSchematronFlag = true;
           } else {
-              // Do not validate labels belonging to data files.
-              validateAgainstSchematronFlag = false;
+              // File is not a bundle, check if a collection.
+              matcher = COLLECTION_LABEL_PATTERN.matcher(FilenameUtils.getName(url.toString()));
+              if (matcher.matches()) {
+                  validateAgainstSchematronFlag = true;
+              }
           }
       }
       LOG.debug("determineSchematronValidationFlag:url,validateAgainstSchematronFlag {},{}",url,validateAgainstSchematronFlag);
