@@ -1,23 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-08-27)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
-
-**Improvements:**
-
-- Update pds4 version mismatch warning message and problem type [\#373](https://github.com/NASA-PDS/validate/issues/373)
-
-**Defects:**
-
-- stack trace being created during successful validate execution [\#380](https://github.com/NASA-PDS/validate/issues/380) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-- FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields [\#379](https://github.com/NASA-PDS/validate/issues/379)
-- validate halts if label has name "collection" embedded [\#375](https://github.com/NASA-PDS/validate/issues/375) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Issues with logic for reading latest version of collections, and file read logging lost with v2.\* of validate [\#372](https://github.com/NASA-PDS/validate/issues/372) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Product referential integrity check throws invalid WARNINGs [\#368](https://github.com/NASA-PDS/validate/issues/368) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- validate does not check Header of a File\_Area\_Ancillary nor does not provide a meaningful error message for an incorrect Table\_Character offset [\#361](https://github.com/NASA-PDS/validate/issues/361) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-08-09)
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-08-27)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
@@ -26,11 +9,21 @@
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
 - As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
+**Improvements:**
+
+- Update pds4 version mismatch warning message and problem type [\#373](https://github.com/NASA-PDS/validate/issues/373)
+
 **Defects:**
 
 - validate does not work correctly when the path name contains a space [\#381](https://github.com/NASA-PDS/validate/issues/381) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- stack trace being created during successful validate execution [\#380](https://github.com/NASA-PDS/validate/issues/380) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields [\#379](https://github.com/NASA-PDS/validate/issues/379)
 - validate raises an unexpected error with doi attribute in the Citation\_information class [\#378](https://github.com/NASA-PDS/validate/issues/378)
+- validate halts if label has name "collection" embedded [\#375](https://github.com/NASA-PDS/validate/issues/375) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Issues with logic for reading latest version of collections, and file read logging lost with v2.\* of validate [\#372](https://github.com/NASA-PDS/validate/issues/372) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Product referential integrity check throws invalid WARNINGs [\#368](https://github.com/NASA-PDS/validate/issues/368) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate should not check if file is PDF/A if --skip-content-validation is enabled [\#366](https://github.com/NASA-PDS/validate/issues/366) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- validate does not check Header of a File\_Area\_Ancillary nor does not provide a meaningful error message for an incorrect Table\_Character offset [\#361](https://github.com/NASA-PDS/validate/issues/361) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not parse colon in Windows path [\#360](https://github.com/NASA-PDS/validate/issues/360) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 
 ## [v2.0.7](https://github.com/NASA-PDS/validate/tree/v2.0.7) (2021-07-03)
