@@ -604,7 +604,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
         if (this.pdfUtil == null) {
             // Save pdfUtil so it can be reused.
-            this.pdfUtil = new PDFUtil(getTarget());
+            this.pdfUtil = new PDFUtil(fileRef);
         }
 
         pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
@@ -622,7 +622,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 ExceptionType.WARNING, ProblemType.NON_PDFA_FILE,
                 urlRef.toString() + " is not valid PDF/A file or does not exist");
             messages.add(new ValidationProblem(def, target,
-                fileObject.getLineNumber(), -1));
+                lineNumber, -1));
         }
 
         return messages;
