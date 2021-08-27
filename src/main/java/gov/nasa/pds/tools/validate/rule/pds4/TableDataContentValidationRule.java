@@ -585,6 +585,48 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       return(tableIsLineOrientedFlag);
   }
 
+  private void performOffsetCheck(long readerOffset, int headerOffset, int headerSize, URL dataFile, int tableIndex, String tableName) {
+          // Add new checks for the header and the table data area to see if they overlap.
+          //
+          // Case 1:
+          // This case is OK because the table starts after the header ends.
+          // Validate only know that the table offset starts after the header ends.
+          // It cannot know if the offset will NOT cause any problem with the parsing of each record.
+          // That is the responsibility of the user to make any correction if it turns out that
+          // many fields are invalid due to a "bad" offset.
+          //
+          //     [this is the header]
+          //                          [this is the table]
+          //
+          // Case 2:
+          // This is NOT OK because the table starts before the header ends.
+          // The header and the table overlaps.
+          //
+          //     [this is the header]
+          //           [this is the table]
+          //
+          // reader.getOffset()        = from beginning of file to table data area
+          // headerOffset + headerSize = total header length
+
+          if (readerOffset < (headerOffset + headerSize)) {
+              // Case 2:
+              String message = "The table offset " + readerOffset + " for object " + "'" + tableName + "'" + " is invalid.  The previously defined object ends at byte " + (headerOffset + headerSize);
+              LOG.error("validateTableDataContents: " + message);
+              addTableProblem(ExceptionType.ERROR,
+                              ProblemType.FIELDS_MISMATCH,
+                              message,
+                              dataFile,
+                              tableIndex,
+                              -1);
+          } else {
+              // Case 1:
+              String message = "The table offset " + readerOffset + " for object " + "'" + tableName + "'" + " is OK, with entire header length which is headerOffset " + headerOffset + " plus header size " + headerSize;
+              LOG.debug("validateTableDataContents:" + message);
+          }
+
+  }
+
+
   @ValidationTest
   public void validateTableDataContents() throws MalformedURLException, 
   URISyntaxException {
@@ -664,10 +706,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // need to subtract many header objects from total filesize 
       List<Object> headerObjects = objectAccess.getHeaderObjects(fileArea);
       int headerSize = 0;
+      // How far into the file does the header starts is the headerOffset.
+      // The headerSize is the number of characters to describe the header of the table.
+      // headerOffset + headerSize = total header length
+      int headerOffset = 0;
       LOG.debug("validateTableDataContents:headerObjects.size {}",headerObjects.size());
       for (Object header: headerObjects) {
     	  Header hdr = (Header)header;
     	  headerSize += hdr.getObjectLength().getValue().intValueExact();
+          headerOffset = hdr.getOffset().getValue().intValueExact();
           LOG.debug("validateTableDataContents:headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact() {},{},{}",headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact());
       }
       LOG.debug("validateTableDataContents:headerSize {}",headerSize);
@@ -793,6 +840,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         	    inventoryTable = true;
           }
           actualRecordNumber = actualTotalRecords;
+
+          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  td.getName());
+
         } else if (table instanceof TableBinary) {
           LOG.debug("validateTableDataContents:table instanceof TableBinary");
           TableBinary tb = (TableBinary) table;
@@ -816,6 +866,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         	  long actualRecordSize = actualTotalRecords - reader.getOffset();
         	  actualRecordNumber = actualRecordSize/recordLength;
           }
+
+          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  tb.getName());
+
         } else {
           LOG.debug("table instanceof TableCharacter: else");
 
@@ -850,6 +903,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
            
           LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
           // Print the stack trace to an external file for inspection.
+
+          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  tc.getName());
+
         } 
         
         { // issue_220

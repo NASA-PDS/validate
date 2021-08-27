@@ -93,9 +93,10 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
         ASCII_NUMBER_TYPE_LIST.add("ASCII_Integer".toUpperCase());
     }
 
-    private static String PRODUCT_OBSERVATIONAL   = "Product_Observational";
-    private static String FILE_AREA_OBSERVATIONAL = PRODUCT_OBSERVATIONAL + "/File_Area_Observational";
-    private static String TABLE_CHARACTER         = FILE_AREA_OBSERVATIONAL + "/Table_Character";
+    // Use wild card since not all labels has Product_Observational/File_Area_Observational/Table_Character
+    // Some labels have the following structure Product_Ancillary/File_Area_Ancillary/Table_Character
+
+    private static String TABLE_CHARACTER         = "*/*/Table_Character";  // Use wild card since not all labels has Product_Observational/File_Area_Observational/Table_Character
     private static String RECORD_CHARACTER        = TABLE_CHARACTER + "/Record_Character";
     private static String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
     private static String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
@@ -185,13 +186,11 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
 
      try {
         XMLExtractor extractor = new XMLExtractor(getTarget());
-        TinyNodeImpl productObservationalNode = extractor.getNodeFromDoc(PRODUCT_OBSERVATIONAL);
         TinyNodeImpl tableCharacterNode       = extractor.getNodeFromDoc(TABLE_CHARACTER);
         TinyNodeImpl recordCharacterNode      = extractor.getNodeFromDoc(RECORD_CHARACTER); 
 
         // If any of the nodes are null, cannot continue.  Not all labels are expected to contain the PRODUCT_OBSERVATIONAL nodes.
-        if (productObservationalNode == null ||
-            tableCharacterNode       == null ||
+        if (tableCharacterNode       == null ||
             recordCharacterNode      == null) { 
             LOG.info("Label " + getTarget() + " does not contain any fields pertaining to " + TABLE_CHARACTER + " or " + RECORD_CHARACTER + " to valid ASCII field formats on");
             return;

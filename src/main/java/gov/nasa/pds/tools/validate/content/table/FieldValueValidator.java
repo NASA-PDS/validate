@@ -251,10 +251,12 @@ public class FieldValueValidator {
             // if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength() > fields[i+1].getOffset()))
             // The next line is hard to read.  Perhaps the parenthesis should surround the 2nd > comparison.
         	if (((i+1)<fields.length) && (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {
+                int currentFieldEndsAt = fields[i].getOffset()+fields[i].getLength();
+                int nextOffsetShouldBe = fields[i].getOffset()+fields[i].getLength() + 1;
         		String message = "This field overlaps the next field. Current field ends at " 
-        				+ (fields[i].getOffset()+fields[i].getLength()) 
-        				+ ". Next field starts at " + fields[i+1].getOffset();
-                LOG.error(message);
+        				+ currentFieldEndsAt  
+        				+ ". Next field starts at " + fields[i+1].getOffset() + " but should be at least at " + nextOffsetShouldBe;
+                LOG.error("{}","MESSAGE_1:" + message);
         		addTableProblem(ExceptionType.ERROR,
         				ProblemType.FIELD_VALUE_OVERLAP,
         				message,
@@ -295,10 +297,13 @@ public class FieldValueValidator {
                 // issue_257: Product with incorrect table binary definition pass validation
                 // Corrected logic: using the OR logic || and put parenthesis surround the 2nd check for readability.
         		if ((fields[i].getOffset()>fields[i+1].getOffset()) || (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {       
+                    int currentFieldEndsAt = fields[i].getOffset()+fields[i].getLength();
+                    int nextOffsetShouldBe = fields[i].getOffset()+fields[i].getLength() + 1;
         			String message = "This field overlaps the next field. Current field ends at " 
-        					+ (fields[i].getOffset()+fields[i].getLength()+1) 
-        					+ ". Next field starts at " + (fields[i+1].getOffset()+1);
-                    LOG.error("{}",message);
+        					//+ (fields[i].getOffset()+fields[i].getLength()+1) 
+        					+ currentFieldEndsAt
+        					+ ". Next field starts at " + (fields[i+1].getOffset()+1) + " but should be at least at " + nextOffsetShouldBe;
+                    LOG.error("{}","MESSAGE_2:" + message);
         			addTableProblem(ExceptionType.ERROR,
         					ProblemType.FIELD_VALUE_OVERLAP,
         					message,

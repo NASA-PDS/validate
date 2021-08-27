@@ -91,7 +91,7 @@
         <Field_Character>
           <name>Event UTC PERI</name>
           <field_number>2</field_number>
-          <field_location unit="byte">8</field_location>
+          <field_location unit="byte">2</field_location>
           <data_type>ASCII_String</data_type>
           <field_length unit="byte">20</field_length>
           <field_format>A20</field_format>
