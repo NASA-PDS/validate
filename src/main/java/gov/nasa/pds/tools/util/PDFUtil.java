@@ -45,7 +45,6 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  //public boolean validateFileStandardConformity(String pdfBase) {
   public boolean validateFileStandardConformity(String pdfBase) throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
