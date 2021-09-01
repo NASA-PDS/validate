@@ -75,6 +75,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
   
   private Map<URL, String> checksumManifest;
+  private PDFUtil pdfUtil = null;  // Define pdfUtil so we can reuse it for every call to validateFileReferences() function.
   
   public FileReferenceValidationRule() {
     checksumManifest = new HashMap<URL, String>();
@@ -219,6 +220,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             String checksum = "";
             String directory = "";
             String filesize  = "";
+            String pdfName = null;
             List<TinyNodeImpl> children = new ArrayList<TinyNodeImpl>();
             try {
               children = extractor.getNodesFromItem("*", fileObject);
@@ -233,37 +235,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               continue;
             }
 
-            boolean pdfValidateFlag = false;
-            PDFUtil pdfUtil = null;
             for (TinyNodeImpl child : children) {
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:name {}",name);
 
                 // Do not perform PDF/A validation if user desire to skip the content validation.
-                LOG.debug("validate:FlagsUtil.getContentValidationFlag() {}",FlagsUtil.getContentValidationFlag());
-
-                // If the name is a PDF file, validate it.
+                // If the name is a PDF file, save pdfName so it can be validated.
                 if (name.endsWith(PDF_ENDS_WITH_PATTERN) && FlagsUtil.getContentValidationFlag() == true) {
-                    if (pdfUtil == null) {
-                        pdfUtil = new PDFUtil(getTarget());
-                    }
-                    pdfValidateFlag = pdfUtil.validateFileStandardConformity(name);
-                    // Report a  warning if the PDF file is not PDF/A compliant.
-                    if (!pdfValidateFlag) {
-                        URL urlRef = null;
-                        if (!directory.isEmpty()) {
-                          urlRef = new URL(parent, directory + "/" + name);
-                        } else {
-                          urlRef = new URL(parent, name);
-                        }
-                        ProblemDefinition def = new ProblemDefinition(
-                            ExceptionType.WARNING, ProblemType.NON_PDFA_FILE,
-                            urlRef.toString() + " is not valid PDF/A file or does not exist");
-                        problems.add(new ValidationProblem(def, target,
-                            fileObject.getLineNumber(), -1));
-                        passFlag = false;
-                    }
+                    pdfName = name;
                 } else {
                     LOG.debug("validate:FlagsUtil.getContentValidationFlag(),SKIPPING_PDF_VALIDATION {},{}",FlagsUtil.getContentValidationFlag(),name);
                 }
@@ -356,6 +336,20 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                   passFlag = false;
                 }
 
+                // Check for PDF file validity.
+                try {
+                  problems.addAll(handlePDF(target, urlRef,
+                      fileObject, pdfName, parent, directory));
+                } catch (Exception e) {
+                  ProblemDefinition def = new ProblemDefinition(
+                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                      "Error occurred while processing PDF file content for "
+                      + FilenameUtils.getName(urlRef.toString()) + ": "
+                      + e.getMessage());
+                  problems.add(new ValidationProblem(def, target,
+                      fileObject.getLineNumber(), -1));
+                  passFlag = false;
+                }
               } catch (IOException io) {
                 ProblemDefinition def = new ProblemDefinition(
                     ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
@@ -583,4 +577,55 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         return messages;
     }
   }  
+
+  private List<ValidationProblem> handlePDF(ValidationTarget target, URL fileRef,
+                                            TinyNodeImpl fileObject, String pdfName, URL parent, String directory)
+  throws Exception {
+    LOG.debug("handlePDF:target,fileRef,pdfName {},{},{}",target,fileRef,pdfName);
+    boolean pdfValidateFlag = false;
+    if ((pdfName == null) || (fileObject == null)) {
+        if (pdfName == null) {
+           String message = "The file is not a PDF file, no need to perform check "
+                   + "for '" + fileRef + "'";
+           LOG.debug("handlePDF:"+message);
+        }
+        if (fileObject == null) {
+            String message = "The fileObject is null, no need to perform check "
+                + "for '" + fileRef + "'";
+            LOG.debug("handlePDF:"+message);
+        }
+        return new ArrayList<ValidationProblem>();  // Return an empty list.
+    } else {
+        List<ValidationProblem> messages = new ArrayList<ValidationProblem>();
+        int lineNumber = -1;
+        if (fileObject != null) {
+          lineNumber = fileObject.getLineNumber();
+        }
+
+        if (this.pdfUtil == null) {
+            // Save pdfUtil so it can be reused.
+            this.pdfUtil = new PDFUtil(fileRef);
+        }
+
+        pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
+
+        // Report a  warning if the PDF file is not PDF/A compliant.
+        if (!pdfValidateFlag) {
+            URL urlRef = null;
+            if (!directory.isEmpty()) {
+                urlRef = new URL(parent, directory + "/" + pdfName);
+            } else {
+                urlRef = new URL(parent, pdfName);
+            }
+            LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist");
+            ProblemDefinition def = new ProblemDefinition(
+                ExceptionType.WARNING, ProblemType.NON_PDFA_FILE,
+                urlRef.toString() + " is not valid PDF/A file or does not exist");
+            messages.add(new ValidationProblem(def, target,
+                lineNumber, -1));
+        }
+
+        return messages;
+    }
+  }
 }

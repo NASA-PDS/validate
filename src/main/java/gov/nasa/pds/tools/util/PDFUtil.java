@@ -45,12 +45,12 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public boolean validateFileStandardConformity(String pdfBase) {
+  public boolean validateFileStandardConformity(String pdfBase) throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
 
     boolean pdfValidateFlag = false;
-    LOG.debug("pdfBase {}",pdfBase);
+    LOG.debug("validateFileStandardConformity:pdfBase {}",pdfBase);
 
     // Get the location of the PDF file.
     URI uri = null;
@@ -58,6 +58,10 @@ public class PDFUtil {
       uri = getTarget().toURI();
     } catch (URISyntaxException e) {
       // Should never happen
+      // but if it does, print an error message and  returns false for pdfValidateFlag.
+      // Observed in DEV that if the file name contains spaces, the getURI() results in the URISyntaxException exception.
+      LOG.error("validateFileStandardConformity:Cannot build URI for target {}",getTarget());
+      throw new Exception("validateFileStandardConformity:Cannot build URI for target [" + getTarget() + "]");
     }
 
     File file = new File(uri.getPath());
@@ -65,6 +69,7 @@ public class PDFUtil {
 
     // Build the full pathname of the PDF file.
     String pdfRef = parent + File.separator + pdfBase;
+    LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]",parent,pdfBase,pdfRef);
 
     try (PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef))) {
         PDFAValidator validator = Foundries.defaultInstance().createValidator(parser.getFlavour(), false);
@@ -80,6 +85,8 @@ public class PDFUtil {
         LOG.error("Cannot parse PDF file " + pdfRef);
         LOG.error("Exception is " + e.getMessage());
     }
+
+    LOG.debug("validateFileStandardConformity:pdfRef,pdfValidateFlag [{}],{}",parent,pdfValidateFlag);
 
     return(pdfValidateFlag); 
   }
