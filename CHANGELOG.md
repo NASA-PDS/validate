@@ -1,5 +1,14 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-09-02)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+
+**Improvements:**
+
+- Refactor PDF/A check handling to match with similar product checks [\#374](https://github.com/NASA-PDS/validate/issues/374)
+- Improve validate performance by removing unnecessary file IO [\#358](https://github.com/NASA-PDS/validate/issues/358)
+
 ## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-08-27)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
