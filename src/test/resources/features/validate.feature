@@ -254,6 +254,13 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#373 VALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_valid.json -s json -t {resourceDir}/github240/valid/bundle_kaguya_derived.xml" | "report_github373_bundle_valid.json" |
  |"NASA-PDS/validate#373 INVALID" | "github373" | 1 | "1 INTEGRITY_PDS4_VERSION_MISMATCH message expected: reuse github240" | "INTEGRITY_PDS4_VERSION_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -r {reportDir}/report_github373_bundle_invalid.json -s json -t {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "report_github373_bundle_invalid.json" |
 
+# https://github.com/nasa-pds/validate/issues/392 Validate throws incorrect overlap error when first Field_Bit has length 1
+
+ |"NASA-PDS/validate#392 VALID" | "github392" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github392_label_valid.json -s json -t {resourceDir}/github392/test1_valid.xml" | "report_github392_label_valid.json" |
+ |"NASA-PDS/validate#392 INVALID_1" | "github392" | 1  | "1 error messages expected: 1 FIELD_VALUE_OVERLAP" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github392_label_invalid_1.json -s json -t {resourceDir}/github392/test1_invalid.xml" | "report_github392_label_invalid_1.json" |
+ |"NASA-PDS/validate#392 INVALID_2" | "github392" | 1  | "1 error messages expected: 1 FIELD_VALUE_OVERLAP" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github392_label_invalid_2.json -s json -t {resourceDir}/github392/INVALID_odf07155_msgr_11.xml" | "report_github392_label_invalid_2.json" |
+
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

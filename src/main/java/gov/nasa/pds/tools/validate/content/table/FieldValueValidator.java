@@ -170,11 +170,20 @@ public class FieldValueValidator {
 
     LOG.debug("validate:fields.length {}",fields.length);
 
+    // Flag to store whether field is a UNSIGNEDBITSTRING or not.  Because bit fields
+    // cannot be used to check for offset as normally as other kinds of fields, we must first know
+    // if fieldIsBitStringFlag is false before checking for offset.
+    // The reason is the bit field can have the same offset as the next field because the fields are in bits.
+
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
+      boolean fieldIsBitStringFlag = false; // Flag to store whether field is a UNSIGNEDBITSTRING or not.
       String value = "dummy_value";   // Set to a dummy value to allow inspection when the value changed to a legitimate value.
       //LOG.info("validate:i,fields.length {},{}",i,fields.length);
       try {
+        if (fields[i].getType().toString().toUpperCase().contains("BIT")) {
+            fieldIsBitStringFlag = true;
+        }
         //String value = record.getString(i+1);
         value = record.getString(i+1);
         LOG.debug("validate:i,value {},[{}]",i,value);
@@ -296,7 +305,11 @@ public class FieldValueValidator {
                 //LOG.debug("validate:i,fields[i].getOffset(),fields[i].getLength(),fields[i+1].getOffset() {},{},{},{}",i,fields[i].getOffset(),fields[i].getLength(),fields[i+1].getOffset());
                 // issue_257: Product with incorrect table binary definition pass validation
                 // Corrected logic: using the OR logic || and put parenthesis surround the 2nd check for readability.
-        		if ((fields[i].getOffset()>fields[i+1].getOffset()) || (fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()) {       
+
+                // Due to the fact the bit fields are counted differently for getOffset() funcion, we must check that the field is not a bit field.
+                // Bit fields may have the same offset between one field and the next.
+
+        		if ((fields[i].getOffset()>fields[i+1].getOffset()) || (fieldIsBitStringFlag == false && ((fields[i].getOffset()+fields[i].getLength()) > fields[i+1].getOffset()))     ) {
                     int currentFieldEndsAt = fields[i].getOffset()+fields[i].getLength();
                     int nextOffsetShouldBe = fields[i].getOffset()+fields[i].getLength() + 1;
         			String message = "This field overlaps the next field. Current field ends at " 

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:radiosci.documentation:dsn.redr:test1</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>Example data product</title>
+             <information_model_version>1.16.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+       </Identification_Area>
+      
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>2021-08-25T16:49:00.000Z</start_date_time>
+                   <stop_date_time>2021-08-25T16:49:00.180Z</stop_date_time>
+             </Time_Coordinates>
+
+             <Investigation_Area>
+                   <name>Voyager</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+        
+             <Observing_System>
+                   <Observing_System_Component>
+                         <name>Radio Science Subsystem</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:vg1.rss</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             
+             <Target_Identification>
+                   <name>Jupiter</name>
+                   <type>Planet</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:target:planet.jupiter</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+
+       <File_Area_Observational>
+             <File>
+                   <file_name>test1.dat</file_name>
+                   <creation_date_time>2021-08-25T06:02:00</creation_date_time>
+                   <file_size unit="byte">4</file_size>
+                   <md5_checksum>cb08ca4a7bb5f9683c19133a84872ca7</md5_checksum>
+             </File>
+             
+             <Table_Binary>
+                   <name>Example Table</name>
+                   <offset unit="byte">0</offset>
+                   <records>1</records>
+                   <description>
+                        Example table.
+                   </description>
+                   <Record_Binary>
+                         <fields>4</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">4</record_length> 
+
+                         <Field_Binary>
+                               <name>Binary Field 1 of 4 - Passes</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                     Bit fields with 5 and 3 bits
+                               </description>
+                               
+                               <Packed_Data_Fields>
+                                     <bit_fields>2</bit_fields>
+
+                                     <Field_Bit>
+                                           <name>Bit field 1 of 8 - Passes</name>
+                                           <field_number>1</field_number>
+                                           <start_bit_location>1</start_bit_location>
+                                           <stop_bit_location>5</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 5 bit field
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Bit Field 2 of 8 - Passes</name>
+                                           <field_number>2</field_number>
+                                           <start_bit_location>6</start_bit_location>
+                                           <stop_bit_location>8</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 3 bit field
+                                           </description>
+                                     </Field_Bit>
+                                     
+                               </Packed_Data_Fields>
+                               
+                         </Field_Binary>
+                         
+                         <Field_Binary>
+                               <name>Binary Field 2 of 4 - Passes</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">2</field_location>
+                                     <data_type>UnsignedBitString</data_type>
+                                     <field_length unit="byte">1</field_length>
+                                     <description>
+                                           Bit fields with 7 and 1 bits
+                                     </description>
+                                     
+                                     <Packed_Data_Fields>
+                                           <bit_fields>2</bit_fields>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit field 3 of 8 - Passes</name>
+                                                 <field_number>1</field_number>
+                                                 <start_bit_location>1</start_bit_location>
+                                                 <stop_bit_location>7</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       7 bit field
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit Field 4 of 8 Passes</name>
+                                                 <field_number>2</field_number>
+                                                 <start_bit_location>8</start_bit_location>
+                                                 <stop_bit_location>8</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       1 bit field
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                     </Packed_Data_Fields>
+                                     
+                         </Field_Binary>
+                         
+                         <Field_Binary>
+                               <name>Binary Field 3 of 4 - Fails</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">3</field_location>
+                                     <data_type>UnsignedBitString</data_type>
+                                     <field_length unit="byte">1</field_length>
+                                     <description>
+                                           Bit fields with 1 and 7 bits
+                                     </description>
+                                     
+                                     <Packed_Data_Fields>
+                                           <bit_fields>2</bit_fields>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit field 5 of 8 - Fails</name>
+                                                 <field_number>1</field_number>
+                                                 <start_bit_location>1</start_bit_location>
+                                                 <stop_bit_location>1</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       1 bit field is first bit field - FAILS
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit Field 6 of 8 - Unknown</name>
+                                                 <field_number>2</field_number>
+                                                 <start_bit_location>2</start_bit_location>
+                                                 <stop_bit_location>8</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       7 bit field
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                     </Packed_Data_Fields>
+                                     
+                               </Field_Binary>
+                         
+                               <Field_Binary>
+                                     <name>Binary Field 4 of 4</name>
+                                     <field_number>4</field_number>
+                                     <field_location unit="byte">4</field_location>
+                                     <data_type>UnsignedBitString</data_type>
+                                     <field_length unit="byte">1</field_length>
+                                     <description>
+                                           Bit fields with 2 and 6 bits
+                                     </description>
+                                     
+                                     <Packed_Data_Fields>
+                                           <bit_fields>2</bit_fields>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit field 7 of 8</name>
+                                                 <field_number>1</field_number>
+                                                 <start_bit_location>1</start_bit_location>
+                                                 <stop_bit_location>2</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       2 bit field
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                           <Field_Bit>
+                                                 <name>Bit Field 8 of 8</name>
+                                                 <field_number>2</field_number>
+                                                 <start_bit_location>3</start_bit_location>
+                                                 <stop_bit_location>8</stop_bit_location>
+                                                 <data_type>UnsignedBitString</data_type>
+                                                 <description>
+                                                       6 bit field
+                                                 </description>
+                                           </Field_Bit>
+                                           
+                                     </Packed_Data_Fields>
+                                     
+                               </Field_Binary>
+                         
+
+                         
+                   </Record_Binary>
+             </Table_Binary>
+      
+       </File_Area_Observational>
+            
+</Product_Observational>
