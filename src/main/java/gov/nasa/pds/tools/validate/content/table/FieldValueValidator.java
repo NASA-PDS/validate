@@ -177,11 +177,12 @@ public class FieldValueValidator {
 
     int actualFieldNumber = 1;
     for (int i = 0; i < fields.length; i++) {
-      boolean fieldIsBitStringFlag = false; // Flag to store whether field is a UNSIGNEDBITSTRING or not.
+      boolean fieldIsBitStringFlag = false; // Flag to store whether field is a UNSIGNEDBITSTRING or SIGNEDBITSTRING
       String value = "dummy_value";   // Set to a dummy value to allow inspection when the value changed to a legitimate value.
       //LOG.info("validate:i,fields.length {},{}",i,fields.length);
       try {
-        if (fields[i].getType().toString().toUpperCase().contains("BIT")) {
+        // Use the enum types defined in FieldType class.
+        if (fields[i].getType() == FieldType.SIGNEDBITSTRING || fields[i].getType() == FieldType.UNSIGNEDBITSTRING) {
             fieldIsBitStringFlag = true;
         }
         //String value = record.getString(i+1);
