@@ -190,6 +190,32 @@ public enum ProblemType {
 
     NON_PDFA_FILE("warning.pdf.file.not_pdfa_compliant"),
 
+    NON_JPEG_FILE("warning.file.not_jpeg_compliant"),
+
+    NON_PNG_FILE("warning.file.not_png_compliant"),
+
+    NON_HTML_FILE("warning.file.not_html_mimetype"),
+
+    NON_TEXT_FILE("warning.file.not_text_mimetype"),
+
+    NON_MSWORD_FILE("warning.file.not_msword_mimetype"),
+
+    NON_MSEXCEL_FILE("warning.file.not_msexcel_mimetype"),
+
+    NON_LATEX_FILE("warning.file.not_latex_mimetype"),
+
+    NON_POSTSCRIPT_FILE("warning.file.not_postscript_mimetype"),
+
+    NON_ENCAPSULATED_POSTSCRIPT_FILE("warning.file.not_encapsulated_postscript_mimetype"),
+
+    NON_RICHTEXT_FILE("warning.file.not_richtext_mimetype"),
+
+    NON_GIF_FILE("warning.file.not_gif_mimetype"),
+
+    NON_TIFF_FILE("warning.file.not_tiff_mimetype"),
+
+    NON_MP4_FILE("warning.file.not_mp4_mimetype"),
+
     NON_REGISTERED_PRODUCT("warning.product_not_registered"),
     
     CHARS_BETWEEN_FIELDS("warning.table.characters_between_fields"),

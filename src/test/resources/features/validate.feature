@@ -260,6 +260,10 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#392 INVALID_1" | "github392" | 1  | "1 error messages expected: 1 FIELD_VALUE_OVERLAP" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github392_label_invalid_1.json -s json -t {resourceDir}/github392/test1_invalid.xml" | "report_github392_label_invalid_1.json" |
  |"NASA-PDS/validate#392 INVALID_2" | "github392" | 1  | "1 error messages expected: 1 FIELD_VALUE_OVERLAP" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github392_label_invalid_2.json -s json -t {resourceDir}/github392/INVALID_odf07155_msgr_11.xml" | "report_github392_label_invalid_2.json" |
 
+# https://github.com/nasa-pds/validate/issues/367 As a user, I want to validate all files referenced by a Product_Document
+
+ |"NASA-PDS/validate#367 VALID" | "github367" | 21 | "21 warn messages expected: 0 totalWarnings" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github367_bundle_valid.json -s json -t {resourceDir}/github367/bundle_kaguya_derived.xml" | "report_github367_bundle_valid.json" |
+
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
