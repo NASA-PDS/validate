@@ -15,4 +15,4 @@ The following table describes which versions of the PDS4 Validation Tool are sup
 
 ## 🚨 Reporting a Vulnerability
 
-To report a vulnerability, [please submit an issue on our tracker](https://github.com/NASA-PDS/validate/issues/new).
+To report a vulnerability, [please submit an issue on our tracker](https://github.com/NASA-PDS/validate/issues/new?template=vulnerability-issue.md).
