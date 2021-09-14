@@ -91,15 +91,16 @@ public class ImageUtil {
     RandomAccessFile raf = new RandomAccessFile(jpegFile, "r");
 
     try {
-        // Read the first 2 bytes and last 2 bytes.  If they are 0xffd8 and 0xffd9 then the file is a JPEG file.
-        int firstShort = 0; 
-        int lastShort = 0; 
 
         // Make sure there are at least 4 bytes in the file.
         if (raf.length() < 4) {
             LOG.warn("isJPEG:Expecting the file size to be at least 4 bytes, true size is {} from file {}",raf.length(),jpegRef);
             return(false);
         }
+
+        // Read the first 2 bytes and last 2 bytes.  If they are 0xffd8 and 0xffd9 then the file is a JPEG file.
+        int firstShort = 0; 
+        int lastShort = 0; 
 
         // Seek to the beginning of the file and read 2 bytes
         raf.seek(0);
@@ -166,15 +167,16 @@ public class ImageUtil {
     RandomAccessFile raf = new RandomAccessFile(pngFile, "r");
 
     try {
-        // Read the first 8 bytes.
-        int firstInt = 0;
-        int secondInt = 0;
 
         // Make sure there are at least 8 bytes in the file.
         if (raf.length() < 8) {
             LOG.warn("isPNG:Expecting the file size to be at least 8 bytes, true size is {} from file {}",raf.length(),pngRef);
             return(false);
         }
+
+        // Read the first 8 bytes.
+        int firstInt = 0;
+        int secondInt = 0;
 
         // Seek to the beginning of the file and read 4 bytes.
         raf.seek(0);
