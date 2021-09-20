@@ -74,7 +74,7 @@ public class DocumentsChecker {
   private MimetypesFileTypeMap mimetypesFileTypeMap = null;
 
   public DocumentsChecker() {
-    LOG.error("DocumentsChecker:Loading input {}",DEFAULT_MIME_TYPES_FILE_NAME);
+    LOG.debug("DocumentsChecker:Loading input {}",DEFAULT_MIME_TYPES_FILE_NAME);
     try {
       // Loads the default mime type file into memory.
       this.mimetypesFileTypeMap = new MimetypesFileTypeMap(DEFAULT_MIME_TYPES_FILE_NAME);
