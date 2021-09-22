@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.apache.commons.io.FilenameUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +30,30 @@ public class MimeTable {
 
   public void loadMimeTable(String defaultMimeTypesFileName) throws IOException {
       LOG.debug("loadMimeTable:defaultMimeTypesFileName {}",defaultMimeTypesFileName);
+      // Note: The function FilenameUtils.getPath() doesn't seem to work correctly.
+      // It returns the path without the leading slash '/':  
+      //
+      // For this URI
+      //
+      //      file:/home/qchau/sandbox/validate/src/test/resources/github367/document/
+      //
+      // The FilenameUtils.getPath(getTarget().getPath()) returns
+      //
+      //     home/qchau/sandbox/validate/src/test/resources/github367/document/
+      //
+      // which is missing the leading slash.
+      //
+
       Scanner inFile = null;
       try {
-          inFile = new Scanner(new File(defaultMimeTypesFileName));
+          String parent = defaultMimeTypesFileName.substring(0,defaultMimeTypesFileName.lastIndexOf(File.separator));
+          LOG.debug("loadMimeTable:FilenameUtils.getName(defaultMimeTypesFileName) {}",FilenameUtils.getName(defaultMimeTypesFileName));
+          LOG.debug("loadMimeTable:FilenameUtils.getPath(defaultMimeTypesFileName) {}",FilenameUtils.getPath(defaultMimeTypesFileName));
+          LOG.debug("loadMimeTable:parent {}",parent);
+          inFile = new Scanner(new File(parent + File.separator + FilenameUtils.getName(defaultMimeTypesFileName)));
       } catch (FileNotFoundException ex) {
-          LOG.error("loadMimeTable:Cannot load file {} into memory {}",defaultMimeTypesFileName);
-          throw new IOException("Cannot load file {} into memory " + defaultMimeTypesFileName);
+          LOG.error("loadMimeTable:Cannot load file {} into memory",defaultMimeTypesFileName);
+          throw new IOException("Cannot load file " + defaultMimeTypesFileName + " into memory ");
       }
 
       String nextLine = null;
@@ -42,18 +62,19 @@ public class MimeTable {
       while (inFile.hasNext()) {
           nextLine = inFile.nextLine();
           if (!nextLine.startsWith("#")) {
-              LOG.debug("loadMimeTable:APPENDING_LINE [{}]",nextLine);
+              LOG.debug("loadMimeTable:APPENDING_LINE [{}]",nextLine.replaceAll("[\r\n]",""));
               // Parse the line for the mime type and the file extension.
               // Each file extension becomes a key and the first token (mime type) becomes the value
               // 7-Bit_ASCII_Text txt text TXT TEXT
               tokens = nextLine.split("\\s+");
 
-              LOG.debug("loadMimeTable:nextLine,tokens.length [{}],{}",nextLine,tokens.length);
+              LOG.debug("loadMimeTable:nextLine,tokens.length [{}],{}",nextLine.replaceAll("[\r\n]",""),tokens.length);
 
               tokenIndex = 1;
               while (tokenIndex < tokens.length) {
                   LOG.debug("loadMimeTable:APPENDING_KEY {},{},[{}],[{}]",tokenIndex,tokens.length,tokens[tokenIndex],tokens[0]);
-                  mimetypesFileTypeMap.put(tokens[tokenIndex],tokens[0]);  // Each file extension becomes a key and the first token (mime type) becomes the value
+                  // Each token may potentially has a carriage return, replace them with empty string.
+                  mimetypesFileTypeMap.put(tokens[tokenIndex].replaceAll("[\r\n]",""),tokens[0]);  // Each file extension becomes a key and the first token (mime type) becomes the value
                   tokenIndex += 1;
               }
              
@@ -61,6 +82,7 @@ public class MimeTable {
       }
       LOG.debug("loadMimeTable:defaultMimeTypesFileName,mimetypesFileTypeMap.size {},{}",defaultMimeTypesFileName,mimetypesFileTypeMap.size());
       LOG.debug("loadMimeTable:mimetypesFileTypeMap.size {}",mimetypesFileTypeMap.size());
+      inFile.close(); // Closes this scanner and release the resource.
   }
 
   /**
@@ -126,9 +148,13 @@ public class MimeTable {
           LOG.warn("isMimeTypeCorrect:documentStandardId is null for documentRef {}",documentRef);
       }
       if (this.mimetypesFileTypeMap != null) { 
-          //contentType = this.mimetypesFileTypeMap.getContentType(documentRef);
-          contentType = this.getContentType(documentRef);
-          LOG.warn("isMimeTypeCorrect:documentRef,contentType,idToMatch {},{},{}",documentRef,contentType,idToMatch);
+        contentType = this.getContentType(documentRef);
+
+        // The value of contentType can be null, add a sanity check.
+        if (contentType == null) {
+          LOG.warn("isMimeTypeCorrect:The value of contentType is null from getContentType() for documentRef {}",documentRef);
+        } else {
+          LOG.debug("isMimeTypeCorrect:documentRef,contentType,idToMatch {},{},{}",documentRef,contentType,idToMatch);
           if (contentType.equals(idToMatch)) {
               mimeTypeIsCorrectFlag = true;
           } else {
@@ -141,6 +167,7 @@ public class MimeTable {
                   LOG.warn("The two mime types do not match.  Provided documentStandardId '{}', retrieved from default mime type '{}'",idToMatch,contentType);
               }
           }
+        }
       } else {
           LOG.error("isMimeTypeCorrect:Object mimetypesFileTypeMap is null.  Cannot get the mime type for file {}",documentRef);
       }

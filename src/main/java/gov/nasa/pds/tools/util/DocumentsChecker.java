@@ -1,6 +1,7 @@
 package gov.nasa.pds.tools.util;
 
 import gov.nasa.pds.tools.util.MimeTable;
+import gov.nasa.pds.validate.util.ToolInfo;
 
 import java.io.File;
 import java.io.IOException;
@@ -70,9 +71,8 @@ public class DocumentsChecker {
   public static final String[] MP4_PATTERNS = {MP4_ENDS_WITH_PATTERN_1, MP4_ENDS_WITH_PATTERN_2};
 
   // The file "validate_default_mime_types.txt" is expected to be in src/main/resources directory.
-  // If the environment resources.home is different, the file must be copied to that directory for this class to work.
   // The value of the mime type contains underscore since the space is used as a separator in the file.
-  private String DEFAULT_MIME_TYPES_FILE_NAME =  System.getProperty("resources.home") + File.separator + "validate_default_mime_types.txt";
+  private String DEFAULT_MIME_TYPES_FILE_NAME =  ToolInfo.class.getResource("validate_default_mime_types.txt").getPath();
   private boolean useMimetypesFileTypeMapFlag = false; // Set to true if desire to use MimetypesFileTypeMap.  If false, will use home grown MimeTable class.
   private MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
   private MimeTable mimeTable = new MimeTable();

@@ -84,6 +84,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <includes>
           <include>validate.properties</include>
+          <include>validate_default_mime_types.txt</include>
         </includes>
       </resource>
     </resources>
