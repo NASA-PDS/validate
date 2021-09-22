@@ -72,30 +72,43 @@ public class DocumentsChecker {
 
   // The file "validate_default_mime_types.txt" is expected to be in src/main/resources directory.
   // The value of the mime type contains underscore since the space is used as a separator in the file.
-  private String DEFAULT_MIME_TYPES_FILE_NAME =  ToolInfo.class.getResource("validate_default_mime_types.txt").getPath();
+  private String DEFAULT_MIME_TYPES_FILE_NAME = "validate_default_mime_types.txt";
   private boolean useMimetypesFileTypeMapFlag = false; // Set to true if desire to use MimetypesFileTypeMap.  If false, will use home grown MimeTable class.
   private MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
   private MimeTable mimeTable = new MimeTable();
 
   public DocumentsChecker() {
-    LOG.debug("DocumentsChecker:Loading input {}",DEFAULT_MIME_TYPES_FILE_NAME);
+    String defaultMimeTypesFilename = null; // This is the full path name
+    try {
+        defaultMimeTypesFilename = ClassLoader.getSystemResource(DEFAULT_MIME_TYPES_FILE_NAME).getPath();  // This is a better way to get to the location of the actual file.
+        LOG.debug("DocumentsChecker:Loading input {}",defaultMimeTypesFilename);
+    } catch (Exception ex) {
+        // File does not exist, get it from known location.
+        LOG.error("DocumentsChecker:Cannot resolve location of file {} from system resource",DEFAULT_MIME_TYPES_FILE_NAME);
+        LOG.error(ex.getMessage());
+    }
+
     try {
       // Loads the default mime type file into memory depends on the method.
-      if (useMimetypesFileTypeMapFlag) {
-          this.mimetypesFileTypeMap = new MimetypesFileTypeMap(DEFAULT_MIME_TYPES_FILE_NAME);
+      if (defaultMimeTypesFilename != null) {
+          if (useMimetypesFileTypeMapFlag) {
+              this.mimetypesFileTypeMap = new MimetypesFileTypeMap(defaultMimeTypesFilename);
+          } else {
+              this.mimeTable.loadMimeTable(defaultMimeTypesFilename);
+          }
       } else {
-          this.mimeTable.loadMimeTable(DEFAULT_MIME_TYPES_FILE_NAME);
+          LOG.error("DocumentsChecker:Value of defaultMimeTypesFilename is null.  Cannot build object MimetypesFileTypeMap");
       }
     } catch (IOException ex) {
-        LOG.error("DocumentsChecker:Cannot build object MimetypesFileTypeMap with input {}",DEFAULT_MIME_TYPES_FILE_NAME);
+        LOG.error("DocumentsChecker:Cannot build object MimetypesFileTypeMap with input {}",defaultMimeTypesFilename);
     }
   }
 
     /**
-     * Given a document file name, check for the mime type defined in DEFAULT_MIME_TYPES_FILE_NAME.
+     * Given a document file name, check for the mime type matches in the defined default filename.
      * @param documentRef The file name of the document
      * @param documentStandardId The document standard id as defined by the PDS Information Model document. 
-     * @return true if the mime type DEFAULT_MIME_TYPES_FILE_NAME matches with was defined, false otherwise.
+     * @return true if the mime type matches with was defined, false otherwise.
      */
 
   public boolean isMimeTypeCorrect(String documentRef, String documentStandardId) {
