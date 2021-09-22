@@ -462,7 +462,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, textName, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, msWordName, parent, directory, documentStandardId, "MSWORD", problems, ProblemType.NON_MSWORD_FILE);
 
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msExcelName, parent, directory, documentStandardId, "MSEXCEL", problems, ProblemType.NON_MSWORD_FILE);
+                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msExcelName, parent, directory, documentStandardId, "MSEXCEL", problems, ProblemType.NON_MSEXCEL_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, latexName, parent, directory, documentStandardId, "LATEX", problems, ProblemType.NON_LATEX_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, psName, parent, directory, documentStandardId, "POSTSCRIPT", problems, ProblemType.NON_POSTSCRIPT_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, epsName, parent, directory, documentStandardId, "ENCAPSULATED_POSTSCRIPT", problems, ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE);

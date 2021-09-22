@@ -1,5 +1,7 @@
 package gov.nasa.pds.tools.util;
 
+import gov.nasa.pds.tools.util.MimeTable;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -71,13 +73,19 @@ public class DocumentsChecker {
   // If the environment resources.home is different, the file must be copied to that directory for this class to work.
   // The value of the mime type contains underscore since the space is used as a separator in the file.
   private String DEFAULT_MIME_TYPES_FILE_NAME =  System.getProperty("resources.home") + File.separator + "validate_default_mime_types.txt";
-  private MimetypesFileTypeMap mimetypesFileTypeMap = null;
+  private boolean useMimetypesFileTypeMapFlag = false; // Set to true if desire to use MimetypesFileTypeMap.  If false, will use home grown MimeTable class.
+  private MimetypesFileTypeMap mimetypesFileTypeMap = new MimetypesFileTypeMap();
+  private MimeTable mimeTable = new MimeTable();
 
   public DocumentsChecker() {
-    LOG.error("DocumentsChecker:Loading input {}",DEFAULT_MIME_TYPES_FILE_NAME);
+    LOG.debug("DocumentsChecker:Loading input {}",DEFAULT_MIME_TYPES_FILE_NAME);
     try {
-      // Loads the default mime type file into memory.
-      this.mimetypesFileTypeMap = new MimetypesFileTypeMap(DEFAULT_MIME_TYPES_FILE_NAME);
+      // Loads the default mime type file into memory depends on the method.
+      if (useMimetypesFileTypeMapFlag) {
+          this.mimetypesFileTypeMap = new MimetypesFileTypeMap(DEFAULT_MIME_TYPES_FILE_NAME);
+      } else {
+          this.mimeTable.loadMimeTable(DEFAULT_MIME_TYPES_FILE_NAME);
+      }
     } catch (IOException ex) {
         LOG.error("DocumentsChecker:Cannot build object MimetypesFileTypeMap with input {}",DEFAULT_MIME_TYPES_FILE_NAME);
     }
@@ -86,7 +94,7 @@ public class DocumentsChecker {
     /**
      * Given a document file name, check for the mime type defined in DEFAULT_MIME_TYPES_FILE_NAME.
      * @param documentRef The file name of the document
-     * @param documentStandardId The document standard if as defined by the PDS Information Model document. 
+     * @param documentStandardId The document standard id as defined by the PDS Information Model document. 
      * @return true if the mime type DEFAULT_MIME_TYPES_FILE_NAME matches with was defined, false otherwise.
      */
 
@@ -98,7 +106,13 @@ public class DocumentsChecker {
       //      UTF-8_Text       txt text TXT TEXT
       // As long as 'text' is in both documentStandardId and contentType, we can consider the mime type matches.
 
-      boolean mimeTypeIsCorrectFlag = false;
+    boolean mimeTypeIsCorrectFlag = false;
+
+    if (this.useMimetypesFileTypeMapFlag == false) {
+      // If this.useMimetypesFileTypeMapFlag is false, use the function isMimeTypeCorrect in the MimeTable class).
+      mimeTypeIsCorrectFlag = this.mimeTable.isMimeTypeCorrect(documentRef,documentStandardId);
+      LOG.debug("isMimeTypeCorrect:documentRef,documentStandardId,mimeTypeIsCorrectFlag {},[{}],{}",documentRef,documentStandardId,mimeTypeIsCorrectFlag);
+    } else {
       String idToMatch = "";
       String contentType = "";  // Retrieved from map.
 
@@ -111,6 +125,7 @@ public class DocumentsChecker {
       }
       if (this.mimetypesFileTypeMap != null) { 
           contentType = this.mimetypesFileTypeMap.getContentType(documentRef);
+          LOG.warn("isMimeTypeCorrect:documentRef,contentType,idToMatch {},{},{}",documentRef,contentType,idToMatch);
           if (contentType.equals(idToMatch)) {
               mimeTypeIsCorrectFlag = true;
           } else {
@@ -126,6 +141,7 @@ public class DocumentsChecker {
       } else {
           LOG.error("isMimeTypeCorrect:Object mimetypesFileTypeMap is null.  Cannot get the mime type for file {}",documentRef);
       }
+    }
 
       LOG.debug("isMimeTypeCorrect:documentRef,documentStandardId,mimeTypeIsCorrectFlag {},{},{}",documentRef,documentStandardId,mimeTypeIsCorrectFlag);
       return(mimeTypeIsCorrectFlag);
