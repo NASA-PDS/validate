@@ -1,15 +1,18 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-09-02)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-09-24)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
 
-**Improvements:**
+**Requirements:**
 
-- Refactor PDF/A check handling to match with similar product checks [\#374](https://github.com/NASA-PDS/validate/issues/374)
-- Improve validate performance by removing unnecessary file IO [\#358](https://github.com/NASA-PDS/validate/issues/358)
+- As a user, I want to validate all files referenced by a Product\_Document [\#367](https://github.com/NASA-PDS/validate/issues/367)
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-08-27)
+**Defects:**
+
+- Validate throws incorrect overlap error when first Field\_Bit has length 1 [\#392](https://github.com/NASA-PDS/validate/issues/392) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-09-02)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
 
@@ -20,7 +23,9 @@
 
 **Improvements:**
 
+- Refactor PDF/A check handling to match with similar product checks [\#374](https://github.com/NASA-PDS/validate/issues/374)
 - Update pds4 version mismatch warning message and problem type [\#373](https://github.com/NASA-PDS/validate/issues/373)
+- Improve validate performance by removing unnecessary file IO [\#358](https://github.com/NASA-PDS/validate/issues/358)
 
 **Defects:**
 
