@@ -272,7 +272,6 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#390 INVALID" | "github390" | 1 | "1 error messages expected: 1 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github390_label_invalid.json -s json -t {resourceDir}/github390/VALIDATE-TAB/collection_calib_freq.xml" | "report_github390_label_invalid.json" |
 
-
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
