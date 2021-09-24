@@ -139,6 +139,7 @@ public class DocumentsChecker {
       if (this.mimetypesFileTypeMap != null) { 
           contentType = this.mimetypesFileTypeMap.getContentType(documentRef);
           LOG.warn("isMimeTypeCorrect:documentRef,contentType,idToMatch {},{},{}",documentRef,contentType,idToMatch);
+
           if (contentType.equals(idToMatch)) {
               mimeTypeIsCorrectFlag = true;
           } else {

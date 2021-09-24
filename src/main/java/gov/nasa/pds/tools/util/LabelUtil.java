@@ -16,6 +16,7 @@ package gov.nasa.pds.tools.util;
 import java.io.File;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import java.util.ArrayList;
@@ -229,18 +230,21 @@ public class LabelUtil {
      return(informationModelVersion);
   }
 
-  public static ArrayList<String> getIdentifiersCommon(DOMSource source, URL context, String[] tagsList, String searchPathName) {
+  // Due the fact that this function can be called by multiple threads and indirectly mutates container util.Utility.cachedTargets,
+  // it is necessary to add 'synchronized' to make sure that it does not happen.
+  public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context, String[] tagsList, String searchPathName) {
       // Common function to retrieve values either from logical_identifier or lid_reference/lidvid_reference tags.
       // Note that because a node for logical_identifier can have a version id in another tag, they both must be check
       // before combining them together to .
       ArrayList<String> commonIdentifiers = new ArrayList<String>(0);
-      LOG.debug("getIdentifiersCommon:MY_SOURCE[{}]",source);
+      LOG.debug("getIdentifiersCommon:context,tagsList,searchPathName {},{},searchPathName",context,tagsList,searchPathName);
 
       try {
           // Get to the node containing the searchPathName
           NodeList nodeList = (NodeList) xPathFactory.newXPath().evaluate(searchPathName,source,XPathConstants.NODESET);
           LOG.debug("getIdentifiersCommon:context,nodeList.getLength() {},{}",context,nodeList.getLength());
           LOG.debug("getIdentifiersCommon:context,searchPathName,nodeList.getLength() {},{},{}",context,searchPathName,nodeList.getLength());
+          LOG.debug("getIdentifiersCommon:context,tagsList,searchPathName,nodeList.getLength {},{},{},{}",context,tagsList,searchPathName,nodeList.getLength());
           for (int i = 0; i < nodeList.getLength(); ++i) {
               NodeList childList = ((Element) nodeList.item(i)).getChildNodes();
               String singleIdentifier = null;
@@ -255,11 +259,27 @@ public class LabelUtil {
                   for (int kk = 0; kk < tagsList.length; kk++) {
 
                       if (node.getNodeName().equals(tagsList[kk]) || node.getNodeName().equals(VERSION_ID_TAG)) {
-                          if (node.getNodeName().equals(tagsList[kk])) 
-                              singleIdentifier = node.getTextContent().trim();
+                          if (node.getNodeName().equals(tagsList[kk])) {
+                              // Check for any extraneous carriage return.
+                              if (node.getTextContent().contains("\n")) {
+                                  String trimmedId = node.getTextContent().trim();
+                                  String message = "Unexpected carriage returns in tag '" + tagsList[kk] + "' with value '" + trimmedId + "'";
+                                  LOG.error("{} in context {}",message,context);
+                                  ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+                                                                                                     ProblemType.INVALID_FIELD_VALUE, message),context);
+                                  try {
+                                      LabelUtil.report.record(context.toURI(), p1);
+                                  } catch (URISyntaxException e) {
+                                      LOG.error("URI Syntax Error: " + e.getMessage());
+                                  }
+                              } else {
+                                  singleIdentifier = node.getTextContent().trim();
+                              }
+                          }
                           if (node.getNodeName().equals(VERSION_ID_TAG))
                              singleVersion = node.getTextContent().trim();
                       }
+                      LOG.debug("getIdentifiersCommon:kk,singleIdentifier,singleVersion {},[{}],[{}]",kk,singleIdentifier,singleVersion);
 
                   }
               }
