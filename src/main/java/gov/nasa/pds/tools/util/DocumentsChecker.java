@@ -157,6 +157,7 @@ public class DocumentsChecker {
       }
     }
 
+
       LOG.debug("isMimeTypeCorrect:documentRef,documentStandardId,mimeTypeIsCorrectFlag {},{},{}",documentRef,documentStandardId,mimeTypeIsCorrectFlag);
       return(mimeTypeIsCorrectFlag);
   }

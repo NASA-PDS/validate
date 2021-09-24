@@ -16,10 +16,12 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.StringBuffer;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.BufferUnderflowException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -241,6 +243,56 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
        }
   }
 
+  private void recordLineLength(ArrayList<Integer> lineLengthsArray, ArrayList<Integer> lineNumbersArray, String line, int lineNumber) {
+    // This is a special processing for file that ends .tab but records have different lengths.
+    // For every line encountered, record the line number, line length, and the URL of the data file.
+    // After all the records are recorded, another function will check that all lines have the same length.  If the file name ends with .tab, all the records should have the same length.
+
+    // Check if a particular line length has not been record already.  We only want to record lines that are of different lengths.
+    int lineLength = line.length();
+    if (!lineLengthsArray.contains(lineLength)) {
+        lineLengthsArray.add(new Integer(lineLength));
+        lineNumbersArray.add(new Integer(lineNumber));
+        LOG.debug("recordLineLength:ADDING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),lineNumber);
+    } else {
+        LOG.debug("recordLineLength:REJECTING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),lineNumber);
+    }
+  }
+
+  private void reportIfDifferentLengths(ArrayList<Integer> lineLengthsArray, ArrayList<Integer> lineNumbersArray, URL dataFile, int tableIndex) {
+    // If the size if lineLengthsArray is more than 1, that means there are more than 2 records of different lengths.  Report it as a ERROR.
+    if (lineLengthsArray.size() > 1) {
+        String errorMessage = "";
+        String standardMessage = "File that ends with .tab should have same record length.  Line number:" + lineNumbersArray.get(0) + ", record length:" + lineLengthsArray.get(0) + ", Line number:" + lineNumbersArray.get(1) + ", record length:" + lineLengthsArray.get(1);
+        StringBuffer stringBuffer = new StringBuffer();
+        int arrayIndex = 0;
+        for (Integer lineNum: lineNumbersArray) {
+            if (arrayIndex== 0) {
+                stringBuffer.append(lineNum);
+                stringBuffer.append(":");
+                stringBuffer.append(lineLengthsArray.get(arrayIndex));
+            } else {
+                stringBuffer.append(", ");
+                stringBuffer.append(lineNum);
+                stringBuffer.append(":");
+                stringBuffer.append(lineLengthsArray.get(arrayIndex));
+            }
+            arrayIndex += 1;
+        }
+        if (lineLengthsArray.size() == 2) {
+            errorMessage = standardMessage;
+        } else {
+            // If there are more than 2 records of different lengths, report all the line numbers and the length of each.
+            errorMessage = standardMessage + ". Exhaustive list of all line number and line length: " +  stringBuffer.toString();
+        }
+
+        addTableProblem(ExceptionType.ERROR,
+            ProblemType.RECORD_LENGTH_MISMATCH,
+            errorMessage,
+            dataFile, tableIndex, -1);
+   }
+  }
+
 
   /**
    * Validate a table content one line at a time.
@@ -269,11 +321,25 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       String line = reader.readNextLine();
       int lineNumber = 0;
       int recordsRead = 0;
+
+      // Add special processing for file names that ends with .tab.  They should have all records of same length.
+      boolean fileEndsWithTab = false;
+      if (dataFile.toString().endsWith(".tab")) {
+          fileEndsWithTab = true;
+      }
+
+      // Add 2 arrays to keep track of each line number and its length.
+      ArrayList<Integer> lineLengthsArray = new ArrayList<Integer>(0);
+      ArrayList<Integer> lineNumbersArray = new ArrayList<Integer>(0);
+
       if (line != null) {
           LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
+          if (fileEndsWithTab) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
       } else {
           LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
       }
+
       while (line != null) {
           progressCounter();
           lineNumber += 1;
@@ -477,6 +543,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           line = reader.readNextLine();
           if (line != null) {
               LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
+              if (fileEndsWithTab) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
           } else {
               LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
           }
@@ -510,6 +578,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   tableIndex,
                   -1);
       }
+
+      // If the file ends with .tab and all the records length are not the same, report it as an error.
+      if (fileEndsWithTab) reportIfDifferentLengths(lineLengthsArray,lineNumbersArray,dataFile,tableIndex);
 
       LOG.debug("validateTableContentLineWise:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
       LOG.debug("validateTableContentLineWise:DONE_VALIDATING");
