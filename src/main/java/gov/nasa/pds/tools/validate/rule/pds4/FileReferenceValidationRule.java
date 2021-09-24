@@ -65,8 +65,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
   private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
-
-  private static final FileReferencedMapList fileReferencedMapList = new FileReferencedMapList();
   
   /**
    * XPath to the file references within a PDS4 data product label.
@@ -365,13 +363,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                         fileObject.getLineNumber(), -1));
                   } else {
                       LOG.debug("FileReferenceValidationRule:validate:getTarget,name,urlRef {},{},{},",getTarget(),name,urlRef);
-                      // For every label that referenced urlRef, keep track of this list of labels.
-                      // If more othan one label referenced a file, this will be flagged as an error.
-                      //FileReferencedMap fileReferencedMap = this.fileReferencedMapList.setLabels(urlRef,getTarget().toString());
-                      //if (fileReferencedMap.getNumLabelsReferencedFile() > 1) { 
-                      //    LOG.error("File " + urlRef.toString() + "  is referenced by more than one labels " + fileReferencedMap.toString());
-                      //    System.exit(1);
-                      //}
                  }
                 } catch (IOException io) {
                   ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
