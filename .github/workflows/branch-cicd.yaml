@@ -59,7 +59,7 @@ jobs:
                 uses: actions/setup-java@v2
                 with:
                     distribution: 'adopt'
-                    java-version: ${{ matrix.java-version }}
+                    java-version: ${{matrix.java-version}}
             -
                 name: 🩺 Test Software
                 run: mvn test

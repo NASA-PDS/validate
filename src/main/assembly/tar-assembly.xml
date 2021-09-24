@@ -94,7 +94,19 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <files>
     <file>
-      <source>LICENSE.txt</source>
+      <source>LICENSE.md</source>
+      <outputDirectory/>
+      <fileMode>644</fileMode>
+      <lineEnding>unix</lineEnding>
+    </file>
+    <file>
+      <source>NOTICE.txt</source>
+      <outputDirectory/>
+      <fileMode>644</fileMode>
+      <lineEnding>unix</lineEnding>
+    </file>
+    <file>
+      <source>CHANGELOG.md</source>
       <outputDirectory/>
       <fileMode>644</fileMode>
       <lineEnding>unix</lineEnding>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright 2019, California Institute of Technology ("Caltech").
+Copyright 2019–2021, California Institute of Technology ("Caltech").
 U.S. Government sponsorship acknowledged.
 
 All rights reserved.
@@ -84,6 +84,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <includes>
           <include>validate.properties</include>
+          <include>validate_default_mime_types.txt</include>
         </includes>
       </resource>
     </resources>
