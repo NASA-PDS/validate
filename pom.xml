@@ -84,6 +84,7 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <includes>
           <include>validate.properties</include>
+          <include>validate_default_mime_types.txt</include>
         </includes>
       </resource>
     </resources>
@@ -272,6 +273,11 @@ POSSIBILITY OF SUCH DAMAGE.
         <artifactId>junit-vintage-engine</artifactId>
         <version>5.7.0</version>
         <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.sun.activation</groupId>
+        <artifactId>javax.activation</artifactId>
+        <version>1.2.0</version>
     </dependency>
     <dependency>
       <groupId>gov.nasa.pds</groupId>

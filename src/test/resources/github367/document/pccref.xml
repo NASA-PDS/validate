@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:compil-comet:phys_char:references</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Physical Charecteristics of Comets - Source References</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        
+        <Citation_Information>
+            <publication_year>2019</publication_year>
+            <description>
+                This document provides the full citations and code numbers for the 
+                published articles from which the associated data were extracted.
+                The code numbers are referenced in the data tables to identify the
+                source of the data in a particular record.  This file also contains
+                some additional comments about the source material.
+            </description>
+        </Citation_Information>
+		
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2015-08-25</modification_date>
+                <version_id>1.0</version_id>
+                <description>Migration from PDS3</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+
+    <Document>
+        <publication_date>2019-01</publication_date>
+        <Document_Edition>
+            <edition_name>ASCII Text</edition_name>
+            <language>English</language>
+            <files>33</files>
+            <Document_File>
+                <file_name>pccref_this_file_does_not_exist.txt</file_name>
+                <document_standard_id>7-Bit ASCII Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref.txt</file_name>
+                <document_standard_id>7-Bit ASCII Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_2.txt</file_name>
+                <document_standard_id>UTF-8 Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_2.txt</file_name>
+                <document_standard_id>Microsoft Word</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref.HTM</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref.html</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.html</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.html</file_name>
+                <document_standard_id>MPEG-4</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.ps</file_name>
+                <document_standard_id>Postscript</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.ps</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.eps</file_name>
+                <document_standard_id>Encapsulated Postscript</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.eps</file_name>
+                <document_standard_id>TIFF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.gif</file_name>
+                <document_standard_id>GIF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.gif</file_name>
+                <document_standard_id>TIFF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.doc</file_name>
+                <document_standard_id>JPEG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.jpeg</file_name>
+                <document_standard_id>LaTEX</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref.jpeg</file_name>
+                <document_standard_id>JPEG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_invalid.jpeg</file_name>
+                <document_standard_id>JPEG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tex</file_name>
+                <document_standard_id>LaTEX</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tex</file_name>
+                <document_standard_id>GIF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.mp4</file_name>
+                <document_standard_id>MPEG-4</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.mp4</file_name>
+                <document_standard_id>PDF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.xls</file_name>
+                <document_standard_id>Microsoft Excel</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.xls</file_name>
+                <document_standard_id>Encapsulated Postscript</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.doc</file_name>
+                <document_standard_id>Microsoft Word</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.doc</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.png</file_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref.png</file_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_invalid.png</file_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.rtf</file_name>
+                <document_standard_id>Rich Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.rtf</file_name>
+                <document_standard_id>LaTEX</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tif</file_name>
+                <document_standard_id>TIFF</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tif</file_name>
+                <document_standard_id>Microsoft Excel</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>

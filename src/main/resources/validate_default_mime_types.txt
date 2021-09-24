@@ -1,0 +1,29 @@
+# This file contains a mime type and the file extensions.
+# It is used by validate to get the mime type based on file extension.
+#
+# comments begin with a '#'
+# the format is <mime type> <space separated file extensions>
+# for example:
+text/plain    txt text TXT TEXT
+# this would map file.txt, file.text, and file.TXT to
+# the mime type "text/plain"
+#
+# The left token has replaced spaces ' ' with underscore '_' since it would be confusing.
+# The code that uses this must convert spaces ' ' to underscore '_' to match with the mime type returned.
+#
+HTML html htm HTML HTM
+7-Bit_ASCII_Text txt text TXT TEXT
+Encapsulated_Postscript eps EPS
+GIF gif GIF
+JPEG jpeg jpg JPEG JPG
+LaTEX tex TEX
+MPEG-4 mp4 MP4
+Microsoft_Excel xls xlsx
+Microsoft_Word doc docx
+PDF pdf PDF
+PDF/A pdf PDF
+PNG png PNG
+Postscript ps PS
+Rich_Text rtf RTF
+TIFF tiff tif TIFF TIF 
+UTF-8_Text txt text TXT TEXT
