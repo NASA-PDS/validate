@@ -65,8 +65,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
   private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
-
-  private static final FileReferencedMapList fileReferencedMapList = new FileReferencedMapList();
   
   /**
    * XPath to the file references within a PDS4 data product label.
@@ -365,13 +363,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                         fileObject.getLineNumber(), -1));
                   } else {
                       LOG.debug("FileReferenceValidationRule:validate:getTarget,name,urlRef {},{},{},",getTarget(),name,urlRef);
-                      // For every label that referenced urlRef, keep track of this list of labels.
-                      // If more othan one label referenced a file, this will be flagged as an error.
-                      //FileReferencedMap fileReferencedMap = this.fileReferencedMapList.setLabels(urlRef,getTarget().toString());
-                      //if (fileReferencedMap.getNumLabelsReferencedFile() > 1) { 
-                      //    LOG.error("File " + urlRef.toString() + "  is referenced by more than one labels " + fileReferencedMap.toString());
-                      //    System.exit(1);
-                      //}
                  }
                 } catch (IOException io) {
                   ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
@@ -462,7 +453,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, textName, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, msWordName, parent, directory, documentStandardId, "MSWORD", problems, ProblemType.NON_MSWORD_FILE);
 
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msExcelName, parent, directory, documentStandardId, "MSEXCEL", problems, ProblemType.NON_MSWORD_FILE);
+                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msExcelName, parent, directory, documentStandardId, "MSEXCEL", problems, ProblemType.NON_MSEXCEL_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, latexName, parent, directory, documentStandardId, "LATEX", problems, ProblemType.NON_LATEX_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, psName, parent, directory, documentStandardId, "POSTSCRIPT", problems, ProblemType.NON_POSTSCRIPT_FILE);
                 passFlag = this.checkGenericDocument(target, urlRef, fileObject, epsName, parent, directory, documentStandardId, "ENCAPSULATED_POSTSCRIPT", problems, ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE);

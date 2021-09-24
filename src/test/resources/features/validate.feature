@@ -264,10 +264,9 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#367 VALID" | "github367" | 21 | "21 warn messages expected: 0 totalWarnings" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github367_bundle_valid.json -s json -t {resourceDir}/github367/bundle_kaguya_derived.xml" | "report_github367_bundle_valid.json" |
 
+
 # https://github.com/nasa-pds/validate/issues/401 validate does not flag <CR> within lid_reference
-
  |"NASA-PDS/validate#401 INVALID" | "github401" | 3 | "3 error messages expected: 1 INVALID_FIELD_VALUE" | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github401_bundle_invalid.json -s json -t {resourceDir}/github401/invalid/bundle_kaguya_derived.xml" | "report_github401_bundle_invalid.json" |
-
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

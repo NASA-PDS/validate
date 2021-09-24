@@ -1,6 +1,6 @@
 PDS Validate Tool
 
-Copyright 2020, California Institute of Technology ("Caltech").
+Copyright 2020–2021, California Institute of Technology ("Caltech").
 U.S. Government sponsorship acknowledged.
 
 All rights reserved.
