@@ -900,6 +900,7 @@ public class ReferentialIntegrityUtil {
 
             if ((lidOrLidVidReferences != null) && !lidOrLidVidReferences.isEmpty()) {
                 for (int ii=0; ii < lidOrLidVidReferences.size(); ii++) {
+                    LOG.debug("additionalReferentialIntegrityChecks:ii,url,lidOrLidVidReferences.get(ii) {},{},[{}]",ii,url,lidOrLidVidReferences.get(ii));
                     // Do not add duplicate references by checking for existence of the combination reference id in ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative
                     // and the file name has not already been added already in ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames list.
                     // Note that because the reference id can be the same, the combination of the id plus the file name will make it unique. 

@@ -170,7 +170,7 @@ public class BundleManager {
             // Purge all children unless they are the latest (largest version).
             // After this next statement, there should only be one element in children list.
             children = LidVid.reduceToLatestTargetOnly(children);
-            LOG.debug("after:reduceToLatestTargetOnly:children.size() {}",children.size());
+            LOG.debug("findCollectionWithLatestVersion:after:reduceToLatestTargetOnly:children.size() {}",children.size());
         } catch (IOException io) {
             LOG.error("Cannot crawl for files at url {}",url);
         }
@@ -360,7 +360,8 @@ public class BundleManager {
         for (Target target : otherCollectionList) {
             ArrayList<String> otherCollectionIdList = TargetExaminer.getTargetContent(target.getUrl(),PRODUCT_COLLECTION_ID_AREA_TAG,LOGICAL_IDENTIFIER_TAG,VERSION_ID_TAG);
             LOG.debug("getCollectionFilesWithSameLogicalIdentifier:collectionIdList2 {}",otherCollectionIdList);
-            if (otherCollectionIdList  != null && collectionIdList.size() >= 1) {
+            // The check for null-ness and size should be done for the same variable otherCollectionIdList
+            if (otherCollectionIdList  != null && otherCollectionIdList.size() >= 1) {
                 // Loop through all logical_identifier in collectionIdList and compare with otherCollectionIdList
                 // If the logical_identifier matches the logical_identifier from the latestCollectionList, add it to trimmedCollectionList.
                 for (String latestCollectionId : collectionIdList) {
@@ -426,7 +427,7 @@ public class BundleManager {
      * @return a list of files that are other than the given url.
      */
     public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl) {
-        LOG.debug("url {}",url);
+        LOG.debug("buildCollectionIgnoreList:url,bundleUrl {},{}",url,bundleUrl);
         List<Target> ignoreCollectionList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
         try {
             if (url.getProtocol().equals("file")) {
@@ -526,19 +527,23 @@ public class BundleManager {
 
     private static boolean containsExistingTarget(List<Target> targetList, URL existingURL) {
         // Given a list of targets, inspect if the list contains the provided URL.
-        // This fuction is needed as the default List.contains() does not work.
+        // This function is needed as the default List.contains() does not work.
         boolean containsFlag = false;
         Target target = null;
+
+        LOG.debug("containsExistingTarget:existingURL,targetList.size {},{}",existingURL,targetList.size());
+
         int ii = 0;
         while (!containsFlag && ii < targetList.size()) {
-            LOG.debug("containsExistingTarget: existingURL,target.getUrl()",existingURL,target.getUrl());
             target = targetList.get(ii);
+            LOG.debug("containsExistingTarget: ii,existingURL,target.getUrl,COMPARE_URL_FLAG {},{},{},{}",ii,existingURL,target.getUrl(),existingURL.equals(target.getUrl()));
             // If the url within target is the same as existingURL, we have found it in the list.
             if (existingURL.equals(target.getUrl())) {
                 containsFlag = true;
             }
             ii += 1; 
         }
+        LOG.debug("containsExistingTarget:existingURL,targetList.size,containsFlag {},{},{}",existingURL,targetList.size(),containsFlag);
         return(containsFlag);
     }
 
@@ -559,6 +564,7 @@ public class BundleManager {
         List<Target> allFiles = null;
         URL urlCrawl = null;
         URL urlLatest = null;
+        List<String> crawledDirectory = new ArrayList<String>();  // Keep a list of directory we have crawled to keep from crawling same directory again.
 
         try {
           // Because the input to this function is a list of target, we have loop through targetList.
@@ -566,7 +572,17 @@ public class BundleManager {
             urlCrawl = crawlTarget.getUrl(); 
             // Get the parent directory of url and crawl for files that starts with 'bundle'
             String dirName     = (new File(urlCrawl.getPath())).getParent();
-            LOG.debug("findOtherCollectionFiles:dirName {}",dirName);
+            LOG.debug("findOtherCollectionFiles:dirName,crawledDirectory.size {},{}",dirName,crawledDirectory.size());
+
+            // Check to see if we have crawled this directory before.
+            if (!crawledDirectory.contains(dirName)) {
+                crawledDirectory.add(dirName);
+            } else {
+                // Do not crawl the same directory again.
+                LOG.debug("findOtherCollectionFiles:dirName {} crawled before crawledDirectory.size {}",dirName,crawledDirectory.size());
+                continue;
+            }
+
             Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
             IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
             LOG.debug("findOtherCollectionFiles:crawler {}",crawler);
@@ -577,21 +593,16 @@ public class BundleManager {
             allFiles = crawler.crawl(new File(dirName).toURI().toURL(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
 
             LOG.debug("findOtherCollectionFiles:allFiles.size() {}",allFiles.size());
+            int targetIndex = 0;
             for (Target target : allFiles) {
-                LOG.debug("findOtherCollectionFiles:target {}",target);
+                            LOG.debug("findOtherCollectionFiles:targetIndex,target {},{}",targetIndex,target);
+                            // Remove extraneous for loop since the value of target.getUrl() can be checked against targetList with the containsExistingTarget() function directly.
 
-                for (Target collectionLatestTarget : targetList) {
-                     urlLatest = collectionLatestTarget.getUrl();
-                     LOG.debug("findOtherCollectionFiles:INSPECT_TARGET_AGAINST_LATEST_URL {},{}",target.getUrl(),urlLatest);
-                    // Add target if it is not the same as given urlLatest and is not a directory.
-                    if (!target.getUrl().equals(urlLatest) && !target.isDir()) {
-                        if (TargetExaminer.isTargetCollectionType(target.getUrl())) {
-                            LOG.debug("findOtherCollectionFiles:TARGET_ADD {}",target);
-                            // Only add the target if it hasn't been added before
-                            if (!BundleManager.containsExistingTarget(otherCollectionFilesList,urlLatest)) {
+                            // Check if the newly found find is in targetList.  If not, add it to the otherCollectionFilesList so it can be skip
+                            if (!BundleManager.containsExistingTarget(targetList,target.getUrl())) {
                                 otherCollectionFilesList.add(target);
 
-                                LOG.info("SKIP: {} due to collection not latest or does not sharing the same logical_identifier as the bundle target",target.getUrl());
+                                LOG.info("findOtherCollectionFiles:SKIP: {} due to collection not latest or does not sharing the same logical_identifier as the bundle target",target.getUrl());
                                 // Write a record to report that we are skipping this file.
                                 if (BundleManager.m_report != null) {
                                     try {
@@ -600,19 +611,19 @@ public class BundleManager {
                                                                                          target.getUrl());
                                         BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                                     } catch (Exception e) {
-                                        LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
+                                        LOG.error("findOtherCollectionFiles:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
                                     }
                                 } else {
-                                    LOG.warn("makeException:Object BundleManager.m_report is null");
+                                    LOG.warn("findOtherCollectionFiles:Object BundleManager.m_report is null");
                                 }
                            }
 
-                        }
-                    }
-                }
+                           targetIndex += 1;
             }
           }
         } catch (Exception e) {
+            // Print stack trace for developer to inspect.
+            e.printStackTrace();
             LOG.error(" Cannot crawl for files in: " + urlCrawl + ": " + e.getMessage());
         }
         // Check for null-ness before getting list size.
@@ -646,7 +657,7 @@ public class BundleManager {
             // Only print the size if we know that otherBundleFiles is not null.
             LOG.debug("makeException:url,otherBundleFiles.size() {},{}",url,otherBundleFiles.size());
             for (Target target : otherBundleFiles) {
-                LOG.info("SKIP: {} due to not being selected as the bundle target",target.getUrl());
+                LOG.info("makeException:SKIP: {} due to not being selected as the bundle target",target.getUrl());
                     // Write a record to report that we are skipping this file.
                     if (BundleManager.m_report != null) {
                         try {
@@ -692,28 +703,12 @@ public class BundleManager {
 
         ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL,url);
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
+
+        // Because any reporting about a collection file being ignored/skipped is already done in function buildCollectionIgnoreList() above, no need to report it again.
+
         if (ignoreCollectionList != null) {
-            LOG.debug("makeException:url,ignoreCollectionList {},{},{}",url,ignoreCollectionList.size(),ignoreCollectionList);
-            // Because this function has knowledge of why a particular file is being ignored while crawling
-            // we will log it here.
-            for (Target target : ignoreCollectionList) {
-                    LOG.info("SKIP: {} due to logical_identifier the same as selected collection but different version",target.getUrl());
-                    // Write a record to report that we are skipping this file.
-                    if (BundleManager.m_report != null) {
-                        try {
-                            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.INFO,
-                                                                                               ProblemType.UNREFERENCED_FILE, "Skipping " + target.getUrl() + " due to logical_identifier the same as selected collection but different version"),
-                                                                         target.getUrl());
-                            BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
-                        } catch (Exception e) {
-                            LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",target.getUrl());
-                        }
-                    } else {
-                        LOG.warn("makeException:Object BundleManager.m_report is null");
-                    }
-            }
+            // Remove the double reporting loop.
+            BundleManager.m_ignoreList.addAll(ignoreCollectionList);  // Add a list of collection to ignore in the crawler.
         }
-        LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
-        BundleManager.m_ignoreList.addAll(ignoreCollectionList);  // Add a list of collection to ignore in the crawler.
     }
 }

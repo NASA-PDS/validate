@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:insight_seis</logical_identifier>
+        <version_id>3.0</version_id>
+        <title>InSight SEIS Data Bundle</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <author_list>InSight SEIS Science Team</author_list>
+            <publication_year>2019</publication_year>
+            <doi>10.17189/1517570</doi>
+            <description>
+               The InSight SEIS data bundle consists of SEIS instrument observations in two collections,
+               the SEED (Standard for the Exchange of Earthquake Data) collection and the ASCII table collection. 
+               The SEED collection contains data in Mini-SEED files and their metadata in Dataless-SEED files.
+               The ASCII Table collection contains the same data in PDS-compliant ASCII files, with
+               the data in GeoCSV (comma-separated value) tables and the metadata in 
+               StationXML files. The bundle also includes the SEIS document collection and the Lander Activity 
+               Files, Derived Data Mars Quake Service (MQS) Catalog, and MQS XML Schema collections.
+               </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-07-02</modification_date>
+                <version_id>1.0</version_id>
+                <description>First release</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2020-01-02</modification_date>
+                <version_id>1.1</version_id>
+                <description>Changed instrument name in this label to match name in context product</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2020-09-24</modification_date>
+                <version_id>2.0</version_id>
+                <description>Added collection data_laf (Lander Activity Files) to this bundle</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2021-03-23</modification_date>
+                <version_id>3.0</version_id>
+                <description>Added data_derived and schema_mqs collections to this bundle</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-11-26Z</start_date_time>
+            <stop_date_time xsi:nil="true" nilReason="unknown"/>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <processing_level>Calibrated</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Insight</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.insight</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Insight</name>
+            <Observing_System_Component>
+                <name>Insight</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.insight</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>SEISMIC EXPERIMENT FOR INTERIOR STRUCTURE</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:seis.insight</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Mars</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>bundle_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Reference_List>
+        <External_Reference>
+            <doi>10.1007/s11214-018-0574-6</doi>
+            <reference_text>
+                Lognonne, P., Banerdt, W. B., Giardini, D., et al., SEIS: InSight's 
+                Seismic Experiment for Internal Structure of Mars, Space Sci. Rev. (2019)
+                215:12.
+            </reference_text>
+        </External_Reference>
+    </Reference_List>
+    <Bundle>
+        <bundle_type>Archive</bundle_type>
+    </Bundle>
+    <File_Area_Text>
+        <File>
+            <file_name>readme.txt</file_name>
+        </File>
+        <Stream_Text>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Text>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_seis:data_seed</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_seis:data_table</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_documents:document_seis</lid_reference>
+        <member_status>Secondary</member_status>
+        <reference_type>bundle_has_document_collection</reference_type>
+    </Bundle_Member_Entry>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_seis:data_laf</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_seis:data_derived</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:insight_seis:schema_mqs</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_schema_collection</reference_type>
+    </Bundle_Member_Entry>
+</Product_Bundle>

@@ -43,21 +43,32 @@ public class LidVid {
   
     /**
      * Find the latest version of lidvid(s).
-     * @param vidsList a list of string of lidvid(s).
-     * @return a string containing the latest version.
+     * @param lidvidsMap a HashMap of logical identifier and a list of all versions.
+     * @return a HashMap containing a map of each logical identifier and its latest version.
      */
-    public static String getLatestVersion(List<String> vidsList) {
-      // Function returns the element in vidsList with the largest version.
+    public static HashMap<String,String> getLatestVersion(HashMap<String,ArrayList<String>> lidvidsMap) {
+    // Function returns the elements in lidvidsMap with the largest version.
+    // Each key in lidvidsMap is a logical identifier and must be processed in its own loop.
 
-      String largestVersion = null;
-      if (vidsList.size() == 0) {
-          return(largestVersion);
+    HashMap<String,String> largestVersion = new HashMap<String,String>(); // A HashMap array containing a map of logical identifier and its latest version.
+
+    LOG.debug("getLatestVersion:lidvidsMap.size {}",lidvidsMap.size());
+
+    // Loop through each logical_identifier in lidvidsMap and find the largest version for that logical_identifier.
+    for (String lid : lidvidsMap.keySet()) {
+      ArrayList<String> vidsList = lidvidsMap.get(lid);  // The value in HashMap is an array of version_id list.
+      LOG.debug("getLatestVersion:vidsList,vidsList.size {},{}",vidsList,vidsList.size());
+      // From the way the HashMap is build for lidvidsMap, there is a guaranteed that at least one element will be in vidsList
+
+      // Due to the fact that the natural character order will see "9.0" is larger than "10.0", we have to convert the character strings to floats.
+      ArrayList<Float> floatVidsList = new ArrayList<Float>();
+      for (String vid : vidsList) {
+          floatVidsList.add(new Float(Float.parseFloat(vid)));
       }
 
-      Collections.sort(vidsList);  // Sort by natural character order: ["1.2","1.3","2.03", "2.1","2.5"]
+      Collections.sort(floatVidsList);  // Sort by float number order: [1.2,1.3,2.03,2.1,2.5,9.0,10.0]
 
-      String lastElement = vidsList.get(vidsList.size() - 1);   // The last element is "2.5"
-      //ArrayList<String> lastVidsList = new ArrayList<String>();
+      String lastElement = Float.toString(floatVidsList.get(floatVidsList.size() - 1));   // The last element is "10.0" convert it from float to string for parsing.
       String[] lastVersionTokens = lastElement.split("\\.");
 
       LOG.debug("getLatestVersion:lastElement {}",String.join(", ", lastElement));
@@ -94,13 +105,26 @@ public class LidVid {
               // It is important to look for lastMajorVersion AND largestMinorVersion in vid, e.g look for "2" and "5" in vid.  Both versions must be checked.
               if (vid.contains(lastMajorVersion) &&
                   vid.contains(Integer.toString(largestMinorVersion))) {
-                  largestVersion = vid;
+                  largestVersion.put(lid,vid);  // The type of largestVersion is now a HashMap, we put lid key with value vid.
               }
           }
           LOG.debug("getLatestVersion:largestVersion {}",largestVersion);
       } 
+    } // end  for (String lid : lidvidsMap.keySet()) {
 
-      return(largestVersion);
+    LOG.debug("largestVersion.size {}",largestVersion.size());
+    for (String lid : largestVersion.keySet()) {
+        LOG.debug("getLatestVersion:lid,largestValue {},{}",lid,largestVersion.get(lid));
+    }
+    LOG.debug("getLatestVersion:lidvidsMap.size {}",lidvidsMap.size());
+
+    // The return type of largestVersion is HashMap with the key being the logical_identifier and the value the largest version.
+    //
+    //    urn:nasa:pds:insight_seis:data_seed,10.0
+    //    urn:nasa:pds:insight_seis:data_laf,4.0
+    //    urn:nasa:pds:insight_seis:data_table,10.0
+    //     
+    return(largestVersion);
   }
 
     /**
@@ -115,6 +139,7 @@ public class LidVid {
 
       List<String> lidsList = new ArrayList<>();
       List<String> vidsList = new ArrayList<>();
+      HashMap<String,ArrayList<String>> vidsMap = new HashMap<String,ArrayList<String>>();  // Hold a HashMap of a logical_identifier to a list of versions
       HashMap<String,Target> vidsTable = new HashMap<String,Target>();  // A table of target using the string version of vid as key, e.g. "03", "4"
 
       for (int i = 0; i < children.size(); i++) {
@@ -127,7 +152,23 @@ public class LidVid {
               String vid = extractor.getValueFromDoc(VERSION_ID);
               lidsList.add(lid);
               vidsList.add(vid);
-              vidsTable.put(vid,child);
+              // Only add the child to vidsTable if the value of (logical_identifier + "::" + version_id) has not been added already
+              // since we only want to have unique keys.
+              if (!vidsTable.containsKey(lid + "::" + vid)) {
+                   vidsTable.put(lid + "::" + vid, child);   // Use the logical_identifier + version as the key, e.g. urn:nasa:pds:insight_seis:data_laf::4.0
+              }
+
+              // Check to see if the logical_identifier (lid) has already been added to vidsMap.
+              if (!vidsMap.containsKey(lid)) {
+                  // Create a new ArrayList<String> and add the vid to it.
+                  ArrayList<String> versionsArray = new ArrayList<String>();
+                  versionsArray.add(vid);
+                  vidsMap.put(lid,versionsArray);
+              } else {
+                  // The key logical_identifier (lid) is in vidsMap, get the versionsArray and add the new vid to it.
+                  vidsMap.get(lid).add(vid);  // Get the versionsArray and add the new version_id (vid) to it in one step.
+              }
+
             }
           } catch (Exception e) {
             //Ignore. This isn't a valid Bundle/Collection label so skip it.
@@ -135,14 +176,18 @@ public class LidVid {
           }
       }
 
+      int ii = 0;
       for (String lid : lidsList) { 
           LOG.debug("reduceToLatestTargetOnly:lid {}",lid);
+          LOG.debug("reduceToLatestTargetOnly:lid,vid {},{}",lid,vidsList.get(ii));
+          ii += 1;
       }
 
       // From vidsList, sort by ascending order so the ordering will be, e.g. [ "1.5", "1.6", "1.7", "1.10"] and retrieve the largest version "1.10"
-      String largestVersion = LidVid.getLatestVersion(vidsList);
+      // Change the parameter to be a HashMap instead of a list since multiple collections are possible.
+      HashMap<String,String> largestVersion = LidVid.getLatestVersion(vidsMap);
 
-      LOG.debug("reduceToLatestTargetOnly:largestVersion {}",largestVersion);
+      LOG.debug("reduceToLatestTargetOnly:largestVersion.size() {}",largestVersion.size());
 
       for (String vid : vidsList) { 
           LOG.debug("reduceToLatestTargetOnly:vid {}",vid);
@@ -150,9 +195,17 @@ public class LidVid {
 
       // The target with the largest version is the desired one to return.
       // Because largestVersion can be null if the list of targets is empty, it must be checked.
-      if (largestVersion != null) {
-          reducedKids.add(vidsTable.get(largestVersion));
-          LOG.debug("reduceToLatestTargetOnly:vidsTable.get(largestVersion) {}",vidsTable.get(largestVersion));
+      if (largestVersion != null && largestVersion.size() > 0) {
+          String fullyQualifiedLogicalIdentifierVersion = null;  // Also known as lidvid.
+          for (String singleLogicalIdentifier  : largestVersion.keySet()) {
+              // To build the key to vidsTable, it is necessary to add the logical identifier to "::" and then the version_id
+              fullyQualifiedLogicalIdentifierVersion = singleLogicalIdentifier + "::" + largestVersion.get(singleLogicalIdentifier);
+              if (vidsTable.containsKey(fullyQualifiedLogicalIdentifierVersion)) {
+                  // Get the actual file name from vidsTable using the key fullyQualifiedLogicalIdentifierVersion.
+                  reducedKids.add(vidsTable.get(fullyQualifiedLogicalIdentifierVersion));
+                  LOG.debug("reduceToLatestTargetOnly:fullyQualifiedLogicalIdentifierVersion,vidsTable.get() {},{}",fullyQualifiedLogicalIdentifierVersion,vidsTable.get(fullyQualifiedLogicalIdentifierVersion));
+              }
+          }
       }
 
       LOG.debug("reduceToLatestTargetOnly:reducedKids {}",reducedKids);
