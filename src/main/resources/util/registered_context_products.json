@@ -38,6 +38,42 @@
           },
           {
                "name": [
+                    "(13537) 1991 SG"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.13537_1991_sg::1.0"
+          },
+          {
+               "name": [
+                    "MINERVA-II2 Rover-2 ULULA"
+               ],
+               "type": [
+                    "Rover"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:rover.minerva2-2_ulula::1.0"
+          },
+          {
+               "name": [
+                    "CHEPIL WIND TUNNEL AT THE HIGH PLAINS WIND EROSION LABORATORY, KANSAS STATE UNIVERSITY"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ksu-hpwel.chepil_wt::1.0"
+          },
+          {
+               "name": [
+                    "INSIGHT DEPLOYMENT CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:idc.insight::1.0"
+          },
+          {
+               "name": [
                     "(138628) 2000 QM251"
                ],
                "type": [
@@ -6565,30 +6601,48 @@
           },
           {
                "name": [
-                    "N/A"
+                    "WINDSOCK"
                ],
                "type": [
-                    "N/A"
+                    "EQUIPMENT"
                ],
-               "lidvid": "urn:nasa:pds:context:node:node.rings::1.0"
+               "lidvid": "urn:nasa:pds:context:target:equipment.windsock::1.0"
           },
           {
                "name": [
-                    "SCAT LIGHT"
+                    "MEGACLITE"
                ],
                "type": [
-                    "CALIBRATION FIELD"
+                    "SATELLITE"
                ],
-               "lidvid": "urn:nasa:pds:context:target:calibration_field.scat_light::1.0"
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.megaclite::1.1"
           },
           {
                "name": [
-                    "PARTICULATE IMPACT ANALYZER"
+                    "SATURN RING PLANE CROSSING 1995"
                ],
                "type": [
-                    "DUST"
+                    "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:pia.gio::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.1"
+          },
+          {
+               "name": [
+                    "IMAGER FOR MARS PATHFINDER"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:imp.mpfl::1.0"
+          },
+          {
+               "name": [
+                    "S/2003 J 16"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2003j16::1.1"
           },
           {
                "name": [
@@ -20719,42 +20773,6 @@
           },
           {
                "name": [
-                    "(13537) 1991 SG"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.13537_1991_sg::1.0"
-          },
-          {
-               "name": [
-                    "MINERVA-II2 Rover-2 ULULA"
-               ],
-               "type": [
-                    "Rover"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:rover.minerva2-2_ulula::1.0"
-          },
-          {
-               "name": [
-                    "CHEPIL WIND TUNNEL AT THE HIGH PLAINS WIND EROSION LABORATORY, KANSAS STATE UNIVERSITY"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ksu-hpwel.chepil_wt::1.0"
-          },
-          {
-               "name": [
-                    "INSIGHT DEPLOYMENT CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:idc.insight::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -23377,57 +23395,39 @@
           },
           {
                "name": [
-                    "WINDSOCK"
-               ],
-               "type": [
-                    "EQUIPMENT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:equipment.windsock::1.0"
-          },
-          {
-               "name": [
-                    "MEGACLITE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.megaclite::1.1"
-          },
-          {
-               "name": [
-                    "SATURN RING PLANE CROSSING 1995"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.1"
-          },
-          {
-               "name": [
-                    "IMAGER FOR MARS PATHFINDER"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:imp.mpfl::1.0"
-          },
-          {
-               "name": [
-                    "S/2003 J 16"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2003j16::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:node:node.rings::1.0"
+          },
+          {
+               "name": [
+                    "SCAT LIGHT"
+               ],
+               "type": [
+                    "CALIBRATION FIELD"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibration_field.scat_light::1.0"
+          },
+          {
+               "name": [
+                    "PARTICULATE IMPACT ANALYZER"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pia.gio::1.0"
           },
           {
                "name": [
