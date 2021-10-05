@@ -65,6 +65,11 @@ POSSIBILITY OF SUCH DAMAGE.
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>
+  <scm>
+    <url>https://github.com/NASA-PDS/validate</url>
+    <connection>scm:git:ssh://git@github.com/NASA-PDS/validate.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/NASA-PDS/validate.git</developerConnection>
+  </scm>
   
   <properties>
     <pds4-jparser.version>2.1.0-SNAPSHOT</pds4-jparser.version>
