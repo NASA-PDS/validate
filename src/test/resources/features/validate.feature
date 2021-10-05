@@ -276,6 +276,10 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#408 VALID" | "github408" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github408_bundle_valid.json -s json -t {resourceDir}/github408/valid/bundle_insight_seis.xml" | "report_github408_bundle_valid.json" |
 
+# https://github.com/nasa-pds/validate/issues/376 Checksums output lowercase and do not accept uppercase checksums
+
+ |"NASA-PDS/validate#376 VALID" | "github376" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -M src/test/resources/github376/urn-nasa-pds-duxbury_pdart14_mariner69.md5 -r {reportDir}/report_github376_label_valid.json -s json -t {resourceDir}/github376/bundle_duxbury_pdart14_mariner69.xml" | "report_github376_label_valid.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |

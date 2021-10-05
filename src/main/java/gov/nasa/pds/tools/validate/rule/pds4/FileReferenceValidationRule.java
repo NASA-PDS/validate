@@ -543,7 +543,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             String message = "";
             ProblemType type = null;
             ExceptionType severity = null;
-            if (!suppliedChecksum.equals(generatedChecksum)) {
+
+            LOG.debug("handleChecksum:urlRef " + urlRef + ",suppliedChecksum " + suppliedChecksum + ", generatedChecksum " + generatedChecksum);
+
+            // Note that the checksum can be uppercase or lowercase so the comparison should be case insensitive.
+            if (!suppliedChecksum.equalsIgnoreCase(generatedChecksum)) {
               message = "Generated checksum '" + generatedChecksum
                   + "' does not match supplied checksum '"
                   + suppliedChecksum + "' in the manifest for '"
