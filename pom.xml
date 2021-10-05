@@ -31,9 +31,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <!-- Inherit release profile, reporting, SNAPSHOT repo, etc. from parent repo -->
@@ -45,7 +43,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
   <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>2.1.0-SNAPSHOT</version>
+  <version>2.1.0</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -69,6 +67,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <url>https://github.com/NASA-PDS/validate</url>
     <connection>scm:git:ssh://git@github.com/NASA-PDS/validate.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/NASA-PDS/validate.git</developerConnection>
+    <tag>v2.1.0</tag>
   </scm>
   
   <properties>
@@ -287,7 +286,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
-      <version>${pds4-jparser.version}</version>
+      <version>2.1.0</version>
       <scope>compile</scope>
       <exclusions>
       <exclusion>
