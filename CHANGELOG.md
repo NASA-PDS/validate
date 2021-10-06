@@ -1,16 +1,21 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-09-24)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-06)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
 
 **Defects:**
 
-- validate does not flag \*.tab files with variable length records [\#390](https://github.com/NASA-PDS/validate/issues/390) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate 2.1.0-SNAPSHOT skips a collection XML label [\#408](https://github.com/NASA-PDS/validate/issues/408) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Checksums output lowercase and do not accept uppercase checksums [\#376](https://github.com/NASA-PDS/validate/issues/376) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
-## [v2.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.0-SNAPSHOT) (2021-09-24)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-05)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
+
+## [v2.1.0](https://github.com/NASA-PDS/validate/tree/v2.1.0) (2021-10-05)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.7...v2.1.0)
 
 **Requirements:**
 
@@ -28,6 +33,7 @@
 
 - validate does not flag \<CR\> within lid\_reference [\#401](https://github.com/NASA-PDS/validate/issues/401)
 - Validate throws incorrect overlap error when first Field\_Bit has length 1 [\#392](https://github.com/NASA-PDS/validate/issues/392) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not flag \*.tab files with variable length records [\#390](https://github.com/NASA-PDS/validate/issues/390) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not work correctly when the path name contains a space [\#381](https://github.com/NASA-PDS/validate/issues/381) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - stack trace being created during successful validate execution [\#380](https://github.com/NASA-PDS/validate/issues/380) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields [\#379](https://github.com/NASA-PDS/validate/issues/379)
