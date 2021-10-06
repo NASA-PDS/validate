@@ -276,6 +276,7 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#408 VALID" | "github408" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github408_bundle_valid.json -s json -t {resourceDir}/github408/valid/bundle_insight_seis.xml" | "report_github408_bundle_valid.json" |
 
+
 # https://github.com/nasa-pds/validate/issues/376 Checksums output lowercase and do not accept uppercase checksums
 
  |"NASA-PDS/validate#376 VALID" | "github376" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -M src/test/resources/github376/urn-nasa-pds-duxbury_pdart14_mariner69.md5 -r {reportDir}/report_github376_label_valid.json -s json -t {resourceDir}/github376/bundle_duxbury_pdart14_mariner69.xml" | "report_github376_label_valid.json" |
