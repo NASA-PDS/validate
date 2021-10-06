@@ -1361,6 +1361,9 @@ public class ValidateLauncher {
                                 new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMA_ERROR, se.getMessage()),
                                 target, se.getLineNumber(), se.getColumnNumber());
                     } else {
+                        // Print stack trace for developer to inspect.
+                        e.printStackTrace();
+                        LOG.error("ValidateLauncher:doValidation:Stack trace content is above");
                         p = new ValidationProblem(
                                 new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, e.getMessage()),
                                 target);
