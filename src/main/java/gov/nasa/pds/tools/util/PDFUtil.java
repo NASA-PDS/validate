@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import org.verapdf.pdfa.Foundries;
 import org.verapdf.pdfa.flavours.PDFAFlavour;
 import org.verapdf.pdfa.PDFAParser;
 import org.verapdf.pdfa.PDFAValidator;
 import org.verapdf.pdfa.PdfBoxFoundryProvider;
+import org.verapdf.pdfa.VeraPDFFoundry;
 import org.verapdf.pdfa.results.ValidationResult;
 import org.verapdf.pdfa.results.TestAssertion;
 
@@ -30,6 +30,7 @@ public class PDFUtil {
   private URL target = null;
   private String externalErrorFilename = null;
   private String parserFlavor = null;
+  private String errorMessage = null;
 
   public PDFUtil(URL target) {
       this.target = target;
@@ -56,7 +57,7 @@ public class PDFUtil {
       // Write to an external file with ".error" appended to file name in user's default directory the content of result.
 
       // Build the external filename and save it for other to access.
-      this.externalErrorFilename = System.getProperty("user.dir") + File.separator + FilenameUtils.getName(uri.getPath()) + "." + flavor + ".error";
+      this.externalErrorFilename = System.getProperty("user.dir") + File.separator + FilenameUtils.getName(uri.getPath()) + "." + flavor + ".error.csv";
 
       LOG.debug("writeErrorToFile:uri,this.externalErrorFilename {},{}",uri,this.externalErrorFilename);
 
@@ -75,7 +76,7 @@ public class PDFUtil {
 
       for (TestAssertion error : result.getTestAssertions()) {
           try {
-              String errorMessage = error.getRuleId() + "," + error.getStatus() + "," + error.getMessage() + "," + error.getLocation();
+              String errorMessage = "\"" + error.getRuleId() + "\"" + "," + "\"" + error.getStatus() + "\"" + "," + "\"" + error.getMessage() + "\"" + "," + "\"" + error.getLocation() + "\"";
               myWriter.write(errorMessage + "\n");
           } catch (IOException e) {
               LOG.error("Cannot write to file {}",this.externalErrorFilename);
@@ -93,29 +94,39 @@ public class PDFUtil {
      }
   }
 
-  private boolean validateAgainstSpecificFlavor(URI uri, String pdfRef, PDFAFlavour specificFlavor) {
-    // Create a specific flavor parser and validate the PDF against it.
-
+  private boolean validatePDF(URI uri, String pdfRef) {
     boolean pdfValidateFlag = false;
+    
+    // Create a parser and auto-detect flavour
+    try {
+        PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
+        PDFAFlavour detectedFlavour = parser.getFlavour();
+        LOG.debug("validatePDF: parser.getFlavour() [{}]", detectedFlavour);
+        
+        // First, check the flavour is valid 1a or 1b
+        if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A) && !detectedFlavour.equals(PDFAFlavour.PDFA_1_B)) {
+          this.errorMessage = "Invalid PDF/A version detected. Expected: 1a or 1b. Actual: " + detectedFlavour.getId();
+        } else {        
+          // Next, check the PDF is actually a valid 1a/1b flavour 
+          PDFAValidator validator = Foundries.defaultInstance().createValidator(detectedFlavour, false);
+          this.parserFlavor = parser.getFlavour().getId();
+          ValidationResult result = validator.validate(parser);
+          if (result.isCompliant()) {
+              // File is a valid PDF
+              LOG.debug("validatePDF file " + pdfRef + " is a valid PDF file with flavor " + parser.getFlavour().getId());
+              pdfValidateFlag = true;
+          } else {
+              LOG.error("validatePDF file" + pdfRef + " is not valid PDF file with flavor " + parser.getFlavour().getId());
 
-    try (PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef), specificFlavor)) {
-        PDFAValidator validator = Foundries.defaultInstance().createValidator(parser.getFlavour(), false);
-        LOG.debug("validateAgainstSpecificFlavor: specificFlavor,parser.getFlavour() [{}][{}]",specificFlavor, parser.getFlavour());
-        this.parserFlavor = parser.getFlavour().getId();
-        ValidationResult result = validator.validate(parser);
-        if (result.isCompliant()) {
-            // File is a valid PDF
-            LOG.debug("validateAgainstSpecificFlavor:The file " + pdfRef + " is a valid PDF file with flavor " + parser.getFlavour().getId());
-            pdfValidateFlag = true;
-        } else {
-            LOG.error("validateAgainstSpecificFlavor:The file" + pdfRef + " is not valid PDF file with flavor " + parser.getFlavour().getId());
-
-            // Write the result to external file so the user can look over in the validate report.
-            this.writeErrorToFile(uri, result, parser.getFlavour().getId());
+              // Write the result to external file so the user can look over in the validate report.
+              this.writeErrorToFile(uri, result, parser.getFlavour().getId());
+              
+              this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId() + ".  Detailed error output can be found at " + this.getExternalErrorFilename();
+          }
         }
     } catch (Exception e) {
-        LOG.error("validateAgainstSpecificFlavor:Cannot parse PDF file " + pdfRef);
-        LOG.error("validateAgainstSpecificFlavor:Exception is " + e.getMessage());
+        LOG.error("validatePDF parse PDF file " + pdfRef);
+        LOG.error("validatePDF is " + e.getMessage());
     }
     return(pdfValidateFlag);
   }
@@ -154,13 +165,20 @@ public class PDFUtil {
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]",parent,pdfBase,pdfRef);
 
     // First, validate the PDF against PDFAFlavour.PDFA_1_A, if it does not validate, do it again with PDFAFlavour.PDFA_1_B
-    pdfValidateFlag = this.validateAgainstSpecificFlavor(uri, pdfRef, PDFAFlavour.PDFA_1_A);
-    if (pdfValidateFlag == false) {
-        pdfValidateFlag = this.validateAgainstSpecificFlavor(uri, pdfRef, PDFAFlavour.PDFA_1_B);
-    }
+    pdfValidateFlag = this.validatePDF(uri, pdfRef);
 
     LOG.debug("validateFileStandardConformity:pdfRef,pdfValidateFlag [{}],{}",parent,pdfValidateFlag);
 
     return(pdfValidateFlag); 
   }
+  
+  /**
+   * Returns error message from failed PDF/A validation, if one exists. Otherwise returns null.
+   * 
+   * @return errorMessage
+   */
+  public String getErrorMessage() {
+    return this.errorMessage;
+  }
+
 }

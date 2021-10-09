@@ -155,8 +155,8 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#303 VALID" | "github303" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github303_label_valid.json  -s json -t {resourceDir}/github303/valid/I52_20210207_1A_U1B03A_01_0001.avgs.xml" | "report_github303_label_valid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/164 As a user, I want to validate PDF files are PDF/A
- |"NASA-PDS/validate#164 WITH_WARNING" | "github164" | 1 | "1 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_invalid.json  -s json -t {resourceDir}/github164/invalid/document_test_1_pdf.xml" | "report_github164_label_pdfa_invalid.json" |
- |"NASA-PDS/validate#164 VALID" | "github164" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_valid.json  -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github164_label_pdfa_valid.json" |
+ |"NASA-PDS/validate#164 WITH_ERROR" | "github164" | 1 | "1 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_invalid.json  -s json -t {resourceDir}/github164/invalid/document_test_1_pdf.xml" | "report_github164_label_pdfa_invalid.json" |
+ |"NASA-PDS/validate#164 VALID" | "github164" | 0 | "0 warning messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation -r {reportDir}/report_github164_label_pdfa_valid.json  -s json -t {resourceDir}/github164/valid/document_pdfa_valid.xml" | "report_github164_label_pdfa_valid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/325 Validate Incorrectly Throws Error When Embedded Field_Character Contains <CR><LF>
 

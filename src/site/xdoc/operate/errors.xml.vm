@@ -178,5 +178,19 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
       </source>
     </section>
     
+    <section name="PDF/A Validation Failure">
+      <p><b>Description</b></p>
+      <p>
+        When attempting to validate a Document product as PDF/A, you get an error like:
+      </p>
+      <source>
+        ERROR  [error.pdf.file.not_pdfa_compliant]
+      </source>
+      
+      <p><b>Fixing the problem</b></p>
+      <p>This error indicates your PDF is not PDF/A version 1a or 1b compliant. Contact your PDS Node representative or 
+        the <a href="mailto:pds-operator@jpl.nasa.gov">PDS Operator</a> for assistance generating a compliant PDF/A.</p>
+    </section>
+    
   </body>
 </document>
