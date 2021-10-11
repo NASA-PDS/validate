@@ -726,18 +726,18 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
         pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
 
-        // Report a  warning if the PDF file is not PDF/A compliant.
+        // Report an error if the PDF file is not PDF/A compliant.
         if (!pdfValidateFlag) {
             URL urlRef = null;
             if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + "/" + pdfName);
+                urlRef = new URL(parent, directory + File.separator + pdfName);  // Make the separator OS agnostic.
             } else {
                 urlRef = new URL(parent, pdfName);
             }
-            LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist");
+            LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist. Error file can be found at " + this.pdfUtil.getExternalErrorFilename());
             ProblemDefinition def = new ProblemDefinition(
-                ExceptionType.WARNING, ProblemType.NON_PDFA_FILE,
-                urlRef.toString() + " is not valid PDF/A file or does not exist");
+                ExceptionType.ERROR, ProblemType.NON_PDFA_FILE,
+                this.pdfUtil.getErrorMessage());
             messages.add(new ValidationProblem(def, target,
                 lineNumber, -1));
         }

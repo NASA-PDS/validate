@@ -2,18 +2,22 @@ package gov.nasa.pds.tools.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import org.verapdf.pdfa.Foundries;
 import org.verapdf.pdfa.flavours.PDFAFlavour;
 import org.verapdf.pdfa.PDFAParser;
 import org.verapdf.pdfa.PDFAValidator;
 import org.verapdf.pdfa.PdfBoxFoundryProvider;
+import org.verapdf.pdfa.VeraPDFFoundry;
 import org.verapdf.pdfa.results.ValidationResult;
+import org.verapdf.pdfa.results.TestAssertion;
+
+import org.apache.commons.io.FilenameUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +28,21 @@ import org.slf4j.LoggerFactory;
 public class PDFUtil {
   private static final Logger LOG = LoggerFactory.getLogger(PDFUtil.class);
   private URL target = null;
+  private String externalErrorFilename = null;
+  private String parserFlavor = null;
+  private String errorMessage = null;
 
   public PDFUtil(URL target) {
       this.target = target;
       PdfBoxFoundryProvider.initialise();  // Should only do this once.
+  }
+
+  /**
+   * Returns the name of the external error filename.  Can be null.
+   *
+   */
+  public synchronized String getExternalErrorFilename() {
+      return(this.externalErrorFilename);
   }
 
   /**
@@ -38,6 +53,84 @@ public class PDFUtil {
       return(this.target);
   }
 
+  private synchronized void writeErrorToFile(URI uri, ValidationResult result, String flavor) {
+      // Write to an external file with ".error" appended to file name in user's default directory the content of result.
+
+      // Build the external filename and save it for other to access.
+      this.externalErrorFilename = System.getProperty("user.dir") + File.separator + FilenameUtils.getName(uri.getPath()) + "." + flavor + ".error.csv";
+
+      LOG.debug("writeErrorToFile:uri,this.externalErrorFilename {},{}",uri,this.externalErrorFilename);
+
+      FileWriter myWriter = null;
+      try {
+          myWriter = new FileWriter(this.externalErrorFilename);
+          //myWriter.write("Error messages for PDF file " + uri.getPath() + " using flavor " + this.parserFlavor + "\n") ;
+          myWriter.write("PDF_FILE " + uri.getPath() + " PARSER_FLAVOR " + this.parserFlavor + "\n") ;
+          String headerMessage = "getRuleId, getStatus, getMessage, getLocation";
+          myWriter.write(headerMessage + "\n");
+      } catch (IOException e) {
+          LOG.error("Cannot open file {} for writing",this.externalErrorFilename);
+          this.externalErrorFilename = null;  // Reset back to null since writing of file was not successful.
+          e.printStackTrace();
+      }
+
+      for (TestAssertion error : result.getTestAssertions()) {
+          try {
+              String errorMessage = "\"" + error.getRuleId() + "\"" + "," + "\"" + error.getStatus() + "\"" + "," + "\"" + error.getMessage() + "\"" + "," + "\"" + error.getLocation() + "\"";
+              myWriter.write(errorMessage + "\n");
+          } catch (IOException e) {
+              LOG.error("Cannot write to file {}",this.externalErrorFilename);
+              this.externalErrorFilename = null;  // Reset back to null since writing of file was not successful.
+              e.printStackTrace();
+         }
+      } // end for (TestAssertion error : result.getTestAssertions())
+
+      try {
+          myWriter.close();
+      } catch (IOException e) {
+          LOG.error("Cannot close file {}",this.externalErrorFilename);
+          e.printStackTrace();
+          this.externalErrorFilename = null;  // Reset back to null since writing of file was not successful.
+     }
+  }
+
+  private boolean validatePDF(URI uri, String pdfRef) {
+    boolean pdfValidateFlag = false;
+    
+    // Create a parser and auto-detect flavour
+    try {
+        PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
+        PDFAFlavour detectedFlavour = parser.getFlavour();
+        LOG.debug("validatePDF: parser.getFlavour() [{}]", detectedFlavour);
+        
+        // First, check the flavour is valid 1a or 1b
+        if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A) && !detectedFlavour.equals(PDFAFlavour.PDFA_1_B)) {
+          this.errorMessage = "Invalid PDF/A version detected. Expected: 1a or 1b. Actual: " + detectedFlavour.getId();
+        } else {        
+          // Next, check the PDF is actually a valid 1a/1b flavour 
+          PDFAValidator validator = Foundries.defaultInstance().createValidator(detectedFlavour, false);
+          this.parserFlavor = parser.getFlavour().getId();
+          ValidationResult result = validator.validate(parser);
+          if (result.isCompliant()) {
+              // File is a valid PDF
+              LOG.debug("validatePDF file " + pdfRef + " is a valid PDF file with flavor " + parser.getFlavour().getId());
+              pdfValidateFlag = true;
+          } else {
+              LOG.error("validatePDF file" + pdfRef + " is not valid PDF file with flavor " + parser.getFlavour().getId());
+
+              // Write the result to external file so the user can look over in the validate report.
+              this.writeErrorToFile(uri, result, parser.getFlavour().getId());
+              
+              this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId() + ".  Detailed error output can be found at " + this.getExternalErrorFilename();
+          }
+        }
+    } catch (Exception e) {
+        LOG.error("validatePDF parse PDF file " + pdfRef);
+        LOG.error("validatePDF is " + e.getMessage());
+    }
+    return(pdfValidateFlag);
+  }
+
   /**
    * Validate if a PDF file conforms to PDF/A standard.
    *
@@ -45,7 +138,7 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public boolean validateFileStandardConformity(String pdfBase) throws Exception {
+  public synchronized boolean validateFileStandardConformity(String pdfBase) throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
 
@@ -71,23 +164,21 @@ public class PDFUtil {
     String pdfRef = parent + File.separator + pdfBase;
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]",parent,pdfBase,pdfRef);
 
-    try (PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef))) {
-        PDFAValidator validator = Foundries.defaultInstance().createValidator(parser.getFlavour(), false);
-        ValidationResult result = validator.validate(parser);
-        if (result.isCompliant()) {
-            // File is a valid PDF/A
-            LOG.debug("The file " + pdfRef + " is a valid PDF/A file");
-            pdfValidateFlag = true;
-        } else {
-            LOG.error("The file" + pdfRef + " is not valid PDF/A file");
-        }
-    } catch (Exception e) {
-        LOG.error("Cannot parse PDF file " + pdfRef);
-        LOG.error("Exception is " + e.getMessage());
-    }
+    // First, validate the PDF against PDFAFlavour.PDFA_1_A, if it does not validate, do it again with PDFAFlavour.PDFA_1_B
+    pdfValidateFlag = this.validatePDF(uri, pdfRef);
 
     LOG.debug("validateFileStandardConformity:pdfRef,pdfValidateFlag [{}],{}",parent,pdfValidateFlag);
 
     return(pdfValidateFlag); 
   }
+  
+  /**
+   * Returns error message from failed PDF/A validation, if one exists. Otherwise returns null.
+   * 
+   * @return errorMessage
+   */
+  public String getErrorMessage() {
+    return this.errorMessage;
+  }
+
 }

@@ -157,6 +157,8 @@ public enum ProblemType {
     FIELD_VALUE_FORMAT_PRECISION_MISMATCH("error.table.field_value_format_precision_mismatch"),
 
     LOCAL_IDENTIFIER_NOT_FOUND("error.label.local_identifier_not_found"),
+    
+    NON_PDFA_FILE("error.pdf.file.not_pdfa_compliant"),
 
     // Warning message types
 
@@ -187,8 +189,6 @@ public enum ProblemType {
     UNREFERENCED_MEMBER("warning.integrity.unreferenced_member"),
 
     UNLABELED_FILE("warning.file.not_referenced_in_label"),
-
-    NON_PDFA_FILE("warning.pdf.file.not_pdfa_compliant"),
 
     NON_JPEG_FILE("warning.file.not_jpeg_compliant"),
 
