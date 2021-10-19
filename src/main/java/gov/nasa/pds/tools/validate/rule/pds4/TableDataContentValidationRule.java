@@ -70,6 +70,7 @@ import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
+import gov.nasa.pds.tools.util.TableUtil;
 import gov.nasa.pds.tools.util.DOMSourceManager;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
@@ -96,6 +97,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
   private int PROGRESS_COUNTER = 0;
   private static final int LINE_FEED_IN_ASCII = (int) '\n';
+  private TableUtil tableUtil = null;
 
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
@@ -123,6 +125,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    */
   public TableDataContentValidationRule() {
     xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
+    tableUtil = new TableUtil();
   }
 
   @Override
@@ -656,7 +659,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       return(tableIsLineOrientedFlag);
   }
 
-  private void performOffsetCheck(long readerOffset, int headerOffset, int headerSize, URL dataFile, int tableIndex, String tableName) {
+  private void performOffsetCheck(long readerOffset, int headerSize, URL dataFile, int tableIndex, String tableName) {
+          // The parameter headerOffset is no longer needed.
+          //
           // Add new checks for the header and the table data area to see if they overlap.
           //
           // Case 1:
@@ -679,6 +684,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           // reader.getOffset()        = from beginning of file to table data area
           // headerOffset + headerSize = total header length
 
+          // Note that the value of readerOffset is how many bytes from beginning of file to read the table from.
+          int headerOffset = 0; // Zero out offset since checking the readerOffset against the headerSize is sufficient.
+
+          LOG.info("performOffsetCheck:tableName,tableIndex,readerOffset,headerSize,(headerOffset + headerSize) {},{},{},{},{}",tableName,tableIndex,readerOffset,headerSize,(headerOffset + headerSize));
           if (readerOffset < (headerOffset + headerSize)) {
               // Case 2:
               String message = "The table offset " + readerOffset + " for object " + "'" + tableName + "'" + " is invalid.  The previously defined object ends at byte " + (headerOffset + headerSize);
@@ -692,7 +701,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           } else {
               // Case 1:
               String message = "The table offset " + readerOffset + " for object " + "'" + tableName + "'" + " is OK, with entire header length which is headerOffset " + headerOffset + " plus header size " + headerSize;
-              LOG.debug("validateTableDataContents:" + message);
+              LOG.debug("performOffsetCheck:" + message);
           }
 
   }
@@ -772,7 +781,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             CHILD_TABLE_BINARY_XPATH, xe.getMessage());
       }
       LOG.debug("validateTableDataContents:binaryTableNodes.getLength() {}",binaryTableNodes.getLength());
-      
+
+      // Count the number of headers before the "Table_" tag.  This part is important because the below code (after "issue_234") counts the headerSize for ALL "<Header>" tags
+      // and does not distinguish which headers go with which table or array which will cause a bug come time to call performOffsetCheck function.
+
+      int headersBeforeTable = this.tableUtil.countHeadersBeforeTable(getTarget());
+      LOG.debug("validateTableDataContents:headersBeforeTable {}",headersBeforeTable);
+
+      int[] headerSizesArray = new int[headersBeforeTable];
+
       // issue_234: Validate gives incorrect records mismatch WARNING for interleaved data objects 
       // need to subtract many header objects from total filesize 
       List<Object> headerObjects = objectAccess.getHeaderObjects(fileArea);
@@ -782,12 +799,30 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // headerOffset + headerSize = total header length
       int headerOffset = 0;
       LOG.debug("validateTableDataContents:headerObjects.size {}",headerObjects.size());
+      int headerIndex = 0;
       for (Object header: headerObjects) {
     	  Header hdr = (Header)header;
     	  headerSize += hdr.getObjectLength().getValue().intValueExact();
           headerOffset = hdr.getOffset().getValue().intValueExact();
+          // Save the cummulative length of each header but only up to headerSizesArray.length,
+          // because any values after that is for another object (perhaps an array).
+          if ((headerSizesArray.length > 0) && (headerIndex < headerSizesArray.length)) {
+              headerSizesArray[headerIndex] = headerSize;
+              LOG.debug("validateTableDataContents:headerIndex,headerSizesArray {},{}",headerIndex,headerSizesArray[headerIndex]);
+          } else {
+              LOG.debug("validateTableDataContents:headerIndex,headerSize,headerOffset,SKIP {},{},{}",headerIndex,headerSize,headerOffset);
+          }
           LOG.debug("validateTableDataContents:headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact() {},{},{}",headerObjects.size(),headerSize,hdr.getObjectLength().getValue().intValueExact());
+          LOG.debug("validateTableDataContents:headerIndex,headerSize,hdr.getObjectLength().getValue().intValueExact() {},{},{}",headerIndex,headerSize,hdr.getObjectLength().getValue().intValueExact());
+          headerIndex += 1;
       }
+      // https://github.com/NASA-PDS/validate/issues/416 Validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS
+      // This is an important step to fix the bug for issue #416.
+      // Reset the value of headerSize to the last element in headerSizesArray because this is the true size of the header before the Table object.
+      if (headerSizesArray.length > 0) {
+          headerSize = headerSizesArray[headerSizesArray.length-1]; // Reset the value of headerSize to the last element in headerSizesArray
+      }
+
       LOG.debug("validateTableDataContents:headerSize {}",headerSize);
  	  // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
       List<Array> arrayObjects = objectAccess.getArrays(fileArea);
@@ -912,7 +947,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           }
           actualRecordNumber = actualTotalRecords;
 
-          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  td.getName());
+          // The parameter headerOffset is no longer needed.
+          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  td.getName());
 
         } else if (table instanceof TableBinary) {
           LOG.debug("validateTableDataContents:table instanceof TableBinary");
@@ -938,7 +974,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         	  actualRecordNumber = actualRecordSize/recordLength;
           }
 
-          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  tb.getName());
+          // The parameter headerOffset is no longer needed.
+          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  tb.getName());
 
         } else {
           LOG.debug("table instanceof TableCharacter: else");
@@ -975,7 +1012,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
           // Print the stack trace to an external file for inspection.
 
-          this.performOffsetCheck(reader.getOffset(), headerOffset, headerSize, dataFile, tableIndex,  tc.getName());
+          // The parameter headerOffset is no longer needed.
+          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  tc.getName());
 
         } 
         

@@ -190,6 +190,8 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_CRLF.getKey());
             } else if (strTemp.equals("INVALID_FIELD_VALUE")) {
                 count = this.getMessageCount(reportJson, ProblemType.INVALID_FIELD_VALUE.getKey());
+            } else if (strTemp.equals("FIELDS_MISMATCH")) {
+                count = this.getMessageCount(reportJson, ProblemType.FIELDS_MISMATCH.getKey());
             } else if (strTemp.equals("MISSING_CONTEXT_REFERENCE")) {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_CONTEXT_REFERENCE.getKey());
             } else if (strTemp.equals("UNREFERENCED_MEMBER")) {
