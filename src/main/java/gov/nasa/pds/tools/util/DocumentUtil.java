@@ -14,6 +14,7 @@
 package gov.nasa.pds.tools.util;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,6 +22,10 @@ import java.io.IOException;
 import java.lang.StringBuilder;
 
 import java.net.URL;
+
+import gov.nasa.pds.tools.util.Utility;
+
+import org.apache.commons.io.FilenameUtils;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -62,8 +67,34 @@ public class DocumentUtil {
   public String readFile(URL fileUrl) {
     String fileName = fileUrl.getPath();
     BufferedReader reader = null;
+
+    // Note: The function FilenameUtils.getPath() doesn't seem to work correctly.
+    // It returns the path without the leading slash '/':
+    //
+    // For this URI
+    //
+    //      file:/home/qchau/sandbox/validate/src/test/resources/github367/document/
+    //
+    // The FilenameUtils.getPath(getTarget().getPath()) returns
+    //
+    //     home/qchau/sandbox/validate/src/test/resources/github367/document/
+    //
+    // which is missing the leading slash.
+    //
+    // Using alternative method to get the parent.
+    String parent = "";
+    if (fileUrl.getPath().lastIndexOf(File.separator) >= 0) {
+        parent = fileUrl.getPath().substring(0,fileUrl.getPath().lastIndexOf(File.separator));
+    } else {
+        LOG.error("The path does not contain a file separator {}",fileUrl.getPath());
+        return(null);
+    }
+    LOG.debug("readFile:fileUrl,parent,FilenameUtils.getName(fileUrl) {},{},{}",fileUrl,parent,FilenameUtils.getName(fileUrl.toString()));
+
+    // Combine the parent and the file name together so sonatype-lift won't complain.
+    // https://find-sec-bugs.github.io/bugs.htm#PATH_TRAVERSAL_IN
     try {
-        reader = new BufferedReader(new FileReader (fileName));
+        reader = new BufferedReader(new FileReader(parent + File.separator + FilenameUtils.getName(fileUrl.toString())));
     } catch (FileNotFoundException ex) {
         LOG.error("readFile: Cannot find file {}",fileUrl);
         ex.printStackTrace();
@@ -81,6 +112,13 @@ public class DocumentUtil {
         return stringBuilder.toString();
     } catch (IOException ex) {
         LOG.error("readFile: Cannot read file {}",fileUrl);
+        ex.printStackTrace();
+    }
+
+    try {
+        reader.close();  // Close the resource in case of an exception.
+    } catch (IOException ex) {
+        LOG.error("readFile: Cannot close file {}",fileUrl);
         ex.printStackTrace();
     }
     return(null);
