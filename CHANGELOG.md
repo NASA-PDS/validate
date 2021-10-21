@@ -1,25 +1,21 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-11)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-11)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
 **Requirements:**
 
 - Improve PDF/A validation to include more robust reporting on failures [\#388](https://github.com/NASA-PDS/validate/issues/388)
 
-**Other closed issues:**
-
-- Update PDF validation to check against flavour specified in PDF metadata [\#412](https://github.com/NASA-PDS/validate/issues/412)
-
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-06)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
-
 **Defects:**
 
 - Validate 2.1.0-SNAPSHOT skips a collection XML label [\#408](https://github.com/NASA-PDS/validate/issues/408) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Checksums output lowercase and do not accept uppercase checksums [\#376](https://github.com/NASA-PDS/validate/issues/376) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+**Other closed issues:**
+
+- Update PDF validation to check against flavour specified in PDF metadata [\#412](https://github.com/NASA-PDS/validate/issues/412)
 
 ## [v2.1.0](https://github.com/NASA-PDS/validate/tree/v2.1.0) (2021-10-05)
 
