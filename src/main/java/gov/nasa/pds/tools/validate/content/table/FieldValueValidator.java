@@ -127,7 +127,7 @@ public class FieldValueValidator {
       "[A-Za-z0-9]*[A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
 
   private static final Pattern dirPattern = Pattern.compile(
-      "/?([A-Za-z0-9]*[A-Za-z0-9_-]*[A-Za-z0-9]/?)*");
+      "/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?|[A-Za-z0-9][^-_]/?)*");
   
   /**
    * Constructor.
