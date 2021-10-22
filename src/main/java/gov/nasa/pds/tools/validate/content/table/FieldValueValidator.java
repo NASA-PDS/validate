@@ -125,12 +125,9 @@ public class FieldValueValidator {
   // A better pattern allows for at least one character file name.
   private static final Pattern asciiFileNamePattern = Pattern.compile(
       "[A-Za-z0-9]*[A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
-// buggy: Commented out and kept for reference.
-// buggy: The below pattern forces the file name to be at least 2 characters.
-// buggy: private static final Pattern asciiFileNamePattern = Pattern.compile(
-// buggy:     "[A-Za-z0-9][A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
+
   private static final Pattern dirPattern = Pattern.compile(
-      "/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?)*");
+      "/?([A-Za-z0-9]*[A-Za-z0-9_-]*[A-Za-z0-9]/?)*");
   
   /**
    * Constructor.
