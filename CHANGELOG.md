@@ -1,13 +1,5 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Validate does not allow a single-character subdirectory [\#423](https://github.com/NASA-PDS/validate/issues/423) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
 ## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
@@ -22,6 +14,7 @@
 
 **Defects:**
 
+- Validate does not allow a single-character subdirectory [\#423](https://github.com/NASA-PDS/validate/issues/423) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS [\#416](https://github.com/NASA-PDS/validate/issues/416) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Validate 2.1.0-SNAPSHOT skips a collection XML label [\#408](https://github.com/NASA-PDS/validate/issues/408) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Checksums output lowercase and do not accept uppercase checksums [\#376](https://github.com/NASA-PDS/validate/issues/376) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
