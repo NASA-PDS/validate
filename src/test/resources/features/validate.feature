@@ -280,6 +280,13 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#376 VALID" | "github376" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -M src/test/resources/github376/urn-nasa-pds-duxbury_pdart14_mariner69.md5 -r {reportDir}/report_github376_label_valid.json -s json -t {resourceDir}/github376/bundle_duxbury_pdart14_mariner69.xml" | "report_github376_label_valid.json" |
 
+# https://github.com/NASA-PDS/validate/issues/416 validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS
+
+ |"NASA-PDS/validate#416 VALID_1" | "github416" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_valid_1.json -s json -t {resourceDir}/github416/mix_raw_calib_mixs-c_sw_offset_table_20160301.xml" | "report_github416_label_valid_1.json" |
+ |"NASA-PDS/validate#416 INVALID_1" | "github416" | 1 | "1 (FIELDS_MISMATCH) error messages expected" | "FIELDS_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_invalid_1.json -s json -t {resourceDir}/github416/mix_raw_calib_mixs-c_sw_offset_table_20160301_invalid.xml" | "report_github416_label_invalid_1.json" |
+ |"NASA-PDS/validate#416 VALID_2" | "github416" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_valid_2.json -s json -t {resourceDir}/github416/phe_misc_temperature_reference_20190524.xml" | "report_github416_label_valid_2.json" |
+ |"NASA-PDS/validate#416 INVALID_2" | "github416" | 1 | "1 ((FIELDS_MISMATCH) error messages expected" | "FIELDS_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_invalid_2.json -s json -t {resourceDir}/github416/phe_misc_temperature_reference_20190524_invalid.xml" | "report_github416_label_invalid_2.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
