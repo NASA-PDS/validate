@@ -4,17 +4,21 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
 
-**Improvements:**
+**Defects:**
 
-- Improve warning message [\#421](https://github.com/NASA-PDS/validate/issues/421)
+- validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS [\#416](https://github.com/NASA-PDS/validate/issues/416) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-21)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
 **Requirements:**
 
 - Improve PDF/A validation to include more robust reporting on failures [\#388](https://github.com/NASA-PDS/validate/issues/388)
+
+**Improvements:**
+
+- Improve warning message [\#421](https://github.com/NASA-PDS/validate/issues/421)
 
 **Defects:**
 
