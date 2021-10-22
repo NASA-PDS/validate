@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-11)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-22)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
+
+**Improvements:**
+
+- Improve warning message [\#421](https://github.com/NASA-PDS/validate/issues/421)
+
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-21)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
