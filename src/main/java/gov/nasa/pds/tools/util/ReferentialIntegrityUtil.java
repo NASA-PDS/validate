@@ -430,7 +430,7 @@ public class ReferentialIntegrityUtil {
                             urlToReport = hashSetReferenceInfo.getParentLabelFilename(); 
                         }
 
-                        String errorMessage = "The context reference '" + singleLidOrLidvidReference + "' could not be found in this bundle but it was defined in " + hashKey + "." + ReferentialIntegrityUtil.MESSAGE_TO_DISABLE_WARNINGS;
+                        String errorMessage = "This file should reference '" + singleLidOrLidvidReference + "' because its child product with LIDVID " + hashKey + " references it.";
                         getListener().addProblem(new ValidationProblem(new ProblemDefinition(
                             ExceptionType.WARNING,
                             ProblemType.MISSING_CONTEXT_REFERENCE,
