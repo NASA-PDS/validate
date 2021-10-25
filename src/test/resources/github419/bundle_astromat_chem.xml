@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:astromat</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Astro Material Database Archive, chemical analytic data from extraterrestrial materials</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <author_list>Lehnert, Kerstin; Ji, Peng</author_list>
+            <publication_year>2021</publication_year>
+            <doi>10.17189/1523010</doi>
+            <keyword>chemistry</keyword>
+            <description>This is an archive of laboratory data acquired on astromaterials samples; Archive assembled by S.M. Richard and Peng Ji</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-06-28</modification_date>
+                <version_id>1.0</version_id>
+                <description>Assembled ... </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2004-08-13Z</start_date_time>
+            <stop_date_time>2020-10-13Z</stop_date_time>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Extraterrestrial materials chemistry</name>
+            <type>Other Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:other_investigation.astromat_data</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Laboratory instruments</name>
+            <description>Various laboratory instruments used to determine chemical compositions of materials</description>
+            <Observing_System_Component>
+                <name>Electron Microprobe</name>
+                <type>Instrument</type>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Lunar Sample</name>
+            <type>Satellite</type>
+            <description>Samples returned from the moon by the Apollo missions</description>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+                <reference_type>bundle_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Bundle>
+        <bundle_type>Archive</bundle_type>
+    </Bundle>
+    <File_Area_Text>
+        <File>      
+            <file_name>readme.txt</file_name>
+            <creation_date_time>2021-10-04T00:00:00</creation_date_time>
+        </File>
+        <Stream_Text>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Text>
+    <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:astromat:data</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+</Product_Bundle>

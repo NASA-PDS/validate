@@ -287,6 +287,16 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#416 VALID_2" | "github416" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_valid_2.json -s json -t {resourceDir}/github416/phe_misc_temperature_reference_20190524.xml" | "report_github416_label_valid_2.json" |
  |"NASA-PDS/validate#416 INVALID_2" | "github416" | 1 | "1 ((FIELDS_MISMATCH) error messages expected" | "FIELDS_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github416_label_invalid_2.json -s json -t {resourceDir}/github416/phe_misc_temperature_reference_20190524_invalid.xml" | "report_github416_label_invalid_2.json" |
 
+# https://github.com/NASA-PDS/validate/issues/349 validate allows absolute path in directory_path_name but shouldn't
+
+ |"NASA-PDS/validate#349 VALID" | "github349" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github349_label_valid.json -s json -t {resourceDir}/github349/valid/datasetgood.xml" | "report_github349_label_valid.json" |
+ |"NASA-PDS/validate#349 INVALID" | "github349" | 2 | "2 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github349_label_invalid.json -s json -t {resourceDir}/github349/invalid/datasetbad.xml" | "report_github349_label_invalid.json" |
+
+# https://github.com/NASA-PDS/validate/issues/419 validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt 
+
+
+ |"NASA-PDS/validate#419 VALID" | "github419" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github419_label_valid.json -s json -t {resourceDir}/github419/bundle_astromat_chem.xml" | "report_github419_label_valid.json" |
+
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
  |"NASA-PDS/validate#297 VALID" | "github297" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github297_label_valid.json  -s json -t {resourceDir}/github297/valid/rimfax_rdr_0081_example.xml" | "report_github297_label_valid.json" |
