@@ -329,10 +329,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               } else if ("directory_path_name".equals(child.getLocalPart())) {
                 directory = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:directory {}",directory);
+                LOG.debug("FileReferenceValidationRule:validate:getName [{}]",FilenameUtils.getName(directory));
+                LOG.debug("FileReferenceValidationRule:validate:getFullPath [{}]",FilenameUtils.getFullPath(directory));
 
                 // Check to make sure the directory name is NOT absolute.
                 // https://github.com/NASA-PDS/validate/issues/349 validate allows absolute path in directory_path_name but shouldn't 
-                Path p = Paths.get(directory); 
+
+                Path p = Paths.get(FilenameUtils.getFullPath(directory));  // Use getFullPath() function to get the actual name to avoid sonatype-lift complains.
                 if (p.isAbsolute()) {
                     LOG.error("The directory name {} for tag 'directory_path_name' cannot be absolute",directory);
                     ProblemDefinition def = new ProblemDefinition(
