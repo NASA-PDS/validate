@@ -1,0 +1,66 @@
+PDS3_DATA_SET_ID               = VG1-S-CRS-4-SUMM-D1/D2-192SEC-V1.0           
+DATA_SET_NAME                  = VG1 SAT CRS RESAMPLED SUMMARY D1 RATE        
+                                      ELEC 192SEC V1.0                        
+START_TIME                     = 1980-11-11T16:01:36.000                      
+STOP_TIME                      = 1980-11-14T22:01:36.000                      
+ORIGINAL_DATA_SET_RELEASE_DATE = 1996-07-01                                   
+PRODUCER_FULL_NAME             = RICHARD S. SELESNICK                         
+                                                                              
+REFERENCE:                                                                    
+                                                                              
+Stone, E.C., R.E. Vogt, F.B. McDonald, B.J. Teegarden, J.H. Trainor,          
+J.R. Jokipii, and W.R. Webber, Cosmic ray investigation for the Voyager       
+missions; energetic particle studies in the outer heliosphere--and beyond,    
+Space Sci. Rev., 12, No. 3, 355-376, Dec. 1977.                               
+                                                                              
+                                                                              
+    DATA_SET_DESCRIPTION                                                      
+                                                                              
+    Data Set Overview                                                         
+   ====================                                                       
+This data set describes the counting rate data from detectors D1 and D2       
+in the Cosmic Ray System (CRS) electron telescope (TET) on Voyager 1 during   
+the Saturn encounter. The D1 detector nominally responds to electrons with    
+kinetic energies above approximately 1 MeV, and the D2 detector, above        
+approximately 2.5 MeV (see detector description for details).                 
+                                                                              
+Note that the instrument is saturated near the maximum of counting            
+rate of approximately 50,000 counts/sec. When data are near saturation,       
+the counting rates should be corrected for deadtime according to the formula  
+in the DATA_SET_OR_INST_PARM_DESC:                                            
+{corrected rate} = {uncorrected rate/(1+deadtime*{uncorrected rate}).         
+                                                                              
+    Parameters                                                                
+    ===============                                                           
+                                                                              
+    SAMPLING_PARAMETER_RESOLUTION  = 192.0                                    
+    MINIMUM_SAMPLING_PARAMETER     = N/A                                      
+    MAXIMUM_SAMPLING_PARAMETER     = N/A                                      
+    SAMPLING_PARAMETER_INTERVAL    = 192.0                                    
+    MINIMUM_AVAILABLE_SAMPLING_INT = 192.0                                    
+    SAMPLING_PARAMETER_UNIT        = SECOND                                   
+    DATA_SET_PARAMETER_NAME        = D1/D2 RATE                               
+    NOISE_LEVEL                    = 0.000                                    
+    DATA_SET_PARAMETER_UNIT        = COUNTS/SECOND                            
+                                                                              
+                                                                              
+    CONFIDENCE_LEVEL_NOTE =                                                   
+    Confidence Level                                                          
+    =================                                                         
+Each data point represents a six-second accumulation, so that the             
+statistical uncertainty is obtained according to Poisson statistics by        
+taking the square root of one sixth of the counting rate.  However,           
+larger uncertainties are associated with the conversion from counting         
+rate to flux (see the DATA_SET_OR_INST_PARM_DESC).                            
+                                                                              
+    Data Coverage                                                             
+    =============                                                             
+    Filename Records Start                     Stop                           
+    ----------------------------------------------------------------------    
+    Volume ID: VG_1601                                                        
+    D1D2.TAB  1310  1980-11-11T16:01:36.000Z  1980-11-14T22:01:36.000Z        
+                                                                              
+    Missing Data Flag                                                         
+    ==================                                                        
+    Any data column whose value is -9.999e+10 is a missing data value.        
+                                                                              

@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -327,6 +329,22 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               } else if ("directory_path_name".equals(child.getLocalPart())) {
                 directory = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:directory {}",directory);
+                LOG.debug("FileReferenceValidationRule:validate:getName [{}]",FilenameUtils.getName(directory));
+                LOG.debug("FileReferenceValidationRule:validate:getFullPath [{}]",FilenameUtils.getFullPath(directory));
+
+                // Check to make sure the directory name is NOT absolute.
+                // https://github.com/NASA-PDS/validate/issues/349 validate allows absolute path in directory_path_name but shouldn't 
+
+                Path p = Paths.get(FilenameUtils.getFullPath(directory));  // Use getFullPath() function to get the actual name to avoid sonatype-lift complains.
+                if (p.isAbsolute()) {
+                    LOG.error("The directory name {} for tag 'directory_path_name' cannot be absolute",directory);
+                    ProblemDefinition def = new ProblemDefinition(
+                        ExceptionType.ERROR, ProblemType.UNALLOWED_DIRECTORY_NAME, 
+                        "The directory name " + directory + " for tag 'directory_path_name' cannot be absolute.");
+                    problems.add(new ValidationProblem(def, target, 
+                        fileObject.getLineNumber(), -1));
+                    passFlag = false;
+                }
               } else if ("file_size".equals(child.getLocalPart())) { // Fetch the file_size value from label.
                 filesize = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
@@ -343,7 +361,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             } else {
               URL urlRef = null;
               if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + "/" + name);
+                urlRef = new URL(parent, directory + File.separator + name);  // Switch from '/' to a system-independent file separator.
               } else {
                 urlRef = new URL(parent, name);
               }
@@ -878,8 +896,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             this.documentsChecker = new DocumentsChecker();
         }
 
-        mimeTypeIsCorrectFlag = this.documentsChecker.isMimeTypeCorrect(textName,documentStandardId);
-        LOG.debug("handleGenericDocument:textName,documentStandardId,mimeTypeIsCorrectFlag {},{},{}",textName,documentStandardId,mimeTypeIsCorrectFlag);
+
+        // https://github.com/NASA-PDS/validate/issues/419 validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt
+        // Due to the mime type may not be specified in the label, only perform the check if documentStandardId is not null.
+        if (documentStandardId != null) {
+            mimeTypeIsCorrectFlag = this.documentsChecker.isMimeTypeCorrect(textName,documentStandardId);
+            LOG.debug("handleGenericDocument:textName,documentStandardId,mimeTypeIsCorrectFlag {},{},{}",textName,documentStandardId,mimeTypeIsCorrectFlag);
+        } else {
+            mimeTypeIsCorrectFlag = true; // Set to true even though the label does not have the documentStandardId set to anything.
+        }
 
         // Report a  warning if the mime type is not correct
         if (!mimeTypeIsCorrectFlag) {

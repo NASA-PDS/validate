@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:vg1-sat-crs-d1-d2-192sec:document:dataset</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager 1 Saturn CRS Averaged D1/D2 192 Second Counting Rate Dataset Description</title>
+        <information_model_version>1.13.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+                <Citation_Information>
+            <author_list>Selesnick, R. S.</author_list>
+            <publication_year>2021</publication_year>
+                    <description>Document containing a description of the  Voyager 1 Saturn CRS Averaged D1/D2 192 Second Counting Rate Dataset</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-02</modification_date>
+                <version_id>1.0</version_id>
+                <description>Original VG1_SAT_CRS_D1D2_DS.CAT from the PDS3 VG1-S-CRS-4-SUMM-D1/D2-192SEC-V1.0 dataset, originally released 1996-07-01, converted 
+                    to PDS4. This is the first version of this product converted to PDS4.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Investigation_Area>
+            <name>Voyager</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                <reference_type>document_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Voyager 1</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg1</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Cosmic Ray Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:crs.vg1</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Saturn</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.saturn</lid_reference>
+                <reference_type>document_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification> 
+        <Target_Identification>
+            <name>Titan</name>
+            <type>Satellite</type> 
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.saturn.titan</lid_reference>
+                <reference_type>document_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+    </Context_Area>
+    <Document>
+        <document_name>Voyager 1 Saturn CRS Averaged D1/D2 192 Second Counting Rate Dataset Description</document_name>
+        <publication_date>1996-07-01</publication_date>
+        <document_editions>1</document_editions>
+        <Document_Edition>
+            <edition_name>Test edition of Voyager 1 Saturn CRS Averaged D1/D2 192 Second Counting Rate Dataset Description </edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>dataset.txt</file_name>
+                <creation_date_time>2021-04-02</creation_date_time>
+                <file_size unit="byte">5280</file_size>
+                <md5_checksum>e1e2b614f654fd8c0c9e725030abbe38</md5_checksum>
+                <directory_path_name>../01/</directory_path_name>
+                <document_standard_id>7-Bit ASCII Text</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
