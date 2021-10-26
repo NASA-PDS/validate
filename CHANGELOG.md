@@ -1,5 +1,19 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-26)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
+
+**Requirements:**
+
+- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
+- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
+
+**Defects:**
+
+- validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt [\#419](https://github.com/NASA-PDS/validate/issues/419) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate allows absolute path in directory\_path\_name but shouldn't [\#349](https://github.com/NASA-PDS/validate/issues/349) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
@@ -31,7 +45,6 @@
 
 - As a user, I want to validate all files referenced by a Product\_Document [\#367](https://github.com/NASA-PDS/validate/issues/367)
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
-- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
 **Improvements:**
 
@@ -58,10 +71,6 @@
 ## [v2.0.7](https://github.com/NASA-PDS/validate/tree/v2.0.7) (2021-07-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.0.6...v2.0.7)
-
-**Requirements:**
-
-- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
 
 **Improvements:**
 
