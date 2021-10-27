@@ -144,7 +144,7 @@ public enum Flag {
 
     RULE("R", "rule", "validation rule name", String.class,
             "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
-                    + " Default is to auto-detect based on the contents at the location specified."),
+                    + " Default is pds4.label"),
     
     SKIP_PRODUCT_VALIDATION(null, "skip-product-validation", 
     		"Disables product validation when attempting to run pds4.bundle or pds4.collection validation. The software will perform member integrity checks but will not validate individual products or their labels."),
