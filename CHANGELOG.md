@@ -1,26 +1,22 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-26)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-27)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
 
-**Requirements:**
+**Improvements:**
 
-- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
-- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
+- Update rule documentation to remove "auto-detect" mention [\#377](https://github.com/NASA-PDS/validate/issues/377)
 
-**Defects:**
-
-- validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt [\#419](https://github.com/NASA-PDS/validate/issues/419) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- validate allows absolute path in directory\_path\_name but shouldn't [\#349](https://github.com/NASA-PDS/validate/issues/349) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-22)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-26)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
 **Requirements:**
 
 - Improve PDF/A validation to include more robust reporting on failures [\#388](https://github.com/NASA-PDS/validate/issues/388)
+- As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
+- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
 **Improvements:**
 
@@ -29,9 +25,11 @@
 **Defects:**
 
 - Validate does not allow a single-character subdirectory [\#423](https://github.com/NASA-PDS/validate/issues/423) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt [\#419](https://github.com/NASA-PDS/validate/issues/419) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS [\#416](https://github.com/NASA-PDS/validate/issues/416) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Validate 2.1.0-SNAPSHOT skips a collection XML label [\#408](https://github.com/NASA-PDS/validate/issues/408) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Checksums output lowercase and do not accept uppercase checksums [\#376](https://github.com/NASA-PDS/validate/issues/376) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- validate allows absolute path in directory\_path\_name but shouldn't [\#349](https://github.com/NASA-PDS/validate/issues/349) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
