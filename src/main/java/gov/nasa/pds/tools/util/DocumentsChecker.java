@@ -5,6 +5,7 @@ import gov.nasa.pds.validate.util.ToolInfo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.activation.MimetypesFileTypeMap;
 
@@ -102,6 +103,17 @@ public class DocumentsChecker {
     } catch (IOException ex) {
         LOG.error("DocumentsChecker:Cannot build object MimetypesFileTypeMap with input {}",defaultMimeTypesFilename);
     }
+  }
+
+    /**
+     * Given a document standard id, returns a list of possible file extensions associated with that id.
+     * @param documentStandardId The document standard id as defined by the PDS Information Model document. 
+     * @return extensionList List of file extensions allowed for that document standard id.
+     */
+
+  public ArrayList<String> getPossibleFileExtensions(String documentStandardId) {
+      ArrayList<String> extensionList = this.mimeTable.getPossibleFileExtensions(documentStandardId);
+      return(extensionList);
   }
 
     /**

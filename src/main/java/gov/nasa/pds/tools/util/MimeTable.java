@@ -1,6 +1,9 @@
 package gov.nasa.pds.tools.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 import java.io.File;
@@ -85,6 +88,21 @@ public class MimeTable {
       inFile.close(); // Closes this scanner and release the resource.
   }
 
+
+
+  //https://www.javacodeexamples.com/check-if-string-is-uppercase-in-java-example/614
+  private boolean isStringUpperCase(String str) {
+      char[] charArray = str.toCharArray();
+        
+      for(int i=0; i < charArray.length; i++) {
+            // If any character is not in upper case, return false
+          if( !Character.isUpperCase( charArray[i] ))
+              return false;
+      }
+      return true;
+  }
+
+
   /**
    * Given a file name, returns the mime type.
    * @param documentRef The file name of the document
@@ -115,7 +133,12 @@ public class MimeTable {
      if (this.mimetypesFileTypeMap.containsKey(fileExtension)) {
          mimeType = mimetypesFileTypeMap.get(fileExtension);
      } else {
-         LOG.warn("No mime type found for file {}",documentRef);
+         // If did not find the value of fileExtension and it was uppercase, look for the lowercase.
+         if (this.isStringUpperCase(fileExtension) && this.mimetypesFileTypeMap.containsKey(fileExtension.toLowerCase())) {
+             mimeType = this.mimetypesFileTypeMap.get(fileExtension.toLowerCase());
+         } else {
+             LOG.warn("No mime type found for file {}",documentRef);
+         }
      }
      LOG.debug("getContentType:documentRef,fileExtension,mimeType {},{},{}",documentRef,fileExtension,mimeType);
      return(mimeType);
@@ -155,7 +178,7 @@ public class MimeTable {
           LOG.warn("isMimeTypeCorrect:The value of contentType is null from getContentType() for documentRef {}",documentRef);
         } else {
           LOG.debug("isMimeTypeCorrect:documentRef,contentType,idToMatch {},{},{}",documentRef,contentType,idToMatch);
-          if (contentType.equals(idToMatch)) {
+          if (contentType.equalsIgnoreCase(idToMatch)) {
               mimeTypeIsCorrectFlag = true;
           } else {
               // Special case: Note that the txt, text file extensions can map to 3 different mime types: text/plain, 7-Bit_ASCII_Text, UTF-8_Text
@@ -174,5 +197,35 @@ public class MimeTable {
 
       LOG.debug("isMimeTypeCorrect:documentRef,documentStandardId,mimeTypeIsCorrectFlag {},{},{}",documentRef,documentStandardId,mimeTypeIsCorrectFlag);
       return(mimeTypeIsCorrectFlag);
+  }
+
+    /**
+     * Given a document standard id, returns a list of possible file extensions associated with that id.
+     * @param documentStandardId The document standard id as defined by the PDS Information Model document. 
+     * @return extensionList List of file extensions allowed for that document standard id.
+     */
+
+  public ArrayList<String> getPossibleFileExtensions(String documentStandardId) {
+      ArrayList<String> extensionList = new ArrayList<String>(); //
+      String idToMatch = "";
+       if (documentStandardId != null) {
+          idToMatch = documentStandardId.replace(' ','_');  // Change "7-Bit ASCII Text" to "7-Bit_ASCII_Text"
+      } else {
+          LOG.warn("getPossibleFileExtensions:documentStandardId is null");
+      }
+
+      LOG.debug("getPossibleFileExtensions: this.mimetypesFileTypeMap.size() {}",this.mimetypesFileTypeMap.size());
+
+      // Note: The HashMap mimetypesFileTypeMap has an unusual order.  The keys are the file extension, the values are the documentStandardId, e.g
+      //       key: EPS , value: Encapsulated_Postscript
+      Iterator<Map.Entry<String, String>> itr = this.mimetypesFileTypeMap.entrySet().iterator();
+      while(itr.hasNext()) {
+          Map.Entry<String, String> entry = itr.next();
+          if (entry.getValue().equalsIgnoreCase(idToMatch)) {
+              extensionList.add(entry.getKey());
+              LOG.debug("getPossibleFileExtensions:ADDING_KEY_VALUE{},{}",entry.getKey(),entry.getValue());
+          }
+      }
+      return(extensionList);
   }
 }

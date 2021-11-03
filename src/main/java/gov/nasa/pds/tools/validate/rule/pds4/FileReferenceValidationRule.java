@@ -914,8 +914,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             } else {
                 urlRef = new URL(parent, textName);
             }
-
-            String errorMessage = urlRef.toString() + " with document standard id '" + documentStandardId + "' is not correct";
+            // Add the possible file extensions to error message.
+            String errorMessage = urlRef.toString() + " with document standard id '" + documentStandardId + "' is not correct.  Expected file suffix(es): " + this.documentsChecker.getPossibleFileExtensions(documentStandardId).toString();
             LOG.warn("handleGenericDocument:" + errorMessage);
 
             ProblemDefinition def = new ProblemDefinition(
