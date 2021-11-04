@@ -82,8 +82,6 @@
             <Document_File>
                 <file_name>EPPS_EDR_SIS.DOC</file_name>
                 <creation_date_time>2015-07-10T14:57:28</creation_date_time>
-                <file_size unit="byte">1391616</file_size>
-                <md5_checksum>16102330d8d5b83fa3c0f687849043eb</md5_checksum>
                 <document_standard_id>Microsoft Word</document_standard_id>
             </Document_File>
         </Document_Edition>
@@ -93,8 +91,6 @@
             <files>1</files>
             <Document_File>
                 <file_name>EPPS_EDR_SIS.XLS</file_name>
-                <file_size unit="byte">0</file_size>
-                <md5_checksum>d41d8cd98f00b204e9800998ecf8427e</md5_checksum>
                 <document_standard_id>Microsoft Excel</document_standard_id>
             </Document_File>
         </Document_Edition>
@@ -103,10 +99,8 @@
             <language>English</language>
             <files>1</files>
             <Document_File>
-                <file_name>EPPS_EDR_SIS.TXT</file_name>
+                <file_name>EPPS_EDR_SIS_1.TXT</file_name>
                 <creation_date_time>2015-07-10T15:26:28</creation_date_time>
-                <file_size unit="byte">347358</file_size>
-                <md5_checksum>07e9452016abc1a5dc1271ae11413b76</md5_checksum>
                 <document_standard_id>7-Bit ASCII Text</document_standard_id>
             </Document_File>
         </Document_Edition>
