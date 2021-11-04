@@ -110,7 +110,6 @@
             <files>1</files>
             <Document_File>
                 <file_name>EPPS_EDR_SIS_2.txt</file_name>
-                <file_name>EPPS_EDR_SIS.txt</file_name>
                 <document_standard_id>7-Bit ASCII Text</document_standard_id>
             </Document_File>
         </Document_Edition>
@@ -120,7 +119,6 @@
             <files>1</files>
             <Document_File>
                 <file_name>EPPS_EDR_SIS_3.txt</file_name>
-                <file_name>EPPS_EDR_SIS.txt</file_name>
                 <document_standard_id>Microsoft Word</document_standard_id>
             </Document_File>
         </Document_Edition>
