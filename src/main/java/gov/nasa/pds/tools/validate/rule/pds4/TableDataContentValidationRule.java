@@ -14,6 +14,7 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.StringBuffer;
@@ -35,6 +36,8 @@ import javax.xml.xpath.XPathFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import org.apache.commons.io.FilenameUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -72,6 +75,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.TableUtil;
 import gov.nasa.pds.tools.util.DOMSourceManager;
+import gov.nasa.pds.tools.util.FilenameUtility;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.util.Utility;
@@ -325,10 +329,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       int lineNumber = 0;
       int recordsRead = 0;
 
-      // Add special processing for file names that ends with .tab.  They should have all records of same length.
-      boolean fileEndsWithTab = false;
-      if (dataFile.toString().endsWith(".tab")) {
-          fileEndsWithTab = true;
+      // The checking for same line length should be done not based on the file name (ending with .tab) but with the table type.
+      // If the type of the table is not TableDelimited, the checking of same line length should be done.
+      boolean tableIsFixedLength = true;
+
+      if (table instanceof TableDelimited) {
+          tableIsFixedLength = false;
       }
 
       // Add 2 arrays to keep track of each line number and its length.
@@ -338,7 +344,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       if (line != null) {
           LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
           LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
-          if (fileEndsWithTab) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
+          if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
       } else {
           LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
       }
@@ -547,7 +553,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           if (line != null) {
               LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
               LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
-              if (fileEndsWithTab) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
+              if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
           } else {
               LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
           }
@@ -582,8 +588,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   -1);
       }
 
-      // If the file ends with .tab and all the records length are not the same, report it as an error.
-      if (fileEndsWithTab) reportIfDifferentLengths(lineLengthsArray,lineNumbersArray,dataFile,tableIndex);
+      // If the table is fixed length all the records length are not the same, report it as an error.
+      if (tableIsFixedLength) reportIfDifferentLengths(lineLengthsArray,lineNumbersArray,dataFile,tableIndex);
 
       LOG.debug("validateTableContentLineWise:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
       LOG.debug("validateTableContentLineWise:DONE_VALIDATING");
@@ -600,8 +606,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       long firstLineLength = 0;
       LOG.debug("getFirstLineLength:dataFile,dataFile.getPath() {},{}",dataFile,dataFile.getPath());
       BufferedReader reader;
+
+      // Using alternative method to get the parent.
+      // For some strange reason, the File class does not handle well with the "%20" in the name.  It needs to be an actual space.
+      String parent = FilenameUtility.getParentDecoded(dataFile);
+
       try {
-          reader = new BufferedReader(new FileReader(dataFile.getPath()));
+          // Combine the parent and the file name together so sonatype-lift won't complain.
+          // https://find-sec-bugs.github.io/bugs.htm#PATH_TRAVERSAL_IN
+          reader = new BufferedReader(new FileReader(parent + File.separator + FilenameUtils.getName(dataFile.toString())));
           String line = reader.readLine();
           if (line != null) {
               firstLineLength = line.length(); 
@@ -653,6 +666,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           }
       } else if (table instanceof TableDelimited) {
           // Table_Delimiter is processed line by line via a record_delimiter field.
+          LOG.debug("isTableLineOriented:dataFile,(table instanceof TableDelimited) {},{}",dataFile,(table instanceof TableDelimited));
           tableIsLineOrientedFlag = true;
       }
       LOG.debug("isTableLineOriented:dataFile,tableIsLineOrientedFlag {},{}",dataFile,tableIsLineOrientedFlag);
@@ -713,7 +727,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 	  
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
-
     TableCharacterUtil tableCharacterUtil = null;  // If processing a TableCharacter, instantiate this object to perform check in between fields (columns).
     String recordDelimiter = null;  // Specify how each record ends: null, carriage return line feed or line feed.
 
