@@ -270,7 +270,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     // If the size if lineLengthsArray is more than 1, that means there are more than 2 records of different lengths.  Report it as a ERROR.
     if (lineLengthsArray.size() > 1) {
         String errorMessage = "";
-        String standardMessage = "File that ends with .tab should have same record length.  Line number:" + lineNumbersArray.get(0) + ", record length:" + lineLengthsArray.get(0) + ", Line number:" + lineNumbersArray.get(1) + ", record length:" + lineLengthsArray.get(1);
+        String standardMessage = "Table of fixed length record should have all records of same length.  Line number:" + lineNumbersArray.get(0) + ", record length:" + lineLengthsArray.get(0) + ", Line number:" + lineNumbersArray.get(1) + ", record length:" + lineLengthsArray.get(1);
         StringBuffer stringBuffer = new StringBuffer();
         int arrayIndex = 0;
         for (Integer lineNum: lineNumbersArray) {
