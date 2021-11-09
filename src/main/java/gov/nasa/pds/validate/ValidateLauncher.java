@@ -40,7 +40,6 @@ import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.LabelUtil;
-import gov.nasa.pds.tools.util.FilenameUtility;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.*;
