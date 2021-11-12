@@ -1,14 +1,14 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-10-27)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-11-12)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
 
-**Improvements:**
+**Defects:**
 
-- Update rule documentation to remove "auto-detect" mention [\#377](https://github.com/NASA-PDS/validate/issues/377)
+- Validate does not allow SIP tab file to have lines of differing lengths [\#424](https://github.com/NASA-PDS/validate/issues/424) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-26)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-27)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
@@ -21,6 +21,7 @@
 **Improvements:**
 
 - Improve warning message [\#421](https://github.com/NASA-PDS/validate/issues/421)
+- Update rule documentation to remove "auto-detect" mention [\#377](https://github.com/NASA-PDS/validate/issues/377)
 
 **Defects:**
 
