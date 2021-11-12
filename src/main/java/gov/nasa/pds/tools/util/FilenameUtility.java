@@ -19,7 +19,6 @@ import java.net.URL;
 import java.net.URLDecoder;
 
 import org.apache.commons.io.FilenameUtils;
-import org.springframework.web.util.UriUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,22 +50,6 @@ public class FilenameUtility {
     return(decodedName);
   }
 
-  /**
-   * Returns the file name replacing the space ' ' with '%20' character.
-   * @param  filename The filename of the file
-   * @return encodedName The encoded filename of the file with the space ' ' replaced with '%20' character.
-   */
-  public static String encodeSpace(String filename) {
-    String encodedName = null;
-    try {
-        encodedName = UriUtils.encodePath(filename, "UTF-8");  // Use UriUtils.encodePath() to convert ' ' to '%20'
-    } catch (Exception ex) {
-        LOG.error("encodeSpace:Error encoding parameter {},{}", ex.getMessage(), ex);
-        ex.printStackTrace();
-    }
-    return encodedName;
-  }
-
   /** 
    * Returns the parent directory of the given filename
    * @param  fileUrl The URL of the file name
@@ -84,24 +67,5 @@ public class FilenameUtility {
     }
     LOG.debug("getParent:fileUrl,parent {},{}",fileUrl,parent);
     return(parent);
-  }
-
-  /** 
-   * Returns the parent directory of the given filename with the value decoded.
-   * @param  fileUrl The URL of the file name
-   * @return parent The parent directory of the given filename with the value decoded.
-   */
-  public static String getParentDecoded(URL fileUrl) {
-    // Using alternative method to get the parent.
-    String parent = null;
-    if (fileUrl != null && fileUrl.getPath().lastIndexOf(File.separator) >= 0) {
-        parent = fileUrl.getPath().substring(0,fileUrl.getPath().lastIndexOf(File.separator));
-        LOG.debug("getParentDecoded:fileUrl,parent {},{}",fileUrl,parent);
-    } else {
-        LOG.error("The path is null or does not contain a file separator {}",fileUrl);
-        return(null);
-    }
-    LOG.debug("getParentDecoded:fileUrl,parent,FilenameUtility.decodeSpace {},{},{}",fileUrl,parent,FilenameUtility.decodeSpace(parent));
-    return(FilenameUtility.decodeSpace(parent));
   }
 }
