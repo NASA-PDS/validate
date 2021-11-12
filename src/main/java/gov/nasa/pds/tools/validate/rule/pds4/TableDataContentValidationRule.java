@@ -608,8 +608,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       BufferedReader reader;
 
       // Using alternative method to get the parent.
-      // For some strange reason, the File class does not handle well with the "%20" in the name.  It needs to be an actual space.
-      String parent = FilenameUtility.getParentDecoded(dataFile);
+      String parent = FilenameUtility.getParent(dataFile);
 
       try {
           // Combine the parent and the file name together so sonatype-lift won't complain.
