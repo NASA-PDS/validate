@@ -222,6 +222,7 @@ public abstract class Report {
   public Status record(URI sourceUri, final ValidationProblem problem) {
       List<ValidationProblem> problems = new ArrayList<ValidationProblem>();
       problems.add(problem);
+      LOG.debug("record:RECORDING_PROBLEM:sourceUri {}",sourceUri);
       return record(sourceUri, problems);
   }
 
@@ -241,6 +242,7 @@ public abstract class Report {
     int numWarnings = 0;
     int numInfos = 0;
     Status status = Status.PASS;
+    LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}",sourceUri,problems.size());
 
     // TODO: Handle null problems
 
@@ -274,6 +276,18 @@ public abstract class Report {
     if (numErrors > 0) {
       this.numFailed++;
       status = Status.FAIL;
+
+      LOG.debug("record:sourceUri {}",sourceUri);
+
+      // Note: If the value  of sourceUri is null, there will be a java.lang.NullPointerException below.
+      // Therefore, sourceUri must be checked against null-ness before calling toString() function.
+      if (sourceUri == null) {
+          LOG.error("record:sourceUri is null.  A NullPointerException exception will occur when sourceUri.toString() is called.  Cannot continue.  Must return with status {}",status);
+          return status;
+      } else {
+          LOG.debug("record:sourceUri.toString {}",sourceUri.toString());
+      }
+
       if (!Utility.isDir(sourceUri.toString())) {
     	  if (!this.integrityCheckFlag) {
     	      this.numFailedProds++;

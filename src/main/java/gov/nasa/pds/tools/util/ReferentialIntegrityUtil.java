@@ -420,7 +420,7 @@ public class ReferentialIntegrityUtil {
                     LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
                     LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,contextReferenceCheck {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,ReferentialIntegrityUtil.contextReferenceCheck);
 
-
+                    LOG.debug("reportContextReferencesUnreferenced:SET_CONTAINS_SINGLE_REFERENCE: {},{}",singleLidOrLidvidReference,ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference));
                     // Only report the error/warning if it has not been reported before.  Also, use the URL of the parent bundle if it is not null.
                     if (!ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference)) {
                         URL urlToReport;
@@ -431,6 +431,9 @@ public class ReferentialIntegrityUtil {
                         }
 
                         String errorMessage = "This file should reference '" + singleLidOrLidvidReference + "' because its child product with LIDVID " + hashKey + " references it.";
+                        LOG.warn(errorMessage + ":urlToReport: {}",urlToReport);  // Print the error to the log so we have it.
+
+                        // The returned value of getListener() should allow this class to add a new problem.
                         getListener().addProblem(new ValidationProblem(new ProblemDefinition(
                             ExceptionType.WARNING,
                             ProblemType.MISSING_CONTEXT_REFERENCE,
