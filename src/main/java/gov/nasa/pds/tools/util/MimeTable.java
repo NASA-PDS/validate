@@ -26,40 +26,40 @@ public class MimeTable {
 
   static {
     try {
-        URL propertyFile = MimeTable.class.getResource(DEFAULT_MIME_TYPES_FILE_NAME);
-        InputStream in = propertyFile.openStream();
-        Scanner inFile = new Scanner(in);
+      URL propertyFile = MimeTable.class.getResource(DEFAULT_MIME_TYPES_FILE_NAME);
+      InputStream in = propertyFile.openStream();
+      Scanner inFile = new Scanner(in);
 
-        String nextLine = null;
-        String[] tokens = null;
-        int tokenIndex = 0;
-        while (inFile.hasNext()) {
-            nextLine = inFile.nextLine();
-            if (!nextLine.startsWith("#")) {
-                LOG.debug("loadMimeTable:APPENDING_LINE [{}]",nextLine.replaceAll("[\r\n]",""));
-                // Parse the line for the mime type and the file extension.
-                // Each file extension becomes a key and the first token (mime type) becomes the value
-                // 7-Bit_ASCII_Text txt text TXT TEXT
-                tokens = nextLine.split("\\s+");
+      String nextLine = null;
+      String[] tokens = null;
+      int tokenIndex = 0;
+      while (inFile.hasNext()) {
+          nextLine = inFile.nextLine();
+          if (!nextLine.startsWith("#")) {
+              LOG.debug("loadMimeTable:APPENDING_LINE [{}]",nextLine.replaceAll("[\r\n]",""));
+              // Parse the line for the mime type and the file extension.
+              // Each file extension becomes a key and the first token (mime type) becomes the value
+              // 7-Bit_ASCII_Text txt text TXT TEXT
+              tokens = nextLine.split("\\s+");
 
-                LOG.debug("loadMimeTable:nextLine,tokens.length [{}],{}",nextLine.replaceAll("[\r\n]",""),tokens.length);
+              LOG.debug("loadMimeTable:nextLine,tokens.length [{}],{}",nextLine.replaceAll("[\r\n]",""),tokens.length);
 
-                tokenIndex = 1;
-                while (tokenIndex < tokens.length) {
-                    LOG.debug("loadMimeTable:APPENDING_KEY {},{},[{}],[{}]",tokenIndex,tokens.length,tokens[tokenIndex],tokens[0]);
-                    // Each token may potentially has a carriage return, replace them with empty string.
-                    mimetypesFileTypeMap.put(tokens[tokenIndex].replaceAll("[\r\n]",""),tokens[0]);  // Each file extension becomes a key and the first token (mime type) becomes the value
-                    tokenIndex += 1;
-                }
-               
-            }
-        }
-        LOG.debug("loadMimeTable:defaultMimeTypesFileName,mimetypesFileTypeMap.size {},{}", DEFAULT_MIME_TYPES_FILE_NAME, mimetypesFileTypeMap.size());
-        LOG.debug("loadMimeTable:mimetypesFileTypeMap.size {}",mimetypesFileTypeMap.size());
-        inFile.close(); // Closes this scanner and release the resource.
-    } catch (IOException io) {
-        throw new RuntimeException(io.getMessage());
-    }
+              tokenIndex = 1;
+              while (tokenIndex < tokens.length) {
+                  LOG.debug("loadMimeTable:APPENDING_KEY {},{},[{}],[{}]",tokenIndex,tokens.length,tokens[tokenIndex],tokens[0]);
+                  // Each token may potentially has a carriage return, replace them with empty string.
+                  mimetypesFileTypeMap.put(tokens[tokenIndex].replaceAll("[\r\n]",""),tokens[0]);  // Each file extension becomes a key and the first token (mime type) becomes the value
+                  tokenIndex += 1;
+              }
+             
+          }
+      }
+      LOG.debug("loadMimeTable:defaultMimeTypesFileName,mimetypesFileTypeMap.size {},{}", DEFAULT_MIME_TYPES_FILE_NAME, mimetypesFileTypeMap.size());
+      LOG.debug("loadMimeTable:mimetypesFileTypeMap.size {}",mimetypesFileTypeMap.size());
+      inFile.close(); // Closes this scanner and release the resource.
+  } catch (IOException io) {
+      throw new RuntimeException(io.getMessage());
+  }
 }
   
   public MimeTable() {
@@ -192,13 +192,6 @@ public class MimeTable {
      */
 
   public boolean isMimeTypeCorrect(String documentRef, String documentStandardId) {
-      // Because the mime type table can have multiple mime types matching the same file extension, we have to do a little more work
-      // if they don't match initially e.g.
-      //      text/plain       txt text TXT TEXT
-      //      7-Bit_ASCII_Text txt text TXT TEXT
-      //      UTF-8_Text       txt text TXT TEXT
-      // As long as 'text' is in both documentStandardId and contentType, we can consider the mime type matches.
-
       boolean mimeTypeIsCorrectFlag = false;
       String idToMatch = "";
       String contentType = "";  // Retrieved from map.
@@ -210,7 +203,7 @@ public class MimeTable {
       } else {
           LOG.warn("isMimeTypeCorrect:documentStandardId is null for documentRef {}",documentRef);
       }
-      if (mimetypesFileTypeMap != null) { 
+      if (mimetypesFileTypeMap != null) {
         contentType = this.getContentType(documentRef);
 
         // The value of contentType can be null, add a sanity check.
