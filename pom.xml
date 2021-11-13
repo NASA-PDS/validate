@@ -88,6 +88,13 @@ POSSIBILITY OF SUCH DAMAGE.
         <directory>src/main/resources</directory>
         <includes>
           <include>validate.properties</include>
+        </includes>
+      </resource>
+      <resource>
+        <filtering>true</filtering>
+        <targetPath>gov/nasa/pds/tools/util</targetPath>
+        <directory>src/main/resources</directory>
+        <includes>
           <include>validate_default_mime_types.txt</include>
         </includes>
       </resource>
