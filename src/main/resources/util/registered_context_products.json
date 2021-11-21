@@ -11,15 +11,6 @@
           },
           {
                "name": [
-                    "ROVER ENVIRONMENTAL MONITORING STATION"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rems.msl::1.0"
-          },
-          {
-               "name": [
                     "DEEP SPACE 1"
                ],
                "type": [
@@ -6885,12 +6876,21 @@
           },
           {
                "name": [
-                    "(41307) 1999 XA149"
+                    "MARS OBSERVER"
                ],
                "type": [
-                    "ASTEROID"
+                    "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.41307_1999_xa149::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.mars_observer::1.0"
+          },
+          {
+               "name": [
+                    "(15820) 1994 TB"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15820_1994_tb::1.0"
           },
           {
                "name": [
@@ -13766,6 +13766,15 @@
           },
           {
                "name": [
+                    "ROVER ENVIRONMENTAL MONITORING STATION"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rems.msl::1.0"
+          },
+          {
+               "name": [
                     "N/A"
                ],
                "type": [
@@ -15127,21 +15136,12 @@
           },
           {
                "name": [
-                    "MARS OBSERVER"
+                    "(41307) 1999 XA149"
                ],
                "type": [
-                    "Mission"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.mars_observer::1.0"
-          },
-          {
-               "name": [
-                    "(15820) 1994 TB"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15820_1994_tb::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.41307_1999_xa149::1.0"
           },
           {
                "name": [
