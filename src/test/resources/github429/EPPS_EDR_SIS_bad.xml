@@ -122,6 +122,16 @@
                 <document_standard_id>Microsoft Word</document_standard_id>
             </Document_File>
         </Document_Edition>
+       <Document_Edition>
+            <edition_name>PDF edition</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>c2h4_Icarus-14111_A.pdf</file_name>
+                <document_standard_id>PDF</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+
 
 
 
