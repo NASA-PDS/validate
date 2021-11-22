@@ -282,8 +282,11 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#401 INVALID" | "github401" | 3 | "3 error messages expected: 1 INVALID_FIELD_VALUE" | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github401_bundle_invalid.json -s json -t {resourceDir}/github401/invalid/bundle_kaguya_derived.xml" | "report_github401_bundle_invalid.json" |
 
 # https://github.com/nasa-pds/validate/issues/390 validate does not flag *.tab files with variable length records
+# Note: There was a misunderstanding on this ticket.  The checking for same length line should be done for fixed length record.
+#       The checking should NOT be done based on the file extension.
+#       Changed the below test to look from 1 RECORD_LENGTH_MISMATCH to 0 RECORD_LENGTH_MISMATCH.
 
- |"NASA-PDS/validate#390 INVALID" | "github390" | 1 | "1 error messages expected: 1 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github390_label_invalid.json -s json -t {resourceDir}/github390/VALIDATE-TAB/collection_calib_freq.xml" | "report_github390_label_invalid.json" |
+ |"NASA-PDS/validate#390 INVALID" | "github390" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github390_label_invalid.json -s json -t {resourceDir}/github390/VALIDATE-TAB/collection_calib_freq.xml" | "report_github390_label_invalid.json" |
 
 # https://github.com/nasa-pds/validate/issues/408 Validate 2.1.0-SNAPSHOT skips a collection XML label
 
@@ -310,9 +313,17 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#419 VALID" | "github419" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github419_label_valid.json -s json -t {resourceDir}/github419/bundle_astromat_chem.xml" | "report_github419_label_valid.json" |
 
+
 # https://github.com/NASA-PDS/validate/issues/429 validate warns "document standard id ... is not correct" on good labels
 
  |"NASA-PDS/validate#429 VALID" | "github429" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github429_label_valid.json -s json -t {resourceDir}/github429/EPPS_EDR_SIS.xml" | "report_github429_label_valid.json" |
+
+
+# https://github.com/nasa-pds/validate/issues/424 Validate does not allow SIP tab file to have lines of differing lengths  
+# The checking should NOT be done based on the file extension but based on the table type.  The Table_Delimited can have variable length records.
+
+ |"NASA-PDS/validate#424 VALID_1" | "github424" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github424_label_valid_1.json -s json -t {resourceDir}/github424/asurpif_photos_amboycrater_v1.0_20211021_sip_v1.0.xml" | "report_github424_label_valid_1.json" |
+ |"NASA-PDS/validate#424 VALID_2" | "github424" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github424_label_valid_2.json -s json -t {resourceDir}/github424/asurpif_photos_amboycrater_v1.0_20211021_aip_v1.0.xml" | "report_github424_label_valid_2.json" |
 
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.

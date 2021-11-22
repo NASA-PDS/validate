@@ -1694,14 +1694,23 @@ public class ValidateLauncher {
 
         public void record(String location) {
             URI uri = null;
+            LOG.debug("record:location {}",location);
             try {
                 uri = new URI(location);
+                LOG.debug("record:location,uri {},{}",location,uri);
             } catch (URISyntaxException e) {
                 // Should not happen - ignore.
+                LOG.error("record:Cannot build URI from location {}.  Value of uri is {}",location,uri);
             }
             if (exceptions.get(location) != null) {
+                LOG.debug("ValidationMonitor:record:location,exceptions.get(location) {},{}",location,exceptions.get(location));
+                LOG.debug("ValidationMonitor:record:location,exceptions.get(location).getProblems().size {},{}",location,exceptions.get(location).getProblems().size());
+                // It is possible there are no problems.
                 report.record(uri, exceptions.get(location).getProblems());
                 exceptions.remove(location);
+            } else {
+                // This is a message to show in debug mode only.  The user doesn't normally need to see it.
+                LOG.debug("WARN:ValidationMonitor:record:exceptions.get(location) is null for location {}.  Cannot report error.",location);
             }
         }
 

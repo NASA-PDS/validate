@@ -449,19 +449,19 @@ public class LabelValidationRule extends AbstractValidationRule {
               container = schemaValidator.validate(source);
               LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag {},{}",schemaUrl,passFlag);
             } catch (Exception e) {
-              LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_ERROR_1 {},{}",schemaUrl,passFlag);
+              LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_error_1 {},{}",schemaUrl,passFlag);  // Change to lowercase so as not to confuse the log file
               container.addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.ERROR,
                       ProblemType.SCHEMA_ERROR,
                       "Error reading schema: " + e.getMessage()),
                   schemaUrl));
             }
-            LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_ERROR_2,container.hasError,container.hasFatal {},{},{},{}",schemaUrl,passFlag,container.hasError(),container.hasFatal());
+            LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag SET_TO_error_2,container.hasError,container.hasFatal {},{},{},{}",schemaUrl,passFlag,container.hasError(),container.hasFatal());  // Change to lowercase so as not to confuse the log file
             if (container.getProblems().size() != 0) {
               for (ValidationProblem le : container.getProblems()) {
                 le.setSource(label.toURI().toString());
                 getListener().addProblem(le);
-                LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag,message SET_TO_ERROR_3 {},{},[{}]",schemaUrl,passFlag,le.getMessage());
+                LOG.debug("validateAllLoadedSchemas:schemaUrl,passFlag,message SET_TO_error_3 {},{},[{}]",schemaUrl,passFlag,le.getMessage());  // Change to lowercase so as not to confuse the log file
               }
               if (container.hasError() || container.hasFatal()) {
                 passFlag = false;
