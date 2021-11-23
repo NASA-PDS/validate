@@ -1,14 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-11-12)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Validate does not allow SIP tab file to have lines of differing lengths [\#424](https://github.com/NASA-PDS/validate/issues/424) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-10-27)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-11-12)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
@@ -25,6 +17,7 @@
 
 **Defects:**
 
+- Validate does not allow SIP tab file to have lines of differing lengths [\#424](https://github.com/NASA-PDS/validate/issues/424) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not allow a single-character subdirectory [\#423](https://github.com/NASA-PDS/validate/issues/423) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt [\#419](https://github.com/NASA-PDS/validate/issues/419) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 2.1.0 indicates the table offset is not correct when validating a binary table inside a FITS [\#416](https://github.com/NASA-PDS/validate/issues/416) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
