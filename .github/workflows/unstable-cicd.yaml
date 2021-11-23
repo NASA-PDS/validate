@@ -67,7 +67,7 @@ jobs:
                     restore-keys: pds-${{runner.os}}-mvn-
             -
                 name: 🤠 Roundup
-                uses: nasa-pds-engineering-node/roundup-action@stable
+                uses: NASA-PDS/roundup-action@stable
                 with:
                     assembly: unstable
                 env:
