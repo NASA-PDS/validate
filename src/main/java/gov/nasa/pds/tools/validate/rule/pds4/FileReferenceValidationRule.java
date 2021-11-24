@@ -398,13 +398,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
                 // Check Document info
                 
-                for (String filename : fileMapping.keySet()) {
-                  String doctype = fileMapping.get(filename);
+                for (Map.Entry<String,String> entry : fileMapping.entrySet()) {
+                  String filename = entry.getKey();
+                  String doctype = entry.getValue();
 
                   LOG.debug("FileReferenceValidationRule:validate:name,filename,doctype {},{},{}",name,filename,doctype);
 
                   // Note that we have to check for "PDF/A" and "PDF" as well.
-                  if ((doctype.equalsIgnoreCase("PDF/A")) || (doctype.equalsIgnoreCase("PDF"))) {
+                  if (doctype.equalsIgnoreCase("PDF/A") || doctype.equalsIgnoreCase("PDF")) {
                      // Check for PDF file validity.
                     try {
                       problems.addAll(handlePDF(target, urlRef,
