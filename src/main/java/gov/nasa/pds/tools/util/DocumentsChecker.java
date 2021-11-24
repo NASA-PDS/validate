@@ -1,11 +1,5 @@
 package gov.nasa.pds.tools.util;
 
-import gov.nasa.pds.tools.util.MimeTable;
-import gov.nasa.pds.validate.util.ToolInfo;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;

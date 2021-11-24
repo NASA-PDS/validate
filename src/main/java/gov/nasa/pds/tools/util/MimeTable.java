@@ -28,7 +28,7 @@ public class MimeTable {
     try {
       URL propertyFile = MimeTable.class.getResource(DEFAULT_MIME_TYPES_FILE_NAME);
       InputStream in = propertyFile.openStream();
-      Scanner inFile = new Scanner(in);
+      Scanner inFile = new Scanner(in, "utf-8");
 
       String nextLine = null;
       String[] tokens = null;
@@ -64,71 +64,6 @@ public class MimeTable {
   
   public MimeTable() {
   }
-
-  /**
-   * Given a default mime types table, load the table into a HashMap.
-   * @param defaultMimeTypesFileName The file name of the default mime types table 
-   * @return None
-   */
-
-  public void loadMimeTable() throws IOException {
-      LOG.debug("loadMimeTable:defaultMimeTypesFileName {}", DEFAULT_MIME_TYPES_FILE_NAME);
-      // Note: The function FilenameUtils.getPath() doesn't seem to work correctly.
-      // It returns the path without the leading slash '/':  
-      //
-      // For this URI
-      //
-      //      file:/home/qchau/sandbox/validate/src/test/resources/github367/document/
-      //
-      // The FilenameUtils.getPath(getTarget().getPath()) returns
-      //
-      //     home/qchau/sandbox/validate/src/test/resources/github367/document/
-      //
-      // which is missing the leading slash.
-      //
-
-//      Scanner inFile = null;
-//      try {
-//          String parent = defaultMimeTypesFileName.substring(0,defaultMimeTypesFileName.lastIndexOf(File.separator));
-//          LOG.debug("loadMimeTable:FilenameUtils.getName(defaultMimeTypesFileName) {}",FilenameUtils.getName(defaultMimeTypesFileName));
-//          LOG.debug("loadMimeTable:FilenameUtils.getPath(defaultMimeTypesFileName) {}",FilenameUtils.getPath(defaultMimeTypesFileName));
-//          LOG.debug("loadMimeTable:parent {}",parent);
-//          inFile = new Scanner(new File(parent + File.separator + FilenameUtils.getName(defaultMimeTypesFileName)));
-//      } catch (FileNotFoundException ex) {
-//          LOG.error("loadMimeTable:Cannot load file {} into memory",defaultMimeTypesFileName);
-//          throw new IOException("Cannot load file " + defaultMimeTypesFileName + " into memory ");
-//      }
-
-//      String nextLine = null;
-//      String[] tokens = null;
-//      int tokenIndex = 0;
-//      while (inFile.hasNext()) {
-//          nextLine = inFile.nextLine();
-//          if (!nextLine.startsWith("#")) {
-//              LOG.debug("loadMimeTable:APPENDING_LINE [{}]",nextLine.replaceAll("[\r\n]",""));
-//              // Parse the line for the mime type and the file extension.
-//              // Each file extension becomes a key and the first token (mime type) becomes the value
-//              // 7-Bit_ASCII_Text txt text TXT TEXT
-//              tokens = nextLine.split("\\s+");
-//
-//              LOG.debug("loadMimeTable:nextLine,tokens.length [{}],{}",nextLine.replaceAll("[\r\n]",""),tokens.length);
-//
-//              tokenIndex = 1;
-//              while (tokenIndex < tokens.length) {
-//                  LOG.debug("loadMimeTable:APPENDING_KEY {},{},[{}],[{}]",tokenIndex,tokens.length,tokens[tokenIndex],tokens[0]);
-//                  // Each token may potentially has a carriage return, replace them with empty string.
-//                  mimetypesFileTypeMap.put(tokens[tokenIndex].replaceAll("[\r\n]",""),tokens[0]);  // Each file extension becomes a key and the first token (mime type) becomes the value
-//                  tokenIndex += 1;
-//              }
-//             
-//          }
-//      }
-//      LOG.debug("loadMimeTable:defaultMimeTypesFileName,mimetypesFileTypeMap.size {},{}", DEFAULT_MIME_TYPES_FILE_NAME, mimetypesFileTypeMap.size());
-//      LOG.debug("loadMimeTable:mimetypesFileTypeMap.size {}",mimetypesFileTypeMap.size());
-//      inFile.close(); // Closes this scanner and release the resource.
-  }
-
-
 
   //https://www.javacodeexamples.com/check-if-string-is-uppercase-in-java-example/614
   private boolean isStringUpperCase(String str) {

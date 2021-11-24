@@ -449,7 +449,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                           fileObject.getLineNumber(), -1));
                       passFlag = false;
                     }
-                  } else if (!doctype.equalsIgnoreCase("UTF-8 Text") && !doctype.equalsIgnoreCase("7-Bit ASCII Text")) {
+                  } else if (!doctype.equalsIgnoreCase("UTF-8 Text") && !doctype.equalsIgnoreCase("7-Bit ASCII Text") && !doctype.equalsIgnoreCase("Rich Text")) {
                     LOG.debug("FileReferenceValidationRule:validate:urlRef,doctype {},{}",urlRef,doctype);
                     // Use the enum ProblemType based on a specific doctype and pass it to checkGenericDocument() function.
                     if (this.documentUtil == null) {
@@ -463,8 +463,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                     } else {
                         passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, doctype, problems, problemType);
                     }
-                  } else if (doctype.equalsIgnoreCase("UTF-8 Text") || doctype.equalsIgnoreCase("7-Bit ASCII Text")) {
-                    // Text files gets validated explitly against ProblemType.NON_TEXT_FILE.
+                  } else if (doctype.equalsIgnoreCase("UTF-8 Text") || doctype.equalsIgnoreCase("7-Bit ASCII Text") || doctype.equalsIgnoreCase("Rich Text")) {
+                    // Text files gets validated explicitly against ProblemType.NON_TEXT_FILE.
                     passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
                   }
                 }

@@ -98,9 +98,6 @@ public class DocumentUtil {
     this.docTypeList.add("POSTSCRIPT");
     this.problemTypeList.add(ProblemType.NON_POSTSCRIPT_FILE);
 
-    this.docTypeList.add("RICH");
-    this.problemTypeList.add(ProblemType.NON_RICHTEXT_FILE);
-
     this.docTypeList.add("TEXT");
     this.problemTypeList.add(ProblemType.NON_TEXT_FILE);
 
