@@ -18,8 +18,8 @@ GIF gif GIF
 JPEG jpeg jpg JPEG JPG
 LaTEX tex TEX
 MPEG-4 mp4 MP4
-Microsoft_Excel xls xlsx
-Microsoft_Word doc docx
+Microsoft_Excel xls xlsx XLS XLSX xltx xlt xlsm xlsb XLTX XLT XLSM XLSB
+Microsoft_Word doc docx DOC DOCX docm dot dotm dotx DOCM DOT DOTM DOTX
 PDF pdf PDF
 PDF/A pdf PDF
 PNG png PNG

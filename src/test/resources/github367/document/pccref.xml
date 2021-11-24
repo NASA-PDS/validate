@@ -170,6 +170,18 @@
                 <file_name>pccref_empty.tif</file_name>
                 <document_standard_id>Microsoft Excel</document_standard_id>
             </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tif</file_name>
+                <document_standard_id>7-Bit ASCII Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tif</file_name>
+                <document_standard_id>Rich Text</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>pccref_empty.tif</file_name>
+                <document_standard_id>MPEG-4</document_standard_id>
+            </Document_File>
         </Document_Edition>
     </Document>
 </Product_Document>

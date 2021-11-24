@@ -19,11 +19,15 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import java.util.ArrayList;
+
 import java.lang.StringBuilder;
 
 import java.net.URL;
 
 import gov.nasa.pds.tools.util.Utility;
+
+import gov.nasa.pds.tools.validate.ProblemType;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -37,12 +41,106 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Util class to parse and remove comments from a Document object.
+ * It will also keep a mapping of document type to ProblemType to allow the retrieval of ProblemType based on document type.
  * 
  */
 public class DocumentUtil {
   private static final Logger LOG = LoggerFactory.getLogger(DocumentUtil.class);
 
-  public void DocumenUtil() {
+  // The following two lists are to keep track of a map from document type to ProblemType enum.
+  // They are assigned to an empty list to avoid null pointer exception and will be initialized in the initialize() function.
+
+  private ArrayList<String> docTypeList = new ArrayList<String>();
+  private ArrayList<ProblemType> problemTypeList = new ArrayList<ProblemType>();
+  private boolean classInitialized = false;  // Indicate whether if the mapping has been initialized or not. 
+
+  public DocumentUtil() {
+      // Because this class can be instantiated by other classes many times, we only want to call the initialize() function
+      // if we will be using the getProblemType() function below.
+  }
+
+  private boolean isClassInitialized() {
+      return(this.classInitialized);
+  }
+
+  private void initialize() {
+    // Create a map to go from a document type to a ProblemType.
+    // The map consists of two arrays, one to hold the docType and one to hold the enumerated ProblemType.
+    // These keys below (of type String) do not have to be exact.  When the key is searched for, we will use contains() and ignore case to find the ProblemType
+    // Example:
+    //    The value "postscript" can be found in "encapsulated postscript" and "postscript"
+
+    // Empty the lists in case they have content.  This is important if somehow the function initialize() gets call multiple many times.
+    this.docTypeList = new ArrayList<String>();
+    this.problemTypeList = new ArrayList<ProblemType>();
+
+    // The add() function should be called in the order specified since together they form a mapping mechanism,
+    // for example 'ENCAPSULATED' before 'POSTSCRIPT' and 'RICH' before 'TEXT'.
+
+    this.docTypeList.add("ENCAPSULATED");
+    this.problemTypeList.add(ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE);
+
+    this.docTypeList.add("EXCEL");
+    this.problemTypeList.add(ProblemType.NON_MSEXCEL_FILE);
+
+    this.docTypeList.add("GIF");
+    this.problemTypeList.add(ProblemType.NON_GIF_FILE);
+
+    this.docTypeList.add("HTML");
+    this.problemTypeList.add(ProblemType.NON_HTML_FILE);
+
+    this.docTypeList.add("LATEX");
+    this.problemTypeList.add( ProblemType.NON_LATEX_FILE);
+
+    this.docTypeList.add("MPEG");
+    this.problemTypeList.add(ProblemType.NON_MP4_FILE);
+
+    this.docTypeList.add("POSTSCRIPT");
+    this.problemTypeList.add(ProblemType.NON_POSTSCRIPT_FILE);
+
+    this.docTypeList.add("TEXT");
+    this.problemTypeList.add(ProblemType.NON_TEXT_FILE);
+
+    this.docTypeList.add("TIFF");
+    this.problemTypeList.add(ProblemType.NON_TIFF_FILE);;
+
+    this.docTypeList.add("WORD");
+    this.problemTypeList.add(ProblemType.NON_MSWORD_FILE);
+
+    this.classInitialized = true;
+
+    LOG.debug("initialize:this.docTypeList.size {}",this.docTypeList.size());
+    LOG.debug("initialize:this.problemTypeList.size {}",this.problemTypeList.size());
+  }
+
+  /**
+   * Returns the enum ProblemType based on the docType.
+   *
+   * @param docType The string represent the document type.
+   *
+   * @return problemType The matching ProblemType based on the document type.  Can be null if not matching ProblemType can be found.
+   */
+
+  public ProblemType getProblemType(String docType) {
+    ProblemType problemType = null;
+    if (this.classInitialized == false) {
+        // Only initialize this class once of the two lists' content.
+        this.initialize();
+    }
+
+    // Iterating through docTypeList and check if docType contains singleDocType.
+    // Note that everything is changed to lower cases for comparison.
+    int ii = 0;
+    for (String singleDocType : this.docTypeList) {
+        if (docType.toLowerCase().contains(singleDocType.toLowerCase())) {
+            problemType = this.problemTypeList.get(ii);
+            // Once we have found a matching value, there's no need to continue looping as it will be fetching the wrong ProblemType if we continue.
+            break;
+        }
+        ii++;
+    }
+    LOG.debug("getProblemType:docType,problemType {},{}",docType,problemType);
+    return(problemType);
   }
 
   private void removeComments(Node node) {

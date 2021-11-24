@@ -140,6 +140,32 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
             } else if (strTemp.equals("NON_PDFA_FILE")) {
                 count = this.getMessageCount(reportJson, ProblemType.NON_PDFA_FILE.getKey());
+            } else if (strTemp.equals("NON_JPEG_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_JPEG_FILE.getKey());
+            } else if (strTemp.equals("NON_PNG_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_PNG_FILE.getKey());
+            } else if (strTemp.equals("NON_HTML_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_HTML_FILE.getKey());
+            } else if (strTemp.equals("NON_TEXT_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_TEXT_FILE.getKey());
+            } else if (strTemp.equals("NON_MSWORD_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_MSWORD_FILE.getKey());
+            } else if (strTemp.equals("NON_MSEXCEL_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_MSEXCEL_FILE.getKey());
+            } else if (strTemp.equals("NON_LATEX_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_LATEX_FILE.getKey());
+            } else if (strTemp.equals("NON_POSTSCRIPT_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_POSTSCRIPT_FILE.getKey());
+            } else if (strTemp.equals("NON_ENCAPSULATED_POSTSCRIPT_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE.getKey());
+            } else if (strTemp.equals("NON_RICHTEXT_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_RICHTEXT_FILE.getKey());
+            } else if (strTemp.equals("NON_GIF_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_GIF_FILE.getKey());
+            } else if (strTemp.equals("NON_TIFF_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_TIFF_FILE.getKey());
+            } else if (strTemp.equals("NON_MP4_FILE")) {
+                count = this.getMessageCount(reportJson, ProblemType.NON_MP4_FILE.getKey());
             } else if (strTemp.equals("LABEL_UNRESOLVABLE_RESOURCE")) {
                 count = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
             } else if (strTemp.equals("CONTEXT_REFERENCE_NOT_FOUND")) {

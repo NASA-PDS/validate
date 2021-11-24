@@ -105,7 +105,7 @@ public class PDFUtil {
         
         // First, check the flavour is valid 1a or 1b
         if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A) && !detectedFlavour.equals(PDFAFlavour.PDFA_1_B)) {
-          this.errorMessage = "Invalid PDF/A version detected. Expected: 1a or 1b. Actual: " + detectedFlavour.getId();
+          this.errorMessage = "Invalid PDF/A version detected for " + uri + ". Expected: 1a or 1b. Actual: " + detectedFlavour.getId();
         } else {        
           // Next, check the PDF is actually a valid 1a/1b flavour 
           PDFAValidator validator = Foundries.defaultInstance().createValidator(detectedFlavour, false);

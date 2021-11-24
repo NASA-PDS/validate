@@ -39,6 +39,7 @@ import org.w3c.dom.Document;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.DocumentsChecker;
+import gov.nasa.pds.tools.util.DocumentUtil;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.FileReferencedMapList;
@@ -79,11 +80,12 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   private PDFUtil pdfUtil = null;  // Define pdfUtil so we can reuse it for every call to validateFileReferences() function.
   private ImageUtil imageUtil = null;  // Define imageUtil so we can reuse it for every call to isJPEG() function.
   private DocumentsChecker documentsChecker = null; // Define documentsChecker so we can reuse it.
-  
+  private DocumentUtil documentUtil = null;
+
   public FileReferenceValidationRule() {
     checksumManifest = new HashMap<URL, String>();
   }
-  
+
   @Override
   public boolean isApplicable(String location) {
     if (Utility.isDir(location) || !Utility.canRead(location)) {
@@ -268,20 +270,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             String checksum = "";
             String directory = "";
             String filesize  = "";
-            String pdfName = null;
-            String jpegName = null;
-            String pngName = null;
-            String htmlName = null;
-            String textName = null;
-            String msWordName = null;
-            String msExcelName = null;
-            String latexName = null;
-            String psName = null;
-            String epsName = null;
-            String rtName = null;
-            String gifName = null;
-            String tifName = null;
-            String mp4Name = null;
             String documentStandardId = null;
             List<TinyNodeImpl> children = new ArrayList<TinyNodeImpl>();
             try {
@@ -297,32 +285,18 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               continue;
             }
 
+            // Get file mapping for handling Document objects
+            HashMap<String, String> fileMapping = new HashMap<String, String>(); 
             for (TinyNodeImpl child : children) {
               // Get the value of 'document_standard_id' tag.
               if ("document_standard_id".equals(child.getLocalPart())) {
                   documentStandardId = child.getStringValue(); 
+                  fileMapping.put(name, documentStandardId);
               }
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
+                fileMapping.put(name, "");
                 LOG.debug("FileReferenceValidationRule:validate:name {}",name);
-
-                pdfName  = this.getNameIfMatchingPattern(DocumentsChecker.PDF_PATTERNS, name, "PDF");
-                jpegName = this.getNameIfMatchingPattern(DocumentsChecker.JPEG_PATTERNS, name, "JPEG");
-                pngName  = this.getNameIfMatchingPattern(DocumentsChecker.PNG_PATTERNS,  name, "PNG");
-                htmlName = this.getNameIfMatchingPattern(DocumentsChecker.HTML_PATTERNS, name, "HTML");
-                textName = this.getNameIfMatchingPattern(DocumentsChecker.TEXT_PATTERNS, name, "TEXT");
-
-                msWordName = this.getNameIfMatchingPattern(DocumentsChecker.MSWORD_PATTERNS, name, "MSWORD");
-                msExcelName = this.getNameIfMatchingPattern(DocumentsChecker.MSEXCEL_PATTERNS, name, "MSEXCEL");
-                latexName = this.getNameIfMatchingPattern(DocumentsChecker.LATEX_PATTERNS, name, "LATEX");
-                psName = this.getNameIfMatchingPattern(DocumentsChecker.POSTSCRIPT_PATTERNS, name, "POSTSCRIPT");
-                epsName = this.getNameIfMatchingPattern(DocumentsChecker.POSTSCRIPT_ENCAPSULATED__PATTERNS, name, "ENCAPSULATED_POSTSCRIPT");
-
-                rtName = this.getNameIfMatchingPattern(DocumentsChecker.RICHTEXT_PATTERNS, name, "RICHTEXT");
-                gifName = this.getNameIfMatchingPattern(DocumentsChecker.GIF_PATTERNS, name, "GIF");
-                tifName = this.getNameIfMatchingPattern(DocumentsChecker.TIF_PATTERNS, name, "TIFF");
-                mp4Name = this.getNameIfMatchingPattern(DocumentsChecker.MP4_PATTERNS, name, "MP4");
-
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:checksum {}",checksum);
@@ -349,12 +323,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 filesize = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:filesize {}",filesize);
               }
-            }
+            } // for (TinyNodeImpl child : children)
 
+            // Checks for File_Area information
             if (name.isEmpty()) {
               ProblemDefinition def = new ProblemDefinition(
                   ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE, 
-                  "Missing 'file_name' element tag");
+                  "Missing file_name in label.");
               problems.add(new ValidationProblem(def, target, 
                   fileObject.getLineNumber(), -1));
               passFlag = false;
@@ -421,66 +396,79 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                   passFlag = false;
                 }
 
-                // Check for PDF file validity.
-                try {
-                  problems.addAll(handlePDF(target, urlRef,
-                      fileObject, pdfName, parent, directory));
-                } catch (Exception e) {
-                  ProblemDefinition def = new ProblemDefinition(
-                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                      "Error occurred while processing PDF file content for "
-                      + FilenameUtils.getName(urlRef.toString()) + ": "
-                      + e.getMessage());
-                  problems.add(new ValidationProblem(def, target,
-                      fileObject.getLineNumber(), -1));
-                  passFlag = false;
+                // Check Document info
+                
+                for (Map.Entry<String,String> entry : fileMapping.entrySet()) {
+                  String filename = entry.getKey();
+                  String doctype = entry.getValue();
+
+                  LOG.debug("FileReferenceValidationRule:validate:name,filename,doctype {},{},{}",name,filename,doctype);
+
+                  // Note that we have to check for "PDF/A" and "PDF" as well.
+                  if (doctype.equalsIgnoreCase("PDF/A") || doctype.equalsIgnoreCase("PDF")) {
+                     // Check for PDF file validity.
+                    try {
+                      problems.addAll(handlePDF(target, urlRef,
+                          fileObject, filename, parent, directory));
+                    } catch (Exception e) {
+                      ProblemDefinition def = new ProblemDefinition(
+                          ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                          "Error occurred while processing PDF file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": "
+                          + e.getMessage());
+                      problems.add(new ValidationProblem(def, target,
+                          fileObject.getLineNumber(), -1));
+                      passFlag = false;
+                    }
+                  } else if (doctype.equalsIgnoreCase("JPEG")) {
+                    // Check for JPEG file validity.
+                    try {
+                      problems.addAll(handleJPEG(target, urlRef,
+                          fileObject, filename, parent, directory));
+                    } catch (Exception e) {
+                      ProblemDefinition def = new ProblemDefinition(
+                          ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                          "Error occurred while processing JPEG file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": "
+                          + e.getMessage());
+                      problems.add(new ValidationProblem(def, target,
+                          fileObject.getLineNumber(), -1));
+                      passFlag = false;
+                    }
+                  } else if (doctype.equalsIgnoreCase("PNG")) {
+                    // Check for PNG file validity.
+                    try {
+                      problems.addAll(handlePNG(target, urlRef,
+                          fileObject, filename, parent, directory));
+                    } catch (Exception e) {
+                      ProblemDefinition def = new ProblemDefinition(
+                          ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                          "Error occurred while processing PNG file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": "
+                          + e.getMessage());
+                      problems.add(new ValidationProblem(def, target,
+                          fileObject.getLineNumber(), -1));
+                      passFlag = false;
+                    }
+                  } else if (!doctype.equalsIgnoreCase("UTF-8 Text") && !doctype.equalsIgnoreCase("7-Bit ASCII Text") && !doctype.equalsIgnoreCase("Rich Text")) {
+                    LOG.debug("FileReferenceValidationRule:validate:urlRef,doctype {},{}",urlRef,doctype);
+                    // Use the enum ProblemType based on a specific doctype and pass it to checkGenericDocument() function.
+                    if (this.documentUtil == null) {
+                        // Only instantiate this class once.
+                        this.documentUtil = new DocumentUtil();
+                    }
+                    ProblemType problemType = this.documentUtil.getProblemType(doctype);
+                    // Is is possible that there's no corresponding problemType.  Must check for null-ness before calling checkGenericDocument() function.
+                    if (problemType == null) {
+                        LOG.error("FileReferenceValidationRule:Cannot retrieve ProblemType from provided doctype {}",doctype);
+                    } else {
+                        passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, doctype, problems, problemType);
+                    }
+                  } else if (doctype.equalsIgnoreCase("UTF-8 Text") || doctype.equalsIgnoreCase("7-Bit ASCII Text") || doctype.equalsIgnoreCase("Rich Text")) {
+                    // Text files gets validated explicitly against ProblemType.NON_TEXT_FILE.
+                    passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
+                  }
                 }
-
-
-                // Check for JPEG file validity.
-                try {
-                  problems.addAll(handleJPEG(target, urlRef,
-                      fileObject, jpegName, parent, directory));
-                } catch (Exception e) {
-                  ProblemDefinition def = new ProblemDefinition(
-                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                      "Error occurred while processing JPEG file content for "
-                      + FilenameUtils.getName(urlRef.toString()) + ": "
-                      + e.getMessage());
-                  problems.add(new ValidationProblem(def, target,
-                      fileObject.getLineNumber(), -1));
-                  passFlag = false;
-                }
-
-                // Check for PNG file validity.
-                try {
-                  problems.addAll(handlePNG(target, urlRef,
-                      fileObject, pngName, parent, directory));
-                } catch (Exception e) {
-                  ProblemDefinition def = new ProblemDefinition(
-                      ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                      "Error occurred while processing PNG file content for "
-                      + FilenameUtils.getName(urlRef.toString()) + ": "
-                      + e.getMessage());
-                  problems.add(new ValidationProblem(def, target,
-                      fileObject.getLineNumber(), -1));
-                  passFlag = false;
-                }
-
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, htmlName, parent, directory, documentStandardId, "HTML", problems, ProblemType.NON_HTML_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, textName, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msWordName, parent, directory, documentStandardId, "MSWORD", problems, ProblemType.NON_MSWORD_FILE);
-
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, msExcelName, parent, directory, documentStandardId, "MSEXCEL", problems, ProblemType.NON_MSEXCEL_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, latexName, parent, directory, documentStandardId, "LATEX", problems, ProblemType.NON_LATEX_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, psName, parent, directory, documentStandardId, "POSTSCRIPT", problems, ProblemType.NON_POSTSCRIPT_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, epsName, parent, directory, documentStandardId, "ENCAPSULATED_POSTSCRIPT", problems, ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, rtName, parent, directory, documentStandardId, "RICHTEXT", problems, ProblemType.NON_RICHTEXT_FILE);
-
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, gifName, parent, directory, documentStandardId, "GIF", problems, ProblemType.NON_GIF_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, tifName, parent, directory, documentStandardId, "TIFF", problems, ProblemType.NON_TIFF_FILE);
-                passFlag = this.checkGenericDocument(target, urlRef, fileObject, mp4Name, parent, directory, documentStandardId, "MP4", problems, ProblemType.NON_MP4_FILE);
-
               } catch (IOException io) {
                 ProblemDefinition def = new ProblemDefinition(
                     ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
@@ -490,8 +478,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 passFlag = false;
               }
             }
-          }
         } // end if (!getContext().getSkipProductValidation()) {
+        }
       } catch (XPathExpressionException xpe) {
         String message = "Error occurred while evaluating the following xpath expression '"
             + FILE_OBJECTS_XPATH + "': " + xpe.getMessage();
@@ -501,7 +489,10 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         passFlag = false;
       }
     } catch (Exception e) {
+      // Print the stack trace for debugging and log the error message.
+      e.printStackTrace();
       String message = "Error occurred while reading the uri: " + e.getMessage();
+      LOG.error("validate:" + message);
       ProblemDefinition def = new ProblemDefinition(
           ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, message);
       problems.add(new ValidationProblem(def, target));
@@ -742,22 +733,39 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             this.pdfUtil = new PDFUtil(fileRef);
         }
 
-        pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
-
-        // Report an error if the PDF file is not PDF/A compliant.
-        if (!pdfValidateFlag) {
-            URL urlRef = null;
-            if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + File.separator + pdfName);  // Make the separator OS agnostic.
-            } else {
-                urlRef = new URL(parent, pdfName);
-            }
-            LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist. Error file can be found at " + this.pdfUtil.getExternalErrorFilename());
-            ProblemDefinition def = new ProblemDefinition(
-                ExceptionType.ERROR, ProblemType.NON_PDFA_FILE,
-                this.pdfUtil.getErrorMessage());
-            messages.add(new ValidationProblem(def, target,
-                lineNumber, -1));
+        // First, let's check the filename even makes sense
+        DocumentsChecker check = new DocumentsChecker();
+        if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
+          pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
+  
+          // Report an error if the PDF file is not PDF/A compliant.
+          if (!pdfValidateFlag) {
+              URL urlRef = null;
+              if (!directory.isEmpty()) {
+                  urlRef = new URL(parent, directory + File.separator + pdfName);  // Make the separator OS agnostic.
+              } else {
+                  urlRef = new URL(parent, pdfName);
+              }
+              if (this.pdfUtil.getExternalErrorFilename() != null) {
+                  // Only point to the error file if it exist.
+                  LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist. Error file can be found at " + this.pdfUtil.getExternalErrorFilename());
+              } else {
+                  LOG.error("handlePDF:"+urlRef.toString() + " is not valid PDF/A file or does not exist.");
+              }
+              ProblemDefinition def = new ProblemDefinition(
+                  ExceptionType.ERROR, ProblemType.NON_PDFA_FILE,
+                  this.pdfUtil.getErrorMessage());
+              messages.add(new ValidationProblem(def, target,
+                  lineNumber, -1));
+          }
+        } else {
+          String message = fileRef.toString() + " is an invalid PDF/A filename.";
+          LOG.error("handlePDF:" + message);
+          ProblemDefinition def = new ProblemDefinition(
+              ExceptionType.ERROR, ProblemType.NON_PDFA_FILE,
+              message);
+          messages.add(new ValidationProblem(def, target,
+              lineNumber, -1));
         }
 
         return messages;
@@ -914,8 +922,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             } else {
                 urlRef = new URL(parent, textName);
             }
-
-            String errorMessage = urlRef.toString() + " with document standard id '" + documentStandardId + "' is not correct";
+            // Add the possible file extensions to error message.
+            String errorMessage = urlRef.toString() + " with document standard '" + documentStandardId + "' is not correct.  Expected file suffix(es): " + this.documentsChecker.getPossibleFileExtensions(documentStandardId).toString();
             LOG.warn("handleGenericDocument:" + errorMessage);
 
             ProblemDefinition def = new ProblemDefinition(
