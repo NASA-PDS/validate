@@ -1,5 +1,15 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-11-24)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Validate is reporting a 'String index out of range' error for a text file [\#441](https://github.com/NASA-PDS/validate/issues/441) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Incorrect Warning for Missing document\_standard\_id is Stream\_Text [\#439](https://github.com/NASA-PDS/validate/issues/439) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate warns "document standard id ... is not correct" on good labels [\#429](https://github.com/NASA-PDS/validate/issues/429) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
 ## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-11-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
