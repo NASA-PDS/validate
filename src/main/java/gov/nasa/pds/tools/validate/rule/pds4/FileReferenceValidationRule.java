@@ -736,7 +736,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         // First, let's check the filename even makes sense
         DocumentsChecker check = new DocumentsChecker();
         if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
-          pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName);
+          // The parent is also needed for validateFileStandardConformity function.
+          pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName, parent);
   
           // Report an error if the PDF file is not PDF/A compliant.
           if (!pdfValidateFlag) {
@@ -801,13 +802,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             this.imageUtil = new ImageUtil(fileRef);
         }
 
-        jpegValidateFlag = this.imageUtil.isJPEG(jpegName);
+        jpegValidateFlag = this.imageUtil.isJPEG(jpegName, parent);
 
         // Report a  warning if the JPEG file is not compliant.
         if (!jpegValidateFlag) {
             URL urlRef = null;
             if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + "/" + jpegName);
+                urlRef = new URL(parent, directory + File.separator + jpegName);
             } else {
                 urlRef = new URL(parent, jpegName);
             }
@@ -852,13 +853,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             this.imageUtil = new ImageUtil(fileRef);
         }
 
-        validateFlag = this.imageUtil.isPNG(pngName);
+        validateFlag = this.imageUtil.isPNG(pngName, parent);
 
         // Report a  warning if the PNG file is not compliant.
         if (!validateFlag) {
             URL urlRef = null;
             if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + "/" + pngName);
+                urlRef = new URL(parent, directory + File.separator + pngName);
             } else {
                 urlRef = new URL(parent, pngName);
             }
@@ -918,7 +919,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         if (!mimeTypeIsCorrectFlag) {
             URL urlRef = null;
             if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + "/" + textName);
+                urlRef = new URL(parent, directory + File.separator + textName);
             } else {
                 urlRef = new URL(parent, textName);
             }

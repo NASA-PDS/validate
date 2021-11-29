@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1F00_1810.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1F00_1500.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" xmlns:img="http://pds.nasa.gov/pds4/img/v1" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1F00_1810.xsd http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1F00_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:hayabusa.itokawa.amica:data:preflight_flat_w_fit</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>AMICA W FLAT</title>
+    <information_model_version>1.15.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Saito, J.;Nakamura, T.;Akiyama, H.;Demura, H.;Dermawan, B.;Furuya, M.;Fuse,
+T.;Gaskell, R.;Hashimoto, T.;Higuchi, Y.;Hiraoka, K.;Hirata, N.;Honda, C.;Honda,
+T.;Ishiguro, M.;Kitazato, K.;Kobayashi, S.;Kubota, T.;Matsumoto, N.;Michikami,
+T.;Miyamoto, H.;Nakamura, A.;Nakamura, R.;Nemoto, E.;Sasaki, S.;Shinohara, C.;Smith,
+P.;Sogame, A.;Terazono, J.;Tholen, D.;Yamamoto, A.;Yokota, Y.;Yoshida, F.;Yukishita,
+A.</author_list>
+      <publication_year>2021</publication_year>
+      <description>Hayabusa AMICA pre-flight flat field, w 
+        filter</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-10-28</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migrated from PREFLIGHT_FLAT_W_FIT in HAY-A-AMICA-3-HAYAMICA-V1.0</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2003-03-18Z</start_date_time>
+      <stop_date_time>2003-03-19Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Calibration</purpose>
+      <processing_level>Raw</processing_level>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Imaging</discipline_name>
+        <facet1>Grayscale</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>HAYABUSA</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.hayabusa</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <description>HAYABUSA with ASTEROID MULTI-BAND IMAGING CAMERA</description>
+      <Observing_System_Component>
+        <name>ASTEROID MULTI-BAND IMAGING CAMERA</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:amica.hay</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>HAYABUSA</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.hay</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Flat Field</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Discipline_Area>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>image</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Exposure>
+          <img:exposure_duration unit="s">8.4</img:exposure_duration>
+        </img:Exposure>
+        <img:Optical_Filter>
+          <img:filter_name>W</img:filter_name>
+          <img:center_filter_wavelength unit="nm">700</img:center_filter_wavelength>
+        </img:Optical_Filter>
+      </img:Imaging>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:hayabusa.itokawa.amica:document:bundle_description</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>flat_w.fit</file_name>
+      <local_identifier>PREFLIGHT_FLAT_W_FIT</local_identifier>
+      <creation_date_time>2010-02-10</creation_date_time>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+    </Header>
+    <Array_2D>
+      <local_identifier>image</local_identifier>
+      <offset unit="byte">2880</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>Hayabusa AMICA pre-flight flat field, w 
+        filter</description>
+      <Element_Array>
+        <data_type>IEEE754MSBSingle</data_type>
+        <unit>COUNTS</unit>
+        <scaling_factor>1.0</scaling_factor>
+        <value_offset>0.0</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>1024</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>1024</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Object_Statistics>
+        <maximum>1.0769732</maximum>
+        <minimum>-0.25048923</minimum>
+      </Object_Statistics>
+    </Array_2D>
+  </File_Area_Observational>
+</Product_Observational>
+

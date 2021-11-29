@@ -1,0 +1,48 @@
+
+PDS Validate Tool Report
+
+Configuration:
+   Version                       2.1.0
+   Date                          2021-10-28T22:32:42Z
+
+Parameters:
+   Targets                       [file:/Users/jessestone/Desktop/hayabusa_error/flat_w.xml]
+   Severity Level                WARNING
+   Recurse Directories           true
+   File Filters Used             [*.xml, *.XML]
+   Data Content Validation       on
+   Product Level Validation      on
+   Max Errors                    100000
+   Registered Contexts File      /Users/jessestone/bin/validate-2.1.0/resources/registered_context_products.json
+
+
+
+Product Level Validation Results
+
+  FAIL: file:/Users/jessestone/Desktop/hayabusa_error/flat_w.xml
+    Begin Content Validation: file:/Users/jessestone/Desktop/hayabusa_error/flat_w.fit
+      ERROR  [error.array.value_out_of_min_max_range]   array 1, location (1, 626):  Value is less than the minimum value in the label (min=-0.25048923, got=-0.25048923).
+    End Content Validation: file:/Users/jessestone/Desktop/hayabusa_error/flat_w.fit
+        1 product validation(s) completed
+
+Summary:
+
+  1 error(s)
+  0 warning(s)
+
+  Product Validation Summary:
+    0          product(s) passed
+    1          product(s) failed
+    0          product(s) skipped
+
+  Referential Integrity Check Summary:
+    0          check(s) passed
+    0          check(s) failed
+    0          check(s) skipped
+
+  Message Types:
+    1            error.array.value_out_of_min_max_range
+
+End of Report
+Completed execution in 5679 ms
+
