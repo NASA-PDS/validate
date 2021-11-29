@@ -125,6 +125,7 @@ public class PDFUtil {
           }
         }
     } catch (Exception e) {
+        e.printStackTrace();
         LOG.error("validatePDF parse PDF file " + pdfRef);
         LOG.error("validatePDF is " + e.getMessage());
     }
@@ -135,10 +136,11 @@ public class PDFUtil {
    * Validate if a PDF file conforms to PDF/A standard.
    *
    * @param pdfBase The basename of the PDF file
+   * @param parentURL The URL of the parent of pdfBase.
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public synchronized boolean validateFileStandardConformity(String pdfBase) throws Exception {
+  public synchronized boolean validateFileStandardConformity(String pdfBase, URL parentURL) throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
 
@@ -157,12 +159,14 @@ public class PDFUtil {
       throw new Exception("validateFileStandardConformity:Cannot build URI for target [" + getTarget() + "]");
     }
 
-    File file = new File(uri.getPath());
-    String parent = file.getParent();
+    // Get the parent from parentURL instead of using "new File(uri.getPath()).getParent()" which will only get the top level directory.
+    // It would be a bug if the file is in a sub directory of the top level directory.
+    String parent = parentURL.getFile();
 
     // Build the full pathname of the PDF file.
     String pdfRef = parent + File.separator + pdfBase;
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]",parent,pdfBase,pdfRef);
+    LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef,uri [{}],[{}],[{}],{}",parent,pdfBase,pdfRef,uri);
 
     // First, validate the PDF against PDFAFlavour.PDFA_1_A, if it does not validate, do it again with PDFAFlavour.PDFA_1_B
     pdfValidateFlag = this.validatePDF(uri, pdfRef);

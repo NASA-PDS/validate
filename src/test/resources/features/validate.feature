@@ -324,6 +324,14 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#424 VALID_1" | "github424" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github424_label_valid_1.json -s json -t {resourceDir}/github424/asurpif_photos_amboycrater_v1.0_20211021_sip_v1.0.xml" | "report_github424_label_valid_1.json" |
  |"NASA-PDS/validate#424 VALID_2" | "github424" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github424_label_valid_2.json -s json -t {resourceDir}/github424/asurpif_photos_amboycrater_v1.0_20211021_aip_v1.0.xml" | "report_github424_label_valid_2.json" |
 
+# https://github.com/nasa-pds/validate/issues/435 Array Content Validator is not accepting values at the min/max due to false precision
+
+ |"NASA-PDS/validate#435 VALID" | "github435" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github435_label_valid.json -s json -t {resourceDir}/github435/flat_w.xml" | "report_github435_label_valid.json" |
+
+# https://github.com/nasa-pds/validate/issues/447 Validate does not correctly pass PDF/A files that are in a subdirectory
+
+ |"NASA-PDS/validate#447 VALID" | "github447" | 0 | "0 error messages expected: 0 totalErrors" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github447_dir_valid.json -s json -t {resourceDir}/github447/document/" | "report_github447_dir_valid.json" |
+
 
 # BIG_NOTE: Add new tests that doesn't involve a catalog above this line.
 # https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes

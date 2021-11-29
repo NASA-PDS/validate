@@ -40,10 +40,11 @@ public class ImageUtil {
    * Check if a JPEG file is valid by inspecting the first 2 bytes for 0xffd8 and last 2 bytes for 0xffd9.
    *
    * @param jpegBase The basename of the JPEG file
+   * @param parentURL The URL of the parent of basename
    * @return true if the JPEG file is valid false otherwise
    *
    */
-  public boolean isJPEG(String jpegBase) throws Exception {
+  public boolean isJPEG(String jpegBase, URL parentURL) throws Exception {
 
     LOG.debug("isJPEG:jpegBase {}",jpegBase);
 
@@ -71,15 +72,10 @@ public class ImageUtil {
     //     home/qchau/sandbox/validate/src/test/resources/github367/document/
     //
     // which is missing the leading slash.
-    //
-    // Using alternative method to get the parent.
-    String parent = ""; 
-    if (getTarget().getPath().lastIndexOf(File.separator) >= 0) {
-        parent = getTarget().getPath().substring(0,getTarget().getPath().lastIndexOf(File.separator)); 
-    } else {
-        LOG.error("isJPEG:The path does not contain a file separator {}",getTarget().getPath());
-        throw new Exception("isJPEG:The path does not contain a file separator " + getTarget().getPath());
-    }
+
+    // Get the parent from parentURL instead of using "new File(uri.getPath()).getParent()" which will only get the top level directory.
+    // It would be a bug if the file is in a sub directory of the top level directory.
+    String parent = parentURL.getFile();
 
     LOG.debug("isJPEG:,parent,jpegBase {},{}",parent,jpegBase);
 
@@ -131,10 +127,11 @@ public class ImageUtil {
    * Check if a PNG file is valid by inspecting if the 1st group 4 bytes are 0x89504e47 and the 2nd group of 4 bytes are 0x0d0a1a0a
    *
    * @param pngBase The basename of the PNG file
+   * @param parentURL The URL of the parent of basename
    * @return true if the PNG file is valid false otherwise
    *
    */
-  public boolean isPNG(String pngBase) throws Exception {
+  public boolean isPNG(String pngBase,  URL parentURL) throws Exception {
 
     LOG.debug("isPNG:pngBase {}",pngBase);
 
@@ -150,14 +147,9 @@ public class ImageUtil {
       throw new Exception("isPNG:Cannot build URI for target [" + getTarget() + "]");
     }
 
-    // Using alternative method to get the parent.
-    String parent = ""; 
-    if (getTarget().getPath().lastIndexOf(File.separator) >= 0) {
-        parent = getTarget().getPath().substring(0,getTarget().getPath().lastIndexOf(File.separator)); 
-    } else {
-        LOG.error("isPNGG:The path does not contain a file separator {}",getTarget().getPath());
-        throw new Exception("isPNG:The path does not contain a file separator " + getTarget().getPath());
-    }
+    // Get the parent from parentURL instead of using "new File(uri.getPath()).getParent()" which will only get the top level directory.
+    // It would be a bug if the file is in a sub directory of the top level directory.
+    String parent = parentURL.getFile();
 
     // Build the full pathname of the file.
     String pngRef = parent + File.separator + pngBase;

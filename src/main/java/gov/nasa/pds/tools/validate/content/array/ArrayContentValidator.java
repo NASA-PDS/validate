@@ -386,7 +386,7 @@ public class ArrayContentValidator {
     }
     return false;
   }
-  
+
   /**
    * Checks the given number against the object statistics characteristics
    * as defined in the product label.
@@ -399,7 +399,12 @@ public class ArrayContentValidator {
   private void checkObjectStats(Number value, ElementArray elementArray, 
       ObjectStatistics objectStats, ArrayLocation location) {
     if (objectStats.getMinimum() != null) {
-      if (value.doubleValue() < objectStats.getMinimum()) {
+      // Use the compare function in this class to compare between two floats.
+      if (compare(value.doubleValue(), objectStats.getMinimum()) == -1) {
+        String errorMessage = this.tableNameReportStr + " Value is less than the minimum value in the label (min=" + objectStats.getMinimum().toString();
+        LOG.debug("checkObjectStats:value.doubleValue() {}",value.doubleValue());
+        LOG.debug("checkObjectStats:objectStats.getMinimum(),type(objectStats.getMinimum()) {},{}",objectStats.getMinimum(),objectStats.getMinimum().getClass().getSimpleName());
+        LOG.error(errorMessage);
         addArrayProblem(ExceptionType.ERROR,
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             this.tableNameReportStr + " Value is less than the minimum value in the label (min="
@@ -408,7 +413,8 @@ public class ArrayContentValidator {
       }
     }
     if (objectStats.getMaximum() != null) {
-      if (value.doubleValue() > objectStats.getMaximum()) {
+      // Use the compare function in this class to compare between two floats.
+      if (compare(value.doubleValue(), objectStats.getMaximum()) == 1) {
         addArrayProblem(ExceptionType.ERROR, 
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             this.tableNameReportStr + "Value is greater than the maximum value in the label (max="
