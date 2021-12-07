@@ -230,12 +230,21 @@ public class LabelUtil {
      return(informationModelVersion);
   }
 
-  // Due the fact that this function can be called by multiple threads and indirectly mutates container util.Utility.cachedTargets,
-  // it is necessary to add 'synchronized' to make sure that it does not happen.
+  /**
+   * Common function to retrieve values either from logical_identifier or lid_reference/lidvid_reference tags.
+   * Note that because a node for logical_identifier can have a version id in another tag, they both must be check
+   * before combining them together to .
+   * 
+   * Due the fact that this function can be called by multiple threads and indirectly mutates container util.Utility.cachedTargets,
+   * it is necessary to add 'synchronized' to make sure that it does not happen.
+   * 
+   * @param source
+   * @param context
+   * @param tagsList
+   * @param searchPathName
+   * @return
+   */
   public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context, String[] tagsList, String searchPathName) {
-      // Common function to retrieve values either from logical_identifier or lid_reference/lidvid_reference tags.
-      // Note that because a node for logical_identifier can have a version id in another tag, they both must be check
-      // before combining them together to .
       ArrayList<String> commonIdentifiers = new ArrayList<String>(0);
       LOG.debug("getIdentifiersCommon:context,tagsList,searchPathName {},{},searchPathName",context,tagsList,searchPathName);
 

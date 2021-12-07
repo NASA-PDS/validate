@@ -761,7 +761,7 @@ public class ReferentialIntegrityUtil {
         // Regular label, all references listed in label (lidOrLidVidReferences) gets stored in contextReferencesCumulative.
         // The parent ID in the label is the logical indentifier.
         ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.contextReferencesCumulative,
-                                                          lidOrLidVidReferences,url,logicalIdentifiers.get(0));
+                                                          allContextLidOrLidVidReferencesPerLabel,url,logicalIdentifiers.get(0));
     }
 
     LOG.debug("collectAllContextReferences:url,contextReferencesCumulative {},{},{}",url,contextReferencesCumulative,contextReferencesCumulative.size());
