@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-07)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-08)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Context reference checks are including documents in Reference\_List [\#450](https://github.com/NASA-PDS/validate/issues/450) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
