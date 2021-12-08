@@ -1,15 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-07)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Validate does not correctly pass PDF/A files that are in a subdirectory [\#447](https://github.com/NASA-PDS/validate/issues/447) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-- Array Content Validator is not accepting values at the min/max due to false precision [\#435](https://github.com/NASA-PDS/validate/issues/435) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-11-24)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-07)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
@@ -26,8 +17,10 @@
 
 **Defects:**
 
+- Validate does not correctly pass PDF/A files that are in a subdirectory [\#447](https://github.com/NASA-PDS/validate/issues/447) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate is reporting a 'String index out of range' error for a text file [\#441](https://github.com/NASA-PDS/validate/issues/441) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Incorrect Warning for Missing document\_standard\_id is Stream\_Text [\#439](https://github.com/NASA-PDS/validate/issues/439) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Array Content Validator is not accepting values at the min/max due to false precision [\#435](https://github.com/NASA-PDS/validate/issues/435) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate warns "document standard id ... is not correct" on good labels [\#429](https://github.com/NASA-PDS/validate/issues/429) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not allow SIP tab file to have lines of differing lengths [\#424](https://github.com/NASA-PDS/validate/issues/424) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not allow a single-character subdirectory [\#423](https://github.com/NASA-PDS/validate/issues/423) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
