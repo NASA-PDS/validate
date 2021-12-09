@@ -1,6 +1,6 @@
 # Validate Tool
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5721507.svg)](https://doi.org/10.5281/zenodo.5721507) [![🤪 Unstable integration & delivery](https://github.com/NASA-PDS/validate/actions/workflows/unstable-cicd.yaml/badge.svg)](https://github.com/NASA-PDS/validate/actions/workflows/unstable-cicd.yaml) [![😌 Stable integration & delivery](https://github.com/NASA-PDS/validate/actions/workflows/stable-cicd.yaml/badge.svg)](https://github.com/NASA-PDS/validate/actions/workflows/stable-cicd.yaml)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5768151.svg)](https://doi.org/10.5281/zenodo.5768151) [![🤪 Unstable integration & delivery](https://github.com/NASA-PDS/validate/actions/workflows/unstable-cicd.yaml/badge.svg)](https://github.com/NASA-PDS/validate/actions/workflows/unstable-cicd.yaml) [![😌 Stable integration & delivery](https://github.com/NASA-PDS/validate/actions/workflows/stable-cicd.yaml/badge.svg)](https://github.com/NASA-PDS/validate/actions/workflows/stable-cicd.yaml)
 
 Project containing software for validating PDS4 products and PDS3 volumes. 
 The software is packaged in a JAR file with a command-line wrapper script
