@@ -71,7 +71,7 @@ POSSIBILITY OF SUCH DAMAGE.
   </scm>
   
   <properties>
-    <pds4-jparser.version>2.1.0-SNAPSHOT</pds4-jparser.version>
+    <pds4-jparser.version>2.1.1</pds4-jparser.version>
     <model-version>1F00</model-version>
     <pds3-product-tools.version>4.0.1</pds3-product-tools.version>
   </properties>
