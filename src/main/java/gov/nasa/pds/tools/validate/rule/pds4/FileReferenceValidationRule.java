@@ -438,8 +438,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                         passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, doctype, problems, problemType);
                     }
                   } else if (doctype.equalsIgnoreCase("UTF-8 Text") || doctype.equalsIgnoreCase("7-Bit ASCII Text") || doctype.equalsIgnoreCase("Rich Text")) {
-                    // Text files gets validated explicitly against ProblemType.NON_TEXT_FILE.
-                    passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename, parent, directory, documentStandardId, "TEXT", problems, ProblemType.NON_TEXT_FILE);
+                    // If text, pass through as true.
+                    continue;
                   }
                 }
               } catch (IOException io) {

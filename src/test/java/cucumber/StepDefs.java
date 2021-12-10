@@ -146,8 +146,6 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.NON_PNG_FILE.getKey());
             } else if (strTemp.equals("NON_HTML_FILE")) {
                 count = this.getMessageCount(reportJson, ProblemType.NON_HTML_FILE.getKey());
-            } else if (strTemp.equals("NON_TEXT_FILE")) {
-                count = this.getMessageCount(reportJson, ProblemType.NON_TEXT_FILE.getKey());
             } else if (strTemp.equals("NON_MSWORD_FILE")) {
                 count = this.getMessageCount(reportJson, ProblemType.NON_MSWORD_FILE.getKey());
             } else if (strTemp.equals("NON_MSEXCEL_FILE")) {

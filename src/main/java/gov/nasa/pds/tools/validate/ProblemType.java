@@ -196,8 +196,6 @@ public enum ProblemType {
 
     NON_HTML_FILE("warning.file.not_html_mimetype"),
 
-    NON_TEXT_FILE("warning.file.not_text_mimetype"),
-
     NON_MSWORD_FILE("warning.file.not_msword_mimetype"),
 
     NON_MSEXCEL_FILE("warning.file.not_msexcel_mimetype"),
