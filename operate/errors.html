@@ -29,7 +29,7 @@
           <ul class="breadcrumb">
         <li id="publishDate">Last Published: 2021-12-10<span class="divider">|</span>
 </li>
-          <li id="projectVersion">Version: 2.1.1</li>
+          <li id="projectVersion">Version: 2.1.2</li>
       <li class="pull-right"><a href="https://github.com/NASA-PDS/validate" class="externalLink" title="Validate Github Repo">Validate Github Repo</a></li>
           </ul>
         </div>
@@ -45,10 +45,10 @@
     <li class="active"><a href="#"><span class="none"></span>Common Errors</a></li>
     <li><a href="../index.html#Support" title="Support"><span class="none"></span>Support</a></li>
    <li class="nav-header">Downloads</li>
-    <li><a href="https://github.com/NASA-PDS/validate/releases/download/v2.1.1/validate-2.1.1-bin.tar.gz" class="externalLink" title="Current Release (tar.gz)"><span class="none"></span>Current Release (tar.gz)</a></li>
-    <li><a href="https://github.com/NASA-PDS/validate/releases/download/v2.1.1/validate-2.1.1-bin.zip" class="externalLink" title="Current Release (zip)"><span class="none"></span>Current Release (zip)</a></li>
+    <li><a href="https://github.com/NASA-PDS/validate/releases/download/v2.1.2/validate-2.1.2-bin.tar.gz" class="externalLink" title="Current Release (tar.gz)"><span class="none"></span>Current Release (tar.gz)</a></li>
+    <li><a href="https://github.com/NASA-PDS/validate/releases/download/v2.1.2/validate-2.1.2-bin.zip" class="externalLink" title="Current Release (zip)"><span class="none"></span>Current Release (zip)</a></li>
    <li class="nav-header">Change Log</li>
-    <li><a href="https://github.com/NASA-PDS/validate/blob/v2.1.1/CHANGELOG.md#v2.1.1" class="externalLink" title="Since v1.15.1"><span class="none"></span>Since v1.15.1</a></li>
+    <li><a href="https://github.com/NASA-PDS/validate/blob/v2.1.2/CHANGELOG.md#v2.1.2" class="externalLink" title="Since v1.15.1"><span class="none"></span>Since v1.15.1</a></li>
     <li><a href="../changes-report.html" title="Prior to v1.15.1"><span class="none"></span>Prior to v1.15.1</a></li>
    <li class="nav-header">Project Documentation</li>
     <li><a href="../project-info.html" title="Project Information"><span class="icon-chevron-right"></span>Project Information</a></li>
@@ -258,7 +258,7 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
     </section>
     
     <section>
-<h2><a name="PDF.2FA_Validation_Failure"></a>PDF/A Validation Failure</h2>
+<h2><a name="PDF.2FA_Issues"></a>PDF/A Issues</h2>
       
 <p><b>Description</b></p>
       
@@ -273,8 +273,23 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
       
 <p><b>Fixing the problem</b></p>
       
-<p>This error indicates your PDF is not PDF/A version 1a or 1b compliant. Contact your PDS Node representative or 
-        the <a class="externalLink" href="mailto:pds-operator@jpl.nasa.gov">PDS Operator</a> for assistance generating a compliant PDF/A.</p>
+<p>This error indicates your PDF is not PDF/A version 1a or 1b compliant. We are in the process of improving documentation for this, but in the 
+        meantime, you can look through the <a class="externalLink" href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Part-1-rules">VeraPDF Rules documentation</a>
+        and try to track down the issues occurring in your PDS.
+
+        Some common issues with documents being converted are:
+        </p>
+<ul>
+          
+<li>Embedded multimedia - PDF/A does not support embedded multimedia files</li>
+          
+<li>Proprietary fonts - Fonts protected by copyright cannot be copied into PDF/A. Some non-free fonts may be allowed when working with their originating programs (such as using Microsoft fonts with Word or PowerPoint), but they will prevent a converter from converting them to PDF/A later.</li>
+          
+<li>PDF/A does not support 3D models</li>
+        </ul>
+
+        If you are unable to debug, please contact your PDS Node representative or the 
+        <a class="externalLink" href="mailto:pds-operator@jpl.nasa.gov">PDS Operator</a> for assistance generating a compliant PDF/A.
     </section>
     
   
