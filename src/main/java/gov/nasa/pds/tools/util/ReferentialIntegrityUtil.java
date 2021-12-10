@@ -355,108 +355,108 @@ public class ReferentialIntegrityUtil {
    * Report a WARNING if any references in observational are not referenced in the parent bundle/collection Reference_List.
    * @return None
    */
-  public static void reportContextReferencesUnreferenced() {
-      // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
-      //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
-      LOG.debug("reportContextReferencesUnreferenced:referenceType,contextReferenceCheck {},{}",ReferentialIntegrityUtil.getReferenceType(),ReferentialIntegrityUtil.contextReferenceCheck);
-      // Only do the reporting if the user did not use the flag.
-      if (ReferentialIntegrityUtil.contextReferenceCheck == false) {
-          return;
-      }
-
-      try {
-        int indexToFilenames = 0;
-
-        HashMap<String,HashSetReferenceInfo> hashMapToCheck = null; 
-        Iterator iterator = null;
-        boolean referenceTypeIsCollection = false;
-
-        // If checking for bundle referential integrity, loop through all the references defined for all collections.
-        // If checking for collection referential integrity, loop through all the references defined for all labels (products).
-
-        if (ReferentialIntegrityUtil.getReferenceType().equals("bundle")) {
-            iterator = ReferentialIntegrityUtil.collectionReferenceMap.entrySet().iterator(); 
-            hashMapToCheck = ReferentialIntegrityUtil.bundleReferenceMap;
-        } else if (ReferentialIntegrityUtil.getReferenceType().equals("collection")) {
-            iterator = ReferentialIntegrityUtil.contextReferencesCumulative.entrySet().iterator();
-            hashMapToCheck = ReferentialIntegrityUtil.collectionReferenceMap;
-            referenceTypeIsCollection = true;
-        } else {
-             LOG.error("Expecting either 'bundle' or 'collection' for referenceType.  Received {}",ReferentialIntegrityUtil.getReferenceType());
-        }
-
-        HashSetReferenceInfo hashSetReferenceInfo = null;
-        ArrayList<String> references = null;
-        Map.Entry mapElement = null;
-        String hashKey = null;
-        boolean parentReferToChildFlag = false;
-
-        // Check that iterator is not null
-        if (iterator == null) {
-            LOG.warn("reportContextReferencesUnreferenced:Variable iterator is null");
-            return;
-        }
-
-        while (iterator.hasNext()) {
-            mapElement = (Map.Entry) iterator.next(); 
-            hashSetReferenceInfo = (HashSetReferenceInfo) mapElement.getValue();
-            references = hashSetReferenceInfo.getReferences();
-            hashKey = (String) mapElement.getKey();
-            // The parentId is the hashKey from this point on.
-
-            LOG.debug("reportContextReferencesUnreferenced:referenceType,hashKey,preferences.size {},{},{}",ReferentialIntegrityUtil.getReferenceType(),hashKey,references.size());
-            LOG.debug("reportContextReferencesUnreferenced:referenceType,hashKey {},{}",ReferentialIntegrityUtil.getReferenceType(),hashKey);
-
-            for (String singleLidOrLidvidReference : references) {
-                LOG.debug("reportContextReferencesUnreferenced:INSPECTING_REFERENCE:referenceType,hashKey,singleLidOrLidvidReference {},{},{}",ReferentialIntegrityUtil.referenceType,hashKey,singleLidOrLidvidReference);
-
-                LOG.debug("reportContextReferencesUnreferenced:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
-                parentReferToChildFlag = ReferentialIntegrityUtil.doesParentReferToChild(hashMapToCheck,singleLidOrLidvidReference,hashKey);
-                LOG.debug("reportContextReferencesUnreferenced:referenceType,singleLidOrLidvidReference,hashKey,parentReferToChildFlag {},{},{},{}",
-                    ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey,parentReferToChildFlag);
-
-                if (parentReferToChildFlag == false) {
-                    LOG.warn("reportContextReferencesUnreferenced:The context reference '{}' could not be found in the parent {} reference list.",singleLidOrLidvidReference,ReferentialIntegrityUtil.getReferenceType());
-                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
-                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,contextReferenceCheck {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,ReferentialIntegrityUtil.contextReferenceCheck);
-
-                    LOG.debug("reportContextReferencesUnreferenced:SET_CONTAINS_SINGLE_REFERENCE: {},{}",singleLidOrLidvidReference,ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference));
-                    // Only report the error/warning if it has not been reported before.  Also, use the URL of the parent bundle if it is not null.
-                    if (!ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference)) {
-                        URL urlToReport;
-                        if (ReferentialIntegrityUtil.parentBundleURL != null) {
-                            urlToReport = ReferentialIntegrityUtil.parentBundleURL;
-                        } else {
-                            urlToReport = hashSetReferenceInfo.getParentLabelFilename(); 
-                        }
-
-                        String errorMessage = "This file should reference '" + singleLidOrLidvidReference + "' because its child product with LIDVID " + hashKey + " references it.";
-                        LOG.warn(errorMessage + ":urlToReport: {}",urlToReport);  // Print the error to the log so we have it.
-
-                        // The returned value of getListener() should allow this class to add a new problem.
-                        getListener().addProblem(new ValidationProblem(new ProblemDefinition(
-                            ExceptionType.WARNING,
-                            ProblemType.MISSING_CONTEXT_REFERENCE,
-                            errorMessage),
-                            urlToReport));
-
-                        // Add this reference to reportedErrorsReferenceSet so it won't be reported again.
-                        ReferentialIntegrityUtil.reportedErrorsReferenceSet.add(singleLidOrLidvidReference);
-                    } else {
-                        LOG.debug("reportContextReferencesUnreferenced:ERROR_REPORTED_FOR_REFERENCE {}",singleLidOrLidvidReference);
-                    }
-                } else {
-                    LOG.debug("reportContextReferencesUnreferenced:Reference {} does indeed occur in bundle/collection Reference_List",singleLidOrLidvidReference);
-                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_TRUE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
-                }
-
-            } // end for loop
-        } // end while loop
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
-    return;
-  }
+//  public static void reportContextReferencesUnreferenced() {
+//      // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
+//      //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
+//      LOG.debug("reportContextReferencesUnreferenced:referenceType,contextReferenceCheck {},{}",ReferentialIntegrityUtil.getReferenceType(),ReferentialIntegrityUtil.contextReferenceCheck);
+//      // Only do the reporting if the user did not use the flag.
+//      if (ReferentialIntegrityUtil.contextReferenceCheck == false) {
+//          return;
+//      }
+//
+//      try {
+//        int indexToFilenames = 0;
+//
+//        HashMap<String,HashSetReferenceInfo> hashMapToCheck = null; 
+//        Iterator iterator = null;
+//        boolean referenceTypeIsCollection = false;
+//
+//        // If checking for bundle referential integrity, loop through all the references defined for all collections.
+//        // If checking for collection referential integrity, loop through all the references defined for all labels (products).
+//
+//        if (ReferentialIntegrityUtil.getReferenceType().equals("bundle")) {
+//            iterator = ReferentialIntegrityUtil.collectionReferenceMap.entrySet().iterator(); 
+//            hashMapToCheck = ReferentialIntegrityUtil.bundleReferenceMap;
+//        } else if (ReferentialIntegrityUtil.getReferenceType().equals("collection")) {
+//            iterator = ReferentialIntegrityUtil.contextReferencesCumulative.entrySet().iterator();
+//            hashMapToCheck = ReferentialIntegrityUtil.collectionReferenceMap;
+//            referenceTypeIsCollection = true;
+//        } else {
+//             LOG.error("Expecting either 'bundle' or 'collection' for referenceType.  Received {}",ReferentialIntegrityUtil.getReferenceType());
+//        }
+//
+//        HashSetReferenceInfo hashSetReferenceInfo = null;
+//        ArrayList<String> references = null;
+//        Map.Entry mapElement = null;
+//        String hashKey = null;
+//        boolean parentReferToChildFlag = false;
+//
+//        // Check that iterator is not null
+//        if (iterator == null) {
+//            LOG.warn("reportContextReferencesUnreferenced:Variable iterator is null");
+//            return;
+//        }
+//
+//        while (iterator.hasNext()) {
+//            mapElement = (Map.Entry) iterator.next(); 
+//            hashSetReferenceInfo = (HashSetReferenceInfo) mapElement.getValue();
+//            references = hashSetReferenceInfo.getReferences();
+//            hashKey = (String) mapElement.getKey();
+//            // The parentId is the hashKey from this point on.
+//
+//            LOG.debug("reportContextReferencesUnreferenced:referenceType,hashKey,preferences.size {},{},{}",ReferentialIntegrityUtil.getReferenceType(),hashKey,references.size());
+//            LOG.debug("reportContextReferencesUnreferenced:referenceType,hashKey {},{}",ReferentialIntegrityUtil.getReferenceType(),hashKey);
+//
+//            for (String singleLidOrLidvidReference : references) {
+//                LOG.debug("reportContextReferencesUnreferenced:INSPECTING_REFERENCE:referenceType,hashKey,singleLidOrLidvidReference {},{},{}",ReferentialIntegrityUtil.referenceType,hashKey,singleLidOrLidvidReference);
+//
+//                LOG.debug("reportContextReferencesUnreferenced:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
+//                parentReferToChildFlag = ReferentialIntegrityUtil.doesParentReferToChild(hashMapToCheck,singleLidOrLidvidReference,hashKey);
+//                LOG.debug("reportContextReferencesUnreferenced:referenceType,singleLidOrLidvidReference,hashKey,parentReferToChildFlag {},{},{},{}",
+//                    ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey,parentReferToChildFlag);
+//
+//                if (parentReferToChildFlag == false) {
+//                    LOG.warn("reportContextReferencesUnreferenced:The context reference '{}' could not be found in the parent {} reference list.",singleLidOrLidvidReference,ReferentialIntegrityUtil.getReferenceType());
+//                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
+//                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_FALSE:referenceType,singleLidOrLidvidReference,contextReferenceCheck {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,ReferentialIntegrityUtil.contextReferenceCheck);
+//
+//                    LOG.debug("reportContextReferencesUnreferenced:SET_CONTAINS_SINGLE_REFERENCE: {},{}",singleLidOrLidvidReference,ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference));
+//                    // Only report the error/warning if it has not been reported before.  Also, use the URL of the parent bundle if it is not null.
+//                    if (!ReferentialIntegrityUtil.reportedErrorsReferenceSet.contains(singleLidOrLidvidReference)) {
+//                        URL urlToReport;
+//                        if (ReferentialIntegrityUtil.parentBundleURL != null) {
+//                            urlToReport = ReferentialIntegrityUtil.parentBundleURL;
+//                        } else {
+//                            urlToReport = hashSetReferenceInfo.getParentLabelFilename(); 
+//                        }
+//
+//                        String errorMessage = "This file should reference '" + singleLidOrLidvidReference + "' because its child product with LIDVID " + hashKey + " references it.";
+//                        LOG.warn(errorMessage + ":urlToReport: {}",urlToReport);  // Print the error to the log so we have it.
+//
+//                        // The returned value of getListener() should allow this class to add a new problem.
+//                        getListener().addProblem(new ValidationProblem(new ProblemDefinition(
+//                            ExceptionType.WARNING,
+//                            ProblemType.MISSING_CONTEXT_REFERENCE,
+//                            errorMessage),
+//                            urlToReport));
+//
+//                        // Add this reference to reportedErrorsReferenceSet so it won't be reported again.
+//                        ReferentialIntegrityUtil.reportedErrorsReferenceSet.add(singleLidOrLidvidReference);
+//                    } else {
+//                        LOG.debug("reportContextReferencesUnreferenced:ERROR_REPORTED_FOR_REFERENCE {}",singleLidOrLidvidReference);
+//                    }
+//                } else {
+//                    LOG.debug("reportContextReferencesUnreferenced:Reference {} does indeed occur in bundle/collection Reference_List",singleLidOrLidvidReference);
+//                    LOG.debug("reportContextReferencesUnreferenced:VALIDATING_REFERENCE_EXISTENCE_TRUE:referenceType,singleLidOrLidvidReference,hashKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleLidOrLidvidReference,hashKey);
+//                }
+//
+//            } // end for loop
+//        } // end while loop
+//      } catch (Exception e) {
+//          e.printStackTrace();
+//      }
+//    return;
+//  }
 
   private static boolean hasReferenceIDAndFilenameComboAdded(String singleLidorLidVidReference, URL filename) {
       boolean referenceIDAndFilenameComboAddedFlag = false;
@@ -558,35 +558,35 @@ public class ReferentialIntegrityUtil {
       }   
   }
 
-  private static void addUniqueReferenceToBundleOrCollectionReferenceList(ArrayList<String> contextLidOrLidVidReferences, URL url, String parentId) {
-      // Given a list of references, add unique referrences to ReferentialIntegrityUtil.contextReferencesCumulative
-      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:contextLidOrLidVidReferences.size {},{}",contextLidOrLidVidReferences.size(),url);
-      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:parentId,contextLidOrLidVidReferences.size {},{},{}",parentId,contextLidOrLidVidReferences.size(),url);
-
-      for (String singleReference : contextLidOrLidVidReferences) {
-          // Check if parentId exist yet in contextReferencesCumulative.  If yes, add the new singleReference to the list of references for parentId
-          //if (ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.keySet().contains(parentId)) {
-          if (ReferentialIntegrityUtil.contextReferencesCumulative.keySet().contains(parentId)) {
-              //HashSet setOfReferences = ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.get(parentId);
-              HashSetReferenceInfo setOfReferences = ReferentialIntegrityUtil.contextReferencesCumulative.get(parentId);
-              if (setOfReferences.doesReferenceExist(singleReference) == false) {
-                  // Add the new reference if setOfReferences does not already contains it.
-                  setOfReferences.addReference(singleReference,url);
-                  LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:ADDING_REFERENCE_TO_PARENT_EXISTING:parentId,singleReference {},{}",parentId,singleReference);
-              } else {
-                  LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:Reference {} already exist in parent set {}",singleReference,parentId);
-              }
-          } else {
-              HashSetReferenceInfo setOfReferences = new HashSetReferenceInfo();
-              setOfReferences.addReference(singleReference,url);
-              //ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.put(parentId,setOfReferences);
-              ReferentialIntegrityUtil.contextReferencesCumulative.put(parentId,setOfReferences);
-              LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:ADDING_REFERENCE_TO_PARENT_NEW:parentId,singleReference {},{}",parentId,singleReference);
-          }
-          LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:parentId,singleReference {},{}",parentId,singleReference);
-      }
-      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:bundleOrCollectionReferenceMap.size(),url {}",ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.size(),contextLidOrLidVidReferences.size(),url);
-  }
+//  private static void addUniqueReferenceToBundleOrCollectionReferenceList(ArrayList<String> contextLidOrLidVidReferences, URL url, String parentId) {
+//      // Given a list of references, add unique referrences to ReferentialIntegrityUtil.contextReferencesCumulative
+//      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:contextLidOrLidVidReferences.size {},{}",contextLidOrLidVidReferences.size(),url);
+//      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:parentId,contextLidOrLidVidReferences.size {},{},{}",parentId,contextLidOrLidVidReferences.size(),url);
+//
+//      for (String singleReference : contextLidOrLidVidReferences) {
+//          // Check if parentId exist yet in contextReferencesCumulative.  If yes, add the new singleReference to the list of references for parentId
+//          //if (ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.keySet().contains(parentId)) {
+//          if (ReferentialIntegrityUtil.contextReferencesCumulative.keySet().contains(parentId)) {
+//              //HashSet setOfReferences = ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.get(parentId);
+//              HashSetReferenceInfo setOfReferences = ReferentialIntegrityUtil.contextReferencesCumulative.get(parentId);
+//              if (setOfReferences.doesReferenceExist(singleReference) == false) {
+//                  // Add the new reference if setOfReferences does not already contains it.
+//                  setOfReferences.addReference(singleReference,url);
+//                  LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:ADDING_REFERENCE_TO_PARENT_EXISTING:parentId,singleReference {},{}",parentId,singleReference);
+//              } else {
+//                  LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:Reference {} already exist in parent set {}",singleReference,parentId);
+//              }
+//          } else {
+//              HashSetReferenceInfo setOfReferences = new HashSetReferenceInfo();
+//              setOfReferences.addReference(singleReference,url);
+//              //ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.put(parentId,setOfReferences);
+//              ReferentialIntegrityUtil.contextReferencesCumulative.put(parentId,setOfReferences);
+//              LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:ADDING_REFERENCE_TO_PARENT_NEW:parentId,singleReference {},{}",parentId,singleReference);
+//          }
+//          LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:parentId,singleReference {},{}",parentId,singleReference);
+//      }
+//      LOG.debug("addUniqueReferenceToBundleOrCollectionReferenceList:bundleOrCollectionReferenceMap.size(),url {}",ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.size(),contextLidOrLidVidReferences.size(),url);
+//  }
 
 
   private static void addUniqueReferencesToMap(HashMap<String,HashSetReferenceInfo> hashMap, ArrayList<String> contextLidOrLidVidReferences, URL url, String parentId) {
@@ -624,79 +624,79 @@ public class ReferentialIntegrityUtil {
   }
 
 
-  private static ArrayList<String> getKeysMatchingParent(HashMap<String,HashSetReferenceInfo> hashMap, String parentId) {
+//  private static ArrayList<String> getKeysMatchingParent(HashMap<String,HashSetReferenceInfo> hashMap, String parentId) {
+//
+//     boolean setsContainsParentId = false;
+//     String[] parentTokens = parentId.split("::");    // urn:nasa:pds:kaguya_grs_spectra:data_spectra:kgrs_calibrated_spectra_per1
+//     ArrayList<String> keysToMap = new ArrayList<String>();
+//
+//     for (Map.Entry mapElement : hashMap.entrySet()) {
+//            String key = (String)mapElement.getKey(); // urn:nasa:pds:kaguya_grs_spectra:data_spectra::1.0
+//            String[] keysToken = key.split("::");     // urn:nasa:pds:kaguya_grs_spectra:data_spectra
+//            // Check if they keys and portion of the parentId are close enough.
+//            if (keysToken[0].contains(parentTokens[0]) || parentTokens[0].contains(keysToken[0])) {
+//                setsContainsParentId = true;
+//                keysToMap.add(key); // These values will be used to fetch the appropriate values from hashMap. 
+//            }
+//      } 
+//      return(keysToMap);
+//  }
 
-     boolean setsContainsParentId = false;
-     String[] parentTokens = parentId.split("::");    // urn:nasa:pds:kaguya_grs_spectra:data_spectra:kgrs_calibrated_spectra_per1
-     ArrayList<String> keysToMap = new ArrayList<String>();
+//  private static boolean isSetContainingReference(HashMap<String,HashSetReferenceInfo> hashMap, String parentId,  ArrayList<String> keysToMap, String singleReference) {
+//     boolean setsContainsReference = false;
+//
+//     ArrayList<String> references = null;
+//     if (keysToMap == null) {
+//         return(setsContainsReference);
+//     } else {
+//         for (String singleKey : keysToMap) {
+//                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey);
+//                HashSetReferenceInfo hashSetReferenceInfo = (HashSetReferenceInfo) hashMap.get(singleKey);
+//    
+//                references = hashSetReferenceInfo.getReferences();
+//                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleKey,references {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleKey,references);
+//                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey,references.size {},{},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey,references.size());
+//                if (references != null && references.contains(singleReference)) {
+//                    setsContainsReference = true;
+//                    break;
+//                }
+//          }
+//      }
+//      return(setsContainsReference);
+//  }
 
-     for (Map.Entry mapElement : hashMap.entrySet()) {
-            String key = (String)mapElement.getKey(); // urn:nasa:pds:kaguya_grs_spectra:data_spectra::1.0
-            String[] keysToken = key.split("::");     // urn:nasa:pds:kaguya_grs_spectra:data_spectra
-            // Check if they keys and portion of the parentId are close enough.
-            if (keysToken[0].contains(parentTokens[0]) || parentTokens[0].contains(keysToken[0])) {
-                setsContainsParentId = true;
-                keysToMap.add(key); // These values will be used to fetch the appropriate values from hashMap. 
-            }
-      } 
-      return(keysToMap);
-  }
-
-  private static boolean isSetContainingReference(HashMap<String,HashSetReferenceInfo> hashMap, String parentId,  ArrayList<String> keysToMap, String singleReference) {
-     boolean setsContainsReference = false;
-
-     ArrayList<String> references = null;
-     if (keysToMap == null) {
-         return(setsContainsReference);
-     } else {
-         for (String singleKey : keysToMap) {
-                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey {},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey);
-                HashSetReferenceInfo hashSetReferenceInfo = (HashSetReferenceInfo) hashMap.get(singleKey);
-    
-                references = hashSetReferenceInfo.getReferences();
-                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleKey,references {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleKey,references);
-                LOG.debug("isSetContainingReference:getReferenceType,parentId,singleReference,singleKey,references.size {},{},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),parentId,singleReference,singleKey,references.size());
-                if (references != null && references.contains(singleReference)) {
-                    setsContainsReference = true;
-                    break;
-                }
-          }
-      }
-      return(setsContainsReference);
-  }
-
-  private static boolean doesParentReferToChild(HashMap<String,HashSetReferenceInfo> hashMap, String singleReference, String parentId) {
-     // Given a child reference, check to see if any parent refers to the child reference.
-     // The Map used will be determined by the referenceType.
-     //     referenceType "bundle" uses bundleReferenceMap
-     //     referenceType "collection" uses collectionReferenceMap
-
-     // The keySet may contain values such as urn:nasa:pds:kaguya_grs_spectra:data_spectra::1.0 but
-     // the parentId may be urn:nasa:pds:kaguya_grs_spectra:data_spectra:kgrs_calibrated_spectra_per1::1.0
-     // so cannot use the contains() function to check.  New function getKeysMatchingParent() has been created to perform that look up.
-
-     boolean parentReferToChildFlag = false;
-     ArrayList<String> keysToMap = ReferentialIntegrityUtil.getKeysMatchingParent(hashMap,parentId);
-
-     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,parentId {},{}",ReferentialIntegrityUtil.getReferenceType(),parentId);
-     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,hashMap.keySet {},{}",ReferentialIntegrityUtil.getReferenceType(),hashMap.keySet());
-
-     // Check if parentId exist yet in hashMap.  If yes, check if the child belong to the parent.
-     if (keysToMap.size() > 0) {
-         parentReferToChildFlag = ReferentialIntegrityUtil.isSetContainingReference(hashMap,parentId,keysToMap,singleReference);
-         if (parentReferToChildFlag == true) {
-             LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_TRUE:parentId,singleReference {},{}",parentId,singleReference);
-         } else {
-             // The child has a last name but the parent with the same last name does not have the child with the first name.
-             LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_FALSE:singleReference,parentId {},{}",singleReference,parentId);
-         }
-     } else {
-         // The child is an orphan.  No parent.
-         LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_FALSE:singleReference,parentId {},{}",singleReference,parentId);
-     }
-     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,singleReference,parentId,parentReferToChildFlag {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleReference,parentId,parentReferToChildFlag);
-     return(parentReferToChildFlag);
-  }
+//  private static boolean doesParentReferToChild(HashMap<String,HashSetReferenceInfo> hashMap, String singleReference, String parentId) {
+//     // Given a child reference, check to see if any parent refers to the child reference.
+//     // The Map used will be determined by the referenceType.
+//     //     referenceType "bundle" uses bundleReferenceMap
+//     //     referenceType "collection" uses collectionReferenceMap
+//
+//     // The keySet may contain values such as urn:nasa:pds:kaguya_grs_spectra:data_spectra::1.0 but
+//     // the parentId may be urn:nasa:pds:kaguya_grs_spectra:data_spectra:kgrs_calibrated_spectra_per1::1.0
+//     // so cannot use the contains() function to check.  New function getKeysMatchingParent() has been created to perform that look up.
+//
+//     boolean parentReferToChildFlag = false;
+//     ArrayList<String> keysToMap = ReferentialIntegrityUtil.getKeysMatchingParent(hashMap,parentId);
+//
+//     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,parentId {},{}",ReferentialIntegrityUtil.getReferenceType(),parentId);
+//     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,hashMap.keySet {},{}",ReferentialIntegrityUtil.getReferenceType(),hashMap.keySet());
+//
+//     // Check if parentId exist yet in hashMap.  If yes, check if the child belong to the parent.
+//     if (keysToMap.size() > 0) {
+//         parentReferToChildFlag = ReferentialIntegrityUtil.isSetContainingReference(hashMap,parentId,keysToMap,singleReference);
+//         if (parentReferToChildFlag == true) {
+//             LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_TRUE:parentId,singleReference {},{}",parentId,singleReference);
+//         } else {
+//             // The child has a last name but the parent with the same last name does not have the child with the first name.
+//             LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_FALSE:singleReference,parentId {},{}",singleReference,parentId);
+//         }
+//     } else {
+//         // The child is an orphan.  No parent.
+//         LOG.debug("doesParentReferToChild:CHILD_BELONG_TO_PARENT_FALSE:singleReference,parentId {},{}",singleReference,parentId);
+//     }
+//     LOG.debug("doesParentReferToChild:ReferentialIntegrityUtil.getReferenceType,singleReference,parentId,parentReferToChildFlag {},{},{},{}",ReferentialIntegrityUtil.getReferenceType(),singleReference,parentId,parentReferToChildFlag);
+//     return(parentReferToChildFlag);
+//  }
 
   private static void collectAllContextReferences(DOMSource domSource, ArrayList<String> logicalIdentifiers, ArrayList<String> lidOrLidVidReferences,
                                                   boolean labelIsBundleFlag, boolean labelIsCollectionFlag,

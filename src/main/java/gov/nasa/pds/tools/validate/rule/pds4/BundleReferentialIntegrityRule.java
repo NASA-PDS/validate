@@ -150,7 +150,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
     //
     // Use the refactored function(s) in ReferentialIntegrityUtil class.
 
-    ReferentialIntegrityUtil.reportContextReferencesUnreferenced();
+//    ReferentialIntegrityUtil.reportContextReferencesUnreferenced();
 
   }
   

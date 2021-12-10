@@ -195,11 +195,6 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#345 VALID" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid.json -s json -t {resourceDir}/github345/astro_sample_t.xml" | "report_github345_label_valid.json" |
  |"NASA-PDS/validate#345 VALID_2" | "github345" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github345_label_valid_2.json -s json -t {resourceDir}/github345/astro_sample_data_t.xml" | "report_github345_label_valid_2.json" |
 
-# https://github.com/NASA-PDS/validate/issues/69 As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List 
- |"NASA-PDS/validate#69 INVALID_1" | "github69" | 4 | "4 MISSING_CONTEXT_REFERENCE messages expected." | "MISSING_CONTEXT_REFERENCE" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation -r {reportDir}/report_github69_bundle_invalid_1.json -s json -t {resourceDir}/github69/invalid/bundle_kaguya_derived.xml" | "report_github69_bundle_invalid_1.json" |
- |"NASA-PDS/validate#69 INVALID_2" | "github69" | 4 | "4 MISSING_CONTEXT_REFERENCE messages expected." | "MISSING_CONTEXT_REFERENCE" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-product-validation -r {reportDir}/report_github69_collection_invalid_2.json -s json -t {resourceDir}/github69/invalid_2/bundle_kaguya_derived.xml" | "report_github69_collection_invalid_2.json" |
- |"NASA-PDS/validate#69 INVALID_3" | "github69" | 0  | "0  MISSING_CONTEXT_REFERENCE messages expected." | "MISSING_CONTEXT_REFERENCE" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-context-reference-check --skip-product-validation -r {reportDir}/report_github69_collection_invalid_3.json -s json -t {resourceDir}/github69/invalid_2/bundle_kaguya_derived.xml" | "report_github69_collection_invalid_3.json" |
-
 # https://github.com/NASA-PDS/validate/issues/355 Improve validate reporting when trying to read a null row
 # https://github.com/nasa-pds/validate/issues/357 Validate allows CRLF within a Table_Delimited field
  
