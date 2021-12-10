@@ -121,7 +121,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
 
     // Report any references declared in labels but not referenced in the parent bundle.
-    ReferentialIntegrityUtil.reportContextReferencesUnreferenced();
+//    ReferentialIntegrityUtil.reportContextReferencesUnreferenced();
 
   }
   
