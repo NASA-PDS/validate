@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-08)
+## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
 
@@ -8,7 +8,6 @@
 
 - Improve PDF/A validation to include more robust reporting on failures [\#388](https://github.com/NASA-PDS/validate/issues/388)
 - As a user, I want to check that all Internal References are valid references to other PDS4 products within the current validating bundle [\#308](https://github.com/NASA-PDS/validate/issues/308)
-- As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference\_List [\#69](https://github.com/NASA-PDS/validate/issues/69)
 
 **Improvements:**
 
@@ -17,7 +16,6 @@
 
 **Defects:**
 
-- Context reference checks are including documents in Reference\_List [\#450](https://github.com/NASA-PDS/validate/issues/450) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not correctly pass PDF/A files that are in a subdirectory [\#447](https://github.com/NASA-PDS/validate/issues/447) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate is reporting a 'String index out of range' error for a text file [\#441](https://github.com/NASA-PDS/validate/issues/441) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Incorrect Warning for Missing document\_standard\_id is Stream\_Text [\#439](https://github.com/NASA-PDS/validate/issues/439) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
