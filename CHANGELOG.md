@@ -1,5 +1,17 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...«unknown»)
+
+**Defects:**
+
+- validate flags .ASC extension as invalid but offers not expected suffices [\#457](https://github.com/NASA-PDS/validate/issues/457)
+
+## [v2.1.1](https://github.com/NASA-PDS/validate/tree/v2.1.1) (2021-12-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...v2.1.1)
+
 ## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
@@ -145,7 +157,6 @@
 - Update installation documentation to include 64-bit Java as system requirement [\#264](https://github.com/NASA-PDS/validate/issues/264)
 - validate does not perform expediently when doing bundle-level validation against large bundles [\#254](https://github.com/NASA-PDS/validate/issues/254)
 - Implement initial behavioral testing framework with cucumber [\#252](https://github.com/NASA-PDS/validate/issues/252)
-- Improvements for validating accumulating bundles / collections [\#249](https://github.com/NASA-PDS/validate/issues/249)
 - Add output directory flag to validate-bundle tool [\#246](https://github.com/NASA-PDS/validate/issues/246)
 - validate does not perform full bundle validation when using a specific bundle.xml [\#238](https://github.com/NASA-PDS/validate/issues/238)
 - Update validate per SR requirements for collection inventories [\#230](https://github.com/NASA-PDS/validate/issues/230)
