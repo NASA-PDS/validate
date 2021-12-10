@@ -1,1 +1,1 @@
-/Library/Java/JavaVirtualMachines/jdk1.8.0_291.jdk/Contents/Home/jre/../bin/javadoc @options @packages
+/usr/lib/jvm/java-1.8-openjdk/jre/../bin/javadoc @options @packages
