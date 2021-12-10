@@ -2,7 +2,15 @@
 
 ## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-10)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.2-SNAPSHOT...«unknown»)
+
+**Other closed issues:**
+
+- Update PDF/A documentation to include link to VeraPDF validation rules [\#454](https://github.com/NASA-PDS/validate/issues/454)
+
+## [v2.1.2-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.2-SNAPSHOT) (2021-12-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...v2.1.2-SNAPSHOT)
 
 **Defects:**
 
@@ -10,11 +18,7 @@
 
 ## [v2.1.1](https://github.com/NASA-PDS/validate/tree/v2.1.1) (2021-12-10)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...v2.1.1)
-
-## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-10)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.1.1)
 
 **Requirements:**
 
