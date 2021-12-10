@@ -178,7 +178,7 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
       </source>
     </section>
     
-    <section name="PDF/A Validation Failure">
+    <section name="PDF/A Issues">
       <p><b>Description</b></p>
       <p>
         When attempting to validate a Document product as PDF/A, you get an error like:
@@ -188,8 +188,19 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
       </source>
       
       <p><b>Fixing the problem</b></p>
-      <p>This error indicates your PDF is not PDF/A version 1a or 1b compliant. Contact your PDS Node representative or 
-        the <a href="mailto:pds-operator@jpl.nasa.gov">PDS Operator</a> for assistance generating a compliant PDF/A.</p>
+      <p>This error indicates your PDF is not PDF/A version 1a or 1b compliant. We are in the process of improving documentation for this, but in the 
+        meantime, you can look through the <a href="https://github.com/veraPDF/veraPDF-validation-profiles/wiki/PDFA-Part-1-rules">VeraPDF Rules documentation</a>
+        and try to track down the issues occurring in your PDS.
+
+        Some common issues with documents being converted are:
+        <ul>
+          <li>Embedded multimedia - PDF/A does not support embedded multimedia files</li>
+          <li>Proprietary fonts - Fonts protected by copyright cannot be copied into PDF/A. Some non-free fonts may be allowed when working with their originating programs (such as using Microsoft fonts with Word or PowerPoint), but they will prevent a converter from converting them to PDF/A later.</li>
+          <li>PDF/A does not support 3D models</li>
+        </ul>
+
+        If you are unable to debug, please contact your PDS Node representative or the 
+        <a href="mailto:pds-operator@jpl.nasa.gov">PDS Operator</a> for assistance generating a compliant PDF/A.</p>
     </section>
     
   </body>
