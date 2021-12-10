@@ -1,13 +1,5 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-08)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Context reference checks are including documents in Reference\_List [\#450](https://github.com/NASA-PDS/validate/issues/450) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
 ## [v2.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.0-SNAPSHOT) (2021-12-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.0...v2.2.0-SNAPSHOT)
@@ -25,6 +17,7 @@
 
 **Defects:**
 
+- Context reference checks are including documents in Reference\_List [\#450](https://github.com/NASA-PDS/validate/issues/450) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not correctly pass PDF/A files that are in a subdirectory [\#447](https://github.com/NASA-PDS/validate/issues/447) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate is reporting a 'String index out of range' error for a text file [\#441](https://github.com/NASA-PDS/validate/issues/441) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Incorrect Warning for Missing document\_standard\_id is Stream\_Text [\#439](https://github.com/NASA-PDS/validate/issues/439) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
