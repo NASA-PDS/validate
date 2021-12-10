@@ -1,13 +1,5 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-10)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.2-SNAPSHOT...«unknown»)
-
-**Other closed issues:**
-
-- Update PDF/A documentation to include link to VeraPDF validation rules [\#454](https://github.com/NASA-PDS/validate/issues/454)
-
 ## [v2.1.2-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.2-SNAPSHOT) (2021-12-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...v2.1.2-SNAPSHOT)
@@ -15,6 +7,10 @@
 **Defects:**
 
 - validate flags .ASC extension as invalid but offers not expected suffices [\#457](https://github.com/NASA-PDS/validate/issues/457)
+
+**Other closed issues:**
+
+- Update PDF/A documentation to include link to VeraPDF validation rules [\#454](https://github.com/NASA-PDS/validate/issues/454)
 
 ## [v2.1.1](https://github.com/NASA-PDS/validate/tree/v2.1.1) (2021-12-10)
 
