@@ -22,7 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.BufferUnderflowException;
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -100,7 +99,6 @@ import gov.nasa.pds.validate.constants.Constants;
 public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
   private int PROGRESS_COUNTER = 0;
-  private static final int LINE_FEED_IN_ASCII = (int) '\n';
   private TableUtil tableUtil = null;
 
   /** Used in evaluating xpath expressions. */
@@ -869,7 +867,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
       FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
-      long definedTotalRecords = 0, actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
+      long actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
 
       LOG.debug("validateTableDataContents:getTarget,tableObjects.size {},{}",getTarget(),tableObjects.size());
       
@@ -1029,8 +1027,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
         } 
         
-        { // issue_220
-        	definedTotalRecords += definedNumRecords;  
+        { // issue_220  
         	if (tableObjects.size()==tableIndex) {   		
         		String message = "Number of records read is not equal "
         				+ "to the defined number of records in the label (expected "

@@ -13,8 +13,6 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import gov.nasa.pds.tools.validate.ValidationTarget;
-
 import java.util.Collection;
 import java.util.Map;
 

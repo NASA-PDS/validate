@@ -23,8 +23,6 @@ import java.io.StringWriter;
 import java.time.format.DateTimeFormatter;  
 import java.time.LocalDateTime;    
 
-import gov.nasa.pds.tools.util.FlagsUtil;
-
 import org.apache.commons.io.FileUtils;
 
 import org.slf4j.Logger;

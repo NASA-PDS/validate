@@ -14,10 +14,7 @@
 package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.TargetType;
 
-import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.apache.commons.io.FilenameUtils;

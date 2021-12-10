@@ -35,7 +35,6 @@ import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,15 +54,6 @@ public class ValidatorFactory {
   
   /** A list of DocumentValidator objects. */
   private List<DocumentValidator> documentValidators;
-
-  /** The model version to use when performing validation. */
-  private String modelVersion;
-
-  /** Private constructor. */
-  private ValidatorFactory() {
-    documentValidators = new ArrayList<DocumentValidator>();
-    modelVersion = "";
-  }
 
   /** Gets an instance of the factory.
    *
@@ -103,14 +93,6 @@ public class ValidatorFactory {
    */
   public void setDocumentValidators(List<DocumentValidator> validators) {
     this.documentValidators = validators;
-  }
-
-  /**
-   *
-   * @param modelVersion The model version.
-   */
-  public void setModelVersion(String modelVersion) {
-    this.modelVersion = modelVersion;
   }
   
  public void flush() {

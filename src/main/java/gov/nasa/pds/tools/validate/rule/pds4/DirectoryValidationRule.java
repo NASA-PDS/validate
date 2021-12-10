@@ -16,8 +16,6 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationChain;
 
-import java.util.regex.Pattern;
-
 /**
  * Implements a rule chain for validating PDS4 directories, but not
  * necessarily bundles or collections.

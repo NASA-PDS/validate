@@ -14,7 +14,6 @@
 package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 
 import java.net.URL;

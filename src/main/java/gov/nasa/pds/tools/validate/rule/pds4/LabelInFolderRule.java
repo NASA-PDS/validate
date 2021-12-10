@@ -45,8 +45,6 @@ import org.slf4j.LoggerFactory;
 public class LabelInFolderRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(LabelInFolderRule.class);
-  private static final String XML_SUFFIX = ".xml";
-  private static final long THREAD_TIMEOUT = 100; // HOURS
   private double totalTimeElapsed = 0.0;
 
   private ExecutorService validateThreadExecutor;

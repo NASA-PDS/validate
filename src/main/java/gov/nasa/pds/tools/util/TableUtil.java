@@ -17,8 +17,6 @@ import java.net.URL;
 
 import java.util.Scanner;
 
-import gov.nasa.pds.tools.util.DocumentUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

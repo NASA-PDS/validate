@@ -13,8 +13,6 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
 // TODO: Find exact problem.
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 
-import javax.xml.xpath.XPathFactory;
-
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 import java.net.URL;
@@ -42,10 +40,6 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
     private static final String TEXT_TABLE_PATH
         = "//*:Table_Character" + NS_TEST;
 
-    private static final String TEXT_TABLE_RECORD_LENGTH_PATH
-        = "*:Record_Character" + NS_TEST
-        + "/*:record_length" + NS_TEST;
-
     private static final String TEXT_FIELD_PATH
         = "*:Record_Character" + NS_TEST
         + "/*:Field_Character" + NS_TEST;
@@ -57,10 +51,6 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
     private static final String BINARY_TABLE_PATH
         = "//*:Table_Binary" + NS_TEST;
 
-    private static final String BINARY_TABLE_RECORD_LENGTH_PATH
-        = "*:Record_Binary" + NS_TEST
-        + "/*:record_length" + NS_TEST;
-
     private static final String BINARY_FIELD_PATH
         = "*:Record_Binary" + NS_TEST
         + "/*:Field_Binary" + NS_TEST;
@@ -68,8 +58,6 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
     private static final String BINARY_GROUP_FIELD_PATH
         = "*:Record_Binary" + NS_TEST
         + "/*:Group_Field_Binary" + NS_TEST;
-
-    private XPathFactory xPathFactory;
 
 
     // Used in checking for ASCII String related fields: should not have '+' in the format.
@@ -100,10 +88,6 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
     private static String RECORD_CHARACTER        = TABLE_CHARACTER + "/Record_Character";
     private static String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
     private static String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
-    private static String FIELD_CHARACTER_FIELD_FORMAT = FIELD_CHARACTER + "/field_format";
-    private static String FIELD_CHARACTER_DESCRIPTION  = FIELD_CHARACTER + "/description";
-    private static String FIELD_CHARACTER_TYPE         = FIELD_CHARACTER + "/data_type";
-    private static String FIELD_CHARACTER_NUMBER       = FIELD_CHARACTER + "/field_number";
 
     private static String FIELD_FORMAT_SIMPLE = "field_format";  // Used to retrieve individual field from node and not document.
     private static String DATA_TYPE_SIMPLE    = "data_type";     // Used to retrieve individual field from node and not document.
@@ -114,7 +98,6 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
      * Creates a new instance.
      */
     public TableFieldDefinitionRule() {
-        xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
     }
 
     @Override

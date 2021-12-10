@@ -24,12 +24,9 @@ import java.net.URL;
  * errors.
  */
 public class ExceptionProcessor implements ExceptionHandler {
-
-  private ProblemListener listener;
   private URL target;
 
   public ExceptionProcessor(ProblemListener listener, URL target) {
-    this.listener = listener;
     this.target = target;
   }
   
@@ -39,6 +36,5 @@ public class ExceptionProcessor implements ExceptionHandler {
   
   public void addException(LabelException exception) {
     exception.setSource(target.toString());
-  //  listener.addProblem(exception);
   }
 }

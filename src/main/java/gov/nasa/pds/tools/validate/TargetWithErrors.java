@@ -1,8 +1,5 @@
 package gov.nasa.pds.tools.validate;
 
-import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.validate.ValidationTarget;
-
 import java.util.Collection;
 
 public class TargetWithErrors {

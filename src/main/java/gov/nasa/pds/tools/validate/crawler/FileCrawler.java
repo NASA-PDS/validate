@@ -17,7 +17,6 @@ import gov.nasa.pds.tools.validate.Target;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.StringBuilder;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;

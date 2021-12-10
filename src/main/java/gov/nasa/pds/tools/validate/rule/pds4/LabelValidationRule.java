@@ -71,8 +71,6 @@ import org.xml.sax.SAXParseException;
 public class LabelValidationRule extends AbstractValidationRule {
 
     private static final Logger LOG = LoggerFactory.getLogger(LabelValidationRule.class);
-	private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", 
-	    Pattern.CASE_INSENSITIVE);
 
 	private static final String XML_SUFFIX = ".xml";
 	
@@ -771,7 +769,6 @@ public class LabelValidationRule extends AbstractValidationRule {
     // https://github.com/NASA-PDS/validate/issues/17 Validate schematron references and throw fatal error if invalid URI specified
 
     String SCHEMATYPENS_PATTERN_ONLY = "schematypens=";
-    Pattern pattern = Pattern.compile(" " + Constants.SCHEMATRON_SCHEMATYPENS_PATTERN);  // Prepend a space before the pattern.
     LOG.debug("spaceCheckSchematypensPattern:label,xmlModels.size() {},{}",label,xmlModels.size());
     for (TinyNodeImpl xmlModel : xmlModels) {
       String filteredData = xmlModel.getStringValue().replaceAll("\\s+", " ");

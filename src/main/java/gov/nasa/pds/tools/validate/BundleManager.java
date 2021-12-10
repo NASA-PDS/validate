@@ -21,22 +21,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import javax.xml.transform.sax.SAXSource;
-
 import gov.nasa.pds.tools.label.ExceptionType;
 
-import gov.nasa.pds.tools.util.FlagsUtil;
-import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.LidVid;
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.util.XMLExtractor;
 
-import gov.nasa.pds.tools.validate.Target;
-import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
-import gov.nasa.pds.tools.validate.ValidateProblemHandler;
-import gov.nasa.pds.tools.validate.ValidationProblem;
 
 import gov.nasa.pds.validate.report.Report;
 
@@ -56,7 +47,6 @@ import org.slf4j.LoggerFactory;
 
 public class BundleManager {
 	private static final Logger LOG = LoggerFactory.getLogger(BundleManager.class);
-    private static final Pattern COLLECTION_LABEL_PATTERN = Constants.COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'.
     private static final Pattern BUNDLE_LABEL_PATTERN     = Constants.BUNDLE_LABEL_PATTERN;     // Ease the requirement to have an underscore after 'bundle'.
     public static final String BUNDLE_NAME_TOKEN     = Constants.BUNDLE_NAME_TOKEN;
     public static final String LABEL_EXTENSION       = Constants.LABEL_EXTENSION;   // Used to look for label files.  Note that the extension does not contain the dot.
@@ -69,7 +59,6 @@ public class BundleManager {
     private static final String VERSION_ID_TAG             = "version_id";
     private static final String LIDVID_REFERENCE_TAG       = "lidvid_reference";
     private static final String LID_REFERENCE_TAG          = "lid_reference";
-    private static final String REFERENCE_TYPE_TAG         = "reference_type";
 
     private static ArrayList<Target> m_ignoreList = new ArrayList<Target>();
     private static String m_location = null;
@@ -145,7 +134,6 @@ public class BundleManager {
     public static List<Target> findCollectionWithLatestVersion(URL url) {
         List<Target> children = new ArrayList<Target>();
         try {
-            IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
             Crawler crawler = CrawlerFactory.newInstance(url);
             List<Target> dirs = new ArrayList<Target>();
             dirs = crawler.crawl(url, true);
@@ -239,7 +227,6 @@ public class BundleManager {
     public static List<Target> findCollectionWithMatchingReference(URL url, URL bundleUrl) {
         List<Target> children = new ArrayList<Target>();
         try {
-            IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
             Crawler crawler = CrawlerFactory.newInstance(url);
             List<Target> dirs = new ArrayList<Target>();
             dirs = crawler.crawl(url, true);
@@ -487,7 +474,6 @@ public class BundleManager {
             // Get the parent directory of url and crawl for files that starts with 'bundle'
             String dirName     = (new File(url.getPath())).getParent();
             LOG.debug("findOtherBundleFiles:dirName {}",dirName);
-            IOFileFilter regexFileFilter = new RegexFileFilter(BUNDLE_LABEL_PATTERN);
             Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
 
             LOG.debug("findOtherBundleFiles:crawler {}",crawler);
@@ -563,7 +549,6 @@ public class BundleManager {
 
         List<Target> allFiles = null;
         URL urlCrawl = null;
-        URL urlLatest = null;
         List<String> crawledDirectory = new ArrayList<String>();  // Keep a list of directory we have crawled to keep from crawling same directory again.
 
         try {
@@ -584,7 +569,6 @@ public class BundleManager {
             }
 
             Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
-            IOFileFilter regexFileFilter = new RegexFileFilter(COLLECTION_LABEL_PATTERN);
             LOG.debug("findOtherCollectionFiles:crawler {}",crawler);
             //allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
             // Note: For some strange reason, the crawler goes into an infinite loop using the above call

@@ -2,16 +2,10 @@ package gov.nasa.pds.tools.util;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 
-import gov.nasa.pds.tools.util.XMLExtractor;
-
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import gov.nasa.pds.tools.validate.ProblemListener;
-
-
-import javax.xml.xpath.XPathFactory;
 
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
@@ -20,9 +14,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +26,11 @@ import org.slf4j.LoggerFactory;
 
 public class TableCharacterUtil  {
     private static final Logger LOG = LoggerFactory.getLogger(TableCharacterUtil.class);
-    private XPathFactory xPathFactory;
 
     private static String PRODUCT_OBSERVATIONAL   = "Product_Observational";
     private static String FILE_AREA_OBSERVATIONAL = PRODUCT_OBSERVATIONAL + "/File_Area_Observational";
     private static String TABLE_CHARACTER         = FILE_AREA_OBSERVATIONAL + "/Table_Character";
     private static String RECORD_CHARACTER        = TABLE_CHARACTER + "/Record_Character";
-    private static String RECORD_CHARACTER_FIELDS      = RECORD_CHARACTER + "/fields";
     private static String FIELD_CHARACTER              = RECORD_CHARACTER + "/Field_Character";
 
     private static String FIELD_NUMBER_SIMPLE    = "field_number";    // Used to retrieve individual field from node and not document.
@@ -62,11 +52,11 @@ public class TableCharacterUtil  {
     private void resetColumnInfoLists() {
         // Since this function can be called many times, these static lists need to be cleared between each call,
         // otherwise the list will grow each time a Table_Character file is validated.
-        this.fieldNumberList.clear();
-        this.fieldLocationList.clear();
-        this.fieldTypeList.clear();
-        this.fieldLengthList.clear();
-        this.fieldFormatList.clear();
+        fieldNumberList.clear();
+        fieldLocationList.clear();
+        fieldTypeList.clear();
+        fieldLengthList.clear();
+        fieldFormatList.clear();
     }
 
     public URL getTarget() {
@@ -83,7 +73,6 @@ public class TableCharacterUtil  {
     public TableCharacterUtil(URL target, ProblemListener listener) {
         this.target   = target;
         this.listener = listener;
-        xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
     }
 
     /**
@@ -94,8 +83,6 @@ public class TableCharacterUtil  {
      */
 
   public void parseFieldsInfo() {
-    int numFields = 0;
-
     // Since this function can be called many times, these static lists need to be cleared between each call,
     // otherwise the list will grow each time a Table_Character file is validated.
 
@@ -103,7 +90,6 @@ public class TableCharacterUtil  {
 
      try {
         XMLExtractor extractor = new XMLExtractor(getTarget());
-        numFields = Integer.parseInt(extractor.getValueFromDoc(RECORD_CHARACTER_FIELDS));
 
         List<TinyNodeImpl> FieldCharacterNodeList = extractor.getNodesFromDoc(FIELD_CHARACTER);
         String fieldValue = ""; 
@@ -111,22 +97,22 @@ public class TableCharacterUtil  {
         // Note that the function getValueFromItem() returns an empty string if the field we seek is not present in the node.
         for (TinyNodeImpl node : FieldCharacterNodeList) {
             fieldValue = extractor.getValueFromItem(FIELD_NUMBER_SIMPLE,node);
-            this.fieldNumberList.add(fieldValue);
+            fieldNumberList.add(fieldValue);
             fieldValue = extractor.getValueFromItem(FIELD_LOCATION_SIMPLE,node);
-            this.fieldLocationList.add(fieldValue);
+            fieldLocationList.add(fieldValue);
             fieldValue = extractor.getValueFromItem(DATA_TYPE_SIMPLE,node);
-            this.fieldTypeList.add(fieldValue);
+            fieldTypeList.add(fieldValue);
             fieldValue = extractor.getValueFromItem(FIELD_LENGTH_SIMPLE,node);
-            this.fieldLengthList.add(fieldValue);
+            fieldLengthList.add(fieldValue);
             fieldValue = extractor.getValueFromItem(FIELD_FORMAT_SIMPLE,node);
-            this.fieldFormatList.add(fieldValue);
+            fieldFormatList.add(fieldValue);
         }
 
-        LOG.debug("parseFieldsInfo:fieldNumberList {}",this.fieldNumberList);
-        LOG.debug("parseFieldsInfo:fieldLocationList {}",this.fieldLocationList);
-        LOG.debug("parseFieldsInfo:fieldTypeList {}",this.fieldTypeList);
-        LOG.debug("parseFieldsInfo:fieldLengthList {}",this.fieldLengthList);
-        LOG.debug("parseFieldsInfo:fieldFormatList {}",this.fieldFormatList);
+        LOG.debug("parseFieldsInfo:fieldNumberList {}",fieldNumberList);
+        LOG.debug("parseFieldsInfo:fieldLocationList {}",fieldLocationList);
+        LOG.debug("parseFieldsInfo:fieldTypeList {}",fieldTypeList);
+        LOG.debug("parseFieldsInfo:fieldLengthList {}",fieldLengthList);
+        LOG.debug("parseFieldsInfo:fieldFormatList {}",fieldFormatList);
      } catch (Exception e) {
         LOG.error("Cannot extract {} from label {}",RECORD_CHARACTER,getTarget());
           getListener().addProblem(
@@ -153,10 +139,10 @@ public class TableCharacterUtil  {
     int endIndex = 0;
     int previousEndIndex = 0;
 
-    List<Boolean> columnsWarningFlagList =new ArrayList<Boolean>(Arrays.asList(new Boolean[this.fieldNumberList.size()]));
+    List<Boolean> columnsWarningFlagList =new ArrayList<Boolean>(Arrays.asList(new Boolean[fieldNumberList.size()]));
     Collections.fill(columnsWarningFlagList, Boolean.FALSE);
 
-    for (int ii = 0; ii < this.fieldNumberList.size(); ii++) {
+    for (int ii = 0; ii < fieldNumberList.size(); ii++) {
       startIndex = Integer.parseInt(fieldLocationList.get(ii)) - 1;   // The location in the label starts at 1.
       endIndex   = startIndex + Integer.parseInt(fieldLengthList.get(ii));
       LOG.debug("validateInBetweenFields:ii,startIndex,endIndex {},{},{}",ii,startIndex,endIndex);
@@ -216,7 +202,7 @@ public class TableCharacterUtil  {
 
     // If any of the columns had reported a warning/error, set the reportedErrorFlag to true
     // so as not to overwhelm the error reporting mechanism.
-    for (int ii = 0; ii < this.fieldNumberList.size(); ii++) {
+    for (int ii = 0; ii < fieldNumberList.size(); ii++) {
         if (columnsWarningFlagList.get(ii) == Boolean.TRUE) {
             this.reportedErrorFlag = true;
         }

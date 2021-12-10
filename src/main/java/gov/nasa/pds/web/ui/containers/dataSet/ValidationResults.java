@@ -27,10 +27,6 @@ public class ValidationResults implements Serializable, BaseContainerInterface {
 
 	public static final transient int BUCKET_LIMIT = 1000;
 
-	private static final transient int PREVIEW_LIMIT = 200;
-
-	private static final transient int PREVIEW_FILE_LIMIT = 2000;
-
 	private String id;
 
 	private String name;
@@ -57,10 +53,6 @@ public class ValidationResults implements Serializable, BaseContainerInterface {
 	private long numFolders = 0;
 
 	private long volumeSpace = 0;
-
-	// offset for retrieving problems from the db, used when getting large
-	// volume of problems and need to chunk return
-	private int offset = 0;
 
 	// ms it took to validate
 	private long duration;
@@ -176,12 +168,6 @@ public class ValidationResults implements Serializable, BaseContainerInterface {
 		}
 
 		return full;
-	}
-
-	// reset the problem offset so that getting problems doesn't continue to get
-	// 0 results
-	public void resetProblemPosition() {
-		this.offset = 0;
 	}
 
 	public void addNewValue(final File file, final LabelParserException lpe) {

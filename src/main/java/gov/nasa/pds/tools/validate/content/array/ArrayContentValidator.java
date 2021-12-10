@@ -82,7 +82,6 @@ public class ArrayContentValidator {
   private static final Range IEEE754MSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
 
   private static int PROGRESS_COUNTER = 0;
-  private static String tableName = null;
   private static String tableNameReportStr = "";
 
   /**
@@ -113,16 +112,7 @@ public class ArrayContentValidator {
       dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
     }
 
-    this.tableName = ((ByteStream) array).getName(); // Update the name of the table this array belong to so it can be reported if something goes wrong.
-    if (this.tableName != null) {
-        // If the table name is provided, build the string to report the name of the table.
-        tableNameReportStr = "table_name:(" + this.tableName +") ";
-    } else {
-        // If the table name is not provided, the string to report is an empty string.
-        tableNameReportStr = "";
-    }
-    LOG.debug("validate:tableName {}",this.tableName);
-    LOG.debug("validate:tableNameReportStr {}",this.tableNameReportStr);
+    LOG.debug("validate:tableNameReportStr {}", tableNameReportStr);
 
     try {
       process(array, arrayObject, dimensions, new int[dimensions.length], 0,
@@ -307,7 +297,7 @@ public class ArrayContentValidator {
     } else {
       addArrayProblem(ExceptionType.INFO,
           ProblemType.ARRAY_VALUE_IS_SPECIAL_CONSTANT,
-          this.tableNameReportStr + "Value is a special constant defined in the label: "
+          tableNameReportStr + "Value is a special constant defined in the label: "
               + value.toString(),
           location
       );              
@@ -401,13 +391,13 @@ public class ArrayContentValidator {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
       if (compare(value.doubleValue(), objectStats.getMinimum()) == -1) {
-        String errorMessage = this.tableNameReportStr + " Value is less than the minimum value in the label (min=" + objectStats.getMinimum().toString();
+        String errorMessage = tableNameReportStr + " Value is less than the minimum value in the label (min=" + objectStats.getMinimum().toString();
         LOG.debug("checkObjectStats:value.doubleValue() {}",value.doubleValue());
         LOG.debug("checkObjectStats:objectStats.getMinimum(),type(objectStats.getMinimum()) {},{}",objectStats.getMinimum(),objectStats.getMinimum().getClass().getSimpleName());
         LOG.error(errorMessage);
         addArrayProblem(ExceptionType.ERROR,
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
-            this.tableNameReportStr + " Value is less than the minimum value in the label (min="
+            tableNameReportStr + " Value is less than the minimum value in the label (min="
             + objectStats.getMinimum().toString()
             + ", got=" + value.toString() + ").", location);
       }
@@ -417,7 +407,7 @@ public class ArrayContentValidator {
       if (compare(value.doubleValue(), objectStats.getMaximum()) == 1) {
         addArrayProblem(ExceptionType.ERROR, 
             ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
-            this.tableNameReportStr + "Value is greater than the maximum value in the label (max="
+            tableNameReportStr + "Value is greater than the maximum value in the label (max="
             + objectStats.getMaximum().toString()
             + ", got=" + value.toString() + ").", location);        
       }
@@ -439,7 +429,7 @@ public class ArrayContentValidator {
         if (compare(scaledValue, objectStats.getMinimumScaledValue()) == -1) {
           addArrayProblem(ExceptionType.ERROR,
               ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
-              this.tableNameReportStr + "Scaled value is less than the scaled minimum value in the "
+              tableNameReportStr + "Scaled value is less than the scaled minimum value in the "
               + "label (min=" + objectStats.getMinimumScaledValue().toString()
               + ", got=" + value.toString() + ").", location);          
         }

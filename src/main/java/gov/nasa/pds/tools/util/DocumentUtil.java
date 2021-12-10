@@ -25,8 +25,6 @@ import java.lang.StringBuilder;
 
 import java.net.URL;
 
-import gov.nasa.pds.tools.util.Utility;
-
 import gov.nasa.pds.tools.validate.ProblemType;
 
 import org.apache.commons.io.FilenameUtils;

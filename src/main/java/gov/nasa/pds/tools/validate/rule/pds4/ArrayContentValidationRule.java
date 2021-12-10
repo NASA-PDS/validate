@@ -24,13 +24,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import gov.nasa.arc.pds.xml.generated.Array;
@@ -48,7 +46,6 @@ import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -171,23 +168,21 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
     } catch (ParseException e) {
       //Ignore. Shouldn't happen
     }
-    NodeList fileAreaNodes = null;
+//    NodeList fileAreaNodes = null;
+//
+//    XPath xpath = xPathFactory.newXPath();
+//    try {
+//      synchronized (lock) {
+//        fileAreaNodes = (NodeList) xpath.evaluate(
+//          XPaths.ARRAY_FILE_AREAS,
+//          new DOMSource(getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class)),
+//          XPathConstants.NODESET);
+//      }
+//    } catch (XPathExpressionException e) {
+//      addXPathException(null, XPaths.ARRAY_FILE_AREAS, e.getMessage());
+//    }
 
-    XPath xpath = xPathFactory.newXPath();
-    try {
-      synchronized (lock) {
-        fileAreaNodes = (NodeList) xpath.evaluate(
-          XPaths.ARRAY_FILE_AREAS,
-          new DOMSource(getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class)),
-          XPathConstants.NODESET);
-      }
-    } catch (XPathExpressionException e) {
-      addXPathException(null, XPaths.ARRAY_FILE_AREAS, e.getMessage());
-    }
-
-    Map<String, Integer> numArrays = scanArrays(arrayFileAreas, objectAccess);
     Map<URL, Integer> arrayIndexes = new LinkedHashMap<URL, Integer>();
-    int fileAreaObserveIndex = 0;
     for (FileArea fileArea : arrayFileAreas) {
       int arrayIndex = -1;
       String fileName = getDataFile(fileArea);
@@ -289,7 +284,6 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
         }
         arrayIndex++;
       }
-      fileAreaObserveIndex++;
     }
 
     if (isDebugLogLevel()) {
@@ -314,24 +308,6 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
             getTarget(),
             array,
             location));
-  }
-  
-  private Map<String, Integer> scanArrays(List<FileArea> fileAreas, 
-      ObjectProvider objectAccess) {
-    Map<String, Integer> results = new LinkedHashMap<String, Integer>();
-    for (FileArea fileArea : fileAreas) {
-      String dataFile = getDataFile(fileArea);
-      List<Array> arrays = objectAccess.getArrays(fileArea);
-      Integer numArrays = results.get(dataFile);
-      if (numArrays == null) {
-        results.put(dataFile, new Integer(arrays.size()));
-      } else {
-        numArrays = results.get(dataFile);
-        numArrays = new Integer(numArrays.intValue() + arrays.size());
-        results.put(dataFile, numArrays);
-      }
-    }
-    return results;
   }
   
   /**
@@ -377,29 +353,5 @@ public class ArrayContentValidationRule extends AbstractValidationRule {
       results.addAll(((ProductBrowse) product).getFileAreaBrowses());
     }
     return results;
-  }
-  /**
-   * Adds an XPath exception to the ProblemListener.
-   * 
-   * @param node The node associated with the XPath error.
-   * @param xpath The XPath that caused the error.
-   * @param message The reason why the XPath caused the error.
-   */
-  private void addXPathException(Node node, String xpath, String message) {
-    int lineNumber = -1;
-    if (node != null) {
-      SourceLocation nodeLocation = 
-        (SourceLocation) node.getUserData(
-            SourceLocation.class.getName());
-      lineNumber = nodeLocation.getLineNumber();
-    }
-    getListener().addProblem(
-        new ArrayContentProblem(ExceptionType.FATAL,
-            ProblemType.ARRAY_INTERNAL_ERROR,
-            "Error evaluating XPath expression '" + xpath + "': " + message,
-            getTarget(),
-            getTarget(),
-            lineNumber,
-            null));
   }
 }

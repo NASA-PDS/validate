@@ -15,12 +15,8 @@ package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.print.attribute.standard.Severity;
 
 
 

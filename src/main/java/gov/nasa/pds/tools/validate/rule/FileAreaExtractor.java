@@ -1,6 +1,5 @@
 package gov.nasa.pds.tools.validate.rule;
 
-import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidateProblemHandler;
@@ -32,7 +31,6 @@ import gov.nasa.arc.pds.xml.generated.FileAreaObservational;
 import gov.nasa.arc.pds.xml.generated.FileAreaSIPDeepArchive;
 import gov.nasa.arc.pds.xml.generated.FileAreaTransferManifest;
 import gov.nasa.arc.pds.xml.generated.InformationPackageComponent;
-import gov.nasa.arc.pds.xml.generated.Inventory;
 
 import gov.nasa.arc.pds.xml.generated.Product;
 import gov.nasa.arc.pds.xml.generated.ProductAIP;
@@ -50,45 +48,6 @@ public class FileAreaExtractor {
     // Class to report if file referenced in file_name tag in a label contains prohibited file names. 
     private static final Logger LOG = LoggerFactory.getLogger(FileAreaExtractor.class);
 
-    private class SimpleProblemHandler implements ValidateProblemHandler {
-        @Override
-        public void addProblem(ValidationProblem problem) {
-                        StringBuilder buf = new StringBuilder();
-                        buf.append(problem.getMessage());
-                        if (problem.getTarget()!=null) {
-                                buf.append(": ");
-                                buf.append(problem.getTarget().getLocation());
-                        }
-                        if (problem.getLineNumber() > 0) {
-                                buf.append(", line ");
-                                buf.append(Integer.toString(problem.getLineNumber()));
-                        }
-                        if (problem.getColumnNumber() > 0) {
-                                buf.append(", column ");
-                                buf.append(Integer.toString(problem.getColumnNumber()));
-                        }
-                        System.err.println(buf.toString());
-        }
-
-        @Override
-        public void addLocation(String location) {
-          // TODO Auto-generated method stub
-        }
-
-        @Override
-        public void printHeader(String title) {
-          // TODO Auto-generated method stub
-
-        }
-
-        @Override
-        public void record(String location) {
-          // TODO Auto-generated method stub
-        }
-
-    }
-
-    private ValidateProblemHandler problemHandler = new SimpleProblemHandler();
 	private RuleContext context = new RuleContext();
 	private ProblemListener listener = null;
 

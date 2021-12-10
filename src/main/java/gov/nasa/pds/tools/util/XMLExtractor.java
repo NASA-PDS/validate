@@ -16,7 +16,6 @@ package gov.nasa.pds.tools.util;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +27,6 @@ import javax.xml.xpath.XPathExpressionException;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
-import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.trans.XPathException;

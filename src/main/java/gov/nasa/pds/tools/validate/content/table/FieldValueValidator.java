@@ -17,7 +17,6 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,6 @@ import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
-import gov.nasa.pds.validate.util.Utility;
 
 /**
  * Class that performs content validation on the field values of a given

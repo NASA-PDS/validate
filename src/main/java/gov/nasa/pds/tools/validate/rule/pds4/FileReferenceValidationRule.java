@@ -41,8 +41,6 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.DocumentsChecker;
 import gov.nasa.pds.tools.util.DocumentUtil;
 import gov.nasa.pds.tools.util.FileSizesUtil;
-import gov.nasa.pds.tools.util.FlagsUtil;
-import gov.nasa.pds.tools.util.FileReferencedMapList;
 import gov.nasa.pds.tools.util.ImageUtil;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.MD5Checksum;
@@ -131,31 +129,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       }
     }
     LOG.debug("validateFileReferences:leaving:uri {}",uri);
-  }
-
-  private String getNameIfMatchingPattern(String[] patterns, String name, String fileType) {
-      // If the name contains one of the pattern, get it, otherwise return null.
-      String nameValue = null;
-      boolean oneTokensMatchedFlag = false;
-      for (String endToken : patterns) {
-          if (endToken.isEmpty()) {
-             continue;
-          }
-          LOG.debug("getNameIfMatchingPattern:endToken,fileType {},{}",endToken,fileType);
-          if (name.toLowerCase().endsWith(endToken.toLowerCase())) { 
-              oneTokensMatchedFlag = true;
-          }
-      }
-
-      LOG.debug("getNameIfMatchingPattern:name,fileType,oneTokensMatchedFlag {},{},{}",name,fileType,oneTokensMatchedFlag);
-
-      if (oneTokensMatchedFlag && FlagsUtil.getContentValidationFlag() == true) {
-          nameValue = name;
-      }
-
-      LOG.debug("getNameIfMatchingPattern:name,filetype,nameValue {},{},{}",name,fileType,nameValue);
-
-      return(nameValue);
   }
 
   private boolean checkGenericDocument(ValidationTarget target, URL urlRef, TinyNodeImpl fileObject, String fileName,
@@ -620,11 +593,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         }
         return messages;
     }
-  }  
-
-  private List<ValidationProblem> handleFilesize(ValidationTarget target, URL fileRef)
-  throws Exception {
-    return handleFilesize(target, fileRef, null, null);
   }
 
   /**

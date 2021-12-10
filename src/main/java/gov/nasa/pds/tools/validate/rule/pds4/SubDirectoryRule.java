@@ -21,8 +21,6 @@ import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.List;
 
@@ -41,12 +39,6 @@ public class SubDirectoryRule extends AbstractValidationRule {
 
   @ValidationTest
   public void testCollectionDirectories() {
-    FileFilter filter = new FileFilter() {
-        @Override
-        public boolean accept(File f) {
-            return f.isDirectory();
-        }
-    };
     ValidationRule collectionRule = getContext().getRuleManager().findRuleByName("pds4.folder");
 
     if (collectionRule != null) {

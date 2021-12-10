@@ -17,7 +17,6 @@ import gov.nasa.pds.tools.label.ObjectStatement;
 import gov.nasa.pds.tools.label.PointerStatement;
 import gov.nasa.pds.tools.label.SpecialPointer;
 import gov.nasa.pds.tools.label.StandardPathResolver;
-import gov.nasa.pds.web.ui.utils.CancelledException;
 import gov.nasa.pds.web.ui.constants.DataSetConstants;
 import gov.nasa.pds.web.ui.containers.IndexContainer;
 import gov.nasa.pds.web.ui.containers.LabelContainer;

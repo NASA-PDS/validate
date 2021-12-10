@@ -1,7 +1,5 @@
 package gov.nasa.pds.tools.util;
 
-import java.net.URL;
-
 import java.util.HashMap;
 
 import javax.xml.transform.dom.DOMSource;

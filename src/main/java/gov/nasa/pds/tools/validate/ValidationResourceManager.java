@@ -8,8 +8,6 @@ import gov.nasa.pds.tools.validate.rule.ValidationRuleManager;
 import java.io.File;
 import java.net.URL;
 
-import java.security.ProtectionDomain;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 
