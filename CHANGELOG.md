@@ -1,12 +1,12 @@
 # Changelog
 
+## [v2.1.3-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.3-SNAPSHOT) (2021-12-15)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.2...v2.1.3-SNAPSHOT)
+
 ## [v2.1.2](https://github.com/NASA-PDS/validate/tree/v2.1.2) (2021-12-10)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.2-SNAPSHOT...v2.1.2)
-
-## [v2.1.2-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.2-SNAPSHOT) (2021-12-10)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...v2.1.2-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.1...v2.1.2)
 
 **Defects:**
 
