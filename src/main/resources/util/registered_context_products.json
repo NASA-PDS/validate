@@ -2,87 +2,6 @@
      "Product_Context": [
           {
                "name": [
-                    "DUST IMPACT PLASMA DETECTOR"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:sp1.vega2::1.0"
-          },
-          {
-               "name": [
-                    "12916 ETEONEUS"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.12916_eteoneus::1.1"
-          },
-          {
-               "name": [
-                    "PAN"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.pan::1.1"
-          },
-          {
-               "name": [
-                    "(30726) 1978 VK7"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.30726_1978_vk7::1.0"
-          },
-          {
-               "name": [
-                    "2000 OH67"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
-          },
-          {
-               "name": [
-                    "MECA COMMON ELECTRONICS"
-               ],
-               "type": [
-                    "REGOLITH PROPERTIES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:meca_elec.phx::1.0"
-          },
-          {
-               "name": [
-                    "RELAB SPECTRAL LIBRARY"
-               ],
-               "type": [
-                    "Other Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:other_investigation.relab_speclib::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.1m54::1.1"
-          },
-          {
-               "name": [
-                    "DUAL TECHNIQUE MAGNETOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mag.co::1.0"
-          },
-          {
-               "name": [
                     "ANANKE"
                ],
                "type": [
@@ -214,7 +133,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.siding_spring::1.1"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.siding_spring::1.2"
           },
           {
                "name": [
@@ -1585,7 +1504,7 @@
                "type": [
                     "Observing Campaign"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.jupiter_support::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.jupiter_support::1.1"
           },
           {
                "name": [
@@ -4820,7 +4739,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mcdonald::1.0"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mcdonald::1.1"
           },
           {
                "name": [
@@ -6895,51 +6814,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:agency:agency.esa::1.0"
-          },
-          {
-               "name": [
-                    "PROSPERO"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.prospero::1.1"
-          },
-          {
-               "name": [
-                    "S/2003 J 12"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2003j12::1.1"
-          },
-          {
-               "name": [
-                    "88P/HOWELL"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.88p_howell::1.0"
-          },
-          {
-               "name": [
-                    "PLASMA WAVE RECEIVER"
-               ],
-               "type": [
-                    "PLASMA WAVE SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pws.vg2::1.0"
-          },
-          {
-               "name": [
-                    "X-RAY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:xrs.mess::1.1"
           },
           {
                "name": [
@@ -11361,7 +11235,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_stromlo::1.0"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_stromlo::1.1"
           },
           {
                "name": [
@@ -12289,7 +12163,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4::1.2"
           },
           {
                "name": [
@@ -12568,7 +12442,7 @@
                "type": [
                     "Observing Campaign"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.irtf_io::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.irtf_io::1.1"
           },
           {
                "name": [
@@ -12784,7 +12658,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:palomar.hale_5m08::1.0"
+               "lidvid": "urn:nasa:pds:context:telescope:palomar.hale_5m08::2.0"
           },
           {
                "name": [
@@ -13759,6 +13633,87 @@
                     "PLANET"
                ],
                "lidvid": "urn:nasa:pds:context:target:planet.mercury::1.3"
+          },
+          {
+               "name": [
+                    "DUST IMPACT PLASMA DETECTOR"
+               ],
+               "type": [
+                    "PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:sp1.vega2::1.0"
+          },
+          {
+               "name": [
+                    "12916 ETEONEUS"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.12916_eteoneus::1.1"
+          },
+          {
+               "name": [
+                    "PAN"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.pan::1.1"
+          },
+          {
+               "name": [
+                    "(30726) 1978 VK7"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.30726_1978_vk7::1.0"
+          },
+          {
+               "name": [
+                    "2000 OH67"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
+          },
+          {
+               "name": [
+                    "MECA COMMON ELECTRONICS"
+               ],
+               "type": [
+                    "REGOLITH PROPERTIES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:meca_elec.phx::1.0"
+          },
+          {
+               "name": [
+                    "RELAB SPECTRAL LIBRARY"
+               ],
+               "type": [
+                    "Other Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:other_investigation.relab_speclib::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.1m54::1.1"
+          },
+          {
+               "name": [
+                    "DUAL TECHNIQUE MAGNETOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mag.co::1.0"
           },
           {
                "name": [
@@ -15146,7 +15101,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.1"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.2"
           },
           {
                "name": [
@@ -18478,7 +18433,7 @@
                "type": [
                     "RING"
                ],
-               "lidvid": "urn:nasa:pds:context:target:ring.uranus.rings::1.0"
+               "lidvid": "urn:nasa:pds:context:target:ring.uranus.rings::1.1"
           },
           {
                "name": [
@@ -20669,6 +20624,51 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
+          },
+          {
+               "name": [
+                    "PROSPERO"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.prospero::1.1"
+          },
+          {
+               "name": [
+                    "S/2003 J 12"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2003j12::1.1"
+          },
+          {
+               "name": [
+                    "88P/HOWELL"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.88p_howell::1.0"
+          },
+          {
+               "name": [
+                    "PLASMA WAVE RECEIVER"
+               ],
+               "type": [
+                    "PLASMA WAVE SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pws.vg2::1.0"
+          },
+          {
+               "name": [
+                    "X-RAY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:xrs.mess::1.1"
           },
           {
                "name": [
@@ -23790,7 +23790,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.struve2m1::0.0"
+               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.struve2m1::1.1"
           },
           {
                "name": [
