@@ -1,5 +1,17 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-20)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.3...«unknown»)
+
+**Defects:**
+
+- \[SECURITY\] Patch log4j library [\#461](https://github.com/NASA-PDS/validate/issues/461) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+
+## [v2.1.3](https://github.com/NASA-PDS/validate/tree/v2.1.3) (2021-12-16)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.3-SNAPSHOT...v2.1.3)
+
 ## [v2.1.3-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.3-SNAPSHOT) (2021-12-15)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.2...v2.1.3-SNAPSHOT)
