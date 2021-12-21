@@ -57,10 +57,6 @@ public class DocumentUtil {
       // if we will be using the getProblemType() function below.
   }
 
-  private boolean isClassInitialized() {
-      return(this.classInitialized);
-  }
-
   private void initialize() {
     // Create a map to go from a document type to a ProblemType.
     // The map consists of two arrays, one to hold the docType and one to hold the enumerated ProblemType.
@@ -158,7 +154,6 @@ public class DocumentUtil {
    * @return The content of the file as String.
    */
   public String readFile(URL fileUrl) {
-    String fileName = fileUrl.getPath();
     BufferedReader reader = null;
 
     // Note: The function FilenameUtils.getPath() doesn't seem to work correctly.
@@ -176,20 +171,20 @@ public class DocumentUtil {
     //
     // Using alternative method to get the parent.
     String parent = "";
-    if (fileUrl.getPath().lastIndexOf(File.separator) >= 0) {
-        parent = fileUrl.getPath().substring(0,fileUrl.getPath().lastIndexOf(File.separator));
+    if (fileUrl.getPath().lastIndexOf("/") >= 0) {
+        parent = fileUrl.getPath().substring(0,fileUrl.getPath().lastIndexOf("/"));
     } else {
-        LOG.error("The path does not contain a file separator {}",fileUrl.getPath());
+        LOG.error("The path does not contain a file separator {}", fileUrl.getPath());
         return(null);
     }
-    LOG.debug("readFile:fileUrl,parent,FilenameUtils.getName(fileUrl) {},{},{}",fileUrl,parent,FilenameUtils.getName(fileUrl.toString()));
+    LOG.debug("readFile:fileUrl,parent,FilenameUtils.getName(fileUrl) {},{},{}", fileUrl, parent, FilenameUtils.getName(fileUrl.toString()));
 
     // Combine the parent and the file name together so sonatype-lift won't complain.
     // https://find-sec-bugs.github.io/bugs.htm#PATH_TRAVERSAL_IN
     try {
         reader = new BufferedReader(new FileReader(parent + File.separator + FilenameUtils.getName(fileUrl.toString())));
     } catch (FileNotFoundException ex) {
-        LOG.error("readFile: Cannot find file {}",fileUrl);
+        LOG.error("readFile: Cannot find file {}", fileUrl);
         ex.printStackTrace();
     }
 
@@ -204,7 +199,7 @@ public class DocumentUtil {
 
         return stringBuilder.toString();
     } catch (IOException ex) {
-        LOG.error("readFile: Cannot read file {}",fileUrl);
+        LOG.error("readFile: Cannot read file {}", fileUrl);
         ex.printStackTrace();
     }
 
