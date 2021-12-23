@@ -1,19 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2021-12-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Validate is reporting an "Uncaught exception while validating" error on Windows [\#464](https://github.com/NASA-PDS/validate/issues/464)
-
-## [v2.1.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.4-SNAPSHOT) (2021-12-20)
+## [v2.1.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.4-SNAPSHOT) (2021-12-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.3...v2.1.4-SNAPSHOT)
 
 **Defects:**
 
+- Validate is reporting an "Uncaught exception while validating" error on Windows [\#464](https://github.com/NASA-PDS/validate/issues/464)
 - \[SECURITY\] Patch log4j library [\#461](https://github.com/NASA-PDS/validate/issues/461) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 
 ## [v2.1.3](https://github.com/NASA-PDS/validate/tree/v2.1.3) (2021-12-16)
