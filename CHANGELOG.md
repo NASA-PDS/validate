@@ -1,8 +1,8 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-01-20)
+## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-01-20)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
 
 **Defects:**
 
@@ -10,11 +10,7 @@
 
 ## [v2.1.4](https://github.com/NASA-PDS/validate/tree/v2.1.4) (2021-12-23)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4-SNAPSHOT...v2.1.4)
-
-## [v2.1.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.4-SNAPSHOT) (2021-12-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.3...v2.1.4-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.3...v2.1.4)
 
 **Defects:**
 
