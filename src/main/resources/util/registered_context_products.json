@@ -38,6 +38,15 @@
           },
           {
                "name": [
+                    "7066 NESSUS"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.7066_nessus::1.0"
+          },
+          {
+               "name": [
                     "DESDEMONA"
                ],
                "type": [
@@ -1926,6 +1935,15 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.del_oph::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.spacewatch_1m8::1.0"
           },
           {
                "name": [
@@ -6707,51 +6725,6 @@
           },
           {
                "name": [
-                    "MAGNETOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mag.maven::1.0"
-          },
-          {
-               "name": [
-                    "2001 RW143"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_rw143::1.0"
-          },
-          {
-               "name": [
-                    "FLUXGATE MAGNETOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mischa.vega2::1.0"
-          },
-          {
-               "name": [
-                    "EXTREME ULTRAVIOLET MONITOR"
-               ],
-               "type": [
-                    "ULTRAVIOLET SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:euv.maven::1.0"
-          },
-          {
-               "name": [
-                    "IMAGING SCIENCE SUBSYSTEM - NARROW ANGLE"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:issn.vg1::1.0"
-          },
-          {
-               "name": [
                     "PLASMA WAVE RECEIVER"
                ],
                "type": [
@@ -11212,6 +11185,15 @@
           },
           {
                "name": [
+                    "SPACEWATCH 1.8M FLI CAMERA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:steward-kittpeak.spacewatch_1m8.fli::1.0"
+          },
+          {
+               "name": [
                     "(66452) 1999 OF4"
                ],
                "type": [
@@ -13706,15 +13688,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:caha-calar_alto.1m23::1.0"
-          },
-          {
-               "name": [
-                    "7066 NESSUS"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.7066_nessus::1.0"
           },
           {
                "name": [
@@ -20926,6 +20899,24 @@
           },
           {
                "name": [
+                    "EXTREME ULTRAVIOLET MONITOR"
+               ],
+               "type": [
+                    "ULTRAVIOLET SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:euv.maven::1.0"
+          },
+          {
+               "name": [
+                    "IMAGING SCIENCE SUBSYSTEM - NARROW ANGLE"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:issn.vg1::1.0"
+          },
+          {
+               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -21265,6 +21256,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "MAGNETOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mag.maven::1.0"
+          },
+          {
+               "name": [
+                    "2001 RW143"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_rw143::1.0"
+          },
+          {
+               "name": [
+                    "FLUXGATE MAGNETOMETER"
+               ],
+               "type": [
+                    "MAGNETOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mischa.vega2::1.0"
           },
           {
                "name": [
