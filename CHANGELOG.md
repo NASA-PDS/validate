@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-01-28)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-02-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Validate repo cannot be checked out on Windows without errors [\#411](https://github.com/NASA-PDS/validate/issues/411) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-01-31)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
 
