@@ -6726,24 +6726,6 @@
           },
           {
                "name": [
-                    "2003 HG57"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_hg57::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:irtf.3m0::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20800,6 +20782,15 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:irtf.3m0::1.0"
+          },
+          {
+               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -20923,6 +20914,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "2003 HG57"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_hg57::1.0"
           },
           {
                "name": [
