@@ -182,8 +182,14 @@ echo "    ($FILES_PER_VALIDATE files per group)"
 echo "  +--------------------+----------------+"
 echo "  |       Group        |   # in Group   |"
 echo "  +--------------------+----------------+"
-split -l${FILES_PER_VALIDATE} validate_all_files.txt validate_set_
-for line in $(find . -name 'validate_set*'); do 
+
+PRODUCT_IDX=0
+find $PRODUCT_DIR -name "*.xml" -type f -print0 | while IFS= read -r -d '' LABEL_FILEPATH; do
+  echo $LABEL_FILEPATH >> ./validate_set_$((PRODUCT_IDX % NUM_GROUPS))
+  ((PRODUCT_IDX++))
+done
+
+for line in $(find . -name 'validate_set*'); do
      echo "  | $line  |  " `cat $line | wc -l`
 done
 echo "  +--------------------+-----------------"
