@@ -1,20 +1,13 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-02-10)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...«unknown»)
-
-**Defects:**
-
-- Validate repo cannot be checked out on Windows without errors [\#411](https://github.com/NASA-PDS/validate/issues/411) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-
-## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-01-31)
+## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-02-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
 
 **Defects:**
 
 - Fix validate compilation issues due to removal of veraPDF artifacts from maven central [\#470](https://github.com/NASA-PDS/validate/issues/470) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- Validate repo cannot be checked out on Windows without errors [\#411](https://github.com/NASA-PDS/validate/issues/411) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v2.1.4](https://github.com/NASA-PDS/validate/tree/v2.1.4) (2021-12-23)
 
