@@ -16,7 +16,6 @@ package gov.nasa.pds.tools.validate.content.array;
 import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
 import gov.nasa.arc.pds.xml.generated.Array;
-import gov.nasa.arc.pds.xml.generated.ByteStream;
 import gov.nasa.arc.pds.xml.generated.ElementArray;
 import gov.nasa.arc.pds.xml.generated.ObjectStatistics;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
@@ -271,9 +270,10 @@ public class ArrayContentValidator {
       throw new IOException("Error occurred while trying to "
           + "read data at location " + loc + ": " + ee.getMessage());
     }
+    
     boolean isSpecialConstant = false;
     if (array.getSpecialConstants() != null) {
-      isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants());
+      isSpecialConstant = isSpecialConstant(value.toString(), array.getSpecialConstants());
     }
 
     // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants() {},{},{}",dataType,isSpecialConstant,array.getSpecialConstants());
@@ -300,7 +300,7 @@ public class ArrayContentValidator {
           tableNameReportStr + "Value is a special constant defined in the label: "
               + value.toString(),
           location
-      );              
+      );
     }
   }
   
@@ -313,64 +313,64 @@ public class ArrayContentValidator {
    * 
    * @return true if the given value is a Special Constant.
    */
-  private boolean isSpecialConstant(Number value, SpecialConstants constants) {
+  public static boolean isSpecialConstant(String value, SpecialConstants constants) {
     if (constants.getErrorConstant() != null) {
-      if (value.toString().equals(constants.getErrorConstant())) {
+      if (value.equals(constants.getErrorConstant())) {
         return true;
       }
     } 
-    if (constants.getInvalidConstant() != null) { 
-      if (value.toString().equals(constants.getInvalidConstant())) {
+    if (constants.getInvalidConstant() != null) {
+      if (value.equals(constants.getInvalidConstant())) {
         return true;
       }
     }
     if (constants.getMissingConstant() != null) {
-      if (value.toString().equals(constants.getMissingConstant())) {
+      if (value.equals(constants.getMissingConstant())) {
         return true;
       }
     }
     if (constants.getHighInstrumentSaturation() != null) {
-      if (value.toString().equals(constants.getHighInstrumentSaturation())) {
+      if (value.equals(constants.getHighInstrumentSaturation())) {
         return true;
       }
     }
     if (constants.getHighRepresentationSaturation() != null) {
-      if (value.toString().equals(constants.getHighRepresentationSaturation())) {
+      if (value.equals(constants.getHighRepresentationSaturation())) {
         return true;
       }
     }
     if (constants.getLowInstrumentSaturation() != null) {
-      if (value.toString().equals(constants.getLowInstrumentSaturation())) {
+      if (value.equals(constants.getLowInstrumentSaturation())) {
         return true;
       }
     }
     if (constants.getLowRepresentationSaturation() != null) {
-      if (value.toString().equals(constants.getLowRepresentationSaturation())) {
+      if (value.equals(constants.getLowRepresentationSaturation())) {
         return true;
       }
     }
     if (constants.getNotApplicableConstant() != null) {
-      if (value.toString().equals(constants.getNotApplicableConstant())) {
+      if (value.equals(constants.getNotApplicableConstant())) {
         return true;
       }
     }
     if (constants.getSaturatedConstant() != null) {
-      if (value.toString().equals(constants.getSaturatedConstant())) {
+      if (value.equals(constants.getSaturatedConstant())) {
         return true;
       }
     }
     if (constants.getUnknownConstant() != null) {
-      if (value.toString().equals(constants.getUnknownConstant())) {
+      if (value.equals(constants.getUnknownConstant())) {
         return true;
       }
     }
     if (constants.getValidMaximum() != null) {
-      if (value.toString().equals(constants.getValidMaximum())) {
+      if (value.equals(constants.getValidMaximum())) {
         return true;
       }
     }
     if (constants.getValidMinimum() != null) {
-      if (value.toString().equals(constants.getValidMinimum())) {
+      if (value.equals(constants.getValidMinimum())) {
         return true;
       }
     }

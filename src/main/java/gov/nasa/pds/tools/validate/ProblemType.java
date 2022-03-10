@@ -116,8 +116,6 @@ public enum ProblemType {
 
     ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE("error.array.value_out_of_scaled_min_max_range"),
 
-    ARRAY_VALUE_IS_SPECIAL_CONSTANT("info.array.is_special_constant"),
-
     // Table Content messages
 
     TABLE_INTERNAL_ERROR("error.table.internal_error"),
@@ -252,6 +250,10 @@ public enum ProblemType {
     CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
 
     LOCAL_ID_FOUND("info.label.local_identifier_found"),
+
+    ARRAY_VALUE_IS_SPECIAL_CONSTANT("info.array.is_special_constant"),
+
+    FIELD_VALUE_IS_SPECIAL_CONSTANT("info.table.field_value_is_special_constant"),
 
     // Debug messages (Should only be used for debugging purposes)
     CRLF_DETECTED("debug.table.record_has_CRLF"),
