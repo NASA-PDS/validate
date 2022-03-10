@@ -13,6 +13,7 @@
 // $Id$
 package gov.nasa.pds.tools.validate.content.table;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -30,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.google.common.primitives.UnsignedLong;
-
+import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.label.object.FieldDescription;
 import gov.nasa.pds.label.object.FieldType;
 import gov.nasa.pds.label.object.RecordLocation;
@@ -41,6 +42,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentValidator;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 
 /**
@@ -377,7 +379,7 @@ public class FieldValueValidator {
           // Check that the field value is within the defined min/max values
           if (fields[i].getMinimum() != null || 
               fields[i].getMaximum() != null) {
-            checkMinMax(value.trim(), fields[i].getMinimum(), 
+            checkSpecialMinMax(value.trim(), fields[i].getSpecialConstants(), fields[i].getMinimum(),
                 fields[i].getMaximum(), i + 1, record.getLocation(),
                 fields[i].getType());
           } 
@@ -432,8 +434,8 @@ public class FieldValueValidator {
    * @param recordLocation The record location where the field is located.
    * @param type The field type of the column value to validate.
    */
-  private void checkMinMax(String value, Double minimum, Double maximum, 
-      int fieldIndex, RecordLocation recordLocation, FieldType type) {
+  private void checkSpecialMinMax(String value, SpecialConstants specialConstants, Double minimum,
+      Double maximum,  int fieldIndex, RecordLocation recordLocation, FieldType type) {
     value = value.trim();
 
     // https://github.com/NASA-PDS/validate/issues/297 Content validation of ASCII_Integer field does not accept value with leading zeroes
@@ -468,7 +470,7 @@ public class FieldValueValidator {
     LOG.debug("checkMinMax:FIELD_VALUE,FIELD_LENGTH [{}],{}",value,value.length());
 
     //if (NumberUtils.isCreatable(value)) 
-    if (!issueWithLeadingZerosRemovalFlag || NumberUtils.isCreatable(value)) {
+    if (!issueWithLeadingZerosRemovalFlag && NumberUtils.isCreatable(value)) {
       // In comparing double or floats, it is important how these values are built.
       // Since the values of 'minimum' and 'maximum' variables are both of types Double,
       // it may be best to convert the String variable 'value' to Double as well.
@@ -482,48 +484,63 @@ public class FieldValueValidator {
       //
       //Number number = NumberUtils.createNumber(value);
 
-      Double number = NumberUtils.createDouble(value);  // Create a Double value from '0.12345' to match 'mininum' and 'maximum' variables' type.
-      if (minimum != null) {
-        if (number.doubleValue() < minimum.doubleValue()) {
-          String message = "Field has a value '" + value
-              + "' that is less than the defined minimum value '"
-              + minimum.toString() +  "'. "; 
-          addTableProblem(ExceptionType.ERROR,
-              ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE,
-              message,
-              recordLocation,
-              fieldIndex);
-        } else {
-          String message = "Field has a value '" + value
-              + "' that is greater than the defined minimum value '"
-              + minimum.toString() +  "'. "; 
-          addTableProblem(ExceptionType.DEBUG,
-              ProblemType.FIELD_VALUE_IN_MIN_MAX_RANGE,
-              message,
-              recordLocation,
-              fieldIndex);          
-        }
+      BigDecimal number = NumberUtils.createBigDecimal(value);  // Create a Double value from '0.12345' to match 'mininum' and 'maximum' variables' type.
+
+      boolean isSpecialConstant = false;
+      if (specialConstants != null) {
+        isSpecialConstant = ArrayContentValidator.isSpecialConstant(((BigDecimal) number).stripTrailingZeros().toString(), specialConstants);
       }
-      if (maximum != null) {
-        if (number.doubleValue() > maximum.doubleValue()) {
-          String message = "Field has a value '" + value
-              + "' that is greater than the defined maximum value '"
-              + maximum.toString() +  "'. "; 
-          addTableProblem(ExceptionType.ERROR,
-              ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE,
-              message,
+
+      if (!isSpecialConstant) {
+        Double dnumber = number.doubleValue();
+        if (minimum != null) {
+          if (dnumber.doubleValue() < minimum.doubleValue()) {
+            String message = "Field has a value '" + value
+                + "' that is less than the defined minimum value '"
+                + minimum.toString() +  "'. "; 
+            addTableProblem(ExceptionType.ERROR,
+                ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE,
+                message,
+                recordLocation,
+                fieldIndex);
+          } else {
+            String message = "Field has a value '" + value
+                + "' that is greater than the defined minimum value '"
+                + minimum.toString() +  "'. "; 
+            addTableProblem(ExceptionType.DEBUG,
+                ProblemType.FIELD_VALUE_IN_MIN_MAX_RANGE,
+                message,
+                recordLocation,
+                fieldIndex);
+          }
+        }
+        if (maximum != null) {
+          if (dnumber.doubleValue() > maximum.doubleValue()) {
+            String message = "Field has a value '" + value
+                + "' that is greater than the defined maximum value '"
+                + maximum.toString() +  "'. "; 
+            addTableProblem(ExceptionType.ERROR,
+                ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE,
+                message,
+                recordLocation,
+                fieldIndex);
+          } else {
+            String message = "Field has a value '" + value
+                + "' that is less than the defined maximum value '"
+                + maximum.toString() +  "'. "; 
+            addTableProblem(ExceptionType.DEBUG,
+                ProblemType.FIELD_VALUE_IN_MIN_MAX_RANGE,
+                message,
+                recordLocation,
+                fieldIndex);          
+          }
+        }
+      } else {
+          addTableProblem(ExceptionType.INFO,
+              ProblemType.FIELD_VALUE_IS_SPECIAL_CONSTANT,
+              "Value is a special constant defined in the label: " + value.toString(),
               recordLocation,
               fieldIndex);
-        } else {
-          String message = "Field has a value '" + value
-              + "' that is less than the defined maximum value '"
-              + maximum.toString() +  "'. "; 
-          addTableProblem(ExceptionType.DEBUG,
-              ProblemType.FIELD_VALUE_IN_MIN_MAX_RANGE,
-              message,
-              recordLocation,
-              fieldIndex);          
-        }
       }
     } else {
       // Value cannot be converted to a number
@@ -535,7 +552,7 @@ public class FieldValueValidator {
           message,
           recordLocation,
           fieldIndex);
-    }
+    } 
   }
   
   /**
