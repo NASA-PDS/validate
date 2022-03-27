@@ -38,6 +38,42 @@
           },
           {
                "name": [
+                    "LASER RANGEFINDER"
+               ],
+               "type": [
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clem1.lidar::1.0"
+          },
+          {
+               "name": [
+                    "W AQUILAE"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.w_aql::1.0"
+          },
+          {
+               "name": [
+                    "COSPIN-HIGH FLUX TELESCOPE"
+               ],
+               "type": [
+                    "PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cospin-hft.uly::1.0"
+          },
+          {
+               "name": [
+                    "URANUS"
+               ],
+               "type": [
+                    "PLANET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planet.uranus::1.2"
+          },
+          {
+               "name": [
                     "64P/SWIFT-GEHRELS"
                ],
                "type": [
@@ -4209,6 +4245,15 @@
           },
           {
                "name": [
+                    "BEAMLINE 13-ID-E"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:aps.beamline13ide::1.0"
+          },
+          {
+               "name": [
                     "4P/FAYE"
                ],
                "type": [
@@ -6652,58 +6697,12 @@
           },
           {
                "name": [
-                    "GALILEO PROBE"
+                    "BOPPS INFRARED CAMERA (BIRC)"
                ],
                "type": [
-                    "Spacecraft"
+                    "IMAGER"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.gp::1.1"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
-          },
-          {
-               "name": [
-                    "2002 VD130"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_vd130::1.0"
-          },
-          {
-               "name": [
-                    "2005 JP179"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_jp179::1.0"
-          },
-          {
-               "name": [
-                    "INTERPLANETARY MAGNETIC FIELD"
-               ],
-               "type": [
-                    "MAGNETIC FIELD"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:magnetic_field.interplanetary_magnetic_field::1.0"
-          },
-          {
-               "name": [
-                    "RADAR SYSTEM"
-               ],
-               "type": [
-                    "RADIOMETER",
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rdrs.mgn::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:telescope.birc.sto::1.0"
           },
           {
                "name": [
@@ -8265,6 +8264,15 @@
           },
           {
                "name": [
+                    "ALMA RADIO RECEIVERS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:eso-chajnantor.alma.alma_radio_receiver::1.0"
+          },
+          {
+               "name": [
                     "LUNAR RECONNAISSANCE ORBITER"
                ],
                "type": [
@@ -8614,6 +8622,15 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2011j1::1.1"
+          },
+          {
+               "name": [
+                    "GEMINI MULTI-OBJECT SPECTROGRAPH - SOUTH (GMOS-S)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gemini-south.8m1.gmos-s::1.0"
           },
           {
                "name": [
@@ -9472,6 +9489,15 @@
           },
           {
                "name": [
+                    "GEMINI MULTI-OBJECT SPECTROGRAPH - NORTH (GMOS-N)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gemini_north-maunakea.8m1.gmos_n::1.0"
+          },
+          {
+               "name": [
                     "OVIRS"
                ],
                "type": [
@@ -10208,6 +10234,15 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.c2003_a2_gleason::1.1"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:gemini_north-maunakea.8m1::1.0"
           },
           {
                "name": [
@@ -12420,6 +12455,15 @@
           },
           {
                "name": [
+                    "Advanced Photon Source"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.aps::1.0"
+          },
+          {
+               "name": [
                     "(385695) 2005 TO74"
                ],
                "type": [
@@ -13465,6 +13509,15 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-chajnantor.alma::1.0"
+          },
+          {
+               "name": [
                     "(41379) 2000 AS105"
                ],
                "type": [
@@ -13516,42 +13569,6 @@
                     "REGOLITH PROPERTIES"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:lp.eng::1.0"
-          },
-          {
-               "name": [
-                    "LASER RANGEFINDER"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clem1.lidar::1.0"
-          },
-          {
-               "name": [
-                    "W AQUILAE"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.w_aql::1.0"
-          },
-          {
-               "name": [
-                    "COSPIN-HIGH FLUX TELESCOPE"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cospin-hft.uly::1.0"
-          },
-          {
-               "name": [
-                    "URANUS"
-               ],
-               "type": [
-                    "PLANET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:planet.uranus::1.2"
           },
           {
                "name": [
@@ -13957,6 +13974,15 @@
                     "CENTAUR"
                ],
                "lidvid": "urn:nasa:pds:context:target:centaur.144908_2004_yh32::1.0"
+          },
+          {
+               "name": [
+                    "Gemini North Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.gemini_north-maunakea::1.0"
           },
           {
                "name": [
@@ -18699,6 +18725,15 @@
           },
           {
                "name": [
+                    "European Southern Observatory - Chajnantor"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.eso-chajnantor::1.0"
+          },
+          {
+               "name": [
                     "(508823) 2001 RX143"
                ],
                "type": [
@@ -20718,15 +20753,6 @@
           },
           {
                "name": [
-                    "BOPPS INFRARED CAMERA (BIRC)"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:telescope.birc.sto::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -20769,6 +20795,61 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "GALILEO PROBE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.gp::1.1"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
+          },
+          {
+               "name": [
+                    "2002 VD130"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_vd130::1.0"
+          },
+          {
+               "name": [
+                    "2005 JP179"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_jp179::1.0"
+          },
+          {
+               "name": [
+                    "INTERPLANETARY MAGNETIC FIELD"
+               ],
+               "type": [
+                    "MAGNETIC FIELD"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:magnetic_field.interplanetary_magnetic_field::1.0"
+          },
+          {
+               "name": [
+                    "RADAR SYSTEM"
+               ],
+               "type": [
+                    "RADIOMETER",
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rdrs.mgn::1.0"
           },
           {
                "name": [
@@ -22796,6 +22877,15 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.tet_crt::1.0"
+          },
+          {
+               "name": [
+                    "XAS SPECTRA OF SYNTHESIZED GLASSES"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.xas_synthesized_glasses::1.0"
           },
           {
                "name": [
