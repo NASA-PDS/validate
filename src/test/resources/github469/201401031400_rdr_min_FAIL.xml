@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1G00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1930.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xmlns:lro="http://pds.nasa.gov/pds4/mission/lro/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1         https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd     http://pds.nasa.gov/pds4/mission/lro/v1 https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1G00_1000.xsd     http://pds.nasa.gov/pds4/geom/v1        https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1930.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:lro_diviner_derived1:data_calibrated:201401031400_rdr</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>LRO Diviner calibrated data product: 201401031400_rdr</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-12-08</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migrated to PDS4</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2014-01-03T13:59:59.993Z</start_date_time>
+      <stop_date_time>2014-01-03T14:01:38.423Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Lunar Reconnaissance Orbiter</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.lunar_reconnaissance_orbiter</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>DIVINER</name>
+      <Observing_System_Component>
+        <name>Lunar Reconnaissance Orbiter</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.lro</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>DIVINER LUNAR RADIOMETER EXPERIMENT for LRO</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lro.dlre</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <lro:LRO_Parameters>
+        <lro:product_type>RDR</lro:product_type>
+        <lro:product_version_id>1</lro:product_version_id>
+        <lro:mission_phase_name>EXTENDED SCIENCE MISSION</lro:mission_phase_name>
+        <lro:spacecraft_clock_start_count>0410450400.01835</lro:spacecraft_clock_start_count>
+        <lro:spacecraft_clock_stop_count>0410450498.21692</lro:spacecraft_clock_stop_count>
+        <lro:Diviner_Parameters>
+          <lro:missing_lines>740502</lro:missing_lines>
+          <lro:partial_lines>0</lro:partial_lines>
+          <lro:complete_lines>145341</lro:complete_lines>
+          <lro:total_lines>145341</lro:total_lines>
+          <lro:file_state>CLEAN</lro:file_state>
+          <lro:flight_software_version_id>0x31</lro:flight_software_version_id>
+          <lro:dreb_flight_software_ver_id>0x31</lro:dreb_flight_software_ver_id>
+          <lro:software_version_id>1.8</lro:software_version_id>
+          <lro:dlre_date_min>03-Jan-2014</lro:dlre_date_min>
+          <lro:dlre_date_max>03-Jan-2014</lro:dlre_date_max>
+          <lro:dlre_utc_min>14:00:00.057</lro:dlre_utc_min>
+          <lro:dlre_utc_max>14:01:38.359</lro:dlre_utc_max>
+          <lro:dlre_orientation>ELEVATION ACTUATOR HOMED</lro:dlre_orientation>
+          <lro:dlre_orientation>OFF MOON</lro:dlre_orientation>
+          <lro:dlre_orientation>ON MOON</lro:dlre_orientation>
+          <lro:observation_type>BLACKBODY CALIBRATION</lro:observation_type>
+          <lro:observation_type>SPACE CALIBRATION</lro:observation_type>
+          <lro:observation_type>STANDARD NADIR</lro:observation_type>
+          <lro:dlre_instrument_mode_id>MOVING</lro:dlre_instrument_mode_id>
+          <lro:dlre_instrument_mode_id>NOMINAL</lro:dlre_instrument_mode_id>
+          <lro:dlre_instrument_mode_id>SAFED</lro:dlre_instrument_mode_id>
+          <lro:Parameter_Range>
+            <lro:parameter_name>DLRE_QCA_SOLAR</lro:parameter_name>
+            <lro:parameter_min>000</lro:parameter_min>
+            <lro:parameter_max>000</lro:parameter_max>
+          </lro:Parameter_Range>
+          <lro:Parameter_Range>
+            <lro:parameter_name>DLRE_QCA_THERMAL</lro:parameter_name>
+            <lro:parameter_min>000</lro:parameter_min>
+            <lro:parameter_max>000</lro:parameter_max>
+          </lro:Parameter_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH1</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0621</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">0.2387</lro:radiance_max>
+            <lro:tb_min unit="K">-0.167</lro:tb_min>
+            <lro:tb_max unit="K">0.643</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH2</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.3239</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">0.7613</lro:radiance_max>
+            <lro:tb_min unit="K">-0.872</lro:tb_min>
+            <lro:tb_max unit="K">2.051</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH3</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0799</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">4.5542</lro:radiance_max>
+            <lro:tb_min unit="K">-182.345</lro:tb_min>
+            <lro:tb_max unit="K">303.241</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH4</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.1093</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">3.0793</lro:radiance_max>
+            <lro:tb_min unit="K">-192.096</lro:tb_min>
+            <lro:tb_max unit="K">303.655</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH5</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0882</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">3.1479</lro:radiance_max>
+            <lro:tb_min unit="K">-184.922</lro:tb_min>
+            <lro:tb_max unit="K">303.837</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH6</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.1889</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">50.4628</lro:radiance_max>
+            <lro:tb_min unit="K">-98.600</lro:tb_min>
+            <lro:tb_max unit="K">303.126</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH7</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0537</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">15.6336</lro:radiance_max>
+            <lro:tb_min unit="K">-65.534</lro:tb_min>
+            <lro:tb_max unit="K">303.537</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH8</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0326</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">2.5173</lro:radiance_max>
+            <lro:tb_min unit="K">-49.919</lro:tb_min>
+            <lro:tb_max unit="K">306.294</lro:tb_max>
+          </lro:Channel_Range>
+          <lro:Channel_Range>
+            <lro:channel>CH9</lro:channel>
+            <lro:radiance_min unit="W/(m**2*sr)">-0.0212</lro:radiance_min>
+            <lro:radiance_max unit="W/(m**2*sr)">0.6006</lro:radiance_max>
+            <lro:tb_min unit="K">-42.761</lro:tb_min>
+            <lro:tb_max unit="K">311.985</lro:tb_max>
+          </lro:Channel_Range>
+        </lro:Diviner_Parameters>
+      </lro:LRO_Parameters>
+    </Mission_Area>
+    <Discipline_Area>
+      <geom:Geometry>
+        <geom:SPICE_Kernel_Files>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>pck00008.tpc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_frames_2014049_v01.tf</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_dlre_frames_2010132_v04.tf</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>naif0010.tls</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_clkcor_2014077_v00.tsc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>de421.bsp</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>moon_pa_de421_1900-2050.bpc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>moon_080317.tf</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>moon_assoc_me.tf</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>FDF30_2014003_2014038_B01.bsp</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>fdf29_2014003_2014004_n01.bsp</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>moc41_2014003_2014010_v01.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>moc42_2014003_2014004_v01.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_09.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_10.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_11.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_12.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_13.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_14.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_15.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_16.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_17.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_18.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_div_2014-01-03_19.bc</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>lro_dlre_2010134_v05.ti</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+        </geom:SPICE_Kernel_Files>
+      </geom:Geometry>
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+     <file_name>201401031400_rdr_min_FAIL.tab</file_name>
+      <local_identifier>diviner_calibrated_data_table</local_identifier>
+      <creation_date_time>2014-03-29T19:37:12.000</creation_date_time>
+      <comment>This table contains RDR data
+                                   records from the Diviner Lunar
+                                   Radiometer Experiment collected
+                                   during the orbital operations phase
+                                   of the Lunar Reconnaissance Orbiter
+                                   mission.</comment>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">1368</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+    </Header>
+    <Table_Character>
+      <name>TABLE</name>
+      <offset unit="byte">1368</offset>
+      <records>13</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>33</fields>
+        <groups>0</groups>
+        <record_length unit="byte">342</record_length>
+        <Field_Character>
+          <name>date</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">2</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">11</field_length>
+          <description>Date at the midpoint of observation (SCET, UTC). E.g. '25-Jun-2009'</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>utc</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">12</field_length>
+          <description>Time at the midpoint of observation (SCET, UTC). E.g. '19:35.37.440'</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>jdate</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">32</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">17</field_length>
+          <description>Julian Date at the midpoint of observation (SCET, UTC). E.g. 2454102.123456789</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>2456661.084471756</maximum>
+            <minimum>2456661.083333990</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>orbit</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">51</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">5</field_length>
+          <description>Orbit number. 0 to 99999</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>20546</maximum>
+            <minimum>20546</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sundist</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">58</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <description>The distance from the center of the moon to the sun (AU). E.g. 1.00001</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>0.98127</maximum>
+            <minimum>0.98127</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sunlat</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">67</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Subsolar Latitude (deg). E.g. -1.54333</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>1.40001</maximum>
+            <minimum>1.40000</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sunlon</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">77</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Subsolar East Longitude (deg). 0.00000 to 360.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>153.16773</maximum>
+            <minimum>153.15387</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sclk</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">88</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">16</field_length>
+          <description>Spacecraft clock at midpoint of observation
+                     (seconds.subseconds). The seconds are relative to the 2001 epoch. The numbers to the right of the
+                     decimal point are not decimal fraction of a second but rather subseconds. Each second is divided into
+                     65536 subseconds, thus the range for subseconds is 0 - 65535. Example: 123456789.00001</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>0410450498.21692</maximum>
+            <minimum>0410450400.01835</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sclat</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">106</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Subspacecraft Latitude (deg). -90.00000 to 90.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>-32.72223</maximum>
+            <minimum>-37.91857</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>sclon</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">117</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Subspacecraft East Longitude (deg). 0 to 360.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>36.08419</maximum>
+            <minimum>35.81806</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>scrad</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">128</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">11</field_length>
+          <description>Distance from the center of moon to the spacecraft (km). E.g.: 11000.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>1806.17019</maximum>
+            <minimum>1802.12464</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>scalt</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">141</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">11</field_length>
+          <description>Distance from the surface of the moon to the
+                     spacecraft (km). E.g.: 11000.00000. Uses ellipsoidal moon approximation as described in
+                     Section 2.4.3 of the RDR SIS.</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>68.90425</maximum>
+            <minimum>64.85056</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>el_cmd</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">154</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <description>Last Elevation Command (deg). 0 to 270.000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>180.000</maximum>
+            <minimum>0.000</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>az_cmd</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">163</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <description>Last Azimuth Command (deg). 0 to 270.000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>240.000</maximum>
+            <minimum>240.000</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>af</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">172</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Activity Flag. See Appendix B of DLRE RDR SIS for description</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>orientlat</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">178</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Orientation Latitude (deg). The latitudinal
+                     component of the 'orientation vector', a vector from the center of the moon in the direction of
+                     the detector array direction (defined as from detector 21 to detector 1). Provides angular
+                     orientation of the FOV's. -90.00000 to 90.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>2.35927</maximum>
+            <minimum>-44.73779</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>orientlon</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">189</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Orientation Longitude (deg). The east
+                     longitudinal component of the 'orientation vector', a vector from the center of the moon in
+                     the direction of the detector array direction (defined as from detector 21 to detector 1).
+                     Provides angular orientation of the FOV's. 0 to 360.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>304.41433</maximum>
+            <minimum>47.81356</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>c</name>
+          <field_number>18</field_number>
+          <field_location unit="byte">200</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">1</field_length>
+          <description>Diviner Channel Number. 1 to 9</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>det</name>
+          <field_number>19</field_number>
+          <field_location unit="byte">203</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>Diviner Detector Number. 1 to 21</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>vlookx</name>
+          <field_number>20</field_number>
+          <field_location unit="byte">208</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>The X component of the Diviner Look Unit Vector,
+                     using the lunar coordinate system described in Section 2.4.3 of the RDR SIS. E.g. -0.999999</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>0.715972</maximum>
+            <minimum>-0.705089</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>vlooky</name>
+          <field_number>21</field_number>
+          <field_location unit="byte">219</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>The Y component of the Diviner Look Unit Vector,
+                     using the lunar coordinate system described in Section 2.4.3 of the RDR SIS. E.g. -0.999999</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>0.530080</maximum>
+            <minimum>-0.757673</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>vlookz</name>
+          <field_number>22</field_number>
+          <field_location unit="byte">230</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>The Z component of the Diviner Look Unit Vector,
+                     using the lunar coordinate system described in Section 2.4.3 of the RDR SIS. E.g. -0.999999</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>0.640173</maximum>
+            <minimum>-0.669777</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>radiance</name>
+          <field_number>23</field_number>
+          <field_location unit="byte">241</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">10</field_length>
+          <description>Calibrated Radiance (W m**-2 sr**-1). Range is -1000.0000 to 1000.0000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>tb</name>
+          <field_number>24</field_number>
+          <field_location unit="byte">253</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Calibrated Brightness Temperature (K). Except for
+                     Channels 1 and 2, which is radiance relative to normally illuminated Lambert surface at sun-moon
+                     distance. Range is -450.000 to 450.000, where negative tb values correspond to negative radiance
+                     values.</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>clat</name>
+          <field_number>25</field_number>
+          <field_location unit="byte">263</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Latitude of FOV center (deg). Undefined if off
+                     planet. Uses ellipsoidal moon approximation as described in Section 2.4.3 of the RDR SIS.
+                     -90.00000 to 90.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>-34.06268</maximum>
+            <minimum>-37.89888</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>clon</name>
+          <field_number>26</field_number>
+          <field_location unit="byte">274</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>East longitude of FOV center (deg). Undefined if
+                     off planet. Uses ellipsoidal moon approximation as described in Section 2.4.3 of the RDR SIS. 0 to
+                     360.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>36.17135</maximum>
+            <minimum>35.78881</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>cemis</name>
+          <field_number>27</field_number>
+          <field_location unit="byte">285</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Emission Angle at FOV center (deg). Undefined if
+                     off planet. Uses ellipsoidal moon approximation as described in Section 2.4.3 of the RDR SIS. 0 to
+                     90.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>2.97916</maximum>
+            <minimum>0.24017</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>csunzen</name>
+          <field_number>28</field_number>
+          <field_location unit="byte">296</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Solar Zenith angle at FOV center (deg). Undefined
+                     when off planet except during solar calibrations when it is defined as the solar zenith angle of
+                     the detector FOV center projected onto the solar calibration target. Uses ellipsoidal moon
+                     approximation as described in Section 2.4.3 of the RDR SIS. 0 to 180.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>113.23312</maximum>
+            <minimum>111.90026</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>csunazi</name>
+          <field_number>29</field_number>
+          <field_location unit="byte">307</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">9</field_length>
+          <description>Solar Azimuth Angle at FOV Center (deg). 0
+                     degrees when aligned with the solar vector and measured counter-clockwise when looking down at
+                     the planet. Undefined when off planet except during solar calibrations when it is defined as
+                     the solar azimuth angle of the detector FOV center projected onto the solar calibration target. Uses
+                     ellipsoidal moon approximation as described in Section 2.4.3 of the RDR SIS. 0 to 360.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>179.99919</maximum>
+            <minimum>0.00108</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>cloctime</name>
+          <field_number>30</field_number>
+          <field_location unit="byte">318</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Local time at FOV Center (hours past midnight).
+                     Undefined if off planet. Uses ellipsoidal moon approximation as described in Section 2.4.3 of the
+                     RDR SIS. 0 to 24.00000</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>4.20111</maximum>
+            <minimum>4.17472</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>qca</name>
+          <field_number>31</field_number>
+          <field_location unit="byte">328</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>Quality Flag for Calibration. A 3-digit decimal
+                     integer representing an 8-bit binary quality flag. Bits set to 1 represent various conditions which
+                     compromise data quality. A value of zero represents best quality and increasing values
+                     indicate lower quality. Range is 0 to 255. See Appendix C of the RDR SIS for more details.</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+        </Field_Character>
+        <Field_Character>
+          <name>qge</name>
+          <field_number>32</field_number>
+          <field_location unit="byte">333</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>Quality Flag for Geometry. A 3-digit decimal
+                     integer representing an 8-bit binary quality flag. Bits set to 1 represent various conditions which
+                     compromise data quality. A value of zero represents best quality and increasing values
+                     indicate lower quality. Range is 0 to 255. See Appendix C of the RDR SIS for more details.</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>012</maximum>
+            <minimum>012</minimum>
+          </Field_Statistics>
+        </Field_Character>
+        <Field_Character>
+          <name>qmi</name>
+          <field_number>33</field_number>
+          <field_location unit="byte">338</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>Quality Flag for Miscellaneous. A 3-digit decimal
+                     integer representing an 8-bit binary quality flag. Bits set to 1 represent various conditions which
+                     compromise data quality. A value of zero represents best quality and increasing values
+                     indicate lower quality. Range is 0 to 255. See Appendix C of the RDR SIS for more details.</description>
+          <Special_Constants>
+            <invalid_constant>-9998</invalid_constant>
+            <unknown_constant>-9999</unknown_constant>
+          </Special_Constants>
+          <Field_Statistics>
+            <maximum>128</maximum>
+            <minimum>000</minimum>
+          </Field_Statistics>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>
