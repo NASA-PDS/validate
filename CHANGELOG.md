@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-02-10)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-04-06)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Validate content validation does not handle properly special\_constants and field\_statistics when they both appear [\#469](https://github.com/NASA-PDS/validate/issues/469) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-03-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
 
@@ -45,7 +53,8 @@
 
 **Improvements:**
 
-- Improve warning message [\#421](https://github.com/NASA-PDS/validate/issues/421)
+- Improve warning message for missing\_context\_reference [\#421](https://github.com/NASA-PDS/validate/issues/421)
+- Update PDF validation to check against flavour specified in PDF metadata [\#412](https://github.com/NASA-PDS/validate/issues/412)
 - Update rule documentation to remove "auto-detect" mention [\#377](https://github.com/NASA-PDS/validate/issues/377)
 
 **Defects:**
@@ -62,10 +71,6 @@
 - Validate 2.1.0-SNAPSHOT skips a collection XML label [\#408](https://github.com/NASA-PDS/validate/issues/408) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Checksums output lowercase and do not accept uppercase checksums [\#376](https://github.com/NASA-PDS/validate/issues/376) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate allows absolute path in directory\_path\_name but shouldn't [\#349](https://github.com/NASA-PDS/validate/issues/349) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-**Other closed issues:**
-
-- Update PDF validation to check against flavour specified in PDF metadata [\#412](https://github.com/NASA-PDS/validate/issues/412)
 
 ## [v2.1.0](https://github.com/NASA-PDS/validate/tree/v2.1.0) (2021-10-05)
 
