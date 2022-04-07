@@ -1,14 +1,10 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-04-06)
+## [v2.2.0](https://github.com/NASA-PDS/validate/tree/v2.2.0) (2022-04-07)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...v2.2.0)
 
-**Defects:**
-
-- Validate content validation does not handle properly special\_constants and field\_statistics when they both appear [\#469](https://github.com/NASA-PDS/validate/issues/469) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-03-09)
+## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-04-06)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
 
