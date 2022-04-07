@@ -231,15 +231,15 @@ public class StepDefs {
             } else if (strTemp.equals("summary_message_only")) {
                 count = reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt();
             } else {
-                System.out.println("getMessageCountBasedOnProblemType:ERROR: This program does not yet support problem type (strTemp) " + strTemp);
+                StepDefs.LOG.error("getMessageCountBasedOnProblemType:ERROR: This program does not yet support problem type (strTemp) " + strTemp);
                 System.exit(1);
                 // Exit to allow developer to add new error type.
             }
-            System.out.println("getMessageCountBasedOnProblemType: strTemp, count " + strTemp + " " + Integer.toString(count));
+            StepDefs.LOG.info("getMessageCountBasedOnProblemType: strTemp, count " + strTemp + " " + Integer.toString(count));
             totalCount += count;
         }
 
-        System.out.println("getMessageCountBasedOnProblemType: problemEnum, totalCount " + problemEnum + " " + Integer.toString(totalCount));
+        StepDefs.LOG.info("getMessageCountBasedOnProblemType: problemEnum, totalCount " + problemEnum + " " + Integer.toString(totalCount));
 
         return(totalCount);
     }
@@ -266,11 +266,11 @@ public class StepDefs {
             args[argIndex++] = resolvedToken;
         }
 
-        System.out.println("resolveArgumentStrings() commandArgs = [" + this.commandArgs + "]");
-        System.out.println("resolveArgumentStrings() commandArgs args = [" + Arrays.toString(args) + "]");
-        System.out.println("resolveArgumentStrings() this.reportDir = [" + this.reportDir  + "]");
-        System.out.println("resolveArgumentStrings() this.resourceDir = [" + this.resourceDir + "]");
-        System.out.println("resolveArgumentStrings() this.testName = [" + this.testName + "]");
+        StepDefs.LOG.info("resolveArgumentStrings() commandArgs = [" + this.commandArgs + "]");
+        StepDefs.LOG.info("resolveArgumentStrings() commandArgs args = [" + Arrays.toString(args) + "]");
+        StepDefs.LOG.info("resolveArgumentStrings() this.reportDir = [" + this.reportDir  + "]");
+        StepDefs.LOG.info("resolveArgumentStrings() this.resourceDir = [" + this.resourceDir + "]");
+        StepDefs.LOG.info("resolveArgumentStrings() this.testName = [" + this.testName + "]");
 
         return(args);
     }
@@ -288,7 +288,7 @@ public class StepDefs {
         if (commandArgs.indexOf("target-manifest") >= 0) {
             this.createManifestFileFlag = true;
         }
-        System.out.println("a_test_string_with_string:testName,createManifestFileFlag " + testName + " " + Boolean.toString(this.createManifestFileFlag));        
+        StepDefs.LOG.info("a_test_string_with_string:testName,createManifestFileFlag " + testName + " " + Boolean.toString(this.createManifestFileFlag));        
     }
 
     @When("with test property count {int} text {string} problem {string} reference {string}")
@@ -299,15 +299,15 @@ public class StepDefs {
         this.messageText = messageText;
         this.problemEnum = problemEnum;
         this.refOutputValue = refOutputValue;
-        System.out.println("with_test_property:messageCount [" + Integer.toString(messageCount) + "], messageText [" + messageText + "]");
+        StepDefs.LOG.info("with_test_property:messageCount [" + Integer.toString(messageCount) + "], messageText [" + messageText + "]");
     }
 
     @When("execute a validate command")
     public void execute_a_validate_command() {
         // Write code here that turns the phrase above into concrete actions
         //throw new io.cucumber.java.PendingException();
-        System.out.println("execute_a_validate_command:testDir " + this.testDir);
-        System.out.println("execute_a_validate_command:testName " + this.testName);
+    	StepDefs.LOG.info("execute_a_validate_command:testDir " + this.testDir);
+    	StepDefs.LOG.info("execute_a_validate_command:testName " + this.testName);
 
         try {
                 this.setUp();
@@ -324,7 +324,7 @@ public class StepDefs {
                 // A particular test 'github292' has a different way of creating the catalog file.
                 if (((this.testName.indexOf("validate#71") >= 0)  || (this.testName.indexOf("validate#87") >= 0)) ||
                      (this.testName.indexOf("validate#292") >= 0))  {
-                    System.out.println("execute_a_validate_command:testName,catFile " + this.testName + " " + catFile);
+                	StepDefs.LOG.info("execute_a_validate_command:testName,catFile " + this.testName + " " + catFile);
                     this.createCatalogFileDo(catFile,testPath,true);
                 } else {
                     this.createCatalogFileDo(catFile,testPath,false);
@@ -354,18 +354,18 @@ public class StepDefs {
 //        System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testName    = " + this.testName);
 //        System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testDir     = " + this.testDir);
 //        System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.commandArgs = " + this.commandArgs);
-        System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = " + this.refOutputValue);
+        StepDefs.LOG.info("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = " + this.refOutputValue);
 
         try {
             Gson gson = new Gson();
             File report = new File(this.reportDir + File.separator + this.refOutputValue);
-            System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:report = [" + report.getName() + "]");
+            StepDefs.LOG.info("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:report = [" + report.getName() + "]");
             JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
             // Get the count for errors based on the value of problemEnum, e.g. MISSING_REFERENCED_FILE
             int count = this.getMessageCountBasedOnProblemType(this.problemEnum, reportJson);
 
-            System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: " + this.testName + " " + problemEnum + " " + Integer.toString(count) + " " + this.refOutputValue);
+            StepDefs.LOG.debug("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: " + this.testName + " " + problemEnum + " " + Integer.toString(count) + " " + this.refOutputValue);
 
             // Compare the count from this test with the this.messageCount from test table.
             assertEquals(count, this.messageCount, this.messageText + " " + reportJson.toString());

@@ -15,6 +15,7 @@
 **Defects:**
 
 - Fix validate compilation issues due to removal of veraPDF artifacts from maven central [\#470](https://github.com/NASA-PDS/validate/issues/470) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- Validate content validation does not handle properly special\_constants and field\_statistics when they both appear [\#469](https://github.com/NASA-PDS/validate/issues/469) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate repo cannot be checked out on Windows without errors [\#411](https://github.com/NASA-PDS/validate/issues/411) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v2.1.4](https://github.com/NASA-PDS/validate/tree/v2.1.4) (2021-12-23)
