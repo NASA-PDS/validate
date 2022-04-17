@@ -38,6 +38,33 @@
           },
           {
                "name": [
+                    "(300171) 2006 VS151"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300171_2006_vs151::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dart.draco::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:maunakea.ukirt_3m8::1.0"
+          },
+          {
+               "name": [
                     "C/1996 B2 (HYAKUTAKE)"
                ],
                "type": [
@@ -6715,30 +6742,30 @@
           },
           {
                "name": [
-                    "DSS-14 X-BAND GOLDSTONE SOLAR SYSTEM RADAR TRANSMITTER"
+                    "Joint Astronomy Centre"
                ],
                "type": [
-                    "N/A"
+                    "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.0"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.jac::1.0"
           },
           {
                "name": [
-                    "N/A"
+                    "PLASMA ENERGY ANALYZER"
                ],
                "type": [
-                    "N/A"
+                    "SPECTROMETER"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss45_34m::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:pm1.vega2::1.0"
           },
           {
                "name": [
-                    "(84719) 2002 VR128"
+                    "NGC 7027"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "PLANETARY NEBULA"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.84719_2002_vr128::1.0"
+               "lidvid": "urn:nasa:pds:context:target:planetary_nebula.ngc_7027::1.0"
           },
           {
                "name": [
@@ -13555,33 +13582,6 @@
           },
           {
                "name": [
-                    "(300171) 2006 VS151"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300171_2006_vs151::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dart.draco::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:maunakea.ukirt_3m8::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20158,33 +20158,6 @@
           },
           {
                "name": [
-                    "Joint Astronomy Centre"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.jac::1.0"
-          },
-          {
-               "name": [
-                    "PLASMA ENERGY ANALYZER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pm1.vega2::1.0"
-          },
-          {
-               "name": [
-                    "NGC 7027"
-               ],
-               "type": [
-                    "PLANETARY NEBULA"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:planetary_nebula.ngc_7027::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20200,6 +20173,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "DSS-14 X-BAND GOLDSTONE SOLAR SYSTEM RADAR TRANSMITTER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss45_34m::1.0"
+          },
+          {
+               "name": [
+                    "(84719) 2002 VR128"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.84719_2002_vr128::1.0"
           },
           {
                "name": [
