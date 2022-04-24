@@ -38,6 +38,96 @@
           },
           {
                "name": [
+                    "GENERIC INFRARED HIGH SPEED PHOTOMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:multi-host.generic_ir_hsp::1.0"
+          },
+          {
+               "name": [
+                    "2000 QC226"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_qc226::1.0"
+          },
+          {
+               "name": [
+                    "(300216) 2006 WK180"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300216_2006_wk180::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss14_64m::1.0"
+          },
+          {
+               "name": [
+                    "2004 XX190"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_xx190::1.0"
+          },
+          {
+               "name": [
+                    "SBIG ST-6"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:simeis.grubb1m.sbig_st-6::1.0"
+          },
+          {
+               "name": [
+                    "U16"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.ucac2_23892052::1.0"
+          },
+          {
+               "name": [
+                    "PHOBOS 2"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.phb2::1.1"
+          },
+          {
+               "name": [
+                    "MID-INFRARED ARRAY CAMERA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.mirac2::1.0"
+          },
+          {
+               "name": [
+                    "XO-3"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.xo-3::1.0"
+          },
+          {
+               "name": [
                     "(300171) 2006 VS151"
                ],
                "type": [
@@ -6661,66 +6751,12 @@
           },
           {
                "name": [
-                    "(118378) 1999 HT11"
+                    "THERMAL INFRARED MULTI-MODE INSTRUMENT 2"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.118378_1999_ht11::1.0"
-          },
-          {
-               "name": [
-                    "31 LEONIS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.31_leo::1.0"
-          },
-          {
-               "name": [
-                    "MICROWAVE RADIOMETER"
-               ],
-               "type": [
-                    "RADIOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mwr.jno::1.0"
-          },
-          {
-               "name": [
-                    "(168703) 2000 GP183"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.168703_2000_gp183::1.0"
-          },
-          {
-               "name": [
-                    "Canadian Light Source"
-               ],
-               "type": [
-                    "Laboratory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:laboratory.cls::1.0"
-          },
-          {
-               "name": [
-                    "(82157) 2001 FM185"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.82157_2001_fm185::1.0"
-          },
-          {
-               "name": [
-                    "(15875) 1996 TP66"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15875_1996_tp66::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:eso-la_silla.3m6.timmi2::1.0"
           },
           {
                "name": [
@@ -6729,16 +6765,43 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:ctio.smarts1m0::0.0"
+               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.0m7::1.0"
           },
           {
                "name": [
-                    "ETA CARINAE"
+                    "RADIO AND PLASMA WAVE SCIENCE"
                ],
                "type": [
-                    "STAR"
+                    "PLASMA WAVE SPECTROMETER"
                ],
-               "lidvid": "urn:nasa:pds:context:target:star.eta_car::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:rpws.co::1.0"
+          },
+          {
+               "name": [
+                    "ULYSSES DUST DETECTION SYSTEM"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:udds.uly::1.0"
+          },
+          {
+               "name": [
+                    "2002 QX47"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.2002_qx47::1.0"
+          },
+          {
+               "name": [
+                    "OPHELIA"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.ophelia::1.1"
           },
           {
                "name": [
@@ -13492,96 +13555,6 @@
           },
           {
                "name": [
-                    "GENERIC INFRARED HIGH SPEED PHOTOMETER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:multi-host.generic_ir_hsp::1.0"
-          },
-          {
-               "name": [
-                    "2000 QC226"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_qc226::1.0"
-          },
-          {
-               "name": [
-                    "(300216) 2006 WK180"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300216_2006_wk180::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss14_64m::1.0"
-          },
-          {
-               "name": [
-                    "2004 XX190"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_xx190::1.0"
-          },
-          {
-               "name": [
-                    "SBIG ST-6"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:simeis.grubb1m.sbig_st-6::1.0"
-          },
-          {
-               "name": [
-                    "U16"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.ucac2_23892052::1.0"
-          },
-          {
-               "name": [
-                    "PHOBOS 2"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.phb2::1.1"
-          },
-          {
-               "name": [
-                    "MID-INFRARED ARRAY CAMERA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.mirac2::1.0"
-          },
-          {
-               "name": [
-                    "XO-3"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.xo-3::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20104,60 +20077,6 @@
           },
           {
                "name": [
-                    "THERMAL INFRARED MULTI-MODE INSTRUMENT 2"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:eso-la_silla.3m6.timmi2::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.0m7::1.0"
-          },
-          {
-               "name": [
-                    "RADIO AND PLASMA WAVE SCIENCE"
-               ],
-               "type": [
-                    "PLASMA WAVE SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rpws.co::1.0"
-          },
-          {
-               "name": [
-                    "ULYSSES DUST DETECTION SYSTEM"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:udds.uly::1.0"
-          },
-          {
-               "name": [
-                    "2002 QX47"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.2002_qx47::1.0"
-          },
-          {
-               "name": [
-                    "OPHELIA"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.ophelia::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20173,6 +20092,87 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "(118378) 1999 HT11"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.118378_1999_ht11::1.0"
+          },
+          {
+               "name": [
+                    "31 LEONIS"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.31_leo::1.0"
+          },
+          {
+               "name": [
+                    "MICROWAVE RADIOMETER"
+               ],
+               "type": [
+                    "RADIOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mwr.jno::1.0"
+          },
+          {
+               "name": [
+                    "(168703) 2000 GP183"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.168703_2000_gp183::1.0"
+          },
+          {
+               "name": [
+                    "Canadian Light Source"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.cls::1.0"
+          },
+          {
+               "name": [
+                    "(82157) 2001 FM185"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.82157_2001_fm185::1.0"
+          },
+          {
+               "name": [
+                    "(15875) 1996 TP66"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15875_1996_tp66::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio.smarts1m0::0.0"
+          },
+          {
+               "name": [
+                    "ETA CARINAE"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.eta_car::1.0"
           },
           {
                "name": [
