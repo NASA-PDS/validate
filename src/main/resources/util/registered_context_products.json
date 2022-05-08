@@ -38,6 +38,78 @@
           },
           {
                "name": [
+                    "GRAVITATIONAL WAVE EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gwe.uly::1.0"
+          },
+          {
+               "name": [
+                    "SIRIUS"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.alf_cma::1.0"
+          },
+          {
+               "name": [
+                    "European Southern Observatory (Paranal) Very Large Telescope"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.eso-paranal::1.0"
+          },
+          {
+               "name": [
+                    "(300164) 2006 VE140"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300164_2006_ve140::1.0"
+          },
+          {
+               "name": [
+                    "(60454) 2000 CH105"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.60454_2000_ch105::1.0"
+          },
+          {
+               "name": [
+                    "ULTRAVIOLET SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vg1.uvs::1.0"
+          },
+          {
+               "name": [
+                    "1998 WG24"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wg24::1.0"
+          },
+          {
+               "name": [
+                    "2000 OB51"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ob51::1.0"
+          },
+          {
+               "name": [
                     "GENERIC INFRARED HIGH SPEED PHOTOMETER"
                ],
                "type": [
@@ -6670,84 +6742,75 @@
           },
           {
                "name": [
-                    "702 ALAUDA"
+                    "MOA 2009-BLG-266"
                ],
                "type": [
-                    "ASTEROID"
+                    "STAR"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.702_alauda::1.1"
+               "lidvid": "urn:nasa:pds:context:target:star.moa_2009-blg-266::1.0"
           },
           {
                "name": [
-                    "8624 KALEYCUOCO"
+                    "CIRCULARLY VARIABLE FILTER"
                ],
                "type": [
-                    "ASTEROID"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.8624_kaleycuoco::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.cvf::1.0"
           },
           {
                "name": [
-                    "LIGHT DETECTION AND RANGING INSTRUMENT"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:lidar.hay::1.0"
-          },
-          {
-               "name": [
-                    "The High Plains Wind Erosion Laboratory, Kansas State University, Manhattan, KS"
-               ],
-               "type": [
-                    "Laboratory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:laboratory.ksu-hpwel::1.0"
-          },
-          {
-               "name": [
-                    "MARS ADVANCED RADAR FOR SUBSURFACE AND IONOSPHERE SOUNDING"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:marsis.mex::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.vg2::1.0"
-          },
-          {
-               "name": [
-                    "50P/AREND"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.50p_arend::1.0"
-          },
-          {
-               "name": [
-                    "(19255) 1994 VK8"
+                    "2005 CF81"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.19255_1994_vk8::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_cf81::1.0"
           },
           {
                "name": [
-                    "URANUS RING ZETA"
+                    "BELINDA"
                ],
                "type": [
-                    "RING"
+                    "SATELLITE"
                ],
-               "lidvid": "urn:nasa:pds:context:target:ring.uranus.zeta_ring::1.0"
+               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.belinda::1.1"
+          },
+          {
+               "name": [
+                    "Mount Canopus Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_canopus::1.0"
+          },
+          {
+               "name": [
+                    "MOON"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.earth.moon::1.1"
+          },
+          {
+               "name": [
+                    "Gemini North Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.gemini_north-maunakea::1.0"
+          },
+          {
+               "name": [
+                    "30 HERCULIS"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.g_her::1.0"
           },
           {
                "name": [
@@ -13483,78 +13546,6 @@
           },
           {
                "name": [
-                    "GRAVITATIONAL WAVE EXPERIMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gwe.uly::1.0"
-          },
-          {
-               "name": [
-                    "SIRIUS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.alf_cma::1.0"
-          },
-          {
-               "name": [
-                    "European Southern Observatory (Paranal) Very Large Telescope"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.eso-paranal::1.0"
-          },
-          {
-               "name": [
-                    "(300164) 2006 VE140"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300164_2006_ve140::1.0"
-          },
-          {
-               "name": [
-                    "(60454) 2000 CH105"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.60454_2000_ch105::1.0"
-          },
-          {
-               "name": [
-                    "ULTRAVIOLET SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:vg1.uvs::1.0"
-          },
-          {
-               "name": [
-                    "1998 WG24"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wg24::1.0"
-          },
-          {
-               "name": [
-                    "2000 OB51"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ob51::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20005,78 +19996,6 @@
           },
           {
                "name": [
-                    "MOA 2009-BLG-266"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.moa_2009-blg-266::1.0"
-          },
-          {
-               "name": [
-                    "CIRCULARLY VARIABLE FILTER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.cvf::1.0"
-          },
-          {
-               "name": [
-                    "2005 CF81"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_cf81::1.0"
-          },
-          {
-               "name": [
-                    "BELINDA"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.uranus.belinda::1.1"
-          },
-          {
-               "name": [
-                    "Mount Canopus Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mount_canopus::1.0"
-          },
-          {
-               "name": [
-                    "MOON"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.earth.moon::1.1"
-          },
-          {
-               "name": [
-                    "Gemini North Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.gemini_north-maunakea::1.0"
-          },
-          {
-               "name": [
-                    "30 HERCULIS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.g_her::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -20092,6 +20011,87 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "702 ALAUDA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.702_alauda::1.1"
+          },
+          {
+               "name": [
+                    "8624 KALEYCUOCO"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.8624_kaleycuoco::1.0"
+          },
+          {
+               "name": [
+                    "LIGHT DETECTION AND RANGING INSTRUMENT"
+               ],
+               "type": [
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lidar.hay::1.0"
+          },
+          {
+               "name": [
+                    "The High Plains Wind Erosion Laboratory, Kansas State University, Manhattan, KS"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.ksu-hpwel::1.0"
+          },
+          {
+               "name": [
+                    "MARS ADVANCED RADAR FOR SUBSURFACE AND IONOSPHERE SOUNDING"
+               ],
+               "type": [
+                    "ALTIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:marsis.mex::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.vg2::1.0"
+          },
+          {
+               "name": [
+                    "50P/AREND"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.50p_arend::1.0"
+          },
+          {
+               "name": [
+                    "(19255) 1994 VK8"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.19255_1994_vk8::1.0"
+          },
+          {
+               "name": [
+                    "URANUS RING ZETA"
+               ],
+               "type": [
+                    "RING"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:ring.uranus.zeta_ring::1.0"
           },
           {
                "name": [
