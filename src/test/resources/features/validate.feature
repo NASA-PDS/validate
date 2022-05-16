@@ -279,13 +279,6 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/nasa-pds/validate/issues/401 validate does not flag <CR> within lid_reference
  |"NASA-PDS/validate#401 INVALID" | "github401" | 3 | "3 error messages expected: 1 INVALID_FIELD_VALUE" | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github401_bundle_invalid.json -s json -t {resourceDir}/github401/invalid/bundle_kaguya_derived.xml" | "report_github401_bundle_invalid.json" |
 
-# https://github.com/nasa-pds/validate/issues/390 validate does not flag *.tab files with variable length records
-# Note: There was a misunderstanding on this ticket.  The checking for same length line should be done for fixed length record.
-#       The checking should NOT be done based on the file extension.
-#       Changed the below test to look from 1 RECORD_LENGTH_MISMATCH to 0 RECORD_LENGTH_MISMATCH.
-
- |"NASA-PDS/validate#390 INVALID" | "github390" | 0 | "0 error messages expected: 0 RECORD_LENGTH_MISMATCH" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github390_label_invalid.json -s json -t {resourceDir}/github390/VALIDATE-TAB/collection_calib_freq.xml" | "report_github390_label_invalid.json" |
-
 # https://github.com/nasa-pds/validate/issues/408 Validate 2.1.0-SNAPSHOT skips a collection XML label
 
  |"NASA-PDS/validate#408 VALID" | "github408" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github408_bundle_valid.json -s json -t {resourceDir}/github408/valid/bundle_insight_seis.xml" | "report_github408_bundle_valid.json" |
