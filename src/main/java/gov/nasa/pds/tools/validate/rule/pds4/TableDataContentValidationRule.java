@@ -74,8 +74,8 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.TableUtil;
 import gov.nasa.pds.tools.util.DOMSourceManager;
-import gov.nasa.pds.tools.util.FilenameUtility;
 import gov.nasa.pds.tools.util.FileService;
+import gov.nasa.pds.tools.util.FilenameUtility;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -186,11 +186,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    * @param keepQuotationsFlag Flag to keep the double quote or not
    * @return None 
    */
-  private void validateTableContentRecordWise(FieldValueValidator fieldValueValidator, Object table, URL dataFile, int tableIndex, int spotCheckData, boolean keepQuotationsFlag) throws IOException {
+  private void validateTableDelimited(FieldValueValidator fieldValueValidator, Object table, URL dataFile, int tableIndex, int spotCheckData, boolean keepQuotationsFlag) throws IOException {
       // Validate a table content record by record.
 
-      LOG.debug("validateTableContentRecordWise:table instanceof TableCharacter");
-      LOG.debug("validateTableContentRecordWise:tableIndex,spotCheckData,keepQuotationsFlag {},{},{}",tableIndex,spotCheckData,keepQuotationsFlag);
+      LOG.debug("validateTableDelimited:table instanceof TableCharacter");
+      LOG.debug("validateTableDelimited:tableIndex,spotCheckData,keepQuotationsFlag {},{},{}",tableIndex,spotCheckData,keepQuotationsFlag);
       TableRecord record = null;
       int recordNumber = 0;
 
@@ -199,7 +199,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           LOG.debug("validateTableDataContents:pre-getRecord:dataFile {}",dataFile);
           tableReader = new RawTableReader(table, dataFile, getTarget(), 0, false, false);
           long recordSize = tableReader.getRecordSize(dataFile, table);
-          LOG.debug("validateTableContentRecordWise:dataFile,recordSize {},{}",dataFile,recordSize);
+          LOG.debug("validateTableDelimited:dataFile,recordSize {},{}",dataFile,recordSize);
       } catch (Exception ex) {
           LOG.error("ERROR: Cannot open data file {}",dataFile);
           // This error is FATAL, print the stack trace.
@@ -211,7 +211,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
            record = tableReader.readNext();
            while (record != null) {
                recordNumber++; 
-               LOG.debug("validateTableContentRecordWise: recordNumber {}",recordNumber);
+               LOG.debug("validateTableDelimited: recordNumber {}",recordNumber);
                progressCounter();
 
                try {
@@ -318,7 +318,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    * @param tableCharacterUtil Util object to parse in between fields
    * @return None 
    */
-  private void validateTableContentLineWise(FieldValueValidator fieldValueValidator, Object table, TableRecord record, RawTableReader reader, URL dataFile, int tableIndex,
+  private void validateTableCharacter(FieldValueValidator fieldValueValidator, Object table, TableRecord record, RawTableReader reader, URL dataFile, int tableIndex,
                int spotCheckData, boolean keepQuotationsFlag, String recordDelimiter, int recordLength, int recordMaxLength, int definedNumRecords, boolean inventoryTable,
                TableCharacterUtil tableCharacterUtil) throws IOException {
       // The content of this function was copied from the main validate function to reduced the function size.
@@ -340,11 +340,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       ArrayList<Integer> lineNumbersArray = new ArrayList<Integer>(0);
 
       if (line != null) {
-          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
-          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
+          LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+          LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
           if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
       } else {
-          LOG.debug("validateTableContentLineWise:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
+          LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
       }
 
       while (line != null) {
@@ -449,35 +449,36 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               }
           }
           // Need to manually parse the line if we're past the defined
-          // number of records. The PDS4-Tools library won't let us
+          // number of records. The PDS4-JParser library won't let us
           // read past the defined number of records.
-          LOG.debug("validateTableContentLineWise:POSITION_4");
+
+          // TODO Move this to PDS4 JParser
+          LOG.debug("validateTableCharacter:POSITION_4");
           if (reader.getCurrentRow() > definedNumRecords) {
               manuallyParseRecord = true;
-              LOG.debug("validateTableContentLineWise:POSITION_5");
+              LOG.debug("validateTableCharacter:POSITION_5");
           }
           try {
-              LOG.debug("validateTableContentLineWise:POSITION_6");
+              LOG.debug("validateTableCharacter:POSITION_6");
               if (manuallyParseRecord && !(table instanceof TableDelimited)) {
                   record = reader.toRecord(line, reader.getCurrentRow());
-                  LOG.debug("validateTableContentLineWise:POSITION_7");
+                  LOG.debug("validateTableCharacter:POSITION_7");
               } else {
-                	//System.out.println("TableDataContentValidationRule...... reader.getCurrentRow() = " + reader.getCurrentRow());
                   record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
                   recordsRead += 1;  // Keep track of how any records read so far.
-                  LOG.debug("validateTableContentLineWise:POSITION_8");
+                  LOG.debug("validateTableCharacter:POSITION_8");
               }
 
               // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
               if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
-                    LOG.debug("validateTableContentLineWise:POSITION_9");
+                    LOG.debug("validateTableCharacter:POSITION_9");
                     tableCharacterUtil.validateInBetweenFields(line,lineNumber);
               }
 
-              LOG.debug("validateTableContentLineWise:POSITION_10");
+              LOG.debug("validateTableCharacter:POSITION_10");
               //Validate fields within the record here
               try {
-                  LOG.debug("validateTableContentLineWise:POSITION_11");
+                  LOG.debug("validateTableCharacter:POSITION_11");
                   fieldValueValidator.validate(record, reader.getFields());
               } catch (FieldContentFatalException e) {
                   // If we get a fatal error, we can avoid an overflow of error output
@@ -488,7 +489,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                   LOG.error("TableDataContentValidationRule:isApplicable:message:" + e.getMessage());
                   break;
               }
-              LOG.debug("validateTableContentLineWise:POSITION_12");
+              LOG.debug("validateTableCharacter:POSITION_12");
 
               //Validate collection inventory member status
               if (inventoryTable) {
@@ -543,17 +544,17 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           // reach end of the table
           if (table instanceof TableDelimited && 
               definedNumRecords == reader.getCurrentRow()) {
-              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,definedNumRecords {},{} BREAKING_FROM_LOOP",lineNumber,definedNumRecords);
+              LOG.debug("validateTableCharacter:POSITION_2:lineNumber,definedNumRecords {},{} BREAKING_FROM_LOOP",lineNumber,definedNumRecords);
               // The break statement assures that the code does not read passed what was advertised in the label "records" field.
               break;
           }
           line = reader.readNextLine();
           if (line != null) {
-              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
-              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
+              LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
+              LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
               if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
           } else {
-              LOG.debug("validateTableContentLineWise:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
+              LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
           }
       }
       // only give error message when the actual record number is smaller than the defined in the label
@@ -562,7 +563,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           String message = "Number of records read is not equal "
                 + "to the defined number of records in the label (expected "
                 + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
-          LOG.error("validateTableContentLineWise:POSITION_2:{}",message);
+          LOG.error("validateTableCharacter:POSITION_2:{}",message);
           addTableProblem(ExceptionType.ERROR,
                   ProblemType.RECORDS_MISMATCH,
                   message,
@@ -577,7 +578,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           String message = "Number of records read is more than "
                 + "the defined number of records in the label (expected "
                 + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
-          LOG.warn("validateTableContentLineWise:POSITION_2:{}",message);
+          LOG.warn("validateTableCharacter:POSITION_2:{}",message);
           addTableProblem(ExceptionType.WARNING,
                   ProblemType.RECORDS_MISMATCH,
                   message,
@@ -589,40 +590,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // If the table is fixed length all the records length are not the same, report it as an error.
       if (tableIsFixedLength) reportIfDifferentLengths(lineLengthsArray,lineNumbersArray,dataFile,tableIndex);
 
-      LOG.debug("validateTableContentLineWise:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
-      LOG.debug("validateTableContentLineWise:DONE_VALIDATING");
-  }
-
-
-  /**
-   * Given a text data file, read the first and inspect the line length.
-   * 
-   * @param dataFile The URL to the data file
-   * @return length of first line
-   */
-  private long getFirstLineLength(URL dataFile) {
-      long firstLineLength = 0;
-      LOG.debug("getFirstLineLength:dataFile,dataFile.getPath() {},{}",dataFile,dataFile.getPath());
-      BufferedReader reader;
-
-      // Using alternative method to get the parent.
-      String parent = FilenameUtility.getParent(dataFile);
-
-      try {
-          // Combine the parent and the file name together so sonatype-lift won't complain.
-          // https://find-sec-bugs.github.io/bugs.htm#PATH_TRAVERSAL_IN
-          reader = new BufferedReader(new FileReader(parent + File.separator + FilenameUtils.getName(dataFile.toString())));
-          String line = reader.readLine();
-          if (line != null) {
-              firstLineLength = line.length(); 
-          }
-          reader.close();
-      } catch (IOException e) {
-          LOG.error("Cannot read from file {}",dataFile);
-          e.printStackTrace();
-      }
-      LOG.debug("getFirstLineLength:dataFile,firstLineLength {},{}",dataFile,firstLineLength);
-      return(firstLineLength);
+      LOG.debug("validateTableCharacter:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
+      LOG.debug("validateTableCharacter:DONE_VALIDATING");
   }
 
   /**
@@ -650,16 +619,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
               if (recordLength > 0)
                   tableIsLineOrientedFlag = false; // A record has length, it is not a line oriented table.  Validate should read until it gets all the bytes specified in record_length.
 
-              // Inspect the length of first line.
-              // If it is less than the record_length, then it is not a line oriented table because the actual line is less than the advertised record_length value.
-              // For comparison between the first line and the record_length, remember that the readLine() strips any carriage return or linefeed so we need to add 1 before doing the comparison.
-              long firstLineLength = this.getFirstLineLength(dataFile);
-              if ((firstLineLength+1) < recordLength) {
-                  tableIsLineOrientedFlag = false;
-              } else {
-                  tableIsLineOrientedFlag = true; // The first line length is same or more than record length, it needs to processed line by line.
-              }
-              LOG.debug("isTableLineOriented:dataFile,firstLineLength,recordLength {},{},{}",dataFile,firstLineLength,recordLength);
           }
       } else if (table instanceof TableDelimited) {
           // Table_Delimiter is processed line by line via a record_delimiter field.
@@ -1066,8 +1025,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
         try {
           if (table instanceof TableBinary) {
             LOG.debug("table instanceof TableBinary");
-//LOG.info("table instanceof TableBinary");
-//System.out.println("TableDataContentValidationRule:table instanceof TableBinary");
             try {
               record = reader.readNext();
               while (record != null) {
@@ -1107,18 +1064,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             }
           } else {  // We have either a character or delimited table
 
-              // Must check to see that the record_delimiter tag is not "Line-Feed" or "Carriage-Return Line-Feed" as the function validateTableContentRecordWise cannot process such a file.
-              boolean tableIsLineOrientedFlag = this.isTableLineOriented(table,dataFile);
-              LOG.debug("validateTableDataContents:tableIsLineOrientedFlag,dataFile {},{}",tableIsLineOrientedFlag,dataFile);
-
-             // Determine if we should proceed with calling validateTableContentRecordWise() function.
-             // Note that the function validateTableContentRecordWise() can only be applied if the user had specify a length of each record.
-             if (tableIsLineOrientedFlag == false && this.getCheckInbetweenFields() == false) {
+             // Determine if we should proceed with calling validateTableDelimited() function.
+             // Note that the function validateTableDelimited() can only be applied if the user had specify a length of each record.
+            if (!this.isTableLineOriented(table, dataFile) && !this.getCheckInbetweenFields()) {
                  LOG.debug("validateTableDataContents:TABLE_LINEWISE_FALSE {}",dataFile);
                  try {
-
-                     this.validateTableContentRecordWise(fieldValueValidator, table, dataFile, tableIndex, spotCheckData, keepQuotationsFlag);
-
+                     this.validateTableDelimited(fieldValueValidator, table, dataFile, tableIndex, spotCheckData, keepQuotationsFlag);
                  } catch (Exception ex) {
                      LOG.error("ERROR: Cannot validate data file {}",dataFile);
                      // Print the stack trace to an external file for inspection.
@@ -1126,8 +1077,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                  }
              } else {
                  LOG.debug("validateTableDataContents:TABLE_LINEWISE_TRUE {}",dataFile);
-
-                 this.validateTableContentLineWise(fieldValueValidator, table, record, reader, dataFile, tableIndex,
+                 this.validateTableCharacter(fieldValueValidator, table, record, reader, dataFile, tableIndex,
                      spotCheckData, keepQuotationsFlag, recordDelimiter, recordLength, recordMaxLength, definedNumRecords, inventoryTable,
                      tableCharacterUtil);
             }
@@ -1150,7 +1100,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       fileAreaObserveIndex++;
     }
     LOG.debug("Leaving validateTableDataContents");
-//System.exit(0);
+
   }
 
   /**
