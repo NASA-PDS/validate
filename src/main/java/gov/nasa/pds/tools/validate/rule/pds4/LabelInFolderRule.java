@@ -123,7 +123,6 @@ public class LabelInFolderRule extends AbstractValidationRule {
       // The target is already provided no need to call getTarget()
       long startTime = System.currentTimeMillis();
       LOG.info("doValidateLabelsInFolder:BEGIN_PROCESSING_FOLDER:target,labelRuleTmp {},{}",target,labelRuleTmp);
-      //LOG.debug("doValidateLabelsInFolder:target,getDirectories {},{}",target,getDirectories);
       try {
         int targetCount = 0;
         // Crawl recursively or not depending on value of getDirectories.
@@ -134,14 +133,12 @@ public class LabelInFolderRule extends AbstractValidationRule {
         } else {
             targetList = crawler.crawl(target, false, getContext().getFileFilters());
         }
-        //LOG.debug("doValidateLabelsInFolder:target,getDirectories,targetList {},{},{}",target,getDirectories,targetList);
         
         if (targetList.size()>0) {
            getListener().addProblem(
                 new ValidationProblem(
                   new ProblemDefinition(ExceptionType.DEBUG,
-                    ProblemType.GENERAL_INFO, "Targets need to be validated: " + targetList.size()), target));
-        //System.out.println("LabelInFolderRule.....Targets need to be validated: " + targetList.size()); 
+                    ProblemType.GENERAL_INFO, "Targets need to be validated: " + targetList.size()), target)); 
         }   
         for (Target t : targetList) {
         	Future<?> f = validateThreadExecutor.submit(new Runnable() {
@@ -193,7 +190,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
       boolean getDirectories = false;
       // Do the validation on default target.
       URL target = getTarget();
-      this.doValidateLabelsInFolder(target,getDirectories);
+      this.doValidateLabelsInFolder(target, getDirectories);
 
       // Do the validation on any additional targets provided. 
       AdditionalTarget additionalTarget = getExtraTarget();

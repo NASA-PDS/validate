@@ -509,7 +509,7 @@ public class ReferentialIntegrityUtil {
     List<Target> children = new ArrayList<Target>();
     try {
       if (getContext().getCrawler() != null) {
-          children = getContext().getCrawler().crawl(parentURL,false);  // Get also the directories.
+          children = getContext().getCrawler().crawl(parentURL, false);  // Get also the directories.
       } else {
           LOG.warn("crawlParentForBundleLabel:getContext().getCrawler() is null for URL {}",crawlTarget);
       }
@@ -541,13 +541,17 @@ public class ReferentialIntegrityUtil {
     return;
   }
 
+  public static void additionalReferentialIntegrityChecks(URL crawlTarget) {
+    ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(crawlTarget, null);
+  }
+  
   /**
    * Perform additional referential integrity check beside the normal check. 
    * For all references in all labels, check if they refer to a logical identifier that is valid and is in this bundle/collection.
    * @param crawlTarget  The URL of the target to validate for.
    * @return None
    */
-  public static void additionalReferentialIntegrityChecks(URL crawlTarget) {
+  public static void additionalReferentialIntegrityChecks(URL crawlTarget, URL bundleURL) {
     URL url = null;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     try {
@@ -567,7 +571,7 @@ public class ReferentialIntegrityUtil {
     try {
       List<Target> children = new ArrayList<Target>();
       if (getContext().getCrawler() != null) {
-          children = getContext().getCrawler().crawl(crawlTarget,true);  // Get also the directories.
+          children = getContext().getCrawler().crawl(crawlTarget, true);  // Get also the directories.
       } else {
           LOG.warn("additionalReferentialIntegrityChecks:getContext().getCrawler() is null");
       }
@@ -576,7 +580,10 @@ public class ReferentialIntegrityUtil {
 
       // Because a collection is one directory below the bundle, 
       // crawl the parent directory for bundle label to collect the bundle name so a message can be attached to the parent bundle.
-      ReferentialIntegrityUtil.crawlParentForBundleLabel(crawlTarget);
+      if (bundleURL != null)
+        ReferentialIntegrityUtil.parentBundleURL = bundleURL;
+      else
+        ReferentialIntegrityUtil.crawlParentForBundleLabel(crawlTarget);
 
       db = dbf.newDocumentBuilder();
 

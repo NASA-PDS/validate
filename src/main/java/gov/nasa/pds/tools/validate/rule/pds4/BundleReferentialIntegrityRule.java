@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import com.sun.tools.rngom.binary.visitor.ChildElementFinder;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
@@ -92,6 +92,8 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   @ValidationTest
   public void bundleReferentialIntegrityRule() {
 
+    
+    URL bundleURL = null;
     try {
       List<Target> children = getContext().getCrawler().crawl(getTarget());
       LOG.debug("bundleReferentialIntegrityRule:getTarget() {}",getTarget());
@@ -111,10 +113,11 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
               String lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
               String vid = extractor.getValueFromDoc(VERSION_ID);
               // For bundles, set a reference to itself.
-              getRegistrar().addIdentifierReference(child.getUrl().toString(), 
+              bundleURL = child.getUrl();
+              getRegistrar().addIdentifierReference(bundleURL.toString(), 
                   new Identifier(lid, vid));
-              getListener().addLocation(child.getUrl().toString());
-              getBundleMembers(child.getUrl());
+              getListener().addLocation(bundleURL.toString());
+              getBundleMembers(bundleURL);
               break;
             }
           } catch (Exception e) {
@@ -138,8 +141,8 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
     //
 
     // Use the refactored functions in ReferentialIntegrityUtil class.
-    ReferentialIntegrityUtil.initialize("bundle",getTarget(),getListener(),getContext());
-    ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
+    ReferentialIntegrityUtil.initialize("bundle", getTarget(), getListener(), getContext());
+    ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget(), bundleURL);
     ReferentialIntegrityUtil.reportLidOrLidvidReferenceToNonExistLogicalReferences();
 
     // https://github.com/NASA-PDS/validate/issues/69
