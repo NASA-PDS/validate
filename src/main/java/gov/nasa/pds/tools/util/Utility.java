@@ -209,8 +209,6 @@ public class Utility {
     LOG.debug("isDir:ext_len,url {},{}",FilenameUtils.getExtension(url.toString()).length(),url);
     if (file != null) {
       // The below 2 lines may be a bug.  It should not think that a file name without extension to be a directory.
-      //if (file.isDirectory() || 
-      //    (FilenameUtils.getExtension(file.toString()).length() == 0)) {
       
       // Checking using isDirectory() is sufficient to determine if a given url is a directory or not.
       if (file.isDirectory()) {

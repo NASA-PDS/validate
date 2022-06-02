@@ -49,23 +49,4 @@ public class FilenameUtility {
     }
     return(decodedName);
   }
-
-  /** 
-   * Returns the parent directory of the given filename
-   * @param  fileUrl The URL of the file name
-   * @return parent The parent directory of the given filename
-   */
-  public static String getParent(URL fileUrl) {
-    // Using alternative method to get the parent since the other utility does not work correctly:  The leading character after the 'file:' is inadvertently removed. 
-    String parent = null;
-    if (fileUrl != null && fileUrl.getPath().lastIndexOf(File.separator) >= 0) {
-        parent = fileUrl.getPath().substring(0,fileUrl.getPath().lastIndexOf(File.separator));
-        LOG.debug("getParent:fileUrl,parent,FilenameUtils.getName(fileUrl) {},{},{}",fileUrl,parent,FilenameUtils.getName(fileUrl.toString()));
-    } else {
-        LOG.error("The path is null or does not contain a file separator {}",fileUrl);
-        return(null);
-    }
-    LOG.debug("getParent:fileUrl,parent {},{}",fileUrl,parent);
-    return(parent);
-  }
 }

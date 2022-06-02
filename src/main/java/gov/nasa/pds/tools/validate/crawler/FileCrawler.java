@@ -132,7 +132,7 @@ public class FileCrawler extends Crawler {
     File directory = FileUtils.toFile(fileUrl);
     LOG.debug("crawl:directory,fileUrl,fileFilter,this.fileFilter {},{},{}",directory,fileUrl,fileFilter,this.fileFilter);
     LOG.debug("REGULAR_CRAWL:crawl:directory,fileUrl {},{}",directory,fileUrl);
-    //LOG.debug("crawl:this.fileFilter {}",this.fileFilter);
+
     if ( !directory.isDirectory() ) {
       LOG.error("Input file is not a directory: " + directory);
       throw new IllegalArgumentException("Input file is not a directory: "
@@ -166,6 +166,7 @@ public class FileCrawler extends Crawler {
     File directory = FileUtils.toFile(fileUrl);
     LOG.debug("SPECIAL_CRAWL:crawl:directory,fileUrl,extensions,getDirectories,nameToken {},{},{},{},{}",directory,fileUrl,extensions,getDirectories,nameToken);
     LOG.debug("SPECIAL_CRAWL:crawl:fileUrl,extensions,nameToken,ignoreCaseFlag {},{},{},{}",fileUrl,extensions,nameToken,ignoreCaseFlag);
+
     if ( !directory.isDirectory() ) {
       LOG.error("Input file is not a directory: " + directory);
       throw new IllegalArgumentException("Input file is not a directory: "
