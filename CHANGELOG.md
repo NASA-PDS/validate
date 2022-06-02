@@ -1,12 +1,22 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-02)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.1-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- validate having issues checking some file content on windows [\#507](https://github.com/NASA-PDS/validate/issues/507) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- validate passes confusing message to the command window [\#503](https://github.com/NASA-PDS/validate/issues/503) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- validate erroneously flags PDF/A-1a compliant file [\#479](https://github.com/NASA-PDS/validate/issues/479) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v2.2.1-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.1-SNAPSHOT) (2022-04-07)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0...v2.2.1-SNAPSHOT)
+
 ## [v2.2.0](https://github.com/NASA-PDS/validate/tree/v2.2.0) (2022-04-07)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.5-SNAPSHOT...v2.2.0)
-
-## [v2.1.5-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.1.5-SNAPSHOT) (2022-04-06)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.1.5-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.1.4...v2.2.0)
 
 **Defects:**
 
@@ -88,7 +98,6 @@
 
 - validate does not flag \<CR\> within lid\_reference [\#401](https://github.com/NASA-PDS/validate/issues/401)
 - Validate throws incorrect overlap error when first Field\_Bit has length 1 [\#392](https://github.com/NASA-PDS/validate/issues/392) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- validate does not flag \*.tab files with variable length records [\#390](https://github.com/NASA-PDS/validate/issues/390) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not work correctly when the path name contains a space [\#381](https://github.com/NASA-PDS/validate/issues/381) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - stack trace being created during successful validate execution [\#380](https://github.com/NASA-PDS/validate/issues/380) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields [\#379](https://github.com/NASA-PDS/validate/issues/379)
