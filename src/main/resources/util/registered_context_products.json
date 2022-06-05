@@ -38,6 +38,33 @@
           },
           {
                "name": [
+                    "CONTOUR FORWARD IMAGER"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cfi.con::1.0"
+          },
+          {
+               "name": [
+                    "APOLLO 11 PASSIVE SEISMIC EXPERIMENT (PSE)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pse.a11e::1.0"
+          },
+          {
+               "name": [
+                    "MARS PATHFINDER LANDER"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mpfl::1.1"
+          },
+          {
+               "name": [
                     "NAVIGATION CAMERA RIGHT STRING B"
                ],
                "type": [
@@ -126,6 +153,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:uleca.ice::1.0"
+          },
+          {
+               "name": [
+                    "LUNAR TRAILBLAZER ORBITER"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.lt::1.0"
           },
           {
                "name": [
@@ -13592,60 +13628,6 @@
           },
           {
                "name": [
-                    "MCDONALD OBSERVATORY LINEAR POLARIMETER"
-               ],
-               "type": [
-                    "POLARIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mcdonald.struve2m1.molp::1.0"
-          },
-          {
-               "name": [
-                    "68P/KLEMOLA"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.68p_klemola::1.0"
-          },
-          {
-               "name": [
-                    "CAMERA 2"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cam2.vl1::1.0"
-          },
-          {
-               "name": [
-                    "(24470) 2000 SJ310"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.24470_2000_sj310::1.0"
-          },
-          {
-               "name": [
-                    "(47932) 2000 GN171"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.47932_2000_gn171::1.0"
-          },
-          {
-               "name": [
-                    "2005 RP43"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_rp43::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19789,33 +19771,6 @@
           },
           {
                "name": [
-                    "CONTOUR FORWARD IMAGER"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:cfi.con::1.0"
-          },
-          {
-               "name": [
-                    "APOLLO 11 PASSIVE SEISMIC EXPERIMENT (PSE)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pse.a11e::1.0"
-          },
-          {
-               "name": [
-                    "MARS PATHFINDER LANDER"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mpfl::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19831,6 +19786,60 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "MCDONALD OBSERVATORY LINEAR POLARIMETER"
+               ],
+               "type": [
+                    "POLARIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mcdonald.struve2m1.molp::1.0"
+          },
+          {
+               "name": [
+                    "68P/KLEMOLA"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.68p_klemola::1.0"
+          },
+          {
+               "name": [
+                    "CAMERA 2"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:cam2.vl1::1.0"
+          },
+          {
+               "name": [
+                    "(24470) 2000 SJ310"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.24470_2000_sj310::1.0"
+          },
+          {
+               "name": [
+                    "(47932) 2000 GN171"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.47932_2000_gn171::1.0"
+          },
+          {
+               "name": [
+                    "2005 RP43"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_rp43::1.0"
           },
           {
                "name": [
@@ -21763,6 +21772,15 @@
           },
           {
                "name": [
+                    "LUNAR THERMAL MAPPER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lt.ltm::1.0"
+          },
+          {
+               "name": [
                     "CASSINI PLASMA SPECTROMETER"
                ],
                "type": [
@@ -23691,6 +23709,15 @@
           },
           {
                "name": [
+                    "LUNAR TRAILBLAZER"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.lunar_trailblazer::1.0"
+          },
+          {
+               "name": [
                     "Chuguev (a.k.a. Chuguevskaya, Chuhuiv) Observational Station"
                ],
                "type": [
@@ -25167,6 +25194,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:lecp.vg2::1.0"
+          },
+          {
+               "name": [
+                    "HIGH-RESOLUTION VOLATILES AND MINERALS MOON MAPPER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:lt.hvm3::1.0"
           },
           {
                "name": [
