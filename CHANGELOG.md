@@ -1,18 +1,14 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-02)
+## [v2.3.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.3.0-SNAPSHOT) (2022-06-02)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.1-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0...v2.3.0-SNAPSHOT)
 
 **Defects:**
 
 - validate having issues checking some file content on windows [\#507](https://github.com/NASA-PDS/validate/issues/507) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate passes confusing message to the command window [\#503](https://github.com/NASA-PDS/validate/issues/503) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate erroneously flags PDF/A-1a compliant file [\#479](https://github.com/NASA-PDS/validate/issues/479) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v2.2.1-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.1-SNAPSHOT) (2022-04-07)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0...v2.2.1-SNAPSHOT)
 
 ## [v2.2.0](https://github.com/NASA-PDS/validate/tree/v2.2.0) (2022-04-07)
 
