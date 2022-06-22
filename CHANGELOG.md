@@ -1,5 +1,17 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-22)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...«unknown»)
+
+**Defects:**
+
+- validate embedded in an app bundled as a fat-jar raise exception on product validation  [\#516](https://github.com/NASA-PDS/validate/issues/516)
+
+## [v2.2.3](https://github.com/NASA-PDS/validate/tree/v2.2.3) (2022-06-09)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.2...v2.2.3)
+
 ## [v2.2.2](https://github.com/NASA-PDS/validate/tree/v2.2.2) (2022-06-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.1...v2.2.2)
