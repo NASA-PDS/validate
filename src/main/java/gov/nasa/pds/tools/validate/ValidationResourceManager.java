@@ -35,7 +35,7 @@ public enum ValidationResourceManager {
      */
     private ValidationResourceManager() {
 	ConfigParser parser = new ConfigParser();
-	URL commandsURL = ClassLoader.getSystemResource("validation-commands.xml");
+	URL commandsURL = Thread.currentThread().getContextClassLoader().getResource("validation-commands.xml");
 
     // The below are used by the cucumber because the commandsURL will be null.
     if (commandsURL == null) {
