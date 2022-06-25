@@ -29,6 +29,7 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 
 /**
  * Class to examine if a Target maches a certain product type, either a bundle or a collection.
@@ -115,7 +116,8 @@ public class TargetExaminer extends Target {
         boolean tagMatchedFlag = false;
 
         try {
-            SAXSource saxSource = new SAXSource(Utility.openConnection(url));
+        	InputSource source = Utility.getInputSourceByURL(url);
+            SAXSource saxSource = new SAXSource(source);
             saxSource.setSystemId(url.toString());
             DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
             LOG.debug("tagMatches:docInfo {},{}",docInfo,docInfo.getClass());
@@ -159,7 +161,8 @@ public class TargetExaminer extends Target {
         ArrayList<String> fieldContent = new ArrayList<String>();
 
         try {
-            SAXSource saxSource = new SAXSource(Utility.openConnection(url));
+        	InputSource source = Utility.getInputSourceByURL(url);
+            SAXSource saxSource = new SAXSource(source);
             saxSource.setSystemId(url.toString());
             DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
             LOG.debug("getTargetContent:docInfo {},{}",docInfo,docInfo.getClass());
