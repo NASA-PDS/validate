@@ -57,10 +57,9 @@ public enum Flag {
     MAX_ERRORS("E", "max-errors", "value", short.class, "Specify the max " + "number of errors that the tool will report on before gracefully " + "exiting a validation run. Default is 100,000."),
 
     /**
-     * Flag to specify file patterns to look for when validating a target
-     * directory.
+     * Flag to specify the file extension for labels
      */
-    REGEXP("e", "regexp", "patterns", String.class, true, "Specify file patterns " + "to look for when validating a directory. Each pattern should " + "be surrounded by quotes. Default is to look for files ending with " + "a '.xml' or '.XML' file extension."),
+    EXTENSION("e", "label-extension", "xml|lblx", String.class, true, "Specify file extension for the labels files. Default: xml. NOTE: Support for intermingled bundles where collections have differing label file extensions is not yet supported."),
     
     /**
      * DEPRECATED: Flag to force the tool to perform validation against the schema and

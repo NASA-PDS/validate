@@ -38,8 +38,8 @@ package gov.nasa.pds.validate.commandline.options;
  *
  */
 public class ConfigKey {
-    /** List of file patterns to look for if traversing a target directory. */
-    public static final String REGEXP = "validate.regexp";
+    /** Label file extension to look in target directory. */
+    public static final String EXTENSION = "validate.extension";
 
     /** The report. */
     public static final String REPORT = "validate.report";
