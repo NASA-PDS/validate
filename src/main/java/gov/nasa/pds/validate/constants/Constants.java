@@ -30,17 +30,23 @@
 
 package gov.nasa.pds.validate.constants;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public final class Constants {
 
     public static final String SCHEMATRON_SCHEMATYPENS_PATTERN = "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")[ ]*?";
     public static final int CONTENT_VAL_PROGRESS_COUNTER = 100000;
-    public static final Pattern COLLECTION_LABEL_PATTERN = Pattern.compile("(.*)collection(.*)\\.xml",  Pattern.CASE_INSENSITIVE); // Ease the requirement to have an underscore after 'collection'.
-    public static final Pattern BUNDLE_LABEL_PATTERN     = Pattern.compile("(.*)bundle(.*)\\.xml",      Pattern.CASE_INSENSITIVE); // Ease the requirement to have an underscore after 'bundle'.
-    public static final Pattern SIMPLE_COLLECTION_LABEL_PATTERN = Pattern.compile("collection(.*)\\.xml",Pattern.CASE_INSENSITIVE); // Ease the requirement to have an underscore after 'collection'.
-    public static final String COLLECTION_NAME_TOKEN = "collection"; 
-    public static final String BUNDLE_NAME_TOKEN     = "bundle"; 
-    public static final String LABEL_EXTENSION       = "xml";   // Used to look for label files.  Note that the extension does not contain the dot.
+    
+    /**
+     * Pattern string up to file extension, which will be set at initialization
+     */
+    public static final String BUNDLE_LABEL_PATTERN_STRING      = "(.*)bundle(.*)\\.";
+    public static final String COLLECTION_LABEL_PATTERN_STRING  = "(.*)collection(.*)\\.";
+    public static final String COLLECTION_NAME_TOKEN 			= "collection"; 
+    public static final String BUNDLE_NAME_TOKEN     			= "bundle"; 
+    public static final String DEFAULT_LABEL_EXTENSION          = "xml";   // Used to look for label files.  Note that the extension does not contain the dot.
+    public static final List<String> ALLOWABLE_LABEL_EXTENSIONS = Arrays.asList( "xml", "lblx");
 
 }
