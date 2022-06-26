@@ -257,7 +257,12 @@ POSSIBILITY OF SUCH DAMAGE.
     </dependency>
     <!-- NOTE FOR DEVELOPER: To test via command-line and see all logger messages
          uncomment this, and comment out the NOP dependency to see both developer
-         and reporting logs
+         and reporting logs. Then add the following to the validate CLI script
+         (or your Eclipse config):
+         
+              -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
+              
+         Better ideas for how to do this welcome!
      -->
 <!--    <dependency>
       <groupId>org.slf4j</groupId>

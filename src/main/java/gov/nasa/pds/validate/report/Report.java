@@ -312,11 +312,10 @@ public abstract class Report {
           }
       }
     }
-    
-    //System.out.println("SourceUri: " + sourceUri.toString() + "    isDir = " + Utility.isDir(sourceUri.toString()));
+
     this.numProducts++;
 
-    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds - ignoreFromProductCounts;
+    this.totalProducts = this.numFailedProds + this.numPassedProds - ignoreFromProductCounts;
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks + this.numSkippedIntegrityChecks;
     printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();
