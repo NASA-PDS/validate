@@ -40,9 +40,11 @@ import gov.nasa.pds.validate.constants.Constants;
 public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
   // Must use the SIMPLE_COLLECTION_LABEL_PATTERN since the other pattern Constants.COLLECTION_LABEL_PATTERN seems to cause the crawler to pause.
-  private static final Pattern COLLECTION_LABEL_PATTERN = Constants.SIMPLE_COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'. 
+//  private static final Pattern COLLECTION_LABEL_PATTERN = Constants.SIMPLE_COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'. 
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
+  
+  private Pattern collectionLabelPattern;
   
   @Override
   public boolean isApplicable(String location) {
@@ -87,7 +89,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
         LOG.debug("findUnreferencedIdentifiers:id,location,found,filesProcessed: {},{},{},{}",id,location,found,this.filesProcessed);
         if (!found) {
           String memberType = "collection";
-          Matcher matcher = COLLECTION_LABEL_PATTERN.matcher(
+          Matcher matcher = getContext().getCollectionLabelPattern().matcher(
               FilenameUtils.getName(location));
           if (matcher.matches()) {
             memberType = "bundle";

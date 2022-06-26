@@ -74,6 +74,7 @@ public class LocationValidator {
 	private LabelValidator labelValidator;
 	private RuleContext ruleContext;
 	private String validationRule;
+	private String labelExtension;
 
    /*
     * Sets the report object in BundleManager static class.
@@ -114,8 +115,7 @@ public class LocationValidator {
 	ParserConfigurationException {
 		settingsManager = SettingsManager.INSTANCE;
 		taskManager = new BlockingTaskManager();
-		labelValidator = ValidationResourceManager.INSTANCE.getResource(
-		    LabelValidator.class);
+		labelValidator = ValidationResourceManager.INSTANCE.getResource(LabelValidator.class);
 		ruleContext = new RuleContext();
 		ruleContext.setLogLevel(logLevel);
 		
@@ -204,13 +204,13 @@ public class LocationValidator {
 			if (!rule.isApplicable(location)) {
 			    LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}",url,TargetExaminer.isTargetBundleType(url));
                 if (TargetExaminer.isTargetBundleType(url)) {
-                    // If the target a bundle, the exception can now be made.
+                    // If the target is a bundle, the exception can now be made.
                     // Make the following changes:
                     //     1.  Change the location from a file into a directory.
                     //     2.  Create a list of other bundle files to ignore so only the provided bundle is processed
                     //     3.  Create a list of collection files to ignore so only the latest collection file is processed.
                     //     4.  Create new rule based on new location.
-                    BundleManager.makeException(url,location);
+                    BundleManager.makeException(url, location, this.labelExtension);
                     ignoreList = BundleManager.getIgnoreList();
                     location   = BundleManager.getLocation();
                     try {
@@ -229,8 +229,8 @@ public class LocationValidator {
                 File directory = FileUtils.toFile(url);
                 if (directory.isDirectory() ) {
 			        LOG.debug("Input url is a directory, will indeed crawl for bundle/collection files {}",url);
-                    // New logic: Build two list of files to ignore so the crawler will only process the latest Bundle and Collection.
-                    ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url); 
+                    // Build two list of files to ignore so the crawler will only process the latest Bundle and Collection.
+                    ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url, this.labelExtension, this.ruleContext.getBundleLabelPattern()); 
                     ignoreList.addAll(ignoreBundleList);
                     Target latestBundle = BundleManager.getLatestBundle(); 
 
@@ -238,7 +238,7 @@ public class LocationValidator {
                     // contains collection and if there is no bundle, then there is no collection
                     // information to be gathered.
                     if (latestBundle != null ) {
-                        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,latestBundle.getUrl());
+                        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url, latestBundle.getUrl(), this.labelExtension);
                         ignoreList.addAll(ignoreCollectionList);
 	    		        LOG.debug("url,ignoreCollectionList {},{}",url,ignoreCollectionList);
 	    		        LOG.debug("url,ignoreCollectionList.size() {},{}",url,ignoreCollectionList.size());
@@ -438,9 +438,15 @@ public class LocationValidator {
 	public void setSkipProductValidation(boolean flag) {
 	  ruleContext.setSkipProductValidation(flag);
 	  labelValidator.setSkipProductValidation(flag);
-	  
-	  //if (flag)
-		//  ruleContext.setCheckData()
+	}
+	
+	public void setLabelExtension(String extension) {
+	  LOG.info("setLabelExtension: {}", extension);
+	  ruleContext.setLabelExtension(extension);
+	  LOG.info("setLabelExtension:getBundleLabelPattern {}", ruleContext.getBundleLabelPattern());
+	  labelValidator.setBundleLabelPattern(ruleContext.getBundleLabelPattern());
+	  labelValidator.setCollectionLabelPattern(ruleContext.getCollectionLabelPattern());
+	  this.labelExtension = extension;
 	}
 	
 	/**

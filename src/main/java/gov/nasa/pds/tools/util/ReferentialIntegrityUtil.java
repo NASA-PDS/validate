@@ -49,11 +49,6 @@ import javax.xml.transform.dom.DOMSource;
  */
 public class ReferentialIntegrityUtil {
   private static final Logger LOG = LoggerFactory.getLogger(ReferentialIntegrityUtil.class);
-  private static final Pattern BUNDLE_LABEL_PATTERN = 
-      Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
-
-  private static final Pattern COLLECTION_LABEL_PATTERN = 
-      Pattern.compile(".*collection.*\\.xml", Pattern.CASE_INSENSITIVE);
   
   private static ArrayList<URL> urlsParsedCumulative = new ArrayList<URL>(0);
   private static ArrayList<String> logicalIdentifiersCumulative = new ArrayList<String>(0);
@@ -517,10 +512,10 @@ public class ReferentialIntegrityUtil {
       for (Target child : children) {
         LOG.debug("crawlParentForBundleLabel:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
         url = child.getUrl();
-        if (url.toString().endsWith(".xml")) {
+        if (url.toString().endsWith("." + getContext().getLabelExtension())) {
 
             // Check to see if the label is collection or a bundle (instead of regular label).
-            Matcher matcherBundleCollection = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
+            Matcher matcherBundleCollection = getContext().getBundleLabelPattern().matcher(FilenameUtils.getName(child.toString()));
             if (matcherBundleCollection.matches()) {
                 // Save the URL of the bundle to be used to report the error.
                 ReferentialIntegrityUtil.parentBundleURL = url;
@@ -593,7 +588,7 @@ public class ReferentialIntegrityUtil {
         // Regardless of what kinds of file it is, parse it to find all the local_identifier and lid_reference or lidvid_reference tags.
         url = child.getUrl();
 
-        if (url.toString().endsWith(".xml")) {
+        if (url.toString().endsWith("." + getContext().getLabelExtension())) {
 
             // Check this URL has been parsed before.  If yes, skip this file.
             if (ReferentialIntegrityUtil.urlsParsedCumulative.contains(url)) {
@@ -606,13 +601,13 @@ public class ReferentialIntegrityUtil {
             labelIsBundleFlag = false;
 
             // Check to see if the label is collection or a bundle (instead of regular label).
-            Matcher matcherBundleCollection = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
+            Matcher matcherBundleCollection = getContext().getBundleLabelPattern().matcher(FilenameUtils.getName(child.toString()));
             if (matcherBundleCollection.matches()) {
                 labelIsBundleFlag = true;
                 // Save the URL of the bundle to be used to report the error.
                 ReferentialIntegrityUtil.parentBundleURL = url;
             }
-            matcherBundleCollection = COLLECTION_LABEL_PATTERN.matcher(FilenameUtils.getName(child.toString()));
+            matcherBundleCollection = getContext().getCollectionLabelPattern().matcher(FilenameUtils.getName(child.toString()));
             if (matcherBundleCollection.matches()) {
                 labelIsCollectionFlag = true;
             }

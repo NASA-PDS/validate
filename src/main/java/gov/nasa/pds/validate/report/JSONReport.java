@@ -310,6 +310,7 @@ public class JSONReport extends Report {
       this.jsonWriter.endArray();
       this.jsonWriter.name("summary");
       this.jsonWriter.beginObject();
+      this.jsonWriter.name("totalProducts").value(getTotalProducts());
       this.jsonWriter.name("totalErrors").value(getTotalErrors());
       this.jsonWriter.name("totalWarnings").value(getTotalWarnings());
       this.jsonWriter.name("messageTypes");

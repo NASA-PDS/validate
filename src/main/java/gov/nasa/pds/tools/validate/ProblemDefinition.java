@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.label.ExceptionType;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -28,7 +29,7 @@ public class ProblemDefinition {
   private static final AtomicInteger keyGenerator = new AtomicInteger();
 
 	private final int id;
-	private final ExceptionType severity;
+	private final ExceptionType severity; 
 	private final ProblemType type;
 	private final String message;
 	private final String standardsDocument;

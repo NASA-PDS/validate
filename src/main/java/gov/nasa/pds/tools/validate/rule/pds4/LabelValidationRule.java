@@ -71,8 +71,6 @@ import org.xml.sax.SAXParseException;
 public class LabelValidationRule extends AbstractValidationRule {
 
     private static final Logger LOG = LoggerFactory.getLogger(LabelValidationRule.class);
-
-	private static final String XML_SUFFIX = ".xml";
 	
 	private SchemaValidator schemaValidator;
 	private SchematronTransformer schematronTransformer;
@@ -106,19 +104,18 @@ public class LabelValidationRule extends AbstractValidationRule {
 	 */
 	@ValidationTest
 	public void checkLabelExtension() {
+	  LOG.debug("checkLabelExtension:getLabelExt: {} ", getContext().getLabelExtension());
+	  LOG.debug("checkLabelExtension:getRule: {} ", getContext().getRule());
       // Because the label extension is allowed for any case, we must lowercase the extension before comparing.
-
-      // For comparison purpose, we must prepend a "." in front of the extension
-      // received from getExtension() since it returns "xml" but we need ".xml" to make an exact compare with XML_SUFFIX.
-      String labelSuffix = "." + FilenameUtils.getExtension(getTarget().toString());
-      LOG.debug("checkLabelExtension:getTarget(),labelSuffix,XML_SUFFIX {},[{}],[{}]",getTarget(),labelSuffix,XML_SUFFIX);
+      String labelSuffix = FilenameUtils.getExtension(getTarget().toString());
+      LOG.debug("checkLabelExtension:getTarget(),labelSuffix,XML_SUFFIX {},[{}],[{}]", getTarget(), labelSuffix, getContext().getLabelExtension());
 
       // Modified from a straight check of endsWith() to comparing the label suffix ignoring case.
       //   Old (strict method: (!FilenameUtils.getName(getTarget().toString()).endsWith(XML_SUFFIX))
       //   Improved method   : (!labelSuffix.equalsIgnoreCase(XML_SUFFIX)) 
 
-      if (!labelSuffix.equalsIgnoreCase(XML_SUFFIX)) {
-          LOG.error("checkLabelExtension:Label extension [{}] does not match expected [{}] from target {}",labelSuffix,XML_SUFFIX,getTarget());
+      if (!labelSuffix.equalsIgnoreCase(getContext().getLabelExtension())) {
+          LOG.error("checkLabelExtension:Label extension [{}] does not match expected [{}] from target {}", labelSuffix, getContext().getLabelExtension(), getTarget());
           reportError(PDS4Problems.INVALID_LABEL_EXTENSION, getTarget(), -1, -1);
       }
 	}

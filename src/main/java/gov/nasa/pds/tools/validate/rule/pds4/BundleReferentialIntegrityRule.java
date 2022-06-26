@@ -49,9 +49,6 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
  */
 public class BundleReferentialIntegrityRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(BundleReferentialIntegrityRule.class);
-
-  private static final Pattern BUNDLE_LABEL_PATTERN = 
-      Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
   
   private static final String PRODUCT_CLASS =
       "//*[starts-with(name(),'Identification_Area')]/product_class";
@@ -99,12 +96,15 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       LOG.debug("bundleReferentialIntegrityRule:getTarget() {}",getTarget());
       LOG.debug("bundleReferentialIntegrityRule:children.size():afor_reduced: {}",children.size());
 
-      // Check for bundle(.*)?\.xml file.
+      // Check for bundle(.*)?\.(xml or lblx) file.
       for (Target child : children) {
-        Matcher matcher = BUNDLE_LABEL_PATTERN.matcher(
+    	LOG.info("getContext().getBundleLabelPattern()");
+        Matcher matcher = getContext().getBundleLabelPattern().matcher(
             FilenameUtils.getName(child.toString()));
-        //LOG.debug("bundleReferentialIntegrityRule:child.toString() {}",child.toString());
+
+
         LOG.debug("bundleReferentialIntegrityRule:FilenameUtils.getName(child.toString()) {}",FilenameUtils.getName(child.toString()));
+
         if (matcher.matches()) {
           try {
             XMLExtractor extractor = new XMLExtractor(child.getUrl());

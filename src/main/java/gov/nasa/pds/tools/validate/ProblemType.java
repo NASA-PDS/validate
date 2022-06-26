@@ -26,7 +26,7 @@ public enum ProblemType {
 
     INVALID_LABEL("error.validation.invalid_label"),
 
-    EMPTY_FOLDER("error.validation.empty_folder"),
+    EMPTY_FOLDER("error.validation.empty_folder", ProblemCategory.EXECUTION),
 
     UNKNOWN_VALUE("error.validation.unknown_value"),
 
@@ -42,9 +42,9 @@ public enum ProblemType {
 
     CONTEXT_REFERENCE_NOT_FOUND("error.label.context_ref_not_found"),
 
-    OUT_OF_MEMORY("error.validation.out_of_memory"),
+    OUT_OF_MEMORY("error.validation.out_of_memory", ProblemCategory.EXECUTION),
 
-    INTERNAL_ERROR("error.validation.internal_error"),
+    INTERNAL_ERROR("error.validation.internal_error", ProblemCategory.EXECUTION),
 
     CHECKSUM_MISMATCH("error.label.checksum_mismatch"),
 
@@ -157,6 +157,8 @@ public enum ProblemType {
     LOCAL_IDENTIFIER_NOT_FOUND("error.label.local_identifier_not_found"),
     
     NON_PDFA_FILE("error.pdf.file.not_pdfa_compliant"),
+    
+    NO_PRODUCTS_FOUND("error.execution.no_products_found", ProblemCategory.EXECUTION),
 
     // Warning message types
 
@@ -178,7 +180,7 @@ public enum ProblemType {
 
     MEMBER_NOT_FOUND("warning.integrity.member_not_found"),
 
-    INTEGRITY_PDS4_VERSION_MISMATCH("warning.integrity.pds4_version_mismatch"),
+    INTEGRITY_PDS4_VERSION_MISMATCH("warning.integrity.pds4_version_mismatch", ProblemCategory.GENERAL),
 
     // A warning when a reference is in the Context_Area but not listed in a bundle/collection's Reference_List tag. 
     // Will become an ERROR once it is documented in the Standards Reference
@@ -273,9 +275,16 @@ public enum ProblemType {
     TIMING_METRICS("debug.execution.time");
 
     private final String key;
+    private final ProblemCategory problemCategory;
 
     private ProblemType(String key) {
+    	// Assumes PRODUCT category unless otherwise specified
+        this(key, ProblemCategory.PRODUCT);
+    }
+    
+    private ProblemType(String key, ProblemCategory problemCategory) {
         this.key = key;
+        this.problemCategory = problemCategory;
     }
 
     /**
@@ -285,6 +294,10 @@ public enum ProblemType {
      */
     public String getKey() {
         return key;
+    }
+    
+    public ProblemCategory getProblemCategory() {
+        return problemCategory;
     }
 
 }

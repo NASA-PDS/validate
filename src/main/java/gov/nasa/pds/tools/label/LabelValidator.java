@@ -114,8 +114,9 @@ public class LabelValidator {
       "gov.nasa.pds.tools.label.SchemaCheck";
   public static final String SCHEMATRON_CHECK = 
       "gov.nasa.pds.tools.label.SchematronCheck";
-  private static Pattern BUNDLE_LABEL_PATTERN = Pattern.compile(".*bundle.*\\.xml", Pattern.CASE_INSENSITIVE);
-  private static Pattern COLLECTION_LABEL_PATTERN = Pattern.compile(".*collection.*\\.xml", Pattern.CASE_INSENSITIVE);
+  
+  private Pattern bundleLabelPattern;
+  private Pattern collectionLabelPattern;
 
   private List<ExternalValidator> externalValidators;
   private List<DocumentValidator> documentValidators;
@@ -128,6 +129,8 @@ public class LabelValidator {
   private SchematronTransformer schematronTransformer;
   private XPathFactory xPathFactory;
 
+  private String labelExtension;
+  
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
 
@@ -187,6 +190,8 @@ public class LabelValidator {
     saxParserFactory.setXIncludeAware(Utility.supportXincludes());
  // The parser doesn't validate - we use a Validator instead.
     saxParserFactory.setValidating(false);
+    
+    setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
 
     // Don't add xml:base attributes to xi:include content, or it messes up
     // PDS4 validation.
@@ -342,8 +347,14 @@ public class LabelValidator {
   public synchronized void validate(ProblemHandler handler, URL url)
       throws SAXException, IOException, ParserConfigurationException,
       TransformerException, MissingLabelSchemaException {
-
-    parseAndValidate(handler, url);
+	  this.parseAndValidate(handler, url);
+  }
+  
+  public synchronized void validate(ProblemHandler handler, URL url, String labelExtension)
+	      throws SAXException, IOException, ParserConfigurationException,
+	      TransformerException, MissingLabelSchemaException {
+	  this.setLabelExtension(labelExtension);
+	  this.parseAndValidate(handler, url);
 
   }
 
@@ -370,13 +381,14 @@ public class LabelValidator {
           // The file name should be enough to know if it is a bundle or a collection.
           validateAgainstSchematronFlag = false;
           Matcher matcher = null;
-          matcher = BUNDLE_LABEL_PATTERN.matcher(FilenameUtils.getName(url.toString()));
+          LOG.info("determineSchematronValidationFlag: {}", bundleLabelPattern);
+          matcher = this.bundleLabelPattern.matcher(FilenameUtils.getName(url.toString()));
           if (matcher.matches()) {
               // File is indeed a bundle.
               validateAgainstSchematronFlag = true;
           } else {
               // File is not a bundle, check if a collection.
-              matcher = COLLECTION_LABEL_PATTERN.matcher(FilenameUtils.getName(url.toString()));
+              matcher = this.collectionLabelPattern.matcher(FilenameUtils.getName(url.toString()));
               if (matcher.matches()) {
                   validateAgainstSchematronFlag = true;
               }
@@ -410,9 +422,6 @@ public class LabelValidator {
     // Printing debug is expensive.  Should uncomment by developer only.
     long startTime = System.currentTimeMillis();
 
-    //LOG.info("parseAndValidate:entering:url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
-    //LOG.info("url,skipProductValidation " + url + " " + Boolean.toString(skipProductValidation));
-
     LOG.debug("parseAndValidate:url,performsSchematronValidation() {},{}",url,performsSchematronValidation());
     LOG.debug("parseAndValidate:url,useLabelSchematron {},{}",url,useLabelSchematron);
     LOG.debug("parseAndValidate:url,useLabelSchema {},{}",url,useLabelSchema);
@@ -444,7 +453,7 @@ public class LabelValidator {
       // Finally parse and validate the file
       xml = docBuilder.newDocument();
       cachedParser.setContentHandler(new DocumentCreator(xml));
-      cachedParser.parse(Utility.openConnection(url));
+      cachedParser.parse(Utility.getInputSourceByURL(url));
 
       // Each version of the Information Model (IM) must be registered so in the end, multiple versions can be reported.
       LabelUtil.setLocation(url.toString());
@@ -589,7 +598,8 @@ public class LabelValidator {
 
       // Perform any additional checks that were added
       if (!documentValidators.isEmpty()) {
-        SAXSource saxSource = new SAXSource(Utility.openConnection(url));
+    	  
+        SAXSource saxSource = new SAXSource(Utility.getInputSourceByURL(url));
         saxSource.setSystemId(url.toString());
         DocumentInfo docInfo = LabelParser.parse(saxSource);
         for (DocumentValidator dv : documentValidators) {
@@ -603,7 +613,6 @@ public class LabelValidator {
     long timeElapsed = finishTime - startTime;
     this.totalTimeElapsed += timeElapsed;
     LOG.debug("parseAndValidate:url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0 {},{},{},{},{}",url,skipProductValidation,this.filesProcessed,timeElapsed,this.totalTimeElapsed/1000.0);
-    //LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:DONE:EXITING {} against schematron",url);
     return xml;
   }
 
@@ -980,6 +989,28 @@ public class LabelValidator {
     this.cachedLSResolver = resolver;
   }
 
+  public void setLabelExtension(String extension) {
+	  this.labelExtension = extension;
+  }
+
+  public Pattern getBundleLabelPattern() {
+	return bundleLabelPattern;
+  }
+
+  public void setBundleLabelPattern(Pattern bundleLabelPattern) {
+	LOG.info("setBundleLabelPattern: {}", bundleLabelPattern);
+  	this.bundleLabelPattern = bundleLabelPattern;
+  }
+  
+  public Pattern getCollectionLabelPattern() {
+	return collectionLabelPattern;
+  }
+
+  public void setCollectionLabelPattern(Pattern collectionLabelPattern) {
+	LOG.info("setCollectionLabelPattern: {}", collectionLabelPattern);
+  	this.collectionLabelPattern = collectionLabelPattern;
+  }
+  
   public static void main(String[] args) throws Exception {
     LabelValidator lv = new LabelValidator();
     lv.setCatalogs(new String[]{args[1]});
@@ -990,7 +1021,7 @@ public class LabelValidator {
     }
   }
 
-  /**
+/**
    * Implements a source locator for use when walking a DOM tree
    * during XML Schema validation.
    */

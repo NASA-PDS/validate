@@ -53,8 +53,6 @@ public class RegisterTargetReferences extends AbstractValidationRule {
       + "/*:file_name[namespace-uri()='" + PDS4_NS + "']";
 
   private XPathFactory xPathFactory;
-
-  private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
   
   /**
    * Creates a new instance.
@@ -65,7 +63,7 @@ public class RegisterTargetReferences extends AbstractValidationRule {
 
   @Override
   public boolean isApplicable(String location) {
-    Matcher matcher = LABEL_PATTERN.matcher(FilenameUtils.getName(location));
+    Matcher matcher = getContext().getLabelPattern().matcher(FilenameUtils.getName(location));
     // The rule is applicable if a label has been parsed.
     return getContext().containsKey(PDS4Context.LABEL_DOCUMENT) || matcher.matches();
   }

@@ -60,19 +60,11 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
       ALLOWED_DIRECTORY_NAME_PATTERNS[i] = Pattern.compile(builder.toString());
     }
   }
-
+  
   private static final String ALLOWED_FILE_NAMES[] = {
-    "bundle([A-Za-z0-9_.-]*)?\\.xml",
     "readme.html",
     "readme([A-Za-z0-9_.-]*)?\\.txt"
   };
-
-  private static final Pattern[] ALLOWED_FILE_NAME_PATTERNS = new Pattern[ALLOWED_FILE_NAMES.length];
-  static {
-    for (int i=0; i < ALLOWED_FILE_NAMES.length; ++i) {
-      ALLOWED_FILE_NAME_PATTERNS[i] = Pattern.compile(ALLOWED_FILE_NAMES[i]);
-    }
-  }
 
 	/**
 	 * Checks that files and directories at the root of the bundle are
@@ -80,12 +72,13 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
 	 */
 	@ValidationTest
 	public void checkFileAndDirectoryNaming() {
+      Pattern[] fileNamePatterns = getFileNamePatterns();
 	  Crawler crawler = getContext().getCrawler();
 	  try {
 	    List<Target> targets = crawler.crawl(getTarget());
       for (Target t : targets) {
         if (!t.isDir()) {
-          checkFileNaming(t.getUrl(), PDS4Problems.UNEXPECTED_FILE_IN_BUNDLE_ROOT, ALLOWED_FILE_NAME_PATTERNS);
+          checkFileNaming(t.getUrl(), PDS4Problems.UNEXPECTED_FILE_IN_BUNDLE_ROOT, fileNamePatterns);
         } else {
           checkFileNaming(t.getUrl(), PDS4Problems.INVALID_COLLECTION_NAME, ALLOWED_DIRECTORY_NAME_PATTERNS);
         }
@@ -112,5 +105,16 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
 	public boolean isApplicable(String location) {
     return Utility.isDir(location);
 	}
+    
+    private Pattern[] getFileNamePatterns() {
+    	// Add bundle string
+    	Pattern[] patterns = {};
+    	for (int i=0; i < ALLOWED_FILE_NAMES.length; ++i) {
+    		patterns[i] = Pattern.compile(ALLOWED_FILE_NAMES[i]);
+    	}
+    	
+    	patterns[patterns.length] = getContext().getBundleLabelPattern();
+    	return patterns;
+    }
 
 }

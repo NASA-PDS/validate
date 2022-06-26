@@ -46,8 +46,6 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  */
 public class LocalIdentifierReferencesRule extends AbstractValidationRule {
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
-   
-  private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
 
   private static final String LOCAL_IDENTIFIER_REF_PATH
   = "//*:local_identifier_reference[namespace-uri()='" + PDS4_NS + "']";
@@ -70,7 +68,8 @@ public class LocalIdentifierReferencesRule extends AbstractValidationRule {
     if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       return false;
     }
-    Matcher matcher = LABEL_PATTERN.matcher(FilenameUtils.getName(location));
+    
+    Matcher matcher = getContext().getLabelPattern().matcher(FilenameUtils.getName(location));
     return matcher.matches();
   }
 
