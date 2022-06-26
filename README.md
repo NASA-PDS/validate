@@ -32,6 +32,44 @@ $ mvn site
 $ mvn package
 ```
 
+# Debugging Notes
+Since Validate re-uses logging for it's reporting, as of now, there is no easy way to see the debug log messages scattered throughout the code. To see them while debugging/testing your implementation, you will need to replace the SLF4J NOP dependency with the SimpleLogger dependency and enable the DEBUG level.
+
+Here is how to do it via command-line. This may differ if you use Eclipse for debugging:
+
+1. Open pom.xml and comment this out:
+```
+<!--
+     <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-nop</artifactId>
+      <version>1.7.28</version>
+    </dependency>
+-->
+```
+and uncomment this:
+```
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.28</version>
+    </dependency>
+```
+to enable the simplelogger
+
+2. Add this to the validate CLI script anywhere before the "$@":
+```
+-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
+```
+I think you can also add this to your JAVA_OPTS prior to execution.
+
+3. Build the software while disabling tests (they may fail with all the extra logging):
+```
+mvn clean package -DskipTests
+```
+4. Then untar and test the software.
+
+
 # Operational Release
 
 A release candidate should be created after the community has determined that a release should occur. The Planetary Data System automates the release of software using GitHub Actions. The instructions below are kept for posterity.
