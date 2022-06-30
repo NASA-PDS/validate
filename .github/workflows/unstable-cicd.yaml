@@ -70,6 +70,8 @@ jobs:
                 uses: NASA-PDS/roundup-action@stable
                 with:
                     assembly: unstable
+                    maven-doc-phases: package -DskipTests,site,site:stage
+                    maven-unstable-artifact-phases: clean,site,deploy -DskipTests
                 env:
                     ossrh_username: ${{secrets.OSSRH_USERNAME}}
                     ossrh_password: ${{secrets.OSSRH_PASSWORD}}
