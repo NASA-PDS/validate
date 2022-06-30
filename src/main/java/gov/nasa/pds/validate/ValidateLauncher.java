@@ -1034,7 +1034,7 @@ public class ValidateLauncher {
         List<ValidationProblem> pList = new ArrayList<ValidationProblem>();
 
         try {
-            JsonObject json = gson.fromJson(new FileReader(registeredProductsFile), JsonObject.class);
+            JsonObject json = gson.fromJson(new FileReader(this.registeredProductsFile), JsonObject.class);
             JsonArray array = json.get("Product_Context").getAsJsonArray();
 
             for (JsonElement jsonElm : array) {
@@ -1067,21 +1067,21 @@ public class ValidateLauncher {
             e.printStackTrace();
             System.out.println(e.getMessage()
                     + "\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
-                    + registeredProductsFile);
+                    + this.registeredProductsFile);
             ValidationProblem pW = new ValidationProblem(
                     new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
                             e.getMessage()
                                     + "\nInvalid Registered Context Product JSON File: Verify format and values match that in RegisteredProducts File JSON file: "
-                                    + registeredProductsFile),
+                                    + this.registeredProductsFile),
                     url);
             pList.add(pW);
         }
         
-        if (nonRegisteredProducts) {
+        if (this.nonRegisteredProducts) {
             
             try {
                 gson = new Gson();
-                JsonObject jsonN = gson.fromJson(new FileReader(nonRegisteredProductsFile), JsonObject.class);
+                JsonObject jsonN = gson.fromJson(new FileReader(this.nonRegisteredProductsFile), JsonObject.class);
                 JsonArray arrayN = jsonN.get("Product_Context").getAsJsonArray();
                 ValidationProblem pW = new ValidationProblem(
                         new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_REGISTERED_PRODUCT,
@@ -1114,7 +1114,7 @@ public class ValidateLauncher {
                             namesN));
                 }
                 
-                report.record(new URI(ValidateLauncher.class.getName()), pList);
+                this.report.record(new URI(ValidateLauncher.class.getName()), pList);
             } catch (Exception e) {
                 System.err.println(e.getMessage()
                         + "\nInvalid JSON File: Verify format and values match that in Non RegisteredProducts File JSON file: "
@@ -1135,7 +1135,23 @@ public class ValidateLauncher {
         this.nonRegisteredProducts = nonRegisteredProducts;
     }
     
-    /**
+    public File getRegisteredProductsFile() {
+		return registeredProductsFile;
+	}
+
+	public void setRegisteredProductsFile(File registeredProductsFile) {
+		this.registeredProductsFile = registeredProductsFile;
+	}
+
+	public File getNonRegisteredProductsFile() {
+		return nonRegisteredProductsFile;
+	}
+
+	public void setNonRegisteredProductsFile(File nonRegisteredProductsFile) {
+		this.nonRegisteredProductsFile = nonRegisteredProductsFile;
+	}
+
+	/**
      * Sets the flag that enables/disables context validation.
      * 
      * @param flag
