@@ -1,8 +1,26 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-22)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-30)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.4-SNAPSHOT...«unknown»)
+
+**Requirements:**
+
+- As a user, I want to receive an error when no products are found within the validation target [\#524](https://github.com/NASA-PDS/validate/issues/524)
+- As a user, I want to validate labels/bundles/collections using the LBLX file extension [\#482](https://github.com/NASA-PDS/validate/issues/482)
+- As a developer, I want an API method enable specifying of non-registered context products [\#241](https://github.com/NASA-PDS/validate/issues/241)
+
+**Defects:**
+
+- Possible false PDF/A validation ERROR [\#494](https://github.com/NASA-PDS/validate/issues/494) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+**Other closed issues:**
+
+- Improve Content Validation for PDF/A [\#497](https://github.com/NASA-PDS/validate/issues/497)
+
+## [v2.2.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.4-SNAPSHOT) (2022-06-22)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...v2.2.4-SNAPSHOT)
 
 **Defects:**
 
@@ -18,11 +36,7 @@
 
 ## [v2.2.1](https://github.com/NASA-PDS/validate/tree/v2.2.1) (2022-06-08)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0-SNAPSHOT...v2.2.1)
-
-## [v2.3.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.3.0-SNAPSHOT) (2022-06-02)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0...v2.3.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.0...v2.2.1)
 
 **Defects:**
 
