@@ -49,6 +49,7 @@ import gov.nasa.pds.validate.commandline.options.ConfigKey;
 import gov.nasa.pds.validate.commandline.options.Flag;
 import gov.nasa.pds.validate.commandline.options.FlagOptions;
 import gov.nasa.pds.validate.commandline.options.InvalidOptionException;
+import gov.nasa.pds.validate.constants.Constants;
 import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
@@ -159,12 +160,7 @@ public class ValidateLauncher {
      */
     private URL checksumManifest;
 
-    /**
-     * Default file filters.
-     */
-    private String[] DEFAULT_FILE_FILTERS = { "*.xml", "*.XML" };
-
-    private SchemaValidator schemaValidator;
+	private SchemaValidator schemaValidator;
 
     private SchematronTransformer schematronTransformer;
 
@@ -209,6 +205,11 @@ public class ValidateLauncher {
     private boolean validateContext;
 
     private boolean checkInbetweenFields = false; // Flag to enable checking of values in between fields.
+    
+    /**
+     * Expected label extension to look for within input target
+     */
+    private String labelExtension;
 
     /**
      * Constructor.
@@ -231,7 +232,7 @@ public class ValidateLauncher {
         report = null;
         reportStyle = "full";
         force = true;
-        regExps.addAll(Arrays.asList(DEFAULT_FILE_FILTERS));
+        regExps = null;
         schemaValidator = new SchemaValidator();
         schematronTransformer = new SchematronTransformer();
         transformedSchematrons = new ArrayList<Transformer>();
@@ -249,6 +250,8 @@ public class ValidateLauncher {
         validateContext = true;
         checkInbetweenFields = false;
         
+        setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
+
         this.flushValidators();
     }
 
@@ -346,8 +349,8 @@ public class ValidateLauncher {
                 // Save this value in FlagsUtil so we know to print debug statements.
                 FlagsUtil.setSeverity(value);
 
-            } else if (Flag.REGEXP.getShortName().equals(o.getOpt())) {
-                setRegExps((List<String>) o.getValuesList());
+            } else if (Flag.EXTENSION.getShortName().equals(o.getOpt())) {
+                setLabelExtension(o.getValue());
             } else if (Flag.ALTERNATE_FILE_PATHS.getLongName().equals(o.getLongOpt())) {
                 LOG.debug("query:o.getValues() {},{}",o.getValues(),o.getValues().getClass().getSimpleName());
                 LOG.debug("query:o.getValuesList() {},{}",o.getValuesList(),o.getValuesList().getClass().getSimpleName());
@@ -420,7 +423,11 @@ public class ValidateLauncher {
             } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
                 setForce(true);
                 deprecatedFlagWarning = true;
+            } else if (Flag.FORCE.getShortName().equals(o.getOpt())) {
+                setForce(true);
+                deprecatedFlagWarning = true;
             }
+            
             /** **/
         }
         if (!targetList.isEmpty()) {
@@ -437,15 +444,6 @@ public class ValidateLauncher {
                                 + "file and multiple targets.");
             }
         }
-        /*
-         * if (!filters.isEmpty() && (validationRule != null &&
-         * !validationRule.equals("pds4.folder"))) { throw new
-         * IllegalArgumentException("Cannot specify a file filter " +
-         * "when the validation rule is set to '" + validationRule + "'"); } if
-         * (validationRule != null && !(validationRule.equals("pds4.folder") ||
-         * validationRule.equals("pds4.label"))) { setRegExps(Arrays.asList(new
-         * String[] {"*"})); }
-         */
     }
 
     private void getLatestJsonContext() {
@@ -616,11 +614,6 @@ public class ValidateLauncher {
             if (config.isEmpty()) {
                 throw new ConfigurationException("Configuration file is empty: " + configuration);
             }
-            if (config.containsKey(ConfigKey.REGEXP)) {
-                // Removes quotes surrounding each pattern being specified
-                List<String> list = Utility.removeQuotes(config.getList(ConfigKey.REGEXP));
-                setRegExps(list);
-            }
             if (config.containsKey(ConfigKey.REPORT)) {
                 setReport(new File(config.getString(ConfigKey.REPORT)));
             }
@@ -742,6 +735,10 @@ public class ValidateLauncher {
             
             if (!targetList.isEmpty()) {
                 setTargets(targetList);
+            }
+
+            if (config.containsKey(ConfigKey.EXTENSION)) {
+                setLabelExtension(ConfigKey.EXTENSION);
             }
             
         } catch (Exception e) {
@@ -1312,6 +1309,7 @@ public class ValidateLauncher {
                 //System.out.println("SEVERITY : " + severity);
                 validator.setForce(force);
                 validator.setFileFilters(regExps);
+                validator.setLabelExtension(labelExtension);
                 validator.setRecurse(traverse);
                 validator.setCheckData(contentValidationFlag);
                 validator.setSpotCheckData(spotCheckData);
@@ -1399,6 +1397,25 @@ public class ValidateLauncher {
         // to request appending any warning messages to the report.
 
         LabelUtil.reportIfMoreThanOneVersion(validationRule);
+        
+        
+        if (this.report.getTotalProducts() == 0 && this.targets.size() > 0) {
+        	
+        	String message = "No Products found during Validate execution. Verify arguments, paths, and expected " + 
+        					 "label extension. See documentation for details.";
+
+        	try {
+            // Build the ValidationProblem and add it to the report.
+            URL nullURL = null;  // placeholder to pass to problemdefinition to avoid ambiguous call
+            ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+                                                                               ProblemType.NO_PRODUCTS_FOUND, message), nullURL);
+            
+            this.report.record(new URI(getClass().getName()), p1);
+        	}
+            catch (Exception e) {
+            	e.printStackTrace();
+            }
+        }
 
         if (severity.isDebugApplicable()) {
             System.out.println("\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis() + " :: Validation complete (" + targets.size() + " targets completed in " + (System.currentTimeMillis() - t0) + " ms)\n");
@@ -1753,5 +1770,26 @@ public class ValidateLauncher {
             this.maxErrors = value;
         }
     }
+
+	public String getLabelExtension() {
+		return labelExtension;
+	}
+
+	/**
+	 * Set the label extension to crawl for within the target space.
+	 * 
+	 * NOTE: This should be executed prior to running the doValidation or it will not be appropriately added to validation
+	 * pipeline execution context.
+	 * 
+	 * @param labelExtension
+	 */
+	public void setLabelExtension(String labelExtension) {
+		if (!Constants.ALLOWABLE_LABEL_EXTENSIONS.contains(labelExtension)) {
+			throw new IllegalArgumentException("Label extension not in allowable values: " + Constants.ALLOWABLE_LABEL_EXTENSIONS);
+		} else {
+			this.labelExtension = labelExtension;
+			setRegExps(new ArrayList<String>(Arrays.asList("*." + labelExtension.toLowerCase(), "*." + labelExtension.toUpperCase())));
+		}
+	}
 
 }

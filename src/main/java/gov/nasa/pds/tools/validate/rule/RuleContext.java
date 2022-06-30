@@ -38,6 +38,7 @@ import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.WildcardOSFilter;
+import gov.nasa.pds.validate.constants.Constants;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -45,6 +46,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.chain.impl.ContextBase;
 
@@ -143,6 +145,14 @@ public class RuleContext extends ContextBase {
 
   public static final String CHECK_INBETWEEN_FIELDS      = "validate.strict-field-checks";
   
+  public static final String LABEL_EXTENSION_KEY      = "validate.label-extension";
+  
+  public static final String LABEL_PATTERN_KEY      = "validate.label-pattern";
+  
+  public static final String BUNDLE_PATTERN_KEY      = "validate.bundle-label-pattern";
+  
+  public static final String COLLECTION_PATTERN_KEY      = "validate.collection-label-pattern";
+  
   private boolean rootTarget = false;
 
   private ExceptionType logLevel;
@@ -178,6 +188,12 @@ public class RuleContext extends ContextBase {
   public void setLogLevel(ExceptionType logLevel) {
       this.logLevel = logLevel;
   }
+
+  //*************************************************************************************
+  // NOTE FOR DEVELOPERS: Be sure to update AbstractValidationRule.getChildContext method
+  //                      if any additional RuleContext setters are added to this class.
+  //                      This is necessary for when validate spawns child threads.
+  //*************************************************************************************
 
   public URL getTarget() {  
     return getContextValue(TARGET_KEY, URL.class);
@@ -307,8 +323,7 @@ public class RuleContext extends ContextBase {
   	putContextValue(RECURSIVE_VALIDATION, Boolean.valueOf(isRecursive));
   }
   
-  @SuppressWarnings("unchecked")
-	public WildcardOSFilter getFileFilters() {
+  public WildcardOSFilter getFileFilters() {
   	return getContextValue(FILE_FILTERS, WildcardOSFilter.class);
   }
   
@@ -423,8 +438,8 @@ public class RuleContext extends ContextBase {
 	}
 
 	public boolean getCheckInbetweenFields() {
-      LOG.debug("getCheckInbetweenFields:CHECK_INBETWEEN_FIELDS {}",CHECK_INBETWEEN_FIELDS);
-      LOG.debug("getCheckInbetweenFields {}",getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class));
+      LOG.debug("getCheckInbetweenFields:CHECK_INBETWEEN_FIELDS {}", CHECK_INBETWEEN_FIELDS);
+      LOG.debug("getCheckInbetweenFields {}", getContextValue(CHECK_INBETWEEN_FIELDS, Boolean.class));
 
       // https://github.com/NASA-PDS/validate/issues/335 validate gives a NullPointerException during validation of a directory containing Table_Character products
       // Check for null-ness before attempting to perform the actual return line at the end of this function.
@@ -436,7 +451,68 @@ public class RuleContext extends ContextBase {
 	}
 	
 	public void setCheckInbetweenFields(boolean flag) {
-      LOG.debug("setCheckInbetweenFields:flag {}",flag);
 	  putContextValue(CHECK_INBETWEEN_FIELDS, flag);
+	}
+
+	public String getLabelExtension() {
+		LOG.debug("getLabelExtension: {}", getContextValue(LABEL_EXTENSION_KEY, String.class));
+		return getContextValue(LABEL_EXTENSION_KEY, String.class);
+	}
+
+	/**
+	 * Set the label extension and the file name patterns to match
+	 * 
+	 * @param labelExtension
+	 */
+	public void setLabelExtension(String labelExtension) {
+		LOG.debug("setLabelExtension: {}", labelExtension);
+		setLabelPatternWithExtension(labelExtension);
+		setBundleLabelPatternWithExtension(labelExtension);
+		setCollectionLabelPatternWithExtension(labelExtension);
+
+		putContextValue(LABEL_EXTENSION_KEY, labelExtension);
+	}
+	
+	public Pattern getLabelPattern() {
+		return getContextValue(LABEL_PATTERN_KEY, Pattern.class);
+	}
+
+	public void setLabelPattern(Pattern pattern) {
+		LOG.debug("setLabelPattern: {}", pattern);
+		putContextValue(LABEL_PATTERN_KEY, pattern);
+	}	
+	
+	public void setLabelPatternWithExtension(String labelExtension) {
+		setLabelPattern(this.getFilePattern(".*\\." + labelExtension));
+	}
+	
+	public Pattern getBundleLabelPattern() {
+		return getContextValue(BUNDLE_PATTERN_KEY, Pattern.class);
+	}
+
+	public void setBundleLabelPattern(Pattern pattern) {
+		LOG.debug("setBundleLabelPattern: {}", pattern);
+		putContextValue(BUNDLE_PATTERN_KEY, pattern);
+	}	
+	
+	public void setBundleLabelPatternWithExtension(String labelExtension) {
+		setBundleLabelPattern(this.getFilePattern(Constants.BUNDLE_LABEL_PATTERN_STRING + labelExtension));
+	}
+	
+	public Pattern getCollectionLabelPattern() {
+		return getContextValue(COLLECTION_PATTERN_KEY, Pattern.class);
+	}
+
+	public void setCollectionLabelPattern(Pattern pattern) {
+		LOG.debug("setCollectionLabelPattern: {}", pattern);
+		putContextValue(COLLECTION_PATTERN_KEY, pattern);
+	}	
+	
+	public void setCollectionLabelPatternWithExtension(String labelExtension) {
+		setCollectionLabelPattern(this.getFilePattern(Constants.COLLECTION_LABEL_PATTERN_STRING + labelExtension));
+	}
+	
+	private Pattern getFilePattern(String pattern) {
+		return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 	}
 }

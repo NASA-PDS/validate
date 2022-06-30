@@ -255,13 +255,21 @@ POSSIBILITY OF SUCH DAMAGE.
       <artifactId>commons-io</artifactId>
       <version>2.7</version>
     </dependency>
-    <dependency>
+    <!-- NOTE FOR DEVELOPER: To test via command-line and see all logger messages
+         uncomment this, and comment out the NOP dependency to see both developer
+         and reporting logs. Then add the following to the validate CLI script
+         (or your Eclipse config):
+         
+              -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
+              
+         Better ideas for how to do this welcome!
+     -->
+<!--    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.28</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
+    </dependency>-->
+     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
       <version>1.7.28</version>

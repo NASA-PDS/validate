@@ -9,6 +9,14 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#482 Add support for LBLX label extension
+|"NASA-PDS/validate#482 Success Test Labels - LBLX Extension" | "github482" | 0 | "Successful validation expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_1.json -s json -e lblx -R pds4.folder -t {resourceDir}/github482/bundle1/" | "report_github482_1.json" |
+|"NASA-PDS/validate#482 Success Test Labels - XML Extension " | "github482" | 0 | "Successful validation expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_2.json -s json -R pds4.folder -t {resourceDir}/github482/bundle2/" | "report_github482_2.json" |
+|"NASA-PDS/validate#482 Success Test Bundle - LBLX Extension" | "github482" | 0 | "Successful validation expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_3.json -s json -R pds4.bundle -e lblx -t {resourceDir}/github482/bundle1/bundle_kaguya_derived.lblx" | "report_github482_3.json" |
+|"NASA-PDS/validate#482 Success Test Bundle - XML Extension " | "github482" | 0 | "Successful validation expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_4.json -s json -R pds4.bundle -t {resourceDir}/github482/bundle2/bundle_kaguya_derived.xml" | "report_github482_4.json" |
+|"NASA-PDS/validate#482 Failure Test Bundle - No Products Found" | "github482" | 1 | "1 error expected" | "NO_PRODUCTS_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_5.json -s json -R pds4.folder -t {resourceDir}/github482/bundle1/" | "report_github482_5.json" |
+|"NASA-PDS/validate#482 Failure Test Bundle - No Products Found" | "github482" | 1 | "1 error expected" | "NO_PRODUCTS_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github482_6.json -s json -R pds4.folder -e lblx -t {resourceDir}/github482/bundle2/" | "report_github482_6.json" |
+
 # Field Special Constants
  |"NASA-PDS/validate#469 Field Special Constants Check" | "github469" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github469.json -s json -t {resourceDir}/github469/201401031400_rdr.xml" | "report_github469.json" |
  |"NASA-PDS/validate#469 Field Special Constants Check - Fail MAX" | "github469" | 1 | "1 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github469_max_fail.json -s json -t {resourceDir}/github469/201401031400_rdr_max_FAIL.xml" | "report_github469_max_fail.json" |
@@ -338,9 +346,9 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#71 1" | "github71" | 0 | "0 error message expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_1.json -C {reportDir}/catalog.xml -s json --skip-content-validation -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_1.json" |
  |"NASA-PDS/validate#71 2" | "github71" | 0 | "0 error message expected" | "totalErrors" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_2.json -s json  -C {reportDir}/catalog.xml -t {resourceDir}/github71/ELE_MOM_2.xml" | "report_github71_2.json" |
- |"NASA-PDS/validate#84 1" | "github84" | 0 | "No error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --skip-content-validation -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
+ |"NASA-PDS/validate#84 1" | "github84" | 0 | "0 error messages expected" | "summary_message_only" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --skip-content-validation -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
 
- |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 no errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --skip-content-validation -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
+ |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --skip-content-validation -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
 
 # Moved github292 tests to the end as they interfer with other test with the following error message:
 #

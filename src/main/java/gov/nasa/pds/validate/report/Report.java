@@ -31,6 +31,7 @@
 package gov.nasa.pds.validate.report;
 
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.ProblemCategory;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.status.Status;
 import gov.nasa.pds.tools.util.Utility;
@@ -245,7 +246,7 @@ public abstract class Report {
     LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}",sourceUri,problems.size());
 
     // TODO: Handle null problems
-
+    int ignoreFromProductCounts = 0;
     for (ValidationProblem problem : problems) {
       if (problem.getProblem().getSeverity() == ExceptionType.ERROR ||
          problem.getProblem().getSeverity() == ExceptionType.FATAL) {
@@ -267,6 +268,12 @@ public abstract class Report {
         if (ExceptionType.DEBUG.getValue() <= this.level.getValue()) {
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
+      }
+      
+      // Check ProblemCategory to remove from product counts
+      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
+      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
+    	  ignoreFromProductCounts++;
       }
     }
     this.totalErrors += numErrors;
@@ -305,11 +312,10 @@ public abstract class Report {
           }
       }
     }
-    
-    //System.out.println("SourceUri: " + sourceUri.toString() + "    isDir = " + Utility.isDir(sourceUri.toString()));
+
     this.numProducts++;
 
-    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds;
+    this.totalProducts = this.numFailedProds + this.numPassedProds - ignoreFromProductCounts;
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks + this.numSkippedIntegrityChecks;
     printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();

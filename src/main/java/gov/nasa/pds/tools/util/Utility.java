@@ -162,7 +162,7 @@ public class Utility {
     return in;
   }
   
-  public static InputSource openConnection(URL url) throws IOException {
+  public static InputSource getInputSourceByURL(URL url) throws IOException {
     InputSource inputSource = new InputSource(
         Utility.openConnection(url.openConnection()));
     URI uri = null;

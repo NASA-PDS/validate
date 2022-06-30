@@ -47,9 +47,7 @@ import org.slf4j.LoggerFactory;
 
 public class BundleManager {
 	private static final Logger LOG = LoggerFactory.getLogger(BundleManager.class);
-    private static final Pattern BUNDLE_LABEL_PATTERN     = Constants.BUNDLE_LABEL_PATTERN;     // Ease the requirement to have an underscore after 'bundle'.
     public static final String BUNDLE_NAME_TOKEN     = Constants.BUNDLE_NAME_TOKEN;
-    public static final String LABEL_EXTENSION       = Constants.LABEL_EXTENSION;   // Used to look for label files.  Note that the extension does not contain the dot.
     public static final String[] LABEL_EXTENSIONS_LIST = new String[1]; 
 
     private static final String PRODUCT_BUNDLE_ID_AREA_TAG      = "Product_Bundle/Identification_Area";
@@ -102,10 +100,10 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files with latest version.
      */
-    public static List<Target> findBundleWithLatestVersion(URL url) {
+    public static List<Target> findBundleWithLatestVersion(URL url, Pattern bundleLabelPattern) {
         List<Target> children = new ArrayList<Target>();
         try {
-            IOFileFilter regexFileFilter = new RegexFileFilter(BUNDLE_LABEL_PATTERN);
+            IOFileFilter regexFileFilter = new RegexFileFilter(bundleLabelPattern);
             Crawler crawler = CrawlerFactory.newInstance(url);
             children = crawler.crawl(url, regexFileFilter);
 
@@ -131,7 +129,7 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files with latest version.
      */
-    public static List<Target> findCollectionWithLatestVersion(URL url) {
+    public static List<Target> findCollectionWithLatestVersion(URL url, String labelFileExtension) {
         List<Target> children = new ArrayList<Target>();
         try {
             Crawler crawler = CrawlerFactory.newInstance(url);
@@ -146,8 +144,7 @@ public class BundleManager {
                     //kids = crawler.crawl(dir.getUrl(), regexFileFilter); 
                     // Note: For some strange reason, the crawler goes into an infinite loop using the above call
                     //       so we will use an alternate call to get the list of files.
-                    LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
+                    kids = crawler.crawl(dir.getUrl(), new String[]{labelFileExtension}, false, Constants.COLLECTION_NAME_TOKEN);
                     LOG.debug("findCollectionWithLatestVersion: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -224,7 +221,7 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files with matching reference.
      */
-    public static List<Target> findCollectionWithMatchingReference(URL url, URL bundleUrl) {
+    public static List<Target> findCollectionWithMatchingReference(URL url, URL bundleUrl, String labelFileExtension) {
         List<Target> children = new ArrayList<Target>();
         try {
             Crawler crawler = CrawlerFactory.newInstance(url);
@@ -239,8 +236,7 @@ public class BundleManager {
                     //kids = crawler.crawl(dir.getUrl(), regexFileFilter);
                     // Note: For some strange reason, the crawler goes into an infinite loop using the above call
                     //       so we will use an alternate call to get the list of files.
-                    LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-                    kids = crawler.crawl(dir.getUrl(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
+                    kids = crawler.crawl(dir.getUrl(), new String[]{labelFileExtension}, false, Constants.COLLECTION_NAME_TOKEN);
                     LOG.debug("findCollectionWithMatchingReference: dir.getUrl(),kids {},{}",dir.getUrl(),kids);
                     children.addAll(kids);
                 }
@@ -275,7 +271,7 @@ public class BundleManager {
             // If bundleReferToCollectionViaLidvidFlag is not true, a specific collection cannot be found since no version of collection
             // is specified by the bundle, the largest (latest) collection must be now look for.
             if (!bundleReferToCollectionViaLidvidFlag) {
-                children = BundleManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl));
+                children = BundleManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl), labelFileExtension);
             } else {
                 // Get the list of collections that were explicitly referenced by the bundle's tags: lidvid_reference or lid_reference
                 children = BundleManager.selectMatchingReferenceFromCollection(children,bundleLidList,bundleIdList);
@@ -374,15 +370,15 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files that are other than the given url.
      */
-    public static ArrayList<Target> buildBundleIgnoreList(URL url) {
+    public static ArrayList<Target> buildBundleIgnoreList(URL url, String labelFileExtension, Pattern bundleLabelPattern) {
         List<Target> ignoreBundleList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
-        List<Target> latestBundles = BundleManager.findBundleWithLatestVersion(url);
+        List<Target> latestBundles = BundleManager.findBundleWithLatestVersion(url, bundleLabelPattern);
         LOG.debug("buildBundleIgnoreList:latestBundles.size() ",latestBundles.size());
         LOG.debug("buildBundleIgnoreList:latestBundles {}",latestBundles);
         if (latestBundles.size() > 0)  {
             m_latestBundle = latestBundles.get(0);   //  Save this bundle for reference later on.
             LOG.debug("buildBundleIgnoreList:latestBundles[0] {}",latestBundles.get(0).getUrl());
-            ignoreBundleList = BundleManager.findOtherBundleFiles(latestBundles.get(0).getUrl());
+            ignoreBundleList = BundleManager.findOtherBundleFiles(latestBundles.get(0).getUrl(), labelFileExtension);
         }
         LOG.debug("buildBundleIgnoreList:ignoreBundleList {}",ignoreBundleList);
         LOG.debug("buildBundleIgnoreList:ignoreBundleList.size() {}",ignoreBundleList.size());
@@ -413,7 +409,7 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files that are other than the given url.
      */
-    public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl) {
+    public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl, String labelFileExtension) {
         LOG.debug("buildCollectionIgnoreList:url,bundleUrl {},{}",url,bundleUrl);
         List<Target> ignoreCollectionList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
         try {
@@ -428,7 +424,7 @@ public class BundleManager {
             return((ArrayList)ignoreCollectionList);
         }
 
-        List<Target> latestCollections = BundleManager.findCollectionWithMatchingReference(url,bundleUrl);
+        List<Target> latestCollections = BundleManager.findCollectionWithMatchingReference(url,bundleUrl, labelFileExtension);
 
         LOG.debug("buildCollectionIgnoreList:latestCollections.size() {}",latestCollections.size());
         LOG.debug("buildCollectionIgnoreList:latestCollections {}",latestCollections);
@@ -437,7 +433,7 @@ public class BundleManager {
             LOG.debug("buildCollectionIgnoreList:latestCollections[0] {}",latestCollections.get(0).getUrl());
 
             // The latest collections can be a list of collections, not just the first element.
-            List<Target> otherCollectionFiles = BundleManager.findOtherCollectionFiles(latestCollections);
+            List<Target> otherCollectionFiles = BundleManager.findOtherCollectionFiles(latestCollections, labelFileExtension);
 
             LOG.debug("buildCollectionIgnoreList:otherCollectionFiles.size {}",otherCollectionFiles.size());
             LOG.debug("buildCollectionIgnoreList:otherCollectionFiles {}",otherCollectionFiles);
@@ -459,9 +455,9 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @return a list of files that are other than the given url.
      */
-    public static ArrayList<Target> findOtherBundleFiles(URL url) {
+    public static ArrayList<Target> findOtherBundleFiles(URL url, String labelExtension) {
         // Given a url containing the given bundle, crawl parent directory and look for all the other
-        // bundle files (which are just .xml files).
+        // bundle files (which are just .xml/.lblx files).
         // The return list can be an empty list if no other names are found.
 
         ArrayList<Target> otherBundleFilesList = new ArrayList<Target>();
@@ -481,8 +477,7 @@ public class BundleManager {
             //allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
             // Note: For some strange reason, the crawler goes into an infinite loop using the above call
             //       so we will use an alternate call to get the list of files.
-            LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), LABEL_EXTENSIONS_LIST, false, BUNDLE_NAME_TOKEN);
+            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), new String[]{labelExtension}, false, BUNDLE_NAME_TOKEN);
 
             for (Target target : allFiles) {
                 LOG.debug("findOtherBundleFiles:target {}",target);
@@ -539,9 +534,9 @@ public class BundleManager {
      * @return a list of files that are other than the given urls.
      */
 
-    public static ArrayList<Target> findOtherCollectionFiles(List<Target> targetList) {
+    public static ArrayList<Target> findOtherCollectionFiles(List<Target> targetList, String labelFileExtension) {
         // Given a list of targets containing the collections, crawl parent directory and look for all the other
-        // collection files (which are just .xml files).
+        // collection files (which are just .xml/.lblx files).
 
         ArrayList<Target> otherCollectionFilesList = new ArrayList<Target>();
 
@@ -573,8 +568,7 @@ public class BundleManager {
             //allFiles = crawler.crawl(new File(dirName).toURI().toURL(),regexFileFilter);
             // Note: For some strange reason, the crawler goes into an infinite loop using the above call
             //       so we will use an alternate call to get the list of files.
-            LABEL_EXTENSIONS_LIST[0] = LABEL_EXTENSION;
-            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), LABEL_EXTENSIONS_LIST, false, Constants.COLLECTION_NAME_TOKEN);
+            allFiles = crawler.crawl(new File(dirName).toURI().toURL(), new String[]{labelFileExtension}, false, Constants.COLLECTION_NAME_TOKEN);
 
             LOG.debug("findOtherCollectionFiles:allFiles.size() {}",allFiles.size());
             int targetIndex = 0;
@@ -622,7 +616,7 @@ public class BundleManager {
      * @param url the url of where to start looking for files from.
      * @param location the location of where to start looking for files from.
      */
-    public static void makeException(URL url, String location) {
+    public static void makeException(URL url, String location, String labelFileExtension) {
         // If the target is a bundle, the exception can now be made.
         // Make the following changes:
         //     1.  Change the location from a file into a directory.
@@ -632,7 +626,7 @@ public class BundleManager {
         LOG.debug("makeException:url,location {},{}",url,location);
 
         // First, find any other bundle files so they can be eliminated from crawling later.
-        ArrayList<Target> otherBundleFiles = BundleManager.findOtherBundleFiles(url);
+        ArrayList<Target> otherBundleFiles = BundleManager.findOtherBundleFiles(url, labelFileExtension);
         BundleManager.m_ignoreList.addAll(otherBundleFiles);
 
         // Because this function has knowledge of why a particular file is being ignored while crawling
@@ -685,7 +679,7 @@ public class BundleManager {
             return;
         }
 
-        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL,url);
+        ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(parentURL, url, labelFileExtension);
         LOG.debug("post_call:buildCollectionIgnoreList:url {}",url);
 
         // Because any reporting about a collection file being ignored/skipped is already done in function buildCollectionIgnoreList() above, no need to report it again.

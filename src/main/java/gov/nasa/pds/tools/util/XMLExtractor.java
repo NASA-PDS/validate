@@ -27,6 +27,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
+import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import net.sf.saxon.trans.XPathException;
@@ -96,7 +97,7 @@ public class XMLExtractor {
       ParseOptions options = new ParseOptions();
       options.setErrorListener(new XMLErrorListener());
       try {
-        xml = configuration.buildDocument(new SAXSource(Utility.openConnection(url)),
+        xml = configuration.buildDocument(new SAXSource(Utility.getInputSourceByURL(url)),
             options);
         String definedNamespace = getValueFromDoc("namespace-uri(/*)");
         xpath.getStaticContext().setDefaultElementNamespace(definedNamespace);

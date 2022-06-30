@@ -65,7 +65,6 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 public class FileReferenceValidationRule extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(FileReferenceValidationRule.class);
-  private static final Pattern LABEL_PATTERN = Pattern.compile(".*\\.xml", Pattern.CASE_INSENSITIVE);
   
   /**
    * XPath to the file references within a PDS4 data product label.
@@ -93,7 +92,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     if(!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       return false;
     }
-    Matcher matcher = LABEL_PATTERN.matcher(FilenameUtils.getName(location));
+    Matcher matcher = getContext().getLabelPattern().matcher(FilenameUtils.getName(location));
     return matcher.matches();
   }
 

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
@@ -76,17 +77,16 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   public void collectionReferentialIntegrityRule() {
     Crawler crawler = getContext().getCrawler();
     try {
-      IOFileFilter regexFileFilter = new RegexFileFilter(Constants.COLLECTION_LABEL_PATTERN);
-      //List<Target> children = crawler.crawl(getTarget(), regexFileFilter);
+    	
+      IOFileFilter regexFileFilter = new RegexFileFilter(getContext().getCollectionLabelPattern());
+
       // Note: For some strange reason, the crawler goes into an infinite loop using the above call
       //       so we will use an alternate call to get the list of collection files.
-      String[] extensions = new String[1];
-      extensions[0] = Constants.LABEL_EXTENSION; // Note that the extension does not contain the dot.
-      List<Target> children = crawler.crawl(getTarget(), extensions, false, Constants.COLLECTION_NAME_TOKEN);
+      List<Target> children = crawler.crawl(getTarget(), new String[]{getContext().getLabelExtension()}, false, Constants.COLLECTION_NAME_TOKEN);
 
       LOG.debug("collectionReferentialIntegrityRule:getTarget(),children.size() {},{}",getTarget(),children.size());
 
-      // Check for collection(_.*)?\.xml file.
+      // Check for collection(_.*)?\.(xml or lblx) file.
       for (int i = 0; i < children.size(); i++) {
         Target child = children.get(i);
         if (child.isDir()) {
