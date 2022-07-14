@@ -1,8 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-06-30)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-07-14)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.4-SNAPSHOT...«unknown»)
+
+**Other closed issues:**
+
+- Set registered context products in doValidation method [\#526](https://github.com/NASA-PDS/validate/issues/526)
+
+## [v2.2.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.4-SNAPSHOT) (2022-06-30)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...v2.2.4-SNAPSHOT)
 
 **Requirements:**
 
@@ -12,19 +20,12 @@
 
 **Defects:**
 
+- validate embedded in an app bundled as a fat-jar raise exception on product validation  [\#516](https://github.com/NASA-PDS/validate/issues/516) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Possible false PDF/A validation ERROR [\#494](https://github.com/NASA-PDS/validate/issues/494) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
 - Improve Content Validation for PDF/A [\#497](https://github.com/NASA-PDS/validate/issues/497)
-
-## [v2.2.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.4-SNAPSHOT) (2022-06-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...v2.2.4-SNAPSHOT)
-
-**Defects:**
-
-- validate embedded in an app bundled as a fat-jar raise exception on product validation  [\#516](https://github.com/NASA-PDS/validate/issues/516)
 
 ## [v2.2.3](https://github.com/NASA-PDS/validate/tree/v2.2.3) (2022-06-09)
 
@@ -126,7 +127,7 @@
 
 **Defects:**
 
-- validate does not flag \<CR\> within lid\_reference [\#401](https://github.com/NASA-PDS/validate/issues/401)
+- validate does not flag \<CR\> within lid\_reference [\#401](https://github.com/NASA-PDS/validate/issues/401) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate throws incorrect overlap error when first Field\_Bit has length 1 [\#392](https://github.com/NASA-PDS/validate/issues/392) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not work correctly when the path name contains a space [\#381](https://github.com/NASA-PDS/validate/issues/381) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - stack trace being created during successful validate execution [\#380](https://github.com/NASA-PDS/validate/issues/380) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
