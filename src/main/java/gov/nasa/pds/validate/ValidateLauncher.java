@@ -1274,6 +1274,10 @@ public class ValidateLauncher {
     public boolean doValidation(Map<URL, String> checksumManifest) throws Exception {
         boolean success = true;
         long t0 = System.currentTimeMillis();
+
+        // Set the registered context products prior to looping through the targets
+        setRegisteredProducts();
+        
         // Initialize the Factory Class
         List<DocumentValidator> docValidators = new ArrayList<DocumentValidator>();
         factory = ValidatorFactory.getInstance();
@@ -1619,7 +1623,6 @@ public class ValidateLauncher {
                 }
             }
             if (!(invalidSchemas) && !(invalidSchematron)) {
-                setRegisteredProducts();
                 if (!doValidation(checksumManifestMap)) success = false;
             }
             printReportFooter();
