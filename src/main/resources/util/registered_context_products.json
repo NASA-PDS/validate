@@ -38,6 +38,42 @@
           },
           {
                "name": [
+                    "2000 WW12"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ww12::1.0"
+          },
+          {
+               "name": [
+                    "1999 KR18"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1999_kr18::1.0"
+          },
+          {
+               "name": [
+                    "2000 FS53"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_fs53::1.0"
+          },
+          {
+               "name": [
+                    "S/2004 S 12"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.s2004s12::1.1"
+          },
+          {
+               "name": [
                     "APOLLO 12 COLD CATHODE ION GAGE EXPERIMENT"
                ],
                "type": [
@@ -13546,33 +13582,6 @@
           },
           {
                "name": [
-                    "(78799) 2002 XW93"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.78799_2002_xw93::1.0"
-          },
-          {
-               "name": [
-                    "MARS EXPRESS ORBITER RADIO SCIENCE"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:mex.mrs::1.0"
-          },
-          {
-               "name": [
-                    "MARS RECONNAISSANCE ORBITER"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mro::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19401,42 +19410,6 @@
           },
           {
                "name": [
-                    "2000 WW12"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_ww12::1.0"
-          },
-          {
-               "name": [
-                    "1999 KR18"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1999_kr18::1.0"
-          },
-          {
-               "name": [
-                    "2000 FS53"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_fs53::1.0"
-          },
-          {
-               "name": [
-                    "S/2004 S 12"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.s2004s12::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19452,6 +19425,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "(78799) 2002 XW93"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.78799_2002_xw93::1.0"
+          },
+          {
+               "name": [
+                    "MARS EXPRESS ORBITER RADIO SCIENCE"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:mex.mrs::1.0"
+          },
+          {
+               "name": [
+                    "MARS RECONNAISSANCE ORBITER"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mro::1.0"
           },
           {
                "name": [
