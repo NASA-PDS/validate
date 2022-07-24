@@ -38,6 +38,60 @@
           },
           {
                "name": [
+                    "VEGA 2"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.2"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_lemmon.1m54::1.1"
+          },
+          {
+               "name": [
+                    "144 VIBILIA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.144_vibilia::1.1"
+          },
+          {
+               "name": [
+                    "106 DIONE"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.106_dione::1.1"
+          },
+          {
+               "name": [
+                    "2MASS CAMERA - NORTH"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:flwo.2mass1m3.2massnorth::1.0"
+          },
+          {
+               "name": [
+                    "NON SCIENCE"
+               ],
+               "type": [
+                    "CALIBRATOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibrator.non_science::1.0"
+          },
+          {
+               "name": [
                     "2000 WW12"
                ],
                "type": [
@@ -89,6 +143,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.182934_2002_gj32::1.0"
+          },
+          {
+               "name": [
+                    "PSYCHE GAMMA RAY SPECTROMETER (GRS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.grs::1.0"
           },
           {
                "name": [
@@ -2715,15 +2778,6 @@
           },
           {
                "name": [
-                    "2020 GE"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.2020ge::1.0"
-          },
-          {
-               "name": [
                     "(469361) 2001 HY65"
                ],
                "type": [
@@ -5021,6 +5075,15 @@
           },
           {
                "name": [
+                    "neas"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.neas::1.0"
+          },
+          {
+               "name": [
                     "CALIBRATION"
                ],
                "type": [
@@ -5651,6 +5714,15 @@
           },
           {
                "name": [
+                    "PSYCHE MULTISPECTRAL IMAGER (PMI)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.imager::1.0"
+          },
+          {
+               "name": [
                     "2002 VF130"
                ],
                "type": [
@@ -5702,15 +5774,6 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.alf_cen::1.0"
-          },
-          {
-               "name": [
-                    "PSYCHE NEUTRON SPECTROMETER (NS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.ns::1.0"
           },
           {
                "name": [
@@ -6361,15 +6424,6 @@
                     "ULTRAVIOLET SPECTROMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:instrument.uvs__ladee::1.0"
-          },
-          {
-               "name": [
-                    "Psyche"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.psyche::1.0"
           },
           {
                "name": [
@@ -7308,15 +7362,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:ensenada.2m12::0.0"
-          },
-          {
-               "name": [
-                    "PSYCHE"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.psyche::1.0"
           },
           {
                "name": [
@@ -8491,15 +8536,6 @@
           },
           {
                "name": [
-                    "FILTER"
-               ],
-               "type": [
-                    "EQUIPMENT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:equipment.filter::1.0"
-          },
-          {
-               "name": [
                     "METHONE"
                ],
                "type": [
@@ -9578,15 +9614,6 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.469615_2004_pt107::1.0"
-          },
-          {
-               "name": [
-                    "PSYCHE MULTISPECTRAL IMAGER (PMI)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.imager::1.0"
           },
           {
                "name": [
@@ -10767,6 +10794,15 @@
                     "STAR"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.del_oph::1.0"
+          },
+          {
+               "name": [
+                    "PSYCHE MAGNETOMETER (MAG)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.mag::1.0"
           },
           {
                "name": [
@@ -13546,42 +13582,6 @@
           },
           {
                "name": [
-                    "ION MASS SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ims.gio::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.lro::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:partizanskoye.1m25_azt11::0.0"
-          },
-          {
-               "name": [
-                    "PLASMA WAVE EXPERIMENT"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:plawav.ice::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14965,15 +14965,6 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-q2_shoemaker-levy_9-q2::1.0"
-          },
-          {
-               "name": [
-                    "neas"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.neas::1.0"
           },
           {
                "name": [
@@ -17195,15 +17186,6 @@
           },
           {
                "name": [
-                    "ANDROMEDA"
-               ],
-               "type": [
-                    "GALAXY"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:galaxy.m_31::1.0"
-          },
-          {
-               "name": [
                     "S/2003 J 4"
                ],
                "type": [
@@ -19356,60 +19338,6 @@
           },
           {
                "name": [
-                    "VEGA 2"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.2"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:mount_lemmon.1m54::1.1"
-          },
-          {
-               "name": [
-                    "144 VIBILIA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.144_vibilia::1.1"
-          },
-          {
-               "name": [
-                    "106 DIONE"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.106_dione::1.1"
-          },
-          {
-               "name": [
-                    "2MASS CAMERA - NORTH"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:flwo.2mass1m3.2massnorth::1.0"
-          },
-          {
-               "name": [
-                    "NON SCIENCE"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.non_science::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19425,6 +19353,42 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "ION MASS SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ims.gio::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.lro::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:partizanskoye.1m25_azt11::0.0"
+          },
+          {
+               "name": [
+                    "PLASMA WAVE EXPERIMENT"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:plawav.ice::1.0"
           },
           {
                "name": [
@@ -19542,6 +19506,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:swp.ice::1.0"
+          },
+          {
+               "name": [
+                    "Psyche"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.psyche::1.0"
           },
           {
                "name": [
@@ -20617,6 +20590,15 @@
           },
           {
                "name": [
+                    "PSYCHE"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.psyche::1.0"
+          },
+          {
+               "name": [
                     "OSIRIS-REx"
                ],
                "type": [
@@ -20659,6 +20641,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:eng.co::1.0"
+          },
+          {
+               "name": [
+                    "FILTER"
+               ],
+               "type": [
+                    "EQUIPMENT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:equipment.filter::1.0"
           },
           {
                "name": [
@@ -20849,6 +20840,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_pa112::1.0"
+          },
+          {
+               "name": [
+                    "NEAS CAMERA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:neas.neacam::1.0"
           },
           {
                "name": [
@@ -21670,6 +21670,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:eso-la_silla.1m04.denis::1.0"
+          },
+          {
+               "name": [
+                    "NEAS"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.neas::1.0"
           },
           {
                "name": [
@@ -22529,15 +22538,6 @@
           },
           {
                "name": [
-                    "PSYCHE MAGNETOMETER (MAG)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.mag::1.0"
-          },
-          {
-               "name": [
                     "LIDAR HIGH-RESOLUTION IMAGER"
                ],
                "type": [
@@ -22877,15 +22877,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:vg2.eng::1.0"
-          },
-          {
-               "name": [
-                    "NEAS CAMERA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:neas.neacam::1.0"
           },
           {
                "name": [
@@ -23475,15 +23466,6 @@
           },
           {
                "name": [
-                    "PSYCHE GAMMA RAY SPECTROMETER (GRS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.grs::1.0"
-          },
-          {
-               "name": [
                     "KAGUYA"
                ],
                "type": [
@@ -23949,6 +23931,15 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:gtt.p10::1.0"
+          },
+          {
+               "name": [
+                    "ANDROMEDA"
+               ],
+               "type": [
+                    "GALAXY"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:galaxy.m_31::1.0"
           },
           {
                "name": [
@@ -24916,6 +24907,15 @@
           },
           {
                "name": [
+                    "PSYCHE NEUTRON SPECTROMETER (NS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.ns::1.0"
+          },
+          {
+               "name": [
                     "ROSETTA ORBITER SPECTROMETER FOR ION AND NEUTRAL ANALYSIS"
                ],
                "type": [
@@ -25311,15 +25311,6 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:vega1.tnm::1.0"
-          },
-          {
-               "name": [
-                    "NEAS"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.neas::1.0"
           },
           {
                "name": [
