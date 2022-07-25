@@ -1,14 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-07-14)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.4-SNAPSHOT...«unknown»)
-
-**Other closed issues:**
-
-- Set registered context products in doValidation method [\#526](https://github.com/NASA-PDS/validate/issues/526)
-
-## [v2.2.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.4-SNAPSHOT) (2022-06-30)
+## [v2.2.4-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.2.4-SNAPSHOT) (2022-07-14)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.2.3...v2.2.4-SNAPSHOT)
 
@@ -25,6 +17,7 @@
 
 **Other closed issues:**
 
+- Set registered context products in doValidation method [\#526](https://github.com/NASA-PDS/validate/issues/526)
 - Improve Content Validation for PDF/A [\#497](https://github.com/NASA-PDS/validate/issues/497)
 
 ## [v2.2.3](https://github.com/NASA-PDS/validate/tree/v2.2.3) (2022-06-09)
