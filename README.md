@@ -47,7 +47,8 @@ Here is how to do it via command-line. This may differ if you use Eclipse for de
     </dependency>
 -->
 ```
-and uncomment this:
+
+2. Uncomment this to enable the simplelogger:
 ```
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -55,7 +56,6 @@ and uncomment this:
       <version>1.7.28</version>
     </dependency>
 ```
-to enable the simplelogger
 
 2. Add this to the validate CLI script anywhere before the "$@":
 ```
