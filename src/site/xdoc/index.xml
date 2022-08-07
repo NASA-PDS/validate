@@ -114,7 +114,8 @@ POSSIBILITY OF SUCH DAMAGE.
       <p><b><i>Found a bug?</i></b> Or <b><i>want a new feature?</i></b> We would love your feedback and contributions. Here are some links to our public Github repository for source code and submitting issues:</p>
       
       <ul>
-        <li>Issue Tracker: <a href="https://github.com/NASA-PDS/validate/issues">https://github.com/NASA-PDS/validate/issues</a></li>
+        <li>Submit for a New Feature: <a href="https://github.com/NASA-PDS/validate/issues/new?template=feature_request.md">https://github.com/NASA-PDS/validate/issues/new?template=feature_request.md</a></li>
+        <li>Submit a Bug: <a href="https://github.com/NASA-PDS/validate/issues/new?template=bug_report.md">https://github.com/NASA-PDS/validate/issues/new?template=bug_report.md</a></li>
         <li>Source Code: <a href="https://github.com/NASA-PDS/validate/">https://github.com/NASA-PDS/validate</a></li>
       </ul>
       
