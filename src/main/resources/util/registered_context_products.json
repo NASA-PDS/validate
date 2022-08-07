@@ -38,6 +38,60 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:apache_point.sdss2m5::0.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:pic_du_midi.1m06::1.0"
+          },
+          {
+               "name": [
+                    "OSIRIS-REX"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.orex::1.1"
+          },
+          {
+               "name": [
+                    "2002 XV93"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_xv93::1.0"
+          },
+          {
+               "name": [
+                    "Juno"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.jno::2.2"
+          },
+          {
+               "name": [
+                    "ALMACH"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.gam_and::1.0"
+          },
+          {
+               "name": [
                     "VEGA 2"
                ],
                "type": [
@@ -13545,43 +13599,6 @@
           },
           {
                "name": [
-                    "VISIBLE AND INFRARED SPECTROMETER"
-               ],
-               "type": [
-                    "IMAGER",
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dawn.vir::1.0"
-          },
-          {
-               "name": [
-                    "354P/LINEAR"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.354p_linear::1.0"
-          },
-          {
-               "name": [
-                    "X OPHIUCHI"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.x_oph::1.0"
-          },
-          {
-               "name": [
-                    "2004 HX78"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_hx78::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -19289,60 +19306,6 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:apache_point.sdss2m5::0.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:pic_du_midi.1m06::1.0"
-          },
-          {
-               "name": [
-                    "OSIRIS-REX"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.orex::1.1"
-          },
-          {
-               "name": [
-                    "2002 XV93"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_xv93::1.0"
-          },
-          {
-               "name": [
-                    "Juno"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.jno::2.2"
-          },
-          {
-               "name": [
-                    "ALMACH"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.gam_and::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
                "lidvid": "urn:nasa:pds:context_pds3:agency:agency.esa::1.0"
           },
           {
@@ -19353,6 +19316,43 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "VISIBLE AND INFRARED SPECTROMETER"
+               ],
+               "type": [
+                    "IMAGER",
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dawn.vir::1.0"
+          },
+          {
+               "name": [
+                    "354P/LINEAR"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.354p_linear::1.0"
+          },
+          {
+               "name": [
+                    "X OPHIUCHI"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.x_oph::1.0"
+          },
+          {
+               "name": [
+                    "2004 HX78"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_hx78::1.0"
           },
           {
                "name": [
