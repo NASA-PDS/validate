@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-07-26)
+## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-08-07)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
 
@@ -17,7 +17,6 @@
 **Defects:**
 
 - validate embedded in an app bundled as a fat-jar raise exception on product validation  [\#516](https://github.com/NASA-PDS/validate/issues/516) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-- Possible false PDF/A validation ERROR [\#494](https://github.com/NASA-PDS/validate/issues/494) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
