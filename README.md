@@ -57,9 +57,11 @@ Here is how to do it via command-line. This may differ if you use Eclipse for de
     </dependency>
 ```
 
-2. Add this to the validate CLI script anywhere before the "$@":
+2. Add this to the validate CLI script anywhere before the "$@" OR add to `JAVA_TOOL_OPTIONS` environment variable:
 ```
 -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
+
+export JAVA_TOOL_OPTIONS=-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
 ```
 I think you can also add this to your JAVA_OPTS prior to execution.
 
