@@ -246,7 +246,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         }
         entry = reader.getNext();
       }
-      int records = reader.getNumRecords();
+      long records = reader.getNumRecords();
       LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",collection,numOfCollectionMembers,records);
 
       if (numOfCollectionMembers>0 && records>0 && numOfCollectionMembers!=records) {

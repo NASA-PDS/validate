@@ -174,9 +174,9 @@ public class FullReport extends Report {
         writer.print("table ");
         writer.print(tcProblem.getTable().toString());
       }
-      if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
+      if (tcProblem.getRecord() != -1) {
         writer.print(", ");
-        writer.print("record " + tcProblem.getRecord().toString());
+        writer.print("record " + String.valueOf(tcProblem.getRecord()));
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
         writer.print(", ");

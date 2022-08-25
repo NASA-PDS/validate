@@ -129,11 +129,11 @@ public class TableCharacterUtil  {
      * Validate in between fields for non-blanks values.  This test is optional and only call if the user requested it.
      * 
      * @param record The record being validated (as text)
-     * @param recordNumber Where in the file is this record.
+     * @param lineNumber Where in the file is this record.
      * @return None
      */
-  public void validateInBetweenFields(String record, int recordNumber) {
-    LOG.debug("validateInBetweenFields:recordNumber,record {},[{}]",recordNumber,record);
+  public void validateInBetweenFields(String record, long lineNumber) {
+    LOG.debug("validateInBetweenFields:recordNumber,record {},[{}]",lineNumber,record);
 
     int startIndex = 0;
     int endIndex = 0;
@@ -149,7 +149,7 @@ public class TableCharacterUtil  {
 
       // Do a sanity check if startIndex is larger than endIndex because the user had created a bad info for the offsets.
       if (startIndex > endIndex) {
-          LOG.error("validateInBetweenFields:In record {}, unexpected starting location {} and length {}",recordNumber,fieldLocationList.get(ii),fieldLengthList.get(ii));
+          LOG.error("validateInBetweenFields:In record {}, unexpected starting location {} and length {}",lineNumber,fieldLocationList.get(ii),fieldLengthList.get(ii));
           return;
       }
 
@@ -161,7 +161,7 @@ public class TableCharacterUtil  {
 
           if (previousEndIndex > startIndex) {
               if ((columnsWarningFlagList.get(ii) == Boolean.FALSE) && (this.reportedErrorFlag == false)) {
-                  String errorMessage = "In record " + Integer.toString(recordNumber) + ", the ending location " + Integer.toString(previousEndIndex) + " of field (start with 1) " + fieldNumberList.get(ii-1) + " is greater than the starting index " + Integer.toString(startIndex) + " of field " + fieldNumberList.get(ii);
+                  String errorMessage = "In record " + Long.toString(lineNumber) + ", the ending location " + Integer.toString(previousEndIndex) + " of field (start with 1) " + fieldNumberList.get(ii-1) + " is greater than the starting index " + Integer.toString(startIndex) + " of field " + fieldNumberList.get(ii);
                   LOG.error(errorMessage);
                   getListener().addProblem(
                       new ValidationProblem(new ProblemDefinition(
@@ -183,7 +183,7 @@ public class TableCharacterUtil  {
                   LOG.error("validateInBetweenFields:Values in between gap of field number (starts with 1) {} and {} is non-blanks:[{}]",fieldNumberList.get(ii-1),fieldNumberList.get(ii),gapValue);
               }
               if ((columnsWarningFlagList.get(ii) == Boolean.FALSE) && (this.reportedErrorFlag == false)) {
-                  String errorMessage = "Unexpected alphanumeric characters found between fields in record " + Integer.toString(recordNumber) + ": " + " [" + gapValue + "]" + " found between fields " + fieldNumberList.get(ii-1) + " and " + fieldNumberList.get(ii);
+                  String errorMessage = "Unexpected alphanumeric characters found between fields in record " + Long.toString(lineNumber) + ": " + " [" + gapValue + "]" + " found between fields " + fieldNumberList.get(ii-1) + " and " + fieldNumberList.get(ii);
                   LOG.error(errorMessage);
                   getListener().addProblem(
                       new ValidationProblem(new ProblemDefinition(

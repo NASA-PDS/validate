@@ -14,7 +14,10 @@
 package gov.nasa.pds.tools.validate.content.table;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.net.URL;
+import java.nio.channels.FileChannel;
 
 import gov.nasa.pds.label.object.RecordLocation;
 import gov.nasa.pds.label.object.TableRecord;
@@ -88,6 +91,27 @@ public class RawTableReader extends TableReader {
   }
   
   /**
+   * Constructor.
+   * 
+   * @param table The table object.
+   * @param dataFile The data file.
+   * @param label The label.
+   * @param tableIndex The index of the table.
+   * @param readEntireFile Set to 'true' to read in entire data file.
+   * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes.
+   * @param fileChannel file channel stream used for ByteWideFileAccessor 
+   * @param inputStream input stream of the file used for CSVReader 
+   * @throws Exception If table offset is null.
+   */
+  public RawTableReader(Object table, URL dataFile, URL label, int tableIndex, boolean readEntireFile,
+		boolean keepQuotationsFlag, RandomAccessFile raf, InputStream inputStream) throws Exception {
+    super(table, dataFile, false, readEntireFile, keepQuotationsFlag, raf, inputStream);
+    this.dataFile = dataFile;
+    this.label = label;
+    this.table = tableIndex;
+  }
+  
+  /**
    * Previews the next line in the data file.
    * 
    * @return the next line, or null if no further lines.
@@ -100,6 +124,7 @@ public class RawTableReader extends TableReader {
     StringBuilder lineBuffer = new StringBuilder();
     if (nextCh == -1) {
       line = null;
+      LOG.debug("readNextLine:nextCh == -1");
     } else {
       boolean newLine = false;
       boolean eof = false;
@@ -173,7 +198,7 @@ public class RawTableReader extends TableReader {
    * 
    * @return A record.
    */
-  public FixedTableRecord toRecord(String line, int row) {
+  public FixedTableRecord toRecord(String line, long row) {
     FixedTableRecord record = null;
     record = new FixedTableRecord(line.getBytes(), getFieldMap(), getFields());
     record.setLocation(new RecordLocation(label, dataFile, 
@@ -206,7 +231,7 @@ public class RawTableReader extends TableReader {
    * 
    * @return a table record, with the location set.
    */
-  public TableRecord getRecord(int index, boolean keepQuotationsFlag) 
+  public TableRecord getRecord(long index, boolean keepQuotationsFlag) 
       throws IllegalArgumentException, IOException {
    try {
     TableRecord record = super.getRecord(index,keepQuotationsFlag);
