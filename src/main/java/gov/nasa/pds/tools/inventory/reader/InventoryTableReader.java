@@ -50,7 +50,7 @@ public class InventoryTableReader implements InventoryReader {
   /** The data file being read. */
   private URL dataFile;
   
-  private int numRecords = -1;
+  private long numRecords = -1;
 
   /**
    * XPath to determine the field delimiter being used in the inventory table.
@@ -107,7 +107,7 @@ public class InventoryTableReader implements InventoryReader {
       }
       dataFile = new URL(parent, dataFileName);
       
-      this.numRecords = Integer.parseInt(extractor.getValueFromDoc("//Inventory/records"));      
+      this.numRecords = Long.parseLong(extractor.getValueFromDoc("//Inventory/records"));      
       reader = new LineNumberReader(new BufferedReader(
           new InputStreamReader(dataFile.openStream())));
       String value = "";
@@ -169,7 +169,7 @@ public class InventoryTableReader implements InventoryReader {
    * Returns the records number in the PDS Inventory file.
    * 
    */
-  public int getNumRecords() {
+  public long getNumRecords() {
 	  return this.numRecords;
   }
   

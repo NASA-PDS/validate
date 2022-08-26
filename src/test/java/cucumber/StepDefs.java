@@ -226,6 +226,10 @@ public class StepDefs {
                 count = this.getMessageCount(reportJson, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE.getKey());
             } else if (strTemp.equals("NO_PRODUCTS_FOUND")) {
                 count = this.getMessageCount(reportJson, ProblemType.NO_PRODUCTS_FOUND.getKey());
+            } else if (strTemp.equals("TABLE_FILE_READ_ERROR")) {
+                count = this.getMessageCount(reportJson, ProblemType.TABLE_FILE_READ_ERROR.getKey());
+            } else if (strTemp.equals("FIELD_VALUE_OUT_OF_MIN_MAX_RANGE")) {
+                count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE.getKey());
             } else if (strTemp.equals("totalWarnings")) {
                 count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
             } else if (strTemp.equals("totalErrors")) {

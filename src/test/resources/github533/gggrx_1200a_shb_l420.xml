@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:grail_gravity_derived:data_shbdr:gggrx_1200a_shb_l420</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>GRAIL Gravity Binary Spherical Harmonic Model: gggrx_1200a_shb_l420</title>
+    <information_model_version>1.18.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-08-15</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial PDS4 version</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2012-03-01Z</start_date_time>
+      <stop_date_time>2012-12-14Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Gravity Recovery and Interior Laboratory</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.gravity_recovery_and_interior_laboratory</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Gravity Recovery and Interior Laboratory A</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.grail-a</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Gravity Recovery and Interior Laboratory B</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.grail-b</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lunar Gravity Ranging System A for GRAIL-A</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:grail-a.lgrs-a</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lunar Gravity Ranging System B for GRAIL-B</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:grail-b.lgrs-b</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <!-- This file will fail with not enough records, but the test is to see if validate can read in the records value successfully. -->
+      <file_name>test.dat</file_name>
+      <creation_date_time>2016-03-01</creation_date_time>
+      <comment>
+        This file contains coefficients and related data for the GSFC Lunar gravity
+        field GRGM1200A, a degree and order 1200 spherical harmonic model. It is
+        a GSFC gravity field that includes the entire GRAIL mission data (and that
+        does not include other data).
+        
+        The covariance matrix information in this file is truncated to degree and
+        order 420.
+        
+        Some details describing this model are:
+        The spherical harmonic coefficients are fully normalized (geodesy 4pi
+        normalized).
+        The uncertainties are calibrated (the formal uncertainties multiplied by
+        a factor of 1.635).
+        The reference radius = 1738.0 km
+        The gravitational parameter is GM = 4902.80011526323 km**3/s**2
+        The planetary ephemeris used is de430 and defines the lunar body-fixed
+        coordinate system.
+        A Kaula type power law constraint is applied to the spherical harmonics
+        coefficients for degrees greater than 600 (3.6e-4/n^2).
+        The weighting of the KBRR data is:
+        0.03 microns/sec in the primary mission
+        0.05 microns/sec in the extended mission
+        The weighting of the DSN data is:
+        0.12mm/s in both the primary and extended mission
+        
+        The nominal tidal Love number is k2 = 0.024133 +/- 0.000016
+        
+        The current best reference for the GRGM1200A gravity field is 
+        LEMOINEETAL2014, published in the Geophysical Research Letters with the 
+        DOI number 10.1002/2014GL060027. For additional details on the GRAIL 
+        mission, data and methods, see LEMOINEETAL2013.
+        
+        This product is a set of binary tables:
+        a header table, a names table, a coefficients table, and a covariance
+        table. Definitions of the tables follow. This GRAIL moon gravity model
+        is in the form of a Spherical Harmonics Binary Data Record (SHBDR).
+      </comment>
+    </File>
+    <Table_Binary>
+      <name>SHBDR_Header_Table</name>
+      <offset unit="byte">0</offset>
+      <records>1</records>
+      <description>The SHBDR Header includes descriptive information about the spherical
+        harmonic coefficients that follow in SHBDR_Coefficients_Table. The header consists
+        of a single record of nine data columns requiring 56 bytes. The Header is followed by
+        a pad of binary integer zeroes.</description>
+      <Record_Binary>
+        <fields>9</fields>
+        <groups>0</groups>
+        <record_length unit="byte">56</record_length>
+        <Field_Binary>
+          <name>Reference_Radius</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>km</unit>
+          <description>The assumed reference radius of the spherical planet.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Constant</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>For a gravity field model
+            the gravitational constant GM in km cubed per second
+            squared for the planet. For a topography model, set to 1.
+          </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Uncertainty_in_Constant</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>For a gravity field model the uncertainty in the 
+            gravitational constant GM in km cubed per second squared for
+            the planet. For a topography model, set to 0.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Degree_of_Field</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>SignedLSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Degree of the model field.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Order_of_Field</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">29</field_location>
+          <data_type>SignedLSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Order of the model field.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Normalization_State</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>SignedLSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>The normalization indicator. For gravity field:
+            0   coefficients are unnormalized
+            1   coefficients are normalized
+            2   other.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Number_of_Names</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">37</field_location>
+          <data_type>SignedLSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Number of valid names in
+            the SHBDR_Names_Table. Also, the number of valid
+            coefficients in the SHBDR_Coefficients_Table.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Reference_Longitude</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">41</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degree</unit>
+          <description>Reference longitude for the spherical harmonic 
+            expansion; normally 0.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Reference_Latitude</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">49</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degree</unit>
+          <description>Reference latitude for the spherical harmonic
+            expansion; normally 0.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    
+    <Table_Binary>
+      <name>SHBDR_Names_Table</name>
+      <offset unit="byte">512</offset>
+      <records>177237</records>
+      <description>
+        The SHBDR_Names_Table contains names for the solution parameters (including
+        gravity field coefficients) which will follow in SHBDR_Coefficients_Table.
+        The order of the names in SHBDR_Names_Table corresponds identically to the
+        order of the parameters in SHBDR_Coefficients_Table. Each coefficient name
+        is of the form Cij or Sij where i is the degree of the coefficient and j is 
+        the order of the coefficient. Both indices are three-digit zero-filled
+        right-justified ASCII character strings (for example, C010005 for the 10th
+        degree 5th order C coefficient, or S002001 for the 2nd degree 1st order
+        S coefficient). The eighth byte in the table is an ASCII blank used to ensure
+        that the row length is equal to 8 bytes. Names of other solution parameters are
+        limited to 8 ASCII characters; if less than 8, they will be left-justified and
+        padded with ASCII blanks. The Names Table itself will be padded with ASCII blanks,
+        if necessary.</description>
+      <Record_Binary>
+        <fields>1</fields>
+        <groups>0</groups>
+        <record_length unit="byte">8</record_length>
+        <Field_Binary>
+          <name>Parameter_Name</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>The name of the coefficient or other solution parameter, 
+            left-justified and padded with ASCII blanks (if needed) to 8 
+            characters.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    
+    <Table_Binary>
+      <name>SHBDR_Coefficients_Table</name>
+      <offset unit="byte">1418752</offset>
+      <records>177237</records>
+      <description>The SHBDR_Coefficients_Table contains the coefficients and other
+        solution parameters for the spherical harmonic model. The order of the 
+        coefficients in this table corresponds exactly to the order of the coefficient
+        and parameter names in SHBDR_Names_Table. The SHBDR_Coefficients_Table will be
+        padded with double precision zeroes.</description>
+      <Record_Binary>
+        <fields>1</fields>
+        <groups>0</groups>
+        <record_length unit="byte">8</record_length>
+        <Field_Binary>
+          <name>Coefficient_Value</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>A coefficient Cij or Sij or other solution parameter as specified
+            in the SHBDR_Names_Table.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    
+    <Table_Binary>
+      <name>SHBDR_Covariance_Table</name>
+      <offset unit="byte">2836992</offset>
+      <records>15706565703</records>
+      <description>The SHBDR_Covariance_Table
+        contains the covariances for the spherical harmonic model
+        coefficients and other solution parameters. The order of
+        the covariances in this table is defined as columnwise
+        vector storage of the upper triangular matrix formed by
+        the product of the SHBDR Names Table with its transpose.
+        For example, if the Names Table has four entries  A, B, 
+        C, and D,  then the covariances are given by the column 
+        vectors in the upper triangular matrix of:
+        | A | [ A B C D ] = | AA AB AC AD |
+        | B |               | BA BB BC BD |
+        | C |               | CA CB CC CD |
+        | D |               | DA DB DC DD |
+        
+        That is, the covariance table will list (in this order)
+        AA, AB, BB, AC, BC, CC, AD, BD, CD, and DD.
+        The SHBDR_Covariance_Table will be padded with double
+        precision zeroes</description>
+      <Record_Binary>
+        <fields>1</fields>
+        <groups>0</groups>
+        <record_length unit="byte">8</record_length>
+        <Field_Binary>
+          <name>Covariance_Value</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754LSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>The covariance value for the coefficients and other 
+            solution parameters specified by the product of SHBDR_Names_Table
+            with its transpose, after omitting redundant terms.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+  
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>gggrx_1200a_shb_l420.lbl</file_name>
+    </File>
+    <Stream_Text>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>Original PDS3 label</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>

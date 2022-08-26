@@ -13,12 +13,10 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.lang.StringBuffer;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.BufferUnderflowException;
@@ -35,8 +33,6 @@ import javax.xml.xpath.XPathFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.commons.io.FilenameUtils;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -68,14 +64,12 @@ import gov.nasa.pds.objectAccess.ObjectAccess;
 import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.objectAccess.InvalidTableException;
-import gov.nasa.pds.objectAccess.TableReader;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.SourceLocation;
 import gov.nasa.pds.tools.util.TableUtil;
 import gov.nasa.pds.tools.util.DOMSourceManager;
 import gov.nasa.pds.tools.util.FileService;
-import gov.nasa.pds.tools.util.FilenameUtility;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -98,8 +92,11 @@ import gov.nasa.pds.validate.constants.Constants;
   */
 public class TableDataContentValidationRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableDataContentValidationRule.class);
-  private int PROGRESS_COUNTER = 0;
+  private int progressCounter = 0;
   private TableUtil tableUtil = null;
+  private long currentObjectRecordCounter = 0;
+  
+  private RawTableReader currentTableReader = null;
 
   /** Used in evaluating xpath expressions. */
   private XPathFactory xPathFactory;
@@ -145,13 +142,6 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       DOMSource source = new DOMSource(label); 
 
       // Note that the value of label is [#document: null] if attempt to print using LOG.debug
-      //FileService.printDocumentToFile("validate_document_dump.log",label);
-      //FileService.printDocumentToFile("validate_dom_source.log",source);
-
-      //LOG.debug("isApplicable:getContext): [{}]",getContext());
-      //LOG.debug("isApplicable:label: [{}]",label);   The value of label is [#document: null] and not as useful.
-      //LOG.debug("isApplicable:source: [{}]",source);
-
       try {
         // Check to see how many tables are contained in the label.
         NodeList tables = (NodeList) xPathFactory.newXPath().evaluate(
@@ -194,28 +184,15 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       TableRecord record = null;
       int recordNumber = 0;
 
-      RawTableReader tableReader = null;
       try {
-          LOG.debug("validateTableDataContents:pre-getRecord:dataFile {}",dataFile);
-          tableReader = new RawTableReader(table, dataFile, getTarget(), 0, false, false);
-          long recordSize = tableReader.getRecordSize(dataFile, table);
-          LOG.debug("validateTableDelimited:dataFile,recordSize {},{}",dataFile,recordSize);
-      } catch (Exception ex) {
-          LOG.error("ERROR: Cannot open data file {}",dataFile);
-          // This error is FATAL, print the stack trace.
-          // Print the stack trace to an external file for inspection.
-          FileService.printStackTraceToFile(null,ex); // The filename sent to printStackTraceToFile() should be a file that ends with .txt or .log
-      }
-
-      try {
-           record = tableReader.readNext();
-           while (record != null) {
-               recordNumber++; 
+           record = this.currentTableReader.readNext();
+           while (record != null) { 
                LOG.debug("validateTableDelimited: recordNumber {}",recordNumber);
                progressCounter();
+               this.currentObjectRecordCounter++;
 
                try {
-                    fieldValueValidator.validate(record, tableReader.getFields(), false);
+                    fieldValueValidator.validate(record, this.currentTableReader.getFields(), false);
                } catch (FieldContentFatalException e) {
                    // If we get a fatal error, we can avoid an overflow of error output
                    // by killing the loop through all the table records
@@ -224,18 +201,20 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                    FileService.printStackTraceToFile(null,e); // The filename sent to printStackTraceToFile() should be a file that ends with .txt or .log
                    break;
                }
+
                if (spotCheckData != -1) {
                    try {
-                        record = tableReader.getRecord(tableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+                       // TODO: Need to update this logic to count every record, even if we don't validate them
+                        record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
                    } catch (Exception ioEx) {
                        record = null;
                         throw new IOException("Error occurred "
                             + "while reading table '" + tableIndex + "', "
                             + "record '"
-                            + (tableReader.getCurrentRow() + spotCheckData) + "'");
+                            + (this.currentTableReader.getCurrentRow() + spotCheckData) + "'");
                   }
                } else {
-                   record = tableReader.readNext();
+                   record = this.currentTableReader.readNext();
                }
            } // end  while (record != null)
        } catch (Exception ioEx) {
@@ -244,11 +223,11 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
             throw new IOException(
                 "Unexpected exception reached while reading table '"
                 + tableIndex
-                + "', record '" + tableReader.getCurrentRow() + "'");
-       }
+                + "', record '" + this.currentTableReader.getCurrentRow() + "'");
+       } 
   }
 
-  private void recordLineLength(ArrayList<Integer> lineLengthsArray, ArrayList<Integer> lineNumbersArray, String line, int lineNumber) {
+  private void recordLineLength(ArrayList<Integer> lineLengthsArray, ArrayList<Long> lineNumbersArray, String line, long l) {
     // This is a special processing for file that ends .tab but records have different lengths.
     // For every line encountered, record the line number, line length, and the URL of the data file.
     // After all the records are recorded, another function will check that all lines have the same length.  If the file name ends with .tab, all the records should have the same length.
@@ -256,22 +235,22 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     // Check if a particular line length has not been record already.  We only want to record lines that are of different lengths.
     int lineLength = line.length();
     if (!lineLengthsArray.contains(lineLength)) {
-        lineLengthsArray.add(new Integer(lineLength));
-        lineNumbersArray.add(new Integer(lineNumber));
-        LOG.debug("recordLineLength:ADDING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),lineNumber);
+        lineLengthsArray.add(lineLength);
+        lineNumbersArray.add(l);
+        LOG.debug("recordLineLength:ADDING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),l);
     } else {
-        LOG.debug("recordLineLength:REJECTING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),lineNumber);
+        LOG.debug("recordLineLength:REJECTING:lineLength,lineLengthsArray.size,lineNumber {},{},{}",lineLength,lineLengthsArray.size(),l);
     }
   }
 
-  private void reportIfDifferentLengths(ArrayList<Integer> lineLengthsArray, ArrayList<Integer> lineNumbersArray, URL dataFile, int tableIndex) {
+  private void reportIfDifferentLengths(ArrayList<Integer> lineLengthsArray, ArrayList<Long> lineNumbersArray, URL dataFile, int tableIndex) {
     // If the size if lineLengthsArray is more than 1, that means there are more than 2 records of different lengths.  Report it as a ERROR.
     if (lineLengthsArray.size() > 1) {
         String errorMessage = "";
         String standardMessage = "Table of fixed length record should have all records of same length.  Line number:" + lineNumbersArray.get(0) + ", record length:" + lineLengthsArray.get(0) + ", Line number:" + lineNumbersArray.get(1) + ", record length:" + lineLengthsArray.get(1);
         StringBuffer stringBuffer = new StringBuffer();
         int arrayIndex = 0;
-        for (Integer lineNum: lineNumbersArray) {
+        for (Long lineNum: lineNumbersArray) {
             if (arrayIndex== 0) {
                 stringBuffer.append(lineNum);
                 stringBuffer.append(":");
@@ -318,14 +297,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    * @param tableCharacterUtil Util object to parse in between fields
    * @return None 
    */
-  private void validateTableCharacter(FieldValueValidator fieldValueValidator, Object table, TableRecord record, RawTableReader reader, URL dataFile, int tableIndex,
-               int spotCheckData, boolean keepQuotationsFlag, String recordDelimiter, int recordLength, int recordMaxLength, int definedNumRecords, boolean inventoryTable,
+  private void validateTableCharacter(FieldValueValidator fieldValueValidator, Object table, TableRecord record, URL dataFile, int tableIndex,
+               int spotCheckData, boolean keepQuotationsFlag, String recordDelimiter, int recordLength, int recordMaxLength, long definedNumRecords, boolean inventoryTable,
                TableCharacterUtil tableCharacterUtil) throws IOException {
       // The content of this function was copied from the main validate function to reduced the function size.
       boolean manuallyParseRecord = false;
-      String line = reader.readNextLine();
-      int lineNumber = 0;
-      int recordsRead = 0;
+      String line = this.currentTableReader.readNextLine();
+      long lineNumber = 0;
 
       // The checking for same line length should be done not based on the file name (ending with .tab) but with the table type.
       // If the type of the table is not TableDelimited, the checking of same line length should be done.
@@ -337,12 +315,12 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
       // Add 2 arrays to keep track of each line number and its length.
       ArrayList<Integer> lineLengthsArray = new ArrayList<Integer>(0);
-      ArrayList<Integer> lineNumbersArray = new ArrayList<Integer>(0);
+      ArrayList<Long> lineNumbersArray = new ArrayList<Long>(0);
 
       if (line != null) {
           LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
           LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
-          if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
+          if (tableIsFixedLength) this.recordLineLength(lineLengthsArray, lineNumbersArray, line, lineNumber+1);
       } else {
           LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}]",lineNumber,line);
       }
@@ -351,6 +329,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           progressCounter();
           lineNumber += 1;
 
+          this.currentObjectRecordCounter++;
+
           if (recordDelimiter != null) {
               // Check for how the line ends keying off what was provided in the label.
               // If the delimiter is "Carriage-Return Line-Feed" then the line should end with a carriage return and a line feed.
@@ -358,7 +338,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     addTableProblem(ExceptionType.ERROR,
                         ProblemType.MISSING_CRLF,
                         "Record does not end in carriage-return line feed.",
-                        dataFile, tableIndex, reader.getCurrentRow());
+                        dataFile, tableIndex, this.currentTableReader.getCurrentRow());
                     manuallyParseRecord = true;
               } else if (recordDelimiter.equalsIgnoreCase("Line-Feed")) {
                   if (!line.endsWith("\n")) {  // If the delimiter is Line-Feed, then the line should end with "\n"
@@ -368,13 +348,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
                               "Record does not end in line feed.",
-                              dataFile, tableIndex, reader.getCurrentRow());
+                              dataFile, tableIndex, this.currentTableReader.getCurrentRow());
                   }
                   if (line.endsWith("\r\n")) {  // If the delimiter is Line-Feed, then the line should not end with "\r\n"
                           addTableProblem(ExceptionType.ERROR,
                               ProblemType.MISSING_LF,
                               "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
-                              dataFile, tableIndex, reader.getCurrentRow());
+                              dataFile, tableIndex, this.currentTableReader.getCurrentRow());
                   }
                     manuallyParseRecord = true;
               } else {
@@ -383,7 +363,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                         "Record ends in carriage-return line feed.",
                         dataFile,
                         tableIndex,
-                        reader.getCurrentRow());
+                        this.currentTableReader.getCurrentRow());
               }
           } else {
               // If cannot find a record delimiter, check for the default carriage return line feed.
@@ -391,7 +371,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     addTableProblem(ExceptionType.ERROR,
                         ProblemType.MISSING_CRLF,
                         "Record does not end in carriage-return line feed.",
-                        dataFile, tableIndex, reader.getCurrentRow());
+                        dataFile, tableIndex, this.currentTableReader.getCurrentRow());
                     manuallyParseRecord = true;
               } else {
                     addTableProblem(ExceptionType.DEBUG,
@@ -399,7 +379,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                         "Record ends in carriage-return line feed.",
                         dataFile,
                         tableIndex,
-                        reader.getCurrentRow());              
+                        this.currentTableReader.getCurrentRow());              
               }
           }
 
@@ -412,7 +392,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           + ", got " + line.length() + ").",
                       dataFile,
                       tableIndex,
-                      reader.getCurrentRow()); 
+                      this.currentTableReader.getCurrentRow()); 
                   manuallyParseRecord = true;
               } else {
                   addTableProblem(ExceptionType.DEBUG,
@@ -422,7 +402,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           + ", got " + line.length() + ").",
                       dataFile,
                       tableIndex,
-                      reader.getCurrentRow());              
+                      this.currentTableReader.getCurrentRow());
               }
           }
           if (recordMaxLength != -1) {
@@ -434,7 +414,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           + ", got " + line.length() + ").",
                       dataFile,
                       tableIndex,
-                      reader.getCurrentRow());
+                      this.currentTableReader.getCurrentRow());
                   manuallyParseRecord = true;
               } else {
                   addTableProblem(ExceptionType.DEBUG,
@@ -445,7 +425,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                           + ", got " + line.length() + ").",
                       dataFile,
                       tableIndex,
-                      reader.getCurrentRow());
+                      this.currentTableReader.getCurrentRow());
               }
           }
           // Need to manually parse the line if we're past the defined
@@ -454,32 +434,31 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
           // TODO Move this to PDS4 JParser
           LOG.debug("validateTableCharacter:POSITION_4");
-          if (reader.getCurrentRow() > definedNumRecords) {
+          if (this.currentTableReader.getCurrentRow() > definedNumRecords) {
               manuallyParseRecord = true;
               LOG.debug("validateTableCharacter:POSITION_5");
           }
           try {
               LOG.debug("validateTableCharacter:POSITION_6");
               if (manuallyParseRecord && !(table instanceof TableDelimited)) {
-                  record = reader.toRecord(line, reader.getCurrentRow());
+                  record = this.currentTableReader.toRecord(line, this.currentTableReader.getCurrentRow());
                   LOG.debug("validateTableCharacter:POSITION_7");
               } else {
-                  record = reader.getRecord(reader.getCurrentRow(), keepQuotationsFlag);
-                  recordsRead += 1;  // Keep track of how any records read so far.
+                  record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
                   LOG.debug("validateTableCharacter:POSITION_8");
               }
 
               // https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
               if ((tableCharacterUtil != null) && this.getCheckInbetweenFields()) {
                     LOG.debug("validateTableCharacter:POSITION_9");
-                    tableCharacterUtil.validateInBetweenFields(line,lineNumber);
+                    tableCharacterUtil.validateInBetweenFields(line, lineNumber);
               }
 
               LOG.debug("validateTableCharacter:POSITION_10");
               //Validate fields within the record here
               try {
                   LOG.debug("validateTableCharacter:POSITION_11");
-                  fieldValueValidator.validate(record, reader.getFields());
+                  fieldValueValidator.validate(record, this.currentTableReader.getFields());
               } catch (FieldContentFatalException e) {
                   // If we get a fatal error, we can avoid an overflow of error output
                   // by killing the loop through all the table records
@@ -493,7 +472,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
               //Validate collection inventory member status
               if (inventoryTable) {
-                	  Map<String, Integer> fieldMap = reader.getFieldMap();
+                	  Map<String, Integer> fieldMap = this.currentTableReader.getFieldMap();
                 	  String memberStatus = null;
                 	  if (fieldMap.containsKey("Member_Status")) {
                 	    memberStatus = record.getString(
@@ -510,7 +489,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                             ".  It should begin with 'P' or 'S'.",
                         dataFile,
                         tableIndex,
-                        reader.getCurrentRow());
+                        this.currentTableReader.getCurrentRow());
                 	  }
               }
           } catch (IOException io) {
@@ -521,14 +500,14 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     io.getMessage(),
                     dataFile,
                     tableIndex,
-                    reader.getCurrentRow());                
+                    this.currentTableReader.getCurrentRow());                
          }
               
          if (spotCheckData > 1) {
                   // If spot checking is turned on, we want to skip to
                   // the record just before the one we want to read
                   try {
-                    record = reader.getRecord(reader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
+                    record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow() + (spotCheckData - 1), keepQuotationsFlag);
                   } catch (IllegalArgumentException iae) {
                     line = null;
                     continue;
@@ -536,33 +515,35 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                     throw new IOException("Error occurred "
                         + "while reading table '" + tableIndex + "', "
                         + "record '"
-                        + (reader.getCurrentRow() + spotCheckData) + "'");
+                        + (this.currentTableReader.getCurrentRow() + spotCheckData) + "'");
                   }
           }
               
           // WARNING: All checks must happen before this in case we
           // reach end of the table
           if (table instanceof TableDelimited && 
-              definedNumRecords == reader.getCurrentRow()) {
+              definedNumRecords == this.currentTableReader.getCurrentRow()) {
               LOG.debug("validateTableCharacter:POSITION_2:lineNumber,definedNumRecords {},{} BREAKING_FROM_LOOP",lineNumber,definedNumRecords);
               // The break statement assures that the code does not read passed what was advertised in the label "records" field.
               break;
           }
-          line = reader.readNextLine();
+
+          line = this.currentTableReader.readNextLine();
           if (line != null) {
               LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line {},[{}],{}",lineNumber,line,line.length());
               LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line.length,line {},{},[{}]",lineNumber,line.length(),line);
-              if (tableIsFixedLength) this.recordLineLength(lineLengthsArray,lineNumbersArray,line,lineNumber+1);
+              if (tableIsFixedLength) this.recordLineLength(lineLengthsArray, lineNumbersArray, line, lineNumber+1);
           } else {
               LOG.debug("validateTableCharacter:POSITION_2:lineNumber,line {},[{}]",lineNumber,line);
           }
-      }
+      } // while (line != null) {
+
       // only give error message when the actual record number is smaller than the defined in the label
       if (definedNumRecords != -1 && 
-                (definedNumRecords>reader.getCurrentRow()) && spotCheckData == -1) {
+                (definedNumRecords > this.currentTableReader.getCurrentRow()) && spotCheckData == -1) {
           String message = "Number of records read is not equal "
                 + "to the defined number of records in the label (expected "
-                + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
+                + definedNumRecords + ", got " + this.currentTableReader.getCurrentRow() + ").";
           LOG.error("validateTableCharacter:POSITION_2:{}",message);
           addTableProblem(ExceptionType.ERROR,
                   ProblemType.RECORDS_MISMATCH,
@@ -574,10 +555,10 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
       // Provide a warning if for some reason the number of records read is more than advertised
       // (perhaps due to an extra carriage return in a field value which can bumps the number of lines by 1)
-      if (recordsRead > definedNumRecords) {
+      if (this.currentObjectRecordCounter > definedNumRecords) {
           String message = "Number of records read is more than "
                 + "the defined number of records in the label (expected "
-                + definedNumRecords + ", got " + reader.getCurrentRow() + ").";
+                + definedNumRecords + ", got " + this.currentTableReader.getCurrentRow() + ").";
           LOG.warn("validateTableCharacter:POSITION_2:{}",message);
           addTableProblem(ExceptionType.WARNING,
                   ProblemType.RECORDS_MISMATCH,
@@ -590,8 +571,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // If the table is fixed length all the records length are not the same, report it as an error.
       if (tableIsFixedLength) reportIfDifferentLengths(lineLengthsArray,lineNumbersArray,dataFile,tableIndex);
 
-      LOG.debug("validateTableCharacter:recordsRead,definedNumRecords {},{}",recordsRead,definedNumRecords);
-      LOG.debug("validateTableCharacter:DONE_VALIDATING");
+      LOG.debug("validateTableCharacter: currentObjectRecordCounter,definedNumRecords {},{}",this.currentObjectRecordCounter,definedNumRecords);
+      LOG.debug("validateTableCharacter: DONE_VALIDATING");
   }
 
   /**
@@ -676,10 +657,8 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
 
   }
 
-
   @ValidationTest
-  public void validateTableDataContents() throws MalformedURLException, 
-  URISyntaxException {
+  public void validateTableDataContents() throws URISyntaxException, IOException {
 	  
     LOG.debug("Entering validateTableDataContents");
     LOG.debug("validateTableDataContents:getTarget() {}",getTarget());
@@ -730,6 +709,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
     int fileAreaObserveIndex = 0;
     for (FileArea fileArea : tableFileAreas) {
       int tableIndex = -1;
+
       String fileName = getDataFile(fileArea);
       URL dataFile = new URL(Utility.getParent(getTarget()), fileName);
       LOG.debug("validateTableDataContents:fileAreaObserveIndex,fileName,dataFile {},{},{}",fileAreaObserveIndex,fileName,dataFile);
@@ -767,6 +747,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       // The headerSize is the number of characters to describe the header of the table.
       // headerOffset + headerSize = total header length
       int headerOffset = 0;
+
       LOG.debug("validateTableDataContents:headerObjects.size {}",headerObjects.size());
       int headerIndex = 0;
       for (Object header: headerObjects) {
@@ -825,46 +806,109 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
       else arraySize = 0;
 
       List<Object> tableObjects = objectAccess.getTableObjects(fileArea);
-      FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());  
-      long actualTotalRecords = 0, actualRecordNumber = 0, recordsToRemove = 0;
+      FieldValueValidator fieldValueValidator = new FieldValueValidator(getListener());
 
       LOG.debug("validateTableDataContents:getTarget,tableObjects.size {},{}",getTarget(),tableObjects.size());
-      
-      // Get total record size first before validation
-      // issue_220 & issue_219
-      try {
-          // github.com/NASA-PDS/validate/issues/344 Validate inexplicably writes to validate_stack_traces.log 
-          // Check for size of tableObjects to avoid the IndexOutOfBoundsException exception.
-          // Also check for null-ness of tableObjects if there are no tables provided.
-          if (tableObjects != null && tableObjects.size() > 0) {
-              TableReader tmpReader = new TableReader(tableObjects.get(0), dataFile, false, false);
-              // issue_233 Product validation does not detect the number of table records correctly for Table + Array object
-              // set records size with the table index 1
-              actualTotalRecords = actualRecordNumber = tmpReader.getRecordSize(dataFile, tableObjects.get(0));
-          }
-      }
-      catch (InvalidTableException ex) {
-    	 //ex.printStackTrace();
-         // Print the stack trace to an external file for inspection.
-         FileService.printStackTraceToFile(null,ex);
-      }
-      catch (Exception ex) { 
-    	 //ex.printStackTrace();
-         // Print the stack trace to an external file for inspection.
-         FileService.printStackTraceToFile(null,ex);
-      }
 
-      LOG.debug("validateTableDataContents:arraySize,actualTotalRecords {},{}",arraySize,actualTotalRecords);
+      LOG.debug("validateTableDataContents:arraySize,actualTotalRecords {}",arraySize);
       LOG.debug("validateTableDataContents:dataFile,tableObjects.size() {},{}",dataFile,tableObjects.size());
-      boolean keepQuotationsFlag = true;  // Flag to optionally ask RawTableReader to preserve the leading and trailing quotes.
 
+      boolean keepQuotationsFlag = true;  // Flag to optionally ask RawTableReader to preserve the leading and trailing quotes.
+      this.currentTableReader = null;
+      RandomAccessFile raf = null;
+      InputStream inputStream = null;
       for (Object table : tableObjects) {
-        RawTableReader reader = null;
+
+          int recordLength = -1;
+          int recordMaxLength = -1;
+          long definedNumRecords = -1;
+          boolean inventoryTable = false;
+          String currentTableName = "";
+          
         try {
-          reader = new RawTableReader(table, dataFile, getTarget(), 
-              tableIndex, false, keepQuotationsFlag);
-        } 
-        catch (InvalidTableException ex) {
+            this.currentObjectRecordCounter = 0;
+
+            LOG.debug("validateTableDataContents:tableIndex {}",tableIndex);
+
+            if (table instanceof TableDelimited) {
+              LOG.debug("validateTableDataContents:table instanceof TableDelimited");
+
+              TableDelimited td = (TableDelimited) table;
+              currentTableName = td.getName();
+              recordDelimiter = td.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
+              LOG.debug("td.getRecordDelimiter() [{}]",td.getRecordDelimiter());
+
+              if (td.getRecordDelimited() != null &&
+                  td.getRecordDelimited().getMaximumRecordLength() != null) {
+                recordMaxLength = td.getRecordDelimited()
+                    .getMaximumRecordLength().getValue().intValueExact();
+              }
+              definedNumRecords = td.getRecords().longValueExact();
+              LOG.debug("TableDelimited:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
+
+              if (td instanceof Inventory) {
+                    LOG.debug("validateTableDataContents:table instanceof Inventory");
+                    inventoryTable = true;
+              }
+
+            } else if (table instanceof TableBinary) {
+              LOG.debug("validateTableDataContents:table instanceof TableBinary");
+              TableBinary tb = (TableBinary) table;
+              currentTableName = tb.getName();
+
+              if (tb.getRecordBinary() != null &&
+                  tb.getRecordBinary().getRecordLength() != null) {
+                recordLength = tb.getRecordBinary().getRecordLength().getValue().intValueExact();
+              }
+              definedNumRecords = tb.getRecords().longValueExact();
+              LOG.debug("TableBinary:TableDataContentValidationRule:definedNumRecords {}", definedNumRecords);
+
+              // TODO: We should do some check to see if the label even has packed fields first
+              if (binaryTableNodes != null) {
+                validatePackedFields(binaryTableNodes.item(tableIndex-1));
+              }
+              LOG.debug("validateTableDataContents:recordLength,definedNumRecords,binaryTableNodes,tableObjects.size() {},{},{},{}",recordLength,definedNumRecords,binaryTableNodes,tableObjects.size());
+
+            } else {
+              LOG.debug("table instanceof TableCharacter: else");
+
+              // Instantiate a TableCharacterUtil class so we can perform the check in between fields (columns).
+              if ((this.getCheckInbetweenFields()) && (tableCharacterUtil == null)) {
+                  // Only instantiate the object TableCharacterUtil once.
+                  tableCharacterUtil = new TableCharacterUtil(getTarget(),getListener());
+                  tableCharacterUtil.parseFieldsInfo();
+              }
+
+              TableCharacter tc = (TableCharacter) table;
+              currentTableName = tc.getName();
+              recordDelimiter = tc.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
+              // Note that TableCharacter class does not contain a function getFieldDelimiter() because there is not separator between fields since
+              // they are positional.
+              LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
+              LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
+              LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
+
+              if (tc.getRecordCharacter() != null && 
+                  tc.getRecordCharacter().getRecordLength() != null) {
+                recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
+              }
+              definedNumRecords = tc.getRecords().longValueExact();
+              LOG.debug("TableCharacter:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
+            }
+            
+          // Read in the data file
+          if (this.currentTableReader != null) {
+              if (this.currentTableReader.getAccessor() != null) {
+            	  raf = this.currentTableReader.getAccessor().getRandomAccessFile(); 
+              }
+
+              inputStream = this.currentTableReader.getInputStream();
+          }
+          LOG.debug("raf {}, inputStream {}", raf, inputStream);
+          this.currentTableReader = new RawTableReader(table, dataFile, getTarget(), 
+        			  tableIndex, false, keepQuotationsFlag, raf, inputStream);
+
+        } catch (InvalidTableException ex) {
         	addTableProblem(ExceptionType.ERROR, 
                     ProblemType.TABLE_FILE_READ_ERROR,
                     "" + ex.getMessage(),
@@ -875,8 +919,19 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                 FileService.printStackTraceToFile(null,ex);
                 tableIndex++;
                 continue;
-        }
-        catch (Exception ex) { 
+        } catch (IllegalArgumentException ex) {
+            addTableProblem(ExceptionType.ERROR, 
+                    ProblemType.TABLE_FILE_READ_ERROR,
+                    "" + ex.getMessage(),
+                    dataFile,
+                    tableIndex,
+                    -1);
+                // Print the stack trace to an external file for inspection.
+                FileService.printStackTraceToFile(null,ex);
+                tableIndex++;
+                continue;
+        } catch (Exception ex) { 
+          ex.printStackTrace();
           addTableProblem(ExceptionType.ERROR, 
               ProblemType.TABLE_FILE_READ_ERROR,
               "Error occurred while trying to read table: " + ex.getMessage(),
@@ -888,180 +943,13 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
           tableIndex++;
           continue;
         }
-        int recordLength = -1;
-        int recordMaxLength = -1;
-        int definedNumRecords = -1;
-        boolean inventoryTable = false;
-        LOG.debug("validateTableDataContents:tableIndex {}",tableIndex);
-        //Check if record length is equal to the defined record length in
-        // the label (or maximum length)
-        if (table instanceof TableDelimited) {
-          LOG.debug("validateTableDataContents:table instanceof TableDelimited");
-          TableDelimited td = (TableDelimited) table;
-          recordDelimiter = td.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
-          //tabulatedUtil.setFieldDelimiter(td.getFieldDelimiter());
-          LOG.debug("td.getRecordDelimiter() [{}]",td.getRecordDelimiter());
-
-          if (td.getRecordDelimited() != null &&
-              td.getRecordDelimited().getMaximumRecordLength() != null) {
-            recordMaxLength = td.getRecordDelimited()
-                .getMaximumRecordLength().getValue().intValueExact();
-          }
-          definedNumRecords = td.getRecords().intValueExact();
-          LOG.debug("TableDelimited:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
-          recordsToRemove = (long)definedNumRecords;
-          if (td instanceof Inventory) {
-                LOG.debug("validateTableDataContents:table instanceof Inventory");
-        	    inventoryTable = true;
-          }
-          actualRecordNumber = actualTotalRecords;
-
-          // The parameter headerOffset is no longer needed.
-          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  td.getName());
-
-        } else if (table instanceof TableBinary) {
-          LOG.debug("validateTableDataContents:table instanceof TableBinary");
-          TableBinary tb = (TableBinary) table;
-          if (tb.getRecordBinary() != null &&
-              tb.getRecordBinary().getRecordLength() != null) {
-            recordLength = tb.getRecordBinary().getRecordLength().getValue().intValueExact();
-          }
-          definedNumRecords = tb.getRecords().intValueExact();
-          if (binaryTableNodes != null) {
-            validatePackedFields(binaryTableNodes.item(tableIndex-1));
-          }
-          LOG.debug("validateTableDataContents:recordLength,definedNumRecords,binaryTableNodes,tableObjects.size() {},{},{},{}",recordLength,definedNumRecords,binaryTableNodes,tableObjects.size());
-          if (tableObjects.size()==1) {
-        	 actualTotalRecords = actualTotalRecords - arraySize - headerSize;
-        	 actualRecordNumber = actualTotalRecords/recordLength;
-              LOG.debug("validateTableDataContents:actualTotalRecords,actualRecordNumber {},{}",actualTotalRecords,actualRecordNumber);
-          }
-          else {
-        	  // issue_243: Fix for choke on a probably good file
-        	  // record size for the table index i
-        	  long actualRecordSize = actualTotalRecords - reader.getOffset();
-        	  actualRecordNumber = actualRecordSize/recordLength;
-          }
-
-          // The parameter headerOffset is no longer needed.
-          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  tb.getName());
-
-        } else {
-          LOG.debug("table instanceof TableCharacter: else");
-
-          // Instantiate a TableCharacterUtil class so we can perform the check in between fields (columns).
-          if ((this.getCheckInbetweenFields()) && (tableCharacterUtil == null)) {
-              // Only instantiate the object TableCharacterUtil once.
-              tableCharacterUtil = new TableCharacterUtil(getTarget(),getListener());
-              tableCharacterUtil.parseFieldsInfo();
-          }
-
-          TableCharacter tc = (TableCharacter) table;
-          recordDelimiter = tc.getRecordDelimiter();  // Fetch the record_delimiter here so it can be used to check for CRLF or LF ending.
-          // Note that TableCharacter class does not contain a function getFieldDelimiter() because there is not separator between fields since
-          // they are positional.
-          LOG.debug("tc.getRecordCharacter() {}",tc.getRecordCharacter());
-          LOG.debug("tc.getRecordCharacter().getRecordLength() {}",tc.getRecordCharacter().getRecordLength());
-          LOG.debug("tc.getRecordDelimiter() [{}]",tc.getRecordDelimiter());
-
-          if (tc.getRecordCharacter() != null && 
-              tc.getRecordCharacter().getRecordLength() != null) {
-            recordLength = tc.getRecordCharacter().getRecordLength().getValue().intValueExact();
-          }
-          definedNumRecords = tc.getRecords().intValueExact();
-          LOG.debug("TableCharacter:TableDataContentValidationRule:definedNumRecords {}",definedNumRecords);
-          recordsToRemove = (long)definedNumRecords;
-          try {
-             actualRecordNumber = reader.getRecordSize(dataFile, table);
-          }
-          catch (Exception e) {
-              FileService.printStackTraceToFile(null,e);
-          }
-           
-          LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
-          // Print the stack trace to an external file for inspection.
-
-          // The parameter headerOffset is no longer needed.
-          this.performOffsetCheck(reader.getOffset(), headerSize, dataFile, tableIndex,  tc.getName());
-
-        } 
         
-        { // issue_220  
-        	if (tableObjects.size()==tableIndex) {   		
-        		String message = "Number of records read is not equal "
-        				+ "to the defined number of records in the label (expected "
-        				+ definedNumRecords + ", got " + actualRecordNumber + ").";
-                LOG.debug("POSITION_1:definedNumRecords,actualRecordNumber {},{}",definedNumRecords,actualRecordNumber);
-                LOG.debug("POSITION_1:message [{}]",message);
-                // Example: (expected 2241, got 2302).
-
-                // Original logic: only report a mismatch error if the number of record read is less than defined records.
-        		if (actualRecordNumber<definedNumRecords) {
-        			addTableProblem(ExceptionType.ERROR,
-        					ProblemType.RECORDS_MISMATCH,
-        					message,
-        					dataFile,
-        					tableIndex,
-        					-1);  
-        			break;
-        		}
-        		/*
-        		 * issue_234: Validate gives incorrect records mismatch WARNING for interleaved data objects 
-        		else {
-        		  if (actualRecordNumber>definedNumRecords) {
-        			addTableProblem(ExceptionType.WARNING,
-        					ProblemType.RECORDS_MISMATCH,
-        					message,
-        					dataFile,
-        					tableIndex,
-        					-1);  
-        		  }
-        		}   
-        		*/		
-        	}
-        }
+        this.performOffsetCheck(this.currentTableReader.getOffset(), headerSize, dataFile, tableIndex, currentTableName);
    
         TableRecord record = null;
         try {
           if (table instanceof TableBinary) {
-            LOG.debug("table instanceof TableBinary");
-            try {
-              record = reader.readNext();
-              while (record != null) {
-                progressCounter();
-
-                try {
-                    fieldValueValidator.validate(record, reader.getFields(), false);
-                } catch (FieldContentFatalException e) {
-                    // If we get a fatal error, we can avoid an overflow of error output
-                    // by killing the loop through all the table records
-                    // Print the stack trace to an external file for inspection.
-                    // This is FATAL error: "Fatal field content read error. Discontinue reading records"
-                    FileService.printStackTraceToFile(null,e);
-                    LOG.error("TableDataContentValidationRule:message:" + e.getMessage());
-                    break;
-                }
-                if (spotCheckData != -1) {
-                  try {
-                    record = reader.getRecord(reader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
-                  } catch (IllegalArgumentException iae) {
-                    record = null;
-                  } catch (IOException io) {
-                    throw new IOException("Error occurred "
-                        + "while reading table '" + tableIndex + "', "
-                        + "record '"
-                        + (reader.getCurrentRow() + spotCheckData) + "'");
-                  }
-                } else {
-                  record = reader.readNext();
-                }
-              }
-            } catch (BufferUnderflowException be) {
-              throw new IOException(
-                  "Unexpected end-of-file reached while reading table '"
-                      + tableIndex
-                      + "', record '" + reader.getCurrentRow() + "'");
-            }
+              this.validateTableBinary(fieldValueValidator, record, tableIndex, spotCheckData, keepQuotationsFlag);
           } else {  // We have either a character or delimited table
 
              // Determine if we should proceed with calling validateTableDelimited() function.
@@ -1077,7 +965,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
                  }
              } else {
                  LOG.debug("validateTableDataContents:TABLE_LINEWISE_TRUE {}",dataFile);
-                 this.validateTableCharacter(fieldValueValidator, table, record, reader, dataFile, tableIndex,
+                 this.validateTableCharacter(fieldValueValidator, table, record, dataFile, tableIndex,
                      spotCheckData, keepQuotationsFlag, recordDelimiter, recordLength, recordMaxLength, definedNumRecords, inventoryTable,
                      tableCharacterUtil);
             }
@@ -1093,16 +981,61 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
            // Print the stack trace to an external file for inspection.
            FileService.printStackTraceToFile(null,io);
         }
-        actualRecordNumber -= recordsToRemove;
+
         tableIndex++;
-        LOG.debug("recordLength,definedNumRecords,recordsToRemove,actualRecordNumber {},{},{},{}",recordLength,definedNumRecords,recordsToRemove,actualRecordNumber);
       }
+      
+      if (this.currentTableReader != null)
+          this.currentTableReader.close();
+
       fileAreaObserveIndex++;
     }
     LOG.debug("Leaving validateTableDataContents");
 
   }
 
+  
+  private void validateTableBinary(FieldValueValidator fieldValueValidator, TableRecord record, int tableIndex, int spotCheckData, boolean keepQuotationsFlag) throws IOException {
+      LOG.debug("table instanceof TableBinary");
+      try {
+        record = this.currentTableReader.readNext();
+        while (record != null) {
+          progressCounter();
+          this.currentObjectRecordCounter++;
+
+          try {
+              fieldValueValidator.validate(record, this.currentTableReader.getFields(), false);
+          } catch (FieldContentFatalException e) {
+              // If we get a fatal error, we can avoid an overflow of error output
+              // by killing the loop through all the table records
+              // Print the stack trace to an external file for inspection.
+              // This is FATAL error: "Fatal field content read error. Discontinue reading records"
+              FileService.printStackTraceToFile(null,e);
+              LOG.error("TableDataContentValidationRule:message:" + e.getMessage());
+              break;
+          }
+          if (spotCheckData != -1) {
+            try {
+              record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+            } catch (IllegalArgumentException iae) {
+              record = null;
+            } catch (IOException io) {
+              throw new IOException("Error occurred "
+                  + "while reading table '" + tableIndex + "', "
+                  + "record '"
+                  + (this.currentTableReader.getCurrentRow() + spotCheckData) + "'");
+            }
+          } else {
+            record = this.currentTableReader.readNext();
+          }
+        }
+      } catch (BufferUnderflowException be) {
+        throw new IOException(
+            "Unexpected end-of-file reached while reading table '"
+                + tableIndex
+                + "', record '" + this.currentTableReader.getCurrentRow() + "'");
+      }
+  }
   /**
    * Creates a mapping to detect the number of tables found in
    * each data file defined in the label.
@@ -1279,11 +1212,27 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    * @param message The message.
    * @param dataFile The data file associated with the exception.
    * @param table The index of the table associated with the exception.
-   * @param record The index of the record associated with the exception.
+   * @param record The index of the record as an integer associated with the exception.
    */
   private void addTableProblem(ExceptionType exceptionType, 
       ProblemType problemType, String message, URL dataFile, int table, 
       int record) {
+    addTableProblem(exceptionType, problemType, message, dataFile, table,
+        record, -1);
+  }
+  
+  /**
+   * Adds a table-related exception to the ProblemListener.
+   * 
+   * @param exceptionType The exception type.
+   * @param message The message.
+   * @param dataFile The data file associated with the exception.
+   * @param table The index of the table associated with the exception.
+   * @param record The index of the record as a long associated with the exception.
+   */
+  private void addTableProblem(ExceptionType exceptionType, 
+      ProblemType problemType, String message, URL dataFile, int table, 
+      long record) {
     addTableProblem(exceptionType, problemType, message, dataFile, table,
         record, -1);
   }
@@ -1300,7 +1249,7 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
    */
   private void addTableProblem(ExceptionType exceptionType, 
       ProblemType problemType, String message, 
-      URL dataFile, int table, int record, int field) {
+      URL dataFile, int table, long record, int field) {
     getListener().addProblem(
         new TableContentProblem(exceptionType,
             problemType,
@@ -1339,9 +1288,9 @@ public class TableDataContentValidationRule extends AbstractValidationRule {
   }
   
   private void progressCounter() {
-      if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) {
-          PROGRESS_COUNTER = 0;
-      } else if (PROGRESS_COUNTER % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) {
+      if (progressCounter++ == Integer.MAX_VALUE) {
+          progressCounter = 0;
+      } else if (progressCounter % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) {
           System.out.print(".");
       }
   }

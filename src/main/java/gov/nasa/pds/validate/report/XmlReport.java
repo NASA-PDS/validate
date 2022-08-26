@@ -164,8 +164,8 @@ public class XmlReport extends Report {
 		//else
 		//  xmlBuilder = xmlBuilder.a("table", "0");
       } 
-      if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
-        xmlBuilder = xmlBuilder.a("record", tcProblem.getRecord().toString());
+      if (tcProblem.getRecord() != -1) {
+        xmlBuilder = xmlBuilder.a("record", String.valueOf(tcProblem.getRecord()));
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
         xmlBuilder = xmlBuilder.a("field", tcProblem.getField().toString());        

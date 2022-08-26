@@ -256,7 +256,7 @@ public class JSONReport extends Report {
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
         this.jsonWriter.name("table").value(tcProblem.getTable());
       }
-      if (tcProblem.getRecord() != null && tcProblem.getRecord() != -1) {
+      if (tcProblem.getRecord() != -1) {
         this.jsonWriter.name("record").value(tcProblem.getRecord());
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {

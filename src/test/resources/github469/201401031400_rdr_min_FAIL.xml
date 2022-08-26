@@ -270,7 +270,7 @@
     <Table_Character>
       <name>TABLE</name>
       <offset unit="byte">1368</offset>
-      <records>13</records>
+      <records>10</records>
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <Record_Character>
         <fields>33</fields>

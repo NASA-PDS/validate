@@ -32,7 +32,7 @@ public class TableContentProblem extends ContentProblem {
   private Integer table;
   
   /** The record number associated with the problem. */
-  private Integer record;
+  private long record;
   
   /** The field number associated with the problem. */
   private Integer field;
@@ -46,12 +46,36 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
    * @param table The index of the table associated with the message.
-   * @param record The index of the record associated with the message. 
+   * @param record The index of the record as an integer associated with the message. 
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, 
       ProblemType problemType, String message, URL source, URL label,
       int table, int record, int field) {
+    this(
+        new ProblemDefinition(exceptionType, problemType, message), 
+        source, 
+        label, 
+        table, 
+        record, 
+        field);
+  }
+  
+  /**
+   * Constructor.
+   * 
+   * @param exceptionType The severity level.
+   * @param problemType The problem type.
+   * @param message The problem message.
+   * @param source The data file url of the exception.
+   * @param label The associated label url of the exception.
+   * @param table The index of the table associated with the message.
+   * @param record The index of the record as an integer associated with the message. 
+   * @param field The index of the field associated with the message.
+   */
+  public TableContentProblem(ExceptionType exceptionType, 
+      ProblemType problemType, String message, URL source, URL label,
+      int table, long record, int field) {
     this(
         new ProblemDefinition(exceptionType, problemType, message), 
         source, 
@@ -72,7 +96,7 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ProblemDefinition defn,
-      URL source, URL label, int table, int record,
+      URL source, URL label, int table, long record,
       int field) {
     super(defn, source, label);
     if (table == -1) {
@@ -104,7 +128,7 @@ public class TableContentProblem extends ContentProblem {
    */
   public TableContentProblem(ProblemDefinition defn, 
       URL source, URL label, Integer table, Integer record) {
-    this(defn, source, label, table, record, -1);
+    this(defn, source, label, table, (long)record, -1);
   }
   
   /**
@@ -130,7 +154,7 @@ public class TableContentProblem extends ContentProblem {
    * 
    * @return the record index.
    */
-  public Integer getRecord() {
+  public long getRecord() {
     return this.record;
   }
   
