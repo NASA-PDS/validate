@@ -1,16 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-08-26)
+## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-08-26)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.4.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
 
 **Defects:**
 
 - Bug in validate when reading products with a number of records \> 4-byte range [\#533](https://github.com/NASA-PDS/validate/issues/533) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-
-## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-08-22)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
 
 ## [v2.3.0](https://github.com/NASA-PDS/validate/tree/v2.3.0) (2022-07-25)
 
