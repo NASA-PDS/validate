@@ -33,7 +33,7 @@ name: 😌 Stable integration & delivery
 
 on:
     push:
-        branches:
+        tags:
             - 'release/*'
 
 
