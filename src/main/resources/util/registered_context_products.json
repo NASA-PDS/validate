@@ -79,15 +79,6 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context_pds3:node:node.psa::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.ppi-ucla::1.0"
           },
           {
@@ -101,21 +92,12 @@
           },
           {
                "name": [
-                    "2001 KA77"
+                    "N/A"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_ka77::1.0"
-          },
-          {
-               "name": [
-                    "VOYAGER 2"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vg2::1.3"
+               "lidvid": "urn:nasa:pds:context_pds3:node:node.psa::1.0"
           },
           {
                "name": [
@@ -6803,16 +6785,6 @@
           },
           {
                "name": [
-                    "PHOTOPOLARIMETER SUBSYSTEM"
-               ],
-               "type": [
-                    "PHOTOMETER",
-                    "POLARIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pps.vg2::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -12218,15 +12190,6 @@
           },
           {
                "name": [
-                    "U9539"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.ucac2_23016546::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -12242,6 +12205,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "U9539"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.ucac2_23016546::1.0"
           },
           {
                "name": [
@@ -19091,6 +19063,34 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:clem1.hires::1.0"
+          },
+          {
+               "name": [
+                    "2001 KA77"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2001_ka77::1.0"
+          },
+          {
+               "name": [
+                    "VOYAGER 2"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vg2::1.3"
+          },
+          {
+               "name": [
+                    "PHOTOPOLARIMETER SUBSYSTEM"
+               ],
+               "type": [
+                    "PHOTOMETER",
+                    "POLARIMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pps.vg2::1.0"
           },
           {
                "name": [
