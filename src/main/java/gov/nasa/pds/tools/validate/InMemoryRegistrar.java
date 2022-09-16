@@ -14,6 +14,7 @@
 package gov.nasa.pds.tools.validate;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,6 +35,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private static Logger LOG = LoggerFactory.getLogger(InMemoryRegistrar.class);
   private ValidationTarget rootTarget;
   private Map<String, ValidationTarget> targets = new HashMap<String, ValidationTarget>();
+  private Map<String, ValidationTarget> collections = new HashMap<String, ValidationTarget>();
+  private Map<String, ValidationTarget> bundles = new HashMap<String, ValidationTarget>();
   private Map<String, String> references = new HashMap<String, String>();
   private Set<String> referencedTargetLocations = new HashSet<String>();
   private Map<Identifier, String> identifierDefinitions = new HashMap<Identifier, String>();
@@ -47,11 +50,25 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addTarget(String parentLocation, TargetType type, String location) {
-    ValidationTarget target = new ValidationTarget(location, type);
-    if (parentLocation == null) {
-      rootTarget = target;
+    ValidationTarget target;
+    try {
+        target = new ValidationTarget(location, type);
+        if (parentLocation == null) {
+          rootTarget = target;
+        }
+
+        if (type.equals(TargetType.BUNDLE)) {
+            this.bundles.put(location, target);
+        } else if (type.equals(TargetType.COLLECTION)) {
+            LOG.debug("addTarget(): location: {}, target: {}", location, target);
+            this.collections.put(location, target);
+        }
+
+        targets.put(location, target);
+    } catch (MalformedURLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
     }
-    targets.put(location, target);
   }
 
   @Override
@@ -221,5 +238,21 @@ public class InMemoryRegistrar implements TargetRegistrar {
       }
     }
     return result;
+  }
+
+  public Map<String, ValidationTarget> getCollections() {
+    return collections;
+  }
+
+  public void setCollections(Map<String, ValidationTarget> collections) {
+    this.collections = collections;
+  }
+
+  public Map<String, ValidationTarget> getBundles() {
+    return bundles;
+  }
+
+  public void setBundles(Map<String, ValidationTarget> bundles) {
+    this.bundles = bundles;
   }
 }

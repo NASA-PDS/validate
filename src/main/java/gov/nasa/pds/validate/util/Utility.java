@@ -30,7 +30,7 @@
 
 package gov.nasa.pds.validate.util;
 
-import gov.nasa.pds.validate.target.Target;
+import gov.nasa.pds.tools.validate.Target;
 
 import java.io.File;
 import java.net.MalformedURLException;

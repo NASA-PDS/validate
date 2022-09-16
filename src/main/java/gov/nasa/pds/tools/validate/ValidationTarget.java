@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate;
 
 import gov.nasa.pds.tools.util.Utility;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.commons.io.FilenameUtils;
@@ -28,6 +29,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   private TargetType type;
   private String name;
   private String location;
+  private URL url;
   private boolean targetIsLabel;
   private Identifier identifier;
 
@@ -39,13 +41,14 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
    * @param target the target file or directory
    */
   public ValidationTarget(URL target) {
+    this.url = target;
     if (target != null) {
-      type = Utility.isDir(target) ? TargetType.FOLDER : TargetType.FILE;
+      type = Utility.getTargetType(target);
   
       location = target.toString();
     	//In case we have a directory, we need to remove the backslash at the end
     	//to properly get the name
-    	if (type.equals(TargetType.FOLDER)) {
+    	if (type.equals(TargetType.DIRECTORY)) {
     	  name = FilenameUtils.getName(Utility.removeLastSlash(target.toString()));
     	} else {
     	  name = FilenameUtils.getName(target.toString());
@@ -61,10 +64,12 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
    * Creates an instance with a given location.
    *
    * @param location the location
+   * @throws MalformedURLException 
    */
-  public ValidationTarget(String location, TargetType type) {
+  public ValidationTarget(String location, TargetType type) throws MalformedURLException {
     this.location = location;
     this.type = type;
+    this.url = new URL(location);
 
     int slashPos = location.lastIndexOf('/');
     if (slashPos < 0) {
@@ -197,5 +202,13 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
     ValidationTarget other = (ValidationTarget) obj;
     return location.equals(other.location);
   }
+
+public URL getUrl() {
+    return url;
+}
+
+public void setUrl(URL url) {
+    this.url = url;
+}
 
 }

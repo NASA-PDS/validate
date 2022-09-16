@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#444 pds4.bundle option seems to not travel through enough subdirectories
+|"NASA-PDS/validate#444 Bundle with Multi-level Collections" | "github444" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github444_1.json -s json -t {resourceDir}/github444/odya_bundle/bundle_ody_accel.xml" | "report_github444_1.json" |
+
 # Validate#482 Add support for LBLX label extension
 |"NASA-PDS/validate#482 Failure Test Labels - Records > Integer.MAX " | "github533" | 3 | "3 errors expected" | "TABLE_FILE_READ_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github533_1.json -s json -t {resourceDir}/github533/gggrx_1200a_shb_l420.xml" | "report_github533_1.json" |
 

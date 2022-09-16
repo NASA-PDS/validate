@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1301.sch"
+ schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1     https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1301.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:ody_accel:altitude:l3p011</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>2001 MARS ODYSSEY ACCELEROMETER Experiment</title>
+    <information_model_version>1.3.0.1</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2016-08-30</modification_date>
+        <version_id>1.0</version_id>
+        <description>This label was modified to convert to PDS4.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2001-10-31T19:27:07.00Z</start_date_time>
+      <stop_date_time>2001-10-31T19:31:07.00Z</stop_date_time>
+      </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <domain>Atmosphere</domain>
+        <discipline_name>Atmospheres</discipline_name>
+        <facet1>Structure</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>ODYSSEY</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.2001_mars_odyssey</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>ODYSSEY</name>
+      <Observing_System_Component>
+        <name>ACCELEROMETER</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:accel.ody</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>ODYSSEY</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.ody</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:ody_accel:document:sis_acc</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:ody_accel:document:dataset</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>L3P011.TAB</file_name>
+      <local_identifier>L3P011_file</local_identifier>
+      <creation_date_time>2007-11-03T09:02:40.81Z</creation_date_time>
+      <file_size unit="byte">5040</file_size>
+      <records>63</records>
+    </File>
+    <Table_Character>
+      <local_identifier>L3P011_table_character</local_identifier>
+      <offset unit="byte">4000</offset>
+      <records>13</records>
+      <description>This table contains Level 3 data for orbit 011 during aerobraking. Each row gives atmospheric characteristics at a constant altitude. When applicable, inbound and outbound legs are in separate rows.  The altitude levels going from row 1 to row 11 are:  periapsis, 1.26 nbar inbound, 1.26 nbar outbound, 100 km inbound, 100 km outbound, 110 km inbound, 110 km outbound, 120 km inbound, 120 km outbound, 130 km inbound, 130 km outbound, 140 km inbound, 140 km outbound. The columns from one to ten are separated as follows: altitude (km), latitude (deg), longitude (deg), local solar time (hr), longitude of the sun (deg), solar zenith angle (deg), density (kg/km**3), sigma density (kg/km**3), scale height (km), and sigma scale height (km).  There are orbits where the periapsis altitude is above the lower altitude levels or the 1.26 nbar altitude.  Hence there are no data for some altitude levels for these orbits.  For these orbits and altitudes, all quantities in the data fields are minus 1 (-1).  Robert H. Tolson 03-Nov-2007</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>10</fields>
+        <groups>0</groups>
+        <record_length unit="byte">80</record_length>
+        <Field_Character>
+          <name>AREODETIC ALTITUDE</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <unit>KILOMETERS</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>AREODETIC LATITUDE</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">8</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <unit>DEGREES</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>LONGITUDE</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">15</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <unit>DEGREES</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>LOCAL SOLAR TIME</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">23</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          </Field_Character>
+        <Field_Character>
+          <name>LONGITUDE OF THE SUN</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">29</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <unit>DEGREES</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>SOLAR ZENITH ANGLE</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">36</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <unit>DEGREES</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>DENSITY</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">44</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <unit>KG/KM**3</unit>
+          <description>Determined by fitting 39 second average density.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SIGMA DENSITY</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">50</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <unit>KG/KM**3</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>SCALE HEIGHT</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">56</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <unit>KILOMETERS</unit>
+          </Field_Character>
+        <Field_Character>
+          <name>SIGMA SCALE HEIGHT</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">62</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">5</field_length>
+          <unit>KILOMETERS</unit>
+          </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>

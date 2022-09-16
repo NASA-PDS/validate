@@ -1,0 +1,219 @@
+PDS_VERSION_ID               = PDS3                                           
+                                                                              
+RECORD_TYPE                  = FIXED_LENGTH                                   
+RECORD_BYTES                 = 242                                            
+FILE_RECORDS                 = 1                                              
+^TABLE                       = "ACCANCP007.TAB"                               
+                                                                              
+DATA_SET_ID                  = "ODY-M-ACCEL-5-DERIVED-V1.0"                   
+MISSION_NAME                 = "2001 MARS ODYSSEY"                            
+INSTRUMENT_HOST_ID           = "ODY"                                          
+INSTRUMENT_NAME              = "ACCELEROMETER"                                
+PRODUCT_ID                   = "ACCANCP007.TAB"                               
+TARGET_NAME                  = "MARS"                                         
+PRODUCT_CREATION_TIME        = 2008-10-28                                     
+                                                                              
+OBJECT                       = TABLE                                          
+  INTERCHANGE_FORMAT         = ASCII                                          
+  ROW_BYTES                  = 242                                            
+  ROWS                       = 1                                              
+  COLUMNS                    = 17                                             
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "ORBIT_NUMBER_ANC"                             
+    COLUMN_NUMBER            = 1                                              
+    DATA_TYPE                = ASCII_INTEGER                                  
+    START_BYTE               = 1                                              
+    BYTES                    = 3                                              
+    FORMAT                   = "A3"                                           
+    UNIT                     = "N/A"                                          
+    DESCRIPTION              = "Orbit number."                                
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_TIME_ANC"                                
+    COLUMN_NUMBER            = 2                                              
+    DATA_TYPE                = TIME                                           
+    START_BYTE               = 8                                              
+    BYTES                    = 23                                             
+    FORMAT                   = "A23"                                          
+    UNIT                     = "N/A"                                          
+    DESCRIPTION              = "The UTC time of periapsis."                   
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_RADIUS_ANC"                              
+    COLUMN_NUMBER            = 3                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 32                                             
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "METER"                                        
+    DESCRIPTION              = "Distance between the spacecraft and           
+                               the center of mass of Mars at periapsis."      
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_ALT_ANC"                                 
+    COLUMN_NUMBER            = 4                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 46                                             
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "METER"                                        
+    DESCRIPTION              = "Altitude of spacecraft above                  
+                               areoid at periapsis."                          
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_LAT_ANC"                                 
+    COLUMN_NUMBER            = 5                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 60                                             
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "DEGREES NORTH"                                
+    DESCRIPTION              = "Areocentric latitude, degrees north,          
+                               at spacecraft at periapsis."                   
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_LON_ANC"                                 
+    COLUMN_NUMBER            = 6                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 74                                             
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "DEGREES EAST"                                 
+    DESCRIPTION              = "Areocentric longitude, degrees east,          
+                               at spacecraft at periapsis."                   
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_LST_ANC"                                 
+    COLUMN_NUMBER            = 7                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 88                                             
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "HOUR"                                         
+    DESCRIPTION              = "Local true solar time at spacecraft           
+                               at periapsis."                                 
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_SZA_ANC"                                 
+    COLUMN_NUMBER            = 8                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 102                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "DEGREE"                                       
+    DESCRIPTION              = "Solar zenith angle at spacecraft              
+                               at periapsis."                                 
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PERI_LS_ANC"                                  
+    COLUMN_NUMBER            = 9                                              
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 116                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "DEGREE"                                       
+    DESCRIPTION              = "Ls of Mars at periapsis."                     
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "SCT_MASS_ANC"                                 
+    COLUMN_NUMBER            = 10                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 130                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "KILOGRAM"                                     
+    DESCRIPTION              = "Mass of spacecraft at periapsis."             
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "SCT_AREA_ANC"                                 
+    COLUMN_NUMBER            = 11                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 144                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "SQUARE METER"                                 
+    DESCRIPTION              = "Reference area of spacecraft at periapsis."   
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "DATARATE_ANC"                                 
+    COLUMN_NUMBER            = 12                                             
+    DATA_TYPE                = ASCII_INTEGER                                  
+    START_BYTE               = 158                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "F13.5"                                        
+    UNIT                     = "N/A"                                          
+    DESCRIPTION              = "Data rate, 0=LO or 1=HI."                     
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "PREBIAS_ANC"                                  
+    COLUMN_NUMBER            = 13                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 172                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "E13.5"                                        
+    UNIT                     = "METERS/SECOND/SECOND"                         
+    DESCRIPTION              = "Bias in AY_RAW_HI calculated                  
+                               from pre-entry data."                          
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "POSTBIAS_ANC"                                 
+    COLUMN_NUMBER            = 14                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 186                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "E13.5"                                        
+    UNIT                     = "METERS/SECOND/SECOND"                         
+    DESCRIPTION              = "Bias in AY_RAW_HI calculated                  
+                               from post-exit data."                          
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "AY1AS2NOISE_ANC"                              
+    COLUMN_NUMBER            = 15                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 200                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "E13.5"                                        
+    UNIT                     = "METERS/SECOND/SECOND"                         
+    DESCRIPTION              = "Noise in AY1AS2."                             
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "AY7AS2NOISE_ANC"                              
+    COLUMN_NUMBER            = 16                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 214                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "E13.5"                                        
+    UNIT                     = "METERS/SECOND/SECOND"                         
+    DESCRIPTION              = "Noise in AY7AS2."                             
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+  OBJECT                     = COLUMN                                         
+    NAME                     = "AY39AS2NOISE_ANC"                             
+    COLUMN_NUMBER            = 17                                             
+    DATA_TYPE                = ASCII_REAL                                     
+    START_BYTE               = 228                                            
+    BYTES                    = 13                                             
+    FORMAT                   = "E13.5"                                        
+    UNIT                     = "METERS/SECOND/SECOND"                         
+    DESCRIPTION              = "Noise in AY39AS2."                            
+  END_OBJECT                 = COLUMN                                         
+                                                                              
+END_OBJECT                   = TABLE                                          
+                                                                              
+END                                                                           
