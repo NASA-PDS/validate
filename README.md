@@ -28,8 +28,8 @@ In order to create a complete distribution package, execute the
 following commands: 
 
 ```console
-$ mvn site
-$ mvn package
+mvn site
+mvn package
 ```
 
 # Debugging Notes
@@ -38,7 +38,7 @@ Since Validate re-uses logging for it's reporting, as of now, there is no easy w
 Here is how to do it via command-line. This may differ if you use Eclipse for debugging:
 
 1. Open pom.xml and comment this out:
-```
+```xml
 <!--
      <dependency>
       <groupId>org.slf4j</groupId>
@@ -49,7 +49,7 @@ Here is how to do it via command-line. This may differ if you use Eclipse for de
 ```
 
 2. Uncomment this to enable the simplelogger:
-```
+```xml
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
@@ -77,8 +77,8 @@ mvn clean package -DskipTests
 A release candidate should be created after the community has determined that a release should occur. The Planetary Data System automates the release of software using GitHub Actions. The instructions below are kept for posterity.
 
 ## Clone fresh repo
-```console
-$ git clone git@github.com:NASA-PDS/validate.git
+```bash
+git clone git@github.com:NASA-PDS/validate.git
 ```
 
 
@@ -86,9 +86,11 @@ $ git clone git@github.com:NASA-PDS/validate.git
 
 Until we automate this, we must manually generate this file. Follow [semantic versioning](https://semver.org/) for version numbers.
 
-```console
-$ build/pre-build.sh
+```bash
+build/pre-build.sh
+```
 
+```
 + rm -fr validate-1.22.0-SNAPSHOT/
 + mvn clean package -DskipTests
 ...
@@ -113,22 +115,22 @@ For internal JPL use, the ConMan software package can be used for releasing soft
 Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 
 ```console
-$ # Skip this step if this is a RELEASE CANDIDATE, we will deploy as SNAPSHOT version for testing
-$ VERSION=1.15.0
-$ mvn versions:set -DnewVersion=$VERSION
-$ git add pom.xml
-$ git add */pom.xml
+# Skip this step if this is a RELEASE CANDIDATE, we will deploy as SNAPSHOT version for testing
+VERSION=1.15.0
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+git add */pom.xml
 ```
 
 ### Update Changelog
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```console
-$ # For RELEASE CANDIDATE, set VERSION to future release version.
-$ GITHUB_ORG=NASA-PDS
-$ GITHUB_REPO=validate
-$ github_changelog_generator --future-release v$VERSION --user $GITHUB_ORG --project $GITHUB_REPO --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --token $GITHUB_TOKEN
-$
-$ git add CHANGELOG.md
+# For RELEASE CANDIDATE, set VERSION to future release version.
+GITHUB_ORG=NASA-PDS
+GITHUB_REPO=validate
+github_changelog_generator --future-release v$VERSION --user $GITHUB_ORG --project $GITHUB_REPO --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --token $GITHUB_TOKEN
+
+git add CHANGELOG.md
 ```
 
 ### Commit Changes
@@ -170,33 +172,33 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ### Push Tagged Release
 ```console
-$ # For Release Candidate, you may need to delete old SNAPSHOT tag
-$ git push origin :v$VERSION
-$
-$ # Now tag and push
-$ REPO=validate
-$ git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/main/CHANGELOG.md) for more details."
-$ git push --tags
+# For Release Candidate, you may need to delete old SNAPSHOT tag
+git push origin :v$VERSION
+
+# Now tag and push
+REPO=validate
+git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/main/CHANGELOG.md) for more details."
+git push --tags
 ```
 
 ### Deploy Site to Github Pages
 
 From cloned repo:
 ```console
-$ git checkout gh-pages
-$ 
-$ # Copy the over to version-specific and default sites
-$ rsync -av target/staging/ .
-$ 
-$ git add .
-$ 
-$ # For operational release
-$ git commit -m "Deploy v$VERSION docs"
-$ 
-$ # For release candidate
-$ git commit -m "Deploy v${VERSION}-rc${CANDIDATE_NUM} docs"
-$ 
-$ git push origin gh-pages
+git checkout gh-pages
+
+# Copy the over to version-specific and default sites
+rsync -av target/staging/ .
+
+git add .
+
+# For operational release
+git commit -m "Deploy v$VERSION docs"
+
+# For release candidate
+git commit -m "Deploy v${VERSION}-rc${CANDIDATE_NUM} docs"
+
+git push origin gh-pages
 ```
 
 ### Update Versions For Development
