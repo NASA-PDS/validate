@@ -134,21 +134,21 @@ $ git add CHANGELOG.md
 ### Commit Changes
 Commit changes using following template commit message:
 ```console
-$ # For operational release
-$ git commit -m "[RELEASE] Validate v$VERSION"
-$ 
-$ # Push changes to main
-$ git push -u origin main
+# For operational release
+git commit -m "[RELEASE] Validate v$VERSION"
+ 
+# Push changes to main
+git push -u origin main
 ```
 
 ### Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
 
 ```console
-$ # For operational release
-$ mvn clean site site:stage package deploy -P release
-$ 
-$ # For release candidate
-$ mvn clean site site:stage package deploy
+# For operational release
+mvn clean site site:stage package deploy -P release
+
+# For release candidate
+mvn clean site site:stage package deploy
 ```
 
 Note: If you have issues with GPG, be sure to make sure you've created your GPG key, sent to server, and have the following in your `~/.m2/settings.xml`:
@@ -206,16 +206,16 @@ Update `pom.xml` with the next SNAPSHOT version either manually or using Github 
 For RELEASE CANDIDATE, ignore this step.
 
 ```console
-$ git checkout main
-$ 
-$ # For release candidates, skip to push changes to main
-$ VERSION=1.16.0-SNAPSHOT
-$ mvn versions:set -DnewVersion=$VERSION
-$ git add pom.xml
-$ git commit -m "Update version for $VERSION development"
-$ 
-$ # Push changes to main
-$ git push -u origin main
+git checkout main
+
+# For release candidates, skip to push changes to main
+VERSION=1.16.0-SNAPSHOT
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+git commit -m "Update version for $VERSION development"
+
+# Push changes to main
+git push -u origin main
 ```
 
 ### Complete Release in Github
@@ -228,8 +228,8 @@ Currently the process to create more formal release notes and attach Assets is d
 Deploy software to Sonatype SNAPSHOTS Maven repo:
 
 ```console
-$ # Operational release
-$ mvn clean site deploy
+# Operational release
+mvn clean site deploy
 ```
 
 # Maven JAR Dependency Reference
