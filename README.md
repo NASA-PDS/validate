@@ -78,7 +78,7 @@ A release candidate should be created after the community has determined that a 
 
 ## Clone fresh repo
 ```console
-$ git clone git@github.com:NASA-PDS/validate.git
+git clone git@github.com:NASA-PDS/validate.git
 ```
 
 
@@ -87,7 +87,7 @@ $ git clone git@github.com:NASA-PDS/validate.git
 Until we automate this, we must manually generate this file. Follow [semantic versioning](https://semver.org/) for version numbers.
 
 ```console
-$ build/pre-build.sh
+build/pre-build.sh
 
 + rm -fr validate-1.22.0-SNAPSHOT/
 + mvn clean package -DskipTests
@@ -113,42 +113,42 @@ For internal JPL use, the ConMan software package can be used for releasing soft
 Update pom.xml for the release version or use the Maven Versions Plugin, e.g.:
 
 ```console
-$ # Skip this step if this is a RELEASE CANDIDATE, we will deploy as SNAPSHOT version for testing
-$ VERSION=1.15.0
-$ mvn versions:set -DnewVersion=$VERSION
-$ git add pom.xml
-$ git add */pom.xml
+# Skip this step if this is a RELEASE CANDIDATE, we will deploy as SNAPSHOT version for testing
+VERSION=1.15.0
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+git add */pom.xml
 ```
 
 ### Update Changelog
 Update Changelog using [Github Changelog Generator](https://github.com/github-changelog-generator/github-changelog-generator). Note: Make sure you set `$CHANGELOG_GITHUB_TOKEN` in your `.bash_profile` or use the `--token` flag.
 ```console
-$ # For RELEASE CANDIDATE, set VERSION to future release version.
-$ GITHUB_ORG=NASA-PDS
-$ GITHUB_REPO=validate
-$ github_changelog_generator --future-release v$VERSION --user $GITHUB_ORG --project $GITHUB_REPO --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --token $GITHUB_TOKEN
-$
-$ git add CHANGELOG.md
+# For RELEASE CANDIDATE, set VERSION to future release version.
+GITHUB_ORG=NASA-PDS
+GITHUB_REPO=validate
+github_changelog_generator --future-release v$VERSION --user $GITHUB_ORG --project $GITHUB_REPO --configure-sections '{"improvements":{"prefix":"**Improvements:**","labels":["Epic"]},"defects":{"prefix":"**Defects:**","labels":["bug"]},"deprecations":{"prefix":"**Deprecations:**","labels":["deprecation"]}}' --no-pull-requests --token $GITHUB_TOKEN
+
+git add CHANGELOG.md
 ```
 
 ### Commit Changes
 Commit changes using following template commit message:
 ```console
-$ # For operational release
-$ git commit -m "[RELEASE] Validate v$VERSION"
-$ 
-$ # Push changes to main
-$ git push -u origin main
+# For operational release
+git commit -m "[RELEASE] Validate v$VERSION"
+
+# Push changes to main
+git push -u origin main
 ```
 
 ### Build and Deploy Software to [Sonatype Maven Repo](https://repo.maven.apache.org/maven2/gov/nasa/pds/).
 
 ```console
-$ # For operational release
-$ mvn clean site site:stage package deploy -P release
-$ 
-$ # For release candidate
-$ mvn clean site site:stage package deploy
+# For operational release
+mvn clean site site:stage package deploy -P release
+
+# For release candidate
+mvn clean site site:stage package deploy
 ```
 
 Note: If you have issues with GPG, be sure to make sure you've created your GPG key, sent to server, and have the following in your `~/.m2/settings.xml`:
@@ -170,33 +170,33 @@ Note: If you have issues with GPG, be sure to make sure you've created your GPG 
 
 ### Push Tagged Release
 ```console
-$ # For Release Candidate, you may need to delete old SNAPSHOT tag
-$ git push origin :v$VERSION
-$
-$ # Now tag and push
-$ REPO=validate
-$ git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/main/CHANGELOG.md) for more details."
-$ git push --tags
+# For Release Candidate, you may need to delete old SNAPSHOT tag
+git push origin :v$VERSION
+
+# Now tag and push
+REPO=validate
+git tag v${VERSION} -m "[RELEASE] $REPO v$VERSION" -m "See [CHANGELOG](https://github.com/NASA-PDS/$REPO/blob/main/CHANGELOG.md) for more details."
+git push --tags
 ```
 
 ### Deploy Site to Github Pages
 
 From cloned repo:
 ```console
-$ git checkout gh-pages
-$ 
-$ # Copy the over to version-specific and default sites
-$ rsync -av target/staging/ .
-$ 
-$ git add .
-$ 
-$ # For operational release
-$ git commit -m "Deploy v$VERSION docs"
-$ 
-$ # For release candidate
-$ git commit -m "Deploy v${VERSION}-rc${CANDIDATE_NUM} docs"
-$ 
-$ git push origin gh-pages
+git checkout gh-pages
+
+# Copy the over to version-specific and default sites
+rsync -av target/staging/ .
+
+git add .
+
+# For operational release
+git commit -m "Deploy v$VERSION docs"
+
+# For release candidate
+git commit -m "Deploy v${VERSION}-rc${CANDIDATE_NUM} docs"
+
+git push origin gh-pages
 ```
 
 ### Update Versions For Development
@@ -206,16 +206,16 @@ Update `pom.xml` with the next SNAPSHOT version either manually or using Github 
 For RELEASE CANDIDATE, ignore this step.
 
 ```console
-$ git checkout main
-$ 
-$ # For release candidates, skip to push changes to main
-$ VERSION=1.16.0-SNAPSHOT
-$ mvn versions:set -DnewVersion=$VERSION
-$ git add pom.xml
-$ git commit -m "Update version for $VERSION development"
-$ 
-$ # Push changes to main
-$ git push -u origin main
+git checkout main
+
+# For release candidates, skip to push changes to main
+VERSION=1.16.0-SNAPSHOT
+mvn versions:set -DnewVersion=$VERSION
+git add pom.xml
+git commit -m "Update version for $VERSION development"
+
+# Push changes to main
+git push -u origin main
 ```
 
 ### Complete Release in Github
@@ -228,8 +228,8 @@ Currently the process to create more formal release notes and attach Assets is d
 Deploy software to Sonatype SNAPSHOTS Maven repo:
 
 ```console
-$ # Operational release
-$ mvn clean site deploy
+# Operational release
+mvn clean site deploy
 ```
 
 # Maven JAR Dependency Reference
