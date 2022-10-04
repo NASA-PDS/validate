@@ -213,54 +213,6 @@ public class Utility {
     LOG.debug("isDir:file,url {},{}",file,url);
     LOG.debug("isDir:ext_len,url {},{}",FilenameUtils.getExtension(url.toString()).length(),url);
     return file.isDirectory();
-//    if (file != null) {
-//      // The below 2 lines may be a bug.  It should not think that a file name without extension to be a directory.
-//      
-//      // Checking using isDirectory() is sufficient to determine if a given url is a directory or not.
-//      if (file.isDirectory()) {
-//        LOG.debug("isDir:isDir(),url,file {},{},{}",true,url,file);
-//        return true;
-//      } else {
-//        LOG.debug("isDir:isDir(),url,file {},{},{}",false,url,file);
-//        return false;
-//      }
-//    } else {
-//      // According to the below link:
-//      //
-//      // https://commons.apache.org/proper/commons-io/apidocs/org/apache/commons/io/FileUtils.html#toFile-java.net.URL-
-//      // 
-//      // public static File toFile(URL url)
-//      // Convert from a URL to a File.
-//      // From version 1.1 this method will decode the URL. Syntax such as file:///my%20docs/file.txt will be correctly decoded to /my docs/file.txt. Starting with version 1.5, this method uses UTF-8 to decode percent-encoded octets to characters. Additionally, malformed percent-encoded octets are handled leniently by passing them through literally.
-//      // 
-//      // Parameters:
-//      // url - the file URL to convert, null returns null
-//      // Returns:
-//      // the equivalent File object, or null if the URL's protocol is not file
-//      //
-//      // So if the protocol is not 'file:/', this function will make best effort to determine if the name is a directory or a file.
-//      //
-//      // Reminder that the code in this section is due to the 'file' variable being null.
-//      // Because the value of 'file' is null this function will make best effort to determine of the name is a directory or a file.
-//      //
-//      //   According to the current logic, the below names are considered to be a directory (not sure if correct):
-//      //
-//      //      my_file.
-//      //      my_file.t
-//      //      my_file.tx
-//      // 
-//      //   and the below name is considered to be a file because it has 3 characters extension (not sure if correct):
-//      //
-//      //      my_file.txt
-//
-//      if (FilenameUtils.getExtension(url.toString()).length() == 3) {
-//        LOG.debug("isDir:isDir(),url,file {},{},{}",false,url,file);
-//        return false;
-//      } else {
-//        LOG.debug("isDir:isDir(),url,file {},{},{}",true,url,file);
-//        return true;
-//      }
-//    }
   }
   
   public static URL getParent(URL url) {
