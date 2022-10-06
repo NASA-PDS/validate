@@ -54,17 +54,17 @@ public class InMemoryRegistrar implements TargetRegistrar {
     try {
         target = new ValidationTarget(location, type);
         if (parentLocation == null) {
-          rootTarget = target;
+          this.rootTarget = target;
         }
 
         if (type.equals(TargetType.BUNDLE)) {
             this.bundles.put(location, target);
         } else if (type.equals(TargetType.COLLECTION)) {
-            LOG.debug("addTarget(): location: {}, target: {}", location, target);
             this.collections.put(location, target);
         }
 
-        targets.put(location, target);
+        this.targets.put(location, target);
+        LOG.debug("addTarget(): location: {}, target: {}", location, target);
     } catch (MalformedURLException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -117,7 +117,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
   @Override
   public synchronized int getLabelCount() {
     int count = 0;
-
     for (Map.Entry<String, ValidationTarget> entry : targets.entrySet()) {
       if (entry.getValue().isLabel()) {
         ++count;
@@ -255,4 +254,12 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public void setBundles(Map<String, ValidationTarget> bundles) {
     this.bundles = bundles;
   }
+
+public Map<String, ValidationTarget> getTargets() {
+    return targets;
+}
+
+public void setTargets(Map<String, ValidationTarget> targets) {
+    this.targets = targets;
+}
 }

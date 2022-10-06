@@ -69,36 +69,39 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
 
   @ValidationTest
   public void collectionReferentialIntegrityRule() {
+      LOG.debug("collectionReferentialIntegrityRule:START: ");
       // Use the targets registered during RegisterTargets step to identify collections
-      Map<String, ValidationTarget> collections = getRegistrar().getCollections();
-      LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}", getTarget(), collections.keySet().size());
-
-      // Check for collection(_.*)?\.(xml or lblx) file.
-      for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
-          if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension()))
-              continue;
-
-          Target collectionTarget = new Target(collection.getValue().getUrl(), false);
-          try {
-              XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());
-              if("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
-                  getListener().addLocation(collectionTarget.getUrl().toString());
-                  this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
-                  getCollectionMembers(collectionTarget.getUrl());
+      if (getContext().isLastDirectory()) {
+          Map<String, ValidationTarget> collections = getRegistrar().getCollections();
+          LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}", getTarget(), collections.keySet().size());
+    
+          // Check for collection(_.*)?\.(xml or lblx) file.
+          for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
+              if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension()))
+                  continue;
+    
+              Target collectionTarget = new Target(collection.getValue().getUrl(), false);
+              try {
+                  XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());
+                  if("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
+                      getListener().addLocation(collectionTarget.getUrl().toString());
+                      this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
+                      getCollectionMembers(collectionTarget.getUrl());
+                  }
+              } catch (Exception e) {
+                //Ignore. This isn't a valid Collection label, so let's skip it.
               }
-          } catch (Exception e) {
-            //Ignore. This isn't a valid Collection label, so let's skip it.
           }
+    
+          // https://github.com/NASA-PDS/validate/issues/69
+          // As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List
+          //
+          // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
+          //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
+          //
+          ReferentialIntegrityUtil.initialize("collection",getTarget(),getListener(),getContext());
+          ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
       }
-
-      // https://github.com/NASA-PDS/validate/issues/69
-      // As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List
-      //
-      // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
-      //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
-      //
-      ReferentialIntegrityUtil.initialize("collection",getTarget(),getListener(),getContext());
-      ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
   }
   
   private void getCollectionMembers(URL collection) {
@@ -113,10 +116,10 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
             numOfCollectionMembers++;
           String identifier = entry.getIdentifier();
 
-          LOG.debug("getCollectionMembers:getTarget,collection,numOfCollectionMembers {},{},{}",getTarget(),collection,numOfCollectionMembers);
-
           LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
-          LOG.debug("getCollectionMembers: identifier,getTarget(),collection {},{},{}",identifier,getTarget(),collection);
+          LOG.debug("getCollectionMembers: identifier: {}",identifier);
+          LOG.debug("getCollectionMembers: getTarget(): {}",getTarget());
+          LOG.debug("getCollectionMembers: collection: {}",collection);
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);

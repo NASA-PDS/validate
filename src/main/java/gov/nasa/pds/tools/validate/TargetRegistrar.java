@@ -188,4 +188,7 @@ public interface TargetRegistrar {
 
     public void setBundles(Map<String, ValidationTarget> bundles);
 
+    public Map<String, ValidationTarget> getTargets();
+
+    public void setTargets(Map<String, ValidationTarget> targets);
 }

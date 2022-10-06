@@ -1352,6 +1352,10 @@ public class ValidateLauncher {
                 if (!this.alternateReferentialPaths.isEmpty()) {
                     validator.setExtraTargetInContext(this.alternateReferentialPaths);
                 }
+                
+                validator.setLastDirectoryFlag(false);
+                if (this.validationRule.equals("pds4.collection"))
+                    validator.setLastDirectoryFlag(false);
 
                 LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}",target);
                 validator.validate(monitor, target);

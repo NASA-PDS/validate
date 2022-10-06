@@ -449,6 +449,10 @@ public class LocationValidator {
 	  this.labelExtension = extension;
 	}
 	
+    public void setLastDirectoryFlag(boolean flag) {
+        ruleContext.setLastDirectoryFlag(flag);
+      }
+	
 	/**
 	 * Implements a simple problem handler that prints problems to the 
 	 * standout error output.

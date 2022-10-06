@@ -153,6 +153,8 @@ public class RuleContext extends ContextBase {
   
   public static final String COLLECTION_PATTERN_KEY      = "validate.collection-label-pattern";
   
+  public static final String LAST_DIRECTORY_FLAG_KEY      = "validate.last-directory-flag";
+  
   private boolean rootTarget = false;
 
   private ExceptionType logLevel;
@@ -515,4 +517,12 @@ public class RuleContext extends ContextBase {
 	private Pattern getFilePattern(String pattern) {
 		return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
 	}
+	
+    public boolean isLastDirectory() {
+        return getContextValue(LAST_DIRECTORY_FLAG_KEY, Boolean.class);
+    }
+
+    public void setLastDirectoryFlag(boolean flag) {
+        putContextValue(LAST_DIRECTORY_FLAG_KEY, flag);
+    }
 }
