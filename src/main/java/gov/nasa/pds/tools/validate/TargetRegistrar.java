@@ -180,4 +180,15 @@ public interface TargetRegistrar {
      */
     String getIdentifierReferenceLocation(Identifier id); 
 
+    public Map<String, ValidationTarget> getCollections();
+
+    public void setCollections(Map<String, ValidationTarget> collections);
+
+    public Map<String, ValidationTarget> getBundles();
+
+    public void setBundles(Map<String, ValidationTarget> bundles);
+
+    public Map<String, ValidationTarget> getTargets();
+
+    public void setTargets(Map<String, ValidationTarget> targets);
 }

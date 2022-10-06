@@ -30,7 +30,7 @@
 
 package gov.nasa.pds.validate.crawler;
 
-import gov.nasa.pds.validate.target.Target;
+import gov.nasa.pds.tools.validate.Target;
 
 import java.io.FileFilter;
 import java.io.IOException;

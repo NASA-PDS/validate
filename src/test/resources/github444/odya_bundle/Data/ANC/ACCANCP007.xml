@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1301.sch"
+ schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1     https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1301.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:ody_accel:anc:accancp007</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>2001 MARS ODYSSEY ACCELEROMETER Experiment</title>
+    <information_model_version>1.3.0.1</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2016-08-30</modification_date>
+        <version_id>1.0</version_id>
+        <description>This label was modified to convert to PDS4.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+<start_date_time xsi:nil="true" nilReason="inapplicable"/> 
+<stop_date_time xsi:nil="true" nilReason="inapplicable"/> 
+      </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <domain>Atmosphere</domain>
+        <discipline_name>Atmospheres</discipline_name>
+        <facet1>Structure</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>ODYSSEY</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.2001_mars_odyssey</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>ODYSSEY</name>
+      <Observing_System_Component>
+        <name>ACCELEROMETER</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:accel.ody</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>ODYSSEY</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.ody</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:ody_accel:document:sis_acc</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:ody_accel:document:dataset</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>ACCANCP007.TAB</file_name>
+      <local_identifier>ACCANCP007_file</local_identifier>
+      <creation_date_time>2008-10-28</creation_date_time>
+      <file_size unit="byte">242</file_size>
+      <records>1</records>
+    </File>
+    <Table_Character>
+      <local_identifier>ACCANCP007_table_character</local_identifier>
+      <offset unit="byte">1</offset>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>17</fields>
+        <groups>0</groups>
+        <record_length unit="byte">242</record_length>
+        <Field_Character>
+          <name>ORBIT_NUMBER_ANC</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">3</field_length>
+          <description>Orbit number.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_TIME_ANC</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">8</field_location>
+          <data_type>ASCII_Date_Time</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>The UTC time of periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_RADIUS_ANC</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">32</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METER</unit>
+          <description>Distance between the spacecraft and the center of mass of Mars at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_ALT_ANC</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">46</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METER</unit>
+          <description>Altitude of spacecraft above areoid at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_LAT_ANC</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">60</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>DEGREES NORTH</unit>
+          <description>Areocentric latitude, degrees north, at spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_LON_ANC</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">74</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>DEGREES EAST</unit>
+          <description>Areocentric longitude, degrees east, at spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_LST_ANC</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">88</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>HOUR</unit>
+          <description>Local true solar time at spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_SZA_ANC</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">102</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>DEGREE</unit>
+          <description>Solar zenith angle at spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PERI_LS_ANC</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">116</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>DEGREE</unit>
+          <description>Ls of Mars at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SCT_MASS_ANC</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">130</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>KILOGRAM</unit>
+          <description>Mass of spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SCT_AREA_ANC</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">144</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>SQUARE METER</unit>
+          <description>Reference area of spacecraft at periapsis.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>DATARATE_ANC</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">158</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">13</field_length>
+          <description>Data rate, 0=LO or 1=HI.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>PREBIAS_ANC</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">172</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METERS/SECOND/SECOND</unit>
+          <description>Bias in AY_RAW_HI calculated from pre-entry data.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>POSTBIAS_ANC</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">186</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METERS/SECOND/SECOND</unit>
+          <description>Bias in AY_RAW_HI calculated from post-exit data.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>AY1AS2NOISE_ANC</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">200</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METERS/SECOND/SECOND</unit>
+          <description>Noise in AY1AS2.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>AY7AS2NOISE_ANC</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">214</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METERS/SECOND/SECOND</unit>
+          <description>Noise in AY7AS2.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>AY39AS2NOISE_ANC</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">228</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">13</field_length>
+          <unit>METERS/SECOND/SECOND</unit>
+          <description>Noise in AY39AS2.</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>ACCANCP007.LBL</file_name>
+      <local_identifier>ACCANCP007_pds3file</local_identifier>
+      <creation_date_time>2008-10-28</creation_date_time>
+      <file_size unit="byte">17520</file_size>
+      </File>
+    <Stream_Text>
+      <local_identifier>ACCANCP007_pds3file_stream</local_identifier>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">18834</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>

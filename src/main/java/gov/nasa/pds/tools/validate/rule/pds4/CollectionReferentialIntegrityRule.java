@@ -13,16 +13,12 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,12 +34,10 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.validate.crawler.Crawler;
+import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
-
-import gov.nasa.pds.validate.constants.Constants;
 
 /**
  * Validation rule that performs referential integrity checking
@@ -75,54 +69,39 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
 
   @ValidationTest
   public void collectionReferentialIntegrityRule() {
-    Crawler crawler = getContext().getCrawler();
-    try {
-    	
-      IOFileFilter regexFileFilter = new RegexFileFilter(getContext().getCollectionLabelPattern());
-
-      // Note: For some strange reason, the crawler goes into an infinite loop using the above call
-      //       so we will use an alternate call to get the list of collection files.
-      List<Target> children = crawler.crawl(getTarget(), new String[]{getContext().getLabelExtension()}, false, Constants.COLLECTION_NAME_TOKEN);
-
-      LOG.debug("collectionReferentialIntegrityRule:getTarget(),children.size() {},{}",getTarget(),children.size());
-
-      // Check for collection(_.*)?\.(xml or lblx) file.
-      for (int i = 0; i < children.size(); i++) {
-        Target child = children.get(i);
-        if (child.isDir()) {
-          children.addAll(crawler.crawl(child.getUrl(), regexFileFilter));
-        } else {
-          try {
-            XMLExtractor extractor = new XMLExtractor(child.getUrl());
-            if("Product_Collection".equals(
-                extractor.getValueFromDoc(PRODUCT_CLASS))) {
-              getListener().addLocation(child.getUrl().toString());
-              this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
-              getCollectionMembers(child.getUrl());
-            }
-          } catch (Exception e) {
-            //Ignore. This isn't a valid Collection label, so let's skip it.
-          } 
-        }
+      LOG.debug("collectionReferentialIntegrityRule:START: ");
+      // Use the targets registered during RegisterTargets step to identify collections
+      if (getContext().isLastDirectory()) {
+          Map<String, ValidationTarget> collections = getRegistrar().getCollections();
+          LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}", getTarget(), collections.keySet().size());
+    
+          // Check for collection(_.*)?\.(xml or lblx) file.
+          for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
+              if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension()))
+                  continue;
+    
+              Target collectionTarget = new Target(collection.getValue().getUrl(), false);
+              try {
+                  XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());
+                  if("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
+                      getListener().addLocation(collectionTarget.getUrl().toString());
+                      this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
+                      getCollectionMembers(collectionTarget.getUrl());
+                  }
+              } catch (Exception e) {
+                //Ignore. This isn't a valid Collection label, so let's skip it.
+              }
+          }
+    
+          // https://github.com/NASA-PDS/validate/issues/69
+          // As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List
+          //
+          // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
+          //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
+          //
+          ReferentialIntegrityUtil.initialize("collection",getTarget(),getListener(),getContext());
+          ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
       }
-    } catch (IOException io) {
-      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getTarget(), -1, -1, 
-          io.getMessage());
-    }
-
-    // https://github.com/NASA-PDS/validate/issues/69
-    // As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List
-    //
-    // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
-    //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
-    //
-
-    ReferentialIntegrityUtil.initialize("collection",getTarget(),getListener(),getContext());
-    ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
-
-    // Report any references declared in labels but not referenced in the parent bundle.
-//    ReferentialIntegrityUtil.reportContextReferencesUnreferenced();
-
   }
   
   private void getCollectionMembers(URL collection) {
@@ -137,10 +116,10 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
             numOfCollectionMembers++;
           String identifier = entry.getIdentifier();
 
-          LOG.debug("getCollectionMembers:getTarget,collection,numOfCollectionMembers {},{},{}",getTarget(),collection,numOfCollectionMembers);
-
           LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
-          LOG.debug("getCollectionMembers: identifier,getTarget(),collection {},{},{}",identifier,getTarget(),collection);
+          LOG.debug("getCollectionMembers: identifier: {}",identifier);
+          LOG.debug("getCollectionMembers: getTarget(): {}",getTarget());
+          LOG.debug("getCollectionMembers: collection: {}",collection);
           if (!identifier.equals("")) {
             //Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);

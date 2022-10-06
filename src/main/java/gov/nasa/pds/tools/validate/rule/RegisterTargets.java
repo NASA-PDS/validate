@@ -22,6 +22,7 @@ import gov.nasa.pds.tools.validate.crawler.WildcardOSFilter;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -42,7 +43,8 @@ public class RegisterTargets extends AbstractValidationRule {
     
     String targetLocation = getTarget().toString();
     String parentLocation = getParentTarget();
-    TargetType type = Utility.isDir(getTarget()) ? TargetType.FOLDER : TargetType.FILE;
+    TargetType type = Utility.getTargetType(getTarget());
+
 
     if (registrar.getRoot()==null || !registrar.hasTarget(targetLocation)) {
       registrar.addTarget(parentLocation, type, targetLocation);
@@ -58,7 +60,7 @@ public class RegisterTargets extends AbstractValidationRule {
         for (Target child : crawler.crawl(getTarget(), getContext().isRecursive(), fileFilter)) {
           try {
             String childLocation = child.getUrl().toURI().normalize().toString();
-            TargetType childType = Utility.isDir(child.getUrl()) ? TargetType.FOLDER : TargetType.FILE;
+            TargetType childType = Utility.getTargetType(child.getUrl());
             registrar.addTarget(targetLocation, childType, childLocation);
           } catch (URISyntaxException e) {
             reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, e.getMessage());

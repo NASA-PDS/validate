@@ -277,6 +277,9 @@ public class BundleManager {
                 children = BundleManager.selectMatchingReferenceFromCollection(children,bundleLidList,bundleIdList);
             }
 
+            // TODO This functionality does not work properly for whatever reason. It looks like it is not crawling deep
+            // enough in the directories. This probably doesn't need to happen here and could be figured out as part of 
+            // the RegisterTargets step
             // Do a sanity check on the list of collection file selected from the reference in bundle and report the error.
             if (children.size() == 0) {
                 LOG.error("Could not find any collection from bundle {}",bundleUrl.toString());

@@ -40,7 +40,7 @@ public class StepDefs {
     //
     // java -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG -cp "target/validate-1.25.0-SNAPSHOT/lib/slf4j-simple-1.7.28.jar:target/test-classes:target/validate-1.25.0-SNAPSHOT/lib/*" io.cucumber.core.cli.Main target/test-classes/features
     //
-    // Note that the slf4j-simple-1.7.28.jar has to be explitly called out first.
+    // Note that the slf4j-simple-1.7.28.jar has to be explicitly called out first.
 
     private File outputData = null;
     // A class to run each test.  It must be instantiated for each test in the setUp() function.

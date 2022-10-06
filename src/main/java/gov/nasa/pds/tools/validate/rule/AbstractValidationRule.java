@@ -122,6 +122,7 @@ public abstract class AbstractValidationRule implements ValidationRule {
     newContext.setLabelPattern(context.getLabelPattern());
     newContext.setBundleLabelPattern(context.getBundleLabelPattern());
     newContext.setCollectionLabelPattern(context.getCollectionLabelPattern());
+    newContext.setLastDirectoryFlag(context.isLastDirectory());
     
     return newContext;
 	}

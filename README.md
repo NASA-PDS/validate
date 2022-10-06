@@ -138,7 +138,7 @@ Commit changes using following template commit message:
 ```console
 # For operational release
 git commit -m "[RELEASE] Validate v$VERSION"
- 
+
 # Push changes to main
 git push -u origin main
 ```
