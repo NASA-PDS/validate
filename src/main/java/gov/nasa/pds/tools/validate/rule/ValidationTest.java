@@ -8,11 +8,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines an annotation used to mark validation tests
- * within a validation rule.
+ * Defines an annotation used to mark validation tests within a validation rule.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface ValidationTest {}
+public @interface ValidationTest {
+}

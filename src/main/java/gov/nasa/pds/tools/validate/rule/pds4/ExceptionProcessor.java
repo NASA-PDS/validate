@@ -13,15 +13,13 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
-import gov.nasa.pds.tools.validate.ProblemListener;
+import java.net.URL;
 import gov.nasa.pds.tools.label.ExceptionHandler;
 import gov.nasa.pds.tools.label.LabelException;
-
-import java.net.URL;
+import gov.nasa.pds.tools.validate.ProblemListener;
 
 /**
- * Implements an exception handler for XML parsing and Schematron
- * errors.
+ * Implements an exception handler for XML parsing and Schematron errors.
  */
 public class ExceptionProcessor implements ExceptionHandler {
   private URL target;
@@ -29,11 +27,12 @@ public class ExceptionProcessor implements ExceptionHandler {
   public ExceptionProcessor(ProblemListener listener, URL target) {
     this.target = target;
   }
-  
+
   public URL getTarget() {
     return this.target;
   }
-  
+
+  @Override
   public void addException(LabelException exception) {
     exception.setSource(target.toString());
   }

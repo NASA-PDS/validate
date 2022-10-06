@@ -14,23 +14,20 @@
 package gov.nasa.pds.tools.util;
 
 import java.net.URL;
-
 import java.util.Scanner;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * Util class to smart read a table by counting the number of headers before the "Table_" tag.
- * 
+ *
  */
 
 public class TableUtil {
   private static final Logger LOG = LoggerFactory.getLogger(TableUtil.class);
   private DocumentUtil documentUtil = new DocumentUtil();
 
-  public void DocumenUtil() {
-  }
+  public void DocumenUtil() {}
 
   /**
    * Returns the number of "<Header>" tags in fileUrl before a "<Table_" tag.
@@ -40,40 +37,43 @@ public class TableUtil {
    */
 
   public int countHeadersBeforeTable(URL fileUrl) {
-      // Given a url to a label, count the number of "<Header>" tags that occur before any "Table_" tags.
-      // The reason is there can be "<Header>" tags for arrays and such in the file.
-      long start = System.currentTimeMillis();
-      int headersBeforeTable = 0;
+    // Given a url to a label, count the number of "<Header>" tags that occur before
+    // any "Table_" tags.
+    // The reason is there can be "<Header>" tags for arrays and such in the file.
+    long start = System.currentTimeMillis();
+    int headersBeforeTable = 0;
 
-      // It is important to remove all the comments from the file before doing any processing
-      // since the tags we are looking for could be inside the comments.
-      String cleanDocument = this.documentUtil.getDocumentWithoutComments(fileUrl);
+    // It is important to remove all the comments from the file before doing any
+    // processing
+    // since the tags we are looking for could be inside the comments.
+    String cleanDocument = this.documentUtil.getDocumentWithoutComments(fileUrl);
 
-      Scanner scanner = new Scanner(cleanDocument);
+    Scanner scanner = new Scanner(cleanDocument);
 
-      String currLine = null;
-      int lineNumber = 1;
-      boolean foundTableTag = false;
+    String currLine = null;
+    int lineNumber = 1;
+    boolean foundTableTag = false;
 
-      // Count the "Header" tags until reached the "Table_" tag.
-      while (scanner.hasNextLine() && (foundTableTag == false)) {
-          currLine = scanner.nextLine();
-          if (currLine.contains("<Header>")) {
-              LOG.debug("countHeadersBeforeTable: currLine [" + currLine + "] lineNumber {}",lineNumber);
-              headersBeforeTable += 1;
-          }
-          // Any "Table_" tag will do.  Possible list: {Table_Character,Table_Delimited, Table_Binary}
-          if (currLine.contains("<Table_")) {
-              LOG.debug("countHeadersBeforeTable: currLine [" + currLine + "] lineNumber {}",lineNumber);
-              foundTableTag = true;  // Set to true to allow while loop to exit.
-          }
-          lineNumber++;
+    // Count the "Header" tags until reached the "Table_" tag.
+    while (scanner.hasNextLine() && !foundTableTag) {
+      currLine = scanner.nextLine();
+      if (currLine.contains("<Header>")) {
+        LOG.debug("countHeadersBeforeTable: currLine [" + currLine + "] lineNumber {}", lineNumber);
+        headersBeforeTable += 1;
       }
-      scanner.close();
+      // Any "Table_" tag will do. Possible list: {Table_Character,Table_Delimited,
+      // Table_Binary}
+      if (currLine.contains("<Table_")) {
+        LOG.debug("countHeadersBeforeTable: currLine [" + currLine + "] lineNumber {}", lineNumber);
+        foundTableTag = true; // Set to true to allow while loop to exit.
+      }
+      lineNumber++;
+    }
+    scanner.close();
 
-      long finish = System.currentTimeMillis();
-      long timeElapsed = finish - start;
-      LOG.debug("countHeadersBeforeTable: timeElapsed (millisecs) {}",timeElapsed);
-      return(headersBeforeTable);
+    long finish = System.currentTimeMillis();
+    long timeElapsed = finish - start;
+    LOG.debug("countHeadersBeforeTable: timeElapsed (millisecs) {}", timeElapsed);
+    return (headersBeforeTable);
   }
 }

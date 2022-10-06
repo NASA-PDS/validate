@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -35,71 +35,66 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.namespace.NamespaceContext;
 
 /**
- * Class that provides support for handling namespaces in PDS4
- * data products
+ * Class that provides support for handling namespaces in PDS4 data products
  *
  * @author mcayanan
  *
  */
 public class PDSNamespaceContext implements NamespaceContext {
-    private Map<String, String> namespaces;
-    private String defaultNamespace;
+  private Map<String, String> namespaces;
+  private String defaultNamespace;
 
-    public PDSNamespaceContext(Namespace namespace) {
-        this(namespace, null);
-    }
+  public PDSNamespaceContext(Namespace namespace) {
+    this(namespace, null);
+  }
 
-    public PDSNamespaceContext(Namespace namespace,
-            String defaultNamespace) {
-        List<Namespace> list = new ArrayList<Namespace>();
-        list.add(namespace);
-        new PDSNamespaceContext(list, defaultNamespace);
-    }
+  public PDSNamespaceContext(Namespace namespace, String defaultNamespace) {
+    List<Namespace> list = new ArrayList<>();
+    list.add(namespace);
+    new PDSNamespaceContext(list, defaultNamespace);
+  }
 
-    public PDSNamespaceContext(List<Namespace> namespaces) {
-        this(namespaces, null);
-    }
+  public PDSNamespaceContext(List<Namespace> namespaces) {
+    this(namespaces, null);
+  }
 
-    public PDSNamespaceContext(String defaultNamespace) {
-        this(new ArrayList<Namespace>(), defaultNamespace);
-    }
+  public PDSNamespaceContext(String defaultNamespace) {
+    this(new ArrayList<Namespace>(), defaultNamespace);
+  }
 
-    public PDSNamespaceContext(List<Namespace> namespaces,
-            String defaultNamespace) {
-        this.namespaces = new HashMap<String, String>();
-        for(Namespace ns : namespaces) {
-            this.namespaces.put(ns.getPrefix(), ns.getUri());
-        }
-        this.defaultNamespace = defaultNamespace;
+  public PDSNamespaceContext(List<Namespace> namespaces, String defaultNamespace) {
+    this.namespaces = new HashMap<>();
+    for (Namespace ns : namespaces) {
+      this.namespaces.put(ns.getPrefix(), ns.getUri());
     }
+    this.defaultNamespace = defaultNamespace;
+  }
 
-    public String getDefaultNamepsace() {
-        return defaultNamespace;
-    }
+  public String getDefaultNamepsace() {
+    return defaultNamespace;
+  }
 
-    @Override
-    public String getNamespaceURI(String prefix) {
-        if(prefix == null || "".equals(prefix)) {
-            return namespaces.get("pds");
-        } else {
-            return namespaces.get(prefix);
-        }
+  @Override
+  public String getNamespaceURI(String prefix) {
+    if (prefix == null || "".equals(prefix)) {
+      return namespaces.get("pds");
     }
+    return namespaces.get(prefix);
+  }
 
-    @Override
-    public String getPrefix(String arg0) {
-        // Method not necessary
-        return null;
-    }
+  @Override
+  public String getPrefix(String arg0) {
+    // Method not necessary
+    return null;
+  }
 
-    @Override
-    public Iterator getPrefixes(String arg0) {
-        // Method not necessary
-        return null;
-    }
+  @Override
+  public Iterator getPrefixes(String arg0) {
+    // Method not necessary
+    return null;
+  }
 
 }

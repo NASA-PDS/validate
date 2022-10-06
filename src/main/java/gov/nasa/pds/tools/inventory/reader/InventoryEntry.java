@@ -36,10 +36,10 @@ public class InventoryEntry {
 
   /** Default constructor */
   public InventoryEntry() {
-      this.file = null;
-      this.checksum = "";
-      this.identifier = "";
-      this.memberStatus = "";
+    this.file = null;
+    this.checksum = "";
+    this.identifier = "";
+    this.memberStatus = "";
   }
 
   /**
@@ -60,10 +60,10 @@ public class InventoryEntry {
    * @param identifier logical identifier.
    */
   public InventoryEntry(File file, String checksum, String identifier, String memberStatus) {
-      this.file = file;
-      this.checksum = checksum;
-      this.identifier = identifier;
-      this.memberStatus = memberStatus;
+    this.file = file;
+    this.checksum = checksum;
+    this.identifier = identifier;
+    this.memberStatus = memberStatus;
   }
 
   /**
@@ -72,7 +72,7 @@ public class InventoryEntry {
    * @return The file.
    */
   public File getFile() {
-      return file;
+    return file;
   }
 
   /**
@@ -81,7 +81,7 @@ public class InventoryEntry {
    * @return Checksum value.
    */
   public String getChecksum() {
-      return checksum;
+    return checksum;
   }
 
   /**
@@ -90,7 +90,7 @@ public class InventoryEntry {
    * @return A LID or LIDVID.
    */
   public String getIdentifier() {
-      return identifier;
+    return identifier;
   }
 
   /**
@@ -108,11 +108,10 @@ public class InventoryEntry {
    * @return true if the object is empty, false otherwise.
    */
   public boolean isEmpty() {
-      if (this.file == null && this.checksum.isEmpty()
-          && this.identifier.isEmpty() && this.memberStatus.isEmpty()) {
-        return true;
-      } else {
-        return false;
-      }
+    if (this.file == null && this.checksum.isEmpty() && this.identifier.isEmpty()
+        && this.memberStatus.isEmpty()) {
+      return true;
+    }
+    return false;
   }
 }

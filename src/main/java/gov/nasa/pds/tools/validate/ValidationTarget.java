@@ -13,16 +13,13 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import gov.nasa.pds.tools.util.Utility;
-
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.apache.commons.io.FilenameUtils;
+import gov.nasa.pds.tools.util.Utility;
 
 /**
- * Represents a location within a validation subtree that can
- * have errors reported against it.
+ * Represents a location within a validation subtree that can have errors reported against it.
  */
 public class ValidationTarget implements Comparable<ValidationTarget> {
 
@@ -44,15 +41,15 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
     this.url = target;
     if (target != null) {
       type = Utility.getTargetType(target);
-  
+
       location = target.toString();
-    	//In case we have a directory, we need to remove the backslash at the end
-    	//to properly get the name
-    	if (type.equals(TargetType.DIRECTORY)) {
-    	  name = FilenameUtils.getName(Utility.removeLastSlash(target.toString()));
-    	} else {
-    	  name = FilenameUtils.getName(target.toString());
-    	}
+      // In case we have a directory, we need to remove the backslash at the end
+      // to properly get the name
+      if (type.equals(TargetType.DIRECTORY)) {
+        name = FilenameUtils.getName(Utility.removeLastSlash(target.toString()));
+      } else {
+        name = FilenameUtils.getName(target.toString());
+      }
     } else {
       type = TargetType.FILE;
       location = null;
@@ -64,7 +61,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
    * Creates an instance with a given location.
    *
    * @param location the location
-   * @throws MalformedURLException 
+   * @throws MalformedURLException
    */
   public ValidationTarget(String location, TargetType type) throws MalformedURLException {
     this.location = location;
@@ -75,7 +72,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
     if (slashPos < 0) {
       slashPos = location.lastIndexOf('\\');
     }
-    
+
     if (slashPos < 0) {
       name = location;
     } else {
@@ -172,7 +169,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   public void setIdentifier(Identifier identifier) {
     this.identifier = identifier;
   }
-  
+
   @Override
   public int compareTo(ValidationTarget other) {
     return location.compareTo(other.getLocation());
@@ -186,7 +183,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   @Override
   public int hashCode() {
     if (knownHashCode == 0) {
-      String combined = location + ":" + (type==null ? "" : type.toString());
+      String combined = location + ":" + (type == null ? "" : type.toString());
       knownHashCode = combined.hashCode();
     }
 
@@ -203,12 +200,12 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
     return location.equals(other.location);
   }
 
-public URL getUrl() {
+  public URL getUrl() {
     return url;
-}
+  }
 
-public void setUrl(URL url) {
+  public void setUrl(URL url) {
     this.url = url;
-}
+  }
 
 }

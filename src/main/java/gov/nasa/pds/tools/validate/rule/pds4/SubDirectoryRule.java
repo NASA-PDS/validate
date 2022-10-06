@@ -13,6 +13,9 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.io.IOException;
+import java.util.List;
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
@@ -21,14 +24,8 @@ import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.commons.io.filefilter.FalseFileFilter;
-
 /**
- * Implements a rule that iterates over subdirectories, validating
- * each as a PDS4 folder.
+ * Implements a rule that iterates over subdirectories, validating each as a PDS4 folder.
  */
 public class SubDirectoryRule extends AbstractValidationRule {
 
@@ -55,7 +52,8 @@ public class SubDirectoryRule extends AbstractValidationRule {
           }
         }
       } catch (IOException io) {
-        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
+        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+            io.getMessage());
       }
     }
   }

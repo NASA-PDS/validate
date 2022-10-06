@@ -13,40 +13,40 @@
 
 package gov.nasa.pds.tools.util;
 
-import java.io.File;
-
-import java.net.URL;
 import java.net.URLDecoder;
-
-import org.apache.commons.io.FilenameUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Class that sanitizes the directory and file name by using the decode function to replacing '%20' with ' '.
- * 
+ * Class that sanitizes the directory and file name by using the decode function to replacing '%20'
+ * with ' '.
+ *
  */
 
 public class FilenameUtility {
-  // This class is not meant to be instantiated.  The public functions can be called directly.
+  // This class is not meant to be instantiated. The public functions can be
+  // called directly.
   private static final Logger LOG = LoggerFactory.getLogger(FilenameUtility.class);
 
   /**
    * Returns the file name replacing the '%20' with ' ' character.
-   * @param  filename The filename of the file
+   *
+   * @param filename The filename of the file
    * @return decodedName The decoded filename of the file
    */
   public static String decodeSpace(String filename) {
-    // For some strange reason, the File class does not handle well with the "%20" in the name.  It needs to be an actual space.
+    // For some strange reason, the File class does not handle well with the "%20"
+    // in the name. It needs to be an actual space.
     String decodedName = null;
     try {
-        decodedName = URLDecoder.decode(filename, "UTF-8");  // Use the URLDecoder.decode() to convert from '%20' to ' '.
-        LOG.debug("decodeSpace:filename,decodedName [{}],[{}]",filename,decodedName);
+      decodedName = URLDecoder.decode(filename, "UTF-8"); // Use the URLDecoder.decode() to convert
+                                                          // from '%20' to
+                                                          // ' '.
+      LOG.debug("decodeSpace:filename,decodedName [{}],[{}]", filename, decodedName);
     } catch (Exception ex) {
-        LOG.error("Cannot convert '%20' to ' ' for filename {}",filename);
-        ex.printStackTrace();
+      LOG.error("Cannot convert '%20' to ' ' for filename {}", filename);
+      ex.printStackTrace();
     }
-    return(decodedName);
+    return (decodedName);
   }
 }

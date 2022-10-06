@@ -15,15 +15,15 @@ package gov.nasa.pds.tools.validate.content.array;
 
 /**
  * Class that holds information about an Axis in an Array.
- * 
+ *
  * @author mcayanan
  *
  */
 public class Axis {
   private String name;
-  
+
   private Integer element;
-  
+
   /**
    * Constructor.
    * 
@@ -32,7 +32,7 @@ public class Axis {
   public Axis(String name) {
     this(name, -1);
   }
-  
+
   /**
    * Constructor.
    * 
@@ -41,7 +41,7 @@ public class Axis {
   public Axis(int element) {
     this("", element);
   }
-  
+
   /**
    * Constructor.
    * 
@@ -52,7 +52,7 @@ public class Axis {
     this.name = name;
     this.element = element;
   }
-  
+
   /**
    * 
    * @return the name of the axis.
@@ -60,7 +60,7 @@ public class Axis {
   public String getName() {
     return this.name.toLowerCase();
   }
-  
+
   /**
    * Set the axis name.
    * 
@@ -69,7 +69,7 @@ public class Axis {
   public void setName(String name) {
     this.name = name;
   }
-  
+
   /**
    * 
    * @return the number of elements.
@@ -77,7 +77,7 @@ public class Axis {
   public Integer getElement() {
     return this.element;
   }
-  
+
   /**
    * Sets the number of elements.
    * 

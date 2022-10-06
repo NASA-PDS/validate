@@ -23,14 +23,14 @@ public interface ValidateProblemHandler extends ProblemHandler {
    * @param location the location of the label being validated.
    */
   void addLocation(String location);
-  
+
   /**
    * Adds a header to the report.
    * 
    * @param title The name of the section to add.
    */
   void printHeader(String title);
-  
+
   /**
    * Records the validation results.
    * 

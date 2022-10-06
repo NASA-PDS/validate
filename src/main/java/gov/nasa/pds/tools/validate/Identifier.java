@@ -56,6 +56,7 @@ public class Identifier {
     return this.hasVersion;
   }
 
+  @Override
   public String toString() {
     String identifier = this.lid;
     if (hasVersion) {
@@ -68,13 +69,13 @@ public class Identifier {
    * Determines where 2 LIDVIDs are equal.
    *
    */
+  @Override
   public boolean equals(Object o) {
     boolean isEqual = false;
     Identifier identifier = (Identifier) o;
     if (this.lid.equals(identifier.getLid())) {
       if (this.hasVersion) {
-        if (identifier.hasVersion()
-            && this.version.equals(identifier.getVersion())) {
+        if (identifier.hasVersion() && this.version.equals(identifier.getVersion())) {
           isEqual = true;
         }
       } else {
@@ -83,17 +84,16 @@ public class Identifier {
     }
     return isEqual;
   }
-  
+
   @Override
   public int hashCode() {
     final int prime = 31;
     int result = 17;
-//    result = prime * result
- //       + (hasVersion ? 0 : 1);
-    result = prime * result
-        + ((lid == null) ? 0 : lid.hashCode());
-//    result = prime * result
-//        + ((version == null) ? 0 : version.hashCode());
+    // result = prime * result
+    // + (hasVersion ? 0 : 1);
+    result = prime * result + ((lid == null) ? 0 : lid.hashCode());
+    // result = prime * result
+    // + ((version == null) ? 0 : version.hashCode());
     return result;
   }
 }

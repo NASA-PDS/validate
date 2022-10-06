@@ -14,14 +14,12 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.URL;
-
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 
 /**
- * Implements a ProblemHandler for XML parsing and Schematron
- * errors.
+ * Implements a ProblemHandler for XML parsing and Schematron errors.
  */
 public class ProblemProcessor implements ProblemHandler {
   private ProblemListener listener;
@@ -37,7 +35,7 @@ public class ProblemProcessor implements ProblemHandler {
     this.listener = listener;
     this.target = target;
   }
-  
+
   /**
    * 
    * @return The target label.
@@ -45,12 +43,13 @@ public class ProblemProcessor implements ProblemHandler {
   public URL getTarget() {
     return this.target;
   }
-  
+
   /**
    * Add a problem.
    * 
    * @param problem The validation problem to add.
    */
+  @Override
   public void addProblem(ValidationProblem problem) {
     problem.setSource(target.toString());
     listener.addProblem(problem);

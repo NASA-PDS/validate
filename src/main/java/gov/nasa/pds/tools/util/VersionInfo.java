@@ -1,16 +1,16 @@
-//	Copyright 2009-2010, by the California Institute of Technology.
-//	ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
-//	Any commercial use must be negotiated with the Office of Technology 
-//	Transfer at the California Institute of Technology.
-//	
-//	This software is subject to U. S. export control laws and regulations 
-//	(22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software 
-//	is subject to U.S. export control laws and regulations, the recipient has 
-//	the responsibility to obtain export licenses or other export authority as 
-//	may be required before exporting such information to foreign countries or 
-//	providing access to foreign nationals.
-//	
-//	$Id$
+// Copyright 2009-2010, by the California Institute of Technology.
+// ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+// Any commercial use must be negotiated with the Office of Technology
+// Transfer at the California Institute of Technology.
+//
+// This software is subject to U. S. export control laws and regulations
+// (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+// is subject to U.S. export control laws and regulations, the recipient has
+// the responsibility to obtain export licenses or other export authority as
+// may be required before exporting such information to foreign countries or
+// providing access to foreign nationals.
+//
+// $Id$
 //
 
 package gov.nasa.pds.tools.util;
@@ -32,11 +32,10 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * This class provides the means to retrieve underlying supported versions of
- * standards.
- * 
+ * This class provides the means to retrieve underlying supported versions of standards.
+ *
  * @author pramirez
- * 
+ *
  */
 public class VersionInfo {
 
@@ -55,7 +54,7 @@ public class VersionInfo {
   public final static String SCHEMA_DIR_PROP = "core.schema.dir";
 
   public final static String PDS_DEFAULT_NAMESPACE = "pds.default.namespace";
-  
+
   public final static String SCHEMATRON_NAMESPACE = "core.schematron.namespace";
 
   private final static Properties props = new Properties();
@@ -76,12 +75,10 @@ public class VersionInfo {
       if (!internalMode) {
         schemaDir = new File(schemaDirString);
         if (!schemaDir.exists()) {
-          throw new RuntimeException("Schema directory does not exist: "
-              + schemaDirString);
+          throw new RuntimeException("Schema directory does not exist: " + schemaDirString);
         }
         if (!schemaDir.isDirectory()) {
-          throw new RuntimeException("Schema directory is not a directory: "
-              + schemaDirString);
+          throw new RuntimeException("Schema directory is not a directory: " + schemaDirString);
         }
       } else {
         schemaDir = null;
@@ -118,22 +115,10 @@ public class VersionInfo {
   public static String getSchematronNamespace() {
     return props.getProperty(SCHEMATRON_NAMESPACE);
   }
-  
-  public static List<String> getSchemasFromDirectory() {
-      List<String> filenames = getDirectoryFileNames(schemaDir);
-      List<String> results = new ArrayList<String>();
-      for (String filename : filenames) {
-        if (filename.endsWith(".xsd")) {
-          results.add(filename);
-        }
-      }
-      return results;
-  }
 
-  public static List<String> getSchemasFromJar(String modelVersion) {
-    List<String> filenames = Arrays.asList(getSafeResourceListing(SCHEMA_DIR + "/"
-        + modelVersion));
-    List<String> results = new ArrayList<String>();
+  public static List<String> getSchemasFromDirectory() {
+    List<String> filenames = getDirectoryFileNames(schemaDir);
+    List<String> results = new ArrayList<>();
     for (String filename : filenames) {
       if (filename.endsWith(".xsd")) {
         results.add(filename);
@@ -141,11 +126,21 @@ public class VersionInfo {
     }
     return results;
   }
-  
+
+  public static List<String> getSchemasFromJar(String modelVersion) {
+    List<String> filenames = Arrays.asList(getSafeResourceListing(SCHEMA_DIR + "/" + modelVersion));
+    List<String> results = new ArrayList<>();
+    for (String filename : filenames) {
+      if (filename.endsWith(".xsd")) {
+        results.add(filename);
+      }
+    }
+    return results;
+  }
+
   public static List<String> getSchematronsFromJar(String modelVersion) {
-    List<String> filenames = Arrays.asList(getSafeResourceListing(SCHEMA_DIR + "/"
-        + modelVersion));
-    List<String> results = new ArrayList<String>();
+    List<String> filenames = Arrays.asList(getSafeResourceListing(SCHEMA_DIR + "/" + modelVersion));
+    List<String> results = new ArrayList<>();
     for (String filename : filenames) {
       if (filename.endsWith(".sch")) {
         results.add(filename);
@@ -153,21 +148,21 @@ public class VersionInfo {
     }
     return results;
   }
-  
+
   public static String getSchematronRefFromJar(String modelVersion, String schematronFile) {
     return "/" + SCHEMA_DIR + "/" + modelVersion + "/" + schematronFile;
   }
-  
+
   public static String getSchemaRefFromJar(String modelVersion, String schemaFile) {
     return "/" + SCHEMA_DIR + "/" + modelVersion + "/" + schemaFile;
   }
-  
+
   public static List<String> getSchemas() {
     return getDirectoryFileNames(schemaDir);
   }
-  
+
   public static List<String> getDirectoryFileNames(File directory) {
-    List<String> names = new ArrayList<String>();
+    List<String> names = new ArrayList<>();
     for (File file : getDirectoryListing(directory)) {
       // Ignore directories
       if (file.isFile()) {
@@ -182,8 +177,8 @@ public class VersionInfo {
   }
 
   public static String getPDSDefaultNamespace(String modelVersion) {
-    return props.getProperty(PDS_DEFAULT_NAMESPACE + "." + modelVersion, props
-        .getProperty(PDS_DEFAULT_NAMESPACE));
+    return props.getProperty(PDS_DEFAULT_NAMESPACE + "." + modelVersion,
+        props.getProperty(PDS_DEFAULT_NAMESPACE));
   }
 
   public static List<String> getSupportedModels() {
@@ -203,8 +198,7 @@ public class VersionInfo {
     return null;
   }
 
-  public static String[] getResourceListing(String path)
-      throws URISyntaxException, IOException {
+  public static String[] getResourceListing(String path) throws URISyntaxException, IOException {
     URL dirURL = VersionInfo.class.getClassLoader().getResource(path);
     if (dirURL != null && dirURL.getProtocol().equals("file")) {
       /* A file path: easy enough */
@@ -213,8 +207,8 @@ public class VersionInfo {
 
     if (dirURL == null) {
       /*
-       * In case of a jar file, we can't actually find a directory. Have to
-       * assume the same jar as clazz.
+       * In case of a jar file, we can't actually find a directory. Have to assume the same jar as
+       * clazz.
        */
       String me = VersionInfo.class.getName().replace(".", "/") + ".class";
       dirURL = VersionInfo.class.getClassLoader().getResource(me);
@@ -226,11 +220,12 @@ public class VersionInfo {
 
     if (dirURL.getProtocol().equals("jar")) {
       /* A JAR path */
-      String jarPath = dirURL.getPath().substring(5,
-          dirURL.getPath().indexOf("!")); // strip out only the JAR file
+      String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!")); // strip out
+                                                                                     // only the JAR
+                                                                                     // file
       JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
       Enumeration<JarEntry> entries = jar.entries(); // gives ALL entries in jar
-      Set<String> result = new HashSet<String>(); // avoid duplicates in case it
+      Set<String> result = new HashSet<>(); // avoid duplicates in case it
       // is a subdirectory
       while (entries.hasMoreElements()) {
         String name = entries.nextElement().getName();
@@ -249,8 +244,7 @@ public class VersionInfo {
       return result.toArray(new String[result.size()]);
     }
 
-    throw new UnsupportedOperationException("Cannot list files for URL "
-        + dirURL);
+    throw new UnsupportedOperationException("Cannot list files for URL " + dirURL);
   }
 
   public static Boolean isInternalMode() {

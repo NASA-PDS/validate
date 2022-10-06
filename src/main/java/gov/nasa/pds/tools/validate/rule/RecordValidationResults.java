@@ -16,10 +16,9 @@ package gov.nasa.pds.tools.validate.rule;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 
 /**
- * Class intended to record the validation results. This allows us to
- * continually flush the results from cache memory. Useful especially when
- * validating a million product bundle.
- * 
+ * Class intended to record the validation results. This allows us to continually flush the results
+ * from cache memory. Useful especially when validating a million product bundle.
+ *
  * @author mcayanan
  *
  */
@@ -32,11 +31,10 @@ public class RecordValidationResults extends AbstractValidationRule {
 
   @ValidationTest
   public void record() {
-    // For now, we will record validation results only if using the 
-    // ListenerExceptionPropagator class. 
+    // For now, we will record validation results only if using the
+    // ListenerExceptionPropagator class.
     if (getListener() instanceof ListenerExceptionPropagator) {
-      ListenerExceptionPropagator lp = 
-          (ListenerExceptionPropagator) getListener();
+      ListenerExceptionPropagator lp = (ListenerExceptionPropagator) getListener();
       lp.record(getTarget().toString());
     }
   }

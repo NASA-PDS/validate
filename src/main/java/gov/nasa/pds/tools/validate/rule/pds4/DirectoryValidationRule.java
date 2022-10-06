@@ -17,14 +17,14 @@ import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationChain;
 
 /**
- * Implements a rule chain for validating PDS4 directories, but not
- * necessarily bundles or collections.
+ * Implements a rule chain for validating PDS4 directories, but not necessarily bundles or
+ * collections.
  */
 public class DirectoryValidationRule extends AbstractValidationChain {
 
-	@Override
-	public boolean isApplicable(String location) {
-	  return Utility.isDir(location);
-	}
+  @Override
+  public boolean isApplicable(String location) {
+    return Utility.isDir(location);
+  }
 
 }

@@ -19,7 +19,7 @@ import java.net.URL;
 
 /**
  * Object representation of a target input.
- * 
+ *
  * @author mcayanan
  *
  */
@@ -28,7 +28,7 @@ public class Target {
 
   private boolean isDir;
 
-  public Target (URL url, boolean isDir) {
+  public Target(URL url, boolean isDir) {
     this.url = url;
     this.isDir = isDir;
   }
@@ -41,6 +41,7 @@ public class Target {
     return isDir;
   }
 
+  @Override
   public String toString() {
     URI uri = null;
     try {
@@ -51,16 +52,16 @@ public class Target {
     return uri.normalize().toString();
   }
 
+  @Override
   public boolean equals(Object obj) {
     Target otherTarget = (Target) obj;
-    if ( (this.url.equals(otherTarget.getUrl())) &&
-        (this.isDir == otherTarget.isDir()) ) {
+    if ((this.url.equals(otherTarget.getUrl())) && (this.isDir == otherTarget.isDir())) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
+  @Override
   public int hashCode() {
     int hash = 7;
     hash = 31 * hash + (null == url ? 0 : url.hashCode());

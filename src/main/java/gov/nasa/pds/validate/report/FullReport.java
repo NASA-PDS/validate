@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,14 +30,6 @@
 
 package gov.nasa.pds.validate.report;
 
-import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.validate.ContentProblem;
-import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
-import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
-import gov.nasa.pds.validate.status.Status;
-import gov.nasa.pds.tools.util.Utility;
-
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
@@ -45,12 +37,18 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
+import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
+import gov.nasa.pds.validate.status.Status;
 
 /**
- * This class represents a full report for the Vtool command line. This is the
- * standard report that will display all problems generated for every file that
- * was inspected. Messages are grouped at the file level and then summarized at
- * the end.
+ * This class represents a full report for the Vtool command line. This is the standard report that
+ * will display all problems generated for every file that was inspected. Messages are grouped at
+ * the file level and then summarized at the end.
  *
  * @author pramirez
  *
@@ -59,13 +57,16 @@ public class FullReport extends Report {
 
   @Override
   protected void printHeader(PrintWriter writer, String title) {
-    //writer.println("Validation Details:");
+    // writer.println("Validation Details:");
 
-    // A hacky way to properly track when we are completing product validation versus integrity 
-    // checks. Once we try to print a header other than the initial product level validation,
+    // A hacky way to properly track when we are completing product validation
+    // versus integrity
+    // checks. Once we try to print a header other than the initial product level
+    // validation,
     // we are now into integrity checks.
-    if (title.toLowerCase().contains("pds4 bundle") || title.toLowerCase().contains("pds4 collection")) {
-        this.integrityCheckFlag = true;
+    if (title.toLowerCase().contains("pds4 bundle")
+        || title.toLowerCase().contains("pds4 collection")) {
+      this.integrityCheckFlag = true;
     }
 
     writer.println();
@@ -74,45 +75,37 @@ public class FullReport extends Report {
   }
 
   @Override
-  protected void printRecordMessages(PrintWriter writer, Status status,
-      URI sourceUri, List<ValidationProblem> problems) {
-    Map<String, List<ValidationProblem>> externalProblems = 
-        new LinkedHashMap<String, List<ValidationProblem>>();
-    Map<String, List<ContentProblem>> contentProblems = 
-        new LinkedHashMap<String, List<ContentProblem>>();
-      writer.println();
-      writer.print("  ");
-      writer.print(status.getName());
-      writer.print(": ");
-      writer.println(sourceUri.toString());
+  protected void printRecordMessages(PrintWriter writer, Status status, URI sourceUri,
+      List<ValidationProblem> problems) {
+    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
+    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<>();
+    writer.println();
+    writer.print("  ");
+    writer.print(status.getName());
+    writer.print(": ");
+    writer.println(sourceUri.toString());
 
     // Print all the sources problems and gather all external problems
-    for (Iterator<ValidationProblem> iterator = problems.iterator();
-        iterator.hasNext();) {
+    for (Iterator<ValidationProblem> iterator = problems.iterator(); iterator.hasNext();) {
       ValidationProblem problem = iterator.next();
       if (problem instanceof ContentProblem) {
         ContentProblem contentProb = (ContentProblem) problem;
-        List<ContentProblem> contentProbs = contentProblems.get(
-            contentProb.getSource());
+        List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
         if (contentProbs == null) {
-          contentProbs = new ArrayList<ContentProblem>();
+          contentProbs = new ArrayList<>();
         }
         contentProbs.add(contentProb);
         contentProblems.put(contentProb.getSource(), contentProbs);
+      } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
+          || sourceUri.toString().equals(problem.getTarget().getLocation())) {
+        printProblem(writer, problem);
       } else {
-        if ( ((problem.getTarget() == null)) || 
-              (problem.getTarget().getLocation() == null) || 
-              sourceUri.toString().equals(problem.getTarget().getLocation())) {
-          printProblem(writer, problem);
-        } else {
-          List<ValidationProblem> extProbs = externalProblems.get(
-              problem.getTarget().getLocation());
-          if (extProbs == null) {
-            extProbs = new ArrayList<ValidationProblem>();
-          }
-          extProbs.add(problem);
-          externalProblems.put(problem.getTarget().getLocation(), extProbs);
+        List<ValidationProblem> extProbs = externalProblems.get(problem.getTarget().getLocation());
+        if (extProbs == null) {
+          extProbs = new ArrayList<>();
         }
+        extProbs.add(problem);
+        externalProblems.put(problem.getTarget().getLocation(), extProbs);
       }
       iterator.remove();
     }
@@ -133,14 +126,14 @@ public class FullReport extends Report {
       }
       writer.print("    End Content Validation: ");
       writer.println(dataFile);
-    }  
+    }
     // issue_132: for the progress monitoring
     if (!Utility.isDir(sourceUri.toString())) {
       String msg = "";
       if (totalProducts > 0) {
         msg = "        " + totalProducts + " product validation(s) completed";
       }
-      
+
       if (totalIntegrityChecks > 0) {
         msg = "        " + totalIntegrityChecks + " integrity check(s) completed";
       }
@@ -149,8 +142,7 @@ public class FullReport extends Report {
     }
   }
 
-  private void printProblem(PrintWriter writer,
-      final ValidationProblem problem) {
+  private void printProblem(PrintWriter writer, final ValidationProblem problem) {
     writer.print("      ");
     String severity = "";
     if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
@@ -180,7 +172,7 @@ public class FullReport extends Report {
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
         writer.print(", ");
-        writer.print("field " + tcProblem.getField().toString());        
+        writer.print("field " + tcProblem.getField().toString());
       }
       writer.print(": ");
     } else if (problem instanceof ArrayContentProblem) {
@@ -194,17 +186,15 @@ public class FullReport extends Report {
         writer.print(", ");
         writer.print("location " + aProblem.getLocation());
       }
-      writer.print(": ");      
-    } else {
-      if (problem.getLineNumber() != -1) {
-        writer.print("line ");
-        writer.print(problem.getLineNumber());
-        if (problem.getColumnNumber() != -1) {
-          writer.print(", ");
-          writer.print(problem.getColumnNumber());
-        }
-        writer.print(": ");
+      writer.print(": ");
+    } else if (problem.getLineNumber() != -1) {
+      writer.print("line ");
+      writer.print(problem.getLineNumber());
+      if (problem.getColumnNumber() != -1) {
+        writer.print(", ");
+        writer.print(problem.getColumnNumber());
       }
+      writer.print(": ");
     }
     writer.println(problem.getMessage());
   }
@@ -250,6 +240,6 @@ public class FullReport extends Report {
       writer.print(": ");
     }
     writer.println(problem.getMessage());
-    
+
   }
 }

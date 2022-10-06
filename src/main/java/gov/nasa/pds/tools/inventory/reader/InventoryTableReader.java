@@ -13,8 +13,6 @@
 // $Id: InventoryTableReader.java 10921 2012-09-10 22:11:40Z mcayanan $
 package gov.nasa.pds.tools.inventory.reader;
 
-import gov.nasa.pds.tools.util.XMLExtractor;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -23,10 +21,10 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Arrays;
+import gov.nasa.pds.tools.util.XMLExtractor;
 
 /**
- * Class that supports reading of a table-version of the PDS
- * Inventory file.
+ * Class that supports reading of a table-version of the PDS Inventory file.
  *
  * @author mcayanan
  *
@@ -49,7 +47,7 @@ public class InventoryTableReader implements InventoryReader {
 
   /** The data file being read. */
   private URL dataFile;
-  
+
   private long numRecords = -1;
 
   /**
@@ -58,89 +56,75 @@ public class InventoryTableReader implements InventoryReader {
   public static final String FIELD_DELIMITER = "//Inventory/field_delimiter";
 
   /**
-   * XPath to determine the field location of the member status field in the
-   * inventory table.
+   * XPath to determine the field location of the member status field in the inventory table.
    */
   public static final String MEMBER_STATUS_FIELD_NUMBER =
-    "//Inventory/Record_Delimited/Field_Delimited[name='Member_Status' or name='Member Status']/field_number";
+      "//Inventory/Record_Delimited/Field_Delimited[name='Member_Status' or name='Member Status']/field_number";
 
   /**
-   * XPath to determine the field location of the LID-LIDVID field in the
-   * inventory table.
+   * XPath to determine the field location of the LID-LIDVID field in the inventory table.
    */
   public static final String LIDVID_LID_FIELD_NUMBER =
-    "//Inventory/Record_Delimited/Field_Delimited[data_type='ASCII_LIDVID_LID']/field_number";
+      "//Inventory/Record_Delimited/Field_Delimited[data_type='ASCII_LIDVID_LID']/field_number";
 
   /** XPath to the external table file of a collection. */
-  public static final String DATA_FILE = "//*[starts-with(name(),"
-    + "'File_Area')]/File/file_name";
-  
+  public static final String DATA_FILE = "//*[starts-with(name()," + "'File_Area')]/File/file_name";
+
   /**
    * Constructor.
    *
    * @param url The URL to the PDS Inventory file.
    *
-   * @throws InventoryReaderException If an error occurred while reading
-   * the Inventory file.
+   * @throws InventoryReaderException If an error occurred while reading the Inventory file.
    * @throws URISyntaxException
    * @throws MalformedURLException
    */
-  public InventoryTableReader(URL url)
-  throws InventoryReaderException {
+  public InventoryTableReader(URL url) throws InventoryReaderException {
     memberStatusFieldNumber = 0;
     identifierFieldNumber = 0;
     dataFile = null;
     try {
       try {
-        parent = url.toURI().getPath().endsWith("/") ?
-          url.toURI().resolve("..").toURL() :
-            url.toURI().resolve(".").toURL();
+        parent = url.toURI().getPath().endsWith("/") ? url.toURI().resolve("..").toURL()
+            : url.toURI().resolve(".").toURL();
       } catch (Exception e) {
-        throw new Exception("Problem occurred while trying to get the parent "
-            + " URL of '" + url.toString() + "': " + e.getMessage());
+        throw new Exception("Problem occurred while trying to get the parent " + " URL of '"
+            + url.toString() + "': " + e.getMessage());
       }
       XMLExtractor extractor = new XMLExtractor(url);
       String dataFileName = extractor.getValueFromDoc(DATA_FILE);
       if (dataFileName.equals("")) {
-        throw new Exception("Could not retrieve a data file name using "
-            + "the following XPath: " + DATA_FILE);
+        throw new Exception(
+            "Could not retrieve a data file name using " + "the following XPath: " + DATA_FILE);
       }
       dataFile = new URL(parent, dataFileName);
-      
-      this.numRecords = Long.parseLong(extractor.getValueFromDoc("//Inventory/records"));      
-      reader = new LineNumberReader(new BufferedReader(
-          new InputStreamReader(dataFile.openStream())));
+
+      this.numRecords = Long.parseLong(extractor.getValueFromDoc("//Inventory/records"));
+      reader =
+          new LineNumberReader(new BufferedReader(new InputStreamReader(dataFile.openStream())));
       String value = "";
       // Extract the field numbers defined in the inventory table section
       // in order to determine the metadata in the data file.
       value = extractor.getValueFromDoc(MEMBER_STATUS_FIELD_NUMBER);
-      if (!value.isEmpty()) {
-        memberStatusFieldNumber = Integer.parseInt(value);
-      } else {
+      if (value.isEmpty()) {
         throw new Exception("Problems parsing url '" + url.toString() + "'. XPath "
-            + "expression returned no result: "
-            + MEMBER_STATUS_FIELD_NUMBER);
+            + "expression returned no result: " + MEMBER_STATUS_FIELD_NUMBER);
       }
+      memberStatusFieldNumber = Integer.parseInt(value);
       value = extractor.getValueFromDoc(LIDVID_LID_FIELD_NUMBER);
-      if (!value.isEmpty()) {
-        identifierFieldNumber = Integer.parseInt(value);
-      } else {
+      if (value.isEmpty()) {
         throw new Exception("Problems parsing url '" + url.toString() + "'. XPath "
-            + "expression returned no result: "
-            + LIDVID_LID_FIELD_NUMBER);
+            + "expression returned no result: " + LIDVID_LID_FIELD_NUMBER);
       }
+      identifierFieldNumber = Integer.parseInt(value);
       value = extractor.getValueFromDoc(FIELD_DELIMITER);
-      if (!value.isEmpty()) {
-        fieldDelimiter = InventoryKeys.fieldDelimiters.get(
-            value.toLowerCase());
-        if (fieldDelimiter == null) {
-          throw new Exception("Field delimiter value is not a valid value: "
-              + value);
-        }
-      } else {
+      if (value.isEmpty()) {
         throw new Exception("Problems parsing url '" + url.toString() + "'. XPath "
-            + "expression returned no result: "
-            + FIELD_DELIMITER);
+            + "expression returned no result: " + FIELD_DELIMITER);
+      }
+      fieldDelimiter = InventoryKeys.fieldDelimiters.get(value.toLowerCase());
+      if (fieldDelimiter == null) {
+        throw new Exception("Field delimiter value is not a valid value: " + value);
       }
     } catch (Exception e) {
       throw new InventoryReaderException(e);
@@ -170,20 +154,19 @@ public class InventoryTableReader implements InventoryReader {
    * 
    */
   public long getNumRecords() {
-	  return this.numRecords;
+    return this.numRecords;
   }
-  
+
   /**
    * Gets the next product file reference in the PDS Inventory file.
    *
-   * @return A class representation of the next product file reference
-   * in the PDS inventory file. If the end-of-file has been reached,
-   * a null value will be returned.
+   * @return A class representation of the next product file reference in the PDS inventory file. If
+   *         the end-of-file has been reached, a null value will be returned.
    *
-   * @throws InventoryReaderException If an error occurred while reading
-   * the Inventory file.
+   * @throws InventoryReaderException If an error occurred while reading the Inventory file.
    *
    */
+  @Override
   public InventoryEntry getNext() throws InventoryReaderException {
     String line = "";
     try {
@@ -191,38 +174,36 @@ public class InventoryTableReader implements InventoryReader {
       if (line == null) {
         reader.close();
         return null;
-      } else if (line.trim().equals("")) {
+      }
+      if (line.trim().equals("")) {
         return new InventoryEntry();
       }
     } catch (IOException i) {
       throw new InventoryReaderException(i);
     }
     if (fieldDelimiter == null) {
-      throw new InventoryReaderException(
-          new Exception("Field delimiter is not set."));
+      throw new InventoryReaderException(new Exception("Field delimiter is not set."));
     }
     String identifier = "";
     String memberStatus = "";
     String fields[] = line.split(fieldDelimiter);
     if (memberStatusFieldNumber != 0) {
       try {
-        memberStatus = fields[memberStatusFieldNumber-1].trim();
+        memberStatus = fields[memberStatusFieldNumber - 1].trim();
       } catch (IndexOutOfBoundsException ae) {
-        InventoryReaderException ir = new InventoryReaderException(
-            new IndexOutOfBoundsException("Could not retrieve the member "
-                + "status after parsing the line in the file '" + dataFile
-                + "': " + Arrays.asList(fields)));
+        InventoryReaderException ir = new InventoryReaderException(new IndexOutOfBoundsException(
+            "Could not retrieve the member " + "status after parsing the line in the file '"
+                + dataFile + "': " + Arrays.asList(fields)));
         ir.setLineNumber(reader.getLineNumber());
         throw ir;
       }
     }
     if (identifierFieldNumber != 0) {
       try {
-      identifier = fields[identifierFieldNumber-1].trim();
+        identifier = fields[identifierFieldNumber - 1].trim();
       } catch (IndexOutOfBoundsException ae) {
-        InventoryReaderException ir = new InventoryReaderException(
-            new IndexOutOfBoundsException("Could not retrieve the "
-                + "LIDVID-LID value after parsing the line in the file '"
+        InventoryReaderException ir = new InventoryReaderException(new IndexOutOfBoundsException(
+            "Could not retrieve the " + "LIDVID-LID value after parsing the line in the file '"
                 + dataFile + "': " + Arrays.asList(fields)));
         ir.setLineNumber(reader.getLineNumber());
         throw ir;

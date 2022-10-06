@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -32,21 +32,23 @@ package gov.nasa.pds.validate.constants;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public final class Constants {
 
-    public static final String SCHEMATRON_SCHEMATYPENS_PATTERN = "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")[ ]*?";
-    public static final int CONTENT_VAL_PROGRESS_COUNTER = 100000;
-    
-    /**
-     * Pattern string up to file extension, which will be set at initialization
-     */
-    public static final String BUNDLE_LABEL_PATTERN_STRING      = "(.*)bundle(.*)\\.";
-    public static final String COLLECTION_LABEL_PATTERN_STRING  = "(.*)collection(.*)\\.";
-    public static final String COLLECTION_NAME_TOKEN 			= "collection"; 
-    public static final String BUNDLE_NAME_TOKEN     			= "bundle"; 
-    public static final String DEFAULT_LABEL_EXTENSION          = "xml";   // Used to look for label files.  Note that the extension does not contain the dot.
-    public static final List<String> ALLOWABLE_LABEL_EXTENSIONS = Arrays.asList( "xml", "lblx");
+  public static final String SCHEMATRON_SCHEMATYPENS_PATTERN =
+      "href=\\\"([^=]*)\\\"( schematypens=\\\"([^=]*)\\\")[ ]*?";
+  public static final int CONTENT_VAL_PROGRESS_COUNTER = 100000;
+
+  /**
+   * Pattern string up to file extension, which will be set at initialization
+   */
+  public static final String BUNDLE_LABEL_PATTERN_STRING = "(.*)bundle(.*)\\.";
+  public static final String COLLECTION_LABEL_PATTERN_STRING = "(.*)collection(.*)\\.";
+  public static final String COLLECTION_NAME_TOKEN = "collection";
+  public static final String BUNDLE_NAME_TOKEN = "bundle";
+  public static final String DEFAULT_LABEL_EXTENSION = "xml"; // Used to look for label files. Note
+                                                              // that the extension
+                                                              // does not contain the dot.
+  public static final List<String> ALLOWABLE_LABEL_EXTENSIONS = Arrays.asList("xml", "lblx");
 
 }

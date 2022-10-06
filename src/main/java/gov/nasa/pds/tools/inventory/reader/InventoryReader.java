@@ -21,14 +21,13 @@ package gov.nasa.pds.tools.inventory.reader;
  */
 public interface InventoryReader {
 
-    /**
-     * Get the next file reference in the Inventory file.
-     *
-     * @return An object representation of the next file reference in
-     * the Inventory file.
-     *
-     * @throws InventoryReaderException If an error occured while getting the
-     * next entry in the inventory file.
-     */
-    public abstract InventoryEntry getNext() throws InventoryReaderException;
+  /**
+   * Get the next file reference in the Inventory file.
+   *
+   * @return An object representation of the next file reference in the Inventory file.
+   *
+   * @throws InventoryReaderException If an error occured while getting the next entry in the
+   *         inventory file.
+   */
+  public abstract InventoryEntry getNext() throws InventoryReaderException;
 }

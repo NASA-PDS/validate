@@ -13,16 +13,14 @@
 // $Id$
 package gov.nasa.pds.tools.validate.crawler;
 
-import gov.nasa.pds.tools.validate.Target;
-
 import java.io.FileFilter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
+import gov.nasa.pds.tools.validate.Target;
 
 public abstract class Crawler {
   /** A file filter. */
@@ -31,7 +29,9 @@ public abstract class Crawler {
   /** A directory filter. */
   protected FileFilter directoryFilter;
 
-  protected ArrayList<Target> ignoreList = new ArrayList<Target>();  // List of items to be removed from result of crawl() function.
+  protected ArrayList<Target> ignoreList = new ArrayList<>(); // List of items to be removed from
+                                                              // result of
+                                                              // crawl() function.
 
   public Crawler() {
     fileFilter = new WildcardOSFilter("*");
@@ -39,19 +39,19 @@ public abstract class Crawler {
   }
 
   public void addAllIgnoreItems(ArrayList<Target> ignoreList) {
-      // Function allow all item named to be removed from the crawl() function.
-      this.ignoreList = ignoreList;
+    // Function allow all item named to be removed from the crawl() function.
+    this.ignoreList = ignoreList;
   }
 
   public Crawler(IOFileFilter fileFilter) {
     this.fileFilter = fileFilter;
     directoryFilter = FileFilterUtils.directoryFileFilter();
   }
-  
+
   public void setFileFilter(List<String> fileFilters) {
     this.fileFilter = new WildcardOSFilter(fileFilters);
   }
-  
+
   public void setFileFilter(IOFileFilter fileFilter) {
     this.fileFilter = fileFilter;
   }
@@ -59,19 +59,21 @@ public abstract class Crawler {
   public List<Target> crawl(URL url) throws IOException {
     return crawl(url, true, this.fileFilter);
   }
-  
+
   public List<Target> crawl(URL url, IOFileFilter fileFilter) throws IOException {
     return crawl(url, true, fileFilter);
   }
-  
+
   public List<Target> crawl(URL url, boolean getDirectories) throws IOException {
     return crawl(url, getDirectories, this.fileFilter);
   }
 
-  public List<Target> crawl(URL url, String[] extensions, boolean getDirectories, String nameToken) throws IOException {
+  public List<Target> crawl(URL url, String[] extensions, boolean getDirectories, String nameToken)
+      throws IOException {
     return crawl(url, extensions, getDirectories, nameToken);
   }
-  
-  public abstract List<Target> crawl(URL url, boolean getDirectories, IOFileFilter fileFilter) throws IOException;
-  
+
+  public abstract List<Target> crawl(URL url, boolean getDirectories, IOFileFilter fileFilter)
+      throws IOException;
+
 }

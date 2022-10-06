@@ -19,43 +19,44 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * A class to hold a list of references and the file name those references belong to.
- * It will be used to report which label contains the message.
+ * A class to hold a list of references and the file name those references belong to. It will be
+ * used to report which label contains the message.
  *
  */
 public class HashSetReferenceInfo {
   private static final Logger LOG = LoggerFactory.getLogger(HashSetReferenceInfo.class);
-  ArrayList<String> references = new ArrayList<String>();
+  ArrayList<String> references = new ArrayList<>();
   URL parentLabelFilename = null; // The name of the parent label containing these references.
   int numReferencesAdded = 0;
 
-  public HashSetReferenceInfo() {
-  }
+  public HashSetReferenceInfo() {}
 
   public void addReference(String reference, URL parentLabelFilename) {
-      this.references.add(reference);
-      numReferencesAdded += 1;
+    this.references.add(reference);
+    numReferencesAdded += 1;
 
-      // Only set the name of the parent label file once since all references being set for this class belong to just one file.
-      if (this.parentLabelFilename == null) {
-          this.parentLabelFilename = parentLabelFilename;
-      }
-      LOG.debug("addingReference:ADDING_PARENT_URL:numReferencesAdded,parentLabelFilename,reference {},{},{}",numReferencesAdded,parentLabelFilename,reference);
+    // Only set the name of the parent label file once since all references being
+    // set for this class belong to just one file.
+    if (this.parentLabelFilename == null) {
+      this.parentLabelFilename = parentLabelFilename;
+    }
+    LOG.debug(
+        "addingReference:ADDING_PARENT_URL:numReferencesAdded,parentLabelFilename,reference {},{},{}",
+        numReferencesAdded, parentLabelFilename, reference);
   }
 
   public boolean doesReferenceExist(String reference) {
-      if (this.references.contains(reference)) {
-          return(true);
-      } else {
-          return(false);
-      }
+    if (this.references.contains(reference)) {
+      return (true);
+    }
+    return (false);
   }
 
   public ArrayList<String> getReferences() {
-      return(this.references);
+    return (this.references);
   }
 
   public URL getParentLabelFilename() {
-      return(this.parentLabelFilename);
+    return (this.parentLabelFilename);
   }
 }

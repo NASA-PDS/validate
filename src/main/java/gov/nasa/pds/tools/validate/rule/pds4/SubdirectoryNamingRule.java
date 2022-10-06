@@ -13,6 +13,16 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.filefilter.FalseFileFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
@@ -20,36 +30,14 @@ import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.filefilter.FalseFileFilter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Implements a rule that checks for children of a directory
- * using illegal names. These are directories that can only
- * occur in the root directory of a bundle.
+ * Implements a rule that checks for children of a directory using illegal names. These are
+ * directories that can only occur in the root directory of a bundle.
  */
 public class SubdirectoryNamingRule extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(SubdirectoryNamingRule.class);
-  private static final String[] ILLEGAL_DIRECTORY_NAMES = {
-    "browse",
-    "calibration",
-    "context",
-    "data",
-    "document",
-    "geometry",
-    "miscellaneous",
-    "spice_kernels",
-    "xml_schema"
-  };
+  private static final String[] ILLEGAL_DIRECTORY_NAMES = {"browse", "calibration", "context",
+      "data", "document", "geometry", "miscellaneous", "spice_kernels", "xml_schema"};
 
   private static String illegalNamePatternStr;
   static {
@@ -89,21 +77,27 @@ public class SubdirectoryNamingRule extends AbstractValidationRule {
   public void checkIllegalDirectoryNames() {
     try {
       Crawler crawler = getContext().getCrawler();
-      LOG.debug("checkIllegalDirectoryNames:getTarget() {}",getTarget());
+      LOG.debug("checkIllegalDirectoryNames:getTarget() {}", getTarget());
       List<Target> targets = crawler.crawl(getTarget(), FalseFileFilter.INSTANCE);
       for (Target target : targets) {
-          LOG.debug("checkIllegalDirectoryNames:target,target.isDir() {},{}",target,target.isDir());
-          LOG.debug("checkIllegalDirectoryNames:target,FilenameUtils.getName(Utility.removeLastSlash(target.toString())) {},{}",target,FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
-          if (target.isDir()) {
-              Matcher matcher = ILLEGAL_NAME_PATTERN.matcher(FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
-              if (matcher.matches()) {
-                  LOG.debug("checkIllegalDirectoryNames:Problem UNALLOWED_BUNDLE_SUBDIRECTORY_NAME found for directory " + target);
-                  reportError(PDS4Problems.UNALLOWED_BUNDLE_SUBDIRECTORY_NAME, target.getUrl(), -1, -1);
-              }
+        LOG.debug("checkIllegalDirectoryNames:target,target.isDir() {},{}", target, target.isDir());
+        LOG.debug(
+            "checkIllegalDirectoryNames:target,FilenameUtils.getName(Utility.removeLastSlash(target.toString())) {},{}",
+            target, FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
+        if (target.isDir()) {
+          Matcher matcher = ILLEGAL_NAME_PATTERN
+              .matcher(FilenameUtils.getName(Utility.removeLastSlash(target.toString())));
+          if (matcher.matches()) {
+            LOG.debug(
+                "checkIllegalDirectoryNames:Problem UNALLOWED_BUNDLE_SUBDIRECTORY_NAME found for directory "
+                    + target);
+            reportError(PDS4Problems.UNALLOWED_BUNDLE_SUBDIRECTORY_NAME, target.getUrl(), -1, -1);
           }
+        }
       }
     } catch (IOException io) {
-      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, io.getMessage());
+      reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+          io.getMessage());
     }
   }
 

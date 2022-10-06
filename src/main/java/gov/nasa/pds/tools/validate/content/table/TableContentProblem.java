@@ -14,26 +14,24 @@
 package gov.nasa.pds.tools.validate.content.table;
 
 import java.net.URL;
-
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 
 /**
- * Class that stores information about an error that has occurred during
- * table content validation.
- * 
+ * Class that stores information about an error that has occurred during table content validation.
+ *
  * @author mcayanan
  *
  */
 public class TableContentProblem extends ContentProblem {
   /** The table index associated with the problem. */
   private Integer table;
-  
+
   /** The record number associated with the problem. */
   private long record;
-  
+
   /** The field number associated with the problem. */
   private Integer field;
 
@@ -46,21 +44,15 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
    * @param table The index of the table associated with the message.
-   * @param record The index of the record as an integer associated with the message. 
+   * @param record The index of the record as an integer associated with the message.
    * @param field The index of the field associated with the message.
    */
-  public TableContentProblem(ExceptionType exceptionType, 
-      ProblemType problemType, String message, URL source, URL label,
-      int table, int record, int field) {
-    this(
-        new ProblemDefinition(exceptionType, problemType, message), 
-        source, 
-        label, 
-        table, 
-        record, 
+  public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+      URL source, URL label, int table, int record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, table, record,
         field);
   }
-  
+
   /**
    * Constructor.
    * 
@@ -70,21 +62,15 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
    * @param table The index of the table associated with the message.
-   * @param record The index of the record as an integer associated with the message. 
+   * @param record The index of the record as an integer associated with the message.
    * @param field The index of the field associated with the message.
    */
-  public TableContentProblem(ExceptionType exceptionType, 
-      ProblemType problemType, String message, URL source, URL label,
-      int table, long record, int field) {
-    this(
-        new ProblemDefinition(exceptionType, problemType, message), 
-        source, 
-        label, 
-        table, 
-        record, 
+  public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+      URL source, URL label, int table, long record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, table, record,
         field);
   }
-  
+
   /**
    * Constructor.
    * 
@@ -92,11 +78,10 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
    * @param table The index of the table associated with the message.
-   * @param record The index of the record associated with the message. 
+   * @param record The index of the record associated with the message.
    * @param field The index of the field associated with the message.
    */
-  public TableContentProblem(ProblemDefinition defn,
-      URL source, URL label, int table, long record,
+  public TableContentProblem(ProblemDefinition defn, URL source, URL label, int table, long record,
       int field) {
     super(defn, source, label);
     if (table == -1) {
@@ -109,7 +94,7 @@ public class TableContentProblem extends ContentProblem {
     } else {
       this.record = record;
     }
-    
+
     if (field == -1) {
       this.field = -1;
     } else {
@@ -124,21 +109,20 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
    * @param table The index of the table associated with the message.
-   * @param record The index of the record associated with the message. 
+   * @param record The index of the record associated with the message.
    */
-  public TableContentProblem(ProblemDefinition defn, 
-      URL source, URL label, Integer table, Integer record) {
-    this(defn, source, label, table, (long)record, -1);
+  public TableContentProblem(ProblemDefinition defn, URL source, URL label, Integer table,
+      Integer record) {
+    this(defn, source, label, table, record, -1);
   }
-  
+
   /**
    * Constructor.
    * 
    * @param defn The problem definition.
    * @param source The data file url of the exception.
    */
-  public TableContentProblem(ProblemDefinition defn,
-      URL source) {
+  public TableContentProblem(ProblemDefinition defn, URL source) {
     this(defn, source, null, -1, -1, -1);
   }
 
@@ -157,7 +141,7 @@ public class TableContentProblem extends ContentProblem {
   public long getRecord() {
     return this.record;
   }
-  
+
   /**
    * 
    * @return the field index.

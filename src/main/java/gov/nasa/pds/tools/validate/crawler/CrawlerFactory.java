@@ -29,12 +29,11 @@ public class CrawlerFactory {
    * @param url The url.
    *
    * @return The appropriate Crawler object.
-   */ 
+   */
   public static Crawler newInstance(URL url) {
     if ("file".equalsIgnoreCase(url.getProtocol())) {
       return new FileCrawler();
-    } else {
-      return new URLCrawler();
-    }    
+    }
+    return new URLCrawler();
   }
 }

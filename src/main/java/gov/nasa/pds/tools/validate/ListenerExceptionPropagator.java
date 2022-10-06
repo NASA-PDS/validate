@@ -14,18 +14,16 @@
 package gov.nasa.pds.tools.validate;
 
 import java.util.Collection;
-
 import gov.nasa.pds.tools.label.ExceptionType;
 
 /**
- * Listener class intended to propagate the problems to a handler for
- * further processing.
- * 
+ * Listener class intended to propagate the problems to a handler for further processing.
+ *
  * @author mrose, mcayanan
  *
  */
 public class ListenerExceptionPropagator implements ProblemListener {
-  
+
   private ValidateProblemHandler handler;
   int errorCount;
   int warningCount;
@@ -38,22 +36,22 @@ public class ListenerExceptionPropagator implements ProblemListener {
   @Override
   public void addProblem(ValidationProblem problem) {
     switch (problem.getProblem().getSeverity()) {
-    case FATAL:
-      ++errorCount;
-      break;
-    case ERROR:
-      ++errorCount;
-      break;
-    case WARNING:
-      ++warningCount;
-      break;
-    default:
-      ++infoCount;
-      break;
+      case FATAL:
+        ++errorCount;
+        break;
+      case ERROR:
+        ++errorCount;
+        break;
+      case WARNING:
+        ++warningCount;
+        break;
+      default:
+        ++infoCount;
+        break;
     }
     handler.addProblem(problem);
   }
-  
+
   @Override
   public int getErrorCount() {
     return errorCount;
@@ -80,8 +78,8 @@ public class ListenerExceptionPropagator implements ProblemListener {
   }
 
   @Override
-  public Collection<ValidationProblem> getProblemsForLocation(
-      String location, boolean includeChildren) {
+  public Collection<ValidationProblem> getProblemsForLocation(String location,
+      boolean includeChildren) {
     return null;
   }
 
@@ -89,11 +87,11 @@ public class ListenerExceptionPropagator implements ProblemListener {
   public void addLocation(String location) {
     handler.addLocation(location);
   }
-  
+
   public void record(String location) {
     handler.record(location);
   }
-  
+
   public void printHeader(String title) {
     handler.printHeader(title);
   }

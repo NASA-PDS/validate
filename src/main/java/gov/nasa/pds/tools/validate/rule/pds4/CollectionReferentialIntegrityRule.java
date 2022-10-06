@@ -18,10 +18,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
 import gov.nasa.pds.tools.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.tools.inventory.reader.InventoryTableReader;
@@ -40,72 +38,79 @@ import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
 /**
- * Validation rule that performs referential integrity checking
- * on a Product_Collection product label.
- * 
+ * Validation rule that performs referential integrity checking on a Product_Collection product
+ * label.
+ *
  * @author mcayanan
  *
  */
 public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
-  private static final Logger LOG = LoggerFactory.getLogger(CollectionReferentialIntegrityRule.class);
-  
+  private static final Logger LOG =
+      LoggerFactory.getLogger(CollectionReferentialIntegrityRule.class);
+
   private static final String PRODUCT_CLASS =
       "//*[starts-with(name(),'Identification_Area')]/product_class";
-  
+
   private static final String LOGICAL_IDENTIFIER =
       "//*[starts-with(name(),'Identification_Area')]/logical_identifier";
 
   private String lid = null;
   private double totalTimeElapsed = 0.0;
-  
+
   @Override
   public boolean isApplicable(String location) {
     if (Utility.isDir(location)) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   @ValidationTest
   public void collectionReferentialIntegrityRule() {
-      LOG.debug("collectionReferentialIntegrityRule:START: ");
-      // Use the targets registered during RegisterTargets step to identify collections
-      if (getContext().isLastDirectory()) {
-          Map<String, ValidationTarget> collections = getRegistrar().getCollections();
-          LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}", getTarget(), collections.keySet().size());
-    
-          // Check for collection(_.*)?\.(xml or lblx) file.
-          for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
-              if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension()))
-                  continue;
-    
-              Target collectionTarget = new Target(collection.getValue().getUrl(), false);
-              try {
-                  XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());
-                  if("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
-                      getListener().addLocation(collectionTarget.getUrl().toString());
-                      this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
-                      getCollectionMembers(collectionTarget.getUrl());
-                  }
-              } catch (Exception e) {
-                //Ignore. This isn't a valid Collection label, so let's skip it.
-              }
+    LOG.debug("collectionReferentialIntegrityRule:START: ");
+    // Use the targets registered during RegisterTargets step to identify
+    // collections
+    if (getContext().isLastDirectory()) {
+      Map<String, ValidationTarget> collections = getRegistrar().getCollections();
+      LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}",
+          getTarget(), collections.keySet().size());
+
+      // Check for collection(_.*)?\.(xml or lblx) file.
+      for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
+        if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension())) {
+          continue;
+        }
+
+        Target collectionTarget = new Target(collection.getValue().getUrl(), false);
+        try {
+          XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());
+          if ("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
+            getListener().addLocation(collectionTarget.getUrl().toString());
+            this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
+            getCollectionMembers(collectionTarget.getUrl());
           }
-    
-          // https://github.com/NASA-PDS/validate/issues/69
-          // As a user, I want to validate that all context objects specified in observational products are referenced in the parent bundle/collection Reference_List
-          //
-          // For every references in the Context_Area, check if it also occur in the bundle/collection Reference_List,
-          //  i.e: All context objects specified in observational are referenced in the parent bundle/collection Reference_List 
-          //
-          ReferentialIntegrityUtil.initialize("collection",getTarget(),getListener(),getContext());
-          ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
+        } catch (Exception e) {
+          // Ignore. This isn't a valid Collection label, so let's skip it.
+        }
       }
+
+      // https://github.com/NASA-PDS/validate/issues/69
+      // As a user, I want to validate that all context objects specified in
+      // observational products are referenced in the parent bundle/collection
+      // Reference_List
+      //
+      // For every references in the Context_Area, check if it also occur in the
+      // bundle/collection Reference_List,
+      // i.e: All context objects specified in observational are referenced in the
+      // parent bundle/collection Reference_List
+      //
+      ReferentialIntegrityUtil.initialize("collection", getTarget(), getListener(), getContext());
+      ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
+    }
   }
-  
+
   private void getCollectionMembers(URL collection) {
-    LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {}",collection);
+    LOG.info("getCollectionMembers: BEGIN_PROCESSING_COLLECTION:collection {}", collection);
     long startTime = System.currentTimeMillis();
     try {
       int numOfCollectionMembers = 0;
@@ -113,110 +118,109 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       InventoryTableReader reader = new InventoryTableReader(collection);
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
         if (!entry.isEmpty()) {
-            numOfCollectionMembers++;
+          numOfCollectionMembers++;
           String identifier = entry.getIdentifier();
 
-          LOG.debug("getCollectionMembers: numOfCollectionMembers {}",numOfCollectionMembers);
-          LOG.debug("getCollectionMembers: identifier: {}",identifier);
-          LOG.debug("getCollectionMembers: getTarget(): {}",getTarget());
-          LOG.debug("getCollectionMembers: collection: {}",collection);
+          LOG.debug("getCollectionMembers: numOfCollectionMembers {}", numOfCollectionMembers);
+          LOG.debug("getCollectionMembers: identifier: {}", identifier);
+          LOG.debug("getCollectionMembers: getTarget(): {}", getTarget());
+          LOG.debug("getCollectionMembers: collection: {}", collection);
           if (!identifier.equals("")) {
-            //Check for a LID or LIDVID
+            // Check for a LID or LIDVID
             Identifier id = parseIdentifier(identifier);
-            LOG.debug("getCollectionMembers: id {}",id);
-            LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}",id,id.hasVersion(),id.getVersion());
-            LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}",id,id.hasVersion(),collection);
+            LOG.debug("getCollectionMembers: id {}", id);
+            LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}", id,
+                id.hasVersion(), id.getVersion());
+            LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}", id,
+                id.hasVersion(), collection);
 
             // https://github.com/NASA-PDS/validate/issues/230
-            // New requirement: The 'P' entry must be a LIDVID (logical identifier and version id separated by '::').
+            // New requirement: The 'P' entry must be a LIDVID (logical identifier and
+            // version id separated by '::').
             // Report as error if not a LIDVID.
             if ("P".equalsIgnoreCase(entry.getMemberStatus())) {
-                // If identifier has no version, it is not a LIDVID and should be flagged as an error with the new type ProblemType.MISSING_VERSION.
-                if (!id.hasVersion()) {
-                    getListener().addProblem(new ValidationProblem(
-                        new ProblemDefinition(ExceptionType.ERROR,
-                            ProblemType.MISSING_VERSION,
-                            "The primary member '" + id + "' should include the version number"),
-                            collection));
-                }
+              // If identifier has no version, it is not a LIDVID and should be flagged as an
+              // error with the new type ProblemType.MISSING_VERSION.
+              if (!id.hasVersion()) {
+                getListener().addProblem(new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_VERSION,
+                        "The primary member '" + id + "' should include the version number"),
+                    collection));
+              }
             }
 
-            List<Map.Entry<Identifier, String>> matchingMembers = 
-                new ArrayList<Map.Entry<Identifier, String>>();
-            for (Map.Entry<Identifier, String> idEntry : 
-              getRegistrar().getIdentifierDefinitions().entrySet()) {
+            List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
+            for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
+                .entrySet()) {
               if (id.equals(idEntry.getKey())) {
                 matchingMembers.add(idEntry);
               }
             }
-            LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}",id,matchingMembers.size());
-            LOG.debug("getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",id,matchingMembers.isEmpty(),entry.getMemberStatus());
-            if (matchingMembers.isEmpty() && 
-                "P".equalsIgnoreCase(entry.getMemberStatus())) {
-              getListener().addProblem(new ValidationProblem(
-                  new ProblemDefinition(ExceptionType.WARNING,
-                      ProblemType.MEMBER_NOT_FOUND,
-                      "The member '" + id + "' could not be found in "
-                          + "any product within the given target."), 
+            LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}", id,
+                matchingMembers.size());
+            LOG.debug(
+                "getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",
+                id, matchingMembers.isEmpty(), entry.getMemberStatus());
+            if (matchingMembers.isEmpty() && "P".equalsIgnoreCase(entry.getMemberStatus())) {
+              getListener()
+                  .addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                      ProblemType.MEMBER_NOT_FOUND, "The member '" + id + "' could not be found in "
+                          + "any product within the given target."),
                       collection));
             } else if (matchingMembers.size() == 1) {
-              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
-            	      collection);
-              getListener().addProblem(new ValidationProblem(
-                  new ProblemDefinition(ExceptionType.INFO,
-                      ProblemType.MEMBER_FOUND,
-                      "The member '" + id + "' is identified in "
-                          + "the following product: "
-                          + matchingMembers.get(0).getValue()), 
-                      collection));
-              //LOG.debug("getCollectionMembers: id {} SUCCESS",id);
-              //LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id + "' is identified in "
-              //                                                + "the following product: "
-              //                                                + matchingMembers.get(0).getValue());
+              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
+              getListener()
+                  .addProblem(
+                      new ValidationProblem(
+                          new ProblemDefinition(ExceptionType.INFO, ProblemType.MEMBER_FOUND,
+                              "The member '" + id + "' is identified in "
+                                  + "the following product: " + matchingMembers.get(0).getValue()),
+                          collection));
+              // LOG.debug("getCollectionMembers: id {} SUCCESS",id);
+              // LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id +
+              // "' is identified in "
+              // + "the following product: "
+              // + matchingMembers.get(0).getValue());
             } else if (matchingMembers.size() > 1) {
-              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(),
-            	      collection);
+              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
               ExceptionType exceptionType = ExceptionType.ERROR;
               if (!id.hasVersion()) {
-                Map<String, List<String>> matchingIds = 
-                    findMatchingIds(matchingMembers);
+                Map<String, List<String>> matchingIds = findMatchingIds(matchingMembers);
                 boolean foundDuplicates = false;
                 for (String matchingId : matchingIds.keySet()) {
                   if (matchingIds.get(matchingId).size() > 1) {
                     getListener().addProblem(new ValidationProblem(
-                        new ProblemDefinition(exceptionType,
-                            ProblemType.DUPLICATE_VERSIONS,
+                        new ProblemDefinition(exceptionType, ProblemType.DUPLICATE_VERSIONS,
                             "The member '" + id + "' is identified "
-                                + "in multiple products, but with the same "
-                                + "version id '" + matchingId.split("::")[1]
-                                + "': "
+                                + "in multiple products, but with the same " + "version id '"
+                                + matchingId.split("::")[1] + "': "
                                 + matchingIds.get(matchingId).toString()),
-                       collection));
+                        collection));
                     foundDuplicates = true;
                   }
                 }
                 if (!foundDuplicates) {
-                  List<String> targets = new ArrayList<String>();
+                  List<String> targets = new ArrayList<>();
                   for (Map.Entry<Identifier, String> m : matchingMembers) {
                     targets.add(m.getValue());
                   }
-                  getListener().addProblem(new ValidationProblem(
-                      new ProblemDefinition(ExceptionType.INFO,
-                          ProblemType.DUPLICATE_MEMBERS_INFO,
-                          "The member '" + id + "' is identified "
-                              + "in multiple products: " + targets.toString()),
-                      collection));
+                  getListener()
+                      .addProblem(
+                          new ValidationProblem(
+                              new ProblemDefinition(ExceptionType.INFO,
+                                  ProblemType.DUPLICATE_MEMBERS_INFO,
+                                  "The member '" + id + "' is identified "
+                                      + "in multiple products: " + targets.toString()),
+                              collection));
                 }
               } else {
-                List<String> targets = new ArrayList<String>();
+                List<String> targets = new ArrayList<>();
                 for (Map.Entry<Identifier, String> m : matchingMembers) {
                   targets.add(m.getValue());
                 }
-                getListener().addProblem(new ValidationProblem(
-                    new ProblemDefinition(exceptionType,
-                        ProblemType.DUPLICATE_MEMBERS,
-                        "The member '" + id + "' is identified "
-                            + "in multiple products: " + targets.toString()),
+                getListener().addProblem(new ValidationProblem(new ProblemDefinition(exceptionType,
+                    ProblemType.DUPLICATE_MEMBERS, "The member '" + id + "' is identified "
+                        + "in multiple products: " + targets.toString()),
                     collection));
               }
             }
@@ -226,58 +230,57 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         entry = reader.getNext();
       }
       long records = reader.getNumRecords();
-      LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",collection,numOfCollectionMembers,records);
+      LOG.debug("getCollectionMembers: collection,numOfCollectionMembers,records {},{},{}",
+          collection, numOfCollectionMembers, records);
 
-      if (numOfCollectionMembers>0 && records>0 && numOfCollectionMembers!=records) {
-    	  String message = "Number of records read is not equal "
-                  + "to the defined number of records in the collection (expected "
-                  + records + ", got " + numOfCollectionMembers + ").";
-    	  getListener().addProblem(new ValidationProblem(
-                  new ProblemDefinition(ExceptionType.ERROR,
-                      ProblemType.RECORDS_MISMATCH,
-                      message),
-                  collection));
+      if (numOfCollectionMembers > 0 && records > 0 && numOfCollectionMembers != records) {
+        String message = "Number of records read is not equal "
+            + "to the defined number of records in the collection (expected " + records + ", got "
+            + numOfCollectionMembers + ").";
+        getListener().addProblem(new ValidationProblem(
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.RECORDS_MISMATCH, message),
+            collection));
       }
       long finishTime = System.currentTimeMillis();
       long timeElapsed = finishTime - startTime;
       totalTimeElapsed += timeElapsed;
 
-      LOG.info("getCollectionMembers: END_PROCESSING_COLLECTION:collection,totalTimeElapsed,numOfCollectionMembers {},{},{}",collection,totalTimeElapsed,numOfCollectionMembers);
+      LOG.info(
+          "getCollectionMembers: END_PROCESSING_COLLECTION:collection,totalTimeElapsed,numOfCollectionMembers {},{},{}",
+          collection, totalTimeElapsed, numOfCollectionMembers);
     } catch (InventoryReaderException e) {
-      reportError(GenericProblems.UNCAUGHT_EXCEPTION, collection, -1, -1,
-          e.getMessage());
+      reportError(GenericProblems.UNCAUGHT_EXCEPTION, collection, -1, -1, e.getMessage());
     }
   }
-  
+
   private Identifier parseIdentifier(String identifier) {
-    // Even though the below identifier contains errors (blanks around '::' and too many digits)
-    // and may be caught by other validation rules, this function need to remove any leading or trailing blanks from
+    // Even though the below identifier contains errors (blanks around '::' and too
+    // many digits)
+    // and may be caught by other validation rules, this function need to remove any
+    // leading or trailing blanks from
     // tokens after the split() function:
     //
-    //     [urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles :: 1.2.3.4]`
+    // [urn:nasa:pds:cocirs_c2h4abund:data_derived:c2h4_abund_profiles :: 1.2.3.4]`
 
     if (identifier.indexOf("::") != -1) {
-      return new Identifier(identifier.split("::")[0].trim(),
-          identifier.split("::")[1].trim());
-    } else {
-      return new Identifier(identifier.split("::")[0].trim());
+      return new Identifier(identifier.split("::")[0].trim(), identifier.split("::")[1].trim());
     }
+    return new Identifier(identifier.split("::")[0].trim());
   }
-  
-  private Map<String, List<String>> findMatchingIds(
-      List<Map.Entry<Identifier, String>> products) {
-    Map<String, List<String>> results = new HashMap<String, List<String>>();
+
+  private Map<String, List<String>> findMatchingIds(List<Map.Entry<Identifier, String>> products) {
+    Map<String, List<String>> results = new HashMap<>();
     for (Map.Entry<Identifier, String> product : products) {
       if (results.get(product.getKey().toString()) != null) {
         List<String> targets = results.get(product.getKey().toString());
         targets.add(product.getValue());
       } else {
-        List<String> targets = new ArrayList<String>();
+        List<String> targets = new ArrayList<>();
         targets.add(product.getValue());
         results.put(product.getKey().toString(), targets);
       }
     }
     return results;
   }
-  
+
 }

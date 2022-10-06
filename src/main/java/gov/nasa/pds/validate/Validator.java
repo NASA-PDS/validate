@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,25 +30,22 @@
 
 package gov.nasa.pds.validate;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import org.xml.sax.SAXException;
 import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.CachedLSResourceResolver;
 import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
-
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-
-import org.xml.sax.SAXException;
+import gov.nasa.pds.validate.report.Report;
 
 /**
  * Abstract class to validate a PDS4 product label.
@@ -57,8 +54,9 @@ import org.xml.sax.SAXException;
  *
  */
 public abstract class Validator {
-  /** An object representation of a report to capture the results of
-   *  validation. */
+  /**
+   * An object representation of a report to capture the results of validation.
+   */
   protected Report report;
 
   /**
@@ -97,27 +95,24 @@ public abstract class Validator {
    * Constructor.
    *
    * @param modelVersion The model version to use for validation.
-   * @param report A Report object to output the results of the validation
-   *  run.
+   * @param report A Report object to output the results of the validation run.
    * @throws ParserConfigurationException
    * @throws ValidatorException
    * @throws TransformerConfigurationException
    */
   public Validator(String modelVersion, Report report)
-      throws ParserConfigurationException, ValidatorException,
-      TransformerConfigurationException {
+      throws ParserConfigurationException, ValidatorException, TransformerConfigurationException {
     this.report = report;
-    this.catalogs = new ArrayList<String>();
+    this.catalogs = new ArrayList<>();
     this.labelValidator = new LabelValidator();
     this.force = false;
     schemaValidator = new SchemaValidator();
   }
 
   /**
-   * Sets the schemas to use during validation. By default, the validation
-   * comes pre-loaded with schemas to use. This method would only be used
-   * in cases where the user wishes to use their own set of schemas for
-   * validation.
+   * Sets the schemas to use during validation. By default, the validation comes pre-loaded with
+   * schemas to use. This method would only be used in cases where the user wishes to use their own
+   * set of schemas for validation.
    *
    * @param schemaFiles A list of schema files.
    * @throws SAXException

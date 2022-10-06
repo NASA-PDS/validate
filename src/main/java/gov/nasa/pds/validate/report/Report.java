@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -29,12 +29,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 package gov.nasa.pds.validate.report;
-
-import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.validate.ProblemCategory;
-import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.validate.status.Status;
-import gov.nasa.pds.tools.util.Utility;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -51,32 +45,34 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.io.FilenameUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.ProblemCategory;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.validate.status.Status;
 
 /**
- * Abstract class that represents a Report for the Vtool command line API. This
- * class handles basic utilities for reporting and calling customized portions
- * of reports.
+ * Abstract class that represents a Report for the Vtool command line API. This class handles basic
+ * utilities for reporting and calling customized portions of reports.
  *
  * @author pramirez
  *
  */
 public abstract class Report {
   private static final Logger LOG = LoggerFactory.getLogger(Report.class);
-  private static String DEPRECATED_FLAG_WARNING_MSG = ("NOTE: The following flags have been deprecated. These options will no longer be supported after December 20, 2021.\n" +
-                                                    "      Update execution as soon as possible to avoid issues. Contact pds_operator@jpl.nasa.gov if you have issues.\n\n" +
-                                                    "      --force (-f)--model-version (-m) flags have been deprecated. \n" +
-                                                    "      The default behavior of the Validate Tool validates against the schemas and \n" +
-                                                    "      schematrons specified in a label.  \n\n" +
-                                                    "      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified \n" +
-                                                    "      schema and schematron.\n\n" +
-                                                    "      --no-check-data flag has been deprecated and replaced by --skip-content-validation to avoid confusion in naming " +
-                                                    "      of other flags. Please change software execution to use the new flag to avoid any issues.");
+  private static String DEPRECATED_FLAG_WARNING_MSG =
+      ("NOTE: The following flags have been deprecated. These options will no longer be supported after December 20, 2021.\n"
+          + "      Update execution as soon as possible to avoid issues. Contact pds_operator@jpl.nasa.gov if you have issues.\n\n"
+          + "      --force (-f)--model-version (-m) flags have been deprecated. \n"
+          + "      The default behavior of the Validate Tool validates against the schemas and \n"
+          + "      schematrons specified in a label.  \n\n"
+          + "      Please use -x and/or -S flag(s) to validate with the core PDS or user-specified \n"
+          + "      schema and schematron.\n\n"
+          + "      --no-check-data flag has been deprecated and replaced by --skip-content-validation to avoid confusion in naming "
+          + "      of other flags. Please change software execution to use the new flag to avoid any issues.");
 
   private boolean deprecatedFlagWarning;
   protected boolean integrityCheckFlag;
@@ -99,12 +95,11 @@ public abstract class Report {
   protected final List<String> configurations;
   protected PrintWriter writer;
   private ExceptionType level;
-  protected Map<String, Long> messageSummary; 
+  protected Map<String, Long> messageSummary;
 
   /**
-   * Default constructor to initialize report variables. Initializes default
-   * output to System.out if you wish to write the report to a different sourse
-   * use the appropriate setOutput method.
+   * Default constructor to initialize report variables. Initializes default output to System.out if
+   * you wish to write the report to a different sourse use the appropriate setOutput method.
    */
   public Report() {
     this.totalWarnings = 0;
@@ -121,31 +116,28 @@ public abstract class Report {
     this.numSkippedIntegrityChecks = 0;
     this.integrityCheckFlag = false;
     this.deprecatedFlagWarning = false;
-    this.parameters = new ArrayList<String>();
-    this.configurations = new ArrayList<String>();
+    this.parameters = new ArrayList<>();
+    this.configurations = new ArrayList<>();
     this.writer = new PrintWriter(new OutputStreamWriter(System.out));
-    this.messageSummary = new HashMap<String, Long>();
+    this.messageSummary = new HashMap<>();
     this.level = ExceptionType.WARNING;
   }
 
   /**
-   * Handles writing a Report to the writer interface. This is is useful if
-   * someone would like to put the contents of the Report to something such as
-   * {@link java.io.StringWriter}.
+   * Handles writing a Report to the writer interface. This is is useful if someone would like to
+   * put the contents of the Report to something such as {@link java.io.StringWriter}.
    *
-   * @param writer
-   *          which the report will be written to
+   * @param writer which the report will be written to
    */
   public void setOutput(Writer writer) {
     this.writer = new PrintWriter(writer);
   }
 
   /**
-   * Handle writing a Report to an {@link java.io.OutputStream}. This is useful
-   * to get the report to print to something such as System.out
+   * Handle writing a Report to an {@link java.io.OutputStream}. This is useful to get the report to
+   * print to something such as System.out
    *
-   * @param os
-   *          stream which the report will be written to
+   * @param os stream which the report will be written to
    */
   public void setOutput(OutputStream os) {
     this.setOutput(new OutputStreamWriter(os));
@@ -154,18 +146,16 @@ public abstract class Report {
   /**
    * Handles writing a Report to a {@link java.io.File}.
    *
-   * @param file
-   *          which the report will output to
-   * @throws IOException
-   *           if there is an issue in writing the report to the file
+   * @param file which the report will output to
+   * @throws IOException if there is an issue in writing the report to the file
    */
   public void setOutput(File file) throws IOException {
     this.setOutput(new FileWriter(file));
   }
 
   /**
-   * This method will display the default header for the Vtool command line
-   * library reports. This is the standard header across all reports.
+   * This method will display the default header for the Vtool command line library reports. This is
+   * the standard header across all reports.
    */
   public void printHeader() {
     writer.println();
@@ -185,24 +175,20 @@ public abstract class Report {
   }
 
   /**
-   * Adds the string supplied to the parameter section in the heading of the
-   * report.
+   * Adds the string supplied to the parameter section in the heading of the report.
    *
-   * @param parameter
-   *          in a string form that represents something that was passed in when
-   *          the tool was run
+   * @param parameter in a string form that represents something that was passed in when the tool
+   *        was run
    */
   public void addParameter(String parameter) {
     this.parameters.add(parameter);
   }
 
   /**
-   * Adds the string supplied to the configuration section in the heading of the
-   * report.
+   * Adds the string supplied to the configuration section in the heading of the report.
    *
-   * @param configuration
-   *          in a string form that represents a configuration that was used
-   *          during parsing and validation
+   * @param configuration in a string form that represents a configuration that was used during
+   *        parsing and validation
    */
   public void addConfiguration(String configuration) {
     this.configurations.add(configuration);
@@ -211,31 +197,27 @@ public abstract class Report {
   public void printHeader(String title) {
     printHeader(this.writer, title);
   }
-  
+
   /**
    * Allows a Report to customize the header portion of the Report if necessary.
    *
-   * @param writer
-   *          passed down to write header contents to
+   * @param writer passed down to write header contents to
    */
   protected abstract void printHeader(PrintWriter writer, String title);
 
   public Status record(URI sourceUri, final ValidationProblem problem) {
-      List<ValidationProblem> problems = new ArrayList<ValidationProblem>();
-      problems.add(problem);
-      LOG.debug("record:RECORDING_PROBLEM:sourceUri {}",sourceUri);
-      return record(sourceUri, problems);
+    List<ValidationProblem> problems = new ArrayList<>();
+    problems.add(problem);
+    LOG.debug("record:RECORDING_PROBLEM:sourceUri {}", sourceUri);
+    return record(sourceUri, problems);
   }
 
   /**
-   * Allows a report to change how they manage reporting on a given file that
-   * has been parsed and validated. Also handles generating a status for a file
-   * and generating some summary statistics.
+   * Allows a report to change how they manage reporting on a given file that has been parsed and
+   * validated. Also handles generating a status for a file and generating some summary statistics.
    *
-   * @param sourceUri
-   *          reference to the file that is being reported on
-   * @param problems
-   *          the set of issues found with the file. to be reported on
+   * @param sourceUri reference to the file that is being reported on
+   * @param problems the set of issues found with the file. to be reported on
    * @return status of the file (i.e. PASS, FAIL, or SKIP)
    */
   public Status record(URI sourceUri, final List<ValidationProblem> problems) {
@@ -243,13 +225,13 @@ public abstract class Report {
     int numWarnings = 0;
     int numInfos = 0;
     Status status = Status.PASS;
-    LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}",sourceUri,problems.size());
+    LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}", sourceUri, problems.size());
 
     // TODO: Handle null problems
     int ignoreFromProductCounts = 0;
     for (ValidationProblem problem : problems) {
-      if (problem.getProblem().getSeverity() == ExceptionType.ERROR ||
-         problem.getProblem().getSeverity() == ExceptionType.FATAL) {
+      if (problem.getProblem().getSeverity() == ExceptionType.ERROR
+          || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
           numErrors++;
           addToMessageSummary(problem.getProblem().getType().getKey());
@@ -269,11 +251,11 @@ public abstract class Report {
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
       }
-      
+
       // Check ProblemCategory to remove from product counts
       ProblemCategory category = problem.getProblem().getType().getProblemCategory();
       if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
-    	  ignoreFromProductCounts++;
+        ignoreFromProductCounts++;
       }
     }
     this.totalErrors += numErrors;
@@ -284,44 +266,48 @@ public abstract class Report {
       this.numFailed++;
       status = Status.FAIL;
 
-      LOG.debug("record:sourceUri {}",sourceUri);
+      LOG.debug("record:sourceUri {}", sourceUri);
 
-      // Note: If the value  of sourceUri is null, there will be a java.lang.NullPointerException below.
-      // Therefore, sourceUri must be checked against null-ness before calling toString() function.
+      // Note: If the value of sourceUri is null, there will be a
+      // java.lang.NullPointerException below.
+      // Therefore, sourceUri must be checked against null-ness before calling
+      // toString() function.
       if (sourceUri == null) {
-          LOG.error("record:sourceUri is null.  A NullPointerException exception will occur when sourceUri.toString() is called.  Cannot continue.  Must return with status {}",status);
-          return status;
-      } else {
-          LOG.debug("record:sourceUri.toString {}",sourceUri.toString());
+        LOG.error(
+            "record:sourceUri is null.  A NullPointerException exception will occur when sourceUri.toString() is called.  Cannot continue.  Must return with status {}",
+            status);
+        return status;
       }
+      LOG.debug("record:sourceUri.toString {}", sourceUri.toString());
 
       if (!Utility.isDir(sourceUri.toString())) {
-    	  if (!this.integrityCheckFlag) {
-    	      this.numFailedProds++;
-    	  } else {
-    	      this.numFailedIntegrityChecks++;
-    	  }
+        if (!this.integrityCheckFlag) {
+          this.numFailedProds++;
+        } else {
+          this.numFailedIntegrityChecks++;
+        }
       }
     } else {
       this.numPassed++;
       if (!Utility.isDir(sourceUri.toString())) {
-          if (!this.integrityCheckFlag) { 
-              this.numPassedProds++;
-          } else {
-              this.numPassedIntegrityChecks++;
-          }
+        if (!this.integrityCheckFlag) {
+          this.numPassedProds++;
+        } else {
+          this.numPassedIntegrityChecks++;
+        }
       }
     }
 
     this.numProducts++;
 
     this.totalProducts = this.numFailedProds + this.numPassedProds - ignoreFromProductCounts;
-    this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks + this.numSkippedIntegrityChecks;
+    this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks
+        + this.numSkippedIntegrityChecks;
     printRecordMessages(this.writer, status, sourceUri, problems);
     this.writer.flush();
     return status;
   }
-  
+
   private void addToMessageSummary(String type) {
     if (this.messageSummary.containsKey(type)) {
       long count = this.messageSummary.get(type).longValue();
@@ -330,12 +316,12 @@ public abstract class Report {
       this.messageSummary.put(type, new Long(1));
     }
   }
-  
+
   protected Map<String, Long> sortMessageSummary(Map<String, Long> messageSummary) {
-    List<Map.Entry<String, Long>> entries = new 
-        ArrayList<Map.Entry<String, Long>>(messageSummary.entrySet());
+    List<Map.Entry<String, Long>> entries = new ArrayList<>(messageSummary.entrySet());
     Collections.sort(entries, new Comparator<Map.Entry<String, Long>>() {
-      public int compare(Map.Entry<String, Long> a, Map.Entry<String, Long> b){
+      @Override
+      public int compare(Map.Entry<String, Long> a, Map.Entry<String, Long> b) {
         int result = 0;
         ExceptionType aKey = getExceptionType(a.getKey());
         ExceptionType bKey = getExceptionType(b.getKey());
@@ -357,37 +343,42 @@ public abstract class Report {
         return result;
       }
     });
-    Map<String, Long> sortedMap = new LinkedHashMap<String, Long>();
+    Map<String, Long> sortedMap = new LinkedHashMap<>();
     for (Map.Entry<String, Long> entry : entries) {
       sortedMap.put(entry.getKey(), entry.getValue());
     }
     return sortedMap;
   }
-  
+
   private ExceptionType getExceptionType(String type) {
     if (type.startsWith("error")) {
       return ExceptionType.ERROR;
-    } else if (type.startsWith("warning")) {
+    }
+    if (type.startsWith("warning")) {
       return ExceptionType.WARNING;
-    } else if (type.startsWith("info")) {
+    }
+    if (type.startsWith("info")) {
       return ExceptionType.INFO;
     } else {
       return ExceptionType.DEBUG;
     }
   }
-  
+
   public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
     this.numSkipped++;
-    LOG.debug("recordSkip:sourceUri,numSkipped {},{}",sourceUri,this.numSkipped);
-    LOG.debug("recordSkip:sourceUri,problem.getProblem().getSeverity().getValue(),this.level.getValue() {},{},{},{}",sourceUri, problem.getProblem().getSeverity().getValue(),
-              this.level.getValue(), (problem.getProblem().getSeverity().getValue() <= this.level.getValue()));
-    if (!Utility.isDir(sourceUri.toString())) { 
-        LOG.debug("recordSkip:sourceUri,integrityCheckFlag {},{}",sourceUri,this.integrityCheckFlag);
-        if (!this.integrityCheckFlag) { 
-            this.numSkippedProds++;
-        } else {
-            this.numSkippedIntegrityChecks++;
-        }
+    LOG.debug("recordSkip:sourceUri,numSkipped {},{}", sourceUri, this.numSkipped);
+    LOG.debug(
+        "recordSkip:sourceUri,problem.getProblem().getSeverity().getValue(),this.level.getValue() {},{},{},{}",
+        sourceUri, problem.getProblem().getSeverity().getValue(), this.level.getValue(),
+        (problem.getProblem().getSeverity().getValue() <= this.level.getValue()));
+    if (!Utility.isDir(sourceUri.toString())) {
+      LOG.debug("recordSkip:sourceUri,integrityCheckFlag {},{}", sourceUri,
+          this.integrityCheckFlag);
+      if (!this.integrityCheckFlag) {
+        this.numSkippedProds++;
+      } else {
+        this.numSkippedIntegrityChecks++;
+      }
     }
 
     printRecordSkip(this.writer, sourceUri, problem);
@@ -401,23 +392,17 @@ public abstract class Report {
   }
 
   /**
-   * Allows a report to customize how it handles reporting on a particular
-   * label.
+   * Allows a report to customize how it handles reporting on a particular label.
    *
-   * @param writer
-   *          passed on to write customized messages to
-   * @param sourceUri
-   *          reference to the file that is being reported on
-   * @param problems
-   *          which to report on for this source
+   * @param writer passed on to write customized messages to
+   * @param sourceUri reference to the file that is being reported on
+   * @param problems which to report on for this source
    */
-  protected abstract void printRecordMessages(PrintWriter writer,
-      final Status status, final URI sourceUri,
-      final List<ValidationProblem> problems);
+  protected abstract void printRecordMessages(PrintWriter writer, final Status status,
+      final URI sourceUri, final List<ValidationProblem> problems);
 
   /**
-   * Prints out the footer or the report and calls the customized footer
-   * section.
+   * Prints out the footer or the report and calls the customized footer section.
    */
   public void printFooter() {
     printFooter(writer);
@@ -433,16 +418,16 @@ public abstract class Report {
     writer.printf("    %-10d product(s) passed\n", this.numPassedProds);
     writer.printf("    %-10d product(s) failed\n", this.numFailedProds);
     writer.printf("    %-10d product(s) skipped\n", this.numSkippedProds);
-//    writer.println("  Total # of Product(s) processed:   " + getTotalProducts());
+    // writer.println(" Total # of Product(s) processed: " + getTotalProducts());
     writer.println();
     writer.println("  Referential Integrity Check Summary:");
     writer.printf("    %-10d check(s) passed\n", this.numPassedIntegrityChecks);
     writer.printf("    %-10d check(s) failed\n", this.numFailedIntegrityChecks);
     writer.printf("    %-10d check(s) skipped\n", this.numSkippedIntegrityChecks);
-//    writer.println("  Total # of Integrity Check(s) processed:   " + getTotalIntegrityChecks());
-    
+    // writer.println(" Total # of Integrity Check(s) processed: " + getTotalIntegrityChecks());
+
     writer.println();
-    
+
     if (!this.messageSummary.isEmpty()) {
       writer.println("  Message Types:");
       Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
@@ -455,10 +440,8 @@ public abstract class Report {
     }
     writer.println();
     writer.println("End of Report");
-    
-    
 
-	if (this.deprecatedFlagWarning) {
+    if (this.deprecatedFlagWarning) {
       writer.println();
       writer.println(DEPRECATED_FLAG_WARNING_MSG);
       writer.println();
@@ -469,8 +452,7 @@ public abstract class Report {
   /**
    * Allows customization of the footer section of the report
    *
-   * @param writer
-   *          passed on to writer customized footer contents
+   * @param writer passed on to writer customized footer contents
    */
   protected abstract void printFooter(PrintWriter writer);
 
@@ -497,20 +479,19 @@ public abstract class Report {
   public int getNumSkipped() {
     return this.numSkipped;
   }
-  
+
   public int getTotalProducts() {
-	return this.totalProducts;
+    return this.totalProducts;
   }
-  
+
   public int getTotalIntegrityChecks() {
-      return this.totalIntegrityChecks;
+    return this.totalIntegrityChecks;
   }
 
   /**
    *
-   * @return total number of errors that were found across all labels inspected.
-   *         Will not count errors generated from files that were considered
-   *         skipped.
+   * @return total number of errors that were found across all labels inspected. Will not count
+   *         errors generated from files that were considered skipped.
    */
   public int getTotalErrors() {
     return this.totalErrors;
@@ -518,9 +499,8 @@ public abstract class Report {
 
   /**
    *
-   * @return total number of warning that were found across all labels
-   *         inspected. Will not count warnings generated from files that were
-   *         considered skipped.
+   * @return total number of warning that were found across all labels inspected. Will not count
+   *         warnings generated from files that were considered skipped.
    */
   public int getTotalWarnings() {
     return this.totalWarnings;
@@ -528,9 +508,8 @@ public abstract class Report {
 
   /**
    *
-   * @return total number of info messages that were found across all labels
-   *         inspected. Will not count info messages from files that were
-   *         considered skipped.
+   * @return total number of info messages that were found across all labels inspected. Will not
+   *         count info messages from files that were considered skipped.
    */
   public int getTotalInfos() {
     return this.totalInfos;
@@ -551,20 +530,18 @@ public abstract class Report {
   public boolean hasWarnings() {
     return (this.totalWarnings > 0) ? true : false;
   }
-  
+
   /**
    * Enables deprecation warning message when deprecated CLI flags are used
    */
   public void enableDeprecatedFlagWarning() {
-      this.deprecatedFlagWarning = true;
-    }
+    this.deprecatedFlagWarning = true;
+  }
 
   /**
-   * Anything at or above the level will be reported. Default ExceptionType level is
-   * info and above
+   * Anything at or above the level will be reported. Default ExceptionType level is info and above
    *
-   * @param ExceptionType
-   *          level on which items will be reported
+   * @param ExceptionType level on which items will be reported
    */
   public void setLevel(ExceptionType ExceptionType) {
     this.level = ExceptionType;
@@ -572,13 +549,13 @@ public abstract class Report {
 
   /**
    *
-   * @return ExceptionType level of items that will be reported on. Anything at or
-   *         above this level will be reported on
+   * @return ExceptionType level of items that will be reported on. Anything at or above this level
+   *         will be reported on
    */
   public ExceptionType getLevel() {
     return this.level;
   }
-  
+
   public String getType(String systemId) {
     String type = "Fragment";
     String extension = FilenameUtils.getExtension(systemId);

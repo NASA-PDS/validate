@@ -13,75 +13,74 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import gov.nasa.pds.tools.label.ExceptionType;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import gov.nasa.pds.tools.label.ExceptionType;
 
 /**
  * Implements a problem listener that accumulates problems in a list.
  */
 public class ProblemContainer implements ProblemListener {
 
-	private List<ValidationProblem> problems = new ArrayList<ValidationProblem>();
+  private List<ValidationProblem> problems = new ArrayList<>();
 
   private int errorCount;
   private int fatalCount;
   private int warningCount;
   private int infoCount;
 
-	@Override
-	public void addProblem(ValidationProblem problem) {
-		problems.add(problem);
+  @Override
+  public void addProblem(ValidationProblem problem) {
+    problems.add(problem);
 
     switch (problem.getProblem().getSeverity()) {
-    case INFO:
-      ++infoCount;
-      break;
-    case WARNING:
-      ++warningCount;
-      break;
-    case FATAL:
-      ++fatalCount;
-    default:
-      ++errorCount;
-      break;
+      case INFO:
+        ++infoCount;
+        break;
+      case WARNING:
+        ++warningCount;
+        break;
+      case FATAL:
+        ++fatalCount;
+      default:
+        ++errorCount;
+        break;
     }
-	}
-	
-	public void addLocation(String location) {
-	  //TODO
-	}
-	
-	
-	/**
-	 * Gets the problems encountered.
-	 *
-	 * @return the problems
-	 */
-	public List<ValidationProblem> getProblems() {
-		return problems;
-	}
+  }
 
-	/**
-	 * Gets the number of problems reported.
-	 *
-	 * @return the count of problems
-	 */
-	public int getProblemCount() {
-		return problems.size();
-	}
+  @Override
+  public void addLocation(String location) {
+    // TODO
+  }
 
-	/**
-	 * Clears all problems.
-	 */
-	public void clear() {
+  /**
+   * Gets the problems encountered.
+   *
+   * @return the problems
+   */
+  public List<ValidationProblem> getProblems() {
+    return problems;
+  }
+
+  /**
+   * Gets the number of problems reported.
+   *
+   * @return the count of problems
+   */
+  public int getProblemCount() {
+    return problems.size();
+  }
+
+  /**
+   * Clears all problems.
+   */
+  public void clear() {
     problems.clear();
     errorCount = 0;
     warningCount = 0;
     infoCount = 0;
-	}
+  }
 
   @Override
   public int getErrorCount() {
@@ -91,19 +90,17 @@ public class ProblemContainer implements ProblemListener {
   public Boolean hasError() {
     if (errorCount > 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
-  
+
   public Boolean hasFatal() {
     if (fatalCount > 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
-  
+
   @Override
   public int getWarningCount() {
     return warningCount;
@@ -112,32 +109,30 @@ public class ProblemContainer implements ProblemListener {
   public Boolean hasWarning() {
     if (warningCount > 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
-  
+
   @Override
   public int getInfoCount() {
     return infoCount;
   }
-  
+
   public Boolean hasInfo() {
     if (infoCount > 0) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   @Override
-  public Collection<ValidationProblem> getProblemsForLocation(
-          String location, boolean includeChildren) {
-    Collection<ValidationProblem> foundProblems = new ArrayList<ValidationProblem>();
+  public Collection<ValidationProblem> getProblemsForLocation(String location,
+      boolean includeChildren) {
+    Collection<ValidationProblem> foundProblems = new ArrayList<>();
 
     for (ValidationProblem problem : problems) {
       if (problem.getTarget().getLocation().equals(location)
-        || (includeChildren && problem.getTarget().getLocation().startsWith(location))) {
+          || (includeChildren && problem.getTarget().getLocation().startsWith(location))) {
         foundProblems.add(problem);
       }
     }
@@ -149,7 +144,7 @@ public class ProblemContainer implements ProblemListener {
   public boolean hasProblems(String location, boolean includeChildren) {
     for (ValidationProblem problem : problems) {
       if ((includeChildren && problem.getTarget().getLocation().startsWith(location))
-        || problem.getTarget().getLocation().equals(location)) {
+          || problem.getTarget().getLocation().equals(location)) {
         return true;
       }
     }
@@ -163,7 +158,7 @@ public class ProblemContainer implements ProblemListener {
 
     for (ValidationProblem problem : problems) {
       if ((includeChildren && problem.getTarget().getLocation().startsWith(location))
-        || problem.getTarget().getLocation().equals(location)) {
+          || problem.getTarget().getLocation().equals(location)) {
         if (problem.getProblem().getSeverity().compareTo(severity) > 0) {
           severity = problem.getProblem().getSeverity();
         }

@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -31,8 +31,7 @@
 package gov.nasa.pds.validate.XPath;
 
 /**
- * Interface containing XPaths used to extract core information
- * from a PDS4 data product label.
+ * Interface containing XPaths used to extract core information from a PDS4 data product label.
  *
  * @author mcayanan
  *
@@ -62,22 +61,19 @@ public interface CoreXPaths {
   public static final String FIELD_DELIMITER = "//Inventory/field_delimiter";
 
   /**
-   * XPath to determine the field location of the member status field in the
-   * inventory table.
+   * XPath to determine the field location of the member status field in the inventory table.
    */
   public static final String MEMBER_STATUS_FIELD_NUMBER =
-    "//Inventory/Record_Delimited/Field_Delimited[name='Member_Status' or name='Member Status']/field_number";
+      "//Inventory/Record_Delimited/Field_Delimited[name='Member_Status' or name='Member Status']/field_number";
 
   /**
-   * XPath to determine the field location of the LID-LIDVID field in the
-   * inventory table.
+   * XPath to determine the field location of the LID-LIDVID field in the inventory table.
    */
   public static final String LIDVID_LID_FIELD_NUMBER =
-    "//Inventory/Record_Delimited/Field_Delimited[data_type='ASCII_LIDVID_LID']/field_number";
+      "//Inventory/Record_Delimited/Field_Delimited[data_type='ASCII_LIDVID_LID']/field_number";
 
   /** XPath to the external table file of a collection. */
-  public static final String DATA_FILE = "//*[starts-with(name(),"
-    + "'File_Area')]/File/file_name";
+  public static final String DATA_FILE = "//*[starts-with(name()," + "'File_Area')]/File/file_name";
 
   /** XPath to grab the Member_Entry tags in a bundle. */
   public final static String BUNDLE_MEMBER_ENTRY = "//Bundle_Member_Entry";
@@ -89,7 +85,6 @@ public interface CoreXPaths {
   public static final String MEMBER_STATUS = "member_status";
 
   /** The LID-VID or LID XPath for an association. */
-  public static final String IDENTITY_REFERENCE =
-      "lidvid_reference | lid_reference";
+  public static final String IDENTITY_REFERENCE = "lidvid_reference | lid_reference";
 
 }

@@ -1,11 +1,11 @@
 package gov.nasa.pds.tools.util;
 
-import java.util.Arrays;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.net.URL;
 
 /*--->
 import java.io.File;
@@ -42,61 +42,71 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FileReferencedMapList { 
+public class FileReferencedMapList {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileReferencedMapList.class);
+  private static final Logger LOG = LoggerFactory.getLogger(FileReferencedMapList.class);
 
-    // Class to hold a map of every labels that referenced a physical file.
-    // If a file is referenced by more than one label, an error should be thrown.
-    class FileReferencedMap {
-        private URL url = null;
-        private List<String> labelNames = new ArrayList<String>();
+  // Class to hold a map of every labels that referenced a physical file.
+  // If a file is referenced by more than one label, an error should be thrown.
+  class FileReferencedMap {
+    private URL url = null;
+    private List<String> labelNames = new ArrayList<>();
 
-        public FileReferencedMap(URL url) {
-            this.url = url;
-        }
-        public void setLabels(String labelName) {
-            this.labelNames.add(labelName);
-        }
-        public List<String> getLabels() {
-           return(this.labelNames);
-        }
-        public String toString() {
-          return(Arrays.toString(labelNames.toArray()));
-        }
-        public int getNumLabelsReferencedFile() {
-            return(this.labelNames.size());
-        }
+    public FileReferencedMap(URL url) {
+      this.url = url;
     }
 
-    private Map<URL,FileReferencedMap> fileReferencedMaps = new HashMap<URL,FileReferencedMap>();
+    public void setLabels(String labelName) {
+      this.labelNames.add(labelName);
+    }
 
-    public FileReferencedMap setLabels(URL url, String labelName) {
-        FileReferencedMap fileReferencedMap = fileReferencedMaps.get(url);
-        if (fileReferencedMap != null) {
-            // If fileReferencedMaps does contain an existing, url, add the labelName to the existing list.
-            fileReferencedMap.setLabels(labelName);
-            fileReferencedMaps.put(url,fileReferencedMap);
-        } else {
-            // If fileReferencedMaps does not contain an existing, url, create a new FileReferencedMap and add labelName to the new empty list.
-            fileReferencedMap = new FileReferencedMap(url);
-            fileReferencedMap.setLabels(labelName);
-            fileReferencedMaps.put(url,fileReferencedMap);
-        }
-        LOG.debug("FileReferencedMapList:url,fileReferencedMap.toString() {},{}",url,fileReferencedMap.toString());
-        LOG.debug("FileReferencedMapList:url,getNumLabelsReferencedFile() {},{}",url,fileReferencedMap.getNumLabelsReferencedFile());
-//        if (fileReferencedMap.getNumLabelsReferencedFile() > 1) {
-//            LOG.error("File " + url.toString() + "  is referenced by more than one labels " + fileReferencedMap.toString());
-//            System.exit(1);
-//        }
-        return(fileReferencedMap);
+    public List<String> getLabels() {
+      return (this.labelNames);
     }
-    public List<String> getLabels(URL url) {
-        FileReferencedMap fileReferencedMap = fileReferencedMaps.get(url);
-        if (fileReferencedMap != null) {
-            return(fileReferencedMap.getLabels());
-        } else {
-            return(new ArrayList<String>());
-        }
+
+    @Override
+    public String toString() {
+      return (Arrays.toString(labelNames.toArray()));
     }
+
+    public int getNumLabelsReferencedFile() {
+      return (this.labelNames.size());
+    }
+  }
+
+  private Map<URL, FileReferencedMap> fileReferencedMaps = new HashMap<>();
+
+  public FileReferencedMap setLabels(URL url, String labelName) {
+    FileReferencedMap fileReferencedMap = fileReferencedMaps.get(url);
+    if (fileReferencedMap != null) {
+      // If fileReferencedMaps does contain an existing, url, add the labelName to the
+      // existing list.
+      fileReferencedMap.setLabels(labelName);
+      fileReferencedMaps.put(url, fileReferencedMap);
+    } else {
+      // If fileReferencedMaps does not contain an existing, url, create a new
+      // FileReferencedMap and add labelName to the new empty list.
+      fileReferencedMap = new FileReferencedMap(url);
+      fileReferencedMap.setLabels(labelName);
+      fileReferencedMaps.put(url, fileReferencedMap);
+    }
+    LOG.debug("FileReferencedMapList:url,fileReferencedMap.toString() {},{}", url,
+        fileReferencedMap.toString());
+    LOG.debug("FileReferencedMapList:url,getNumLabelsReferencedFile() {},{}", url,
+        fileReferencedMap.getNumLabelsReferencedFile());
+    // if (fileReferencedMap.getNumLabelsReferencedFile() > 1) {
+    // LOG.error("File " + url.toString() + " is referenced by more than one labels " +
+    // fileReferencedMap.toString());
+    // System.exit(1);
+    // }
+    return (fileReferencedMap);
+  }
+
+  public List<String> getLabels(URL url) {
+    FileReferencedMap fileReferencedMap = fileReferencedMaps.get(url);
+    if (fileReferencedMap != null) {
+      return (fileReferencedMap.getLabels());
+    }
+    return (new ArrayList<>());
+  }
 }

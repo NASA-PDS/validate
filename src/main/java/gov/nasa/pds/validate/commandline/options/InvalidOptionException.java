@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -31,22 +31,22 @@
 package gov.nasa.pds.validate.commandline.options;
 
 /**
- * An exception that gets thrown when there are problems processing the
- * arguments set on the command-line.
+ * An exception that gets thrown when there are problems processing the arguments set on the
+ * command-line.
  *
  * @author mcayanan
  *
  */
 public class InvalidOptionException extends Exception {
-    private static final long serialVersionUID = -5439038812448365813L;
+  private static final long serialVersionUID = -5439038812448365813L;
 
-    /**
-     * Constructor.
-     *
-     * @param msg A message.
-     */
-    public InvalidOptionException(String msg) {
-        super(msg);
-    }
+  /**
+   * Constructor.
+   *
+   * @param msg A message.
+   */
+  public InvalidOptionException(String msg) {
+    super(msg);
+  }
 
 }

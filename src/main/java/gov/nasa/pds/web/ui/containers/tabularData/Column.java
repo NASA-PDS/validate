@@ -1,219 +1,217 @@
 package gov.nasa.pds.web.ui.containers.tabularData;
 
+import java.util.ArrayList;
+import java.util.List;
 import gov.nasa.pds.tools.label.ObjectStatement;
 import gov.nasa.pds.web.ui.containers.ColumnInfo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Column {
 
-	//Data elements in general
-	private String name;
-	private int index;
-	private final List<Element> elements = new ArrayList<Element>();
-	private final String description;
-	private final Integer itemOffset;
-	private final String missingConstant;
-	private ObjectStatement columnDef;
-	
-	//Data elements for Column Data Objects
-	private String dataType;
-	private final Integer bytes;
-	private final Integer startByte;
-	private final String format;
-	private final Integer numItems;
-	private final Integer itemBytes;
+  // Data elements in general
+  private String name;
+  private int index;
+  private final List<Element> elements = new ArrayList<>();
+  private final String description;
+  private final Integer itemOffset;
+  private final String missingConstant;
+  private ObjectStatement columnDef;
 
-	//Data elements for Bit column elements
-	private final Integer bits;
-	private final Integer startBit;
-	private final Integer itemBits;
-	
-	//Data element for Field
-	private final Integer fieldNumber;
-	
-	// PDS4 specific
-	private final String unit;
-	private final Double scalingFactor;
-	private final Double valueOffset;
-	private final Integer stopBit;
+  // Data elements for Column Data Objects
+  private String dataType;
+  private final Integer bytes;
+  private final Integer startByte;
+  private final String format;
+  private final Integer numItems;
+  private final Integer itemBytes;
 
-	public Column(final int index) {
-		this.index = index;
-		this.name = null;
-		this.dataType = null;
-		this.description = null;
-		this.bytes = null;
-		this.startByte = null;
-		this.format = null;
-		this.numItems = null; 
-		this.itemBytes = null;
-		this.missingConstant = null;
-		this.itemOffset = null;
-		this.bits = null;
-		this.startBit = null;
-		this.itemBits = null;
-		this.fieldNumber = null;
-		this.unit = null;
-		this.scalingFactor = null;
-		this.valueOffset = null;
-		this.stopBit = null;
-	}
+  // Data elements for Bit column elements
+  private final Integer bits;
+  private final Integer startBit;
+  private final Integer itemBits;
 
-	public Column(final ColumnInfo columnInfo, final int currentSize) {
-		this.columnDef = columnInfo.getColumnDef();
-		this.index = columnInfo.getIndex() == null ? currentSize : columnInfo
-				.getIndex();
-		this.name = columnInfo.getName();
-		this.dataType = columnInfo.getType();
-		this.description = columnInfo.getDescription();
-		this.bytes = columnInfo.getBytes();
-		this.startByte = columnInfo.getStartByte();
-		this.format = columnInfo.getFormat();
-		this.numItems = columnInfo.getNumItems();
-		this.itemBytes = columnInfo.getItemBytes();
-		this.missingConstant = columnInfo.getMissingConstant();
-		this.itemOffset = columnInfo.getItemOffset();
-		this.bits = columnInfo.getBits();
-		this.startBit = columnInfo.getStartBit();
-		this.itemBits = columnInfo.getItemBits();
-		this.fieldNumber = columnInfo.getFieldNumber();
-		this.unit = columnInfo.getUnit();
-		this.scalingFactor = columnInfo.getScalingFactor();
-		this.valueOffset = columnInfo.getValueOffset();
-		this.stopBit = columnInfo.getStopBit();
-	}
+  // Data element for Field
+  private final Integer fieldNumber;
 
-	public Column() {
-		this(0);
-	}
+  // PDS4 specific
+  private final String unit;
+  private final Double scalingFactor;
+  private final Double valueOffset;
+  private final Integer stopBit;
 
-	private Column(final Column column) {
-		this.columnDef = column.getColumnDef();
-		this.index = column.getIndex();
-		this.name = column.getName();
-		this.dataType = column.getDataType();
-		this.description = column.getDescription();
-		this.bytes = column.getBytes();
-		this.startByte = column.getStartByte();
-		this.format = column.getFormat();
-		this.numItems = column.getNumItems();
-		this.itemBytes = column.getItemBytes();
-		this.missingConstant = column.getMissingConstant();
-		this.itemOffset = column.getItemOffset();
-		this.bits = column.getBits();
-		this.startBit = column.getStartBit();
-		this.itemBits = column.getItemBits();
-		this.fieldNumber = column.getFieldNumber();
-		this.unit = column.getUnit();
-		this.scalingFactor = column.getScalingFactor();
-		this.valueOffset = column.getValueOffset();
-		this.stopBit = column.getStopBit();
-	}
+  public Column(final int index) {
+    this.index = index;
+    this.name = null;
+    this.dataType = null;
+    this.description = null;
+    this.bytes = null;
+    this.startByte = null;
+    this.format = null;
+    this.numItems = null;
+    this.itemBytes = null;
+    this.missingConstant = null;
+    this.itemOffset = null;
+    this.bits = null;
+    this.startBit = null;
+    this.itemBits = null;
+    this.fieldNumber = null;
+    this.unit = null;
+    this.scalingFactor = null;
+    this.valueOffset = null;
+    this.stopBit = null;
+  }
 
-	@Override
-	public Column clone() {
-		return new Column(this);
-	}
+  public Column(final ColumnInfo columnInfo, final int currentSize) {
+    this.columnDef = columnInfo.getColumnDef();
+    this.index = columnInfo.getIndex() == null ? currentSize : columnInfo.getIndex();
+    this.name = columnInfo.getName();
+    this.dataType = columnInfo.getType();
+    this.description = columnInfo.getDescription();
+    this.bytes = columnInfo.getBytes();
+    this.startByte = columnInfo.getStartByte();
+    this.format = columnInfo.getFormat();
+    this.numItems = columnInfo.getNumItems();
+    this.itemBytes = columnInfo.getItemBytes();
+    this.missingConstant = columnInfo.getMissingConstant();
+    this.itemOffset = columnInfo.getItemOffset();
+    this.bits = columnInfo.getBits();
+    this.startBit = columnInfo.getStartBit();
+    this.itemBits = columnInfo.getItemBits();
+    this.fieldNumber = columnInfo.getFieldNumber();
+    this.unit = columnInfo.getUnit();
+    this.scalingFactor = columnInfo.getScalingFactor();
+    this.valueOffset = columnInfo.getValueOffset();
+    this.stopBit = columnInfo.getStopBit();
+  }
 
-	protected void addElement(final Element element) {
-		this.elements.add(element);
-	}
+  public Column() {
+    this(0);
+  }
 
-	public String getName() {
-		return this.name;
-	}
+  private Column(final Column column) {
+    this.columnDef = column.getColumnDef();
+    this.index = column.getIndex();
+    this.name = column.getName();
+    this.dataType = column.getDataType();
+    this.description = column.getDescription();
+    this.bytes = column.getBytes();
+    this.startByte = column.getStartByte();
+    this.format = column.getFormat();
+    this.numItems = column.getNumItems();
+    this.itemBytes = column.getItemBytes();
+    this.missingConstant = column.getMissingConstant();
+    this.itemOffset = column.getItemOffset();
+    this.bits = column.getBits();
+    this.startBit = column.getStartBit();
+    this.itemBits = column.getItemBits();
+    this.fieldNumber = column.getFieldNumber();
+    this.unit = column.getUnit();
+    this.scalingFactor = column.getScalingFactor();
+    this.valueOffset = column.getValueOffset();
+    this.stopBit = column.getStopBit();
+  }
 
-	public void setName(final String name) {
-		this.name = name;
-	}
+  @Override
+  public Column clone() {
+    return new Column(this);
+  }
 
-	public int getIndex() {
-		return this.index;
-	}
+  protected void addElement(final Element element) {
+    this.elements.add(element);
+  }
 
-	public void setIndex(int index) {
-		this.index = index;
-	}
+  public String getName() {
+    return this.name;
+  }
 
-	public String getDataType() {
-		return this.dataType;
-	}
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public void setDataType(final String dataType) {
-		this.dataType = dataType;
-	}
+  public int getIndex() {
+    return this.index;
+  }
 
-	public String getDescription() {
-		return this.description;
-	}
+  public void setIndex(int index) {
+    this.index = index;
+  }
 
-	public List<Element> getElements() {
-		return this.elements;
-	}
+  public String getDataType() {
+    return this.dataType;
+  }
 
-	public Integer getBytes() {
-		return this.bytes;
-	}
+  public void setDataType(final String dataType) {
+    this.dataType = dataType;
+  }
 
-	public Integer getStartByte() {
-		return this.startByte;
-	}
+  public String getDescription() {
+    return this.description;
+  }
 
-	public String getFormat() {
-		return this.format;
-	}
+  public List<Element> getElements() {
+    return this.elements;
+  }
 
-	public Integer getNumItems() {
-		return this.numItems;
-	}
+  public Integer getBytes() {
+    return this.bytes;
+  }
 
-	public Integer getItemBytes() {
-		return this.itemBytes;
-	}
+  public Integer getStartByte() {
+    return this.startByte;
+  }
 
-	public Integer getItemOffset() {
-		return this.itemOffset;
-	}
+  public String getFormat() {
+    return this.format;
+  }
 
-	public String getMissingConstant() {
-		return this.missingConstant;
-	}
-	
-	public Integer getBits() {
-		return this.bits;
-	}
-	
-	public Integer getStartBit() {
-		return this.startBit;
-	}
-	
-	public Integer getItemBits() {
-		return this.itemBits;
-	}
-	
-	public Integer getFieldNumber() {
-		return this.fieldNumber;
-	}
-	
-	protected ObjectStatement getColumnDef() {
-		return this.columnDef;
-	}
-	
-	public String getUnit() {
-		return this.unit;
-	}
+  public Integer getNumItems() {
+    return this.numItems;
+  }
 
-	public Double getScalingFactor() {
-		return this.scalingFactor;
-	}
+  public Integer getItemBytes() {
+    return this.itemBytes;
+  }
 
-	public Double getValueOffset() {
-		return this.valueOffset;
-	}
+  public Integer getItemOffset() {
+    return this.itemOffset;
+  }
 
-	public Integer getStopBit() {
-		return this.stopBit;
-	}
+  public String getMissingConstant() {
+    return this.missingConstant;
+  }
+
+  public Integer getBits() {
+    return this.bits;
+  }
+
+  public Integer getStartBit() {
+    return this.startBit;
+  }
+
+  public Integer getItemBits() {
+    return this.itemBits;
+  }
+
+  public Integer getFieldNumber() {
+    return this.fieldNumber;
+  }
+
+  protected ObjectStatement getColumnDef() {
+    return this.columnDef;
+  }
+
+  public String getUnit() {
+    return this.unit;
+  }
+
+  public Double getScalingFactor() {
+    return this.scalingFactor;
+  }
+
+  public Double getValueOffset() {
+    return this.valueOffset;
+  }
+
+  public Integer getStopBit() {
+    return this.stopBit;
+  }
 }

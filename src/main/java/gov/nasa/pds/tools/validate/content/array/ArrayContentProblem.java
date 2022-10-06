@@ -15,7 +15,6 @@ package gov.nasa.pds.tools.validate.content.array;
 
 import java.net.URL;
 import java.util.Arrays;
-
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -23,7 +22,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 
 /**
  * Class that stores problems related to Array data objects.
- * 
+ *
  * @author mcayanan
  *
  */
@@ -31,7 +30,7 @@ public class ArrayContentProblem extends ContentProblem {
 
   private Integer array;
   private int[] location;
-  
+
   /**
    * Constructor.
    * 
@@ -43,17 +42,12 @@ public class ArrayContentProblem extends ContentProblem {
    * @param array The index of the array associated with this message.
    * @param location The location associated with the message.
    */
-  public ArrayContentProblem(ExceptionType exceptionType, 
-      ProblemType problemType, String message, URL source, URL label,
-      int array, int[] location) {
-    this(
-        new ProblemDefinition(exceptionType, problemType, message), 
-        source, 
-        label, 
-        array, 
+  public ArrayContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+      URL source, URL label, int array, int[] location) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, array,
         location);
   }
-  
+
   /**
    * Constructor.
    * 
@@ -63,8 +57,8 @@ public class ArrayContentProblem extends ContentProblem {
    * @param array The index of the array associated with this message.
    * @param location The location associated with the message.
    */
-  public ArrayContentProblem(ProblemDefinition defn, URL source,
-      URL label, int array, int[] location) {
+  public ArrayContentProblem(ProblemDefinition defn, URL source, URL label, int array,
+      int[] location) {
     super(defn, source, label);
     this.array = array;
     if (location != null) {
@@ -73,18 +67,17 @@ public class ArrayContentProblem extends ContentProblem {
       this.location = null;
     }
   }
-  
+
   /**
    * Constructor.
    * 
    * @param defn The problem definition.
    * @param source The url of the data file associated with this message.
    */
-  public ArrayContentProblem(ProblemDefinition defn, 
-      URL source) {
+  public ArrayContentProblem(ProblemDefinition defn, URL source) {
     this(defn, source, null, -1, null);
   }
-  
+
   /**
    * @return the index of the array.
    */

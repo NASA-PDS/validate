@@ -17,23 +17,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 import java.net.URL;
-import java.nio.channels.FileChannel;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import com.opencsv.exceptions.CsvValidationException;
 import gov.nasa.pds.label.object.RecordLocation;
 import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.FixedTableRecord;
 import gov.nasa.pds.objectAccess.TableReader;
 
-import com.opencsv.exceptions.CsvValidationException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Table reader that provides the capability to read a table
- * line by line rather than record by record, which is more
- * strict as it relies on the label metadata.
- * 
+ * Table reader that provides the capability to read a table line by line rather than record by
+ * record, which is more strict as it relies on the label metadata.
+ *
  * @author mcayanan
  *
  */
@@ -42,17 +37,17 @@ public class RawTableReader extends TableReader {
 
   /** The data file. */
   private URL dataFile;
-  
+
   /** The label associated with the table. */
   private URL label;
-  
+
   /** The index of the table. */
   private int table;
-  
+
   private int nextCh = SOL;
-  
+
   private static final int SOL = -10;
-    
+
   /**
    * Constructor.
    * 
@@ -63,8 +58,8 @@ public class RawTableReader extends TableReader {
    * @param readEntireFile Set to 'true' to read in entire data file.
    * @throws Exception If table offset is null.
    */
-  public RawTableReader(Object table, URL dataFile, 
-      URL label, int tableIndex, boolean readEntireFile) throws Exception {
+  public RawTableReader(Object table, URL dataFile, URL label, int tableIndex,
+      boolean readEntireFile) throws Exception {
     super(table, dataFile, false, readEntireFile);
     this.dataFile = dataFile;
     this.label = label;
@@ -79,17 +74,17 @@ public class RawTableReader extends TableReader {
    * @param label The label.
    * @param tableIndex The index of the table.
    * @param readEntireFile Set to 'true' to read in entire data file.
-   * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes. 
+   * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes.
    * @throws Exception If table offset is null.
    */
-  public RawTableReader(Object table, URL dataFile, 
-      URL label, int tableIndex, boolean readEntireFile, boolean keepQuotationsFlag) throws Exception {
+  public RawTableReader(Object table, URL dataFile, URL label, int tableIndex,
+      boolean readEntireFile, boolean keepQuotationsFlag) throws Exception {
     super(table, dataFile, false, readEntireFile, keepQuotationsFlag);
     this.dataFile = dataFile;
     this.label = label;
     this.table = tableIndex;
   }
-  
+
   /**
    * Constructor.
    * 
@@ -99,18 +94,19 @@ public class RawTableReader extends TableReader {
    * @param tableIndex The index of the table.
    * @param readEntireFile Set to 'true' to read in entire data file.
    * @param keepQuotationsFlag Flag to optionally preserve the leading and trailing quotes.
-   * @param fileChannel file channel stream used for ByteWideFileAccessor 
-   * @param inputStream input stream of the file used for CSVReader 
+   * @param fileChannel file channel stream used for ByteWideFileAccessor
+   * @param inputStream input stream of the file used for CSVReader
    * @throws Exception If table offset is null.
    */
-  public RawTableReader(Object table, URL dataFile, URL label, int tableIndex, boolean readEntireFile,
-		boolean keepQuotationsFlag, RandomAccessFile raf, InputStream inputStream) throws Exception {
+  public RawTableReader(Object table, URL dataFile, URL label, int tableIndex,
+      boolean readEntireFile, boolean keepQuotationsFlag, RandomAccessFile raf,
+      InputStream inputStream) throws Exception {
     super(table, dataFile, false, readEntireFile, keepQuotationsFlag, raf, inputStream);
     this.dataFile = dataFile;
     this.label = label;
     this.table = tableIndex;
   }
-  
+
   /**
    * Previews the next line in the data file.
    * 
@@ -129,8 +125,8 @@ public class RawTableReader extends TableReader {
       boolean newLine = false;
       boolean eof = false;
       while (!newLine && !eof) {
-        if (nextCh != -10){
-          lineBuffer.append((char)nextCh);
+        if (nextCh != -10) {
+          lineBuffer.append((char) nextCh);
         }
         nextCh = -10;
         if (accessor.hasRemaining()) {
@@ -154,20 +150,20 @@ public class RawTableReader extends TableReader {
                 nextCh = -1;
               }
               break;
-              
+
             case '\n':
               lineBuffer.append("\n");
               newLine = true;
               break;
-            
+
             case -1:
               eof = true;
               nextCh = -1;
               break;
-            
+
             default:
-              if (ch != -1) { 
-                lineBuffer.append((char)ch);
+              if (ch != -1) {
+                lineBuffer.append((char) ch);
               }
           }
         } else {
@@ -179,17 +175,17 @@ public class RawTableReader extends TableReader {
         line = lineBuffer.toString();
         setCurrentRow(getCurrentRow() + 1);
       }
-    } 
+    }
 
     if (line != null) {
-        LOG.debug("readNextLine:line:{},[{}]",line.length(),line);
+      LOG.debug("readNextLine:line:{},[{}]", line.length(), line);
     } else {
-        LOG.debug("readNextLine:line is null");
+      LOG.debug("readNextLine:line is null");
     }
 
     return line;
   }
-  
+
   /**
    * Converts the given line to a record.
    * 
@@ -201,29 +197,29 @@ public class RawTableReader extends TableReader {
   public FixedTableRecord toRecord(String line, long row) {
     FixedTableRecord record = null;
     record = new FixedTableRecord(line.getBytes(), getFieldMap(), getFields());
-    record.setLocation(new RecordLocation(label, dataFile, 
-        table, row));
+    record.setLocation(new RecordLocation(label, dataFile, table, row));
     return record;
   }
-  
+
   /**
    * Reads the next record in the table.
    * 
    * @return a table record, with the location set.
    */
+  @Override
   public TableRecord readNext() throws IOException {
-   try {
-    TableRecord record = super.readNext();
-    if (record != null) {
-      record.setLocation(getLocation());
+    try {
+      TableRecord record = super.readNext();
+      if (record != null) {
+        record.setLocation(getLocation());
+      }
+      return record;
+    } catch (CsvValidationException ex) {
+      LOG.error("Function readNext() has failed");
+      throw new IOException(ex.getMessage());
     }
-    return record;
-   } catch (CsvValidationException ex) {
-     LOG.error("Function readNext() has failed");
-     throw new IOException(ex.getMessage());
-   }
   }
-  
+
   /**
    * Gets a record in the table.
    * 
@@ -231,24 +227,24 @@ public class RawTableReader extends TableReader {
    * 
    * @return a table record, with the location set.
    */
-  public TableRecord getRecord(long index, boolean keepQuotationsFlag) 
+  @Override
+  public TableRecord getRecord(long index, boolean keepQuotationsFlag)
       throws IllegalArgumentException, IOException {
-   try {
-    TableRecord record = super.getRecord(index,keepQuotationsFlag);
-    record.setLocation(getLocation());
-    return record;
-   } catch (CsvValidationException ex) {
-     LOG.error("Function getRecord has failed");
-     throw new IOException(ex.getMessage());
-   }
+    try {
+      TableRecord record = super.getRecord(index, keepQuotationsFlag);
+      record.setLocation(getLocation());
+      return record;
+    } catch (CsvValidationException ex) {
+      LOG.error("Function getRecord has failed");
+      throw new IOException(ex.getMessage());
+    }
   }
-  
+
   /**
    * 
    * @return the location of the record.
    */
   private RecordLocation getLocation() {
-    return new RecordLocation(label, dataFile, 
-        table, getCurrentRow());
+    return new RecordLocation(label, dataFile, table, getCurrentRow());
   }
 }

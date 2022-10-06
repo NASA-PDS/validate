@@ -18,11 +18,10 @@ import java.util.Map;
 
 public class InventoryKeys {
 
-  public static final Map<String, String> fieldDelimiters =
-    new HashMap<String, String>();
+  public static final Map<String, String> fieldDelimiters = new HashMap<>();
 
   static {
-    fieldDelimiters.put("comma",",");
+    fieldDelimiters.put("comma", ",");
     fieldDelimiters.put("horizontal_tab", "\\t");
     fieldDelimiters.put("semicolon", ";");
     fieldDelimiters.put("vertical_bar", "\\|");

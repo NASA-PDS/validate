@@ -24,24 +24,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import gov.nasa.pds.tools.util.Utility;
 
 public class InMemoryRegistrar implements TargetRegistrar {
 
   private static Logger LOG = LoggerFactory.getLogger(InMemoryRegistrar.class);
   private ValidationTarget rootTarget;
-  private Map<String, ValidationTarget> targets = new HashMap<String, ValidationTarget>();
-  private Map<String, ValidationTarget> collections = new HashMap<String, ValidationTarget>();
-  private Map<String, ValidationTarget> bundles = new HashMap<String, ValidationTarget>();
-  private Map<String, String> references = new HashMap<String, String>();
-  private Set<String> referencedTargetLocations = new HashSet<String>();
-  private Map<Identifier, String> identifierDefinitions = new HashMap<Identifier, String>();
-  private Map<Identifier, String> identifierReferenceLocations = new HashMap<Identifier, String>();
-  private List<Identifier> referencedIdentifiers = new ArrayList<Identifier>();
+  private Map<String, ValidationTarget> targets = new HashMap<>();
+  private Map<String, ValidationTarget> collections = new HashMap<>();
+  private Map<String, ValidationTarget> bundles = new HashMap<>();
+  private Map<String, String> references = new HashMap<>();
+  private Set<String> referencedTargetLocations = new HashSet<>();
+  private Map<Identifier, String> identifierDefinitions = new HashMap<>();
+  private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
+  private List<Identifier> referencedIdentifiers = new ArrayList<>();
 
   @Override
   public ValidationTarget getRoot() {
@@ -52,33 +50,33 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized void addTarget(String parentLocation, TargetType type, String location) {
     ValidationTarget target;
     try {
-        target = new ValidationTarget(location, type);
-        if (parentLocation == null) {
-          this.rootTarget = target;
-        }
+      target = new ValidationTarget(location, type);
+      if (parentLocation == null) {
+        this.rootTarget = target;
+      }
 
-        if (type.equals(TargetType.BUNDLE)) {
-            this.bundles.put(location, target);
-        } else if (type.equals(TargetType.COLLECTION)) {
-            this.collections.put(location, target);
-        }
+      if (type.equals(TargetType.BUNDLE)) {
+        this.bundles.put(location, target);
+      } else if (type.equals(TargetType.COLLECTION)) {
+        this.collections.put(location, target);
+      }
 
-        this.targets.put(location, target);
-        LOG.debug("addTarget(): location: {}, target: {}", location, target);
+      this.targets.put(location, target);
+      LOG.debug("addTarget(): location: {}, target: {}", location, target);
     } catch (MalformedURLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 
   @Override
   public synchronized Collection<ValidationTarget> getChildTargets(ValidationTarget parent) {
-    List<ValidationTarget> children = new ArrayList<ValidationTarget>();
+    List<ValidationTarget> children = new ArrayList<>();
     String parentLocation = parent.getLocation() + File.separator;
 
     for (String targetLocation : targets.keySet()) {
       if (targetLocation.startsWith(parentLocation)
-              && !targetLocation.substring(parentLocation.length()).contains(File.separator)) {
+          && !targetLocation.substring(parentLocation.length()).contains(File.separator)) {
         children.add(targets.get(targetLocation));
       }
     }
@@ -129,7 +127,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   @Override
   public synchronized void setTargetIdentifier(String location, Identifier identifier) {
     targets.get(location).setIdentifier(identifier);
-    LOG.debug("setTargetIdentifier:identifier,location {},{}",identifier,location);
+    LOG.debug("setTargetIdentifier:identifier,location {},{}", identifier, location);
     identifierDefinitions.put(identifier, location);
   }
 
@@ -160,46 +158,58 @@ public class InMemoryRegistrar implements TargetRegistrar {
     return identifierDefinitions.get(identifier);
   }
 
+  @Override
   public Map<Identifier, String> getIdentifierDefinitions() {
     return this.identifierDefinitions;
   }
-  
+
   @Override
   public synchronized Collection<String> getUnreferencedTargets() {
-    Set<String> unreferencedTargets = new TreeSet<String>();
-    //Ignore directory targets
-    //LOG.debug("getUnreferencedTargets: targets.keySet(),targets.keySet().size() {},{}",targets.keySet(),targets.keySet().size());
+    Set<String> unreferencedTargets = new TreeSet<>();
+    // Ignore directory targets
+    // LOG.debug("getUnreferencedTargets: targets.keySet(),targets.keySet().size()
+    // {},{}",targets.keySet(),targets.keySet().size());
     int fileCount = 0;
     int unreferencedCount = 0;
 
-    // The function Utility.isDir() has a bug as of 01/20/2021.  It thinks a file with no extension is a directory.
-    // This bug causes any files without extension to be ignored to be checked for unreferenced.
-    // Until the bug in Utility.java is fixed, the code is this class will not have a correct accounting
+    // The function Utility.isDir() has a bug as of 01/20/2021. It thinks a file
+    // with no extension is a directory.
+    // This bug causes any files without extension to be ignored to be checked for
+    // unreferenced.
+    // Until the bug in Utility.java is fixed, the code is this class will not have
+    // a correct accounting
     // of unreferenced files.
 
     for (String target : targets.keySet()) {
       fileCount += 1;
-      LOG.debug("getUnreferencedTargets: fileCount,target,Utility.isDir(target) {},{},{}",fileCount,target,Utility.isDir(target));
+      LOG.debug("getUnreferencedTargets: fileCount,target,Utility.isDir(target) {},{},{}",
+          fileCount, target, Utility.isDir(target));
       if (!Utility.isDir(target)) {
         unreferencedCount += 1;
         unreferencedTargets.add(target);
-        LOG.debug("getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,target,Utility.isDir(target),unreferencedCount {},{},{},{}",fileCount,target,Utility.isDir(target),unreferencedCount);
-        LOG.debug("getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,unreferencedCount,target {},{},{}",fileCount,unreferencedCount,target);
+        LOG.debug(
+            "getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,target,Utility.isDir(target),unreferencedCount {},{},{},{}",
+            fileCount, target, Utility.isDir(target), unreferencedCount);
+        LOG.debug(
+            "getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,unreferencedCount,target {},{},{}",
+            fileCount, unreferencedCount, target);
       }
     }
-    LOG.debug("getUnreferencedTargets: UNREFERENCED_COUNT fileCount,unreferencedCount {},{}",fileCount,unreferencedCount);
+    LOG.debug("getUnreferencedTargets: UNREFERENCED_COUNT fileCount,unreferencedCount {},{}",
+        fileCount, unreferencedCount);
     unreferencedTargets.removeAll(referencedTargetLocations);
     return unreferencedTargets;
   }
 
+  @Override
   public synchronized Collection<Identifier> getReferencedIdentifiers() {
     return referencedIdentifiers;
   }
-  
+
   @Override
   public synchronized Collection<Identifier> getUnreferencedIdentifiers() {
-    List<Identifier> unreferencedIdentifiers = new ArrayList<Identifier>();
-    for(Identifier id : identifierDefinitions.keySet()) {     
+    List<Identifier> unreferencedIdentifiers = new ArrayList<>();
+    for (Identifier id : identifierDefinitions.keySet()) {
       boolean found = false;
       for (Identifier ri : referencedIdentifiers) {
         if (ri.equals(id)) {
@@ -208,7 +218,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
         }
       }
       if (!found) {
-        unreferencedIdentifiers.add(id);        
+        unreferencedIdentifiers.add(id);
       }
     }
     return unreferencedIdentifiers;
@@ -216,18 +226,20 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized Collection<IdentifierReference> getDanglingReferences() {
-    Set<Identifier> undefinedIdentifiers = new HashSet<Identifier>();
+    Set<Identifier> undefinedIdentifiers = new HashSet<>();
     undefinedIdentifiers.addAll(referencedIdentifiers);
     undefinedIdentifiers.removeAll(identifierDefinitions.keySet());
 
-    Set<IdentifierReference> danglingRefs = new TreeSet<IdentifierReference>();
+    Set<IdentifierReference> danglingRefs = new TreeSet<>();
     for (Identifier identifier : undefinedIdentifiers) {
-      danglingRefs.add(new IdentifierReference(identifierReferenceLocations.get(identifier), identifier));
+      danglingRefs
+          .add(new IdentifierReference(identifierReferenceLocations.get(identifier), identifier));
     }
 
     return danglingRefs;
   }
-  
+
+  @Override
   public synchronized String getIdentifierReferenceLocation(Identifier id) {
     String result = null;
     for (Identifier ri : identifierReferenceLocations.keySet()) {
@@ -239,27 +251,33 @@ public class InMemoryRegistrar implements TargetRegistrar {
     return result;
   }
 
+  @Override
   public Map<String, ValidationTarget> getCollections() {
     return collections;
   }
 
+  @Override
   public void setCollections(Map<String, ValidationTarget> collections) {
     this.collections = collections;
   }
 
+  @Override
   public Map<String, ValidationTarget> getBundles() {
     return bundles;
   }
 
+  @Override
   public void setBundles(Map<String, ValidationTarget> bundles) {
     this.bundles = bundles;
   }
 
-public Map<String, ValidationTarget> getTargets() {
+  @Override
+  public Map<String, ValidationTarget> getTargets() {
     return targets;
-}
+  }
 
-public void setTargets(Map<String, ValidationTarget> targets) {
+  @Override
+  public void setTargets(Map<String, ValidationTarget> targets) {
     this.targets = targets;
-}
+  }
 }

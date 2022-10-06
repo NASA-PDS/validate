@@ -13,22 +13,20 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationChain;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
-
 /**
  * Implements a validation chain that validates PDS4 collections.
- * 
+ *
  */
 public class CollectionValidationRule extends AbstractValidationChain {
 
-	@Override
-	public boolean isApplicable(String location) {
-	  URL url = null;
+  @Override
+  public boolean isApplicable(String location) {
+    URL url = null;
     try {
       url = new URL(location);
     } catch (MalformedURLException e) {
@@ -38,7 +36,7 @@ public class CollectionValidationRule extends AbstractValidationChain {
     if (!Utility.isDir(url)) {
       return false;
     }
-		return true;
-	}
+    return true;
+  }
 
 }

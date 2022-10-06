@@ -23,106 +23,109 @@ import java.util.List;
  */
 public class ContextProductReference {
 
-    /** The logical identifier. */
-    private String lid;
+  /** The logical identifier. */
+  private String lid;
 
-    /** The version. */
-    private String version;
+  /** The version. */
+  private String version;
 
-    /** The context types. */
-    private List<String> types;
+  /** The context types. */
+  private List<String> types;
 
-    /** The context names. */
-    private List<String> names;
+  /** The context names. */
+  private List<String> names;
 
-    /** Flag to indicate if a version exists. */
-    private boolean hasVersion;
+  /** Flag to indicate if a version exists. */
+  private boolean hasVersion;
 
-    public ContextProductReference(String lid) {
-        this(lid, null, null, null);
+  public ContextProductReference(String lid) {
+    this(lid, null, null, null);
+  }
+
+  public ContextProductReference(String lid, String version, List<String> types,
+      List<String> names) {
+    this.lid = lid;
+    this.version = version;
+    this.types = types;
+    this.names = names;
+    if (this.version == null) {
+      hasVersion = false;
+    } else {
+      hasVersion = true;
     }
+    // System.out.println(getLid() + ", " + getVersion() + ", " + getName()
+    // + ", " + getType());
+  }
 
-    public ContextProductReference(String lid, String version, List<String> types, List<String> names) {
-        this.lid = lid;
-        this.version = version;
-        this.types = types;
-        this.names = names;
-        if (this.version == null) {
-            hasVersion = false;
-        } else {
-            hasVersion = true;
+  public String getLid() {
+    return this.lid;
+  }
+
+  public String getVersion() {
+    return this.version;
+  }
+
+  public List<String> getTypes() {
+    return this.types;
+  }
+
+  public List<String> getNames() {
+    return this.names;
+  }
+
+  public void setLid(String lid) {
+    this.lid = lid;
+  }
+
+  public void setVersion(String version) {
+    this.version = version;
+  }
+
+  public void setTypes(List<String> types) {
+    this.types = types;
+  }
+
+  public void setName(List<String> names) {
+    this.names = names;
+  }
+
+  public boolean hasVersion() {
+    return this.hasVersion;
+  }
+
+  @Override
+  public String toString() {
+    String identifier = this.lid;
+    if (hasVersion) {
+      identifier += "::" + this.version;
+    }
+    return identifier;
+  }
+
+  /**
+   * Determines where 2 LIDVIDs are equal.
+   *
+   */
+  @Override
+  public boolean equals(Object o) {
+    boolean isEqual = false;
+    ContextProductReference lidvid = (ContextProductReference) o;
+
+    // if(lidvid.getName().equals("N/A"))
+    // System.out.println("obj 1: " + lidvid.getLid() + ", " +
+    // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
+    // lidvid.getType());
+
+    // Compare Lid and/or version only
+    if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
+      if (this.hasVersion) {
+        if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+          isEqual = true;
         }
-        // System.out.println(getLid() + ", " + getVersion() + ", " + getName()
-        // + ", " + getType());
+      } else {
+        isEqual = true;
+      }
     }
-
-    public String getLid() {
-        return this.lid;
-    }
-
-    public String getVersion() {
-        return this.version;
-    }
-
-    public List<String> getTypes() {
-        return this.types;
-    }
-
-    public List<String> getNames() {
-        return this.names;
-    }
-    
-    public void setLid(String lid) {
-        this.lid = lid;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public void setTypes(List<String> types) {
-        this.types = types;
-    }
-
-    public void setName(List<String> names) {
-        this.names = names;
-    }
-
-    public boolean hasVersion() {
-        return this.hasVersion;
-    }
-
-    public String toString() {
-        String identifier = this.lid;
-        if (hasVersion) {
-            identifier += "::" + this.version;
-        }
-        return identifier;
-    }
-
-    /**
-     * Determines where 2 LIDVIDs are equal.
-     *
-     */
-    public boolean equals(Object o) {
-        boolean isEqual = false;
-        ContextProductReference lidvid = (ContextProductReference) o;
-
-        // if(lidvid.getName().equals("N/A"))
-        // System.out.println("obj 1: " + lidvid.getLid() + ", " +
-        // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
-        // lidvid.getType());
-
-        // Compare Lid and/or version only
-        if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
-            if (this.hasVersion) {
-                if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
-                    isEqual = true;
-                }
-            } else {
-                isEqual = true;
-            }
-        }
-        return isEqual;
-    }
+    return isEqual;
+  }
 }

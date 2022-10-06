@@ -17,7 +17,7 @@ import java.net.URL;
 
 /**
  * An object representation of problems relating to data content validation.
- * 
+ *
  * @author mcayanan
  *
  */
@@ -36,7 +36,7 @@ public class ContentProblem extends ValidationProblem {
     super(defn, source);
     this.label = label;
   }
-  
+
   /**
    * 
    * @return Returns the label.

@@ -13,52 +13,45 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
-import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
-import gov.nasa.pds.tools.validate.rule.GenericProblems;
-import gov.nasa.pds.tools.validate.rule.ValidationTest;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
+import gov.nasa.pds.tools.validate.rule.GenericProblems;
+import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
 /**
- * Registers file references from the label, as well as an implied
- * reference to the label itself.
+ * Registers file references from the label, as well as an implied reference to the label itself.
  */
 public class RegisterTargetReferences extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(RegisterTargetReferences.class);
 
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
-  private static final String FILE_NAMES_PATH
-      = "//*:File[namespace-uri()='" + PDS4_NS + "']"
+  private static final String FILE_NAMES_PATH = "//*:File[namespace-uri()='" + PDS4_NS + "']"
       + "/*:file_name[namespace-uri()='" + PDS4_NS + "']";
 
-  private static final String DOCUMENT_FILE_NAMES_PATH
-      = "//*:Document_File[namespace-uri()='" + PDS4_NS + "']"
-      + "/*:file_name[namespace-uri()='" + PDS4_NS + "']";
+  private static final String DOCUMENT_FILE_NAMES_PATH = "//*:Document_File[namespace-uri()='"
+      + PDS4_NS + "']" + "/*:file_name[namespace-uri()='" + PDS4_NS + "']";
 
   private XPathFactory xPathFactory;
-  
+
   /**
    * Creates a new instance.
    */
   public RegisterTargetReferences() {
-      xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
+    xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
   }
 
   @Override
@@ -72,47 +65,51 @@ public class RegisterTargetReferences extends AbstractValidationRule {
   public void registerFileReferences() throws XPathExpressionException {
     // We have a reference to the current target, since it is a label.
     URL target = getTarget();
-    // Debugging and info can be time consuming, should only be uncommented by developer only.
-    //LOG.debug("registerFileReferences:target {}",target);
+    // Debugging and info can be time consuming, should only be uncommented by
+    // developer only.
+    // LOG.debug("registerFileReferences:target {}",target);
 
     getRegistrar().setTargetIsLabel(target.toString(), true);
-    
+
     if (!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       return;
     }
-    
+
     Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
     DOMSource source = new DOMSource(label);
 
-    NodeList fileNames = (NodeList) xPathFactory.newXPath().evaluate(FILE_NAMES_PATH, source, XPathConstants.NODESET);
-    for (int i=0; i < fileNames.getLength(); ++i) {
-        Node name = fileNames.item(i);
-        try {
-          URL url = new URL(Utility.getParent(getTarget()), name.getTextContent());
-          registerReference(url);
-        } catch (MalformedURLException e) {
-          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, e.getMessage());
-          return;
-        }
+    NodeList fileNames = (NodeList) xPathFactory.newXPath().evaluate(FILE_NAMES_PATH, source,
+        XPathConstants.NODESET);
+    for (int i = 0; i < fileNames.getLength(); ++i) {
+      Node name = fileNames.item(i);
+      try {
+        URL url = new URL(Utility.getParent(getTarget()), name.getTextContent());
+        registerReference(url);
+      } catch (MalformedURLException e) {
+        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+            e.getMessage());
+        return;
+      }
     }
   }
 
   @ValidationTest
   public void registerDocumentFileReferences() throws XPathExpressionException {
-      // We have a reference to the current target, since it is a label.
+    // We have a reference to the current target, since it is a label.
     URL target = getTarget();
-    
+
     getRegistrar().setTargetIsLabel(target.toString(), true);
-    
+
     if (!getContext().containsKey(PDS4Context.LABEL_DOCUMENT)) {
       return;
     }
-    
+
     Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
     DOMSource source = new DOMSource(label);
 
-    NodeList fileNames = (NodeList) xPathFactory.newXPath().evaluate(DOCUMENT_FILE_NAMES_PATH, source, XPathConstants.NODESET);
-    for (int i=0; i < fileNames.getLength(); ++i) {
+    NodeList fileNames = (NodeList) xPathFactory.newXPath().evaluate(DOCUMENT_FILE_NAMES_PATH,
+        source, XPathConstants.NODESET);
+    for (int i = 0; i < fileNames.getLength(); ++i) {
       Node name = fileNames.item(i);
       Node directory = getSiblingNode(name, "directory_path_name");
       if (directory == null) {
@@ -120,7 +117,8 @@ public class RegisterTargetReferences extends AbstractValidationRule {
           URL referencedUrl = new URL(Utility.getParent(target), name.getTextContent());
           registerReference(referencedUrl);
         } catch (MalformedURLException mu) {
-          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, mu.getMessage());
+          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+              mu.getMessage());
           return;
         }
       } else {
@@ -129,7 +127,8 @@ public class RegisterTargetReferences extends AbstractValidationRule {
           URL referencedFile = new URL(documentDir, name.getTextContent());
           registerReference(referencedFile);
         } catch (MalformedURLException mu) {
-          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, mu.getMessage());
+          reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+              mu.getMessage());
           return;
         }
       }
@@ -138,9 +137,9 @@ public class RegisterTargetReferences extends AbstractValidationRule {
 
   private Node getSiblingNode(Node child, String nodeName) {
     NodeList siblings = child.getParentNode().getChildNodes();
-    for (int i=0; i < siblings.getLength(); ++i) {
+    for (int i = 0; i < siblings.getLength(); ++i) {
       Node sibling = siblings.item(i);
-      if (sibling!=child && sibling.getNodeName().equals(nodeName)) {
+      if (sibling != child && sibling.getNodeName().equals(nodeName)) {
         return sibling;
       }
     }

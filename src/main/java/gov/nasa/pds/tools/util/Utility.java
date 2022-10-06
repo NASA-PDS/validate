@@ -25,23 +25,17 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
-
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 import gov.nasa.pds.tools.validate.TargetType;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.validate.constants.Constants;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.xml.sax.InputSource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Utility class.
@@ -56,33 +50,31 @@ public class Utility {
   // There is no need to re-evaluate and/or create these
   // as validation proceeds, as they are static things like
   // a file or a URL.
-  public static HashMap<String,ValidationTarget> cachedTargets;
+  public static HashMap<String, ValidationTarget> cachedTargets;
   static {
-    cachedTargets = new HashMap<String,ValidationTarget>();
+    cachedTargets = new HashMap<>();
   }
 
   // Implementation is needed since pds.nasa.gov currently uses SNI
   // which is not supported in Java 6, but is supported in Java 7.
   static {
-    javax.net.ssl.HttpsURLConnection.setDefaultHostnameVerifier(
-    new javax.net.ssl.HostnameVerifier(){
-        public boolean verify(String hostname,
-                javax.net.ssl.SSLSession sslSession) {
-          if (hostname.equals("pds.nasa.gov")
-              && hostname.equals(sslSession.getPeerHost())) {
-            return true;
-          } else {
+    javax.net.ssl.HttpsURLConnection
+        .setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+          @Override
+          public boolean verify(String hostname, javax.net.ssl.SSLSession sslSession) {
+            if (hostname.equals("pds.nasa.gov") && hostname.equals(sslSession.getPeerHost())) {
+              return true;
+            }
             return false;
           }
-        }
-    });
-   }
+        });
+  }
 
   /**
    * Returns a ValidationTarget for the specified target URL.
    *
-   * If a cached target already exists in the cache, then that
-   * is returned, otherwise a new ValidationTarget is returned.
+   * If a cached target already exists in the cache, then that is returned, otherwise a new
+   * ValidationTarget is returned.
    *
    */
   public static ValidationTarget getValidationTarget(URL target) {
@@ -105,11 +97,9 @@ public class Utility {
    * @param conn URL Connection
    *
    * @return input stream.
-   * @throws IOException If an error occurred while opening
-   * the stream.
+   * @throws IOException If an error occurred while opening the stream.
    */
-  public static InputStream openConnection(URLConnection conn)
-      throws IOException {
+  public static InputStream openConnection(URLConnection conn) throws IOException {
     boolean redir;
     int redirects = 0;
     InputStream in = null;
@@ -125,22 +115,22 @@ public class Utility {
           HttpsURLConnection test = (HttpsURLConnection) conn;
           SSLSocketFactory sf = test.getSSLSocketFactory();
           SSLSocketFactory d = HttpsURLConnection.getDefaultSSLSocketFactory();
-          ((HttpsURLConnection) conn).setSSLSocketFactory(context.getSocketFactory());          
+          ((HttpsURLConnection) conn).setSSLSocketFactory(context.getSocketFactory());
         } catch (Exception e) {
           throw new IOException(e.getMessage());
         }
       }
-      
+
       // We want to open the input stream before getting headers
-      // because getHeaderField() et al swallow IOExceptions.     
+      // because getHeaderField() et al swallow IOExceptions.
       try {
         in = conn.getInputStream();
         redir = false;
         if (conn instanceof HttpURLConnection) {
           HttpURLConnection http = (HttpURLConnection) conn;
           int stat = http.getResponseCode();
-          if (stat >= 300 && stat <= 307 && stat != 306 &&
-              stat != HttpURLConnection.HTTP_NOT_MODIFIED) {
+          if (stat >= 300 && stat <= 307 && stat != 306
+              && stat != HttpURLConnection.HTTP_NOT_MODIFIED) {
             URL base = http.getURL();
             String loc = http.getHeaderField("Location");
             URL target = null;
@@ -150,9 +140,9 @@ public class Utility {
             http.disconnect();
             // Redirection should be allowed only for HTTP and HTTPS
             // and should be limited to 5 redirections at most.
-            if (target == null || !(target.getProtocol().equals("http") ||
-                target.getProtocol().equals("https")) ||
-                redirects >= 5) {
+            if (target == null
+                || !(target.getProtocol().equals("http") || target.getProtocol().equals("https"))
+                || redirects >= 5) {
               throw new SecurityException("illegal URL redirect");
             }
             redir = true;
@@ -166,10 +156,9 @@ public class Utility {
     } while (redir);
     return in;
   }
-  
+
   public static InputSource getInputSourceByURL(URL url) throws IOException {
-    InputSource inputSource = new InputSource(
-        Utility.openConnection(url.openConnection()));
+    InputSource inputSource = new InputSource(Utility.openConnection(url.openConnection()));
     URI uri = null;
     try {
       uri = url.toURI();
@@ -180,16 +169,15 @@ public class Utility {
     return inputSource;
   }
 
-  public static List<URL> toURL(List<String> targets)
-      throws MalformedURLException {
-    List<URL> results = new ArrayList<URL>();
+  public static List<URL> toURL(List<String> targets) throws MalformedURLException {
+    List<URL> results = new ArrayList<>();
     for (String t : targets) {
       results.add(toURL(t));
     }
     return results;
   }
 
-  public static URL toURL (String target) throws MalformedURLException {
+  public static URL toURL(String target) throws MalformedURLException {
     URL url = null;
     try {
       url = new URL(target);
@@ -199,7 +187,7 @@ public class Utility {
     }
     return url;
   }
-  
+
   public static boolean isDir(String url) {
     try {
       return isDir(new URL(url));
@@ -207,24 +195,23 @@ public class Utility {
       return false;
     }
   }
-  
+
   public static boolean isDir(URL url) {
     File file = FileUtils.toFile(url);
-    LOG.debug("isDir:file,url {},{}",file,url);
-    LOG.debug("isDir:ext_len,url {},{}",FilenameUtils.getExtension(url.toString()).length(),url);
+    LOG.debug("isDir:file,url {},{}", file, url);
+    LOG.debug("isDir:ext_len,url {},{}", FilenameUtils.getExtension(url.toString()).length(), url);
     return file.isDirectory();
   }
-  
+
   public static URL getParent(URL url) {
     try {
-      return url.toURI().getPath().endsWith("/") ?
-        url.toURI().resolve("..").toURL() :
-          url.toURI().resolve(".").toURL();
+      return url.toURI().getPath().endsWith("/") ? url.toURI().resolve("..").toURL()
+          : url.toURI().resolve(".").toURL();
     } catch (Exception e) {
       return null;
     }
   }
-  
+
   public static boolean canRead(URL url) {
     try {
       url.openStream().close();
@@ -233,7 +220,7 @@ public class Utility {
       return false;
     }
   }
-  
+
   public static boolean canRead(String url) {
     try {
       return canRead(new URL(url));
@@ -241,45 +228,39 @@ public class Utility {
       return false;
     }
   }
-  
+
   public static String removeLastSlash(String url) {
-      if(url.endsWith("/")) {
-          return url.substring(0, url.lastIndexOf("/"));
-      } else {
-          return url;
-      }
+    if (url.endsWith("/")) {
+      return url.substring(0, url.lastIndexOf("/"));
+    }
+    return url;
   }
-  
+
   /**
-   * Convenience method for disabling xinclude support throughout
-   * the core library.
+   * Convenience method for disabling xinclude support throughout the core library.
    * 
    * @return
    */
   public static boolean supportXincludes() {
     return false;
   }
-  
+
   /**
-   * Replace backslashes with forward slashes. (URLs always use
-   * forward slashes.)
+   * Replace backslashes with forward slashes. (URLs always use forward slashes.)
    *
    * @param sysid The input system identifier.
-   * @return The same system identifier with backslashes turned into
-   * forward slashes.
+   * @return The same system identifier with backslashes turned into forward slashes.
    */
-  public static String fixSlashes (String sysid) {
+  public static String fixSlashes(String sysid) {
     return sysid.replace('\\', '/');
   }
 
   /**
-   * Construct an absolute URI from a relative one, using the current
-   * base URI.
+   * Construct an absolute URI from a relative one, using the current base URI.
    *
    * @param sysid The (possibly relative) system identifier
-   * @return The system identifier made absolute with respect to the
-   * current {@link #base}.
-   * @throws MalformedURLException 
+   * @return The system identifier made absolute with respect to the current {@link #base}.
+   * @throws MalformedURLException
    */
   public static String makeAbsolute(String base, String sysid) throws MalformedURLException {
     URL local = null;
@@ -293,18 +274,19 @@ public class Utility {
       throw new MalformedURLException("Malformed URL on system identifier: " + sysid);
     }
   }
-  
+
   public static TargetType getTargetType(URL url) {
-      if (isDir(url)) {
-          return TargetType.DIRECTORY;
-      }
-      
-      String path = url.getPath().toLowerCase();
-      if (path.contains(Constants.COLLECTION_NAME_TOKEN)) {
-          return TargetType.COLLECTION;
-      } else if (path.contains(Constants.BUNDLE_NAME_TOKEN)) {
-          return TargetType.BUNDLE;
-      }
-      return TargetType.FILE;
+    if (isDir(url)) {
+      return TargetType.DIRECTORY;
+    }
+
+    String path = url.getPath().toLowerCase();
+    if (path.contains(Constants.COLLECTION_NAME_TOKEN)) {
+      return TargetType.COLLECTION;
+    }
+    if (path.contains(Constants.BUNDLE_NAME_TOKEN)) {
+      return TargetType.BUNDLE;
+    }
+    return TargetType.FILE;
   }
 }

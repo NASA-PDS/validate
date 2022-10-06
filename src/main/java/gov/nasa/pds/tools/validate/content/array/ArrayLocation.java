@@ -17,23 +17,23 @@ import java.net.URL;
 
 /**
  * Class that holds a specific location in an Array.
- * 
+ *
  * @author mcayanan
  *
  */
 public final class ArrayLocation {
   /** The label associated with the data. */
   private URL label;
-  
+
   /** The data file associated with the record. */
   private URL dataFile;
-  
+
   /** The index of the table associated with the record. */
   private int array;
-    
+
   /** The array location. */
   private int[] location;
-  
+
   /**
    * Constructor.
    * 
@@ -48,7 +48,7 @@ public final class ArrayLocation {
     this.array = array;
     this.location = location;
   }
-  
+
   /**
    * 
    * @return the label.
@@ -56,7 +56,7 @@ public final class ArrayLocation {
   public URL getLabel() {
     return this.label;
   }
-  
+
   /**
    * 
    * @return the data file.
@@ -64,7 +64,7 @@ public final class ArrayLocation {
   public URL getDataFile() {
     return this.dataFile;
   }
-  
+
   /**
    * 
    * @return the array index.
@@ -72,7 +72,7 @@ public final class ArrayLocation {
   public int getArray() {
     return this.array;
   }
-  
+
   /**
    * 
    * @return the array location.
@@ -80,5 +80,5 @@ public final class ArrayLocation {
   public int[] getLocation() {
     return this.location;
   }
- 
+
 }

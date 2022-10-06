@@ -13,9 +13,8 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule;
 
-import gov.nasa.pds.tools.validate.TargetRegistrar;
-
 import java.net.URL;
+import gov.nasa.pds.tools.validate.TargetRegistrar;
 
 public abstract class AbstractFindTargets extends AbstractValidationRule {
 

@@ -15,14 +15,13 @@ package gov.nasa.pds.tools.util;
 
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
-
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
 import net.sf.saxon.om.DocumentInfo;
 import net.sf.saxon.xpath.XPathEvaluator;
 
 public class LabelParser {
-  
+
   /**
    * Parses a label.
    * 

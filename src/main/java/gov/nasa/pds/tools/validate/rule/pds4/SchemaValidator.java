@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,6 +30,17 @@
 
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import javax.xml.XMLConstants;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.SchemaFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.SAXParseException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LabelErrorHandler;
 import gov.nasa.pds.tools.label.XMLCatalogResolver;
@@ -37,21 +48,6 @@ import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import javax.xml.XMLConstants;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.SchemaFactory;
-
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXNotRecognizedException;
-import org.xml.sax.SAXNotSupportedException;
-import org.xml.sax.SAXParseException;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Class to validate schemas.
@@ -76,39 +72,35 @@ public class SchemaValidator {
 
     schemaFactory.setResourceResolver(new XMLCatalogResolver());
   }
-  
+
   /**
    * Validate the given schema.
    *
    * @param schema URL of the schema.
    *
-   * @return An ExceptionContainer that contains any problems
-   * that were found during validation.
- * @throws SAXNotSupportedException 
- * @throws SAXNotRecognizedException 
+   * @return An ExceptionContainer that contains any problems that were found during validation.
+   * @throws SAXNotSupportedException
+   * @throws SAXNotRecognizedException
    */
   public ProblemContainer validate(StreamSource schema) {
     ProblemContainer container = new ProblemContainer();
     try {
-        schemaFactory.setErrorHandler(new LabelErrorHandler(container));
+      schemaFactory.setErrorHandler(new LabelErrorHandler(container));
 
-        XMLCatalogResolver resolver =
-            (XMLCatalogResolver) schemaFactory.getResourceResolver();
-        resolver.setProblemHandler(container);
-        
-        schemaFactory.newSchema(schema);
+      XMLCatalogResolver resolver = (XMLCatalogResolver) schemaFactory.getResourceResolver();
+      resolver.setProblemHandler(container);
+
+      schemaFactory.newSchema(schema);
     } catch (SAXException se) {
-      if ( !(se instanceof SAXParseException) ) {
+      if (!(se instanceof SAXParseException)) {
         URL schemaUrl = null;
         try {
           schemaUrl = new URL(schema.toString());
         } catch (MalformedURLException e) {
-          //Ignore. Should not happen!!! 
+          // Ignore. Should not happen!!!
         }
         ValidationProblem problem = new ValidationProblem(
-            new ProblemDefinition(ExceptionType.FATAL,
-                ProblemType.SCHEMA_ERROR,
-                se.getMessage()), 
+            new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMA_ERROR, se.getMessage()),
             schemaUrl);
         container.addProblem(problem);
       }
@@ -118,22 +110,20 @@ public class SchemaValidator {
 
   public void setExternalLocations(String locations)
       throws SAXNotRecognizedException, SAXNotSupportedException {
-    schemaFactory.setProperty(
-        "http://apache.org/xml/properties/schema/external-schemaLocation",
-         locations);
-    LOG.debug("setExternalLocations:locations {}",locations);
+    schemaFactory.setProperty("http://apache.org/xml/properties/schema/external-schemaLocation",
+        locations);
+    LOG.debug("setExternalLocations:locations {}", locations);
   }
 
-  
   public XMLCatalogResolver getCachedLSResolver() {
     LOG.debug("getCachedLSResolver:");
     return (XMLCatalogResolver) schemaFactory.getResourceResolver();
   }
-  
+
   public void setCatalogResolver(XMLCatalogResolver resolver) {
-      LOG.debug("setCatalogResolver:resolver {}",resolver);
-      if (resolver != null) {
-          schemaFactory.setResourceResolver(resolver);
-      }
+    LOG.debug("setCatalogResolver:resolver {}", resolver);
+    if (resolver != null) {
+      schemaFactory.setResourceResolver(resolver);
+    }
   }
 }

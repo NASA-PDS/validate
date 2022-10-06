@@ -1,58 +1,59 @@
-//	Copyright 2009-2010, by the California Institute of Technology.
-//	ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
-//	Any commercial use must be negotiated with the Office of Technology 
-//	Transfer at the California Institute of Technology.
-//	
-//	This software is subject to U. S. export control laws and regulations 
-//	(22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software 
-//	is subject to U.S. export control laws and regulations, the recipient has 
-//	the responsibility to obtain export licenses or other export authority as 
-//	may be required before exporting such information to foreign countries or 
-//	providing access to foreign nationals.
-//	
-//	$Id$
+// Copyright 2009-2010, by the California Institute of Technology.
+// ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
+// Any commercial use must be negotiated with the Office of Technology
+// Transfer at the California Institute of Technology.
+//
+// This software is subject to U. S. export control laws and regulations
+// (22 C.F.R. 120-130 and 15 C.F.R. 730-774). To the extent that the software
+// is subject to U.S. export control laws and regulations, the recipient has
+// the responsibility to obtain export licenses or other export authority as
+// may be required before exporting such information to foreign countries or
+// providing access to foreign nationals.
+//
+// $Id$
 //
 
 package gov.nasa.pds.tools.label;
 
-import java.util.Hashtable;
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.io.InputStream;
-
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Hashtable;
 import javax.xml.transform.Source;
-import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.TransformerException;
-
+import javax.xml.transform.sax.SAXSource;
 import org.xml.sax.InputSource;
 
 /**
  * @author pramirez
- * 
+ *
  */
-public class BootstrapResolver extends
-    org.apache.xml.resolver.helpers.BootstrapResolver {
+public class BootstrapResolver extends org.apache.xml.resolver.helpers.BootstrapResolver {
   /** URI of the W3C XML Schema for OASIS XML Catalog files. */
-  public static final String xmlCatalogXSD = "http://www.oasis-open.org/committees/entity/release/1.0/catalog.xsd";
+  public static final String xmlCatalogXSD =
+      "http://www.oasis-open.org/committees/entity/release/1.0/catalog.xsd";
 
   /** URI of the RELAX NG Grammar for OASIS XML Catalog files. */
-  public static final String xmlCatalogRNG = "http://www.oasis-open.org/committees/entity/release/1.0/catalog.rng";
+  public static final String xmlCatalogRNG =
+      "http://www.oasis-open.org/committees/entity/release/1.0/catalog.rng";
 
   /** Public identifier for OASIS XML Catalog files. */
   public static final String xmlCatalogPubId = "-//OASIS//DTD XML Catalogs V1.0//EN";
 
   /** System identifier for OASIS XML Catalog files. */
-  public static final String xmlCatalogSysId = "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd";
+  public static final String xmlCatalogSysId =
+      "http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd";
 
   /** Public identifier for OASIS XML Catalog 1.1 files. */
   public static final String xmlCatalog11PubId = "-//OASIS//DTD XML Catalogs V1.1//EN";
 
   /** System identifier for OASIS XML Catalog 1.1 files. */
-  public static final String xmlCatalog11SysId = "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd";
+  public static final String xmlCatalog11SysId =
+      "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd";
 
   /**
-   * Public identifier for legacy Apache XCatalog files. There is no official
-   * system identifier for XCatalog files.
+   * Public identifier for legacy Apache XCatalog files. There is no official system identifier for
+   * XCatalog files.
    */
   public static final String xCatalogPubId = "-//DTD XCatalog//EN";
 
@@ -66,27 +67,23 @@ public class BootstrapResolver extends
   private Hashtable uriMap = new Hashtable();
 
   public BootstrapResolver() {
-    URL url = this.getClass().getResource(
-        "/org/apache/xml/resolver/etc/catalog.dtd");
+    URL url = this.getClass().getResource("/org/apache/xml/resolver/etc/catalog.dtd");
     if (url != null) {
       publicMap.put(xmlCatalogPubId, url.toString());
       systemMap.put(xmlCatalogSysId, url.toString());
     }
 
-    url = this.getClass().getResource(
-        "/org/apache/xml/resolver/etc/catalog.rng");
+    url = this.getClass().getResource("/org/apache/xml/resolver/etc/catalog.rng");
     if (url != null) {
       uriMap.put(xmlCatalogRNG, url.toString());
     }
 
-    url = this.getClass().getResource(
-        "/org/apache/xml/resolver/etc/catalog.xsd");
+    url = this.getClass().getResource("/org/apache/xml/resolver/etc/catalog.xsd");
     if (url != null) {
       uriMap.put(xmlCatalogXSD, url.toString());
     }
 
-    url = this.getClass().getResource(
-        "/org/apache/xml/resolver/etc/xcatalog.dtd");
+    url = this.getClass().getResource("/org/apache/xml/resolver/etc/xcatalog.dtd");
     if (url != null) {
       publicMap.put(xCatalogPubId, url.toString());
     }
@@ -99,6 +96,7 @@ public class BootstrapResolver extends
   }
 
   /** SAX resolveEntity API. */
+  @Override
   public InputSource resolveEntity(String publicId, String systemId) {
     String resolved = null;
 
@@ -139,6 +137,7 @@ public class BootstrapResolver extends
   }
 
   /** Transformer resolve API. */
+  @Override
   public Source resolve(String href, String base) throws TransformerException {
 
     String uri = href;
@@ -170,10 +169,8 @@ public class BootstrapResolver extends
         if (!absBase.equals(base)) {
           // don't bother if the absBase isn't different!
           return resolve(href, absBase);
-        } else {
-          throw new TransformerException("Malformed URL " + href + "(base "
-              + base + ")", mue);
         }
+        throw new TransformerException("Malformed URL " + href + "(base " + base + ")", mue);
       }
     }
 
@@ -201,7 +198,7 @@ public class BootstrapResolver extends
       }
     }
   }
-  
+
   public static URL makeURL(String pathname) throws MalformedURLException {
     if (pathname.startsWith("/")) {
       return new URL("file://" + pathname);
@@ -212,9 +209,8 @@ public class BootstrapResolver extends
 
     if (userdir.endsWith("/")) {
       return new URL("file:///" + userdir + pathname);
-    } else {
-      return new URL("file:///" + userdir + "/" + pathname);
     }
+    return new URL("file:///" + userdir + "/" + pathname);
   }
-  
+
 }

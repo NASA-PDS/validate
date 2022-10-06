@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,13 +30,6 @@
 
 package gov.nasa.pds.validate.report;
 
-import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.validate.ContentProblem;
-import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
-import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
-import gov.nasa.pds.validate.status.Status;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -49,10 +42,14 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.apache.commons.lang.WordUtils;
-
 import com.google.gson.stream.JsonWriter;
+import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
+import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
+import gov.nasa.pds.validate.status.Status;
 
 /**
  * This class represents a full report in JSON format.
@@ -87,13 +84,12 @@ public class JSONReport extends Report {
   }
 
   /**
-   * Handles writing a Report to the writer interface. This is is useful if
-   * someone would like to put the contents of the Report to something such as
-   * {@link java.io.StringWriter}.
+   * Handles writing a Report to the writer interface. This is is useful if someone would like to
+   * put the contents of the Report to something such as {@link java.io.StringWriter}.
    *
-   * @param writer
-   *          which the report will be written to
+   * @param writer which the report will be written to
    */
+  @Override
   public void setOutput(Writer writer) {
     this.writer = new PrintWriter(writer);
     this.jsonWriter = new JsonWriter(this.writer);
@@ -101,12 +97,12 @@ public class JSONReport extends Report {
   }
 
   /**
-   * Handle writing a Report to an {@link java.io.OutputStream}. This is useful
-   * to get the report to print to something such as System.out
+   * Handle writing a Report to an {@link java.io.OutputStream}. This is useful to get the report to
+   * print to something such as System.out
    *
-   * @param os
-   *          stream which the report will be written to
+   * @param os stream which the report will be written to
    */
+  @Override
   public void setOutput(OutputStream os) {
     this.setOutput(new OutputStreamWriter(os));
   }
@@ -114,15 +110,15 @@ public class JSONReport extends Report {
   /**
    * Handles writing a Report to a {@link java.io.File}.
    *
-   * @param file
-   *          which the report will output to
-   * @throws IOException
-   *           if there is an issue in writing the report to the file
+   * @param file which the report will output to
+   * @throws IOException if there is an issue in writing the report to the file
    */
+  @Override
   public void setOutput(File file) throws IOException {
     this.setOutput(new FileWriter(file));
   }
 
+  @Override
   public void printHeader() {
     try {
       this.jsonWriter.beginObject();
@@ -139,7 +135,7 @@ public class JSONReport extends Report {
       this.jsonWriter.beginObject();
       for (String parameter : parameters) {
         String[] tokens = parameter.trim().split("\\s{2,}+", 2);
-        String key = tokens[0].replaceAll("\\s","");
+        String key = tokens[0].replaceAll("\\s", "");
         this.jsonWriter.name(WordUtils.uncapitalize(key)).value(tokens[1]);
       }
       this.jsonWriter.endObject();
@@ -165,10 +161,10 @@ public class JSONReport extends Report {
   }
 
   @Override
-  protected void printRecordMessages(PrintWriter writer, Status status,
-      URI sourceUri, List<ValidationProblem> problems) {
-    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<String, List<ValidationProblem>>();
-    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<String, List<ContentProblem>>();
+  protected void printRecordMessages(PrintWriter writer, Status status, URI sourceUri,
+      List<ValidationProblem> problems) {
+    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
+    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<>();
     try {
       this.jsonWriter.beginObject();
       this.jsonWriter.name("status").value(status.getName());
@@ -180,24 +176,21 @@ public class JSONReport extends Report {
           ContentProblem contentProb = (ContentProblem) problem;
           List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
           if (contentProbs == null) {
-            contentProbs = new ArrayList<ContentProblem>();
+            contentProbs = new ArrayList<>();
           }
           contentProbs.add(contentProb);
           contentProblems.put(contentProb.getSource(), contentProbs);
-        } else {      
-          if ( ((problem.getTarget() == null)) || 
-              (problem.getTarget().getLocation() == null) || 
-              sourceUri.toString().equals(problem.getTarget().getLocation())) {
-            printProblem(problem);
-          } else {
-            List<ValidationProblem> extProbs = externalProblems.get(
-                problem.getTarget().getLocation());
-            if (extProbs == null) {
-              extProbs = new ArrayList<ValidationProblem>();
-            }
-            extProbs.add(problem);
-            externalProblems.put(problem.getTarget().getLocation(), extProbs);
+        } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
+            || sourceUri.toString().equals(problem.getTarget().getLocation())) {
+          printProblem(problem);
+        } else {
+          List<ValidationProblem> extProbs =
+              externalProblems.get(problem.getTarget().getLocation());
+          if (extProbs == null) {
+            extProbs = new ArrayList<>();
           }
+          extProbs.add(problem);
+          externalProblems.put(problem.getTarget().getLocation(), extProbs);
         }
       }
       this.jsonWriter.endArray();
@@ -238,11 +231,11 @@ public class JSONReport extends Report {
   private void printProblem(final ValidationProblem problem) throws IOException {
     String severity = "";
     if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-        severity = "FATAL_ERROR";
+      severity = "FATAL_ERROR";
     } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-        severity = "ERROR";
+      severity = "ERROR";
     } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-        severity = "WARNING";
+      severity = "WARNING";
     } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
       severity = "INFO";
     } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
@@ -260,7 +253,7 @@ public class JSONReport extends Report {
         this.jsonWriter.name("record").value(tcProblem.getRecord());
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
-        this.jsonWriter.name("field").value(tcProblem.getField());        
+        this.jsonWriter.name("field").value(tcProblem.getField());
       }
     } else if (problem instanceof ArrayContentProblem) {
       ArrayContentProblem aProblem = (ArrayContentProblem) problem;
@@ -270,18 +263,17 @@ public class JSONReport extends Report {
       if (aProblem.getLocation() != null) {
         this.jsonWriter.name("location").value(aProblem.getLocation());
       }
-    } else {
-      if (problem.getLineNumber() != -1) {
-        this.jsonWriter.name("line").value(problem.getLineNumber());
-        if (problem.getColumnNumber() != -1) {
-          this.jsonWriter.name("column").value(problem.getColumnNumber());
-        }
+    } else if (problem.getLineNumber() != -1) {
+      this.jsonWriter.name("line").value(problem.getLineNumber());
+      if (problem.getColumnNumber() != -1) {
+        this.jsonWriter.name("column").value(problem.getColumnNumber());
       }
     }
     this.jsonWriter.name("message").value(problem.getMessage());
     this.jsonWriter.endObject();
   }
 
+  @Override
   protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
       final ValidationProblem problem) {
     try {
@@ -305,6 +297,7 @@ public class JSONReport extends Report {
 
   }
 
+  @Override
   public void printFooter() {
     try {
       this.jsonWriter.endArray();
@@ -327,8 +320,7 @@ public class JSONReport extends Report {
       this.jsonWriter.endObject();
     } catch (IOException io) {
       io.getMessage();
-    }
-    finally {
+    } finally {
       refreshWriter();
     }
   }

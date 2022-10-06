@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,20 +30,17 @@
 
 package gov.nasa.pds.validate.util;
 
-import gov.nasa.pds.tools.validate.Target;
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import gov.nasa.pds.tools.validate.Target;
 
 /**
  * Utility class.
@@ -69,12 +66,12 @@ public class Utility {
   public static String toStringNoBraces(JsonObject json) {
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
     StringBuilder string = new StringBuilder(gson.toJson(json));
-    string = string.replace(0, 1,"");
-    string = string.replace(string.lastIndexOf("}"), string.lastIndexOf("}")+1, "");
+    string = string.replace(0, 1, "");
+    string = string.replace(string.lastIndexOf("}"), string.lastIndexOf("}") + 1, "");
     return string.toString().trim();
   }
 
-  public static URL toURL (String target) throws MalformedURLException {
+  public static URL toURL(String target) throws MalformedURLException {
     URL url = null;
     try {
       url = new URL(target);

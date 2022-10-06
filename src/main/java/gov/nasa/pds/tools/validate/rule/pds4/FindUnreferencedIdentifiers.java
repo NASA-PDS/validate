@@ -17,11 +17,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
@@ -31,21 +29,21 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import gov.nasa.pds.validate.constants.Constants;
-
 /**
- * Implements a validation rule that checks that all identifiers are
- * referenced by some label.
+ * Implements a validation rule that checks that all identifiers are referenced by some label.
  */
 public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
-  // Must use the SIMPLE_COLLECTION_LABEL_PATTERN since the other pattern Constants.COLLECTION_LABEL_PATTERN seems to cause the crawler to pause.
-//  private static final Pattern COLLECTION_LABEL_PATTERN = Constants.SIMPLE_COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after 'collection'. 
+  // Must use the SIMPLE_COLLECTION_LABEL_PATTERN since the other pattern
+  // Constants.COLLECTION_LABEL_PATTERN seems to cause the crawler to pause.
+  // private static final Pattern COLLECTION_LABEL_PATTERN =
+  // Constants.SIMPLE_COLLECTION_LABEL_PATTERN; // Ease the requirement to have an underscore after
+  // 'collection'.
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
-  
+
   private Pattern collectionLabelPattern;
-  
+
   @Override
   public boolean isApplicable(String location) {
     // This rule is applicable at the top level only.
@@ -59,16 +57,18 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   public void findUnreferencedIdentifiers() {
     // Only run the test if we are the root target, to avoid duplicate errors.
     if (getContext().isRootTarget()) {
-      LOG.info("findUnreferencedIdentifiers:Context is indeed root: {}",getContext().getTarget());
-      LOG.info("findUnreferencedIdentifiers:getRegistrar().getIdentifierDefinitions().keySet().size() {}",getRegistrar().getIdentifierDefinitions().keySet().size());
+      LOG.info("findUnreferencedIdentifiers:Context is indeed root: {}", getContext().getTarget());
+      LOG.info(
+          "findUnreferencedIdentifiers:getRegistrar().getIdentifierDefinitions().keySet().size() {}",
+          getRegistrar().getIdentifierDefinitions().keySet().size());
       long startTime = System.currentTimeMillis();
-      for (Identifier id : getRegistrar().getIdentifierDefinitions().keySet()) {  
+      for (Identifier id : getRegistrar().getIdentifierDefinitions().keySet()) {
         String location = getRegistrar().getTargetForIdentifier(id);
         URL locationUrl = null;
         try {
           locationUrl = new URL(location);
         } catch (MalformedURLException mu) {
-          //Ignore. Should not happen!!!
+          // Ignore. Should not happen!!!
         }
         this.filesProcessed += 1;
         getListener().addLocation(location);
@@ -76,51 +76,51 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
         for (Identifier ri : getRegistrar().getReferencedIdentifiers()) {
           if (ri.equals(id)) {
             found = true;
-            getListener().addProblem(new ValidationProblem(
-                new ProblemDefinition(ExceptionType.INFO,
-                    ProblemType.REFERENCED_MEMBER,
-                "Identifier '" + id.toString()
-                + "' is a member of '"
-                + getRegistrar().getIdentifierReferenceLocation(id) + "'"),
-                locationUrl));
+            getListener()
+                .addProblem(new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.INFO, ProblemType.REFERENCED_MEMBER,
+                        "Identifier '" + id.toString() + "' is a member of '"
+                            + getRegistrar().getIdentifierReferenceLocation(id) + "'"),
+                    locationUrl));
             break;
           }
         }
-        LOG.debug("findUnreferencedIdentifiers:id,location,found,filesProcessed: {},{},{},{}",id,location,found,this.filesProcessed);
+        LOG.debug("findUnreferencedIdentifiers:id,location,found,filesProcessed: {},{},{},{}", id,
+            location, found, this.filesProcessed);
         if (!found) {
           String memberType = "collection";
-          Matcher matcher = getContext().getCollectionLabelPattern().matcher(
-              FilenameUtils.getName(location));
+          Matcher matcher =
+              getContext().getCollectionLabelPattern().matcher(FilenameUtils.getName(location));
           if (matcher.matches()) {
             memberType = "bundle";
           }
-          LOG.debug("findUnreferencedIdentifiers:id,location,memberType: {},{},{}",id,location,memberType);
+          LOG.debug("findUnreferencedIdentifiers:id,location,memberType: {},{},{}", id, location,
+              memberType);
           // Don't print out messages if were validating using collection rules
           // and the identifier in question is a collection
-          if ( !("bundle".equals(memberType) && 
-              getContext().getRule().getCaption()
-              .equals("PDS4 Collection")) ) {
+          if (!("bundle".equals(memberType)
+              && getContext().getRule().getCaption().equals("PDS4 Collection"))) {
             getListener().addProblem(new ValidationProblem(
-                new ProblemDefinition(ExceptionType.WARNING,
-                    ProblemType.UNREFERENCED_MEMBER,
-                    "Identifier '" + id.toString() + "' is not a member "
-                    +"of any " + memberType + " within the given target"), 
+                new ProblemDefinition(ExceptionType.WARNING, ProblemType.UNREFERENCED_MEMBER,
+                    "Identifier '" + id.toString() + "' is not a member " + "of any " + memberType
+                        + " within the given target"),
                 locationUrl));
-          }     
+          }
         }
         if (getListener() instanceof ListenerExceptionPropagator) {
-          ListenerExceptionPropagator lp = 
-              (ListenerExceptionPropagator) getListener();
+          ListenerExceptionPropagator lp = (ListenerExceptionPropagator) getListener();
           lp.record(getTarget().toString());
         }
       }
-    long finishTime = System.currentTimeMillis();
-    long timeElapsed = finishTime - startTime;
-    this.totalTimeElapsed += timeElapsed;
-    LOG.info("findUnreferencedIdentifiers:getContext().getTarget(),filesProcessed,totalTimeElapsed: {},{},{}",getContext().getTarget(),this.filesProcessed,this.totalTimeElapsed);
+      long finishTime = System.currentTimeMillis();
+      long timeElapsed = finishTime - startTime;
+      this.totalTimeElapsed += timeElapsed;
+      LOG.info(
+          "findUnreferencedIdentifiers:getContext().getTarget(),filesProcessed,totalTimeElapsed: {},{},{}",
+          getContext().getTarget(), this.filesProcessed, this.totalTimeElapsed);
 
     } else {
-        LOG.info("findUnreferencedIdentifiers:Context is not root: {}",getContext(),getTarget());
+      LOG.info("findUnreferencedIdentifiers:Context is not root: {}", getContext(), getTarget());
     }
   }
 

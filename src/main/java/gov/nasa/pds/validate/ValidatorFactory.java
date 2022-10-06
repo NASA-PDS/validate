@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -30,15 +30,13 @@
 
 package gov.nasa.pds.validate;
 
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.ValidatorException;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
-
-import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerConfigurationException;
 
 /**
  * Factory class that will create the appropriate Validator object.
@@ -51,11 +49,12 @@ public class ValidatorFactory {
   private static ValidatorFactory factory = null;
 
   private LocationValidator cachedValidator;
-  
+
   /** A list of DocumentValidator objects. */
   private List<DocumentValidator> documentValidators;
 
-  /** Gets an instance of the factory.
+  /**
+   * Gets an instance of the factory.
    *
    */
   public static synchronized ValidatorFactory getInstance() {
@@ -76,13 +75,13 @@ public class ValidatorFactory {
    * @throws ValidatorException Validator error occurred.
    * @throws TransformerConfigurationException Transformer configuration error occurred.
    */
-  public LocationValidator newInstance(ExceptionType logLevel) throws ValidatorException,
-  TransformerConfigurationException, ParserConfigurationException {
+  public LocationValidator newInstance(ExceptionType logLevel)
+      throws ValidatorException, TransformerConfigurationException, ParserConfigurationException {
     if (cachedValidator == null) {
-    	cachedValidator = new LocationValidator(logLevel);
-    	for(DocumentValidator dv : documentValidators) {
-    		cachedValidator.addValidator(dv);
-    	}
+      cachedValidator = new LocationValidator(logLevel);
+      for (DocumentValidator dv : documentValidators) {
+        cachedValidator.addValidator(dv);
+      }
     }
     return cachedValidator;
   }
@@ -94,9 +93,9 @@ public class ValidatorFactory {
   public void setDocumentValidators(List<DocumentValidator> validators) {
     this.documentValidators = validators;
   }
-  
- public void flush() {
-     factory = null;
- }
+
+  public void flush() {
+    factory = null;
+  }
 
 }

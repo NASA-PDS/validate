@@ -13,42 +13,36 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
- * Registers identifiers defined within a label, and verifies that
- * the same identifier is not registered twice.
+ * Registers identifiers defined within a label, and verifies that the same identifier is not
+ * registered twice.
  */
 public class RegisterLabelIdentifiers extends AbstractValidationRule {
 
   private static final Logger LOG = LoggerFactory.getLogger(RegisterLabelIdentifiers.class);
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
-  private static final String IDENTIFIERS_PATH
-      = "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']"
-      + "/*:logical_identifier[namespace-uri()='" + PDS4_NS + "']";
-  
-  private static final String VERSION_ID_PATH = 
-      "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']"
-      + "/*:version_id[namespace-uri()='" + PDS4_NS + "']";
+  private static final String IDENTIFIERS_PATH = "//*:Identification_Area[namespace-uri()='"
+      + PDS4_NS + "']" + "/*:logical_identifier[namespace-uri()='" + PDS4_NS + "']";
+
+  private static final String VERSION_ID_PATH = "//*:Identification_Area[namespace-uri()='"
+      + PDS4_NS + "']" + "/*:version_id[namespace-uri()='" + PDS4_NS + "']";
 
   private XPathFactory xPathFactory;
 
@@ -68,8 +62,8 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
   /**
    * Tests that label identifiers are uniquely defined.
    *
-   * @throws XPathExpressionException if there is an error processing the XPath to
-   *   the label logical identifier
+   * @throws XPathExpressionException if there is an error processing the XPath to the label logical
+   *         identifier
    */
   @ValidationTest
   public void registerIdentifiers() throws XPathExpressionException {
@@ -79,19 +73,22 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
     Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
     DOMSource source = new DOMSource(label);
 
-    NodeList identifiers = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFIERS_PATH, source, XPathConstants.NODESET);
+    NodeList identifiers = (NodeList) xPathFactory.newXPath().evaluate(IDENTIFIERS_PATH, source,
+        XPathConstants.NODESET);
     String lid = "";
-    for (int i=0; i < identifiers.getLength(); ++i) {
+    for (int i = 0; i < identifiers.getLength(); ++i) {
       Node name = identifiers.item(i);
       lid = name.getTextContent();
     }
-    NodeList versions = (NodeList) xPathFactory.newXPath().evaluate(VERSION_ID_PATH, source, XPathConstants.NODESET);
+    NodeList versions = (NodeList) xPathFactory.newXPath().evaluate(VERSION_ID_PATH, source,
+        XPathConstants.NODESET);
     String vid = "";
-    for (int i=0; i < versions.getLength(); ++i) {
+    for (int i = 0; i < versions.getLength(); ++i) {
       Node name = versions.item(i);
       vid = name.getTextContent();
     }
-    LOG.debug("RegisterLabelIdentifiers:registerIdentifiers:getTarget(),lid,vid {},{},{}",getTarget(),lid,vid);
+    LOG.debug("RegisterLabelIdentifiers:registerIdentifiers:getTarget(),lid,vid {},{},{}",
+        getTarget(), lid, vid);
     registerIdentifier(new Identifier(lid, vid));
   }
 
@@ -101,14 +98,15 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
     try {
       target = getTarget().toURI();
     } catch (URISyntaxException e) {
-      //Should never happen
+      // Should never happen
     }
-    LOG.debug("RegisterLabelIdentifiers:registerIdentifier:getTarget(),identifier {},{}",getTarget(),identifier);
+    LOG.debug("RegisterLabelIdentifiers:registerIdentifier:getTarget(),identifier {},{}",
+        getTarget(), identifier);
     if (registrar.getTargetForIdentifier(identifier) == null) {
       registrar.setTargetIdentifier(target.normalize().toString(), identifier);
     } else {
       String message = String.format("Identifier %s already defined (old location: %s)",
-                identifier.toString(), registrar.getTargetForIdentifier(identifier));
+          identifier.toString(), registrar.getTargetForIdentifier(identifier));
       reportError(PDS4Problems.DUPLICATE_LOGICAL_IDENTIFIER, getTarget(), -1, -1, message);
     }
   }

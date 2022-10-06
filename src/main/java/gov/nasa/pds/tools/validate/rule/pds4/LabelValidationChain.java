@@ -21,13 +21,13 @@ import gov.nasa.pds.tools.validate.rule.AbstractValidationChain;
  */
 public class LabelValidationChain extends AbstractValidationChain {
 
-	@Override
-	public boolean isApplicable(String location) {
-	  if (Utility.isDir(location)) {
-	    return false;
-	  }
+  @Override
+  public boolean isApplicable(String location) {
+    if (Utility.isDir(location)) {
+      return false;
+    }
 
-	  return true;
-	}
+    return true;
+  }
 
 }

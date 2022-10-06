@@ -13,6 +13,14 @@
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
 
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.net.URL;
+import java.util.Arrays;
+import org.apache.commons.lang3.Range;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.google.common.primitives.UnsignedInteger;
 import com.google.common.primitives.UnsignedLong;
 import gov.nasa.arc.pds.xml.generated.Array;
@@ -27,20 +35,9 @@ import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.constants.Constants;
 
-import org.apache.commons.lang3.Range;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.net.URL;
-import java.util.Arrays;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * Class that performs content validation on Array objects.
- * 
+ *
  * @author mcayanan
  *
  */
@@ -49,16 +46,16 @@ public class ArrayContentValidator {
 
   /** Container to capture messages. */
   private ProblemListener listener;
-  
+
   /** The label associated with the Array being validated. */
   private URL label;
-  
+
   /** The data file containing the array content. */
   private URL dataFile;
-  
+
   /** The index of the array. */
   private int arrayIndex;
-  
+
   private int spotCheckData;
 
   private static final Range SignedByte_RANGE = Range.between(Byte.MIN_VALUE, Byte.MAX_VALUE);
@@ -67,18 +64,26 @@ public class ArrayContentValidator {
   private static final Range SignedLSB2_RANGE = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
   private static final Range UnsignedMSB2_RANGE = Range.between(0, 65535);
   private static final Range SignedMSB2_RANGE = Range.between(Short.MIN_VALUE, Short.MAX_VALUE);
-  private static final Range UnsignedLSB4_RANGE = Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
+  private static final Range UnsignedLSB4_RANGE =
+      Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
   private static final Range SignedLSB4_RANGE = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
-  private static final Range UnsignedMSB4_RANGE = Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
+  private static final Range UnsignedMSB4_RANGE =
+      Range.between(UnsignedInteger.ZERO, UnsignedInteger.MAX_VALUE);
   private static final Range SignedMSB4_RANGE = Range.between(Integer.MIN_VALUE, Integer.MAX_VALUE);
-  private static final Range UnsignedLSB8_RANGE = Range.between(UnsignedLong.ZERO, UnsignedLong.MAX_VALUE);
+  private static final Range UnsignedLSB8_RANGE =
+      Range.between(UnsignedLong.ZERO, UnsignedLong.MAX_VALUE);
   private static final Range SignedLSB8_RANGE = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
-  private static final Range UnsignedMSB8_RANGE = Range.between(UnsignedLong.ZERO,UnsignedLong.MAX_VALUE);
+  private static final Range UnsignedMSB8_RANGE =
+      Range.between(UnsignedLong.ZERO, UnsignedLong.MAX_VALUE);
   private static final Range SignedMSB8_RANGE = Range.between(Long.MIN_VALUE, Long.MAX_VALUE);
-  private static final Range IEEE754LSBSingle_RANGE = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
-  private static final Range IEEE754MSBSingle_RANGE = Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
-  private static final Range IEEE754LSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
-  private static final Range IEEE754MSBDouble_RANGE = Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+  private static final Range IEEE754LSBSingle_RANGE =
+      Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+  private static final Range IEEE754MSBSingle_RANGE =
+      Range.between(-Float.MAX_VALUE, Float.MAX_VALUE);
+  private static final Range IEEE754LSBDouble_RANGE =
+      Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
+  private static final Range IEEE754MSBDouble_RANGE =
+      Range.between(-Double.MAX_VALUE, Double.MAX_VALUE);
 
   private static int PROGRESS_COUNTER = 0;
   private static String tableNameReportStr = "";
@@ -91,14 +96,13 @@ public class ArrayContentValidator {
    * @param dataFile the data file.
    * @param arrayIndex the index of the array.
    */
-  public ArrayContentValidator(ProblemListener listener, URL label, 
-      URL dataFile, int arrayIndex) {
+  public ArrayContentValidator(ProblemListener listener, URL label, URL dataFile, int arrayIndex) {
     this.listener = listener;
     this.label = label;
     this.dataFile = dataFile;
     this.arrayIndex = arrayIndex;
   }
-  
+
   /**
    * Validates the given array.
    * 
@@ -114,43 +118,35 @@ public class ArrayContentValidator {
     LOG.debug("validate:tableNameReportStr {}", tableNameReportStr);
 
     try {
-      process(array, arrayObject, dimensions, new int[dimensions.length], 0,
-          dimensions.length - 1);
+      process(array, arrayObject, dimensions, new int[dimensions.length], 0, dimensions.length - 1);
 
     } catch (IOException io) {
       listener.addProblem(new ArrayContentProblem(
-          new ProblemDefinition(
-              ExceptionType.FATAL,
-              ProblemType.ARRAY_DATA_FILE_READ_ERROR,
+          new ProblemDefinition(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
               "Error occurred while reading data file: " + io.getMessage()),
-          dataFile,
-          label,
-          arrayIndex,
-          null));
+          dataFile, label, arrayIndex, null));
     } catch (Exception e) {
       listener.addProblem(new ArrayContentProblem(
-          new ProblemDefinition(
-              ExceptionType.FATAL,
-              ProblemType.ARRAY_DATA_FILE_READ_ERROR,
+          new ProblemDefinition(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
               "Error occurred while reading data file: " + e.getMessage()),
-          dataFile,
-          label,
-          arrayIndex,
-          null));
+          dataFile, label, arrayIndex, null));
     } finally {
       arrayObject.closeChannel();
     }
   }
-  
-  private void process(Array array, ArrayObject arrayObject, int[] dimensions, 
-      int[] position, int depth, int maxDepth) throws IOException {
+
+  private void process(Array array, ArrayObject arrayObject, int[] dimensions, int[] position,
+      int depth, int maxDepth) throws IOException {
     // Print something to indicate the program is still executing since content
     // validation can take some time
-    if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) { PROGRESS_COUNTER = 0; }
-    else if (PROGRESS_COUNTER % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) { System.out.print("."); }
+    if (PROGRESS_COUNTER++ == Integer.MAX_VALUE) {
+      PROGRESS_COUNTER = 0;
+    } else if (PROGRESS_COUNTER % Constants.CONTENT_VAL_PROGRESS_COUNTER == 0) {
+      System.out.print(".");
+    }
 
     for (int i = 0; i < dimensions[depth];) {
-      if( depth < maxDepth ) { // max depth not reached, do another recursion
+      if (depth < maxDepth) { // max depth not reached, do another recursion
         position[depth] = i;
         process(array, arrayObject, dimensions, position, depth + 1, maxDepth);
         i++;
@@ -160,8 +156,7 @@ public class ArrayContentValidator {
         for (int j = 0; j < position.length; j++) {
           position_1based[j] = position[j] + 1;
         }
-        ArrayLocation location = new ArrayLocation(label, dataFile, 
-            arrayIndex, position_1based);
+        ArrayLocation location = new ArrayLocation(label, dataFile, arrayIndex, position_1based);
         validatePosition(array, arrayObject, location, position);
         if (spotCheckData != -1) {
           i = i + spotCheckData;
@@ -171,92 +166,93 @@ public class ArrayContentValidator {
       }
     }
   }
-  
-  private void validatePosition(Array array, ArrayObject arrayObject, 
-      ArrayLocation location, int[] position) throws IOException {
-    NumericDataType dataType = Enum.valueOf(NumericDataType.class, 
-        array.getElementArray().getDataType());
+
+  private void validatePosition(Array array, ArrayObject arrayObject, ArrayLocation location,
+      int[] position) throws IOException {
+    NumericDataType dataType =
+        Enum.valueOf(NumericDataType.class, array.getElementArray().getDataType());
     Number value = null;
     Range rangeChecker = null;
-    // LOG.debug("validatePosition:dataType,array.getObjectStatistics() {},{}",dataType,array.getObjectStatistics());
+    // LOG.debug("validatePosition:dataType,array.getObjectStatistics()
+    // {},{}",dataType,array.getObjectStatistics());
 
     try {
       switch (dataType) {
-      case SignedByte:
-        value = (byte) arrayObject.getInt(position);
-        rangeChecker = SignedByte_RANGE;
-        break;
-      case UnsignedByte:
-        value = arrayObject.getInt(position);
-        rangeChecker = UnsignedByte_RANGE;
-        break;
-      case UnsignedLSB2:
-        value = arrayObject.getInt(position);
-        rangeChecker = UnsignedLSB2_RANGE;
-        break;
-      case SignedLSB2:
-        value = (short) arrayObject.getInt(position);
-        rangeChecker = SignedLSB2_RANGE;
-        break;
-      case UnsignedMSB2:
-        value = arrayObject.getInt(position);
-        rangeChecker = UnsignedMSB2_RANGE;
-        break;              
-      case SignedMSB2:
-        value = (short) arrayObject.getInt(position);
-        rangeChecker = SignedMSB2_RANGE;
-        break;
-      case UnsignedLSB4:
-        value = UnsignedInteger.valueOf(arrayObject.getLong(position));
-        rangeChecker = UnsignedLSB4_RANGE;
-        break;
-      case SignedLSB4:
-        value = arrayObject.getInt(position);
-        rangeChecker = SignedLSB4_RANGE;
-        break;
-      case UnsignedMSB4:
-        value = UnsignedInteger.valueOf(arrayObject.getLong(position));
-        rangeChecker = UnsignedMSB4_RANGE;
-        break;
-      case SignedMSB4:
-        value = arrayObject.getInt(position);
-        rangeChecker = SignedMSB4_RANGE;
-        break;
-      case UnsignedLSB8:
-        value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
-        rangeChecker = UnsignedLSB8_RANGE;
-        break;
-      case SignedLSB8:
-        value = arrayObject.getLong(position);
-        rangeChecker = SignedLSB8_RANGE;
-        break;
-      case UnsignedMSB8:
-        value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
-        rangeChecker = UnsignedMSB8_RANGE;
-        break;        
-      case SignedMSB8:
-        value = arrayObject.getLong(position);
-        rangeChecker = SignedMSB8_RANGE;
-        break;
-      case IEEE754LSBSingle:
-        value = (float) arrayObject.getDouble(position);
-        rangeChecker = IEEE754LSBSingle_RANGE;
-        break;
-      case IEEE754MSBSingle:
-        value = (float) arrayObject.getDouble(position);
-        rangeChecker = IEEE754MSBSingle_RANGE;
-        break;
-      case IEEE754LSBDouble:
-        value = arrayObject.getDouble(position);
-        rangeChecker = IEEE754LSBDouble_RANGE;
-        break;
-      case IEEE754MSBDouble:
-        value = arrayObject.getDouble(position);
-        rangeChecker = IEEE754MSBDouble_RANGE;
-        break;
-      default:
-        LOG.warn("validatePosition:Unhandled dataType {}",dataType);
-        break;
+        case SignedByte:
+          value = (byte) arrayObject.getInt(position);
+          rangeChecker = SignedByte_RANGE;
+          break;
+        case UnsignedByte:
+          value = arrayObject.getInt(position);
+          rangeChecker = UnsignedByte_RANGE;
+          break;
+        case UnsignedLSB2:
+          value = arrayObject.getInt(position);
+          rangeChecker = UnsignedLSB2_RANGE;
+          break;
+        case SignedLSB2:
+          value = (short) arrayObject.getInt(position);
+          rangeChecker = SignedLSB2_RANGE;
+          break;
+        case UnsignedMSB2:
+          value = arrayObject.getInt(position);
+          rangeChecker = UnsignedMSB2_RANGE;
+          break;
+        case SignedMSB2:
+          value = (short) arrayObject.getInt(position);
+          rangeChecker = SignedMSB2_RANGE;
+          break;
+        case UnsignedLSB4:
+          value = UnsignedInteger.valueOf(arrayObject.getLong(position));
+          rangeChecker = UnsignedLSB4_RANGE;
+          break;
+        case SignedLSB4:
+          value = arrayObject.getInt(position);
+          rangeChecker = SignedLSB4_RANGE;
+          break;
+        case UnsignedMSB4:
+          value = UnsignedInteger.valueOf(arrayObject.getLong(position));
+          rangeChecker = UnsignedMSB4_RANGE;
+          break;
+        case SignedMSB4:
+          value = arrayObject.getInt(position);
+          rangeChecker = SignedMSB4_RANGE;
+          break;
+        case UnsignedLSB8:
+          value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
+          rangeChecker = UnsignedLSB8_RANGE;
+          break;
+        case SignedLSB8:
+          value = arrayObject.getLong(position);
+          rangeChecker = SignedLSB8_RANGE;
+          break;
+        case UnsignedMSB8:
+          value = UnsignedLong.valueOf(Long.toUnsignedString(arrayObject.getLong(position)));
+          rangeChecker = UnsignedMSB8_RANGE;
+          break;
+        case SignedMSB8:
+          value = arrayObject.getLong(position);
+          rangeChecker = SignedMSB8_RANGE;
+          break;
+        case IEEE754LSBSingle:
+          value = (float) arrayObject.getDouble(position);
+          rangeChecker = IEEE754LSBSingle_RANGE;
+          break;
+        case IEEE754MSBSingle:
+          value = (float) arrayObject.getDouble(position);
+          rangeChecker = IEEE754MSBSingle_RANGE;
+          break;
+        case IEEE754LSBDouble:
+          value = arrayObject.getDouble(position);
+          rangeChecker = IEEE754LSBDouble_RANGE;
+          break;
+        case IEEE754MSBDouble:
+          value = arrayObject.getDouble(position);
+          rangeChecker = IEEE754MSBDouble_RANGE;
+          break;
+        default:
+          LOG.warn("validatePosition:Unhandled dataType {}", dataType);
+          break;
       }
     } catch (Exception ee) {
       String loc = Arrays.toString(location.getLocation());
@@ -267,49 +263,46 @@ public class ArrayContentValidator {
         loc = loc.replaceAll("\\[", "");
         loc = loc.replaceAll("\\]", "");
       }
-      throw new IOException("Error occurred while trying to "
-          + "read data at location " + loc + ": " + ee.getMessage());
+      throw new IOException("Error occurred while trying to " + "read data at location " + loc
+          + ": " + ee.getMessage());
     }
-    
+
     boolean isSpecialConstant = false;
     if (array.getSpecialConstants() != null) {
       isSpecialConstant = isSpecialConstant(value.toString(), array.getSpecialConstants());
     }
 
-    // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants() {},{},{}",dataType,isSpecialConstant,array.getSpecialConstants());
-    // LOG.debug("validatePosition:dataType,value,rangeChecker.contains(value) {},{},{}",dataType,value,rangeChecker.contains(value));
+    // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants()
+    // {},{},{}",dataType,isSpecialConstant,array.getSpecialConstants());
+    // LOG.debug("validatePosition:dataType,value,rangeChecker.contains(value)
+    // {},{},{}",dataType,value,rangeChecker.contains(value));
 
     if (!isSpecialConstant) {
       if (!rangeChecker.contains(value)) {
-          addArrayProblem(ExceptionType.ERROR,
-              ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE,
-              this.tableNameReportStr + "Value is not within the valid range of the data type '" 
-                  + dataType.name() + "': " + value.toString(),
-            location
-             );
+        addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE,
+            ArrayContentValidator.tableNameReportStr
+                + "Value is not within the valid range of the data type '" + dataType.name() + "': "
+                + value.toString(),
+            location);
       }
       if (array.getObjectStatistics() != null) {
         // At this point, it seems like it only makes sense
         // to check that the values are within the min/max values
-        checkObjectStats(value, array.getElementArray(),
-            array.getObjectStatistics(), location);
+        checkObjectStats(value, array.getElementArray(), array.getObjectStatistics(), location);
       }
     } else {
-      addArrayProblem(ExceptionType.INFO,
-          ProblemType.ARRAY_VALUE_IS_SPECIAL_CONSTANT,
+      addArrayProblem(ExceptionType.INFO, ProblemType.ARRAY_VALUE_IS_SPECIAL_CONSTANT,
           tableNameReportStr + "Value is a special constant defined in the label: "
               + value.toString(),
-          location
-      );
+          location);
     }
   }
-  
+
   /**
    * Checks if the given value is a Special Constant defined in the label.
    * 
    * @param value The value to check.
-   * @param constants An object representation of the Special_Constants area
-   * in a label.
+   * @param constants An object representation of the Special_Constants area in a label.
    * 
    * @return true if the given value is a Special Constant.
    */
@@ -318,7 +311,7 @@ public class ArrayContentValidator {
       if (value.equals(constants.getErrorConstant())) {
         return true;
       }
-    } 
+    }
     if (constants.getInvalidConstant() != null) {
       if (value.equals(constants.getInvalidConstant())) {
         return true;
@@ -378,38 +371,39 @@ public class ArrayContentValidator {
   }
 
   /**
-   * Checks the given number against the object statistics characteristics
-   * as defined in the product label.
+   * Checks the given number against the object statistics characteristics as defined in the product
+   * label.
    * 
    * @param value The element value.
    * @param elementArray The Element Array.
    * @param objectStats The Object Statistics.
    * @param location The location of the given element value.
    */
-  private void checkObjectStats(Number value, ElementArray elementArray, 
+  private void checkObjectStats(Number value, ElementArray elementArray,
       ObjectStatistics objectStats, ArrayLocation location) {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
       if (compare(value.doubleValue(), objectStats.getMinimum()) == -1) {
-        String errorMessage = tableNameReportStr + " Value is less than the minimum value in the label (min=" + objectStats.getMinimum().toString();
-        LOG.debug("checkObjectStats:value.doubleValue() {}",value.doubleValue());
-        LOG.debug("checkObjectStats:objectStats.getMinimum(),type(objectStats.getMinimum()) {},{}",objectStats.getMinimum(),objectStats.getMinimum().getClass().getSimpleName());
-        LOG.error(errorMessage);
-        addArrayProblem(ExceptionType.ERROR,
-            ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
+        String errorMessage =
             tableNameReportStr + " Value is less than the minimum value in the label (min="
-            + objectStats.getMinimum().toString()
-            + ", got=" + value.toString() + ").", location);
+                + objectStats.getMinimum().toString();
+        LOG.debug("checkObjectStats:value.doubleValue() {}", value.doubleValue());
+        LOG.debug("checkObjectStats:objectStats.getMinimum(),type(objectStats.getMinimum()) {},{}",
+            objectStats.getMinimum(), objectStats.getMinimum().getClass().getSimpleName());
+        LOG.error(errorMessage);
+        addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
+            tableNameReportStr + " Value is less than the minimum value in the label (min="
+                + objectStats.getMinimum().toString() + ", got=" + value.toString() + ").",
+            location);
       }
     }
     if (objectStats.getMaximum() != null) {
       // Use the compare function in this class to compare between two floats.
       if (compare(value.doubleValue(), objectStats.getMaximum()) == 1) {
-        addArrayProblem(ExceptionType.ERROR, 
-            ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
+        addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + "Value is greater than the maximum value in the label (max="
-            + objectStats.getMaximum().toString()
-            + ", got=" + value.toString() + ").", location);        
+                + objectStats.getMaximum().toString() + ", got=" + value.toString() + ").",
+            location);
       }
     }
     double scalingFactor = 1.0;
@@ -427,52 +421,49 @@ public class ArrayContentValidator {
       double scaledValue = (value.doubleValue() * scalingFactor) + valueOffset;
       if (objectStats.getMinimumScaledValue() != null) {
         if (compare(scaledValue, objectStats.getMinimumScaledValue()) == -1) {
-          addArrayProblem(ExceptionType.ERROR,
-              ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
+          addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
               tableNameReportStr + "Scaled value is less than the scaled minimum value in the "
-              + "label (min=" + objectStats.getMinimumScaledValue().toString()
-              + ", got=" + value.toString() + ").", location);          
+                  + "label (min=" + objectStats.getMinimumScaledValue().toString() + ", got="
+                  + value.toString() + ").",
+              location);
         }
       }
       if (objectStats.getMaximumScaledValue() != null) {
         if (compare(scaledValue, objectStats.getMaximumScaledValue()) == 1) {
-          addArrayProblem(ExceptionType.ERROR,
-              ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
-              "Scaled value is greater than the scaled maximum value in the "
-              + "label (max=" + objectStats.getMaximumScaledValue().toString()
-              + ", got=" + value.toString() + ").", location);             
+          addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
+              "Scaled value is greater than the scaled maximum value in the " + "label (max="
+                  + objectStats.getMaximumScaledValue().toString() + ", got=" + value.toString()
+                  + ").",
+              location);
         }
       }
     }
   }
-  
+
   /**
-   * Compares 2 double values. If the values have different
-   * precisions, this method will set the precisions to the 
-   * same scale before doing a comparison.
+   * Compares 2 double values. If the values have different precisions, this method will set the
+   * precisions to the same scale before doing a comparison.
    * 
    * @param value The element value.
    * @param minMax The min or max value to compare against.
    * 
-   * @return -1 if value is less than minMax, 0 if they are equal
-   *  and 1 if value is greater than minMax.
+   * @return -1 if value is less than minMax, 0 if they are equal and 1 if value is greater than
+   *         minMax.
    */
   private int compare(Double value, Double minMax) {
     BigDecimal bdValue = new BigDecimal(value.toString());
     BigDecimal bdMinMax = new BigDecimal(minMax.toString());
     if (bdValue.precision() == bdMinMax.precision()) {
       return bdValue.compareTo(bdMinMax);
-    } else if (bdValue.precision() > bdMinMax.precision()) {
-      BigDecimal scaledValue = bdValue.setScale(bdMinMax.precision(), 
-          RoundingMode.HALF_UP);
-      return scaledValue.compareTo(bdMinMax);
-    } else {
-      BigDecimal scaledMinMax = bdMinMax.setScale(bdValue.precision(), 
-          RoundingMode.HALF_UP);
-      return bdValue.compareTo(scaledMinMax);
     }
+    if (bdValue.precision() > bdMinMax.precision()) {
+      BigDecimal scaledValue = bdValue.setScale(bdMinMax.precision(), RoundingMode.HALF_UP);
+      return scaledValue.compareTo(bdMinMax);
+    }
+    BigDecimal scaledMinMax = bdMinMax.setScale(bdValue.precision(), RoundingMode.HALF_UP);
+    return bdValue.compareTo(scaledMinMax);
   }
-  
+
   /**
    * Records an Array Content related message to the listener.
    * 
@@ -480,19 +471,13 @@ public class ArrayContentValidator {
    * @param message The message to record.
    * @param location The array location associated with the message.
    */
-  private void addArrayProblem(ExceptionType exceptionType, 
-      ProblemType problemType, String message, ArrayLocation location) {
-    //LOG.debug("addArrayProblem: message [{}]",message);
-    listener.addProblem(
-        new ArrayContentProblem(exceptionType,
-            problemType,
-            message,
-            location.getDataFile(),
-            location.getLabel(),
-            location.getArray(),
-            location.getLocation()));
+  private void addArrayProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+      ArrayLocation location) {
+    // LOG.debug("addArrayProblem: message [{}]",message);
+    listener.addProblem(new ArrayContentProblem(exceptionType, problemType, message,
+        location.getDataFile(), location.getLabel(), location.getArray(), location.getLocation()));
   }
-  
+
   public void setSpotCheckData(int value) {
     this.spotCheckData = value;
   }

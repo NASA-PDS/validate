@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -37,7 +37,6 @@ import java.io.LineNumberReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
-
 import org.apache.commons.io.FilenameUtils;
 
 /**
@@ -49,8 +48,7 @@ import org.apache.commons.io.FilenameUtils;
 public class ChecksumManifest {
   private URL baseUrl;
 
-  public ChecksumManifest(String baseUrl)
-      throws MalformedURLException {
+  public ChecksumManifest(String baseUrl) throws MalformedURLException {
     if (!baseUrl.endsWith("/")) {
       this.baseUrl = new URL(baseUrl + "/");
     } else {
@@ -67,11 +65,10 @@ public class ChecksumManifest {
    *
    * @throws IOException If there was an error reading the checksum manifest.
    */
-  public HashMap<URL, String> read(URL manifest)
-  throws IOException {
-    HashMap<URL, String> checksums = new HashMap<URL, String>();
-    LineNumberReader reader = new LineNumberReader(new BufferedReader(
-        new InputStreamReader(manifest.openStream())));
+  public HashMap<URL, String> read(URL manifest) throws IOException {
+    HashMap<URL, String> checksums = new HashMap<>();
+    LineNumberReader reader =
+        new LineNumberReader(new BufferedReader(new InputStreamReader(manifest.openStream())));
     String line = "";
     try {
       while ((line = reader.readLine()) != null) {
@@ -84,8 +81,8 @@ public class ChecksumManifest {
         checksums.put(url, tokens[0]);
       }
     } catch (ArrayIndexOutOfBoundsException ae) {
-      throw new IOException("line " + reader.getLineNumber()
-          + ": Could not tokenize '" + line + "': " + ae.getMessage());
+      throw new IOException("line " + reader.getLineNumber() + ": Could not tokenize '" + line
+          + "': " + ae.getMessage());
     } finally {
       reader.close();
     }

@@ -1,4 +1,4 @@
-//Copyright © 2019, California Institute of Technology ("Caltech").
+// Copyright © 2019, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -7,14 +7,14 @@
 // modification, are permitted provided that the following conditions are met:
 //
 // • Redistributions of source code must retain the above copyright notice,
-//   this list of conditions and the following disclaimer.
+// this list of conditions and the following disclaimer.
 // • Redistributions must reproduce the above copyright notice, this list of
-//   conditions and the following disclaimer in the documentation and/or other
-//   materials provided with the distribution.
+// conditions and the following disclaimer in the documentation and/or other
+// materials provided with the distribution.
 // • Neither the name of Caltech nor its operating division, the Jet Propulsion
-//   Laboratory, nor the names of its contributors may be used to endorse or
-//   promote products derived from this software without specific prior written
-//   permission.
+// Laboratory, nor the names of its contributors may be used to endorse or
+// promote products derived from this software without specific prior written
+// permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 // AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -42,62 +42,62 @@ import java.util.Properties;
  *
  */
 public class ToolInfo {
-    public static final String FILE = "validate.properties";
+  public static final String FILE = "validate.properties";
 
-    public static final String NAME = "validate.name";
+  public static final String NAME = "validate.name";
 
-    public static final String VERSION = "validate.version";
+  public static final String VERSION = "validate.version";
 
-    public static final String RELEASE_DATE = "validate.date";
+  public static final String RELEASE_DATE = "validate.date";
 
-    public static final String COPYRIGHT = "validate.copyright";
+  public static final String COPYRIGHT = "validate.copyright";
 
-    public static final String SEARCH_URL = "validate.search_url";
-    public static final String OUTPUT_FILE_NAME = "validate.output_file_name";
-    public static final String ENDPOINT = "validate.endpoint";
-    public static final String QUERY = "validate.query";
+  public static final String SEARCH_URL = "validate.search_url";
+  public static final String OUTPUT_FILE_NAME = "validate.output_file_name";
+  public static final String ENDPOINT = "validate.endpoint";
+  public static final String QUERY = "validate.query";
 
-    private static final Properties props = new Properties();
+  private static final Properties props = new Properties();
 
-    static {
-        try {
-            URL propertyFile = ToolInfo.class.getResource(FILE);
-            InputStream in = propertyFile.openStream();
-            props.load(in);
-        } catch (IOException io) {
-            throw new RuntimeException(io.getMessage());
-        }
+  static {
+    try {
+      URL propertyFile = ToolInfo.class.getResource(FILE);
+      InputStream in = propertyFile.openStream();
+      props.load(in);
+    } catch (IOException io) {
+      throw new RuntimeException(io.getMessage());
     }
+  }
 
-    public static String getName() {
-        return props.getProperty(NAME);
-    }
+  public static String getName() {
+    return props.getProperty(NAME);
+  }
 
-    public static String getVersion() {
-        return props.getProperty(VERSION);
-    }
+  public static String getVersion() {
+    return props.getProperty(VERSION);
+  }
 
-    public static String getReleaseDate() {
-        return props.getProperty(RELEASE_DATE);
-    }
+  public static String getReleaseDate() {
+    return props.getProperty(RELEASE_DATE);
+  }
 
-    public static String getCopyright() {
-        return props.getProperty(COPYRIGHT);
-    }
+  public static String getCopyright() {
+    return props.getProperty(COPYRIGHT);
+  }
 
-    public static String getSearchURL() {
-        return props.getProperty(SEARCH_URL);
-    }
+  public static String getSearchURL() {
+    return props.getProperty(SEARCH_URL);
+  }
 
-    public static String getOutputFileName() {
-        return props.getProperty(OUTPUT_FILE_NAME);
-    }
+  public static String getOutputFileName() {
+    return props.getProperty(OUTPUT_FILE_NAME);
+  }
 
-    public static String getEndpoint() {
-        return props.getProperty(ENDPOINT);
-    }
+  public static String getEndpoint() {
+    return props.getProperty(ENDPOINT);
+  }
 
-    public static String getQuery() {
-        return props.getProperty(QUERY);
-    }
+  public static String getQuery() {
+    return props.getProperty(QUERY);
+  }
 }

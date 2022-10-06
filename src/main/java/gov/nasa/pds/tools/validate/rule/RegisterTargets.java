@@ -13,6 +13,8 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule;
 
+import java.net.URISyntaxException;
+import java.util.Arrays;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
@@ -20,15 +22,9 @@ import gov.nasa.pds.tools.validate.TargetType;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.WildcardOSFilter;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
-
 /**
- * Implements a rule that inserts this target into the target
- * registry, if not already present, and also adds all of its
- * child targets.
+ * Implements a rule that inserts this target into the target registry, if not already present, and
+ * also adds all of its child targets.
  */
 public class RegisterTargets extends AbstractValidationRule {
 
@@ -40,13 +36,12 @@ public class RegisterTargets extends AbstractValidationRule {
   @ValidationTest
   public void registerTargets() {
     TargetRegistrar registrar = getRegistrar();
-    
+
     String targetLocation = getTarget().toString();
     String parentLocation = getParentTarget();
     TargetType type = Utility.getTargetType(getTarget());
 
-
-    if (registrar.getRoot()==null || !registrar.hasTarget(targetLocation)) {
+    if (registrar.getRoot() == null || !registrar.hasTarget(targetLocation)) {
       registrar.addTarget(parentLocation, type, targetLocation);
     }
 
@@ -63,11 +58,13 @@ public class RegisterTargets extends AbstractValidationRule {
             TargetType childType = Utility.getTargetType(child.getUrl());
             registrar.addTarget(targetLocation, childType, childLocation);
           } catch (URISyntaxException e) {
-            reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, e.getMessage());
+            reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+                e.getMessage());
           }
         }
       } catch (Exception e) {
-        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1, e.getMessage());
+        reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
+            e.getMessage());
       }
     }
   }

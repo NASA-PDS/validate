@@ -13,13 +13,9 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import gov.nasa.pds.tools.label.ExceptionType;
-
-import java.util.Arrays;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
-
-
+import gov.nasa.pds.tools.label.ExceptionType;
 
 /**
  * Defines a specific problem uncovered by a validation rule.
@@ -28,61 +24,52 @@ public class ProblemDefinition {
 
   private static final AtomicInteger keyGenerator = new AtomicInteger();
 
-	private final int id;
-	private final ExceptionType severity; 
-	private final ProblemType type;
-	private final String message;
-	private final String standardsDocument;
-	private final String standardsSection;
-	private int knownHashCode;
+  private final int id;
+  private final ExceptionType severity;
+  private final ProblemType type;
+  private final String message;
+  private final String standardsDocument;
+  private final String standardsSection;
+  private int knownHashCode;
 
-	public ProblemDefinition(
-			ExceptionType severity,
-			ProblemType type,
-			String message,
-			String standardsDocument,
-			String standardsSection
-	) {
-	    this.id = keyGenerator.incrementAndGet();
-		this.severity = severity;
-		this.type = type;
-		this.message = message;
-		this.standardsDocument = standardsDocument;
-		this.standardsSection = standardsSection;
+  public ProblemDefinition(ExceptionType severity, ProblemType type, String message,
+      String standardsDocument, String standardsSection) {
+    this.id = keyGenerator.incrementAndGet();
+    this.severity = severity;
+    this.type = type;
+    this.message = message;
+    this.standardsDocument = standardsDocument;
+    this.standardsSection = standardsSection;
 
-	}
-	
-  public ProblemDefinition(
-      ExceptionType severity,
-      ProblemType type,
-      String message
-  ) {
+  }
+
+  public ProblemDefinition(ExceptionType severity, ProblemType type, String message) {
     this(severity, type, message, null, null);
   }
 
-	public int getID() {
-	  return id;
-	}
+  public int getID() {
+    return id;
+  }
 
-	public ExceptionType getSeverity() {
-	  return severity;
-	}
+  public ExceptionType getSeverity() {
+    return severity;
+  }
 
-	public ProblemType getType() {
-		return type;
-	}
+  public ProblemType getType() {
+    return type;
+  }
 
-	public String getMessage() {
-		return message;
-	}
+  public String getMessage() {
+    return message;
+  }
 
-	public String getStandardsDocument() {
-		return standardsDocument;
-	}
+  public String getStandardsDocument() {
+    return standardsDocument;
+  }
 
-	public String getStandardsSection() {
-		return standardsSection;
-	}
+  public String getStandardsSection() {
+    return standardsSection;
+  }
 
   @Override
   public boolean equals(Object obj) {
@@ -91,21 +78,20 @@ public class ProblemDefinition {
     }
 
     ProblemDefinition other = (ProblemDefinition) obj;
-    
-    return message.equals(other.message)
-            && severity==other.severity
-            && type==other.type
-            && Objects.equals(standardsDocument, other.standardsDocument)
-            && Objects.equals(standardsSection, other.standardsSection);
+
+    return message.equals(other.message) && severity == other.severity && type == other.type
+        && Objects.equals(standardsDocument, other.standardsDocument)
+        && Objects.equals(standardsSection, other.standardsSection);
   }
 
   @Override
   public int hashCode() {
     if (knownHashCode == 0) {
-      String combined = message + severity.toString() + standardsDocument + standardsSection + type.toString();
+      String combined =
+          message + severity.toString() + standardsDocument + standardsSection + type.toString();
       knownHashCode = combined.hashCode();
     }
-    
+
     return knownHashCode;
   }
 }

@@ -13,26 +13,23 @@
 // $Id$
 package gov.nasa.pds.tools.validate.task;
 
-import gov.nasa.pds.tools.validate.ProblemListener;
-import gov.nasa.pds.tools.validate.TargetRegistrar;
-import gov.nasa.pds.tools.validate.TargetWithErrors;
-import gov.nasa.pds.tools.validate.ValidationTarget;
-import gov.nasa.pds.tools.validate.rule.RuleContext;
-import gov.nasa.pds.tools.validate.rule.ValidationRule;
-import gov.nasa.pds.tools.validate.rule.ValidationRuleManager;
-
-import gov.nasa.pds.tools.validate.ProblemDefinition;
-import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.label.ExceptionType;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemListener;
+import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetRegistrar;
+import gov.nasa.pds.tools.validate.TargetWithErrors;
+import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.ValidationTarget;
+import gov.nasa.pds.tools.validate.rule.RuleContext;
+import gov.nasa.pds.tools.validate.rule.ValidationRule;
+import gov.nasa.pds.tools.validate.rule.ValidationRuleManager;
 
 /**
  * Implements a background task for performing a validation.
@@ -54,7 +51,8 @@ public class ValidationTask implements Task {
    *
    * @param listener the problem listener for the task
    */
-  public ValidationTask(ProblemListener problemListener, RuleContext context, TargetRegistrar targetRegistrar) {
+  public ValidationTask(ProblemListener problemListener, RuleContext context,
+      TargetRegistrar targetRegistrar) {
     this.problemListener = problemListener;
     this.context = context;
     this.targetRegistrar = targetRegistrar;
@@ -88,8 +86,7 @@ public class ValidationTask implements Task {
   }
 
   /**
-   * Sets the limit on the number of errors encountered before
-   * the validation will terminate.
+   * Sets the limit on the number of errors encountered before the validation will terminate.
    *
    * @param limit the error limit
    */
@@ -132,18 +129,17 @@ public class ValidationTask implements Task {
     try {
       rule.execute(context);
     } catch (Throwable ex) {
-    	ex.printStackTrace();
-    	try {
-    		problemListener.addProblem(
-    	        new ValidationProblem(new ProblemDefinition(
-    	            ExceptionType.ERROR,
-    	            ProblemType.INTERNAL_ERROR,
-    	            "Error executing validationTask: " + ex.getCause().toString()),
-    	        	new URL(location)));
-    	} catch (Exception e) {
-    	   //e.printStackTrace();
-    	   LOG.error("Malformed URL: " + location, e);
-        }
+      ex.printStackTrace();
+      try {
+        problemListener
+            .addProblem(new ValidationProblem(
+                new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                    "Error executing validationTask: " + ex.getCause().toString()),
+                new URL(location)));
+      } catch (Exception e) {
+        // e.printStackTrace();
+        LOG.error("Malformed URL: " + location, e);
+      }
       LOG.error("Unexpected exception executing validation rule", ex);
     }
 
@@ -205,7 +201,7 @@ public class ValidationTask implements Task {
   }
 
   public List<TargetWithErrors> getAllTargets() {
-    List<TargetWithErrors> allTargets = new ArrayList<TargetWithErrors>();
+    List<TargetWithErrors> allTargets = new ArrayList<>();
     addTarget(targetRegistrar.getRoot(), allTargets);
     return allTargets;
   }
