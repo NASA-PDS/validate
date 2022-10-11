@@ -1,6 +1,14 @@
 # Changelog
 
-## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-09-05)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-10-11)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.4.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- pds4.bundle option seems to not travel through enough subdirectories [\#444](https://github.com/NASA-PDS/validate/issues/444) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-09-06)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
 
