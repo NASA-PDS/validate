@@ -80,7 +80,6 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
-import org.omg.CORBA.portable.ApplicationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
@@ -949,7 +948,7 @@ public class ValidateLauncher {
    *
    * @param style 'sum' for a summary report, 'min' for a minimal report, and 'full' for a full
    *        report
-   * @throws ApplicationException
+   * @throws Exception
    */
   public void setReportStyle(String style) throws Exception {
     if (!style.equalsIgnoreCase("full") && !style.equalsIgnoreCase("json")
