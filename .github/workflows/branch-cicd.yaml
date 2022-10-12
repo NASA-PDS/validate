@@ -37,14 +37,14 @@ jobs:
         steps:
             -
                 name: 💳 Checkout
-                uses: actions/checkout@v2
+                uses: actions/checkout@v3
                 with:
                     lfs: true
                     fetch-depth: 0
                     token: ${{secrets.ADMIN_GITHUB_TOKEN}}
             -
                 name: 💵 Maven Cache
-                uses: actions/cache@v2
+                uses: actions/cache@v3
                 with:
                     path: ~/.m2/repository
                     # The "key" used to indicate a set of cached files is the operating system runner
@@ -56,7 +56,7 @@ jobs:
                     restore-keys: pds-${{runner.os}}-mvn-
             -
                 name: ☕️ Set up OpenJDK
-                uses: actions/setup-java@v2
+                uses: actions/setup-java@v3
                 with:
                     distribution: 'adopt'
                     java-version: ${{matrix.java-version}}
