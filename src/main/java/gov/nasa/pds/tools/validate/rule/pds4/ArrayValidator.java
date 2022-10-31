@@ -89,35 +89,17 @@ public class ArrayValidator implements DataObjectValidator {
         throw new IllegalArgumentException(dataType + " is not supported at this time.");
       }
 
-      // Validate if the file has enough content to be able to be read into the 2D
-      // array.
-      // this.validateMinimumFileSize(target, array, dataFile, fileName, dataType);
-
-      // The size of the array object is equal to the element size
-      // times the product of the sizes of all axes
-      // (i.e. total size =
-      // number of lines * number of samples
-      // * number of bands * element size)
-      ArrayObject ao = null;
-      try {
-        // Array elements have values which conform to their data type
-
-        // Verify that the elements match the object statistics defined
-        // within their associated label, if they exist
-        if (!this.array.getArray().getAxisArraies().isEmpty()) {
-          ArrayContentValidator validator = new ArrayContentValidator(this.listener, target,
-              this.array.getDataFile(), this.arrayIndex);
-          validator.setSpotCheckData(this.context.getSpotCheckData());
-          validator.validate(this.array);
-        } else {
-          addArrayProblem(ExceptionType.FATAL, ProblemType.INVALID_LABEL,
-              "Missing Axis_Array area.", this.array.getDataFile(), arrayIndex);
-          valid = false;
-        }
-      } finally {
-        if (ao != null) {
-          ao.closeChannel();
-        }
+      // Verify that the elements match the object statistics defined
+      // within their associated label, if they exist
+      if (!this.array.getArray().getAxisArraies().isEmpty()) {
+        ArrayContentValidator validator = new ArrayContentValidator(this.listener, target,
+            this.array.getDataFile(), this.arrayIndex);
+        validator.setSpotCheckData(this.context.getSpotCheckData());
+        validator.validate(this.array);
+      } else {
+        addArrayProblem(ExceptionType.FATAL, ProblemType.INVALID_LABEL, "Missing Axis_Array area.",
+            this.array.getDataFile(), arrayIndex);
+        valid = false;
       }
     } catch (IllegalArgumentException ae) {
       addArrayProblem(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
