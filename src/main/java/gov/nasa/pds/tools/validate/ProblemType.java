@@ -30,7 +30,7 @@ public enum ProblemType {
 
   UNKNOWN_VALUE("error.validation.unknown_value"),
 
-  TABLE_DEFINITION_PROBLEM("error.validation.table_definition_problem"),
+  TABLE_DEFINITION_PROBLEM("error.label.table_definition_problem"),
 
   TABLE_DEFINITION_MISMATCH("error.validation.table_definition_mismatch"),
 
@@ -51,6 +51,8 @@ public enum ProblemType {
   MISSING_CHECKSUM("error.label.missing_checksum"),
 
   FILESIZE_MISMATCH("error.label.filesize_mismatch"),
+
+  INVALID_OBJECT_DEFINITION("error.label.invalid_object_definition"),
 
   MISSING_FILESIZE("error.label.missing_filesize"),
 

@@ -99,11 +99,11 @@ public class PDFUtil {
     }
   }
 
-  private boolean validatePDF(URI uri, String pdfRef) {
+  private boolean validatePDF(URI uri, String pdfRef) throws IOException {
     boolean pdfValidateFlag = false;
 
-    // Create a parser and auto-detect flavour
     try {
+      // Create a parser and auto-detect flavour
       PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
       PDFAFlavour detectedFlavour = parser.getFlavour();
       LOG.debug("validatePDF: parser.getFlavour() [{}]", detectedFlavour);
@@ -137,9 +137,8 @@ public class PDFUtil {
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
-      LOG.error("validatePDF parse PDF file " + pdfRef);
-      LOG.error("validatePDF is " + e.getMessage());
+      this.errorMessage = " Unable to read with VeraPDF standard reader. " + e.getMessage();
+      throw new IOException(this.errorMessage);
     }
     return (pdfValidateFlag);
   }

@@ -10,19 +10,19 @@ import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
+import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 // TODO: Find exact problem.
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
-import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
-import gov.nasa.pds.tools.validate.rule.ValidationTest;
+import gov.nasa.pds.tools.validate.rule.RuleContext;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 /**
  * Implements a validation rule that checks that fields of tables are defined in order, that they do
  * not overlap, and that the fields do not extend outside the record.
  */
-public class TableFieldDefinitionRule extends AbstractValidationRule {
+public class TableFieldDefinitionRule {
   private static final Logger LOG = LoggerFactory.getLogger(TableFieldDefinitionRule.class);
   private static final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
@@ -89,93 +89,32 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
                                                               // from node and not
                                                               // document.
 
+  private ProblemListener listener = null;
+  private RuleContext context = null;
+  private boolean valid = true;
+
   /**
    * Creates a new instance.
    */
-  public TableFieldDefinitionRule() {}
-
-  @Override
-  public boolean isApplicable(String location) {
-    // The rule is applicable if a label has been parsed.
-    return getContext().containsKey(PDS4Context.LABEL_DOCUMENT);
+  public TableFieldDefinitionRule(RuleContext context, ProblemListener listener) {
+    this.context = context;
+    this.listener = listener;
   }
 
-  private void validateAsciiStringFieldsFormat(List<String> fieldFormatList,
-      List<String> fieldTypeList, List<String> fieldNumberList) {
-    // ASCII String related fields should not have '+' in the format.
-
-    int indexToList = 0;
-    // Loop through all elements fieldFormatList. If field is in
-    // ASCII_STRING_TYPE_LIST, check if prohibited '+' is in the format.
-    for (String oneFieldFormat : fieldFormatList) {
-      // LOG.debug("validateAsciiStringFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)
-      // {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
-      // Check for prohibited plus symbol '+' in format field : %+8s
-      if (ASCII_STRING_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
-        if (oneFieldFormat.contains("%+")) {
-          LOG.error("ASCII String related fields should not contain '+' symbol in field_format ["
-              + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
-          addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_LABEL,
-              "ASCII String related fields should not contain '+' symbol in field_format ["
-                  + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
-              getTarget(), -1, -1);
-        }
-      }
-      indexToList += 1;
-    }
-  }
-
-  private void validateAsciiNumberFieldsFormat(List<String> fieldFormatList,
-      List<String> fieldTypeList, List<String> fieldNumberList) {
-    // ASCII Number related fields should not have '-' in the format.
-
-    int indexToList = 0;
-    // Loop through all elements fieldFormatList. If field is in
-    // ASCII_NUMBER_TYPE_LIST, check if prohibited '-' is in the format.
-    for (String oneFieldFormat : fieldFormatList) {
-      // LOG.debug("validateAsciiNumberFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)
-      // {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
-      // Check for prohibited minus symbol '-' in format field : %-2d
-      if (ASCII_NUMBER_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
-        if (oneFieldFormat.contains("%-")) {
-          LOG.error("ASCII Number related fields should not contain '-' symbol in field_format ["
-              + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
-          addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_LABEL,
-              "ASCII Number related fields should not contain '-' symbol in field_format ["
-                  + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
-              getTarget(), -1, -1);
-        }
-      }
-      indexToList += 1;
-    }
-  }
-
-  private void validateFieldFormats() {
-    // The field 'field_format' need to checked for conformant to standard:
-    // Example of valid field_format for ASCII_String (left justified):
-    //
-    // <data_type>ASCII_String</data_type>
-    // <field_length unit="byte">26</field_length>
-    // <field_format>%-26s</field_format>
-    //
-    // Example of an invalid field_format for ASCII_String (right justified):
-    // <data_type>ASCII_String</data_type>
-    // <field_length unit="byte">8</field_length>
-    // <field_format>%+8s</field_format>
-    // <description>Number of the asteroid.</description>
+  public boolean validateFieldFormats() {
     int numFields = 0;
 
     try {
-      XMLExtractor extractor = new XMLExtractor(getTarget());
+      XMLExtractor extractor = new XMLExtractor(this.context.getTarget());
       TinyNodeImpl tableCharacterNode = extractor.getNodeFromDoc(TABLE_CHARACTER);
       TinyNodeImpl recordCharacterNode = extractor.getNodeFromDoc(RECORD_CHARACTER);
 
       // If any of the nodes are null, cannot continue. Not all labels are expected to
       // contain the PRODUCT_OBSERVATIONAL nodes.
       if (tableCharacterNode == null || recordCharacterNode == null) {
-        LOG.info("Label " + getTarget() + " does not contain any fields pertaining to "
+        LOG.info("Label " + this.context.getTarget() + " does not contain any fields pertaining to "
             + TABLE_CHARACTER + " or " + RECORD_CHARACTER + " to valid ASCII field formats on");
-        return;
+        return true;
       }
 
       // At this point, all nodes are valid and should be able to perform validation
@@ -188,8 +127,8 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
         numFields += Integer.parseInt(singleFieldsValue);
       }
 
-      // LOG.debug("numFields,getTarget() {}",numFields,getTarget());
-      LOG.info("validateFieldFormats:target,recordCharacterNode {},{}", getTarget(),
+      // LOG.debug("numFields,this.context.getTarget() {}",numFields,this.context.getTarget());
+      LOG.info("validateFieldFormats:target,recordCharacterNode {},{}", this.context.getTarget(),
           recordCharacterNode);
 
       // New way of extracting fields in the 'Field_Character' node since not every
@@ -231,16 +170,13 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
         // Check to make sure all arrays are the same size as numFields.
         if (numFields != fieldFormatList.size() || numFields != fieldTypeList.size()
             || numFields != fieldNumberList.size()) {
-          String errorMessage = ("The number of fields " + Integer.toString(numFields)
-              + " do not match with fields provided: fieldFormatList.size() "
-              + Integer.toString(fieldFormatList.size()) + ",fieldTypeList.size() "
-              + Integer.toString(fieldTypeList.size()) + ",fieldNumberList.size() "
-              + Integer.toString(fieldNumberList.size()));
+          String errorMessage = ("Total fields count mismatch. Expected: "
+              + Integer.toString(numFields) + ", Actual: " + fieldNumberList.size());
           LOG.error(errorMessage);
-          getListener().addProblem(new ValidationProblem(
-              new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVALID_LABEL, errorMessage),
-              getTarget()));
-          return;
+          this.listener.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+              ProblemType.INVALID_OBJECT_DEFINITION, errorMessage), this.context.getTarget()));
+
+          return false;
         }
 
         // Validate both ASCIII String and ASCII Number fields format.
@@ -249,31 +185,71 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
       }
 
     } catch (Exception e) {
-      LOG.error("Cannot extract {} from label {}", RECORD_CHARACTER, getTarget());
-      getListener().addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
-          ProblemType.INVALID_LABEL, "Cannot extract " + RECORD_CHARACTER + " from label"),
-          getTarget()));
+      LOG.error("Cannot extract {} from label {}", RECORD_CHARACTER, this.context.getTarget());
+      this.listener
+          .addProblem(
+              new ValidationProblem(
+                  new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION,
+                      "Cannot extract " + RECORD_CHARACTER + " from label"),
+                  this.context.getTarget()));
+
+      this.valid = false;
     }
 
+    return this.valid;
   }
 
-  @ValidationTest
-  public void testTableDefinitions() {
-    testTableDefinition(TEXT_TABLE_PATH, TEXT_FIELD_PATH, TEXT_GROUP_FIELD_PATH);
-    testTableDefinition(BINARY_TABLE_PATH, BINARY_FIELD_PATH, BINARY_GROUP_FIELD_PATH);
+  private void validateAsciiStringFieldsFormat(List<String> fieldFormatList,
+      List<String> fieldTypeList, List<String> fieldNumberList) {
+    // ASCII String related fields should not have '+' in the format.
 
-    //
-    // Validate all fields to make sure they are not using prohibited '+' or '-' in
-    // certain fields.
-    //
-
-    this.validateFieldFormats();
-
+    int indexToList = 0;
+    // Loop through all elements fieldFormatList. If field is in
+    // ASCII_STRING_TYPE_LIST, check if prohibited '+' is in the format.
+    for (String oneFieldFormat : fieldFormatList) {
+      // LOG.debug("validateAsciiStringFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)
+      // {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
+      // Check for prohibited plus symbol '+' in format field : %+8s
+      if (ASCII_STRING_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
+        if (oneFieldFormat.contains("%+")) {
+          LOG.error("ASCII String related fields should not contain '+' symbol in field_format ["
+              + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
+          addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION,
+              "ASCII String related fields should not contain '+' symbol in field_format ["
+                  + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
+              this.context.getTarget(), -1, -1);
+          this.valid = false;
+        }
+      }
+      indexToList += 1;
+    }
   }
 
-  private void testTableDefinition(String tablePath, String fieldPath, String groupFieldPath) {
-    LOG.debug("testTableDefinition:tablePath,fieldPath,groupFieldPath {},{},{}", tablePath,
-        fieldPath, groupFieldPath);
+  private void validateAsciiNumberFieldsFormat(List<String> fieldFormatList,
+      List<String> fieldTypeList, List<String> fieldNumberList) {
+    // ASCII Number related fields should not have '-' in the format.
+
+    int indexToList = 0;
+    // Loop through all elements fieldFormatList. If field is in
+    // ASCII_NUMBER_TYPE_LIST, check if prohibited '-' is in the format.
+    for (String oneFieldFormat : fieldFormatList) {
+      // LOG.debug("validateAsciiNumberFieldsFormat:indexToList,oneFieldFormat,fieldTypeList.get(indexToList)
+      // {},{},{}",indexToList,oneFieldFormat,fieldTypeList.get(indexToList));
+      // Check for prohibited minus symbol '-' in format field : %-2d
+      if (ASCII_NUMBER_TYPE_LIST.contains(fieldTypeList.get(indexToList).toUpperCase())) {
+        if (oneFieldFormat.contains("%-")) {
+          LOG.error("ASCII Number related fields should not contain '-' symbol in field_format ["
+              + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList));
+          addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION,
+              "ASCII Number related fields should not contain '-' symbol in field_format ["
+                  + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
+              this.context.getTarget(), -1, -1);
+
+          this.valid = false;
+        }
+      }
+      indexToList += 1;
+    }
   }
 
   /**
@@ -302,7 +278,7 @@ public class TableFieldDefinitionRule extends AbstractValidationRule {
    */
   private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       URL dataFile, int table, int record, int field) {
-    getListener().addProblem(new TableContentProblem(exceptionType, problemType, message, dataFile,
-        getTarget(), table, record, field));
+    this.listener.addProblem(new TableContentProblem(exceptionType, problemType, message, dataFile,
+        this.context.getTarget(), table, record, field));
   }
 }

@@ -34,9 +34,12 @@ import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FileFinder;
 import gov.nasa.pds.tools.util.SettingsManager;
+import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.BundleManager;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
@@ -171,6 +174,14 @@ public class LocationValidator {
       return;
     }
 
+    ProblemListener listener = new ListenerExceptionPropagator(problemHandler);
+
+    if (!Utility.isDir(url) && !Utility.canRead(url)) {
+      listener.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+          ProblemType.NO_PRODUCTS_FOUND, "Path not found."), url));
+      return;
+    }
+
     ValidationRule rule = getRule(url);
     String location = url.toString();
     LOG.info("location " + location);
@@ -183,15 +194,6 @@ public class LocationValidator {
       LOG.debug("validate:rule.isApplicable() {} location {}", rule.isApplicable(location),
           location);
       LOG.debug("validate:rule.getCaption () {} location {}", rule.getCaption(), location);
-      if (rule.getCaption().startsWith("PDS4 Label")) {
-        LOG.debug("validate:rule.getCaption().startsWith('PDS4 Label')) is true");
-        if (ruleContext.getCheckData()) {
-          rule = ruleManager.findRuleByName("pds4.label");
-        } else {
-          rule = ruleManager.findRuleByName("pds4.label.skip.content");
-        }
-        LOG.debug("validate:rule.getCaption() {}", rule.getCaption());
-      }
 
       ArrayList<Target> ignoreList = new ArrayList<>(); // List of items to be ignored from result
                                                         // of
@@ -265,7 +267,6 @@ public class LocationValidator {
         return;
       }
 
-      ProblemListener listener = new ListenerExceptionPropagator(problemHandler);
       ValidationTask task = new ValidationTask(listener, ruleContext, targetRegistrar);
       task.setLocation(location);
       task.setRule(rule);

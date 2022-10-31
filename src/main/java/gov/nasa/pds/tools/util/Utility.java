@@ -198,8 +198,14 @@ public class Utility {
 
   public static boolean isDir(URL url) {
     File file = FileUtils.toFile(url);
-    LOG.debug("isDir:file,url {},{}", file, url);
-    LOG.debug("isDir:ext_len,url {},{}", FilenameUtils.getExtension(url.toString()).length(), url);
+    LOG.debug("isDir.file: {}, url:{}", file, url);
+    LOG.debug("isDir.extension length: {}, url: {}",
+        FilenameUtils.getExtension(url.toString()).length(), url);
+
+    if (file == null || !file.exists()) {
+      return false;
+    }
+
     return file.isDirectory();
   }
 

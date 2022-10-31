@@ -163,7 +163,7 @@ public class FullReport extends Report {
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
-        writer.print("table ");
+        writer.print("data object ");
         writer.print(tcProblem.getTable().toString());
       }
       if (tcProblem.getRecord() != -1) {

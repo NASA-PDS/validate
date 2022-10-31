@@ -113,12 +113,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
 
     ValidationRule labelRuleTmp = null;
 
-    // issue_124:
-    if (!getContext().getCheckData()) {
-      labelRuleTmp = getContext().getRuleManager().findRuleByName("pds4.label.skip.content");
-    } else {
-      labelRuleTmp = getContext().getRuleManager().findRuleByName("pds4.label");
-    }
+    labelRuleTmp = getContext().getRuleManager().findRuleByName("pds4.label");
     final ValidationRule labelRule = labelRuleTmp;
 
     Crawler crawler = getContext().getCrawler();

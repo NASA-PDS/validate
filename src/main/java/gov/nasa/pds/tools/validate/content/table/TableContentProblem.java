@@ -26,8 +26,8 @@ import gov.nasa.pds.tools.validate.ProblemType;
  *
  */
 public class TableContentProblem extends ContentProblem {
-  /** The table index associated with the problem. */
-  private Integer table;
+  /** The data object index associated with the problem. */
+  private Integer dataObjectIndex;
 
   /** The record number associated with the problem. */
   private long record;
@@ -48,9 +48,9 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, int table, int record, int field) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, table, record,
-        field);
+      URL source, URL label, int dataObjectIndex, int record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectIndex,
+        record, field);
   }
 
   /**
@@ -66,9 +66,9 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, int table, long record, int field) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, table, record,
-        field);
+      URL source, URL label, int dataObjectIndex, long record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectIndex,
+        record, field);
   }
 
   /**
@@ -77,17 +77,17 @@ public class TableContentProblem extends ContentProblem {
    * @param defn The problem definition.
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
-   * @param table The index of the table associated with the message.
+   * @param dataObjectIndex The index of the data object associated with the message.
    * @param record The index of the record associated with the message.
    * @param field The index of the field associated with the message.
    */
-  public TableContentProblem(ProblemDefinition defn, URL source, URL label, int table, long record,
-      int field) {
+  public TableContentProblem(ProblemDefinition defn, URL source, URL label, int dataObjectIndex,
+      long record, int field) {
     super(defn, source, label);
-    if (table == -1) {
-      this.table = -1;
+    if (dataObjectIndex == -1) {
+      this.dataObjectIndex = -1;
     } else {
-      this.table = table;
+      this.dataObjectIndex = dataObjectIndex;
     }
     if (record == -1) {
       this.record = -1;
@@ -131,7 +131,7 @@ public class TableContentProblem extends ContentProblem {
    * @return the table index.
    */
   public Integer getTable() {
-    return this.table;
+    return this.dataObjectIndex;
   }
 
   /**
