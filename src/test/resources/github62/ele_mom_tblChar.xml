@@ -168,5 +168,60 @@
                 </Field_Character>
             </Record_Character>
         </Table_Character>
+        <Table_Binary>
+            <local_identifier>VG2-J-PLS-5-SUMM-ELE-MOM_TABLE_CHAR</local_identifier>
+            <offset unit="byte">104788</offset>
+            <records>2278</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            
+            <Record_Binary>
+                <fields>3</fields>
+                <groups>0</groups>
+                <record_length unit="byte">46</record_length>
+                
+                <Field_Character>
+                    <name>TIME</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Time</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <description>
+                        Time column. This field contains time in PDS format     
+                        yyyy-mm-ddThh:mm:ss.sssZ. The individual elements of the         
+                        time field can be read using the format                          
+                        (i4,4(1x,i2),1x,f6.3) yr, mon, day, hr, min, sec.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>ELE_DEN</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>count/cm**3</unit>
+                    <description>
+                        Column contains total electron moment density in counts/cm^3.    
+                    </description>
+                    <Special_Constants>
+                       <missing_constant>-9.99e+10</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>ELE_TEMP</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">35</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>electronvolt</unit>
+                    <description>
+                        Column contains total electron moment temperature in units of
+                        electron volts.                   
+                    </description>
+                    <Special_Constants>
+                       <missing_constant>-9.99e+10</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Binary>
+        </Table_Binary>
     </File_Area_Observational>
 </Product_Observational>

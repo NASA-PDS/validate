@@ -148,7 +148,7 @@
     </Header>
     <Array_2D>
       <local_identifier>image</local_identifier>
-      <offset unit="byte">0</offset>
+      <offset unit="byte">17280</offset>
       <axes>2</axes>
       <axis_index_order>Last Index Fastest</axis_index_order>
       <description>TBD</description>
