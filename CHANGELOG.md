@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-11-01)
+## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-11-01)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.4.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/2.4.0...v2.4.0-SNAPSHOT)
+
+## [release/2.4.0](https://github.com/NASA-PDS/validate/tree/release/2.4.0) (2022-11-01)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...release/2.4.0)
 
 **Improvements:**
 
@@ -11,20 +15,13 @@
 
 **Defects:**
 
+- Bug in validate when reading products with a number of records \> 4-byte range [\#533](https://github.com/NASA-PDS/validate/issues/533) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not calculate overlaps correctly when Header is not first object in file [\#480](https://github.com/NASA-PDS/validate/issues/480) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - NullPointerException when Table\_Delimited is missing records attribute [\#473](https://github.com/NASA-PDS/validate/issues/473) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate should not check PDF/A validity if content validation is disabled [\#453](https://github.com/NASA-PDS/validate/issues/453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- pds4.bundle option seems to not travel through enough subdirectories [\#444](https://github.com/NASA-PDS/validate/issues/444) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Build and unit tests do not pass on Windows OS [\#204](https://github.com/NASA-PDS/validate/issues/204) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Fix uncaught exception error when validating an array object [\#155](https://github.com/NASA-PDS/validate/issues/155) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
-
-## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-10-12)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
-
-**Defects:**
-
-- Bug in validate when reading products with a number of records \> 4-byte range [\#533](https://github.com/NASA-PDS/validate/issues/533) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-- pds4.bundle option seems to not travel through enough subdirectories [\#444](https://github.com/NASA-PDS/validate/issues/444) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v2.3.0](https://github.com/NASA-PDS/validate/tree/v2.3.0) (2022-07-25)
 
