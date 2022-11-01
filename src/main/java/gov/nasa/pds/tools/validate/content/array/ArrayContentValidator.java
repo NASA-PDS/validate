@@ -109,7 +109,8 @@ public class ArrayContentValidator {
    * @param array Object representation of the array as described in the label.
    * @param arrayObject Object representation of the array.
    */
-  public void validate(Array array, ArrayObject arrayObject) {
+  public void validate(ArrayObject arrayObject) {
+    Array array = arrayObject.getArray();
     int[] dimensions = new int[array.getAxisArraies().size()];
     for (int i = 0; i < dimensions.length; i++) {
       dimensions[i] = array.getAxisArraies().get(i).getElements().intValueExact();
@@ -120,11 +121,6 @@ public class ArrayContentValidator {
     try {
       process(array, arrayObject, dimensions, new int[dimensions.length], 0, dimensions.length - 1);
 
-    } catch (IOException io) {
-      listener.addProblem(new ArrayContentProblem(
-          new ProblemDefinition(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
-              "Error occurred while reading data file: " + io.getMessage()),
-          dataFile, label, arrayIndex, null));
     } catch (Exception e) {
       listener.addProblem(new ArrayContentProblem(
           new ProblemDefinition(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
@@ -145,6 +141,7 @@ public class ArrayContentValidator {
       System.out.print(".");
     }
 
+    arrayObject.open();
     for (int i = 0; i < dimensions[depth];) {
       if (depth < maxDepth) { // max depth not reached, do another recursion
         position[depth] = i;
@@ -165,6 +162,7 @@ public class ArrayContentValidator {
         }
       }
     }
+    arrayObject.close();
   }
 
   private void validatePosition(Array array, ArrayObject arrayObject, ArrayLocation location,
@@ -173,8 +171,6 @@ public class ArrayContentValidator {
         Enum.valueOf(NumericDataType.class, array.getElementArray().getDataType());
     Number value = null;
     Range rangeChecker = null;
-    // LOG.debug("validatePosition:dataType,array.getObjectStatistics()
-    // {},{}",dataType,array.getObjectStatistics());
 
     try {
       switch (dataType) {

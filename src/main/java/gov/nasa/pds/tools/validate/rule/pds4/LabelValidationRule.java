@@ -357,6 +357,7 @@ public class LabelValidationRule extends AbstractValidationRule {
         resolvedUrl =
             resolver.resolveSchema(schemaLocation.getKey(), schemaUrl.toString(), label.toString());
 
+        LOG.debug("resolvedUrl: {}", resolvedUrl);
         if (resolvedUrl != null) {
           schemaUrl = new URL(resolvedUrl);
         } else {
@@ -563,8 +564,6 @@ public class LabelValidationRule extends AbstractValidationRule {
       boolean resolvableUrl =
           resolveSingleSchema(label, schemaLocation, schemaUrl, container, labelProblems, resolver);
 
-      // LOG.debug("validateLabelSchemas: schemaUrl,resolvableUrl
-      // {},{}",schemaUrl,resolvableUrl);
       // If we found the schema, let's read it into memory
       if (resolvableUrl) {
 

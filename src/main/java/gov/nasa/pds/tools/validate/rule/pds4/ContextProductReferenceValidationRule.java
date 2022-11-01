@@ -188,7 +188,6 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
           getContext().getRegisteredProducts().get("Product_Context");
       LOG.debug("checkContextReferences: uri,references.getLength() {},{}", uri,
           references.getLength());
-      LOG.debug("checkContextReferences: uri,rgProds () {},{}", uri, rgProds);
       for (int i = 0; i < references.getLength(); i++) {
 
         // get name and type from parent

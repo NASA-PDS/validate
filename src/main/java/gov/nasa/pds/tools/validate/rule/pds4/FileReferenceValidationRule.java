@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -76,6 +77,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                                       // isJPEG() function.
   private DocumentsChecker documentsChecker = null; // Define documentsChecker so we can reuse it.
   private DocumentUtil documentUtil = null;
+  private ValidationTarget target = null;
+  private HashMap<String, String> fileMapping = null;
 
   public FileReferenceValidationRule() {
     checksumManifest = new HashMap<>();
@@ -122,40 +125,20 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     LOG.debug("validateFileReferences:leaving:uri {}", uri);
   }
 
-  private boolean checkGenericDocument(ValidationTarget target, URL urlRef, TinyNodeImpl fileObject,
-      String fileName, URL parent, String directory, String documentStandardId, String documentType,
-      List<ValidationProblem> problems, ProblemType problemType) {
-    boolean passFlag = true;
-    // Check for document file validity by getting the mime type associated with the
-    // file name.
-    try {
-      problems.addAll(handleGenericDocument(target, urlRef, fileObject, fileName, parent, directory,
-          documentStandardId, problemType));
-    } catch (Exception e) {
-      ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-          "Error occurred while processing " + documentType + " file content for "
-              + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
-      problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-      passFlag = false;
-    }
-    LOG.debug("checkGenericDocument:fileName,passFlag {},{}", fileName, passFlag);
-    return (passFlag);
-  }
-
   private boolean validate(DocumentInfo xml) {
-    boolean passFlag = true;
-    List<ValidationProblem> problems = new ArrayList<>();
-    ValidationTarget target = new ValidationTarget(getTarget());
+    this.target = new ValidationTarget(getTarget());
+
     try {
       // Perform checksum validation on the label itself
-      problems.addAll(handleChecksum(target, new URL(xml.getSystemId())));
+      handleChecksum(target, new URL(xml.getSystemId()));
     } catch (Exception e) {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
           "Error occurred while calculating checksum for "
               + FilenameUtils.getName(xml.getSystemId()) + ": " + e.getMessage());
-      problems.add(new ValidationProblem(pd, target));
-      passFlag = false;
+      getListener().addProblem(new ValidationProblem(pd, target));
+      return false;
     }
+
     try {
       LOG.debug("FileReferenceValidationRule:validate:building extractor");
       XMLExtractor extractor = new XMLExtractor(xml);
@@ -186,34 +169,34 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING,
                     ProblemType.FILE_REFERENCE_CASE_MISMATCH,
                     "File reference'" + fileRef.toString() + "' exists but the case doesn't match");
-                problems.add(new ValidationProblem(def, target));
+                getListener().addProblem(new ValidationProblem(def, target));
               }
             } catch (IOException io) {
               ProblemDefinition def =
                   new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR,
                       "Error occurred while checking for the existence of the " + "uri reference '"
                           + xincludeUrl.toString() + "': " + io.getMessage());
-              problems.add(new ValidationProblem(def, target));
-              passFlag = false;
+              getListener().addProblem(new ValidationProblem(def, target));
+              return false;
             }
             try {
               // Perform checksum validation on the xincludes.
-              problems.addAll(handleChecksum(target, xincludeUrl));
+              handleChecksum(target, xincludeUrl);
             } catch (Exception e) {
               ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
                   ProblemType.INTERNAL_ERROR, "Error occurred while calculating checksum for "
                       + FilenameUtils.getName(xincludeUrl.toString()) + ": " + e.getMessage());
-              problems.add(new ValidationProblem(def, target));
-              passFlag = false;
+              getListener().addProblem(new ValidationProblem(def, target));
+              return false;
             }
           } catch (IOException io) {
             ProblemDefinition def =
                 new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
                     "URI reference does not exist: " + xincludeUrl.toString());
-            problems.add(new ValidationProblem(def, target));
-            passFlag = false;
+            getListener().addProblem(new ValidationProblem(def, target));
+            return false;
           }
-        }
+        } // for (String xinclude : xincludes)
 
         // issue_42: Add capability to ignore product-level validation
         if (!getContext().getSkipProductValidation()) {
@@ -234,22 +217,22 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                   new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
                       "Problem occurred while trying to get all the children "
                           + "of the file object node: " + xpe.getMessage());
-              problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-              passFlag = false;
-              continue;
+              getListener()
+                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+              return false;
             }
 
             // Get file mapping for handling Document objects
-            HashMap<String, String> fileMapping = new HashMap<>();
+            this.fileMapping = new HashMap<>();
             for (TinyNodeImpl child : children) {
               // Get the value of 'document_standard_id' tag.
               if ("document_standard_id".equals(child.getLocalPart())) {
                 documentStandardId = child.getStringValue();
-                fileMapping.put(name, documentStandardId);
+                this.fileMapping.put(name, documentStandardId);
               }
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
-                fileMapping.put(name, "");
+                this.fileMapping.put(name, "");
                 LOG.debug("FileReferenceValidationRule:validate:name {}", name);
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
@@ -279,8 +262,9 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                   ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
                       ProblemType.UNALLOWED_DIRECTORY_NAME, "The directory name " + directory
                           + " for tag 'directory_path_name' cannot be absolute.");
-                  problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                  passFlag = false;
+                  getListener().addProblem(
+                      new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+                  return false;
                 }
               } else if ("file_size".equals(child.getLocalPart())) { // Fetch the file_size value
                                                                      // from
@@ -290,169 +274,19 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               }
             } // for (TinyNodeImpl child : children)
 
-            // Checks for File_Area information
-            if (name.isEmpty()) {
-              ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
-                  ProblemType.UNKNOWN_VALUE, "Missing file_name in label.");
-              problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-              passFlag = false;
-            } else {
-              URL urlRef = null;
-              if (!directory.isEmpty()) {
-                urlRef = new URL(parent, directory + File.separator + name); // Switch from '/' to a
-                                                                             // system-independent
-                                                                             // file
-                                                                             // separator.
-              } else {
-                urlRef = new URL(parent, name);
-              }
-              try {
-                urlRef.openStream().close();
-                // Check that the casing of the file reference matches the
-                // casing of the file located on the file system.
-                try {
-                  File fileRef = FileUtils.toFile(urlRef);
-                  if (fileRef != null && !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
-                    ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING,
-                        ProblemType.FILE_REFERENCE_CASE_MISMATCH, "File reference'"
-                            + fileRef.toString() + "' exists but the case doesn't match");
-                    problems
-                        .add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                  } else {
-                    LOG.debug(
-                        "FileReferenceValidationRule:validate:getTarget,name,urlRef {},{},{},",
-                        getTarget(), name, urlRef);
-                  }
-                } catch (IOException io) {
-                  ProblemDefinition def =
-                      new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR,
-                          "Error occurred while checking for the existence of the "
-                              + "uri reference '" + urlRef.toString() + "': " + io.getMessage());
-                  problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                  passFlag = false;
-                }
-                try {
-                  problems.addAll(handleChecksum(target, urlRef, fileObject, checksum));
-                } catch (Exception e) {
-                  ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
-                      ProblemType.INTERNAL_ERROR, "Error occurred while calculating checksum for "
-                          + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
-                  problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                  passFlag = false;
-                }
-
-                // Check for provided file_size value and against the calculated size.
-                try {
-                  problems.addAll(handleFilesize(target, urlRef, fileObject, filesize));
-                } catch (Exception e) {
-                  ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
-                      ProblemType.INTERNAL_ERROR, "Error occurred while calculating filesize for "
-                          + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
-                  problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                  passFlag = false;
-                }
-
-                // Check Document info
-
-                for (Map.Entry<String, String> entry : fileMapping.entrySet()) {
-                  String filename = entry.getKey();
-                  String doctype = entry.getValue();
-
-                  LOG.debug("FileReferenceValidationRule:validate:name,filename,doctype {},{},{}",
-                      name, filename, doctype);
-
-                  // Note that we have to check for "PDF/A" and "PDF" as well.
-                  if (doctype.equalsIgnoreCase("PDF/A") || doctype.equalsIgnoreCase("PDF")) {
-                    // Check for PDF file validity.
-                    try {
-                      problems.addAll(
-                          handlePDF(target, urlRef, fileObject, filename, parent, directory));
-                    } catch (Exception e) {
-                      ProblemDefinition def =
-                          new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                              "Error occurred while processing PDF file content for "
-                                  + FilenameUtils.getName(urlRef.toString()) + ": "
-                                  + e.getMessage());
-                      problems
-                          .add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                      passFlag = false;
-                    }
-                  } else if (doctype.equalsIgnoreCase("JPEG")) {
-                    // Check for JPEG file validity.
-                    try {
-                      problems.addAll(
-                          handleJPEG(target, urlRef, fileObject, filename, parent, directory));
-                    } catch (Exception e) {
-                      ProblemDefinition def =
-                          new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                              "Error occurred while processing JPEG file content for "
-                                  + FilenameUtils.getName(urlRef.toString()) + ": "
-                                  + e.getMessage());
-                      problems
-                          .add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                      passFlag = false;
-                    }
-                  } else if (doctype.equalsIgnoreCase("PNG")) {
-                    // Check for PNG file validity.
-                    try {
-                      problems.addAll(
-                          handlePNG(target, urlRef, fileObject, filename, parent, directory));
-                    } catch (Exception e) {
-                      ProblemDefinition def =
-                          new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
-                              "Error occurred while processing PNG file content for "
-                                  + FilenameUtils.getName(urlRef.toString()) + ": "
-                                  + e.getMessage());
-                      problems
-                          .add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                      passFlag = false;
-                    }
-                  } else if (!doctype.equalsIgnoreCase("UTF-8 Text")
-                      && !doctype.equalsIgnoreCase("7-Bit ASCII Text")
-                      && !doctype.equalsIgnoreCase("Rich Text")) {
-                    LOG.debug("FileReferenceValidationRule:validate:urlRef,doctype {},{}", urlRef,
-                        doctype);
-                    // Use the enum ProblemType based on a specific doctype and pass it to
-                    // checkGenericDocument() function.
-                    if (this.documentUtil == null) {
-                      // Only instantiate this class once.
-                      this.documentUtil = new DocumentUtil();
-                    }
-                    ProblemType problemType = this.documentUtil.getProblemType(doctype);
-                    // Is is possible that there's no corresponding problemType. Must check for
-                    // null-ness before calling checkGenericDocument() function.
-                    if (problemType == null) {
-                      LOG.error(
-                          "FileReferenceValidationRule:Cannot retrieve ProblemType from provided doctype {}",
-                          doctype);
-                    } else {
-                      passFlag = this.checkGenericDocument(target, urlRef, fileObject, filename,
-                          parent, directory, documentStandardId, doctype, problems, problemType);
-                    }
-                  } else if (doctype.equalsIgnoreCase("UTF-8 Text")
-                      || doctype.equalsIgnoreCase("7-Bit ASCII Text")
-                      || doctype.equalsIgnoreCase("Rich Text")) {
-                    // If text, pass through as true.
-                    continue;
-                  }
-                }
-              } catch (IOException io) {
-                ProblemDefinition def =
-                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
-                        "URI reference does not exist: " + urlRef.toString());
-                problems.add(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
-                passFlag = false;
-              }
+            if (getContext().getCheckData()) {
+              validateFileAreaDefinitionAndContent(name, fileObject, checksum, filesize,
+                  documentStandardId, parent, directory);
             }
-          } // end if (!getContext().getSkipProductValidation()) {
-        }
+          }
+        } // !getContext().getSkipProductValidation()
       } catch (XPathExpressionException xpe) {
         String message = "Error occurred while evaluating the following xpath expression '"
             + FILE_OBJECTS_XPATH + "': " + xpe.getMessage();
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, message);
-        problems.add(new ValidationProblem(def, target));
-        passFlag = false;
+        getListener().addProblem(new ValidationProblem(def, target));
+        return false;
       }
     } catch (Exception e) {
       // Print the stack trace for debugging and log the error message.
@@ -461,20 +295,189 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       LOG.error("validate:" + message);
       ProblemDefinition def =
           new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, message);
-      problems.add(new ValidationProblem(def, target));
-      passFlag = false;
+      getListener().addProblem(new ValidationProblem(def, target));
+      return false;
     }
-    // Add the problems to the exception container.
-    for (ValidationProblem problem : problems) {
-      getListener().addProblem(problem);
-    }
-    LOG.debug("FileReferenceValidationRule:validate:DONE: passFlag {}", passFlag);
-    return passFlag;
+
+    return true;
   }
 
-  private List<ValidationProblem> handleChecksum(ValidationTarget target, URL fileRef)
-      throws Exception {
-    return handleChecksum(target, fileRef, null, null);
+  private boolean validateFileAreaDefinitionAndContent(String fileName, TinyNodeImpl fileObject,
+      String checksum, String filesize, String documentStandardId, URL parent, String directory)
+      throws MalformedURLException {
+    // Checks for File_Area information
+    if (fileName.isEmpty()) {
+      ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE,
+          "Missing file_name in label.");
+      getListener().addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+      return false;
+    } else {
+      URL urlRef = null;
+      if (!directory.isEmpty()) {
+        // Switch from '/' to a system-independent file separator.
+        urlRef = new URL(parent, directory + File.separator + fileName);
+      } else {
+        urlRef = new URL(parent, fileName);
+      }
+
+
+      try {
+        urlRef.openStream().close();
+        // Check that the casing of the file reference matches the
+        // casing of the file located on the file system.
+        try {
+          File fileRef = FileUtils.toFile(urlRef);
+          if (fileRef != null && !fileRef.getCanonicalPath().endsWith(fileRef.getName())) {
+            ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING,
+                ProblemType.FILE_REFERENCE_CASE_MISMATCH,
+                "File reference'" + fileRef.toString() + "' exists but the case doesn't match");
+            getListener()
+                .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+          } else {
+            LOG.debug("FileReferenceValidationRule:validate:getTarget,name,urlRef {},{},{},",
+                getTarget(), fileName, urlRef);
+          }
+        } catch (IOException io) {
+          ProblemDefinition def = new ProblemDefinition(ExceptionType.FATAL,
+              ProblemType.INTERNAL_ERROR, "Error occurred while checking for the existence of the "
+                  + "uri reference '" + urlRef.toString() + "': " + io.getMessage());
+          getListener()
+              .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+          return false;
+        }
+        try {
+          handleChecksum(target, urlRef, fileObject, checksum);
+        } catch (Exception e) {
+          ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
+              ProblemType.INTERNAL_ERROR, "Error occurred while calculating checksum for "
+                  + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+          getListener()
+              .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+          return false;
+        }
+
+        // Check for provided file_size value and against the calculated size.
+        try {
+          handleFilesize(target, urlRef, fileObject, filesize);
+        } catch (Exception e) {
+          ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
+              ProblemType.INTERNAL_ERROR, "Error occurred while calculating filesize for "
+                  + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+          getListener()
+              .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+          return false;
+        }
+
+        // Check Document info
+        for (Map.Entry<String, String> entry : fileMapping.entrySet()) {
+          String filename = entry.getKey();
+          String doctype = entry.getValue();
+
+          LOG.debug("FileReferenceValidationRule:validate:name,filename,doctype {},{},{}", fileName,
+              filename, doctype);
+
+          // Note that we have to check for "PDF/A" and "PDF" as well.
+          if (doctype.equalsIgnoreCase("PDF/A") || doctype.equalsIgnoreCase("PDF")) {
+            // Check for PDF file validity.
+            try {
+              handlePDF(target, urlRef, fileObject, filename, parent, directory);
+            } catch (Exception e) {
+              ProblemDefinition def =
+                  new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                      "Error occurred while processing PDF file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+              getListener()
+                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+              return false;
+            }
+          } else if (doctype.equalsIgnoreCase("JPEG")) {
+            // Check for JPEG file validity.
+            try {
+              handleJPEG(target, urlRef, fileObject, filename, parent, directory);
+            } catch (Exception e) {
+              ProblemDefinition def =
+                  new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                      "Error occurred while processing JPEG file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+              getListener()
+                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+              return false;
+            }
+          } else if (doctype.equalsIgnoreCase("PNG")) {
+            // Check for PNG file validity.
+            try {
+              handlePNG(target, urlRef, fileObject, filename, parent, directory);
+            } catch (Exception e) {
+              ProblemDefinition def =
+                  new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+                      "Error occurred while processing PNG file content for "
+                          + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+              getListener()
+                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+              return false;
+            }
+          } else if (!doctype.equalsIgnoreCase("UTF-8 Text")
+              && !doctype.equalsIgnoreCase("7-Bit ASCII Text")
+              && !doctype.equalsIgnoreCase("Rich Text")) {
+            LOG.debug("FileReferenceValidationRule:validate:urlRef,doctype {},{}", urlRef, doctype);
+            // Use the enum ProblemType based on a specific doctype and pass it to
+            // checkGenericDocument() function.
+            if (this.documentUtil == null) {
+              // Only instantiate this class once.
+              this.documentUtil = new DocumentUtil();
+            }
+            ProblemType problemType = this.documentUtil.getProblemType(doctype);
+            // Is is possible that there's no corresponding problemType. Must check for
+            // null-ness before calling checkGenericDocument() function.
+            if (problemType == null) {
+              LOG.error(
+                  "FileReferenceValidationRule:Cannot retrieve ProblemType from provided doctype {}",
+                  doctype);
+            } else {
+              return this.checkGenericDocument(target, urlRef, fileObject, filename, parent,
+                  directory, documentStandardId, doctype, problemType);
+            }
+          } else if (doctype.equalsIgnoreCase("UTF-8 Text")
+              || doctype.equalsIgnoreCase("7-Bit ASCII Text")
+              || doctype.equalsIgnoreCase("Rich Text")) {
+            // If text, pass through as true.
+            continue;
+          }
+        }
+      } catch (IOException io) {
+        ProblemDefinition def =
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
+                "URI reference does not exist: " + urlRef.toString());
+        getListener()
+            .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean checkGenericDocument(ValidationTarget target, URL urlRef, TinyNodeImpl fileObject,
+      String fileName, URL parent, String directory, String documentStandardId, String documentType,
+      ProblemType problemType) {
+    boolean passFlag = true;
+    // Check for document file validity by getting the mime type associated with the
+    // file name.
+    try {
+      handleGenericDocument(target, urlRef, fileObject, fileName, parent, directory,
+          documentStandardId, problemType);
+    } catch (Exception e) {
+      ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
+          "Error occurred while processing " + documentType + " file content for "
+              + FilenameUtils.getName(urlRef.toString()) + ": " + e.getMessage());
+      getListener().addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+      passFlag = false;
+    }
+    LOG.debug("checkGenericDocument:fileName,passFlag {},{}", fileName, passFlag);
+    return (passFlag);
+  }
+
+  private void handleChecksum(ValidationTarget target, URL fileRef) throws Exception {
+    handleChecksum(target, fileRef, null, null);
   }
 
   /**
@@ -494,16 +497,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    *
    * @throws Exception If there was an error generating the checksum (if the flag was on)
    */
-  private List<ValidationProblem> handleChecksum(ValidationTarget target, URL urlRef,
-      TinyNodeImpl fileObject, String checksumInLabel) throws Exception {
+  private void handleChecksum(ValidationTarget target, URL urlRef, TinyNodeImpl fileObject,
+      String checksumInLabel) throws Exception {
     LOG.debug("handleChecksum:target,urlRef,checksumInLabel {},{},{}", target, urlRef,
         checksumInLabel);
     if (checksumManifest.isEmpty() && (checksumInLabel == null || checksumInLabel.isEmpty())) {
       String message = "No checksum found in the manifest for '" + urlRef + "'";
       LOG.debug("handleChecksum:" + message);
-      return new ArrayList<>();
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     String generatedChecksum = MD5Checksum.getMD5Checksum(urlRef);
     int lineNumber = -1;
     if (fileObject != null) {
@@ -535,13 +537,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         }
         if (!message.isEmpty()) {
           ProblemDefinition def = new ProblemDefinition(severity, type, message);
-          messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
         }
       } else {
         String message = "No checksum found in the manifest for '" + urlRef + "'";
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_CHECKSUM, message);
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
+        getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
       }
     }
     if (checksumInLabel != null) {
@@ -563,7 +565,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         }
         if (!message.isEmpty()) {
           ProblemDefinition def = new ProblemDefinition(severity, type, message);
-          messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
         }
       } else {
         String message =
@@ -571,10 +573,9 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         LOG.debug("handleChecksum:" + message);
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.INFO, ProblemType.MISSING_CHECKSUM_INFO, message);
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
+        getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
       }
     }
-    return messages;
   }
 
   /**
@@ -592,17 +593,16 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    *
    * @throws Exception If there was an error generating the filesize (if the flag was on)
    */
-  private List<ValidationProblem> handleFilesize(ValidationTarget target, URL urlRef,
-      TinyNodeImpl fileObject, String filesizeInLabel) throws Exception {
+  private void handleFilesize(ValidationTarget target, URL urlRef, TinyNodeImpl fileObject,
+      String filesizeInLabel) throws Exception {
     LOG.debug("handleFilesize:target,urlRef,filesizeInLabel {},{},{}", target, urlRef,
         filesizeInLabel);
     if (filesizeInLabel == null || filesizeInLabel.isEmpty()) {
       String message =
           "No filesize to compare against in the product label " + "for '" + urlRef + "'";
       LOG.debug("handleFilesize:" + message);
-      return new ArrayList<>(); // Return an empty list.
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     long fileSizeAsInt = FileSizesUtil.getExternalFilesize(urlRef); // Get the actual file size.
     String generatedFilesize = Long.toString(fileSizeAsInt);
     int lineNumber = -1;
@@ -633,7 +633,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         }
         if (!message.isEmpty()) {
           ProblemDefinition def = new ProblemDefinition(severity, type, message);
-          messages.add(new ValidationProblem(def, target, lineNumber, -1));
+          getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
         }
       } else {
         // The file size is not provided, report for info only.
@@ -642,14 +642,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         LOG.debug("handleFilesize:" + message);
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.INFO, ProblemType.MISSING_FILESIZE_INFO, message);
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
+        getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
       }
     }
-    return messages;
   }
 
-  private List<ValidationProblem> handlePDF(ValidationTarget target, URL fileRef,
-      TinyNodeImpl fileObject, String pdfName, URL parent, String directory) throws Exception {
+  private void handlePDF(ValidationTarget target, URL fileRef, TinyNodeImpl fileObject,
+      String pdfName, URL parent, String directory) throws Exception {
     LOG.debug("handlePDF:target,fileRef,pdfName {},{},{}", target, fileRef, pdfName);
     boolean pdfValidateFlag = false;
     if ((pdfName == null) || (fileObject == null)) {
@@ -663,9 +662,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             "The fileObject is null, no need to perform check " + "for '" + fileRef + "'";
         LOG.debug("handlePDF:" + message);
       }
-      return new ArrayList<>(); // Return an empty list.
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     int lineNumber = -1;
     if (fileObject != null) {
       lineNumber = fileObject.getLineNumber();
@@ -702,21 +700,19 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         }
         ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
             ProblemType.NON_PDFA_FILE, this.pdfUtil.getErrorMessage());
-        messages.add(new ValidationProblem(def, target, lineNumber, -1));
+        getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
       }
     } else {
       String message = fileRef.toString() + " is an invalid PDF/A filename.";
       LOG.error("handlePDF:" + message);
       ProblemDefinition def =
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.NON_PDFA_FILE, message);
-      messages.add(new ValidationProblem(def, target, lineNumber, -1));
+      getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }
-
-    return messages;
   }
 
-  private List<ValidationProblem> handleJPEG(ValidationTarget target, URL fileRef,
-      TinyNodeImpl fileObject, String jpegName, URL parent, String directory) throws Exception {
+  private void handleJPEG(ValidationTarget target, URL fileRef, TinyNodeImpl fileObject,
+      String jpegName, URL parent, String directory) throws Exception {
     LOG.debug("handleJPEGtarget,fileRef,jpegName {},{},{}", target, fileRef, jpegName);
     boolean jpegValidateFlag = false;
     if ((jpegName == null) || (fileObject == null)) {
@@ -730,9 +726,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             "The fileObject is null, no need to perform check " + "for '" + fileRef + "'";
         LOG.debug("handleJPEG:" + message);
       }
-      return new ArrayList<>(); // Return an empty list.
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     int lineNumber = -1;
     if (fileObject != null) {
       lineNumber = fileObject.getLineNumber();
@@ -756,14 +751,12 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       LOG.error("handleJPEG:" + urlRef.toString() + " is not valid JPEG file");
       ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING,
           ProblemType.NON_JPEG_FILE, urlRef.toString() + " is not valid JPEG file");
-      messages.add(new ValidationProblem(def, target, lineNumber, -1));
+      getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }
-
-    return messages;
   }
 
-  private List<ValidationProblem> handlePNG(ValidationTarget target, URL fileRef,
-      TinyNodeImpl fileObject, String pngName, URL parent, String directory) throws Exception {
+  private void handlePNG(ValidationTarget target, URL fileRef, TinyNodeImpl fileObject,
+      String pngName, URL parent, String directory) throws Exception {
     LOG.debug("handlePNGtarget,fileRef,pngName {},{},{}", target, fileRef, pngName);
     boolean validateFlag = false;
     if ((pngName == null) || (fileObject == null)) {
@@ -777,9 +770,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             "The fileObject is null, no need to perform check " + "for '" + fileRef + "'";
         LOG.debug("handlePNG:" + message);
       }
-      return new ArrayList<>(); // Return an empty list.
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     int lineNumber = -1;
     if (fileObject != null) {
       lineNumber = fileObject.getLineNumber();
@@ -803,15 +795,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       LOG.error("handlePNG:" + urlRef.toString() + " is not valid PNG file");
       ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_PNG_FILE,
           urlRef.toString() + " is not valid PNG file");
-      messages.add(new ValidationProblem(def, target, lineNumber, -1));
+      getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }
-
-    return messages;
   }
 
-  private List<ValidationProblem> handleGenericDocument(ValidationTarget target, URL fileRef,
-      TinyNodeImpl fileObject, String textName, URL parent, String directory,
-      String documentStandardId, ProblemType problemType) throws Exception {
+  private void handleGenericDocument(ValidationTarget target, URL fileRef, TinyNodeImpl fileObject,
+      String textName, URL parent, String directory, String documentStandardId,
+      ProblemType problemType) throws Exception {
     LOG.debug("handleGenericDocument:Target,fileRef,textName {},{},{}", target, fileRef, textName);
     boolean mimeTypeIsCorrectFlag = false;
     if ((textName == null) || (fileObject == null)) {
@@ -825,9 +815,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             "The fileObject is null, no need to perform check " + "for '" + fileRef + "'";
         LOG.debug("handleGenericDocument:" + message);
       }
-      return new ArrayList<>(); // Return an empty list.
     }
-    List<ValidationProblem> messages = new ArrayList<>();
+
     int lineNumber = -1;
     if (fileObject != null) {
       lineNumber = fileObject.getLineNumber();
@@ -868,10 +857,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
       ProblemDefinition def =
           new ProblemDefinition(ExceptionType.WARNING, problemType, errorMessage);
-      messages.add(new ValidationProblem(def, target, lineNumber, -1));
+      getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }
-
-    return messages;
   }
 
 }

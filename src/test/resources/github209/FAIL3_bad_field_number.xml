@@ -1714,10 +1714,10 @@
                          </Field_Binary>
                          <Field_Binary>
                                <name>Items 5-6</name>
-                               <field_number>5</field_number>
+                               <!-- FAIL HERE -->
+                               <field_number>99999</field_number>
                                <field_location unit="byte">17</field_location>
                                <data_type>UnsignedBitString</data_type>
-                               <!-- FAIL HERE -->
                                <field_length unit="byte">4</field_length>
                                <description>
                                            Items 5-6 of the ODF.
@@ -1738,8 +1738,8 @@
                                       <Field_Bit>
                                             <name>Transmitting Station ID</name>
                                             <field_number>2</field_number>
-                                            <start_bit_location>23</start_bit_location>
-                                            <stop_bit_location>33</stop_bit_location>
+                                            <start_bit_location>24</start_bit_location>
+                                            <stop_bit_location>32</stop_bit_location>
                                             <data_type>UnsignedBitString</data_type>
                                             <description>
                                                         Item 6:Transmitting Station ID number.

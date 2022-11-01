@@ -131,12 +131,12 @@
   </Observation_Area>
  
   <File_Area_Observational>
-    <!-- <File>
+    <File>
       <file_name>a0708_p242914_02_02v01.qub</file_name>
       <creation_date_time>2016-06-17T19:48:41Z</creation_date_time>
       <comment>This product consists of a 5 band image
          with 19 backplanes and an attached PDS3 label</comment>
-    </File> -->
+    </File>
     <Header>
       <name>PDS 3 label</name>
       <offset unit="byte">0</offset>

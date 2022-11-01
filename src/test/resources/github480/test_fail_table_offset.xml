@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:dawn-rss-raw-vesta:calib-wea:test</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>Test File</title>
+             <information_model_version>1.13.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+       </Identification_Area>
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>2012-01-01T00:00:00.000Z</start_date_time>
+                   <stop_date_time>2012-01-01T23:59:59.999Z</stop_date_time>
+             </Time_Coordinates>
+
+             <Investigation_Area>
+                   <name>DSN Media Calibration</name>
+                   <type>Other Investigation</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:other_investigation.media.dsn</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+             <Observing_System>
+                   <Observing_System_Component>
+                         <name>DSN Media Instrumentation</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:dsn.media</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             <Target_Identification>
+                   <name>Earth</name>
+                   <type>Planet</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:target:planet.earth</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+
+       <File_Area_Observational>
+             <File>
+                   <file_name>test.tab</file_name>
+                   <creation_date_time>2020-10-24T17:47:52</creation_date_time>
+                   <file_size unit="byte">3240</file_size>
+                   <md5_checksum>6672c4d0addba4d6fd690a68354cc963</md5_checksum>
+             </File>
+             <Table_Character>
+                   <name>Identifier Record for Day-of-Year 001 (Block 1)</name>
+                   <offset unit="byte">0</offset>
+                   <records>1</records>
+                   <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+                   <Record_Character>
+                         <fields>5</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">28</record_length>
+                         <Field_Character>
+                               <name>Year</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">7</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <field_format>%2d</field_format>
+                               <description>Two-digit year of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Month</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <field_format>%2d</field_format>
+                               <description>Two-digit month of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Day</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">11</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <field_format>%2d</field_format>
+                               <description>Two-digit day of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>DOY</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">19</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>
+                               <field_format>%3d</field_format>
+                               <description>Three-digit day-of-year of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>DSCC</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">26</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>
+                               <field_format>%3d</field_format>
+                               <description>Deep Space Communications Complex identifier</description> 
+                         </Field_Character>
+                   </Record_Character>
+             </Table_Character>              
+             <Header>
+                   <offset unit="byte">100</offset>
+                   <object_length unit="byte">180</object_length>
+                   <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+                   <description>ASCII column headers</description>
+             </Header>                
+             <Table_Character>
+                   <name>Meteorological Measurements for Day-of-Year 001 (Block 1)</name>
+                   <!-- error expected. this offset should be >=280 --> 
+                   <offset unit="byte">150</offset>
+                   <records>49</records>
+                   <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+                   <Record_Character>
+                         <fields>7</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">57</record_length>
+                         <Field_Character>
+                               <name>Hour</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">2</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <field_format>%2d</field_format>
+                               <description>UTC hour of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Minute</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">4</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <field_format>%2d</field_format>
+                               <description>UTC minute of observation</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Dew Point</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">11</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">5</field_length>
+                               <field_format>%5.1f</field_format>
+                               <description>Dew point in deg C</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Temperature</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">20</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">5</field_length>
+                               <field_format>%5.1f</field_format>
+                               <description>Ambient temperature in deg C</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Pressure</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">29</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">6</field_length>
+                               <field_format>%6.1f</field_format>
+                               <description>Pressure in millibars</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Pressure</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">40</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">6</field_length>
+                               <field_format>%6.1f</field_format>
+                               <description>Water vapor pressure in millibars</description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Relative Humidity</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">55</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>
+                               <field_format>%3d</field_format>
+                               <description>Relative humidity</description>
+                         </Field_Character>
+                   </Record_Character>
+             </Table_Character>    
+      </File_Area_Observational>
+</Product_Observational>

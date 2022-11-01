@@ -1373,8 +1373,14 @@ public class ValidateLauncher {
         ValidationMonitor monitor = new ValidationMonitor(target.toString(), severity);
         monitor.setMaxErrors(maxErrors);
 
+        validator.setLastDirectoryFlag(false);
+
         if (validationRule != null) {
           validator.setRule(validationRule);
+
+          if (this.validationRule.equals("pds4.collection")) {
+            validator.setLastDirectoryFlag(true);
+          }
         }
 
         if (!schemas.isEmpty()) {
@@ -1390,11 +1396,6 @@ public class ValidateLauncher {
         }
         if (!this.alternateReferentialPaths.isEmpty()) {
           validator.setExtraTargetInContext(this.alternateReferentialPaths);
-        }
-
-        validator.setLastDirectoryFlag(false);
-        if (this.validationRule.equals("pds4.collection")) {
-          validator.setLastDirectoryFlag(false);
         }
 
         LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}", target);
