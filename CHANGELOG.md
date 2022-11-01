@@ -1,6 +1,23 @@
 # Changelog
 
-## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-10-11)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-11-01)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.4.0-SNAPSHOT...«unknown»)
+
+**Improvements:**
+
+- Refactor `getMessageCountBasedOnProblemType` function using introspection [\#537](https://github.com/NASA-PDS/validate/issues/537)
+- Refactor content validation to more robustly handle intermingled Headers [\#425](https://github.com/NASA-PDS/validate/issues/425)
+
+**Defects:**
+
+- Validate does not calculate overlaps correctly when Header is not first object in file [\#480](https://github.com/NASA-PDS/validate/issues/480) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- NullPointerException when Table\_Delimited is missing records attribute [\#473](https://github.com/NASA-PDS/validate/issues/473) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate should not check PDF/A validity if content validation is disabled [\#453](https://github.com/NASA-PDS/validate/issues/453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Build and unit tests do not pass on Windows OS [\#204](https://github.com/NASA-PDS/validate/issues/204) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Fix uncaught exception error when validating an array object [\#155](https://github.com/NASA-PDS/validate/issues/155) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
+## [v2.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v2.4.0-SNAPSHOT) (2022-10-12)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v2.3.0...v2.4.0-SNAPSHOT)
 
