@@ -17,10 +17,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'gov.nasa.pds:validate 2.4.0 API'
+'gov.nasa.pds:validate 3.0.0 API'
 -linkoffline
 'https://docs.oracle.com/javase/8/docs/api' '/github/workspace/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'gov.nasa.pds:validate 2.4.0 API'
+'gov.nasa.pds:validate 3.0.0 API'
