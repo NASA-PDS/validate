@@ -1,12 +1,16 @@
 # Changelog
 
-## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-11-08)
+## [3.0.1](https://github.com/NASA-PDS/validate/tree/3.0.1) (2022-11-10)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.0.2...v3.1.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.2...3.0.1)
 
-## [release/3.0.2](https://github.com/NASA-PDS/validate/tree/release/3.0.2) (2022-11-08)
+**Defects:**
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.0.1...release/3.0.2)
+- Validate 2.4.0/3.0.0 fail with NPE/internal error on certain test cases [\#545](https://github.com/NASA-PDS/validate/issues/545)
+
+## [v3.0.2](https://github.com/NASA-PDS/validate/tree/v3.0.2) (2022-11-08)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.0.1...v3.0.2)
 
 ## [release/3.0.1](https://github.com/NASA-PDS/validate/tree/release/3.0.1) (2022-11-02)
 
