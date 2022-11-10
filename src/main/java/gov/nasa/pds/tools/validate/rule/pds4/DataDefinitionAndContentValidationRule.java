@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.label.Label;
@@ -114,7 +115,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
           getTarget(), objectCounter, -1));
       // e.printStackTrace();
     } finally {
-        if(nonNull(label))
+        if (Objects.nonNull(label))
             label.close();
     }
   }
