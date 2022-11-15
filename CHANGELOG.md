@@ -1,12 +1,21 @@
 # Changelog
 
-## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-11-10)
+## [3.0.1](https://github.com/NASA-PDS/validate/tree/3.0.1) (2022-11-15)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.0.3...v3.1.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...3.0.1)
 
-## [release/3.0.3](https://github.com/NASA-PDS/validate/tree/release/3.0.3) (2022-11-10)
+**Improvements:**
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.2...release/3.0.3)
+- Improve error messages for overlapping objects in a label [\#436](https://github.com/NASA-PDS/validate/issues/436)
+
+**Defects:**
+
+- Validate fails regression test on issue 303 [\#548](https://github.com/NASA-PDS/validate/issues/548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate gives a error.table.bad\_field\_read error [\#544](https://github.com/NASA-PDS/validate/issues/544)
+
+## [v3.0.3](https://github.com/NASA-PDS/validate/tree/v3.0.3) (2022-11-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.2...v3.0.3)
 
 **Defects:**
 
@@ -152,7 +161,6 @@
 **Requirements:**
 
 - As a user, I want to validate all files referenced by a Product\_Document [\#367](https://github.com/NASA-PDS/validate/issues/367)
-- As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
 
 **Improvements:**
 
