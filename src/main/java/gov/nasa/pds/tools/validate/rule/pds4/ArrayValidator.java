@@ -35,7 +35,9 @@ import gov.nasa.pds.tools.validate.rule.RuleContext;
 
 public class ArrayValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(ArrayValidator.class);
-  private int arrayIndex;
+
+  // #548: @jpl-jengelke wants a return to human-based indexing when reporting problems
+  private int arrayIndex = 1;
 
   private ProblemListener listener = null;
   private RuleContext context = null;
