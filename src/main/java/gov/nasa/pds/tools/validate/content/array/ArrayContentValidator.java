@@ -263,7 +263,7 @@ public class ArrayContentValidator {
       // #544: @jpl-jengelke reports that validate used to produce a detailed error message but now just
       // says `null`. @jordanpadams says the calculation is no longer completed by the software and didn't
       // make sense, but that said, `null` is not intuitive.
-      String message = "Error occurred while trying to " + "read data at location " + loc;
+      String message = "Error occurred while trying to " + "read data at location " + loc + ". Verify possible mismatch in file size and expected array size.";
       if (ee.getMessage() != null)
         message += ": " + ee.getMessage();
       throw new IOException(message);
