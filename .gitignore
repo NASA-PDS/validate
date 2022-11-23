@@ -80,3 +80,6 @@ validate_stack_traces*
 
 # macOS specific stuff
 .DS_Store
+
+# Validate output
+*.csv
