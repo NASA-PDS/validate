@@ -1,8 +1,8 @@
 # Changelog
 
-## [3.0.1](https://github.com/NASA-PDS/validate/tree/3.0.1) (2022-11-15)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-11-25)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...3.0.1)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.0-SNAPSHOT...«unknown»)
 
 **Improvements:**
 
@@ -11,7 +11,12 @@
 **Defects:**
 
 - Validate fails regression test on issue 303 [\#548](https://github.com/NASA-PDS/validate/issues/548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate fails regression test on issue 308 [\#547](https://github.com/NASA-PDS/validate/issues/547)
 - validate gives a error.table.bad\_field\_read error [\#544](https://github.com/NASA-PDS/validate/issues/544)
+
+## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-11-15)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...v3.1.0-SNAPSHOT)
 
 ## [v3.0.3](https://github.com/NASA-PDS/validate/tree/v3.0.3) (2022-11-10)
 
@@ -23,11 +28,7 @@
 
 ## [v3.0.2](https://github.com/NASA-PDS/validate/tree/v3.0.2) (2022-11-08)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.0.1...v3.0.2)
-
-## [release/3.0.1](https://github.com/NASA-PDS/validate/tree/release/3.0.1) (2022-11-02)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.0...release/3.0.1)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.0...v3.0.2)
 
 ## [v3.0.0](https://github.com/NASA-PDS/validate/tree/v3.0.0) (2022-11-02)
 
