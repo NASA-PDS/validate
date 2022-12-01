@@ -504,6 +504,10 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     if (checksumManifest.isEmpty() && (checksumInLabel == null || checksumInLabel.isEmpty())) {
       String message = "No checksum found in the manifest for '" + urlRef + "'";
       LOG.debug("handleChecksum:" + message);
+
+      // If there is no checksumManifest and no checksum in the label, we don't need to do anything
+      // with a checksum for this urlRef
+      return;
     }
 
     String generatedChecksum = MD5Checksum.getMD5Checksum(urlRef);
