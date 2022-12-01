@@ -1,6 +1,14 @@
 # Changelog
 
-## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-11-28)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-12-01)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Latest validate missing label extension warning [\#546](https://github.com/NASA-PDS/validate/issues/546)
+
+## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-11-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...v3.1.0-SNAPSHOT)
 
