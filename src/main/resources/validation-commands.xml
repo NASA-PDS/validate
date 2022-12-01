@@ -21,6 +21,7 @@
   </command>
 
   <chain name="pds4.bundle" caption="PDS4 Bundle" className="gov.nasa.pds.tools.validate.rule.pds4.BundleValidationRule">
+    <command caption="Register targets" className="gov.nasa.pds.tools.validate.rule.RegisterTargets" />
     <command caption="XML files are labels" className="gov.nasa.pds.tools.validate.rule.pds4.LabelInFolderRule" />
     <command caption="Directories validated as collections" className="gov.nasa.pds.tools.validate.rule.pds4.CollectionInBundleRule" />
     <command caption="Set report header" className="gov.nasa.pds.tools.validate.rule.SetReportHeader" />
@@ -32,6 +33,7 @@
   </chain>
   
   <chain name="pds4.collection" caption="PDS4 Collection" className="gov.nasa.pds.tools.validate.rule.pds4.CollectionValidationRule">
+    <command caption="Register targets" className="gov.nasa.pds.tools.validate.rule.RegisterTargets" />
     <command caption="XML files are labels" className="gov.nasa.pds.tools.validate.rule.pds4.LabelInFolderRule" />
     <command caption="Subdirectories of collection" className="gov.nasa.pds.tools.validate.rule.pds4.SubDirectoryRule" />
     <command caption="Set report header" className="gov.nasa.pds.tools.validate.rule.SetReportHeader" />
