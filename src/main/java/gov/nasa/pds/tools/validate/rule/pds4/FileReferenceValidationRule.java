@@ -501,9 +501,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       String checksumInLabel) throws Exception {
     LOG.debug("handleChecksum:target,urlRef,checksumInLabel {},{},{}", target, urlRef,
         checksumInLabel);
-    if (checksumManifest.isEmpty() && (checksumInLabel == null || checksumInLabel.isEmpty())) {
-      String message = "No checksum found in the manifest for '" + urlRef + "'";
+    if (!checksumManifest.containsKey(urlRef) && (checksumInLabel == null || checksumInLabel.isEmpty())) {
+      String message = "No checksum found in the manifest for '" + urlRef + "' and not checksum label in product";
       LOG.debug("handleChecksum:" + message);
+
+      // If there is no checksumManifest and no checksum in the label, we don't need to do anything
+      // with a checksum for this urlRef
+      return;
     }
 
     String generatedChecksum = MD5Checksum.getMD5Checksum(urlRef);
