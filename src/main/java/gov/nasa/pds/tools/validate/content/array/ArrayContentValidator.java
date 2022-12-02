@@ -119,6 +119,7 @@ public class ArrayContentValidator {
     LOG.debug("validate:tableNameReportStr {}", tableNameReportStr);
 
     try {
+      arrayObject.open();
       process(array, arrayObject, dimensions, new int[dimensions.length], 0, dimensions.length - 1);
 
     } catch (Exception e) {
@@ -141,7 +142,6 @@ public class ArrayContentValidator {
       System.out.print(".");
     }
 
-    arrayObject.open();
     for (int i = 0; i < dimensions[depth];) {
       if (depth < maxDepth) { // max depth not reached, do another recursion
         position[depth] = i;
@@ -162,7 +162,6 @@ public class ArrayContentValidator {
         }
       }
     }
-    arrayObject.close();
   }
 
   private void validatePosition(Array array, ArrayObject arrayObject, ArrayLocation location,
@@ -260,10 +259,11 @@ public class ArrayContentValidator {
         loc = loc.replaceAll("\\]", "");
       }
 
-      // #544: @jpl-jengelke reports that validate used to produce a detailed error message but now just
-      // says `null`. @jordanpadams says the calculation is no longer completed by the software and didn't
-      // make sense, but that said, `null` is not intuitive.
-      String message = "Error occurred while trying to " + "read data at location " + loc + ". Verify possible mismatch in file size and expected array size.";
+      // #544: @jpl-jengelke reports that validate used to produce a detailed error message but now
+      // just says `null`. @jordanpadams says the calculation is no longer completed by the software
+      // and didn't make sense, but that said, `null` is not intuitive.
+      String message = "Error occurred while trying to " + "read data at location " + loc
+          + ". Verify possible mismatch in data type and/or file size versus array size.";
       if (ee.getMessage() != null)
         message += ": " + ee.getMessage();
       throw new IOException(message);
