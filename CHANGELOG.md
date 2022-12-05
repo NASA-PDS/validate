@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-12-05)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.0-SNAPSHOT...«unknown»)
+
+**Improvements:**
+
+- Improve error message when file is truncated and cannot be read [\#569](https://github.com/NASA-PDS/validate/issues/569)
+
 ## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-12-05)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...v3.1.0-SNAPSHOT)
