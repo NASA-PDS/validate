@@ -102,7 +102,7 @@ if [ "$PRODUCT_DIR" == "" ]; then
 fi
 
 # If the user has provided the REPORT_DIR (not a blank space), append the unique directory.
-if [ $REPORT_DIR != "" ]; then
+if [ "$REPORT_DIR" != "" ]; then
     REPORT_DIR=$REPORT_DIR/$DEFAULT_UNIQUE_REPORT_DIR_STEM
 fi
 # If the user has not provided the REPORT_FILE (not a blank space), set to unique file beneath the default dir.
