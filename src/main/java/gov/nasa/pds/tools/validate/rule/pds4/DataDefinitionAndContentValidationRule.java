@@ -35,6 +35,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
   public void validate() throws MalformedURLException, URISyntaxException {
     int objectCounter = 0;
     Label label = null;
+    String objectIdentifier = "";
     try {
       URL target = getTarget();
       String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
@@ -53,6 +54,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
 
       URL previousDataFile = null;
       for (DataObject obj : label.getObjects()) {
+        objectIdentifier = getObjectIdentifier(obj);
         LOG.debug("Checking DataObject #{} '{}'", objectCounter, obj.getName());
 
         // reset counters and everything if we are onto a new datafile
@@ -101,7 +103,8 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       // this was thrown by label.getDataObjects(), and means we won't perform validation for this
       // product
     } catch (InvalidTableException e) {
-      String msg = "Data Object #" + objectCounter + ": " + e.getMessage();
+      String msg =
+          "Data Object #" + objectCounter + " (" + objectIdentifier + "): " + e.getMessage();
       getListener().addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.TABLE_DEFINITION_PROBLEM, msg),
           getTarget(), objectCounter, -1));
@@ -110,13 +113,15 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
     } catch (FileNotFoundException e) {
       // File not found. This is caught and error is tracked elsewhere
     } catch (Exception e) {
+      String msg =
+          "Data Object #" + objectCounter + " (" + objectIdentifier + "): " + e.getMessage();
       getListener().addProblem(new ValidationProblem(
-          new ProblemDefinition(ExceptionType.ERROR, ProblemType.BAD_FIELD_READ, e.getMessage()),
-          getTarget(), objectCounter, -1));
+          new ProblemDefinition(ExceptionType.ERROR, ProblemType.BAD_FIELD_READ, msg), getTarget(),
+          objectCounter, -1));
       // e.printStackTrace();
     } finally {
-        if (Objects.nonNull(label))
-            label.close();
+      if (Objects.nonNull(label))
+        label.close();
     }
   }
 
@@ -129,6 +134,16 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       getListener().addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION, msg),
           target, objectNumber, -1));
+    }
+  }
+
+  private String getObjectIdentifier(DataObject obj) {
+    if (obj.getName() != null) {
+      return obj.getName();
+    } else if (obj.getLocalIdentifier() != null) {
+      return obj.getLocalIdentifier();
+    } else {
+      return "Identifier Not Specified";
     }
   }
 }
