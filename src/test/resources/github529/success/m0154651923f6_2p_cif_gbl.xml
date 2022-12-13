@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch"        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1H00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1H00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1H00_1220.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1H00_1930.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1H00_1860.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" 
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1" 
+    xmlns:msn="http://pds.nasa.gov/pds4/msn/v1" 
+    xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1" 
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="                        http://pds.nasa.gov/pds4/pds/v1  https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd                        http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1H00_1510.xsd                        http://pds.nasa.gov/pds4/msn/v1 https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1H00_1300.xsd                        http://pds.nasa.gov/pds4/msn_surface/v1 https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1H00_1220.xsd                        http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1H00_1930.xsd                        http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1H00_1860.xsd                        http://pds.nasa.gov/pds4/proc/v1 https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:nearmsi.gbl:data:m0154651923f6_2p_cif_gbl.fit</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>NEAR MSI Deblurred Images</title>
+    <information_model_version>1.17.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Golish, D.;  DellaGuistina, D.; Becker, K.; Bennett, C.</author_list>
+      <editor_list>Crombie,  M.K.</editor_list>
+      <publication_year>2022</publication_year>
+      <keyword>Image</keyword>
+      <keyword>Deblur</keyword>
+      <description>NEAR MSI Deblurred Images.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-08-01</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial product label.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2001-01-11T19:34:47.996000Z</start_date_time>
+      <stop_date_time>2001-01-11T19:34:48.133000Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <description>Calibrated data with deblurring algorithm applied.</description>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <domain>Surface</domain>
+        <discipline_name>Imaging</discipline_name>
+        <facet1>Grayscale</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>NEAR EARTH ASTEROID RENDEZVOUS</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.near_earth_asteroid_rendezvous</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>NEAR</name>
+      <description>NEAR EARTH ASTEROID RENDEZVOUS (NEAR) spacecraft</description>
+      <Observing_System_Component>
+        <name>NEAR</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.near</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Multi-Spectral Imager</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:msi.near</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>(433) Eros</name>
+      <alternate_designation>NAIF ID 200043</alternate_designation>
+      <type>Asteroid</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:asteroid.433_eros</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Discipline_Area>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>image_array</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Right to Left</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+      <msn:Mission_Information>
+        <msn:spacecraft_clock_start>154651923.782</msn:spacecraft_clock_start>
+        <msn:spacecraft_clock_stop>154651923.919</msn:spacecraft_clock_stop>
+      </msn:Mission_Information>
+      <msn_surface:Surface_Mission_Information>
+        <msn_surface:Command_Execution>
+          <msn_surface:sequence_id>24</msn_surface:sequence_id>
+        </msn_surface:Command_Execution>
+        <msn_surface:Observational_Intent>
+          <msn_surface:activity_id>OPN_011B_DKD_5Color</msn_surface:activity_id>
+        </msn_surface:Observational_Intent>
+      </msn_surface:Surface_Mission_Information>
+      <geom:Geometry>
+        <geom:Geometry_Orbiter>
+          <geom:geometry_reference_time_utc>2001-01-11T19:34:47.996000Z</geom:geometry_reference_time_utc>
+          <geom:Pixel_Dimensions>
+            <geom:pixel_field_of_view_method>Central Pixel</geom:pixel_field_of_view_method>
+          </geom:Pixel_Dimensions>
+          <geom:Vectors>
+            <geom:Vectors_Cartesian_Specific>
+              <geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                <geom:x_position unit="km">225333941.891</geom:x_position>
+                <geom:y_position unit="km">7948289.102</geom:y_position>
+                <geom:z_position unit="km">45182893.718</geom:z_position>
+                <geom:light_time_correction_applied>None</geom:light_time_correction_applied>
+                <geom:Coordinate_System_Identification>
+                  <geom:coordinate_system_type>Cartesian</geom:coordinate_system_type>
+                  <geom:Coordinate_System_Origin_Identification>
+                    <geom:body_spice_name>SUN</geom:body_spice_name>
+                  </geom:Coordinate_System_Origin_Identification>
+                  <geom:Reference_Frame_Identification>
+                    <geom:frame_spice_name>J2000</geom:frame_spice_name>
+                  </geom:Reference_Frame_Identification>
+                </geom:Coordinate_System_Identification>
+              </geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+            </geom:Vectors_Cartesian_Specific>
+          </geom:Vectors>
+        </geom:Geometry_Orbiter>
+      </geom:Geometry>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>image_array</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Dark_Current_Correction>
+          <img:active_flag>true</img:active_flag>
+        </img:Dark_Current_Correction>
+        <img:Data_Quality>
+          <img:Saturated_Pixel>
+            <img:pixel_count>0</img:pixel_count>
+          </img:Saturated_Pixel>
+        </img:Data_Quality>
+        <img:Exposure>
+          <img:exposure_duration unit="ms">137.0</img:exposure_duration>
+          <img:exposure_type>Manual</img:exposure_type>
+        </img:Exposure>
+        <img:Flat_Field_Correction>
+          <img:active_flag>true</img:active_flag>
+          <img:Flat_Field_File>
+            <External_Reference>
+              <reference_text>FLAT6_31CN.FIT</reference_text>
+              <description>Flat field file used in processing. Found in NEAR_A_MSI_3_EDR_EROS_ORBIT_V1_0 calib directory</description>
+            </External_Reference>
+          </img:Flat_Field_File>
+        </img:Flat_Field_Correction>
+        <img:Optical_Filter>
+          <img:filter_number>6</img:filter_number>
+        </img:Optical_Filter>
+        <img:Instrument_State>
+          <img:Device_Temperatures>
+            <img:Device_Temperature>
+              <img:device_name>Focal Plane Temperature</img:device_name>
+              <img:temperature_value unit="K">245.15</img:temperature_value>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>Telescope Body Temperature</img:device_name>
+              <img:temperature_value unit="K">286.5</img:temperature_value>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>DPU Deck Temperature</img:device_name>
+              <img:temperature_value unit="K">285.7</img:temperature_value>
+            </img:Device_Temperature>
+          </img:Device_Temperatures>
+        </img:Instrument_State>
+        <img:Commanded_Parameters>
+          <img:Optical_Filter>
+            <img:filter_number>6</img:filter_number>
+          </img:Optical_Filter>
+        </img:Commanded_Parameters>
+      </img:Imaging>
+      <proc:Processing_Information>
+        <Local_Internal_Reference>
+          <local_identifier_reference>image_array</local_identifier_reference>
+          <local_reference_type>processing_information_to_data_object</local_reference_type>
+        </Local_Internal_Reference>
+        <proc:Process>
+          <proc:Software>
+            <proc:Software_Program>
+              <proc:name>RECAL</proc:name>
+              <proc:program_version>1.0</proc:program_version>
+              <proc:description>Cal coefficients ver 3</proc:description>
+            </proc:Software_Program>
+          </proc:Software>
+        </proc:Process>
+      </proc:Processing_Information>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <External_Reference>
+      <doi>10.1000/xyz123</doi>
+      <!-- placeholder, get the real one when paper published-->
+      <reference_text>Blur Remediation in NEAR MSI Images. D.R. Golish et al., 2022 (TBR)</reference_text>
+      <description>Debluring Paper</description>
+    </External_Reference>
+    <External_Reference>
+      <reference_text>DARK_MODEL_V4.TAB</reference_text>
+      <description>Dark Correction file used in processing.</description>
+    </External_Reference>
+    <Source_Product_External>
+      <external_source_product_identifier>M0154651923F6_2P_CIF.FIT</external_source_product_identifier>
+      <reference_type>data_to_calibrated_source_product</reference_type>
+      <curating_facility>SBN</curating_facility>
+    </Source_Product_External>
+    <Source_Product_External>
+      <external_source_product_identifier>M0154651923F6_2P.FIT</external_source_product_identifier>
+      <reference_type>data_to_calibrated_source_product</reference_type>
+      <curating_facility>SBN</curating_facility>
+    </Source_Product_External>
+    <Source_Product_External>
+      <external_source_product_identifier>NEAR MSI Lossy Compression Look Up Table ID 0</external_source_product_identifier>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <curating_facility>SBN</curating_facility>
+    </Source_Product_External>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>m0154651923f6_2p_cif_gbl.fit</file_name>
+      <local_identifier>image_file</local_identifier>
+      <creation_date_time>2022-07-21T23:46:17</creation_date_time>
+      <file_size unit="byte">898560</file_size>
+      <records>1</records>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">11520</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+    </Header>
+    <Array_2D_Image>
+      <name>FITS Image Array</name>
+      <local_identifier>image_array</local_identifier>
+      <offset unit="byte">11520</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <description>MSI Image Array</description>
+      <Element_Array>
+        <data_type>IEEE754MSBSingle</data_type>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>412</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>537</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Object_Statistics>
+        <maximum>0.113922</maximum>
+        <minimum>0.007821</minimum>
+        <mean>0.064969</mean>
+        <standard_deviation>0.011258</standard_deviation>
+      </Object_Statistics>
+    </Array_2D_Image>
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>m0154651923f6_2p_cif_gbl.lbl</file_name>
+      <local_identifier>pds3_label</local_identifier>
+      <creation_date_time>2022-07-21T23:46:17</creation_date_time>
+    </File>
+    <Stream_Text>
+      <name>Deblurred Image PDS3 Label</name>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>
