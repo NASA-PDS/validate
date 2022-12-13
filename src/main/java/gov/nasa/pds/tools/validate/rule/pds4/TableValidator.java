@@ -254,8 +254,14 @@ public class TableValidator implements DataObjectValidator {
           try {
             // TODO: Need to update this logic to count every record, even if we don't
             // validate them
-            record = this.currentTableReader.getRecord(
-                this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+            long nextRow = this.currentTableReader.getCurrentRow() + spotCheckData;
+
+            if (nextRow <= this.tableAdapter.getRecordCount()) {
+              record = this.currentTableReader.getRecord(
+                  this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+            } else {
+              break;
+            }
           } catch (Exception ioEx) {
             record = null;
             throw new IOException("Error occurred " + "while reading data object '"
