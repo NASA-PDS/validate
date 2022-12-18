@@ -38,6 +38,24 @@
           },
           {
                "name": [
+                    "COMET NUCLEUS TOUR"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.con::1.1"
+          },
+          {
+               "name": [
+                    "ROSETTA LANDER IMAGINAG SYSTEM - DESCENT AND CLOSEUP IMAGER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:rl.rolis::1.0"
+          },
+          {
+               "name": [
                     "APOLLO 15 ORBITAL MASS SPECTROMETER (OMS) EXPERIMENT"
                ],
                "type": [
@@ -6908,42 +6926,6 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:palomar.oschin_schmidt_1m2::1.0"
-          },
-          {
-               "name": [
-                    "2005 JJ186"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_jj186::1.0"
-          },
-          {
-               "name": [
-                    "Las Campanas Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.las_campanas::1.0"
-          },
-          {
-               "name": [
-                    "444 GYPTIS"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.444_gyptis::1.1"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.atmos::1.0"
           },
           {
@@ -6990,6 +6972,42 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palomar.oschin_schmidt_1m2::1.0"
+          },
+          {
+               "name": [
+                    "2005 JJ186"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_jj186::1.0"
+          },
+          {
+               "name": [
+                    "Las Campanas Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.las_campanas::1.0"
+          },
+          {
+               "name": [
+                    "444 GYPTIS"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.444_gyptis::1.1"
           },
           {
                "name": [
@@ -13561,33 +13579,6 @@
           },
           {
                "name": [
-                    "ROSETTA PLASMA CONSORTIUM - ION COMPOSITION ANALYSER"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:ro.rpcica::1.0"
-          },
-          {
-               "name": [
-                    "136472 MAKEMAKE"
-               ],
-               "type": [
-                    "DWARF PLANET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:dwarf_planet.136472_makemake::1.1"
-          },
-          {
-               "name": [
-                    "2007 VK305"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2007_vk305::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -15994,24 +15985,6 @@
           },
           {
                "name": [
-                    "COMET NUCLEUS TOUR"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.con::1.1"
-          },
-          {
-               "name": [
-                    "ROSETTA LANDER IMAGINAG SYSTEM - DESCENT AND CLOSEUP IMAGER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:rl.rolis::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -16036,6 +16009,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "ROSETTA PLASMA CONSORTIUM - ION COMPOSITION ANALYSER"
+               ],
+               "type": [
+                    "PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:ro.rpcica::1.0"
+          },
+          {
+               "name": [
+                    "136472 MAKEMAKE"
+               ],
+               "type": [
+                    "DWARF PLANET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:dwarf_planet.136472_makemake::1.1"
+          },
+          {
+               "name": [
+                    "2007 VK305"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2007_vk305::1.0"
           },
           {
                "name": [
