@@ -385,7 +385,7 @@ public class ArrayContentValidator {
       ObjectStatistics objectStats, ArrayLocation location) {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
-      if (compare(value.doubleValue(), objectStats.getMinimum()) == -1) {
+      if (compare(value.toString(), objectStats.getMinimum().toString()) == -1) {
         String errorMessage =
             tableNameReportStr + " Value is less than the minimum value in the label (min="
                 + objectStats.getMinimum().toString();
@@ -395,16 +395,16 @@ public class ArrayContentValidator {
         LOG.error(errorMessage);
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + " Value is less than the minimum value in the label (min="
-                + objectStats.getMinimum().toString() + ", got=" + value.toString() + ").",
+                + objectStats.getMinimum().toString() + ", actual=" + value.toString() + ").",
             location);
       }
     }
     if (objectStats.getMaximum() != null) {
       // Use the compare function in this class to compare between two floats.
-      if (compare(value.doubleValue(), objectStats.getMaximum()) == 1) {
+      if (compare(value.toString(), objectStats.getMaximum().toString()) == 1) {
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + "Value is greater than the maximum value in the label (max="
-                + objectStats.getMaximum().toString() + ", got=" + value.toString() + ").",
+                + objectStats.getMaximum().toString() + ", actual=" + value.toString() + ").",
             location);
       }
     }
@@ -422,7 +422,8 @@ public class ArrayContentValidator {
     if (checkScaledValue) {
       double scaledValue = (value.doubleValue() * scalingFactor) + valueOffset;
       if (objectStats.getMinimumScaledValue() != null) {
-        if (compare(scaledValue, objectStats.getMinimumScaledValue()) == -1) {
+        if (compare(Double.toString(scaledValue),
+            objectStats.getMinimumScaledValue().toString()) == -1) {
           addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
               tableNameReportStr + "Scaled value is less than the scaled minimum value in the "
                   + "label (min=" + objectStats.getMinimumScaledValue().toString() + ", got="
@@ -431,10 +432,11 @@ public class ArrayContentValidator {
         }
       }
       if (objectStats.getMaximumScaledValue() != null) {
-        if (compare(scaledValue, objectStats.getMaximumScaledValue()) == 1) {
+        if (compare(Double.toString(scaledValue),
+            objectStats.getMaximumScaledValue().toString()) == 1) {
           addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE,
               "Scaled value is greater than the scaled maximum value in the " + "label (max="
-                  + objectStats.getMaximumScaledValue().toString() + ", got=" + value.toString()
+                  + objectStats.getMaximumScaledValue().toString() + ", actual=" + value.toString()
                   + ").",
               location);
         }
@@ -446,24 +448,37 @@ public class ArrayContentValidator {
    * Compares 2 double values. If the values have different precisions, this method will set the
    * precisions to the same scale before doing a comparison.
    * 
+   * The precision is the number of digits in the unscaled value. For instance, for the number
+   * 123.45, the precision returned is 5.
+   * 
+   * If zero or positive, the scale is the number of digits to the right of the decimal point. If
+   * negative, the unscaled value of the number is multiplied by ten to the power of the negation of
+   * the scale. For example, a scale of -3 means the unscaled value is multiplied by 1000.
+   * 
    * @param value The element value.
    * @param minMax The min or max value to compare against.
    * 
    * @return -1 if value is less than minMax, 0 if they are equal and 1 if value is greater than
    *         minMax.
    */
-  private int compare(Double value, Double minMax) {
-    BigDecimal bdValue = new BigDecimal(value.toString());
-    BigDecimal bdMinMax = new BigDecimal(minMax.toString());
-    if (bdValue.precision() == bdMinMax.precision()) {
+  private int compare(String value, String minMax) {
+    LOG.debug("value: {}, minMax: {}", value, minMax);
+    // LOG.debug("value string: {}, minMax string: {}", value.toString(), minMax.toString());
+    BigDecimal bdValue = new BigDecimal(value);
+    BigDecimal bdMinMax = new BigDecimal(minMax);
+    // BigDecimal bdValue = new BigDecimal(value.toString());
+    // BigDecimal bdMinMax = new BigDecimal(minMax.toString());
+    if (bdValue.scale() == bdMinMax.scale()) {
       return bdValue.compareTo(bdMinMax);
     }
-    if (bdValue.precision() > bdMinMax.precision()) {
-      BigDecimal scaledValue = bdValue.setScale(bdMinMax.precision(), RoundingMode.HALF_UP);
-      return scaledValue.compareTo(bdMinMax);
+    if (bdValue.scale() > bdMinMax.scale()) {
+      BigDecimal scaledMinMax = bdMinMax.setScale(bdValue.scale(), RoundingMode.HALF_UP);
+      LOG.debug("scaledMinMax: {}, bdValue: {}", scaledMinMax, bdValue);
+      return bdValue.compareTo(scaledMinMax);
     }
-    BigDecimal scaledMinMax = bdMinMax.setScale(bdValue.precision(), RoundingMode.HALF_UP);
-    return bdValue.compareTo(scaledMinMax);
+    BigDecimal scaledValue = bdValue.setScale(bdMinMax.scale(), RoundingMode.HALF_UP);
+    LOG.debug("scaledValue: {}, bdMinMax: {}", scaledValue, bdMinMax);
+    return scaledValue.compareTo(bdMinMax);
   }
 
   /**
