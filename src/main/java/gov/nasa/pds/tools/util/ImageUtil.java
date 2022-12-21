@@ -5,6 +5,8 @@ import java.io.RandomAccessFile;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Paths;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -82,7 +84,7 @@ public class ImageUtil {
     LOG.debug("isJPEG:,parent,jpegBase {},{}", parent, jpegBase);
 
     // Build the full pathname of the file.
-    String jpegRef = parent + File.separator + jpegBase;
+    String jpegRef = Paths.get(parent, jpegBase).toString();
     LOG.debug("isJPEG:parent,jpegBase,jpegRef [{}],[{}],[{}]", parent, jpegBase, jpegRef);
 
     File jpegFile = new File(jpegRef);
