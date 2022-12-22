@@ -8,7 +8,7 @@
 // is subject to U.S. export control laws and regulations, the recipient has
 // the responsibility to obtain export licenses or other export authority as
 // may be required before exporting such information to foreign countries or
-// providing access to foreign nationals.
+// providing access to foreign nationals. 
 //
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
