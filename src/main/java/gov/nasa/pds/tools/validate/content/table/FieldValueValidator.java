@@ -790,7 +790,7 @@ public class FieldValueValidator {
             throw new NumberFormatException("Value must be unsigned.");
           }
         } else if (specifier.equals("x")) {
-          BigInteger bi = new BigInteger(value.trim());
+          BigInteger bi = new BigInteger(value.trim(),16);
           if (bi.signum() == -1) {
             throw new NumberFormatException("Value must be unsigned.");
           }

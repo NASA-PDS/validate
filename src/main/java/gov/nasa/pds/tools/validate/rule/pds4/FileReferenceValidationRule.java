@@ -682,7 +682,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     DocumentsChecker check = new DocumentsChecker();
     if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
       // The parent is also needed for validateFileStandardConformity function.
-      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName, parent);
+      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName, new URL(parent, directory));
 
       // Report an error if the PDF file is not PDF/A compliant.
       if (!pdfValidateFlag) {
@@ -742,7 +742,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       this.imageUtil = new ImageUtil(fileRef);
     }
 
-    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, parent);
+    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent, directory));
 
     // Report a warning if the JPEG file is not compliant.
     if (!jpegValidateFlag) {
@@ -786,7 +786,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       this.imageUtil = new ImageUtil(fileRef);
     }
 
-    validateFlag = this.imageUtil.isPNG(pngName, parent);
+    validateFlag = this.imageUtil.isPNG(pngName, new URL(parent, directory));
 
     // Report a warning if the PNG file is not compliant.
     if (!validateFlag) {
