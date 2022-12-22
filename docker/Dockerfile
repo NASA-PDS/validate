@@ -47,4 +47,5 @@ RUN  mkdir /opt/validate  \
 ENV PATH="$PATH:/opt/validate/bin"
 
 # Pass default arguments to validate tool
-CMD validate $DEFAULT_ARGS
+#CMD validate $DEFAULT_ARGS
+ENTRYPOINT ["validate"]
