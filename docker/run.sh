@@ -30,13 +30,25 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-# Update following environment variable to match with your environment
-export PDS_BUNDLE_PATH= #<ADD PDS BUNDLE PATH>
-export CHECKSUM_MANIFEST_FILE_NAME=urn-nasa-pds-insight_rad.md5
-export VALIDATE_REPORT_PATH=/tmp
-export VALIDATE_REPORT_FILE_NAME=validate-report.txt
+# This is an example shell script called run.sh provided in the docker directory of Validate repository to make it
+# easier to execute the dockerized Validate Tool validate a PDS bundle with default arguments. It is possible to make copies
+# of this run.sh file, modify the default arguments and execute those scripts as a simplified shell script based option.
 
-# Provide default arguments as an array
+# Update following environment variable to match with your environment
+
+# PDS bundle directory location in the host machine, which is used to execute the dockerized Validate Tool
+PDS_BUNDLE_PATH=${HOME}/urn-nasa-pds-insight_rad
+
+# Checksum file name provided for the PDS bundle
+CHECKSUM_MANIFEST_FILE_NAME=urn-nasa-pds-insight_rad.md5
+
+# Validate report directory path
+VALIDATE_REPORT_PATH=${HOME}
+
+# Validate report file name
+VALIDATE_REPORT_FILE_NAME=validate-report.txt
+
+# Default arguments provided as an array. This can be updated based on the requirements.
 DEFAULT_ARGS=(/tmp/pds -M /tmp/pds/${CHECKSUM_MANIFEST_FILE_NAME} -r /tmp/validate-report/${VALIDATE_REPORT_FILE_NAME} -R pds4.bundle)
 
 echo "Executing: validate ${DEFAULT_ARGS[*]}"
@@ -46,7 +58,7 @@ docker container run --name validate \
                  --rm \
                  --volume "${PDS_BUNDLE_PATH}":/tmp/pds \
                  --volume "${PDS_BUNDLE_PATH}"/"${CHECKSUM_MANIFEST_FILE_NAME}":/tmp/pds/"${CHECKSUM_MANIFEST_FILE_NAME}" \
-                 --volume "${VALIDATE_REPORT_PATH}":/tmp/validate-report/ \
+                 --volume "${VALIDATE_REPORT_PATH}":/tmp/validate-report \
                  nasapds/validate "${DEFAULT_ARGS[@]}"
 
 echo "The validate report is available at: ${VALIDATE_REPORT_PATH}/${VALIDATE_REPORT_FILE_NAME}"

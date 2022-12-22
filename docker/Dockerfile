@@ -30,7 +30,7 @@
 
 FROM openjdk:15-slim
 
-# Set following arguments with the required validate tool version
+# Set following argument with the required validate tool version
 ARG validate_version=3.0.3
 
 # Install curl (to download the validate binary)
