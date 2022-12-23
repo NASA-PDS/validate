@@ -8,7 +8,7 @@
 // is subject to U.S. export control laws and regulations, the recipient has
 // the responsibility to obtain export licenses or other export authority as
 // may be required before exporting such information to foreign countries or
-// providing access to foreign nationals.
+// providing access to foreign nationals. 
 //
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
@@ -385,7 +385,9 @@ public class ArrayContentValidator {
       ObjectStatistics objectStats, ArrayLocation location) {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
-      if (compare(value.toString(), objectStats.getMinimum().toString()) == -1) {
+      String actual = value.toString(), min = objectStats.getMinimum().toString();
+      if (min.length() < actual.length()) actual = actual.substring(0,min.length());
+      if (value.doubleValue() < objectStats.getMinimum().doubleValue() && compare(actual, min) == -1) {
         String errorMessage =
             tableNameReportStr + " Value is less than the minimum value in the label (min="
                 + objectStats.getMinimum().toString();
@@ -401,7 +403,9 @@ public class ArrayContentValidator {
     }
     if (objectStats.getMaximum() != null) {
       // Use the compare function in this class to compare between two floats.
-      if (compare(value.toString(), objectStats.getMaximum().toString()) == 1) {
+      String actual = value.toString(), max = objectStats.getMaximum().toString();
+      if (max.length() < actual.length()) actual = actual.substring(0,max.length());
+      if (value.doubleValue() > objectStats.getMaximum().doubleValue() && compare(actual, max) == 1) {
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + "Value is greater than the maximum value in the label (max="
                 + objectStats.getMaximum().toString() + ", actual=" + value.toString() + ").",
