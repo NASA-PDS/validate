@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright 2022, California Institute of Technology ("Caltech").
 # U.S. Government sponsorship acknowledged.
