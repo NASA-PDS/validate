@@ -49,7 +49,7 @@ VALIDATE_REPORT_PATH=${HOME}
 VALIDATE_REPORT_FILE_NAME=validate-report.txt
 
 # Default arguments provided as an array. This can be updated based on the requirements.
-DEFAULT_ARGS=(/tmp/pds -M /tmp/pds/${CHECKSUM_MANIFEST_FILE_NAME} -r /tmp/validate-report/${VALIDATE_REPORT_FILE_NAME} -R pds4.bundle)
+DEFAULT_ARGS=(/tmp/pds -M /tmp/pds/"${CHECKSUM_MANIFEST_FILE_NAME}" -r /tmp/validate-report/"${VALIDATE_REPORT_FILE_NAME}" -R pds4.bundle)
 
 echo "Executing: validate ${DEFAULT_ARGS[*]}"
 
