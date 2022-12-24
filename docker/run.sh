@@ -54,7 +54,7 @@ DEFAULT_ARGS=(/tmp/pds -M /tmp/pds/${CHECKSUM_MANIFEST_FILE_NAME} -r /tmp/valida
 echo "Executing: validate ${DEFAULT_ARGS[*]}"
 
 # Execute validate docker container with default arguments
-docker container run --name validate \
+docker container run \
                  --rm \
                  --volume "${PDS_BUNDLE_PATH}":/tmp/pds \
                  --volume "${PDS_BUNDLE_PATH}"/"${CHECKSUM_MANIFEST_FILE_NAME}":/tmp/pds/"${CHECKSUM_MANIFEST_FILE_NAME}" \

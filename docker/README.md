@@ -27,16 +27,16 @@ ARG validate_version=3.0.3
 
 3. Open a terminal and change the current working directory to `validate/docker`.
 
-4. Build the docker image as follows.
+4. Build the docker image as follows (make sure that docker is installed and running in your computer).
 
 ```
-    docker image build -t nasapds/validate .
+    docker image build --tag nasapds/validate .
 ```
 
 5. Test the `nasapds/validate` docker image as follows.
 
 ```
-    docker container run nasapds/validate --help
+    docker container run --rm nasapds/validate --help
 ```
 The above command should display the help content of the Validate Tool.
 
@@ -65,7 +65,7 @@ A PDS bundle can be validated with Validate Tool as follows as per the
 However, when using the dockerized Validate Tool, above command can be updated as follows.
 
 ```shell
-docker container run --name validate \
+docker container run \
                  --rm \
                  --volume "${HOME}/pds/bundle":/tmp/pds \
                  --volume "${HOME}/pds/bundle/checksum-manifest.txt":/tmp/pds/checksum-manifest.txt \
