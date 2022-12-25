@@ -38,6 +38,60 @@
           },
           {
                "name": [
+                    "SMT MPIFR 19-CHANNEL BOLOMETER"
+               ],
+               "type": [
+                    "RADIOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:smt.heinrich_hertz10m.mpifr::1.0"
+          },
+          {
+               "name": [
+                    "SOLAR SYSTEM"
+               ],
+               "type": [
+                    "PLANETARY SYSTEM"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planetary_system.solar_system::1.0"
+          },
+          {
+               "name": [
+                    "PROBE"
+               ],
+               "type": [
+                    "EQUIPMENT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:equipment.probe::1.0"
+          },
+          {
+               "name": [
+                    "ALPHA PARTICLE X-RAY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:apxs.mer2::1.0"
+          },
+          {
+               "name": [
+                    "HELIKE"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.helike::1.1"
+          },
+          {
+               "name": [
+                    "KIVIUQ"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.kiviuq::1.1"
+          },
+          {
+               "name": [
                     "COMET NUCLEUS TOUR"
                ],
                "type": [
@@ -6894,33 +6948,6 @@
           },
           {
                "name": [
-                    "APOLLO 17 ALSEP LUNAR EJECTA AND METEORITES (LEAM) EXPERIMENT"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:leam.a17a::2.0"
-          },
-          {
-               "name": [
-                    "2005 EB299"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_eb299::1.0"
-          },
-          {
-               "name": [
-                    "(469705) 2005 EF298"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.469705_2005_ef298::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -6972,6 +6999,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "APOLLO 17 ALSEP LUNAR EJECTA AND METEORITES (LEAM) EXPERIMENT"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:leam.a17a::2.0"
+          },
+          {
+               "name": [
+                    "2005 EB299"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_eb299::1.0"
+          },
+          {
+               "name": [
+                    "(469705) 2005 EF298"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.469705_2005_ef298::1.0"
           },
           {
                "name": [
@@ -13534,51 +13588,6 @@
           },
           {
                "name": [
-                    "MARS ATMOSPHERIC WATER DETECTOR"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mawd.vo1::1.0"
-          },
-          {
-               "name": [
-                    "SBIG ST-9E"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:leura.0m25.sbig_st9e::1.0"
-          },
-          {
-               "name": [
-                    "DUST IMPACT DETECTOR"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:did.gio::1.0"
-          },
-          {
-               "name": [
-                    "HUYGENS ATMOSPHERIC STRUCTURE INSTRUMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:hp.hasi::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss61_34m::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -15931,60 +15940,6 @@
           },
           {
                "name": [
-                    "SMT MPIFR 19-CHANNEL BOLOMETER"
-               ],
-               "type": [
-                    "RADIOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:smt.heinrich_hertz10m.mpifr::1.0"
-          },
-          {
-               "name": [
-                    "SOLAR SYSTEM"
-               ],
-               "type": [
-                    "PLANETARY SYSTEM"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:planetary_system.solar_system::1.0"
-          },
-          {
-               "name": [
-                    "PROBE"
-               ],
-               "type": [
-                    "EQUIPMENT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:equipment.probe::1.0"
-          },
-          {
-               "name": [
-                    "ALPHA PARTICLE X-RAY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:apxs.mer2::1.0"
-          },
-          {
-               "name": [
-                    "HELIKE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.helike::1.1"
-          },
-          {
-               "name": [
-                    "KIVIUQ"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.kiviuq::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -16009,6 +15964,51 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "MARS ATMOSPHERIC WATER DETECTOR"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mawd.vo1::1.0"
+          },
+          {
+               "name": [
+                    "SBIG ST-9E"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:leura.0m25.sbig_st9e::1.0"
+          },
+          {
+               "name": [
+                    "DUST IMPACT DETECTOR"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:did.gio::1.0"
+          },
+          {
+               "name": [
+                    "HUYGENS ATMOSPHERIC STRUCTURE INSTRUMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:hp.hasi::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss61_34m::1.0"
           },
           {
                "name": [
