@@ -15,7 +15,7 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#499
 |"NASA-PDS/validate#499 Success Table EOL" | "github499" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github499_1.json -s json -t {resourceDir}/github499/success/M7_217_044546_N.xml" | "report_github499_1.json" |
-|"NASA-PDS/validate#499 Fail Table EOL" | "github499" | 25 | "25 errors expected" | "NO_PRODUCTS_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github499_2.json -s json -t {resourceDir}/github529/fail/M7_217_044546_N.xml" | "report_github499_2.json" |
+|"NASA-PDS/validate#499 Fail Table EOL" | "github499" | 25 | "25 errors expected" | "NO_PRODUCTS_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github499_2.json -s json -t {resourceDir}/github499/fail/M7_217_044546_N.xml" | "report_github499_2.json" |
 
 # Validate#480
 |"NASA-PDS/validate#480 Success Intermingled Data Objects" | "github480" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github480_1.json -s json -t {resourceDir}/github480/test_success.xml --skip-content-validation" | "report_github480_1.json" |
