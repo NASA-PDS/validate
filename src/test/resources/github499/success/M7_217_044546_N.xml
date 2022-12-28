@@ -90,7 +90,7 @@
       <Record_Character>
         <fields>24</fields>
         <groups>0</groups>
-        <record_length unit="byte">81</record_length>
+        <record_length unit="byte">82</record_length>
         <Field_Character> 
           <name>DN1*row</name> 
           <field_number>1</field_number> 
