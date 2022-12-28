@@ -84,7 +84,7 @@
       <parsing_standard_id>PDS DSV 1</parsing_standard_id>
     </Header>
     <Table_Character>
-      <offset unit="byte">80</offset>
+      <offset unit="byte">81</offset>
       <records>25</records> 
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <Record_Character>
