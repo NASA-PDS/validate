@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:a17sws_raw_arcsav:data:a12_sws_1975124_l1_arcsav_yz_tab</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Apollo 12 Solar Wind Spectrometer Raw Cleaned ASCII Science Data for 1975-124</title>
+    <information_model_version>1.7.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>1975-05-03T23:59:34.892Z</start_date_time>
+      <stop_date_time>1975-05-04T23:59:47.596Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Apollo 12</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.apollo_12</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Apollo 12 ALSEP</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.a12a</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Apollo 12 Solar Wind Spectrometer</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:sws.a12a</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MOON</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>b.tab</file_name>
+      <file_size unit="byte">4140</file_size>
+      <records>3</records>
+    </File>
+    <Table_Character>
+      <name>RawData</name>
+      <offset unit="byte">0</offset>
+      <records>3</records>
+      <description>x</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>5</fields>
+        <groups>1</groups>
+        <record_length unit="byte">1380</record_length>
+        <Field_Character>
+          <name>EarthReceivedTime</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">21</field_length>
+          <field_format>%-21s</field_format>
+          <description>x</description>
+        </Field_Character>
+        <Field_Character>
+          <name>EarthReceivedTime_Flag</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">23</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">1</field_length>
+          <field_format>%1s</field_format> 
+          <description>x</description>
+        </Field_Character>
+        <Field_Character>
+          <name>CycleNum</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">26</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">4</field_length>
+          <field_format>%4d</field_format>
+          <unit>ms</unit>
+          <description>x</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SeqNum</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">31</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">2</field_length>
+          <field_format>%2d</field_format>
+          <unit>ms</unit>
+          <description>x</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SeqNum_Flag</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">34</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">1</field_length>
+          <field_format>%1s</field_format>
+          <description>x</description>
+        </Field_Character>
+        <Group_Field_Character>
+          <name>PosIonLevels1to14_Group</name>
+          <repetitions>14</repetitions>
+          <fields>2</fields>
+          <groups>1</groups>
+          <group_location unit="byte">35</group_location>
+          <group_length unit="byte">896</group_length>
+          <Field_Character>
+            <name>PosIonSumLev1to14</name>
+            <field_number>1</field_number>
+            <field_location unit="byte">4</field_location>
+            <data_type>ASCII_Integer</data_type>
+            <field_length unit="byte">3</field_length>
+            <field_format>%3d</field_format>
+            <unit>DN</unit>
+            <description>x</description>
+          </Field_Character>
+          <Field_Character>
+            <name>PosIonSumLev1to14_Flag</name>
+            <field_number>2</field_number>
+            <field_location unit="byte">8</field_location>
+            <data_type>ASCII_String</data_type>
+            <field_length unit="byte">1</field_length>
+            <field_format>%1s</field_format> 
+            <description>x</description>
+          </Field_Character>
+          <Group_Field_Character>
+            <name>PosIonCups1to7_Group</name>
+            <repetitions>8</repetitions>
+            <fields>2</fields>
+            <groups>0</groups>
+            <group_location unit="byte">9</group_location>
+            <group_length unit="byte">56</group_length>
+            <Field_Character>
+              <name>PosIonCups1to7</name>
+              <field_number>1</field_number>
+              <field_location unit="byte">4</field_location>
+              <data_type>ASCII_Integer</data_type>
+              <field_length unit="byte">3</field_length>
+              <field_format>%3d</field_format>
+              <unit>DN</unit>
+              <description>x</description>
+            </Field_Character>
+            <Field_Character>
+              <name>PosIonCups1to7_Flag</name>
+              <field_number>2</field_number>
+              <field_location unit="byte">8</field_location>
+              <data_type>ASCII_String</data_type>
+              <field_length unit="byte">1</field_length>
+              <field_format>%1s</field_format>
+              <description>x</description>
+            </Field_Character>
+          </Group_Field_Character>
+        </Group_Field_Character>
+<!--
+        <Group_Field_Character>
+          <name>ElectronLevels1to7_Group</name>
+          <repetitions>7</repetitions>
+          <fields>2</fields>
+          <groups>1</groups>
+          <group_location unit="byte">931</group_location>
+          <group_length unit="byte">448</group_length>
+          <Field_Character>
+            <name>ElecSumLev1to7</name>
+            <field_number>1</field_number>
+            <field_location unit="byte">4</field_location>
+            <data_type>ASCII_Integer</data_type>
+            <field_length unit="byte">3</field_length>
+            <field_format>%3d</field_format>
+            <unit>DN</unit>
+            <description>x</description>
+          </Field_Character>
+          <Field_Character>
+            <name>ElecSumLev1to7_Flag</name>
+             <field_number>2</field_number>
+             <field_location unit="byte">8</field_location>
+            <data_type>ASCII_String</data_type>
+            <field_length unit="byte">1</field_length>
+            <field_format>%1s</field_format> 
+            <description>x</description>
+          </Field_Character>
+          <Group_Field_Character>
+            <name>ElecCups1to7_Group</name>
+            <repetitions>7</repetitions>
+            <fields>2</fields>
+            <groups>0</groups>
+            <group_location unit="byte">9</group_location>
+            <group_length unit="byte">56</group_length>
+            <Field_Character>
+              <name>ElecCups1to7</name>
+              <field_number>1</field_number>
+              <field_location unit="byte">4</field_location>
+              <data_type>ASCII_Integer</data_type>
+              <field_length unit="byte">3</field_length>
+              <field_format>%3d</field_format>
+              <unit>DN</unit>
+              <description>x</description>
+            </Field_Character>
+            <Field_Character>
+              <name>ElecCups1to7_Flag</name>
+              <field_number>2</field_number>
+              <field_location unit="byte">8</field_location>
+              <data_type>ASCII_String</data_type>
+              <field_length unit="byte">1</field_length>
+              <field_format>%1s</field_format>
+              <description>x</description>
+            </Field_Character>
+          </Group_Field_Character>
+        </Group_Field_Character>
+-->
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>
