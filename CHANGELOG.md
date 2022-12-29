@@ -1,6 +1,14 @@
 # Changelog
 
-## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-12-22)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-12-29)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Latest validate missing label extension warning [\#546](https://github.com/NASA-PDS/validate/issues/546)
+
+## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-12-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...v3.1.0-SNAPSHOT)
 
@@ -18,7 +26,6 @@
 - Validate partially fails regression test on issue 388 [\#550](https://github.com/NASA-PDS/validate/issues/550) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails regression test on issue 303 [\#548](https://github.com/NASA-PDS/validate/issues/548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails regression test on issue 308 [\#547](https://github.com/NASA-PDS/validate/issues/547)
-- Latest validate missing label extension warning [\#546](https://github.com/NASA-PDS/validate/issues/546)
 - validate gives a error.table.bad\_field\_read error [\#544](https://github.com/NASA-PDS/validate/issues/544)
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Table\_Character not accurately checking field formats [\#511](https://github.com/NASA-PDS/validate/issues/511) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
