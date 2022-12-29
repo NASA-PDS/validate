@@ -227,9 +227,12 @@ public class TableValidator implements DataObjectValidator {
     LOG.debug("validateTableDelimited:dataFile {}", this.dataFile);
 
     TableRecord record = null;
+    String line = null, recordDelimiter = this.tableAdapter.getRecordDelimiter();
+    int dataObjectIndex = this.tableObject.getDataObjectLocation().getDataObject();
 
     try {
-      record = this.currentTableReader.readNext();
+      line = this.currentTableReader.readNextLine();
+      record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), false);
       while (record != null) {
         LOG.debug("validateTableDelimited: recordNumber {}", currentObjectRecordCounter);
         LOG.debug("record {}", record);
@@ -239,6 +242,7 @@ public class TableValidator implements DataObjectValidator {
         try {
           LOG.debug("getFields(): " + this.currentTableReader.getFields().length);
           fieldValueValidator.validate(record, this.currentTableReader.getFields(), false);
+          this.checkEOL(recordDelimiter, line, dataObjectIndex);
         } catch (FieldContentFatalException e) {
           // If we get a fatal error, we can avoid an overflow of error output
           // by killing the loop through all the table records
@@ -348,6 +352,59 @@ public class TableValidator implements DataObjectValidator {
     }
   }
 
+  private boolean checkEOL (String recordDelimiter, String line, int dataObjectIndex)
+  {
+	  boolean manuallyParseRecord = false;
+      // Check record delimiter
+      if (recordDelimiter != null) {
+        // Check for how the line ends keying off what was provided in the label.
+        // If the delimiter is "Carriage-Return Line-Feed" then the line should end with
+        // a carriage return and a line feed.
+        if (recordDelimiter.equalsIgnoreCase(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getXmlType())
+            && !line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) {
+          addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_CRLF,
+              "Record does not end in carriage-return line feed.", dataFile, dataObjectIndex,
+              this.currentTableReader.getCurrentRow());
+          manuallyParseRecord = true;
+        } else if (recordDelimiter.equalsIgnoreCase(DelimiterType.LINE_FEED.getXmlType())) {
+          if (!line.endsWith(DelimiterType.LINE_FEED.getRecordDelimiter())) { // If the delimiter is
+                                                                              // Line-Feed, then the
+                                                                              // line should end
+            // with "\n"
+            // Perform a check if the record ends in line feed or not ("\n")
+            // https://github.com/nasa-pds/validate/issues/292
+            // If the delimiter is "Line-Feed" then the line should end with a line feed.
+            addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_LF,
+                "Record does not end in line feed.", dataFile, dataObjectIndex,
+                this.currentTableReader.getCurrentRow());
+          }
+          if (line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) { //
+            // If the delimiter is Line-Feed, then the line should not end with "\r\n"
+            addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_LF,
+                "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
+                dataFile, dataObjectIndex, this.currentTableReader.getCurrentRow());
+          }
+          manuallyParseRecord = true;
+        } else {
+          addTableProblem(ExceptionType.DEBUG, ProblemType.CRLF_DETECTED,
+              "Record ends in carriage-return line feed.", dataFile, dataObjectIndex,
+              this.currentTableReader.getCurrentRow());
+        }
+      } else // If cannot find a record delimiter, check for the default carriage return line
+             // feed.
+      if (!line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) {
+        addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_CRLF,
+            "Record does not end in carriage-return line feed.", dataFile, dataObjectIndex,
+            this.currentTableReader.getCurrentRow());
+        manuallyParseRecord = true;
+      } else {
+        addTableProblem(ExceptionType.DEBUG, ProblemType.CRLF_DETECTED,
+            "Record ends in carriage-return line feed.", dataFile, dataObjectIndex,
+            this.currentTableReader.getCurrentRow());
+      }
+      return manuallyParseRecord;
+  }
+
   /**
    * Validate a table content one line at a time.
    * 
@@ -416,54 +473,7 @@ public class TableValidator implements DataObjectValidator {
 
       this.currentObjectRecordCounter++;
 
-      // Check record delimiter
-      if (recordDelimiter != null) {
-        // Check for how the line ends keying off what was provided in the label.
-        // If the delimiter is "Carriage-Return Line-Feed" then the line should end with
-        // a carriage return and a line feed.
-        if (recordDelimiter.equalsIgnoreCase(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getXmlType())
-            && !line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) {
-          addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_CRLF,
-              "Record does not end in carriage-return line feed.", dataFile, dataObjectIndex,
-              this.currentTableReader.getCurrentRow());
-          manuallyParseRecord = true;
-        } else if (recordDelimiter.equalsIgnoreCase(DelimiterType.LINE_FEED.getXmlType())) {
-          if (!line.endsWith(DelimiterType.LINE_FEED.getRecordDelimiter())) { // If the delimiter is
-                                                                              // Line-Feed, then the
-                                                                              // line should end
-            // with "\n"
-            // Perform a check if the record ends in line feed or not ("\n")
-            // https://github.com/nasa-pds/validate/issues/292
-            // If the delimiter is "Line-Feed" then the line should end with a line feed.
-            addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_LF,
-                "Record does not end in line feed.", dataFile, dataObjectIndex,
-                this.currentTableReader.getCurrentRow());
-          }
-          if (line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) { //
-            // If the delimiter is Line-Feed, then the line should not end with "\r\n"
-            addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_LF,
-                "Record delimited with 'Line-Feed' should not end with carriage-return line-feed.",
-                dataFile, dataObjectIndex, this.currentTableReader.getCurrentRow());
-          }
-          manuallyParseRecord = true;
-        } else {
-          addTableProblem(ExceptionType.DEBUG, ProblemType.CRLF_DETECTED,
-              "Record ends in carriage-return line feed.", dataFile, dataObjectIndex,
-              this.currentTableReader.getCurrentRow());
-        }
-      } else // If cannot find a record delimiter, check for the default carriage return line
-             // feed.
-      if (!line.endsWith(DelimiterType.CARRIAGE_RETURN_LINE_FEED.getRecordDelimiter())) {
-        addTableProblem(ExceptionType.ERROR, ProblemType.MISSING_CRLF,
-            "Record does not end in carriage-return line feed.", dataFile, dataObjectIndex,
-            this.currentTableReader.getCurrentRow());
-        manuallyParseRecord = true;
-      } else {
-        addTableProblem(ExceptionType.DEBUG, ProblemType.CRLF_DETECTED,
-            "Record ends in carriage-return line feed.", dataFile, dataObjectIndex,
-            this.currentTableReader.getCurrentRow());
-      }
-
+      manuallyParseRecord = this.checkEOL (recordDelimiter, line, dataObjectIndex);
       // Check record length
       long recordLength = this.tableAdapter.getRecordLength();
       if (recordLength != -1) {

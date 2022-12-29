@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mr6_7_uvs:data_raw:m7_217_044546_n</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>MARINER 7 UVS</title>
+    <information_model_version>1.7.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-04-23</modification_date>
+        <version_id>1.0</version_id>
+        <description>This label was modified to convert to PDS4.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>1971-08-05T04:45:46.000Z</start_date_time>
+      <stop_date_time>1971-08-05T05:10:46.000Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <Science_Facets>
+        <domain>Atmosphere</domain>
+        <discipline_name>Atmospheres</discipline_name>
+        <facet1>Structure</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>MARINER 7</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mariner69</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>MARINER 7</name>
+      <Observing_System_Component>
+        <name>UVS</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:uvs.mr7</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>MARINER 7</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mr6_7_uvs:document:dataset_edr.cat</lid_reference>
+      <reference_type>data_to_document</reference_type>
+      <comment>Data set catalog file</comment>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>M7_217_044546_N.dat</file_name>
+      <local_identifier>M7_217_044546_N_file</local_identifier>
+      <file_size unit="byte">2131</file_size>
+      <records>26</records>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">80</object_length>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+    </Header>
+    <Table_Character>
+      <offset unit="byte">81</offset>
+      <records>25</records> 
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>24</fields>
+        <groups>0</groups>
+        <record_length unit="byte">82</record_length>
+        <Field_Character> 
+          <name>DN1*row</name> 
+          <field_number>1</field_number> 
+          <field_location unit="byte">1</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN2*row</name> 
+          <field_number>2</field_number> 
+          <field_location unit="byte">4</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN3*row</name> 
+          <field_number>3</field_number> 
+          <field_location unit="byte">7</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN4*row</name> 
+          <field_number>4</field_number> 
+          <field_location unit="byte">10</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN5*row</name> 
+          <field_number>5</field_number> 
+          <field_location unit="byte">13</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN6*row</name> 
+          <field_number>6</field_number> 
+          <field_location unit="byte">16</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN7*row</name> 
+          <field_number>7</field_number> 
+          <field_location unit="byte">19</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN8*row</name> 
+          <field_number>8</field_number> 
+          <field_location unit="byte">22</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN9*row</name> 
+          <field_number>9</field_number> 
+          <field_location unit="byte">25</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN10*row</name> 
+          <field_number>10</field_number> 
+          <field_location unit="byte">28</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN11*row</name> 
+          <field_number>11</field_number> 
+          <field_location unit="byte">31</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN12*row</name> 
+          <field_number>12</field_number> 
+          <field_location unit="byte">34</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN13*row</name> 
+          <field_number>13</field_number> 
+          <field_location unit="byte">37</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN14*row</name> 
+          <field_number>14</field_number> 
+          <field_location unit="byte">40</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN15*row</name> 
+          <field_number>15</field_number> 
+          <field_location unit="byte">43</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN16*row</name> 
+          <field_number>16</field_number> 
+          <field_location unit="byte">46</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN17*row</name> 
+          <field_number>17</field_number> 
+          <field_location unit="byte">49</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN18*row</name> 
+          <field_number>18</field_number> 
+          <field_location unit="byte">52</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN19*row</name> 
+          <field_number>19</field_number> 
+          <field_location unit="byte">55</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN20*row</name> 
+          <field_number>20</field_number> 
+          <field_location unit="byte">58</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN21*row</name> 
+          <field_number>21</field_number> 
+          <field_location unit="byte">61</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN22*row</name> 
+          <field_number>22</field_number> 
+          <field_location unit="byte">64</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN23*row</name> 
+          <field_number>23</field_number> 
+          <field_location unit="byte">67</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+        <Field_Character> 
+          <name>DN24*row</name> 
+          <field_number>24</field_number> 
+          <field_location unit="byte">70</field_location> 
+          <data_type>ASCII_Integer</data_type> 
+          <field_length unit="byte">3</field_length> 
+        </Field_Character> 
+      </Record_Character> 
+    </Table_Character>
+  </File_Area_Observational>
+</Product_Observational>

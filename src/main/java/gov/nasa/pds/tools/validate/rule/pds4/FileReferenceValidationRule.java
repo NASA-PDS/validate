@@ -430,9 +430,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             // Is is possible that there's no corresponding problemType. Must check for
             // null-ness before calling checkGenericDocument() function.
             if (problemType == null) {
-              LOG.error(
-                  "FileReferenceValidationRule:Cannot retrieve ProblemType from provided doctype {}",
-                  doctype);
+            	if (documentStandardId != null || !"".equalsIgnoreCase(doctype)) {
+            		LOG.error(
+            				"FileReferenceValidationRule:Cannot retrieve ProblemType from provided doctype {}",
+            				doctype);
+            	}
             } else {
               return this.checkGenericDocument(target, urlRef, fileObject, filename, parent,
                   directory, documentStandardId, doctype, problemType);
