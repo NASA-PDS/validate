@@ -1,12 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-12-29)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2022-12-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.0-SNAPSHOT...«unknown»)
 
 **Defects:**
 
-- validate doesn't flag a data file with only LF [\#499](https://github.com/NASA-PDS/validate/issues/499) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- ERROR  \[error.table.bad\_file\_read\] incorrectly reports that GroupFieldBinary group\_length is larger than size of contained fields [\#531](https://github.com/NASA-PDS/validate/issues/531) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2022-12-29)
 
@@ -30,6 +30,7 @@
 - validate gives a error.table.bad\_field\_read error [\#544](https://github.com/NASA-PDS/validate/issues/544)
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Table\_Character not accurately checking field formats [\#511](https://github.com/NASA-PDS/validate/issues/511) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate doesn't flag a data file with only LF [\#499](https://github.com/NASA-PDS/validate/issues/499) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.0.3](https://github.com/NASA-PDS/validate/tree/v3.0.3) (2022-11-10)
 
