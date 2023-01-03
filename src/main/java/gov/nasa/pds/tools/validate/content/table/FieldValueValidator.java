@@ -370,7 +370,6 @@ public class FieldValueValidator {
       } catch (Exception e) {
         // The value of i starts at 0 so field number is i + 1
         LOG.error("Error while getting field value: {} at field {}", e.getMessage(), (i + 1));
-        e.printStackTrace();
         addTableProblem(ExceptionType.ERROR, ProblemType.BAD_FIELD_READ,
             "Error while getting field value: " + e.getMessage(), record.getLocation(), (i + 1));
         fatalError = true;
@@ -790,7 +789,7 @@ public class FieldValueValidator {
             throw new NumberFormatException("Value must be unsigned.");
           }
         } else if (specifier.equals("x")) {
-          BigInteger bi = new BigInteger(value.trim(),16);
+          BigInteger bi = new BigInteger(value.trim(), 16);
           if (bi.signum() == -1) {
             throw new NumberFormatException("Value must be unsigned.");
           }
