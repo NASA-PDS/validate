@@ -1,21 +1,16 @@
 # Changelog
 
-## [3.1.0](https://github.com/NASA-PDS/validate/tree/3.1.0) (2023-01-03)
+## [v3.1.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.1.0-SNAPSHOT) (2023-01-03)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.1.0...3.1.0)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.1.0...v3.1.0-SNAPSHOT)
+
+## [release/3.1.0](https://github.com/NASA-PDS/validate/tree/release/3.1.0) (2023-01-03)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...release/3.1.0)
 
 **Requirements:**
 
 - As a user, I want to be able to use validate from a docker container [\#556](https://github.com/NASA-PDS/validate/issues/556)
-
-**Defects:**
-
-- validate does not correctly handle field format checks for hex values [\#576](https://github.com/NASA-PDS/validate/issues/576) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Validate can't find files in directory specified by \<directory\_path\_name\> [\#474](https://github.com/NASA-PDS/validate/issues/474) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [release/3.1.0](https://github.com/NASA-PDS/validate/tree/release/3.1.0) (2023-01-01)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.0.3...release/3.1.0)
 
 **Improvements:**
 
@@ -24,6 +19,7 @@
 
 **Defects:**
 
+- validate does not correctly handle field format checks for hex values [\#576](https://github.com/NASA-PDS/validate/issues/576) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Array object validation regression in v3.0.3 [\#564](https://github.com/NASA-PDS/validate/issues/564) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - --spot-check-data flag throws IOException [\#554](https://github.com/NASA-PDS/validate/issues/554) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate fails regression test on issue 188 [\#551](https://github.com/NASA-PDS/validate/issues/551) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
@@ -34,6 +30,7 @@
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Table\_Character not accurately checking field formats [\#511](https://github.com/NASA-PDS/validate/issues/511) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate doesn't flag a data file with only LF [\#499](https://github.com/NASA-PDS/validate/issues/499) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate can't find files in directory specified by \<directory\_path\_name\> [\#474](https://github.com/NASA-PDS/validate/issues/474) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.0.3](https://github.com/NASA-PDS/validate/tree/v3.0.3) (2022-11-10)
 
