@@ -38,6 +38,42 @@
           },
           {
                "name": [
+                    "NEREID"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.neptune.nereid::1.1"
+          },
+          {
+               "name": [
+                    "2003 WA191"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_wa191::1.0"
+          },
+          {
+               "name": [
+                    "TETHYS"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.tethys::1.1"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nh.rex::1.0"
+          },
+          {
+               "name": [
                     "SMT MPIFR 19-CHANNEL BOLOMETER"
                ],
                "type": [
@@ -6921,33 +6957,6 @@
           },
           {
                "name": [
-                    "MICROROVER FLIGHT EXPERIMENT"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mpfr::1.1"
-          },
-          {
-               "name": [
-                    "GRS"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:kaguya.grs::1.0"
-          },
-          {
-               "name": [
-                    "2003 FJ127"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_fj127::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -6999,6 +7008,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "MICROROVER FLIGHT EXPERIMENT"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mpfr::1.1"
+          },
+          {
+               "name": [
+                    "GRS"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:kaguya.grs::1.0"
+          },
+          {
+               "name": [
+                    "2003 FJ127"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_fj127::1.0"
           },
           {
                "name": [
@@ -13561,33 +13597,6 @@
           },
           {
                "name": [
-                    "2004 TE282"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_te282::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::0.0"
-          },
-          {
-               "name": [
-                    "ENTRY, DESCENT, AND LANDING CAMERA SUITE (EDL)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mars2020.edlcam::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -15904,42 +15913,6 @@
           },
           {
                "name": [
-                    "NEREID"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.neptune.nereid::1.1"
-          },
-          {
-               "name": [
-                    "2003 WA191"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_wa191::1.0"
-          },
-          {
-               "name": [
-                    "TETHYS"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.tethys::1.1"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE EXPERIMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nh.rex::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -15964,6 +15937,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "2004 TE282"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_te282::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::0.0"
+          },
+          {
+               "name": [
+                    "ENTRY, DESCENT, AND LANDING CAMERA SUITE (EDL)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mars2020.edlcam::1.0"
           },
           {
                "name": [
