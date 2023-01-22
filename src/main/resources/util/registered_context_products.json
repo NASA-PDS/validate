@@ -38,6 +38,33 @@
           },
           {
                "name": [
+                    "CONTEXT CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ctx.mro::1.0"
+          },
+          {
+               "name": [
+                    "C/1980 O1 (CERNIS-PETRAUSKAS)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.c1980_o1_cernis-petrauskas::1.0"
+          },
+          {
+               "name": [
+                    "SPICAM"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:spicam.mex::1.0"
+          },
+          {
+               "name": [
                     "NEREID"
                ],
                "type": [
@@ -4312,7 +4339,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:waves.jno::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:waves.jno::1.1"
           },
           {
                "name": [
@@ -6795,12 +6822,12 @@
           },
           {
                "name": [
-                    "(486958) 2014 MU69"
+                    "(486958) ARROKOTH"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.486958_2014_mu69::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.486958_2014_mu69::1.1"
           },
           {
                "name": [
@@ -6921,42 +6948,6 @@
           },
           {
                "name": [
-                    "NEAR EARTH ASTEROID RENDEZVOUS"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.near::1.1"
-          },
-          {
-               "name": [
-                    "VENUS EXPRESS VISIBLE AND INFRARED THERMAL IMAGING SPECTROMETER (VIRTIS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:vex.virtis::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.p12::1.0"
-          },
-          {
-               "name": [
-                    "(23144) 2000 AY182"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.23144_2000_ay182::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -7008,6 +6999,42 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "NEAR EARTH ASTEROID RENDEZVOUS"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.near::1.1"
+          },
+          {
+               "name": [
+                    "VENUS EXPRESS VISIBLE AND INFRARED THERMAL IMAGING SPECTROMETER (VIRTIS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vex.virtis::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.p12::1.0"
+          },
+          {
+               "name": [
+                    "(23144) 2000 AY182"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.23144_2000_ay182::1.0"
           },
           {
                "name": [
@@ -13552,51 +13579,6 @@
           },
           {
                "name": [
-                    "DUST IMPACT DETECTOR"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:gio.did::1.0"
-          },
-          {
-               "name": [
-                    "D/1993 F2-W (SHOEMAKER-LEVY 9-W)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-w_shoemaker-levy_9-w::1.0"
-          },
-          {
-               "name": [
-                    "ENERGETIC PARTICLE ANISOTROPY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:epas.ice::1.0"
-          },
-          {
-               "name": [
-                    "1999 XY143"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1999_xy143::1.0"
-          },
-          {
-               "name": [
-                    "DEEP IMPACT HIGH RESOLUTION INSTRUMENT - VISIBLE CCD"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dif.hriv::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -14071,6 +14053,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:siding_spring.uppsala0m5::1.0"
+          },
+          {
+               "name": [
+                    "NEW HORIZONS KUIPER BELT EXTENDED MISSION"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.new_horizons_kem1::1.0"
           },
           {
                "name": [
@@ -15886,33 +15877,6 @@
           },
           {
                "name": [
-                    "CONTEXT CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ctx.mro::1.0"
-          },
-          {
-               "name": [
-                    "C/1980 O1 (CERNIS-PETRAUSKAS)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.c1980_o1_cernis-petrauskas::1.0"
-          },
-          {
-               "name": [
-                    "SPICAM"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:spicam.mex::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -15937,6 +15901,51 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "DUST IMPACT DETECTOR"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:gio.did::1.0"
+          },
+          {
+               "name": [
+                    "D/1993 F2-W (SHOEMAKER-LEVY 9-W)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-w_shoemaker-levy_9-w::1.0"
+          },
+          {
+               "name": [
+                    "ENERGETIC PARTICLE ANISOTROPY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:epas.ice::1.0"
+          },
+          {
+               "name": [
+                    "1999 XY143"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1999_xy143::1.0"
+          },
+          {
+               "name": [
+                    "DEEP IMPACT HIGH RESOLUTION INSTRUMENT - VISIBLE CCD"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dif.hriv::1.0"
           },
           {
                "name": [
