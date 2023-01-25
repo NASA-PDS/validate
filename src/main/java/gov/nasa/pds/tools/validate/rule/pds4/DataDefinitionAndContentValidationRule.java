@@ -39,7 +39,6 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
     try {
       URL target = getTarget();
       String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
-      long t0 = System.currentTimeMillis();
 
       LOG.debug("START definition/content validation: {}", targetFileName);
 

@@ -306,15 +306,14 @@ public class ValidateLauncher {
    * @throws Exception If an error occurred while processing the command-line options.
    */
   public void query(CommandLine line) throws Exception {
-	int count = 0, every = Integer.valueOf(line.getOptionValue("everyN", "1")).intValue();
+	this.spotCheckData = Integer.valueOf(line.getOptionValue("everyN", "-1")).intValue();
     List<Option> processedOptions = Arrays.asList(line.getOptions());
     List<String> targetList = new ArrayList<>();
     // Gets the implicit targets
     for (java.util.Iterator<String> i = line.getArgList().iterator(); i.hasNext();) {
       String[] values = i.next().split(",");
       for (String value : values) {
-        if ((count % every) == 0) targetList.add(value.trim());
-        count++;
+        targetList.add(value.trim());
       }
     }
 
