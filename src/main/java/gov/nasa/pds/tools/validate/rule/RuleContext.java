@@ -399,7 +399,7 @@ public class RuleContext extends ContextBase {
   }
 
   public int getEveryN() {
-	return getContextValue(EVERY_N_KEY, Integer.class);
+	return getContextValue(EVERY_N_KEY, Integer.class) == null ? 1 : getContextValue(EVERY_N_KEY, Integer.class);
   }
 
   public void setEveryN(int value) {
