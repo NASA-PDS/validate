@@ -324,9 +324,12 @@ public class ValidateLauncher {
 
     try {
       setEveryN(Integer.valueOf(line.getOptionValue("everyN", "1")).intValue());
+      if (this.everyN < 1)
+        throw new InvalidOptionException(
+          "Value must be <= 1 not '" + line.getOptionValue("everyN", "1") + "'");
     } catch (IllegalArgumentException a) {
       throw new InvalidOptionException(
-          "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
+        "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
     }
 
     for (Option o : processedOptions) {

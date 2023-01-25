@@ -39,7 +39,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
     Label label = null;
     String objectIdentifier = "";
     
-    if (DataDefinitionAndContentValidationRule.every_n_counter % this.getContext().getEveryN() != 0) return;
+    if (++DataDefinitionAndContentValidationRule.every_n_counter % this.getContext().getEveryN() != 0) return;
 
     try {
       URL target = getTarget();
