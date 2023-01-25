@@ -24,6 +24,8 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
   private static final Logger LOG =
       LoggerFactory.getLogger(DataDefinitionAndContentValidationRule.class);
 
+  private static int every_n_counter = 0;
+
   public DataDefinitionAndContentValidationRule() {}
 
   @Override
@@ -36,6 +38,9 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
     int objectCounter = 0;
     Label label = null;
     String objectIdentifier = "";
+    
+    if (DataDefinitionAndContentValidationRule.every_n_counter % this.getContext().getEveryN() != 0) return;
+
     try {
       URL target = getTarget();
       String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);

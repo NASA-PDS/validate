@@ -429,8 +429,11 @@ public class LocationValidator {
     this.validationRule = ruleName;
   }
 
+  public void setEveryN(int value) {
+	ruleContext.setEveryN(value);
+  }
   public void setSpotCheckData(int value) {
-    ruleContext.setSpotCheckData(value);
+	ruleContext.setSpotCheckData(value);
   }
 
   public void setAllowUnlabeledFiles(boolean flag) {
