@@ -1,6 +1,14 @@
 # Changelog
 
-## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-03)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-01-26)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-19)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0-SNAPSHOT)
 
