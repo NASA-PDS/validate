@@ -51,6 +51,9 @@ import gov.nasa.pds.validate.constants.Constants;
  */
 public class TableValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(TableValidator.class);
+
+  private static int every_n_counter = 0;
+
   private int progressCounter = 0;
   private long currentObjectRecordCounter = 0;
 
@@ -121,6 +124,7 @@ public class TableValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException, Exception {
+		if (TableValidator.every_n_counter++ % this.context.getEveryN() != 0) return true;
 
     LOG.debug("START table content validation");
     LOG.debug("validateTableDataContents:getTarget() {}", this.context.getTarget());
