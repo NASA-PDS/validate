@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1   https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:nh_pepssi:kem1_cal:pep_0396856317_0x691_sci</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>PEPSSI 3 KEM1</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migration from PDS3 (A. Gicquel)</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2018-08-17T23:59:59.015Z</start_date_time>
+      <stop_date_time>2018-08-18T23:59:59.015Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>New Horizons Kuiper Belt Extended Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.new_horizons</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>New Horizon</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>SOLAR WIND</name>
+      <type>Star</type>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>8.bin</file_name>
+    </File>
+    <Table_Binary>
+      <offset unit="byte">0</offset>
+      <records>4</records>
+      <description>FITS EDU number:  6
+          CAL_T1  = 0.3243 / Deposited TOF = T0 + T1*Raw TOF</description>
+      <Record_Binary>
+        <fields>1</fields>
+        <groups>0</groups>
+        <record_length unit="byte">8</record_length>
+        <Field_Binary>
+          <name>DAY_OF_YEAR</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>Days</unit>
+          <description>Fractional Day of Year (UTC).  Use ET for accuracy!</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+</Product_Observational>

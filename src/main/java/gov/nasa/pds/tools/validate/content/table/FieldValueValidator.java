@@ -54,7 +54,7 @@ public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
   private final List<String> INF_NAN_VALUES =
-      Arrays.asList("INF", "-INF", "+INF", "NAN", "-NAN", "+NAN");
+      Arrays.asList("INF", "-INF", "+INF", "INFINITY", "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
 
   /** List of valid datetime formats. */
   private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
@@ -540,7 +540,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (INF_NAN_VALUES.contains(value)) {
+    if (INF_NAN_VALUES.contains(value.toUpperCase())) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
