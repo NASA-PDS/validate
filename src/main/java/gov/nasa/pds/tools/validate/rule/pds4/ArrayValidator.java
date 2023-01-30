@@ -24,6 +24,7 @@ import gov.nasa.pds.label.object.ArrayObject;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.objectAccess.InvalidTableException;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -35,8 +36,6 @@ import gov.nasa.pds.tools.validate.rule.RuleContext;
 
 public class ArrayValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(ArrayValidator.class);
-
-  private static int every_n_counter = 0;
 
   // #548: @jpl-jengelke wants a return to human-based indexing when reporting problems
   private int arrayIndex = 1;
@@ -75,7 +74,7 @@ public class ArrayValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException {
-	if (ArrayValidator.every_n_counter++ % this.context.getEveryN() != 0) return true;
+	if (EveryNCounter.getInstance().getValueThenIncrement() % this.context.getEveryN() != 0) return true;
 
     URL target = this.context.getTarget();
     String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
