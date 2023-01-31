@@ -1,6 +1,14 @@
 # Changelog
 
-## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-26)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-01-31)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0-SNAPSHOT...«unknown»)
+
+**Defects:**
+
+- Validate should throw record length error when record delimiter does not occur in correct location [\#519](https://github.com/NASA-PDS/validate/issues/519) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0-SNAPSHOT)
 
