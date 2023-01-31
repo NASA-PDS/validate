@@ -232,12 +232,21 @@ public class TableValidator implements DataObjectValidator {
 
     try {
       line = this.currentTableReader.readNextLine();
-      record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), false);
+      record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
+      
       while (record != null) {
         LOG.debug("validateTableDelimited: recordNumber {}", currentObjectRecordCounter);
         LOG.debug("record {}", record);
         progressCounter();
         this.currentObjectRecordCounter++;
+
+        if (line.length() != record.length()) {
+            addTableProblem(ExceptionType.ERROR, ProblemType.RECORD_LENGTH_MISMATCH,
+            		"Delimiter is not at the end of the record."
+            		+ " Record read using delimiter is " + line.length() + " bytes long"
+            		+ " while record is defined to be " + record.length() + " bytes.",
+            		dataFile, dataObjectIndex, this.currentTableReader.getCurrentRow());
+          }
 
         try {
           LOG.debug("getFields(): " + this.currentTableReader.getFields().length);
@@ -261,8 +270,10 @@ public class TableValidator implements DataObjectValidator {
             long nextRow = this.currentTableReader.getCurrentRow() + spotCheckData;
 
             if (nextRow <= this.tableAdapter.getRecordCount()) {
+              this.currentTableReader.setCurrentRow(nextRow-1);
+              line = this.currentTableReader.readNextLine();
               record = this.currentTableReader.getRecord(
-                  this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+            		  this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
             } else {
               break;
             }
@@ -273,7 +284,8 @@ public class TableValidator implements DataObjectValidator {
                 + (this.currentTableReader.getCurrentRow() + spotCheckData) + "'");
           }
         } else {
-          record = this.currentTableReader.readNext();
+          line = this.currentTableReader.readNextLine();
+          record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
         }
       } // end while (record != null)
     } catch (Exception ioEx) {
