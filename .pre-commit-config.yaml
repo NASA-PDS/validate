@@ -3,3 +3,4 @@
   hooks:
   - id: pretty-format-java
     args: [--autofix]
+    files: ^.*\.java$
