@@ -2,7 +2,7 @@ package gov.nasa.pds.tools.util;
 
 public class EveryNCounter {
   private static EveryNCounter myself = null;
-  private static Integer lock = Integer.valueOf(0);
+ private static Object lock = new Object();
   private int current = -1;
   private EveryNCounter(){
 	}
