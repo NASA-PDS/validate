@@ -14,6 +14,7 @@ import gov.nasa.pds.label.object.TableObject;
 import gov.nasa.pds.objectAccess.InvalidTableException;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -53,6 +54,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       DataObjectValidator validator = null;
 
       URL previousDataFile = null;
+      EveryNCounter.getInstance().increment();
       for (DataObject obj : label.getObjects()) {
         objectIdentifier = getObjectIdentifier(obj);
         LOG.debug("Checking DataObject #{} '{}'", objectCounter, obj.getName());

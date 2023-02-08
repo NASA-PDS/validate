@@ -74,7 +74,7 @@ public class ArrayValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException {
-	if (EveryNCounter.getInstance().getValueThenIncrement() % this.context.getEveryN() != 0) return true;
+	if (EveryNCounter.getInstance().getValue() % this.context.getEveryN() != 0) return true;
 
     URL target = this.context.getTarget();
     String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);

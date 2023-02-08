@@ -3,7 +3,7 @@ package gov.nasa.pds.tools.util;
 public class EveryNCounter {
   private static EveryNCounter myself = null;
   private static Integer lock = Integer.valueOf(0);
-  private int current = 0;
+  private int current = -1;
   private EveryNCounter(){
 	}
   public static EveryNCounter getInstance(){
@@ -12,6 +12,7 @@ public class EveryNCounter {
 	}
 	return myself;
   }
-  public int getValueThenIncrement() { return this.current++; }
+  public int getValue() { return this.current; }
+  public void increment() { this.current++; }
 }
 
