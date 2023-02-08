@@ -199,7 +199,7 @@ Scenario Outline: Execute validate command for tests below.
 
 # https://github.com/NASA-PDS/validate/issues/325 Validate Incorrectly Throws Error When Embedded Field_Character Contains <CR><LF>
 # temp turn off and fix again in new issue because character table seems to be getting processed as a delimited table
-# |"NASA-PDS/validate#325 VALID" | "github325" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github325_label_valid.json -s json -R pds4.label -t {resourceDir}/github325/crs009x.xml" | "report_github325_label_valid.json" |
+ |"NASA-PDS/validate#325 VALID" | "github325" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github325_label_valid.json -s json -R pds4.label -t {resourceDir}/github325/crs009x.xml" | "report_github325_label_valid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/335 validate gives a NullPointerException during validation of a directory containing Table_Character products
 

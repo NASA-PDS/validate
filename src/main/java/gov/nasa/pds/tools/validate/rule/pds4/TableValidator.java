@@ -150,7 +150,8 @@ public class TableValidator implements DataObjectValidator {
       if (this.tableAdapter instanceof TableBinaryAdapter) {
         this.validateTableBinaryContent(fieldValueValidator, record, spotCheckData,
             keepQuotationsFlag);
-      } else if (!this.isTableLineOriented() && !this.getCheckInbetweenFields()) {
+      } else if (this.tableAdapter instanceof TableDelimitedAdapter &&
+    		  !this.isTableLineOriented() && !this.getCheckInbetweenFields()) {
         // Determine if we should proceed with calling validateTableDelimited()
         // function.
         // Note that the function validateTableDelimited() can only be applied if the
@@ -444,7 +445,7 @@ public class TableValidator implements DataObjectValidator {
     // reduced the function size.
     TableCharacterUtil tableCharacterUtil = null;
     boolean manuallyParseRecord = false;
-    String line = this.currentTableReader.readNextLine();
+    String line = this.currentTableReader.readNextFixedLine();
     long lineNumber = 0;
     int dataObjectIndex = this.tableObject.getDataObjectLocation().getDataObject();
 
@@ -609,7 +610,7 @@ public class TableValidator implements DataObjectValidator {
         break;
       }
 
-      line = this.currentTableReader.readNextLine();
+      line = this.currentTableReader.readNextFixedLine();
       if (line != null) {
         LOG.debug("recordNumber: {}, line.length: {}, record: [{}]", lineNumber, line.length(),
             line);
