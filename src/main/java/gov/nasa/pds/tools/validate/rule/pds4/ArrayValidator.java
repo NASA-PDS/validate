@@ -24,6 +24,7 @@ import gov.nasa.pds.label.object.ArrayObject;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.objectAccess.InvalidTableException;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -73,6 +74,8 @@ public class ArrayValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException {
+	if (EveryNCounter.getInstance().getValue() % this.context.getEveryN() != 0) return true;
+
     URL target = this.context.getTarget();
     String targetFileName = target.toString().substring(target.toString().lastIndexOf("/") + 1);
     long t0 = System.currentTimeMillis();

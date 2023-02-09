@@ -114,6 +114,11 @@ public class ConfigKey {
   /**
    * Property to specify how many lines or records to skip during content validation.
    */
+  public static final String EVERY_N = "validate.everyN";
+
+  /**
+   * Property to specify how many lines or records to skip during content validation.
+   */
   public static final String SPOT_CHECK_DATA = "validate.spotCheckData";
 
   /**

@@ -220,6 +220,8 @@ public class ValidateLauncher {
 
   private long maxErrors;
 
+  private int everyN;
+
   private int spotCheckData;
 
   private boolean allowUnlabeledFiles;
@@ -270,6 +272,7 @@ public class ValidateLauncher {
     contextReferenceCheck = true;
     skipProductValidation = false;
     maxErrors = MAX_ERRORS;
+    everyN = 1;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
     registeredAndNonRegistedProducts = new HashMap<>();
@@ -318,6 +321,16 @@ public class ValidateLauncher {
 
     // Initialize flags in FlagsUtil to their default states.
     FlagsUtil.initialize();
+
+    try {
+      setEveryN(Integer.valueOf(line.getOptionValue("everyN", "1")).intValue());
+      if (this.everyN < 1)
+        throw new InvalidOptionException(
+          "Value must be greater than or equal to 1 not '" + line.getOptionValue("everyN", "1") + "'");
+    } catch (IllegalArgumentException a) {
+      throw new InvalidOptionException(
+        "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
+    }
 
     for (Option o : processedOptions) {
       LOG.debug("query:o.getOpt() {}", o.getOpt());
@@ -743,6 +756,9 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.MAX_ERRORS)) {
         setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));
       }
+      if (config.containsKey(ConfigKey.EVERY_N)) {
+          setEveryN(config.getInt(ConfigKey.EVERY_N));
+      }
       if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
         setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
       }
@@ -1052,9 +1068,13 @@ public class ValidateLauncher {
     this.maxErrors = value;
   }
 
+  public void setEveryN(int value) {
+	    this.everyN = value;
+	  }
+
   public void setSpotCheckData(int value) {
-    this.spotCheckData = value;
-  }
+	    this.spotCheckData = value;
+	  }
 
   public void setAllowUnlabeledFiles(boolean flag) {
     this.allowUnlabeledFiles = flag;
@@ -1283,6 +1303,9 @@ public class ValidateLauncher {
     } else {
       report.addParameter("   Product Level Validation      off");
     }
+    if (everyN != 1) {
+      report.addParameter("   Data Every N                  " + everyN);
+    }
     if (spotCheckData != -1) {
       report.addParameter("   Data Spot Check               " + spotCheckData);
     }
@@ -1359,6 +1382,7 @@ public class ValidateLauncher {
         validator.setRecurse(traverse);
         validator.setCheckData(contentValidationFlag);
         validator.setSpotCheckData(spotCheckData);
+        validator.setEveryN(everyN);
         validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
         validator.setValidateContext(validateContext);
         validator.setSkipProductValidation(skipProductValidation);

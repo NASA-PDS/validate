@@ -33,6 +33,7 @@ import gov.nasa.pds.objectAccess.table.TableAdapter;
 import gov.nasa.pds.objectAccess.table.TableBinaryAdapter;
 import gov.nasa.pds.objectAccess.table.TableDelimitedAdapter;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -52,6 +53,7 @@ import gov.nasa.pds.validate.constants.Constants;
  */
 public class TableValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(TableValidator.class);
+
   private int progressCounter = 0;
   private long currentObjectRecordCounter = 0;
 
@@ -122,6 +124,7 @@ public class TableValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException, Exception {
+		if (EveryNCounter.getInstance().getValue() % this.context.getEveryN() != 0) return true;
 
     LOG.debug("START table content validation");
     LOG.debug("validateTableDataContents:getTarget() {}", this.context.getTarget());

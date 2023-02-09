@@ -52,6 +52,7 @@ public class FlagOptions {
     options.addOption(new ToolsOption(Flag.CONFIG));
     options.addOption(new ToolsOption(Flag.MAX_ERRORS));
     options.addOption(new ToolsOption(Flag.EXTENSION));
+    options.addOption(new ToolsOption(Flag.EVERY_N));
     options.addOption(new ToolsOption(Flag.HELP));
     options.addOption(new ToolsOption(Flag.REPORT));
     options.addOption(new ToolsOption(Flag.TARGET));

@@ -66,6 +66,7 @@ public enum Flag {
   EXTENSION("e", "label-extension", "xml|lblx", String.class, true,
       "Specify file extension for the labels files. Default: xml. NOTE: Support for intermingled bundles where collections have differing label file extensions is not yet supported."),
 
+  EVERY_N(null, "everyN", "value", int.class, "Process every N files with the default being every file."),
   /**
    * DEPRECATED: Flag to force the tool to perform validation against the schema and schematron
    * specified in a given label.
