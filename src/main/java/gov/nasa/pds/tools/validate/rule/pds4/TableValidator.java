@@ -19,6 +19,7 @@ import java.net.URL;
 import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.Map;
+import org.checkerframework.common.returnsreceiver.qual.This;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.opencsv.exceptions.CsvValidationException;
@@ -445,7 +446,7 @@ public class TableValidator implements DataObjectValidator {
     // reduced the function size.
     TableCharacterUtil tableCharacterUtil = null;
     boolean manuallyParseRecord = false;
-    String line = this.currentTableReader.readNextFixedLine();
+    String line = this.tableAdapter instanceof TableDelimitedAdapter ? this.currentTableReader.readNextLine() : this.currentTableReader.readNextFixedLine();
     long lineNumber = 0;
     int dataObjectIndex = this.tableObject.getDataObjectLocation().getDataObject();
 
@@ -610,7 +611,7 @@ public class TableValidator implements DataObjectValidator {
         break;
       }
 
-      line = this.currentTableReader.readNextFixedLine();
+      line = this.tableAdapter instanceof TableDelimitedAdapter ? this.currentTableReader.readNextLine() : this.currentTableReader.readNextFixedLine();
       if (line != null) {
         LOG.debug("recordNumber: {}, line.length: {}, record: [{}]", lineNumber, line.length(),
             line);
