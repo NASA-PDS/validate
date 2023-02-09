@@ -122,6 +122,10 @@ public class RuleContext extends ContextBase {
   /**
    * The key used to indicate how many lines or records to skip during content validation.
    */
+  public static final String EVERY_N_KEY = "validate.every-n";
+  /**
+   * The key used to indicate how many lines or records to skip during content validation.
+   */
   public static final String SPOT_CHECK_DATA_KEY = "validate.spot-check";
 
   /**
@@ -394,12 +398,20 @@ public class RuleContext extends ContextBase {
     putContextValue(CHECK_DATA_KEY, flag);
   }
 
+  public int getEveryN() {
+	return getContextValue(EVERY_N_KEY, Integer.class) == null ? 1 : getContextValue(EVERY_N_KEY, Integer.class);
+  }
+
+  public void setEveryN(int value) {
+	putContextValue(EVERY_N_KEY, value);
+  }
+
   public int getSpotCheckData() {
-    return getContextValue(SPOT_CHECK_DATA_KEY, Integer.class);
+	return getContextValue(SPOT_CHECK_DATA_KEY, Integer.class);
   }
 
   public void setSpotCheckData(int value) {
-    putContextValue(SPOT_CHECK_DATA_KEY, value);
+	  putContextValue(SPOT_CHECK_DATA_KEY, value);
   }
 
   public boolean getAllowUnlabeledFiles() {
