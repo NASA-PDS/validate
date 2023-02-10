@@ -1,19 +1,20 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-02-09)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-02-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0-SNAPSHOT...«unknown»)
 
-**Defects:**
+**Requirements:**
 
--  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- As a user, I want to execute content validation against every nth file [\#1](https://github.com/NASA-PDS/validate/issues/1)
 
-## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-31)
+## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-02-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0-SNAPSHOT)
 
 **Defects:**
 
+-  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate should throw record length error when record delimiter does not occur in correct location [\#519](https://github.com/NASA-PDS/validate/issues/519) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
