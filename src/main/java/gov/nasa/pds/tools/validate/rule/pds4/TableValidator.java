@@ -449,7 +449,7 @@ public class TableValidator implements DataObjectValidator {
     // reduced the function size.
     TableCharacterUtil tableCharacterUtil = null;
     boolean manuallyParseRecord = false;
-    String line = this.tableAdapter instanceof TableDelimitedAdapter ? this.currentTableReader.readNextLine() : this.currentTableReader.readNextFixedLine();
+    String line;
     long lineNumber = 0;
     int dataObjectIndex = this.tableObject.getDataObjectLocation().getDataObject();
 
@@ -457,11 +457,9 @@ public class TableValidator implements DataObjectValidator {
     // (ending with .tab) but with the table type.
     // If the type of the table is not TableDelimited, the checking of same line
     // length should be done.
-    boolean tableIsFixedLength = true;
+    boolean tableIsFixedLength = !(this.tableAdapter instanceof TableDelimitedAdapter);
 
-    if (this.tableAdapter instanceof TableDelimitedAdapter) {
-      tableIsFixedLength = false;
-    } else {
+    if (tableIsFixedLength) {
       tableCharacterUtil = new TableCharacterUtil(this.context.getTarget(), this.listener);
       tableCharacterUtil.parseFieldsInfo();
     }
@@ -471,6 +469,8 @@ public class TableValidator implements DataObjectValidator {
     // Add 2 arrays to keep track of each line number and its length.
     ArrayList<Integer> lineLengthsArray = new ArrayList<>(0);
     ArrayList<Long> lineNumbersArray = new ArrayList<>(0);
+
+    line = tableIsFixedLength ? this.currentTableReader.readNextFixedLine() : this.currentTableReader.readNextLine();
 
     if (line != null) {
       LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}],{}", lineNumber, line,
@@ -614,7 +614,7 @@ public class TableValidator implements DataObjectValidator {
         break;
       }
 
-      line = this.tableAdapter instanceof TableDelimitedAdapter ? this.currentTableReader.readNextLine() : this.currentTableReader.readNextFixedLine();
+      line = tableIsFixedLength ? this.currentTableReader.readNextFixedLine() : this.currentTableReader.readNextLine();
       if (line != null) {
         LOG.debug("recordNumber: {}, line.length: {}, record: [{}]", lineNumber, line.length(),
             line);
