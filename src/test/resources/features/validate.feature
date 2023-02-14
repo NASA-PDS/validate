@@ -267,12 +267,12 @@ Scenario Outline: Execute validate command for tests below.
 
 # https://github.com/nasa-pds/validate/issues/379 FileService:printStackTraceToFile:ERROR when validating a product with overlapping fields
 
- |"NASA-PDS/validate#379 INVALID" | "github379" | 1 | "1 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github379_label_invalid.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github379_label_invalid.json" |
+ |"NASA-PDS/validate#379 INVALID" | "github379" | 3 | "3 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github379_label_invalid.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github379_label_invalid.json" |
 
 # https://github.com/nasa-pds/validate/issues/380 stack trace being created during successful validate execution
 
- |"NASA-PDS/validate#380 INVALID_1" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
- |"NASA-PDS/validate#380 INVALID_2" | "github380" | 1 | "1 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --debug-mode --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ |"NASA-PDS/validate#380 INVALID_1" | "github380" | 3 | "3 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
+ |"NASA-PDS/validate#380 INVALID_2" | "github380" | 3 | "3 errors message expected: Reuse github379 resources" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label --debug-mode --skip-context-validation --skip-context-reference-check -r {reportDir}/report_github380_label_invalid_without_stack.json   -s json -t {resourceDir}/github379/mix_cal_hk_fpac_report_20181204.xml" | "report_github380_label_invalid_without_stack.json" |
  
 # https://github.com/nasa-pds/validate/issues/375 validate halts if label has name "collection" embedded 
 
