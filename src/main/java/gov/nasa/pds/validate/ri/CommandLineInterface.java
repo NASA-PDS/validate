@@ -1,17 +1,19 @@
 package gov.nasa.pds.validate.ri;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.xml.sax.SAXException;
 
 public class CommandLineInterface {
+  final private Logger log = LogManager.getLogger(CommandLineInterface.class);
   final private Options opts;
 
   public CommandLineInterface() {
@@ -39,11 +41,11 @@ public class CommandLineInterface {
         .longOpt("help")
         .optionalArg(true)
         .build());
-    this.opts.addOption(Option.builder("l")
-        .argName("lidvid")
-        .desc("the complete LIDVID to start doing reference checks and will be walked down to the product level if it does not start there")
+    this.opts.addOption(Option.builder("t")
+        .argName("count")
+        .desc("process the lidvids in parallel (multiple threads) with this argument being the maximum number of threads")
         .hasArg(true)
-        .longOpt("lidvid")
+        .longOpt("threads")
         .optionalArg(true)
         .build());
   }
@@ -58,6 +60,7 @@ public class CommandLineInterface {
 
   public void process(String[] args) {
     try {
+      int cylinders = 1;
       CommandLine cl = new DefaultParser().parse(this.opts, args);
       
       if (cl.hasOption('h')) {
@@ -67,24 +70,38 @@ public class CommandLineInterface {
       
       if (!cl.hasOption("a"))
         throw new ParseException("Must provide search authorization information.");
-      if (!cl.hasOption("l"))
+      if (cl.getArgList().size() < 1)
         throw new ParseException("Must provide at least one LIDVID as a starting point.");
       if (!cl.hasOption("A"))
-        log.warning ("Only the DB will be checked because no registry authorization was given");
+        log.warn ("Only the DB will be checked because no registry authorization was given");
 
-      this.temp(Arrays.asList(cl.getOptionValue("lidvid").split(",")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-search")));
+      if (cl.hasOption("t")) {
+        try {
+          cylinders = Integer.valueOf(cl.getOptionValue("t"));
+          
+          if (cylinders < 1) throw new NumberFormatException();
+        }
+        catch (NumberFormatException nfe) {
+          throw new ParseException("The thread coqueryunt must be an integer greater than 0.");
+        }
+      }
+      else log.info("lidvids will be sequentially processed.");
+
+      try {
+        new Engine(cylinders, cl.getArgList(),
+            AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
+            AuthInformation.buildFrom(cl.getOptionValue("auth-search"))).processQueueUntilEmpty();;
+      } catch (IOException e) {
+        log.fatal("Cannot process request because of IO problem.", e);
+      } catch (ParserConfigurationException e) {
+        log.fatal("Could not parse the harvest configuration file.", e);
+      } catch (SAXException e) {
+        log.fatal("Mal-formed harvest configuration file.", e);
+      }
     }
     catch (ParseException pe) {
       System.err.println("[ERROR] " + pe.getMessage());
       this.help();
     }
-  }
-  
-  public void temp(List<String> lidvids, AuthInformation registry, AuthInformation search) {
-    System.out.println ("lidvids:  " + lidvids);
-    System.out.println ("registry: " + registry);
-    System.out.println ("search:   " + search);
   }
 }
