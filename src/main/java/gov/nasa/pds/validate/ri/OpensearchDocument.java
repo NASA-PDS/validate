@@ -10,10 +10,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.config.RequestConfig.Builder;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
@@ -158,7 +159,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
         this.log.fatal("Could not set self signed trust", e);
       }
     }
-    if (!"".equals(this.context.getUsername())) {
+    if (!Objects.equals(this.context.getUsername(), "")) {
       BasicCredentialsProvider handler = new BasicCredentialsProvider();
       handler.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(this.context.getUsername(), this.context.getPassword()));
       httpClientBuilder.setDefaultCredentialsProvider(handler);
@@ -166,7 +167,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
     return httpClientBuilder;
   }
   @Override
-  public Builder customizeRequestConfig(Builder requestConfigBuilder) {
+  public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
     final int ms = 1000;
     requestConfigBuilder.setConnectionRequestTimeout(5*ms);
     requestConfigBuilder.setSocketTimeout(10*ms);

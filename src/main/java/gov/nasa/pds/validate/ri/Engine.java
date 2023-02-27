@@ -1,7 +1,7 @@
 package gov.nasa.pds.validate.ri;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +12,7 @@ public class Engine implements CamShaft {
   private long broken,total = 0;
   private final AuthInformation registry;
   private final AuthInformation search;
-  private final Queue<String> queue = new LinkedList<String>();
+  private final Queue<String> queue = new ArrayDeque<String>();
   private final ArrayList<Cylinder> workers = new ArrayList<Cylinder>();
   private final Logger log = LogManager.getLogger(Engine.class);
 

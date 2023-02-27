@@ -3,6 +3,7 @@ package gov.nasa.pds.validate.ri;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.Scanner;
 import javax.xml.parsers.DocumentBuilder;
@@ -38,7 +39,7 @@ public class AuthInformation {
       throw new IOException("Filename '" + filename + "' does not exist");
 
     // Get the first non-comment line
-    textReader = new Scanner(file);
+    textReader = new Scanner(file,Charset.defaultCharset().name());
     while (textReader.hasNext() && line == null) {
       line = textReader.nextLine().strip();
       if (line.charAt(0) == '#') line = null;
