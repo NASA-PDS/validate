@@ -7,6 +7,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import org.apache.http.HttpHost;
@@ -34,6 +35,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   final private int PAGE_SIZE = 5000;
   final private AuthInformation context;
   final private HashMap<String,Map<String,Object>> documents = new HashMap<String,Map<String,Object>>();
+  final private HashMap<String,List<String>> references = new HashMap<String,List<String>>();
   final private LidvidComparator lidvid_compare = new LidvidComparator();
   final private Logger log = LogManager.getLogger(OpensearchDocument.class);
  
@@ -61,10 +63,46 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
               for (SearchHit hit : response.getHits()) ids.add(hit.getId());
               ids.sort(lidvid_compare);
               for (SearchHit hit : response.getHits()) {
-                if (hit.getId().equals(ids.get(ids.size()-1))) this.documents.put(hit.getId(), hit.getSourceAsMap());
+                if (hit.getId().equals(ids.get(ids.size()-1))) {
+                  this.documents.put(lidvid, hit.getSourceAsMap());
+                  this.documents.put(hit.getId(), hit.getSourceAsMap());
+                }
               }
             }
           }
+        } finally { if (client != null) client.close(); }
+      }
+      catch (IOException ioe) {
+        this.log.fatal("Error reading from URL: " + this.context.getUrl(), ioe);
+      }
+    }
+  }
+  @SuppressWarnings("unchecked")
+  private void load_refs(String lidvid) {
+    if (!this.references.containsKey(lidvid) ) {
+      try {
+        RestHighLevelClient client = null;
+        SearchRequest request = new SearchRequest()
+            .indices("registry-refs")
+            .source(new SearchSourceBuilder()
+                .query(QueryBuilders.boolQuery()
+                    .must(QueryBuilders.termQuery(lidvid.contains("::") ? "collection_lidvid":"collection_lid", lidvid)))
+                .size(this.PAGE_SIZE));
+        SearchResponse response;
+        URL url = new URL(this.context.getUrl());
+        try {
+          HashSet<String> newbies = new HashSet<String>();
+          client = new RestHighLevelClient(RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
+              .setHttpClientConfigCallback(this)
+              .setRequestConfigCallback(this));
+          response = client.search(request, RequestOptions.DEFAULT);
+          if (response != null && response.getHits() != null ) {
+            for (SearchHit hit : response.getHits()) {
+              newbies.addAll((List<String>)hit.getSourceAsMap().get("product_lid"));
+              newbies.addAll((List<String>)hit.getSourceAsMap().get("product_lidvid"));
+            }
+          }
+          this.references.put (lidvid, new ArrayList<String>(newbies));
         } finally { if (client != null) client.close(); }
       }
       catch (IOException ioe) {
@@ -93,11 +131,16 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   public List<String> getReferencesOf(String lidvid) {
     ArrayList<String> references = new ArrayList<String>();
     if (this.exists(lidvid)) {
-      for (String key : this.documents.get(lidvid).keySet()) {
-        if (key.startsWith("ref_lid_")) {
-          Object value = this.documents.get(lidvid).get(key);
-          if (value instanceof String) references.add((String)value);
-          else if (value instanceof List) references.addAll((List<String>)value);
+      if (this.getProductTypeOf(lidvid).equalsIgnoreCase("Product_Collection")) {
+        load_refs(lidvid);
+        references.addAll(this.references.get(lidvid));
+      } else {
+        for (String key : this.documents.get(lidvid).keySet()) {
+          if (key.startsWith("ref_lid_")) {
+            Object value = this.documents.get(lidvid).get(key);
+            if (value instanceof String) references.add((String)value);
+            else if (value instanceof List) references.addAll((List<String>)value);
+          }
         }
       }
     }

@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class Engine implements CamShaft {
   private final int cylinders;
+  private long broken,total = 0;
   private final AuthInformation registry;
   private final AuthInformation search;
   private final Queue<String> queue = new LinkedList<String>();
@@ -20,28 +21,32 @@ public class Engine implements CamShaft {
     this.queue.addAll(lidvids);
     this.registry = registry;
     this.search = search;
+    this.total = this.queue.size();
   }
-
   @Override
   public void addAll (List<String> lidvids) {
+    this.log.info("Adding " + lidvids.size() + " references to be processed.");
     synchronized (this.queue) {
+      this.total += lidvids.size();
       this.queue.addAll(lidvids);
     }
   }
-  
+  public long getBroken() { return this.broken; }
+  public long getTotal() { return this.total; }
   @Override
   public void replace (Cylinder cylinder) {
     synchronized (this.workers) {
+      this.broken += cylinder.getBroken();
       this.workers.remove(cylinder);
     }
   }
-
   public void processQueueUntilEmpty() {
     int inQueue = this.queue.size(), atWork = this.workers.size();
     ArrayList<Cylinder> applicants = new ArrayList<Cylinder>();
     String lidvid;
 
     while (inQueue > 0 || atWork > 0) {
+      this.log.info("Have " + inQueue + " lidvids to check with " + atWork + " threads to get them done.");
       for (int i=0 ; i < inQueue && i + atWork < this.cylinders ; i++) {
         synchronized (this.queue) { lidvid = this.queue.remove(); }
         applicants.add(new Cylinder(lidvid, this.registry, this.search, this));
@@ -58,6 +63,7 @@ public class Engine implements CamShaft {
           }
         }
       }
+      applicants.clear();
 
       synchronized (this.workers) {
         if (!this.workers.isEmpty())

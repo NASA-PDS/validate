@@ -12,6 +12,7 @@ public class Cylinder implements Runnable {
   final private Logger log = LogManager.getLogger(Cylinder.class);
   final public Logger reporter = LogManager.getLogger("Reference Integrity");
   final private String lidvid;
+  private long broken = 0;
 
   public Cylinder (String lidvid, AuthInformation registry, AuthInformation search, CamShaft cam) {
     this.cam = cam;
@@ -29,6 +30,7 @@ public class Cylinder implements Runnable {
     return result;
   }
 
+  public long getBroken() { return broken; }
   public void run() {
     try {
       ArrayList<String> referenced_valid_lidvids = new ArrayList<String>();
@@ -39,7 +41,10 @@ public class Cylinder implements Runnable {
         this.log.info("The lidvid '" + this.lidvid + "' is of type: " + search.getProductTypeOf(this.lidvid));
         for (String reference : search.getReferencesOf(this.lidvid)) {
           if (search.exists(reference)) referenced_valid_lidvids.add(reference);
-          else this.reporter.error ("In the search the lidvid '" + this.lidvid + "' references '" + reference + "' that is missing in the database.");
+          else {
+            this.broken++;
+            this.reporter.error ("In the search the lidvid '" + this.lidvid + "' references '" + reference + "' that is missing in the database.");
+          }
         }
       } else this.reporter.error("The given lidvid '" + this.lidvid + "' is missing from the database.");
 

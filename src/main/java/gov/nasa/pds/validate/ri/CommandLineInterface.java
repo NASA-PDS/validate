@@ -8,8 +8,9 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.xml.sax.SAXException;
 
 public class CommandLineInterface {
@@ -48,6 +49,12 @@ public class CommandLineInterface {
         .longOpt("threads")
         .optionalArg(true)
         .build());
+    this.opts.addOption(Option.builder("verbose")
+        .desc("set logging level to INFO")
+        .hasArg(false)
+        .longOpt("verbose")
+        .optionalArg(true)
+        .build());
   }
 
   private void help() {
@@ -59,15 +66,15 @@ public class CommandLineInterface {
   }
 
   public void process(String[] args) {
+    long broken=-1, total=-1;
     try {
       int cylinders = 1;
       CommandLine cl = new DefaultParser().parse(this.opts, args);
-      
       if (cl.hasOption('h')) {
         this.help();
         return;
       }
-      
+      if (cl.hasOption("v")) Logger.getRootLogger().setLevel(Level.INFO);
       if (!cl.hasOption("a"))
         throw new ParseException("Must provide search authorization information.");
       if (cl.getArgList().size() < 1)
@@ -87,10 +94,14 @@ public class CommandLineInterface {
       }
       else log.info("lidvids will be sequentially processed.");
 
+      this.log.info("Starting the reference integrity checks.");
       try {
-        new Engine(cylinders, cl.getArgList(),
+        Engine engine = new Engine(cylinders, cl.getArgList(),
             AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-            AuthInformation.buildFrom(cl.getOptionValue("auth-search"))).processQueueUntilEmpty();;
+            AuthInformation.buildFrom(cl.getOptionValue("auth-search")));
+        engine.processQueueUntilEmpty();
+        broken = engine.getBroken();
+        total = engine.getTotal();
       } catch (IOException e) {
         log.fatal("Cannot process request because of IO problem.", e);
       } catch (ParserConfigurationException e) {
@@ -103,5 +114,6 @@ public class CommandLineInterface {
       System.err.println("[ERROR] " + pe.getMessage());
       this.help();
     }
+    if (-1 < total) this.log.info("Completed the reference integrity checks for " + total + " products and found " + broken + " broken references.");
   }
 }
