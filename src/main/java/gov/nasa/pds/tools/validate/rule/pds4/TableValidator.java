@@ -32,6 +32,7 @@ import gov.nasa.pds.objectAccess.table.TableAdapter;
 import gov.nasa.pds.objectAccess.table.TableBinaryAdapter;
 import gov.nasa.pds.objectAccess.table.TableDelimitedAdapter;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.util.TableCharacterUtil;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -51,6 +52,7 @@ import gov.nasa.pds.validate.constants.Constants;
  */
 public class TableValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(TableValidator.class);
+
   private int progressCounter = 0;
   private long currentObjectRecordCounter = 0;
 
@@ -121,6 +123,7 @@ public class TableValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException, Exception {
+		if (EveryNCounter.getInstance().getValue() % this.context.getEveryN() != 0) return true;
 
     LOG.debug("START table content validation");
     LOG.debug("validateTableDataContents:getTarget() {}", this.context.getTarget());
@@ -150,7 +153,8 @@ public class TableValidator implements DataObjectValidator {
       if (this.tableAdapter instanceof TableBinaryAdapter) {
         this.validateTableBinaryContent(fieldValueValidator, record, spotCheckData,
             keepQuotationsFlag);
-      } else if (!this.isTableLineOriented() && !this.getCheckInbetweenFields()) {
+      } else if (this.tableAdapter instanceof TableDelimitedAdapter &&
+    		  !this.isTableLineOriented() && !this.getCheckInbetweenFields()) {
         // Determine if we should proceed with calling validateTableDelimited()
         // function.
         // Note that the function validateTableDelimited() can only be applied if the
@@ -232,12 +236,21 @@ public class TableValidator implements DataObjectValidator {
 
     try {
       line = this.currentTableReader.readNextLine();
-      record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), false);
+      record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
+      
       while (record != null) {
         LOG.debug("validateTableDelimited: recordNumber {}", currentObjectRecordCounter);
         LOG.debug("record {}", record);
         progressCounter();
         this.currentObjectRecordCounter++;
+
+        if (line.length() != record.length()) {
+            addTableProblem(ExceptionType.ERROR, ProblemType.RECORD_LENGTH_MISMATCH,
+            		"Delimiter is not at the end of the record."
+            		+ " Record read using delimiter is " + line.length() + " bytes long"
+            		+ " while record is defined to be " + record.length() + " bytes.",
+            		dataFile, dataObjectIndex, this.currentTableReader.getCurrentRow());
+          }
 
         try {
           LOG.debug("getFields(): " + this.currentTableReader.getFields().length);
@@ -261,8 +274,10 @@ public class TableValidator implements DataObjectValidator {
             long nextRow = this.currentTableReader.getCurrentRow() + spotCheckData;
 
             if (nextRow <= this.tableAdapter.getRecordCount()) {
+              this.currentTableReader.setCurrentRow(nextRow-1);
+              line = this.currentTableReader.readNextLine();
               record = this.currentTableReader.getRecord(
-                  this.currentTableReader.getCurrentRow() + spotCheckData, keepQuotationsFlag);
+            		  this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
             } else {
               break;
             }
@@ -273,7 +288,8 @@ public class TableValidator implements DataObjectValidator {
                 + (this.currentTableReader.getCurrentRow() + spotCheckData) + "'");
           }
         } else {
-          record = this.currentTableReader.readNext();
+          line = this.currentTableReader.readNextLine();
+          record = this.currentTableReader.getRecord(this.currentTableReader.getCurrentRow(), keepQuotationsFlag);
         }
       } // end while (record != null)
     } catch (Exception ioEx) {
@@ -432,7 +448,7 @@ public class TableValidator implements DataObjectValidator {
     // reduced the function size.
     TableCharacterUtil tableCharacterUtil = null;
     boolean manuallyParseRecord = false;
-    String line = this.currentTableReader.readNextLine();
+    String line;
     long lineNumber = 0;
     int dataObjectIndex = this.tableObject.getDataObjectLocation().getDataObject();
 
@@ -440,11 +456,9 @@ public class TableValidator implements DataObjectValidator {
     // (ending with .tab) but with the table type.
     // If the type of the table is not TableDelimited, the checking of same line
     // length should be done.
-    boolean tableIsFixedLength = true;
+    boolean tableIsFixedLength = !(this.tableAdapter instanceof TableDelimitedAdapter);
 
-    if (this.tableAdapter instanceof TableDelimitedAdapter) {
-      tableIsFixedLength = false;
-    } else {
+    if (tableIsFixedLength) {
       tableCharacterUtil = new TableCharacterUtil(this.context.getTarget(), this.listener);
       tableCharacterUtil.parseFieldsInfo();
     }
@@ -454,6 +468,8 @@ public class TableValidator implements DataObjectValidator {
     // Add 2 arrays to keep track of each line number and its length.
     ArrayList<Integer> lineLengthsArray = new ArrayList<>(0);
     ArrayList<Long> lineNumbersArray = new ArrayList<>(0);
+
+    line = tableIsFixedLength ? this.currentTableReader.readNextFixedLine() : this.currentTableReader.readNextLine();
 
     if (line != null) {
       LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}],{}", lineNumber, line,
@@ -597,7 +613,7 @@ public class TableValidator implements DataObjectValidator {
         break;
       }
 
-      line = this.currentTableReader.readNextLine();
+      line = tableIsFixedLength ? this.currentTableReader.readNextFixedLine() : this.currentTableReader.readNextLine();
       if (line != null) {
         LOG.debug("recordNumber: {}, line.length: {}, record: [{}]", lineNumber, line.length(),
             line);

@@ -1,16 +1,22 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-01-26)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-02-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0-SNAPSHOT...«unknown»)
 
-**Defects:**
+**Requirements:**
 
-- Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- As a user, I want to execute content validation against every nth file [\#1](https://github.com/NASA-PDS/validate/issues/1)
 
-## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-01-19)
+## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-02-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0-SNAPSHOT)
+
+**Defects:**
+
+-  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate should throw record length error when record delimiter does not occur in correct location [\#519](https://github.com/NASA-PDS/validate/issues/519) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.1.1](https://github.com/NASA-PDS/validate/tree/v3.1.1) (2023-01-03)
 
@@ -39,7 +45,6 @@
 - Validate fails regression test on issue 303 [\#548](https://github.com/NASA-PDS/validate/issues/548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate gives a error.table.bad\_field\_read error [\#544](https://github.com/NASA-PDS/validate/issues/544) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - ERROR  \[error.table.bad\_file\_read\] incorrectly reports that GroupFieldBinary group\_length is larger than size of contained fields [\#531](https://github.com/NASA-PDS/validate/issues/531) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
--  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Table\_Character not accurately checking field formats [\#511](https://github.com/NASA-PDS/validate/issues/511) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate doesn't flag a data file with only LF [\#499](https://github.com/NASA-PDS/validate/issues/499) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate can't find files in directory specified by \<directory\_path\_name\> [\#474](https://github.com/NASA-PDS/validate/issues/474) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
