@@ -47,7 +47,7 @@ public class AuthInformation {
     textReader.close();
     
     // Determine which file processing to use
-    if (line.startsWith("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")) { // XML
+    if (line.startsWith("<?xml ") && line.endsWith("?>")) { // XML
       // <registry url="http://localhost:9200" index="registry" auth="/path/to/auth.cfg" />
       DocumentBuilder builder = DocumentBuilderFactory.newDefaultInstance().newDocumentBuilder();
       Document document = builder.parse(file);
