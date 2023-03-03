@@ -1,19 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-02-10)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-03-03)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0-SNAPSHOT...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...«unknown»)
 
 **Requirements:**
 
 - As a user, I want to execute content validation against every nth file [\#1](https://github.com/NASA-PDS/validate/issues/1)
 
-## [v3.2.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.2.0-SNAPSHOT) (2023-02-09)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0-SNAPSHOT)
-
 **Defects:**
 
+- Regression in validate no longer enabling CRLF to be embedded within a Table\_Character record [\#593](https://github.com/NASA-PDS/validate/issues/593) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate should throw record length error when record delimiter does not occur in correct location [\#519](https://github.com/NASA-PDS/validate/issues/519) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
