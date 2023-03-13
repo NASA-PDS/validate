@@ -33,6 +33,7 @@ import org.opensearch.search.SearchHit;
 import org.opensearch.search.builder.SearchSourceBuilder;
 
 public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpClientConfigCallback, RestClientBuilder.RequestConfigCallback {
+  protected static OpensearchDocument sourceOverride = null;
   final private int PAGE_SIZE = 5000;
   final private AuthInformation context;
   final private HashMap<String,Map<String,Object>> documents = new HashMap<String,Map<String,Object>>();
@@ -56,7 +57,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
           client = new RestHighLevelClient(RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
               .setHttpClientConfigCallback(this)
               .setRequestConfigCallback(this));
-          response = client.search(request, RequestOptions.DEFAULT);
+          response = this.search(client, request);
           if (response != null && response.getHits() != null && response.getHits().getTotalHits() != null) {
             if (response.getHits().getTotalHits().value == 1L) this.documents.put(lidvid, response.getHits().getAt(0).getSourceAsMap());
             else {
@@ -96,7 +97,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
           client = new RestHighLevelClient(RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
               .setHttpClientConfigCallback(this)
               .setRequestConfigCallback(this));
-          response = client.search(request, RequestOptions.DEFAULT);
+          response = this.search(client, request);
           if (response != null && response.getHits() != null ) {
             for (SearchHit hit : response.getHits()) {
               newbies.addAll((List<String>)hit.getSourceAsMap().get("product_lid"));
@@ -110,6 +111,21 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
         this.log.fatal("Error reading from URL: " + this.context.getUrl(), ioe);
       }
     }
+  }
+  protected SearchResponse search (RestHighLevelClient client, SearchRequest request) throws IOException {
+    /* Below is a particularly evil bit of code. It allows unit test to set the static variable (evil 1)
+     * which can then flow a priori data back through the code as though it was retreived from an opensearch
+     * database. It means the unit test code no only returns values it has to wrap them up as though
+     * opensearch did its work (evil 2). Therefore the code becomes sensitive to the ability of unit testing
+     * to emulate opensearch as well as the performance of the integrity checks.
+     * 
+     * Despite the evil, it keeps the operational code from knowing about the unit test code. Unfortunately
+     * the opensearch code RestHighLevelClient is not written to be overriden either. Therefore cannot
+     * simply extend it or implement a common interface to do a more subtle insertion of unit testing.
+     */
+    if (OpensearchDocument.sourceOverride != null)
+      return OpensearchDocument.sourceOverride.search(client, request);
+    return client.search(request, RequestOptions.DEFAULT);
   }
   public OpensearchDocument(AuthInformation context) {
     this.context = context;

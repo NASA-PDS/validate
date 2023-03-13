@@ -29,6 +29,7 @@ public class Engine implements CamShaft {
     synchronized (this.queue) {
       this.total += lidvids.size();
       this.queue.addAll(lidvids);
+      this.queue.notifyAll();
     }
   }
   public long getBroken() { return this.broken; }
@@ -38,6 +39,7 @@ public class Engine implements CamShaft {
     synchronized (this.workers) {
       this.broken += cylinder.getBroken();
       this.workers.remove(cylinder);
+      this.workers.notifyAll();
     }
   }
   public void processQueueUntilEmpty() {

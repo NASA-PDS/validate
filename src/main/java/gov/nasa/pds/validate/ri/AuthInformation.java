@@ -60,7 +60,6 @@ public class AuthInformation {
 
       filename = registries.item(0).getAttributes().getNamedItem("auth").getNodeValue();
       url = registries.item(0).getAttributes().getNamedItem("url").getNodeValue();
-      url += ("/" + registries.item(0).getAttributes().getNamedItem("index").getNodeValue());
     }
     else { // java property
       FileInputStream input = new FileInputStream(file);
