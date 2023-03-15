@@ -1,0 +1,1078 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>The Mars 2020 SPICE Data Archive</title>
+</head>
+<body>
+
+<pre>
+The Mars 2020 SPICE Data Archive
+========================================================================
+
+   Last update: August 20, 2021
+
+<A NAME="Introduction"></A>
+Introduction
+============
+
+   This document describes the Mars 2020 SPICE archive, containing
+   observation geometry and other ancillary data in the form of SPICE
+   System kernel files for the Mars 2020 rover and its instruments and
+   structures. It describes the archive directory structure, kernels 
+   included in the archive, their naming conventions, and provides 
+   pointers to the SPICE software and documentation.
+
+<A NAME="Table of Contents"></A>
+Table of Contents
+=================
+
+   <A HREF="#Introduction">Introduction</A>
+   <A HREF="#Table of Contents">Table of Contents</A>
+   <A HREF="#Overview">Overview</A>
+   <A HREF="#Errata">Errata</A>
+   <A HREF="#Archive Contents">Archive Contents</A>
+   <A HREF="#Kernel Types">Kernel Types</A>
+   <A HREF="#Archived Kernel Details">Archived Kernel Details</A>
+      <A HREF="#SPK Files">SPK Files</A>
+      <A HREF="#PCK Files">PCK Files</A>
+      <A HREF="#IK Files">IK Files</A>
+      <A HREF="#CK Files">CK Files</A>
+      <A HREF="#LSK Files">LSK Files</A>
+      <A HREF="#SCLK Files">SCLK Files</A>
+      <A HREF="#FK Files">FK Files</A>
+      <A HREF="#MK Files">MK Files</A>
+   <A HREF="#Miscellaneous Files">Miscellaneous Files</A>
+      <A HREF="#Checksum Files">Checksum Files</A>
+   <A HREF="#File Formats">File Formats</A>
+   <A HREF="#SPICE Software and Documentation">SPICE Software and Documentation</A>
+   <A HREF="#Contact Information">Contact Information</A>
+   <A HREF="#Cognizant Persons">Cognizant Persons</A>
+
+
+<A NAME="Overview"></A>
+Overview
+========
+
+   This archive includes the complete set of the Mars 2020 Perseverance 
+   Rover Mission data files (kernel files), which can be accessed using
+   SPICE software. The SPICE data contain geometric and other ancillary
+   information needed to recover the full value of science instrument
+   data. In particular SPICE kernels provide spacecraft and planetary
+   ephemerides, spacecraft and instrument orientation, instrument
+   mounting alignments, and data needed for relevant time conversions.
+   Data in the SPICE kernel files must be accessed using the software
+   called the SPICE Toolkit produced and distributed by the Navigation
+   and Ancillary Information Facility (NAIF) Node of the Planetary Data
+   System.
+
+   This archive includes data covering from Mars 2020 launch, 2020-07-30,
+   through the end time of the latest rover surface traverse position SPK 
+   file supplied in the archive. Until the end of the spacecraft lifespan 
+   this archive will be accumulating with new data added according to the 
+   project archiving plan.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Errata"></A>
+Errata
+======
+
+   1. This document is a simple HTML document. Providing documents in a
+      simple mark-up format was allowed by earlier versions of the PDS4
+      Standards but became prohibited in later versions starting summer
+      2015. Since using HTML documents was compliant at the time when a
+      similar document was first provided in the MAVEN PDS4 archive and
+      since NAIF strives to make bundle description document format and
+      style consistent across all archives, this document continues
+      to exist in this archive as an HTML document.
+    
+   2. The XML labels of the ancillary products have the reference_type
+      attribute of the Internal_Reference association within the
+      Reference_List class of the Context_Area class pointing to the latest
+      archive description document set to "ancillary_to_data" which is not
+      correct. The correct value "ancillary_to_document" could not be used
+      in these labels because it is not available in the PDS4 information
+      model (IM) 1.5.0.0 used by this archive. This value was added to IM
+      only in the version 1.14.0.0.  
+
+   3. Only a partial structures IK with a few antenna FOVs is included. 
+      IKs for other instruments may be added in a future release.
+
+   4. The Mars 2020 FK does not define frames for majority of instruments. 
+      A more complete FK may be added in a future release.
+
+   5. RSM and RA orientation CKs have sparse coverage. CKs with more
+      complete coverage may be added in a future release.
+
+   6. No HGA CK is included. HGA CK for initial 90 Sols may be added in a
+      future release.
+      
+   7. No Helicopter Technology Demonstration Ingenuity kernels are included. 
+      SPK, CKs, IKs, and FK updates for the helicopter may be added in a 
+      future release.    
+    
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Archive Contents"></A>
+Archive Contents
+================
+
+   Files in this archive are organized into a set of subdirectories
+   below the top-level directory. The following diagram shows the
+   structure and content of these directories. The directory names are
+   enclosed in square brackets ([]).
+
+
+   <a href="../">[top-level-directory]</a>
+   |
+   |- bundle_mars2020_spice_v*.xml       Bundle PDS4 label, one or more versions.
+   |- <a href="../readme.txt">readme.txt</a>                         Bundle top-level readme file.
+   |
+   |-<a href="../spice_kernels/">[spice_kernels]</a>                     Directory containing SPICE kernels.
+   | |
+   | |- collection_spice_kernels_v*.xml  PDS4 labels for Spice Kernels collections.
+   | |- collection_spice_kernels_inventory_v*.tab
+   | |                                   Spice Kernels collections' inventories.
+   | |
+   | |-<a href="../spice_kernels/ck/">[ck]</a>                              Directory containing CK files.
+   | | |
+   | | |-- *.bc                          Binary CK files.
+   | | +-- *.xml                         PDS4 labels for CK files.
+   | |
+   | |-<a href="../spice_kernels/fk/">[fk]</a>                              Directory containing FK files.
+   | | |
+   | | |-- *.tf                          Text FK files.
+   | | +-- *.xml                         PDS4 labels for FK files.
+   | |
+   | |-<a href="../spice_kernels/ik/">[ik]</a>                              Directory containing IK files.
+   | | |
+   | | |-- *.ti                          Text IK files.
+   | | +-- *.xml                         PDS4 labels for IK files.
+   | |
+   | |-<a href="../spice_kernels/lsk/">[lsk]</a>                             Directory containing LSK files.
+   | | |
+   | | |-- *.tls                         Text LSK files.
+   | | +-- *.xml                         PDS4 labels for LSK files.
+   | |
+   | |--<a href="../spice_kernels/mk/">[mk]</a>                             Directory containing MK files.
+   | | |
+   | | |-- *.tm                          Text Meta-kernel files.
+   | | +-- *.xml                         PDS4 labels for MK files.
+   | |
+   | |-<a href="../spice_kernels/pck/">[pck]</a>                             Directory containing PCK files.
+   | | |
+   | | |-- *.tpc                         Text PCK files.
+   | | +-- *.xml                         PDS4 labels for PCK files.
+   | |
+   | |-<a href="../spice_kernels/sclk/">[sclk]</a>                            Directory containing SCLK files.
+   | | |
+   | | |-- *.tsc                         Text SCLK files.
+   | | +-- *.xml                         PDS4 labels for SCLK files.
+   | |
+   | +-<a href="../spice_kernels/spk/">[spk]</a>                             Directory containing SPK files.
+   |   |
+   |   |-- *.bsp                         Binary SPK files.
+   |   +-- *.xml                         PDS4 labels for SPK files.
+   |
+   |-+-<a href="../miscellaneous/">[miscellaneous]</a>                   Directory miscellaneous files.
+   | |
+   | |- collection_miscellaneous_v*.xml  PDS4 labels for miscellaneous collections.
+   | |- collection_miscellaneous_inventory_v*.tab
+   | |                                   Miscellaneous collections' inventories.
+   | |
+   | +-<a href="../miscellaneous/checksum/">[checksum]</a>                        Directory containing checksum files.
+   |   |
+   |   |-- *.tab                         Text checksum files.
+   |   +-- *.xml                         PDS4 labels for checksum files.
+   |
+   +-<a href="../document/">[document]</a>                          Directory containing documents.
+     |
+     |- collection_document_v*.xml       PDS4 labels for document collections.
+     |- collection_document_inventory_v*.tab
+     |                                   Document collections' inventories.
+     |
+     |- spiceds_v*.html                  This file and its earlier versions.
+     +- spiceds_v*.xml                   PDS4 labels for this file and its earlier versions.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Kernel Types"></A>
+Kernel Types
+============
+
+   Different SPICE kernel types are used to store different kinds of
+   ancillary data.
+
+   SPK (Spacecraft Planet Kernel) files contain ephemerides (position
+   and velocity) for spacecraft, planets, satellites, comets and
+   asteroids as well as for moving or fixed spacecraft and instrument
+   structures. SPK files are located under the <a href="../spice_kernels/spk/">spice_kernels/spk</a>
+   directory of this archive.
+
+   PCK (Planetary Constants Kernel) files contain certain physical,
+   dynamical and cartographic constants for target bodies, such as size
+   and shape specifications, and orientation of the spin axis and prime
+   meridian. PCK files are located under the <a href="../spice_kernels/pck/">spice_kernels/pck</a>
+   directory of this archive.
+
+   IK (Instrument Kernel) files contain instrument parameters relevant
+   for computing an instrument's geometry such as field-of-view
+   definitions, CCD and optical distortion characteristics, and internal
+   timing parameters. IK files are located under the <a href="../spice_kernels/ik/">spice_kernels/ik</a>
+   directory of this archive.
+
+   CK (C-matrix Kernel) files contain time varying orientations for
+   spacecraft, spacecraft structures, and articulating science
+   instruments. CK files are located under the <a href="../spice_kernels/ck/">spice_kernels/ck</a>
+   directory of this archive.
+
+   LSK (Leapseconds Kernel) files contain the leapseconds and the
+   values of other constants required to perform a transformation
+   between Universal Time Coordinated (UTC) and Ephemeris time (ET),
+   which is also known as Barycentric Dynamical Time (TDB). LSK
+   files are located under the <a href="../spice_kernels/lsk/">spice_kernels/lsk</a> directory of
+   this archive.
+
+   SCLK (Spacecraft Clock Kernel) files contain on-board clock
+   calibration data required to perform a transformation between
+   Ephemeris time (ET) and spacecraft on-board time (SCLK). SCLK files
+   are located under the <a href="../spice_kernels/sclk/">spice_kernels/sclk</a> directory of this
+   archive.
+
+   FK (Frame definitions Kernel) files contain information required to
+   define reference frames, sources of frame orientation data and
+   connections between these frames and other frames supported within
+   the SPICE system. The science instrument frame definitions provided
+   in the FK files include mounting alignment information for the
+   instruments. FK files are located under the <a href="../spice_kernels/fk/">spice_kernels/fk</a>
+   directory of this archive.
+
+   MK (Meta-Kernel) files list sets of related SPICE kernels that
+   should be used together, providing an easy way to make data from
+   these kernel sets available to a SPICE-based application by loading
+   meta-kernels into the program using the high level SPICE data loader
+   routine FURNSH. MK files are located the <a href="../spice_kernels/mk/">spice_kernels/mk</a>
+   directory of this archive.
+
+<A NAME="Archived Kernel Details"></A>
+Archived Kernel Details
+=======================
+
+   The subsections below provide details, such as file naming
+   conventions and specific details, for each of the kernel types
+   included in this archive.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="SPK Files"></A>
+SPK Files
+
+   SPK (Spacecraft Planet Kernel) files contain ephemerides (position
+   and velocity) for spacecraft, planets, satellites, comets and
+   asteroids as well as for moving or fixed spacecraft and instrument
+   structures.
+
+   This archive includes binary SPK files containing the following
+   kinds of ephemeris data:
+
+      -  planetary ephemeris SPKs
+
+            These SPKs contain ephemeris data for the Solar System
+            planet barycenters, and Sun, Mercury, Venus, Earth, and
+            Moon, determined by the JPL Solar System Dynamics group and
+            are named DEXXX, e.g. DE430.
+
+      -  Martian satellite ephemeris SPKs
+
+            These SPKs contain ephemeris data for Mars, Phobos, Deimos,
+            Sun, Earth barycenter, and Earth, determined by the
+            JPL Solar System Dynamics group and are named MARXXX, e.g.
+            MAR097.
+
+      -  reconstructed spacecraft cruise trajectory SPKs
+
+            These SPKs contain the reconstructed Mars 2020 spacecraft
+            trajectory for cruise determined by the Mars 2020 Navigation
+            (NAV) team, JPL.
+
+      -  reconstructed spacecraft EDL trajectory SPKs
+
+            These SPKs contain the reconstructed Mars 2020 spacecraft
+            trajectory during Entry Descent Landing (EDL) determined by
+            the Mars 2020 EDL Team, JPL.
+
+      -  actual landing site position SPKs
+
+            These SPKs contain the actual location of the Mars 2020
+            landing site in the Mars body-fixed frame (IAU_MARS,
+            based on IAU 2000 Mars rotation constants), determined by
+            the Mars 2020 EDL Team, JPL.
+    
+      -  rover at landing site position SPKs
+
+            These SPKs contain the position of the Mars 2020 rover
+            fixed at the landing site. These files were used during 
+            operations by CHRONOS and other applications that were not 
+            sensitive to the local rover movements.
+
+      -  structures SPKs
+
+            These SPKs contain fixed locations of of selected rover 
+            structures and instruments such as Remote Sensing Mast (RSM), 
+            Robotic Arm (RA), and cameras. The data included in the file 
+            are based of dimensions from the spacecraft engineering drawings.
+
+      -  localized rover path and site locations SPKs
+
+            These SPKs contain the locations of the sites along the path 
+            relative to the center of Mars and the location of the rover 
+            relative to the center of Mars, created by the NAIF, JPL.
+
+            These SPKs were created using localized data available in the
+            PLACES server developed and maintained by the Mars 2020 Operations
+            Product Generation Subsystem (OPGS) Team. The set of localized
+            data in the PLACES server included rover and site location data
+            for a limited set of localization points determined by tracing
+            the rover traverse on high resolution maps, combined a subset
+            of telemetry products to create a more complete set of location
+            points. Because the telemetry products used in this process
+            included only image headers and mobility summaries, containing
+            rover location during non-motion periods, and did not include
+            data from the high-rate mobility history products containing
+            rover location during motion periods, these SPKs do not provide
+            real data during motion but instead provide interpolated
+            values.
+    
+            In global context the data provided in these SPKs is
+            significantly more accurate than telemetered rover position
+            estimated on-board. Because of this these SPKs should be
+            preferred to the telemetry-based rover path SPKs.
+
+      -  telemetry-tased rover path and site locations SPKs
+
+            These SPKs contain the locations of the sites along the path 
+            relative to the landing site and location of the rover relative 
+            to these sites.
+
+            These SPKs were created using telemetry data available in the
+            PLACES server developed and maintained by the Mars 2020 Operations
+            Product Generation Subsystem (OPGS) Team. The set of telemetry
+            data in the PLACES server included rover and site location data
+            from only a subset of telemetry products containing such
+            information. Specifically, it included data from the product
+            and image headers and mobility summaries, containing rover
+            location during non-motion periods, and did not include data
+            from the high-rate mobility history products containing rover
+            location during motion periods. For this reason, these SPKs do
+            not provide real data during motion but instead provide
+            interpolated values.
+    
+            Because data provided in these SPKs is based on telemetered
+            rover position estimated on-board, these SPKs are only as
+            accurate as that estimate, which, depending on the traverse
+            distances, slippage and sliding, can off by meters.
+
+   The SPK files are provided under the <a href="../spice_kernels/spk/">spice_kernels/spk</a>
+   directory and are named according to the following schemes:
+
+      -  planetary ephemeris SPKs
+
+               deVVVs.bsp
+
+            where
+
+               VVV       is the ephemeris version.
+
+               s         (optional) indicates that the original file
+                         coverage was shortened to reduce the file
+                         size.
+
+      -  Martian satellite ephemeris SPKs
+
+               marVVVs.bsp
+
+            where
+
+               VVV       is the ephemeris version.
+
+               s         (optional) indicates that the original file
+                         coverage was shortened to reduce the file
+                         size.
+
+      -  reconstructed spacecraft cruise trajectory SPKs
+
+               m2020_cruise_odSSS_vV.bsp
+
+            where
+
+               SSS       is the orbit determination solution number.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  reconstructed spacecraft EDL trajectory SPKs
+
+               m2020_edl_vVV.bsp
+
+            where
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  actual landing site position SPKs
+
+               m2020_ls_opsYYMMDD_iauYYYY_vV.bsp
+
+            where
+
+               YYMMDD    is the date when the landing site location
+                         stored in the file was determined or
+                         released.
+
+               YYYY      is the publication year of the IAU Mars
+                         rotation model, with which this SPK should be
+                         used.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  rover at landing site position SPKs
+    
+               m2020_atls_opsYYMMDD_vV.bsp
+
+            where
+
+               YYMMDD    is the date consistent with the corresponding
+                         landing site position SPK.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  structures SPKs
+
+               m2020_struct_vVV.bsp
+
+            where
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+    
+      -  localized rover path and site locations SPKs
+
+               m2020_surf_rover_loc_SSSS_ssss_vV.bsp
+
+            where
+
+               SSSS      is the file coverage start SOL.
+
+               ssss      is the file coverage end SOL.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  telemetry-tased rover path and site locations SPKs
+
+               m2020_surf_rover_tlm_SSSS_ssss_vV.bsp
+
+            where
+
+               SSSS      is the file coverage start SOL.
+
+               ssss      is the file coverage end SOL.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+   The most detailed description of the data in each SPK file is
+   provided in metadata included inside the comment area of the file.
+   This information can be viewed using the utility program COMMNT
+   included in the NAIF Toolkit.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="PCK Files"></A>
+PCK Files
+
+   PCK (Planetary Constants Kernel) files contain certain physical,
+   dynamical, and cartographic constants for target bodies, such as
+   size and shape specifications, and orientation of the spin axis and
+   prime meridian.
+
+   This archive includes generic text PCK files produced by NAIF,
+   containing data from the reports of the IAU Working Group on
+   Cartographic Coordinates and Rotational Elements. The generic text
+   PCK version 00010 contains data from the 2009 report.
+
+   The PCK files are provided under the <a href="../spice_kernels/pck/">spice_kernels/pck</a>
+   directory and are named according to the following scheme:
+
+      -  generic text PCKs
+
+               pckVVVVV.tpc
+
+            where
+
+               VVVVV     is the version; the file with the largest
+                         number is the latest, but the user of PCK
+                         data must decide if the latest version,
+                         or an earlier version, is appropriate
+                         for his/her analysis task.
+
+   The most detailed description of the data in a text PCK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="IK Files"></A>
+IK Files
+
+   IK (Instrument Kernel) files contain instrument parameters relevant
+   for computing an instrument's observation geometry such
+   field-of-view definitions, CCD and optical distortion
+   characteristics, and internal timing parameters.
+
+   This archive includes text IK files for Mars 2020 instruments, for
+   which common instrument geometric parameters normally stored in IKs
+   are applicable, such as the rover cameras, a few other rover-mounted
+   instruments and rover mounted antennas.
+
+   The IK files are provided under the <a href="../spice_kernels/ik/">spice_kernels/ik</a>
+   directory and are named according to the following scheme:
+
+      -  instruments and antennae IK files
+
+               m2020_NAME_vVV.ti
+
+            where
+
+               NAME      is the instrument acronym:
+
+                             struct (for miscellaneous structures, 
+                                     e.g. antennae)
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+
+   The most detailed description of the data in a text IK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="CK Files"></A>
+CK Files
+
+   CK (C-matrix Kernel) files contain time varying orientations for
+   spacecraft, articulating spacecraft structures, and articulating
+   science instruments.
+
+   This archive includes binary CK files containing the following kinds
+   of orientation data:
+
+      -  reconstructed spacecraft cruise orientation CKs
+
+            These CKs contain the reconstructed Mars 2020 spacecraft
+            cruise attitude determined on-board and downlinked in
+            spacecraft telemetry, determined by the Mars 2020 Attitude
+            Control System (ACS) Team, JPL.
+    
+            The set of CKs provided by the Mars 2020 ACS Team includes a CK 
+            with complete cruise orientation based on H-vector direction 
+            without modeling spin, a CK with fully reconstructed orientation 
+            based on real-time quaternions covering only communication periods, 
+            a CK with high-rate high-accuracy orientation covering only a few
+            very short periods during certain events sugh as: attitude 
+            maneuvers, ACS calibration activities, or thruster firing events.
+
+      -  reconstructed spacecraft EDL orientation CKs
+
+            These CKs contain the reconstructed Mars 2020 spacecraft EDL
+            attitude, from the EDL entry point to landing, determined
+            by Mars 2020 EDL team, JPL.
+
+      -  reconstructed rover surface orientation CKs
+
+            These CKs contain the orientation of the rover relative to the 
+            local level frame, created by NAIF, JPL.
+
+            These CKs were created using telemetry data available in the
+            PLACES server developed and maintained by the Mars 2020 OPGS Team.
+            The set of telemetry data in the PLACES server included rover
+            orientation data only from a subset of telemetry products
+            containing such information. Specifically, it included data
+            from the product and image headers and mobility summaries,
+            containing rover orientation during non-motion periods, and did
+            not include data from the high-rate mobility history products,
+            containing rover orientation during motion periods. For this
+            reason, these CKs do not provide real data during motion but
+            instead provide interpolated values.
+     
+            Due to incomplete source data these CKs have gaps in coverage,
+            which can be closed, if needed, using the CKSPANIT utility
+            program.
+
+      -  reconstructed articulating structures orientation CKs
+
+            These CKs contain the orientation of the Remote Sensing Mast 
+            (RSM), Robotic Arm (RA), and High Gain Antenna (HGA) relative 
+            to the rover frame, created by NAIF, JPL.
+            
+            These CKs were created using telemetry data available in the
+            PLACES server developed and maintained by the Mars 2020 OPGS Team.
+            The set of telemetry data in the PLACES server included
+            structure articulation angle data from only a subset of
+            telemetry products containing such information. Specifically,
+            it included data from the product and image headers and
+            articulation summaries, containing structure articulation
+            angles during non-articulation periods, and did not include
+            data from the high-rate articulation history products,
+            containing structure articulation angles during articulation
+            periods. For this reason, these CKs do not provide real data
+            during articulation but instead provide interpolated values.
+            
+            The sets of CKs for RSM and RA include CKs based on encoder
+            angles (less accurate but more complete) and CKs based on
+            resolver angles (more accurate but less complete).
+            
+            While RSM and HGA CKs based on resolver angles provide accurate
+            orientation matching that computed in the flight software, the
+            RA CKs do not because the simple forward kinematics approach
+            implemented using these CKs and corresponding frame chains does
+            not model flexing of the RA which can lead to end point
+            orientation errors of a degree or more for some RA
+            configurations.
+            
+            Due to incomplete source data these CKs have gaps in coverage,
+            which can be closed, if needed, using the CKSPANIT utility
+            program.
+    
+   The CK files are provided under the <a href="../spice_kernels/ck/">spice_kernels/ck</a>
+   directory and are named according to the following scheme:
+
+      -  reconstructed spacecraft cruise orientation CKs
+
+               m2020_cruise_recon_TYPE_vV.bc
+
+            where
+
+               TYPE      specifies the basis of the orientation
+    
+                             nospin (for H-vector direction without spin)
+                             rawrt (for real-time quaternions during comms)
+                             raweng (for high-rate quaternions during events)
+    
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  reconstructed spacecraft EDL orientation CKs
+
+               m2020_edl_rec_vVV.bc
+
+            where
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  reconstructed rover surface orientation CKs
+
+               m2020_surf_rover_tlm_SSSS_ssss_vV.bc
+
+            where
+
+               SSSS      is the file coverage start SOL.
+
+               ssss      is the file coverage end SOL.    
+    
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+      -  reconstructed articulating structures orientation CKs
+
+               m2020_surf_STRUC_TYPE_SSSS_ssss_vV.bc
+
+            where
+ 
+               STRUC     is the articulating structure
+    
+                             hga (for High Gain Antenna)    
+                             ra (for Robotic Arm)
+                             rsm (for Remote Sensing Mast)
+    
+               TYPE      specifies the basis of the orientation
+    
+                             tlmenc (for encoder-based orientation)
+                             tlmres (for resolver-based orientation)
+    
+               SSSS      is the file coverage start SOL.
+
+               ssss      is the file coverage end SOL.    
+    
+               V         is the version; the file with the latest
+                         version supersedes all similarly named files
+                         with earlier versions.
+
+   The most detailed description of the data in each CK file is
+   provided in metadata included inside the comment area of the file.
+   This information can be viewed using the utility program COMMNT
+   included in the NAIF Toolkit.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="LSK Files"></A>
+LSK Files
+
+   LSK (Leapseconds Kernel) files contain the leapseconds and the
+   values of other constants required to perform a transformation
+   between Universal Time Coordinated (UTC) and Ephemeris time (ET),
+   also known as Barycentric Dynamical Time (TDB).
+
+   This archive includes generic text LSK files produced by NAIF,
+   containing leapsecond information based on the IERS announcements.
+   The generic text LSK version 0012 contains leap second data up to
+   and including the January 1, 2017 leapsecond.
+
+   The LSK files are provided under the <a href="../spice_kernels/lsk/">spice_kernels/lsk</a>
+   directory and are named according to the following scheme:
+
+      -  generic text LSKs
+
+               naifVVVV.tls
+
+            where
+
+               VVVV      is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+
+   The most detailed description of the data in a text LSK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="SCLK Files"></A>
+SCLK Files
+
+   SCLK (Spacecraft Clock Kernel) files contain on-board clock
+   calibration data required to perform a mapping between Ephemeris
+   time (ET) and spacecraft on-board time (SCLK).
+
+   This archive includes text SCLK files containing the following kinds of
+   data:
+    
+      - official Mars 2020 on-board clock correlation SCLKs
+    
+            These SCLKs contain a tabulation of data needed for converting 
+            time measurements between ephemeris time (ET) and Mars 2020 
+            spacecraft clock time (SCLK). They are made from similar
+            files -- SCLK/SCET file, or SCLKvSCET file -- produced by
+            mission Time Correlation Subsystem (TCS) team.
+ 
+            The official on-board correlation SCLK files used in operations
+            and included in this data set provide correlation that is
+            incorrect in an absolute sense by as much as 3 seconds during
+            surface operations. The main reason for this error is the loose
+            time correlation requirement for surface operations intended
+            to keep backward compatibility between correlation versions
+            and minimize the impact of deployment of the new correlation
+            across the ground data system.
+   
+    
+      - improved Mars 2020 on-board clock correlation SCLKs
+    
+            These improved SCLK files contain on-board clock correlation
+            accurate to a few tens of milliseconds or better, made
+            specifically for archiving to fix large correlation errors 
+            present in the official SCLKs.
+    
+      - Local Mean Solar Time (LMST) SCLKs    
+    
+            These SCLK files provide a way of converting between the Local
+            Mean Solar Time (LMST) time system used during surface
+            operations and other time systems. LMST was introduced as a
+            replacement of the Local True Solar Time (LTST) because a time
+            system with a constant duration of a second was needed for use
+            in the planning and sequencing processes. The LMST is
+            essentially a linear approximation of the local true solar time
+            with the rate set equal to the mean Mars local second duration
+            and the initial reference point set to LMST midnight of the
+            landing SOL. Due to ellipticity of the Mars orbit this
+            approximation is periodic and deviates from the LTST by as much
+            as 50 minutes during Martian year.    
+    
+   The SCLK files are provided under the <a href="../spice_kernels/sclk/">spice_kernels/sclk</a>
+   directory and are named according to the following scheme:
+
+      -  official Mars 2020 on-board clock correlation SCLKs
+
+               m2020_168_sclkscet_VVVVV.tsc
+
+            where
+
+               VVVVV     is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+
+      - improved Mars 2020 on-board clock correlation SCLKs
+
+               m2020_168_sclkscet_refit_vVV.tsc
+
+            where
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.    
+    
+      -  Local Mean Solar Time (LMST) SCLKs
+
+               m2020_lmst_opsYYMMDD_vV.tsc
+
+            where
+
+               YYMMDD    is the date consistent with the corresponding
+                         landing site position SPK.
+
+               V         is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+
+   The most detailed description of the data in a text SCLK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="FK Files"></A>
+FK Files
+
+   FK (Frame definitions Kernel) files contain information required to
+   define reference frames, sources of frame orientation data and
+   connections between these frames and other frames supported within
+   the SPICE system. The science instrument frame definitions provided
+   in the FK files include mounting alignment information for the
+   instruments.
+
+   This archive includes text FK files defining reference frames for
+   the Mars 2020 rover, its structures, and science instruments.
+   These FKs were produced by NAIF using the spacecraft and instrument 
+   design documentation as well as actual instrument alignment values 
+   determined pre-launch and as the result of in-flight calibrations.
+
+   The FK files are provided under the <a href="../spice_kernels/fk/">spice_kernels/fk</a>
+   directory and are named according to the following scheme:
+
+      -  Mars 2020 mission FK files
+
+               m2020_vVV.tf
+
+            where
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+    
+   The most detailed description of the data in a text FK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="MK Files"></A>
+MK Files
+
+   Meta-kernel (MK) files (a.k.a 'furnsh' files) provide lists of the
+   archived kernels included in this archive suitable for loading into
+   a SPICE-based application via the high level SPICE data loader
+   routine FURNSH. Using meta-kernels makes it easy to load with
+   one call a comprehensive SPICE data collection for a given period.
+
+   This archive includes the following kinds of MK files:
+    
+      -  whole mission MK files
+    
+            These MKs with provide the complete sets of best available 
+            kernels.
+
+      -  CHRONOS MK files
+    
+            These MKs provide only kernels needed for the SPICE CHRONOS
+            time-conversion program and include the CHRONOS configuration
+            parameters  (spacecraft ID, planet ID, landing UTC, landing SOL
+            index, and Sun GM).
+    
+            These MKs provide the same sets of kernels as they provided during 
+            OPS except for the cruise and EDL SPKs.
+    
+   The text MK files are provided under the <a href="../spice_kernels/mk/">spice_kernels/mk</a>
+   directory and are named according to the following scheme:
+
+      -  whole mission MK files
+
+               m2020_vVV.tm
+
+            when
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.
+    
+      -  CHRONOS MK files
+    
+               m2020_chronos_vVV.tm
+
+            when
+
+               VV        is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions.              
+
+   Although the meta-kernels were created such that on a UNIX
+   workstation they can be loaded into a SPICE-based application
+   directly from the directory in which they reside -- because the
+   PATH_VALUES keyword is set to '..' and '/' is used as the path
+   delimiter -- it is recommended that users make local copies of these
+   files and update the PATH_VALUES keyword in each of them to point to
+   the actual location of the archive's 'spice_kernels' directory on
+   their system. Additional changes including replacing '/' and '\' in
+   all path specifications and converting UNIX line terminators to
+   terminators native to the user's system may be required to use these
+   meta-kernels on non-UNIX workstation.
+
+   The following guidelines were followed to pick and set priority --
+   determined by the order in which the kernel files are listed, with
+   the latest one taking precedence -- for the kernel files included in
+   these meta-kernels:
+
+      -  the latest archived versions of LSK, PCK, on-board clock and
+         LMST SCLKs, IKs, FK, planetary ephemeris SPK, satellite
+         ephemeris SPK, cruise SPK, EDL SPK and CK, landing site SPK,
+         localized rover surface path SPK, and rover, RSM, RA, and HGA
+         CKs were included
+  
+      -  only the reconstructed cruise CK based on real-time telemetry
+         during communication periods was included.
+    
+   Additional description of the kernels sets listed in a text MK file is
+   provided in metadata included inside the description area of the
+   file. This information can be viewed using any text editor program.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Miscellaneous Files"></A>
+Miscellaneous Files
+===================
+    
+   Miscellaneous files provide value added elements that are outside the
+   scope of the PDS archive requirements. Miscellaneous files included in 
+   this archive are currently limited to checksum files.
+
+   The subsection below provides details for these files.
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Checksum Files"></A>
+Checksum Files
+
+   A checksum file provides a table of MD5 checksums for all files in the 
+   archive as of a particular archive (bundle) version, including
+   checksums for all previous checksums files and their labels but
+   excluding the checksum for the checksum file itself and its label.
+
+   The checksum files are provided under the <a href="../miscellaneous/checksum/">miscellaneous/checksum</a>
+   directory and are named according to the following scheme:
+
+      -  Mars 2020 checksum files
+
+               checksum_vVVV.tab
+
+            where
+
+               VVV       is the version; the file with the latest
+                         version supersedes all similarly named
+                         files with earlier versions and can be
+                         used to validate the archive in its
+                         entirety.
+    
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="File Formats"></A>
+File Formats
+============
+
+   All text documents, checksum files, and other meta information files 
+   such as descriptions, detached PDS4 labels, and inventory tables, are 
+   stream format files, with a carriage return (ASCII 13) and a line feed 
+   character (ASCII 10) at the end of the records. This allows the files 
+   to be read by most operating systems.
+
+   The text kernel files in this archive -- LSKs, PCKs, SCLKs, IKs, FKs,
+   and MKs -- are UNIX text files, with a line feed character (ASCII 10) 
+   at the end of the line, and binary kernel files -- SPKs and CKs -- are 
+   IEEE LSB binary files. While data files in this archive can be used 
+   'as is' with SPICE toolkits for the majority of supported environments, 
+   converting the files to the binary or text format native to the user's 
+   computer may be required for use of the data with FORTRAN toolkits on 
+   incompatible environments. Refer to the documentation provided with the 
+   SPICE Toolkit to find out whether conversion is needed in each specific 
+   case.
+
+   NAIF provides a tool (BINGO) that can convert either binary or text
+   kernels from one format to another. This means that text files can
+   have their line terminator changed and binary files can be converted
+   to the native format of the platform of interest. BINGO is available
+   from the utilities page at the NAIF Node of the PDS:
+
+      <a href="https://naif.jpl.nasa.gov/naif/utilities.html">https://naif.jpl.nasa.gov/naif/utilities.html</a>
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="SPICE Software and Documentation"></A>
+SPICE Software and Documentation
+================================
+
+   The latest SPICE Toolkit for a variety of computer platforms,
+   additional utility programs, documentation, tutorials, and hands-on
+   lessons are available at the NAIF Node of the PDS:
+
+      <a href="https://naif.jpl.nasa.gov">https://naif.jpl.nasa.gov</a>
+
+   specifically:
+
+      Toolkit:   <a href="https://naif.jpl.nasa.gov/naif/toolkit.html">https://naif.jpl.nasa.gov/naif/toolkit.html</a>
+
+      Utilities: <a href="https://naif.jpl.nasa.gov/naif/utilities.html">https://naif.jpl.nasa.gov/naif/utilities.html</a>
+
+      Tutorials: <a href="https://naif.jpl.nasa.gov/naif/tutorials.html">https://naif.jpl.nasa.gov/naif/tutorials.html</a>
+
+      Lessons:   <a href="https://naif.jpl.nasa.gov/naif/lessons.html">https://naif.jpl.nasa.gov/naif/lessons.html</a>
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Contact Information"></A>
+Contact Information
+===============================
+
+   PDS Navigation and Ancillary Information Facility (NAIF),
+   MAIL STOP 301-121
+   Jet Propulsion Laboratory
+   California Institute of Technology
+   4800 Oak Grove Drive
+   Pasadena, CA, 91109-8099
+   818-354-8136
+   WWW Site: <a href="https://naif.jpl.nasa.gov">https://naif.jpl.nasa.gov</a>
+
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+<A NAME="Cognizant Persons"></A>
+Cognizant Persons
+=================
+
+   This archive was produced by Marc Costa Sitja, Boris Semenov,
+   and Matthew Barnes, Planetary Data System Navigation and Ancillary
+   Information Facility Node, Jet Propulsion Laboratory, Pasadena,
+   California.
+
+
+End of Mars 2020 SPICE archive description.
+<p align="right"><a href="#Table of Contents">Back to Table of Contents</a></p>
+</pre>
+
+</body>
+
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020.spice:spice_kernels</logical_identifier>
+    <version_id>2.0</version_id>
+    <title>Mars 2020 Perseverance Rover Mission SPICE Kernel Collection</title>
+    <information_model_version>1.5.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <publication_year>2021</publication_year>
+      <keyword>Observation Geometry</keyword>
+      <description>This collection contains SPICE kernels for the Mars 2020 Perseverance Rover spacecraft and its instruments.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2020-07-30T12:51:34Z</start_date_time>
+      <stop_date_time>2021-08-22T03:10:00Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Observation Geometry</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020 Perseverance Rover Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Mars 2020 Perseverance Rover</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020.spice:document:spiceds</lid_reference>
+      <reference_type>collection_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <Collection>
+    <collection_type>SPICE Kernel</collection_type>
+    <description>This collection contains SPICE kernels for the Mars 2020 Perseverance Rover spacecraft and its instruments.</description>
+  </Collection>
+  <File_Area_Inventory>
+    <File>
+      <file_name>collection_spice_kernels_inventory_v002.csv</file_name>
+      <creation_date_time>2021-11-19T07:20:24</creation_date_time>
+      <file_size unit="byte">738</file_size>
+      <md5_checksum>f691591a437756dc9287668501def1c1</md5_checksum>
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>9</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Member_Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>
