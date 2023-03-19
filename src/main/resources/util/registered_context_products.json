@@ -38,6 +38,69 @@
           },
           {
                "name": [
+                    "DEEP SPACE STATION MEDIA CALIBRATION SUBSYSTEM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dsn.media::1.0"
+          },
+          {
+               "name": [
+                    "PLAQUE"
+               ],
+               "type": [
+                    "CALIBRATOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibrator.plaque::1.0"
+          },
+          {
+               "name": [
+                    "87 SYLVIA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.87_sylvia::1.1"
+          },
+          {
+               "name": [
+                    "2000 CQ105"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_cq105::1.0"
+          },
+          {
+               "name": [
+                    "NEUTRON SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ns.mess::1.1"
+          },
+          {
+               "name": [
+                    "ATLAS"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.atlas::1.1"
+          },
+          {
+               "name": [
+                    "McGraw-Hill Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.mdm::1.1"
+          },
+          {
+               "name": [
                     "DEEP IMPACT FLYBY SPACECRAFT"
                ],
                "type": [
@@ -6786,51 +6849,6 @@
           },
           {
                "name": [
-                    "GRAVITY SCIENCE INSTRUMENT FOR JUNO. DEPRECATED. REPLACED BY :INSTRUMENT:JNO.RSS"
-               ],
-               "type": [
-                    "RADIO-RADAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:grav.jno::2.0"
-          },
-          {
-               "name": [
-                    "APOLLO 15 COMMAND AND SERVICE MODULE"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a15c::1.2"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:amos.msss1m2::0.0"
-          },
-          {
-               "name": [
-                    "HELIOSPHERIC INST-SPECTRA,COMPOSITION,ANISOTROPY AT LOW ENER"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:uly.hiscale::1.0"
-          },
-          {
-               "name": [
-                    "136199 ERIS"
-               ],
-               "type": [
-                    "DWARF PLANET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:dwarf_planet.136199_eris::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -6882,6 +6900,51 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "GRAVITY SCIENCE INSTRUMENT FOR JUNO. DEPRECATED. REPLACED BY :INSTRUMENT:JNO.RSS"
+               ],
+               "type": [
+                    "RADIO-RADAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:grav.jno::2.0"
+          },
+          {
+               "name": [
+                    "APOLLO 15 COMMAND AND SERVICE MODULE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a15c::1.2"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:amos.msss1m2::0.0"
+          },
+          {
+               "name": [
+                    "HELIOSPHERIC INST-SPECTRA,COMPOSITION,ANISOTROPY AT LOW ENER"
+               ],
+               "type": [
+                    "PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:uly.hiscale::1.0"
+          },
+          {
+               "name": [
+                    "136199 ERIS"
+               ],
+               "type": [
+                    "DWARF PLANET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:dwarf_planet.136199_eris::1.1"
           },
           {
                "name": [
@@ -13553,60 +13616,6 @@
           },
           {
                "name": [
-                    "54 ALEXANDRA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.54_alexandra::1.1"
-          },
-          {
-               "name": [
-                    "(470523) 2008 CS190"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.470523_2008_cs190::1.0"
-          },
-          {
-               "name": [
-                    "1997 SZ10"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1997_sz10::1.0"
-          },
-          {
-               "name": [
-                    "DOPPLER WIND EXPERIMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dwe.gp::1.0"
-          },
-          {
-               "name": [
-                    "DELTA LUPI"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.del_lup::1.0"
-          },
-          {
-               "name": [
-                    "(131696) 2001 XT254"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.131696_2001_xt254::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -15292,69 +15301,6 @@
           },
           {
                "name": [
-                    "DEEP SPACE STATION MEDIA CALIBRATION SUBSYSTEM"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:dsn.media::1.0"
-          },
-          {
-               "name": [
-                    "PLAQUE"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.plaque::1.0"
-          },
-          {
-               "name": [
-                    "87 SYLVIA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.87_sylvia::1.1"
-          },
-          {
-               "name": [
-                    "2000 CQ105"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_cq105::1.0"
-          },
-          {
-               "name": [
-                    "NEUTRON SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ns.mess::1.1"
-          },
-          {
-               "name": [
-                    "ATLAS"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.atlas::1.1"
-          },
-          {
-               "name": [
-                    "McGraw-Hill Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.mdm::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -15379,6 +15325,60 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "54 ALEXANDRA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.54_alexandra::1.1"
+          },
+          {
+               "name": [
+                    "(470523) 2008 CS190"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.470523_2008_cs190::1.0"
+          },
+          {
+               "name": [
+                    "1997 SZ10"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1997_sz10::1.0"
+          },
+          {
+               "name": [
+                    "DOPPLER WIND EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dwe.gp::1.0"
+          },
+          {
+               "name": [
+                    "DELTA LUPI"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.del_lup::1.0"
+          },
+          {
+               "name": [
+                    "(131696) 2001 XT254"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.131696_2001_xt254::1.0"
           },
           {
                "name": [
