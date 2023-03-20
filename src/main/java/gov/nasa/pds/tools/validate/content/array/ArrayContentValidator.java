@@ -372,7 +372,7 @@ public class ArrayContentValidator {
         comparison = ((BigInteger)value).compareTo(NumberUtils.createBigInteger(constants.getValidMaximum()));
       } else {
         if (constants.getValidMaximum().contains(".") || constants.getValidMaximum().contains("e") || constants.getValidMaximum().contains("E")) {
-          comparison = Double.valueOf(value.longValue()).compareTo(Double.valueOf(constants.getValidMaximum()));          
+          comparison = Double.valueOf(value.doubleValue()).compareTo(Double.valueOf(constants.getValidMaximum()));
         } else {
           comparison = Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMaximum()));          
         }
@@ -391,7 +391,7 @@ public class ArrayContentValidator {
         comparison = ((BigInteger)value).compareTo(NumberUtils.createBigInteger(constants.getValidMinimum()));
       } else {
         if (constants.getValidMinimum().contains(".") || constants.getValidMinimum().contains("e") || constants.getValidMinimum().contains("E")) {
-          comparison = Double.valueOf(value.longValue()).compareTo(Double.valueOf(constants.getValidMinimum()));          
+          comparison = Double.valueOf(value.doubleValue()).compareTo(Double.valueOf(constants.getValidMinimum()));
         } else {
           comparison = Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMinimum()));          
         }
