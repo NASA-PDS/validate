@@ -347,7 +347,8 @@ public class FieldValueValidator {
             }
           }
           // Check that the field value is within the defined min/max values
-          boolean minmax = fields[i].getSpecialConstants().getValidMaximum() != null || fields[i].getSpecialConstants().getValidMinimum() != null;
+          boolean minmax = fields[i].getSpecialConstants() != null 
+              && (fields[i].getSpecialConstants().getValidMaximum() != null || fields[i].getSpecialConstants().getValidMinimum() != null);
           if (fields[i].getMinimum() != null || fields[i].getMaximum() != null || minmax) {
             checkSpecialMinMax(value.trim(), fields[i].getSpecialConstants(),
                 fields[i].getMinimum(), fields[i].getMaximum(), i + 1, record.getLocation(),
