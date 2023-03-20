@@ -30,7 +30,6 @@ import gov.nasa.arc.pds.xml.generated.ElementArray;
 import gov.nasa.arc.pds.xml.generated.ObjectStatistics;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.label.object.ArrayObject;
-import gov.nasa.pds.label.object.FieldType;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
