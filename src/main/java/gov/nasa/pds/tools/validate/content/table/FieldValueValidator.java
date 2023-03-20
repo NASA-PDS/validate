@@ -113,8 +113,6 @@ public class FieldValueValidator {
   private static final Pattern dirPattern =
       Pattern.compile("/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?|[A-Za-z0-9][^-_]/?)*");
 
-  private int dataObjectIndex = -1;
-
   /**
    * Constructor.
    * 
@@ -349,7 +347,7 @@ public class FieldValueValidator {
             }
           }
           // Check that the field value is within the defined min/max values
-          if (fields[i].getMinimum() != null || fields[i].getMaximum() != null) {
+          if (fields[i].getMinimum() != null || fields[i].getMaximum() != null || fields[i].getSpecialConstants() != null) {
             checkSpecialMinMax(value.trim(), fields[i].getSpecialConstants(),
                 fields[i].getMinimum(), fields[i].getMaximum(), i + 1, record.getLocation(),
                 fields[i].getType());
@@ -467,8 +465,10 @@ public class FieldValueValidator {
 
       boolean isSpecialConstant = false;
       if (specialConstants != null) {
+        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.ERROR,
+            ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE, recordLocation, fieldIndex);
         isSpecialConstant = ArrayContentValidator
-            .isSpecialConstant(number.stripTrailingZeros().toString(), specialConstants);
+            .isSpecialConstant(number.stripTrailingZeros(), specialConstants, reporter);
       }
 
       if (!isSpecialConstant) {
@@ -842,7 +842,7 @@ public class FieldValueValidator {
    * @param recordLocation The record location where the field is located.
    * @param field The index of the field.
    */
-  private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+  void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       RecordLocation recordLocation, int field) {
     listener.addProblem(new TableContentProblem(exceptionType, problemType, message,
         recordLocation.getDataFile(), ruleContext.getTarget(),

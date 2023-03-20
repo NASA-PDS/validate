@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#611
+|"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 errors expected" | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
+
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
 |"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |
