@@ -13,10 +13,16 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import gov.nasa.pds.tools.validate.SkippedItems;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
@@ -26,13 +32,46 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  */
 public class FindUnreferencedFiles extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
-
+  private HashSet<String> buildReferencedFromSkipped() {
+    HashSet<String> referencedBySkipped = new HashSet<String>();
+    InputStream uis = null;
+    final String closeTag = "</file_name>", openTag = "<file_name>";
+    for (URL skipped : SkippedItems.getInstance().copy()) {
+      try {
+        int begin=0,end=-1;
+        uis = skipped.openStream();
+        String content = new String(uis.readAllBytes());
+        String path = this.extractPath(skipped);
+        begin = content.indexOf(openTag);
+        
+        while (-1 < begin) {
+          end = content.indexOf(closeTag, begin);
+          referencedBySkipped.add("file:" + Paths.get(path, content.substring(begin+openTag.length(), end)).toString());
+          begin = content.indexOf(openTag, end + closeTag.length());
+        }
+      } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      } finally {
+        if (uis != null) {
+          try {
+            uis.close();
+          } catch (IOException e) {}
+          uis = null;
+        }
+      }
+    }
+    return referencedBySkipped;
+  }
+  private String extractPath (URL url) {
+      Path fullpath = Paths.get(url.getPath());
+      return fullpath.getParent().toString();
+  }
   @Override
   public boolean isApplicable(String location) {
     // This rule is applicable at the top level only.
     return getContext().isRootTarget();
   }
-
   /**
    * Iterate over unreferenced targets, reporting an error for each.
    */
@@ -46,11 +85,12 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
         getRegistrar().getUnreferencedTargets().size());
     // Only run the test if we are the root target, to avoid duplicate errors.
     if (getContext().isRootTarget() && !getContext().getAllowUnlabeledFiles()) {
+      HashSet<String> referencedBySkipped = this.buildReferencedFromSkipped();
       for (String location : getRegistrar().getUnreferencedTargets()) {
         LOG.debug("findUnreferencedTargets:location: {}", location);
         try {
           // issue42 - to skip Product level validation
-          if (!getContext().getSkipProductValidation()) {
+          if (!getContext().getSkipProductValidation() && !referencedBySkipped.contains(location)) {
             reportError(PDS4Problems.UNLABELED_FILE, new URL(location), -1, -1);
           }
         } catch (MalformedURLException e) {
@@ -60,5 +100,4 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
       }
     }
   }
-
 }
