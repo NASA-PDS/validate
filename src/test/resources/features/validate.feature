@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#597
+|"NASA-PDS/validate#597 Success Find Resources in Older/Skipped Bundles/Collections" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github597_1.json -s json -R pds4.bundle -t src/test/resources/github597" | "report_github597_1.json" |
+
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
 |"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |
