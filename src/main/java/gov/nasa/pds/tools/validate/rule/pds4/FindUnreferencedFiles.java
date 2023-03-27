@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
       try {
         int begin=0,end=-1;
         uis = skipped.openStream();
-        String content = new String(uis.readAllBytes());
+        String content = new String(uis.readAllBytes(),Charset.defaultCharset());
         String path = this.extractPath(skipped);
         begin = content.indexOf(openTag);
         
