@@ -62,6 +62,8 @@ POSSIBILITY OF SUCH DAMAGE.
         <include>validate</include>
         <include>validate.bat</include>
         <include>validate-bundle</include>
+        <include>validate-refs</include>
+        <include>validate-refs.bat</include>
       </includes>
       <fileMode>755</fileMode>
       <lineEnding>keep</lineEnding>

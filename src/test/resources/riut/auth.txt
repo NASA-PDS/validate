@@ -1,0 +1,8 @@
+# TODO Warning: Use the default username and password only for testing purposes in local setup
+user = admin
+password = admin
+trust.self-signed = true
+
+# add the stuff for validate
+credentials = src/test/resources/riut/auth.txt
+url = https://localhost:9200

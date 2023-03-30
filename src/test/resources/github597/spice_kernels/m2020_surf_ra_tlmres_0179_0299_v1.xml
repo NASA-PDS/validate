@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_SPICE_Kernel xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_ra_tlmres_0179_0299_v1.bc</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>m2020_surf_ra_tlmres_0179_0299_v1.bc</title>
+    <information_model_version>1.5.0.0</information_model_version>
+    <product_class>Product_SPICE_Kernel</product_class>
+    <Citation_Information>
+      <publication_year>2022</publication_year>
+      <keyword>Observation Geometry</keyword>
+      <description>SPICE CK file containing the orientation of the Robotic Arm (RA) relative to the rover frame, created by NAIF, JPL using resolver angles from telemetry view data from OPGS PLACES server, covering SOLs 0179 to 0299, version 1.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-08-21T02:30:24.474Z</start_date_time>
+      <stop_date_time>2021-12-23T10:20:29.667Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Observation Geometry</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020 Perseverance Rover Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Mars 2020 Perseverance Rover</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020.spice:document:spiceds</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_SPICE_Kernel>
+    <File>
+      <file_name>m2020_surf_ra_tlmres_0179_0299_v1.bc</file_name>
+      <creation_date_time>2022-03-11T10:47:43</creation_date_time>
+      <file_size unit="byte">228352</file_size>
+      <md5_checksum>d9b0b3116bdcdc2dca6ae30428ef59cf</md5_checksum>
+    </File>
+    <SPICE_Kernel>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">228352</object_length>
+      <parsing_standard_id>SPICE</parsing_standard_id>
+      <description>SPICE CK file containing the orientation of the Robotic Arm (RA) relative to the rover frame, created by NAIF, JPL using resolver angles from telemetry view data from OPGS PLACES server, covering SOLs 0179 to 0299, version 1.</description>
+      <kernel_type>CK</kernel_type>
+      <encoding_type>Binary</encoding_type>
+    </SPICE_Kernel>
+  </File_Area_SPICE_Kernel>
+</Product_SPICE_Kernel>
