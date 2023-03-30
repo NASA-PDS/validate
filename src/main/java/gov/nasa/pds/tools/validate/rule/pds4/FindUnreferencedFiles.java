@@ -33,21 +33,23 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
  */
 public class FindUnreferencedFiles extends AbstractValidationRule {
   private static final Logger LOG = LoggerFactory.getLogger(FindUnreferencedIdentifiers.class);
+
   private HashSet<String> buildReferencedFromSkipped() {
     HashSet<String> referencedBySkipped = new HashSet<String>();
     InputStream uis = null;
     final String closeTag = "</file_name>", openTag = "<file_name>";
     for (URL skipped : SkippedItems.getInstance().copy()) {
       try {
-        end=-1;
+        int end = -1;
         uis = skipped.openStream();
-        String content = new String(uis.readAllBytes(),Charset.defaultCharset());
+        String content = new String(uis.readAllBytes(), Charset.defaultCharset());
         String path = this.extractPath(skipped);
         int begin = content.indexOf(openTag);
-        
+
         while (-1 < begin) {
           end = content.indexOf(closeTag, begin);
-          referencedBySkipped.add("file:" + Paths.get(path, content.substring(begin+openTag.length(), end)).toString());
+          referencedBySkipped.add("file:"
+              + Paths.get(path, content.substring(begin + openTag.length(), end)).toString());
           begin = content.indexOf(openTag, end + closeTag.length());
         }
       } catch (IOException e) {
@@ -57,22 +59,26 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
         if (uis != null) {
           try {
             uis.close();
-          } catch (IOException e) {}
+          } catch (IOException e) {
+          }
           uis = null;
         }
       }
     }
     return referencedBySkipped;
   }
-  private String extractPath (URL url) {
-      Path fullpath = Paths.get(url.getPath());
-      return fullpath.getParent().toString();
+
+  private String extractPath(URL url) {
+    Path fullpath = Paths.get(url.getPath());
+    return fullpath.getParent().toString();
   }
+
   @Override
   public boolean isApplicable(String location) {
     // This rule is applicable at the top level only.
     return getContext().isRootTarget();
   }
+
   /**
    * Iterate over unreferenced targets, reporting an error for each.
    */
