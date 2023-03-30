@@ -26,7 +26,7 @@ public class CommandLineInterface {
         .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
         "file with the URL and credential content to have full, direct read-only access to the search DB")
-        .hasArg(true).longOpt("auth-registry    ").numberOfArgs(1).optionalArg(true).build());
+        .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
     this.opts.addOption(Option.builder("t").argName("count").desc(
@@ -78,7 +78,7 @@ public class CommandLineInterface {
     try {
       Engine engine = new Engine(cylinders, cl.getArgList(),
           AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-registry")));
+          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch")));
       engine.processQueueUntilEmpty();
       broken = engine.getBroken();
       total = engine.getTotal();
