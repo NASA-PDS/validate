@@ -11,17 +11,18 @@ class FieldProblemReporter implements ProblemReporter {
   final private FieldValueValidator parent;
   final private ProblemType problemType;
   final private RecordLocation recordLocation;
-  public FieldProblemReporter(FieldValueValidator parent, ExceptionType exceptionType, ProblemType problemType,
-      RecordLocation recordLocation, int field) {
+
+  public FieldProblemReporter(FieldValueValidator parent, ExceptionType exceptionType,
+      ProblemType problemType, RecordLocation recordLocation, int field) {
     this.exceptionType = exceptionType;
     this.field = field;
     this.parent = parent;
     this.problemType = problemType;
-    this.recordLocation= recordLocation;
+    this.recordLocation = recordLocation;
   }
+
   @Override
   public void addProblem(String message) {
     parent.addTableProblem(exceptionType, problemType, message, recordLocation, field);
   }
-
 }

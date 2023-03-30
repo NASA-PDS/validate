@@ -8,7 +8,7 @@
 // is subject to U.S. export control laws and regulations, the recipient has
 // the responsibility to obtain export licenses or other export authority as
 // may be required before exporting such information to foreign countries or
-// providing access to foreign nationals. 
+// providing access to foreign nationals.
 //
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
@@ -275,7 +275,8 @@ public class ArrayContentValidator {
     boolean isSpecialConstant = false;
     if (array.getSpecialConstants() != null) {
       ProblemReporter reporter = new ArrayProblemReporter(this, ExceptionType.ERROR,
-          ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE, ArrayContentValidator.tableNameReportStr, location);
+          ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE, ArrayContentValidator.tableNameReportStr,
+          location);
       isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants(), reporter);
     }
 
@@ -313,7 +314,8 @@ public class ArrayContentValidator {
    * 
    * @return true if the given value is a Special Constant.
    */
-  public static boolean isSpecialConstant(Number value, SpecialConstants constants, ProblemReporter reporter) {
+  public static boolean isSpecialConstant(Number value, SpecialConstants constants,
+      ProblemReporter reporter) {
     if (constants.getErrorConstant() != null) {
       if (value.toString().equals(constants.getErrorConstant())) {
         return true;
@@ -367,38 +369,50 @@ public class ArrayContentValidator {
     if (constants.getValidMaximum() != null) {
       int comparison;
       if (value instanceof BigDecimal) {
-        comparison = ((BigDecimal)value).compareTo(NumberUtils.createBigDecimal(constants.getValidMaximum()));
+        comparison = ((BigDecimal) value)
+            .compareTo(NumberUtils.createBigDecimal(constants.getValidMaximum()));
       } else if (value instanceof BigInteger) {
-        comparison = ((BigInteger)value).compareTo(NumberUtils.createBigInteger(constants.getValidMaximum()));
+        comparison = ((BigInteger) value)
+            .compareTo(NumberUtils.createBigInteger(constants.getValidMaximum()));
       } else {
-        if (constants.getValidMaximum().contains(".") || constants.getValidMaximum().contains("e") || constants.getValidMaximum().contains("E")) {
-          comparison = Double.valueOf(value.doubleValue()).compareTo(Double.valueOf(constants.getValidMaximum()));
+        if (constants.getValidMaximum().contains(".") || constants.getValidMaximum().contains("e")
+            || constants.getValidMaximum().contains("E")) {
+          comparison = Double.valueOf(value.doubleValue())
+              .compareTo(Double.valueOf(constants.getValidMaximum()));
         } else {
-          comparison = Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMaximum()));          
+          comparison =
+              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMaximum()));
         }
       }
       if (0 < comparison) {
         reporter.addProblem("Field has a value '" + value.toString()
-            + "' that is greater than the defined maximum value '" + constants.getValidMaximum() + "'. ");
+            + "' that is greater than the defined maximum value '" + constants.getValidMaximum()
+            + "'. ");
       }
       return comparison == 0;
     }
     if (constants.getValidMinimum() != null) {
       int comparison;
       if (value instanceof BigDecimal) {
-        comparison = ((BigDecimal)value).compareTo(NumberUtils.createBigDecimal(constants.getValidMinimum()));
+        comparison = ((BigDecimal) value)
+            .compareTo(NumberUtils.createBigDecimal(constants.getValidMinimum()));
       } else if (value instanceof BigInteger) {
-        comparison = ((BigInteger)value).compareTo(NumberUtils.createBigInteger(constants.getValidMinimum()));
+        comparison = ((BigInteger) value)
+            .compareTo(NumberUtils.createBigInteger(constants.getValidMinimum()));
       } else {
-        if (constants.getValidMinimum().contains(".") || constants.getValidMinimum().contains("e") || constants.getValidMinimum().contains("E")) {
-          comparison = Double.valueOf(value.doubleValue()).compareTo(Double.valueOf(constants.getValidMinimum()));
+        if (constants.getValidMinimum().contains(".") || constants.getValidMinimum().contains("e")
+            || constants.getValidMinimum().contains("E")) {
+          comparison = Double.valueOf(value.doubleValue())
+              .compareTo(Double.valueOf(constants.getValidMinimum()));
         } else {
-          comparison = Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMinimum()));          
+          comparison =
+              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMinimum()));
         }
       }
       if (comparison < 0) {
         reporter.addProblem("Field has a value '" + value.toString()
-            + "' that is less than the defined minimum value '" + constants.getValidMinimum() + "'. ");
+            + "' that is less than the defined minimum value '" + constants.getValidMinimum()
+            + "'. ");
       }
       return comparison == 0;
     }
@@ -419,8 +433,10 @@ public class ArrayContentValidator {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
       String actual = value.toString(), min = objectStats.getMinimum().toString();
-      if (min.length() < actual.length()) actual = actual.substring(0,min.length());
-      if (value.doubleValue() < objectStats.getMinimum().doubleValue() && compare(actual, min) == -1) {
+      if (min.length() < actual.length())
+        actual = actual.substring(0, min.length());
+      if (value.doubleValue() < objectStats.getMinimum().doubleValue()
+          && compare(actual, min) == -1) {
         String errorMessage =
             tableNameReportStr + " Value is less than the minimum value in the label (min="
                 + objectStats.getMinimum().toString();
@@ -437,8 +453,10 @@ public class ArrayContentValidator {
     if (objectStats.getMaximum() != null) {
       // Use the compare function in this class to compare between two floats.
       String actual = value.toString(), max = objectStats.getMaximum().toString();
-      if (max.length() < actual.length()) actual = actual.substring(0,max.length());
-      if (value.doubleValue() > objectStats.getMaximum().doubleValue() && compare(actual, max) == 1) {
+      if (max.length() < actual.length())
+        actual = actual.substring(0, max.length());
+      if (value.doubleValue() > objectStats.getMaximum().doubleValue()
+          && compare(actual, max) == 1) {
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + "Value is greater than the maximum value in the label (max="
                 + objectStats.getMaximum().toString() + ", actual=" + value.toString() + ").",

@@ -10,17 +10,18 @@ class ArrayProblemReporter implements ProblemReporter {
   final private ExceptionType exceptionType;
   final private ProblemType problemType;
   final private String prefix;
-  public ArrayProblemReporter(ArrayContentValidator parent, ExceptionType exceptionType, ProblemType problemType, String prefix,
-      ArrayLocation location) {
+
+  public ArrayProblemReporter(ArrayContentValidator parent, ExceptionType exceptionType,
+      ProblemType problemType, String prefix, ArrayLocation location) {
     this.exceptionType = exceptionType;
     this.location = location;
     this.parent = parent;
     this.prefix = prefix;
     this.problemType = problemType;
   }
+
   @Override
   public void addProblem(String message) {
     this.parent.addArrayProblem(exceptionType, problemType, this.prefix + message, location);
   }
-
 }
