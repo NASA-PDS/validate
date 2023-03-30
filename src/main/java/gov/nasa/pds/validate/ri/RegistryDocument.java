@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RegistryDocument implements DocumentInfo {
   final private AuthInformation context;
-  
+
   public RegistryDocument(AuthInformation context) {
     this.context = context;
   }

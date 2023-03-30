@@ -20,22 +20,31 @@ import org.opensearch.index.query.TermQueryBuilder;
 public class FakeOpensearch extends OpensearchDocument {
   final private Logger log = LogManager.getLogger(FakeOpensearch.class);
   final private Set<String> broken = new HashSet<String>();
+
   public FakeOpensearch() {
     super(null);
     OpensearchDocument.sourceOverride = this;
   }
+
   private SearchResponse getSearchResponseFromJson(String jsonResponse) throws IOException {
-    XContentParser parser = JsonXContent.jsonXContent.createParser(NamedXContentRegistry.EMPTY, DeprecationHandler.IGNORE_DEPRECATIONS, jsonResponse);
+    XContentParser parser = JsonXContent.jsonXContent.createParser(NamedXContentRegistry.EMPTY,
+        DeprecationHandler.IGNORE_DEPRECATIONS, jsonResponse);
     return SearchResponse.fromXContent(parser);
   }
+
   @Override
-  protected synchronized SearchResponse search (RestHighLevelClient client, SearchRequest request) throws IOException {
+  protected synchronized SearchResponse search(RestHighLevelClient client, SearchRequest request)
+      throws IOException {
     FileInputStream fis = null;
-    SearchResponse result = this.getSearchResponseFromJson("{\"took\":4,\"timed_out\":false,\"_shards\":{\"total\":0,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":0,\"relation\":\"eq\"},\"max_score\":4.841559,\"hits\":[]}}");
-    String field = ((TermQueryBuilder)((BoolQueryBuilder)request.source().query()).must().get(0)).fieldName();
+    SearchResponse result = this.getSearchResponseFromJson(
+        "{\"took\":4,\"timed_out\":false,\"_shards\":{\"total\":0,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":0,\"relation\":\"eq\"},\"max_score\":4.841559,\"hits\":[]}}");
+    String field = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
+        .fieldName();
     String index = request.indices()[0];
-    String value = ((TermQueryBuilder)((BoolQueryBuilder)request.source().query()).must().get(0)).value().toString();
-    String workingFilename = "src/test/resources/riut/" + index + "___" + field + "___" + value + ".json";
+    String value = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
+        .value().toString();
+    String workingFilename =
+        "src/test/resources/riut/" + index + "___" + field + "___" + value + ".json";
     try {
       fis = new FileInputStream(workingFilename);
       result = this.getSearchResponseFromJson(new String(fis.readAllBytes()));
@@ -47,10 +56,13 @@ public class FakeOpensearch extends OpensearchDocument {
     } catch (IOException e) {
       if (!this.broken.contains(workingFilename)) {
         this.broken.add(workingFilename);
-        log.error("Incomplete test data set because of JSON parsing error of file: " + workingFilename, e);
+        log.error(
+            "Incomplete test data set because of JSON parsing error of file: " + workingFilename,
+            e);
       }
     } finally {
-      if (fis != null) fis.close();
+      if (fis != null)
+        fis.close();
     }
     return result;
   }

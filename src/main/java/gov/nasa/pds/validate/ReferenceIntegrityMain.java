@@ -11,12 +11,10 @@ public class ReferenceIntegrityMain {
     CommandLineInterface cli = new CommandLineInterface();
     try {
       cli.process(args);
-    }
-    catch (ParseException pe) {
+    } catch (ParseException pe) {
       System.err.println("[ERROR] " + pe.getMessage());
       cli.help();
-    }
-    catch (IOException | ParserConfigurationException | SAXException e) {
+    } catch (IOException | ParserConfigurationException | SAXException e) {
       // do nothing because they are already logged.
     }
   }

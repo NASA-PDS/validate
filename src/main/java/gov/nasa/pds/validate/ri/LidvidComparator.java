@@ -8,11 +8,13 @@ class LidvidComparator implements Comparator<String> {
   @Override
   public int compare(String a, String b) {
     List<Integer> aVid = vid(a), bVid = vid(b);
-    return (aVid.get(0).equals(bVid.get(0))) ? Integer.compare(aVid.get(1), bVid.get(1)) : Integer.compare(aVid.get(0), bVid.get(0));
+    return (aVid.get(0).equals(bVid.get(0))) ? Integer.compare(aVid.get(1), bVid.get(1))
+        : Integer.compare(aVid.get(0), bVid.get(0));
   }
-  private List<Integer> vid (String lidvid) {
-    String VID = lidvid.substring(lidvid.indexOf("::")+2);
+
+  private List<Integer> vid(String lidvid) {
+    String VID = lidvid.substring(lidvid.indexOf("::") + 2);
     return Arrays.asList(Integer.valueOf(VID.substring(0, VID.indexOf('.'))),
-        Integer.valueOf(VID.substring(VID.indexOf('.')+1)));
+        Integer.valueOf(VID.substring(VID.indexOf('.') + 1)));
   }
 }
