@@ -19,6 +19,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
@@ -50,7 +51,7 @@ public class FileCrawler extends Crawler {
         directory, fileUrl, getDirectories, nameToken, collections.size());
     LOG.debug("refinedFoundList:fileUrl,nameToken,ignoreCaseFlag {},{},{}", fileUrl, nameToken,
         ignoreCaseFlag);
-    List<Target> results = new ArrayList<>();
+    HashSet<Target> results = new HashSet<>();
 
     for (File file : collections) {
       // Keep the file if it contains a token.
@@ -72,7 +73,7 @@ public class FileCrawler extends Crawler {
       } else {
         LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]",
             directory.getName(), file, nameToken);
-        results.add(new Target(file.toURI().toURL(), false));
+        results.add(new Target(file.toURI().toURL(), file.isDirectory()));
       }
     }
 
@@ -97,7 +98,7 @@ public class FileCrawler extends Crawler {
             results.add(new Target(dir.toURI().toURL(), true));
           }
         } else {
-          results.add(new Target(dir.toURI().toURL(), true));
+          results.add(new Target(dir.toURI().toURL(), dir.isDirectory()));
         }
       }
     }
@@ -122,7 +123,7 @@ public class FileCrawler extends Crawler {
     LOG.debug("refinedFoundList:fileUrl,this.ignoreList.size(),results.size() {},{},{}", fileUrl,
         this.ignoreList.size(), results.size());
 
-    return results;
+    return new ArrayList<Target>(results);
   }
 
   private List<Target> refinedFoundList(Collection<File> collections, URL fileUrl, File directory,
