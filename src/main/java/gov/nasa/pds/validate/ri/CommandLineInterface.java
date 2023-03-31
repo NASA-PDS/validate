@@ -52,7 +52,7 @@ public class CommandLineInterface {
       this.help();
       return 0;
     }
-    if (cl.hasOption("v"))
+    if (cl.hasOption("verbose"))
       Logger.getRootLogger().setLevel(Level.INFO);
     if (!cl.hasOption("a"))
       throw new ParseException(
