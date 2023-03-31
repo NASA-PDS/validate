@@ -44,13 +44,13 @@ public class CommandLineInterface {
         true);
   }
 
-  public void process(String[] args)
+  public int process(String[] args)
       throws IOException, ParseException, ParserConfigurationException, SAXException {
     int cylinders = 1;
     CommandLine cl = new DefaultParser().parse(this.opts, args);
     if (cl.hasOption('h')) {
       this.help();
-      return;
+      return 0;
     }
     if (cl.hasOption("v"))
       Logger.getRootLogger().setLevel(Level.INFO);
@@ -95,6 +95,7 @@ public class CommandLineInterface {
     if (-1 < this.total)
       this.log.info("Completed the reference integrity checks for " + this.total
           + " products and found " + this.broken + " broken references.");
+    return this.broken == 0 ? 0 : 1;
   }
 
   public long getBroken() {

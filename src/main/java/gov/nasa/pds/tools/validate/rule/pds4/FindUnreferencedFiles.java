@@ -39,7 +39,7 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
     final String closeTag = "</file_name>", openTag = "<file_name>";
     for (URL skipped : SkippedItems.getInstance().copy()) {
       try {
-        end=-1;
+        int end=-1;
         uis = skipped.openStream();
         String content = new String(uis.readAllBytes(),Charset.defaultCharset());
         String path = this.extractPath(skipped);
