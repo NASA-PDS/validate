@@ -92,9 +92,12 @@ public class CommandLineInterface {
       log.fatal("Mal-formed harvest configuration file.", e);
       throw e;
     }
-    if (-1 < this.total)
-      this.log.info("Completed the reference integrity checks for " + this.total
-          + " products and found " + this.broken + " broken references.");
+    if (-1 < this.total) {
+      this.log.info("Summary:");
+      this.log.info("   " + this.total + " products processed");
+      this.log.info("   " + this.broken + " errors");
+      this.log.info("   " + (cl.hasOption("A") ? "0" : "1") + " warnings");
+    }
     return this.broken == 0 ? 0 : 1;
   }
 
