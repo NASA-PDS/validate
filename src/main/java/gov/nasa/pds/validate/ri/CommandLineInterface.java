@@ -44,15 +44,15 @@ public class CommandLineInterface {
         true);
   }
 
-  public void process(String[] args)
+  public int process(String[] args)
       throws IOException, ParseException, ParserConfigurationException, SAXException {
     int cylinders = 1;
     CommandLine cl = new DefaultParser().parse(this.opts, args);
     if (cl.hasOption('h')) {
       this.help();
-      return;
+      return 0;
     }
-    if (cl.hasOption("v"))
+    if (cl.hasOption("verbose"))
       Logger.getRootLogger().setLevel(Level.INFO);
     if (!cl.hasOption("a"))
       throw new ParseException(
@@ -92,9 +92,13 @@ public class CommandLineInterface {
       log.fatal("Mal-formed harvest configuration file.", e);
       throw e;
     }
-    if (-1 < this.total)
-      this.log.info("Completed the reference integrity checks for " + this.total
-          + " products and found " + this.broken + " broken references.");
+    if (-1 < this.total) {
+      this.log.info("Summary:");
+      this.log.info("   " + this.total + " products processed");
+      this.log.info("   " + this.broken + " errors");
+      this.log.info("   " + (cl.hasOption("A") ? "0" : "1") + " warnings");
+    }
+    return this.broken == 0 ? 0 : 1;
   }
 
   public long getBroken() {
