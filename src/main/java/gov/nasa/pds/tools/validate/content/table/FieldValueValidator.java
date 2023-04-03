@@ -53,8 +53,8 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
-  private final List<String> INF_NAN_VALUES =
-      Arrays.asList("INF", "-INF", "+INF", "INFINITY", "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
+  private final List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
+      "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
 
   /** List of valid datetime formats. */
   private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
@@ -112,8 +112,6 @@ public class FieldValueValidator {
 
   private static final Pattern dirPattern =
       Pattern.compile("/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?|[A-Za-z0-9][^-_]/?)*");
-
-  private int dataObjectIndex = -1;
 
   /**
    * Constructor.
@@ -349,7 +347,10 @@ public class FieldValueValidator {
             }
           }
           // Check that the field value is within the defined min/max values
-          if (fields[i].getMinimum() != null || fields[i].getMaximum() != null) {
+          boolean minmax = fields[i].getSpecialConstants() != null
+              && (fields[i].getSpecialConstants().getValidMaximum() != null
+                  || fields[i].getSpecialConstants().getValidMinimum() != null);
+          if (fields[i].getMinimum() != null || fields[i].getMaximum() != null || minmax) {
             checkSpecialMinMax(value.trim(), fields[i].getSpecialConstants(),
                 fields[i].getMinimum(), fields[i].getMaximum(), i + 1, record.getLocation(),
                 fields[i].getType());
@@ -467,8 +468,10 @@ public class FieldValueValidator {
 
       boolean isSpecialConstant = false;
       if (specialConstants != null) {
-        isSpecialConstant = ArrayContentValidator
-            .isSpecialConstant(number.stripTrailingZeros().toString(), specialConstants);
+        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.ERROR,
+            ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE, recordLocation, fieldIndex);
+        isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
+            specialConstants, reporter);
       }
 
       if (!isSpecialConstant) {
@@ -842,7 +845,7 @@ public class FieldValueValidator {
    * @param recordLocation The record location where the field is located.
    * @param field The index of the field.
    */
-  private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+  void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       RecordLocation recordLocation, int field) {
     listener.addProblem(new TableContentProblem(exceptionType, problemType, message,
         recordLocation.getDataFile(), ruleContext.getTarget(),

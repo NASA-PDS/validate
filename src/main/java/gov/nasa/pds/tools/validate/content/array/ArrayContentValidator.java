@@ -8,17 +8,19 @@
 // is subject to U.S. export control laws and regulations, the recipient has
 // the responsibility to obtain export licenses or other export authority as
 // may be required before exporting such information to foreign countries or
-// providing access to foreign nationals. 
+// providing access to foreign nationals.
 //
 // $Id$
 package gov.nasa.pds.tools.validate.content.array;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Arrays;
 import org.apache.commons.lang3.Range;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.primitives.UnsignedInteger;
@@ -33,6 +35,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.content.ProblemReporter;
 import gov.nasa.pds.validate.constants.Constants;
 
 /**
@@ -271,7 +274,10 @@ public class ArrayContentValidator {
 
     boolean isSpecialConstant = false;
     if (array.getSpecialConstants() != null) {
-      isSpecialConstant = isSpecialConstant(value.toString(), array.getSpecialConstants());
+      ProblemReporter reporter = new ArrayProblemReporter(this, ExceptionType.ERROR,
+          ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE, ArrayContentValidator.tableNameReportStr,
+          location);
+      isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants(), reporter);
     }
 
     // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants()
@@ -308,66 +314,107 @@ public class ArrayContentValidator {
    * 
    * @return true if the given value is a Special Constant.
    */
-  public static boolean isSpecialConstant(String value, SpecialConstants constants) {
+  public static boolean isSpecialConstant(Number value, SpecialConstants constants,
+      ProblemReporter reporter) {
     if (constants.getErrorConstant() != null) {
-      if (value.equals(constants.getErrorConstant())) {
+      if (value.toString().equals(constants.getErrorConstant())) {
         return true;
       }
     }
     if (constants.getInvalidConstant() != null) {
-      if (value.equals(constants.getInvalidConstant())) {
+      if (value.toString().equals(constants.getInvalidConstant())) {
         return true;
       }
     }
     if (constants.getMissingConstant() != null) {
-      if (value.equals(constants.getMissingConstant())) {
+      if (value.toString().equals(constants.getMissingConstant())) {
         return true;
       }
     }
     if (constants.getHighInstrumentSaturation() != null) {
-      if (value.equals(constants.getHighInstrumentSaturation())) {
+      if (value.toString().equals(constants.getHighInstrumentSaturation())) {
         return true;
       }
     }
     if (constants.getHighRepresentationSaturation() != null) {
-      if (value.equals(constants.getHighRepresentationSaturation())) {
+      if (value.toString().equals(constants.getHighRepresentationSaturation())) {
         return true;
       }
     }
     if (constants.getLowInstrumentSaturation() != null) {
-      if (value.equals(constants.getLowInstrumentSaturation())) {
+      if (value.toString().equals(constants.getLowInstrumentSaturation())) {
         return true;
       }
     }
     if (constants.getLowRepresentationSaturation() != null) {
-      if (value.equals(constants.getLowRepresentationSaturation())) {
+      if (value.toString().equals(constants.getLowRepresentationSaturation())) {
         return true;
       }
     }
     if (constants.getNotApplicableConstant() != null) {
-      if (value.equals(constants.getNotApplicableConstant())) {
+      if (value.toString().equals(constants.getNotApplicableConstant())) {
         return true;
       }
     }
     if (constants.getSaturatedConstant() != null) {
-      if (value.equals(constants.getSaturatedConstant())) {
+      if (value.toString().equals(constants.getSaturatedConstant())) {
         return true;
       }
     }
     if (constants.getUnknownConstant() != null) {
-      if (value.equals(constants.getUnknownConstant())) {
+      if (value.toString().equals(constants.getUnknownConstant())) {
         return true;
       }
     }
     if (constants.getValidMaximum() != null) {
-      if (value.equals(constants.getValidMaximum())) {
-        return true;
+      int comparison;
+      if (value instanceof BigDecimal) {
+        comparison = ((BigDecimal) value)
+            .compareTo(NumberUtils.createBigDecimal(constants.getValidMaximum()));
+      } else if (value instanceof BigInteger) {
+        comparison = ((BigInteger) value)
+            .compareTo(NumberUtils.createBigInteger(constants.getValidMaximum()));
+      } else {
+        if (constants.getValidMaximum().contains(".") || constants.getValidMaximum().contains("e")
+            || constants.getValidMaximum().contains("E")) {
+          comparison = Double.valueOf(value.doubleValue())
+              .compareTo(Double.valueOf(constants.getValidMaximum()));
+        } else {
+          comparison =
+              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMaximum()));
+        }
       }
+      if (0 < comparison) {
+        reporter.addProblem("Field has a value '" + value.toString()
+            + "' that is greater than the defined maximum value '" + constants.getValidMaximum()
+            + "'. ");
+      }
+      return comparison == 0;
     }
     if (constants.getValidMinimum() != null) {
-      if (value.equals(constants.getValidMinimum())) {
-        return true;
+      int comparison;
+      if (value instanceof BigDecimal) {
+        comparison = ((BigDecimal) value)
+            .compareTo(NumberUtils.createBigDecimal(constants.getValidMinimum()));
+      } else if (value instanceof BigInteger) {
+        comparison = ((BigInteger) value)
+            .compareTo(NumberUtils.createBigInteger(constants.getValidMinimum()));
+      } else {
+        if (constants.getValidMinimum().contains(".") || constants.getValidMinimum().contains("e")
+            || constants.getValidMinimum().contains("E")) {
+          comparison = Double.valueOf(value.doubleValue())
+              .compareTo(Double.valueOf(constants.getValidMinimum()));
+        } else {
+          comparison =
+              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMinimum()));
+        }
       }
+      if (comparison < 0) {
+        reporter.addProblem("Field has a value '" + value.toString()
+            + "' that is less than the defined minimum value '" + constants.getValidMinimum()
+            + "'. ");
+      }
+      return comparison == 0;
     }
     return false;
   }
@@ -386,8 +433,10 @@ public class ArrayContentValidator {
     if (objectStats.getMinimum() != null) {
       // Use the compare function in this class to compare between two floats.
       String actual = value.toString(), min = objectStats.getMinimum().toString();
-      if (min.length() < actual.length()) actual = actual.substring(0,min.length());
-      if (value.doubleValue() < objectStats.getMinimum().doubleValue() && compare(actual, min) == -1) {
+      if (min.length() < actual.length())
+        actual = actual.substring(0, min.length());
+      if (value.doubleValue() < objectStats.getMinimum().doubleValue()
+          && compare(actual, min) == -1) {
         String errorMessage =
             tableNameReportStr + " Value is less than the minimum value in the label (min="
                 + objectStats.getMinimum().toString();
@@ -404,8 +453,10 @@ public class ArrayContentValidator {
     if (objectStats.getMaximum() != null) {
       // Use the compare function in this class to compare between two floats.
       String actual = value.toString(), max = objectStats.getMaximum().toString();
-      if (max.length() < actual.length()) actual = actual.substring(0,max.length());
-      if (value.doubleValue() > objectStats.getMaximum().doubleValue() && compare(actual, max) == 1) {
+      if (max.length() < actual.length())
+        actual = actual.substring(0, max.length());
+      if (value.doubleValue() > objectStats.getMaximum().doubleValue()
+          && compare(actual, max) == 1) {
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE,
             tableNameReportStr + "Value is greater than the maximum value in the label (max="
                 + objectStats.getMaximum().toString() + ", actual=" + value.toString() + ").",
@@ -492,7 +543,7 @@ public class ArrayContentValidator {
    * @param message The message to record.
    * @param location The array location associated with the message.
    */
-  private void addArrayProblem(ExceptionType exceptionType, ProblemType problemType, String message,
+  void addArrayProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       ArrayLocation location) {
     // LOG.debug("addArrayProblem: message [{}]",message);
     listener.addProblem(new ArrayContentProblem(exceptionType, problemType, message,
