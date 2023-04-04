@@ -31,9 +31,9 @@ class CountingAppender implements Appender {
   @Override
   public void doAppend(LoggingEvent event) {
     Level level = event.getLevel();
-    if (level == Level.ERROR) this.err++;
-    if (level == Level.FATAL) this.fatal++;
-    if (level == Level.WARN) this.warn++;
+    if (Level.ERROR.equals(level)) this.err++;
+    if (Level.FATAL.equals(level)) this.fatal++;
+    if (Level.WARN.equals(level)) this.warn++;
   }
   @Override
   public String getName() {
