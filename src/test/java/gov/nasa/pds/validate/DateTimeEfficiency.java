@@ -15,6 +15,5 @@ public class DateTimeEfficiency {
     } catch (Exception e) {
       System.err.println("Complete and utter failure.");
     }
-  }
-
+  } 
 }
