@@ -92,6 +92,51 @@
           },
           {
                "name": [
+                    "SURFACE STEREO IMAGER"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ssi.phx::1.0"
+          },
+          {
+               "name": [
+                    "Canberra Deep Space Communications Complex"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.canberra::1.0"
+          },
+          {
+               "name": [
+                    "IJIRAQ"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.ijiraq::1.1"
+          },
+          {
+               "name": [
+                    "2004 PX107"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_px107::1.0"
+          },
+          {
+               "name": [
+                    "(26308) 1998 SM165"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.26308_1998_sm165::1.0"
+          },
+          {
+               "name": [
                     "116P/WILD 4"
                ],
                "type": [
@@ -2292,6 +2337,15 @@
           },
           {
                "name": [
+                    "GEMINI MULTI-OBJECT SPECTROGRAPH - NORTH (GMOS-N)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gemini_north-maunakea.8m1.gmos_n::1.0"
+          },
+          {
+               "name": [
                     "ION COMPOSITION INSTRUMENT"
                ],
                "type": [
@@ -3679,15 +3733,6 @@
           },
           {
                "name": [
-                    "ALMA RADIO RECEIVERS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:eso-chajnantor.alma.alma_radio_receiver::1.0"
-          },
-          {
-               "name": [
                     "21P/GIACOBINI-ZINNER"
                ],
                "type": [
@@ -4183,6 +4228,15 @@
           },
           {
                "name": [
+                    "European Southern Observatory - Chajnantor"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.eso-chajnantor::1.0"
+          },
+          {
+               "name": [
                     "(13782) 1998 UM18"
                ],
                "type": [
@@ -4369,15 +4423,6 @@
                     "PHOTOMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.primo_1::1.0"
-          },
-          {
-               "name": [
-                    "XAS SPECTRA OF SYNTHESIZED GLASSES"
-               ],
-               "type": [
-                    "Individual Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:individual.xas_synthesized_glasses::1.0"
           },
           {
                "name": [
@@ -4678,15 +4723,6 @@
           },
           {
                "name": [
-                    "European Southern Observatory - Chajnantor"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.eso-chajnantor::1.0"
-          },
-          {
-               "name": [
                     "SURFACE SCIENCE PACKAGE"
                ],
                "type": [
@@ -4936,15 +4972,6 @@
                     "SPECTROMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.mirsi::1.0"
-          },
-          {
-               "name": [
-                    "GEMINI MULTI-OBJECT SPECTROGRAPH - SOUTH (GMOS-S)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gemini-south.8m1.gmos-s::1.0"
           },
           {
                "name": [
@@ -5866,6 +5893,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.216_kleopatra::1.1"
+          },
+          {
+               "name": [
+                    "ESO BOLLER AND CHIVENS SPECTROGRAPH"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:eso-la_silla.1m52.bcspectrograph::1.0"
           },
           {
                "name": [
@@ -7067,6 +7103,15 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.1m52::1.1"
+          },
+          {
+               "name": [
                     "(13331) 1998 SU52"
                ],
                "type": [
@@ -7163,15 +7208,6 @@
                     "MAGNETOMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:fgm.jno::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:gemini_north-maunakea.8m1::1.0"
           },
           {
                "name": [
@@ -9553,15 +9589,6 @@
           },
           {
                "name": [
-                    "BEAMLINE 13-ID-E"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:aps.beamline13ide::1.0"
-          },
-          {
-               "name": [
                     "C/2003 A2 (GLEASON)"
                ],
                "type": [
@@ -10742,6 +10769,15 @@
           },
           {
                "name": [
+                    "Advanced Photon Source"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.aps::1.0"
+          },
+          {
+               "name": [
                     "Mars Atmosphere and Volatile Evolution (MAVEN)"
                ],
                "type": [
@@ -10757,15 +10793,6 @@
                     "ATMOSPHERIC SCIENCES"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:rss.mo::1.0"
-          },
-          {
-               "name": [
-                    "Advanced Photon Source"
-               ],
-               "type": [
-                    "Laboratory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:laboratory.aps::1.0"
           },
           {
                "name": [
@@ -10874,6 +10901,15 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.saturn.kari::1.1"
+          },
+          {
+               "name": [
+                    "Gemini North Observatory"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.gemini_north-maunakea::1.0"
           },
           {
                "name": [
@@ -11906,15 +11942,6 @@
           },
           {
                "name": [
-                    "GEMINI MULTI-OBJECT SPECTROGRAPH - NORTH (GMOS-N)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gemini_north-maunakea.8m1.gmos_n::1.0"
-          },
-          {
-               "name": [
                     "DEEP IMPACT MEDIUM RESOLUTION INSTRUMENT - VISIBLE CCD"
                ],
                "type": [
@@ -12825,15 +12852,6 @@
           },
           {
                "name": [
-                    "Gemini North Observatory"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.gemini_north-maunakea::1.0"
-          },
-          {
-               "name": [
                     "C/1979 M1 (BRADFIELD)"
                ],
                "type": [
@@ -13573,15 +13591,6 @@
           },
           {
                "name": [
-                    "(16684) 1994 JQ1"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.16684_1994_jq1::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -14056,6 +14065,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:siding_spring.uppsala0m5::1.0"
+          },
+          {
+               "name": [
+                    "BEAMLINE 13-ID-E"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:aps.beamline13ide::1.0"
           },
           {
                "name": [
@@ -14950,51 +14968,6 @@
           },
           {
                "name": [
-                    "SURFACE STEREO IMAGER"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ssi.phx::1.0"
-          },
-          {
-               "name": [
-                    "Canberra Deep Space Communications Complex"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.canberra::1.0"
-          },
-          {
-               "name": [
-                    "IJIRAQ"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.ijiraq::1.1"
-          },
-          {
-               "name": [
-                    "2004 PX107"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_px107::1.0"
-          },
-          {
-               "name": [
-                    "(26308) 1998 SM165"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.26308_1998_sm165::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -15019,6 +14992,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "(16684) 1994 JQ1"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.16684_1994_jq1::1.0"
           },
           {
                "name": [
@@ -18616,15 +18598,6 @@
           },
           {
                "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:eso-chajnantor.alma::1.0"
-          },
-          {
-               "name": [
                     "C/1987 F1 (TORRES)"
                ],
                "type": [
@@ -20524,6 +20497,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:canberra.dss45_34m::1.0"
+          },
+          {
+               "name": [
+                    "ALMA RADIO RECEIVERS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:eso-chajnantor.alma.alma_radio_receiver::1.0"
           },
           {
                "name": [
@@ -22465,6 +22447,15 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-chajnantor.alma::1.0"
+          },
+          {
+               "name": [
                     "Trent Environmental Wind Tunnel Laboratory"
                ],
                "type": [
@@ -22733,6 +22724,15 @@
                     "SPECTROGRAPH"
                ],
                "lidvid": "urn:esa:psa:context:instrument:iue.lwp::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:gemini_north-maunakea.8m1::1.0"
           },
           {
                "name": [
@@ -24371,15 +24371,6 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.1m52::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
                "lidvid": "urn:nasa:pds:context:telescope:amos.aeos::0.0"
           },
           {
@@ -24826,6 +24817,15 @@
           },
           {
                "name": [
+                    "GEMINI MULTI-OBJECT SPECTROGRAPH - SOUTH (GMOS-S)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gemini-south.8m1.gmos-s::1.0"
+          },
+          {
+               "name": [
                     "DEEP IMPACT IMPACTOR TARGETING SENSOR - VISIBLE CCD"
                ],
                "type": [
@@ -25066,6 +25066,15 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.spitzer::1.0"
+          },
+          {
+               "name": [
+                    "XAS SPECTRA OF SYNTHESIZED GLASSES"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.xas_synthesized_glasses::1.0"
           },
           {
                "name": [
