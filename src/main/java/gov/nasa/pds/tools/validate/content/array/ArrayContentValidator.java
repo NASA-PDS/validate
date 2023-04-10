@@ -252,6 +252,16 @@ public class ArrayContentValidator {
           LOG.warn("validatePosition:Unhandled dataType {}", dataType);
           break;
       }
+    } catch (ArrayIndexOutOfBoundsException aiobe) {
+      String message = "No message specified, but probably index out of range. Report this message to have it fixed (have original exception given a message)";
+      if (aiobe.getMessage() != null)
+        message = aiobe.getMessage();
+      throw new IOException(message);
+    } catch (IllegalArgumentException iae) {
+      String message = "No message specified, but probably wrong number of dimensions. Report this message to have it fixed (have original exception given a message)";
+      if (iae.getMessage() != null)
+        message = iae.getMessage();
+      throw new IOException(message);
     } catch (Exception ee) {
       String loc = Arrays.toString(location.getLocation());
       if (location.getLocation().length > 1) {
