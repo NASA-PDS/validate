@@ -74,6 +74,7 @@ jobs:
                     assembly: unstable
                     maven-doc-phases: package,site,site:stage,-DskipTests
                     maven-unstable-artifact-phases: clean,site,deploy,-DskipTests
+                    packages: openjdk11-jdk
                 env:
                     ossrh_username: ${{secrets.OSSRH_USERNAME}}
                     ossrh_password: ${{secrets.OSSRH_PASSWORD}}
