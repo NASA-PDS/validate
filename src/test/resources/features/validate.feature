@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#616
+|"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
+
 # Validate#611
 |"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 errors expected" | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
 

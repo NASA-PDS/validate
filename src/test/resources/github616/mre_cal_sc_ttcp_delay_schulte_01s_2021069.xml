@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://psa.esa.int/psa/v1/PDS4_PSA_1F00_1301.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://psa.esa.int/psa/bc/v1/PDS4_BC_1F00_1101.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://psa.esa.int/psa/bc/mpo/mre/v1/PDS4_BC_MPO_MRE_1F00_1001.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:psa="http://psa.esa.int/psa/v1" xmlns:bc_mpo_mre="http://psa.esa.int/psa/bc/mpo/mre/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd    http://psa.esa.int/psa/v1 https://psa.esa.int/psa/v1/PDS4_PSA_1F00_1301.xsd    http://psa.esa.int/psa/bc/v1 https://psa.esa.int/psa/bc/v1/PDS4_BC_1F00_1101.xsd    http://psa.esa.int/psa/bc/mpo/mre/v1 https://psa.esa.int/psa/bc/mpo/mre/v1/PDS4_BC_MPO_MRE_1F00_1001.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:esa:psa:bc_mpo_more:data_calibrated:mre_cal_sc_ttcp_delay_schulte_01s_2021069</logical_identifier>
+    <version_id>0.1</version_id>
+    <title>BepiColombo Calibrated TDM Data Container for period 2021-03-10, 07:34 - 2021-03-10, 13:34</title>
+    <information_model_version>1.15.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2023-03-29</modification_date>
+        <version_id>0.1</version_id>
+        <description>This is the first version of this product - Creation date: 2023-03-29, 15:29 - Creation software version: v1.0</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-03-10T07:34:55.500Z</start_date_time>
+      <stop_date_time>2021-03-10T13:34:59.500Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <Science_Facets>
+        <wavelength_range nilReason="inapplicable" xsi:nil="true"/>
+        <domain>Interior</domain>
+        <discipline_name>Radio Science</discipline_name>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>BepiColombo</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:esa:psa:context:investigation:mission.bc</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>BepiColombo MPO-MORE</name>
+      <Observing_System_Component>
+        <name>Mercury Planetary Orbiter</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mpo</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>MORE</name>
+        <type>Instrument</type>
+        <description>Mercury Orbiter RadioScience Experiment</description>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:instrument:mpo.more</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>NON SCIENCE</name>
+      <type>Calibrator</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:calibrator.non_science</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <psa:Mission_Information>
+        <psa:mission_phase_name>Cruise</psa:mission_phase_name>
+        <psa:mission_phase_identifier>cruise</psa:mission_phase_identifier>
+        <psa:start_orbit_number>0</psa:start_orbit_number>
+        <psa:stop_orbit_number>0</psa:stop_orbit_number>
+      </psa:Mission_Information>
+      <psa:Processing_Context>
+        <psa:processing_software_title>more_raw2cal</psa:processing_software_title>
+        <psa:processing_software_version>1.0</psa:processing_software_version>
+      </psa:Processing_Context>
+      <bc_mpo_mre:Data_Content>
+        <bc_mpo_mre:data_type>doppler</bc_mpo_mre:data_type>
+        <bc_mpo_mre:data_format>TDM</bc_mpo_mre:data_format>
+        <bc_mpo_mre:frequency_band>x-x</bc_mpo_mre:frequency_band>
+      </bc_mpo_mre:Data_Content>
+    </Mission_Area>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:esa:psa:bc_mpo_more:browse_calibrated:mre_cal_sc_browse_ttcp_delay_schulte_01s_2021069</lid_reference>
+      <reference_type>data_to_browse</reference_type>
+    </Internal_Reference>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:esa:psa:bc_mpo_more:data_raw:mre_raw_sc_mg11_bepi_2021_069_cl_d1_210304_0000_x-x::0.1</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:esa:psa:bc_mpo_more:data_raw:mre_raw_sc_mg11_bepi_2021_069_cl_d2_210304_0000_x-k::0.1</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+    </Source_Product_Internal>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>mre_cal_sc_ttcp_delay_schulte_01s_2021069.aux</file_name>
+      <creation_date_time>2023-03-29T15:29:21Z</creation_date_time>
+      <file_size unit="byte">901</file_size>
+      <md5_checksum>5fa2b743881cca250140f47e5876bd1d</md5_checksum>
+    </File>
+    <Table_Delimited>
+      <name>doppler_1_header</name>
+      <offset unit="byte">282</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>20</fields>
+        <groups>0</groups>
+        <maximum_record_length unit="byte">294</maximum_record_length>
+        <Field_Delimited>
+          <name>Measurement</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TIME_SYSTEM</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>START_TIME</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>STOP_TIME</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PARTICIPANT_1</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PARTICIPANT_2</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MODE</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PATH</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TRANSMIT_BAND</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>RECEIVE_BAND</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TURNAROUND_NUMERATOR</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TURNAROUND_DENOMINATOR</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TIMETAG_REF</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>INTEGRATION_INTERVAL</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>INTEGRATION_REF</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>FREQ_OFFSET</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TRANSMIT_DELAY_1</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TRANSMIT_DELAY_2</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>RECEIVE_DELAY_1</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>RECEIVE_DELAY_2</name>
+          <field_number>20</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>---</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+    <Table_Character>
+      <name>doppler_1_data-transmit_freq_1</name>
+      <offset unit="byte">595</offset>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>2</fields>
+        <groups>0</groups>
+        <record_length unit="byte">48</record_length>
+        <Field_Character>
+          <name>sample_time</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>Timestamp of the current sample [YYYY-DOYThh:mm:ss.ffff]</description>
+        </Field_Character>
+        <Field_Character>
+          <name>doppler</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">24</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>Doppler observable</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+    <Table_Character>
+      <name>doppler_1_data-receive_freq_1</name>
+      <offset unit="byte">661</offset>
+      <records>5</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>2</fields>
+        <groups>0</groups>
+        <record_length unit="byte">48</record_length>
+        <Field_Character>
+          <name>sample_time</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>Timestamp of the current sample [YYYY-DOYThh:mm:ss.ffff]</description>
+        </Field_Character>
+        <Field_Character>
+          <name>doppler</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">24</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>Doppler observable</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>mre_cal_sc_ttcp_delay_schulte_01s_2021069.kvn</file_name>
+      <creation_date_time>2023-03-29T15:29:21Z</creation_date_time>
+      <file_size unit="byte">1478</file_size>
+      <md5_checksum>349f08f7dd6872b23e7ef8ff13b27d56</md5_checksum>
+    </File>
+    <Stream_Text>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>
