@@ -47,6 +47,8 @@ public class CommandLineInterface {
   public int process(String[] args)
       throws IOException, ParseException, ParserConfigurationException, SAXException {
     int cylinders = 1;
+    CountingAppender counter = new CountingAppender();
+    Logger.getRootLogger().addAppender(counter);
     CommandLine cl = new DefaultParser().parse(this.opts, args);
     if (cl.hasOption('h')) {
       this.help();
@@ -72,7 +74,7 @@ public class CommandLineInterface {
         throw new ParseException("The thread count must be an integer greater than 0.");
       }
     } else
-      log.info("lidvids will be sequentially processed.");
+      this.log.info("lidvids will be sequentially processed.");
 
     this.log.info("Starting the reference integrity checks.");
     try {
@@ -83,20 +85,22 @@ public class CommandLineInterface {
       broken = engine.getBroken();
       total = engine.getTotal();
     } catch (IOException e) {
-      log.fatal("Cannot process request because of IO problem.", e);
+      this.log.fatal("Cannot process request because of IO problem.", e);
       throw e;
     } catch (ParserConfigurationException e) {
-      log.fatal("Could not parse the harvest configuration file.", e);
+      this.log.fatal("Could not parse the harvest configuration file.", e);
       throw e;
     } catch (SAXException e) {
-      log.fatal("Mal-formed harvest configuration file.", e);
+      this.log.fatal("Mal-formed harvest configuration file.", e);
       throw e;
     }
     if (-1 < this.total) {
       this.log.info("Summary:");
       this.log.info("   " + this.total + " products processed");
-      this.log.info("   " + this.broken + " errors");
-      this.log.info("   " + (cl.hasOption("A") ? "0" : "1") + " warnings");
+      this.log.info("   " + this.broken + " missing references");
+      this.log.info("   " + counter.getNumberOfFatals() + " fatals");
+      this.log.info("   " + (counter.getNumberOfErrors() - broken) + " errors not including missing references");
+      this.log.info("   " + counter.getNumberOfWarnings() + " warnings");
     }
     return this.broken == 0 ? 0 : 1;
   }
