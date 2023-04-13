@@ -1,19 +1,41 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-03-22)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-04-13)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...«unknown»)
 
 **Requirements:**
 
+- As a user, I want to validate all products referenced from a collection exist within the archive [\#596](https://github.com/NASA-PDS/validate/issues/596)
+- As a user, I want to validate all collections referenced from a bundle exist within the archive [\#595](https://github.com/NASA-PDS/validate/issues/595)
+- As a user, I want validate to throw an error when a collection inventory contains an invalid secondary product reference [\#462](https://github.com/NASA-PDS/validate/issues/462)
+- As a user, I want to validate all internal references to products in the PDS archive are valid [\#415](https://github.com/NASA-PDS/validate/issues/415)
+- As a user, I want to validate all internal references from one product to another exist within the archive [\#316](https://github.com/NASA-PDS/validate/issues/316)
 - As a user, I want to execute content validation against every nth file [\#1](https://github.com/NASA-PDS/validate/issues/1)
+
+**Improvements:**
+
+- Create command-line script to wrap the new registry referential integrity checker [\#601](https://github.com/NASA-PDS/validate/issues/601)
+- Update ArrayObject exceptions to enable improved error messaging [\#567](https://github.com/NASA-PDS/validate/issues/567)
+- Scaled value min/max error does not display scaled value [\#434](https://github.com/NASA-PDS/validate/issues/434)
 
 **Defects:**
 
+- verbosity flag does not appear to output INFO messages [\#620](https://github.com/NASA-PDS/validate/issues/620) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not correctly validate byte offsets to data objects [\#616](https://github.com/NASA-PDS/validate/issues/616) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Missing validation of valid\_maximum and valid\_minimum from Special\_Constants [\#611](https://github.com/NASA-PDS/validate/issues/611) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate does not maintain history of other versions it comes across as it traverses directories causing erroneous WARNING messages [\#597](https://github.com/NASA-PDS/validate/issues/597) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Regression in validate no longer enabling CRLF to be embedded within a Table\_Character record [\#593](https://github.com/NASA-PDS/validate/issues/593) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate should throw record length error when record delimiter does not occur in correct location [\#519](https://github.com/NASA-PDS/validate/issues/519) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not catch NaNs in Binary Tables [\#514](https://github.com/NASA-PDS/validate/issues/514) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+**Other closed issues:**
+
+- Update to use non-zero exit code if any ERROR in execution [\#622](https://github.com/NASA-PDS/validate/issues/622)
+- Improve new referential integrity checker timeout tolerance [\#619](https://github.com/NASA-PDS/validate/issues/619)
+- Add unit tests to support registry referential integrity checker tool [\#603](https://github.com/NASA-PDS/validate/issues/603)
+- Add summary to report to referential integrity execution [\#602](https://github.com/NASA-PDS/validate/issues/602)
 
 ## [v3.1.1](https://github.com/NASA-PDS/validate/tree/v3.1.1) (2023-01-03)
 
