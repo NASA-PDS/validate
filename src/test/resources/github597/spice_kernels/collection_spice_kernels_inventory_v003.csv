@@ -1,0 +1,13 @@
+S,urn:nasa:pds:mars2020.spice:spice_kernels:sclk_m2020_168_sclkscet_00007.tsc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:sclk_m2020_168_sclkscet_refit_v01.tsc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:sclk_m2020_168_sclkscet_refit_v02.tsc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_ra_tlmres_0000_0089_v1.bc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_ra_tlmres_0089_0179_v1.bc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_rover_tlm_0000_0089_v1.bc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_rover_tlm_0089_0179_v1.bc::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:mk_m2020::1.0
+S,urn:nasa:pds:mars2020.spice:spice_kernels:mk_m2020::2.0
+P,urn:nasa:pds:mars2020.spice:spice_kernels:sclk_m2020_168_sclkscet_refit_v03.tsc::1.0
+P,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_ra_tlmres_0179_0299_v1.bc::1.0
+P,urn:nasa:pds:mars2020.spice:spice_kernels:ck_m2020_surf_rover_tlm_0179_0299_v1.bc::1.0
+P,urn:nasa:pds:mars2020.spice:spice_kernels:mk_m2020::3.0

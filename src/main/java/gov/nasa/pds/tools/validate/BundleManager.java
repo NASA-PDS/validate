@@ -503,6 +503,7 @@ public class BundleManager {
                   "Skipping " + target.getUrl() + " due to version not latest version"),
               target.getUrl());
           BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+          SkippedItems.getInstance().add(target.getUrl());
         } catch (Exception e) {
           LOG.error(
               "buildBundleIgnoreList:Cannot build ValidationProblem object or report skip file: {}",
@@ -738,6 +739,7 @@ public class BundleManager {
                         + " due to collection not latest or does not sharing the same logical_identifier as the bundle target"),
                     target.getUrl());
                 BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+                SkippedItems.getInstance().add(target.getUrl());
               } catch (Exception e) {
                 LOG.error(
                     "findOtherCollectionFiles:Cannot build ValidationProblem object or report skip file: {}",
@@ -804,6 +806,7 @@ public class BundleManager {
                     + target.getUrl() + " due to not being selected as the bundle target"),
                 target.getUrl());
             BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+            SkippedItems.getInstance().add(target.getUrl());
           } catch (Exception e) {
             LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",
                 target.getUrl());

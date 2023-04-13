@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020.spice</logical_identifier>
+    <version_id>2.0</version_id>
+    <title>Mars 2020 Perseverance Rover Mission SPICE Kernel Archive Bundle</title>
+    <information_model_version>1.5.0.0</information_model_version>
+    <product_class>Product_Bundle</product_class>
+    <Citation_Information>
+      <author_list>Costa Sitja M.; Semenov B. V.; Barnes M. J.</author_list>
+      <publication_year>2021</publication_year>
+      <keyword>Observation Geometry</keyword>
+      <description>This bundle contains Mars 2020 Perseverance Rover Mission SPICE kernels and related documentation.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2020-07-30T12:51:34Z</start_date_time>
+      <stop_date_time>2021-08-22T03:10:00Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Observation Geometry</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020 Perseverance Rover Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>bundle_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Mars 2020 Perseverance Rover</name>
+        <type>Spacecraft</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MARS</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>bundle_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020.spice:document:spiceds</lid_reference>
+      <reference_type>bundle_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <Bundle>
+    <bundle_type>Archive</bundle_type>
+    <description>This bundle contains Mars 2020 Perseverance Rover Mission SPICE kernels and related documentation.</description>
+  </Bundle>
+  <File_Area_Text>
+    <File>
+      <file_name>readme.txt</file_name>
+      <creation_date_time>2021-11-19T07:20:24</creation_date_time>
+      <file_size unit="byte">1365</file_size>
+      <md5_checksum>03fb547e38c7f87d33d48123ae01d8b2</md5_checksum>
+    </File>
+    <Stream_Text>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Text>
+  <Bundle_Member_Entry>
+    <lidvid_reference>urn:nasa:pds:mars2020.spice:spice_kernels::2.0</lidvid_reference>
+    <member_status>Primary</member_status>
+    <reference_type>bundle_has_spice_kernel_collection</reference_type>
+  </Bundle_Member_Entry>
+  <Bundle_Member_Entry>
+    <lidvid_reference>urn:nasa:pds:mars2020.spice:document::1.0</lidvid_reference>
+    <member_status>Secondary</member_status>
+    <reference_type>bundle_has_document_collection</reference_type>
+  </Bundle_Member_Entry>
+</Product_Bundle>
