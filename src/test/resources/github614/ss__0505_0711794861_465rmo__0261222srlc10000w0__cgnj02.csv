@@ -1,0 +1,14 @@
+LASER_SHOT_POSITIONS
+Image_name,Position_index,x,y
+SC0_0505_0711794873_375ECM_N0261222SRLC10000_0000LUJ02.IMG,0,807.988,663.451
+WAVELENGTH_REGIONS
+Column_index,Wavelength_start,Wavelength_stop
+0,250.900,254.900
+1,257.100,262.100
+2,267.000,283.000
+3,270.000,310.000
+4,293.000,333.000
+5,310.000,350.000
+SPECTRAL_INTENSITY
+Position_index,Spectral_intensity_0,Spectral_intensity_1,Spectral_intensity_2,Spectral_intensity_3,Spectral_intensity_4,Spectral_intensity_5
+0,102067.500,-50867.500,2491825.930,2624011.120,-359132.390,-508259.340

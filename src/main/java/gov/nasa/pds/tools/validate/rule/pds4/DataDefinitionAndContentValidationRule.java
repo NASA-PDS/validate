@@ -4,6 +4,9 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,7 +58,9 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
 
       URL previousDataFile = null;
       EveryNCounter.getInstance().increment();
-      for (DataObject obj : label.getObjects()) {
+      List<DataObject> offsetSorted = new ArrayList<DataObject>(label.getObjects());
+      Collections.sort(offsetSorted, new DataObjectCompareViaOffset());
+      for (DataObject obj : offsetSorted) {
         objectIdentifier = getObjectIdentifier(obj);
         LOG.debug("Checking DataObject #{} '{}'", objectCounter, obj.getName());
 

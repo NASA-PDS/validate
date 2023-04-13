@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- MIPL PDS4 Velocity templates version: 8b7fe906a081fcabe0699b376cac54e77617b9a2 -->
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1G00_1210.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1G00_1220.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+    xmlns:img_surface="http://pds.nasa.gov/pds4/img_surface/v1" 
+    xmlns:mars2020="http://pds.nasa.gov/pds4/mission/mars2020/v1" 
+    xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1" 
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="   http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd   http://pds.nasa.gov/pds4/proc/v1 https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1G00_1210.xsd      http://pds.nasa.gov/pds4/msn_surface/v1 https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1G00_1220.xsd   http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1960.xsd   http://pds.nasa.gov/pds4/mission/mars2020/v1 https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Mars2020 SHERLOC_SPEC RMO Observational Product - ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02 </title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Alias_List>
+      <Alias>
+        <alternate_id>SS__0505_0711794861_465RMO__0261222SRLC10000W0__CGNJ02</alternate_id>
+        <comment>VICAR PRODUCT_ID</comment>
+      </Alias>
+    </Alias_List>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-10-04</modification_date>
+        <version_id>1.0</version_id>
+        <description>
+            This version_id matches the Mars 2020 internal processing version 
+            number, which provides consistency and tracability across both ops 
+            and archive products.  Lower-numbered versions of this product thus 
+            may not be present in this collection.  The collection inventory 
+            lists all the versions of this product in the collection.
+            </description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-07-22T20:55:04.217Z</start_date_time>
+      <stop_date_time>2022-07-22T20:55:14.754Z</stop_date_time>
+      <local_mean_solar_time>18:48:09.325</local_mean_solar_time>
+      <local_true_solar_time>18:34:11</local_true_solar_time>
+      <solar_longitude unit="deg">271.013</solar_longitude>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Mars2020</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+        <comment>This is the PDS4 logical identifier for the Mars2020 Mission.</comment>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Mars 2020</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+          <comment>This is the PDS4 logical identifier for the Mars 2020 spacecraft.</comment>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Sherloc Deep Uv Resonance Raman And Flourescence Spectrometer</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mars2020.sherloc</lid_reference>
+          <reference_type>is_instrument</reference_type>
+          <comment>This is the PDS4 logical identifier for the Sherloc Deep Uv Resonance Raman And Flourescence Spectrometer onboard the Mars 2020 spacecraft.</comment>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+        <comment>This is the PDS4 logical identifier for the planet - mars.</comment>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <mars2020:Mars2020_Parameters>
+        <mars2020:Observation_Information>
+          <mars2020:release_number>0005</mars2020:release_number>
+          <mars2020:mission_phase_name>Surface Mission</mars2020:mission_phase_name>
+          <mars2020:spacecraft_clock_start>711794860.304</mars2020:spacecraft_clock_start>
+          <mars2020:spacecraft_clock_stop>711795383.937</mars2020:spacecraft_clock_stop>
+          <mars2020:spacecraft_clock_partition>1</mars2020:spacecraft_clock_partition>
+          <mars2020:sol_number>505</mars2020:sol_number>
+          <mars2020:start_local_mean_solar_time>Sol-00505M18:48:09.325</mars2020:start_local_mean_solar_time>
+          <mars2020:start_local_true_solar_time>18:34:11</mars2020:start_local_true_solar_time>
+          <mars2020:start_solar_longitude unit="deg">271.013</mars2020:start_solar_longitude>
+          <mars2020:active_flight_computer>A</mars2020:active_flight_computer>
+        </mars2020:Observation_Information>
+        <mars2020:SHERLOC_Parameters>
+          <mars2020:Calibration_Target>
+            <mars2020:calibration_target_number>1</mars2020:calibration_target_number>
+            <mars2020:calibration_target_name>AlGaN on Sapphire Raman Region</mars2020:calibration_target_name>
+          </mars2020:Calibration_Target>
+        </mars2020:SHERLOC_Parameters>
+      </mars2020:Mars2020_Parameters>
+    </Mission_Area>
+    <Discipline_Area>
+      <geom:Geometry>
+        <geom:SPICE_Kernel_Files>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>chronos.m2020_ops210303_v1</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+        </geom:SPICE_Kernel_Files>
+        <geom:Geometry_Lander>
+          <geom:geometry_state>Telemetry</geom:geometry_state>
+          <geom:description>Geometry as reported by the spacecraft in telemetry</geom:description>
+          <local_identifier>geom_telemetry_state</local_identifier>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>RSM</geom:device_id>
+            <geom:device_name>REMOTE SENSING MAST</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">3.15461</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.751571</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">3.15909</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.75056</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1e+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+            <geom:Device_Temperature>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>NAVCAM LEFT CAMERA PLATE</geom:index_id>
+                <geom:index_value_temperature unit="degC">-53.5585</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>NAVCAM RIGHT CAMERA PLATE</geom:index_id>
+                <geom:index_value_temperature unit="degC">-55.0543</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+            </geom:Device_Temperature>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>CHASSIS</geom:device_id>
+            <geom:device_name>MOBILITY CHASSIS</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT FRONT WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0.000127832</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT FRONT WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.000127832</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT REAR WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.000127832</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT REAR WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.000298274</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT BOGIE</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.0828415</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT BOGIE</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.00499235</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT DIFFERENTIAL</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.0399085</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT DIFFERENTIAL</geom:index_id>
+                <geom:index_value_angle unit="rad">0.0541304</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT FRONT WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT FRONT WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT MIDDLE WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT MIDDLE WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT REAR WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT REAR WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>HGA</geom:device_id>
+            <geom:device_name>HIGH GAIN ANTENNA</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH</geom:index_id>
+                <geom:index_value_angle unit="rad">1.13443</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.784997</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>rover_mech_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_MECH_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1222</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>118</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>354</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>78</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>588</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>162</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>42</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">68.4117</geom:x_position>
+              <geom:y_position unit="m">-21.7435</geom:y_position>
+              <geom:z_position unit="m">-11.5649</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.582892</geom:qcos>
+              <geom:qsin1>-0.0864987</geom:qsin1>
+              <geom:qsin2>0.0897991</geom:qsin2>
+              <geom:qsin3>-0.802927</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>SITE_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Sun_Find</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>rsm_head_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>RSM_HEAD_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1222</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>118</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>354</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>78</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>588</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>162</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>42</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">0.805035</geom:x_position>
+              <geom:y_position unit="m">0.559442</geom:y_position>
+              <geom:z_position unit="m">-1.91903</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.913783</geom:qcos>
+              <geom:qsin1>-0.00237156</geom:qsin1>
+              <geom:qsin2>-0.406183</geom:qsin2>
+              <geom:qsin3>-0.00320995</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <Local_Internal_Reference>
+                <local_identifier_reference>rover_mech_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier_reference>
+                <local_reference_type>to_reference_coordinate_space</local_reference_type>
+              </Local_Internal_Reference>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Unknown</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>arm_turret_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ARM_TURRET_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1222</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>118</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>354</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>78</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>588</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>162</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>42</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">2.379</geom:x_position>
+              <geom:y_position unit="m">0.215744</geom:y_position>
+              <geom:z_position unit="m">-0.686046</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.359546</geom:qcos>
+              <geom:qsin1>-0.240703</geom:qsin1>
+              <geom:qsin2>-0.696058</geom:qsin2>
+              <geom:qsin3>0.572968</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <Local_Internal_Reference>
+                <local_identifier_reference>rover_mech_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier_reference>
+                <local_reference_type>to_reference_coordinate_space</local_reference_type>
+              </Local_Internal_Reference>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Unknown</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>tool_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>TOOL_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1222</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>118</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>354</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>78</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>588</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>162</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>42</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">2.28444</geom:x_position>
+              <geom:y_position unit="m">0.230807</geom:y_position>
+              <geom:z_position unit="m">-0.360399</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.623163</geom:qcos>
+              <geom:qsin1>0.20207</geom:qsin1>
+              <geom:qsin2>-0.708239</geom:qsin2>
+              <geom:qsin3>0.263121</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <Local_Internal_Reference>
+                <local_identifier_reference>rover_mech_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier_reference>
+                <local_reference_type>to_reference_coordinate_space</local_reference_type>
+              </Local_Internal_Reference>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Unknown</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>arm_sherloc_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ARM_SHERLOC_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>26</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1222</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>118</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>354</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>78</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>588</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>162</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>42</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">2.28444</geom:x_position>
+              <geom:y_position unit="m">0.230807</geom:y_position>
+              <geom:z_position unit="m">-0.360399</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.623163</geom:qcos>
+              <geom:qsin1>0.20207</geom:qsin1>
+              <geom:qsin2>-0.708239</geom:qsin2>
+              <geom:qsin3>0.263121</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <Local_Internal_Reference>
+                <local_identifier_reference>rover_mech_frame_26_1222_118_354_0_78_588_162_42_0</local_identifier_reference>
+                <local_reference_type>to_reference_coordinate_space</local_reference_type>
+              </Local_Internal_Reference>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Unknown</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Motion_Counter>
+            <geom:name>RMC</geom:name>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SITE</geom:index_id>
+              <geom:index_value_number>26</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRIVE</geom:index_id>
+              <geom:index_value_number>1222</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>POSE</geom:index_id>
+              <geom:index_value_number>118</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>ARM</geom:index_id>
+              <geom:index_value_number>354</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SHA</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRILL</geom:index_id>
+              <geom:index_value_number>78</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>RSM</geom:index_id>
+              <geom:index_value_number>588</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>HGA</geom:index_id>
+              <geom:index_value_number>162</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>BITCAR</geom:index_id>
+              <geom:index_value_number>42</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SEAL</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+          </geom:Motion_Counter>
+        </geom:Geometry_Lander>
+      </geom:Geometry>
+      <msn_surface:Surface_Mission_Information>
+        <msn_surface:Command_Execution>
+          <msn_surface:sequence_id>srlc10000</msn_surface:sequence_id>
+          <msn_surface:sequence_version_id>3</msn_surface:sequence_version_id>
+          <msn_surface:sequence_execution_count>1</msn_surface:sequence_execution_count>
+          <msn_surface:command_sequence_number>18</msn_surface:command_sequence_number>
+          <msn_surface:command_dispatch_sclk>711794859.14641</msn_surface:command_dispatch_sclk>
+          <msn_surface:request_id>0</msn_surface:request_id>
+          <msn_surface:boot_counter>2686</msn_surface:boot_counter>
+        </msn_surface:Command_Execution>
+        <msn_surface:Telemetry>
+          <msn_surface:application_id>669</msn_surface:application_id>
+          <msn_surface:application_name>SrlcSpecSpecSohRaw</msn_surface:application_name>
+          <msn_surface:provider_id>MPCS_M2020_DP</msn_surface:provider_id>
+          <msn_surface:flight_software_version_id>442959749</msn_surface:flight_software_version_id>
+          <msn_surface:telemetry_source_name>SrlcSpecSpecSohRaw_0711794860-30431-1.dat</msn_surface:telemetry_source_name>
+          <msn_surface:transport_protocol>Data Product</msn_surface:transport_protocol>
+          <msn_surface:communication_session_id>45051</msn_surface:communication_session_id>
+          <msn_surface:telemetry_source_start_time>2022-203T20:55:04.217Z</msn_surface:telemetry_source_start_time>
+          <msn_surface:telemetry_source_sclk_start>711794860.304</msn_surface:telemetry_source_sclk_start>
+          <msn_surface:product_completion_status>COMPLETE_CHECKSUM_PASS</msn_surface:product_completion_status>
+          <msn_surface:earth_received_start_date_time>2022-07-23T00:51:27.765Z</msn_surface:earth_received_start_date_time>
+          <msn_surface:earth_received_stop_date_time>2022-07-23T00:57:06.445Z</msn_surface:earth_received_stop_date_time>
+          <msn_surface:download_priority>30</msn_surface:download_priority>
+          <msn_surface:data_size>30192</msn_surface:data_size>
+          <msn_surface:expected_packets>5</msn_surface:expected_packets>
+          <msn_surface:received_packets>5</msn_surface:received_packets>
+          <msn_surface:telemetry_source_host_name>m20-sops-control-1</msn_surface:telemetry_source_host_name>
+          <msn_surface:expected_transmission_path>128</msn_surface:expected_transmission_path>
+          <msn_surface:transmission_path>0</msn_surface:transmission_path>
+          <msn_surface:flight_software_mode>SURFACE_NOMINAL</msn_surface:flight_software_mode>
+          <msn_surface:telemetry_source_size>30192</msn_surface:telemetry_source_size>
+          <msn_surface:telemetry_source_checksum>3399</msn_surface:telemetry_source_checksum>
+          <msn_surface:auto_delete_flag>false</msn_surface:auto_delete_flag>
+          <msn_surface:virtual_channel_id>0</msn_surface:virtual_channel_id>
+        </msn_surface:Telemetry>
+        <msn_surface:Observational_Intent>
+          <msn_surface:activity_id>0</msn_surface:activity_id>
+        </msn_surface:Observational_Intent>
+      </msn_surface:Surface_Mission_Information>
+      <proc:Processing_Information>
+        <Local_Internal_Reference>
+          <local_identifier_reference>ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02</local_identifier_reference>
+          <local_reference_type>processing_information_to_data_object</local_reference_type>
+        </Local_Internal_Reference>
+        <proc:Process>
+          <proc:process_owner_institution_name>SHERLOC iSDS, JET PROPULSION LABORATORY</proc:process_owner_institution_name>
+          <proc:Software>
+            <proc:Software_Program>
+              <proc:name>iSDS SHERLOC PGE SOFTWARE</proc:name>
+              <proc:program_version>v1.6.8</proc:program_version>
+              <proc:description>RDR GENERATION VIA JPL iSDS PGE RDR GENERATION SOFTWARE</proc:description>
+            </proc:Software_Program>
+          </proc:Software>
+        </proc:Process>
+      </proc:Processing_Information>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:document:sherloc_bundle_sis</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:document:sherloc_edr_sis</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:document:sherloc_rdr_sis</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rcs__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rli__0261222srlc10000_0_____j.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rlp__0261222srlc10000_0_____j.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_raw:sc0_0505_0711794873_375rld_n0261222srlc10000_0__0luj.csv</lid_reference>
+      <reference_type>data_to_raw_product</reference_type>
+      <comment>Reference pointer to the raw product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_raw:sc0_0505_0711794880_433rlc_n0261222srlc10000_0__0luj.csv</lid_reference>
+      <reference_type>data_to_raw_product</reference_type>
+      <comment>Reference pointer to the raw product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm1__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm2__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm3__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm4__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm5__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rm6__0261222srlc10000w0__cgnj.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_sherloc:data_processed:ss__0505_0711794861_465rls__0261222srlc10000_0_____j.csv</lid_reference>
+      <reference_type>data_to_calibrated_product</reference_type>
+      <comment>Reference pointer to the partially processed product.</comment>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.csv</file_name>
+      <local_identifier>ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02</local_identifier>
+      <creation_date_time>2022-10-04</creation_date_time>
+    </File>
+    <Table_Delimited>
+      <name>LASER SHOT POSITIONS</name>
+      <local_identifier>laser-shot-positions</local_identifier>
+      <offset unit="byte">53</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>Laser shot positions for each ACI image</description>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>4</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Image_name</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The image filename associated with the laser shot locations</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Position_index</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The laser shot number</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>x</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>pixels</unit>
+          <description>The sample number (x value) of the laser shot location on the ACI image</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>y</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>pixels</unit>
+          <description>The line number (y value) of the laser shot location on the ACI image</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+    <Table_Delimited>
+      <name>SPECTRAL INTENSITY</name>
+      <local_identifier>spectral-intensity</local_identifier>
+      <offset unit="byte">474</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>Integrated intensity for a specified, configurable, wavelength range</description>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>7</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Position_index</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The laser shot number</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_0</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_1</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_2</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_3</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_4</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Spectral_intensity_5</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The integrated spectral intensity for the specified wavelength region</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+    <Table_Delimited>
+      <name>WAVELENGTH REGIONS</name>
+      <local_identifier>wavelength-regions</local_identifier>
+      <offset unit="byte">198</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>Configurable wavelength regions to apply spectral integration</description>
+      <records>6</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>3</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Column_index</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The wavelength index associated with the spectral intensity columns in the SPECTRAL_INTENSITY table</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Wavelength_start</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>nm</unit>
+          <description>The starting location of the wavelength region of interest</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Wavelength_stop</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>nm</unit>
+          <description>The end location of the wavelength region of interest</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
