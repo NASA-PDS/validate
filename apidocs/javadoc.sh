@@ -1,1 +1,1 @@
-/usr/lib/jvm/java-1.8-openjdk/jre/../bin/javadoc @options @packages
+/usr/lib/jvm/java-11-openjdk/bin/javadoc @options @packages
