@@ -92,6 +92,42 @@
           },
           {
                "name": [
+                    "D/1993 F2-Q2 (SHOEMAKER-LEVY 9-Q2)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-q2_shoemaker-levy_9-q2::1.0"
+          },
+          {
+               "name": [
+                    "APOLLO 17"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_17::1.1"
+          },
+          {
+               "name": [
+                    "7119 HIERA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.7119_hiera::1.1"
+          },
+          {
+               "name": [
+                    "THEBE"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.thebe::1.1"
+          },
+          {
+               "name": [
                     "SURFACE STEREO IMAGER"
                ],
                "type": [
@@ -13546,51 +13582,6 @@
           },
           {
                "name": [
-                    "42355 TYPHON"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.42355_typhon::1.1"
-          },
-          {
-               "name": [
-                    "81P/WILD 2"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.81p_wild_2::1.0"
-          },
-          {
-               "name": [
-                    "R AQUARII"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.r_aqr::1.0"
-          },
-          {
-               "name": [
-                    "2003 QY90"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_qy90::1.0"
-          },
-          {
-               "name": [
-                    "GAS CHROMATOGRAPH MASS SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gcms.hp::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -14932,42 +14923,6 @@
           },
           {
                "name": [
-                    "D/1993 F2-Q2 (SHOEMAKER-LEVY 9-Q2)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-q2_shoemaker-levy_9-q2::1.0"
-          },
-          {
-               "name": [
-                    "APOLLO 17"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_17::1.1"
-          },
-          {
-               "name": [
-                    "7119 HIERA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.7119_hiera::1.1"
-          },
-          {
-               "name": [
-                    "THEBE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.thebe::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14992,6 +14947,51 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "42355 TYPHON"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.42355_typhon::1.1"
+          },
+          {
+               "name": [
+                    "81P/WILD 2"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.81p_wild_2::1.0"
+          },
+          {
+               "name": [
+                    "R AQUARII"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.r_aqr::1.0"
+          },
+          {
+               "name": [
+                    "2003 QY90"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_qy90::1.0"
+          },
+          {
+               "name": [
+                    "GAS CHROMATOGRAPH MASS SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gcms.hp::1.0"
           },
           {
                "name": [
