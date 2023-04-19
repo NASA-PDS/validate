@@ -1710,7 +1710,7 @@
         that identify and name an object.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element name="logical_identifier" type="pds:logical_identifier" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="logical_id" type="pds:logical_identifier" minOccurs="1" maxOccurs="1"> </xs:element>
       <xs:element name="version_id" type="pds:version_id" minOccurs="1" maxOccurs="1"> </xs:element>
       <xs:element name="title" type="pds:title" minOccurs="1" maxOccurs="1"> </xs:element>
       <xs:element name="information_model_version" type="pds:information_model_version" minOccurs="1" maxOccurs="1"> </xs:element>

@@ -1361,7 +1361,7 @@
   </sch:pattern>
   <sch:pattern>
     <sch:rule context="pds:Observing_System_Component/pds:type">
-      <sch:assert test=". = ('Airborne', 'Aircraft', 'Artificial Illumination', 'Balloon', 'Computer', 'Facility', 'Host', 'Instrument', 'Laboratory', 'Literature Search', 'Naked Eye', 'Observatory', 'Spacecraft', 'Suborbital Rocket', 'Telescope')">
+      <sch:assert test=". = ('Airborne', 'Aircraft', 'Artificial Illumination', 'Balloon', 'Computer', 'Facility', 'Host', 'Instrument', 'Laboratory', 'Literature Search', 'Naked Eye', 'Observatory', 'Suborbital Rocket', 'Telescope')">
         <title>pds:Observing_System_Component/pds:type/pds:type</title>
         The attribute pds:Observing_System_Component/pds:type must be equal to one of the following values 'Airborne', 'Aircraft', 'Artificial Illumination', 'Balloon', 'Computer', 'Facility', 'Host', 'Instrument', 'Laboratory', 'Literature Search', 'Naked Eye', 'Observatory', 'Spacecraft', 'Suborbital Rocket', 'Telescope'.</sch:assert>
     </sch:rule>

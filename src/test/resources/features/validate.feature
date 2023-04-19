@@ -18,6 +18,12 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#611
 |"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 errors expected" | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
 
+# Validate#599
+|"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -R pds4.bundle -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
+|"NASA-PDS/validate#599 Detect Override Schema" | "github599" | 1 | "1 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -R pds4.bundle -x src/test/resources/github599/PDS4_PDS_1I00.xsd -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
+|"NASA-PDS/validate#599 Detect Override Schema" | "github599" | 1 | "1 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_3.json -s json -R pds4.bundle -S src/test/resources/github599/PDS4_PDS_1I00.sch -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_3.json" |
+|"NASA-PDS/validate#599 Detect Override Schema" | "github599" | 2 | "2 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_4.json -s json -R pds4.bundle -S src/test/resources/github599/PDS4_PDS_1I00.sch -x src/test/resources/github599/PDS4_PDS_1I00.xsd -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_4.json" |
+
 # Validate#597
 |"NASA-PDS/validate#597 Success Find Resources in Older/Skipped Bundles/Collections" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github597_1.json -s json -R pds4.bundle -t src/test/resources/github597" | "report_github597_1.json" |
 
