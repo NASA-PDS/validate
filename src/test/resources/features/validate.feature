@@ -12,6 +12,10 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#616
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
 
+# Validate#599
+| "NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -R pds4.bundle -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
+
+
 # Validate#614
 |"NASA-PDS/validate#616 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
 
