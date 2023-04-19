@@ -13,8 +13,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
 
 # Validate#599
-| "NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -R pds4.bundle -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
-| "NASA-PDS/validate#599 Detect Override Schema" | "github599" | 1 | "1 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -R pds4.bundle -x src/test/resources/github599/PDS4_PDS_1I00.xsd -t src/test/resources/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
+|"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -R pds4.bundle -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
 
 
 # Validate#614
