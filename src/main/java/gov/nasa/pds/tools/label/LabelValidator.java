@@ -649,7 +649,7 @@ public class LabelValidator {
             .newSchema(loadSchemaSources(userSchemaFiles).toArray(new StreamSource[0]));
       } else if (resolver == null) {
         LOG.debug("createParserIfNeeded:#00BB8");
-        if (useLabelSchema) {
+        if (useLabelSchema || !VersionInfo.hasSchemaDir()) {
           LOG.debug("createParserIfNeeded:#00BB9");
           validatingSchema = schemaFactory.newSchema();
         } else {

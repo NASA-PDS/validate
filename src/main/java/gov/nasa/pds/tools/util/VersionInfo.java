@@ -88,6 +88,10 @@ public class VersionInfo {
     }
   }
 
+  public static boolean hasSchemaDir() {
+    return schemaDir != null;
+  }
+
   public static String getXMLVersion() {
     return props.getProperty(XML_VERSION);
   }
