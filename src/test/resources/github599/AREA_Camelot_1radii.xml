@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I01.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1900_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xmlns:cart="http://pds.nasa.gov/pds4/cart/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1900_1510.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:moon_lro_lroc_boulderdata_watkins_2018:data:area_camelot_1radii</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Lunar Boulder Data</title>
+    <information_model_version>1.18.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Watkins, Ryan</author_list>
+      <publication_year>2018</publication_year>
+            <doi>10.1029/2019JE005963</doi>
+            <description>Boulder Distributions Around Young, Small Lunar Impact Craters and Implications for Regolith Production Rates and Landing Site Safety, JGR 2019 </description>
+    </Citation_Information>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+<!--RC: validate accepts these two: 
+      <start_date_time>2020Z</start_date_time>
+      <stop_date_time>2022Z</stop_date_time> -->
+<!--RC: validate accepts these two as well -->
+      <start_date_time xsi:nil="true" nilReason="inapplicable"/>
+      <stop_date_time xsi:nil="true" nilReason="inapplicable"/>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <description>A table of lunar boulder locations and descriptions</description>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Lunar Boulder data</name>
+      <type>Individual Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.lunar_reconnaissance_orbiter</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Observing System for LROC data</name>
+      <Observing_System_Component>
+        <name>Lunar Reconnaissance Orbiter</name>
+        <type>Spacecraft</type>
+        <description>The instrument host for this observing system was the Lunar Reconnaissance Orbiter (LRO) spacecraft</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.lro</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lunar Reconnaissance Orbiter Camera</name>
+        <type>Instrument</type>
+        <description>The instrument for this observing component was the Lunar Reconnaissance Orbiter Camera (LROC)</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lroc.lro</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>AREA_Camelot_1radii.csv</file_name>
+    </File>
+    <Table_Delimited>
+      <local_identifier>AREA_Camelot_1radii</local_identifier>
+      <offset unit="byte">20</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>3</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Area</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Real</data_type>
+          <maximum_field_length unit="byte">19</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Area_Name</name>
+          <field_number>2</field_number>
+          <data_type>UTF8_String</data_type>
+          <maximum_field_length unit="byte">30</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>WKT</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_String</data_type>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
