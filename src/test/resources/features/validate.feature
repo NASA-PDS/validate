@@ -14,7 +14,7 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#599
 |"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
-"NASA-PDS/validate#599 Success Override Schema" | "github599" | 1 | "1 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
+"NASA-PDS/validate#599 Success Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
 
 
 # Validate#614
