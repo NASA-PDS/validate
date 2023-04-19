@@ -1,8 +1,16 @@
 # Changelog
 
-## [release/3.2.0](https://github.com/NASA-PDS/validate/tree/release/3.2.0) (2023-04-13)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-04-19)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...release/3.2.0)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
+
+**Improvements:**
+
+- Update datetime regex for content validation [\#608](https://github.com/NASA-PDS/validate/issues/608)
+
+## [v3.2.0](https://github.com/NASA-PDS/validate/tree/v3.2.0) (2023-04-14)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.1.1...v3.2.0)
 
 **Requirements:**
 
