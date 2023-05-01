@@ -66,8 +66,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   /**
    * XPath to the file references within a PDS4 data product label.
    */
-  private final String FILE_OBJECTS_XPATH =
-      "//*[starts-with(name(), 'File_Area')]/File | //Document_File";
   private final String FILE_AREA_OBJECTS_XPATH =
       "//*[starts-with(name(), 'File_Area')]";
 
@@ -214,7 +212,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
           LOG.debug("FileReferenceValidationRule:validate:fileAreaObjects.size() {}",
               fileAreaObjects.size());
           for (TinyNodeImpl fileAreaObject : fileAreaObjects) {
-            String t2 = fileAreaObject.getLocalPart();
             String name = "";
             String checksum = "";
             String directory = "";
@@ -243,7 +240,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             this.fileMapping = new HashMap<>();
             for (TinyNodeImpl child : grandChildren) {
               // Get the value of 'document_standard_id' tag.
-              String nodename = child.getLocalPart();
               if ("document_standard_id".equals(child.getLocalPart())) {
                 documentStandardId = child.getStringValue();
                 this.fileMapping.put(name, documentStandardId);
@@ -305,7 +301,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         } // !getContext().getSkipProductValidation()
       } catch (XPathExpressionException xpe) {
         String message = "Error occurred while evaluating the following xpath expression '"
-            + FILE_OBJECTS_XPATH + "': " + xpe.getMessage();
+            + FILE_AREA_OBJECTS_XPATH + "': " + xpe.getMessage();
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, message);
         getListener().addProblem(new ValidationProblem(def, target));
