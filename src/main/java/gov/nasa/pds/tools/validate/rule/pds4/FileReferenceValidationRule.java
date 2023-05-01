@@ -223,6 +223,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             try {
               if ("Document_File".equals(fileAreaObject.getLocalPart())) {
                 grandChildren = extractor.getNodesFromItem("*", fileAreaObject);
+                fileObject = fileAreaObject;
               } else {
                 List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
                 for (TinyNodeImpl child : children) {

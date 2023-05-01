@@ -10,7 +10,7 @@ Scenario Outline: Execute validate command for tests below.
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
 # Validate#617
-|"NASA-PDS/validate#617 Success File Extension Mismatch" | "github617" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github617.json -s json --skip-content-validation -t {resourceDir}/github617/uvis_euv_2005_159_solar_time_series_ingress.xml" | "report_github617.json" |
+|"NASA-PDS/validate#617 Warning File Extension Mismatch" | "github617" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github617.json -s json --skip-content-validation -t {resourceDir}/github617/uvis_euv_2005_159_solar_time_series_ingress.xml" | "report_github617.json" |
 
 # Validate#616
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
