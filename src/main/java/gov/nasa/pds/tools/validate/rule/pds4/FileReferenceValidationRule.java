@@ -68,6 +68,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    */
   private final String FILE_OBJECTS_XPATH =
       "//*[starts-with(name(), 'File_Area')]/File | //Document_File";
+  private final String FILE_AREA_OBJECTS_XPATH =
+      "//*[starts-with(name(), 'File_Area')]";
 
   private Map<URL, String> checksumManifest;
   private PDFUtil pdfUtil = null; // Define pdfUtil so we can reuse it for every call to
@@ -123,6 +125,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       }
     }
     LOG.debug("validateFileReferences:leaving:uri {}", uri);
+  }
+
+  private void checkExtension(String filename, String encoding) {
+    if (encoding != null && 0 < encoding.length()) {
+      if (filename.contains(".")) {
+        String suffix = filename.substring(filename.lastIndexOf(".")+1);
+      }
+    }
   }
 
   private boolean validate(DocumentInfo xml) {
@@ -200,32 +210,40 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
         // issue_42: Add capability to ignore product-level validation
         if (!getContext().getSkipProductValidation()) {
-          List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(FILE_OBJECTS_XPATH);
-          LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",
-              fileObjects.size());
-          for (TinyNodeImpl fileObject : fileObjects) {
+          List<TinyNodeImpl> fileAreaObjects = extractor.getNodesFromDoc(FILE_AREA_OBJECTS_XPATH);
+          LOG.debug("FileReferenceValidationRule:validate:fileAreaObjects.size() {}",
+              fileAreaObjects.size());
+          for (TinyNodeImpl fileAreaObject : fileAreaObjects) {
+            String t2 = fileAreaObject.getLocalPart();
             String name = "";
             String checksum = "";
             String directory = "";
             String filesize = "";
             String documentStandardId = null;
-            List<TinyNodeImpl> children = new ArrayList<>();
+            String encodingStandardId = null;
+            TinyNodeImpl fileObject = null;
+            List<TinyNodeImpl> grandChildren = new ArrayList<>();
             try {
-              children = extractor.getNodesFromItem("*", fileObject);
+              List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
+              for (TinyNodeImpl child : children) {
+                if ("File".equals(child.getLocalPart()) || "Document_File".equals(child)) fileObject = child;
+                grandChildren.addAll(extractor.getNodesFromItem("*", child));
+              }
             } catch (XPathExpressionException xpe) {
               ProblemDefinition def =
                   new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
                       "Problem occurred while trying to get all the children "
                           + "of the file object node: " + xpe.getMessage());
               getListener()
-                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+                  .addProblem(new ValidationProblem(def, target, fileAreaObject.getLineNumber(), -1));
               return false;
             }
 
             // Get file mapping for handling Document objects
             this.fileMapping = new HashMap<>();
-            for (TinyNodeImpl child : children) {
+            for (TinyNodeImpl child : grandChildren) {
               // Get the value of 'document_standard_id' tag.
+              String nodename = child.getLocalPart();
               if ("document_standard_id".equals(child.getLocalPart())) {
                 documentStandardId = child.getStringValue();
                 this.fileMapping.put(name, documentStandardId);
@@ -272,7 +290,12 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 filesize = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:filesize {}", filesize);
               }
+              if ("encoding_standard_id".equals(child.getLocalPart())) {
+                encodingStandardId = child.getStringValue();
+              }
             } // for (TinyNodeImpl child : children)
+
+            this.checkExtension(name, encodingStandardId);
 
             if (getContext().getCheckData()) {
               validateFileAreaDefinitionAndContent(name, fileObject, checksum, filesize,
