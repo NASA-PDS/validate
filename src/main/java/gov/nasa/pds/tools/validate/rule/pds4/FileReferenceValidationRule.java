@@ -67,7 +67,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    * XPath to the file references within a PDS4 data product label.
    */
   private final String FILE_AREA_OBJECTS_XPATH =
-      "//*[starts-with(name(), 'File_Area')]";
+      "//*[starts-with(name(), 'File_Area')] | //Document_File";
 
   private Map<URL, String> checksumManifest;
   private PDFUtil pdfUtil = null; // Define pdfUtil so we can reuse it for every call to
@@ -221,10 +221,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             TinyNodeImpl fileObject = null;
             List<TinyNodeImpl> grandChildren = new ArrayList<>();
             try {
-              List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
-              for (TinyNodeImpl child : children) {
-                if ("File".equals(child.getLocalPart()) || "Document_File".equals(child)) fileObject = child;
-                grandChildren.addAll(extractor.getNodesFromItem("*", child));
+              if ("Document_File".equals(fileAreaObject.getLocalPart())) {
+                grandChildren = extractor.getNodesFromItem("*", fileAreaObject);
+              } else {
+                List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
+                for (TinyNodeImpl child : children) {
+                  if ("File".equals(child.getLocalPart())) fileObject = child;
+                  grandChildren.addAll(extractor.getNodesFromItem("*", child));
+                }
               }
             } catch (XPathExpressionException xpe) {
               ProblemDefinition def =
