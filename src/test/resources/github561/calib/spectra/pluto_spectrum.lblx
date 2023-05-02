@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_mvic:calibration_files:pluto_spectrum</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Specific Intensity Spectrum of Pluto for Calibration of New Horizons MVIC Instrument Data</title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Ancillary</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    A. Raugh: Migrated from PDS3.
+                </description>                
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Specific Intentsity (Spectral Radiance) Spectrum</description>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>New Horizons Kuiper Belt Extended Mission 1</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation.mission.new_horizons_kem1</lid_reference>
+                <reference_type>ancillary_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Multispectral Visible Imaging Camera (MVIC) for New Horizons</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.mvic</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        
+        <Target_Identification>
+            <name>(134340) Pluto</name>
+            <type>Dwarf Planet</type>
+            <description>
+                (134340) Pluto is the subject of this spectrum, which is derived from: 
+                
+                   Douté, et al. (1999), doi:10.1006/icar.1999.6226
+                   Grundy and Fink (1996), doi:10.1006/icar.1996.0208
+                   Trafton and Stern (1996), doi:10.1086/118092
+                
+                This spectrum is not a product of the New Horizons mission.
+            </description>
+        </Target_Identification>
+    </Context_Area>
+
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:nasa:pds:nh_mvic:calibration_files:stis_solar::1.0</lidvid_reference>
+            <reference_type>ancillary_to_data</reference_type>
+            <comment>
+                This solar spectrum was used in creating the spectrum presented in this product.
+            </comment>
+        </Internal_Reference>
+        <External_Reference>
+            <doi>10.1006/icar.1999.6226</doi>
+            <reference_text>
+                Douté, S., Schmitt, B., Quirico, E., and 5 others, 1999, Evidence for Methane 
+                Segregation at the Surface of Pluto, Icarus 142, 421–444.
+            </reference_text>
+            <description>
+                This spectrum from this publication was used in creating the Pluto spectrum below.
+            </description>
+        </External_Reference>
+        <External_Reference>
+            <doi>10.1006/icar.1996.0208</doi>
+            <reference_text>
+                Grundy, W.M. and Fink, U., 1996, Synoptic CCD Spectrophotometry of Pluto Over 
+                the Past 15 Years, Icarus 124, 329–343.
+            </reference_text>
+            <description>
+                This spectrum from this publication was used in creating the Pluto spectrum below.
+            </description>
+        </External_Reference>
+        <External_Reference>
+            <doi>10.1086/118092</doi>
+            <reference_text>
+                Trafton, L.M. and Stern, S.A., 1996, Rotationally Resolved Spectral Studies 
+                of Pluto From 2500 to 4800 Angstroms Obtained With HST, The Astronomical 
+                Journal 112, 1212.
+            </reference_text>
+            <description>
+                This spectrum from this publication was used in creating the Pluto spectrum below.
+            </description>
+        </External_Reference>
+    </Reference_List>
+    
+    <File_Area_Ancillary>
+        <File>
+            <file_name>pluto_spectrum.tab</file_name>
+            <comment>
+                This file is used in calibrating data from the MVIC instrument.
+                
+                This spectrum is the result of combining an albedo model spectrum for the
+                target and the solar range to the target with the solar flux spectrum.
+                
+                This is the Doute, et al. (1999) 'mcn' model using pure CH4 ice optical        
+                constants instead of diluted optical constants (mainly because the          
+                diluted constants have lousy s/n). That model lacks anything to             
+                produce the reddish slope in the visible, so Will Grundy created a          
+                customized 'tholin' (using artistic license) to match a CCD spectrum        
+                from Grundy and Fink 1996 at wavelengths between 0.5 and 1.0 microns,       
+                and Trafton and Stern 1996 between 0.3 and 0.5 microns.                     
+            </comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>1266</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>2</fields>
+                <groups>0</groups>
+                <record_length unit="byte">28</record_length>
+                
+                <Field_Character>
+                    <name>Wavelength</name>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">13</field_length>
+                    <field_format>%13.7f</field_format>
+                    <unit>micrometer</unit>
+                    <description>
+                        Wavelength, in varying increments, covering the
+                        range 0.3005 - 2.500 microns. 
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Specific Intensity</name>
+                    <field_location unit="byte">15</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%12.7f</field_format>
+                    <unit>W m**-2 micron**-1 sr**-1</unit>
+                    <description>
+                        Specific intensity at the corresponding wavelength.
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Ancillary>
+    
+</Product_Ancillary>

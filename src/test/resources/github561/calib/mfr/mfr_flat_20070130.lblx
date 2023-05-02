@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1I00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/vi"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd
+                       http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1I00_1510.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_mvic:calibration_files:mfr_flat</logical_identifier>
+        <version_id>2.0</version_id>
+        <title>Flat Field for the New Horizons MVIC Instrument Panchromatic Array CCDs with Errors, 2007-01-23 version </title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Ancillary</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>2.0</version_id>
+                <description>
+                    A. Raugh: Migrated from PDS3. This version of the product includes a 
+                              second file with error estimates for each pixel in the 
+                              flat field.
+                              
+                              Note in particular that this version of the field is 
+                              5024x128, rather than 5000x128, as in the v1.0.
+                </description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    A. Raugh: Migrated from PDS3. Note that there are later versions
+                              of this file, used to produce MVIC collections later
+                              in the mission lifetime. Labels for calibrated MVIC
+                              data should reference the specific version used in 
+                              producing that product.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+
+    <Context_Area>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Flat Field</description>
+            <Science_Facets>
+                <wavelength_range>Visible</wavelength_range>
+                <discipline_name>Imaging</discipline_name>
+                <facet1>Grayscale</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>New Horizons Kuiper Belt Extended Mission 1</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation.mission.new_horizons_kem1</lid_reference>
+                <reference_type>ancillary_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Multispectral Visible Imaging Camera (MVIC) for New Horizons</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.mvic</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+       
+    </Context_Area>
+
+<!--
+        <Discipline_Area>
+          <disp:Display_Settings>
+            <Local_Internal_Reference>
+              <local_identifier_reference>FlatField</local_identifier_reference>
+              <local_reference_type>display_settings_to_array</local_reference_type>
+            </Local_Internal_Reference>
+            <disp:Display_Orientation>
+              <disp:comment>This should be the same as for the related data.</disp:comment>
+              <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+              <disp:vertical_display_direction>Bottom to Top<disp:vertical_display_direction>
+            </disp:Display_Orientation>
+          </disp:Display_Settings>
+        </Discipline_Area>
+ -->
+    
+    <File_Area_Ancillary>
+        <File>
+            <file_name>mfr_flat_20070130.fit</file_name>
+            <comment>
+                This file contains the flat field used in calibrating the MVIC 
+                panchromatic image data.
+                
+                The digits in the file name indicate the approximate date (YYYYMMDD)
+                of the delivery of the file for use in pipelines.
+            </comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+        </Header>
+        <Array_2D_Image>
+            <local_identifier>FlatField</local_identifier>
+            <offset unit="byte">2880</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>128</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>5024</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Ancillary>
+
+
+    <File_Area_Ancillary>
+        <File>
+            <file_name>mfr_2percenterr_20070123.fit</file_name>
+            <comment>
+                This file contains error bars for each pixel in the flat field.
+                
+                The digits in the file name indicate the approximate date (YYYYMMDD)
+                of the delivery of the file for use in pipelines.
+            </comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+        </Header>
+        <Array_2D_Image>
+            <local_identifier>ErrorField</local_identifier>
+            <offset unit="byte">2880</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>128</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>5024</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Ancillary>
+    
+</Product_Ancillary>

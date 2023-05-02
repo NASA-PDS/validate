@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_mvic:calibration_files:blue_new_chi</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Full response Quantum Efficiency Table for New Horizons MVIC Instrument Blue Filter</title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Ancillary</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    A. Raugh: Migrated from PDS3. This file supersedes the "blue_qe_times_filter"
+                              table used in the early phases of the mission.
+                </description>                
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Quantum Efficiency (QE)</description>
+            <Science_Facets>
+                <wavelength_range>Visible</wavelength_range>
+                <discipline_name>Imaging</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>New Horizons Kuiper Belt Extended Mission 1</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation.mission.new_horizons_kem1</lid_reference>
+                <reference_type>ancillary_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Multispectral Visible Imaging Camera (MVIC) for New Horizons</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.mvic</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+    </Context_Area>
+    
+    <Reference_List>
+        <External_Reference>
+            <doi>10.1016/j.icarus.2016.12.007</doi>
+            <reference_text>
+                Howett, C.J.A., Parker, A.H., Olkin, C.B., and 35 others, 2017, Inflight radiometric 
+                calibration of New Horizons' Multispectral Visible Imaging Camera (MVIC). 
+                Icarus 287, 140–151.
+            </reference_text>
+            <description>
+                This paper describes the calibration techniques used to derive the data presented
+                in the table.
+            </description>
+        </External_Reference>
+    </Reference_List>
+    
+    <File_Area_Ancillary>
+        <File>
+            <file_name>blue_new_chi.tab</file_name>
+            <comment>
+                This file is used in calibrating data from the blue (400-550nm) channel
+                CCD of the MVIC instrument.
+            </comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>751</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>2</fields>
+                <groups>0</groups>
+                <record_length unit="byte">28</record_length>
+                
+                <Field_Character>
+                    <name>Wavelength</name>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">13</field_length>
+                    <field_format>%13.7f</field_format>
+                    <unit>micrometer</unit>
+                    <description>
+                        Wavelength, in increments of one nanometer per row covering the
+                        range 0.350 - 1.100 microns.
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>QE Full Response</name>
+                    <field_location unit="byte">15</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%12.7f</field_format>
+                    <unit>electron/photon</unit>
+                    <description>
+                        Full response at the corresponding wavelength. This 
+                        includes detecter QE, transmittance of the filter, 
+                        and reflectance of the MVIC beam-splitter and mirrors.
+                        The modeled response for color filters has been limited
+                        to the response of the Panchromatic filters. See 
+                        Howett, et al. (2016) for details.
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Ancillary>
+    
+</Product_Ancillary>

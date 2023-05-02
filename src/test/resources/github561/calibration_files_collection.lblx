@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_mvic:calibration_files</logical_identifier>
+        <version_id>0.1</version_id>
+        <title>Reference Files Used in Calibrating Data from the New Horizons Multispectral Visible Imaging Camera (MVIC)</title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        
+        <Citation_Information>
+            <editor_list>Raugh, Anne C.</editor_list>
+            <publication_year>2022</publication_year>
+            <description>
+                This collection is a migration from PDS3 of the cumulative set of ancillary files (filter
+                curves, reference spectra, etc.) used in calibrating the data sets delivered by the 
+                MVIC instrument over the course of the New Horizons primary and extended missions. 
+                Provenance, as far as it could be determined, is included in the label for each product.
+            </description>
+        </Citation_Information>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>0.1</version_id>
+                <description>
+                    A.C. Raugh:
+                    Drafted the collection label and description from the initial attempt at migrating the
+                    most recent (and thus most complete) calibration file collection for MVIC, from the
+                    KEM1 calibrated observations.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        
+    </Context_Area>
+    
+    <Collection>
+        <collection_type>Calibration</collection_type>
+        <description>
+            This collection contains reference spectra, filter transmission data, and similar ancillary
+            files used in calibrating MVIC. None of these files were produced using MVIC observations.
+            Provenance, as far as it is known, is documented in the label for each product. Versions that
+            were used in ealier mission phase deliveries by supplanted by newer files in later version of
+            the pipeline are retained. Migrated MVIC data will reference the appropriate version of the
+            calibration files used, where applicable.
+        </description>
+    </Collection>
+    
+    <File_Area_Inventory>
+        <File>
+            <file_name>inventory.csv</file_name>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>54</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>
