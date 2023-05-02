@@ -107,6 +107,8 @@ public class FieldValueValidator {
   // https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a
   // bundle with a single-character filename
   // A better pattern allows for at least one character file name.
+  //
+  // https://github.com/NASA-PDS/validate/issues/562 thinks this the wrong regex.
   private static final Pattern asciiFileNamePattern =
       Pattern.compile("[A-Za-z0-9]*[A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
 
