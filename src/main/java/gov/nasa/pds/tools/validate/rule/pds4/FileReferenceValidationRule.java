@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.DocumentUtil;
 import gov.nasa.pds.tools.util.DocumentsChecker;
+import gov.nasa.pds.tools.util.EncodingMimeMapping;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.ImageUtil;
 import gov.nasa.pds.tools.util.LabelParser;
@@ -128,7 +129,25 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   private void checkExtension(String filename, String encoding) {
     if (encoding != null && 0 < encoding.length()) {
       if (filename.contains(".")) {
-        String suffix = filename.substring(filename.lastIndexOf(".")+1);
+        try {
+          EncodingMimeMapping emm = EncodingMimeMapping.find (encoding);
+          String suffix = filename.substring(filename.lastIndexOf(".")+1);
+          if (!emm.contains (suffix)) {
+            this.getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(
+                    ExceptionType.WARNING,
+                    ProblemType.FILE_NAMING_PROBLEM,
+                    "From the encoding type '" + encoding + "'the file extension '" + suffix + "' is not one of the allowed: " + emm.allowed().toString()),
+                this.target));            
+          }
+        } catch (IllegalArgumentException iae) {
+          this.getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(
+                  ExceptionType.ERROR,
+                  ProblemType.INTERNAL_ERROR,
+                  "Could not process the encoding type: " + iae.getMessage()),
+              this.target));
+        }
       }
     }
   }
@@ -219,16 +238,16 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             String documentStandardId = null;
             String encodingStandardId = null;
             TinyNodeImpl fileObject = null;
-            List<TinyNodeImpl> grandChildren = new ArrayList<>();
+            List<TinyNodeImpl> useChildren = new ArrayList<>();
             try {
               if ("Document_File".equals(fileAreaObject.getLocalPart())) {
-                grandChildren = extractor.getNodesFromItem("*", fileAreaObject);
+                useChildren = extractor.getNodesFromItem("*", fileAreaObject);
                 fileObject = fileAreaObject;
               } else {
                 List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
                 for (TinyNodeImpl child : children) {
                   if ("File".equals(child.getLocalPart())) fileObject = child;
-                  grandChildren.addAll(extractor.getNodesFromItem("*", child));
+                  useChildren.addAll(extractor.getNodesFromItem("*", child));
                 }
               }
             } catch (XPathExpressionException xpe) {
@@ -243,11 +262,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
             // Get file mapping for handling Document objects
             this.fileMapping = new HashMap<>();
-            for (TinyNodeImpl child : grandChildren) {
+            for (TinyNodeImpl child : useChildren) {
               // Get the value of 'document_standard_id' tag.
               if ("document_standard_id".equals(child.getLocalPart())) {
                 documentStandardId = child.getStringValue();
                 this.fileMapping.put(name, documentStandardId);
+              }
+              if ("encoding_standard_id".equals(child.getLocalPart())) {
+                encodingStandardId = child.getStringValue();
               }
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
@@ -290,9 +312,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                                                                      // label.
                 filesize = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:filesize {}", filesize);
-              }
-              if ("encoding_standard_id".equals(child.getLocalPart())) {
-                encodingStandardId = child.getStringValue();
               }
             } // for (TinyNodeImpl child : children)
 
