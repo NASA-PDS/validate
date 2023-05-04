@@ -44,7 +44,6 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -74,6 +73,7 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
@@ -106,9 +106,6 @@ public class LabelValidator {
   public static final String SCHEMA_CHECK = "gov.nasa.pds.tools.label.SchemaCheck";
   public static final String SCHEMATRON_CHECK = "gov.nasa.pds.tools.label.SchematronCheck";
 
-  private Pattern bundleLabelPattern;
-  private Pattern collectionLabelPattern;
-
   private List<ExternalValidator> externalValidators;
   private List<DocumentValidator> documentValidators;
   private CachedEntityResolver cachedEntityResolver;
@@ -119,8 +116,6 @@ public class LabelValidator {
   private Schema validatingSchema;
   private SchematronTransformer schematronTransformer;
   private XPathFactory xPathFactory;
-
-  private String labelExtension;
 
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
@@ -178,8 +173,6 @@ public class LabelValidator {
     saxParserFactory.setXIncludeAware(Utility.supportXincludes());
     // The parser doesn't validate - we use a Validator instead.
     saxParserFactory.setValidating(false);
-
-    setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
 
     // Don't add xml:base attributes to xi:include content, or it messes up
     // PDS4 validation.
@@ -328,7 +321,6 @@ public class LabelValidator {
   public synchronized void validate(ProblemHandler handler, URL url, String labelExtension)
       throws SAXException, IOException, ParserConfigurationException, TransformerException,
       MissingLabelSchemaException {
-    this.setLabelExtension(labelExtension);
     this.parseAndValidate(handler, url);
 
   }
@@ -363,18 +355,13 @@ public class LabelValidator {
       // filename.
       // The file name should be enough to know if it is a bundle or a collection.
       validateAgainstSchematronFlag = false;
-      Matcher matcher = null;
-      LOG.info("determineSchematronValidationFlag: {}", bundleLabelPattern);
-      matcher = this.bundleLabelPattern.matcher(FilenameUtils.getName(url.toString()));
-      if (matcher.matches()) {
+      if (AggregateManager.isBundle(url)) {
         // File is indeed a bundle.
         validateAgainstSchematronFlag = true;
-      } else {
-        // File is not a bundle, check if a collection.
-        matcher = this.collectionLabelPattern.matcher(FilenameUtils.getName(url.toString()));
-        if (matcher.matches()) {
-          validateAgainstSchematronFlag = true;
-        }
+      }
+      // File is not a bundle, check if a collection.
+      if (!validateAgainstSchematronFlag && AggregateManager.isCollection(url)) {
+        validateAgainstSchematronFlag = true;
       }
     }
     LOG.debug("determineSchematronValidationFlag:url,validateAgainstSchematronFlag {},{}", url,
@@ -968,28 +955,6 @@ public class LabelValidator {
 
   public void setCachedLSResourceResolver(CachedLSResourceResolver resolver) {
     this.cachedLSResolver = resolver;
-  }
-
-  public void setLabelExtension(String extension) {
-    this.labelExtension = extension;
-  }
-
-  public Pattern getBundleLabelPattern() {
-    return bundleLabelPattern;
-  }
-
-  public void setBundleLabelPattern(Pattern bundleLabelPattern) {
-    LOG.info("setBundleLabelPattern: {}", bundleLabelPattern);
-    this.bundleLabelPattern = bundleLabelPattern;
-  }
-
-  public Pattern getCollectionLabelPattern() {
-    return collectionLabelPattern;
-  }
-
-  public void setCollectionLabelPattern(Pattern collectionLabelPattern) {
-    LOG.info("setCollectionLabelPattern: {}", collectionLabelPattern);
-    this.collectionLabelPattern = collectionLabelPattern;
   }
 
   public static void main(String[] args) throws Exception {
