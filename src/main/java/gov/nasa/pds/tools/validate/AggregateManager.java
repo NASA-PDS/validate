@@ -29,6 +29,7 @@ import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.validate.report.Report;
+import net.sf.saxon.trans.UncheckedXPathException;
 import net.sf.saxon.trans.XPathException;
 
 /**
@@ -860,7 +861,7 @@ public class AggregateManager {
       XMLExtractor xml = new XMLExtractor(target);
       String value = xml.getValueFromDoc("/*/Identification_Area/product_class");
       matches = class_name.equals (value);
-    } catch (XPathException | XPathExpressionException e) {
+    } catch (UncheckedXPathException | XPathException | XPathExpressionException e) {
       // if not an XML file, then cannot have a ProductType so must be false
       // therefore ignore these errors
     }
