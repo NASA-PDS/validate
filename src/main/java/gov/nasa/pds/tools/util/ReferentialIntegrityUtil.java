@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.regex.Matcher;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -29,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -51,7 +51,7 @@ public class ReferentialIntegrityUtil {
   private static ArrayList<String> lidOrLidVidReferencesCumulative = new ArrayList<>(0);
   private static HashMap<String, HashSetReferenceInfo> contextReferencesCumulative =
       new HashMap<>(0); // Collect all references defined in "Context_Area" tag from all labels.
-  private static HashMap<String, HashSet> bundleOrCollectionReferenceMap = new HashMap<>(); // Collect
+  private static HashMap<String, HashSet> bundleOrCollectionReferenceMap = new HashMap<String, HashSet>(); // Collect
                                                                                             // all
                                                                                             // references
                                                                                             // defined
@@ -65,7 +65,7 @@ public class ReferentialIntegrityUtil {
                                                                                             // is
                                                                                             // a
                                                                                             // bundle.
-  private static HashMap<String, HashSetReferenceInfo> bundleReferenceMap = new HashMap<>(); // Collect
+  private static HashMap<String, HashSetReferenceInfo> bundleReferenceMap = new HashMap<String, HashSetReferenceInfo>(); // Collect
                                                                                              // all
                                                                                              // references
                                                                                              // defined
@@ -717,9 +717,7 @@ public class ReferentialIntegrityUtil {
 
           // Check to see if the label is collection or a bundle (instead of regular
           // label).
-          Matcher matcherBundleCollection =
-              getContext().getBundleLabelPattern().matcher(FilenameUtils.getName(child.toString()));
-          if (matcherBundleCollection.matches()) {
+          if (AggregateManager.isBundle(child.getUrl())) {
             // Save the URL of the bundle to be used to report the error.
             ReferentialIntegrityUtil.parentBundleURL = url;
             LOG.debug("crawlParentForBundleLabel:BUNDLE_LABEL_FOUND_TRUE:parentBundleURL,url {},{}",
@@ -816,16 +814,12 @@ public class ReferentialIntegrityUtil {
 
           // Check to see if the label is collection or a bundle (instead of regular
           // label).
-          Matcher matcherBundleCollection =
-              getContext().getBundleLabelPattern().matcher(FilenameUtils.getName(child.toString()));
-          if (matcherBundleCollection.matches()) {
+          if (AggregateManager.isBundle(child.getUrl())) {
             labelIsBundleFlag = true;
             // Save the URL of the bundle to be used to report the error.
             ReferentialIntegrityUtil.parentBundleURL = url;
           }
-          matcherBundleCollection = getContext().getCollectionLabelPattern()
-              .matcher(FilenameUtils.getName(child.toString()));
-          if (matcherBundleCollection.matches()) {
+          if (AggregateManager.isCollection (child.getUrl())) {
             labelIsCollectionFlag = true;
           }
 

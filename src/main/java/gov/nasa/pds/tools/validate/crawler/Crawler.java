@@ -68,9 +68,9 @@ public abstract class Crawler {
     return crawl(url, getDirectories, this.fileFilter);
   }
 
-  public List<Target> crawl(URL url, String[] extensions, boolean getDirectories, String nameToken)
+  public List<Target> crawl(URL url, String[] extensions, boolean getDirectories)
       throws IOException {
-    return crawl(url, extensions, getDirectories, nameToken);
+    return crawl(url, extensions, getDirectories);
   }
 
   public abstract List<Target> crawl(URL url, boolean getDirectories, IOFileFilter fileFilter)

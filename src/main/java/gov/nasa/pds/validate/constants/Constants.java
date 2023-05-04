@@ -44,8 +44,6 @@ public final class Constants {
    */
   public static final String BUNDLE_LABEL_PATTERN_STRING = "(.*)bundle(.*)\\.";
   public static final String COLLECTION_LABEL_PATTERN_STRING = "(.*)collection(.*)\\.";
-  public static final String COLLECTION_NAME_TOKEN = "collection";
-  public static final String BUNDLE_NAME_TOKEN = "bundle";
   public static final String DEFAULT_LABEL_EXTENSION = "xml"; // Used to look for label files. Note
                                                               // that the extension
                                                               // does not contain the dot.

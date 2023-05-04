@@ -97,13 +97,10 @@ public class BundleContentsNamingRule extends AbstractValidationRule {
 
   private Pattern[] getFileNamePatterns() {
     // Add bundle string
-    Pattern[] patterns = {};
+    Pattern[] patterns = new Pattern[ALLOWED_FILE_NAMES.length];
     for (int i = 0; i < ALLOWED_FILE_NAMES.length; ++i) {
       patterns[i] = Pattern.compile(ALLOWED_FILE_NAMES[i]);
     }
-
-    patterns[patterns.length] = getContext().getBundleLabelPattern();
     return patterns;
   }
-
 }

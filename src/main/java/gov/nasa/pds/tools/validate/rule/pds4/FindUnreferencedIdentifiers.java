@@ -15,12 +15,10 @@ package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -41,8 +39,6 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
   // 'collection'.
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
-
-  private Pattern collectionLabelPattern;
 
   @Override
   public boolean isApplicable(String location) {
@@ -89,9 +85,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
             location, found, this.filesProcessed);
         if (!found) {
           String memberType = "collection";
-          Matcher matcher =
-              getContext().getCollectionLabelPattern().matcher(FilenameUtils.getName(location));
-          if (matcher.matches()) {
+          if (AggregateManager.isCollection(locationUrl)) {
             memberType = "bundle";
           }
           LOG.debug("findUnreferencedIdentifiers:id,location,memberType: {},{},{}", id, location,

@@ -33,9 +33,9 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.TargetType;
 import gov.nasa.pds.tools.validate.ValidationTarget;
-import gov.nasa.pds.validate.constants.Constants;
 
 /**
  * Utility class.
@@ -285,13 +285,11 @@ public class Utility {
     if (isDir(url)) {
       return TargetType.DIRECTORY;
     }
-
-    String path = url.getPath().toLowerCase();
-    if (path.contains(Constants.COLLECTION_NAME_TOKEN)) {
-      return TargetType.COLLECTION;
-    }
-    if (path.contains(Constants.BUNDLE_NAME_TOKEN)) {
+    if (AggregateManager.isBundle (url)) {
       return TargetType.BUNDLE;
+    }
+    if (AggregateManager.isCollection (url)) {
+      return TargetType.COLLECTION;
     }
     return TargetType.FILE;
   }
