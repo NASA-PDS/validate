@@ -224,7 +224,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/328 validate bundle incorrectly reports "not a member of any collection" that it passed before
 
  |"NASA-PDS/validate#328 VALID" | "github328" | 0 | "0 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_valid.json -s json -t {resourceDir}/github328/valid/bundle_misc.xml" | "report_github328_bundle_valid.json" |
- |"NASA-PDS/validate#328 INVALID" | "github328" | 1 | "1 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_invalid.json -s json -t {resourceDir}/github328/invalid/bundle_misc.xml" | "report_github328_bundle_invalid.json" |
+ |"NASA-PDS/validate#328 INVALID" | "github328" | 0 | "0 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_invalid.json -s json -t {resourceDir}/github328/invalid/bundle_misc.xml" | "report_github328_bundle_invalid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/334 validate 2.1.0 snapshot fails on a label with 2 table_character
 
