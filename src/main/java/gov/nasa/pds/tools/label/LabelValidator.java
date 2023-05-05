@@ -383,20 +383,20 @@ public class LabelValidator {
     return (validateAgainstSchematronFlag);
   }
 
-  private void checkSchemaSchematronVersions (ProblemHandler handler, URL url) {
+  private void checkSchemaSchematronVersions(ProblemHandler handler, URL url) {
     try {
-      List<String> specifiedSchema=null, specifiedSchematron=null;
+      List<String> specifiedSchema = null, specifiedSchematron = null;
       XMLExtractor sourceXML = new XMLExtractor(url);
       String xmlns = sourceXML.getSchemaLocation();
       specifiedSchematron = sourceXML.getXmlModels();
-      if (xmlns != null && 0 < xmlns.strip().length()) specifiedSchema = Arrays.asList(xmlns.split("\\s"));
+      if (xmlns != null && 0 < xmlns.strip().length())
+        specifiedSchema = Arrays.asList(xmlns.split("\\s"));
       if (specifiedSchema == null || specifiedSchema.size() == 0) {
-        handler.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.SCHEMA_WARNING,  "Cannot check versioning because no Schema given."),
-            url));
+        handler.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+            ProblemType.SCHEMA_WARNING, "Cannot check versioning because no Schema given."), url));
       } else if (specifiedSchematron == null || specifiedSchematron.size() == 0) {
-        handler.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.SCHEMATRON_WARNING,  "Cannot check versioning because no Schematron given."),
+        handler.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+            ProblemType.SCHEMATRON_WARNING, "Cannot check versioning because no Schematron given."),
             url));
       } else {
         Set<String> schemas = new HashSet<String>();
@@ -404,9 +404,10 @@ public class LabelValidator {
         for (String schema : specifiedSchema) {
           try {
             URL schemaURL = new URL(schema);
-            String schemaName = Paths.get(schemaURL.getPath()).getFileName().toString().toLowerCase();
+            String schemaName =
+                Paths.get(schemaURL.getPath()).getFileName().toString().toLowerCase();
             if (schemaName.endsWith(".xsd")) {
-              schemaName = schemaName.substring(0, schemaName.length()-4);
+              schemaName = schemaName.substring(0, schemaName.length() - 4);
               schemas.add(schemaName);
             }
           } catch (MalformedURLException e) {
@@ -416,12 +417,13 @@ public class LabelValidator {
         for (String model : specifiedSchematron) {
           for (String part : model.split("\\s")) {
             if (part.toLowerCase().startsWith("href")) {
-              String modelHREF = part.substring(part.indexOf('"')+1, part.lastIndexOf('"'));
+              String modelHREF = part.substring(part.indexOf('"') + 1, part.lastIndexOf('"'));
               try {
                 URL schematronURL = new URL(modelHREF);
-                String schematronName = Paths.get(schematronURL.getPath()).getFileName().toString().toLowerCase();
+                String schematronName =
+                    Paths.get(schematronURL.getPath()).getFileName().toString().toLowerCase();
                 if (schematronName.endsWith(".sch")) {
-                  schematronName = schematronName.substring(0, schematronName.length()-4);
+                  schematronName = schematronName.substring(0, schematronName.length() - 4);
                   schematrons.add(schematronName);
                 }
               } catch (MalformedURLException e) {
@@ -437,15 +439,16 @@ public class LabelValidator {
         if (0 < uniqueSchema.size() + uniqueSchematron.size()) {
           handler.addProblem(new ValidationProblem(
               new ProblemDefinition(ExceptionType.WARNING, ProblemType.SCHEMA_WARNING,
-                  "The schema version(s) " + uniqueSchema.toString() +
-                  " does/do not match the schematron version(s) " + uniqueSchematron.toString() + "."),
+                  "The schema version(s) " + uniqueSchema.toString().toUpperCase()
+                      + " does/do not match the schematron version(s) "
+                      + uniqueSchematron.toString().toUpperCase() + "."),
               url));
         }
       }
-    }
-    catch (XPathException | XPathExpressionException e) {
+    } catch (XPathException | XPathExpressionException e) {
       handler.addProblem(new ValidationProblem(
-          new ProblemDefinition(ExceptionType.WARNING, ProblemType.MISSING_REQUIRED_RESOURCE,  "Cannot check versioning because XML could not be parsed."),
+          new ProblemDefinition(ExceptionType.WARNING, ProblemType.MISSING_REQUIRED_RESOURCE,
+              "Cannot check versioning because XML could not be parsed."),
           url));
     }
   }
