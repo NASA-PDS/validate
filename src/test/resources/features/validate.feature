@@ -9,6 +9,10 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+
+# Validate#617
+|"NASA-PDS/validate#617 Warning File Extension Mismatch" | "github617" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github617.json -s json --skip-content-validation -t {resourceDir}/github617/uvis_euv_2005_159_solar_time_series_ingress.xml" | "report_github617.json" |
+
 # Validate#628
 |"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
 
