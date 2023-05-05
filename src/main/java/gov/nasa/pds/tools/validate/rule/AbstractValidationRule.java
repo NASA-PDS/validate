@@ -112,8 +112,6 @@ public abstract class AbstractValidationRule implements ValidationRule {
     newContext.setSkipProductValidation(context.getSkipProductValidation());
     newContext.setLabelExtension(context.getLabelExtension());
     newContext.setLabelPattern(context.getLabelPattern());
-    newContext.setBundleLabelPattern(context.getBundleLabelPattern());
-    newContext.setCollectionLabelPattern(context.getCollectionLabelPattern());
     newContext.setLastDirectoryFlag(context.isLastDirectory());
 
     return newContext;

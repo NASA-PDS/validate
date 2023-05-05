@@ -41,65 +41,28 @@ public class FileCrawler extends Crawler {
   }
 
   private List<Target> refinedFoundList(Collection<File> collections, URL fileUrl, File directory,
-      boolean getDirectories, String nameToken, boolean ignoreCaseFlag) throws IOException {
+      boolean getDirectories, boolean ignoreCaseFlag) throws IOException {
     // Given a list of file names found, refine the list (ignoring any files that
     // should be ignore).
     // or the file name matching any specified nameToken value, e.g 'bundle' is in
     // bundle_kaguya_derived.xml file
     LOG.debug(
-        "refinedFoundList:directory,fileUrl,getDirectories,nameToken,collections.size() {},{},{},{},{}",
-        directory, fileUrl, getDirectories, nameToken, collections.size());
-    LOG.debug("refinedFoundList:fileUrl,nameToken,ignoreCaseFlag {},{},{}", fileUrl, nameToken,
-        ignoreCaseFlag);
+        "refinedFoundList:directory,fileUrl,getDirectories,nameToken,collections.size() {},{},{},{}",
+        directory, fileUrl, getDirectories, collections.size());
+    LOG.debug("refinedFoundList:fileUrl,nameToken,ignoreCaseFlag {},{}", fileUrl, ignoreCaseFlag);
     HashSet<Target> results = new HashSet<>();
 
     for (File file : collections) {
-      // Keep the file if it contains a token.
-      if (nameToken != null) {
-        // Compare differently if the flag ignoreCaseFlag is true
-        boolean fileNameContainsTokenFlag = false;
-        if (ignoreCaseFlag) {
-          fileNameContainsTokenFlag =
-              file.getName().toLowerCase().contains(nameToken.toLowerCase());
-        } else {
-          fileNameContainsTokenFlag = file.getName().contains(nameToken);
-        }
-
-        if (fileNameContainsTokenFlag) {
-          LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]", directory,
-              file.getName(), nameToken);
-          results.add(new Target(file.toURI().toURL(), false));
-        }
-      } else {
-        LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]",
-            directory.getName(), file, nameToken);
-        results.add(new Target(file.toURI().toURL(), file.isDirectory()));
-      }
+      LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}]",
+          directory.getName(), file);
+      results.add(new Target(file.toURI().toURL(), file.isDirectory()));
     }
 
     // Visit sub-directories if the recurse flag is set
     LOG.debug("refinedFoundList:getDirectories {}", getDirectories);
     if (getDirectories) {
       for (File dir : Arrays.asList(directory.listFiles(directoryFilter))) {
-        // Keep the file if it contains a token.
-        if (nameToken != null) {
-          // Compare differently if the flag ignoreCaseFlag is true
-          boolean fileNameContainsTokenFlag = false;
-          if (ignoreCaseFlag) {
-            fileNameContainsTokenFlag =
-                dir.getName().toLowerCase().contains(nameToken.toLowerCase());
-          } else {
-            fileNameContainsTokenFlag = dir.getName().contains(nameToken);
-          }
-
-          if (fileNameContainsTokenFlag) {
-            LOG.debug("refinedFoundList:ADDING_FILE:directory,file,nameToken {},[{}],[{}]",
-                directory, dir.getName(), nameToken);
-            results.add(new Target(dir.toURI().toURL(), true));
-          }
-        } else {
-          results.add(new Target(dir.toURI().toURL(), dir.isDirectory()));
-        }
+         results.add(new Target(dir.toURI().toURL(), dir.isDirectory()));
       }
     }
     LOG.debug("refinedFoundList:directory,fileUrl,results.size() {},{},{}", directory, fileUrl,
@@ -127,10 +90,9 @@ public class FileCrawler extends Crawler {
   }
 
   private List<Target> refinedFoundList(Collection<File> collections, URL fileUrl, File directory,
-      boolean getDirectories, String nameToken) throws IOException {
+      boolean getDirectories) throws IOException {
     // If the last parameter ignoreCaseFlag is not provided, make it 'true'.
-    return (this.refinedFoundList(collections, fileUrl, directory, getDirectories, nameToken,
-        true));
+    return (this.refinedFoundList(collections, fileUrl, directory, getDirectories, true));
   }
 
   /**
@@ -160,7 +122,7 @@ public class FileCrawler extends Crawler {
         fileFilter, this.fileFilter);
 
     Collection<File> collections = FileUtils.listFiles(directory, fileFilter, null);
-    results = this.refinedFoundList(collections, fileUrl, directory, getDirectories, null);
+    results = this.refinedFoundList(collections, fileUrl, directory, getDirectories);
 
     return results;
   }
@@ -180,13 +142,13 @@ public class FileCrawler extends Crawler {
    * @throws IOException
    */
   public List<Target> crawl(URL fileUrl, String[] extensions, boolean getDirectories,
-      String nameToken, boolean ignoreCaseFlag) throws IOException {
+      boolean ignoreCaseFlag) throws IOException {
     File directory = FileUtils.toFile(fileUrl);
     LOG.debug(
-        "SPECIAL_CRAWL:crawl:directory,fileUrl,extensions,getDirectories,nameToken {},{},{},{},{}",
-        directory, fileUrl, extensions, getDirectories, nameToken);
-    LOG.debug("SPECIAL_CRAWL:crawl:fileUrl,extensions,nameToken,ignoreCaseFlag {},{},{},{}",
-        fileUrl, extensions, nameToken, ignoreCaseFlag);
+        "SPECIAL_CRAWL:crawl:directory,fileUrl,extensions,getDirectories,nameToken {},{},{},{}",
+        directory, fileUrl, extensions, getDirectories);
+    LOG.debug("SPECIAL_CRAWL:crawl:fileUrl,extensions,nameToken,ignoreCaseFlag {},{},{}",
+        fileUrl, extensions, ignoreCaseFlag);
 
     if (!directory.isDirectory()) {
       LOG.error("Input file is not a directory: " + directory);
@@ -194,7 +156,7 @@ public class FileCrawler extends Crawler {
     }
     Collection<File> collections = FileUtils.listFiles(directory, extensions, false);
     List<Target> results = this.refinedFoundList(collections, fileUrl, directory, getDirectories,
-        nameToken, ignoreCaseFlag);
+        ignoreCaseFlag);
     return results;
   }
 
@@ -204,18 +166,14 @@ public class FileCrawler extends Crawler {
    * @param fileUrl File url.
    * @param extensions The file matching file a list of file extensions.
    * @param getDirectories Flag if True will crawl next sub directory.
-   * @param nameToken The substring will be searched for in the file names. Note that the search
-   *        will be done in all lower cased.
    *
    * @return A list of files and sub-directories (if found and if getSubDirectories flag is 'true').
    * @throws IOException
    */
   @Override
-  public List<Target> crawl(URL fileUrl, String[] extensions, boolean getDirectories,
-      String nameToken) throws IOException {
+  public List<Target> crawl(URL fileUrl, String[] extensions, boolean getDirectories) throws IOException {
     // If the last parameter ignoreCaseFlag is not provided, make it 'true'.
-    LOG.debug("SPECIAL_CRAWL_TOP_LEVEL:fileUrl,extensions,nameToken {},{},{}", fileUrl, extensions,
-        nameToken);
-    return (this.crawl(fileUrl, extensions, getDirectories, nameToken, true));
+    LOG.debug("SPECIAL_CRAWL_TOP_LEVEL:fileUrl,extensions,nameToken {},{}", fileUrl, extensions);
+    return (this.crawl(fileUrl, extensions, getDirectories, true));
   }
 }

@@ -1,0 +1,46 @@
+New Horizons MVIC Calibration Reference Files - Overview
+========================================================
+
+Content
+-------
+This collection contains ancillary files used in the calibration of data 
+from the Multispectral Visible Imaging Camera (MVIC) instrument for all
+phases of the New Horizons primary and extended missions.
+
+These files are not the result of MVIC observations. They consist of
+filter transmittance curves, reference spectra from the literature, 
+flat fields, and similar products derived from the literature, 
+ground testing, and so on.
+
+Some products appear in multiple versions as a result of improvements
+in calibration algorithms and pipline processing over the course of 
+the missions. For these product lines, the calibrated data will reference
+the specific version of the product in this collection that was used in
+its production. So while some of these files were "superseded" in terms
+of what was used in later versions of the pipeline, they are not 
+"superseded" in an archival sense because they are applicable to the
+data produced using them.
+
+The provenance for each ancillary file, as far as it is could be determined,
+is included in the label for each product. The files were presumably 
+collected by the MVIC team, but no attribution was provided in the PDS3 
+data. The PDS4 migration was performed by SBN personnel, who are credited as 
+editor of this collection.
+
+PDS3 to PDS4 Migration Notes
+----------------------------
+The PDS3 versions of these calibration files were duplicated cumulatively 
+in every MVIC PDS3 dataset archived. For the migrated PDS4 archive, only
+a single instance of each version of each file was retained. Errors 
+associated with flat fields but provided in separate files are included as 
+part of the PDS4 flat field product, where they exist. 
+                    
+In addition, references were tracked down, DOIs added, and provenance 
+information supplied (where it could be found) for each of the files in
+this collection. The PDS3 labels, which contained minimal metadata beyond
+data structure, were not retained in the migrated PDS4 archive but are 
+accessible in archival copies of the PDS3 datasets retained in the NSSDCA
+deep archive.
+
+
+2022-11-10, A.C.Raugh

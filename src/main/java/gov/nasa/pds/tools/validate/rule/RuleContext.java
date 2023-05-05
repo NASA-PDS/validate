@@ -48,7 +48,6 @@ import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.WildcardOSFilter;
-import gov.nasa.pds.validate.constants.Constants;
 
 /**
  * Implements a type-safe context for using validation rules in commands and chains.
@@ -484,8 +483,6 @@ public class RuleContext extends ContextBase {
   public void setLabelExtension(String labelExtension) {
     LOG.debug("setLabelExtension: {}", labelExtension);
     setLabelPatternWithExtension(labelExtension);
-    setBundleLabelPatternWithExtension(labelExtension);
-    setCollectionLabelPatternWithExtension(labelExtension);
 
     putContextValue(LABEL_EXTENSION_KEY, labelExtension);
   }
@@ -503,33 +500,33 @@ public class RuleContext extends ContextBase {
     setLabelPattern(this.getFilePattern(".*\\." + labelExtension));
   }
 
-  public Pattern getBundleLabelPattern() {
-    return getContextValue(BUNDLE_PATTERN_KEY, Pattern.class);
-  }
+//  public Pattern getBundleLabelPattern() {
+//    return getContextValue(BUNDLE_PATTERN_KEY, Pattern.class);
+//  }
 
-  public void setBundleLabelPattern(Pattern pattern) {
-    LOG.debug("setBundleLabelPattern: {}", pattern);
-    putContextValue(BUNDLE_PATTERN_KEY, pattern);
-  }
+//  public void setBundleLabelPattern(Pattern pattern) {
+//    LOG.debug("setBundleLabelPattern: {}", pattern);
+//    putContextValue(BUNDLE_PATTERN_KEY, pattern);
+//  }
 
-  public void setBundleLabelPatternWithExtension(String labelExtension) {
-    setBundleLabelPattern(
-        this.getFilePattern(Constants.BUNDLE_LABEL_PATTERN_STRING + labelExtension));
-  }
+//  public void setBundleLabelPatternWithExtension(String labelExtension) {
+//    setBundleLabelPattern(
+//        this.getFilePattern(Constants.BUNDLE_LABEL_PATTERN_STRING + labelExtension));
+//  }
 
-  public Pattern getCollectionLabelPattern() {
-    return getContextValue(COLLECTION_PATTERN_KEY, Pattern.class);
-  }
+//  public Pattern getCollectionLabelPattern() {
+//    return getContextValue(COLLECTION_PATTERN_KEY, Pattern.class);
+//  }
 
-  public void setCollectionLabelPattern(Pattern pattern) {
-    LOG.debug("setCollectionLabelPattern: {}", pattern);
-    putContextValue(COLLECTION_PATTERN_KEY, pattern);
-  }
+//  public void setCollectionLabelPattern(Pattern pattern) {
+//    LOG.debug("setCollectionLabelPattern: {}", pattern);
+//    putContextValue(COLLECTION_PATTERN_KEY, pattern);
+//  }
 
-  public void setCollectionLabelPatternWithExtension(String labelExtension) {
-    setCollectionLabelPattern(
-        this.getFilePattern(Constants.COLLECTION_LABEL_PATTERN_STRING + labelExtension));
-  }
+//  public void setCollectionLabelPatternWithExtension(String labelExtension) {
+//    setCollectionLabelPattern(
+//        this.getFilePattern(Constants.COLLECTION_LABEL_PATTERN_STRING + labelExtension));
+//  }
 
   private Pattern getFilePattern(String pattern) {
     return Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);

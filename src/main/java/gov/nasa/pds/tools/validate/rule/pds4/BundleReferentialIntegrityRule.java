@@ -19,14 +19,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -92,13 +91,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       // Check for bundle(.*)?\.(xml or lblx) file.
       for (Target child : children) {
         LOG.info("getContext().getBundleLabelPattern()");
-        Matcher matcher =
-            getContext().getBundleLabelPattern().matcher(FilenameUtils.getName(child.toString()));
-
-        LOG.debug("bundleReferentialIntegrityRule:FilenameUtils.getName(child.toString()) {}",
-            FilenameUtils.getName(child.toString()));
-
-        if (matcher.matches()) {
+        if (AggregateManager.isBundle(child.getUrl())) {
           try {
             XMLExtractor extractor = new XMLExtractor(child.getUrl());
             if ("Product_Bundle".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {

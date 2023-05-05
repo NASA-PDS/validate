@@ -35,7 +35,7 @@ import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.FileFinder;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.BundleManager;
+import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
@@ -79,7 +79,7 @@ public class LocationValidator {
    * @param The report Object
    */
   public void setReport(Report report) {
-    BundleManager.setReport(report);
+    AggregateManager.setReport(report);
   }
 
   public boolean getCheckInbetweenFields() {
@@ -215,9 +215,9 @@ public class LocationValidator {
           // 3. Create a list of collection files to ignore so only the latest collection
           // file is processed.
           // 4. Create new rule based on new location.
-          BundleManager.makeException(url, location, this.labelExtension);
-          ignoreList = BundleManager.getIgnoreList();
-          location = BundleManager.getLocation();
+          AggregateManager.makeException(url, location, this.labelExtension);
+          ignoreList = AggregateManager.getIgnoreList();
+          location = AggregateManager.getLocation();
           try {
             rule = getRule(new File(location).toURI().toURL());
           } catch (Exception e) {
@@ -237,17 +237,17 @@ public class LocationValidator {
               url);
           // Build two list of files to ignore so the crawler will only process the latest
           // Bundle and Collection.
-          ArrayList<Target> ignoreBundleList = BundleManager.buildBundleIgnoreList(url,
-              this.labelExtension, this.ruleContext.getBundleLabelPattern());
+          ArrayList<Target> ignoreBundleList = AggregateManager.buildBundleIgnoreList(url,
+              this.labelExtension);
           ignoreList.addAll(ignoreBundleList);
-          Target latestBundle = BundleManager.getLatestBundle();
+          Target latestBundle = AggregateManager.getLatestBundle();
 
           // Only build collection ignore list if latestBundle is not null. The reason is
           // a bundle
           // contains collection and if there is no bundle, then there is no collection
           // information to be gathered.
           if (latestBundle != null) {
-            ArrayList<Target> ignoreCollectionList = BundleManager.buildCollectionIgnoreList(url,
+            ArrayList<Target> ignoreCollectionList = AggregateManager.buildCollectionIgnoreList(url,
                 latestBundle.getUrl(), this.labelExtension);
             ignoreList.addAll(ignoreCollectionList);
             LOG.debug("url,ignoreCollectionList {},{}", url, ignoreCollectionList);
@@ -452,9 +452,6 @@ public class LocationValidator {
   public void setLabelExtension(String extension) {
     LOG.info("setLabelExtension: {}", extension);
     ruleContext.setLabelExtension(extension);
-    LOG.info("setLabelExtension:getBundleLabelPattern {}", ruleContext.getBundleLabelPattern());
-    labelValidator.setBundleLabelPattern(ruleContext.getBundleLabelPattern());
-    labelValidator.setCollectionLabelPattern(ruleContext.getCollectionLabelPattern());
     this.labelExtension = extension;
   }
 

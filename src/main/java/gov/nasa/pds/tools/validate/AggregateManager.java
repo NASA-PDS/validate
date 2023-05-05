@@ -19,18 +19,18 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
-import org.apache.commons.io.filefilter.IOFileFilter;
-import org.apache.commons.io.filefilter.RegexFileFilter;
+import javax.xml.xpath.XPathExpressionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.LidVid;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
-import gov.nasa.pds.validate.constants.Constants;
 import gov.nasa.pds.validate.report.Report;
+import net.sf.saxon.trans.UncheckedXPathException;
+import net.sf.saxon.trans.XPathException;
 
 /**
  * Provide ways to get latest version of bundle/collection files, or build list of files to ignore
@@ -38,9 +38,8 @@ import gov.nasa.pds.validate.report.Report;
  *
  */
 
-public class BundleManager {
-  private static final Logger LOG = LoggerFactory.getLogger(BundleManager.class);
-  public static final String BUNDLE_NAME_TOKEN = Constants.BUNDLE_NAME_TOKEN;
+public class AggregateManager {
+  private static final Logger LOG = LoggerFactory.getLogger(AggregateManager.class);
   public static final String[] LABEL_EXTENSIONS_LIST = new String[1];
 
   private static final String PRODUCT_BUNDLE_ID_AREA_TAG = "Product_Bundle/Identification_Area";
@@ -66,7 +65,7 @@ public class BundleManager {
    */
 
   public static void setReport(Report report) {
-    BundleManager.m_report = report;
+    AggregateManager.m_report = report;
   }
 
   /**
@@ -88,7 +87,7 @@ public class BundleManager {
    * Returns the list of files to ignore when crawling.
    */
   public static ArrayList<Target> getIgnoreList() {
-    return (BundleManager.m_ignoreList);
+    return (AggregateManager.m_ignoreList);
   }
 
   /**
@@ -97,12 +96,12 @@ public class BundleManager {
    * @param url the url of where to start looking for files from.
    * @return a list of files with latest version.
    */
-  public static List<Target> findBundleWithLatestVersion(URL url, Pattern bundleLabelPattern) {
+  public static List<Target> findBundleWithLatestVersion(URL url, String labelExtension) {
     List<Target> children = new ArrayList<>();
     try {
-      IOFileFilter regexFileFilter = new RegexFileFilter(bundleLabelPattern);
       Crawler crawler = CrawlerFactory.newInstance(url);
-      children = crawler.crawl(url, regexFileFilter);
+      String extensions[] = { labelExtension };
+      children = crawler.crawl(url, extensions, true);
 
       LOG.debug(
           "findBundleWithLatestVersion:afor:reduceToLatestTargetOnly:children.size(),url {},{}",
@@ -147,8 +146,7 @@ public class BundleManager {
           // Note: For some strange reason, the crawler goes into an infinite loop using
           // the above call
           // so we will use an alternate call to get the list of files.
-          kids = crawler.crawl(dir.getUrl(), new String[] {labelFileExtension}, false,
-              Constants.COLLECTION_NAME_TOKEN);
+          kids = crawler.crawl(dir.getUrl(), new String[] {labelFileExtension}, false);
           LOG.debug("findCollectionWithLatestVersion: dir.getUrl(),kids {},{}", dir.getUrl(), kids);
           children.addAll(kids);
         }
@@ -271,8 +269,7 @@ public class BundleManager {
           // Note: For some strange reason, the crawler goes into an infinite loop using
           // the above call
           // so we will use an alternate call to get the list of files.
-          kids = crawler.crawl(dir.getUrl(), new String[] {labelFileExtension}, false,
-              Constants.COLLECTION_NAME_TOKEN);
+          kids = crawler.crawl(dir.getUrl(), new String[] {labelFileExtension}, false);
           LOG.debug("findCollectionWithMatchingReference: dir.getUrl(),kids {},{}", dir.getUrl(),
               kids);
           children.addAll(kids);
@@ -331,12 +328,12 @@ public class BundleManager {
       // is specified by the bundle, the largest (latest) collection must be now look
       // for.
       if (!bundleReferToCollectionViaLidvidFlag) {
-        children = BundleManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl),
+        children = AggregateManager.findCollectionWithLatestVersion(Utility.getParent(bundleUrl),
             labelFileExtension);
       } else {
         // Get the list of collections that were explicitly referenced by the bundle's
         // tags: lidvid_reference or lid_reference
-        children = BundleManager.selectMatchingReferenceFromCollection(children, bundleLidList,
+        children = AggregateManager.selectMatchingReferenceFromCollection(children, bundleLidList,
             bundleIdList);
       }
 
@@ -407,7 +404,7 @@ public class BundleManager {
     // then that collection label will not be added to the "trimmed" collection
     // list.
 
-    List<Target> trimmedCollectionList = new ArrayList<>();
+    ArrayList<Target> trimmedCollectionList = new ArrayList<Target>();
 
     LOG.debug("getCollectionFilesWithSameLogicalIdentifier:latestCollectionList {}",
         latestCollectionList);
@@ -464,7 +461,7 @@ public class BundleManager {
     // since they do not belong to the bundle.
     LOG.debug("getCollectionFilesWithSameLogicalIdentifier:trimmedCollectionList.size() {}",
         trimmedCollectionList.size());
-    return ((ArrayList) trimmedCollectionList);
+    return trimmedCollectionList;
   }
 
   /**
@@ -473,19 +470,18 @@ public class BundleManager {
    * @param url the url of where to start looking for files from.
    * @return a list of files that are other than the given url.
    */
-  public static ArrayList<Target> buildBundleIgnoreList(URL url, String labelFileExtension,
-      Pattern bundleLabelPattern) {
-    List<Target> ignoreBundleList = new ArrayList<>(); // List of items to be removed from result of
-                                                       // crawl()
-                                                       // function.
-    List<Target> latestBundles = BundleManager.findBundleWithLatestVersion(url, bundleLabelPattern);
+  public static ArrayList<Target> buildBundleIgnoreList(URL url, String labelFileExtension) {
+    ArrayList<Target> ignoreBundleList = new ArrayList<Target>(); // List of items to be removed from result of
+                                                                  // crawl()
+                                                                  // function.
+    List<Target> latestBundles = AggregateManager.findBundleWithLatestVersion(url, labelFileExtension);
     LOG.debug("buildBundleIgnoreList:latestBundles.size() ", latestBundles.size());
     LOG.debug("buildBundleIgnoreList:latestBundles {}", latestBundles);
     if (latestBundles.size() > 0) {
       m_latestBundle = latestBundles.get(0); // Save this bundle for reference later on.
       LOG.debug("buildBundleIgnoreList:latestBundles[0] {}", latestBundles.get(0).getUrl());
       ignoreBundleList =
-          BundleManager.findOtherBundleFiles(latestBundles.get(0).getUrl(), labelFileExtension);
+          AggregateManager.findOtherBundleFiles(latestBundles.get(0).getUrl(), labelFileExtension);
     }
     LOG.debug("buildBundleIgnoreList:ignoreBundleList {}", ignoreBundleList);
     LOG.debug("buildBundleIgnoreList:ignoreBundleList.size() {}", ignoreBundleList.size());
@@ -496,13 +492,13 @@ public class BundleManager {
       LOG.info("buildBundleIgnoreList:SKIP: {} due to not being selected as the bundle target",
           target.getUrl());
       // Write a record to report that we are skipping this file.
-      if (BundleManager.m_report != null) {
+      if (AggregateManager.m_report != null) {
         try {
           ValidationProblem p1 = new ValidationProblem(
               new ProblemDefinition(ExceptionType.INFO, ProblemType.UNREFERENCED_FILE,
                   "Skipping " + target.getUrl() + " due to version not latest version"),
               target.getUrl());
-          BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+          AggregateManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
           SkippedItems.getInstance().add(target.getUrl());
         } catch (Exception e) {
           LOG.error(
@@ -514,7 +510,7 @@ public class BundleManager {
       }
     }
 
-    return ((ArrayList) ignoreBundleList);
+    return ignoreBundleList;
   }
 
   /**
@@ -526,24 +522,24 @@ public class BundleManager {
   public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl,
       String labelFileExtension) {
     LOG.debug("buildCollectionIgnoreList:url,bundleUrl {},{}", url, bundleUrl);
-    List<Target> ignoreCollectionList = new ArrayList<>(); // List of items to be removed from
-                                                           // result of crawl()
-                                                           // function.
+    ArrayList<Target> ignoreCollectionList = new ArrayList<Target>(); // List of items to be removed from
+                                                                 // result of crawl()
+                                                                 // function.
     try {
       if (url.getProtocol().equals("file")) {
         if (!(new File(url.getFile())).isDirectory()) {
           LOG.error(
               "This function buildCollectionIgnoreList() only work on directory input: " + url);
-          return ((ArrayList) ignoreCollectionList);
+          return ignoreCollectionList;
         }
       }
     } catch (Exception e) {
       LOG.error("Cannot build File for url " + url);
-      return ((ArrayList) ignoreCollectionList);
+      return ignoreCollectionList;
     }
 
     List<Target> latestCollections =
-        BundleManager.findCollectionWithMatchingReference(url, bundleUrl, labelFileExtension);
+        AggregateManager.findCollectionWithMatchingReference(url, bundleUrl, labelFileExtension);
 
     LOG.debug("buildCollectionIgnoreList:latestCollections.size() {}", latestCollections.size());
     LOG.debug("buildCollectionIgnoreList:latestCollections {}", latestCollections);
@@ -555,7 +551,7 @@ public class BundleManager {
       // The latest collections can be a list of collections, not just the first
       // element.
       List<Target> otherCollectionFiles =
-          BundleManager.findOtherCollectionFiles(latestCollections, labelFileExtension);
+          AggregateManager.findOtherCollectionFiles(latestCollections, labelFileExtension);
 
       LOG.debug("buildCollectionIgnoreList:otherCollectionFiles.size {}",
           otherCollectionFiles.size());
@@ -565,7 +561,7 @@ public class BundleManager {
       // collections
       // that share the same logical_identifier with the ones in latestCollections.
       // These collection will be the ones the crawler will ignore while crawling.
-      ignoreCollectionList = BundleManager
+      ignoreCollectionList = AggregateManager
           .getCollectionFilesWithSameLogicalIdentifier(latestCollections, otherCollectionFiles);
     }
 
@@ -573,7 +569,7 @@ public class BundleManager {
         ignoreCollectionList.size());
     LOG.debug("buildCollectionIgnoreList:ignoreCollectionList {}", ignoreCollectionList);
 
-    return ((ArrayList) ignoreCollectionList);
+    return ignoreCollectionList;
   }
 
   /**
@@ -606,8 +602,7 @@ public class BundleManager {
       // Note: For some strange reason, the crawler goes into an infinite loop using
       // the above call
       // so we will use an alternate call to get the list of files.
-      allFiles = crawler.crawl(new File(dirName).toURI().toURL(), new String[] {labelExtension},
-          false, BUNDLE_NAME_TOKEN);
+      allFiles = crawler.crawl(new File(dirName).toURI().toURL(), new String[] {labelExtension}, false);
 
       for (Target target : allFiles) {
         LOG.debug("findOtherBundleFiles:target {}", target);
@@ -713,7 +708,7 @@ public class BundleManager {
         // the above call
         // so we will use an alternate call to get the list of files.
         allFiles = crawler.crawl(new File(dirName).toURI().toURL(),
-            new String[] {labelFileExtension}, false, Constants.COLLECTION_NAME_TOKEN);
+            new String[] {labelFileExtension}, false);
 
         LOG.debug("findOtherCollectionFiles:allFiles.size() {}", allFiles.size());
         int targetIndex = 0;
@@ -724,21 +719,21 @@ public class BundleManager {
 
           // Check if the newly found find is in targetList. If not, add it to the
           // otherCollectionFilesList so it can be skip
-          if (!BundleManager.containsExistingTarget(targetList, target.getUrl())) {
+          if (!AggregateManager.containsExistingTarget(targetList, target.getUrl())) {
             otherCollectionFilesList.add(target);
 
             LOG.info(
                 "findOtherCollectionFiles:SKIP: {} due to collection not latest or does not sharing the same logical_identifier as the bundle target",
                 target.getUrl());
             // Write a record to report that we are skipping this file.
-            if (BundleManager.m_report != null) {
+            if (AggregateManager.m_report != null) {
               try {
                 ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(
                     ExceptionType.INFO, ProblemType.UNREFERENCED_FILE,
                     "Skipping " + target.getUrl()
                         + " due to collection not latest or does not sharing the same logical_identifier as the bundle target"),
                     target.getUrl());
-                BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+                AggregateManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
                 SkippedItems.getInstance().add(target.getUrl());
               } catch (Exception e) {
                 LOG.error(
@@ -786,8 +781,8 @@ public class BundleManager {
     // First, find any other bundle files so they can be eliminated from crawling
     // later.
     ArrayList<Target> otherBundleFiles =
-        BundleManager.findOtherBundleFiles(url, labelFileExtension);
-    BundleManager.m_ignoreList.addAll(otherBundleFiles);
+        AggregateManager.findOtherBundleFiles(url, labelFileExtension);
+    AggregateManager.m_ignoreList.addAll(otherBundleFiles);
 
     // Because this function has knowledge of why a particular file is being ignored
     // while crawling
@@ -799,13 +794,13 @@ public class BundleManager {
         LOG.info("makeException:SKIP: {} due to not being selected as the bundle target",
             target.getUrl());
         // Write a record to report that we are skipping this file.
-        if (BundleManager.m_report != null) {
+        if (AggregateManager.m_report != null) {
           try {
             ValidationProblem p1 = new ValidationProblem(
                 new ProblemDefinition(ExceptionType.INFO, ProblemType.UNREFERENCED_FILE, "Skipping "
                     + target.getUrl() + " due to not being selected as the bundle target"),
                 target.getUrl());
-            BundleManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
+            AggregateManager.m_report.recordSkip(new URI(target.getUrl().toString()), p1);
             SkippedItems.getInstance().add(target.getUrl());
           } catch (Exception e) {
             LOG.error("makeException:Cannot build ValidationProblem object or report skip file: {}",
@@ -837,16 +832,16 @@ public class BundleManager {
     URL parentURL = null;
     try {
       parentURL = new File(parentToLocation).toURI().toURL();
-      LOG.debug("url,BundleManager.m_ignoreList {},{}", url, BundleManager.m_ignoreList);
+      LOG.debug("url,BundleManager.m_ignoreList {},{}", url, AggregateManager.m_ignoreList);
       LOG.debug("url,BundleManager.m_ignoreList.size() {},{}", url,
-          BundleManager.m_ignoreList.size());
+          AggregateManager.m_ignoreList.size());
     } catch (Exception e) {
       LOG.error("Cannot build URL for parentToLocation " + parentToLocation);
       return;
     }
 
     ArrayList<Target> ignoreCollectionList =
-        BundleManager.buildCollectionIgnoreList(parentURL, url, labelFileExtension);
+        AggregateManager.buildCollectionIgnoreList(parentURL, url, labelFileExtension);
     LOG.debug("post_call:buildCollectionIgnoreList:url {}", url);
 
     // Because any reporting about a collection file being ignored/skipped is
@@ -855,9 +850,27 @@ public class BundleManager {
 
     if (ignoreCollectionList != null) {
       // Remove the double reporting loop.
-      BundleManager.m_ignoreList.addAll(ignoreCollectionList); // Add a list of collection to ignore
+      AggregateManager.m_ignoreList.addAll(ignoreCollectionList); // Add a list of collection to ignore
                                                                // in the
                                                                // crawler.
     }
+  }
+  private static boolean matchProductClass (String class_name, URL target) {
+    boolean matches = false;
+    try {
+      XMLExtractor xml = new XMLExtractor(target);
+      String value = xml.getValueFromDoc("/*/Identification_Area/product_class");
+      matches = class_name.equals (value);
+    } catch (UncheckedXPathException | XPathException | XPathExpressionException e) {
+      // if not an XML file, then cannot have a ProductType so must be false
+      // therefore ignore these errors
+    }
+    return matches;
+  }
+  public static boolean isBundle (URL target) {
+    return matchProductClass ("Product_Bundle", target);
+  }
+  public static boolean isCollection (URL target) {
+    return matchProductClass ("Product_Collection", target);
   }
 }

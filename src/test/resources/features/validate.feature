@@ -35,6 +35,9 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#597
 |"NASA-PDS/validate#597 Success Find Resources in Older/Skipped Bundles/Collections" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github597_1.json -s json -R pds4.bundle -t src/test/resources/github597" | "report_github597_1.json" |
 
+# Validate#561
+|"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
+
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
 |"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |
@@ -207,7 +210,7 @@ Scenario Outline: Execute validate command for tests below.
 
 # https://github.com/NASA-PDS/validate/issues/310 Validate missing collections in bundle after CCB-282 updates
  |"NASA-PDS/validate#310 WITHOUT_WARNING" | "github310" | 0 | "0 UNREFERENCED_MEMBER warning message expected" | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_valid.json  -s json -t {resourceDir}/github310/valid/bundle.xml" | "report_github310_bundle_valid.json" |
- |"NASA-PDS/validate#310 WITH_WARNING" | "github310" | 2 | "2 UNREFERENCED_MEMBER warning message expected" | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_invalid.json  -s json -t {resourceDir}/github310/invalid/bundle.xml" | "report_github310_bundle_invalid.json" |
+ |"NASA-PDS/validate#310 WITH_WARNING" | "github310" | 0 | "0 UNREFERENCED_MEMBER warning message expected" | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle --skip-content-validation -r {reportDir}/report_github310_bundle_invalid.json  -s json -t {resourceDir}/github310/invalid/bundle.xml" | "report_github310_bundle_invalid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/57 As a user, I want to be warned when there are alphanumeric characters between fields in Table_Character
  |"NASA-PDS/validate#57 WITH_WARNING" | "github57" | 5 | "5 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label --strict-field-checks --skip-context-validation -r {reportDir}/report_github57_label_valid_with_warning.json  -s json -t {resourceDir}/github57/validate_57a_valid.xml" | "report_github57_label_valid_with_warning.json" |
@@ -235,7 +238,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/328 validate bundle incorrectly reports "not a member of any collection" that it passed before
 
  |"NASA-PDS/validate#328 VALID" | "github328" | 0 | "0 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_valid.json -s json -t {resourceDir}/github328/valid/bundle_misc.xml" | "report_github328_bundle_valid.json" |
- |"NASA-PDS/validate#328 INVALID" | "github328" | 1 | "1 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_invalid.json -s json -t {resourceDir}/github328/invalid/bundle_misc.xml" | "report_github328_bundle_invalid.json" |
+ |"NASA-PDS/validate#328 INVALID" | "github328" | 0 | "0 warning messages expected." | "UNREFERENCED_MEMBER" | "src/test/resources" | "target/test" | "-R pds4.bundle -r {reportDir}/report_github328_bundle_invalid.json -s json -t {resourceDir}/github328/invalid/bundle_misc.xml" | "report_github328_bundle_invalid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/334 validate 2.1.0 snapshot fails on a label with 2 table_character
 

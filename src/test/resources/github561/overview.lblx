@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_mvic:calibration_files:overview</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>New Horizons MVIC Calibration Reference Files - Overview</title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        
+        <Citation_Information>
+            <author_list>Raugh, Anne C.</author_list>
+            <publication_year>2022</publication_year>
+            <description>
+                This document contains a brief description of the content of the
+                "Reference Files Used in Calibrating Data from the New Horizons 
+                Multispectral Visible Imaging Camera (MVIC)" collection, with
+                notes on migration from PDS3 to PDS4 format.
+            </description>
+        </Citation_Information>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-11</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    A. Raugh: Created.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Document>
+        <publication_date>2022-11</publication_date>
+        <Document_Edition>
+            <edition_name>Plain Text</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>overview.txt</file_name>
+                <document_standard_id>7-Bit ASCII Text</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
