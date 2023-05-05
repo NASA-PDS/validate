@@ -7,6 +7,7 @@
 **Requirements:**
 
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
+- As a user, I would like to enforce browse file extension with encoding type [\#617](https://github.com/NASA-PDS/validate/issues/617)
 - As a user, I want to be able to use both online and local schema/schematron files. [\#599](https://github.com/NASA-PDS/validate/issues/599)
 
 **Improvements:**
