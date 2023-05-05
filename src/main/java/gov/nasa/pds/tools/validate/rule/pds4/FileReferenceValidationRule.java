@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.DocumentUtil;
 import gov.nasa.pds.tools.util.DocumentsChecker;
+import gov.nasa.pds.tools.util.EncodingMimeMapping;
 import gov.nasa.pds.tools.util.FileSizesUtil;
 import gov.nasa.pds.tools.util.ImageUtil;
 import gov.nasa.pds.tools.util.LabelParser;
@@ -66,8 +67,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   /**
    * XPath to the file references within a PDS4 data product label.
    */
-  private final String FILE_OBJECTS_XPATH =
-      "//*[starts-with(name(), 'File_Area')]/File | //Document_File";
+  private final String FILE_AREA_OBJECTS_XPATH =
+      "//*[starts-with(name(), 'File_Area')] | //Document_File";
 
   private Map<URL, String> checksumManifest;
   private PDFUtil pdfUtil = null; // Define pdfUtil so we can reuse it for every call to
@@ -123,6 +124,32 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       }
     }
     LOG.debug("validateFileReferences:leaving:uri {}", uri);
+  }
+
+  private void checkExtension(String filename, String encoding) {
+    if (encoding != null && 0 < encoding.length()) {
+      if (filename.contains(".")) {
+        try {
+          EncodingMimeMapping emm = EncodingMimeMapping.find (encoding);
+          String suffix = filename.substring(filename.lastIndexOf(".")+1);
+          if (!emm.contains (suffix)) {
+            this.getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(
+                    ExceptionType.WARNING,
+                    ProblemType.FILE_NAMING_PROBLEM,
+                    "From the encoding type '" + encoding + "'the file extension '" + suffix + "' is not one of the allowed: " + emm.allowed().toString()),
+                this.target));            
+          }
+        } catch (IllegalArgumentException iae) {
+          this.getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(
+                  ExceptionType.ERROR,
+                  ProblemType.INTERNAL_ERROR,
+                  "Could not process the encoding type: " + iae.getMessage()),
+              this.target));
+        }
+      }
+    }
   }
 
   private boolean validate(DocumentInfo xml) {
@@ -200,35 +227,49 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
         // issue_42: Add capability to ignore product-level validation
         if (!getContext().getSkipProductValidation()) {
-          List<TinyNodeImpl> fileObjects = extractor.getNodesFromDoc(FILE_OBJECTS_XPATH);
-          LOG.debug("FileReferenceValidationRule:validate:fileObjects.size() {}",
-              fileObjects.size());
-          for (TinyNodeImpl fileObject : fileObjects) {
+          List<TinyNodeImpl> fileAreaObjects = extractor.getNodesFromDoc(FILE_AREA_OBJECTS_XPATH);
+          LOG.debug("FileReferenceValidationRule:validate:fileAreaObjects.size() {}",
+              fileAreaObjects.size());
+          for (TinyNodeImpl fileAreaObject : fileAreaObjects) {
             String name = "";
             String checksum = "";
             String directory = "";
             String filesize = "";
             String documentStandardId = null;
-            List<TinyNodeImpl> children = new ArrayList<>();
+            String encodingStandardId = null;
+            TinyNodeImpl fileObject = null;
+            List<TinyNodeImpl> useChildren = new ArrayList<>();
             try {
-              children = extractor.getNodesFromItem("*", fileObject);
+              if ("Document_File".equals(fileAreaObject.getLocalPart())) {
+                useChildren = extractor.getNodesFromItem("*", fileAreaObject);
+                fileObject = fileAreaObject;
+              } else {
+                List<TinyNodeImpl> children = extractor.getNodesFromItem("*", fileAreaObject);
+                for (TinyNodeImpl child : children) {
+                  if ("File".equals(child.getLocalPart())) fileObject = child;
+                  useChildren.addAll(extractor.getNodesFromItem("*", child));
+                }
+              }
             } catch (XPathExpressionException xpe) {
               ProblemDefinition def =
                   new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
                       "Problem occurred while trying to get all the children "
                           + "of the file object node: " + xpe.getMessage());
               getListener()
-                  .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
+                  .addProblem(new ValidationProblem(def, target, fileAreaObject.getLineNumber(), -1));
               return false;
             }
 
             // Get file mapping for handling Document objects
             this.fileMapping = new HashMap<>();
-            for (TinyNodeImpl child : children) {
+            for (TinyNodeImpl child : useChildren) {
               // Get the value of 'document_standard_id' tag.
               if ("document_standard_id".equals(child.getLocalPart())) {
                 documentStandardId = child.getStringValue();
                 this.fileMapping.put(name, documentStandardId);
+              }
+              if ("encoding_standard_id".equals(child.getLocalPart())) {
+                encodingStandardId = child.getStringValue();
               }
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
@@ -274,6 +315,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               }
             } // for (TinyNodeImpl child : children)
 
+            this.checkExtension(name, encodingStandardId);
+
             if (getContext().getCheckData()) {
               validateFileAreaDefinitionAndContent(name, fileObject, checksum, filesize,
                   documentStandardId, parent, directory);
@@ -282,7 +325,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         } // !getContext().getSkipProductValidation()
       } catch (XPathExpressionException xpe) {
         String message = "Error occurred while evaluating the following xpath expression '"
-            + FILE_OBJECTS_XPATH + "': " + xpe.getMessage();
+            + FILE_AREA_OBJECTS_XPATH + "': " + xpe.getMessage();
         ProblemDefinition def =
             new ProblemDefinition(ExceptionType.FATAL, ProblemType.INTERNAL_ERROR, message);
         getListener().addProblem(new ValidationProblem(def, target));
