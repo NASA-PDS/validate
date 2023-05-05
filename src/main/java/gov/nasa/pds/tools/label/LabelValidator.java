@@ -19,10 +19,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.XMLConstants;
@@ -81,6 +85,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.trans.XPathException;
 
 /**
  * This class is responsible for providing utility functions for validating PDS XML Labels.
@@ -119,8 +124,6 @@ public class LabelValidator {
   private Schema validatingSchema;
   private SchematronTransformer schematronTransformer;
   private XPathFactory xPathFactory;
-
-  private String labelExtension;
 
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
@@ -178,8 +181,6 @@ public class LabelValidator {
     saxParserFactory.setXIncludeAware(Utility.supportXincludes());
     // The parser doesn't validate - we use a Validator instead.
     saxParserFactory.setValidating(false);
-
-    setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
 
     // Don't add xml:base attributes to xi:include content, or it messes up
     // PDS4 validation.
@@ -328,7 +329,6 @@ public class LabelValidator {
   public synchronized void validate(ProblemHandler handler, URL url, String labelExtension)
       throws SAXException, IOException, ParserConfigurationException, TransformerException,
       MissingLabelSchemaException {
-    this.setLabelExtension(labelExtension);
     this.parseAndValidate(handler, url);
 
   }
@@ -383,6 +383,76 @@ public class LabelValidator {
     return (validateAgainstSchematronFlag);
   }
 
+  private void checkSchemaSchematronVersions(ProblemHandler handler, URL url) {
+    try {
+      List<String> specifiedSchema = null, specifiedSchematron = null;
+      XMLExtractor sourceXML = new XMLExtractor(url);
+      String xmlns = sourceXML.getSchemaLocation();
+      specifiedSchematron = sourceXML.getXmlModels();
+      if (xmlns != null && 0 < xmlns.strip().length())
+        specifiedSchema = Arrays.asList(xmlns.split("\\s"));
+      if (specifiedSchema == null || specifiedSchema.size() == 0) {
+        handler.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+            ProblemType.SCHEMA_WARNING, "Cannot check versioning because no Schema given."), url));
+      } else if (specifiedSchematron == null || specifiedSchematron.size() == 0) {
+        handler.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+            ProblemType.SCHEMATRON_WARNING, "Cannot check versioning because no Schematron given."),
+            url));
+      } else {
+        Set<String> schemas = new HashSet<String>();
+        Set<String> schematrons = new HashSet<String>();
+        for (String schema : specifiedSchema) {
+          try {
+            URL schemaURL = new URL(schema);
+            String schemaName =
+                Paths.get(schemaURL.getPath()).getFileName().toString().toLowerCase();
+            if (schemaName.endsWith(".xsd")) {
+              schemaName = schemaName.substring(0, schemaName.length() - 4);
+              schemas.add(schemaName);
+            }
+          } catch (MalformedURLException e) {
+            // Ignore error since XMLExtractor() was able to read it this should be alright
+          }
+        }
+        for (String model : specifiedSchematron) {
+          for (String part : model.split("\\s")) {
+            if (part.toLowerCase().startsWith("href")) {
+              String modelHREF = part.substring(part.indexOf('"') + 1, part.lastIndexOf('"'));
+              try {
+                URL schematronURL = new URL(modelHREF);
+                String schematronName =
+                    Paths.get(schematronURL.getPath()).getFileName().toString().toLowerCase();
+                if (schematronName.endsWith(".sch")) {
+                  schematronName = schematronName.substring(0, schematronName.length() - 4);
+                  schematrons.add(schematronName);
+                }
+              } catch (MalformedURLException e) {
+                // Ignore error since XMLExtractor() was able to it this should be alright
+              }
+            }
+          }
+        }
+        Set<String> uniqueSchema = new HashSet<String>(schemas);
+        Set<String> uniqueSchematron = new HashSet<String>(schematrons);
+        uniqueSchema.removeAll(schematrons);
+        uniqueSchematron.removeAll(schemas);
+        if (0 < uniqueSchema.size() + uniqueSchematron.size()) {
+          handler.addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.WARNING, ProblemType.SCHEMA_WARNING,
+                  "The schema version(s) " + uniqueSchema.toString().toUpperCase()
+                      + " does/do not match the schematron version(s) "
+                      + uniqueSchematron.toString().toUpperCase() + "."),
+              url));
+        }
+      }
+    } catch (XPathException | XPathExpressionException e) {
+      handler.addProblem(new ValidationProblem(
+          new ProblemDefinition(ExceptionType.WARNING, ProblemType.MISSING_REQUIRED_RESOURCE,
+              "Cannot check versioning because XML could not be parsed."),
+          url));
+    }
+  }
+
   /**
    * Parses and validates a label against the schema and Schematron files, and returns the parsed
    * XML.
@@ -415,6 +485,7 @@ public class LabelValidator {
     // Are we perfoming schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
+      checkSchemaSchematronVersions(handler, url);
 
       // Do we need this to clear the cache?
 
@@ -649,7 +720,7 @@ public class LabelValidator {
             .newSchema(loadSchemaSources(userSchemaFiles).toArray(new StreamSource[0]));
       } else if (resolver == null) {
         LOG.debug("createParserIfNeeded:#00BB8");
-        if (useLabelSchema) {
+        if (useLabelSchema || !VersionInfo.hasSchemaDir()) {
           LOG.debug("createParserIfNeeded:#00BB9");
           validatingSchema = schemaFactory.newSchema();
         } else {
@@ -970,10 +1041,6 @@ public class LabelValidator {
     this.cachedLSResolver = resolver;
   }
 
-  public void setLabelExtension(String extension) {
-    this.labelExtension = extension;
-  }
-
   public Pattern getBundleLabelPattern() {
     return bundleLabelPattern;
   }
@@ -1007,7 +1074,6 @@ public class LabelValidator {
    */
   private static class DOMLocator implements Locator {
 
-    private URL url;
     private int lineNumber;
     private int columnNumber;
     private String systemId;
@@ -1018,7 +1084,6 @@ public class LabelValidator {
      * @param url the URL of the source document
      */
     public DOMLocator(URL url) {
-      this.url = url;
       this.systemId = url.toString();
     }
 

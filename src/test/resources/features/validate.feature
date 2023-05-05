@@ -9,11 +9,22 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+
 # Validate#617
 |"NASA-PDS/validate#617 Warning File Extension Mismatch" | "github617" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github617.json -s json --skip-content-validation -t {resourceDir}/github617/uvis_euv_2005_159_solar_time_series_ingress.xml" | "report_github617.json" |
 
+# Validate#628
+|"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
+
 # Validate#616
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
+
+# Validate#599
+|"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
+#|"NASA-PDS/validate#599 Failure Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
+#|"NASA-PDS/validate#599 Failure Override Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_3.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_3.json" |
+#|"NASA-PDS/validate#599 Failure Override Schema+Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_4.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_4.json" |
+
 
 # Validate#614
 |"NASA-PDS/validate#616 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
@@ -93,7 +104,7 @@ Scenario Outline: Execute validate command for tests below.
 # So, the 1st error is the file name contains spaces from FileAndDirectoryNamingRule and the 2nd error comes from function validateFileStandardConformity().
  |"NASA-PDS/validate#153 1" | "github153" | 2 | "2 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github153_invalid.json -s json -t {resourceDir}/github153/iue_asteroid_spectra/document/3juno_lwr01896_ines_fits_headers.pdfa%.xml" | "report_github153_invalid.json" |
  |"NASA-PDS/validate#153 2" | "github153" | 0 | "No error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github153_valid.json -s json -t {resourceDir}/github153/iue_asteroid_spectra/document/collection_iue_asteroid_spectra_document.xml" | "report_github153_valid.json" |
- |"NASA-PDS/validate#17 1" | "github17" | 2 | "2 warning expected." | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github17_invalid.json -s json -t {resourceDir}/github17/delimited_table_bad.xml" | "report_github17_invalid.json" |
+ |"NASA-PDS/validate#17 1" | "github17" | 3 | "3 warning expected." | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github17_invalid.json -s json -t {resourceDir}/github17/delimited_table_bad.xml" | "report_github17_invalid.json" |
  |"NASA-PDS/validate#17 2" | "github17" | 0 | "No error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github17_valid.json -s json -t {resourceDir}/github17/delimited_table_good.xml" | "report_github17_valid.json" |
 
  |"NASA-PDS/validate#230 1" | "github230" | 2 | "2 errors expected for MISSING_VERSION." | "MISSING_VERSION" | "src/test/resources" | "target/test" | "--skip-content-validation -R pds4.bundle -r {reportDir}/report_github230_invalid.json -s json -t {resourceDir}/github230/invalid/cocirs_c2h4abund/bundle_cocirs_c2h4abund.xml" | "report_github230_invalid.json" |
