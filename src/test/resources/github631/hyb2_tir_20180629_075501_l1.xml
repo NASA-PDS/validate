@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1860.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+                       xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+                       xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+                       xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+                       xmlns:hyb2="http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd
+                                           http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.xsd
+                                           http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1860.xsd
+                                           http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts:hyb2_tir:data_raw:hyb2_tir_20180629_075501_l1</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Hayabusa2 TIR raw shutter image data product of hyb2_tir_20180629_075501_l1</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-06-29T07:54:59.949Z</start_date_time>
+            <stop_date_time>2018-06-29T07:55:00.512Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <description>This file contains raw image data from the TIR instrument.</description>
+            <Science_Facets>
+                <wavelength_range>Infrared</wavelength_range>
+                <discipline_name>Small Bodies</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Hayabusa2</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.hyb2</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Hayabusa2</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.hyb2</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>TIR</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:hyb2.tir</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(162173) Ryugu</name>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.162173_ryugu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <hyb2:Mission_Information>
+                <hyb2:mission_phase_name>Asteroid Proximity Phase</hyb2:mission_phase_name>
+            </hyb2:Mission_Information>
+            <hyb2:Observation_Information>
+                <hyb2:observation_date_time>2018-06-29T07:55:00.230Z</hyb2:observation_date_time>
+                <hyb2:naif_instrument_name>HAYABUSA2_TIR-S</hyb2:naif_instrument_name>
+            </hyb2:Observation_Information>
+            <hyb2:TIR_Instrument_Attributes>
+                <hyb2:tir_image_type>SHT</hyb2:tir_image_type>
+                <hyb2:number_of_accumulated_images>32</hyb2:number_of_accumulated_images>
+                <hyb2:number_of_bit_shift>2</hyb2:number_of_bit_shift>
+                <hyb2:peltier_power_status>On</hyb2:peltier_power_status>
+                <hyb2:peltier_desired_temperature unit="degC">40</hyb2:peltier_desired_temperature>
+                <hyb2:coarse_grained_temperature_status>Ready</hyb2:coarse_grained_temperature_status>
+                <hyb2:fine_grained_temperature_status>Ready</hyb2:fine_grained_temperature_status>
+                <hyb2:bolometer_temperature unit="degC">40.326</hyb2:bolometer_temperature>
+                <hyb2:package_temperature unit="degC">30.677</hyb2:package_temperature>
+                <hyb2:case_temperature unit="degC">29.282</hyb2:case_temperature>
+                <hyb2:shutter_temperature unit="degC">27.948</hyb2:shutter_temperature>
+                <hyb2:lens_temperature unit="degC">28.783</hyb2:lens_temperature>
+            </hyb2:TIR_Instrument_Attributes>
+        </Mission_Area>
+        <Discipline_Area>
+            <disp:Display_Settings>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ImageData</local_identifier_reference>
+                    <local_reference_type>display_settings_to_array</local_reference_type>
+                </Local_Internal_Reference>
+                <disp:Display_Direction>
+                    <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+                    <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+                    <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+                    <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+                </disp:Display_Direction>
+            </disp:Display_Settings>
+            <img:Imaging>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ImageData</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>
+                <img:Detector>
+                    <img:first_line>1</img:first_line>
+                    <img:first_sample>1</img:first_sample>
+                    <img:lines>260</img:lines>
+                    <img:samples>344</img:samples>
+                    <img:detector_to_image_rotation unit="deg">0.0</img:detector_to_image_rotation>
+                    <img:detector_to_image_flip>None</img:detector_to_image_flip>
+                </img:Detector>
+                <img:Exposure>
+                    <img:exposure_count>32</img:exposure_count>
+                    <img:exposure_type>Manual</img:exposure_type>
+                </img:Exposure>
+                <img:Onboard_Compression>
+                    <img:onboard_compression_class>Lossless</img:onboard_compression_class>
+                    <img:onboard_compression_type>StarPixel Lossless</img:onboard_compression_type>
+                    <img:deferred_flag>false</img:deferred_flag>
+                    <img:StarPixel_Lossless_Parameters>
+                        <img:starpixel_initial_subsampling_interval>3</img:starpixel_initial_subsampling_interval>
+                    </img:StarPixel_Lossless_Parameters>
+                </img:Onboard_Compression>
+                <img:Optical_Filter>
+                    <img:filter_name>8 - 12 micrometer</img:filter_name>
+                    <img:bandwidth unit="micrometer">4</img:bandwidth>
+                    <img:center_filter_wavelength unit="micrometer">10</img:center_filter_wavelength>
+                </img:Optical_Filter>
+                <img:Subframe>
+                    <img:first_line>7</img:first_line>
+                    <img:first_sample>17</img:first_sample>
+                    <img:lines>248</img:lines>
+                    <img:samples>328</img:samples>
+                    <img:line_fov unit="deg">12.66</img:line_fov>
+                    <img:sample_fov unit="deg">16.74</img:sample_fov>
+                    <img:name>Effective area</img:name>
+                    <img:description>This subframe describes the effective area in the raw image product.</img:description>
+                </img:Subframe>
+                <img:Instrument_State>
+                    <img:Device_Temperatures>
+                        <img:Device_Temperature>
+                            <img:device_name>Uncooled micro-bolometer array</img:device_name>
+                            <img:temperature_value unit="degC">40.326</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>Package of TIR-S</img:device_name>
+                            <img:temperature_value unit="degC">30.677</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>Case of TIR-S</img:device_name>
+                            <img:temperature_value unit="degC">29.282</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>Shutter of TIR-S</img:device_name>
+                            <img:temperature_value unit="degC">27.948</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>Lens of TIR-S</img:device_name>
+                            <img:temperature_value unit="degC">28.783</img:temperature_value>
+                        </img:Device_Temperature>
+                    </img:Device_Temperatures>
+                </img:Instrument_State>
+            </img:Imaging>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:jaxa:darts:hyb2_tir:browse:l1_hyb2_tir_20180629_075501_l1.png::1.0</lidvid_reference>
+            <reference_type>data_to_browse</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>hyb2_tir_20180629_075501_l1.fit</file_name>
+            <creation_date_time>2021-06-29T06:36:17Z</creation_date_time>
+            <file_size unit="byte">400320</file_size>
+            <comment>Hayabusa2 TIR image in the FITS standard format.</comment>
+        </File>
+        <Header>
+            <name>Hayabusa2 TIR FITS header of the primary HDU</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">5760</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+        </Header>
+        <Array_2D_Image>
+            <name>Hayabusa2 TIR FITS data of the primary HDU</name>
+            <local_identifier>ImageData</local_identifier>
+            <offset unit="byte">5760</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description>Hayabusa2 TIR raw shutter image data product.</description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+                <unit>DN</unit>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>384</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Observational>
+</Product_Observational>
