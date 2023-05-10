@@ -79,7 +79,7 @@ public class ArrayContentProblem extends ContentProblem {
   }
 
   /**
-   * @return the ID of the array.
+   *Returns the ID of the array.
    */
   public String getArrayID() {
     return this.arrayID;
