@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://psa.esa.int/psa/v1/PDS4_PSA_1101.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+ 
+<Product_Ancillary
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:bc="http://psa.esa.int/psa/bc/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xmlns:psa="http://psa.esa.int/psa/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd 
+    http://psa.esa.int/psa/v1 http://psa.esa.int/psa/v1/PDS4_PSA_1101.xsd 
+    http://psa.esa.int/psa/bc/v1 http://psa.esa.int/psa/bc/v1/PDS4_PSA_BC_1004.xsd">
+    
+    <Identification_Area>
+
+        <logical_identifier>urn:esa:psa:bc_mpo_serena:calibration_files:cal_hq-tof_20180626</logical_identifier>
+        <version_id>0.1</version_id>
+        <title>SERENA STROFIO calibration table</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Ancillary</product_class>
+
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-02-24</modification_date>
+                <version_id>0.1</version_id>
+                <description>First entry</description>
+            </Modification_Detail>
+        </Modification_History>
+        
+    </Identification_Area>
+    
+    
+    <Context_Area>
+
+	<Investigation_Area>
+		<name>BepiColombo</name>
+		<type>Mission</type>
+		<Internal_Reference>
+			<lid_reference>urn:esa:psa:context:investigation:mission.bc</lid_reference>
+			<reference_type>data_to_investigation</reference_type>
+		</Internal_Reference>
+	</Investigation_Area>
+        
+        <Observing_System>
+            <name>BepiColombo SERENA STROFIO</name>
+            <Observing_System_Component>
+                <name>Mercury Planetary Orbiter</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.mpo</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>SERENA</name>
+                <type>Instrument</type>
+                <description>Search for Exospheric Refilling and Emitted Natural Abundances</description>
+                <Internal_Reference>
+                    <lid_reference>urn:esa:psa:context:instrument:serena.mpo</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+        </Observing_System>
+        
+    </Context_Area>    
+    <File_Area_Ancillary>
+        <File>
+            <file_name>validation_test.csv</file_name>
+            <creation_date_time>2018-07-18</creation_date_time>
+            <file_size unit="byte">53970</file_size>
+            <records>1</records>
+            <md5_checksum>d22df4b00c1133e07e53736de3c36b89</md5_checksum>
+        </File>
+	<Table_Delimited>
+	    <name>MPO SRN_STR HQ TOF calibration table</name>
+            <offset unit="byte">25</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>This is a comma separated value table containing the values necessary to convert raw values to calibrated values.</description>
+	    <records>1</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+            	<fields>3</fields>
+	    	<groups>0</groups>
+            	<Field_Delimited>
+                	<name>BIN</name>
+                	<field_number>1</field_number>
+                	<data_type>ASCII_Integer</data_type>
+                	<maximum_field_length unit="byte">255</maximum_field_length>
+                	<description>Bin number</description>
+	        </Field_Delimited>
+        	<Field_Delimited>
+        	        <name>MASS_START</name>
+        	        <field_number>2</field_number>
+        	        <data_type>ASCII_Real</data_type>
+        	        <maximum_field_length unit="byte">255</maximum_field_length>
+        	        <description>Starting mass value of the given bin</description>
+        	</Field_Delimited>
+        	<Field_Delimited>
+        	        <name>MASS_END</name>
+        	        <field_number>3</field_number>
+        	        <data_type>ASCII_NonNegative_Integer</data_type>
+        	        <maximum_field_length unit="byte">255</maximum_field_length>
+        	        <description>Ending mass value of the given bin</description>
+        	</Field_Delimited>
+        	</Record_Delimited>
+	</Table_Delimited>
+    </File_Area_Ancillary>
+</Product_Ancillary>
