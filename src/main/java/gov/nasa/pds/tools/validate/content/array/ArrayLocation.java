@@ -67,7 +67,7 @@ public final class ArrayLocation {
 
   /**
    * 
-   * @return the array ID.
+   *Returns the array ID.
    */
   public String getArrayID() {
     return this.arrayID;
