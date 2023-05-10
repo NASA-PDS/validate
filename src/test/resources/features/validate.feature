@@ -89,7 +89,7 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#294 VALID" | "github294" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_valid.json -s json -R pds4.label -t {resourceDir}/github294/valid/minmax-error.xml" | "report_github294_bundle_valid.json" |
  |"NASA-PDS/validate#294 INVALID" | "github294" | 1 | "1 error messages expected for RECORDS_MISMATCH." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "--skip-context-validation -r {reportDir}/report_github294_bundle_invalid.json -s json -R pds4.label -t {resourceDir}/github294/invalid/minmax-error.xml" | "report_github294_bundle_invalid.json" |
 
- |"NASA-PDS/validate#190" | "github190" | 1 | "1 error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github190.json --skip-context-validation -t {resourceDir}/github190/validation_test.xml" | "report_github190.json" |
+ |"NASA-PDS/validate#190" | "github190" | 1 | "1 error messages expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github190.json -s json --skip-context-validation -t {resourceDir}/github190/validation_test.xml" | "report_github190.json" |
 
  |"NASA-PDS/validate#173 1" | "github173" | 0 | "0 error messages expected. See validation report:" | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_1.json -s json -R pds4.bundle -t {resourceDir}/github173/valid/ --skip-content-validation" | "report_github173_1.json" |
  |"NASA-PDS/validate#173 2" | "github173" | 1 | "1 info/error messages not expected." | "RECORDS_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github173_2.json -s json -R pds4.bundle -t {resourceDir}/github173/invalid/ --skip-content-validation" | "report_github173_2.json" |
@@ -206,6 +206,8 @@ Scenario Outline: Execute validate command for tests below.
 
 # https://github.com/NASA-PDS/validate/issues/188 As a user, I want to validate a bundle that uses multiple versions of the Information Model / Discipline LDDs
  |"NASA-PDS/validate#188 VALID" | "github188" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github188_label_valid_both.json  -s json -t {resourceDir}/github188/bundle_cassini-huygens-coradar.xml {resourceDir}/github188/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github188_label_valid_both.json" |
+
+ |"NASA-PDS/validate#211 Success with Errors: Tables Types" | "github211" | 15 | "15 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github211.json  -s json -t {resourceDir}/github211" | "report_github211.json" |
 
 # https://github.com/NASA-PDS/validate/issues/210 As a user, I want validate to raise a WARNING when differing versions of IM are used within a bundle
  |"NASA-PDS/validate#210 WITH_WARNING" | "github210" | 1 | "1 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github210_label_valid_both_with_warning.json  -s json -t {resourceDir}/github210/bundle_cassini-huygens-coradar.xml {resourceDir}/github210/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github210_label_valid_both_with_warning.json" |
