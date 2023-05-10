@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Browse 
+	  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:uranus_occ_u17b_saao_188cm:browse:2220nm_alt</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Browse Plot of the Earth-based observer's view of the sky plane during the Uranus System Occultation of star u17b (Hipparcos 80841) Observed from the SAAO 188cm Telescope</title>
+        <information_model_version>1.12.0.0</information_model_version>
+        <product_class>Product_Browse</product_class>
+        <Citation_Information>
+            <author_list>French, R. G.; McGhee-French, C. A.; Gordon, M. K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>occultation geometry</keyword>                                     
+            <keyword>occultation geometry diagram</keyword>
+            <description>Plot of the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
+stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-01-29</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u17b_saao_188cm:data</lid_reference>
+            <reference_type>browse_to_data</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Browse>
+        <File>
+            <file_name>del.csv</file_name>
+            <creation_date_time>2020-01-29T18:55:43Z</creation_date_time>
+            <comment>This figure shows the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
+stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope, 
+plotted as a function of time in UTC at the telescope. The thin black line plots the altitude of Uranus, and the
+thin red line (if on scale) shows the altitude of the Sun. If there is a planetary occultation, the lines are
+thickened to show the interval when the star is hidden behind the planet. The approximate predicted ring occultation
+times are shown as filled circles, with selected ring features individually labeled.</comment>
+        </File>
+        <Table_Delimited>
+            <offset unit="byte">185</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>2</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>15</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">300</maximum_record_length>
+                <Field_Delimited>
+                    <name>Star Number</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Reference ID number used to identify star position used in ring orbit fit.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Star Name</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Internal shorthand name for occultation star.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Source Catalog</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of source catalog for star position (e.g., Hipparcos, 2MASS, UCAC4).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Catalog ID</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The identification number of the star within the Source Catalog.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>RA(ICRS)</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean right ascencion International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DE(ICRS)</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean declination International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Epoch</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The epoch of RA(ICRS)/DE(ICRS).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Plx</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc</unit>
+                    <description>Trigonometric parallax in millisecond of arc milli-second of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmRA</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in RA in equatorial coordinates in millisecond of arc milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmDE</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in DE in equatorial coordinates in milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_RAdeg</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in RA*cos(delta) in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_DEdeg</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in DE in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_Plx</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in Plx in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmRA</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmRA in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmDE</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmDE in millisecond of arc.</description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Browse>
+</Product_Browse>

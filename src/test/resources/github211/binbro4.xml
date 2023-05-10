@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Browse 
+	  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:uranus_occ_u17b_saao_188cm:browse:2220nm_alt</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Browse Plot of the Earth-based observer's view of the sky plane during the Uranus System Occultation of star u17b (Hipparcos 80841) Observed from the SAAO 188cm Telescope</title>
+        <information_model_version>1.12.0.0</information_model_version>
+        <product_class>Product_Browse</product_class>
+        <Citation_Information>
+            <author_list>French, R. G.; McGhee-French, C. A.; Gordon, M. K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>occultation geometry</keyword>                                     
+            <keyword>occultation geometry diagram</keyword>
+            <description>Plot of the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
+stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-01-29</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:uranus_occ_u17b_saao_188cm:data</lid_reference>
+            <reference_type>browse_to_data</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Browse>
+        <File>
+            <file_name>bin.dat</file_name>
+            <creation_date_time>2020-01-29T18:55:43Z</creation_date_time>
+            <comment>This figure shows the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
+stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope, 
+plotted as a function of time in UTC at the telescope. The thin black line plots the altitude of Uranus, and the
+thin red line (if on scale) shows the altitude of the Sun. If there is a planetary occultation, the lines are
+thickened to show the interval when the star is hidden behind the planet. The approximate predicted ring occultation
+times are shown as filled circles, with selected ring features individually labeled.</comment>
+        </File>
+        <Table_Binary>
+            <name>reduced</name>
+            <offset unit="byte">0</offset>
+            <records>4</records>
+            <Record_Binary>
+                <fields>13</fields>
+                <groups>0</groups>
+                <record_length unit="byte">82</record_length>
+                <Field_Binary>
+                    <name>met</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <field_format>%18s</field_format>
+                    <unit>s/c_ticks</unit>
+                    <description>Spacecraft clock time.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>met_offset</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">19</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s/c_ticks</unit>
+                    <description>Value in units of ticks (2^-16 seconds) that should be added to MET to give precise time. This is needed because there is not enough precision in the MET field. Example: If MET is 1/0521165299.31170 and MET OFFSET is 0.5, then the lidar point was acquired at exactly midway between 1/0521165299.31170 and 1/0521165299.31171.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_ola_time</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">27</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>s</unit>
+                    <description>Ola Time tag for this scan record.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>power_cycle</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">35</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Power Cycle counter. Incremented by 1 for every POST.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>laser_selection</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">37</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Specifies whether scan command applies to High Energy (0) or Low Energy Laser (1)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>scan_mode</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">39</field_location>
+                    <data_type>SignedByte</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%4d</field_format>
+                    <description>Selected Scan Pattern (0: Raster, 1: Linear, 2: Fixed)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>sw_version_detected</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">40</field_location>
+                    <data_type>UnsignedByte</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%3d</field_format>
+                    <description>new FSW version detected. (0) old FSW, (1) new FSW.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>flag_status</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">41</field_location>
+                    <data_type>SignedLSB2</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <field_format>%6d</field_format>
+                    <description>Status of return. (0: valid return, 1: valid return with overflow, 2: no return, 3: missing sample)</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>range</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">43</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mm</unit>
+                    <description>Range in millimeters.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>azimuth</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">51</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mrad</unit>
+                    <description>Azimuth in milliradians.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>elevation</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">59</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>mrad</unit>
+                    <description>Elevation in milliradians.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>intensity_t0</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">67</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>DN</unit>
+                    <description>Intensity of outgoing pulse.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>intensity_trr</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">75</field_location>
+                    <data_type>IEEE754LSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <field_format>%14.5e</field_format>
+                    <unit>DN</unit>
+                    <description>Intensity of received pulse.</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+    </File_Area_Browse>
+</Product_Browse>
