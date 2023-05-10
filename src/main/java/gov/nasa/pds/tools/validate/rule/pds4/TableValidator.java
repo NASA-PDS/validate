@@ -783,7 +783,7 @@ public class TableValidator implements DataObjectValidator {
       URL dataFile, int dataObjectIndex, long record, int field) {
     String id = Integer.toString(dataObjectIndex);
     if (this.tableObject.getName() != null && 0 < this.tableObject.getName().strip().length()) {
-      id = this.tableObject.getName() + "or index " + id;
+      id = this.tableObject.getName() + " or index " + id;
     }
     this.listener.addProblem(new TableContentProblem(exceptionType, problemType, message, dataFile,
         this.context.getTarget(), id, record, field));

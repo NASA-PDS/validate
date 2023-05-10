@@ -850,7 +850,7 @@ public class FieldValueValidator {
       RecordLocation recordLocation, int field) {
     String id = Integer.toString(recordLocation.getDataObjectLocation().getDataObject());
     if (this.parentName != null && 0 < this.parentName.strip().length()) {
-      id = this.parentName + "or index " + id;
+      id = this.parentName + " or index " + id;
     }
     listener.addProblem(new TableContentProblem(exceptionType, problemType, message,
         recordLocation.getDataFile(), ruleContext.getTarget(),
