@@ -66,7 +66,7 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, String dataObjectId, long record, int field) {
+      URL source, URL label, String dataObjectID, long record, int field) {
     this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectId,
         record, field);
   }
