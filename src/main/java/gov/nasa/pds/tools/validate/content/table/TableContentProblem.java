@@ -67,7 +67,7 @@ public class TableContentProblem extends ContentProblem {
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       URL source, URL label, String dataObjectID, long record, int field) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectId,
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectID,
         record, field);
   }
 
