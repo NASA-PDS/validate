@@ -108,7 +108,7 @@ public class TableContentProblem extends ContentProblem {
    * @param defn The problem definition.
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
-   * @param table The index of the table associated with the message.
+   * @param tableId The index of the table associated with the message.
    * @param record The index of the record associated with the message.
    */
   public TableContentProblem(ProblemDefinition defn, URL source, URL label, String tableId,
