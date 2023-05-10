@@ -277,19 +277,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                   rgpTypes = rgp.getTypes();
                   // check the name
                   for (String name : names) {
-                    if (rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
-                      // if (name.equalsIgnoreCase(rgp.getName())) {
-                      // Check name and type case sensitive
-                      if (!rgpNames.contains(name)) {
-                        // if (!name.equals(rgp.getName())) {
-                        getListener().addProblem(new ValidationProblem(
-                            new ProblemDefinition(ExceptionType.INFO,
-                                ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                "Context reference name case mismatch. Value: '" + name + "'"
-                                    + " Expected one of: '" + rgp.getNames() + "'"),
-                            target, locator.getLineNumber(), -1));
-                      }
-                    } else {
+                    if (!rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(ExceptionType.INFO,
                               ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
@@ -300,27 +288,9 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                   }
                   // check the type
                   for (String type : types) {
-                    if (rgpTypes.stream().anyMatch(type::equalsIgnoreCase)) {
-                      // if (type.equalsIgnoreCase(rgp.getType())) {
-                      if (!rgpTypes.contains(type)) {
-                        // if (!type.equals(rgp.getType())) {
-                        getListener().addProblem(new ValidationProblem(
-                            new ProblemDefinition(ExceptionType.INFO,
-                                ProblemType.CONTEXT_REFERENCE_FOUND_CASE_MISMATCH,
-                                "Context reference type case mismatch. Value: '" + type + "'"
-                                    + " Expected one of: '" + rgp.getTypes() + "'"),
-                            target, locator.getLineNumber(), -1));
-                      }
-                    } else if (!topNode.getLocalName().equals("Observing_System_Component")) { // TODO
-                                                                                               // For
-                                                                                               // now,
-                                                                                               // we
-                                                                                               // are
-                                                                                               // punting
-                                                                                               // on
-                                                                                               // Observing
-                                                                                               // System
-                                                                                               // Component
+                    if (!rgpTypes.stream().anyMatch(type::equalsIgnoreCase) &&
+                        !topNode.getLocalName().equals("Observing_System_Component")) {
+                      // TODO: For now, we are punting on Observing_System_Component
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(ExceptionType.INFO,
                               ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
