@@ -75,7 +75,7 @@ public class FieldValueValidator {
 
   /** Container to capture messages. */
   private ProblemListener listener;
-
+  private String parentName;
   private RuleContext ruleContext;
 
   private static final Pattern formatPattern =
@@ -119,8 +119,9 @@ public class FieldValueValidator {
    * @param target The label.
    * @param dataFile The data file.
    */
-  public FieldValueValidator(ProblemListener listener, RuleContext context) {
+  public FieldValueValidator(ProblemListener listener, RuleContext context, String parentName) {
     this.listener = listener;
+    this.parentName = parentName;
     this.ruleContext = context;
   }
 
@@ -847,8 +848,12 @@ public class FieldValueValidator {
    */
   void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       RecordLocation recordLocation, int field) {
+    String id = Integer.toString(recordLocation.getDataObjectLocation().getDataObject());
+    if (this.parentName != null && 0 < this.parentName.strip().length()) {
+      id = this.parentName + "or index " + id;
+    }
     listener.addProblem(new TableContentProblem(exceptionType, problemType, message,
         recordLocation.getDataFile(), ruleContext.getTarget(),
-        recordLocation.getDataObjectLocation().getDataObject(), recordLocation.getRecord(), field));
+        id, recordLocation.getRecord(), field));
   }
 }

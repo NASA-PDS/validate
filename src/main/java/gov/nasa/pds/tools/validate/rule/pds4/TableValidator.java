@@ -132,7 +132,7 @@ public class TableValidator implements DataObjectValidator {
 
     int spotCheckData = this.context.getSpotCheckData();
 
-    FieldValueValidator fieldValueValidator = new FieldValueValidator(this.listener, this.context);
+    FieldValueValidator fieldValueValidator = new FieldValueValidator(this.listener, this.context, this.tableObject.getName());
 
     boolean keepQuotationsFlag = true; // Flag to optionally ask RawTableReader to preserve the
                                        // leading and
@@ -781,8 +781,12 @@ public class TableValidator implements DataObjectValidator {
    */
   private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
       URL dataFile, int dataObjectIndex, long record, int field) {
+    String id = Integer.toString(dataObjectIndex);
+    if (this.tableObject.getName() != null && 0 < this.tableObject.getName().strip().length()) {
+      id = this.tableObject.getName() + "or index " + id;
+    }
     this.listener.addProblem(new TableContentProblem(exceptionType, problemType, message, dataFile,
-        this.context.getTarget(), dataObjectIndex, record, field));
+        this.context.getTarget(), id, record, field));
   }
 
   private void progressCounter() {

@@ -57,7 +57,7 @@ public class ArrayContentValidator {
   private URL dataFile;
 
   /** The index of the array. */
-  private int arrayIndex;
+  private String arrayID;
 
   private int spotCheckData;
 
@@ -99,11 +99,11 @@ public class ArrayContentValidator {
    * @param dataFile the data file.
    * @param arrayIndex the index of the array.
    */
-  public ArrayContentValidator(ProblemListener listener, URL label, URL dataFile, int arrayIndex) {
+  public ArrayContentValidator(ProblemListener listener, URL label, URL dataFile, String arrayID) {
     this.listener = listener;
     this.label = label;
     this.dataFile = dataFile;
-    this.arrayIndex = arrayIndex;
+    this.arrayID = arrayID;
   }
 
   /**
@@ -129,7 +129,7 @@ public class ArrayContentValidator {
       listener.addProblem(new ArrayContentProblem(
           new ProblemDefinition(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
               "Error occurred while reading data file: " + e.getMessage()),
-          dataFile, label, arrayIndex, null));
+          dataFile, label, this.arrayID, null));
     } finally {
       arrayObject.closeChannel();
     }
@@ -156,7 +156,7 @@ public class ArrayContentValidator {
         for (int j = 0; j < position.length; j++) {
           position_1based[j] = position[j] + 1;
         }
-        ArrayLocation location = new ArrayLocation(label, dataFile, arrayIndex, position_1based);
+        ArrayLocation location = new ArrayLocation(label, dataFile, this.arrayID, position_1based);
         validatePosition(array, arrayObject, location, position);
         if (spotCheckData != -1) {
           i = i + spotCheckData;
@@ -557,7 +557,7 @@ public class ArrayContentValidator {
       ArrayLocation location) {
     // LOG.debug("addArrayProblem: message [{}]",message);
     listener.addProblem(new ArrayContentProblem(exceptionType, problemType, message,
-        location.getDataFile(), location.getLabel(), location.getArray(), location.getLocation()));
+        location.getDataFile(), location.getLabel(), location.getArrayID(), location.getLocation()));
   }
 
   public void setSpotCheckData(int value) {

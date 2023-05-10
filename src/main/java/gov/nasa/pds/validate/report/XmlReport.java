@@ -147,10 +147,10 @@ public class XmlReport extends Report {
     xmlBuilder = xmlBuilder.a("type", problem.getProblem().getType().getKey());
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
-      if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
+      if (tcProblem.getTableID() != null && !tcProblem.getTableID().equals("-1")) {
         // if (tcProblem.getTable() != null) {
         // if (tcProblem.getTable() != -1)
-        xmlBuilder = xmlBuilder.a("table", tcProblem.getTable().toString());
+        xmlBuilder = xmlBuilder.a("table", tcProblem.getTableID());
         // else
         // xmlBuilder = xmlBuilder.a("table", "0");
       }
@@ -162,8 +162,8 @@ public class XmlReport extends Report {
       }
     } else if (problem instanceof ArrayContentProblem) {
       ArrayContentProblem aProblem = (ArrayContentProblem) problem;
-      if (aProblem.getArray() != null && aProblem.getArray() != -1) {
-        xmlBuilder = xmlBuilder.a("array", aProblem.getArray().toString());
+      if (aProblem.getArrayID() != null && !aProblem.getArrayID().equals("-1")) {
+        xmlBuilder = xmlBuilder.a("array", aProblem.getArrayID());
       }
       if (aProblem.getLocation() != null) {
         xmlBuilder = xmlBuilder.a("location", aProblem.getLocation());
