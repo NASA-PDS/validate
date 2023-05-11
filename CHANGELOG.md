@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-11)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -9,10 +9,17 @@
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
 - As a user, I would like to enforce browse file extension with encoding type [\#617](https://github.com/NASA-PDS/validate/issues/617)
 - As a user, I want to be able to use both online and local schema/schematron files. [\#599](https://github.com/NASA-PDS/validate/issues/599)
+- As a user, I want to validate all data types possible per the PDS4 Information Model [\#212](https://github.com/NASA-PDS/validate/issues/212)
 
 **Improvements:**
 
 - Update datetime regex for content validation [\#608](https://github.com/NASA-PDS/validate/issues/608)
+
+**Defects:**
+
+- Expected value in validate report for context reference name is not same as value in the context file [\#631](https://github.com/NASA-PDS/validate/issues/631) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate incorrectly enforces file naming requirements on bundles/collections [\#561](https://github.com/NASA-PDS/validate/issues/561) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validation fails to catch real value in ASCII\_NonNegative\_Integer field \(Table\_Delimited\) [\#190](https://github.com/NASA-PDS/validate/issues/190) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.2.0](https://github.com/NASA-PDS/validate/tree/v3.2.0) (2023-04-14)
 
