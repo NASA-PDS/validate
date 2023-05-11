@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection  xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:lab.hydrocarbon_spectra:data</logical_identifier>
+        <version_id>2.0</version_id>
+        <title>Laboratory Study of Hydrocarbon IR Spectra Data Collection</title>
+        <information_model_version>1.16.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+            <author_list>Bernath, Peter</author_list>
+            <editor_list>Neakrase, Lynn; Huber, Lyle</editor_list>
+            <publication_year>2021</publication_year>
+            <keyword>hydrocarbon infrared spectra; gas giants and Titan</keyword>
+            <description>Data collection label</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-06-15</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial setup of the collection label.</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2021-10-11</modification_date>
+                <version_id>2.0</version_id>
+                <description>Revised for inclusion of new data. (LN)</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2016Z</start_date_time> <!-- Fix dates for your earliest and latest products in this format. -->
+            <stop_date_time>2021Z</stop_date_time>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Cross Section IR Spectroscopy of Hydrocarbons in Planetary Atmospheres</name>
+            <type>Individual Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:individual_investigation.lab.hydrocarbon_spectra</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Australian Synchrotron Facility</name>
+            <Observing_System_Component>
+                <name>Australian Synchrotron Facility</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:laboratory.asf</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Canadian Light Source Facility</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:laboratory.cls</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Old Dominion University Fourier Transform Infrared Spectrometer Laboratory</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:laboratory.odu-ftir</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Bruker IFS 125HR Fourier Transform Spectrometer</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:multi-host.brukifs125hr_ftspec</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Terahertz Far-Infrared Beamline at the Australian Synchrotron Facility</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:asf.thz_farir_beamline</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Far-Infrared Beamline at the Canadian Light Source Facility</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:cls.farir_beamline</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Laboratory Analog Jupiter</name>
+            <type>Laboratory Analog</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:laboratory_analog.jupiter</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Laboratory Analog Saturn</name>
+            <type>Laboratory Analog</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:laboratory_analog.saturn</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Laboratory Analog Titan</name>
+            <type>Laboratory Analog</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:laboratory_analog.saturn.titan</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Collection>
+        <collection_type>Data</collection_type>
+    </Collection>
+    <File_Area_Inventory>
+        <File>
+            <file_name>collection_lab.hydrocarbon_spectra_data_inventory.csv</file_name>
+            <local_identifier>collection_lab.hydrocarbon_spectra_data_inventory</local_identifier>
+            <creation_date_time>2021-10-11</creation_date_time>
+        </File>
+        <Inventory>
+            <local_identifier>lab.hydrocarbon_spectra_data_inventory</local_identifier>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>247</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">95</maximum_record_length>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>This column specifies the LID of the files that comprise the collection.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                    <description>This column specifies the LID of the files that comprise the collection.</description>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>
