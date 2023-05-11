@@ -38,7 +38,9 @@ public class ArrayValidator implements DataObjectValidator {
   private static final Logger LOG = LoggerFactory.getLogger(ArrayValidator.class);
 
   // #548: @jpl-jengelke wants a return to human-based indexing when reporting problems
+  // #343: wants it to be the name if given
   private int arrayIndex = 1;
+  private String arrayID = "-1";
 
   private ProblemListener listener = null;
   private RuleContext context = null;
@@ -94,31 +96,36 @@ public class ArrayValidator implements DataObjectValidator {
         throw new IllegalArgumentException(dataType + " is not supported at this time.");
       }
 
+      if (this.array.getName() != null && 0 < this.array.getName().strip().length()) {
+        this.arrayID = this.array.getName() + " or index " + Integer.toString(this.arrayIndex);
+      } else {
+        this.arrayID = Integer.toString(this.arrayIndex);
+      }
       // Verify that the elements match the object statistics defined
       // within their associated label, if they exist
       if (!this.array.getArray().getAxisArraies().isEmpty()) {
         ArrayContentValidator validator = new ArrayContentValidator(this.listener, target,
-            this.array.getDataFile(), this.arrayIndex);
+            this.array.getDataFile(), this.arrayID);
         validator.setSpotCheckData(this.context.getSpotCheckData());
         validator.validate(this.array);
       } else {
         addArrayProblem(ExceptionType.FATAL, ProblemType.INVALID_LABEL, "Missing Axis_Array area.",
-            this.array.getDataFile(), arrayIndex);
+            this.array.getDataFile(), this.arrayID);
         valid = false;
       }
     } catch (IllegalArgumentException ae) {
       addArrayProblem(ExceptionType.FATAL, ProblemType.ARRAY_DATA_FILE_READ_ERROR,
-          "Error while reading array: " + ae.getMessage(), this.array.getDataFile(), arrayIndex);
+          "Error while reading array: " + ae.getMessage(), this.array.getDataFile(), this.arrayID);
       valid = false;
     } catch (UnsupportedOperationException ue) {
       addArrayProblem(ExceptionType.WARNING, ProblemType.ARRAY_INTERNAL_WARNING, ue.getMessage(),
-          this.array.getDataFile(), arrayIndex);
+          this.array.getDataFile(), this.arrayID);
       valid = false;
     } catch (OutOfMemoryError me) {
       addArrayProblem(ExceptionType.FATAL, ProblemType.OUT_OF_MEMORY,
           "Out of memory error occurred while processing array. " + "Please adjust the JVM Heap "
               + "Space settings and try again.",
-          this.array.getDataFile(), arrayIndex);
+          this.array.getDataFile(), this.arrayID);
       valid = false;
     }
     arrayIndex++;
@@ -203,29 +210,13 @@ public class ArrayValidator implements DataObjectValidator {
   }
 
   private void addArrayProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL dataFile, int array) {
-    addArrayProblem(exceptionType, problemType, message, dataFile, array, null);
+      URL dataFile, String arrayID) {
+    addArrayProblem(exceptionType, problemType, message, dataFile, arrayID, null);
   }
 
   private void addArrayProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL dataFile, int array, int[] location) {
+      URL dataFile, String arrayID, int[] location) {
     this.listener.addProblem(new ArrayContentProblem(exceptionType, problemType, message, dataFile,
-        this.context.getTarget(), array, location));
-  }
-
-  public ArrayObject getArray() {
-    return array;
-  }
-
-  public void setArray(ArrayObject array) {
-    this.array = array;
-  }
-
-  public int getArrayIndex() {
-    return arrayIndex;
-  }
-
-  public void setArrayIndex(int arrayIndex) {
-    this.arrayIndex = arrayIndex;
+        this.context.getTarget(), arrayID, location));
   }
 }

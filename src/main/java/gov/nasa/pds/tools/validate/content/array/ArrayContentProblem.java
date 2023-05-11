@@ -28,7 +28,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
  */
 public class ArrayContentProblem extends ContentProblem {
 
-  private Integer array;
+  private String arrayID;
   private int[] location;
 
   /**
@@ -39,12 +39,12 @@ public class ArrayContentProblem extends ContentProblem {
    * @param message The problem message.
    * @param source The url of the data file associated with this message.
    * @param label The url of the label file.
-   * @param array The index of the array associated with this message.
+   * @param arrayID The ID (name or index when no name) of the array associated with this message.
    * @param location The location associated with the message.
    */
   public ArrayContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, int array, int[] location) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, array,
+      URL source, URL label, String arrayID, int[] location) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, arrayID,
         location);
   }
 
@@ -54,13 +54,13 @@ public class ArrayContentProblem extends ContentProblem {
    * @param defn The problem definition.
    * @param source The url of the data file associated with this message.
    * @param label The url of the label file.
-   * @param array The index of the array associated with this message.
+   * @param arrayID The ID (index when no name) of the array associated with this message.
    * @param location The location associated with the message.
    */
-  public ArrayContentProblem(ProblemDefinition defn, URL source, URL label, int array,
+  public ArrayContentProblem(ProblemDefinition defn, URL source, URL label, String arrayID,
       int[] location) {
     super(defn, source, label);
-    this.array = array;
+    this.arrayID = arrayID;
     if (location != null) {
       this.location = location;
     } else {
@@ -75,14 +75,14 @@ public class ArrayContentProblem extends ContentProblem {
    * @param source The url of the data file associated with this message.
    */
   public ArrayContentProblem(ProblemDefinition defn, URL source) {
-    this(defn, source, null, -1, null);
+    this(defn, source, null, "-1", null);
   }
 
   /**
-   * @return the index of the array.
+   *Returns the ID of the array.
    */
-  public Integer getArray() {
-    return this.array;
+  public String getArrayID() {
+    return this.arrayID;
   }
 
   /**

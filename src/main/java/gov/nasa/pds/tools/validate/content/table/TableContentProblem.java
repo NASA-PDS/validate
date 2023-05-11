@@ -27,7 +27,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
  */
 public class TableContentProblem extends ContentProblem {
   /** The data object index associated with the problem. */
-  private Integer dataObjectIndex;
+  private String dataObjectID;
 
   /** The record number associated with the problem. */
   private long record;
@@ -48,8 +48,8 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, int dataObjectIndex, int record, int field) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectIndex,
+      URL source, URL label, String dataObjectId, int record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectId,
         record, field);
   }
 
@@ -66,8 +66,8 @@ public class TableContentProblem extends ContentProblem {
    * @param field The index of the field associated with the message.
    */
   public TableContentProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL source, URL label, int dataObjectIndex, long record, int field) {
-    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectIndex,
+      URL source, URL label, String dataObjectID, long record, int field) {
+    this(new ProblemDefinition(exceptionType, problemType, message), source, label, dataObjectID,
         record, field);
   }
 
@@ -81,13 +81,13 @@ public class TableContentProblem extends ContentProblem {
    * @param record The index of the record associated with the message.
    * @param field The index of the field associated with the message.
    */
-  public TableContentProblem(ProblemDefinition defn, URL source, URL label, int dataObjectIndex,
+  public TableContentProblem(ProblemDefinition defn, URL source, URL label, String dataObjectId,
       long record, int field) {
     super(defn, source, label);
-    if (dataObjectIndex == -1) {
-      this.dataObjectIndex = -1;
+    if (dataObjectId == null || dataObjectId.equals("-1")) {
+      this.dataObjectID = "-1";
     } else {
-      this.dataObjectIndex = dataObjectIndex;
+      this.dataObjectID = dataObjectId;
     }
     if (record == -1) {
       this.record = -1;
@@ -108,12 +108,12 @@ public class TableContentProblem extends ContentProblem {
    * @param defn The problem definition.
    * @param source The data file url of the exception.
    * @param label The associated label url of the exception.
-   * @param table The index of the table associated with the message.
+   * @param tableId The index of the table associated with the message.
    * @param record The index of the record associated with the message.
    */
-  public TableContentProblem(ProblemDefinition defn, URL source, URL label, Integer table,
+  public TableContentProblem(ProblemDefinition defn, URL source, URL label, String tableId,
       Integer record) {
-    this(defn, source, label, table, record, -1);
+    this(defn, source, label, tableId, record, -1);
   }
 
   /**
@@ -123,15 +123,15 @@ public class TableContentProblem extends ContentProblem {
    * @param source The data file url of the exception.
    */
   public TableContentProblem(ProblemDefinition defn, URL source) {
-    this(defn, source, null, -1, -1, -1);
+    this(defn, source, null, "-1", -1, -1);
   }
 
   /**
    * 
    * @return the table index.
    */
-  public Integer getTable() {
-    return this.dataObjectIndex;
+  public String getTableID() {
+    return this.dataObjectID;
   }
 
   /**

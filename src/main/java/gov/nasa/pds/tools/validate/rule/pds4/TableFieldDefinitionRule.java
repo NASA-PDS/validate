@@ -217,7 +217,7 @@ public class TableFieldDefinitionRule {
           addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION,
               "ASCII String related fields should not contain '+' symbol in field_format ["
                   + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
-              this.context.getTarget(), -1, -1);
+              this.context.getTarget(), "-1", -1);
           this.valid = false;
         }
       }
@@ -243,7 +243,7 @@ public class TableFieldDefinitionRule {
           addTableProblem(ExceptionType.ERROR, ProblemType.INVALID_OBJECT_DEFINITION,
               "ASCII Number related fields should not contain '-' symbol in field_format ["
                   + oneFieldFormat + "] in field_number " + fieldNumberList.get(indexToList),
-              this.context.getTarget(), -1, -1);
+              this.context.getTarget(), "-1", -1);
 
           this.valid = false;
         }
@@ -262,8 +262,8 @@ public class TableFieldDefinitionRule {
    * @param record The index of the record associated with the exception.
    */
   private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL dataFile, int table, int record) {
-    addTableProblem(exceptionType, problemType, message, dataFile, table, record, -1);
+      URL dataFile, String tableId, int record) {
+    addTableProblem(exceptionType, problemType, message, dataFile, tableId, record, -1);
   }
 
   /**
@@ -277,8 +277,8 @@ public class TableFieldDefinitionRule {
    * @param field The index of the field associated with the exception.
    */
   private void addTableProblem(ExceptionType exceptionType, ProblemType problemType, String message,
-      URL dataFile, int table, int record, int field) {
+      URL dataFile, String tableId, int record, int field) {
     this.listener.addProblem(new TableContentProblem(exceptionType, problemType, message, dataFile,
-        this.context.getTarget(), table, record, field));
+        this.context.getTarget(), tableId, record, field));
   }
 }

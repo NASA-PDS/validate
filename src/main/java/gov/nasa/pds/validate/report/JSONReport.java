@@ -246,8 +246,8 @@ public class JSONReport extends Report {
     this.jsonWriter.name("type").value(problem.getProblem().getType().getKey());
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
-      if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
-        this.jsonWriter.name("table").value(tcProblem.getTable());
+      if (tcProblem.getTableID() != null && !tcProblem.getTableID().equals("-1")) {
+        this.jsonWriter.name("table").value(tcProblem.getTableID());
       }
       if (tcProblem.getRecord() != -1) {
         this.jsonWriter.name("record").value(tcProblem.getRecord());
@@ -257,8 +257,8 @@ public class JSONReport extends Report {
       }
     } else if (problem instanceof ArrayContentProblem) {
       ArrayContentProblem aProblem = (ArrayContentProblem) problem;
-      if (aProblem.getArray() != null && aProblem.getArray() != -1) {
-        this.jsonWriter.name("array").value(aProblem.getArray());
+      if (aProblem.getArrayID() != null && !aProblem.getArrayID().equals("-1")) {
+        this.jsonWriter.name("array").value(aProblem.getArrayID());
       }
       if (aProblem.getLocation() != null) {
         this.jsonWriter.name("location").value(aProblem.getLocation());

@@ -29,7 +29,7 @@ public final class ArrayLocation {
   private URL dataFile;
 
   /** The index of the table associated with the record. */
-  private int array;
+  private String arrayID;
 
   /** The array location. */
   private int[] location;
@@ -39,13 +39,13 @@ public final class ArrayLocation {
    * 
    * @param label The url to the label.
    * @param dataFile The url to the data file.
-   * @param array The array index.
+   * @param array The array ID (name or index when no name).
    * @param location The location.
    */
-  public ArrayLocation(URL label, URL dataFile, int array, int[] location) {
+  public ArrayLocation(URL label, URL dataFile, String arrayID, int[] location) {
     this.label = label;
     this.dataFile = dataFile;
-    this.array = array;
+    this.arrayID = arrayID;
     this.location = location;
   }
 
@@ -67,10 +67,10 @@ public final class ArrayLocation {
 
   /**
    * 
-   * @return the array index.
+   *Returns the array ID.
    */
-  public int getArray() {
-    return this.array;
+  public String getArrayID() {
+    return this.arrayID;
   }
 
   /**

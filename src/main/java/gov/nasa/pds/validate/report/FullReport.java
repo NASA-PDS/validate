@@ -162,9 +162,9 @@ public class FullReport extends Report {
     writer.print("   ");
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
-      if (tcProblem.getTable() != null && tcProblem.getTable() != -1) {
+      if (tcProblem.getTableID() != null && !tcProblem.getTableID().equals("-1")) {
         writer.print("data object ");
-        writer.print(tcProblem.getTable().toString());
+        writer.print(tcProblem.getTableID());
       }
       if (tcProblem.getRecord() != -1) {
         writer.print(", ");
@@ -178,9 +178,9 @@ public class FullReport extends Report {
     } else if (problem instanceof ArrayContentProblem) {
       // For now, we'll assuming we will report on image arrays
       ArrayContentProblem aProblem = (ArrayContentProblem) problem;
-      if (aProblem.getArray() != null && aProblem.getArray() != -1) {
+      if (aProblem.getArrayID() != null && !aProblem.getArrayID().equals("-1")) {
         writer.print("array ");
-        writer.print(aProblem.getArray().toString());
+        writer.print(aProblem.getArrayID());
       }
       if (aProblem.getLocation() != null) {
         writer.print(", ");
