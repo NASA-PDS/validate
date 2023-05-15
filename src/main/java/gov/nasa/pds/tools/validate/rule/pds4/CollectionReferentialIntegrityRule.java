@@ -33,6 +33,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationTarget;
+import gov.nasa.pds.tools.validate.content.table.InventoryTableValidator;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
@@ -87,6 +88,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           if ("Product_Collection".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {
             getListener().addLocation(collectionTarget.getUrl().toString());
             this.lid = extractor.getValueFromDoc(LOGICAL_IDENTIFIER);
+            InventoryTableValidator.uniqueLidvids(this.getListener(), collectionTarget.getUrl());
             getCollectionMembers(collectionTarget.getUrl());
           }
         } catch (Exception e) {
