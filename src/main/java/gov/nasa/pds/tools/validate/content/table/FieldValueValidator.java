@@ -107,8 +107,22 @@ public class FieldValueValidator {
   // https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a
   // bundle with a single-character filename
   // A better pattern allows for at least one character file name.
+  //
+  /* regex changed to match standard reference section 6C.1.
+   *   The file name must be constructed from the character set
+         A-Z ASCII 0x41 through 0x5A,
+         a-z ASCII 0x61 through 0x7A,
+         0-9 ASCII 0x30 through 0x39,
+         dash “-” ASCII 0x2D,
+         underscore “_” ASCII 0x5F, and
+         period “.” ASCII 0x2E.
+   *   The file name must not begin or end with a dash, underscore, or period.
+   *   The file name must include at least one period followed by an extension. A file name may
+   *     have more than one period, but PDS will consider all periods other than the final one to
+   *     be part of the base name
+   */
   private static final Pattern asciiFileNamePattern =
-      Pattern.compile("[A-Za-z0-9]*[A-Za-z0-9-_\\.]*[A-Za-z0-9]\\.[A-Za-z0-9]+");
+      Pattern.compile("^[A-Za-z0-9]+[A-Za-z0-9-_\\.]*\\.[A-Za-z0-9-_]*[A-Za-z0-9]+$");
 
   private static final Pattern dirPattern =
       Pattern.compile("/?([A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]/?|[A-Za-z0-9][^-_]/?)*");

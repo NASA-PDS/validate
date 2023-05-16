@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_AIP xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd">
+  <Identification_Area>
+    <!--Parse name from bundle logical_identifier, e.g. urn:nasa:pds:ladee_mission_bundle would be ladee_mission_bundle-->
+    <logical_identifier>urn:nasa:pds:system_bundle:product_aip:go_uvs_v1.0_20221109</logical_identifier>
+    <version_id>1.0</version_id>
+    <!--Use the title from the bundle label-->
+    <title>Archive Information Package for go_uvs_v1.0::1.0</title>
+    <information_model_version>1.13.0.0</information_model_version>
+    <product_class>Product_AIP</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <!--Creation date in format YYYY-MM-DD-->
+        <modification_date>2022-11-09</modification_date>
+        <version_id>1.0</version_id>
+        <description>Archive Information Package was versioned and created</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Information_Package_Component>
+    <checksum_manifest_checksum>4ade7e7d61a3d3ca930f007d62041c5f</checksum_manifest_checksum>
+    <checksum_type>MD5</checksum_type>
+    <transfer_manifest_checksum>e8854861e76f7dbb8ef747db075e898c</transfer_manifest_checksum>
+    <!--Include reference to the Bundle being described-->
+    <Internal_Reference>
+      <!--The LIDVID from the bundle label (combination of logical_identifier and version_id)-->
+      <lidvid_reference>urn:nasa:pds:go_uvs::1.0</lidvid_reference>
+      <reference_type>package_has_bundle</reference_type>
+      <comment>Links this AIP to the specific version of the bundle product in the PDS registry system</comment>
+    </Internal_Reference>
+    <File_Area_Checksum_Manifest>
+      <File>
+        <file_name>go_uvs_v1.0_20221109_checksum_manifest_v1.0.tab</file_name>
+        <!--Creation date time in formation YYYY-MM-DDTHH:mm:ss-->
+        <creation_date_time>2022-11-09T19:35:47</creation_date_time>
+        <file_size unit="byte">470728</file_size>
+        <records>6749</records>
+      </File>
+      <Checksum_Manifest>
+        <name>checksum manifest</name>
+        <offset unit="byte">0</offset>
+        <object_length unit="byte">470728</object_length>
+        <parsing_standard_id>MD5Deep 4.n</parsing_standard_id>
+        <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      </Checksum_Manifest>
+    </File_Area_Checksum_Manifest>
+    <File_Area_Transfer_Manifest>
+      <File>
+        <file_name>go_uvs_v1.0_20221109_transfer_manifest_v1.0.tab</file_name>
+        <creation_date_time>2022-11-09T19:35:47</creation_date_time>
+        <file_size unit="byte">3455488</file_size>
+        <records>6749</records>
+      </File>
+      <Transfer_Manifest>
+        <name>transfer manifest</name>
+        <offset unit="byte">0</offset>
+        <records>6749</records>
+        <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        <Record_Character>
+          <fields>2</fields>
+          <groups>0</groups>
+          <record_length unit="byte">512</record_length>
+          <Field_Character>
+            <name>LIDVID</name>
+            <field_location unit="byte">1</field_location>
+            <data_type>ASCII_String</data_type>
+            <field_length unit="byte">255</field_length>
+          </Field_Character>
+          <Field_Character>
+            <name>File Specification Name</name>
+            <field_location unit="byte">256</field_location>
+            <data_type>ASCII_File_Specification_Name</data_type>
+            <field_length unit="byte">255</field_length>
+          </Field_Character>
+        </Record_Character>
+      </Transfer_Manifest>
+    </File_Area_Transfer_Manifest>
+  </Information_Package_Component>
+  <Archival_Information_Package>
+    <description>Archival Information Package for urn:nasa:pds:go_uvs::1.0</description>
+  </Archival_Information_Package>
+</Product_AIP>
