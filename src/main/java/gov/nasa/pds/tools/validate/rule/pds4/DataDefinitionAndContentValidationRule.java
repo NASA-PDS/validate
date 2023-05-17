@@ -90,6 +90,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
         // Check and validate per specific object type
         if (obj instanceof TableObject) {
           validator = new TableValidator(getContext(), getListener(), obj);
+          ((TableValidator)validator).setParent (this.getTarget());
           validator.validate();
         } else if (obj instanceof ArrayObject) {
           validator = new ArrayValidator(getContext(), getListener(), obj);
