@@ -39,7 +39,6 @@ import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.content.table.FieldContentFatalException;
 import gov.nasa.pds.tools.validate.content.table.FieldValueValidator;
-import gov.nasa.pds.tools.validate.content.table.InventoryTableValidator;
 import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.tools.validate.rule.RuleContext;
 import gov.nasa.pds.validate.constants.Constants;
@@ -63,7 +62,6 @@ public class TableValidator implements DataObjectValidator {
   private TableObject tableObject = null;
   private TableAdapter tableAdapter = null;
   private URL dataFile = null;
-  private URL parent = null;
 
   /**
    * Creates a new instance.
@@ -98,9 +96,6 @@ public class TableValidator implements DataObjectValidator {
 
     boolean valid = this.validateDataObjectDefinition();
 
-    if (this.tableObject.getTableObject() instanceof gov.nasa.arc.pds.xml.generated.Inventory) {
-      InventoryTableValidator.uniqueLidvids(this.listener, this.parent);
-    }
     if (valid && this.context.getCheckData()) {
       valid = this.validateDataObjectContents();
     }
@@ -824,8 +819,5 @@ public class TableValidator implements DataObjectValidator {
 
   public void setCurrentTableReader(RawTableReader currentTableReader) {
     this.currentTableReader = currentTableReader;
-  }
-  public void setParent (URL target) {
-    this.parent = target;
   }
 }

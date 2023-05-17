@@ -16,7 +16,10 @@ import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 
 public class InventoryTableValidator {
-  public static void uniqueLidvids (ProblemListener listener, URL aggregate) {
+  public static void uniqueBundleRefs (ProblemListener listener, URL aggregate) {
+    
+  }
+  public static void uniqueCollectionRefs (ProblemListener listener, URL aggregate) {
     try {
       ArrayList<String> ids = new ArrayList<String>();
       InventoryTableReader reader = new InventoryTableReader(aggregate);
