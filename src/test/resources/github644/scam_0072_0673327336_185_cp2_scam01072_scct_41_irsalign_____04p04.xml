@@ -3228,7 +3228,7 @@
     <Header>
       <name>SPECTRA HEADER</name>
       <local_identifier>spectra-header</local_identifier>
-      <offset unit="byte">141120</offset>
+      <offset unit="byte">146432</offset>
       <object_length unit="byte">2880</object_length>
       <parsing_standard_id>FITS 4.0</parsing_standard_id>
       <description>FITS header for Spectra Table</description>
@@ -3236,7 +3236,7 @@
     <Table_Binary>
       <name>SPECTRA TABLE</name>
       <local_identifier>spectra-table</local_identifier>
-      <offset unit="byte">144000</offset>
+      <offset unit="byte">149312</offset>
       <records>256</records>
       <description>Spectra Table</description>
       <Record_Binary>
@@ -3302,7 +3302,7 @@
     <Header>
       <name>WAVELENGTH HEADER</name>
       <local_identifier>wavelength-header</local_identifier>
-      <offset unit="byte">158400</offset>
+      <offset unit="byte">161600</offset>
       <object_length unit="byte">2880</object_length>
       <parsing_standard_id>FITS 4.0</parsing_standard_id>
       <description>FITS header for Wavelength Table</description>
@@ -3310,7 +3310,7 @@
     <Table_Binary>
       <name>WAVELENGTH TABLE</name>
       <local_identifier>wavelength-table</local_identifier>
-      <offset unit="byte">161280</offset>
+      <offset unit="byte">164480</offset>
       <records>256</records>
       <description>Wavelength Table</description>
       <Record_Binary>
@@ -3340,7 +3340,7 @@
     <Header>
       <name>IR SPEC SOH HEADER</name>
       <local_identifier>ir-spec-soh-header</local_identifier>
-      <offset unit="byte">167040</offset>
+      <offset unit="byte">168576</offset>
       <object_length unit="byte">2880</object_length>
       <parsing_standard_id>FITS 4.0</parsing_standard_id>
       <description>FITS header for IR SPEC SOH Table</description>
@@ -3348,7 +3348,7 @@
     <Table_Binary>
       <name>IR SPEC SOH TABLE</name>
       <local_identifier>ir-spec-soh-table</local_identifier>
-      <offset unit="byte">169920</offset>
+      <offset unit="byte">171456</offset>
       <records>1</records>
       <description>IR SPEC SOH Table</description>
       <Record_Binary>
