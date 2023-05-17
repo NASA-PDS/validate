@@ -50,6 +50,13 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       LOG.debug("START definition/content validation: {}", targetFileName);
 
       label = Label.open(target);
+      if (label.getProductType() == ProductType.PRODUCT_BUNDLE) {
+        InventoryTableValidator.uniqueBundleRefs(this.getListener(), this.getTarget());
+      }
+      if (label.getProductType() == ProductType.PRODUCT_COLLECTION) {
+        InventoryTableValidator.uniqueCollectionRefs(this.getListener(), this.getTarget());
+      }
+
 
       int tableCounter = 0;
       int arrayCounter = 0;
@@ -62,14 +69,6 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       EveryNCounter.getInstance().increment();
       List<DataObject> offsetSorted = new ArrayList<DataObject>(label.getObjects());
       Collections.sort(offsetSorted, new DataObjectCompareViaOffset());
-
-      if (label.getProductType() == ProductType.PRODUCT_BUNDLE) {
-        InventoryTableValidator.uniqueBundleRefs(this.getListener(), this.getTarget());
-      }
-      if (label.getProductType() == ProductType.PRODUCT_COLLECTION) {
-        InventoryTableValidator.uniqueCollectionRefs(this.getListener(), this.getTarget());
-      }
-
       for (DataObject obj : offsetSorted) {
         objectIdentifier = getObjectIdentifier(obj);
         LOG.debug("Checking DataObject #{} '{}'", objectCounter, obj.getName());

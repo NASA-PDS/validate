@@ -90,4 +90,14 @@
     <member_status>Secondary</member_status>
     <reference_type>bundle_has_document_collection</reference_type>
   </Bundle_Member_Entry>
+  <Bundle_Member_Entry>
+    <lid_reference>urn:nasa:pds:mars2020.spice:document</lid_reference>
+    <member_status>Primary</member_status>
+    <reference_type>bundle_has_document_collection</reference_type>
+  </Bundle_Member_Entry>
+  <Bundle_Member_Entry>
+    <lid_reference>urn:nasa:pds:mars2020.spice:document</lid_reference>
+    <member_status>Secondary</member_status>
+    <reference_type>bundle_has_document_collection</reference_type>
+  </Bundle_Member_Entry>
 </Product_Bundle>
