@@ -74,7 +74,6 @@ public class FieldValueValidator {
   }
 
   private static List<FieldType> realTypes = Arrays.asList(
-      FieldType.ASCII_REAL,
       FieldType.IEEE754LSBDOUBLE,
       FieldType.IEEE754LSBSINGLE,
       FieldType.IEEE754MSBDOUBLE,
