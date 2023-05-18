@@ -22,6 +22,12 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#616
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
 
+# Validate#605
+|"NASA-PDS/validate#605 Success Video+Audio" | "github605" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github605.json -s json --skip-context-validation -t {resourceDir}/github605/video_and_audio.xml" | "report_github605.json" |
+
+# Validate#604
+|"NASA-PDS/validate#604 Success Multiple Tables One File" | "github604" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github604.json -s json --skip-context-validation -t {resourceDir}/github604/video.xml" | "report_github604.json" |
+
 # Validate#599
 |"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
 #|"NASA-PDS/validate#599 Failure Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
