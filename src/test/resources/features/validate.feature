@@ -65,6 +65,9 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#480 Fail Intermingled Data Objects - Header Offset" | "github480" | 1 | "1 errors expected" | "INVALID_OBJECT_DEFINITION" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github480_2.json -s json -t {resourceDir}/github480/test_fail_header_offset.xml --skip-content-validation" | "report_github480_2.json" |
 |"NASA-PDS/validate#480 Fail Intermingled Data Objects - Table Offset" | "github480" | 1 | "1 errors expected" | "INVALID_OBJECT_DEFINITION" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github480_3.json -s json -t {resourceDir}/github480/test_fail_table_offset.xml --skip-content-validation" | "report_github480_3.json" |
 
+|"NASA-PDS/validate#467 Duplicate LIDVIDs in Bundle" | "github476" | 2 | "2 errors expected" | "INVENTORY_DUPLICATE_LIDVID" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github476b.json -s json -R pds4.label -t {resourceDir}/github476/bundle_mars2020_spice_v003.xml" | "report_github476b.json" |
+|"NASA-PDS/validate#467 Duplicate LIDVIDs in Collection" | "github476" | 1 | "1 errors expected" | "INVENTORY_DUPLICATE_LIDVID" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github476c.json -s json -R pds4.label -t {resourceDir}/github476/collection_lab.hydrocarbon_spectra_data.xml" | "report_github476c.json" |
+
 # Validate#444 pds4.bundle option seems to not travel through enough subdirectories
 |"NASA-PDS/validate#444 Bundle with Multi-level Collections" | "github444" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github444_1.json -s json -t {resourceDir}/github444/odya_bundle/bundle_ody_accel.xml" | "report_github444_1.json" |
 

@@ -88,6 +88,8 @@ public enum ProblemType {
 
   INVALID_MEMBER_STATUS("error.inventory_table.invalid_member_status"),
 
+  INVENTORY_DUPLICATE_LIDVID("error.inventory.duplicate_lidvid"),
+
   // Referential Integrity Checking messages
 
   DUPLICATE_VERSIONS("error.integrity.duplicate_versions"),

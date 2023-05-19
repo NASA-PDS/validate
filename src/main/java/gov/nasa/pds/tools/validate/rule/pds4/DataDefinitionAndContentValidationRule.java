@@ -11,6 +11,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.label.Label;
+import gov.nasa.pds.label.ProductType;
 import gov.nasa.pds.label.object.ArrayObject;
 import gov.nasa.pds.label.object.DataObject;
 import gov.nasa.pds.label.object.TableObject;
@@ -21,6 +22,7 @@ import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.content.table.InventoryTableValidator;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 
@@ -48,6 +50,13 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       LOG.debug("START definition/content validation: {}", targetFileName);
 
       label = Label.open(target);
+      if (label.getProductType() == ProductType.PRODUCT_BUNDLE) {
+        InventoryTableValidator.uniqueBundleRefs(this.getListener(), this.getTarget());
+      }
+      if (label.getProductType() == ProductType.PRODUCT_COLLECTION) {
+        InventoryTableValidator.uniqueCollectionRefs(this.getListener(), this.getTarget());
+      }
+
 
       int tableCounter = 0;
       int arrayCounter = 0;
