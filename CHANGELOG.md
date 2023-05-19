@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-16)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-19)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -9,6 +9,7 @@
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
 - As a user, I would like to enforce browse file extension with encoding type [\#617](https://github.com/NASA-PDS/validate/issues/617)
 - As a user, I want to be able to use both online and local schema/schematron files. [\#599](https://github.com/NASA-PDS/validate/issues/599)
+- As a user, I want to check that are no duplicate LIDs/LIDVIDs in a File\_Area\_Inventory [\#476](https://github.com/NASA-PDS/validate/issues/476)
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
 - As a user, I want to validate content for all possible PDS4 table types [\#217](https://github.com/NASA-PDS/validate/issues/217)
 - As a user, I want to validate all data types possible per the PDS4 Information Model [\#212](https://github.com/NASA-PDS/validate/issues/212)
@@ -19,6 +20,7 @@
 
 **Defects:**
 
+- Validate gives errors for 'NaN' and 'Inf' values in IEEE754 data [\#644](https://github.com/NASA-PDS/validate/issues/644) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Expected value in validate report for context reference name is not same as value in the context file [\#631](https://github.com/NASA-PDS/validate/issues/631) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate incorrectly enforces file naming requirements for base file names ending in a period, underscore, or hyphen [\#562](https://github.com/NASA-PDS/validate/issues/562) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate incorrectly enforces file naming requirements on bundles/collections [\#561](https://github.com/NASA-PDS/validate/issues/561) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
