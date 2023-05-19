@@ -1,0 +1,3525 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1G00_1860.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4//geom/v1/PDS4_GEOM_1G00_1930.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1G00_1210.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1G00_1220.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1" 
+    xmlns:mars2020="http://pds.nasa.gov/pds4/mission/mars2020/v1" 
+    xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1" 
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1    https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd     http://pds.nasa.gov/pds4/mission/mars2020/v1           https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.xsd     http://pds.nasa.gov/pds4/img/v1                        https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1G00_1860.xsd     http://pds.nasa.gov/pds4/geom/v1                       https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1930.xsd     http://pds.nasa.gov/pds4/proc/v1                       https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1G00_1210.xsd     http://pds.nasa.gov/pds4/msn_surface/v1                https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1G00_1220.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mars2020_supercam:data_calibrated_spectra:scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p</logical_identifier>
+    <version_id>4.0</version_id>
+    <title>Mars 2020 SuperCam VIS IRSpec CP2 Spectra</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-07-22</modification_date>
+        <version_id>4.0</version_id>
+        <description>Enhanced status flags, corrected satuaration flags and added standard diviation to quality flag.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2022-03-22</modification_date>
+        <version_id>3.0</version_id>
+        <description>Corrected Saturation Contents in Quality Table</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2021-11-22</modification_date>
+        <version_id>2.0</version_id>
+        <description>Updated CP2 calibration</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2021-08-20</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial Release</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-05-03T15:24:36.516Z</start_date_time>
+      <stop_date_time nilReason="missing" xsi:nil="true"/>
+      <local_mean_solar_time>11:11:35.372</local_mean_solar_time>
+      <local_true_solar_time>10:59:25</local_true_solar_time>
+      <solar_longitude unit="deg">40.1481</solar_longitude>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Mars 2020</name>
+      <Observing_System_Component>
+        <name>Mars 2020</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Spectrometer and Micro-Imager Suite (SuperCam)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mars2020.supercam</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <mars2020:Mars2020_Parameters>
+        <mars2020:Observation_Information>
+          <mars2020:release_number>0001</mars2020:release_number>
+          <mars2020:mission_phase_name>Surface Mission</mars2020:mission_phase_name>
+          <mars2020:spacecraft_clock_start>673327335.106</mars2020:spacecraft_clock_start>
+          <mars2020:spacecraft_clock_partition>1</mars2020:spacecraft_clock_partition>
+          <mars2020:sol_number>72</mars2020:sol_number>
+          <mars2020:start_local_mean_solar_time>Sol-00072M11:11:35.372</mars2020:start_local_mean_solar_time>
+          <mars2020:start_local_true_solar_time>10:59:25</mars2020:start_local_true_solar_time>
+          <mars2020:start_solar_longitude unit="deg">40.1481</mars2020:start_solar_longitude>
+          <mars2020:active_flight_computer>A</mars2020:active_flight_computer>
+        </mars2020:Observation_Information>
+        <mars2020:SuperCam_Parameters>
+          <mars2020:SuperCam_Ancillary_Header>
+            <mars2020:scam_point_number>4</mars2020:scam_point_number>
+            <mars2020:scam_type>18</mars2020:scam_type>
+            <mars2020:scam_two_d_flag>false</mars2020:scam_two_d_flag>
+            <mars2020:scam_ldark>0</mars2020:scam_ldark>
+            <mars2020:scam_rdark>0</mars2020:scam_rdark>
+            <mars2020:scam_rdstats_flag>false</mars2020:scam_rdstats_flag>
+            <mars2020:scam_rastats_flag>false</mars2020:scam_rastats_flag>
+            <mars2020:scam_ldstats_flag>true</mars2020:scam_ldstats_flag>
+            <mars2020:scam_lastats_flag>false</mars2020:scam_lastats_flag>
+          </mars2020:SuperCam_Ancillary_Header>
+          <mars2020:SuperCam_Generic_Packet_Header>
+            <mars2020:rce_time_sync>673325645</mars2020:rce_time_sync>
+            <mars2020:data_definition_version>23</mars2020:data_definition_version>
+            <mars2020:nv_xmit_buffer_count>30933</mars2020:nv_xmit_buffer_count>
+            <mars2020:bu_software_version>1603993175</mars2020:bu_software_version>
+            <mars2020:cndh_firmware_version>1555627866</mars2020:cndh_firmware_version>
+            <mars2020:bu_hardware_identifier>100</mars2020:bu_hardware_identifier>
+            <mars2020:se_firmware_version>37176</mars2020:se_firmware_version>
+            <mars2020:se_hardware_identifier>784</mars2020:se_hardware_identifier>
+            <mars2020:mu_version_identifier>0</mars2020:mu_version_identifier>
+            <mars2020:mu_hardware_identifier>0</mars2020:mu_hardware_identifier>
+            <mars2020:xmit_data_id>673327335</mars2020:xmit_data_id>
+            <mars2020:reserved_1>0</mars2020:reserved_1>
+            <mars2020:number_of_sections>66</mars2020:number_of_sections>
+            <mars2020:generic_data_buffer_size>213576</mars2020:generic_data_buffer_size>
+          </mars2020:SuperCam_Generic_Packet_Header>
+        </mars2020:SuperCam_Parameters>
+      </mars2020:Mars2020_Parameters>
+    </Mission_Area>
+    <Discipline_Area>
+      <geom:Geometry>
+        <geom:SPICE_Kernel_Files>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>chronos.m2020_ops210303_v1</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+        </geom:SPICE_Kernel_Files>
+        <geom:Geometry_Lander>
+          <geom:geometry_state>Telemetry</geom:geometry_state>
+          <geom:description>Geometry as reported by the spacecraft in telemetry</geom:description>
+          <local_identifier>geom_telemetry_state</local_identifier>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>RSM</geom:device_id>
+            <geom:device_name>REMOTE SENSING MAST</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.110638</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.11071</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.111429</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.11071</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">0.115228</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">1.11327</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.115226</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.11327</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">0.116028</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.11327</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+            <geom:Device_Temperature>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>NAVCAM LEFT CAMERA PLATE</geom:index_id>
+                <geom:index_value_temperature unit="degC">-30.131</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>NAVCAM RIGHT CAMERA PLATE</geom:index_id>
+                <geom:index_value_temperature unit="degC">-31.9509</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+            </geom:Device_Temperature>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>ARM</geom:device_id>
+            <geom:device_name>SAMPLE ARM</geom:device_name>
+            <geom:selected_instrument_id>WATSON</geom:selected_instrument_id>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 1 AZIMUTH-HALL ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.57291</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 2 ELEVATION-HALL ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.286141</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 3 ELBOW-HALL ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">-2.81942</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 4 WRIST-HALL ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">3.11076</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 5 TURRET-HALL ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">4.86046</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 1 AZIMUTH-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1.5724</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 2 ELEVATION-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.286015</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 3 ELBOW-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">-2.82096</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 4 WRIST-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">3.10976</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 5 TURRET-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">4.86075</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>SCS DOCKING CLOCK ANGLE</geom:index_id>
+                <geom:index_value_angle unit="rad">0.0602604</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+            <geom:Device_Component_State>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>PRELOAD_VALUE</geom:index_id>
+                <geom:index_value_string>6</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>PRELOAD_TOOL</geom:index_id>
+                <geom:index_value_string>WATSON</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+            </geom:Device_Component_State>
+            <geom:Device_Component_State>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>FACILITY CONTACT SENSOR A</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>FACILITY CONTACT SENSOR B</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DRILL STABILIZER 1</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DRILL STABILIZER 2</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DOCK 1</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DOCK 2</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DOCK 3</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+              <geom:Device_Component_State_Index>
+                <geom:index_id>DOCK 4</geom:index_id>
+                <geom:index_value_string>NO CONTACT</geom:index_value_string>
+              </geom:Device_Component_State_Index>
+            </geom:Device_Component_State>
+            <geom:Device_Temperature>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>AZIMUTH JOINT</geom:index_id>
+                <geom:index_value_temperature unit="degC">-41.6332</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>ELEVATION JOINT</geom:index_id>
+                <geom:index_value_temperature unit="degC">-40.9534</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>ELBOW JOINT</geom:index_id>
+                <geom:index_value_temperature unit="degC">-39.221</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>WRIST JOINT</geom:index_id>
+                <geom:index_value_temperature unit="degC">-39.7244</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>TURRET JOINT</geom:index_id>
+                <geom:index_value_temperature unit="degC">-49.0305</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>DEFLECTION BODY DELTA TEMPERATURE</geom:index_id>
+                <geom:index_value_temperature unit="degC">0</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+              <geom:Device_Temperature_Index>
+                <geom:index_id>DEFLECTION ARM DELTA TEMPERATURE</geom:index_id>
+                <geom:index_value_temperature unit="degC">-50.2922</geom:index_value_temperature>
+              </geom:Device_Temperature_Index>
+            </geom:Device_Temperature>
+            <geom:Vector_Device_Gravity>
+              <geom:x_unit>0.5351895016785272</geom:x_unit>
+              <geom:y_unit>-0.39967548465494745</geom:y_unit>
+              <geom:z_unit>-0.7441986994472125</geom:z_unit>
+            </geom:Vector_Device_Gravity>
+            <geom:Vector_Device_Gravity_Magnitude>
+              <geom:x_acceleration unit="m/s**2">1.01807</geom:x_acceleration>
+              <geom:y_acceleration unit="m/s**2">-0.760287</geom:y_acceleration>
+              <geom:z_acceleration unit="m/s**2">-1.41566</geom:z_acceleration>
+            </geom:Vector_Device_Gravity_Magnitude>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>CHASSIS</geom:device_id>
+            <geom:device_name>MOBILITY CHASSIS</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT FRONT WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">4.26106e-05</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT FRONT WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.000255663</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT REAR WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">-0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT REAR WHEEL STEER MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0.000127832</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT BOGIE</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.0456349</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT BOGIE</geom:index_id>
+                <geom:index_value_angle unit="rad">0.0218605</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT DIFFERENTIAL</geom:index_id>
+                <geom:index_value_angle unit="rad">0.0357273</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT DIFFERENTIAL</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.0214265</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT FRONT WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT FRONT WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT MIDDLE WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT MIDDLE WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>LEFT REAR WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>RIGHT REAR WHEEL DRIVE MOTOR</geom:index_id>
+                <geom:index_value_angle unit="rad">0</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>HGA</geom:device_id>
+            <geom:device_name>HIGH GAIN ANTENNA</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH</geom:index_id>
+                <geom:index_value_angle unit="rad">1.13451</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION</geom:index_id>
+                <geom:index_value_angle unit="rad">-0.785009</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>ROVER_NAV_FRAME_3_2208_34_104_0_0_718_612_0_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">-6.45168</geom:x_position>
+              <geom:y_position unit="m">82.6216</geom:y_position>
+              <geom:z_position unit="m">1.09064</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.154234</geom:qcos>
+              <geom:qsin1>0.00828091</geom:qsin1>
+              <geom:qsin2>-0.00531611</geom:qsin2>
+              <geom:qsin3>0.987985</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>SITE_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+            <geom:Coordinate_Space_Quality>
+              <geom:quaternion_measurement_method>Sun_Find</geom:quaternion_measurement_method>
+            </geom:Coordinate_Space_Quality>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>RSM_HEAD_FRAME_3_2208_34_104_0_0_718_612_0_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>RSM_HEAD_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">0.804896</geom:x_position>
+              <geom:y_position unit="m">0.559437</geom:y_position>
+              <geom:z_position unit="m">-1.91903</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.044266</geom:qcos>
+              <geom:qsin1>-0.235031</geom:qsin1>
+              <geom:qsin2>-0.00953441</geom:qsin2>
+              <geom:qsin3>-0.970933</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>ARM_WATSON_FRAME_3_2208_34_104_0_0_718_612_0_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ARM_WATSON_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">1.01807</geom:x_position>
+              <geom:y_position unit="m">-0.760287</geom:y_position>
+              <geom:z_position unit="m">-1.41566</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.633435</geom:qcos>
+              <geom:qsin1>-0.00156143</geom:qsin1>
+              <geom:qsin2>-0.000885087</geom:qsin2>
+              <geom:qsin3>-0.773794</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>ARM_TURRET_FRAME_3_2208_34_104_0_0_718_612_0_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ARM_TURRET_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">1.08481</geom:x_position>
+              <geom:y_position unit="m">-0.429079</geom:y_position>
+              <geom:z_position unit="m">-1.40257</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.997178</geom:qcos>
+              <geom:qsin1>-0.00162062</geom:qsin1>
+              <geom:qsin2>0.000771385</geom:qsin2>
+              <geom:qsin3>0.0750499</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>TOOL_FRAME_3_2208_34_104_0_0_718_612_0_0</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>TOOL_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">1.01807</geom:x_position>
+              <geom:y_position unit="m">-0.760287</geom:y_position>
+              <geom:z_position unit="m">-1.41566</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.633435</geom:qcos>
+              <geom:qsin1>-0.00156143</geom:qsin1>
+              <geom:qsin2>-0.000885087</geom:qsin2>
+              <geom:qsin3>-0.773794</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Derived_Geometry>
+            <geom:instrument_azimuth unit="deg">185.324</geom:instrument_azimuth>
+            <geom:instrument_elevation unit="deg">-27.6395</geom:instrument_elevation>
+            <geom:solar_azimuth unit="deg">292.635</geom:solar_azimuth>
+            <geom:solar_elevation unit="deg">75.3055</geom:solar_elevation>
+            <geom:Vector_Solar_Direction>
+              <geom:x_unit>0.0976269</geom:x_unit>
+              <geom:y_unit>-0.234127</geom:y_unit>
+              <geom:z_unit>-0.967292</geom:z_unit>
+            </geom:Vector_Solar_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Derived_Geometry>
+          <geom:Derived_Geometry>
+            <geom:target_name>SuperCam Calibration Target</geom:target_name>
+            <geom:incidence_angle unit="deg">44.449</geom:incidence_angle>
+            <geom:phase_angle unit="deg">58.9623</geom:phase_angle>
+            <geom:instrument_azimuth unit="deg">347.298</geom:instrument_azimuth>
+            <geom:instrument_elevation unit="deg">-26.6534</geom:instrument_elevation>
+            <geom:solar_azimuth unit="deg">98.3227</geom:solar_azimuth>
+            <geom:solar_elevation unit="deg">75.2936</geom:solar_elevation>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>SITE_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>3</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>2208</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>34</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>104</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SHA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>718</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>612</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>BITCAR</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SEAL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Derived_Geometry>
+          <geom:Derived_Geometry>
+            <geom:target_name>Mars</geom:target_name>
+            <geom:target_heliocentric_distance unit="km">2.45609e+08</geom:target_heliocentric_distance>
+          </geom:Derived_Geometry>
+          <geom:Motion_Counter>
+            <geom:name>RMC</geom:name>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SITE</geom:index_id>
+              <geom:index_value_number>3</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRIVE</geom:index_id>
+              <geom:index_value_number>2208</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>POSE</geom:index_id>
+              <geom:index_value_number>34</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>ARM</geom:index_id>
+              <geom:index_value_number>104</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SHA</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRILL</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>RSM</geom:index_id>
+              <geom:index_value_number>718</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>HGA</geom:index_id>
+              <geom:index_value_number>612</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>BITCAR</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SEAL</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+          </geom:Motion_Counter>
+        </geom:Geometry_Lander>
+      </geom:Geometry>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Instrument_State>
+          <img:Device_Temperatures>
+            <img:Device_Temperature>
+              <img:device_name>MU_OBOX_TEMP</img:device_name>
+              <img:temperature_value unit="degC">-32.3892</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>MU_LASER_IF_TEMP</img:device_name>
+              <img:temperature_value unit="degC">-32.3892</img:temperature_value>
+              <img:temperature_status>-45</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>MU_EBOX_TEMP</img:device_name>
+              <img:temperature_value unit="degC">-7.96631</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>MU_SEC_MIRROR_TEMP</img:device_name>
+              <img:temperature_value unit="degC">-32.389</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>RAMP_TEMP</img:device_name>
+              <img:temperature_value unit="degC">21.3006</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+          </img:Device_Temperatures>
+        </img:Instrument_State>
+      </img:Imaging>
+      <msn_surface:Surface_Mission_Information>
+        <msn_surface:Command_Execution>
+          <msn_surface:sequence_id>scam01072</msn_surface:sequence_id>
+          <msn_surface:sequence_version_id>0</msn_surface:sequence_version_id>
+          <msn_surface:sequence_execution_count>1</msn_surface:sequence_execution_count>
+          <msn_surface:command_sequence_number>39</msn_surface:command_sequence_number>
+          <msn_surface:command_source_id>GROUND COMMANDED</msn_surface:command_source_id>
+          <msn_surface:command_dispatch_sclk>673327335.10476</msn_surface:command_dispatch_sclk>
+          <msn_surface:request_id>0</msn_surface:request_id>
+          <msn_surface:boot_counter>426</msn_surface:boot_counter>
+        </msn_surface:Command_Execution>
+        <msn_surface:Telemetry>
+          <msn_surface:application_id>426</msn_surface:application_id>
+          <msn_surface:application_name>ScamScidata</msn_surface:application_name>
+          <msn_surface:provider_id>MPCS_M2020_DP</msn_surface:provider_id>
+          <msn_surface:flight_software_version_id>411264494</msn_surface:flight_software_version_id>
+          <msn_surface:telemetry_source_name>ScamScidata_0673327335-10632-1.dat</msn_surface:telemetry_source_name>
+          <msn_surface:transport_protocol>Data Product</msn_surface:transport_protocol>
+          <msn_surface:communication_session_id>0</msn_surface:communication_session_id>
+          <msn_surface:telemetry_source_start_time>2021-123T15:24:35.675Z</msn_surface:telemetry_source_start_time>
+          <msn_surface:telemetry_source_sclk_start>673327335.106</msn_surface:telemetry_source_sclk_start>
+          <msn_surface:product_completion_status>COMPLETE_CHECKSUM_PASS</msn_surface:product_completion_status>
+          <msn_surface:earth_received_start_date_time>2021-05-04T12:23:17.563Z</msn_surface:earth_received_start_date_time>
+          <msn_surface:earth_received_stop_date_time>2021-05-04T12:26:50.844Z</msn_surface:earth_received_stop_date_time>
+          <msn_surface:download_priority>72</msn_surface:download_priority>
+          <msn_surface:data_size>214079</msn_surface:data_size>
+          <msn_surface:expected_packets>23</msn_surface:expected_packets>
+          <msn_surface:received_packets>23</msn_surface:received_packets>
+          <msn_surface:telemetry_source_host_name>m20-sops-control-1</msn_surface:telemetry_source_host_name>
+          <msn_surface:expected_transmission_path>128</msn_surface:expected_transmission_path>
+          <msn_surface:transmission_path>0</msn_surface:transmission_path>
+          <msn_surface:flight_software_mode>SURFACE_NOMINAL</msn_surface:flight_software_mode>
+          <msn_surface:telemetry_source_size>214079</msn_surface:telemetry_source_size>
+          <msn_surface:telemetry_source_checksum>23177</msn_surface:telemetry_source_checksum>
+          <msn_surface:auto_delete_flag>false</msn_surface:auto_delete_flag>
+          <msn_surface:virtual_channel_id>0</msn_surface:virtual_channel_id>
+        </msn_surface:Telemetry>
+        <msn_surface:Observational_Intent>
+          <msn_surface:activity_id>0</msn_surface:activity_id>
+        </msn_surface:Observational_Intent>
+      </msn_surface:Surface_Mission_Information>
+      <proc:Processing_Information>
+        <Local_Internal_Reference>
+          <local_identifier_reference>scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p</local_identifier_reference>
+          <local_reference_type>processing_information_to_data_object</local_reference_type>
+        </Local_Internal_Reference>
+        <proc:Process>
+          <proc:Software>
+            <proc:Software_Program>
+              <proc:name>CDRGEN</proc:name>
+              <proc:program_version>2.0</proc:program_version>
+              <proc:description>CDR Generation script</proc:description>
+            </proc:Software_Program>
+          </proc:Software>
+        </proc:Process>
+      </proc:Processing_Information>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_supercam:document:supercam_bundle_sis</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_supercam:document:m2020_supercam_edr_rdr_sis</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_supercam:document:supercam_pds_userguide</lid_reference>
+      <reference_type>data_to_document</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_supercam:data_raw_spectra:ls__0072_0673327336_185ep2__0032208scam01072_004_luj</lid_reference>
+      <reference_type>data_to_raw_product</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.fits</file_name>
+      <local_identifier>scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p</local_identifier>
+      <creation_date_time>2021-08-12T20:54:07</creation_date_time>
+    </File>
+    <Header>
+      <name>PRIMARY HEADER</name>
+      <local_identifier>primary-header</local_identifier>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">20160</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>Primary FITS Header</description>
+    </Header>
+    <Header>
+      <name>ODL LABEL HEADER</name>
+      <local_identifier>odl-label-header</local_identifier>
+      <offset unit="byte">20160</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for ODL Label Table</description>
+    </Header>
+    <Stream_Text>
+      <name>ODL LABEL TABLE</name>
+      <local_identifier>odl-label-table</local_identifier>
+      <offset unit="byte">23040</offset>
+      <object_length unit="byte">31680</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+      <description>Metadata in Object Description Language (ODL)</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+    <Header>
+      <name>TIMELINE HEADER</name>
+      <local_identifier>timeline-header</local_identifier>
+      <offset unit="byte">54720</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Timeline Table</description>
+    </Header>
+    <Table_Binary>
+      <name>TIMELINE TABLE</name>
+      <local_identifier>timeline-table</local_identifier>
+      <offset unit="byte">57600</offset>
+      <records>66</records>
+      <description>Timeline Table: I-commands and their arguments</description>
+      <Record_Binary>
+        <fields>7</fields>
+        <groups>0</groups>
+        <record_length unit="byte">378</record_length>
+        <Field_Binary>
+          <name>MS_SINCE_LAST_SYNC</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>ms</unit>
+          <description>SCLK time Sync</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CMD_NAME</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">25</field_length>
+          <description>I-Command</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>OPCODE</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">34</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">2</field_length>
+          <description>Operation code</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>TYPE</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">36</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">7</field_length>
+          <description>Command or data</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>DATA_LENGTH</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">43</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Size of data to follow</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ARGS</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">51</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">300</field_length>
+          <description>Arguments to icommand</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>DATA</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">351</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">28</field_length>
+          <description>Data returned from icommand</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>MU SOH HEADER</name>
+      <local_identifier>mu-soh-header</local_identifier>
+      <offset unit="byte">83520</offset>
+      <object_length unit="byte">14400</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Mast Unit State of Health Table</description>
+    </Header>
+    <Table_Binary>
+      <name>MU SOH TABLE</name>
+      <local_identifier>mu-soh-table</local_identifier>
+      <offset unit="byte">97920</offset>
+      <records>8</records>
+      <description>Mast Unit State of Health Table</description>
+      <Record_Binary>
+        <fields>85</fields>
+        <groups>0</groups>
+        <record_length unit="byte">680</record_length>
+        <Field_Binary>
+          <name>MU_MS_OFFSET</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>ms</unit>
+          <description>Offset from SCLK time sync</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>00_LASER_OSC1_TEMP</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Main thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>01_LASER_OSC2_TEMP</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Redundant thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02_LASER_DOUB1_TEMP</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Main thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>03_LASER_DOUB2_TEMP</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Redundant thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>04_LASER_15V</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">41</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>Laser 15V limiter sec voltage (close to 0 from OFF/15V when
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>05_LASER_HV</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">49</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>Laser High Voltage HK (close to 20V when OFF, 1200V when
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>06_LASER_LIMITER_TEMP</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">57</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Laser board thermal sensor closed to the limiter (hot
+                    case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>07_DPU_MOTOR_DRIVER_TEMP</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">65</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>DPU board thermal sensor on Motor Driver (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>08_DPU_FPGA_TEMP</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">73</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>DPU board thermal sensor on DPU </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>09_VREF_+2.5V</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">81</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>2.5V reference voltage </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>10_+1.5V</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">89</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.5V FPGA core voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>11_+3.3V</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">97</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3V FPGA I/O voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>12_MOTOR_TEMPERATURE</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">105</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor inside the Motor (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>13_PRIMARY_MIRROR_TEMP</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">113</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Reference thermal sensor for the AFT range check (on the bench
+                    now)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>14_CWL_PD_CURRENT</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">121</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>Compensation current of the CWL </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>15_MICRO_TEMP</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">129</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor inside the Microphone finger when MICRO ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>16_CWL_TEMP</name>
+          <field_number>18</field_number>
+          <field_location unit="byte">137</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor used for CWL heater control</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>17_+3.3_IRS</name>
+          <field_number>19</field_number>
+          <field_location unit="byte">145</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3V IRS voltage (4.3V when IRS TEC OFF, 3.3V when IRS TEC
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>18_+20V_RF_IRS</name>
+          <field_number>20</field_number>
+          <field_location unit="byte">153</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>20V IRS voltage (20V when IRS TEC N DCDC ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>19_+5V_RF_IRS</name>
+          <field_number>21</field_number>
+          <field_location unit="byte">161</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>5V IRS voltage </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>20_-5V_RF_IRS</name>
+          <field_number>22</field_number>
+          <field_location unit="byte">169</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-5V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>21_+5V_DT_IRS</name>
+          <field_number>23</field_number>
+          <field_location unit="byte">177</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>8V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>22_-5V_DT_IRS</name>
+          <field_number>24</field_number>
+          <field_location unit="byte">185</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-8V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>23_LVPS_BOARD_TEMP</name>
+          <field_number>25</field_number>
+          <field_location unit="byte">193</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor on the LVPS board (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>24_PRIMARY_CURRENT</name>
+          <field_number>26</field_number>
+          <field_location unit="byte">201</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>28V current measured on the LVPS board</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>25_IRS_HK_TEMP_AOTF</name>
+          <field_number>27</field_number>
+          <field_location unit="byte">209</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>AOTF temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>26_IRS_HK_TEMP_HOT_TEC</name>
+          <field_number>28</field_number>
+          <field_location unit="byte">217</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Hot side of TEC temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>27_IRS_HK_TEMP_BOARD</name>
+          <field_number>29</field_number>
+          <field_location unit="byte">225</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor on the IRBoard (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>28_IRS_HK_TEMP_DET</name>
+          <field_number>30</field_number>
+          <field_location unit="byte">233</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>TEC cold side temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>29_REMAINING_LASER_PULSES</name>
+          <field_number>31</field_number>
+          <field_location unit="byte">241</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of remaining shots</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>30_ON/OFF_SHUTTER</name>
+          <field_number>32</field_number>
+          <field_location unit="byte">249</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = shutter is not activited, 1 = shutter is activated</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>31_ON/OFF_LIMITER</name>
+          <field_number>33</field_number>
+          <field_location unit="byte">257</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Laser board Limiter OFF, 1 = Laser board Limiter ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>32_ON/OFF_HIGH_VOLTAGE_15_V</name>
+          <field_number>34</field_number>
+          <field_location unit="byte">265</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Laser board +15V OFF, 1 = Laser board +15V ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>33_ON/OFF_MICROPHONE</name>
+          <field_number>35</field_number>
+          <field_location unit="byte">273</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Microphone OFF, 1 = Microphone ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>34_ON/OFF_RMI</name>
+          <field_number>36</field_number>
+          <field_location unit="byte">281</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = RMI OFF, 1 = RMI ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>35_ON/OFF_DC/DC</name>
+          <field_number>37</field_number>
+          <field_location unit="byte">289</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Microphone OFF, 1 = Microphone ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>36_ON/OFF_HEATER_DOUBLER_LASER</name>
+          <field_number>38</field_number>
+          <field_location unit="byte">297</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = heater doubler laser OFF, 1= heater doubler laser ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>37_ON/OFF_HEATER_STACK_LASER</name>
+          <field_number>39</field_number>
+          <field_location unit="byte">305</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = heater stack laser OFF, 1= heater stack laser ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>38_ON/OFF_HEATER_CWL</name>
+          <field_number>40</field_number>
+          <field_location unit="byte">313</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = heater CWL OFF, 1 = heater CWL ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>39_HEATER_DOUBLER_RECEIVED</name>
+          <field_number>41</field_number>
+          <field_location unit="byte">321</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Doubler setpoint not reached, 1 = Doubler setpoint
+                    reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>40_HEATER_STACK_RECEIVED</name>
+          <field_number>42</field_number>
+          <field_location unit="byte">329</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Stack setpoint not reached, 1 = Stack setpoint
+                    reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>41_HEATER_CWL_RECEIVED</name>
+          <field_number>43</field_number>
+          <field_location unit="byte">337</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = CWL setpoint not reached, 1 = CWL setpoint reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>42_ON/OFF_TEC_IR</name>
+          <field_number>44</field_number>
+          <field_location unit="byte">345</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = nominal photodiode (DET1), 1 = redundant
+                    photodiode(DET2)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>43_TEC_IR_READY</name>
+          <field_number>45</field_number>
+          <field_location unit="byte">353</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = TEC is OFF, 1 = TEC is ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>44_IRS_MEAS_ONGOING</name>
+          <field_number>46</field_number>
+          <field_location unit="byte">361</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = TEC temp setpoint not reached, 1 = TEC temp setpoint
+                    reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>45_IR_DET_SEL</name>
+          <field_number>47</field_number>
+          <field_location unit="byte">369</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = IRS Measurement ongoing, 1 = IRS Measurement done</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>46_MOTOR_DRIVER_CIRCUIT_THERMAL_FLAG</name>
+          <field_number>48</field_number>
+          <field_location unit="byte">377</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>To be discussed, watchdog Ë&#134; implÅ½menter dans DPU MU??</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>47_AF_GAIN_STATUS_MSB</name>
+          <field_number>49</field_number>
+          <field_location unit="byte">385</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>AF gain status_MSB</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>48_AF_GAIN_STATUS_LSB</name>
+          <field_number>50</field_number>
+          <field_location unit="byte">393</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>AF gain status_LSB</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>49_ON/OFF_CWL</name>
+          <field_number>51</field_number>
+          <field_location unit="byte">401</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = CWL is not turn OFF, 1 = CWl is turn ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>50_ON/OFF_CWL_MODULATION</name>
+          <field_number>52</field_number>
+          <field_location unit="byte">409</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = no modulation of CWL, 1 = modulation of CWL</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>51_ON/OFF_MOTOR_DRIVER</name>
+          <field_number>53</field_number>
+          <field_location unit="byte">417</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Motor driver is OFF, 1 = Motor driver is ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>52_INFINITE_LIMIT_SWITCH_STATUS</name>
+          <field_number>54</field_number>
+          <field_location unit="byte">425</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Infinite switch not reached, 1 = Infinite switch
+                    reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>53_CLOSE_LIMIT_SWITCH_STATUS</name>
+          <field_number>55</field_number>
+          <field_location unit="byte">433</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0 = Close switch not reached, 1 = Close switch reached</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C00_LASER_OSC1_TEMP</name>
+          <field_number>56</field_number>
+          <field_location unit="byte">441</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Main thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C01_LASER_OSC2_TEMP</name>
+          <field_number>57</field_number>
+          <field_location unit="byte">449</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Redundant thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C02_LASER_DOUB1_TEMP</name>
+          <field_number>58</field_number>
+          <field_location unit="byte">457</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Main thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C03_LASER_DOUB2_TEMP</name>
+          <field_number>59</field_number>
+          <field_location unit="byte">465</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Redundant thermal sensor for the Laser stack</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C04_LASER_15V</name>
+          <field_number>60</field_number>
+          <field_location unit="byte">473</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>Laser 15V limiter sec voltage (close to 0 from OFF/15V when
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C05_LASER_HV</name>
+          <field_number>61</field_number>
+          <field_location unit="byte">481</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>Laser High Voltage HK (close to 20V when OFF, 1200V when
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C06_LASER_LIMITER_TEMP</name>
+          <field_number>62</field_number>
+          <field_location unit="byte">489</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Laser board thermal sensor closed to the limiter (hot
+                    case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C07_DPU_MOTOR_DRIVER_TEMP</name>
+          <field_number>63</field_number>
+          <field_location unit="byte">497</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>DPU board thermal sensor on Motor Driver (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C08_DPU_FPGA_TEMP</name>
+          <field_number>64</field_number>
+          <field_location unit="byte">505</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>DPU board thermal sensor on DPU </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C09_VREF_+2.5V</name>
+          <field_number>65</field_number>
+          <field_location unit="byte">513</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>2.5V reference voltage </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C10_+1.5V</name>
+          <field_number>66</field_number>
+          <field_location unit="byte">521</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.5V FPGA core voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C11_+3.3V</name>
+          <field_number>67</field_number>
+          <field_location unit="byte">529</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3V FPGA I/O voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C12_MOTOR_TEMPERATURE</name>
+          <field_number>68</field_number>
+          <field_location unit="byte">537</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor inside the Motor (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C13_PRIMARY_MIRROR_TEMP</name>
+          <field_number>69</field_number>
+          <field_location unit="byte">545</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Reference thermal sensor for the AFT range check (on the bench
+                    now)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C14_CWL_PD_CURRENT</name>
+          <field_number>70</field_number>
+          <field_location unit="byte">553</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>Compensation current of the CWL </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C15_MICRO_TEMP</name>
+          <field_number>71</field_number>
+          <field_location unit="byte">561</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor inside the Microphone finger when MICRO ON</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C16_CWL_TEMP</name>
+          <field_number>72</field_number>
+          <field_location unit="byte">569</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor used for CWL heater control</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C17_+3.3_IRS</name>
+          <field_number>73</field_number>
+          <field_location unit="byte">577</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3V IRS voltage (4.3V when IRS TEC OFF, 3.3V when IRS TEC
+                    ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C18_+20V_RF_IRS</name>
+          <field_number>74</field_number>
+          <field_location unit="byte">585</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>20V IRS voltage (20V when IRS TEC N DCDC ON)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C19_+5V_RF_IRS</name>
+          <field_number>75</field_number>
+          <field_location unit="byte">593</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>5V IRS voltage </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C20_-5V_RF_IRS</name>
+          <field_number>76</field_number>
+          <field_location unit="byte">601</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-5V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C21_+5V_DT_IRS</name>
+          <field_number>77</field_number>
+          <field_location unit="byte">609</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>8V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C22_-5V_DT_IRS</name>
+          <field_number>78</field_number>
+          <field_location unit="byte">617</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-8V IRS Voltage</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C23_LVPS_BOARD_TEMP</name>
+          <field_number>79</field_number>
+          <field_location unit="byte">625</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor on the LVPS board (hot case)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C24_PRIMARY_CURRENT</name>
+          <field_number>80</field_number>
+          <field_location unit="byte">633</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>28V current measured on the LVPS board</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C25_IRS_HK_TEMP_AOTF</name>
+          <field_number>81</field_number>
+          <field_location unit="byte">641</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>AOTF temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C26_IRS_HK_TEMP_HOT_TEC</name>
+          <field_number>82</field_number>
+          <field_location unit="byte">649</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Hot side of TEC temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C27_IRS_HK_TEMP_BOARD</name>
+          <field_number>83</field_number>
+          <field_location unit="byte">657</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Thermal sensor on the IRBoard (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C28_IRS_HK_TEMP_DET</name>
+          <field_number>84</field_number>
+          <field_location unit="byte">665</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>TEC cold side temperature (saturated at -51Â¡C)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C29_REMAINING_LASER_PULSES</name>
+          <field_number>85</field_number>
+          <field_location unit="byte">673</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of remaining shots</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>BU SOH HEADER</name>
+      <local_identifier>bu-soh-header</local_identifier>
+      <offset unit="byte">103680</offset>
+      <object_length unit="byte">23040</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Body Unit State of Health Table</description>
+    </Header>
+    <Table_Binary>
+      <name>BU SOH TABLE</name>
+      <local_identifier>bu-soh-table</local_identifier>
+      <offset unit="byte">126720</offset>
+      <records>8</records>
+      <description>Body Unit State of Health Table</description>
+      <Record_Binary>
+        <fields>123</fields>
+        <groups>0</groups>
+        <record_length unit="byte">984</record_length>
+        <Field_Binary>
+          <name>BU_MS_OFFSET</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>ms</unit>
+          <description>Millisecond offset time from sclk</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>00_TLM_FORMAT_VERSION_(CMD_DICT_VERSION)</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>I-Command Dictionary version</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>01_LAST_BIST_RESULT</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Last BU BIST result</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02_CURRENT_STATUS_FLAGS</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Current Status Flag state</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>03_BOOT_BANK_SELECTED</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>MRAM iFSW boot bank selected by Init discretes. 0 = Bank A, 1 = Bank
+                    B</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>04_BOOT_BANK_ACTUAL</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">41</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>MRAM iFSW boot bank that was actually used to boot the instrument. 0 =
+                    Bank A, 1 = Bank B</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>05_COMMANDS_RECEIVED</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">49</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of i-commands sent to the instrument</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>06_COMMANDS_COMPLETED</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">57</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of i-commands successfully completed (not
+                    rejected)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>07_COMMANDS_REJECTED</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">65</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of i-commands rejected by the instrument</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>08_NUMBER_OF_ERROR_LOG_ENTRIES_SINCE_BOOT</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">73</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>A non-zero value indicates that an error has occurred since the
+                    instrument was powered on</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>09_BANK_A_KERNEL_CALCULATED_CHECKSUM_-_NV</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">81</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Checksum of the MRAM iFSW Bank A kernel</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>10_BANK_A_APPLICATION_CALCULATED_CHECKSUM_-_NV</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">89</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Checksum of the MRAM iFSW Bank A application</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>11_BANK_B_KERNEL_CALCULATED_CHECKSUM_-_NV</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">97</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Checksum of the MRAM iFSW Bank B kernel</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>12_BANK_B_APPLICATION_CALCULATED_CHECKSUM_-_NV</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">105</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Checksum of the MRAM iFSW Bank B application</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>13_RCE_COMM_SIDE</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">113</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Indicates which RCE is active 0 = RCE B, 1 = RCE A</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>14_SPACEWIRE_COMM_ERROR_COUNT_-_NV</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">121</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of SpaceWire errors, indicating
+                    problems on the spectrometer or MU HSS intefaces</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>15_LAST_SPACEWIRE_ERROR_STATUS_REGISTER</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">129</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>A copy of the SpaceWire error status register from the
+                    Leon3FT</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>16_SINGLE_BIT_MRAM_MEMORY_ERRORS_-_NV</name>
+          <field_number>18</field_number>
+          <field_location unit="byte">137</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of single-bit (correctable) MRAM EDAC
+                    errors</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>17_SINGLE_BIT_SDRAM_MEMORY_ERRORS_-_NV</name>
+          <field_number>19</field_number>
+          <field_location unit="byte">145</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of single-bit (correctable) SDRAM
+                    EDAC errors</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>18_LAST_SINGLE_BIT_MEMORY_ADDRESS</name>
+          <field_number>20</field_number>
+          <field_location unit="byte">153</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Last error memory address from Leon3FT EDAC</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>19_SOFTWARE_VERSION</name>
+          <field_number>21</field_number>
+          <field_location unit="byte">161</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>iFSW version number</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>20_PULSES_ID_REG</name>
+          <field_number>22</field_number>
+          <field_location unit="byte">169</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA pulses register, used to pulse bits in the
+                    register for one clock cycle</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>21_ROVER_HSS_TX_WD_CNT_REG</name>
+          <field_number>23</field_number>
+          <field_location unit="byte">177</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the data to be transmitted on
+                    the MU HSS link</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>22_IRQ_CLR_REG</name>
+          <field_number>24</field_number>
+          <field_location unit="byte">185</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the interrupt clear
+                    register</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>23_ROVER_HSS_CNTRL_REG</name>
+          <field_number>25</field_number>
+          <field_location unit="byte">193</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the RCE interface control
+                    bits</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>24_ROVER_HSS_TX_REG</name>
+          <field_number>26</field_number>
+          <field_location unit="byte">201</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the data to be transmitted to
+                    the RCE</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>25_IRQ_EN_REG</name>
+          <field_number>27</field_number>
+          <field_location unit="byte">209</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the interrupt enable
+                    register</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>26_UART_TX_DATA_CNTRL_REG</name>
+          <field_number>28</field_number>
+          <field_location unit="byte">217</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the data to be trasmitted to
+                    the MU on the UART link</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>27_UART_CNTRL_REG</name>
+          <field_number>29</field_number>
+          <field_location unit="byte">225</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the MU UART link control
+                    register</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>28_LVPS_CTRL_REG</name>
+          <field_number>30</field_number>
+          <field_location unit="byte">233</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, the bits to enable/disable the
+                    TEC and MU power relays</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>29_MRAM_CNTRL_REG</name>
+          <field_number>31</field_number>
+          <field_location unit="byte">241</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, containing write enable bits
+                    for the CNDH MRAMs</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>30_LED_REG</name>
+          <field_number>32</field_number>
+          <field_location unit="byte">249</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, on EDU and TBU units, this
+                    enables LEDs on the CNDH for debug purposes</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>31_INT_TIME_REG</name>
+          <field_number>33</field_number>
+          <field_location unit="byte">257</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, test register for intensifier
+                    shutter control</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>32_NSPS_REG</name>
+          <field_number>34</field_number>
+          <field_location unit="byte">265</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, number of shots per
+                    spectra</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>33_LZR_REP_RATE_REG</name>
+          <field_number>35</field_number>
+          <field_location unit="byte">273</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, laser rep rate in units of
+                    system clock</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>34_SPW_CTRL_REG</name>
+          <field_number>36</field_number>
+          <field_location unit="byte">281</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, SpaceWire control register for
+                    MU HSS interface</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>35_TEST_CTRL_REG</name>
+          <field_number>37</field_number>
+          <field_location unit="byte">289</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, used as test register and
+                    attached to TEST_STAT_REG</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>36_MU_HSS_EMU_REG</name>
+          <field_number>38</field_number>
+          <field_location unit="byte">297</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>HSS_not_used</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>37_NUM_SPECTRA_REG</name>
+          <field_number>39</field_number>
+          <field_location unit="byte">305</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, number of spectra to
+                    collect</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>38_HVPS_DLY_REG</name>
+          <field_number>40</field_number>
+          <field_location unit="byte">313</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, number of 10ns steps to delay
+                    from MU trigger input to intensifier shutter open time</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>39_HVPS_DUR_REG</name>
+          <field_number>41</field_number>
+          <field_location unit="byte">321</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA control register, number of 10ns steps to keep
+                    intensifier shutter open</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>40_STATUS0_REG</name>
+          <field_number>42</field_number>
+          <field_location unit="byte">329</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, contains boot bank select bit
+                    the status of inits received</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>41_IRQ_STAT_REG</name>
+          <field_number>43</field_number>
+          <field_location unit="byte">337</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, interrupt status register, same
+                    bits as control register</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>42_ROVER_HSS_FRAME_STAT_REG</name>
+          <field_number>44</field_number>
+          <field_location unit="byte">345</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, RCE HSS RX interface
+                    data</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>43_UART_STAT_REG</name>
+          <field_number>45</field_number>
+          <field_location unit="byte">353</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, MU status register
+                    bits</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>44_ROVER_HSS_STAT_REG</name>
+          <field_number>46</field_number>
+          <field_location unit="byte">361</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, RCE HSS TX and RX FIFO status
+                    bits</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>45_SPW_STAT_REG</name>
+          <field_number>47</field_number>
+          <field_location unit="byte">369</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH FPGA status register, MU HSS SpaceWire interface
+                    status bits</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>46_CNDH_PCB_TEMP</name>
+          <field_number>48</field_number>
+          <field_location unit="byte">377</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the CNDH PCB, usually the warmest part of the BU
+                    EBOX</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>47_CNDH_1_2_V</name>
+          <field_number>49</field_number>
+          <field_location unit="byte">385</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.2v monitor on the CNDH, used for Leon3FT processor
+                    core</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>48_CNDH_LVPS_TEMP</name>
+          <field_number>50</field_number>
+          <field_location unit="byte">393</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the LVPS PCB</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>49_CNDH_3_3_V</name>
+          <field_number>51</field_number>
+          <field_location unit="byte">401</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3v monitor on the CNDH, main digital supply on CNDH and
+                    SE</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>50_CNDH_VUI_UV_SPECT_TEMP</name>
+          <field_number>52</field_number>
+          <field_location unit="byte">409</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the reflection spectrometer housing</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>51_CNDH_NEG_15_V</name>
+          <field_number>53</field_number>
+          <field_location unit="byte">417</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-15v monitor on the CNDH, used on SE and HVPS</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>52_CNDH_15_V</name>
+          <field_number>54</field_number>
+          <field_location unit="byte">425</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>15v monitor on the CNDH, used on CNDH, SE, and
+                    HVPS</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>53_CNDH_1_5_V</name>
+          <field_number>55</field_number>
+          <field_location unit="byte">433</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.2v monitor on the CNDH, used for FPGA core</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>54_TEST_STAT_REG</name>
+          <field_number>56</field_number>
+          <field_location unit="byte">441</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH status register, attached to
+                    TEST_CTRL_REG</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>55_IDENTITY_STAT_REG</name>
+          <field_number>57</field_number>
+          <field_location unit="byte">449</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH status register, reports model number</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>56_TEST2_STAT_REG</name>
+          <field_number>58</field_number>
+          <field_location unit="byte">457</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH status register, attached to
+                    TEST_CTRL_REG</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>57_MISSED_PULSE_REG</name>
+          <field_number>59</field_number>
+          <field_location unit="byte">465</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Copy of CNDH status register, most significant bit is an indicator
+                    that the laser timer logic is ready </description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>58_SE_TX_TEMP</name>
+          <field_number>60</field_number>
+          <field_location unit="byte">473</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Transmission spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>59_SE_VIO_TEMP</name>
+          <field_number>61</field_number>
+          <field_location unit="byte">481</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Violet spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>60_SE_UV_TEMP</name>
+          <field_number>62</field_number>
+          <field_location unit="byte">489</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the UV spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>61_SE_TM_TEMP</name>
+          <field_number>63</field_number>
+          <field_location unit="byte">497</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Transmission spectrometer housing</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>62_SE_24_V</name>
+          <field_number>64</field_number>
+          <field_location unit="byte">505</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>24v monitor on the SE, used to bias CCDs</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>63_SE_HVPS_REAR</name>
+          <field_number>65</field_number>
+          <field_location unit="byte">513</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>HVPS read plate voltage monitor</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>64_SE_HVPS_CURRENT</name>
+          <field_number>66</field_number>
+          <field_location unit="byte">521</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>HVPS current monitor</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>65_SE_HVPS_TEMP</name>
+          <field_number>67</field_number>
+          <field_location unit="byte">529</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the HVPS PCB</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>66_NUMBER_OF_COMMANDS_SENT_TO_MU</name>
+          <field_number>68</field_number>
+          <field_location unit="byte">537</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of MU_* commands sent from the BU to the MU</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>67_MU_COMMANDS_ACK'D_BY_MU</name>
+          <field_number>69</field_number>
+          <field_location unit="byte">545</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of MU_* commands acknowledged by the MU</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>68_MU_COMMANDS_NAK'D_BY_MU</name>
+          <field_number>70</field_number>
+          <field_location unit="byte">553</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of MU_* commands rejected by the MU</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>69_MU_PACKETS_RECEIVED_SUCCESS</name>
+          <field_number>71</field_number>
+          <field_location unit="byte">561</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of packets the MU has received successfully</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>70_MU_PACKETS_RECEIVED_ERROR</name>
+          <field_number>72</field_number>
+          <field_location unit="byte">569</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Number of packets the MU has received in error</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>71_NUMBER_OF_BU_SPECTRA_READ_OUT_-_NV</name>
+          <field_number>73</field_number>
+          <field_location unit="byte">577</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of BU spectra read out from the
+                    SE</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>72_NUMBER_OF_RMI_RECEIVED_FROM_MU_-_NV</name>
+          <field_number>74</field_number>
+          <field_location unit="byte">585</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of RMI received from the
+                    MU</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>73_NUMBER_OF_MICROPHONE_RECORDINGS_-_NV</name>
+          <field_number>75</field_number>
+          <field_location unit="byte">593</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of microphone recordings
+                    made</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>74_NUMBER_OF_SCIENCE_LASER_SHOTS_COMMANDED_-_NV</name>
+          <field_number>76</field_number>
+          <field_location unit="byte">601</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile counter of the number of science laser shots
+                    commanded</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>75_CURRENT_ABSOLUTE_FOCUS_TABLE_POSITION</name>
+          <field_number>77</field_number>
+          <field_location unit="byte">609</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Nonvolatile absolute focus table position</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>76_CLOSE_LIMIT_SWITCH_POSITION_DIFFERENCE</name>
+          <field_number>78</field_number>
+          <field_location unit="byte">617</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Difference between calculated and actual close limit switch
+                    position</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>77_FAR_LIMIT_SWITCH_POSITION_DIFFERENCE</name>
+          <field_number>79</field_number>
+          <field_location unit="byte">625</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Difference between calculated and actual infinity/far limit switch
+                    position</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>78_CURRENT_AUTOFOCUS_BASELINE_POSITION</name>
+          <field_number>80</field_number>
+          <field_location unit="byte">633</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Current autofocus baseline position, from which offsets are
+                    performed</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>79_CURRENT_SPACEWIRE_LINK_0_STATUS_REGISTER</name>
+          <field_number>81</field_number>
+          <field_location unit="byte">641</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>SpaceWire link 0 Leon3FT status, for MU HSS interface</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>80_CURRENT_SPACEWIRE_LINK_1_STATUS_REGISTER</name>
+          <field_number>82</field_number>
+          <field_location unit="byte">649</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>SpaceWire link 1 Leon3FT status, for Transmission
+                    spectrometer</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>81_CURRENT_SPACEWIRE_LINK_2_STATUS_REGISTER</name>
+          <field_number>83</field_number>
+          <field_location unit="byte">657</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>SpaceWire link 2 Leon3FT status, for Violet spectrometer</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>82_CURRENT_SPACEWIRE_LINK_3_STATUS_REGISTER</name>
+          <field_number>84</field_number>
+          <field_location unit="byte">665</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>SpaceWire link 3 Leon3FT status, for UV spectrometer</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>83_CURRENT_FOCUS_TABLE_POSITION_IN_MM</name>
+          <field_number>85</field_number>
+          <field_location unit="byte">673</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>mm</unit>
+          <description>Focus table position converted to mm</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>84_RESERVED</name>
+          <field_number>86</field_number>
+          <field_location unit="byte">681</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Reserved for future</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>85_STATUS_FLAGS</name>
+          <field_number>87</field_number>
+          <field_location unit="byte">689</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Status Flag bits</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>86_MOTOR_SPEED_INHIBITED</name>
+          <field_number>88</field_number>
+          <field_location unit="byte">697</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>87_LASER_CURRENT_INHIBITED</name>
+          <field_number>89</field_number>
+          <field_location unit="byte">705</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>88_CCD_IS_CLOCKING</name>
+          <field_number>90</field_number>
+          <field_location unit="byte">713</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>89_LIMIT_SWITHCH_ARG_CHANGED_TO_COMPUTED_VALUE</name>
+          <field_number>91</field_number>
+          <field_location unit="byte">721</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>90_FOCUS_MOTOR_INHIBITED</name>
+          <field_number>92</field_number>
+          <field_location unit="byte">729</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>0</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02A_SYS_ERROR</name>
+          <field_number>93</field_number>
+          <field_location unit="byte">737</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>RCE should download diagnostic data, power off and mark
+                    SICK</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02B_SEND_EVR</name>
+          <field_number>94</field_number>
+          <field_location unit="byte">745</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>RCE to generate an EVR but let operation continue</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02C_SHUTDOWN</name>
+          <field_number>95</field_number>
+          <field_location unit="byte">753</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>RCE to shutdown instrument but not mark sick</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02D_SUN_SAFE</name>
+          <field_number>96</field_number>
+          <field_location unit="byte">761</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>BU knows that the MU telescope is in a sun-safe
+                    condition.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02E_BU_HVPS_ON</name>
+          <field_number>97</field_number>
+          <field_location unit="byte">769</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>BU HVPS to intensifier on.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02F_MU_SHUTTER</name>
+          <field_number>98</field_number>
+          <field_location unit="byte">777</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Status of the MU red/green shutter.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02G_MU_LASER_ON</name>
+          <field_number>99</field_number>
+          <field_location unit="byte">785</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>MU HVPS to laser is on.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02H_MU_DC_CHAIN_ON</name>
+          <field_number>100</field_number>
+          <field_location unit="byte">793</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>MU DC/DC supply chain on.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02I_MU_ON</name>
+          <field_number>101</field_number>
+          <field_location unit="byte">801</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Power to MU is on.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02J_CCD_ALMOST_READY</name>
+          <field_number>102</field_number>
+          <field_location unit="byte">809</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>CCDs approaching operating temperature range so turn on
+                    MU.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02K_CCD_READY</name>
+          <field_number>103</field_number>
+          <field_location unit="byte">817</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>CCDs in operating temperature range and ready for use.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02L_IRS_READY</name>
+          <field_number>104</field_number>
+          <field_location unit="byte">825</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>IR spectrometer in operating temperature range and ready for
+                    use.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02M_LASER_DOUBLER_READY</name>
+          <field_number>105</field_number>
+          <field_location unit="byte">833</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Laser doubler in operating temperature range and ready for
+                    use.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02N_LASER_STACK_READY</name>
+          <field_number>106</field_number>
+          <field_location unit="byte">841</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Laser in operating temperature range and ready for use.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>02O_CWL_READY</name>
+          <field_number>107</field_number>
+          <field_location unit="byte">849</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>CWL in operating temperature range and ready for use.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C46_CNDH_PCB_TEMP</name>
+          <field_number>108</field_number>
+          <field_location unit="byte">857</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the CNDH PCB, usually the warmest part of the BU
+                    EBOX</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C47_CNDH_1_2_V</name>
+          <field_number>109</field_number>
+          <field_location unit="byte">865</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.2v monitor on the CNDH, used for Leon3FT processor
+                    core</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C48_CNDH_LVPS_TEMP</name>
+          <field_number>110</field_number>
+          <field_location unit="byte">873</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the LVPS PCB</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C49_CNDH_3_3_V</name>
+          <field_number>111</field_number>
+          <field_location unit="byte">881</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>3.3v monitor on the CNDH, main digital supply on CNDH and
+                    SE</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C50_CNDH_VUI_UV_SPECT_TEMP</name>
+          <field_number>112</field_number>
+          <field_location unit="byte">889</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the reflection spectrometer housing</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C51_CNDH_NEG_15_V</name>
+          <field_number>113</field_number>
+          <field_location unit="byte">897</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>-15v monitor on the CNDH, used on SE and HVPS</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C52_CNDH_15_V</name>
+          <field_number>114</field_number>
+          <field_location unit="byte">905</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>15v monitor on the CNDH, used on CNDH, SE, and
+                    HVPS</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C53_CNDH_1_5_V</name>
+          <field_number>115</field_number>
+          <field_location unit="byte">913</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>1.2v monitor on the CNDH, used for FPGA core</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C58_SE_TX_TEMP</name>
+          <field_number>116</field_number>
+          <field_location unit="byte">921</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Transmission spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C59_SE_VIO_TEMP</name>
+          <field_number>117</field_number>
+          <field_location unit="byte">929</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Violet spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C60_SE_UV_TEMP</name>
+          <field_number>118</field_number>
+          <field_location unit="byte">937</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the UV spectrometer CCD</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C61_SE_TM_TEMP</name>
+          <field_number>119</field_number>
+          <field_location unit="byte">945</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the Transmission spectrometer housing</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C62_SE_24_V</name>
+          <field_number>120</field_number>
+          <field_location unit="byte">953</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>24v monitor on the SE, used to bias CCDs</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C63_SE_HVPS_REAR</name>
+          <field_number>121</field_number>
+          <field_location unit="byte">961</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>V</unit>
+          <description>HVPS read plate voltage monitor</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C64_SE_HVPS_CURRENT</name>
+          <field_number>122</field_number>
+          <field_location unit="byte">969</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>A</unit>
+          <description>HVPS current monitor</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>C65_SE_HVPS_TEMP</name>
+          <field_number>123</field_number>
+          <field_location unit="byte">977</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the HVPS PCB</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>IR HK HEADER</name>
+      <local_identifier>ir-hk-header</local_identifier>
+      <offset unit="byte">135360</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for IR Housekeeping table</description>
+    </Header>
+    <Table_Binary>
+      <name>IR HK TABLE</name>
+      <local_identifier>ir-hk-table</local_identifier>
+      <offset unit="byte">138240</offset>
+      <records>256</records>
+      <description>IR Housekeeping Table</description>
+      <Record_Binary>
+        <fields>4</fields>
+        <groups>0</groups>
+        <record_length unit="byte">32</record_length>
+        <Field_Binary>
+          <name>Detector Temp</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature measured on the cold face of the  detector at the beginning of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>RF Power</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W</unit>
+          <description>Power of the generated RF signal measured within the EBOX.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>PLL_Lock</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>1 if the RF signal is stable in frequency when the acquisition starts</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>TEC_ready</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>1 if the detector temp has reached the set point. 0 if it has not reached the setpoint.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>SPECTRA HEADER</name>
+      <local_identifier>spectra-header</local_identifier>
+      <offset unit="byte">146432</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Spectra Table</description>
+    </Header>
+    <Table_Binary>
+      <name>SPECTRA TABLE</name>
+      <local_identifier>spectra-table</local_identifier>
+      <offset unit="byte">149312</offset>
+      <records>256</records>
+      <description>Spectra Table</description>
+      <Record_Binary>
+        <fields>6</fields>
+        <groups>0</groups>
+        <record_length unit="byte">48</record_length>
+        <Field_Binary>
+          <name>Spectrum DN</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>DN</unit>
+          <description>Raw digitized detector signal.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Radiance</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W/m2/sr/Âµm</unit>
+          <description>Raw detector signal converted in radiance using the surface ITF</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>I_F</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W/m2/sr/Âµm</unit>
+          <description>Reflectance</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>I_F_Atm</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W/m2/sr/Âµm</unit>
+          <description>Reflectance, in which we correct (at a first approximation) the contribution of the atmospheric absorption along the line of sight.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>F_sky</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W/m2/sr/Âµm</unit>
+          <description>Reference spectrum used to compute reflectance</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>AtmTrans</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">41</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>W/m2/sr/Âµm</unit>
+          <description>Atmospheric spectrum used to remove atmospheric residuals</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>WAVELENGTH HEADER</name>
+      <local_identifier>wavelength-header</local_identifier>
+      <offset unit="byte">161600</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Wavelength Table</description>
+    </Header>
+    <Table_Binary>
+      <name>WAVELENGTH TABLE</name>
+      <local_identifier>wavelength-table</local_identifier>
+      <offset unit="byte">164480</offset>
+      <records>256</records>
+      <description>Wavelength Table</description>
+      <Record_Binary>
+        <fields>2</fields>
+        <groups>0</groups>
+        <record_length unit="byte">16</record_length>
+        <Field_Binary>
+          <name>Wavelength</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>micrometer</unit>
+          <description>Wavelength at the center of each spectel, corrected for AOTF temperature dependence.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>FWHM</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>1/cm</unit>
+          <description>Full width half maximum of the AOTF line spead function</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>IR SPEC SOH HEADER</name>
+      <local_identifier>ir-spec-soh-header</local_identifier>
+      <offset unit="byte">168576</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for IR SPEC SOH Table</description>
+    </Header>
+    <Table_Binary>
+      <name>IR SPEC SOH TABLE</name>
+      <local_identifier>ir-spec-soh-table</local_identifier>
+      <offset unit="byte">171456</offset>
+      <records>1</records>
+      <description>IR SPEC SOH Table</description>
+      <Record_Binary>
+        <fields>13</fields>
+        <groups>0</groups>
+        <record_length unit="byte">100</record_length>
+        <Field_Binary>
+          <name>tablenacc_spectel</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>ID of the spectel table used to acquire the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>t_integ</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>ms</unit>
+          <description>Commanded integration time per spectel. If set to 0, then autoexposure will be enforced.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>rfpower_offset</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>dB</unit>
+          <description>Value of the power offset for AOTF (usually 0).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>nacc_offset</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Offset number of accumulations in spectro mode or Accumulation Number in scan mode.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>hk_t_aotf_init</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature measured on the AOTF temperature probe at the bebinning of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>meas_conf</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">41</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Combine two informations: on the least significant byte: the detector (0 for DET1, 1 for DET2); on the next byte the type of acquisition (0=spectrum, 1=scan).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>meas_tint</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">49</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>ms</unit>
+          <description>Actual measured integration time per spectel. Only way to know the actual exposure time in case of autoexposure.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>meas_tec_setpoint</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">57</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature measured on the cold face of the  detector at the beginning of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>hk_t_aotf_end</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">65</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature measured on the AOTF temperature probe at the end of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>hk_t_tec_hot</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">73</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>temperature of the detector TEC, mounted on the backet, at the end of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>hk_t_board</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">81</field_location>
+          <data_type>SignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <unit>degC</unit>
+          <description>Temperature of the IRboard at the end of the spectrum.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ir_detsl</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">89</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Detector read out: DET1 or DET2.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>ir_takem</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">93</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Type of acquisition: SPECTRUM for raster mode; SCAN for the scan mode.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+    <Header>
+      <name>SATURATION HEADER</name>
+      <local_identifier>saturation-header</local_identifier>
+      <offset unit="byte">172800</offset>
+      <object_length unit="byte">2880</object_length>
+      <parsing_standard_id>FITS 4.0</parsing_standard_id>
+      <description>FITS header for Saturation Table</description>
+    </Header>
+    <Table_Binary>
+      <name>SATURATION TABLE</name>
+      <local_identifier>saturation-table</local_identifier>
+      <offset unit="byte">175680</offset>
+      <records>256</records>
+      <description>Saturation Table</description>
+      <Record_Binary>
+        <fields>4</fields>
+        <groups>0</groups>
+        <record_length unit="byte">32</record_length>
+        <Field_Binary>
+          <name>Saturation</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Saturation (bit)</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Glitch</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Glitch (bit) if set possible Glitch in processing</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>Spike</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">17</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Spike (bit) if set spike in data.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>StDev</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">25</field_location>
+          <data_type>IEEE754MSBDouble</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>Standard Deviation of the I_F spectrum.</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+</Product_Observational>

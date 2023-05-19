@@ -10,6 +10,9 @@ Scenario Outline: Execute validate command for tests below.
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
 
+# Validate#644
+|"NASA-PDS/validate#644 Success NaN and Inf in FITS" | "github644" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github644.json -s json -t {resourceDir}/github644/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "report_github644.json" |
+
 # Validate#631
 |"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
 
@@ -52,9 +55,8 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#529 Success Update Compare Scale" | "github529" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github529_1.json -s json -t {resourceDir}/github529/success/m0154651923f6_2p_cif_gbl.xml " | "report_github529_1.json" |
 # fixed: |"NASA-PDS/validate#529 Fail Update Compare Scale" | "github529" | 1 | "1 errors expected" | "ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github529_2.json -s json -t {resourceDir}/github529/fail/m0126360726f4_2p_cif_gbl.xml " | "report_github529_2.json" |
 
-# Validate#514
+# Validate#514 - binary tables should allow NaN
 |"NASA-PDS/validate#514 Success Update Compare Scale" | "github514" | 3 | "3 errors expected" | "ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github514_1.json -s json -t {resourceDir}/github514/success/8array.xml" | "report_github514_1.json" |
-|"NASA-PDS/validate#514 Success Update Compare Scale" | "github514" | 3 | "3 errors expected" | "FIELD_VALUE_DATA_TYPE_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github514_1.json -s json -t {resourceDir}/github514/success/8table.xml" | "report_github514_1.json" |
 
 # Validate#499
 |"NASA-PDS/validate#499 Success Table EOL" | "github499" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github499_1.json -s json -t {resourceDir}/github499/success/M7_217_044546_N.xml" | "report_github499_1.json" |

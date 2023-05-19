@@ -73,6 +73,12 @@ public class FieldValueValidator {
     DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_TIME.getXMLType(), "hh:mm:ss[.ffffff][Z]");
   }
 
+  private static List<FieldType> realTypes = Arrays.asList(
+      FieldType.IEEE754LSBDOUBLE,
+      FieldType.IEEE754LSBSINGLE,
+      FieldType.IEEE754MSBDOUBLE,
+      FieldType.IEEE754MSBSINGLE);
+
   /** Container to capture messages. */
   private ProblemListener listener;
   private String parentName;
@@ -558,7 +564,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (INF_NAN_VALUES.contains(value.toUpperCase())) {
+    if (INF_NAN_VALUES.contains(value.toUpperCase()) && !realTypes.contains(type)) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
