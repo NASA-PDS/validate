@@ -2,6 +2,7 @@
 <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 
+
 <Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
     xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
     xmlns:proc="http://pds.nasa.gov/pds4/proc/v1"
@@ -104,16 +105,17 @@
     
     <File_Area_Observational>
         <File>
-            <file_name>235801716-ea625a5e-b6ee-41c0-8c14-cf0b6fa27fa4.mp4</file_name>
+            <file_name>track.wav</file_name>
             <local_identifier>video</local_identifier>
             <creation_date_time>2022-07-20T00:12:00</creation_date_time>
-            <file_size unit="byte">453748</file_size>
-            <comment>Ingenuity 1080p video compressed with H.264 encoder using CRF quality flag of 10 at 30 frames/second.</comment>
+            <file_size unit="byte">2</file_size>
+            <comment>Some random audio clip</comment>
         </File>
 
-        <Encoded_Video>
+        <Encoded_Audio>
             <offset unit="byte">0</offset>
-            <encoding_standard_id>MP4/H.264/AAC</encoding_standard_id>
-        </Encoded_Video>
+            <encoding_standard_id>WAV</encoding_standard_id>
+        </Encoded_Audio>
+        
     </File_Area_Observational>
 </Product_Observational>
