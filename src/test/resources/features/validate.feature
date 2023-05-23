@@ -421,6 +421,8 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --skip-content-validation -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
 
+ |"NASA-PDS/validate#7" | "Success with ComplexLSB8 " | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github7.json -s json --skip-context-validation -t {resourceDir}/github7/ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.xml" | "report_github7.json" |
+
 # Moved github292 tests to the end as they interfer with other test with the following error message:
 #
 # The attribute pds:information_model_version must be equal to the value '1.16.0.0'.
