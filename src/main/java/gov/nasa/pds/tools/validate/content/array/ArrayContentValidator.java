@@ -232,18 +232,22 @@ public class ArrayContentValidator {
           value = arrayObject.getLong(position);
           rangeChecker = SignedMSB8_RANGE;
           break;
+        case ComplexLSB8:
         case IEEE754LSBSingle:
           value = (float) arrayObject.getDouble(position);
           rangeChecker = IEEE754LSBSingle_RANGE;
           break;
+        case ComplexMSB8:
         case IEEE754MSBSingle:
           value = (float) arrayObject.getDouble(position);
           rangeChecker = IEEE754MSBSingle_RANGE;
           break;
+        case ComplexLSB16:
         case IEEE754LSBDouble:
           value = arrayObject.getDouble(position);
           rangeChecker = IEEE754LSBDouble_RANGE;
           break;
+        case ComplexMSB16:
         case IEEE754MSBDouble:
           value = arrayObject.getDouble(position);
           rangeChecker = IEEE754MSBDouble_RANGE;
