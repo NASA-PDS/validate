@@ -11,6 +11,7 @@ import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.label.Label;
+import gov.nasa.pds.label.NameNotKnownException;
 import gov.nasa.pds.label.ProductType;
 import gov.nasa.pds.label.object.ArrayObject;
 import gov.nasa.pds.label.object.DataObject;
@@ -123,6 +124,10 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
           "Data Object #" + objectCounter + " (" + objectIdentifier + "): " + e.getMessage();
       getListener().addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.TABLE_DEFINITION_PROBLEM, msg),
+          getTarget(), objectCounter, -1));
+    } catch (NameNotKnownException e) {
+      getListener().addProblem(new ValidationProblem(
+          new ProblemDefinition(ExceptionType.ERROR, ProblemType.UNKNOWN_VALUE, e.getMessage()),
           getTarget(), objectCounter, -1));
     } catch (ParseException e) {
       // Ignore. Shouldn't happen
