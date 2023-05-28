@@ -92,6 +92,15 @@
           },
           {
                "name": [
+                    "SOLAR WIND ELECTRON ANALYZER"
+               ],
+               "type": [
+                    "ENERGETIC PARTICLE DETECTOR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:swea.maven::1.0"
+          },
+          {
+               "name": [
                     "FOCAL PLANE ARRAY"
                ],
                "type": [
@@ -176,9 +185,9 @@
                     "GAMMA RAY SPECTROMETER"
                ],
                "type": [
-                    "SPECTROMETER"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:grs.near::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:grs.near::1.1"
           },
           {
                "name": [
@@ -1513,15 +1522,6 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:mission.wise::1.0"
-          },
-          {
-               "name": [
-                    "NEAR EARTH ASTEROID RENDEZVOUS"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.near::1.1"
           },
           {
                "name": [
@@ -4824,6 +4824,15 @@
           },
           {
                "name": [
+                    "NEAR LASER RANGEFINDER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nlr.near::1.1"
+          },
+          {
+               "name": [
                     "13 EGERIA"
                ],
                "type": [
@@ -4956,6 +4965,15 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.c1999_j2_skiff::1.0"
+          },
+          {
+               "name": [
+                    "MULTI-SPECTRAL IMAGER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:msi.near::1.1"
           },
           {
                "name": [
@@ -6697,33 +6715,6 @@
           },
           {
                "name": [
-                    "FRONT HAZARD AVOIDANCE CAMERA RIGHT STRING B"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:fhaz_right_b.msl::1.0"
-          },
-          {
-               "name": [
-                    "1996 RQ20"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1996_rq20::1.0"
-          },
-          {
-               "name": [
-                    "2003 YL179"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_yl179::1.0"
-          },
-          {
-               "name": [
                     "(300232) 2006 YL5"
                ],
                "type": [
@@ -7434,6 +7425,15 @@
                     "CALIBRATOR"
                ],
                "lidvid": "urn:nasa:pds:context:target:calibrator.plaque::1.0"
+          },
+          {
+               "name": [
+                    "NEAR INFRARED SPECTROMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:nis.near::1.1"
           },
           {
                "name": [
@@ -9055,15 +9055,6 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.neptune.laomedeia::1.1"
-          },
-          {
-               "name": [
-                    "NEAR INFRARED SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nis.near::1.0"
           },
           {
                "name": [
@@ -11436,6 +11427,15 @@
           },
           {
                "name": [
+                    "MAGNETOMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mag.near::1.1"
+          },
+          {
+               "name": [
                     "RADIO SCIENCE SUBSYSTEM"
                ],
                "type": [
@@ -12612,7 +12612,7 @@
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.near_earth_asteroid_rendezvous::1.1"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.near_earth_asteroid_rendezvous::1.2"
           },
           {
                "name": [
@@ -12736,9 +12736,9 @@
                     "XRAY SPECTROMETER"
                ],
                "type": [
-                    "SPECTROMETER"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:xrs.near::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:xrs.near::1.1"
           },
           {
                "name": [
@@ -13284,6 +13284,15 @@
           },
           {
                "name": [
+                    "NEAR EARTH ASTEROID RENDEZVOUS"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.near::1.2"
+          },
+          {
+               "name": [
                     "(145486) 2005 UJ438"
                ],
                "type": [
@@ -13560,15 +13569,6 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:lwir.clem1::1.0"
-          },
-          {
-               "name": [
-                    "SOLAR WIND ELECTRON ANALYZER"
-               ],
-               "type": [
-                    "ENERGETIC PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:swea.maven::1.0"
           },
           {
                "name": [
@@ -14604,6 +14604,33 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "FRONT HAZARD AVOIDANCE CAMERA RIGHT STRING B"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:fhaz_right_b.msl::1.0"
+          },
+          {
+               "name": [
+                    "1996 RQ20"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1996_rq20::1.0"
+          },
+          {
+               "name": [
+                    "2003 YL179"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_yl179::1.0"
           },
           {
                "name": [
@@ -17309,15 +17336,6 @@
           },
           {
                "name": [
-                    "MAGNETOMETER"
-               ],
-               "type": [
-                    "MAGNETOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mag.near::1.0"
-          },
-          {
-               "name": [
                     "APOLLO 16 SUBSATELLITE"
                ],
                "type": [
@@ -18787,15 +18805,6 @@
           },
           {
                "name": [
-                    "MULTI-SPECTRAL IMAGER"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:msi.near::1.0"
-          },
-          {
-               "name": [
                     "EURYDOME"
                ],
                "type": [
@@ -19487,15 +19496,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:spitzer.irs::1.0"
-          },
-          {
-               "name": [
-                    "NEAR LASER RANGEFINDER"
-               ],
-               "type": [
-                    "ALTIMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:nlr.near::1.0"
           },
           {
                "name": [
