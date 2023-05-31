@@ -412,14 +412,14 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#299 VALID" | "github299" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_valid.json  -s json -t {resourceDir}/github299/valid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_valid.json" |
  |"NASA-PDS/validate#299 INVALID" | "github299" | 3 | "3 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_invalid.json  -s json -t {resourceDir}/github299/invalid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_invalid.json" |
 
+ |"NASA-PDS/validate#7 Success with ComplexLSB8" | "github7" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github7.json -s json --skip-context-validation -t {resourceDir}/github7/ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.xml" | "report_github7.json" |
+
 # BIG_NOTE: The tests for github6 has to be moved toward the beginning as leave them here results in error in information model.
 # BIG_NOTE: The tests for github240 has to be moved toward the beginning as leave them here results in error in information model.
 
  |"NASA-PDS/validate#71 1" | "github71" | 0 | "0 error message expected" | "LABEL_UNRESOLVABLE_RESOURCE" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_1.json -C {reportDir}/catalog.xml -s json --skip-content-validation -t {resourceDir}/github71/ELE_MOM.xml" | "report_github71_1.json" |
  |"NASA-PDS/validate#71 2" | "github71" | 0 | "0 error message expected" | "totalErrors" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github71_2.json -s json  -C {reportDir}/catalog.xml -t {resourceDir}/github71/ELE_MOM_2.xml" | "report_github71_2.json" |
  |"NASA-PDS/validate#84 1" | "github84" | 0 | "0 error messages expected" | "totalErrors" |  "src/test/resources" | "target/test" |  "-r {reportDir}/report_github84_1.json -s json --skip-content-validation -c {resourceDir}/github84/config.txt -t {resourceDir}/github71/ELE_MOM.xml" | "report_github84_1.json" |
-
- |"NASA-PDS/validate#7 Success with ComplexLSB8" | "github7" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github7.json -s json --skip-context-validation -t {resourceDir}/github7/ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.xml" | "report_github7.json" |
 
  |"NASA-PDS/validate#87 1" | "github87" | 0 | "0 errors expected" | "LABEL_UNRESOLVABLE_RESOURCE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github87_1.json -s json -R pds4.label --skip-content-validation -t {resourceDir}/github87/2t126632959btr0200p3002n0a1.xml {resourceDir}/github87/2t126646972btr0200p3001n0a1.xml -C {reportDir}/catalog.xml" | "report_github87_1.json" |
 
