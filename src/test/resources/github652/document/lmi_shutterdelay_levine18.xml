@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:gbo.ast-near-sun.images:document:lmi_shutterdelay_levine18</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>LDT LMI Shutter Delay Description</title>
+    <information_model_version>1.15.0.0</information_model_version>
+    <product_class>Product_Document</product_class>
+    <Citation_Information>
+      <author_list>Levine, S.</author_list>
+      <publication_year>2018</publication_year>
+      <description>Document describing the delay between the time the shutter is commanded to open and
+the time it actually opens for LMI on the  Lowell Discovery Telescope.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Document>
+    <document_name>LDT LMI Shutter Delay Description</document_name>
+    <author_list>Levine, S.</author_list>
+    <publication_date>2018-12-05</publication_date>
+    <Document_Edition>
+      <edition_name>ADOBE PDF</edition_name>
+      <language>English</language>
+      <files>1</files>
+      <Document_File>
+        <file_name>lmi_shutterdelay_levine18.pdf</file_name>
+        <document_standard_id>PDF/A</document_standard_id>
+      </Document_File>
+    </Document_Edition>
+  </Document>
+</Product_Document>
+

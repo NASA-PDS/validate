@@ -1,0 +1,47 @@
+Document Collection Contents
+
+The document collection contains documentation files, where available, for 
+this bundle. All document files will have an accompanying label file to 
+describe content and structure.  Label files have the same name as the main 
+document file, with an extension of ".xml".
+
+archivedescription.pdf - Archive Description Document - A document summarizing the near-Sun asteroids observations, calibrations, and resulting archive bundle.
+
+lmi_shutterdelay_levine18.pdf - LDT LMI Shutter Delay Description - Document describing the delay between the time the shutter is commanded to open and the time it actually opens for LMI on the  Lowell Discovery Telescope.
+
+bundle_description.txt - Bundle description for the gbo.ast-near-sun.images bundle - A document describing the content and structure of the bundle.
+
+ref.txt - Reference List - The reference list for the bundle.
+
+observatory.lowell.txt - Description document for Lowell Observatory - Description document for Lowell Observatory
+
+observatory.orm.txt - Description document for Roque de los Muchachos Observatory - Description document for Roque de los Muchachos Observatory
+
+observatory.ctio-cerro_tololo.txt - Description document for Cerro Tololo Inter-American Observatory - Description document for Cerro Tololo Inter-American Observatory
+
+lowell.nuro_0m79.txt - Description for NURO 0.79m (31inch) at Lowell Observatory - Description for NURO 0.79m (31inch) at Lowell Observatory
+
+ctio-cerro_tololo.soar_4m1.txt - Description for SOAR at Cerro Tololo Inter-American Observatory - Description for SOAR at Cerro Tololo Inter-American Observatory
+
+lowell.hall_ritchey-chretien_1_1m07.txt - Description for 1.07-m Hall Ritchey-Chretien reflector #1 at Lowell Observatory - Description for 1.07-m Hall Ritchey-Chretien reflector #1 at Lowell Observatory
+
+orm.int2m54.txt - Description for 2.54-m Isaac Newton Grubb-Parsons Cass. equat. refl. (INT) at Roque de los Muchachos Observatory - Description for 2.54-m Isaac Newton Grubb-Parsons Cass. equat. refl. (INT) at Roque de los Muchachos Observatory
+
+lowell.discovery_4m3.txt - Description for Lowell Discovery Telescope (LDT) at Lowell Observatory - Description for Lowell Discovery Telescope (LDT) at Lowell Observatory
+
+lowell.nuro_0m79.nasacam.txt - Description Document for NASAcam - A description of the NASAcam instrument
+
+lowell.hall_ritchey-chretien_1_1m07.nasa42cam.txt - Description Document for NASA42 Camera - A description of the NASA42 Camera instrument
+
+orm.int2m54.wfc.txt - Description Document for Wide Field Camera (WFC) - A description of the Wide Field Camera (WFC) instrument
+
+ctio-cerro_tololo.soar_4m1.soi.txt - Description Document for SOAR Imager (SOI) - A description of the SOAR Imager (SOI) instrument
+
+ctio-cerro_tololo.soar_4m1.ghts.txt - Description Document for SOAR-GHTS - A description of the SOAR-GHTS instrument
+
+lowell.discovery_4m3.lmi.txt - Description Document for Large Monolithic Imager (LMI) - A description of the Large Monolithic Imager (LMI) instrument
+
+AA_Document_Index.txt - Document Index - The file you are reading.
+
+collection_gbo.ast-near-sun.images_document_inventory.csv - Collection Inventory - An inventory of document products in this collection.
+

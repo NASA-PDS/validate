@@ -719,7 +719,7 @@ public class AggregateManager {
 
           // Check if the newly found find is in targetList. If not, add it to the
           // otherCollectionFilesList so it can be skip
-          if (!AggregateManager.containsExistingTarget(targetList, target.getUrl())) {
+          if (isCollection (target.getUrl()) && !AggregateManager.containsExistingTarget(targetList, target.getUrl())) {
             otherCollectionFilesList.add(target);
 
             LOG.info(
