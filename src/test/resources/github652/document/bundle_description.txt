@@ -1,0 +1,48 @@
+Description of the Ground-based optical imaging of near-Sun asteroids bundle V1.0
+=================================================================================
+
+Bundle Generation Date: 2023-03-01
+Peer Review: 2023_Asteroid_Review
+Discipline node: Small Bodies Node
+
+
+Content description for the Ground-based optical imaging of near-Sun asteroids
+bundle
+=====================================================================================
+
+This
+bundle archives data for near-Sun asteroids using Lowell Observatory's
+4.3-m
+Lowell Discovery Telescope (LDT; formerly known as the Discovery
+Channel
+Telescope, DCT) and the 4.1-m Southern Astrophysical Research (SOAR)
+telescope,
+supplemented by data from the Isaac Newton Telescope (INT) and
+Lowell
+Observatory's 42-in and 31-in telescopes between 2017 January and 2020
+March.
+Data in this bundle was used in a Planetary Science Journal publication,
+Holt et
+al. 2022. A detailed description is given in the 
+archivedescription.pdf in the
+document directory. 
+
+
+References:
+Holt,
+C.E., Knight, M.M., Kelley, M.S.P.,
+Quanzhi, Y., Hsieh, H.H., Snodgrass, C.,
+Fitzsimmons, A., Richardson, D.C.,
+Sunshine, J.M., Eisner, N.L., Gustaffson, A.
+Surface Properties of Near-Sun
+Asteroids. Planet. Sci. J., Vol. 3, No. 187,
+2022.
+
+
+Caveats to the data user
+========================
+
+There may be timing
+problems in the LDT/LMI headers -- for details see
+archivedescription.pdf.
+

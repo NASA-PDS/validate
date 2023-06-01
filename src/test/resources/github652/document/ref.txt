@@ -1,0 +1,13 @@
+Reference List for the Ground-based optical imaging of near-Sun asteroids bundle
+================================================================================
+
+Clemens, J.C.,  Crain, J.A.,  Anderson, R. 2004. The Goodman Spectrograph.
+Ground-based Instrumentation for Astronomy. Edited by Alan F. M. Moorwood and
+Iye Masanori. Proceedings of the SPIE, Volume 5492, pp. 331-340
+doi:10.1117/12.550069
+
+Holt, C.E.,  Knight, M.M., Kelley, M.S.P., Quanzhi, Y.,
+Hsieh, H.H., Snodgrass, C., Fitzsimmons, A., Richardson, D.C., Sunshine, J.M.,
+Eisner, N.L., Gustaffson, A. Surface Properties of Near-Sun Asteroids. Planet.
+Sci. J., Vol. 3, No. 187, 2022. doi:10.3847/PSJ/ac77f6
+
