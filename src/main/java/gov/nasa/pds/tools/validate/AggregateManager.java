@@ -726,7 +726,7 @@ public class AggregateManager {
                 "findOtherCollectionFiles:SKIP: {} due to collection not latest or does not sharing the same logical_identifier as the bundle target",
                 target.getUrl());
             // Write a record to report that we are skipping this file.
-            if (AggregateManager.m_report != null) {
+            /*if (AggregateManager.m_report != null) {
               try {
                 ValidationProblem p1 = new ValidationProblem(new ProblemDefinition(
                     ExceptionType.INFO, ProblemType.UNREFERENCED_FILE,
@@ -742,7 +742,7 @@ public class AggregateManager {
               }
             } else {
               LOG.warn("findOtherCollectionFiles:Object BundleManager.m_report is null");
-            }
+            }*/
           }
 
           targetIndex += 1;
