@@ -77,11 +77,11 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
-import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.om.DocumentInfo;
@@ -360,12 +360,12 @@ public class LabelValidator {
       // filename.
       // The file name should be enough to know if it is a bundle or a collection.
       validateAgainstSchematronFlag = false;
-      if (AggregateManager.isBundle(url)) {
+      if (TargetExaminer.isTargetBundleType(url)) {
         // File is indeed a bundle.
         validateAgainstSchematronFlag = true;
       }
       // File is not a bundle, check if a collection.
-      if (!validateAgainstSchematronFlag && AggregateManager.isCollection(url)) {
+      if (!validateAgainstSchematronFlag && TargetExaminer.isTargetCollectionType(url)) {
         validateAgainstSchematronFlag = true;
       }
     }

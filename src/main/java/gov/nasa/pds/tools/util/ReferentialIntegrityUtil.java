@@ -28,11 +28,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
@@ -717,7 +717,7 @@ public class ReferentialIntegrityUtil {
 
           // Check to see if the label is collection or a bundle (instead of regular
           // label).
-          if (AggregateManager.isBundle(child.getUrl())) {
+          if (TargetExaminer.isTargetBundleType (child.getUrl())) {
             // Save the URL of the bundle to be used to report the error.
             ReferentialIntegrityUtil.parentBundleURL = url;
             LOG.debug("crawlParentForBundleLabel:BUNDLE_LABEL_FOUND_TRUE:parentBundleURL,url {},{}",
@@ -814,12 +814,12 @@ public class ReferentialIntegrityUtil {
 
           // Check to see if the label is collection or a bundle (instead of regular
           // label).
-          if (AggregateManager.isBundle(child.getUrl())) {
+          if (TargetExaminer.isTargetBundleType (child.getUrl())) {
             labelIsBundleFlag = true;
             // Save the URL of the bundle to be used to report the error.
             ReferentialIntegrityUtil.parentBundleURL = url;
           }
-          if (AggregateManager.isCollection (child.getUrl())) {
+          if (TargetExaminer.isTargetCollectionType (child.getUrl())) {
             labelIsCollectionFlag = true;
           }
 

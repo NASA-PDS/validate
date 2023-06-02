@@ -33,7 +33,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
-import gov.nasa.pds.tools.validate.AggregateManager;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.TargetType;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 
@@ -285,10 +285,10 @@ public class Utility {
     if (isDir(url)) {
       return TargetType.DIRECTORY;
     }
-    if (AggregateManager.isBundle (url)) {
+    if (TargetExaminer.isTargetBundleType (url)) {
       return TargetType.BUNDLE;
     }
-    if (AggregateManager.isCollection (url)) {
+    if (TargetExaminer.isTargetCollectionType (url)) {
       return TargetType.COLLECTION;
     }
     return TargetType.FILE;

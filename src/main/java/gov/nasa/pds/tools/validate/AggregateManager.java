@@ -867,10 +867,4 @@ public class AggregateManager {
     }
     return matches;
   }
-  public static boolean isBundle (URL target) {
-    return matchProductClass ("Product_Bundle", target);
-  }
-  public static boolean isCollection (URL target) {
-    return matchProductClass ("Product_Collection", target);
-  }
 }
