@@ -91,7 +91,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       // Check for bundle(.*)?\.(xml or lblx) file.
       for (Target child : children) {
         LOG.info("getContext().getBundleLabelPattern()");
-        if (TargetExaminer.isTargetBundleType (child.getUrl())) {
+        if (TargetExaminer.isTargetBundleType (child.getUrl(), true)) {
           try {
             XMLExtractor extractor = new XMLExtractor(child.getUrl());
             if ("Product_Bundle".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {

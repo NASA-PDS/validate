@@ -204,9 +204,9 @@ public class LocationValidator {
       // check to see if target is a bundle type and attempt to process the bundle
       // product.
       if (!rule.isApplicable(location)) {
-        LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}", url,
-            TargetExaminer.isTargetBundleType(url));
-        if (TargetExaminer.isTargetBundleType(url)) {
+        boolean isAggregate = TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url);
+        LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}", url, isAggregate);
+        if (isAggregate) {
           // If the target is a bundle, the exception can now be made.
           // Make the following changes:
           // 1. Change the location from a file into a directory.
