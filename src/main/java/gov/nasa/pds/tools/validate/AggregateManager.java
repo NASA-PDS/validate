@@ -855,16 +855,4 @@ public class AggregateManager {
                                                                // crawler.
     }
   }
-  private static boolean matchProductClass (String class_name, URL target) {
-    boolean matches = false;
-    try {
-      XMLExtractor xml = new XMLExtractor(target);
-      String value = xml.getValueFromDoc("/*/Identification_Area/product_class");
-      matches = class_name.equals (value);
-    } catch (UncheckedXPathException | XPathException | XPathExpressionException e) {
-      // if not an XML file, then cannot have a ProductType so must be false
-      // therefore ignore these errors
-    }
-    return matches;
-  }
 }

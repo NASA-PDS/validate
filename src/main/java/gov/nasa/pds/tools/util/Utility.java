@@ -285,10 +285,10 @@ public class Utility {
     if (isDir(url)) {
       return TargetType.DIRECTORY;
     }
-    if (TargetExaminer.isTargetBundleType (url)) {
+    if (TargetExaminer.isTargetBundleType (url, true)) {
       return TargetType.BUNDLE;
     }
-    if (TargetExaminer.isTargetCollectionType (url)) {
+    if (TargetExaminer.isTargetCollectionType (url, true)) {
       return TargetType.COLLECTION;
     }
     return TargetType.FILE;
