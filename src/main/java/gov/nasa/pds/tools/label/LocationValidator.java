@@ -248,7 +248,7 @@ public class LocationValidator {
           // information to be gathered.
           if (latestBundle != null) {
             ArrayList<Target> ignoreCollectionList = AggregateManager.buildCollectionIgnoreList(url,
-                latestBundle.getUrl(), this.labelExtension);
+                latestBundle.getUrl(), this.labelExtension, true);
             ignoreList.addAll(ignoreCollectionList);
             LOG.debug("url,ignoreCollectionList {},{}", url, ignoreCollectionList);
             LOG.debug("url,ignoreCollectionList.size() {},{}", url, ignoreCollectionList.size());
