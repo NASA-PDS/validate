@@ -9,6 +9,8 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#652
+|"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json -t {resourceDir}/github652" | "report_github652.json" |
 
 # Validate#649
 |"NASA-PDS/validate#649 Success collection" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github649.json -s json -R pds4.collection --skip-context-validation -t {resourceDir}/github597/spice_kernels/collection_spice_kernels_v003.xml" | "report_github649.json" |
@@ -414,6 +416,8 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a bundle with a single-character filename
  |"NASA-PDS/validate#299 VALID" | "github299" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_valid.json  -s json -t {resourceDir}/github299/valid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_valid.json" |
  |"NASA-PDS/validate#299 INVALID" | "github299" | 3 | "3 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github299_label_invalid.json  -s json -t {resourceDir}/github299/invalid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "report_github299_label_invalid.json" |
+
+ |"NASA-PDS/validate#7 Success with ComplexLSB8" | "github7" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github7.json -s json --skip-context-validation -t {resourceDir}/github7/ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.xml" | "report_github7.json" |
 
 # BIG_NOTE: The tests for github6 has to be moved toward the beginning as leave them here results in error in information model.
 # BIG_NOTE: The tests for github240 has to be moved toward the beginning as leave them here results in error in information model.

@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1F00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:gbo.ast-near-sun.images:document</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Ground-based optical imaging of near-Sun asteroids V1.0</title>
+    <information_model_version>1.15.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>Holt, C. E.; Knight, M. M.; Ye, Q.</author_list>
+      <publication_year>2023</publication_year>
+      <description>We obtained imaging of the expected positions of 31 near-Sun asteroids using Lowell
+Observatory's 4.3-m Lowell Discovery Telescope (LDT; formerly known as the Discovery
+Channel Telescope, DCT) and the 4.1-m Southern Astrophysical Research (SOAR)
+telescope, supplemented by data from the Isaac Newton Telescope (INT) and Lowell
+Observatory's 42-in and 31-in telescopes between 2017 January and 2020 March.
+Twenty-four asteroids were successfully detected, while nine objects were predicted
+to be within our FOVs and above our detection limit but were not recovered, most
+likely due to the very large uncertainty in their orbits. Combined, the collection
+contains images from 33 unique nights of observations.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2017-01-23T18:58:25.7Z</start_date_time>
+      <stop_date_time>2020-10-10Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Partially Processed</processing_level>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Imaging</discipline_name>
+        <facet1>Grayscale</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Physical Properties</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>NURO 0.79m (31inch)</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:lowell.nuro_0m79</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lowell Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.lowell</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>NASAcam</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lowell.nuro_0m79.nasacam</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Lowell Discovery Telescope (LDT)</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:lowell.discovery_4m3</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lowell Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.lowell</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Large Monolithic Imager (LMI)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lowell.discovery_4m3.lmi</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>SOAR</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:ctio-cerro_tololo.soar_4m1</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Cerro Tololo Inter-American Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.ctio-cerro_tololo</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SOAR-GHTS</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:ctio-cerro_tololo.soar_4m1.ghts</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>2.54-m Isaac Newton Grubb-Parsons Cass. equat. refl. (INT)</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:orm.int2m54</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Roque de los Muchachos Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.orm</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Wide Field Camera (WFC)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:orm.int2m54.wfc</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>1.07-m Hall Ritchey-Chretien reflector #1</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:lowell.hall_ritchey-chretien_1_1m07</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lowell Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.lowell</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>NASA42 Camera</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lowell.hall_ritchey-chretien_1_1m07.nasa42cam</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>SOAR</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:ctio-cerro_tololo.soar_4m1</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Cerro Tololo Inter-American Observatory</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.ctio-cerro_tololo</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SOAR Imager (SOI)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:ctio-cerro_tololo.soar_4m1.soi</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Landolt  PG 1047+003</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2011 KE</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(386454) 2008 XM</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2008 HW1</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2017 MM7</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt RU 152A</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt Mark A1</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2018 GG5</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(467372) 2004 LG</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2011 XA3</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2019 UJ12</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt  PG 1047+003A</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(394130) 2006 HY51</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2010 JG87</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(276033) 2002 AJ129</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 92</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(612162) 2000 LK</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 110</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>1995 CR</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt 	PG 1633+099</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2013 JA36</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>137924 2000BD19</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Flat Field</name>
+      <type>Calibrator</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>ASTEROID 394392</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>BIAS</name>
+      <type>Calibrator</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:calibrator.bias</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt PG 0918+029A</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(425755) 2011 CP4</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>M 67</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 110-232</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt PG 1525-071</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(3200) Phaethon</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(504181) 2006 TC</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2019 AM13</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(137924) 2000 BD19</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2015 HG</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Flat Field</name>
+      <type>Calibrator</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Flat Field</name>
+      <type>Calibrator</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 104-334</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2008 MG1</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA104-334</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2013 HK11</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt  SA 95-107</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2013 YC</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2017 TC1</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Sky Flat</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(394392) 2007 EP88</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2011 BT59</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt RU 152A</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2016 GU2</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt RU 149</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Multiple Asteroids</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Bias</name>
+      <type>Calibrator</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:calibrator.bias</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(276033) 2002 AJ129</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2018 HE</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 95</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt PG 1633+099B</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt PG 1047+003</name>
+      <type>Calibration Field</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(374158) 2004 UL</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2017 AF5</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(137924) 2000 BD19</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>2015 KO120</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Landolt SA 112-250</name>
+      <type>Star</type>
+    </Target_Identification>
+    <Target_Identification>
+      <name>(276033) 2002 AJ129</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+  </Context_Area>
+  <Collection>
+    <collection_type>Document</collection_type>
+  </Collection>
+  <File_Area_Inventory>
+    <File>
+      <file_name>collection_gbo.ast-near-sun.images_document_inventory.csv</file_name>
+      <local_identifier>data</local_identifier>
+      <records>5</records>
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>5</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>
+

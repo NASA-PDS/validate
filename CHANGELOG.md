@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-19)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-31)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -17,6 +17,7 @@
 **Improvements:**
 
 - Update datetime regex for content validation [\#608](https://github.com/NASA-PDS/validate/issues/608)
+- Update to support ComplexLSB8 data types and investigate Floating point exception [\#7](https://github.com/NASA-PDS/validate/issues/7)
 
 **Defects:**
 
@@ -51,7 +52,6 @@
 - verbosity flag does not appear to output INFO messages [\#620](https://github.com/NASA-PDS/validate/issues/620) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not correctly validate byte offsets to data objects [\#616](https://github.com/NASA-PDS/validate/issues/616) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - invalid\_object\_definition occurs upon out-of-order data objects [\#614](https://github.com/NASA-PDS/validate/issues/614) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- Missing validation of valid\_maximum and valid\_minimum from Special\_Constants [\#611](https://github.com/NASA-PDS/validate/issues/611) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not maintain history of other versions it comes across as it traverses directories causing erroneous WARNING messages [\#597](https://github.com/NASA-PDS/validate/issues/597) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Regression in validate no longer enabling CRLF to be embedded within a Table\_Character record [\#593](https://github.com/NASA-PDS/validate/issues/593) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 -  ERROR  \[error.array.value\_out\_of\_min\_max\_range\] evaluation is not correct [\#529](https://github.com/NASA-PDS/validate/issues/529) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]

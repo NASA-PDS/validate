@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.sch"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model schematypens="http://purl.oclc.org/dsdl/schematron"
+            href="https://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1A00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1301.sch"
+            schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+                       xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+                       xmlns:sp="http://pds.nasa.gov/pds4/sp/v1"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A00.xsd http://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1301.xsd https://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1A00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:isro:isda:ch2_cho:sar_calibrated:ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Chandrayaan-2 Dual frequency L and S band SAR</title>
+        <information_model_version>1.10.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2018-12-03</modification_date>
+                <version_id>1.0</version_id>
+                <description>PDS4 product label created by SAR DP SAC-ISRO team</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+             <start_date_time>2009-01-07Z</start_date_time>
+            <stop_date_time>2009-01-07Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Chandrayaan-2</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lidvid_reference>urn:isro:isda:context:investigation.chandrayaan-2::1.0</lidvid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Chandrayaan-2 orbiter</name>
+                <type>Spacecraft</type>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Dual frequency L and S band SAR</name>
+                <type>Instrument</type>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Moon</name>
+            <type>Planet</type>
+        </Target_Identification>
+        <Discipline_Area>
+        </Discipline_Area>
+    </Observation_Area>
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.tiff</file_name>
+            <local_identifier>DATA_FILE</local_identifier>
+            <creation_date_time>2019-03-15T10:45:25Z</creation_date_time>
+            <file_size unit="byte">276674</file_size>
+            <md5_checksum>70f9aff5665e5bcc2efdb45f74f48bbc</md5_checksum>
+            <comment>Comment to be filled</comment>
+        </File>
+	<Array_2D_Image>
+                <offset unit="byte">4386</offset>
+                <axes>2</axes>
+                <axis_index_order>Last Index Fastest</axis_index_order>
+                <Element_Array>
+                   <data_type>ComplexLSB8</data_type>
+                </Element_Array>
+                <Axis_Array>
+                   <axis_name>Line</axis_name>
+                   <elements>50</elements>
+                   <sequence_number>1</sequence_number>
+                </Axis_Array>
+                <Axis_Array>
+                   <axis_name>Sample</axis_name>
+                   <elements>676</elements>
+                   <sequence_number>2</sequence_number>
+                </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Observational>
+</Product_Observational>
