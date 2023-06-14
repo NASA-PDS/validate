@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.xsd" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1K00_1510.xsd" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1K00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 
 
 <Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
