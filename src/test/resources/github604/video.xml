@@ -9,7 +9,7 @@
     xmlns:proc="http://pds.nasa.gov/pds4/proc/v1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-    http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd
+    http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.xsd
     http://pds.nasa.gov/pds4/proc/v1 https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.xsd
     http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1K00_1510.xsd">
     
@@ -107,7 +107,7 @@
     
     <File_Area_Observational>
         <File>
-            <file_name> 235797141-1d67c6ae-69ef-41ea-834c-cc32eee90470.mp4</file_name>
+            <file_name>235797141-1d67c6ae-69ef-41ea-834c-cc32eee90470.mp4</file_name>
             <local_identifier>video</local_identifier>
             <creation_date_time>2022-07-20T00:12:00</creation_date_time>
             <file_size unit="byte">881446</file_size>
@@ -116,7 +116,7 @@
 
         <Encoded_Video>
             <offset unit="byte">0</offset>
-            <encoding_standard_id>MP4/H.264/AAC</encoding_standard_id>
+            <encoding_standard_id>MP4/H.264</encoding_standard_id>
         </Encoded_Video>
         
     </File_Area_Observational>

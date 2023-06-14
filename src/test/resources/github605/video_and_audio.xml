@@ -114,13 +114,9 @@
             <comment>Ingenuity 1080p video compressed with H.264 encoder using CRF quality flag of 10 at 30 frames/second.</comment>
         </File>
 
-        <Encoded_Video>
-            <offset unit="byte">0</offset>
-            <encoding_standard_id>MP4/H.264/AAC</encoding_standard_id>
-        </Encoded_Video>
         <Encoded_Audio>
             <offset unit="byte">0</offset>
-            <encoding_standard_id>MP4/H.264/AAC</encoding_standard_id>
+            <encoding_standard_id>M4A/AAC</encoding_standard_id>
         </Encoded_Audio>
         
     </File_Area_Observational>
