@@ -9,9 +9,11 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
-
 # Validate#652
 |"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json -t {resourceDir}/github652" | "report_github652.json" |
+
+# Validate#649
+|"NASA-PDS/validate#649 Success collection" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github649.json -s json -R pds4.collection --skip-context-validation -t {resourceDir}/github597/spice_kernels/collection_spice_kernels_v003.xml" | "report_github649.json" |
 
 # Validate#644
 |"NASA-PDS/validate#644 Success NaN and Inf in FITS" | "github644" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github644.json -s json -t {resourceDir}/github644/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "report_github644.json" |

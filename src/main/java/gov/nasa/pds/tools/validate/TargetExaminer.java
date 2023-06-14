@@ -49,7 +49,8 @@ public class TargetExaminer extends Target {
    * @param url the url of file to check.
    * @return true if the given url is of Bundle type.
    */
-  public static boolean isTargetBundleType(URL url) {
+  public static boolean isTargetBundleType(URL url) { return isTargetBundleType(url, false); }
+  public static boolean isTargetBundleType(URL url, boolean ignoreErrors) {
     // Function returns true if the product has the tag defined in PRODUCT_NAME_TAG.
     String PRODUCT_NAME_TAG = TargetExaminer.BUNDLE_NODE_TAG;
     boolean targetIsBundleFlag = false;
@@ -60,7 +61,7 @@ public class TargetExaminer extends Target {
       return (targetIsBundleFlag);
     }
 
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG))) {
+    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
       targetIsBundleFlag = true;
     }
     LOG.debug("isTargetBundleType:url,(new File(url.getPath()).isFile() {},{}", url,
@@ -77,7 +78,8 @@ public class TargetExaminer extends Target {
    * @param url the url of file to check.
    * @return true if the given url is of Collection type.
    */
-  public static boolean isTargetCollectionType(URL url) {
+  public static boolean isTargetCollectionType(URL url) { return isTargetCollectionType(url,false); }
+  public static boolean isTargetCollectionType(URL url, boolean ignoreErrors) {
     // Function returns true if the product has the tag defined in PRODUCT_NAME_TAG.
     String PRODUCT_NAME_TAG = TargetExaminer.COLLECTION_NODE_TAG;
     boolean targetIsCollectionFlag = false;
@@ -88,7 +90,7 @@ public class TargetExaminer extends Target {
       return (targetIsCollectionFlag);
     }
 
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG))) {
+    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
       targetIsCollectionFlag = true;
     }
     LOG.debug("isTargetCollectionType:url,(new File(url.getPath()).isFile() {},{}", url,
@@ -106,7 +108,7 @@ public class TargetExaminer extends Target {
    * @param tagCheck the tag of the node to check.
    * @return true if the given url contains a node that matches tagCheck.
    */
-  private static boolean tagMatches(URL url, String tagCheck) {
+  private static boolean tagMatches(URL url, String tagCheck, boolean ignoreErrors) {
     // Given a target URL, make an educated guess by checking if content of target
     // contains a given tag.
     // A PDS4 label uses the tag to identify itself the first 10 lines, e.g.
@@ -141,12 +143,16 @@ public class TargetExaminer extends Target {
           // }
         }
       } catch (Exception e) {
+        if (!ignoreErrors) {
+          LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
+          e.printStackTrace();
+        }
+      }
+    } catch (Exception e) {
+      if (!ignoreErrors) {
         LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
         e.printStackTrace();
       }
-    } catch (Exception e) {
-      LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
-      e.printStackTrace();
     }
 
     LOG.debug("tagMatches:url,tagCheck,tagMatchedFlag {},{},{}", url, tagCheck, tagMatchedFlag);

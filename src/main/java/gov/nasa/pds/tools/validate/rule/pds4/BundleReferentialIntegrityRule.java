@@ -25,11 +25,11 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
-import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
@@ -91,7 +91,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
       // Check for bundle(.*)?\.(xml or lblx) file.
       for (Target child : children) {
         LOG.info("getContext().getBundleLabelPattern()");
-        if (AggregateManager.isBundle(child.getUrl())) {
+        if (TargetExaminer.isTargetBundleType (child.getUrl(), true)) {
           try {
             XMLExtractor extractor = new XMLExtractor(child.getUrl());
             if ("Product_Bundle".equals(extractor.getValueFromDoc(PRODUCT_CLASS))) {

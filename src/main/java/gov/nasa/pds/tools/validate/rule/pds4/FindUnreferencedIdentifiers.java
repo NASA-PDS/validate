@@ -18,11 +18,11 @@ import java.net.URL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
-import gov.nasa.pds.tools.validate.AggregateManager;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ListenerExceptionPropagator;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
@@ -85,7 +85,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
             location, found, this.filesProcessed);
         if (!found) {
           String memberType = "collection";
-          if (AggregateManager.isCollection(locationUrl)) {
+          if (TargetExaminer.isTargetCollectionType (locationUrl)) {
             memberType = "bundle";
           }
           LOG.debug("findUnreferencedIdentifiers:id,location,memberType: {},{},{}", id, location,

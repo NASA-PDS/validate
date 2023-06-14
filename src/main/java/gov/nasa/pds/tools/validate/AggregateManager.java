@@ -18,19 +18,16 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import javax.xml.xpath.XPathExpressionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.LidVid;
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.crawler.CrawlerFactory;
 import gov.nasa.pds.validate.report.Report;
-import net.sf.saxon.trans.UncheckedXPathException;
-import net.sf.saxon.trans.XPathException;
 
 /**
  * Provide ways to get latest version of bundle/collection files, or build list of files to ignore
@@ -520,11 +517,12 @@ public class AggregateManager {
    * @return a list of files that are other than the given url.
    */
   public static ArrayList<Target> buildCollectionIgnoreList(URL url, URL bundleUrl,
-      String labelFileExtension) {
+      String labelFileExtension, boolean isRootBundle) {
     LOG.debug("buildCollectionIgnoreList:url,bundleUrl {},{}", url, bundleUrl);
     ArrayList<Target> ignoreCollectionList = new ArrayList<Target>(); // List of items to be removed from
                                                                  // result of crawl()
                                                                  // function.
+    List<Target> latestCollections = null;
     try {
       if (url.getProtocol().equals("file")) {
         if (!(new File(url.getFile())).isDirectory()) {
@@ -538,8 +536,11 @@ public class AggregateManager {
       return ignoreCollectionList;
     }
 
-    List<Target> latestCollections =
-        AggregateManager.findCollectionWithMatchingReference(url, bundleUrl, labelFileExtension);
+    if (isRootBundle) {
+      latestCollections = AggregateManager.findCollectionWithMatchingReference(url, bundleUrl, labelFileExtension);
+    } else {
+      latestCollections = Arrays.asList(new Target(bundleUrl, false));
+    }
 
     LOG.debug("buildCollectionIgnoreList:latestCollections.size() {}", latestCollections.size());
     LOG.debug("buildCollectionIgnoreList:latestCollections {}", latestCollections);
@@ -719,7 +720,7 @@ public class AggregateManager {
 
           // Check if the newly found find is in targetList. If not, add it to the
           // otherCollectionFilesList so it can be skip
-          if (isCollection (target.getUrl()) && !AggregateManager.containsExistingTarget(targetList, target.getUrl())) {
+          if (TargetExaminer.isTargetCollectionType(target.getUrl()) && !AggregateManager.containsExistingTarget(targetList, target.getUrl())) {
             otherCollectionFilesList.add(target);
 
             LOG.info(
@@ -768,14 +769,15 @@ public class AggregateManager {
    * @param location the location of where to start looking for files from.
    */
   public static void makeException(URL url, String location, String labelFileExtension) {
-    // If the target is a bundle, the exception can now be made.
+    // If the target is a bundle or collection, the exception can now be made.
     // Make the following changes:
     // 1. Change the location from a file into a directory.
     // 2. Create a list of other bundle files to ignore so only the provided bundle
-    // is processed.
-    // 3. Create a list of collection files to ignore so only the latest collection
-    // file is processed.
-
+    // is processed when url is a bundle or all bundles when url is a collection
+    // 3. Create a list of collection files to ignore so only the latest or given
+    // collection file is processed.
+    boolean isBundle = TargetExaminer.isTargetBundleType (url);
+    Target myself = new Target(url, false);
     LOG.debug("makeException:url,location {},{}", url, location);
 
     // First, find any other bundle files so they can be eliminated from crawling
@@ -819,8 +821,8 @@ public class AggregateManager {
     String parentToLocation = null;
     try {
       // The new location (as a directory) will be applicable later on.
-      m_location = "file:" + (new File(url.getPath())).getParent() + File.separator;
       parentToLocation = (new File(url.getPath())).getParent() + File.separator;
+      m_location = "file:" + parentToLocation;
       LOG.debug("m_location {}", m_location);
     } catch (Exception e) {
       LOG.error("Cannot setLocation() to location. " + location + ": " + e.getMessage());
@@ -841,7 +843,7 @@ public class AggregateManager {
     }
 
     ArrayList<Target> ignoreCollectionList =
-        AggregateManager.buildCollectionIgnoreList(parentURL, url, labelFileExtension);
+        AggregateManager.buildCollectionIgnoreList(parentURL, url, labelFileExtension, isBundle);
     LOG.debug("post_call:buildCollectionIgnoreList:url {}", url);
 
     // Because any reporting about a collection file being ignored/skipped is
@@ -854,23 +856,7 @@ public class AggregateManager {
                                                                // in the
                                                                // crawler.
     }
-  }
-  private static boolean matchProductClass (String class_name, URL target) {
-    boolean matches = false;
-    try {
-      XMLExtractor xml = new XMLExtractor(target);
-      String value = xml.getValueFromDoc("/*/Identification_Area/product_class");
-      matches = class_name.equals (value);
-    } catch (UncheckedXPathException | XPathException | XPathExpressionException e) {
-      // if not an XML file, then cannot have a ProductType so must be false
-      // therefore ignore these errors
-    }
-    return matches;
-  }
-  public static boolean isBundle (URL target) {
-    return matchProductClass ("Product_Bundle", target);
-  }
-  public static boolean isCollection (URL target) {
-    return matchProductClass ("Product_Collection", target);
+    
+    if (AggregateManager.m_ignoreList.contains (myself)) AggregateManager.m_ignoreList.remove (myself);
   }
 }
