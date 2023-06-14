@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-05-31)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-14)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -21,10 +21,15 @@
 
 **Defects:**
 
+- validate incorrectly SKIPs label [\#657](https://github.com/NASA-PDS/validate/issues/657)
+- validate 3.3.0 snapshot produces incorrect SKIP/INFO messages [\#652](https://github.com/NASA-PDS/validate/issues/652) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not validate a collection if collection.xml pointed to [\#649](https://github.com/NASA-PDS/validate/issues/649) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate gives errors for 'NaN' and 'Inf' values in IEEE754 data [\#644](https://github.com/NASA-PDS/validate/issues/644) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Expected value in validate report for context reference name is not same as value in the context file [\#631](https://github.com/NASA-PDS/validate/issues/631) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Missing validation of valid\_maximum and valid\_minimum from Special\_Constants [\#611](https://github.com/NASA-PDS/validate/issues/611) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate incorrectly enforces file naming requirements for base file names ending in a period, underscore, or hyphen [\#562](https://github.com/NASA-PDS/validate/issues/562) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate incorrectly enforces file naming requirements on bundles/collections [\#561](https://github.com/NASA-PDS/validate/issues/561) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate does not allow `.arch_h` file name/data type [\#500](https://github.com/NASA-PDS/validate/issues/500) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - warning.table.characters\_between\_fields missing for last record in table [\#431](https://github.com/NASA-PDS/validate/issues/431) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validation fails to catch real value in ASCII\_NonNegative\_Integer field \(Table\_Delimited\) [\#190](https://github.com/NASA-PDS/validate/issues/190) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
