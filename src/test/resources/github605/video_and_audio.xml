@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.xsd
+    http://pds.nasa.gov/pds4/proc/v1 https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1K00_1300.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:video_example:data:ingenuity_sol120</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Ingenuity video for sol 120</title>
+        <information_model_version>1.20.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Doe, Jane</author_list>
+            <publication_year>2023</publication_year>
+            <description>video of the Ingenuity helicopter for sol 120</description>
+        </Citation_Information>
+    </Identification_Area>
+    
+    <Observation_Area>
+        
+        <Time_Coordinates>
+            <start_date_time>2022-07-20Z</start_date_time>
+            <stop_date_time>2022-07-14Z</stop_date_time>
+        </Time_Coordinates>
+        
+        <Investigation_Area>
+            <name>Mars 2020</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <name>Ingenuity</name>
+            <Observing_System_Component>
+                <name>Mars 2020</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>camera</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mars2020.camera</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        
+        <Target_Identification>
+            <name>Mars</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+
+        <Discipline_Area>
+            <proc:Processing_Information>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>video</local_identifier_reference>
+                    <local_reference_type>processing_information_to_data_object</local_reference_type>
+                </Local_Internal_Reference>
+                <proc:Process>
+                    <proc:process_owner_institution_name>NASA Lab</proc:process_owner_institution_name>
+                    <proc:Software>
+                        <proc:Software_Program>
+                            <proc:name>ffmpeg</proc:name>
+                            <proc:program_version>1.5</proc:program_version>
+                            <proc:description>
+                                compressed using ffmpeg at 30 frames/second using H.264 encoder with a 
+                                Constant Quality (CRF) setting of 10 and using the audio AAC encoder at 
+                                160 kilobytes/second.
+                            </proc:description>
+                        </proc:Software_Program>
+                    </proc:Software>
+                </proc:Process>
+            </proc:Processing_Information>
+        </Discipline_Area>
+
+    </Observation_Area>
+
+    <Reference_List>
+        <External_Reference>
+            <doi>10.1016/j.icarus.2022.01.001</doi>
+            <reference_text> 
+                Mars Inginuity, Icarus, 001, 001.  
+            </reference_text>
+        </External_Reference>
+    </Reference_List>
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>235801716-ea625a5e-b6ee-41c0-8c14-cf0b6fa27fa4.mp4</file_name>
+            <local_identifier>video</local_identifier>
+            <creation_date_time>2022-07-20T00:12:00</creation_date_time>
+            <file_size unit="byte">453748</file_size>
+            <comment>Ingenuity 1080p video compressed with H.264 encoder using CRF quality flag of 10 at 30 frames/second.</comment>
+        </File>
+
+        <Encoded_Video>
+            <offset unit="byte">0</offset>
+            <encoding_standard_id>MP4/H.264/AAC</encoding_standard_id>
+        </Encoded_Video>
+    </File_Area_Observational>
+</Product_Observational>
