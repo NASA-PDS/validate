@@ -49,6 +49,7 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationTarget;
+import gov.nasa.pds.tools.validate.content.AudioVideo;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import net.sf.saxon.om.DocumentInfo;
@@ -270,6 +271,9 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               }
               if ("encoding_standard_id".equals(child.getLocalPart())) {
                 encodingStandardId = child.getStringValue();
+                if (this.fileMapping.get(name).equals("")) {
+                  this.fileMapping.put (name, encodingStandardId);
+                }
               }
               if ("file_name".equals(child.getLocalPart())) {
                 name = child.getStringValue();
@@ -459,6 +463,12 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                   .addProblem(new ValidationProblem(def, target, fileObject.getLineNumber(), -1));
               return false;
             }
+          } else if (doctype.equalsIgnoreCase("MP4/H.264/AAC")){
+            new AudioVideo(this.getListener(), target, urlRef).checkMetadata (true, true);
+          } else if (doctype.equalsIgnoreCase("MP4/H.264")){
+            new AudioVideo(this.getListener(), target, urlRef).checkMetadata (false, true);
+          } else if (doctype.equalsIgnoreCase("M4A/AAC") || doctype.equalsIgnoreCase("WAV")){
+            new AudioVideo(this.getListener(), target, urlRef).checkMetadata (true, false);
           } else if (!doctype.equalsIgnoreCase("UTF-8 Text")
               && !doctype.equalsIgnoreCase("7-Bit ASCII Text")
               && !doctype.equalsIgnoreCase("Rich Text")) {

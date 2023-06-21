@@ -196,6 +196,8 @@ public enum ProblemType {
 
   UNLABELED_FILE("warning.file.not_referenced_in_label"),
 
+  NOT_MP4_FILE("warning.file.not_mp4_m4a_compliant"),
+
   NON_JPEG_FILE("warning.file.not_jpeg_compliant"),
 
   NON_PNG_FILE("warning.file.not_png_compliant"),
