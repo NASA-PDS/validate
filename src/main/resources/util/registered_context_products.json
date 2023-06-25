@@ -38,6 +38,60 @@
           },
           {
                "name": [
+                    "(13379) 1998 WX9"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.13379_1998_wx9::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss42_26m::1.0"
+          },
+          {
+               "name": [
+                    "ANTARES"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.alf_sco::1.0"
+          },
+          {
+               "name": [
+                    "2008 CT190"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2008_ct190::1.0"
+          },
+          {
+               "name": [
+                    "GRAVITY RECOVERY AND INTERIOR LABORATORY B"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.grail-b::1.2"
+          },
+          {
+               "name": [
+                    "APOLLO 16 PANORAMIC CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pancam.a16c::1.0"
+          },
+          {
+               "name": [
                     "HAT-P-4"
                ],
                "type": [
@@ -972,6 +1026,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:canberra.dss43_70m::1.0"
+          },
+          {
+               "name": [
+                    "EUROPA THERMAL EMISSION IMAGING SYSTEM (E-THEMIS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.eth::1.0"
           },
           {
                "name": [
@@ -3191,6 +3254,15 @@
           },
           {
                "name": [
+                    "EUROPA CLIPPER MISSION"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.clipper::1.0"
+          },
+          {
+               "name": [
                     "HEGEMONE"
                ],
                "type": [
@@ -3233,6 +3305,15 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:lorri.nh::1.0"
+          },
+          {
+               "name": [
+                    "EUROPA CLIPPER GRAVITY/RADIO SCIENCE (G/RS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.rss::1.0"
           },
           {
                "name": [
@@ -4467,6 +4548,15 @@
                     "MAGNETOMETER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:apss-ifg.insight::1.0"
+          },
+          {
+               "name": [
+                    "SURFACE DUST ANALYZER (SUDA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.sud::1.0"
           },
           {
                "name": [
@@ -6598,78 +6688,6 @@
           },
           {
                "name": [
-                    "(443843) 2001 FO185"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.443843_2001_fo185::1.0"
-          },
-          {
-               "name": [
-                    "1P/HALLEY"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.1p_halley::1.0"
-          },
-          {
-               "name": [
-                    "IRAS"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.iras::2.0"
-          },
-          {
-               "name": [
-                    "SUPRA-THERMAL AND THERMAL ION COMPOSITION"
-               ],
-               "type": [
-                    "PLASMA ANALYZER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:static.maven::1.0"
-          },
-          {
-               "name": [
-                    "C/1979 M1 (BRADFIELD)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.c1979_m1_bradfield::1.0"
-          },
-          {
-               "name": [
-                    "CHI CYGNI"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.chi_cyg::1.0"
-          },
-          {
-               "name": [
-                    "ANDROMEDA"
-               ],
-               "type": [
-                    "GALAXY"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:galaxy.m_31::1.0"
-          },
-          {
-               "name": [
-                    "VENERA 15 AND 16"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15_and_16::1.0"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -6721,6 +6739,24 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.rs::1.0"
+          },
+          {
+               "name": [
+                    "182 ELSA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.182_elsa::1.1"
+          },
+          {
+               "name": [
+                    "7126 CUREAU"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.7126_cureau::1.1"
           },
           {
                "name": [
@@ -8230,6 +8266,15 @@
           },
           {
                "name": [
+                    "EUROPA ULTRAVIOLET SPECTROGRAPH (EUROPA UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.uvs::1.0"
+          },
+          {
+               "name": [
                     "2003 UV292"
                ],
                "type": [
@@ -8524,6 +8569,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.288_glauke::1.1"
+          },
+          {
+               "name": [
+                    "Europa Clipper Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clipper::1.0"
           },
           {
                "name": [
@@ -9533,6 +9587,15 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:fhaz_left_a.msl::1.0"
+          },
+          {
+               "name": [
+                    "EUROPA CLIPPER GUIDANCE, NAVIGATION, AND CONTROL (GNC) SUBSYSTEM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.gnc::1.0"
           },
           {
                "name": [
@@ -11706,6 +11769,15 @@
           },
           {
                "name": [
+                    "EUROPA IMAGING SYSTEM (EIS) WIDE-ANGLE CAMERA (WAC)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.wac::1.0"
+          },
+          {
+               "name": [
                     "2002 GP32"
                ],
                "type": [
@@ -13482,66 +13554,21 @@
           },
           {
                "name": [
-                    "(13379) 1998 WX9"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.13379_1998_wx9::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss42_26m::1.0"
-          },
-          {
-               "name": [
-                    "ANTARES"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.alf_sco::1.0"
-          },
-          {
-               "name": [
-                    "2008 CT190"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2008_ct190::1.0"
-          },
-          {
-               "name": [
-                    "GRAVITY RECOVERY AND INTERIOR LABORATORY B"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.grail-b::1.2"
-          },
-          {
-               "name": [
-                    "APOLLO 16 PANORAMIC CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:pancam.a16c::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.15810_arawn::1.1"
+          },
+          {
+               "name": [
+                    "EUROPA CLIPPER MAGNETOMETER (ECM)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.ecm::1.0"
           },
           {
                "name": [
@@ -14274,24 +14301,6 @@
           },
           {
                "name": [
-                    "182 ELSA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.182_elsa::1.1"
-          },
-          {
-               "name": [
-                    "7126 CUREAU"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.7126_cureau::1.1"
-          },
-          {
-               "name": [
                     "N/A"
                ],
                "type": [
@@ -14316,6 +14325,78 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
+                    "(443843) 2001 FO185"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.443843_2001_fo185::1.0"
+          },
+          {
+               "name": [
+                    "1P/HALLEY"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.1p_halley::1.0"
+          },
+          {
+               "name": [
+                    "IRAS"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.iras::2.0"
+          },
+          {
+               "name": [
+                    "SUPRA-THERMAL AND THERMAL ION COMPOSITION"
+               ],
+               "type": [
+                    "PLASMA ANALYZER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:static.maven::1.0"
+          },
+          {
+               "name": [
+                    "C/1979 M1 (BRADFIELD)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.c1979_m1_bradfield::1.0"
+          },
+          {
+               "name": [
+                    "CHI CYGNI"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.chi_cyg::1.0"
+          },
+          {
+               "name": [
+                    "ANDROMEDA"
+               ],
+               "type": [
+                    "GALAXY"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:galaxy.m_31::1.0"
+          },
+          {
+               "name": [
+                    "VENERA 15 AND 16"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15_and_16::1.0"
           },
           {
                "name": [
@@ -20149,6 +20230,15 @@
           },
           {
                "name": [
+                    "RADAR FOR EUROPA ASSESSMENT AND SOUNDING: OCEAN TO NEAR-SURFACE (REASON)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.rea::1.0"
+          },
+          {
+               "name": [
                     "2005 RP43"
                ],
                "type": [
@@ -22456,6 +22546,15 @@
           },
           {
                "name": [
+                    "EUROPA IMAGING SYSTEM (EIS) NARROW-ANGLE CAMERA (NAC)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.nac::1.0"
+          },
+          {
+               "name": [
                     "N/A"
                ],
                "type": [
@@ -23519,6 +23618,15 @@
           },
           {
                "name": [
+                    "MAPPING IMAGING SPECTROMETER FOR EUROPA (MISE)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.mis::1.0"
+          },
+          {
+               "name": [
                     "ALPHA PROTON X-RAY SPECTROMETER"
                ],
                "type": [
@@ -23651,6 +23759,15 @@
                     "DUST"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:sp2.vega1::1.0"
+          },
+          {
+               "name": [
+                    "MASS SPECTROMETER FOR PLANETARY EXPLORATION (MASPEX)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.mas::1.0"
           },
           {
                "name": [
@@ -24976,6 +25093,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.131695_2001_xs254::1.0"
+          },
+          {
+               "name": [
+                    "PLASMA INSTRUMENT FOR MAGNETIC SOUNDING (PIMS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.pim::1.0"
           },
           {
                "name": [
