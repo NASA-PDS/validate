@@ -808,7 +808,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         urlRef = new URL(parent, jpegName);
       }
       LOG.error("handleJPEG:" + urlRef.toString() + " is not valid JPEG file");
-      ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING,
+      ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR,
           ProblemType.NON_JPEG_FILE, urlRef.toString() + " is not valid JPEG file");
       getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }
@@ -852,7 +852,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         urlRef = new URL(parent, pngName);
       }
       LOG.error("handlePNG:" + urlRef.toString() + " is not valid PNG file");
-      ProblemDefinition def = new ProblemDefinition(ExceptionType.WARNING, ProblemType.NON_PNG_FILE,
+      ProblemDefinition def = new ProblemDefinition(ExceptionType.ERROR, ProblemType.NON_PNG_FILE,
           urlRef.toString() + " is not valid PNG file");
       getListener().addProblem(new ValidationProblem(def, target, lineNumber, -1));
     }

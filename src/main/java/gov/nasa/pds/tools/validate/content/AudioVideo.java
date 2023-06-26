@@ -28,7 +28,7 @@ public class AudioVideo {
       MovieBox movie = content.getMovieBox();
       if (movie == null) {
         this.listener.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.NOT_MP4_FILE,
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.NOT_MP4_FILE,
                 "Does not look like an MP4/M4A because no boxes found within: " + urlRef.toString()),
             target));
       } else {
@@ -40,13 +40,13 @@ public class AudioVideo {
       content.close();
       if (a != audio) {
         this.listener.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.NOT_MP4_FILE,
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.NOT_MP4_FILE,
                 "Does not look like an MP4/M4A because expected audio but found none: " + urlRef.toString()),
             target));
       }
       if (v != video) {
         this.listener.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.NOT_MP4_FILE,
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.NOT_MP4_FILE,
                 "Does not look like an MP4/M4A because expected video but found none: " + urlRef.toString()),
             target));
       }
