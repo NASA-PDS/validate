@@ -72,6 +72,7 @@ public class LocationValidator {
   private RuleContext ruleContext;
   private String validationRule;
   private String labelExtension;
+  private String pdfErrorDir;
 
   /*
    * Sets the report object in BundleManager static class.
@@ -430,10 +431,13 @@ public class LocationValidator {
   }
 
   public void setEveryN(int value) {
-	ruleContext.setEveryN(value);
+    ruleContext.setEveryN(value);
   }
   public void setSpotCheckData(int value) {
-	ruleContext.setSpotCheckData(value);
+    ruleContext.setSpotCheckData(value);
+  }
+  public void setPDFErrorDir(String dir) {
+    ruleContext.setPDFErrorDir(dir);
   }
 
   public void setAllowUnlabeledFiles(boolean flag) {

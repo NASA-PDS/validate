@@ -117,6 +117,11 @@ public class ConfigKey {
   public static final String EVERY_N = "validate.everyN";
 
   /**
+   * Property to specify directory for PDF error directory.
+   */
+  public static final String PDF_ERROR_DIR = "validate.pdfErrorDir";
+
+  /**
    * Property to specify how many lines or records to skip during content validation.
    */
   public static final String SPOT_CHECK_DATA = "validate.spotCheckData";

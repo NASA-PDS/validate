@@ -222,6 +222,8 @@ public class ValidateLauncher {
 
   private int everyN;
 
+  private String pdfErrorDir;
+
   private int spotCheckData;
 
   private boolean allowUnlabeledFiles;
@@ -282,7 +284,7 @@ public class ValidateLauncher {
     deprecatedFlagWarning = false;
     validateContext = true;
     checkInbetweenFields = false;
-
+    pdfErrorDir = "";
     setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
 
     this.flushValidators();
@@ -330,6 +332,12 @@ public class ValidateLauncher {
     } catch (IllegalArgumentException a) {
       throw new InvalidOptionException(
         "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
+    }
+    setPDFErrorDir(line.getOptionValue("pdf-errors", ""));
+    File dir = new File(pdfErrorDir);
+    if (!dir.isDirectory()) {
+      throw new InvalidOptionException(
+          "Could not parse dir '" + this.pdfErrorDir + "' as a directory");
     }
 
     for (Option o : processedOptions) {
@@ -759,6 +767,9 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.EVERY_N)) {
           setEveryN(config.getInt(ConfigKey.EVERY_N));
       }
+      if (config.containsKey(ConfigKey.PDF_ERROR_DIR)) {
+        setPDFErrorDir(config.getString(ConfigKey.PDF_ERROR_DIR));
+      }
       if (config.containsKey(ConfigKey.SPOT_CHECK_DATA)) {
         setSpotCheckData(config.getInt(ConfigKey.SPOT_CHECK_DATA));
       }
@@ -1069,8 +1080,12 @@ public class ValidateLauncher {
   }
 
   public void setEveryN(int value) {
-	    this.everyN = value;
-	  }
+    this.everyN = value;
+  }
+
+  public void setPDFErrorDir(String dir) {
+    this.pdfErrorDir = dir;
+  }
 
   public void setSpotCheckData(int value) {
 	    this.spotCheckData = value;
@@ -1306,6 +1321,9 @@ public class ValidateLauncher {
     if (everyN != 1) {
       report.addParameter("   Data Every N                  " + everyN);
     }
+    if (pdfErrorDir.isEmpty()) {
+      report.addParameter("   PDF Error Directory           " + pdfErrorDir);
+    }
     if (spotCheckData != -1) {
       report.addParameter("   Data Spot Check               " + spotCheckData);
     }
@@ -1383,6 +1401,7 @@ public class ValidateLauncher {
         validator.setCheckData(contentValidationFlag);
         validator.setSpotCheckData(spotCheckData);
         validator.setEveryN(everyN);
+        validator.setPDFErrorDir(pdfErrorDir);
         validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
         validator.setValidateContext(validateContext);
         validator.setSkipProductValidation(skipProductValidation);

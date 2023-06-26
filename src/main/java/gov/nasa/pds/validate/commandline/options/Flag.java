@@ -104,6 +104,10 @@ public enum Flag {
   NO_DATA(null, "no-data-check",
       "DEPRECATED: This option has been renamed to --skip-content-validation to be more consistent with other argument naming."),
 
+  PDF_ERROR_DIR(null, "pdf-errors", "directory", String.class,
+      "the directory to put PDF error reports that detail why a PDF file is not compliant that is not included in the standard report " +
+      "with undefined or empty string meaning the detailed reports are lost"),
+
   /** Flag to disable data content validation. */
   SKIP_CONTENT_VALIDATION("D", "skip-content-validation",
       "Disable product content validation. The tool will skip check the bytes within the content of the data file."),
