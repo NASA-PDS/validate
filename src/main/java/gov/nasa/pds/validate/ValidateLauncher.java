@@ -1321,7 +1321,7 @@ public class ValidateLauncher {
     if (everyN != 1) {
       report.addParameter("   Data Every N                  " + everyN);
     }
-    if (pdfErrorDir.isEmpty()) {
+    if (!pdfErrorDir.isEmpty()) {
       report.addParameter("   PDF Error Directory           " + pdfErrorDir);
     }
     if (spotCheckData != -1) {
