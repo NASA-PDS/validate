@@ -1,13 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-15)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-26)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
 **Requirements:**
 
+- As a user, I want the PDF error reports to be output in a user-specified directory [\#658](https://github.com/NASA-PDS/validate/issues/658)
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
 - As a user, I would like to enforce browse file extension with encoding type [\#617](https://github.com/NASA-PDS/validate/issues/617)
+- As a user, I want to validate MP4/H.264/AAC encoded video with audio as observational data [\#605](https://github.com/NASA-PDS/validate/issues/605)
+- As a user, I want to validate MP4/H.264 encoded video as observational data [\#604](https://github.com/NASA-PDS/validate/issues/604)
 - As a user, I want to be able to use both online and local schema/schematron files. [\#599](https://github.com/NASA-PDS/validate/issues/599)
 - As a user, I want to check that are no duplicate LIDs/LIDVIDs in a File\_Area\_Inventory [\#476](https://github.com/NASA-PDS/validate/issues/476)
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
@@ -32,6 +35,10 @@
 - Validate does not allow `.arch_h` file name/data type [\#500](https://github.com/NASA-PDS/validate/issues/500) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - warning.table.characters\_between\_fields missing for last record in table [\#431](https://github.com/NASA-PDS/validate/issues/431) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validation fails to catch real value in ASCII\_NonNegative\_Integer field \(Table\_Delimited\) [\#190](https://github.com/NASA-PDS/validate/issues/190) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+**Other closed issues:**
+
+- Implement content validation for audio/video formats [\#664](https://github.com/NASA-PDS/validate/issues/664)
 
 ## [v3.2.0](https://github.com/NASA-PDS/validate/tree/v3.2.0) (2023-04-14)
 
