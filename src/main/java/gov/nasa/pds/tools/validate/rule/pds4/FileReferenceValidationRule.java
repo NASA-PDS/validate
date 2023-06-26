@@ -737,7 +737,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     DocumentsChecker check = new DocumentsChecker();
     if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
       // The parent is also needed for validateFileStandardConformity function.
-      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(pdfName, new URL(parent, directory));
+      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(this.getContext().getPDFErrorDir(), pdfName, new URL(parent, directory));
 
       // Report an error if the PDF file is not PDF/A compliant.
       if (!pdfValidateFlag) {

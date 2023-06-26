@@ -49,12 +49,15 @@ public class PDFUtil {
     return (this.target);
   }
 
-  private synchronized void writeErrorToFile(URI uri, ValidationResult result, String flavor) {
+  private synchronized void writeErrorToFile(String baseDir, URI uri, ValidationResult result, String flavor) {
+    // Ignore the write if baseDir has not been given
+    if (baseDir.isEmpty()) return;
+
     // Write to an external file with ".error" appended to file name in user's
     // default directory the content of result.
 
     // Build the external filename and save it for other to access.
-    this.externalErrorFilename = System.getProperty("user.dir") + File.separator
+    this.externalErrorFilename = baseDir + File.separator
         + FilenameUtils.getName(uri.getPath()) + "." + flavor + ".error.csv";
 
     LOG.debug("writeErrorToFile:uri,this.externalErrorFilename {},{}", uri,
@@ -99,7 +102,7 @@ public class PDFUtil {
     }
   }
 
-  private boolean validatePDF(URI uri, String pdfRef) throws IOException {
+  private boolean validatePDF(String baseDir, URI uri, String pdfRef) throws IOException {
     boolean pdfValidateFlag = false;
 
     try {
@@ -130,7 +133,7 @@ public class PDFUtil {
 
           // Write the result to external file so the user can look over in the validate
           // report.
-          this.writeErrorToFile(uri, result, parser.getFlavour().getId());
+          this.writeErrorToFile(baseDir, uri, result, parser.getFlavour().getId());
 
           this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId()
               + ".  Detailed error output can be found at " + this.getExternalErrorFilename();
@@ -151,7 +154,7 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public synchronized boolean validateFileStandardConformity(String pdfBase, URL parentURL)
+  public synchronized boolean validateFileStandardConformity(String baseDir, String pdfBase, URL parentURL)
       throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
@@ -188,7 +191,7 @@ public class PDFUtil {
 
     // First, validate the PDF against PDFAFlavour.PDFA_1_A, if it does not
     // validate, do it again with PDFAFlavour.PDFA_1_B
-    pdfValidateFlag = this.validatePDF(uri, pdfRef);
+    pdfValidateFlag = this.validatePDF(baseDir, uri, pdfRef);
 
     LOG.debug("validateFileStandardConformity:pdfRef,pdfValidateFlag [{}],{}", parent,
         pdfValidateFlag);

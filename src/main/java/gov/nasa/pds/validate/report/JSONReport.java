@@ -136,6 +136,7 @@ public class JSONReport extends Report {
       for (String parameter : parameters) {
         String[] tokens = parameter.trim().split("\\s{2,}+", 2);
         String key = tokens[0].replaceAll("\\s", "");
+        System.out.println ("param: " + parameter);
         this.jsonWriter.name(WordUtils.uncapitalize(key)).value(tokens[1]);
       }
       this.jsonWriter.endObject();

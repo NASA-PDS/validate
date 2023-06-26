@@ -123,6 +123,10 @@ public class RuleContext extends ContextBase {
    */
   public static final String EVERY_N_KEY = "validate.every-n";
   /**
+   * Property to specify directory for PDF error directory.
+   */
+  public static final String PDF_ERROR_DIR = "validate.pdfErrorDir";
+  /**
    * The key used to indicate how many lines or records to skip during content validation.
    */
   public static final String SPOT_CHECK_DATA_KEY = "validate.spot-check";
@@ -403,6 +407,13 @@ public class RuleContext extends ContextBase {
 
   public void setEveryN(int value) {
 	putContextValue(EVERY_N_KEY, value);
+  }
+  public String getPDFErrorDir() {
+    return getContextValue(PDF_ERROR_DIR, String.class) == null ? "" : getContextValue(PDF_ERROR_DIR, String.class);
+  }
+
+  public void setPDFErrorDir(String dir) {
+    putContextValue(PDF_ERROR_DIR, dir);
   }
 
   public int getSpotCheckData() {
