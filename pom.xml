@@ -389,6 +389,11 @@ POSSIBILITY OF SUCH DAMAGE.
       <artifactId>opensearch-rest-high-level-client</artifactId>
       <version>2.5.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.mp4parser</groupId>
+      <artifactId>isoparser</artifactId>
+      <version>1.9.56</version>
+    </dependency>
   </dependencies>
 
   <!-- Inherit from parent -->
