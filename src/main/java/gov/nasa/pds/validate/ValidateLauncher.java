@@ -335,7 +335,7 @@ public class ValidateLauncher {
     }
     setPDFErrorDir(line.getOptionValue("pdf-errors", ""));
     File dir = new File(pdfErrorDir);
-    if (!dir.isDirectory()) {
+    if (!this.pdfErrorDir.isEmpty() && !dir.isDirectory()) {
       throw new InvalidOptionException(
           "Could not parse dir '" + this.pdfErrorDir + "' as a directory");
     }
