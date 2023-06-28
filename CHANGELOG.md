@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-26)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-28)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -19,6 +19,7 @@
 
 **Improvements:**
 
+- Document how to use validate-refs tool in Validate Operation User Guide [\#643](https://github.com/NASA-PDS/validate/issues/643)
 - Update datetime regex for content validation [\#608](https://github.com/NASA-PDS/validate/issues/608)
 - Update to support ComplexLSB8 data types and investigate Floating point exception [\#7](https://github.com/NASA-PDS/validate/issues/7)
 
@@ -178,7 +179,6 @@
 
 - validate having issues checking some file content on windows [\#507](https://github.com/NASA-PDS/validate/issues/507) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate passes confusing message to the command window [\#503](https://github.com/NASA-PDS/validate/issues/503) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-- validate erroneously flags PDF/A-1a compliant file [\#479](https://github.com/NASA-PDS/validate/issues/479) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v2.2.0](https://github.com/NASA-PDS/validate/tree/v2.2.0) (2022-04-07)
 
