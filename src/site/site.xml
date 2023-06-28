@@ -36,32 +36,49 @@ POSSIBILITY OF SUCH DAMAGE.
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
-    <version>1.8</version>
+    <version>2.0.0-M6</version>
   </skin>
+  <custom>
+    <fluidoSkin>
+      <gitHub>
+        <projectId>nasa-pds/${project.artifactId}</projectId>
+        <ribbonOrientation>right</ribbonOrientation>
+        <ribbonColor>black</ribbonColor>
+      </gitHub>
+      <googleSearch>
+        <sitesearch/>
+      </googleSearch>
+    </fluidoSkin>
+  </custom>
 
+  <poweredBy>
+    <logo name="PDS" href="https://pds.nasa.gov"
+          img="images/pds4_logo.png"/>
+  </poweredBy>
+  
+  <!--bannerLeft>
+
+  </bannerLeft-->
 
   <bannerLeft>
-    <src>images/pds_banner.png</src>
+    <name>PDS Validate Tool</name>
     <href>https://pds.nasa.gov</href>
-    <width>500</width>
+    <!--width>500</width-->
   </bannerLeft>
-
-  <bannerRight>
-    <name>Validate Tool</name>
-    <href>https://github.com/NASA-PDS/${project.artifactId}</href>
-  </bannerRight>
 
   <version/>
 
   <body>
-    <links>
-      <item name="Validate Github Repo" href="https://github.com/NASA-PDS/${project.artifactId}" />
-    </links>
-
-    <menu name="Documentation">
+    <menu name="About">
       <item name="About Validate Tool" href="index.html"/>
+    </menu>
+
+    <menu name="Use">
       <item name="Installation" href="install/index.html"/>
       <item name="Operation" href="operate/index.html"/>
+    </menu>
+
+    <menu name="Support">
       <item name="Common Errors" href="operate/errors.html"/>
       <item name="Support" href="index.html#Support"/>
     </menu>
@@ -71,9 +88,10 @@ POSSIBILITY OF SUCH DAMAGE.
       <item name="Current Release (zip)" href="https://github.com/NASA-PDS/${project.artifactId}/releases/download/v${project.version}/${project.artifactId}-${project.version}-bin.zip"/>
     </menu>
 
-    <menu name="Change Log">
-      <item name="Since v1.15.1" href="https://github.com/NASA-PDS/${project.artifactId}/blob/v${project.version}/CHANGELOG.md#v${project.version}" />
-      <item name="Prior to v1.15.1" href="changes-report.html" />
+    <menu name="Release Notes">
+      <item name="Latest Release Notes" href="https://github.com/NASA-PDS/${project.artifactId}/releases/latest" />
+      <item name="GitHub Changelog" href="https://github.com/NASA-PDS/${project.artifactId}/blob/v${project.version}/CHANGELOG.md#v${project.version}" />
+      <item name="Changelog pre-v1.15.1" href="changes-report.html" />
     </menu>
 
     <menu ref="reports"/>
