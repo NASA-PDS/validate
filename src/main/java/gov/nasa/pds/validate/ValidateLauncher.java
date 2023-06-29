@@ -333,7 +333,7 @@ public class ValidateLauncher {
       throw new InvalidOptionException(
         "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
     }
-    setPDFErrorDir(line.getOptionValue("pdf-errors", ""));
+    setPDFErrorDir(line.getOptionValue("pdf-error-dir", ""));
     File dir = new File(pdfErrorDir);
     if (!this.pdfErrorDir.isEmpty() && !dir.isDirectory()) {
       throw new InvalidOptionException(
