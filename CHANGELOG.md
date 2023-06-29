@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-28)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -34,6 +34,7 @@
 - Validate incorrectly enforces file naming requirements for base file names ending in a period, underscore, or hyphen [\#562](https://github.com/NASA-PDS/validate/issues/562) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate incorrectly enforces file naming requirements on bundles/collections [\#561](https://github.com/NASA-PDS/validate/issues/561) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate does not allow `.arch_h` file name/data type [\#500](https://github.com/NASA-PDS/validate/issues/500) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- validate erroneously flags PDF/A-1a compliant file [\#479](https://github.com/NASA-PDS/validate/issues/479) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - warning.table.characters\_between\_fields missing for last record in table [\#431](https://github.com/NASA-PDS/validate/issues/431) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validation fails to catch real value in ASCII\_NonNegative\_Integer field \(Table\_Delimited\) [\#190](https://github.com/NASA-PDS/validate/issues/190) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
