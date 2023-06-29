@@ -36,6 +36,7 @@ import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.content.ProblemReporter;
+import gov.nasa.pds.tools.validate.content.SpecialConstantBitPatternTransforms;
 import gov.nasa.pds.validate.constants.Constants;
 
 /**
@@ -320,6 +321,17 @@ public class ArrayContentValidator {
     }
   }
 
+  private static boolean sameContent (Number number, String constant_repr) {
+    if (number.toString().equals(constant_repr)) {
+      return true;
+    }
+    if (number instanceof BigDecimal) throw new IllegalArgumentException("place holder to see if this is ever triggered and then will need fixed");
+    if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
+    if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number));
+    BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
+    BigInteger value = (BigInteger)number;
+    return constant.xor (value).longValue() == 0L;
+  }
   /**
    * Checks if the given value is a Special Constant defined in the label.
    * 
@@ -331,54 +343,34 @@ public class ArrayContentValidator {
   public static boolean isSpecialConstant(Number value, SpecialConstants constants,
       ProblemReporter reporter) {
     if (constants.getErrorConstant() != null) {
-      if (value.toString().equals(constants.getErrorConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getErrorConstant());
     }
     if (constants.getInvalidConstant() != null) {
-      if (value.toString().equals(constants.getInvalidConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getInvalidConstant());
     }
     if (constants.getMissingConstant() != null) {
-      if (value.toString().equals(constants.getMissingConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getMissingConstant());
     }
     if (constants.getHighInstrumentSaturation() != null) {
-      if (value.toString().equals(constants.getHighInstrumentSaturation())) {
-        return true;
-      }
+      return sameContent (value, constants.getHighInstrumentSaturation());
     }
     if (constants.getHighRepresentationSaturation() != null) {
-      if (value.toString().equals(constants.getHighRepresentationSaturation())) {
-        return true;
-      }
+      return sameContent (value, constants.getHighRepresentationSaturation());
     }
     if (constants.getLowInstrumentSaturation() != null) {
-      if (value.toString().equals(constants.getLowInstrumentSaturation())) {
-        return true;
-      }
+      return sameContent (value, constants.getLowInstrumentSaturation());
     }
     if (constants.getLowRepresentationSaturation() != null) {
-      if (value.toString().equals(constants.getLowRepresentationSaturation())) {
-        return true;
-      }
+      return sameContent (value, constants.getLowRepresentationSaturation());
     }
     if (constants.getNotApplicableConstant() != null) {
-      if (value.toString().equals(constants.getNotApplicableConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getNotApplicableConstant());
     }
     if (constants.getSaturatedConstant() != null) {
-      if (value.toString().equals(constants.getSaturatedConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getSaturatedConstant());
     }
     if (constants.getUnknownConstant() != null) {
-      if (value.toString().equals(constants.getUnknownConstant())) {
-        return true;
-      }
+      return sameContent (value, constants.getUnknownConstant());
     }
     if (constants.getValidMaximum() != null) {
       int comparison;
@@ -420,7 +412,7 @@ public class ArrayContentValidator {
               .compareTo(Double.valueOf(constants.getValidMinimum()));
         } else {
           comparison =
-              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMinimum()));
+              Long.valueOf(value.longValue()).compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()).longValue());
         }
       }
       if (comparison < 0) {
