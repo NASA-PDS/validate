@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import org.apache.commons.io.FilenameUtils;
+import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.verapdf.pdfa.Foundries;
@@ -49,7 +49,7 @@ public class PDFUtil {
     return (this.target);
   }
 
-  private synchronized void writeErrorToFile(String baseDir, URI uri, ValidationResult result, String flavor) {
+  private synchronized void writeErrorToFile(String baseDir, String pdfFullName, ValidationResult result, String flavor) {
     // Ignore the write if baseDir has not been given
     if (baseDir.isEmpty()) return;
 
@@ -57,18 +57,14 @@ public class PDFUtil {
     // default directory the content of result.
 
     // Build the external filename and save it for other to access.
-    this.externalErrorFilename = baseDir + File.separator
-        + FilenameUtils.getName(uri.getPath()) + "." + flavor + ".error.csv";
-
-    LOG.debug("writeErrorToFile:uri,this.externalErrorFilename {},{}", uri,
-        this.externalErrorFilename);
+    this.externalErrorFilename = baseDir + File.separator + Paths.get(pdfFullName).getFileName() + "." + flavor + ".error.csv";
 
     FileWriter myWriter = null;
     try {
       myWriter = new FileWriter(this.externalErrorFilename);
       // myWriter.write("Error messages for PDF file " + uri.getPath() + " using
       // flavor " + this.parserFlavor + "\n") ;
-      myWriter.write("PDF_FILE " + uri.getPath() + " PARSER_FLAVOR " + this.parserFlavor + "\n");
+      myWriter.write("PDF_FILE " + pdfFullName + " PARSER_FLAVOR " + this.parserFlavor + "\n");
       String headerMessage = "getRuleId, getStatus, getMessage, getLocation";
       myWriter.write(headerMessage + "\n");
     } catch (IOException e) {
@@ -133,10 +129,11 @@ public class PDFUtil {
 
           // Write the result to external file so the user can look over in the validate
           // report.
-          this.writeErrorToFile(baseDir, uri, result, parser.getFlavour().getId());
+          this.writeErrorToFile(baseDir, pdfRef, result, parser.getFlavour().getId());
 
           this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId()
-              + ".  Detailed error output can be found at " + this.getExternalErrorFilename();
+              + " in file " + Paths.get(pdfRef).getFileName() + ".";
+          if (this.getExternalErrorFilename() != null) this.errorMessage += "  Detailed error output can be found at " + this.getExternalErrorFilename();
         }
       }
     } catch (Exception e) {
