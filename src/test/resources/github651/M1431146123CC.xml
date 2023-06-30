@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1J00_1020.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+  xmlns:lro="http://pds.nasa.gov/pds4/mission/lro/v1"
+  xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd
+  http://pds.nasa.gov/pds4/mission/lro/v1 https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1J00_1020.xsd
+  http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.xsd
+  http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.xsd">
+
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:lro-l-lroc-3-cdr:lrolrc_1054c_data:wac.m1431146123cc</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Lunar Reconnaissance Orbiter Camera WAC CDR Product</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Alias_List>
+      <Alias>
+        <alternate_id>M1431146123CC.IMG</alternate_id>
+        <comment>Original filename at PDS3 archive, on-line at LROC Node</comment>
+      </Alias>
+      <Alias>
+        <alternate_id>wac002c5803</alternate_id>
+        <comment>PDS3 SOURCE_PRODUCT_ID</comment>
+      </Alias>
+    </Alias_List>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-10-31</modification_date>
+        <version_id>1.0</version_id>
+        <description>
+          This PDS4 labeled (detached label) product (orig PDS3 image) is a result
+          of develpment activity for eventual LUNAR RECONNAISSANCE ORBITER CAMERA WAC CDR migration to PDS4.
+        </description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2023-02-16T00:20:56.017000Z</start_date_time>
+      <stop_date_time>2023-02-16T00:26:20.205000Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Partially Processed</processing_level>
+      <description>The Lunar Reconnaissance Orbiter Camera (LROC) Wide Angle Camera (WAC) and Narrow Angle Cameras (NACs)
+        are on the NASA Lunar Reconnaissance Orbiter (LRO). The WAC is a 7-color push-frame camera (100 and 400 m/pixel
+        visible and UV, respectively), while the two NACs are monochrome narrow-angle linescan imagers (0.5 m/pixel).
+        The primary mission of LRO is to obtain measurements of the Moon that will enable future lunar human exploration.
+        The overarching goals of the LROC investigation include landing site identification and certification, mapping
+        of permanently polar shadowed and sunlit regions, meter-scale mapping of polar regions, global multispectral
+        imaging, a global morphology base map, characterization of regolith properties, and determination of current
+        impact hazards.
+      </description>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>LUNAR RECONNAISSANCE ORBITER</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <!-- need official lid ref from PDS -->
+        <lid_reference>urn:nasa:pds:context:investigation:mission.lunar_reconnaissance_orbiter</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+        <comment>This is the PDS4 logical identifier for LRO</comment>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>LUNAR RECONNAISSANCE ORBITER CAMERA</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lro.lroc</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>MOON</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <lro:LRO_Parameters>
+        <!-- parameters for all LRO products -->
+        <lro:product_type>CDR</lro:product_type>
+        <lro:product_version_id>v1.9</lro:product_version_id>
+        <lro:orbit_number>61407</lro:orbit_number>
+        <lro:mission_phase_name>FIFTH EXTENDED SCIENCE MISSION</lro:mission_phase_name>
+        <lro:spacecraft_clock_start_count>1/698199656:00369</lro:spacecraft_clock_start_count>
+        <lro:spacecraft_clock_stop_count>1/698199980:12657</lro:spacecraft_clock_stop_count>
+        <lro:producer_institution_name>Arizona State University</lro:producer_institution_name>
+        <lro:LROC_Parameters>
+          <!-- Parameters specific to LROC -->
+          <lro:upload_id>SC_2023046_0300_A_V01.txt</lro:upload_id>
+          <lro:rationale_desc>GLOBAL COVERAGE</lro:rationale_desc>
+          <lro:data_quality_id>0</lro:data_quality_id>
+          <lro:data_quality_desc>
+            The DATA_QUALITY_ID is set to an 8-bit value that encodes the following data quality information
+            for the observation. For each bit  a value of 0 means FALSE and a value of 1 means TRUE. More
+            information about the data quality ID can be found in the LROC EDR/CDR SIS, section 3.3 'Label
+            and Header Descriptions'. Bit 1: Temperature of focal plane array is out of bounds. Bit 2:
+            Threshold for saturated pixels is reached. Bit 3: Threshold for under-saturated pixels is
+            reached. Bit 4: Observation is missing telemetry packets. Bit 5: SPICE information is bad or
+            missing. Bit 6: Observation or housekeeping information is bad or missing. Bit 7: Spare.
+            Bit 8: Spare.
+          </lro:data_quality_desc>
+          <lro:begin_temperature_scs unit="degC">14.217802047729492</lro:begin_temperature_scs>
+          <lro:middle_temperature_scs unit="degC">14.157208442687988</lro:middle_temperature_scs>
+          <lro:end_temperature_scs unit="degC">14.008395195007324</lro:end_temperature_scs>
+          <lro:begin_temperature_fpa unit="degC">-15.302590370178223</lro:begin_temperature_fpa>
+          <lro:middle_temperature_fpa unit="degC">-16.11847686767578</lro:middle_temperature_fpa>
+          <lro:end_temperature_fpa unit="degC">-17.007705688476562</lro:end_temperature_fpa>
+          <lro:begin_temperature_scs_raw>2281</lro:begin_temperature_scs_raw>
+          <lro:middle_temperature_scs_raw>2285</lro:middle_temperature_scs_raw>
+          <lro:end_temperature_scs_raw>2291</lro:end_temperature_scs_raw>
+          <lro:begin_temperature_fpa_raw>3512</lro:begin_temperature_fpa_raw>
+          <lro:middle_temperature_fpa_raw>3538</lro:middle_temperature_fpa_raw>
+          <lro:end_temperature_fpa_raw>3562</lro:end_temperature_fpa_raw>
+          <!-- LROC WAC imaging attributes -->
+          <lro:exposure_code>600</lro:exposure_code>
+          <lro:interframe_delay unit="ms">0.121875e4</lro:interframe_delay>
+          <lro:instrument_mode_id>COLOR</lro:instrument_mode_id>
+          <lro:lookup_table_type>STORED</lro:lookup_table_type>
+          <lro:compand_code>0</lro:compand_code>
+          <lro:compression_flag>0</lro:compression_flag>
+          <lro:mode>0</lro:mode>
+          <lro:nframes>266</lro:nframes>
+          <lro:band_code>127</lro:band_code>
+          <lro:interframe_gap_code>53</lro:interframe_gap_code>
+          <lro:background_offset>56</lro:background_offset>
+        </lro:LROC_Parameters>
+      </lro:LRO_Parameters>
+    </Mission_Area>
+    <Discipline_Area>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>DATA_FILE</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Exposure>
+          <img:exposure_duration unit="ms">60.0</img:exposure_duration>
+        </img:Exposure>
+        <img:Optical_Filter>
+          <img:filter_id>1</img:filter_id>
+          <img:bandwidth unit="nm">32</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">321</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>2</img:filter_id>
+          <img:bandwidth unit="nm">15</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">360</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>3</img:filter_id>
+          <img:bandwidth unit="nm">36</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">415</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>4</img:filter_id>
+          <img:bandwidth unit="nm">20</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">566</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>5</img:filter_id>
+          <img:bandwidth unit="nm">20</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">604</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>6</img:filter_id>
+          <img:bandwidth unit="nm">23</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">643</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Filter>
+          <img:filter_id>7</img:filter_id>
+          <img:bandwidth unit="nm">39</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">689</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Sampling>
+          <img:Companding>
+            <img:companding_state>Expanded</img:companding_state>
+            <img:Companding_Table> <!-- LOOKUP_CONVERSION_TABLE -->
+              <img:Companding_Table_Mapping> <img:input_dn_min>0</img:input_dn_min> <img:input_dn_max>1</img:input_dn_max> <img:output_dn>0</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>2</img:input_dn_min> <img:input_dn_max>2</img:input_dn_max> <img:output_dn>1</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>3</img:input_dn_min> <img:input_dn_max>3</img:input_dn_max> <img:output_dn>2</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>-9998</img:input_dn_min> <img:input_dn_max>-9998</img:input_dn_max> <img:output_dn>3</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>4</img:input_dn_min> <img:input_dn_max>4</img:input_dn_max> <img:output_dn>4</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>5</img:input_dn_min> <img:input_dn_max>5</img:input_dn_max> <img:output_dn>5</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>-9998</img:input_dn_min> <img:input_dn_max>-9998</img:input_dn_max> <img:output_dn>6</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>6</img:input_dn_min> <img:input_dn_max>6</img:input_dn_max> <img:output_dn>7</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>7</img:input_dn_min> <img:input_dn_max>7</img:input_dn_max> <img:output_dn>8</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>8</img:input_dn_min> <img:input_dn_max>8</img:input_dn_max> <img:output_dn>9</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>9</img:input_dn_min> <img:input_dn_max>9</img:input_dn_max> <img:output_dn>10</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>10</img:input_dn_min> <img:input_dn_max>10</img:input_dn_max> <img:output_dn>11</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>11</img:input_dn_min> <img:input_dn_max>11</img:input_dn_max> <img:output_dn>12</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>12</img:input_dn_min> <img:input_dn_max>13</img:input_dn_max> <img:output_dn>13</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>14</img:input_dn_min> <img:input_dn_max>14</img:input_dn_max> <img:output_dn>14</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>15</img:input_dn_min> <img:input_dn_max>15</img:input_dn_max> <img:output_dn>15</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>16</img:input_dn_min> <img:input_dn_max>17</img:input_dn_max> <img:output_dn>16</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>18</img:input_dn_min> <img:input_dn_max>18</img:input_dn_max> <img:output_dn>17</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>19</img:input_dn_min> <img:input_dn_max>19</img:input_dn_max> <img:output_dn>18</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>20</img:input_dn_min> <img:input_dn_max>21</img:input_dn_max> <img:output_dn>19</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>22</img:input_dn_min> <img:input_dn_max>23</img:input_dn_max> <img:output_dn>20</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>24</img:input_dn_min> <img:input_dn_max>24</img:input_dn_max> <img:output_dn>21</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>25</img:input_dn_min> <img:input_dn_max>26</img:input_dn_max> <img:output_dn>22</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>27</img:input_dn_min> <img:input_dn_max>28</img:input_dn_max> <img:output_dn>23</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>29</img:input_dn_min> <img:input_dn_max>30</img:input_dn_max> <img:output_dn>24</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>31</img:input_dn_min> <img:input_dn_max>32</img:input_dn_max> <img:output_dn>25</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>33</img:input_dn_min> <img:input_dn_max>33</img:input_dn_max> <img:output_dn>26</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>34</img:input_dn_min> <img:input_dn_max>36</img:input_dn_max> <img:output_dn>27</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>37</img:input_dn_min> <img:input_dn_max>38</img:input_dn_max> <img:output_dn>28</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>39</img:input_dn_min> <img:input_dn_max>40</img:input_dn_max> <img:output_dn>29</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>41</img:input_dn_min> <img:input_dn_max>42</img:input_dn_max> <img:output_dn>30</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>43</img:input_dn_min> <img:input_dn_max>44</img:input_dn_max> <img:output_dn>31</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>45</img:input_dn_min> <img:input_dn_max>47</img:input_dn_max> <img:output_dn>32</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>48</img:input_dn_min> <img:input_dn_max>49</img:input_dn_max> <img:output_dn>33</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>50</img:input_dn_min> <img:input_dn_max>51</img:input_dn_max> <img:output_dn>34</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>52</img:input_dn_min> <img:input_dn_max>54</img:input_dn_max> <img:output_dn>35</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>55</img:input_dn_min> <img:input_dn_max>56</img:input_dn_max> <img:output_dn>36</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>57</img:input_dn_min> <img:input_dn_max>59</img:input_dn_max> <img:output_dn>37</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>60</img:input_dn_min> <img:input_dn_max>62</img:input_dn_max> <img:output_dn>38</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>63</img:input_dn_min> <img:input_dn_max>64</img:input_dn_max> <img:output_dn>39</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>65</img:input_dn_min> <img:input_dn_max>67</img:input_dn_max> <img:output_dn>40</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>68</img:input_dn_min> <img:input_dn_max>70</img:input_dn_max> <img:output_dn>41</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>71</img:input_dn_min> <img:input_dn_max>73</img:input_dn_max> <img:output_dn>42</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>74</img:input_dn_min> <img:input_dn_max>76</img:input_dn_max> <img:output_dn>43</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>77</img:input_dn_min> <img:input_dn_max>79</img:input_dn_max> <img:output_dn>44</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>80</img:input_dn_min> <img:input_dn_max>82</img:input_dn_max> <img:output_dn>45</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>83</img:input_dn_min> <img:input_dn_max>85</img:input_dn_max> <img:output_dn>46</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>86</img:input_dn_min> <img:input_dn_max>88</img:input_dn_max> <img:output_dn>47</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>89</img:input_dn_min> <img:input_dn_max>92</img:input_dn_max> <img:output_dn>48</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>93</img:input_dn_min> <img:input_dn_max>95</img:input_dn_max> <img:output_dn>49</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>96</img:input_dn_min> <img:input_dn_max>98</img:input_dn_max> <img:output_dn>50</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>99</img:input_dn_min> <img:input_dn_max>102</img:input_dn_max> <img:output_dn>51</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>103</img:input_dn_min> <img:input_dn_max>105</img:input_dn_max> <img:output_dn>52</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>106</img:input_dn_min> <img:input_dn_max>109</img:input_dn_max> <img:output_dn>53</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>110</img:input_dn_min> <img:input_dn_max>113</img:input_dn_max> <img:output_dn>54</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>114</img:input_dn_min> <img:input_dn_max>116</img:input_dn_max> <img:output_dn>55</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>117</img:input_dn_min> <img:input_dn_max>120</img:input_dn_max> <img:output_dn>56</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>121</img:input_dn_min> <img:input_dn_max>124</img:input_dn_max> <img:output_dn>57</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>125</img:input_dn_min> <img:input_dn_max>128</img:input_dn_max> <img:output_dn>58</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>129</img:input_dn_min> <img:input_dn_max>132</img:input_dn_max> <img:output_dn>59</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>133</img:input_dn_min> <img:input_dn_max>136</img:input_dn_max> <img:output_dn>60</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>137</img:input_dn_min> <img:input_dn_max>140</img:input_dn_max> <img:output_dn>61</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>141</img:input_dn_min> <img:input_dn_max>144</img:input_dn_max> <img:output_dn>62</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>145</img:input_dn_min> <img:input_dn_max>148</img:input_dn_max> <img:output_dn>63</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>149</img:input_dn_min> <img:input_dn_max>152</img:input_dn_max> <img:output_dn>64</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>153</img:input_dn_min> <img:input_dn_max>156</img:input_dn_max> <img:output_dn>65</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>157</img:input_dn_min> <img:input_dn_max>161</img:input_dn_max> <img:output_dn>66</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>162</img:input_dn_min> <img:input_dn_max>165</img:input_dn_max> <img:output_dn>67</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>166</img:input_dn_min> <img:input_dn_max>170</img:input_dn_max> <img:output_dn>68</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>171</img:input_dn_min> <img:input_dn_max>174</img:input_dn_max> <img:output_dn>69</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>175</img:input_dn_min> <img:input_dn_max>179</img:input_dn_max> <img:output_dn>70</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>180</img:input_dn_min> <img:input_dn_max>183</img:input_dn_max> <img:output_dn>71</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>184</img:input_dn_min> <img:input_dn_max>188</img:input_dn_max> <img:output_dn>72</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>189</img:input_dn_min> <img:input_dn_max>193</img:input_dn_max> <img:output_dn>73</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>194</img:input_dn_min> <img:input_dn_max>198</img:input_dn_max> <img:output_dn>74</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>199</img:input_dn_min> <img:input_dn_max>203</img:input_dn_max> <img:output_dn>75</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>204</img:input_dn_min> <img:input_dn_max>208</img:input_dn_max> <img:output_dn>76</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>209</img:input_dn_min> <img:input_dn_max>213</img:input_dn_max> <img:output_dn>77</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>214</img:input_dn_min> <img:input_dn_max>218</img:input_dn_max> <img:output_dn>78</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>219</img:input_dn_min> <img:input_dn_max>223</img:input_dn_max> <img:output_dn>79</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>224</img:input_dn_min> <img:input_dn_max>228</img:input_dn_max> <img:output_dn>80</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>229</img:input_dn_min> <img:input_dn_max>233</img:input_dn_max> <img:output_dn>81</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>234</img:input_dn_min> <img:input_dn_max>238</img:input_dn_max> <img:output_dn>82</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>239</img:input_dn_min> <img:input_dn_max>244</img:input_dn_max> <img:output_dn>83</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>245</img:input_dn_min> <img:input_dn_max>249</img:input_dn_max> <img:output_dn>84</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>250</img:input_dn_min> <img:input_dn_max>255</img:input_dn_max> <img:output_dn>85</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>256</img:input_dn_min> <img:input_dn_max>260</img:input_dn_max> <img:output_dn>86</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>261</img:input_dn_min> <img:input_dn_max>266</img:input_dn_max> <img:output_dn>87</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>267</img:input_dn_min> <img:input_dn_max>271</img:input_dn_max> <img:output_dn>88</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>272</img:input_dn_min> <img:input_dn_max>277</img:input_dn_max> <img:output_dn>89</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>278</img:input_dn_min> <img:input_dn_max>283</img:input_dn_max> <img:output_dn>90</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>284</img:input_dn_min> <img:input_dn_max>289</img:input_dn_max> <img:output_dn>91</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>290</img:input_dn_min> <img:input_dn_max>295</img:input_dn_max> <img:output_dn>92</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>296</img:input_dn_min> <img:input_dn_max>301</img:input_dn_max> <img:output_dn>93</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>302</img:input_dn_min> <img:input_dn_max>307</img:input_dn_max> <img:output_dn>94</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>308</img:input_dn_min> <img:input_dn_max>313</img:input_dn_max> <img:output_dn>95</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>314</img:input_dn_min> <img:input_dn_max>319</img:input_dn_max> <img:output_dn>96</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>320</img:input_dn_min> <img:input_dn_max>325</img:input_dn_max> <img:output_dn>97</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>326</img:input_dn_min> <img:input_dn_max>331</img:input_dn_max> <img:output_dn>98</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>332</img:input_dn_min> <img:input_dn_max>337</img:input_dn_max> <img:output_dn>99</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>338</img:input_dn_min> <img:input_dn_max>344</img:input_dn_max> <img:output_dn>100</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>345</img:input_dn_min> <img:input_dn_max>350</img:input_dn_max> <img:output_dn>101</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>351</img:input_dn_min> <img:input_dn_max>357</img:input_dn_max> <img:output_dn>102</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>358</img:input_dn_min> <img:input_dn_max>363</img:input_dn_max> <img:output_dn>103</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>364</img:input_dn_min> <img:input_dn_max>370</img:input_dn_max> <img:output_dn>104</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>371</img:input_dn_min> <img:input_dn_max>376</img:input_dn_max> <img:output_dn>105</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>377</img:input_dn_min> <img:input_dn_max>383</img:input_dn_max> <img:output_dn>106</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>384</img:input_dn_min> <img:input_dn_max>390</img:input_dn_max> <img:output_dn>107</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>391</img:input_dn_min> <img:input_dn_max>397</img:input_dn_max> <img:output_dn>108</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>398</img:input_dn_min> <img:input_dn_max>404</img:input_dn_max> <img:output_dn>109</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>405</img:input_dn_min> <img:input_dn_max>411</img:input_dn_max> <img:output_dn>110</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>412</img:input_dn_min> <img:input_dn_max>418</img:input_dn_max> <img:output_dn>111</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>419</img:input_dn_min> <img:input_dn_max>425</img:input_dn_max> <img:output_dn>112</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>426</img:input_dn_min> <img:input_dn_max>432</img:input_dn_max> <img:output_dn>113</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>433</img:input_dn_min> <img:input_dn_max>439</img:input_dn_max> <img:output_dn>114</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>440</img:input_dn_min> <img:input_dn_max>446</img:input_dn_max> <img:output_dn>115</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>447</img:input_dn_min> <img:input_dn_max>454</img:input_dn_max> <img:output_dn>116</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>455</img:input_dn_min> <img:input_dn_max>461</img:input_dn_max> <img:output_dn>117</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>462</img:input_dn_min> <img:input_dn_max>468</img:input_dn_max> <img:output_dn>118</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>469</img:input_dn_min> <img:input_dn_max>476</img:input_dn_max> <img:output_dn>119</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>477</img:input_dn_min> <img:input_dn_max>483</img:input_dn_max> <img:output_dn>120</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>484</img:input_dn_min> <img:input_dn_max>491</img:input_dn_max> <img:output_dn>121</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>492</img:input_dn_min> <img:input_dn_max>499</img:input_dn_max> <img:output_dn>122</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>500</img:input_dn_min> <img:input_dn_max>506</img:input_dn_max> <img:output_dn>123</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>507</img:input_dn_min> <img:input_dn_max>514</img:input_dn_max> <img:output_dn>124</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>515</img:input_dn_min> <img:input_dn_max>522</img:input_dn_max> <img:output_dn>125</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>523</img:input_dn_min> <img:input_dn_max>530</img:input_dn_max> <img:output_dn>126</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>531</img:input_dn_min> <img:input_dn_max>538</img:input_dn_max> <img:output_dn>127</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>539</img:input_dn_min> <img:input_dn_max>546</img:input_dn_max> <img:output_dn>128</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>547</img:input_dn_min> <img:input_dn_max>554</img:input_dn_max> <img:output_dn>129</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>555</img:input_dn_min> <img:input_dn_max>562</img:input_dn_max> <img:output_dn>130</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>563</img:input_dn_min> <img:input_dn_max>570</img:input_dn_max> <img:output_dn>131</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>571</img:input_dn_min> <img:input_dn_max>579</img:input_dn_max> <img:output_dn>132</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>580</img:input_dn_min> <img:input_dn_max>587</img:input_dn_max> <img:output_dn>133</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>588</img:input_dn_min> <img:input_dn_max>595</img:input_dn_max> <img:output_dn>134</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>596</img:input_dn_min> <img:input_dn_max>604</img:input_dn_max> <img:output_dn>135</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>605</img:input_dn_min> <img:input_dn_max>612</img:input_dn_max> <img:output_dn>136</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>613</img:input_dn_min> <img:input_dn_max>621</img:input_dn_max> <img:output_dn>137</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>622</img:input_dn_min> <img:input_dn_max>630</img:input_dn_max> <img:output_dn>138</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>631</img:input_dn_min> <img:input_dn_max>638</img:input_dn_max> <img:output_dn>139</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>639</img:input_dn_min> <img:input_dn_max>647</img:input_dn_max> <img:output_dn>140</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>648</img:input_dn_min> <img:input_dn_max>656</img:input_dn_max> <img:output_dn>141</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>657</img:input_dn_min> <img:input_dn_max>665</img:input_dn_max> <img:output_dn>142</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>666</img:input_dn_min> <img:input_dn_max>674</img:input_dn_max> <img:output_dn>143</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>675</img:input_dn_min> <img:input_dn_max>683</img:input_dn_max> <img:output_dn>144</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>684</img:input_dn_min> <img:input_dn_max>692</img:input_dn_max> <img:output_dn>145</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>693</img:input_dn_min> <img:input_dn_max>701</img:input_dn_max> <img:output_dn>146</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>702</img:input_dn_min> <img:input_dn_max>710</img:input_dn_max> <img:output_dn>147</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>711</img:input_dn_min> <img:input_dn_max>719</img:input_dn_max> <img:output_dn>148</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>720</img:input_dn_min> <img:input_dn_max>728</img:input_dn_max> <img:output_dn>149</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>729</img:input_dn_min> <img:input_dn_max>738</img:input_dn_max> <img:output_dn>150</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>739</img:input_dn_min> <img:input_dn_max>747</img:input_dn_max> <img:output_dn>151</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>748</img:input_dn_min> <img:input_dn_max>756</img:input_dn_max> <img:output_dn>152</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>757</img:input_dn_min> <img:input_dn_max>766</img:input_dn_max> <img:output_dn>153</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>767</img:input_dn_min> <img:input_dn_max>776</img:input_dn_max> <img:output_dn>154</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>777</img:input_dn_min> <img:input_dn_max>785</img:input_dn_max> <img:output_dn>155</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>786</img:input_dn_min> <img:input_dn_max>795</img:input_dn_max> <img:output_dn>156</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>796</img:input_dn_min> <img:input_dn_max>805</img:input_dn_max> <img:output_dn>157</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>806</img:input_dn_min> <img:input_dn_max>814</img:input_dn_max> <img:output_dn>158</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>815</img:input_dn_min> <img:input_dn_max>824</img:input_dn_max> <img:output_dn>159</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>825</img:input_dn_min> <img:input_dn_max>834</img:input_dn_max> <img:output_dn>160</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>835</img:input_dn_min> <img:input_dn_max>844</img:input_dn_max> <img:output_dn>161</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>845</img:input_dn_min> <img:input_dn_max>854</img:input_dn_max> <img:output_dn>162</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>855</img:input_dn_min> <img:input_dn_max>864</img:input_dn_max> <img:output_dn>163</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>865</img:input_dn_min> <img:input_dn_max>874</img:input_dn_max> <img:output_dn>164</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>875</img:input_dn_min> <img:input_dn_max>885</img:input_dn_max> <img:output_dn>165</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>886</img:input_dn_min> <img:input_dn_max>895</img:input_dn_max> <img:output_dn>166</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>896</img:input_dn_min> <img:input_dn_max>905</img:input_dn_max> <img:output_dn>167</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>906</img:input_dn_min> <img:input_dn_max>916</img:input_dn_max> <img:output_dn>168</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>917</img:input_dn_min> <img:input_dn_max>926</img:input_dn_max> <img:output_dn>169</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>927</img:input_dn_min> <img:input_dn_max>937</img:input_dn_max> <img:output_dn>170</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>938</img:input_dn_min> <img:input_dn_max>947</img:input_dn_max> <img:output_dn>171</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>948</img:input_dn_min> <img:input_dn_max>958</img:input_dn_max> <img:output_dn>172</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>959</img:input_dn_min> <img:input_dn_max>969</img:input_dn_max> <img:output_dn>173</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>970</img:input_dn_min> <img:input_dn_max>979</img:input_dn_max> <img:output_dn>174</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>980</img:input_dn_min> <img:input_dn_max>990</img:input_dn_max> <img:output_dn>175</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>991</img:input_dn_min> <img:input_dn_max>1001</img:input_dn_max> <img:output_dn>176</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1002</img:input_dn_min> <img:input_dn_max>1012</img:input_dn_max> <img:output_dn>177</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1013</img:input_dn_min> <img:input_dn_max>1023</img:input_dn_max> <img:output_dn>178</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1024</img:input_dn_min> <img:input_dn_max>1034</img:input_dn_max> <img:output_dn>179</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1035</img:input_dn_min> <img:input_dn_max>1045</img:input_dn_max> <img:output_dn>180</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1046</img:input_dn_min> <img:input_dn_max>1056</img:input_dn_max> <img:output_dn>181</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1057</img:input_dn_min> <img:input_dn_max>1068</img:input_dn_max> <img:output_dn>182</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1069</img:input_dn_min> <img:input_dn_max>1079</img:input_dn_max> <img:output_dn>183</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1080</img:input_dn_min> <img:input_dn_max>1090</img:input_dn_max> <img:output_dn>184</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1091</img:input_dn_min> <img:input_dn_max>1102</img:input_dn_max> <img:output_dn>185</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1103</img:input_dn_min> <img:input_dn_max>1113</img:input_dn_max> <img:output_dn>186</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1114</img:input_dn_min> <img:input_dn_max>1125</img:input_dn_max> <img:output_dn>187</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1126</img:input_dn_min> <img:input_dn_max>1136</img:input_dn_max> <img:output_dn>188</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1137</img:input_dn_min> <img:input_dn_max>1148</img:input_dn_max> <img:output_dn>189</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1149</img:input_dn_min> <img:input_dn_max>1160</img:input_dn_max> <img:output_dn>190</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1161</img:input_dn_min> <img:input_dn_max>1171</img:input_dn_max> <img:output_dn>191</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1172</img:input_dn_min> <img:input_dn_max>1183</img:input_dn_max> <img:output_dn>192</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1184</img:input_dn_min> <img:input_dn_max>1195</img:input_dn_max> <img:output_dn>193</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1196</img:input_dn_min> <img:input_dn_max>1207</img:input_dn_max> <img:output_dn>194</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1208</img:input_dn_min> <img:input_dn_max>1219</img:input_dn_max> <img:output_dn>195</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1220</img:input_dn_min> <img:input_dn_max>1231</img:input_dn_max> <img:output_dn>196</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1232</img:input_dn_min> <img:input_dn_max>1243</img:input_dn_max> <img:output_dn>197</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1244</img:input_dn_min> <img:input_dn_max>1255</img:input_dn_max> <img:output_dn>198</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1256</img:input_dn_min> <img:input_dn_max>1268</img:input_dn_max> <img:output_dn>199</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1269</img:input_dn_min> <img:input_dn_max>1280</img:input_dn_max> <img:output_dn>200</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1281</img:input_dn_min> <img:input_dn_max>1292</img:input_dn_max> <img:output_dn>201</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1293</img:input_dn_min> <img:input_dn_max>1305</img:input_dn_max> <img:output_dn>202</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1306</img:input_dn_min> <img:input_dn_max>1317</img:input_dn_max> <img:output_dn>203</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1318</img:input_dn_min> <img:input_dn_max>1330</img:input_dn_max> <img:output_dn>204</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1331</img:input_dn_min> <img:input_dn_max>1342</img:input_dn_max> <img:output_dn>205</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1343</img:input_dn_min> <img:input_dn_max>1355</img:input_dn_max> <img:output_dn>206</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1356</img:input_dn_min> <img:input_dn_max>1368</img:input_dn_max> <img:output_dn>207</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1369</img:input_dn_min> <img:input_dn_max>1380</img:input_dn_max> <img:output_dn>208</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1381</img:input_dn_min> <img:input_dn_max>1393</img:input_dn_max> <img:output_dn>209</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1394</img:input_dn_min> <img:input_dn_max>1406</img:input_dn_max> <img:output_dn>210</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1407</img:input_dn_min> <img:input_dn_max>1419</img:input_dn_max> <img:output_dn>211</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1420</img:input_dn_min> <img:input_dn_max>1432</img:input_dn_max> <img:output_dn>212</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1433</img:input_dn_min> <img:input_dn_max>1445</img:input_dn_max> <img:output_dn>213</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1446</img:input_dn_min> <img:input_dn_max>1458</img:input_dn_max> <img:output_dn>214</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1459</img:input_dn_min> <img:input_dn_max>1472</img:input_dn_max> <img:output_dn>215</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1473</img:input_dn_min> <img:input_dn_max>1485</img:input_dn_max> <img:output_dn>216</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1486</img:input_dn_min> <img:input_dn_max>1498</img:input_dn_max> <img:output_dn>217</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1499</img:input_dn_min> <img:input_dn_max>1512</img:input_dn_max> <img:output_dn>218</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1513</img:input_dn_min> <img:input_dn_max>1525</img:input_dn_max> <img:output_dn>219</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1526</img:input_dn_min> <img:input_dn_max>1538</img:input_dn_max> <img:output_dn>220</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1539</img:input_dn_min> <img:input_dn_max>1552</img:input_dn_max> <img:output_dn>221</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1553</img:input_dn_min> <img:input_dn_max>1566</img:input_dn_max> <img:output_dn>222</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1567</img:input_dn_min> <img:input_dn_max>1579</img:input_dn_max> <img:output_dn>223</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1580</img:input_dn_min> <img:input_dn_max>1593</img:input_dn_max> <img:output_dn>224</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1594</img:input_dn_min> <img:input_dn_max>1607</img:input_dn_max> <img:output_dn>225</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1608</img:input_dn_min> <img:input_dn_max>1621</img:input_dn_max> <img:output_dn>226</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1622</img:input_dn_min> <img:input_dn_max>1635</img:input_dn_max> <img:output_dn>227</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1636</img:input_dn_min> <img:input_dn_max>1648</img:input_dn_max> <img:output_dn>228</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1649</img:input_dn_min> <img:input_dn_max>1663</img:input_dn_max> <img:output_dn>229</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1664</img:input_dn_min> <img:input_dn_max>1677</img:input_dn_max> <img:output_dn>230</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1678</img:input_dn_min> <img:input_dn_max>1691</img:input_dn_max> <img:output_dn>231</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1692</img:input_dn_min> <img:input_dn_max>1705</img:input_dn_max> <img:output_dn>232</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1706</img:input_dn_min> <img:input_dn_max>1719</img:input_dn_max> <img:output_dn>233</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1720</img:input_dn_min> <img:input_dn_max>1734</img:input_dn_max> <img:output_dn>234</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1735</img:input_dn_min> <img:input_dn_max>1748</img:input_dn_max> <img:output_dn>235</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1749</img:input_dn_min> <img:input_dn_max>1762</img:input_dn_max> <img:output_dn>236</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1763</img:input_dn_min> <img:input_dn_max>1777</img:input_dn_max> <img:output_dn>237</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1778</img:input_dn_min> <img:input_dn_max>1791</img:input_dn_max> <img:output_dn>238</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1792</img:input_dn_min> <img:input_dn_max>1806</img:input_dn_max> <img:output_dn>239</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1807</img:input_dn_min> <img:input_dn_max>1821</img:input_dn_max> <img:output_dn>240</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1822</img:input_dn_min> <img:input_dn_max>1835</img:input_dn_max> <img:output_dn>241</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1836</img:input_dn_min> <img:input_dn_max>1850</img:input_dn_max> <img:output_dn>242</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1851</img:input_dn_min> <img:input_dn_max>1865</img:input_dn_max> <img:output_dn>243</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1866</img:input_dn_min> <img:input_dn_max>1880</img:input_dn_max> <img:output_dn>244</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1881</img:input_dn_min> <img:input_dn_max>1895</img:input_dn_max> <img:output_dn>245</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1896</img:input_dn_min> <img:input_dn_max>1910</img:input_dn_max> <img:output_dn>246</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1911</img:input_dn_min> <img:input_dn_max>1925</img:input_dn_max> <img:output_dn>247</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1926</img:input_dn_min> <img:input_dn_max>1940</img:input_dn_max> <img:output_dn>248</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1941</img:input_dn_min> <img:input_dn_max>1955</img:input_dn_max> <img:output_dn>249</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1956</img:input_dn_min> <img:input_dn_max>1971</img:input_dn_max> <img:output_dn>250</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1972</img:input_dn_min> <img:input_dn_max>1986</img:input_dn_max> <img:output_dn>251</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>1987</img:input_dn_min> <img:input_dn_max>2001</img:input_dn_max> <img:output_dn>252</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>2002</img:input_dn_min> <img:input_dn_max>2017</img:input_dn_max> <img:output_dn>253</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>2018</img:input_dn_min> <img:input_dn_max>2032</img:input_dn_max> <img:output_dn>254</img:output_dn></img:Companding_Table_Mapping>
+              <img:Companding_Table_Mapping> <img:input_dn_min>2033</img:input_dn_min> <img:input_dn_max>2047</img:input_dn_max> <img:output_dn>255</img:output_dn></img:Companding_Table_Mapping>
+            </img:Companding_Table>
+          </img:Companding>
+        </img:Sampling>
+      </img:Imaging>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>Array_2D_Image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <External_Reference>
+      <doi>10.1007/s11214-010-9634-2</doi>
+      <reference_text>Robinson, M. S.; Brylow, S. M.; Tschimmel, M.; Humm, D.; Lawrence, S. J.; Thomas, P. C.;
+        Denevi, B. W.; Bowman-Cisneros, E.; Zerr, J.; Ravine, M. A.; Caplinger, M. A.; Ghaemi, F. T.; Schaffner, J. A.;
+        Malin, M. C.; Mahanti, P.; Bartels, A.; Anderson, J.; Tran, T. N.; Eliason, E. M.; McEwen, A. S. Turtle, E.;
+        Jolliff, B. L.; Hiesinger, H., 2010, "Lunar Reconnaissance Orbiter Camera (LROC) Instrument Overview", Space
+        Science Reviews, Volume 150, Issue 1-4, pp. 81-124
+      </reference_text>
+      <description>instrument overview</description>
+    </External_Reference>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>M1431146123CC.IMG</file_name>
+      <local_identifier>DATA_FILE</local_identifier>
+      <creation_date_time>2023-02-18T04:18:51.000000Z</creation_date_time>
+      <file_size unit="byte">58436928</file_size>
+      <md5_checksum>f1ef2daa67c8167a9995e1bc1e4e56dc</md5_checksum>
+      <comment>Lunar Reconnaissance Orbiter Camera WAC CDR Product</comment>
+    </File>
+    <Header>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">10560</object_length>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>PDS3 attached header</description>
+    </Header>
+    <Array_2D_Image>
+      <local_identifier>Array_2D_Image</local_identifier>
+      <offset unit="byte">10560</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>IEEE754LSBSingle</data_type>
+        <unit>I/F</unit>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>20748</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>704</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Special_Constants>
+        <missing_constant>0xFF7FFFFB</missing_constant>
+        <high_instrument_saturation>0xFF7FFFFE</high_instrument_saturation>
+        <high_representation_saturation>0xFF7FFFFF</high_representation_saturation>
+        <valid_minimum>0xFF7FFFFA</valid_minimum>
+        <low_instrument_saturation>0xFF7FFFFD</low_instrument_saturation>
+        <low_representation_saturation>0xFF7FFFFC</low_representation_saturation>
+      </Special_Constants>
+    </Array_2D_Image>
+  </File_Area_Observational>
+</Product_Observational>
