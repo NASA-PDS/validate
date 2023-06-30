@@ -321,12 +321,13 @@ public class ArrayContentValidator {
   }
 
   private static boolean sameContent (Number number, String constant_repr) {
+    if (constant_repr == null) return false;
     if (number.toString().equals(constant_repr)) {
       return true;
     }
     if (number instanceof BigDecimal) number = ((BigDecimal)number).doubleValue();
     if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
-    if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number));
+    if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number) & 0xFFFFFFFFL);
     BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
     BigInteger value = (BigInteger)number;
     return constant.xor (value).longValue() == 0L;
@@ -342,36 +343,16 @@ public class ArrayContentValidator {
   public static boolean isSpecialConstant(Number value, SpecialConstants constants,
       ProblemReporter reporter) {
     boolean matched = false;
-    if (constants.getErrorConstant() != null) {
-      matched |= sameContent (value, constants.getErrorConstant());
-    }
-    if (constants.getInvalidConstant() != null) {
-      matched |= sameContent (value, constants.getInvalidConstant());
-    }
-    if (constants.getMissingConstant() != null) {
-      matched |= sameContent (value, constants.getMissingConstant());
-    }
-    if (constants.getHighInstrumentSaturation() != null) {
-      matched |= sameContent (value, constants.getHighInstrumentSaturation());
-    }
-    if (constants.getHighRepresentationSaturation() != null) {
-      matched |= sameContent (value, constants.getHighRepresentationSaturation());
-    }
-    if (constants.getLowInstrumentSaturation() != null) {
-      matched |= sameContent (value, constants.getLowInstrumentSaturation());
-    }
-    if (constants.getLowRepresentationSaturation() != null) {
-      matched |= sameContent (value, constants.getLowRepresentationSaturation());
-    }
-    if (constants.getNotApplicableConstant() != null) {
-      matched |= sameContent (value, constants.getNotApplicableConstant());
-    }
-    if (constants.getSaturatedConstant() != null) {
-      matched |= sameContent (value, constants.getSaturatedConstant());
-    }
-    if (constants.getUnknownConstant() != null) {
-      matched |= sameContent (value, constants.getUnknownConstant());
-    }
+    matched |= sameContent (value, constants.getErrorConstant());
+    matched |= sameContent (value, constants.getInvalidConstant());
+    matched |= sameContent (value, constants.getMissingConstant());
+    matched |= sameContent (value, constants.getHighInstrumentSaturation());
+    matched |= sameContent (value, constants.getHighRepresentationSaturation());
+    matched |= sameContent (value, constants.getLowInstrumentSaturation());
+    matched |= sameContent (value, constants.getLowRepresentationSaturation());
+    matched |= sameContent (value, constants.getNotApplicableConstant());
+    matched |= sameContent (value, constants.getSaturatedConstant());
+    matched |= sameContent (value, constants.getUnknownConstant());
     if (matched) return true;
     if (constants.getValidMaximum() != null) {
       int comparison;
