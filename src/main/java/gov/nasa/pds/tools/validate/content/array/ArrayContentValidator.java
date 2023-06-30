@@ -20,7 +20,6 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Arrays;
 import org.apache.commons.lang3.Range;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.common.primitives.UnsignedInteger;
@@ -325,7 +324,7 @@ public class ArrayContentValidator {
     if (number.toString().equals(constant_repr)) {
       return true;
     }
-    if (number instanceof BigDecimal) throw new IllegalArgumentException("place holder to see if this is ever triggered and then will need fixed");
+    if (number instanceof BigDecimal) number = ((BigDecimal)number).doubleValue();
     if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
     if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number));
     BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
@@ -342,52 +341,63 @@ public class ArrayContentValidator {
    */
   public static boolean isSpecialConstant(Number value, SpecialConstants constants,
       ProblemReporter reporter) {
+    boolean matched = false;
     if (constants.getErrorConstant() != null) {
-      return sameContent (value, constants.getErrorConstant());
+      matched |= sameContent (value, constants.getErrorConstant());
     }
     if (constants.getInvalidConstant() != null) {
-      return sameContent (value, constants.getInvalidConstant());
+      matched |= sameContent (value, constants.getInvalidConstant());
     }
     if (constants.getMissingConstant() != null) {
-      return sameContent (value, constants.getMissingConstant());
+      matched |= sameContent (value, constants.getMissingConstant());
     }
     if (constants.getHighInstrumentSaturation() != null) {
-      return sameContent (value, constants.getHighInstrumentSaturation());
+      matched |= sameContent (value, constants.getHighInstrumentSaturation());
     }
     if (constants.getHighRepresentationSaturation() != null) {
-      return sameContent (value, constants.getHighRepresentationSaturation());
+      matched |= sameContent (value, constants.getHighRepresentationSaturation());
     }
     if (constants.getLowInstrumentSaturation() != null) {
-      return sameContent (value, constants.getLowInstrumentSaturation());
+      matched |= sameContent (value, constants.getLowInstrumentSaturation());
     }
     if (constants.getLowRepresentationSaturation() != null) {
-      return sameContent (value, constants.getLowRepresentationSaturation());
+      matched |= sameContent (value, constants.getLowRepresentationSaturation());
     }
     if (constants.getNotApplicableConstant() != null) {
-      return sameContent (value, constants.getNotApplicableConstant());
+      matched |= sameContent (value, constants.getNotApplicableConstant());
     }
     if (constants.getSaturatedConstant() != null) {
-      return sameContent (value, constants.getSaturatedConstant());
+      matched |= sameContent (value, constants.getSaturatedConstant());
     }
     if (constants.getUnknownConstant() != null) {
-      return sameContent (value, constants.getUnknownConstant());
+      matched |= sameContent (value, constants.getUnknownConstant());
     }
+    if (matched) return true;
     if (constants.getValidMaximum() != null) {
       int comparison;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
-            .compareTo(NumberUtils.createBigDecimal(constants.getValidMaximum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum()));
       } else if (value instanceof BigInteger) {
         comparison = ((BigInteger) value)
-            .compareTo(NumberUtils.createBigInteger(constants.getValidMaximum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()));
       } else {
-        if (constants.getValidMaximum().contains(".") || constants.getValidMaximum().contains("e")
-            || constants.getValidMaximum().contains("E")) {
-          comparison = Double.valueOf(value.doubleValue())
-              .compareTo(Double.valueOf(constants.getValidMaximum()));
+        Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()).longValue();
+        Long val = value.longValue();
+        if (value instanceof Double) {
+          val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
+          if (con.equals (val)) {
+            return true;
+          }
+          comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
+        } else if (value instanceof Float) {
+          val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
+          if (con.equals (val)) {
+            return true;
+          }
+          comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
         } else {
-          comparison =
-              Long.valueOf(value.longValue()).compareTo(Long.valueOf(constants.getValidMaximum()));
+          comparison = val.compareTo(con);
         }
       }
       if (0 < comparison) {
@@ -401,18 +411,36 @@ public class ArrayContentValidator {
       int comparison;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
-            .compareTo(NumberUtils.createBigDecimal(constants.getValidMinimum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum()));
       } else if (value instanceof BigInteger) {
         comparison = ((BigInteger) value)
-            .compareTo(NumberUtils.createBigInteger(constants.getValidMinimum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()));
       } else {
-        if (constants.getValidMinimum().contains(".") || constants.getValidMinimum().contains("e")
-            || constants.getValidMinimum().contains("E")) {
+        if (constants.getValidMinimum().contains(".") || 
+            ((constants.getValidMinimum().contains("e") || constants.getValidMinimum().contains("E")) && 
+                !(constants.getValidMinimum().startsWith("0x") || constants.getValidMinimum().startsWith("0X") || constants.getValidMinimum().startsWith("16#")))) {
           comparison = Double.valueOf(value.doubleValue())
-              .compareTo(Double.valueOf(constants.getValidMinimum()));
+              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum()).doubleValue());
         } else {
-          comparison =
-              Long.valueOf(value.longValue()).compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()).longValue());
+          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()).longValue();
+          Long val = value.longValue();
+          if (value instanceof Double) {
+            val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
+            if (con.equals (val)) {
+              return true;
+            }
+            comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
+          } else if (value instanceof Float) {
+            val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
+            if (con.equals (val)) {
+              return true;
+            }
+            float a = Float.intBitsToFloat(con.intValue());
+            float b = (Float)value;
+            comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
+          } else {
+            comparison = val.compareTo(con);
+          }
         }
       }
       if (comparison < 0) {
