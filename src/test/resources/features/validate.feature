@@ -12,6 +12,9 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#652
 |"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json -t {resourceDir}/github652" | "report_github652.json" |
 
+# Validate#651
+|"NASA-PDS/validate#651 Success processing of bit patterns" | "github651" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github651.json -s json -t {resourceDir}/github651/M1431146123CC.xml" | "report_github651.json" |
+
 # Validate#649
 |"NASA-PDS/validate#649 Success collection" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github649.json -s json -R pds4.collection --skip-context-validation -t {resourceDir}/github597/spice_kernels/collection_spice_kernels_v003.xml" | "report_github649.json" |
 
