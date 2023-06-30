@@ -115,7 +115,7 @@ or
       </p>
 
       <subsection name="Java Runtime Environment">
-        <p>The Validate Tool was developed using Java and runs on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a> > Java  version 9.0. The software was specifically compiled for and tested in OpenJDK 15.0.1. The following commands test the local Java installation in a UNIX-based environment:
+        <p>The Validate Tool was developed using Java and runs on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a> >= Java  version 11. The software was specifically compiled for and tested in OpenJDK 15.0.1. The following commands test the local Java installation in a UNIX-based environment:
         </p>
 
         <source>
