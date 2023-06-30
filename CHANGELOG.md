@@ -1,12 +1,13 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-29)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
 **Requirements:**
 
 - As a user, I want the PDF error reports to be output in a user-specified directory [\#658](https://github.com/NASA-PDS/validate/issues/658)
+- As a user, I want to support bit patterns within Special\_Constants values [\#651](https://github.com/NASA-PDS/validate/issues/651)
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
 - As a user, I would like to enforce browse file extension with encoding type [\#617](https://github.com/NASA-PDS/validate/issues/617)
 - As a user, I want to validate MP4/H.264/AAC encoded video with audio as observational data [\#605](https://github.com/NASA-PDS/validate/issues/605)
