@@ -83,3 +83,23 @@ validate_stack_traces*
 
 # Validate output
 *.csv
+
+# Local .terraform state files, directories and crash logs
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+
+# Ignore Terraform CLI configuration files
+.terraformrc
+terraform.rc
+
+# Ignore Terraform override files as they are usually used to override resources locally and so
+# are not checked in
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
