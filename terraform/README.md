@@ -44,7 +44,17 @@ cd validate/terraform
     - AWS_SESSION_TOKEN
     - AWS_DEFAULT_REGION
 
-4. Open the `terraform.tfvars` file locally and enter the value for following variables. Ensure these values match with your AWS Setup. Most of the below values can be obtained by the system admin team of your AWS account.
+4. Create a `terraform.tfvars` file locally with the following contents (in the working directory that you 
+execute Terraform commands) and enter the values for following variables. Ensure these values match 
+with your AWS Setup. Most of the below values can be obtained by the system admin team of your AWS account.
+
+```shell
+pds_validate_ecr_image_path = ""
+efs_file_system_id = ""
+pds_validate_data_access_point_id = ""
+ecs_task_role_arn = ""
+ecs_task_execution_role_arn = ""
+```
 
    - pds_validate_ecr_image_path = "ECR Image path of the PDS Validate docker image"
    - efs_file_system_id = "EFS file system ID"
