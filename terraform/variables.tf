@@ -4,6 +4,12 @@ variable "region" {
   default     = "us-west-2"
 }
 
+variable "pds_validate_cloudwatch_logs_group" {
+  type        = string
+  description = "PDS Validate CloudWatch Logs Group"
+  sensitive = true
+}
+
 variable "pds_validate_ecr_image_path" {
   type        = string
   description = "PDS Validate ECR Image Path"

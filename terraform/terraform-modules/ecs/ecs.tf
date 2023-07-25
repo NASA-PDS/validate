@@ -1,6 +1,6 @@
 # CloudWatch Log Group for PDS Validate ECS Task
 resource "aws_cloudwatch_log_group" "pds-validate-log-group" {
-  name = "/ecs/pds-validate"
+  name = var.pds_validate_cloudwatch_logs_group
 }
 
 # Replace PDS Validate ECR Image Path in pds-validate-containers.json
@@ -8,6 +8,8 @@ data "template_file" "pds-validate-containers-json-template" {
   template = file("terraform-modules/ecs/container-definitions/pds-validate-containers.json")
   vars = {
     pds_validate_ecr_image_path = var.pds_validate_ecr_image_path
+    pds_validate_cloudwatch_logs_group = var.pds_validate_cloudwatch_logs_group
+    pds_validate_cloudwatch_logs_region = var.pds_validate_cloudwatch_logs_region
   }
 }
 

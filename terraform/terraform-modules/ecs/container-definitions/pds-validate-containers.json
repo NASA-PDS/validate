@@ -12,8 +12,8 @@
        "logConfiguration": {
            "logDriver": "awslogs",
            "options": {
-               "awslogs-group": "/ecs/pds-validate",
-               "awslogs-region": "us-west-2",
+               "awslogs-group": "${pds_validate_cloudwatch_logs_group}",
+               "awslogs-region": "${pds_validate_cloudwatch_logs_region}",
                "awslogs-stream-prefix": "ecs"
            }
        }

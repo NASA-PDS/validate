@@ -5,6 +5,20 @@ variable "pds_validate_ecr_image_path" {
   sensitive = true
 }
 
+variable "pds_validate_cloudwatch_logs_group" {
+  type        = string
+  description = "PDS Validate CloudWatch Logs Group"
+  # default     = "<PDS Validate CloudWatch Logs Group>"
+  sensitive = true
+}
+
+variable "pds_validate_cloudwatch_logs_region" {
+  type        = string
+  description = "PDS Validate CloudWatch Logs Region"
+  # default     = "<PDS Validate CloudWatch Logs Region>"
+  sensitive = true
+}
+
 variable "efs_file_system_id" {
   type        = string
   description = "EFS File System ID"
