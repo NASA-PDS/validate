@@ -1,11 +1,13 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-06-30)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-07-25)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
 **Requirements:**
 
+- As a user, I want to validate M4A/AAC encoded audio as observational data [\#663](https://github.com/NASA-PDS/validate/issues/663)
+- As a user, I want to validate WAV encoded audio as observational data [\#662](https://github.com/NASA-PDS/validate/issues/662)
 - As a user, I want the PDF error reports to be output in a user-specified directory [\#658](https://github.com/NASA-PDS/validate/issues/658)
 - As a user, I want to support bit patterns within Special\_Constants values [\#651](https://github.com/NASA-PDS/validate/issues/651)
 - As a user, I want to throw a WARNING when a product's schematron version does not match the schema version [\#628](https://github.com/NASA-PDS/validate/issues/628)
