@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:cassini.rss.raw.test:data.158:s10sags2005_122_2140_020025</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>Cassini Orbiter Radio Science 0158-Monitor Data File
+                    From: 2005-05-02T21:40:02.692Z To 2005-05-03T01:59:58.865Z
+                    DSN: 25
+             </title>
+             <information_model_version>1.13.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+             <Citation_Information>
+                   <author_list>Verma, A. K.; Barbinis, E.; Goltz, G. L.; Kliore, A. J.; Simpson, R. A.</author_list>
+                   <publication_year>2021</publication_year>
+                   <description>
+                              This ASCII file contains data extracted from a binary DSN Monitor File (158 format).
+                              This file provides information on the configuration, status, and performance of a
+                              DSN antenna that was tracking the Cassini-Huygens spacecraft. The parameters
+                              captured in this ASCII file will be of special interest to analysts studying
+                              the radio science files in other parts of this archive.
+                   </description>
+             </Citation_Information>
+             <Modification_History>
+                   <Modification_Detail>
+                         <modification_date>2023-07-09</modification_date>
+                         <version_id>1.0</version_id>
+                         <description>
+                                This data file has been migrated from PDS3 PRODUCT_ID S10SAGS2005_122_2140_020025.158
+                                in data set CO-S-RSS-1-SAGR1-V1.0 to PDS4. The data file has not
+                                been changed; a new PDS4 label was created as part of the migration process.
+                         </description>
+                  </Modification_Detail>
+             </Modification_History>
+       </Identification_Area>
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>2005-05-02T21:40:02.692Z</start_date_time>
+                   <stop_date_time>2005-05-03T01:59:58.865Z</stop_date_time>
+             </Time_Coordinates>
+             <Primary_Result_Summary>
+                   <purpose>Engineering</purpose>
+                   <processing_level>Derived</processing_level>
+                   <description>
+                              Parameters captured in the file will be of special interest to analysts 
+                              studying radio science data in other parts of the archive.  The parameters
+                              are derived from sensors, other measurements, and status indicators.
+                   </description>
+                   <Science_Facets>                                         
+                           <discipline_name>Radio Science</discipline_name> 
+                   </Science_Facets>                                        
+             </Primary_Result_Summary>
+             <Investigation_Area>
+                   <name>Cassini-Huygens Mission</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+             <Observing_System>
+                   <Observing_System_Component>
+                         <name>NASA Deep Space Network</name>
+                         <type>Observatory</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:facility:observatory.dsn</lid_reference>
+                               <reference_type>is_facility</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>DSN Instrumentation</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:dsn.rss</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             <Target_Identification>
+                   <name>DSN Antenna DSS 25</name>
+                   <type>Equipment</type>
+                   <description>
+                               The target is a DSN antenna used to track the Cassini-Huygens spacecraft.
+                   </description>                      
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:telescope:goldstone.dss25_34m</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+       <Reference_List>
+            <Internal_Reference>
+                  <lid_reference>urn:nasa:pds:cassini.rss.raw.sagr:document:sis.mon</lid_reference>
+                  <reference_type>data_to_document</reference_type>
+            </Internal_Reference>                  
+            <Source_Product_External>
+                  <external_source_product_identifier>CO-S-RSS-1-SAGR1-V1.0:S10SAGS2005_122_2140_020025.158</external_source_product_identifier>
+                  <reference_type>data_to_raw_source_product</reference_type>
+                  <curating_facility>PDS Atmospheres Node</curating_facility>
+                  <description>
+                      The value for external_source_product_identifier is constructed from the
+                      PDS3 DATA_SET_ID, an ASCII colon character, and the PDS3 PRODUCT_ID.
+                  </description>                                                                     
+            </Source_Product_External>
+       </Reference_List>
+       <File_Area_Observational>
+             <File>
+                   <file_name>s10sags2005_122_2140_020025.tab</file_name>
+                   <creation_date_time>2023-07-09</creation_date_time>
+                   <file_size unit="byte">7701570</file_size>
+                   <md5_checksum>24f610f238dfa3327d07b9aec73bf3a2</md5_checksum>
+             </File>
+             <Table_Character>
+                   <name>DSN 0158-Monitor Table</name>
+                   <offset unit="byte">0</offset>
+                   <records>92790</records>
+                   <description>
+                              The table is a series of ASCII records with fixed-width fields in
+                              ascending time order.  Each field contains data from one DSN Monitor
+                              channel, which may be an identifier, a status reading, a measurement,
+                              etc.  See the Monitor SIS for more detail on possible values in the 
+                              various fields.
+                   </description>                      
+                   <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+                   <Record_Character>
+                         <fields>6</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">83</record_length>
+                         <Field_Character>
+                               <name>Channel Name</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">2</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">6</field_length>
+                               <field_format>%6s</field_format>
+                               <description>Channel name, usually of the form C-nnnn where C
+                               denotes a subsystem and nnnn is a number denoting
+                               a channel within that subsystem.
+                               </description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Channel Title</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">11</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">9</field_length>
+                               <field_format>%9s</field_format>
+                               <description>Channel title, usually a cryptic string of acronyms
+                               or abbreviations identifying the data source.
+                               </description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Data Value</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">23</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">17</field_length>
+                               <field_format>%17s</field_format>
+                               <description>Data number, the raw value reported by the sensor
+                               or other data source.  The Data Value is provided as
+                               a character string enclosed in double quotes since
+                               different channels report integers, floats, and
+                               ASCII strings.  See Channel Type for more format
+                               information.
+                               </description>
+                         </Field_Character>
+                         <Field_Character>                                                                                                                                                        
+                               <name>Engineering Unit Value</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">43</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">12</field_length>
+                               <field_format>%12s</field_format>
+                               <description>Engineering units, an interpretation of Data Value,
+                               sometimes including units.  The Engineering Unit Value is provided
+                               as a character string enclosed in double quotes since
+                               different channels report integers, floats, and
+                               ASCII strings.  See Channel Type for more format
+                               information.
+                               </description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Channel Type</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">58</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <field_format>%1s</field_format>
+                               <description>
+                               Type of data in the channel.  For example:
+                                                A     alphanumeric
+                                                D     digital
+                                                F     floating point
+                                                I     signed integer
+                                                S     status
+                                                U     unsigned integer.
+                               </description>
+                         </Field_Character>
+                         <Field_Character>
+                               <name>Earth Receive Time</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">61</field_location>
+                               <data_type>ASCII_Date_Time_DOY</data_type>
+                               <field_length unit="byte">21</field_length>
+                               <field_format>%21s</field_format>
+                               <description>Earth Receive Time (UTC).  The time that data
+                               reached or were collected on the ground.
+                               </description>
+                         </Field_Character>
+                   </Record_Character>
+             </Table_Character>
+      </File_Area_Observational>
+</Product_Observational>

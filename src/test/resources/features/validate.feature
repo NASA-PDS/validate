@@ -10,6 +10,9 @@ Scenario Outline: Execute validate command for tests below.
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
 # Validate#652
+|"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json -R pds4.bundle -t {resourceDir}/github671" | "report_github671.json" |
+
+# Validate#652
 |"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json -t {resourceDir}/github652" | "report_github652.json" |
 
 # Validate#651
