@@ -97,9 +97,16 @@ public class AggregateManager {
     List<Target> children = new ArrayList<>();
     try {
       Crawler crawler = CrawlerFactory.newInstance(url);
+      List<Target> bundles = new ArrayList<>();
       String extensions[] = { labelExtension };
       children = crawler.crawl(url, extensions, true);
 
+      for (Target child : children) {
+        if (TargetExaminer.isTargetBundleType (child.getUrl(), true)) {
+          bundles.add (child);
+        }
+      }
+      children = bundles;
       LOG.debug(
           "findBundleWithLatestVersion:afor:reduceToLatestTargetOnly:children.size(),url {},{}",
           children.size(), url);
