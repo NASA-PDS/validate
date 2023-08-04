@@ -326,8 +326,12 @@ public class ArrayContentValidator {
       return true;
     }
     if (number instanceof BigDecimal) number = ((BigDecimal)number).doubleValue();
+    if (number instanceof Byte) number = BigInteger.valueOf(number.byteValue());
     if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
     if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number) & 0xFFFFFFFFL);
+    if (number instanceof Integer) number = BigInteger.valueOf(number.intValue());
+    if (number instanceof Long) number = BigInteger.valueOf(number.longValue());
+    if (number instanceof Short) number = BigInteger.valueOf(number.shortValue());
     BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
     BigInteger value = (BigInteger)number;
     return constant.xor (value).longValue() == 0L;
