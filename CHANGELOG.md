@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-07-25)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-04)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -28,6 +28,7 @@
 
 **Defects:**
 
+- Unexpected SKIP Message for bundle product when using validate-3.3.0-SNAPSHOT [\#671](https://github.com/NASA-PDS/validate/issues/671) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate incorrectly SKIPs label [\#657](https://github.com/NASA-PDS/validate/issues/657)
 - validate 3.3.0 snapshot produces incorrect SKIP/INFO messages [\#652](https://github.com/NASA-PDS/validate/issues/652) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not validate a collection if collection.xml pointed to [\#649](https://github.com/NASA-PDS/validate/issues/649) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
