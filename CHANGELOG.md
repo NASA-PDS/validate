@@ -28,6 +28,7 @@
 
 **Defects:**
 
+- validate does not handle special constants with data type of SignedLSB2 [\#674](https://github.com/NASA-PDS/validate/issues/674) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Unexpected SKIP Message for bundle product when using validate-3.3.0-SNAPSHOT [\#671](https://github.com/NASA-PDS/validate/issues/671) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate incorrectly SKIPs label [\#657](https://github.com/NASA-PDS/validate/issues/657)
 - validate 3.3.0 snapshot produces incorrect SKIP/INFO messages [\#652](https://github.com/NASA-PDS/validate/issues/652) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
