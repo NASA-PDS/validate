@@ -288,8 +288,8 @@ public class ArrayContentValidator {
 
     boolean isSpecialConstant = false;
     if (array.getSpecialConstants() != null) {
-      ProblemReporter reporter = new ArrayProblemReporter(this, ExceptionType.ERROR,
-          ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE, ArrayContentValidator.tableNameReportStr,
+      ProblemReporter reporter = new ArrayProblemReporter(this, ExceptionType.WARNING,
+          ProblemType.ARRAY_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, ArrayContentValidator.tableNameReportStr,
           location);
       isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants(), reporter);
     }
