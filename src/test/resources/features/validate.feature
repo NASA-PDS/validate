@@ -36,6 +36,12 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#616
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
 
+# Validate#614
+|"NASA-PDS/validate#616 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
+
+# Validate#611
+|"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 warnings expected" | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
+
 # Validate#605
 |"NASA-PDS/validate#605 Success Video+Audio" | "github605" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github605.json -s json --skip-context-validation -t {resourceDir}/github605/video_and_audio.xml" | "report_github605.json" |
 
@@ -47,13 +53,6 @@ Scenario Outline: Execute validate command for tests below.
 #|"NASA-PDS/validate#599 Failure Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
 #|"NASA-PDS/validate#599 Failure Override Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_3.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_3.json" |
 #|"NASA-PDS/validate#599 Failure Override Schema+Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_4.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_4.json" |
-
-
-# Validate#614
-|"NASA-PDS/validate#616 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
-
-# Validate#611
-|"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 errors expected" | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
 
 # Validate#597
 |"NASA-PDS/validate#597 Success Find Resources in Older/Skipped Bundles/Collections" | "github597" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github597_1.json -s json -R pds4.bundle -t {resourceDir}/github597" | "report_github597_1.json" |
