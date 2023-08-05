@@ -489,8 +489,8 @@ public class FieldValueValidator {
 
       boolean isSpecialConstant = false;
       if (specialConstants != null) {
-        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.ERROR,
-            ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE, recordLocation, fieldIndex);
+        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
+            ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
         isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
             specialConstants, reporter);
       }
