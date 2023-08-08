@@ -117,6 +117,7 @@ public enum ProblemType {
   ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE("error.array.value_out_of_data_type_range"),
 
   ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE("error.array.value_out_of_min_max_range"),
+  ARRAY_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE("warning.array.value_out_of_special_constant_min_max_range"),
 
   ARRAY_VALUE_OUT_OF_SCALED_MIN_MAX_RANGE("error.array.value_out_of_scaled_min_max_range"),
 
@@ -139,6 +140,7 @@ public enum ProblemType {
   FIELDS_MISMATCH("error.table.fields_mismatch"),
 
   FIELD_VALUE_OUT_OF_MIN_MAX_RANGE("error.table.field_value_out_of_min_max_range"),
+  FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE("warning.table.field_value_out_of_special_constant_min_max_range"),
 
   FIELD_VALUE_TOO_LONG("error.table.field_value_too_long"),
 
