@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-04)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -29,6 +29,7 @@
 **Defects:**
 
 - validate does not handle special constants with data type of SignedLSB2 [\#674](https://github.com/NASA-PDS/validate/issues/674) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate does not handle Special\_Constants valid\_minimum and valid\_maximum in accordance with information model [\#673](https://github.com/NASA-PDS/validate/issues/673) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Unexpected SKIP Message for bundle product when using validate-3.3.0-SNAPSHOT [\#671](https://github.com/NASA-PDS/validate/issues/671) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate incorrectly SKIPs label [\#657](https://github.com/NASA-PDS/validate/issues/657)
 - validate 3.3.0 snapshot produces incorrect SKIP/INFO messages [\#652](https://github.com/NASA-PDS/validate/issues/652) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
