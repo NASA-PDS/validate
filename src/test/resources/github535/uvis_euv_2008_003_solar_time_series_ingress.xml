@@ -1,0 +1,588 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+    <?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1920.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+    <?xml-model href="https://pds.nasa.gov/pds4/rings/v1/PDS4_RINGS_1G00_1B00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" xmlns:rings="http://pds.nasa.gov/pds4/rings/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd                      http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1G00_1920.xsd                      http://pds.nasa.gov/pds4/rings/v1 https://pds.nasa.gov/pds4/rings/v1/PDS4_RINGS_1G00_1B00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:cdap2018_becker_saturn_ring_particles:data:uvis_euv_2008_003_solar_time_series_ingress</logical_identifier>   
+        <version_id>1.0</version_id>
+        <title>Time Series of the Ingress Occultation of the Sun by the Rings of Saturn Observed by Cassini UVIS During Rev 055 on 2008-01-03</title>  
+        <information_model_version>1.16.0.0</information_model_version>                                                                                
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Becker, Tracy M.; Jarmak, Stephanie G.</author_list>
+            <publication_year>2022</publication_year>
+            <keyword>saturn rings</keyword>
+            <keyword>saturn rings solar occultation</keyword>
+            <keyword>saturn rings solar occultation time series</keyword>
+            <description>Time Series of the Ingress Occultation of the Sun by the Rings of Saturn Observed by Cassini UVIS During Rev 055 on 2008-01-03</description>  
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-08-02</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2008-01-03T20:15:55.356Z</start_date_time>
+            <stop_date_time>2008-01-03T20:55:59.356Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Time Series of the Ingress Occultation of the Sun by the Rings of Saturn Observed by Cassini UVIS During Rev 055 on 2008-01-03</description>  
+            <Science_Facets>
+                <wavelength_range>Ultraviolet</wavelength_range>
+                <discipline_name>Ring-Moon Systems</discipline_name>
+                <facet1>Ring Occultation Profile</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Cassini-Huygens</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:instrument:uvis.co</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Cassini Orbiter Ultraviolet Imaging Spectrograph</name>
+            <Observing_System_Component>
+                <name>Cassini Orbiter</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Cassini Orbiter Ultraviolet Imaging Spectrograph</name>
+                <type>Instrument</type>
+                <description>UVIS</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:uvis.co</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Saturn Rings</name>
+            <alternate_designation>Saturn Ring System</alternate_designation>
+            <type>Ring</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:ring.saturn.rings</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <geom:Geometry>
+                <geom:SPICE_Kernel_Files>                             
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>LSK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>naif0012.tls</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>IK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>cas_uvis_v06.ti</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>PCK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>cpck25Jan2008.tpc</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>PCK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>cpck_g_arc_18Apr2007.tpc</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>PCK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>cpck_rock_01Oct2007_merged.tpc</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SCLK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>cas00172.tsc</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>140809BP_IRRE_00256_25017.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>050708R_SCPSE_05150_05169.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>050825R_SCPSE_05186_05205.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>061013R_SCPSE_06240_06260.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>180927AP_RE_90165_18018.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>070605R_SCPSE_07106_07125.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>080327R_SCPSE_07365_08045.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>080428R_SCPSE_08045_08067.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>080605R_SCPSE_08078_08126.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>081217R_SCPSE_08294_08319.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>121204R_SCPSE_12257_12280.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>130321R_SCPSE_13038_13063.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>161214R_SCPSE_16217_16262.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170228R_SCPSE_16262_16282.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170301R_SCPSE_16282_16310.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170315R_SCPSE_16310_16329.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170323R_SCPSE_16329_16363.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170509R_SCPSE_16363_17061.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170509R_SCPSE_16363_17061.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170720R_SCPSE_17061_17104.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>170811R_SCPSE_17104_17117.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>SPK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>171024R_SCPSE_17146_17177.bsp</geom:spice_kernel_file_name>
+                    </geom:SPICE_Kernel_Identification>
+                    <geom:comment>These kernel files were used in the generation of the products in the parent bundle. 
+                    	Some or all of them may not have been used directly in the generation of this product.
+                    </geom:comment>
+                </geom:SPICE_Kernel_Files>
+            </geom:Geometry>
+            <rings:Ring_Moon_Systems>
+                <rings:Occultation_Time_Series>
+                    <rings:occultation_type>Solar</rings:occultation_type>
+                    <rings:occultation_direction>Ingress</rings:occultation_direction>                                      
+                    <rings:time_series_direction>Ingress</rings:time_series_direction>                                       
+                    <rings:planetary_occultation_flag>N</rings:planetary_occultation_flag>                                  
+                    <rings:data_quality_score>Good</rings:data_quality_score>
+                    <rings:ring_plane>Equator</rings:ring_plane>
+                    <rings:minimum_projected_sun_diameter unit="km">248.864</rings:minimum_projected_sun_diameter>    
+                    <rings:maximum_projected_sun_diameter unit="km">359.586</rings:maximum_projected_sun_diameter>     
+                    <rings:sigma_projected_sun_diameter unit="km">32.1</rings:sigma_projected_sun_diameter>                 
+                    <rings:minimum_wavelength unit="nm">56.2</rings:minimum_wavelength>                                     
+                    <rings:maximum_wavelength unit="nm">118.1</rings:maximum_wavelength>                                    
+                    <rings:reference_time_utc unit="s">2000-01-01T12:00:00Z</rings:reference_time_utc>
+                    <rings:observed_event_start_tdb unit="s">252663420.54</rings:observed_event_start_tdb>                                  
+                    <rings:observed_event_stop_tdb unit="s">252665824.54</rings:observed_event_stop_tdb>                                    
+                    <rings:ring_event_start_tdb unit="s">252663419.542</rings:ring_event_start_tdb>                                           
+                    <rings:ring_event_stop_tdb unit="s">252665823.591</rings:ring_event_stop_tdb>                                           
+                    <rings:minimum_ring_radius unit="km">96962.8</rings:minimum_ring_radius>                                                       
+                    <rings:maximum_ring_radius unit="km">172486.2</rings:maximum_ring_radius>                                                       
+                    <rings:observed_ring_elevation unit="deg">9.0</rings:observed_ring_elevation>                           
+                    <rings:light_source_incidence_angle unit="deg">81.0</rings:light_source_incidence_angle>                 
+                    <rings:lowest_detectable_normal_optical_depth>0.0</rings:lowest_detectable_normal_optical_depth>      
+                    <rings:highest_detectable_normal_optical_depth>1.167</rings:highest_detectable_normal_optical_depth>     
+                    <rings:background_signal>227.6</rings:background_signal>                                               
+                    <rings:average_unocculted_signal>78575.9</rings:average_unocculted_signal>                              
+                </rings:Occultation_Time_Series>
+            </rings:Ring_Moon_Systems>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:cdap2018_becker_saturn_ring_particles:document:ring_solar_occ_atlas_vol1</lid_reference>
+        <reference_type>data_to_document</reference_type>
+        <comment>
+             This is volume 1 of the UVIS Ring Solar Occultation Atlas. It covers solar occultations between Revs 009 and 090.
+             It includes a table of all UVIS solar occultation observations. In addition,
+             for each occultation there are four graphical products: (1) a plot of the total signal collected as
+             a function of ring plane radius (the data have been binned spectrally); (2) the nominal radial
+             resolution as a function of ring plane radius; (3) the azimuthal look angle as a function of ring
+             plane radius; (4) a geometric rendering of Saturn from the point of view of Cassini at the
+             temporal midpoint of the occultation.
+        </comment>
+        </Internal_Reference>
+        <Internal_Reference>
+        <lid_reference>urn:nasa:pds:cdap2018_becker_saturn_ring_particles:document:ring_solar_occ_atlas_vol2</lid_reference>
+        <reference_type>data_to_document</reference_type>
+        <comment>
+             This is volume 2 of the UVIS Ring Solar Occultation Atlas. It covers solar occultations between Revs 172 and 279.
+             It includes a table of all UVIS solar occultation observations. In addition,
+             for each occultation there are four graphical products: (1) a plot of the total signal collected as
+             a function of ring plane radius (the data have been binned spectrally); (2) the nominal radial
+             resolution as a function of ring plane radius; (3) the azimuthal look angle as a function of ring
+             plane radius; (4) a geometric rendering of Saturn from the point of view of Cassini at the
+             temporal midpoint of the occultation.
+        </comment>
+        </Internal_Reference>
+        <External_Reference>
+            <doi>10.17189/1522470</doi>
+            <reference_text>
+                https://pds-rings.seti.org/cassini/uvis/1-UVIS_Users_Guide_-2018-Jan%2015-For%20PDS-REV-2018-07-06.pdf       
+            </reference_text>
+            <description>
+                This is a link to the Cassini UVIS User’s Guide.
+            </description>
+        </External_Reference>
+<!-- Citation for Jarmak et al. supporting this data
+        <External_Reference>
+            <doi>10.!/!</doi>
+            <reference_text>S.G. Jarmak, T.M. Becker, J.E. Colwell, R.G. Jerousek, L.W. Esposito, Solar occultation observations of Saturn's rings with Cassini UVIS, Icarus @isse etc.@, 2022.</reference_text>
+            <description>Journal article providing details on the processing resulting in the data files included
+            in this collection.</description>
+        </External_Reference>
+-->
+        <Source_Product_External>
+            <external_source_product_identifier>
+                CO-S-UVIS-2-CUBE-V1.5:COUVIS_0022/DATA/D2008_003/EUV2008_003_20_15                                          
+            </external_source_product_identifier>
+            <reference_type>data_to_raw_source_product</reference_type>
+            <curating_facility>PDS RMS Node</curating_facility>
+            <description>
+                The raw PDS3 source product. The form of the reference is dataset_id:volume_id:directory_path:file_name.
+            </description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>uvis_euv_2008_003_solar_time_series_ingress.tab</file_name>                                         
+            <local_identifier>time-series-data</local_identifier>
+            <creation_date_time>2022-08-02T10:48:20</creation_date_time>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">663</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <description>Provides the column headers, separated by commas, for the data table.</description>
+        </Header>
+        <Table_Character>
+            <offset unit="byte">663</offset>
+            <records>602</records>
+            <description>Solar occultation time series.
+                Each record (row) in the table corresponds to one integration period of either
+                1, 2, 4, 5.5, or 37 seconds depending on the occultation observed.
+                
+                The Sun is an extended source and therefore its projected position onto the ring plane
+                changes over the course of an integration period. We provide the start of an integration
+                period, middle of an integration period, and end of an integration period times and the
+                corresponding ring plane radial values in case future analyses would require knowledge
+                of the change of the Sun's position over an integration period. The order of the time specific columns is mid integration, start integration, stop integration.
+            </description>
+            <record_delimiter>Line-Feed</record_delimiter>
+            <Record_Character>
+                  <fields>20</fields>
+                  <groups>0</groups>
+                  <record_length unit="byte">260</record_length>
+                  <Field_Character>
+                      <name>Observed Event TDB Mid Integration</name>
+                      <field_number>1</field_number>
+                      <field_location unit="byte">1</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the midpoint of the integration period (when photon arrives at the instrument).</description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Observed Event TDB Start Integration</name>
+                      <field_number>2</field_number>
+                      <field_location unit="byte">19</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the beginning of the integration period (when photon arrives at the instrument).</description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Observed Event TDB Stop Integration</name>
+                      <field_number>3</field_number>
+                      <field_location unit="byte">37</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the end of the integration
+                          period (when photon arrives at the instrument).
+                      </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Event TDB Mid Integration</name>
+                      <field_number>4</field_number>
+                      <field_location unit="byte">55</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the midpoint of the integration
+                          period (when photon departs the ring).
+                      </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Event TDB Start Integration</name>
+                      <field_number>5</field_number>
+                      <field_location unit="byte">73</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the beginning of the integration
+                          period (when photon departs the ring).
+                      </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Event TDB Stop Integration</name>
+                      <field_number>6</field_number>
+                      <field_location unit="byte">91</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">16</field_length>
+                      <unit>s</unit>
+                      <description>J2000 observation time in seconds corresponding to the end of the integration
+                          period (when photon departs the ring).
+                      </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Radius Mid Integration</name>
+                      <field_number>7</field_number>
+                      <field_location unit="byte">109</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>km</unit>
+                      <description>Distance from the center of mass of Saturn along the ring plane where
+                          the projected center of the Sun was located for an observation time that corresponds
+                          to the middle of the integration period.
+                      </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Radius Start Integration</name>
+                      <field_number>8</field_number>
+                      <field_location unit="byte">121</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>km</unit>
+                      <description>Distance from the center of mass of Saturn along the ring plane where the projected
+                          center of the Sun was located for an observation time that corresponds to the beginning of the
+                          integration period.
+                     </description>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Ring Radius Stop Integration</name>
+                      <field_number>9</field_number>
+                      <field_location unit="byte">133</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>km</unit>
+                      <description>Distance from the center of mass of Saturn along the ring plane where the
+                          projected center of the Sun was located for an observation time that corresponds to
+                          the end of the integration period.
+                      </description>
+                  </Field_Character>
+                   <Field_Character>
+                      <name>Projected Sun Diameter</name>
+                      <field_number>10</field_number>
+                      <field_location unit="byte">145</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">8</field_length>
+                      <unit>kilometer</unit>
+                     <description>The diameter in kilometers of the sun projected onto
+                         the ring plane radius based on the line of sight from the observer
+                         to the ring plane at the start of the integration assuming that at
+                         the orbit of Saturn the sun subtends a circular disk with an
+                         angular size of 1 mrad.
+                      </description>
+                  </Field_Character>
+                 <Field_Character>
+                      <name>Raw Total Counts</name>
+                      <field_number>11</field_number>
+                      <field_location unit="byte">155</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">7</field_length>
+                      <description>Photon counts over the full integration period at the observed event time.</description>
+                      <Special_Constants>
+                          <missing_constant>-1111</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second</name>
+                      <field_number>12</field_number>
+                      <field_location unit="byte">164</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Total photon counts over the full integration period at the associated
+                          observed event time divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second per spectral element (57 - 69 nm)</name>
+                      <field_number>13</field_number>
+                      <field_location unit="byte">176</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Photon counts binned within the 57 - 69 nm spectral bandpass summed over the full integration period at the associated
+                          observed event time, divided by the number of spectral elements in that band, and divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second per spectral element (69 - 81 nm)</name>
+                      <field_number>14</field_number>
+                      <field_location unit="byte">188</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Photon counts binned within the 69 - 81 nm spectral bandpass summed over the full integration period at the associated
+                          observed event time, divided by the number of spectral elements in that band, and divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second per spectral element (81 - 93 nm)</name>
+                      <field_number>15</field_number>
+                      <field_location unit="byte">200</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Photon counts binned within the 81 - 93 nm spectral bandpass summed over the full integration period at the associated
+                          observed event time, divided by the number of spectral elements in that band, and divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second per spectral element (93 - 105 nm)</name>
+                      <field_number>16</field_number>
+                      <field_location unit="byte">212</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Photon counts binned within the 93 - 105 nm spectral bandpass summed over the full integration period at the associated
+                          observed event time, divided by the number of spectral elements in that band, and divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Counts per second per spectral element (105 - 117 nm)</name>
+                      <field_number>17</field_number>
+                      <field_location unit="byte">224</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">10</field_length>
+                      <unit>second</unit>
+                      <description>Photon counts binned within the 105 - 117 nm spectral bandpass summed over the full integration period at the associated
+                          observed event time, divided by the number of spectral elements in that band, and divided by the integration period in seconds to yield the
+                          observed counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Transparency</name>
+                      <field_number>18</field_number>
+                      <field_location unit="byte">236</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">9</field_length>
+                      <unit>second</unit>
+                      <description>Transparency of the rings as a function of ring plane radius
+                          calculated by taking the signal in counts/s subtracting the measured
+                          background value in counts/s with the difference divided by the unocculted
+                          signal in counts/s.
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                  </Field_Character>
+                  <Field_Character>
+                      <name>Normal Optical Depth</name>
+                      <field_number>19</field_number>
+                      <field_location unit="byte">247</field_location>
+                      <data_type>ASCII_Real</data_type>
+                      <field_length unit="byte">9</field_length>
+                      <description>Normal optical depth as a function of ring plane radius calculated by multiplying
+                           the natural log of the inverse of the ring transparency by the sine of the observed_ring_elevation
+                           (ring opening angle) which is an angle measured at a point in the ring plane, starting from the
+                           ring plane to the direction of a photon heading to the observer (Cassini).
+                      </description>
+                      <Special_Constants>
+                          <missing_constant>-1111.000</missing_constant>
+                      </Special_Constants>
+                 </Field_Character>
+                  <Field_Character>
+                      <name>Note Flag</name>
+                      <field_number>20</field_number>
+                      <field_location unit="byte">258</field_location>
+                      <data_type>ASCII_Integer</data_type>
+                      <field_length unit="byte">2</field_length>
+                      <description>A numerical flag that associates
+                          specific comments with individual data bins. When more than one
+                          comment applies, the values are summed. The values and their
+                          associated comments are:
+                           0: Radius and longitude are based on Saturn equatorial plane.
+                           1: Background is estimated from other occultations.
+                              No direct measurement of background in this occultation.
+                           2: Star signal is estimated from other occultations.
+                              No direct measurement of unocculted star in this occultation.
+                           4: Significant unmodeled background or instrumental effect,
+                              (i.e., no background or star intensity estimate).
+                           8: Line of sight intersects planet.
+                          16: Sun is outside significant portion of FOV
+                          32: The data are corrupted.
+                      </description>
+                  </Field_Character>
+              </Record_Character>
+          </Table_Character>
+      </File_Area_Observational>
+  </Product_Observational>
