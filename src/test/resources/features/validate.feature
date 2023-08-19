@@ -64,7 +64,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#597 Success Filename with underscores" | "github562" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github562_1.json -s json -t {resourceDir}/github562" | "report_github562_1.json" |
 
 # Validate#561
-|"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
+|"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
 
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
