@@ -1,5 +1,6 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import gov.nasa.arc.pds.tools.util.FileUtils;
 import gov.nasa.pds.label.Label;
 import gov.nasa.pds.label.NameNotKnownException;
 import gov.nasa.pds.label.ProductType;
@@ -79,6 +81,15 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
         // e.g. File_Area_Observational + File_Area_Observational_Supplemental
 
         if (!obj.getDataFile().equals(previousDataFile)) {
+          if (previousDataFile != null) {
+            long filesize = new File(previousDataFile.getPath()).length();
+            if (minimumExpectedOffset < filesize) {
+              getListener().addProblem(new ValidationProblem(
+                  new ProblemDefinition(ExceptionType.WARNING, ProblemType.DATA_NOT_DESCRIBED,
+                      "Data not described at the end of the file: " + (filesize - minimumExpectedOffset) + " bytes"),
+                  getTarget(), objectCounter, -1));
+            }
+          }
           tableCounter = 0;
           arrayCounter = 0;
           headerCounter = 0;
@@ -109,9 +120,16 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
           // anything right now)
           headerCounter++;
         }
-
       }
-
+      if (previousDataFile != null) {
+        long filesize = new File(previousDataFile.getPath()).length();
+        if (minimumExpectedOffset < filesize) {
+          getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.WARNING, ProblemType.DATA_NOT_DESCRIBED,
+                  "Data not described at the end of the file: " + (filesize - minimumExpectedOffset) + " bytes"),
+              getTarget(), objectCounter, -1));
+        }
+      }
       LOG.debug("arrays validated: {}", arrayCounter);
       LOG.debug("tables validated: {}", tableCounter);
       LOG.debug("headers validated: {}", headerCounter);

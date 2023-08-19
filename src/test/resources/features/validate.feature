@@ -64,7 +64,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
 
 # Validate#535
-|"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_1.json -s json -t {resourceDir}/github535/uvis_euv_2008_003_solar_time_series_ingress.xml" | "report_github535_1.json" |
+|"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 warnings expected" | "DATA_NOT_DESCRIBED" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_1.json -s json -t {resourceDir}/github535/uvis_euv_2008_003_solar_time_series_ingress.xml" | "report_github535_1.json" |
 |"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_2.json -s json -t {resourceDir}/github535/uvis_euv_2016_288_solar_time_series_egress.xml" | "report_github535_2.json" |
 
 # Validate#531
