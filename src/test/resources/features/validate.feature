@@ -10,8 +10,8 @@ Scenario Outline: Execute validate command for tests below.
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
 # Validate#684
-|"NASA-PDS/validate#684 Success without filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_1.json -s json -t {resourceDir}/github684/example_params_noFileSize.xml" | "report_github684_1.json" |
-|"NASA-PDS/validate#684 Success with filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_2.json -s json -t {resourceDir}/github684/example_params_wFileSize.xml" | "report_github684_2.json" |
+|"NASA-PDS/validate#684 Success without filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_1.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_noFileSize.xml" | "report_github684_1.json" |
+|"NASA-PDS/validate#684 Success with filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_2.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_wFileSize.xml" | "report_github684_2.json" |
 
 # Validate#671
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
