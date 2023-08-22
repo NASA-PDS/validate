@@ -9,6 +9,10 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#680
+|"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
+|"NASA-PDS/validate#680 Failure char table bad length" | "github680" | 1 | "1 errors expected" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.2.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen95.xml" | "report_github680.2.json" |
+
 # Validate#671
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
 
