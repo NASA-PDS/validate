@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
 **Requirements:**
 
+- As a user, I want to receive a WARNING when table objects are out of order [\#683](https://github.com/NASA-PDS/validate/issues/683)
 - As a user, I want to validate M4A/AAC encoded audio as observational data [\#663](https://github.com/NASA-PDS/validate/issues/663)
 - As a user, I want to validate WAV encoded audio as observational data [\#662](https://github.com/NASA-PDS/validate/issues/662)
 - As a user, I want the PDF error reports to be output in a user-specified directory [\#658](https://github.com/NASA-PDS/validate/issues/658)
