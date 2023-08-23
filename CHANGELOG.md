@@ -23,12 +23,14 @@
 
 **Improvements:**
 
+- validate does not correctly diagnose errors in the record\_length value for fixed width Table\_Character objects [\#680](https://github.com/NASA-PDS/validate/issues/680)
 - Document how to use validate-refs tool in Validate Operation User Guide [\#643](https://github.com/NASA-PDS/validate/issues/643)
 - Update datetime regex for content validation [\#608](https://github.com/NASA-PDS/validate/issues/608)
 - Update to support ComplexLSB8 data types and investigate Floating point exception [\#7](https://github.com/NASA-PDS/validate/issues/7)
 
 **Defects:**
 
+- Validation failures are contingent on presence of `<file_size>` attribute in `<File>` class [\#684](https://github.com/NASA-PDS/validate/issues/684) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate does not handle special constants with data type of SignedLSB2 [\#674](https://github.com/NASA-PDS/validate/issues/674) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not handle Special\_Constants valid\_minimum and valid\_maximum in accordance with information model [\#673](https://github.com/NASA-PDS/validate/issues/673) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Unexpected SKIP Message for bundle product when using validate-3.3.0-SNAPSHOT [\#671](https://github.com/NASA-PDS/validate/issues/671) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
