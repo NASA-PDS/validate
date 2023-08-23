@@ -168,6 +168,8 @@ public enum ProblemType {
 
   // Warning message types
 
+  DATA_OBJECTS_OUT_OF_ORDER("warning.data_objects.out_of_order"),
+  
   SCHEMA_WARNING("warning.label.schema"),
 
   MISSING_SCHEMATRON_SPEC("warning.label.missing_schematron_spec"),

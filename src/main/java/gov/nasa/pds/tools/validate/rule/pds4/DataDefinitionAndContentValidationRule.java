@@ -67,9 +67,18 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       DataObjectValidator validator = null;
 
       URL previousDataFile = null;
+      DataObjectCompareViaOffset comparator = new DataObjectCompareViaOffset();
       EveryNCounter.getInstance().increment();
       List<DataObject> offsetSorted = new ArrayList<DataObject>(label.getObjects());
-      Collections.sort(offsetSorted, new DataObjectCompareViaOffset());
+      for (int idx = 1 ; idx < offsetSorted.size() ; idx++) {
+        if (0 < comparator.compare (offsetSorted.get(idx-1), offsetSorted.get(idx))) {
+          getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.WARNING, ProblemType.DATA_OBJECTS_OUT_OF_ORDER,
+                  "Data Objects out of offset order"),
+              getTarget(), objectCounter, -1));          
+        }
+      }
+      Collections.sort(offsetSorted, comparator);
       for (DataObject obj : offsetSorted) {
         objectIdentifier = getObjectIdentifier(obj);
         LOG.debug("Checking DataObject #{} '{}'", objectCounter, obj.getName());
