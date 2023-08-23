@@ -22,6 +22,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.opencsv.exceptions.CsvValidationException;
+import gov.nasa.pds.label.object.FieldDescription;
 import gov.nasa.pds.label.object.TableObject;
 import gov.nasa.pds.label.object.TableRecord;
 import gov.nasa.pds.objectAccess.InvalidTableException;
@@ -478,6 +479,20 @@ public class TableValidator implements DataObjectValidator {
           lineNumber, line.length(), line);
       if (tableIsFixedLength) {
         this.recordLineLength(lineLengthsArray, lineNumbersArray, line, lineNumber + 1);
+        int minLineLength = 0;
+        for (FieldDescription field : this.currentTableReader.getFields()) {
+          if (field.getOffset() + field.getLength() > minLineLength) {
+            minLineLength = field.getOffset() + field.getLength();
+          }
+        }
+        minLineLength = minLineLength + DelimiterType.getDelimiterType(recordDelimiter).getRecordDelimiter().length();
+        if (line.length() < minLineLength) {
+          addTableProblem(ExceptionType.ERROR, ProblemType.RECORD_LENGTH_MISMATCH,
+              "The fixed line size from label of " + line.length()
+              + " bytes is less than the number of bytes defined by the fields " + minLineLength,
+              dataFile, dataObjectIndex, this.currentTableReader.getCurrentRow());
+          return;
+        }
       }
     } else {
       LOG.debug("validateTableCharacter:POSITION_1:lineNumber,line {},[{}]", lineNumber, line);

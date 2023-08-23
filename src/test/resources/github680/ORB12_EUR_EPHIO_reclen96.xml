@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1H00_1300.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd
+
+      http://pds.nasa.gov/pds4/msn/v1
+      https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1H00_1300.xsd
+     ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:galileo-mag-jup-calibrated:data-highres-europa:orb12_eur_ephio</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Galileo Jupiter MAG Highres Europa Data 1997-12-16</title>
+        <information_model_version>1.17.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Kivelson, M.G.; Khurana, K.K.; Russell, C.T.; Walker, R.J.; Joy, S.P.; Mafi, J.N.</author_list>
+            <publication_year>2022</publication_year>
+            <description>                                             
+      Galileo calibrated MAG high-resolution magnetic field and trajectory    
+      data from the Europa 12 orbit Europa flyby recording in Europa          
+      Phi-Omega (EPHIO) coordinates. Due to unexpectedly large magnetic       
+      fields observed in the E12-EUR recording, some of the magnetometer      
+      data was corrupted due to instrument saturation. While the corrupted    
+      data has been recovered, the technique used only recovers               
+      oscillations with frequencies lower than the spin frequency. The data   
+      cover 1997-12-16T11:42:00 to 1997-12-16T12:28:00.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2022-10-06</modification_date>
+                <version_id>1.0</version_id>
+                <description>This product, ORB12_EUR_EPHIO.TAB, was originally released as part
+                    of the PDS3 GO-J-MAG-3-RDR-HIGHRES-V1.0 data set. The metadata 
+                    have been migrated to PDS4. The data themselves are unchanged.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <comment>Observation ID: E12-EUR</comment>
+        <Time_Coordinates>
+            <start_date_time>1997-12-16T11:42:56.312Z</start_date_time>
+            <stop_date_time>1997-12-16T12:28:24.644Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+            <Science_Facets>
+                <discipline_name>Fields</discipline_name>
+                <facet1>Magnetic</facet1>
+                <facet2>Background</facet2>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Galileo</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.galileo</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Magnetometer</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:go.mag</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Galileo Orbiter</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.go</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Jupiter</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.jupiter</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+            <name>Europa</name>
+            <type>Satellite</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.jupiter.europa</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                 <msn:mission_phase_name>Jupiter Orbit Operations</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                 <msn:mission_phase_name>Europa Campaign</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                 <msn:mission_phase_name>Europa 12 Orbit</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                 <msn:mission_phase_name>Europa 12 Encounter</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                <msn:Orbital_Mission>
+                    <msn:start_orbit_number>12</msn:start_orbit_number>
+                    <msn:stop_orbit_number>12</msn:stop_orbit_number>
+                </msn:Orbital_Mission>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                <msn:spacecraft_clock_start>1/04262703:01:0:0</msn:spacecraft_clock_start>
+                <msn:spacecraft_clock_stop>1/04262747:89:5:0</msn:spacecraft_clock_stop>
+            </msn:Mission_Information>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Source_Product_External>
+            <external_source_product_identifier>GO-J-MAG-3-RDR-HIGHRES-V1.0:ORB12_EUR_EPHIO</external_source_product_identifier>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+            <doi>10.17189/1519667</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>This is the first version of this product converted to PDS4. The DOI provided
+                references the PDS3 source data set.</description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>ORB12_EUR_EPHIO.TAB</file_name>
+            <creation_date_time>2019-10-01T03:15:15.000Z</creation_date_time>
+            <file_size unit="byte">784896</file_size>
+            <md5_checksum>164f11d8e1ae6fe518efc10e4908085f</md5_checksum>
+            <comment>This data file is unmodified from the PDS3 version.</comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>8176</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>8</fields>
+                <groups>0</groups>
+                <record_length unit="byte">96</record_length>
+                <Field_Character> 
+                    <name>SPACECRAFT EVENT TIME</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">23</field_length>
+                    <unit>N/A</unit>
+                    <description>                                             
+      Spacecraft event time of the sample. This time corresponds to the       
+      'CORRECTED TIME' given in the Galileo MAG survey data set. Time is      
+      given in PDS format: yyyy-mm-ddThh:mm:ss.sss. The individual            
+      elements of the time field can be read using the format                 
+      (i4,4(1x,i2),1x,f6.3) yr, mon, day, hr, min, sec.</description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>BX</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">26</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>nT</unit>
+                    <description>                                             
+      Corotational field component in EPHIO coordinates.</description>
+                    <Special_Constants>
+                        <missing_constant>999999.99</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>BY</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">36</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>nT</unit>
+                    <description>                                             
+      Jupiterward field component in EPHIO coordinates.</description>
+                    <Special_Constants>
+                        <missing_constant>999999.99</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>BZ</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">46</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>nT</unit>
+                    <description>                                             
+      Northward field component in EPHIO coordinates.</description>
+                    <Special_Constants>
+                        <missing_constant>999999.99</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>B-FIELD MAGNITUDE</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">56</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>nT</unit>
+                    <description>                                             
+      Magnitude of the average B-field components.</description>
+                    <Special_Constants>
+                        <missing_constant>999999.99</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>X</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">66</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>SATELLITE RADII</unit>
+                    <description>                                             
+      Corotational component of the instantaneous spacecraft position with    
+      respect to Europa in units of Europa radii.</description>
+                    <Special_Constants>
+                        <missing_constant>999.99999</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>Y</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">76</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>SATELLITE RADII</unit>
+                    <description>                                             
+      Jupiterward component of the instantaneous spacecraft position with     
+      respect to Europa in Europa radii.</description>
+                    <Special_Constants>
+                        <missing_constant>999.99999</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>Z</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">86</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <unit>SATELLITE RADII</unit>
+                    <description>                                             
+      Northward component of the instantaneous spacecraft position with       
+      respect to Europa in Europa radii.</description>
+                    <Special_Constants>
+                        <missing_constant>999.99999</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>
