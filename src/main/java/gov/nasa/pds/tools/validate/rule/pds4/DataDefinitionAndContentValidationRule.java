@@ -82,7 +82,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
         if (!obj.getDataFile().equals(previousDataFile)) {
           if (previousDataFile != null) {
             long filesize = new File(previousDataFile.getPath()).length();
-            if (minimumExpectedOffset < filesize) {
+            if (this.getContext().getCompleteDescriptions() && minimumExpectedOffset < filesize) {
               getListener().addProblem(new ValidationProblem(
                   new ProblemDefinition(ExceptionType.WARNING, ProblemType.DATA_NOT_DESCRIBED,
                       "Data not described at the end of the file: " + (filesize - minimumExpectedOffset) + " bytes"),
