@@ -13,6 +13,9 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#684 Success without filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_1.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_noFileSize.xml" | "report_github684_1.json" |
 |"NASA-PDS/validate#684 Success with filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_2.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_wFileSize.xml" | "report_github684_2.json" |
 
+# Validate#683
+|"NASA-PDS/validate#683 Success warn out of order offsets" | "github614" | 1 | "1 warnings expected" | "DATA_OBJECTS_OUT_OF_ORDER" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github683.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github683.json" |
+
 # Validate#671
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
 
@@ -41,7 +44,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#616 Success Multiple Tables One File" | "github616" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github616.json -s json --skip-context-validation -t {resourceDir}/github616/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" | "report_github616.json" |
 
 # Validate#614
-|"NASA-PDS/validate#616 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
+|"NASA-PDS/validate#614 Success out of order offsets" | "github614" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github614.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github614.json" |
 
 # Validate#611
 |"NASA-PDS/validate#611 Detect Special Constants Max/Min out of range" | "github611" | 9 | "9 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github611.json -s json -t {resourceDir}/github611/GRD-L1A-150313-150319_150625-BGO.xml" | "report_github611.json" |
@@ -65,7 +68,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#597 Success Filename with underscores" | "github562" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github562_1.json -s json -t {resourceDir}/github562" | "report_github562_1.json" |
 
 # Validate#561
-|"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
+|"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
 
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |

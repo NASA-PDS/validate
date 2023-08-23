@@ -22,10 +22,6 @@ P,urn:nasa:pds:nh_mvic:calibration_files:mp1_flat::4.0
 P,urn:nasa:pds:nh_mvic:calibration_files:mp1_flat::3.0
 P,urn:nasa:pds:nh_mvic:calibration_files:mp1_flat::2.0
 P,urn:nasa:pds:nh_mvic:calibration_files:mp1_flat::1.0
-P,urn:nasa:pds:nh_mvic:calibration_files:mc0_flat::4.0
-P,urn:nasa:pds:nh_mvic:calibration_files:mc0_flat::3.0
-P,urn:nasa:pds:nh_mvic:calibration_files:mc0_flat::2.0
-P,urn:nasa:pds:nh_mvic:calibration_files:mc0_flat::1.0
 P,urn:nasa:pds:nh_mvic:calibration_files:blue_new_chi::1.0
 P,urn:nasa:pds:nh_mvic:calibration_files:ch4_new_chi::1.0
 P,urn:nasa:pds:nh_mvic:calibration_files:nir_new_chi::1.0
