@@ -221,4 +221,37 @@ public class TargetExaminer extends Target {
 
     return (fieldContent);
   }
+  public static boolean isTargetALabel(URL url) {
+    try {
+      InputSource source = Utility.getInputSourceByURL(url);
+      SAXSource saxSource = new SAXSource(source);
+      saxSource.setSystemId(url.toString());
+      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      @SuppressWarnings("unused")
+      List<TinyNodeImpl> xmlModels = new ArrayList<>();
+      XMLExtractor extractor = new XMLExtractor(docInfo);
+      xmlModels = extractor.getNodesFromDoc("logical_identifier");
+      return true;
+    } catch (Throwable t) {
+      return false;
+    }
+  }
+  /**
+   * Modifies the input array and returns it so the same call can be used
+   * as a function or as a procedure.
+   * @param targets
+   * @return
+   */
+  public static List<Target> removeNonLabels(List<Target> targets) {
+    ArrayList<Target> nons = new ArrayList<Target>();
+    for (Target t : targets) {
+      if (!isTargetALabel (t.getUrl())) {
+        nons.add (t);
+      }
+    }
+    for (Target t : nons) {
+      targets.remove (t);
+    }
+    return targets;
+  }
 }

@@ -799,7 +799,7 @@ public class ReferentialIntegrityUtil {
         // local_identifier and lid_reference or lidvid_reference tags.
         url = child.getUrl();
 
-        if (url.toString().endsWith("." + getContext().getLabelExtension())) {
+        if (url.toString().endsWith("." + getContext().getLabelExtension()) && TargetExaminer.isTargetALabel(url)) {
 
           // Check this URL has been parsed before. If yes, skip this file.
           if (ReferentialIntegrityUtil.urlsParsedCumulative.contains(url)) {

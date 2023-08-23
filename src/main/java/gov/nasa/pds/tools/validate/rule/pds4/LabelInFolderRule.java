@@ -31,6 +31,7 @@ import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.crawler.Crawler;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
@@ -132,6 +133,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
       } else {
         targetList = crawler.crawl(target, false, getContext().getFileFilters());
       }
+      TargetExaminer.removeNonLabels (targetList);
 
       if (targetList.size() > 0) {
         getListener().addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.DEBUG,
