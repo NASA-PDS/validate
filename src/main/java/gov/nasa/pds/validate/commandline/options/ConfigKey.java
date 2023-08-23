@@ -117,6 +117,10 @@ public class ConfigKey {
   public static final String EVERY_N = "validate.everyN";
 
   /**
+   * Property to enable/disable (true/false) full bit checking of tables and arrays
+   */
+  public static final String COMPLETE_DESCRIPTIONS = "validate.completeDescriptions";
+  /**
    * Property to specify directory for PDF error directory.
    */
   public static final String PDF_ERROR_DIR = "validate.pdfErrorDir";

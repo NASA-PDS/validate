@@ -433,6 +433,9 @@ public class LocationValidator {
   public void setEveryN(int value) {
     ruleContext.setEveryN(value);
   }
+  public void setCompleteDescriptions(boolean b) {
+    ruleContext.setCompleteDescriptions(b);
+  }
   public void setSpotCheckData(int value) {
     ruleContext.setSpotCheckData(value);
   }

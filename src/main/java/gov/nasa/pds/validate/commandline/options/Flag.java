@@ -47,6 +47,8 @@ public enum Flag {
   CATALOG("C", "catalog", "catalog files", String.class, true,
       "Specify catalog files to use during validation."),
 
+  COMPLETE_DESCRIPTIONS(null, "complete-descriptions", "value", int.class,
+      "File Areas are fully described in the sense that every bit is described within the file."),
   /**
    * Flag to specify a configuration file to configure the tool behavior.
    */

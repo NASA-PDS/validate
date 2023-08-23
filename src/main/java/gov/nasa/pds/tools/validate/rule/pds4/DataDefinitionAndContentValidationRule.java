@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import gov.nasa.arc.pds.tools.util.FileUtils;
 import gov.nasa.pds.label.Label;
 import gov.nasa.pds.label.NameNotKnownException;
 import gov.nasa.pds.label.ProductType;
@@ -123,7 +122,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
       }
       if (previousDataFile != null) {
         long filesize = new File(previousDataFile.getPath()).length();
-        if (minimumExpectedOffset < filesize) {
+        if (this.getContext().getCompleteDescriptions() && minimumExpectedOffset < filesize) {
           getListener().addProblem(new ValidationProblem(
               new ProblemDefinition(ExceptionType.WARNING, ProblemType.DATA_NOT_DESCRIBED,
                   "Data not described at the end of the file: " + (filesize - minimumExpectedOffset) + " bytes"),

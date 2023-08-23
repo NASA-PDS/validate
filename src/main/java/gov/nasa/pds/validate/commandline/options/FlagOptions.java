@@ -49,6 +49,7 @@ public class FlagOptions {
     options.addOption(new ToolsOption(Flag.BASE_PATH));
     options.addOption(new ToolsOption(Flag.CATALOG));
     options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));
+    options.addOption(new ToolsOption(Flag.COMPLETE_DESCRIPTIONS));
     options.addOption(new ToolsOption(Flag.CONFIG));
     options.addOption(new ToolsOption(Flag.MAX_ERRORS));
     options.addOption(new ToolsOption(Flag.EXTENSION));

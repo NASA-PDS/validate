@@ -122,6 +122,12 @@ public class RuleContext extends ContextBase {
    * The key used to indicate how many lines or records to skip during content validation.
    */
   public static final String EVERY_N_KEY = "validate.every-n";
+  
+  /**
+   * The key used to indicate enable/disable of every bit account for in file area
+   */
+  public static final String COMPLETE_DESCRIPTIONS = "validate.complete-descriptions";
+
   /**
    * Property to specify directory for PDF error directory.
    */
@@ -404,14 +410,18 @@ public class RuleContext extends ContextBase {
   public int getEveryN() {
 	return getContextValue(EVERY_N_KEY, Integer.class) == null ? 1 : getContextValue(EVERY_N_KEY, Integer.class);
   }
-
   public void setEveryN(int value) {
 	putContextValue(EVERY_N_KEY, value);
+  }
+  public boolean getCompleteDescriptions() {
+    return getContextValue(COMPLETE_DESCRIPTIONS, Boolean.class) == null ? false : getContextValue(COMPLETE_DESCRIPTIONS, boolean.class);
+  }
+  public void setCompleteDescriptions(boolean b) {
+    putContextValue(COMPLETE_DESCRIPTIONS, b);
   }
   public String getPDFErrorDir() {
     return getContextValue(PDF_ERROR_DIR, String.class) == null ? "" : getContextValue(PDF_ERROR_DIR, String.class);
   }
-
   public void setPDFErrorDir(String dir) {
     putContextValue(PDF_ERROR_DIR, dir);
   }
