@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-23)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-24)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -16,6 +16,7 @@
 - As a user, I want to validate MP4/H.264/AAC encoded video with audio as observational data [\#605](https://github.com/NASA-PDS/validate/issues/605)
 - As a user, I want to validate MP4/H.264 encoded video as observational data [\#604](https://github.com/NASA-PDS/validate/issues/604)
 - As a user, I want to be able to use both online and local schema/schematron files. [\#599](https://github.com/NASA-PDS/validate/issues/599)
+- As a user, I want to receive a warning if records in file are greater than records value specified in label [\#535](https://github.com/NASA-PDS/validate/issues/535)
 - As a user, I want to check that are no duplicate LIDs/LIDVIDs in a File\_Area\_Inventory [\#476](https://github.com/NASA-PDS/validate/issues/476)
 - As a user I want to see the name of a table/array in errors, if one is specified [\#343](https://github.com/NASA-PDS/validate/issues/343)
 - As a user, I want to validate content for all possible PDS4 table types [\#217](https://github.com/NASA-PDS/validate/issues/217)
