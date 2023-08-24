@@ -207,6 +207,9 @@ public class ValidateLauncher {
   /** The validation rule name to use. */
   private String validationRule;
 
+  /** flag to enable/disable (true/false) that every bit is account for within a file area */
+  private boolean completeDescriptions;
+  
   /** Flag to enable/disable data content validation. */
   private boolean contentValidationFlag;
 
@@ -274,6 +277,7 @@ public class ValidateLauncher {
     contextReferenceCheck = true;
     skipProductValidation = false;
     maxErrors = MAX_ERRORS;
+    completeDescriptions = false;
     everyN = 1;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
@@ -333,6 +337,7 @@ public class ValidateLauncher {
       throw new InvalidOptionException(
         "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
     }
+    setCompleteDescriptions(line.hasOption("complete-descriptions"));
     setPDFErrorDir(line.getOptionValue("pdf-error-dir", ""));
     File dir = new File(pdfErrorDir);
     if (!this.pdfErrorDir.isEmpty() && !dir.isDirectory()) {
@@ -767,6 +772,9 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.EVERY_N)) {
           setEveryN(config.getInt(ConfigKey.EVERY_N));
       }
+      if (config.containsKey(ConfigKey.COMPLETE_DESCRIPTIONS)) {
+        setCompleteDescriptions(true);
+      }
       if (config.containsKey(ConfigKey.PDF_ERROR_DIR)) {
         setPDFErrorDir(config.getString(ConfigKey.PDF_ERROR_DIR));
       }
@@ -1083,6 +1091,10 @@ public class ValidateLauncher {
     this.everyN = value;
   }
 
+  public void setCompleteDescriptions (boolean b) {
+    this.completeDescriptions = b;
+  }
+
   public void setPDFErrorDir(String dir) {
     this.pdfErrorDir = dir;
   }
@@ -1321,6 +1333,9 @@ public class ValidateLauncher {
     if (everyN != 1) {
       report.addParameter("   Data Every N                  " + everyN);
     }
+    if (this.completeDescriptions) {
+      report.addParameter("   Complete Descriptions         true");
+    }
     if (!pdfErrorDir.isEmpty()) {
       report.addParameter("   PDF Error Directory           " + pdfErrorDir);
     }
@@ -1401,6 +1416,7 @@ public class ValidateLauncher {
         validator.setCheckData(contentValidationFlag);
         validator.setSpotCheckData(spotCheckData);
         validator.setEveryN(everyN);
+        validator.setCompleteDescriptions(this.completeDescriptions);
         validator.setPDFErrorDir(pdfErrorDir);
         validator.setAllowUnlabeledFiles(allowUnlabeledFiles);
         validator.setValidateContext(validateContext);

@@ -74,6 +74,10 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#561
 |"NASA-PDS/validate#597 Success Filenanme Does Not Contain Bundle/Collection" | "github561" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github561_1.json -s json -R pds4.collection --label-extension lblx --skip-context-validation -t {resourceDir}/github561" | "report_github561_1.json" |
 
+# Validate#535
+|"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 warnings expected" | "DATA_NOT_DESCRIBED" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_1.json -s json -t {resourceDir}/github535/uvis_euv_2008_003_solar_time_series_ingress.xml --complete-descriptions" | "report_github535_1.json" |
+|"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_2.json -s json -t {resourceDir}/github535/uvis_euv_2016_288_solar_time_series_egress.xml --complete-descriptions" | "report_github535_2.json" |
+
 # Validate#531
 |"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
 |"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |

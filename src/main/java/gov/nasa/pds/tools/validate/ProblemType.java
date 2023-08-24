@@ -176,6 +176,8 @@ public enum ProblemType {
 
   BAD_SCHEMATYPENS("warning.label.bad_schematypens"),
 
+  DATA_NOT_DESCRIBED("warning.data.not_described"),
+  
   MISSING_SCHEMATYPENS("warning.label.missing_schematypens"),
 
   SCHEMATRON_WARNING("warning.label.schematron"),
