@@ -332,9 +332,15 @@ public class ArrayContentValidator {
     if (number instanceof Integer) number = BigInteger.valueOf(number.intValue());
     if (number instanceof Long) number = BigInteger.valueOf(number.longValue());
     if (number instanceof Short) number = BigInteger.valueOf(number.shortValue());
-    BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
-    BigInteger value = (BigInteger)number;
-    return constant.xor (value).longValue() == 0L;
+    boolean repr_decimal = constant_repr.contains (".") || constant_repr.contains("E") || constant_repr.contains("e");
+    if (repr_decimal) {
+      BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr);
+      return constant.equals (number);
+    } else {
+      BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
+      BigInteger value = (BigInteger)number;
+      return constant.xor (value).longValue() == 0L;
+    }
   }
   /**
    * Checks if the given value is a Special Constant defined in the label.
