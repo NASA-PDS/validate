@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-08-24)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-09-12)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
 
@@ -31,6 +31,7 @@
 
 **Defects:**
 
+- Validate does not accurately check for missing\_constant values [\#690](https://github.com/NASA-PDS/validate/issues/690)
 - Validation failures are contingent on presence of `<file_size>` attribute in `<File>` class [\#684](https://github.com/NASA-PDS/validate/issues/684) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate throws internal error when coming across non-label XML in a target directory [\#679](https://github.com/NASA-PDS/validate/issues/679) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not handle special constants with data type of SignedLSB2 [\#674](https://github.com/NASA-PDS/validate/issues/674) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
