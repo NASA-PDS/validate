@@ -193,11 +193,16 @@ POSSIBILITY OF SUCH DAMAGE.
         <version>2.3.4</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.verapdf</groupId>
-      <artifactId>pdfbox-validation-model</artifactId>
-      <version>1.24.1</version>
-    </dependency>
+<dependency>
+  <groupId>org.verapdf</groupId>
+  <artifactId>validation-model</artifactId>
+  <version>1.24.1</version>
+</dependency>
+<dependency>
+  <groupId>org.verapdf</groupId>
+  <artifactId>validation-model-jakarta</artifactId>
+  <version>1.24.1</version>
+</dependency>
 
     <dependency>
       <groupId>net.sf.saxon</groupId>
@@ -264,16 +269,16 @@ POSSIBILITY OF SUCH DAMAGE.
               
          Better ideas for how to do this welcome!
      -->
-<!--    <dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-simple</artifactId>
       <version>1.7.28</version>
-    </dependency>-->
-     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-nop</artifactId>
-      <version>1.7.28</version>
     </dependency>
+<!--     <dependency>-->
+<!--      <groupId>org.slf4j</groupId>-->
+<!--      <artifactId>slf4j-nop</artifactId>-->
+<!--      <version>1.7.28</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>com.jamesmurty.utils</groupId>
       <artifactId>java-xmlbuilder</artifactId>

@@ -10,10 +10,10 @@ import java.net.URL;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.verapdf.gf.foundry.VeraGreenfieldFoundryProvider;
 import org.verapdf.pdfa.Foundries;
 import org.verapdf.pdfa.PDFAParser;
 import org.verapdf.pdfa.PDFAValidator;
-import org.verapdf.pdfa.PdfBoxFoundryProvider;
 import org.verapdf.pdfa.flavours.PDFAFlavour;
 import org.verapdf.pdfa.results.TestAssertion;
 import org.verapdf.pdfa.results.ValidationResult;
@@ -30,7 +30,7 @@ public class PDFUtil {
 
   public PDFUtil(URL target) {
     this.target = target;
-    PdfBoxFoundryProvider.initialise(); // Should only do this once.
+    VeraGreenfieldFoundryProvider.initialise(); // Should only do this once.
   }
 
   /**
