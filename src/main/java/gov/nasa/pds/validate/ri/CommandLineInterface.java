@@ -8,9 +8,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.config.Configuration;
+import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.xml.sax.SAXException;
 
 public class CommandLineInterface {
@@ -48,14 +51,23 @@ public class CommandLineInterface {
       throws IOException, ParseException, ParserConfigurationException, SAXException {
     int cylinders = 1;
     CountingAppender counter = new CountingAppender();
-    Logger.getRootLogger().addAppender(counter);
+
+    LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+    Configuration config = ctx.getConfiguration();
+    Logger logger = LogManager.getRootLogger();
+    LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
+
+    loggerConfig.addAppender(counter, null, null);
+    ctx.updateLoggers();
+
     CommandLine cl = new DefaultParser().parse(this.opts, args);
     if (cl.hasOption('h')) {
       this.help();
       return 0;
     }
     if (cl.hasOption("verbose"))
-      Logger.getRootLogger().setLevel(Level.INFO);
+      loggerConfig.setLevel(Level.INFO);
+    ctx.updateLoggers();
     if (!cl.hasOption("a"))
       throw new ParseException(
           "Not yet implemented. Must provide OpenSearch Registry authorization information.");
@@ -99,7 +111,8 @@ public class CommandLineInterface {
       this.log.info("   " + this.total + " products processed");
       this.log.info("   " + this.broken + " missing references");
       this.log.info("   " + counter.getNumberOfFatals() + " fatals");
-      this.log.info("   " + (counter.getNumberOfErrors() - broken) + " errors not including missing references");
+      this.log.info("   " + (counter.getNumberOfErrors() - broken)
+          + " errors not including missing references");
       this.log.info("   " + counter.getNumberOfWarnings() + " warnings");
     }
     return this.broken == 0 ? 0 : 1;
