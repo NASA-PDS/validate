@@ -101,6 +101,15 @@
           },
           {
                "name": [
+                    "(60621) 2000 FE8"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.60621_2000_fe8::1.0"
+          },
+          {
+               "name": [
                     "(469750) 2005 PU21"
                ],
                "type": [
@@ -6185,12 +6194,12 @@
           },
           {
                "name": [
-                    "COSMIC DUST ANALYZER"
+                    "RADAR FOR EUROPA ASSESSMENT AND SOUNDING: OCEAN TO NEAR-SURFACE (REASON)"
                ],
                "type": [
-                    "DUST"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:cda.co::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.rea::1.0"
           },
           {
                "name": [
@@ -6830,6 +6839,15 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.161p_hartley-iras::1.0"
+          },
+          {
+               "name": [
+                    "MASCOT"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.1"
           },
           {
                "name": [
@@ -8722,15 +8740,6 @@
                     "ATMOSPHERIC SCIENCES"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:windsock.mpfl::1.0"
-          },
-          {
-               "name": [
-                    "MASCOT"
-               ],
-               "type": [
-                    "Lander"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.0"
           },
           {
                "name": [
@@ -19492,15 +19501,6 @@
           },
           {
                "name": [
-                    "(60621) 2000 FE8"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.60621_2000_fe8::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -22988,6 +22988,15 @@
           },
           {
                "name": [
+                    "MASCOT LANDER BUS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mbus::1.0"
+          },
+          {
+               "name": [
                     "TRIAXIAL FLUXGATE MAGNETOMETER"
                ],
                "type": [
@@ -23429,12 +23438,12 @@
           },
           {
                "name": [
-                    "RADAR FOR EUROPA ASSESSMENT AND SOUNDING: OCEAN TO NEAR-SURFACE (REASON)"
+                    "COSMIC DUST ANALYZER"
                ],
                "type": [
-                    "N/A"
+                    "DUST"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.rea::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:cda.co::1.0"
           },
           {
                "name": [
