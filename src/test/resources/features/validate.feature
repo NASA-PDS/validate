@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName     | testDir | messageCount | messageText | problemEnum | resourceDir | reportDir | commandArgs | refOutputValue | 
 
+# Validate#693
+|"NASA-PDS/validate#693 Invalid PDF/A Checks" | "github693" | 4 | "4 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github693.json -s json -t {resourceDir}/github693/" | "report_github693.json" |
+
 # Validate#690
 |"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
 
