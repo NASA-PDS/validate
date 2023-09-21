@@ -69,10 +69,6 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.Priority;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -209,7 +205,7 @@ public class ValidateLauncher {
 
   /** flag to enable/disable (true/false) that every bit is account for within a file area */
   private boolean completeDescriptions;
-  
+
   /** Flag to enable/disable data content validation. */
   private boolean contentValidationFlag;
 
@@ -331,11 +327,11 @@ public class ValidateLauncher {
     try {
       setEveryN(Integer.valueOf(line.getOptionValue("everyN", "1")).intValue());
       if (this.everyN < 1)
-        throw new InvalidOptionException(
-          "Value must be greater than or equal to 1 not '" + line.getOptionValue("everyN", "1") + "'");
+        throw new InvalidOptionException("Value must be greater than or equal to 1 not '"
+            + line.getOptionValue("everyN", "1") + "'");
     } catch (IllegalArgumentException a) {
       throw new InvalidOptionException(
-        "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
+          "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
     }
     setCompleteDescriptions(line.hasOption("complete-descriptions"));
     setPDFErrorDir(line.getOptionValue("pdf-error-dir", ""));
@@ -770,7 +766,7 @@ public class ValidateLauncher {
         setMaxErrors(config.getLong(ConfigKey.MAX_ERRORS));
       }
       if (config.containsKey(ConfigKey.EVERY_N)) {
-          setEveryN(config.getInt(ConfigKey.EVERY_N));
+        setEveryN(config.getInt(ConfigKey.EVERY_N));
       }
       if (config.containsKey(ConfigKey.COMPLETE_DESCRIPTIONS)) {
         setCompleteDescriptions(true);
@@ -1091,7 +1087,7 @@ public class ValidateLauncher {
     this.everyN = value;
   }
 
-  public void setCompleteDescriptions (boolean b) {
+  public void setCompleteDescriptions(boolean b) {
     this.completeDescriptions = b;
   }
 
@@ -1100,8 +1096,8 @@ public class ValidateLauncher {
   }
 
   public void setSpotCheckData(int value) {
-	    this.spotCheckData = value;
-	  }
+    this.spotCheckData = value;
+  }
 
   public void setAllowUnlabeledFiles(boolean flag) {
     this.allowUnlabeledFiles = flag;
@@ -1786,10 +1782,6 @@ public class ValidateLauncher {
       System.out.println("\nType 'validate -h' for usage");
       System.exit(0);
     }
-
-    ConsoleAppender ca = new ConsoleAppender(new PatternLayout("%-5p %m%n"));
-    ca.setThreshold(Priority.FATAL);
-    BasicConfigurator.configure(ca);
 
     int exitCode = 0;
     try {

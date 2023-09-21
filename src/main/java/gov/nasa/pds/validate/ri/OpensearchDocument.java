@@ -21,8 +21,8 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.http.ssl.SSLContexts;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.opensearch.action.search.SearchRequest;
 import org.opensearch.action.search.SearchResponse;
 import org.opensearch.client.RequestOptions;
@@ -152,8 +152,10 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
         return client.search(request, RequestOptions.DEFAULT);
       } catch (ConnectException ce) {
         iteration++;
-        if (iteration < 5) this.log.warn("Could not connect but trying again: " + iteration);
-        else throw ce;
+        if (iteration < 5)
+          this.log.warn("Could not connect but trying again: " + iteration);
+        else
+          throw ce;
       }
     }
   }
