@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"cucumber"},{"l":"gov.nasa.pds.validate"},{"l":"gov.nasa.pds.validate.constants"},{"l":"gov.nasa.pds.validate.ri"},{"l":"gov.nasa.pds.validate.test.util"}]
