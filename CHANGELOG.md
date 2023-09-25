@@ -1,8 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-09-21)
+## [3.3.0](https://github.com/NASA-PDS/validate/tree/3.3.0) (2023-09-25)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.3.0...3.3.0)
+
+**Defects:**
+
+- Upgrade verapdf dependency per transitive log4j vulnerability [\#693](https://github.com/NASA-PDS/validate/issues/693) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+
+## [release/3.3.0](https://github.com/NASA-PDS/validate/tree/release/3.3.0) (2023-09-17)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...release/3.3.0)
 
 **Requirements:**
 
@@ -31,7 +39,6 @@
 
 **Defects:**
 
-- Upgrade verapdf dependency per transitive log4j vulnerability [\#693](https://github.com/NASA-PDS/validate/issues/693) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Validate does not accurately check for missing\_constant values [\#690](https://github.com/NASA-PDS/validate/issues/690)
 - Validation failures are contingent on presence of `<file_size>` attribute in `<File>` class [\#684](https://github.com/NASA-PDS/validate/issues/684) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate throws internal error when coming across non-label XML in a target directory [\#679](https://github.com/NASA-PDS/validate/issues/679) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
