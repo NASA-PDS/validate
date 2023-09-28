@@ -109,21 +109,23 @@ public class ContextProductReference {
   @Override
   public boolean equals(Object o) {
     boolean isEqual = false;
-    ContextProductReference lidvid = (ContextProductReference) o;
+    if (o instanceof ContextProductReference) {
+      ContextProductReference lidvid = (ContextProductReference) o;
 
-    // if(lidvid.getName().equals("N/A"))
-    // System.out.println("obj 1: " + lidvid.getLid() + ", " +
-    // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
-    // lidvid.getType());
+      // if(lidvid.getName().equals("N/A"))
+      // System.out.println("obj 1: " + lidvid.getLid() + ", " +
+      // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
+      // lidvid.getType());
 
-    // Compare Lid and/or version only
-    if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
-      if (this.hasVersion) {
-        if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+      // Compare Lid and/or version only
+      if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
+        if (this.hasVersion) {
+          if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+            isEqual = true;
+          }
+        } else {
           isEqual = true;
         }
-      } else {
-        isEqual = true;
       }
     }
     return isEqual;
