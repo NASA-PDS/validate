@@ -668,7 +668,6 @@ public class ValidateLauncher {
    *
    * @throws ConfigurationException If an error occurred while querying the configuration file.
    */
-  @SuppressWarnings("unchecked")
   public void query(File configuration) throws ConfigurationException {
     try {
       Configuration config = null;
@@ -832,9 +831,6 @@ public class ValidateLauncher {
     // must be further split using comma inside the for loop below.
     LOG.debug("setAdditionalPaths:additionalPaths {},{}", additionalPaths, additionalPaths.size());
     this.alternateReferentialPaths.clear();
-    while (alternateReferentialPaths.remove("")) {
-
-    }
     for (String pathEntries : additionalPaths) {
       LOG.debug("setAdditionalPaths:pathEntries {}", pathEntries);
       // The value of pathEntries are comma separated values.
@@ -1774,7 +1770,6 @@ public class ValidateLauncher {
    * @param args A list of command-line arguments.
    * @throws TransformerConfigurationException
    */
-  @SuppressWarnings("deprecation")
   public static void main(String[] args) throws TransformerConfigurationException {
     long t0 = System.currentTimeMillis();
     System.setProperty("https.protocols", "TLSv1.2");
