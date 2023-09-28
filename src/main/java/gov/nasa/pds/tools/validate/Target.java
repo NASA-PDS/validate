@@ -54,6 +54,7 @@ public class Target {
 
   @Override
   public boolean equals(Object obj) {
+    if (!(obj instanceof Target)) return false;
     Target otherTarget = (Target) obj;
     if ((this.url.equals(otherTarget.getUrl())) && (this.isDir == otherTarget.isDir())) {
       return true;
