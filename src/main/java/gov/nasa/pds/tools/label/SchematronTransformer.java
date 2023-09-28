@@ -69,7 +69,7 @@ public class SchematronTransformer {
         LabelValidator.class.getResourceAsStream("/schematron/iso_svrl_for_xslt2.xsl"));
     isoTransformer = isoFactory.newTransformer(isoSchematron);
     transformerFactory = TransformerFactory.newInstance();
-    cachedTransformers = new HashMap<>();
+    cachedTransformers = new HashMap<String, Transformer>();
   }
 
   /**
