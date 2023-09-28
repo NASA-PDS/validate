@@ -35,7 +35,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<String, ValidationTarget> targets = new HashMap<>();
   private Map<String, ValidationTarget> collections = new HashMap<>();
   private Map<String, ValidationTarget> bundles = new HashMap<>();
-  private Map<String, String> references = new HashMap<>();
   private Set<String> referencedTargetLocations = new HashSet<>();
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
@@ -133,7 +132,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addTargetReference(String referenceLocation, String targetLocation) {
-    references.put(referenceLocation, targetLocation);
     referencedTargetLocations.add(targetLocation);
   }
 
