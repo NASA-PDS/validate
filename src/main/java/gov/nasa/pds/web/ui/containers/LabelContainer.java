@@ -165,19 +165,6 @@ public class LabelContainer {
     }
   }
 
-  public static boolean statementsContain(final String identifier, List<FileReference> statements) {
-    return findPointer(identifier, statements) != null;
-  }
-
-  public static FileReference findPointer(final String identifier, List<FileReference> statements) {
-    for (final FileReference statement : statements) {
-      if (statement.getIdentifier().equals(identifier)) {
-        return statement;
-      }
-    }
-    return null;
-  }
-
   public PointerStatement findPointer(final String identifier) {
     for (final PointerStatement pointer : this.pointers) {
       if (pointer.getIdentifier().toString().equals(identifier)) {
