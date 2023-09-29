@@ -130,4 +130,9 @@ public class ContextProductReference {
     }
     return isEqual;
   }
+  @Override
+  public int hashCode() {
+    String hcid = this.lid + (this.hasVersion ? "::" + this.version : "");
+    return hcid.hashCode();
+  }
 }
