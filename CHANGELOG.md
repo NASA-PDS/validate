@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-09-29)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...«unknown»)
+
+**Defects:**
+
+- Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v3.3.0](https://github.com/NASA-PDS/validate/tree/v3.3.0) (2023-09-25)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.2.0...v3.3.0)
