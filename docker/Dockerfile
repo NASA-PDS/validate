@@ -28,7 +28,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-FROM openjdk:15-slim
+FROM openjdk:18-slim
 
 # Set following argument with the required validate tool version
 ARG validate_version=3.0.3
