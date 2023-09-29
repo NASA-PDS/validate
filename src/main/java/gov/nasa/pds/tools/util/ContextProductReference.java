@@ -1,4 +1,4 @@
-// Copyright 2006-2018, by the California Institute of Technology.
+// Copyright 2006-2023, by the California Institute of Technology.
 // ALL RIGHTS RESERVED. United States Government Sponsorship acknowledged.
 // Any commercial use must be negotiated with the Office of Technology Transfer
 // at the California Institute of Technology.
@@ -10,7 +10,6 @@
 // may be required before exporting such information to foreign countries or
 // providing access to foreign nationals.
 //
-// $Id: LidVid.java 10921 2012-09-10 22:11:40Z mcayanan $
 package gov.nasa.pds.tools.util;
 
 import java.util.List;
@@ -53,8 +52,6 @@ public class ContextProductReference {
     } else {
       hasVersion = true;
     }
-    // System.out.println(getLid() + ", " + getVersion() + ", " + getName()
-    // + ", " + getType());
   }
 
   public String getLid() {
@@ -109,23 +106,25 @@ public class ContextProductReference {
   @Override
   public boolean equals(Object o) {
     boolean isEqual = false;
-    ContextProductReference lidvid = (ContextProductReference) o;
+    if (o instanceof ContextProductReference) {
+      ContextProductReference lidvid = (ContextProductReference) o;
 
-    // if(lidvid.getName().equals("N/A"))
-    // System.out.println("obj 1: " + lidvid.getLid() + ", " +
-    // lidvid.getVersion() + ", " + lidvid.getName() + ", " +
-    // lidvid.getType());
-
-    // Compare Lid and/or version only
-    if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
-      if (this.hasVersion) {
-        if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+      // Compare Lid and/or version only
+      if (this.lid.equalsIgnoreCase(lidvid.getLid())) {
+        if (this.hasVersion) {
+          if (lidvid.hasVersion() && this.version.equals(lidvid.getVersion())) {
+            isEqual = true;
+          }
+        } else {
           isEqual = true;
         }
-      } else {
-        isEqual = true;
       }
     }
     return isEqual;
+  }
+  @Override
+  public int hashCode() {
+    String hcid = this.lid + (this.hasVersion ? "::" + this.version : "");
+    return hcid.hashCode();
   }
 }

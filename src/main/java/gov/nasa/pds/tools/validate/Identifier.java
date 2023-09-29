@@ -72,14 +72,16 @@ public class Identifier {
   @Override
   public boolean equals(Object o) {
     boolean isEqual = false;
-    Identifier identifier = (Identifier) o;
-    if (this.lid.equals(identifier.getLid())) {
-      if (this.hasVersion) {
-        if (identifier.hasVersion() && this.version.equals(identifier.getVersion())) {
+    if (o instanceof Identifier) {
+      Identifier identifier = (Identifier) o;
+      if (this.lid.equals(identifier.getLid())) {
+        if (this.hasVersion) {
+          if (identifier.hasVersion() && this.version.equals(identifier.getVersion())) {
+            isEqual = true;
+          }
+        } else {
           isEqual = true;
         }
-      } else {
-        isEqual = true;
       }
     }
     return isEqual;

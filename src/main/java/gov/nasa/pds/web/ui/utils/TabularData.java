@@ -74,12 +74,13 @@ public class TabularData {
         final BufferedReader br = new BufferedReader(new InputStreamReader(fileUrl.openStream()));
         String currLine = null;
         int lineNumber = 1;
-
+        long llineNumber = 1;
         br.skip(startByte);
 
-        while ((currLine = br.readLine()) != null && (readRows == null || readRows >= lineNumber)) {
+        while ((currLine = br.readLine()) != null && (readRows == null || readRows >= llineNumber)) {
           final Row row = new Row(currLine, this.columns, lineNumber, this);
           lineNumber++;
+          llineNumber++;
           this.rows.add(row);
         }
 
@@ -123,13 +124,14 @@ public class TabularData {
         final BufferedReader br = new BufferedReader(new InputStreamReader(fileUrl.openStream()));
         String currLine = null;
         int lineNumber = 1;
+        long llineNumber = 1;
         br.skip(startByte);
 
-        while ((currLine = br.readLine()) != null && (readRows == null || readRows >= lineNumber)) {
+        while ((currLine = br.readLine()) != null && (readRows == null || readRows >= llineNumber)) {
           final Row row =
               new Row(lineNumber, currLine, this.columns, this, fieldDelimiter, fieldsCount);
-
           lineNumber++;
+          llineNumber++;
           this.rows.add(row);
         }
 
