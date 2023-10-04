@@ -841,7 +841,7 @@ public class FieldValueValidator {
           }
           if (length != precision) {
             isValid = false;
-            if (value.stripTrailing().length() == value.length()) {
+            if (value.trim().length() == value.length()) {
               addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                   "The number of digits to the right of the decimal point " + "in the value '"
                       + value.trim() + "' does not equal the "
