@@ -84,7 +84,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.trans.XPathException;
 
 /**
@@ -252,7 +252,7 @@ public class LabelValidator {
     resolver.setPreferPublic(true);
     resolver.setCatalogList(catalogFiles);
     useLabelSchematron = true;
-    LOG.debug("setCatalogs:catalogFiles {}", catalogFiles);
+    LOG.debug("setCatalogs:catalogFiles {}", (Object[])catalogFiles);
     LOG.debug("setCatalogs:useLabelSchematron explitly set to true");
   }
 
@@ -658,9 +658,9 @@ public class LabelValidator {
 
         SAXSource saxSource = new SAXSource(Utility.getInputSourceByURL(url));
         saxSource.setSystemId(url.toString());
-        DocumentInfo docInfo = LabelParser.parse(saxSource);
+        TreeInfo docInfo = LabelParser.parse(saxSource);
         for (DocumentValidator dv : documentValidators) {
-          dv.validate(handler, docInfo);
+          dv.validate(handler, docInfo.getRootNode());
         }
       }
     }
