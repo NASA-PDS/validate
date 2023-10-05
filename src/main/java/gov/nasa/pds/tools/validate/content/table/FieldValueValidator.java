@@ -361,10 +361,10 @@ public class FieldValueValidator {
             // Due to CCB-214, the tool should validate against the
             // validation_format field for Character Tables.
             if (record instanceof FixedTableRecord && !fields[i].getValidationFormat().isEmpty()) {
-              checkFormat(value, fields[i].getValidationFormat(), i + 1, record.getLocation());
+              checkFormat(value, fields[i].getValidationFormat(), i + 1, record.getLocation(), false);
             }
             if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
-              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation());
+              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation(), true);
             }
           }
           // Check that the field value is within the defined min/max values
@@ -765,7 +765,7 @@ public class FieldValueValidator {
    * @param recordLocation The record location where the field is located.
    */
   private void checkFormat(String value, String format, int fieldIndex,
-      RecordLocation recordLocation) {
+      RecordLocation recordLocation, boolean isDelimTab) {
     Matcher matcher = formatPattern.matcher(format);
     int precision = -1;
     boolean isValid = true;
@@ -824,6 +824,13 @@ public class FieldValueValidator {
                 + "defined field format specifier '" + specifier + "': " + e.getMessage(),
             recordLocation, fieldIndex);
       }
+      if (isDelimTab && value.trim().length() != value.length()) {
+        addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+            "Trailing spaces cannot be used at the end of floating point numbers in a delimited table '"
+                + value + "'.",
+                recordLocation, fieldIndex);
+        isValid = false;
+      }
       if (value.trim().length() > width) {
         addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_TOO_LONG,
             "The length of the value '" + value.trim() + "' exceeds the max "
@@ -841,19 +848,12 @@ public class FieldValueValidator {
           }
           if (length != precision) {
             isValid = false;
-            if (value.trim().length() == value.length()) {
-              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
-                  "The number of digits to the right of the decimal point " + "in the value '"
-                      + value.trim() + "' does not equal the "
-                      + "precision set in the defined field format " + "(expected " + precision
-                      + ", got " + length + ").",
-                      recordLocation, fieldIndex);
-            } else {
-              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                  "Trailing spaces cannot be used at the end of floating point numbers in a delimited table '"
-                      + value + "'.",
-                      recordLocation, fieldIndex);
-            }
+            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
+                "The number of digits to the right of the decimal point " + "in the value '"
+                    + value.trim() + "' does not equal the "
+                    + "precision set in the defined field format " + "(expected " + precision
+                    + ", got " + length + ").",
+                    recordLocation, fieldIndex);
           }
         }
       }
