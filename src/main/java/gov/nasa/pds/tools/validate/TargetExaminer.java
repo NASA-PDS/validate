@@ -24,7 +24,7 @@ import org.xml.sax.InputSource;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 /**
@@ -127,11 +127,11 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
       LOG.debug("tagMatches:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
-        XMLExtractor extractor = new XMLExtractor(docInfo);
+        XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
         xmlModels = extractor.getNodesFromDoc(tagCheck);
         LOG.debug("tagMatches:url,tagCheck,xmlModels.size() {},{},{}", url, tagCheck,
             xmlModels.size());
@@ -181,11 +181,11 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
       LOG.debug("getTargetContent:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
-        XMLExtractor extractor = new XMLExtractor(docInfo);
+        XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
         xmlModels = extractor.getNodesFromDoc(nodeCheck);
         LOG.debug("getTargetContent:url,nodeCheck,xmlModels.size() {},{},{}", url, nodeCheck,
             xmlModels.size());
@@ -226,10 +226,10 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
       @SuppressWarnings("unused")
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
-      XMLExtractor extractor = new XMLExtractor(docInfo);
+      XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
       xmlModels = extractor.getNodesFromDoc("logical_identifier");
       return true;
     } catch (Throwable t) {

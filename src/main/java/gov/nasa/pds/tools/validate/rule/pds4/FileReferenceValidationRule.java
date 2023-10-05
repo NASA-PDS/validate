@@ -52,7 +52,8 @@ import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.content.AudioVideo;
 import gov.nasa.pds.tools.validate.rule.AbstractValidationRule;
 import gov.nasa.pds.tools.validate.rule.ValidationTest;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.NodeInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 /**
@@ -111,9 +112,9 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     DOMSource source = new DOMSource(label);
     source.setSystemId(uri.toString());
     try {
-      DocumentInfo xml = LabelParser.parse(source);
+      TreeInfo xml = LabelParser.parse(source);
       LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}", uri);
-      validate(xml);
+      validate(xml.getRootNode());
     } catch (TransformerException te) {
       ProblemDefinition pd =
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, te.getMessage());
@@ -153,7 +154,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     }
   }
 
-  private boolean validate(DocumentInfo xml) {
+  private boolean validate(NodeInfo xml) {
     this.target = new ValidationTarget(getTarget());
 
     try {
