@@ -1,12 +1,17 @@
 # Changelog
 
-## [v3.4.0-SNAPSHOT](https://github.com/NASA-PDS/validate/tree/v3.4.0-SNAPSHOT) (2023-10-03)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-10-05)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...v3.4.0-SNAPSHOT)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...«unknown»)
+
+**Improvements:**
+
+- Update inefficient regexes to potentially improve performance [\#708](https://github.com/NASA-PDS/validate/issues/708)
 
 **Defects:**
 
 - Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate crashes on invalid \# of records, and spurious file left behind [\#475](https://github.com/NASA-PDS/validate/issues/475) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v3.3.0](https://github.com/NASA-PDS/validate/tree/v3.3.0) (2023-09-25)
 
