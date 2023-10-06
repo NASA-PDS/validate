@@ -123,6 +123,9 @@ public class TargetExaminer extends Target {
     LOG.debug("tagMatches:url,tagCheck {},{}", url, tagCheck);
     boolean tagMatchedFlag = false;
 
+    if (!url.getPath().endsWith(".xml")) {
+      tagMatchedFlag = false;
+    }
     try {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);

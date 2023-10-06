@@ -26,7 +26,6 @@ import org.xml.sax.SAXParseException;
  *
  */
 public class XMLErrorListener implements ErrorListener,ErrorHandler {
-
   /**
    * Method is called when an error is encountered.
    *
@@ -78,5 +77,4 @@ public class XMLErrorListener implements ErrorListener,ErrorHandler {
   public void fatalError(SAXParseException exception) throws SAXException {
     throw exception;
   }
-
 }

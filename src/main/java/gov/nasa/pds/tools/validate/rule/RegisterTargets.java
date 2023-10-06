@@ -14,7 +14,6 @@
 package gov.nasa.pds.tools.validate.rule;
 
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
@@ -49,9 +48,6 @@ public class RegisterTargets extends AbstractValidationRule {
       try {
         Crawler crawler = getContext().getCrawler();
         WildcardOSFilter fileFilter = getContext().getFileFilters();
-        if (!"PDS4 Directory".equalsIgnoreCase(getContext().getRule().getCaption())) {
-          fileFilter = new WildcardOSFilter(Arrays.asList(new String[] {"*"}));
-        }
         for (Target child : crawler.crawl(getTarget(), getContext().isRecursive(), fileFilter)) {
           try {
             String childLocation = child.getUrl().toURI().normalize().toString();

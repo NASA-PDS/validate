@@ -68,6 +68,9 @@ public class ValidationProblem {
   public ValidationProblem(ProblemDefinition defn, URL target) {
     this(defn, Utility.getValidationTarget(target));
   }
+  public ValidationProblem(ProblemDefinition defn, URL source, URL label) {
+    this(defn, Utility.getValidationTarget(source, label));
+  }
 
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target) {
     this(defn, target, -1, -1, null);
