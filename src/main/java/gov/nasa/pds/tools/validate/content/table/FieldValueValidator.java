@@ -841,19 +841,12 @@ public class FieldValueValidator {
           }
           if (length != precision) {
             isValid = false;
-            if (value.trim().length() == value.length()) {
-              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
-                  "The number of digits to the right of the decimal point " + "in the value '"
-                      + value.trim() + "' does not equal the "
-                      + "precision set in the defined field format " + "(expected " + precision
-                      + ", got " + length + ").",
-                      recordLocation, fieldIndex);
-            } else {
-              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                  "Trailing spaces cannot be used at the end of floating point numbers in a delimited table '"
-                      + value + "'.",
-                      recordLocation, fieldIndex);
-            }
+            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
+                "The number of digits to the right of the decimal point " + "in the value '"
+                    + value.trim() + "' does not equal the "
+                    + "precision set in the defined field format " + "(expected " + precision
+                    + ", got " + length + ").",
+                    recordLocation, fieldIndex);
           }
         }
       }
