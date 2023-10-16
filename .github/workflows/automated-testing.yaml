@@ -73,6 +73,7 @@
                 -
                     name: Test Software
                     run: |
+                        chmod +x $GITHUB_WORKSPACE/src/test/validate-3.4.0-SNAPSHOT/bin/validate
                         $GITHUB_WORKSPACE/src/test/validate-3.4.0-SNAPSHOT/bin/validate --version
     
     # -*- mode: yaml; indent: 4; fill-column: 120; coding: utf-8 -*-
