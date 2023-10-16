@@ -65,8 +65,8 @@
                     name: release-downloader
                     uses: robinraju/release-downloader@v1.8
                     with:
-                        latest: true
-                        fileName: 'validate-3.3.0-bin.zip'
+                        tag: v3.4.0-SNAPSHOT
+                        fileName: 'validate-3.4.0-SNAPSHOT-bin.zip'
                         out-file-path: 'src/test'
                         extract: true
                 
