@@ -15,7 +15,7 @@
     on:
         push:
             branches:
-                -   '**'
+                -   'automated-testing'
                 -   '!main'
         workflow_dispatch:
     
@@ -27,7 +27,7 @@
     
     jobs:
         automated-testing:
-            name: Automatee Testing
+            name: Automated Testing
             runs-on: ubuntu-latest
             if: github.actor != 'pdsen-ci'
     
@@ -62,9 +62,9 @@
                         distribution: 'adopt'
                         java-version: ${{matrix.java-version}}
                 -
-                    name: 🩺 Test Software
+                    name: Test Software
                     run: |
-                        # run automated tests here
+                        echo "testing 123"
     
     ...
     
