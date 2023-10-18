@@ -26,7 +26,6 @@ import javax.xml.xpath.XPathExpressionException;
 import org.xml.sax.InputSource;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
-import net.sf.saxon.om.NamespaceUri;
 import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
@@ -67,7 +66,7 @@ public class XMLExtractor {
     configuration.setLineNumbering(true);
     configuration.setXIncludeAware(Utility.supportXincludes());
     String definedNamespace = getValueFromDoc("namespace-uri(/*)");
-    xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of (definedNamespace));
+    xpath.getStaticContext().setDefaultElementNamespace(definedNamespace);
   }
 
   /**
@@ -84,11 +83,11 @@ public class XMLExtractor {
     configuration.setLineNumbering(true);
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
-    options.withErrorHandler(new XMLErrorListener());
+    options.setErrorListener(new XMLErrorListener());
     try {
-      xml = configuration.buildDocumentTree(new SAXSource(Utility.getInputSourceByURL(url)), options).getRootNode();
+      xml = configuration.buildDocument(new SAXSource(Utility.getInputSourceByURL(url)), options);
       String definedNamespace = getValueFromDoc("namespace-uri(/*)");
-      xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of (definedNamespace));
+      xpath.getStaticContext().setDefaultElementNamespace(definedNamespace);
     } catch (IOException io) {
       throw new XPathException("Error while reading input: " + io.getMessage());
     }
@@ -100,10 +99,10 @@ public class XMLExtractor {
     configuration.setLineNumbering(true);
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
-    options.withErrorHandler(new XMLErrorListener());
-    xml = configuration.buildDocumentTree(new SAXSource(source), options).getRootNode();
+    options.setErrorListener(new XMLErrorListener());
+    xml = configuration.buildDocument(new SAXSource(source), options);
     String definedNamespace = getValueFromDoc("namespace-uri(/*)");
-    xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of(definedNamespace));
+    xpath.getStaticContext().setDefaultElementNamespace(definedNamespace);
   }
 
   public XMLExtractor(File file)
