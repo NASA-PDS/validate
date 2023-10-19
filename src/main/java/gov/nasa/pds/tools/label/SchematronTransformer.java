@@ -22,6 +22,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -60,6 +61,7 @@ public class SchematronTransformer {
     // Use saxon for schematron (i.e. the XSLT generation).
     System.setProperty("javax.xml.transform.TransformerFactory",
         "net.sf.saxon.TransformerFactoryImpl");
+    DocumentBuilderFactory.newInstance().setNamespaceAware(true);
     TransformerFactory isoFactory = TransformerFactory.newInstance();
     // Set the resolver that will look in the jar for imports
     isoFactory.setURIResolver(new XslURIResolver());

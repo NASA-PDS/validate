@@ -17,7 +17,7 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.lib.ParseOptions;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.xpath.XPathEvaluator;
 
 public class LabelParser {
@@ -29,15 +29,15 @@ public class LabelParser {
    * @return a DocumentInfo object.
    * @throws TransformerException
    */
-  public static DocumentInfo parse(Source source) throws TransformerException {
+  public static TreeInfo parse(Source source) throws TransformerException {
     XPathEvaluator xpath = new XPathEvaluator();
     Configuration configuration = xpath.getConfiguration();
     configuration.setLineNumbering(true);
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
-    options.setErrorListener(new XMLErrorListener());
-    options.setLineNumbering(true);
-    options.setXIncludeAware(Utility.supportXincludes());
-    return configuration.buildDocument(source, options);
+    options.withErrorHandler(new XMLErrorListener());
+    options.withLineNumbering(true);
+    options.withXIncludeAware(Utility.supportXincludes());
+    return configuration.buildDocumentTree(source, options);
   }
 }

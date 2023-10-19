@@ -702,7 +702,7 @@ public class ReferentialIntegrityUtil {
     List<Target> children = new ArrayList<>();
     try {
       if (getContext().getCrawler() != null) {
-        children = getContext().getCrawler().crawl(parentURL, false); // Get also the directories.
+        children = getContext().getCrawler().crawl(parentURL, false, getContext().getFileFilters()); // Get also the directories.
       } else {
         LOG.warn("crawlParentForBundleLabel:getContext().getCrawler() is null for URL {}",
             crawlTarget);
@@ -771,7 +771,7 @@ public class ReferentialIntegrityUtil {
     try {
       List<Target> children = new ArrayList<>();
       if (getContext().getCrawler() != null) {
-        children = getContext().getCrawler().crawl(crawlTarget, true); // Get also the directories.
+        children = getContext().getCrawler().crawl(crawlTarget, true, getContext().getFileFilters()); // Get also the directories.
       } else {
         LOG.warn("additionalReferentialIntegrityChecks:getContext().getCrawler() is null");
       }

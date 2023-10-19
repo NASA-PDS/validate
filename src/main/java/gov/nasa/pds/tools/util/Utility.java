@@ -90,6 +90,19 @@ public class Utility {
     }
     return valTarget;
   }
+  public static ValidationTarget getValidationTarget(URL source, URL label) {
+    if (source == null) {
+      // for backwards-compatability with previous code, supporting the null case.
+      // This seems to be null in the additional context products case.
+      return new ValidationTarget(null);
+    }
+    ValidationTarget valTarget = cachedTargets.get(source.toString());
+    if (valTarget == null) {
+      valTarget = new ValidationTarget(source, label);
+      cachedTargets.put(source.toString(), valTarget);
+    }
+    return valTarget;
+  }
 
   /**
    * Method that opens a connection. Supports redirects.
@@ -290,6 +303,23 @@ public class Utility {
     }
     if (TargetExaminer.isTargetCollectionType (url, true)) {
       return TargetType.COLLECTION;
+    }
+    return TargetType.FILE;
+  }
+  public static TargetType getTargetType(URL source, URL label) {
+    int extIndex = source.getPath().lastIndexOf(".");
+    if (isDir(source)) {
+      return TargetType.DIRECTORY;
+    }
+    if (label != null 
+        && -1 < extIndex
+        && label.getPath().toLowerCase().endsWith(source.getPath().substring(extIndex).toLowerCase())) {
+      if (TargetExaminer.isTargetBundleType (source, true)) {
+        return TargetType.BUNDLE;
+      }
+      if (TargetExaminer.isTargetCollectionType (source, true)) {
+        return TargetType.COLLECTION;
+      }
     }
     return TargetType.FILE;
   }

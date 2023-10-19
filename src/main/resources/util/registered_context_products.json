@@ -101,69 +101,6 @@
           },
           {
                "name": [
-                    "49036 PELION"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.49036_pelion::1.0"
-          },
-          {
-               "name": [
-                    "(182933) 2002 GZ31"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.182933_2002_gz31::1.0"
-          },
-          {
-               "name": [
-                    "(243) IDA I (DACTYL)"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.0"
-          },
-          {
-               "name": [
-                    "20 MASSALIA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.20_massalia::1.1"
-          },
-          {
-               "name": [
-                    "65489 CETO"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.65489_ceto::1.1"
-          },
-          {
-               "name": [
-                    "SURFACE ELECTRIC SOUNDING AND ACOUSTIC MONITORING EXPERIMENT"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:rl.sesame::1.0"
-          },
-          {
-               "name": [
-                    "ALNILAM"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.eps_ori::1.0"
-          },
-          {
-               "name": [
                     "GALILEO ORBITER STAR SCANNER"
                ],
                "type": [
@@ -6239,39 +6176,57 @@
           },
           {
                "name": [
-                    "FRONT HAZARD AVOIDANCE CAMERA LEFT STRING A"
+                    "2006 HW122"
                ],
                "type": [
-                    "IMAGER"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:fhaz_left_a.msl::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
           },
           {
                "name": [
-                    "THERMO NICOLET NEXUS 870 FTIR WITH PIKE AUTODIFF DIFFUSE REFLECTANCE ACCESSORY"
+                    "D/1993 F2-G (SHOEMAKER-LEVY 9-G)"
                ],
                "type": [
-                    "SPECTROMETER"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-g_shoemaker-levy_9-g::1.0"
           },
           {
                "name": [
-                    "N/A"
+                    "MINI-RF LRO"
                ],
                "type": [
-                    "N/A"
+                    "RADIO-RADAR"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m0::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:mrflro.lro::1.0"
           },
           {
                "name": [
-                    "N/A"
+                    "106P/SCHUSTER"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
+          },
+          {
+               "name": [
+                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
+               ],
+               "type": [
+                    "PLASMA WAVE SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ids.ds1::1.0"
+          },
+          {
+               "name": [
+                    "PORTABLE METEROLOGICAL STATION (RALPH LORENZ DESIGN)"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.victorblanco_4m0::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:no-host.lorenz_met_station::1.0"
           },
           {
                "name": [
@@ -12959,24 +12914,6 @@
           },
           {
                "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
-          },
-          {
-               "name": [
                     "C/1979 S1 (MEIER)"
                ],
                "type": [
@@ -13037,6 +12974,24 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.132p_helin-roman-alu_2::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
           },
           {
                "name": [
@@ -19501,6 +19456,69 @@
           },
           {
                "name": [
+                    "49036 PELION"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.49036_pelion::1.0"
+          },
+          {
+               "name": [
+                    "(182933) 2002 GZ31"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.182933_2002_gz31::1.0"
+          },
+          {
+               "name": [
+                    "(243) IDA I (DACTYL)"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.0"
+          },
+          {
+               "name": [
+                    "20 MASSALIA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.20_massalia::1.1"
+          },
+          {
+               "name": [
+                    "65489 CETO"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.65489_ceto::1.1"
+          },
+          {
+               "name": [
+                    "SURFACE ELECTRIC SOUNDING AND ACOUSTIC MONITORING EXPERIMENT"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:rl.sesame::1.0"
+          },
+          {
+               "name": [
+                    "ALNILAM"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.eps_ori::1.0"
+          },
+          {
+               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -23114,57 +23132,39 @@
           },
           {
                "name": [
-                    "2006 HW122"
+                    "FRONT HAZARD AVOIDANCE CAMERA LEFT STRING A"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "IMAGER"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:fhaz_left_a.msl::1.0"
           },
           {
                "name": [
-                    "D/1993 F2-G (SHOEMAKER-LEVY 9-G)"
+                    "THERMO NICOLET NEXUS 870 FTIR WITH PIKE AUTODIFF DIFFUSE REFLECTANCE ACCESSORY"
                ],
                "type": [
-                    "COMET"
+                    "SPECTROMETER"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-g_shoemaker-levy_9-g::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
           },
           {
                "name": [
-                    "MINI-RF LRO"
-               ],
-               "type": [
-                    "RADIO-RADAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mrflro.lro::1.0"
-          },
-          {
-               "name": [
-                    "106P/SCHUSTER"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
-          },
-          {
-               "name": [
-                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
-               ],
-               "type": [
-                    "PLASMA WAVE SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ids.ds1::1.0"
-          },
-          {
-               "name": [
-                    "PORTABLE METEROLOGICAL STATION (RALPH LORENZ DESIGN)"
+                    "N/A"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:no-host.lorenz_met_station::1.0"
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m0::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.victorblanco_4m0::1.0"
           },
           {
                "name": [

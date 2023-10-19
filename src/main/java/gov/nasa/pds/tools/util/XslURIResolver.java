@@ -47,8 +47,9 @@ public class XslURIResolver implements URIResolver {
       ClassLoader cl = this.getClass().getClassLoader();
       InputStream in = cl.getResourceAsStream("schematron/" + href);
       InputSource xslInputSource = new InputSource(in);
-      Document xslDoc =
-          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(xslInputSource);
+      DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+      factory.setNamespaceAware(true);
+      Document xslDoc = factory.newDocumentBuilder().parse(xslInputSource);
       DOMSource xslDomSource = new DOMSource(xslDoc);
       xslDomSource.setSystemId("schematron/" + href);
       return xslDomSource;

@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://maven.apache.org/XDOC/2.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+
+<!--
+Copyright © 2019, California Institute of Technology ("Caltech").
+U.S. Government sponsorship acknowledged.
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+• Redistributions of source code must retain the above copyright notice,
+  this list of conditions and the following disclaimer.
+• Redistributions must reproduce the above copyright notice, this list of
+  conditions and the following disclaimer in the documentation and/or other
+  materials provided with the distribution.
+• Neither the name of Caltech nor its operating division, the Jet Propulsion
+  Laboratory, nor the names of its contributors may be used to endorse or
+  promote products derived from this software without specific prior written
+  permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<document>
   <properties>
     <title>Installation</title>
   </properties>
@@ -10,17 +41,17 @@
     <section name="Installation">
       <p>This document describes how to install the Validate Tool software contained in the <i>${project.artifactId}</i> package. The following topics can be found in this document:
       </p>
-      
-      <ul>
-        <li><a href="#quick-start">Quick Start</a></li>
-        <li><a href="#system-requirements">System Requirements</a></li>
-        <li><a href="#unpacking-the-package">Unpacking the Package</a></li>
-        <li><a href="#configuring-the-environment">Configuring the Environment</a></li>
-      </ul>
 
+      <ul>
+        <li><a href="#Getting_Started">Getting Started</a></li>
+        <li><a href="#Unpacking_the_Package">Unpacking the Package</a></li>
+        <li><a href="#System_Requirements">System Requirements</a></li>
+        <li><a href="#Configuring_the_Environment">Configuring the Environment</a></li>
+        <li><a href="../index.html#Support">Tool Support</a></li>
+      </ul>
     </section>
     
-    <section name="Quick Start" id="quick-start">
+    <section name="Quick Start">
       <p>Initially, Validate Tool works out of the box without needing to perform any additional function:</p>
       
       <ul>
@@ -35,7 +66,7 @@
       </ul>
     </section>
     
-    <section name="Unpacking the Package" id="unpacking-the-package">
+    <section name="Unpacking the Package">
       <p>Download the <i>${project.artifactId}</i> package from <a href="https://github.com/NASA-PDS/${project.artifactId}/releases/v${project.version}" target="_blank">Github</a>. The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the <i>/usr/local</i> directory and in Windows-based environments it is typical to install software packages in the <i>C:\Program Files</i> directory. Unpack the selected binary distribution file with one of the following commands:
       </p>
       
@@ -79,7 +110,7 @@ or
       </ul>
     </section>
 
-    <section name="System Requirements" id="system-requirements">
+    <section name="System Requirements">
       <p>If you run into issues attempting to run Validate out of the box, this section details the system requirements for installing and operating the Validate Tool.
       </p>
 
@@ -97,16 +128,14 @@ OpenJDK Runtime Environment (build 15.0.1+9)
 OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
         </source>
 
-        <p><i>NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In version output above, note the line <b>Java HotSpot(TM) 64-Bit Server VM</b></i>.</p>
-        
-        <p><i><b>For Windows Users:</b> The 32-bit JRE is the default on Windows, and even the the online installer for Windows on the <a href="https://www.java.com/en/download/manual.jsp">Java Download All Operating Systems page</a> only installs the 32-bit JRE. If you see an error like that described under <a href="/validate/operate/errors.html#invalid-heap">this common error</a>, you have the wrong JRE installed.</i></p>
+        <p><i>NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In version output above, note the line <b>Java HotSpot(TM) 64-Bit Server VM</b></i></p>
 
         <p>If the either of these commands fail, it indicates Java is not installed or the version is not at least 1.9. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the <a href="https://openjdk.java.net/install/" target="_blank">Java Download</a> page.
         </p>
       </subsection>
     </section>
 
-    <section name="Configuring the Environment" id="configuring-the-environment">
+    <section name="Configuring the Environment">
       <p>If you want to run Validate from anywhere on your system, you will need to configure your PATH to know where Validate is located. This section describes how to setup the user environment on UNIX-based and Windows machines.
       </p>
 
@@ -150,17 +179,14 @@ OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
         </p>
 
         <source>
-C:\&gt; set Path=%Path%;C:\Program Files\\${project.artifactId}-${project.version}\bin
+C:\&gt; set PATH = %PATH%;C:\Program Files\\${project.artifactId}-${project.version}\bin
         </source>
 
         <p>In addition, the batch scripts require that the <i>JAVA_HOME</i> environment variable be set to the appropriate location of the Java installation on the local machine. This may have already been set when Java was installed. However, if it hasn't, then run the following command to set the <i>JAVA_HOME</i> environment variable:
         </p>
 
         <source>
-C:\&gt; set JAVA_HOME=C:\path\to\java\home
-
-# For example
-C:\&gt; set JAVA_HOME=C:\Program Files\Java\some-jre-version
+C:\&gt; set JAVA_HOME = C:\path\to\java\home
         </source>
 
         <p>The system administrator for the local machine may need to be consulted for this location. The path specified should have a <i>bin</i> sub-directory that contains the <i>java</i> executable. This variable may also be defined within the scripts. Edit the scripts (files with the .bat extension) and change the line in the example above to represent the local Java installation. Additional methods for setting Windows environment variables can be found in the <a href="index-win.html">Windows System Properties</a> document.

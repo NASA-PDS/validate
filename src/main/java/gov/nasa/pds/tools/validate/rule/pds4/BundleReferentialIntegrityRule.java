@@ -84,7 +84,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
 
     URL bundleURL = null;
     try {
-      List<Target> children = getContext().getCrawler().crawl(getTarget());
+      List<Target> children = getContext().getCrawler().crawl(getTarget(), getContext().getFileFilters());
       LOG.debug("bundleReferentialIntegrityRule:getTarget() {}", getTarget());
       LOG.debug("bundleReferentialIntegrityRule:children.size():afor_reduced: {}", children.size());
 
