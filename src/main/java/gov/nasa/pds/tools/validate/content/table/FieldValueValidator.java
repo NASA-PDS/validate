@@ -840,13 +840,13 @@ public class FieldValueValidator {
             length = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
           }
           if (length != precision) {
+            isValid = false;
             addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                 "The number of digits to the right of the decimal point " + "in the value '"
                     + value.trim() + "' does not equal the "
                     + "precision set in the defined field format " + "(expected " + precision
                     + ", got " + length + ").",
-                recordLocation, fieldIndex);
-            isValid = false;
+                    recordLocation, fieldIndex);
           }
         }
       }
