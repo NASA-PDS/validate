@@ -15,6 +15,9 @@ package gov.nasa.pds.tools.util;
 
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Class that handles errors while parsing an XML file.
@@ -22,8 +25,7 @@ import javax.xml.transform.TransformerException;
  * @author mcayanan
  *
  */
-public class XMLErrorListener implements ErrorListener {
-
+public class XMLErrorListener implements ErrorListener,ErrorHandler {
   /**
    * Method is called when an error is encountered.
    *
@@ -61,4 +63,18 @@ public class XMLErrorListener implements ErrorListener {
     throw new TransformerException(exception);
   }
 
+  @Override
+  public void warning(SAXParseException exception) throws SAXException {
+    throw exception;
+  }
+
+  @Override
+  public void error(SAXParseException exception) throws SAXException {
+    throw exception;
+  }
+
+  @Override
+  public void fatalError(SAXParseException exception) throws SAXException {
+    throw exception;
+  }
 }

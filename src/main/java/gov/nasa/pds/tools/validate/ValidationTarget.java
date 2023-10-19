@@ -38,10 +38,16 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
    * @param target the target file or directory
    */
   public ValidationTarget(URL target) {
+    this(target, null);
+  }
+  public ValidationTarget(URL target, URL label) {
     this.url = target;
     if (target != null) {
-      type = Utility.getTargetType(target);
-
+      if (label == null) {
+        type = Utility.getTargetType(target);
+      } else {
+        type = Utility.getTargetType(target, label);
+      }
       location = target.toString();
       // In case we have a directory, we need to remove the backslash at the end
       // to properly get the name
