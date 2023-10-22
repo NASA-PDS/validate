@@ -101,6 +101,123 @@
           },
           {
                "name": [
+                    "RADIOWAVE DETECTOR"
+               ],
+               "type": [
+                    "RADIOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ice.radwav::1.0"
+          },
+          {
+               "name": [
+                    "RADIO OCCULTATION EXPERIMENT"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v15.roe::1.0"
+          },
+          {
+               "name": [
+                    "YED PRIOR"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.del_oph::1.0"
+          },
+          {
+               "name": [
+                    "PSYCHE MAGNETOMETER (MAG)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.mag::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.spacewatch_1m8::1.0"
+          },
+          {
+               "name": [
+                    "49036 PELION"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.49036_pelion::1.0"
+          },
+          {
+               "name": [
+                    "(182933) 2002 GZ31"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.182933_2002_gz31::1.0"
+          },
+          {
+               "name": [
+                    "(243) IDA I (DACTYL)"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.0"
+          },
+          {
+               "name": [
+                    "20 MASSALIA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.20_massalia::1.1"
+          },
+          {
+               "name": [
+                    "65489 CETO"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.65489_ceto::1.1"
+          },
+          {
+               "name": [
+                    "SURFACE ELECTRIC SOUNDING AND ACOUSTIC MONITORING EXPERIMENT"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:rl.sesame::1.0"
+          },
+          {
+               "name": [
+                    "ALNILAM"
+               ],
+               "type": [
+                    "STAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.eps_ori::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:agency:agency.kari::1.0"
+          },
+          {
+               "name": [
                     "GALILEO ORBITER STAR SCANNER"
                ],
                "type": [
@@ -989,15 +1106,6 @@
                     "PARTICLE DETECTOR"
                ],
                "lidvid": "urn:esa:psa:context:instrument:uly.cospin-at::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:irtf-maunakea.3m2::1.0"
           },
           {
                "name": [
@@ -1957,6 +2065,15 @@
           },
           {
                "name": [
+                    "SHADOWCAM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.shc::1.0"
+          },
+          {
+               "name": [
                     "2004 QQ26"
                ],
                "type": [
@@ -2281,15 +2398,6 @@
           },
           {
                "name": [
-                    "SPEX"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.spex::1.0"
-          },
-          {
-               "name": [
                     "Europa Clipper Spacecraft"
                ],
                "type": [
@@ -2558,6 +2666,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:clipper.wac::1.0"
+          },
+          {
+               "name": [
+                    "Korea Pathfinder Lunar Orbiter (Danuri)"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument_host:spacecraft.kplo::1.0"
           },
           {
                "name": [
@@ -6122,111 +6239,48 @@
           },
           {
                "name": [
-                    "DUST PARTICLE COUNTER AND MASS ANALYZER"
-               ],
-               "type": [
-                    "PARTICLE DETECTOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ducma.vega1::1.0"
-          },
-          {
-               "name": [
-                    "RAMAN SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:sbu_cpex.raman::1.0"
-          },
-          {
-               "name": [
-                    "SN 110-108/165685-06"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mount_bigelow.0m7.10kccd::1.0"
-          },
-          {
-               "name": [
-                    "2004 PB108"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_pb108::1.0"
-          },
-          {
-               "name": [
-                    "(23622) 1996 RW29"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.23622_1996_rw29::1.0"
-          },
-          {
-               "name": [
-                    "(300217) 2006 WK182"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300217_2006_wk182::1.0"
-          },
-          {
-               "name": [
-                    "2006 HW122"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
-          },
-          {
-               "name": [
-                    "D/1993 F2-G (SHOEMAKER-LEVY 9-G)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-g_shoemaker-levy_9-g::1.0"
-          },
-          {
-               "name": [
-                    "MINI-RF LRO"
-               ],
-               "type": [
-                    "RADIO-RADAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mrflro.lro::1.0"
-          },
-          {
-               "name": [
-                    "106P/SCHUSTER"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
-          },
-          {
-               "name": [
-                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
-               ],
-               "type": [
-                    "PLASMA WAVE SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ids.ds1::1.0"
-          },
-          {
-               "name": [
-                    "PORTABLE METEROLOGICAL STATION (RALPH LORENZ DESIGN)"
+                    "N/A"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:no-host.lorenz_met_station::1.0"
+               "lidvid": "urn:nasa:pds:context:telescope:kpno-mcmath-pierce-solar.main_1m61::1.0"
+          },
+          {
+               "name": [
+                    "FRONT HAZARD AVOIDANCE CAMERA LEFT STRING A"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:fhaz_left_a.msl::1.0"
+          },
+          {
+               "name": [
+                    "THERMO NICOLET NEXUS 870 FTIR WITH PIKE AUTODIFF DIFFUSE REFLECTANCE ACCESSORY"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m0::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.victorblanco_4m0::1.0"
           },
           {
                "name": [
@@ -7550,6 +7604,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.15_eunomia::1.1"
+          },
+          {
+               "name": [
+                    "KOREA AEROSPACE RESEARCH INSTITUTE KPLO"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:kari:kpds:context:investigation:mission.kplo::1.0"
           },
           {
                "name": [
@@ -12410,6 +12473,15 @@
           },
           {
                "name": [
+                    "SPEX"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.spex::1.1"
+          },
+          {
+               "name": [
                     "SURTUR"
                ],
                "type": [
@@ -12896,6 +12968,24 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
+          },
+          {
+               "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
+          },
+          {
+               "name": [
                     "(385458) 2003 SP317"
                ],
                "type": [
@@ -12974,24 +13064,6 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.132p_helin-roman-alu_2::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context_pds3:node:node.en::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context_pds3:node:node.pds-mgt::1.0"
           },
           {
                "name": [
@@ -13623,6 +13695,15 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2016j1::1.1"
+          },
+          {
+               "name": [
+                    "KPLO GAMMA RAY SPECTROMETER (KGRS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.kgrs::1.0"
           },
           {
                "name": [
@@ -16610,15 +16691,6 @@
           },
           {
                "name": [
-                    "Infra Red Telescope Facility-Maunakea"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.irtf-maunakea::1.0"
-          },
-          {
-               "name": [
                     "CHEMISTRY CAMERA LASER INDUCED BREAKDOWN SPECTROMETER"
                ],
                "type": [
@@ -17285,6 +17357,15 @@
           },
           {
                "name": [
+                    "N/A"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:irtf-maunakea.3m2::1.1"
+          },
+          {
+               "name": [
                     "2000 CN105"
                ],
                "type": [
@@ -17309,6 +17390,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:uvs.mr6::1.0"
+          },
+          {
+               "name": [
+                    "KPLO MAGNETOMETER (KMAG)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.kmag::1.0"
           },
           {
                "name": [
@@ -18546,6 +18636,15 @@
           },
           {
                "name": [
+                    "WIDE-ANGLE POLARIMETRIC CAMERA (POLCAM)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.polcam::1.0"
+          },
+          {
+               "name": [
                     "BLACK SKY"
                ],
                "type": [
@@ -19408,114 +19507,6 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:apache_point.sdss2m5.sdss_photometric::1.0"
-          },
-          {
-               "name": [
-                    "RADIOWAVE DETECTOR"
-               ],
-               "type": [
-                    "RADIOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ice.radwav::1.0"
-          },
-          {
-               "name": [
-                    "RADIO OCCULTATION EXPERIMENT"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:v15.roe::1.0"
-          },
-          {
-               "name": [
-                    "YED PRIOR"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.del_oph::1.0"
-          },
-          {
-               "name": [
-                    "PSYCHE MAGNETOMETER (MAG)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.mag::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.spacewatch_1m8::1.0"
-          },
-          {
-               "name": [
-                    "49036 PELION"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.49036_pelion::1.0"
-          },
-          {
-               "name": [
-                    "(182933) 2002 GZ31"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.182933_2002_gz31::1.0"
-          },
-          {
-               "name": [
-                    "(243) IDA I (DACTYL)"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.0"
-          },
-          {
-               "name": [
-                    "20 MASSALIA"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.20_massalia::1.1"
-          },
-          {
-               "name": [
-                    "65489 CETO"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.65489_ceto::1.1"
-          },
-          {
-               "name": [
-                    "SURFACE ELECTRIC SOUNDING AND ACOUSTIC MONITORING EXPERIMENT"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:rl.sesame::1.0"
-          },
-          {
-               "name": [
-                    "ALNILAM"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.eps_ori::1.0"
           },
           {
                "name": [
@@ -21466,6 +21457,15 @@
           },
           {
                "name": [
+                    "Infra Red Telescope Facility-Maunakea"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.irtf-maunakea::1.1"
+          },
+          {
+               "name": [
                     "(119070) 2001 KP77"
                ],
                "type": [
@@ -23123,48 +23123,111 @@
           },
           {
                "name": [
-                    "N/A"
+                    "DUST PARTICLE COUNTER AND MASS ANALYZER"
                ],
                "type": [
-                    "N/A"
+                    "PARTICLE DETECTOR"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:kpno-mcmath-pierce-solar.main_1m61::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:ducma.vega1::1.0"
           },
           {
                "name": [
-                    "FRONT HAZARD AVOIDANCE CAMERA LEFT STRING A"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:fhaz_left_a.msl::1.0"
-          },
-          {
-               "name": [
-                    "THERMO NICOLET NEXUS 870 FTIR WITH PIKE AUTODIFF DIFFUSE REFLECTANCE ACCESSORY"
+                    "RAMAN SPECTROMETER"
                ],
                "type": [
                     "SPECTROMETER"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:sbu_cpex.raman::1.0"
           },
           {
                "name": [
-                    "N/A"
+                    "SN 110-108/165685-06"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mount_bigelow.0m7.10kccd::1.0"
+          },
+          {
+               "name": [
+                    "2004 PB108"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2004_pb108::1.0"
+          },
+          {
+               "name": [
+                    "(23622) 1996 RW29"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.23622_1996_rw29::1.0"
+          },
+          {
+               "name": [
+                    "(300217) 2006 WK182"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300217_2006_wk182::1.0"
+          },
+          {
+               "name": [
+                    "2006 HW122"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2006_hw122::1.0"
+          },
+          {
+               "name": [
+                    "D/1993 F2-G (SHOEMAKER-LEVY 9-G)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-g_shoemaker-levy_9-g::1.0"
+          },
+          {
+               "name": [
+                    "MINI-RF LRO"
+               ],
+               "type": [
+                    "RADIO-RADAR"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mrflro.lro::1.0"
+          },
+          {
+               "name": [
+                    "106P/SCHUSTER"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.106p_schuster::1.0"
+          },
+          {
+               "name": [
+                    "ION PROPULSION SYSTEM DIAGNOSTIC SUBSYSTEM"
+               ],
+               "type": [
+                    "PLASMA WAVE SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ids.ds1::1.0"
+          },
+          {
+               "name": [
+                    "PORTABLE METEROLOGICAL STATION (RALPH LORENZ DESIGN)"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m0::1.0"
-          },
-          {
-               "name": [
-                    "N/A"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.victorblanco_4m0::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:no-host.lorenz_met_station::1.0"
           },
           {
                "name": [
@@ -26140,6 +26203,15 @@
                     "RING"
                ],
                "lidvid": "urn:nasa:pds:context:target:ring.uranus.six_ring::1.0"
+          },
+          {
+               "name": [
+                    "LUNAR TERRAIN IMAGER (LUTI)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.luti::1.0"
           },
           {
                "name": [
