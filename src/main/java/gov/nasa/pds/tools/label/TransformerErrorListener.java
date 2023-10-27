@@ -88,6 +88,9 @@ public class TransformerErrorListener implements ErrorListener {
   @Override
   public void warning(TransformerException exception) throws TransformerException {
     SourceLocator locator = exception.getLocator();
+    if (locator == null) {
+      locator = this.nullLocator;
+    }
     addProblem(ExceptionType.WARNING, ProblemType.SCHEMATRON_WARNING, exception.getMessage(),
         locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
   }

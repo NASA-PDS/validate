@@ -154,7 +154,12 @@ public class SchematronTransformer {
         in = Utility.openConnection(conn);
 
         StreamSource source = new StreamSource(in);
-        //source.setSystemId(schematron.toString());
+        /* This fixes the problem but is it a good fix. The message now indicates that it is finding
+         * the same URI (systemId) for two files. The one it is reading and the source that we have?
+         * Maybe in saxon 12.3 it fills in the systemId correctly? Cannot find anything that makes
+         * this fix definitive good or bad but that is a search skill problem not lack of information
+         * 
+         * source.setSystemId(schematron.toString()); */
         isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
         transformer = transformerFactory
             .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
