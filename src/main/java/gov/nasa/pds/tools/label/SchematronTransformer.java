@@ -154,7 +154,7 @@ public class SchematronTransformer {
         in = Utility.openConnection(conn);
 
         StreamSource source = new StreamSource(in);
-        source.setSystemId(schematron.toString());
+        //source.setSystemId(schematron.toString());
         isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
         transformer = transformerFactory
             .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
