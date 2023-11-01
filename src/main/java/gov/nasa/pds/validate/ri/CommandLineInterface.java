@@ -90,7 +90,7 @@ public class CommandLineInterface {
 
     this.log.info("Starting the reference integrity checks.");
     try {
-      Engine engine = new Engine(cylinders, cl.getArgList(),
+      Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()),
           AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
           AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch")));
       engine.processQueueUntilEmpty();
