@@ -26,9 +26,9 @@ public class CommandLineInterface {
     this.opts = new Options();
     
     // Disabling this argument for the time being since the Search API does not yet support authorized access
-    // this.opts.addOption(Option.builder("A").argName("auth-file").desc(
-    //     "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
-    //     .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
+    this.opts.addOption(Option.builder("A").argName("auth-file").desc(
+        "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
+        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
 
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
         "file with the URL and credential content to have full, direct read-only access to the Registry OpenSearch DB")
@@ -90,12 +90,11 @@ public class CommandLineInterface {
     ctx.updateLoggers();
 
     // Disabling this argument for the time being since the Search API does not yet support authorized access
-    // this.opts.addOption(Option.builder("A").argName("auth-file").desc(
-    //     "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
-    //     .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
-    // if (!cl.hasOption("a"))
-    //   throw new ParseException(
-    //       "Not yet implemented. Must provide OpenSearch Registry authorization information.");
+    this.opts.addOption(Option.builder("A").argName("auth-file").desc(
+        "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
+        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
+    if (!cl.hasOption("a"))
+      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information.");
 
     if (cl.getArgList().size() < 1)
       throw new ParseException("Must provide at least one LIDVID, Label file path, or manifest file path as a starting point.");
