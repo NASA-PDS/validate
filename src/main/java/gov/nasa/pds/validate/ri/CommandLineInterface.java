@@ -59,10 +59,10 @@ public class CommandLineInterface {
         "  * The 'url' property is the complete base URL to the Registry OpenSearch endpoint or Search API, e.g. 'https://my-registry.es.amazonaws.com/_search', and " + 
         "  * The 'credentials' is the path to:" +
         "      * Harvest config file containing the necessary Registry OpenSearch authorization" +
-        "        <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />"
+        "          <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />" +
         "      * Java Properties file with a 'user' and 'password' specified, for example: " +
-        "        user=janedoe"
-        "        password=mypassword\n\n"
+        "          user=janedoe" +
+        "          password=mypassword\n\n",
         true);
   }
 
