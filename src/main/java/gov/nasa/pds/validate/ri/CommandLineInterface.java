@@ -41,7 +41,7 @@ public class CommandLineInterface {
 
   public void help() {
     new HelpFormatter().printHelp("ValidateReferenceIntegrity",
-        "\nChecks the search DB that all references exist. If the api-auth is provided, then it will also check that the registry API also finds all the references. For lidvid, multiple values can be given using a comma like 'urn:foo::1.0,urn:bar::2.0'.\n\n",
+        "\nChecks the search DB that all references exist. If the api-auth is provided, then it will also check that the registry API also finds all the references.\n\nAll arguments are either a lidvid, label, or manifest file.\n   A lidvid must start with urn:nasa:pds:.\n   A label must be a well formed PDS XML file.\n   A manifest file is one item per line with an item being a lidvid or label. Each line must be terminated by a LF.\n\nMultiple arguments may be given in any order: 'urn:nasa:pds:foo::1.0 label.xml urn:nasa:pds:bar::2.0 manifest.txt'.\n\n",
         opts,
         "\nAn auth-file is either a text file of the Java property format with two variables: 'url' and 'credentials'. The 'url' property should be the complete base URL to the Registry Search endpoint or Search API, e.g. 'https://localhost:9876/base', and 'credentials' a path to a java property file with the user name, password, and other credential information as that used by harvest. Or it is an XML text file used by harvest with <registry> containing the 'auth' attribute.\n\n",
         true);
