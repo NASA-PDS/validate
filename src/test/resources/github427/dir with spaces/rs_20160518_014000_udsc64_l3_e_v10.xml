@@ -114,12 +114,12 @@
         <File>
             <file_name>rs_20160518_014000_udsc64_l3_e_v10.tab</file_name>
             <creation_date_time>2022-11-25T07:45:40Z</creation_date_time>
-            <file_size unit="byte">135864</file_size>
+            <file_size unit="byte">308</file_size>
         </File>
         <Table_Character>
             <name>Venus Climate Orbiter Akatsuki Radio Science (RS) Level 3 data, refractivity, bending angle, and impact parameter profile</name>
             <offset unit="byte">0</offset>
-            <records>444</records>
+            <records>1</records>
             <description>
                 This is a refractivity, bending angle and, impact parameter profiles derived from Venus Climate Orbiter Akatsuki radio occultation data.
                 The raw data were processed to level 2 and converted to bending angles and impact parameters.
