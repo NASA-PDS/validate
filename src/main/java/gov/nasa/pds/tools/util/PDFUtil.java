@@ -62,8 +62,6 @@ public class PDFUtil {
     FileWriter myWriter = null;
     try {
       myWriter = new FileWriter(this.externalErrorFilename);
-      // myWriter.write("Error messages for PDF file " + uri.getPath() + " using
-      // flavor " + this.parserFlavor + "\n") ;
       myWriter.write("PDF_FILE " + pdfFullName + " PARSER_FLAVOR " + this.parserFlavor + "\n");
       String headerMessage = "getRuleId, getStatus, getMessage, getLocation";
       myWriter.write(headerMessage + "\n");

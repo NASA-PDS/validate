@@ -69,6 +69,7 @@ import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -1559,8 +1560,8 @@ public class ValidateLauncher {
       try {
         LOG.debug(
             "printWarningCollocatedData:url.getPath(),(new File(url.getPath()).exists() {},{}",
-            url.getPath(), (new File(url.getPath()).exists()));
-        if (new File(url.getPath()).exists()) {
+            url.getPath(), FileUtils.toFile(url).exists());
+        if (FileUtils.toFile(url).exists()) {
           ValidationProblem p1 = new ValidationProblem(
               new ProblemDefinition(ExceptionType.WARNING, ProblemType.GENERAL_INFO,
                   "This data should be collocated with the other bundle data"),

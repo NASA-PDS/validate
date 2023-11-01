@@ -20,6 +20,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -174,11 +175,11 @@ public class DocumentUtil {
     //
     // Using alternative method to get the parent.
     String parent = "";
-    if (fileUrl.getPath().lastIndexOf("/") < 0) {
-      LOG.error("The path does not contain a file separator {}", fileUrl.getPath());
+    if (FileUtils.toFile(fileUrl).getPath().lastIndexOf("/") < 0) {
+      LOG.error("The path does not contain a file separator {}", FileUtils.toFile(fileUrl).getPath());
       return (null);
     }
-    parent = fileUrl.getPath().substring(0, fileUrl.getPath().lastIndexOf("/"));
+    parent = FileUtils.toFile(fileUrl).getPath().substring(0, FileUtils.toFile(fileUrl).getPath().lastIndexOf("/"));
     LOG.debug("readFile:fileUrl,parent,FilenameUtils.getName(fileUrl) {},{},{}", fileUrl, parent,
         FilenameUtils.getName(fileUrl.toString()));
 

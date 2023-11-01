@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -970,11 +969,7 @@ public class DataSetValidator extends Observable {
     if (masterDictionary == null) {
       File dataDictionaryFile;
       URL dictionaryURL = DataSetValidator.class.getResource("/masterdd.full"); //$NON-NLS-1$
-      try {
-        dataDictionaryFile = new File(dictionaryURL.toURI());
-      } catch (URISyntaxException e) {
-        dataDictionaryFile = new File(dictionaryURL.getPath());
-      }
+      dataDictionaryFile = org.apache.commons.io.FileUtils.toFile(dictionaryURL);
 
       try {
         masterDictionary = DictionaryParser.parse(dataDictionaryFile);

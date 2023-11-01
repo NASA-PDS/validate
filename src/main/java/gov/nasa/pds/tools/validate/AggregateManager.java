@@ -20,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
@@ -600,7 +601,7 @@ public class AggregateManager {
 
     try {
       // Get the parent directory of url and crawl for files that starts with 'bundle'
-      String dirName = (new File(url.getPath())).getParent();
+      String dirName = FileUtils.toFile(url).getParent();
       LOG.debug("findOtherBundleFiles:dirName {}", dirName);
       Crawler crawler = CrawlerFactory.newInstance(new File(dirName).toURI().toURL());
 
@@ -696,7 +697,7 @@ public class AggregateManager {
       for (Target crawlTarget : targetList) {
         urlCrawl = crawlTarget.getUrl();
         // Get the parent directory of url and crawl for files that starts with 'bundle'
-        String dirName = (new File(urlCrawl.getPath())).getParent();
+        String dirName = FileUtils.toFile(urlCrawl).getParent();
         LOG.debug("findOtherCollectionFiles:dirName,crawledDirectory.size {},{}", dirName,
             crawledDirectory.size());
 
@@ -828,7 +829,7 @@ public class AggregateManager {
     String parentToLocation = null;
     try {
       // The new location (as a directory) will be applicable later on.
-      parentToLocation = (new File(url.getPath())).getParent() + File.separator;
+      parentToLocation = FileUtils.toFile(url).getParent() + File.separator;
       m_location = "file:" + parentToLocation;
       LOG.debug("m_location {}", m_location);
     } catch (Exception e) {
