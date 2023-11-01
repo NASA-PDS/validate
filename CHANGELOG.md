@@ -16,6 +16,7 @@
 - Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate incorrectly throws precision mismatch error for Table\_Delimited [\#681](https://github.com/NASA-PDS/validate/issues/681) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate crashes on invalid \# of records, and spurious file left behind [\#475](https://github.com/NASA-PDS/validate/issues/475) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- validate does not work correct when path name contains a space on mac [\#427](https://github.com/NASA-PDS/validate/issues/427) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v3.3.0](https://github.com/NASA-PDS/validate/tree/v3.3.0) (2023-09-25)
 
