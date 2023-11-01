@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,10 +34,10 @@ public class FileSizesUtil {
     if (url.getProtocol().equals("file")) {
       long fileSize = -1;
       LOG.debug("getExternalFilesize:url,fileSize {},{}", url, fileSize);
-      LOG.debug("getExternalFilesize:afor:path [{}]", url.getPath());
+      LOG.debug("getExternalFilesize:afor:path [{}]", FileUtils.toFile(url).getPath());
       // For some strange reason, the File class does not handle well with the "%20"
       // in the name. It needs to be an actual space.
-      String actualPath = URLDecoder.decode(url.getPath(), "UTF-8"); // Use the URLDecoder.decode()
+      String actualPath = URLDecoder.decode(FileUtils.toFile(url).getPath(), "UTF-8"); // Use the URLDecoder.decode()
                                                                      // to convert
                                                                      // from %20 to " ".
       LOG.debug("getExternalFilesize:after:path [{}]", actualPath);

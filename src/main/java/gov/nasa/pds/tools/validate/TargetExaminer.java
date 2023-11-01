@@ -13,11 +13,11 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.transform.sax.SAXSource;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -56,16 +56,16 @@ public class TargetExaminer extends Target {
     boolean targetIsBundleFlag = false;
 
     // Do a sanity check if the file or directory exist.
-    if (!(new File(url.getPath()).exists())) {
-      LOG.error("Provided url does not exist: {}", url);
+    if (!FileUtils.toFile(url).exists()) {
+      LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
       return (targetIsBundleFlag);
     }
 
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
+    if (FileUtils.toFile(url).isFile() && TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors)) {
       targetIsBundleFlag = true;
     }
     LOG.debug("isTargetBundleType:url,(new File(url.getPath()).isFile() {},{}", url,
-        (new File(url.getPath()).isFile()));
+        FileUtils.toFile(url).isFile());
     LOG.debug("isTargetBundleType:url,PRODUCT_NAME_TAG,targetIsBundleFlag {},{},{}", url,
         PRODUCT_NAME_TAG, targetIsBundleFlag);
 
@@ -85,16 +85,16 @@ public class TargetExaminer extends Target {
     boolean targetIsCollectionFlag = false;
 
     // Do a sanity check if the file or directory exist.
-    if (!(new File(url.getPath()).exists())) {
-      LOG.error("Provided url does not exist: {}", url);
+    if (!FileUtils.toFile(url).exists()) {
+      LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
       return (targetIsCollectionFlag);
     }
 
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
+    if (FileUtils.toFile(url).isFile() && TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors)) {
       targetIsCollectionFlag = true;
     }
     LOG.debug("isTargetCollectionType:url,(new File(url.getPath()).isFile() {},{}", url,
-        (new File(url.getPath()).isFile()));
+        FileUtils.toFile(url).isFile());
     LOG.debug("isTargetCollectionType:url,PRODUCT_NAME_TAG,targetIsCollectionFlag {},{},{}", url,
         PRODUCT_NAME_TAG, targetIsCollectionFlag);
 

@@ -449,6 +449,8 @@ Scenario Outline: Execute validate command for tests below.
 
  |"NASA-PDS/validate#429 VALID" | "github429" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github429_label_valid.json -s json -t {resourceDir}/github429/EPPS_EDR_SIS.xml" | "report_github429_label_valid.json" |
 
+# Validate#427
+|"NASA-PDS/validate#427 Success with spaces in directory" | "github427" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github427.json -s json --skip-context-validation  -t {resourceDir}/github427/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github427.json" |
 
 # https://github.com/nasa-pds/validate/issues/424 Validate does not allow SIP tab file to have lines of differing lengths  
 # The checking should NOT be done based on the file extension but based on the table type.  The Table_Delimited can have variable length records.

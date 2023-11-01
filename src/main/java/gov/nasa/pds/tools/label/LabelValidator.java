@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,6 +47,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -396,8 +396,7 @@ public class LabelValidator {
         for (String schema : specifiedSchema) {
           try {
             URL schemaURL = new URL(schema);
-            String schemaName =
-                Paths.get(schemaURL.getPath()).getFileName().toString().toLowerCase();
+            String schemaName = schemaURL.getFile().toLowerCase();
             if (schemaName.endsWith(".xsd")) {
               schemaName = schemaName.substring(0, schemaName.length() - 4);
               schemas.add(schemaName);
@@ -412,8 +411,7 @@ public class LabelValidator {
               String modelHREF = part.substring(part.indexOf('"') + 1, part.lastIndexOf('"'));
               try {
                 URL schematronURL = new URL(modelHREF);
-                String schematronName =
-                    Paths.get(schematronURL.getPath()).getFileName().toString().toLowerCase();
+                String schematronName = schematronURL.getFile().toLowerCase();
                 if (schematronName.endsWith(".sch")) {
                   schematronName = schematronName.substring(0, schematronName.length() - 4);
                   schematrons.add(schematronName);

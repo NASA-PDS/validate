@@ -176,7 +176,7 @@ public class StepDefs {
       // Replace every occurence of "{resourceDir}" with actual value.
       resolvedToken = temp.replace("{reportDir}", this.reportDir);
       resolvedToken = resolvedToken.replace("{resourceDir}", this.resourceDir);
-
+      resolvedToken = resolvedToken.replace("%20", " ");
       args[argIndex++] = resolvedToken;
     }
 

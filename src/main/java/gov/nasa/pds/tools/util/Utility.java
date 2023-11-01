@@ -313,7 +313,7 @@ public class Utility {
     }
     if (label != null 
         && -1 < extIndex
-        && label.getPath().toLowerCase().endsWith(source.getPath().substring(extIndex).toLowerCase())) {
+        && FileUtils.toFile(label).getPath().toLowerCase().endsWith(FileUtils.toFile(source).getPath().substring(extIndex).toLowerCase())) {
       if (TargetExaminer.isTargetBundleType (source, true)) {
         return TargetType.BUNDLE;
       }
