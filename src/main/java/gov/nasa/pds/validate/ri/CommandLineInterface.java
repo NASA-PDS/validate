@@ -43,25 +43,26 @@ public class CommandLineInterface {
   }
 
   public void help() {
-    new HelpFormatter().printHelp("ValidateReferenceIntegrity",
+    new HelpFormatter().printHelp("validate-refs LIDVID LABEL-FILEPATH MANIFEST-FILEPATH",
         "\nChecks that (1) all product references within a given product and " +
         "(2) any aggregrate product references (bundles -> collections -> products) " +
         "exist in the Registry OpenSearch DB or Search API. \n\n" +
-        "Expected positional arguments are either a lidvid, label, or manifest file.\n" +
-        "   * A lidvid must start with urn:.\n" +
-        "   * A label must be a well formed PDS XML file.\n" +
-        "   * A manifest file is one item per line with an item being a lidvid or label. Each line must be terminated by a LF.\n\n" +
+        "Expected positional arguments are either a LIDVID, LABEL-FILEPATH, or MANIFEST-FILEPATH.\n" +
+        "   - A LIDVID must start with urn:.\n" +
+        "   - A LABEL-FILEPATH must be a well formed PDS XML file.\n" +
+        "   - A MANIFEST-FILEPATH is one item per line with an item being a lidvid or label. Each line must be terminated by a LF.\n\n" +
         "Multiple arguments may be given in any order, for example:\n" +
         "   > validate-refs urn:nasa:pds:foo::1.0 label.xml urn:nasa:pds:bar::2.0 manifest.txt\n\n",
         opts,
         "\nAn auth-file is either a text file of the Java property format " +
-        "with two variables: 'url' and 'credentials'. \n" +
-        "  * The 'url' property is the complete base URL to the Registry OpenSearch endpoint or Search API, e.g. 'https://my-registry.es.amazonaws.com/_search', and " + 
-        "  * The 'credentials' is the path to:" +
-        "      * Harvest config file containing the necessary Registry OpenSearch authorization" +
-        "          <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />" +
-        "      * Java Properties file with a 'user' and 'password' specified, for example: " +
-        "          user=janedoe" +
+        "with two variables, 'url' and 'credentials': \n\n" +
+        "  - The 'url' property is the complete base URL to the Registry OpenSearch endpoint or Search API\n" +
+        "      * 'https://my-registry.es.amazonaws.com/_search'\n\n" + 
+        "  - The 'credentials' is the path to:\n" +
+        "      * Harvest config file containing the necessary Registry OpenSearch authorization\n" +
+        "          <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />\n" +
+        "      * Java Properties file with a 'user' and 'password' specified, for example: \n" +
+        "          user=janedoe\n" +
         "          password=mypassword\n\n",
         true);
   }
