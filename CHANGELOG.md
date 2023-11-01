@@ -1,17 +1,20 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-10-17)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-01)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...«unknown»)
 
 **Improvements:**
 
 - Update inefficient regexes to potentially improve performance [\#708](https://github.com/NASA-PDS/validate/issues/708)
+- Upgrade to Saxon 12.x [\#707](https://github.com/NASA-PDS/validate/issues/707)
 
 **Defects:**
 
+- Intermittent network failures attempting repeated downloads of schemas/schematrons [\#739](https://github.com/NASA-PDS/validate/issues/739) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Installation instructions need updates for Windows [\#723](https://github.com/NASA-PDS/validate/issues/723)
 - Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate incorrectly throws precision mismatch error for Table\_Delimited [\#681](https://github.com/NASA-PDS/validate/issues/681) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate crashes on invalid \# of records, and spurious file left behind [\#475](https://github.com/NASA-PDS/validate/issues/475) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v3.3.0](https://github.com/NASA-PDS/validate/tree/v3.3.0) (2023-09-25)
