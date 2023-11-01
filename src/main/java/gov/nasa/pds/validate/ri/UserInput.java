@@ -57,7 +57,7 @@ class UserInput {
   private List<String> process (List<String> cliList){
     List<String> lidvids = new ArrayList<String>();
     for (String cliArg : cliList) {
-      if (cliArg.startsWith ("urn:nasa:pds:")) {
+      if (cliArg.startsWith ("urn:")) {
         lidvids.add (cliArg);
       } else if (this.isLabel (cliArg)) {
         lidvids.add (this.labels_lidvid);
