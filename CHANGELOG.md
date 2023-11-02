@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-01)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-02)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...«unknown»)
+
+**Requirements:**
+
+- As a user, I want validate's referential integrity tool to read a manifest of files and check referential integrity [\#741](https://github.com/NASA-PDS/validate/issues/741)
 
 **Improvements:**
 
