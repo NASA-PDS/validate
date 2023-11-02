@@ -24,11 +24,14 @@ public class CommandLineInterface {
   public CommandLineInterface() {
     super();
     this.opts = new Options();
+    
+    // Disabling this argument for the time being since the Search API does not yet support authorized access
     this.opts.addOption(Option.builder("A").argName("auth-file").desc(
-        "file with the URL and credential content to have full (all product states) read-only access to the registry API")
+        "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
         .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
+
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
-        "file with the URL and credential content to have full, direct read-only access to the search DB")
+        "file with the URL and credential content to have full, direct read-only access to the Registry OpenSearch DB")
         .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
@@ -40,10 +43,27 @@ public class CommandLineInterface {
   }
 
   public void help() {
-    new HelpFormatter().printHelp("ValidateReferenceIntegrity",
-        "\nChecks the search DB that all references exist. If the api-auth is provided, then it will also check that the registry API also finds all the references. For lidvid, multiple values can be given using a comma like 'urn:foo::1.0,urn:bar::2.0'.\n\n",
+    new HelpFormatter().printHelp("validate-refs LIDVID LABEL-FILEPATH MANIFEST-FILEPATH",
+        "\nChecks that (1) all product references within a given product and " +
+        "(2) any aggregrate product references (bundles -> collections -> products) " +
+        "exist in the Registry OpenSearch DB or Search API. \n\n" +
+        "Expected positional arguments are either a LIDVID, LABEL-FILEPATH, or MANIFEST-FILEPATH.\n" +
+        "   - A LIDVID must start with urn:.\n" +
+        "   - A LABEL-FILEPATH must be a well formed PDS XML file.\n" +
+        "   - A MANIFEST-FILEPATH is one item per line with an item being a lidvid or label. Each line must be terminated by a LF.\n\n" +
+        "Multiple arguments may be given in any order, for example:\n" +
+        "   > validate-refs urn:nasa:pds:foo::1.0 label.xml urn:nasa:pds:bar::2.0 manifest.txt\n\n",
         opts,
-        "\nAn auth-file is either a text file of the Java property format with two variables: 'url' and 'credentials'. The 'url' property should be the complete base URL to the Registry Search endpoint or Search API, e.g. 'https://localhost:9876/base', and 'credentials' a path to a java property file with the user name, password, and other credential information as that used by harvest. Or it is an XML text file used by harvest with <registry> containing the 'auth' attribute.\n\n",
+        "\nAn auth-file is either a text file of the Java property format " +
+        "with two variables, 'url' and 'credentials': \n\n" +
+        "  - The 'url' property is the complete base URL to the Registry OpenSearch endpoint or Search API\n" +
+        "      * 'https://my-registry.es.amazonaws.com/_search'\n\n" + 
+        "  - The 'credentials' is the path to:\n" +
+        "      * Harvest config file containing the necessary Registry OpenSearch authorization\n" +
+        "          <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />\n" +
+        "      * Java Properties file with a 'user' and 'password' specified, for example: \n" +
+        "          user=janedoe\n" +
+        "          password=mypassword\n\n",
         true);
   }
 
@@ -68,13 +88,18 @@ public class CommandLineInterface {
     if (cl.hasOption("verbose"))
       loggerConfig.setLevel(Level.INFO);
     ctx.updateLoggers();
+
+    // Disabling this argument for the time being since the Search API does not yet support authorized access
+    this.opts.addOption(Option.builder("A").argName("auth-file").desc(
+        "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
+        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
     if (!cl.hasOption("a"))
-      throw new ParseException(
-          "Not yet implemented. Must provide OpenSearch Registry authorization information.");
+      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information.");
+
     if (cl.getArgList().size() < 1)
-      throw new ParseException("Must provide at least one LIDVID as a starting point.");
+      throw new ParseException("Must provide at least one LIDVID, Label file path, or manifest file path as a starting point.");
     if (!cl.hasOption("A"))
-      log.warn("Using OpenSearch Registry to check references.");
+      log.warn("Using Registry OpenSearch Database to check references.");
 
     if (cl.hasOption("t")) {
       try {
@@ -90,7 +115,7 @@ public class CommandLineInterface {
 
     this.log.info("Starting the reference integrity checks.");
     try {
-      Engine engine = new Engine(cylinders, cl.getArgList(),
+      Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()),
           AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
           AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch")));
       engine.processQueueUntilEmpty();
