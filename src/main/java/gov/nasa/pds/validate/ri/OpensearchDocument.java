@@ -25,6 +25,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.opensearch.action.search.SearchRequest;
 import org.opensearch.action.search.SearchResponse;
+import org.opensearch.client.HttpAsyncResponseConsumerFactory;
 import org.opensearch.client.RequestOptions;
 import org.opensearch.client.RestClient;
 import org.opensearch.client.RestClientBuilder;
@@ -43,6 +44,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   final private HashMap<String, List<String>> references = new HashMap<String, List<String>>();
   final private LidvidComparator lidvid_compare = new LidvidComparator();
   final private Logger log = LogManager.getLogger(OpensearchDocument.class);
+  final private RequestOptions.Builder hugeMemory = RequestOptions.DEFAULT.toBuilder();
 
   private void load(String lidvid) {
     if (!this.documents.containsKey(lidvid)) {
@@ -149,7 +151,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
       try {
         if (OpensearchDocument.sourceOverride != null)
           return OpensearchDocument.sourceOverride.search(client, request);
-        return client.search(request, RequestOptions.DEFAULT);
+        return client.search(request, this.hugeMemory.build());
       } catch (ConnectException ce) {
         iteration++;
         if (iteration < 5)
@@ -162,6 +164,8 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
 
   public OpensearchDocument(AuthInformation context) {
     this.context = context;
+    this.hugeMemory.setHttpAsyncResponseConsumerFactory(
+        new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(128*1024^4)); // 128 GB
   }
 
   @Override
