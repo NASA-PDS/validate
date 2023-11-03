@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.xml.transform.sax.SAXSource;
+import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.InputSource;
@@ -44,10 +45,11 @@ class UserInput {
           TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
           List<TinyNodeImpl> xmlModels = new ArrayList<>();
           XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
-          xmlModels = extractor.getNodesFromDoc("logical_identifier");
+          xmlModels = extractor.getNodesFromDoc("//logical_identifier");
           this.labels_lidvid = xmlModels.get(0).getStringValue();
           return true;
         } catch (Exception e) {
+          e.printStackTrace();
           return false;
         }
       }
@@ -57,7 +59,10 @@ class UserInput {
   private List<String> process (List<String> cliList){
     List<String> lidvids = new ArrayList<String>();
     for (String cliArg : cliList) {
-      if (cliArg.startsWith ("urn:")) {
+      cliArg = StringUtils.substringBefore(cliArg, "#");
+      if (cliArg.length() == 0) {
+        // ignore empty lines
+      } else if (cliArg.startsWith ("urn:")) {
         lidvids.add (cliArg);
       } else if (this.isLabel (cliArg)) {
         lidvids.add (this.labels_lidvid);
