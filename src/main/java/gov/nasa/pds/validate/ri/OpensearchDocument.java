@@ -165,7 +165,7 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   public OpensearchDocument(AuthInformation context) {
     this.context = context;
     this.hugeMemory.setHttpAsyncResponseConsumerFactory(
-        new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(128*1099511627776)); // 128 GB
+        new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(Integer.MAX_VALUE)); // almost 2 GB
   }
 
   @Override
