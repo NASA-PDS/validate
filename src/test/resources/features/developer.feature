@@ -10,7 +10,7 @@ Scenario Outline: Execute validate command for tests below.
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
 # Validate#754
-|"NASA-PDS/validate#754 Success differentiating file area offsets" | "github754" | 1 | "1 totalWarnings" | "SCHEMA_WARNING" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github754.json -s json --skip-context-validation  -t {resourceDir}/github754/Cassini_ISS_CB2_Jupiter_global_map_2.xml" | "report_github754.json" |
+|"NASA-PDS/validate#754 Success differentiating file area offsets" | "github754" | 0 | "1 warnings expected" | "DATA_OBJECTS_OUT_OF_ORDER" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github754.json -s json --skip-context-validation  -t {resourceDir}/github754/Cassini_ISS_CB2_Jupiter_global_map_2.xml" | "report_github754.json" |
 
 # Validate#693
 |"NASA-PDS/validate#693 Invalid PDF/A Checks"           | "github693" | 4 | "4 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github693.json -s json -t {resourceDir}/github693/" | "report_github693.json" |
