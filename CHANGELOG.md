@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...«unknown»)
 
@@ -15,6 +15,7 @@
 
 **Defects:**
 
+- Validate 3.3.0 erroneously reports data objects out of offset order [\#754](https://github.com/NASA-PDS/validate/issues/754) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Intermittent network failures attempting repeated downloads of schemas/schematrons [\#739](https://github.com/NASA-PDS/validate/issues/739) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Installation instructions need updates for Windows [\#723](https://github.com/NASA-PDS/validate/issues/723)
 - Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
