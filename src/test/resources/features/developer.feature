@@ -9,36 +9,17 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#754
+|"NASA-PDS/validate#754 Success differentiating file area offsets" | "github754" | 0 | "1 warnings expected" | "DATA_OBJECTS_OUT_OF_ORDER" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github754.json -s json --skip-context-validation  -t {resourceDir}/github754/Cassini_ISS_CB2_Jupiter_global_map_2.xml" | "report_github754.json" |
+
 # Validate#693
-|"NASA-PDS/validate#693 Invalid PDF/A Checks"           | "github693" | 4            | "4 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github693.json -s json -t {resourceDir}/github693/" | "report_github693.json" |
-
-
-
-
-
-
-
-
-
+|"NASA-PDS/validate#693 Invalid PDF/A Checks"           | "github693" | 4 | "4 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github693.json -s json -t {resourceDir}/github693/" | "report_github693.json" |
 
 # Validate#690
-|"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0           | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
+|"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
 
 # Validate#681
 |"NASA-PDS/validate#681 Success and Failure of ASCII table with space in number" | "github681" | 1 | "1 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681.json -s json --skip-context-validation  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681.json" |
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 # Validate#680
 |"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
