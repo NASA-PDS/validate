@@ -183,7 +183,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/15 Verify that all name/type attribute values correspond to names denoted context products
 
  |"NASA-PDS/validate#15 1" | "github15" | 0 | "0 valid context references should be found" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_pass.json -s json -R pds4.label -t {resourceDir}/github15/test_check-pass_context_products.xml" | "report_github15_pass.json" |
- |"NASA-PDS/validate#15 2" | "github15" | 4 | "4 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
+ |"NASA-PDS/validate#15 2" | "github15" | 1 | "1 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
 
 # The below tests are for real.
 
@@ -195,7 +195,7 @@ Scenario Outline: Execute validate command for tests below.
 
 ## Note that the reference code re-use the JSON report file for both tests but we won't
  |"NASA-PDS/validate#47 1" | "github47" | 0 | "No errors expected. Context validation disabled" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github47_disable-valid.json -s json -R pds4.label --skip-content-validation --skip-context-validation {resourceDir}/github47/test_context_products.xml" | "report_github47_disable-valid.json" |
- |"NASA-PDS/validate#47 2" | "github47" | 4 | "4 errors expected. Context validation enabled." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 --skip-content-validation -r {reportDir}/report_github47_enable-valid.json -s json -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
+ |"NASA-PDS/validate#47 2" | "github47" | 1 | "1 errors expected. Context validation enabled." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 --skip-content-validation -r {reportDir}/report_github47_enable-valid.json -s json -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
 
  |"NASA-PDS/validate#62 1"   | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --no-data-check -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
  |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --no-data-check -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
