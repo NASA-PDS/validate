@@ -198,7 +198,6 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
         List<String> types = new ArrayList<>();
 
         SourceLocation locator = null;
-        // deadcode as of 724: ContextProductReference rgp = null;
 
         // System.out.println("Nubmber of nodes parent: " +
         // nodesOfParent.getLength());
@@ -267,40 +266,6 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                     new ProblemDefinition(ExceptionType.INFO, ProblemType.CONTEXT_REFERENCE_FOUND,
                         "Context product found: '" + lidvid + "'"),
                     target, locator.getLineNumber(), -1));
-
-                /* deadcode as of 724
-                // now lets check name and type
-                List<String> rgpNames = null;
-                List<String> rgpTypes = null;
-                if (names != null && types != null) {
-                  rgp = rgProds.get(rgProds.indexOf(lidvidObj));
-                  rgpNames = rgp.getNames();
-                  rgpTypes = rgp.getTypes();
-                  // check the name
-                  for (String name : names) {
-                    if (!rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
-                      getListener().addProblem(new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.INFO,
-                              ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
-                              "Context reference name mismatch. Value: '" + name + "'"
-                                  + " Expected one of: '" + rgp.getNames() + "'"),
-                          target, locator.getLineNumber(), -1));
-                    }
-                  }
-                  // check the type
-                  for (String type : types) {
-                    if (!rgpTypes.stream().anyMatch(type::equalsIgnoreCase) &&
-                        !topNode.getLocalName().equals("Observing_System_Component")) {
-                      // TODO: For now, we are punting on Observing_System_Component
-                      getListener().addProblem(new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.INFO,
-                              ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
-                              "Context reference type mismatch. Value: '" + type + "'"
-                                  + " Expected one of: '" + rgp.getTypes() + "'"),
-                          target, locator.getLineNumber(), -1));
-                    }
-                  }
-                } */
               } // if rgProds.contains
             } catch (Exception e) {
               System.out.println(e);
