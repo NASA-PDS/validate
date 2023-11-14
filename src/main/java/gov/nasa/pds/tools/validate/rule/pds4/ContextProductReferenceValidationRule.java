@@ -198,7 +198,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
         List<String> types = new ArrayList<>();
 
         SourceLocation locator = null;
-        ContextProductReference rgp = null;
+        // deadcode as of 724: ContextProductReference rgp = null;
 
         // System.out.println("Nubmber of nodes parent: " +
         // nodesOfParent.getLength());
@@ -268,6 +268,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                         "Context product found: '" + lidvid + "'"),
                     target, locator.getLineNumber(), -1));
 
+                /* deadcode as of 724
                 // now lets check name and type
                 List<String> rgpNames = null;
                 List<String> rgpTypes = null;
@@ -299,7 +300,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                           target, locator.getLineNumber(), -1));
                     }
                   }
-                }
+                } */
               } // if rgProds.contains
             } catch (Exception e) {
               System.out.println(e);

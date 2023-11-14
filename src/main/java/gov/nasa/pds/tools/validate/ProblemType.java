@@ -262,7 +262,8 @@ public enum ProblemType {
 
   CONTEXT_REFERENCE_FOUND_MISMATCH("info.label.context_ref_mismatch"),
 
-  CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
+  // no longer in use
+  //CONTEXT_REFERENCE_FOUND_CASE_MISMATCH("info.label.context_ref_case_mismatch"),
 
   LOCAL_ID_FOUND("info.label.local_identifier_found"),
 
