@@ -33,6 +33,7 @@ public enum EncodingMimeMapping {
       if (encoding.equalsIgnoreCase("MP4/H.264/AAC")) return MP4;
       if (encoding.equalsIgnoreCase("PDF")) return PDF;
       if (encoding.equalsIgnoreCase("PDFA")) return PDFA;
+      if (encoding.equalsIgnoreCase("PDF/A")) return PDFA;
       if (encoding.equalsIgnoreCase("PNG")) return PNG;
       if (encoding.equalsIgnoreCase("TIFF")) return TIFF;
       if (encoding.equalsIgnoreCase("WAV")) return WAV;
