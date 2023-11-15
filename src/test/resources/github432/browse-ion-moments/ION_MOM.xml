@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/vg1/v1/PDS4_VG1_1D00_1001.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Browse xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:vg1="http://pds.nasa.gov/pds4/mission/vg1/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+    http://pds.nasa.gov/pds4/mission/vg1/v1 https://pds.nasa.gov/pds4/mission/vg1/v1/PDS4_VG1_1D00_1001.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:vg1-pls-sat:browse-ion-moments:ion-mom</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager 1 PLS Saturn Ion Moments Browse - ION MOM</title>
+        <information_model_version>1.13.0.0</information_model_version>
+        <product_class>Product_Browse</product_class>
+        <Citation_Information>
+            <author_list>DS Planetary Interactions Node</author_list>
+            <publication_year>2021</publication_year>
+            <description>This product is a PDF image of the ion moment data        
+                (10-5950 eV) from the Plasma experiment on Voyager 1 from the Saturn        
+                encounter. The plot was generated at PDS-PPI.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-15</modification_date>
+                <version_id>1.0</version_id>
+                <description>Original ION_MOM.PDF from the PDS3  VG1-S-PLS-5-SUMM-IONMOM-96SEC-V1.0 dataset, BROWSE directory, originally released 2002-10-14,
+                    migrated to PDF/A  to meet PDS4 standards.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+   <Context_Area>
+       <Time_Coordinates>
+           <start_date_time>1980-11-12T03:00:11.000Z</start_date_time>
+           <stop_date_time>1980-11-13T08:58:35.000Z</stop_date_time>
+       </Time_Coordinates>
+       <Investigation_Area>
+           <name>Voyager</name>
+           <type>Mission</type>
+           <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+               <reference_type>browse_to_investigation</reference_type>
+           </Internal_Reference>
+       </Investigation_Area>
+       <Observing_System>
+           <Observing_System_Component>
+               <name>Voyager 1</name>
+               <type>Spacecraft</type>
+               <Internal_Reference>
+                   <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg1</lid_reference>
+                   <reference_type>is_instrument_host</reference_type>
+               </Internal_Reference>
+           </Observing_System_Component>     
+           <Observing_System_Component>
+               <name>Plasma Science Experiment</name>
+               <type>Instrument</type>
+               <Internal_Reference>
+                   <lid_reference>urn:nasa:pds:context:instrument:vg1.pls</lid_reference>
+                   <reference_type>is_instrument</reference_type>
+               </Internal_Reference>
+           </Observing_System_Component>
+       </Observing_System>
+       <Target_Identification>
+           <name>Saturn</name>
+           <type>Planet</type>
+           <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:target:planet.saturn</lid_reference>
+               <reference_type>browse_to_target</reference_type>
+           </Internal_Reference>
+       </Target_Identification>   
+       <Target_Identification>
+           <name>Titan</name>
+           <type>Satellite</type> 
+           <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:target:satellite.saturn.titan</lid_reference>
+               <reference_type>browse_to_target</reference_type>
+           </Internal_Reference>
+       </Target_Identification>  
+       <Mission_Area>
+           <vg1:Voyager1>       
+               <vg1:mission_phase_name>Saturn Encounter</vg1:mission_phase_name> 
+           </vg1:Voyager1>
+       </Mission_Area>
+   </Context_Area> 
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:vg1-pls-sat:data-ion-moments-96sec:nonexistentxxx</lid_reference>  <!-- val308 should catch this -->
+            <reference_type>browse_to_data</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Browse>
+        <File>
+            <file_name>ION_MOM.PDF</file_name>
+            <creation_date_time>2015-07-14</creation_date_time>
+            <file_size unit="byte">63322</file_size>
+            <md5_checksum>556aeb49b7d7b512c9db31aff51b5197</md5_checksum>
+        </File>
+        <Encoded_Image>
+            <name>ION_MOM</name>
+            <offset unit="byte">0</offset>
+            <encoding_standard_id>PDF/A</encoding_standard_id>
+        </Encoded_Image>
+    </File_Area_Browse>
+</Product_Browse>

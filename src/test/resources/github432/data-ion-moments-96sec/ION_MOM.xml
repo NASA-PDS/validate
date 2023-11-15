@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/vg1/v1/PDS4_VG1_1D00_1001.sch" 
+     schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/particle/v2/PDS4_PARTICLE_1F00_2000.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"    
+    xmlns:vg1="http://pds.nasa.gov/pds4/mission/vg1/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:particle="http://pds.nasa.gov/pds4/particle/v2"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="    
+    http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+    http://pds.nasa.gov/pds4/mission/vg1/v1 https://pds.nasa.gov/pds4/mission/vg1/v1/PDS4_VG1_1D00_1001.xsd
+    http://pds.nasa.gov/pds4/particle/v2 https://pds.nasa.gov/pds4/particle/v2/PDS4_PARTICLE_1F00_2000.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:vg1-pls-sat:data-ion-moments-96sec:ion-mom</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager 1 PLS Saturn  Derived Ion Moments 96 Second Data - ION MOM</title>
+        <information_model_version>1.13.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Richardson, J. D.</author_list>
+            <publication_year>2021</publication_year>
+            <description>This ASCII table contains ion moment data from the Plasma experiment on Voyager 1 in Saturn's         
+                magnetosphere.  The data contains 96 second total ion moment density    
+                measurements.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2021-04-28</modification_date>
+                <version_id>1.0</version_id>
+                <description>Original ION_MOM.TAB from the PDS3 VG1-S-PLS-5-SUMM-IONMOM-96SEC-V1.0 dataset, DATA directory, originally released 2002-10-14, with metadata migrated to PDS4.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1980-11-12T03:00:11.000Z</start_date_time>
+            <stop_date_time>1980-11-13T08:58:35.000Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <Science_Facets>                                         
+                <domain>Magnetosphere</domain>
+                <discipline_name>Particles</discipline_name>  
+                <facet1>Ions</facet1>
+                <facet2>Plasma</facet2>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Voyager</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Voyager 1</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg1</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>     
+            <Observing_System_Component>
+                <name>Plasma Science Experiment</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:vg1.pls</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Saturn</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.saturn</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+        <Target_Identification>
+            <name>Titan</name>
+            <type>Satellite</type> 
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.saturn.titan</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+       <Mission_Area>
+            <vg1:Voyager1>       
+            <vg1:mission_phase_name>Saturn Encounter</vg1:mission_phase_name>
+            <vg1:spacecraft_clock_start_count>2/34918:03:401</vg1:spacecraft_clock_start_count>
+            <vg1:spacecraft_clock_stop_count>2/34955:31:400</vg1:spacecraft_clock_stop_count>
+            </vg1:Voyager1>
+        </Mission_Area>   
+        <Discipline_Area>
+                <particle:Particle_Observation>
+                    <particle:energy_range_minimum unit="eV">10</particle:energy_range_minimum>
+                    <particle:energy_range_maximum unit="eV">5950</particle:energy_range_maximum>
+                    <particle:Particle_Parameter>
+                        <particle:particle_type>Ions</particle:particle_type> 
+                        <particle:particle_measurement_type>Density</particle:particle_measurement_type>
+                    </particle:Particle_Parameter>
+                </particle:Particle_Observation>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>  <!-- val308: validate won't catch this yet-->
+            <lid_reference>urn:nasa:pds:mess-mag-kt17-model-residuals:document:xxxnoexistent</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:vg1-pls-sat:browse-ion-moments:ion-mom</lid_reference>
+            <reference_type>data_to_browse</reference_type>
+        </Internal_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>VG1-S-PLS-5-SUMM-IONMOM-96SEC-V1.0:ION_MOM.TAB</external_source_product_identifier>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <doi>10.17189/1519923</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>This is the first version converted to PDS4. The DOI provided
+                references the PDS3 source data set.</description>
+        </Source_Product_External> 
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>ION_MOM.TAB</file_name>
+            <file_size unit="byte">72</file_size>
+            <records>2</records>
+            <!--md5_checksum>9d1da3c9ccb0c35d3df3d80d77a3eb61</md5_checksum-->
+            <comment>This file is unmodified from the PDS3 version.</comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>2</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>2</fields>
+                <groups>0</groups>
+                <record_length unit="byte">36</record_length>
+                <Field_Character>
+                    <name>TIME</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <description>Time column. This field contains time in PDS format                     
+                        yyyy-mm-ddThh:mm:ss.sssZ. The individual elements of                    
+                        the time field can be read using the format                             
+                        (i4,4(1x,i2),1x,f6.3) yr, mon, day, hr, min, sec.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>ION_MDEN</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">10</field_length>
+                    <unit>COUNT/CM**3</unit>
+                    <description>Total ion moment density.</description>
+                    <Special_Constants>
+                        <missing_constant>-9.99e+10</missing_constant>
+                    </Special_Constants>
+                </Field_Character>   
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>
