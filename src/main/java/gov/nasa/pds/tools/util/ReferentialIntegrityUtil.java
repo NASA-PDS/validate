@@ -406,12 +406,14 @@ public class ReferentialIntegrityUtil {
                 .isIdentiferMatchingBundleBaseID(singleLidOrLidvidReference);
 
             // Only throw a WARNING if the product does belong to this bundle.
-            if (productBelongToBundleFlag && referenceBelongToBundleFlag) {
-              LOG.debug(
-                  "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
-                  filename, logicalIdentifierPerLidReference);
-              ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
-                  indexToFilenames);
+            if (productBelongToBundleFlag) {
+              if (referenceBelongToBundleFlag) {
+                LOG.debug(
+                    "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
+                    filename, logicalIdentifierPerLidReference);
+                ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
+                    indexToFilenames);
+              }
             } else {
               LOG.debug(
                   "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
