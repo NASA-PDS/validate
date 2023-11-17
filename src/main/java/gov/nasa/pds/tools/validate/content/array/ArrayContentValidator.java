@@ -300,7 +300,7 @@ public class ArrayContentValidator {
     // {},{},{}",dataType,value,rangeChecker.contains(value));
 
     if (!isSpecialConstant) {
-      if (!rangeChecker.contains(value)) {
+      if (!rangeChecker.contains(value) && !isNanOrInf(value)) {
         addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_VALUE_OUT_OF_DATA_TYPE_RANGE,
             ArrayContentValidator.tableNameReportStr
                 + "Value is not within the valid range of the data type '" + dataType.name() + "': "
@@ -320,6 +320,17 @@ public class ArrayContentValidator {
     }
   }
 
+  private boolean isNanOrInf (Number value) {
+    if (value instanceof Double) {
+      Double v = (Double)value;
+      return v.isInfinite() || v.isNaN();
+    }
+    if (value instanceof Float) {
+      Float v = (Float)value;
+      return v.isInfinite() || v.isNaN();
+    }
+   return false;
+  }
   private static boolean sameContent (Number number, String constant_repr) {
     if (constant_repr == null) return false;
     if (number.toString().equals(constant_repr)) {
