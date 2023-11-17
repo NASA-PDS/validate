@@ -300,13 +300,6 @@ public class ReferentialIntegrityUtil {
 
   private static void performReporting(String singleLidOrLidvidReference, boolean referenceIsLidvid,
       int indexToFilenames) {
-    // https://github.com/NASA-PDS/validate/issues/368 Product referential integrity
-    // check throws invalid WARNINGs
-    // Per request of user, we will disable the reporting until further
-    // instructions.
-    // Set the reportFlag to true if desire to do the reporting of this warning.
-    boolean reportFlag = false;
-
     try {
       String message = "";
       URL url =
@@ -329,17 +322,11 @@ public class ReferentialIntegrityUtil {
       }
       LOG.debug("performReporting:" + message);
 
-      if (reportFlag) {
-        // Build the ValidationProblem and add it to the report.
-        // The problem type is now ProblemType.REFERENCE_NOT_FOUND and not
-        // ProblemType.GENERAL_INFO
-        ValidationProblem p1 = new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.REFERENCE_NOT_FOUND, message),
-            url);
-        // Append the WARNING message to the report.
-        getListener().addProblem(p1);
-      }
-
+      ValidationProblem p1 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.WARNING, ProblemType.REFERENCE_NOT_FOUND, message),
+          url);
+      // Append the WARNING message to the report.
+      getListener().addProblem(p1);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -360,7 +347,7 @@ public class ReferentialIntegrityUtil {
       LOG.debug(
           "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier {},{}",
           singleLidOrLidvidReference, singleLogicalIdentifier);
-      if (singleLogicalIdentifier.contains(singleLidOrLidvidReference)) {
+      if (singleLogicalIdentifier.startsWith(singleLidOrLidvidReference)) {
         referenceIsValid = true;
         LOG.debug(
             "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier,REFERENCE_IS_VALID {},{}",
@@ -415,14 +402,18 @@ public class ReferentialIntegrityUtil {
 
             boolean productBelongToBundleFlag = ReferentialIntegrityUtil
                 .isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
+            boolean referenceBelongToBundleFlag = ReferentialIntegrityUtil
+                .isIdentiferMatchingBundleBaseID(singleLidOrLidvidReference);
 
             // Only throw a WARNING if the product does belong to this bundle.
             if (productBelongToBundleFlag) {
-              LOG.debug(
-                  "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
-                  filename, logicalIdentifierPerLidReference);
-              ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
-                  indexToFilenames);
+              if (referenceBelongToBundleFlag) {
+                LOG.debug(
+                    "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
+                    filename, logicalIdentifierPerLidReference);
+                ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
+                    indexToFilenames);
+              }
             } else {
               LOG.debug(
                   "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
@@ -512,7 +503,7 @@ public class ReferentialIntegrityUtil {
     boolean identifierMatchBundleBaseIDFlag = false;
     if (singleLogicalIdentifier != null) {
       if ((ReferentialIntegrityUtil.bundleBaseID != null)
-          && singleLogicalIdentifier.contains(ReferentialIntegrityUtil.bundleBaseID)) {
+          && singleLogicalIdentifier.startsWith(ReferentialIntegrityUtil.bundleBaseID)) {
         identifierMatchBundleBaseIDFlag = true;
       }
     }

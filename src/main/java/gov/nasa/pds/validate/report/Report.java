@@ -311,9 +311,9 @@ public abstract class Report {
   private void addToMessageSummary(String type) {
     if (this.messageSummary.containsKey(type)) {
       long count = this.messageSummary.get(type).longValue();
-      this.messageSummary.put(type, new Long(count + 1));
+      this.messageSummary.put(type, Long.valueOf(count + 1));
     } else {
-      this.messageSummary.put(type, new Long(1));
+      this.messageSummary.put(type, Long.valueOf(1));
     }
   }
 

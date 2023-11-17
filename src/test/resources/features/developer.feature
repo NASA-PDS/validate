@@ -132,6 +132,8 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#469 Field Special Constants Check - Fail MAX" | "github469" | 1 | "1 error messages expected." | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github469_max_fail.json -s json -t {resourceDir}/github469/201401031400_rdr_max_FAIL.xml" | "report_github469_max_fail.json" |
  |"NASA-PDS/validate#469 Field Special Constants Check - Fail MIN" | "github469" | 3 | "3 error messages expected." | "FIELD_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github469_min_fail.json -s json -t {resourceDir}/github469/201401031400_rdr_min_FAIL.xml" | "report_github469_min_fail.json" |
 
+ |"NASA-PDS/validate#432 reference integrity check" | "github432" | 1 | "1 warning messages expected." | "REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github432.json -s json -R pds4.bundle -t {resourceDir}/github432/bundle-voyager1-pls-sat-1.0.xml" | "report_github432.json" |
+
  |"NASA-PDS/validate#291 VALID" | "github291" | 0 | "0 error messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_valid.json -s json -R pds4.bundle -t {resourceDir}/github291/valid/bundle_kaguya_derived.xml" | "report_github291_bundle_valid.json" |
  |"NASA-PDS/validate#291 INVALID" | "github291" | 1 | "1 warning message expected for BAD_SCHEMATYPENS." | "BAD_SCHEMATYPENS" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github291_bundle_invalid.json -s json -R pds4.bundle -t {resourceDir}/github291/invalid/bundle_kaguya_derived.xml" | "report_github291_bundle_invalid.json" |
 
