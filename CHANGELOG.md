@@ -1,8 +1,16 @@
 # Changelog
 
-## [release/3.3.1](https://github.com/NASA-PDS/validate/tree/release/3.3.1) (2023-11-15)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-17)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...release/3.3.1)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.1...«unknown»)
+
+**Defects:**
+
+- Requirement \#308 does not appear to be working for checking referential integrity from products to others in the bundle [\#432](https://github.com/NASA-PDS/validate/issues/432) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
+## [v3.3.1](https://github.com/NASA-PDS/validate/tree/v3.3.1) (2023-11-15)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.0...v3.3.1)
 
 **Requirements:**
 
