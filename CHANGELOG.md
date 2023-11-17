@@ -6,6 +6,7 @@
 
 **Defects:**
 
+- Validate.bat does not execute on Windows [\#763](https://github.com/NASA-PDS/validate/issues/763) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Requirement \#308 does not appear to be working for checking referential integrity from products to others in the bundle [\#432](https://github.com/NASA-PDS/validate/issues/432) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 
 ## [v3.3.1](https://github.com/NASA-PDS/validate/tree/v3.3.1) (2023-11-15)
