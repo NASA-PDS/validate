@@ -10,7 +10,7 @@ Scenario Outline: Execute validate command for tests below.
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
 # Validate#755
-|"NASA-PDS/validate#755 Detect and report file areas referencing same file" | "github755" | 1 | "1 errors expected" | "DUPLICATED_FILE_AREA_REFERENCE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0014.xml {resourceDir}/github755/m221011.0015.xml {resourceDir}/github755/m221011.0030.xml" | "report_github755.json" |
+|"NASA-PDS/validate#755 Detect and report file areas referencing same file" | "github755" | 2 | "2 errors expected" | "DUPLICATED_FILE_AREA_REFERENCE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0014.xml {resourceDir}/github755/m221011.0015.xml {resourceDir}/github755/m221011.0030.xml" | "report_github755.json" |
 |"NASA-PDS/validate#755 No common file referenced" | "github755" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.1.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0015.xml" | "report_github755.1.json" |
 
 # Validate#754

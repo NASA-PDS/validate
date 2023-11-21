@@ -45,6 +45,7 @@ import gov.nasa.pds.tools.util.MD5Checksum;
 import gov.nasa.pds.tools.util.PDFUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -280,6 +281,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 name = child.getStringValue();
                 this.fileMapping.put(name, "");
                 LOG.debug("FileReferenceValidationRule:validate:name {}", name);
+                if (!CrossLabelFileAreaReferenceChecker.add (name, target)) {
+                  this.getListener().addProblem(
+                      new ValidationProblem(
+                          new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,
+                              "This file area references " + name + " that is already used by label "
+                              + CrossLabelFileAreaReferenceChecker.getOtherId(name, target)
+                              + " in file " + CrossLabelFileAreaReferenceChecker.getOtherFilename(name, target)),
+                          target, fileObject.getLineNumber(), -1));
+                };
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:checksum {}", checksum);
