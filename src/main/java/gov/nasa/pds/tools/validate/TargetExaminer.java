@@ -56,6 +56,9 @@ public class TargetExaminer extends Target {
     boolean targetIsBundleFlag = false;
 
     // Do a sanity check if the file or directory exist.
+    if (!"file".equalsIgnoreCase(url.getProtocol())) {
+      return (targetIsBundleFlag);     
+    }
     if (!FileUtils.toFile(url).exists()) {
       LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
       return (targetIsBundleFlag);
@@ -85,6 +88,9 @@ public class TargetExaminer extends Target {
     boolean targetIsCollectionFlag = false;
 
     // Do a sanity check if the file or directory exist.
+    if (!"file".equalsIgnoreCase(url.getProtocol())) {
+      return (targetIsCollectionFlag);     
+    }
     if (!FileUtils.toFile(url).exists()) {
       LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
       return (targetIsCollectionFlag);
