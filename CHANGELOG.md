@@ -1,16 +1,22 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-21)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.4...«unknown»)
+
+**Defects:**
+
+- Validate gives errors for 'NaN' values in IEEE754 data [\#761](https://github.com/NASA-PDS/validate/issues/761) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Uncaught exception thrown when only 1 of schemas/schematrons are provided via command-line [\#760](https://github.com/NASA-PDS/validate/issues/760) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate flags IEEE 754 "infinity" values as invalid [\#747](https://github.com/NASA-PDS/validate/issues/747) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
 ## [v3.3.4](https://github.com/NASA-PDS/validate/tree/v3.3.4) (2023-11-20)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.3...v3.3.4)
 
 ## [v3.3.3](https://github.com/NASA-PDS/validate/tree/v3.3.3) (2023-11-20)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/release/3.3.3...v3.3.3)
-
-## [release/3.3.3](https://github.com/NASA-PDS/validate/tree/release/3.3.3) (2023-11-20)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.1...release/3.3.3)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.1...v3.3.3)
 
 **Defects:**
 
