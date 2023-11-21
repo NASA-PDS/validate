@@ -24,6 +24,8 @@ public enum ProblemType {
 
   MISSING_REFERENCED_FILE("error.label.missing_file"),
 
+  DUPLICATED_FILE_AREA_REFERENCE("error.label.file_areas_duplicated_reference"),
+ 
   INVALID_LABEL("error.validation.invalid_label"),
 
   EMPTY_FOLDER("error.validation.empty_folder", ProblemCategory.EXECUTION),
