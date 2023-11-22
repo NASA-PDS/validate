@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.ValidateLauncher;
 import gov.nasa.pds.validate.constants.TestConstants;
@@ -78,6 +79,8 @@ public class StepDefs {
     this.launcher.flushValidators();
     // It seems the launcher does not completely flush any references to schematron
     // which causes problem for subsequent tests.
+    // get rid of the cross references
+    CrossLabelFileAreaReferenceChecker.reset();
   }
 
   private void createManifestFileDo(String testPath) {

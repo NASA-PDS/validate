@@ -55,4 +55,7 @@ public class CrossLabelFileAreaReferenceChecker {
   public static String getOtherFilename (String name, ValidationTarget target) {
     return knownRefs.get(resolve(name, target)).get(1);
   }
+  public static void reset() {
+    knownRefs.clear();
+  }
 }
