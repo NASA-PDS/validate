@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-model
+        href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch"
+        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model
+        href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.sch"
+        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model
+        href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1800.sch"
+        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model
+        href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1E00_1810.sch"
+        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+        xmlns="http://pds.nasa.gov/pds4/pds/v1"
+        xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+        xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+        xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                        https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd
+                        http://pds.nasa.gov/pds4/disp/v1
+                        https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.xsd
+                        http://pds.nasa.gov/pds4/img/v1
+                        https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1800.xsd
+                        http://pds.nasa.gov/pds4/geom/v1
+                        https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1E00_1810.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:dart_teleobs:data_mroraw:m221011.0014</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Magdalena Ridge Observatory 2.4-meter Telescope Raw Image: m221011.0014</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2023-08-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial PDS4 Delivery</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2022-10-11T08:50:17.05Z</start_date_time>
+            <stop_date_time>2022-10-11T08:50:32.05Z</stop_date_time>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Double Asteroid Redirection Test</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.double_asteroid_redirection_test</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Magdalena Ridge Observatory (MRO)</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:observatory.magdalena_ridge</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MRO 2.4-meter Telescope</name>
+                <type>Telescope</type>
+                <description>
+                    The MRO 2.4-meter Telescope is a Ritchey-Chretien telescope with a 2.4-meter mirror located in the 
+                    Cibola National Forest in New Mexico. It is owned and operated by New Mexico Institute of Mining and 
+                    Technology.
+                </description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4</lid_reference>
+                    <reference_type>is_telescope</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>MRO2K</name>
+                <type>Instrument</type>
+                <description>
+                    MRO2K, the visible-wavelength direct-imaging CCD for the MRO 2.4-meter Telescope, is an Andor iKon-L 936. 
+                    It is a 2048 x 2048 array delivering a 27.6 x 27.6 mm active image area. The CCD images are a 4.5 arc 
+                    minute square field of view with 13.5-micron pixels.
+                </description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:magdalena_ridge.mro2m4.andor_2kx2k_ccd</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Sky</name>
+            <type>Calibration Field</type>
+        </Target_Identification>
+        <Discipline_Area>
+            <disp:Display_Settings>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>m221011.0014</local_identifier_reference>
+                    <local_reference_type>display_settings_to_array</local_reference_type>
+                </Local_Internal_Reference>
+                <disp:Display_Direction>
+                    <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+                    <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+                    <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+                    <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+                </disp:Display_Direction>
+            </disp:Display_Settings>
+            <img:Exposure>
+                <img:exposure_duration unit="s">15.0</img:exposure_duration>
+            </img:Exposure>
+            <img:Optical_Filter>
+                <img:filter_name>V</img:filter_name>
+                <img:bandwidth unit="nm">84</img:bandwidth>
+                <img:center_filter_wavelength unit="nm">545</img:center_filter_wavelength>
+            </img:Optical_Filter>
+            <geom:Geometry>
+                <geom:Image_Display_Geometry>
+                    <Local_Internal_Reference>
+                        <local_identifier_reference>m221011.0014</local_identifier_reference>
+                        <local_reference_type>display_to_data_object</local_reference_type>
+                    </Local_Internal_Reference>
+                    <geom:Display_Direction>
+                        <geom:horizontal_display_axis>Sample</geom:horizontal_display_axis>
+                        <geom:horizontal_display_direction>Left to Right</geom:horizontal_display_direction>
+                        <geom:vertical_display_axis>Line</geom:vertical_display_axis>
+                        <geom:vertical_display_direction>Bottom to Top</geom:vertical_display_direction>
+                    </geom:Display_Direction>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:right_ascension_angle unit="deg">89.60987</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">-16.43276</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg">0</geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:name>J2000</geom:name>
+                            <geom:comment>equinox of RA and DEC</geom:comment>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                </geom:Image_Display_Geometry>
+            </geom:Geometry>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:dart_teleobs:document_mro:mro_2p4m_dart_pds_sis</lid_reference>
+            <reference_type>data_to_document</reference_type>
+            <comment>
+                MRO DART Uncalibrated/Calibrated Data Product Software Interface Specification document which describes the data products in this collection.
+            </comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:dart_teleobs:document_mro:mro_description</lid_reference>
+            <reference_type>data_to_document</reference_type>
+            <comment>Overview of the MRO 2.4-meter Telescope.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:dart_teleobs:document_mro:mro2k_description</lid_reference>
+            <reference_type>data_to_document</reference_type>
+            <comment>Short description of the MRO2K instrument.</comment>
+        </Internal_Reference>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>m221011.0014.fits</file_name>
+            <comment>Raw MRO image file</comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">5760</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>Fits header.</description>
+        </Header>
+        <Array_2D_Image>
+            <local_identifier>m221011.0014</local_identifier>
+            <offset unit="byte">5760</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <Element_Array>
+                <data_type>SignedMSB2</data_type>
+                <unit>DN</unit>
+                <value_offset>32768.0</value_offset>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>512</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>512</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Observational>
+    <File_Area_Observational_Supplemental>
+        <File>
+            <file_name>comps_221011.png</file_name>
+            <comment>Identifies the reference stars used in the photometric reduction.</comment>
+        </File>
+        <Encoded_Image>
+            <offset unit="byte">0</offset>
+            <encoding_standard_id>PNG</encoding_standard_id>
+        </Encoded_Image>
+    </File_Area_Observational_Supplemental>
+</Product_Observational>
