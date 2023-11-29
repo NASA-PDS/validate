@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-27)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.4...«unknown»)
+
+**Requirements:**
+
+- As a user, I want validate to throw an error when a file is being referenced by more than one label [\#755](https://github.com/NASA-PDS/validate/issues/755)
 
 **Defects:**
 
