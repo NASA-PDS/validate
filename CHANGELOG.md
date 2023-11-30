@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-29)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-11-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.4...«unknown»)
 
