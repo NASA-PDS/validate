@@ -86,7 +86,7 @@ jobs:
 
             -
                 name: 🫙 Version Determination
-                id: version
+                id: getversion
                 run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
             -
                 name: 💳 Docker Hub Identification
@@ -106,7 +106,7 @@ jobs:
                 with:
                     context: ./
                     file: ./docker/Dockerfile
-                    build-args: version=${{steps.jarrer.outputs.version}}
+                    build-args: version=${{steps.getversion.outputs.version}}
                     platforms: linux/amd64,linux/arm64
                     push: true
                     tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:latest
