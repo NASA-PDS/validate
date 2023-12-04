@@ -80,10 +80,9 @@ jobs:
                     ADMIN_GITHUB_TOKEN: ${{secrets.ADMIN_GITHUB_TOKEN}}
 
             -
-                name: 🫙 Jar and Tag Determination
-                id: jartag
-                run: |
-                    echo "jar_file=$(find ./service/target/ -maxdepth 1 -regextype posix-extended -regex '.*/validate-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?\.jar')" >> $GITHUB_OUTPUT
+                name: 🫙 Tar and Tag Determination
+                id: gettartag
+                run: echo "tar_file=$(tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?\.tar.gz')" >> $GITHUB_OUTPUT
                     echo "image_tag=$(echo ${{github.ref}} | awk -F/ '{print $NF}')" >> $GITHUB_OUTPUT
             -
                 name: 💳 Docker Hub Identification
@@ -103,10 +102,10 @@ jobs:
                 with:
                     context: ./
                     file: ./docker/Dockerfile
-                    build-args: validate_jar=${{steps.jartag.outputs.jar_file}}
+                    build-args: tar_file=${{steps.gettartag.outputs.tar_file}}
                     platforms: linux/amd64,linux/arm64
                     push: true
-                    tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.jartag.outputs.image_tag}}
+                    tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.gettartag.outputs.image_tag}}
 
 ...
 
