@@ -85,9 +85,9 @@ jobs:
                     ADMIN_GITHUB_TOKEN: ${{secrets.ADMIN_GITHUB_TOKEN}}
 
             -
-                name: 🫙 Jar File Determination
-                id: jarrer
-                run: echo "jar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/validate-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?\.jar')" >> $GITHUB_OUTPUT
+                name: 🫙 Version Determination
+                id: version
+                run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
             -
                 name: 💳 Docker Hub Identification
                 uses: docker/login-action@v2
@@ -106,7 +106,7 @@ jobs:
                 with:
                     context: ./
                     file: ./docker/Dockerfile
-                    build-args: validate_jar=${{steps.jarrer.outputs.jar_file}}
+                    build-args: version=${{steps.jarrer.outputs.version}}
                     platforms: linux/amd64,linux/arm64
                     push: true
                     tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:latest
