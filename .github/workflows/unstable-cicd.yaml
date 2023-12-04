@@ -87,7 +87,7 @@ jobs:
             -
                 name: 🫙 Tar Determination
                 id: gettar
-                run: echo "tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/.*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?-bin\.tar.gz')" >> $GITHUB_OUTPUT
+                run: echo "tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/.*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?-bin\.tar\.gz')" >> $GITHUB_OUTPUT
             -
                 name: 💳 Docker Hub Identification
                 uses: docker/login-action@v2
