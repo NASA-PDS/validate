@@ -1,44 +1,30 @@
-# 🪐 Docker Image and Container for Validate Tool
+# 🚢 Dockerfile
 
-The docker image of Validate Tool provides an easy way to deploy the Validate Tool, without having to 
-worry about the Java/JDK versions installed and operating systems supported. Also, this helps to 
-easily use the Validate Tool in other execution environments such as docker compose and Amazon ECS.
+There's one Dockerfile here that can be used to make images for development and production.
 
-The only prerequisite to use the dockerized Validate Tool is the availability of docker software in the host computer.
-At the time of writing this, the Validate Tool was tested with Docker version 20.10.12.
+To build an image, run:
 
-## 🏃 Steps to build the docker image of the Validate Tool
+    docker image build --build-arg tar_file=URL --tag [OWNER/]registry-api-service:TAG .
 
-1. Clone the GIT Repository containing the validate tool.
-```shell
-git clone https://github.com/NASA-PDS/validate.git
+Replace `URL` with the URL (or relative file path) to a `validate` TAR file and `TAG` with the desired version tag. You can add `OWNER/` to tag the image for a specific owner, such as `nasapds/`.
+
+The GitHub Actions configured in this repository automatically make images after each `stable-cicd.yaml` workflow (with a `:X.Y.Z` tag) and `unstable-cicd.yaml` workflow (with a `:latest` tag) and publishes them to the Docker Hub.
+
+
+## 🧱 Example Builds
+
+Building a local image:
+```console
+$ git clone https://github.com/NASA-PDS/validate.git
+$ cd validate
+$ mvn package
+$ docker image build --build-arg tar_file=target/*-bin.tar.gz --tag validate:latest --file docker/Dockerfile .
 ```
 
-2. Update (if required) the following version in the `Dockerfile` with the required Validate Tool version.
-
-| Variable            | Description |
-| ------------------- | ------------|
-| validate_version     | The version of the Validate Tool release to be included in the docker image |
-
-```    
-# Set following argument with the required validate tool version
-ARG validate_version=3.0.3
+Building an image from a released jar file:
+```console
+$ docker image build --build-arg tar_file=https://github.com/NASA-PDS/validate/releases/download/v1.0.0/validate-1.0.0-bin.tar.gz --tag nasapds/validate:1.0.0 --file docker/Dockerfile .
 ```
-
-3. Open a terminal and change the current working directory to `validate/docker`.
-
-4. Build the docker image as follows (make sure that docker is installed and running in your computer).
-
-```
-    docker image build --tag nasapds/validate .
-```
-
-5. Test the `nasapds/validate` docker image as follows.
-
-```
-    docker container run --rm nasapds/validate --help
-```
-The above command should display the help content of the Validate Tool.
 
 
 ## 🏃 Steps to run a docker container of the Validate Tool
