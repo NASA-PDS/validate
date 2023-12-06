@@ -4,9 +4,9 @@ There's one Dockerfile here that can be used to make images for development and 
 
 To build an image, run:
 
-    docker image build --build-arg tar_file=URL.tar.gz --tag [OWNER/]validate:TAG .
+    docker image build --build-arg tar_file=PATH --tag [OWNER/]validate:TAG .
 
-Replace `URL` with the URL (e.g. from https://github.com/NASA-PDS/validate/releases/latest, this would be something like https://github.com/NASA-PDS/validate/releases/download/v3.3.3/validate-3.3.3-bin.tar.gz) or relative file path (e. g. target/validate-3.4.0-SNAPSHOT-bin.tar.gz) to a `validate` TAR file and `TAG` with the desired version tag. You can add `OWNER/` to tag the image for a specific owner, such as `nasapds/`.
+Replace `PATH` with the relative file path (e. g. target/validate-3.4.0-SNAPSHOT-bin.tar.gz) to a `validate` tarball file and `TAG` with the desired version tag. You can add `OWNER/` to tag the image for a specific owner, such as `nasapds/`.
 
 The GitHub Actions configured in this repository automatically make images after each `stable-cicd.yaml` workflow (with a `:X.Y.Z` tag) and `unstable-cicd.yaml` workflow (with a `:latest` tag) and publishes them to the Docker Hub.
 
@@ -19,11 +19,6 @@ $ git clone https://github.com/NASA-PDS/validate.git
 $ cd validate
 $ mvn package
 $ docker image build --build-arg tar_file=target/*-bin.tar.gz --tag validate:latest --file docker/Dockerfile .
-```
-
-Building an image from a released jar file:
-```console
-$ docker image build --build-arg tar_file=https://github.com/NASA-PDS/validate/releases/download/v3.3.3/validate-3.3.3-bin.tar.gz --tag nasapds/validate:3.3.3 --file docker/Dockerfile .
 ```
 
 
