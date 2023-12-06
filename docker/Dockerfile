@@ -33,7 +33,8 @@ FROM openjdk:15-slim
 ARG tar_file
 
 # Install Validate tool
-ADD $tar_file /tmp/validate-bin.tar.gz
+COPY $tar_file /tmp/validate-bin.tar.gz
+
 RUN  mkdir /opt/validate  \
      && tar xzf /tmp/validate-bin.tar.gz  -C /opt/validate --strip-components 1 \
      && rm -f /tmp/validate-bin.tar.gz \
