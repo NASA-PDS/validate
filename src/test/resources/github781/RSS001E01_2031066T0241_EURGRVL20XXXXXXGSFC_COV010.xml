@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch"
+     schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+     xmlns="http://pds.nasa.gov/pds4/pds/v1"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+     https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.xsd">
+	<Identification_Area>
+		<logical_identifier>urn:nasa:pds:clipper.rss.derived:data.covariance:rss001e01_2031066t0241_eurgrvl20xxxxxxgsfc_cov</logical_identifier>
+		<version_id>1.0</version_id>
+		<title>Gravity Field Covariance File</title>
+		<information_model_version>1.20.0.0</information_model_version>
+		<product_class>Product_Observational</product_class>
+		<Citation_Information>
+			<author_list>Buccino, D.R.</author_list>
+			<publication_year>2023</publication_year>
+			<keyword>rss</keyword>
+			<description>
+                Europa Clipper Gravity/Radio Science Covariance Sample
+            </description>
+		</Citation_Information>
+		<Modification_History>
+			<Modification_Detail>
+				<modification_date>2023-11-02</modification_date>
+				<version_id>1.0</version_id>
+				<description>
+                    Initial Covariance file
+                </description>
+			</Modification_Detail>
+		</Modification_History>
+	</Identification_Area>
+	<Observation_Area>
+		<Time_Coordinates>
+			<start_date_time>2031-03-07Z</start_date_time>
+			<stop_date_time>2034-07-20Z</stop_date_time>
+		</Time_Coordinates>
+		<Primary_Result_Summary>
+			<purpose>Science</purpose>
+			<processing_level>Derived</processing_level>
+			<description>
+				The Gravity Field Covariance file contains the complete gravity 
+				field solution including the covariance matrix for the solution. 
+				
+				It is crucial to read the COMMENT in the FILE_AREA_OBSERVATIONAL 
+				section to understand the specifics of the model.
+            </description>
+		</Primary_Result_Summary>
+		<Investigation_Area>
+			<name>Clipper</name>
+			<type>Mission</type>
+			<Internal_Reference>
+				<lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+				<reference_type>data_to_investigation</reference_type>
+			</Internal_Reference>
+		</Investigation_Area>
+		<Observing_System>
+			<Observing_System_Component>
+				<name>Clipper</name>
+				<type>Host</type>
+				<Internal_Reference>
+					<lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+					<reference_type>is_instrument_host</reference_type>
+				</Internal_Reference>
+			</Observing_System_Component>
+			<Observing_System_Component>
+				<name>Europa Clipper Gravity/Radio Science</name>
+				<type>Instrument</type>
+				<Internal_Reference>
+					<lid_reference>urn:nasa:pds:context:instrument:clipper.rss</lid_reference>
+					<reference_type>is_instrument</reference_type>
+				</Internal_Reference>
+			</Observing_System_Component>
+			<Observing_System_Component>
+				<name>NASA Deep Space Network Radio Science</name>
+				<type>Instrument</type>
+				<Internal_Reference>
+					<lid_reference>urn:nasa:pds:context:instrument:dsn.rss</lid_reference>
+					<reference_type>is_instrument</reference_type>
+				</Internal_Reference>
+			</Observing_System_Component>
+		</Observing_System>
+		<Target_Identification>
+			<name>Europa</name>
+			<type>Satellite</type>
+			<Internal_Reference>
+				<lid_reference>urn:nasa:pds:context:target:satellite.jupiter.europa</lid_reference>
+				<reference_type>data_to_target</reference_type>
+			</Internal_Reference>
+		</Target_Identification>
+	</Observation_Area>
+	<Reference_List>
+		<Internal_Reference>
+			<lid_reference>urn:nasa:pds:clipper.rss.derived:document:clipper_rss_derived_sis</lid_reference>
+			<reference_type>data_to_document</reference_type>
+		</Internal_Reference>
+	</Reference_List>
+	<File_Area_Observational>
+		<File>
+			<file_name>RSS001E01_2031066T0241_EURGRVL20XXXXXXGSFC_COV010.CSV</file_name>
+			<creation_date_time>2023-08-22Z</creation_date_time>
+			<file_size unit="byte">354958</file_size>
+			<md5_checksum>d753adfb20ba898cb3ff9e5f9e73864f</md5_checksum>
+			<comment>
+				This product contains coefficients, covariance, and related data for a
+				spherical harmonic model of the Europa gravity field. Input data are from
+				radio tracking of the Europa Clipper spacecraft.
+
+				Definitions of the tables follow. It has been produced by the Europa
+				Clipper Gravity/Radio Science. It extends to degree and order 20.
+				A Kaula rule of 1.25E-05/L^2 was applied. Data up to August 23rd, 2011
+				are included in the solution. The name for this solution is EuGM001.
+				It was published in Science in 2032 by Mazarico et al.
+				(doi:10.1126/science.1218809).
+			</comment>
+		</File>
+		<Table_Delimited>
+			<name>Covariance Table Header</name>
+			<offset unit="byte">0</offset>
+			<parsing_standard_id>PDS DSV 1</parsing_standard_id>
+			<records>1</records>
+			<record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+			<field_delimiter>Comma</field_delimiter>
+			<Record_Delimited>
+				<fields>4</fields>
+				<groups>0</groups>
+				<Field_Delimited>
+					<name>N</name>
+					<field_number>1</field_number>
+					<data_type>ASCII_Integer</data_type>
+					<description>Number of Estimated Parameters</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>N_F</name>
+					<field_number>2</field_number>
+					<data_type>ASCII_Integer</data_type>
+					<description>Number of Fixed Parameters</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>BODY_NAME</name>
+					<field_number>3</field_number>
+					<data_type>ASCII_String</data_type>
+					<description>Planet/Body Name</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>COORD_SYS</name>
+					<field_number>4</field_number>
+					<data_type>ASCII_String</data_type>
+					<description>Coordinate system frame name</description>
+				</Field_Delimited>
+			</Record_Delimited>
+		</Table_Delimited>
+		<Table_Delimited>
+			<name>Covariance Table Coefficients</name>
+			<offset unit="byte">25</offset>
+			<parsing_standard_id>PDS DSV 1</parsing_standard_id>
+			<records>124</records>
+			<record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+			<field_delimiter>Comma</field_delimiter>
+			<Record_Delimited>
+				<fields>4</fields>
+				<groups>0</groups>
+				<Field_Delimited>
+					<name>PARAM_NAME</name>
+					<field_number>1</field_number>
+					<data_type>ASCII_String</data_type>
+					<description>Parameter name</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>PARAM_VAL</name>
+					<field_number>2</field_number>
+					<data_type>ASCII_Real</data_type>
+					<description>Parameter value</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>PARAM_SIGMA</name>
+					<field_number>3</field_number>
+					<data_type>ASCII_Real</data_type>
+					<description>Parameter uncertainty, 1-sigma</description>
+				</Field_Delimited>
+				<Field_Delimited>
+					<name>PARAM_UNIT</name>
+					<field_number>4</field_number>
+					<data_type>ASCII_String</data_type>
+					<description>Parameter unit</description>
+				</Field_Delimited>
+			</Record_Delimited>
+		</Table_Delimited>
+		<Table_Delimited>
+			<name>Covariance Table Matrix</name>
+			<offset unit="byte">7751</offset>
+			<parsing_standard_id>PDS DSV 1</parsing_standard_id>
+			<records>124</records>
+			<record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+			<field_delimiter>Comma</field_delimiter>
+			<Record_Delimited>
+				<fields>0</fields>
+				<groups>1</groups>
+				<Group_Field_Delimited>
+					<name>Covariance Matrix Row</name>
+					<repetitions>124</repetitions>
+					<fields>1</fields>
+					<groups>0</groups>
+					<Field_Delimited>
+						<name>Covariance Matrix Value</name>
+						<data_type>ASCII_Real</data_type>
+						<description>Covariance matrix value</description>
+					</Field_Delimited>
+				</Group_Field_Delimited>
+			</Record_Delimited>
+		</Table_Delimited>
+	</File_Area_Observational>
+</Product_Observational>
