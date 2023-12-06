@@ -30,17 +30,11 @@
 
 FROM openjdk:15-slim
 
-# Set following argument with the required validate tool version
-ARG validate_version=3.0.3
-
-# Install curl (to download the validate binary)
-RUN apt-get update -y \
-    && apt-get install -y curl
-
-ENV VALIDATE_IMAGE_PATH=https://github.com/NASA-PDS/validate/releases/download/v${validate_version}/validate-${validate_version}-bin.tar.gz
+ARG tar_file
 
 # Install Validate tool
-ADD $VALIDATE_IMAGE_PATH /tmp/validate-bin.tar.gz
+COPY $tar_file /tmp/validate-bin.tar.gz
+
 RUN  mkdir /opt/validate  \
      && tar xzf /tmp/validate-bin.tar.gz  -C /opt/validate --strip-components 1 \
      && rm -f /tmp/validate-bin.tar.gz \

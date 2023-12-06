@@ -84,6 +84,33 @@ jobs:
                     CODE_SIGNING_KEY: ${{secrets.CODE_SIGNING_KEY}}
                     ADMIN_GITHUB_TOKEN: ${{secrets.ADMIN_GITHUB_TOKEN}}
 
+            -
+                name: 🫙 Tar Determination
+                id: gettar
+                run: echo "tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/.*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?-bin\.tar\.gz')" >> $GITHUB_OUTPUT
+            -
+                name: 💳 Docker Hub Identification
+                uses: docker/login-action@v2
+                with:
+                    username: ${{secrets.DOCKERHUB_USERNAME}}
+                    password: ${{secrets.DOCKERHUB_TOKEN}}
+            -
+                name: 🎰 QEMU Multiple Machine Emulation
+                uses: docker/setup-qemu-action@v2
+            -
+                name: 🚢 Docker Buildx
+                uses: docker/setup-buildx-action@v2
+            -
+                name: 🧱 Image Construction and Publication
+                uses: docker/build-push-action@v3
+                with:
+                    context: ./
+                    file: ./docker/Dockerfile
+                    build-args: tar_file=${{steps.gettar.outputs.tar_file}}
+                    platforms: linux/amd64,linux/arm64
+                    push: true
+                    tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:latest
+
 ...
 
 # -*- mode: yaml; indent: 4; fill-column: 120; coding: utf-8 -*-
