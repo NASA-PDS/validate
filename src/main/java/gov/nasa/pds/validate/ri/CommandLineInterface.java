@@ -24,12 +24,10 @@ public class CommandLineInterface {
   public CommandLineInterface() {
     super();
     this.opts = new Options();
-    
-    // Disabling this argument for the time being since the Search API does not yet support authorized access
+    /* registry is not ready. Deactivating this option until it becomes ready
     this.opts.addOption(Option.builder("A").argName("auth-file").desc(
         "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
-        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
-
+        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build()); */
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
         "file with the URL and credential content to have full, direct read-only access to the Registry OpenSearch DB")
         .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
@@ -74,32 +72,33 @@ public class CommandLineInterface {
 
     LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
     Configuration config = ctx.getConfiguration();
-    Logger logger = LogManager.getRootLogger();
     LoggerConfig loggerConfig = config.getLoggerConfig(LogManager.ROOT_LOGGER_NAME);
-
     loggerConfig.addAppender(counter, null, null);
     ctx.updateLoggers();
-
     CommandLine cl = new DefaultParser().parse(this.opts, args);
+
     if (cl.hasOption('h')) {
       this.help();
       return 0;
     }
+
     if (cl.hasOption("verbose"))
       loggerConfig.setLevel(Level.INFO);
     ctx.updateLoggers();
 
-    // Disabling this argument for the time being since the Search API does not yet support authorized access
-    this.opts.addOption(Option.builder("A").argName("auth-file").desc(
-        "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
-        .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build());
-    if (!cl.hasOption("a"))
+    if (!cl.hasOption("a")) {
       throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information.");
+    } else if (!cl.hasOption("A")) {
+      log.warn("Using Registry OpenSearch Database to check references.");
+    } else {
+      /* not true statement until registry handles authentication
+       * throw new ParseException("Must supply authorization file for access to either OpenSearch Database (auth-opensearch) or OpenSearch Registry (auth-api).");
+       */
+      throw new ParseException("Must define authorization file for access to OpenSearch Database (auth-opensearch).");
+    }
 
     if (cl.getArgList().size() < 1)
       throw new ParseException("Must provide at least one LIDVID, Label file path, or manifest file path as a starting point.");
-    if (!cl.hasOption("A"))
-      log.warn("Using Registry OpenSearch Database to check references.");
 
     if (cl.hasOption("t")) {
       try {
@@ -113,12 +112,18 @@ public class CommandLineInterface {
     } else
       this.log.info("lidvids will be sequentially processed.");
 
-    this.log.info("Starting the reference integrity checks.");
     try {
+      DuplicateFileAreaFilenames scanner = new DuplicateFileAreaFilenames(
+          AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
+          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch", "")));
       Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()),
           AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch")));
-      engine.processQueueUntilEmpty();
+          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch", "")));
+      this.log.info("Starting the duplicate filename in FileArea checks.");
+      scanner.findDuplicatesInBackground();
+      this.log.info("Starting the reference integrity checks.");
+     //engine.processQueueUntilEmpty();
+      scanner.waitTillDone();
       broken = engine.getBroken();
       total = engine.getTotal();
     } catch (IOException e) {
@@ -136,7 +141,7 @@ public class CommandLineInterface {
       this.log.info("   " + this.total + " products processed");
       this.log.info("   " + this.broken + " missing references");
       this.log.info("   " + counter.getNumberOfFatals() + " fatals");
-      this.log.info("   " + (counter.getNumberOfErrors() - broken)
+      this.log.info("   " + Math.max(0, counter.getNumberOfErrors() - this.broken)
           + " errors not including missing references");
       this.log.info("   " + counter.getNumberOfWarnings() + " warnings");
     }
