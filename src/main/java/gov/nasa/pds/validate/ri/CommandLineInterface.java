@@ -1,6 +1,8 @@
 package gov.nasa.pds.validate.ri;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
@@ -18,8 +20,9 @@ import org.xml.sax.SAXException;
 
 public class CommandLineInterface {
   final private Logger log = LogManager.getLogger(CommandLineInterface.class);
-  private long broken = -1, total = -1;
   final private Options opts;
+  private long broken = -1, total = -1;
+  private Map<String, List<String>> duplicates = null;
 
   public CommandLineInterface() {
     super();
@@ -122,10 +125,11 @@ public class CommandLineInterface {
       this.log.info("Starting the duplicate filename in FileArea checks.");
       scanner.findDuplicatesInBackground();
       this.log.info("Starting the reference integrity checks.");
-     //engine.processQueueUntilEmpty();
+      engine.processQueueUntilEmpty();
       scanner.waitTillDone();
-      broken = engine.getBroken();
-      total = engine.getTotal();
+      this.broken = engine.getBroken();
+      this.duplicates = scanner.getResults();
+      this.total = engine.getTotal();
     } catch (IOException e) {
       this.log.fatal("Cannot process request because of IO problem.", e);
       throw e;
@@ -137,13 +141,23 @@ public class CommandLineInterface {
       throw e;
     }
     if (-1 < this.total) {
-      this.log.info("Summary:");
+      this.log.info("Reference Summary:");
       this.log.info("   " + this.total + " products processed");
       this.log.info("   " + this.broken + " missing references");
       this.log.info("   " + counter.getNumberOfFatals() + " fatals");
       this.log.info("   " + Math.max(0, counter.getNumberOfErrors() - this.broken)
           + " errors not including missing references");
       this.log.info("   " + counter.getNumberOfWarnings() + " warnings");
+    }
+    if (this.duplicates != null) {
+      this.log.info("Duplicate Summary:");
+      this.log.info("   Number of duplicates found: " + this.duplicates.size());
+      for (String filename : this.duplicates.keySet()) {
+        this.log.info("   File: " + filename);
+        for (String lid : this.duplicates.get(filename)) {
+          this.log.info("      referer: " + lid);
+        }
+      }
     }
     return this.broken == 0 ? 0 : 1;
   }
