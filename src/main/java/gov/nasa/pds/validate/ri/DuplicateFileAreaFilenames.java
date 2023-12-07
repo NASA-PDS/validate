@@ -107,6 +107,7 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
           lids.add(hit.getSourceAsMap().get("lid").toString());
         }
         if (1 < lids.size()) {
+          this.log.error("Found duplicate file: " + bucket.getKeyAsString());
           this.duplicates.put (bucket.getKeyAsString(), new ArrayList<String>(lids));
         }
       }
