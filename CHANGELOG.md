@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-12-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2023-12-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.3.3...«unknown»)
 
@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- Validate making incorrect assumption that first object has and object length == `file_size` [\#781](https://github.com/NASA-PDS/validate/issues/781) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate gives errors for 'NaN' values in IEEE754 data [\#761](https://github.com/NASA-PDS/validate/issues/761) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Uncaught exception thrown when only 1 of schemas/schematrons are provided via command-line [\#760](https://github.com/NASA-PDS/validate/issues/760) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate flags IEEE 754 "infinity" values as invalid [\#747](https://github.com/NASA-PDS/validate/issues/747) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
