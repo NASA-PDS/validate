@@ -91,6 +91,8 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
           RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
               .setHttpClientConfigCallback(this).setRequestConfigCallback(this));
       response = this.search(client, request);
+      if (response.getAggregations() == null || response.getAggregations().get("duplicates") == null)
+        return;
       for (Terms.Bucket bucket : ((Terms)response.getAggregations().get("duplicates")).getBuckets()) {
         SearchRequest findIDs = new SearchRequest()
             .indices("registry")

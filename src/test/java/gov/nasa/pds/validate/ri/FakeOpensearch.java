@@ -35,34 +35,41 @@ public class FakeOpensearch extends OpensearchDocument {
   @Override
   protected synchronized SearchResponse search(RestHighLevelClient client, SearchRequest request)
       throws IOException {
-    FileInputStream fis = null;
-    SearchResponse result = this.getSearchResponseFromJson(
-        "{\"took\":4,\"timed_out\":false,\"_shards\":{\"total\":0,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":0,\"relation\":\"eq\"},\"max_score\":4.841559,\"hits\":[]}}");
-    String field = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
-        .fieldName();
-    String index = request.indices()[0];
-    String value = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
-        .value().toString();
-    String workingFilename =
-        "src/test/resources/riut/" + index + "___" + field + "___" + value + ".json";
-    try {
-      fis = new FileInputStream(workingFilename);
-      result = this.getSearchResponseFromJson(new String(fis.readAllBytes()));
-    } catch (FileNotFoundException e) {
-      if (!this.broken.contains(workingFilename)) {
-        this.broken.add(workingFilename);
-        log.error("Incomplete test data set because of missing file: " + workingFilename);
+    SearchResponse result;
+    if (request.source().query() != null) {
+      FileInputStream fis = null;
+      result = this.getSearchResponseFromJson(
+          "{\"took\":4,\"timed_out\":false,\"_shards\":{\"total\":0,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":0,\"relation\":\"eq\"},\"max_score\":4.841559,\"hits\":[]}}");
+      String field = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
+          .fieldName();
+      String index = request.indices()[0];
+      String value = ((TermQueryBuilder) ((BoolQueryBuilder) request.source().query()).must().get(0))
+          .value().toString();
+      String workingFilename =
+          "src/test/resources/riut/" + index + "___" + field + "___" + value + ".json";
+      try {
+        fis = new FileInputStream(workingFilename);
+        result = this.getSearchResponseFromJson(new String(fis.readAllBytes()));
+      } catch (FileNotFoundException e) {
+        if (!this.broken.contains(workingFilename)) {
+          this.broken.add(workingFilename);
+          log.error("Incomplete test data set because of missing file: " + workingFilename);
+        }
+      } catch (IOException e) {
+        if (!this.broken.contains(workingFilename)) {
+          this.broken.add(workingFilename);
+          log.error(
+              "Incomplete test data set because of JSON parsing error of file: " + workingFilename,
+              e);
+        }
+      } finally {
+        if (fis != null)
+          fis.close();
       }
-    } catch (IOException e) {
-      if (!this.broken.contains(workingFilename)) {
-        this.broken.add(workingFilename);
-        log.error(
-            "Incomplete test data set because of JSON parsing error of file: " + workingFilename,
-            e);
-      }
-    } finally {
-      if (fis != null)
-        fis.close();
+    } else {
+      result = this.getSearchResponseFromJson(
+          "{\"took\":233,\"timed_out\":false,\"_shards\":{\"total\":1,\"successful\":1,\"skipped\":0,\"failed\":0},\"hits\":{\"total\":{\"value\":10000,\"relation\":\"gte\"},\"max_score\":null,\"hits\":[]},\"aggregations\":{}}}\n"
+          );
     }
     return result;
   }
