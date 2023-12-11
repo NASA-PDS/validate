@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- validate catches valid\_maximum but not valid\_minimum [\#785](https://github.com/NASA-PDS/validate/issues/785) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate making incorrect assumption that first object has and object length == `file_size` [\#781](https://github.com/NASA-PDS/validate/issues/781) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate gives errors for 'NaN' values in IEEE754 data [\#761](https://github.com/NASA-PDS/validate/issues/761) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Uncaught exception thrown when only 1 of schemas/schematrons are provided via command-line [\#760](https://github.com/NASA-PDS/validate/issues/760) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
