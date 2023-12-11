@@ -37,7 +37,7 @@ import org.opensearch.search.builder.SearchSourceBuilder;
 public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpClientConfigCallback,
     RestClientBuilder.RequestConfigCallback {
   protected static OpensearchDocument sourceOverride = null;
-  final private int PAGE_SIZE = 5000;
+  protected final int PAGE_SIZE = 5000;
   final private AuthInformation context;
   final private HashMap<String, Map<String, Object>> documents =
       new HashMap<String, Map<String, Object>>();
