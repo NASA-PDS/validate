@@ -67,7 +67,7 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
      *   "aggregations": {
      *     "duplicates": {
      *       "terms": {
-     *         "field": "ops:Data_File_Info/ops:file_name",
+     *         "field": "ops:Data_File_Info/ops:file_ref",
      *         "size": 100,
      *         "min_doc_count": 2
      *       }
@@ -79,7 +79,7 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
         .indices("registry")
         .source(new SearchSourceBuilder()
             .aggregation(new TermsAggregationBuilder("duplicates")
-                .field("ops:Data_File_Info/ops:file_name")
+                .field("ops:Data_File_Info/ops:file_ref")
                 .minDocCount(2)
                 .size(this.PAGE_SIZE)
                 )
@@ -101,7 +101,7 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
                 .query(
                     QueryBuilders.boolQuery()
                         .must(QueryBuilders
-                            .termQuery("ops:Data_File_Info/ops:file_name", bucket.getKeyAsString())))
+                            .termQuery("ops:Data_File_Info/ops:file_ref", bucket.getKeyAsString())))
                 .size(this.PAGE_SIZE));
         SearchResponse duplicators = this.search(client, findIDs);
         HashSet<String> lids = new HashSet<String>();
