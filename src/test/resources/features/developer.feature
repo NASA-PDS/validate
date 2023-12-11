@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#785
+|"NASA-PDS/validate#785 Success detecting out of range values" | "github785" | 0 | "4 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github785.json -s json --skip-context-validation  -t {resourceDir}/github785/00038_FGM_RTN.xml" | "report_github785.json" |
+
 # Validate#755
 |"NASA-PDS/validate#755 Detect and report file areas referencing same file" | "github755" | 2 | "2 errors expected" | "DUPLICATED_FILE_AREA_REFERENCE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0014.xml {resourceDir}/github755/m221011.0015.xml {resourceDir}/github755/m221011.0030.xml" | "report_github755.json" |
 |"NASA-PDS/validate#755 No common file referenced" | "github755" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.1.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0015.xml" | "report_github755.1.json" |

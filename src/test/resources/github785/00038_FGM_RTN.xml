@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1K00_1300.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.xsd
+
+      http://pds.nasa.gov/pds4/msn/v1
+      https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1K00_1300.xsd
+     ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:cassini-mag-cal:data-full-rtn:00038_fgm_rtn</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Cassini MAG Calibrated Full Res. Data in RTN Coords. 2000-02-07</title>
+        <information_model_version>1.20.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Dougherty, Michele K.; Kellock, Stephen; Slootweg, A. Peter; Achilleos, Nicholas; Joy, Steven P.; Mafi, Joseph N.</author_list>
+            <publication_year>2023</publication_year>
+            <description>
+                Cassini magnetic-field data in the highest time resolution          
+                available, from the Fluxgate Magnetometer (FGM) instrument,
+                for 2000-02-07 (038) in RTN coordinates.
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2023-11-09</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    This data file, 00038_FGM_RTN.TAB, was originally not a part of the PDS3 
+                    CO-E/SW/J/S-MAG-3-RDR-FULL-RES-V2.0 dataset.  The meta-data have been migrated to PDS4.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2000-02-07T00:00:00.576Z</start_date_time>
+            <stop_date_time>2000-02-08T00:00:00.328Z</stop_date_time>  
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+            <Science_Facets>
+                <discipline_name>Fields</discipline_name>
+                <facet1>Magnetic</facet1>
+                <facet2>Background</facet2>
+            </Science_Facets> 
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Cassini-Huygens</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Cassini Orbiter</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Dual Technique Magnetometer</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mag.co</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component> 
+        </Observing_System>
+        <Target_Identification>
+            <name>Solar Wind</name>
+            <type>Plasma Stream</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:plasma_stream.solar_wind</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                <msn:mission_phase_name>Outer Cruise</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                <msn:spacecraft_clock_start>1/1328573307.049</msn:spacecraft_clock_start>
+                <msn:spacecraft_clock_stop>1/1328659707.132</msn:spacecraft_clock_stop>
+                <msn:spacecraft_clock_partition>1</msn:spacecraft_clock_partition>
+            </msn:Mission_Information>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:cassini-mag-cal:document:data-full-rtn-desc</lid_reference>
+            <reference_type>data_to_document</reference_type>
+            <comment>
+                Document containing a description of the Cassini MAG
+                Calibrated Full Res. Data in RTN Coords. Collection.
+            </comment>
+        </Internal_Reference>
+        <External_Reference>
+            <doi>10.17189/1520114</doi>
+            <reference_text>
+                Elson, L.S., C.H. Acton, D.L. Conner and B.V. Semenov, Cassini
+                SPICE Kernels V1.0, CO-S/J/E/V-SPICE-6-V1.0, NASA Planetary Data
+                System, 2005. https://doi.org/10.17189/1520114
+            </reference_text>
+            <description>
+                This product was processed using the following kernels using the data set
+                referenced above:
+
+                SPICE spacecraft orientation kernels:
+                00034_00044ra.bc
+
+                Leapsecond (LSK) kernels:
+                naif0012.tls
+
+                PCK kernels:
+                cpck15Dec2017.tpc
+
+                Spacecraft clock kernels:
+                cas00172.tsc
+            </description>
+        </External_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>CO-E/SW/J/S-MAG-3-RDR-FULL-RES-V2.0:00038_FGM_RTN:00038_FGM_RTN.TAB</external_source_product_identifier>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+            <doi>10.17189/1521151</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>
+                This is the first version converted to PDS4. The DOI provided
+                references the PDS3 source data set. 
+            </description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>00038_FGM_RTN.TAB</file_name>
+            <creation_date_time>2023-08-23T16:46:53.000Z</creation_date_time>
+            <!--file_size unit="byte">98234368</file_size-->
+            <!--md5_checksum>1a8c9da5e072286e90c2ecf10aa5ecec</md5_checksum-->
+            <comment>    
+                RTN coordinates consist of R (radial component, Sun to the 
+      spacecraft), T (tangential component, parallel to the Solar Equatorial 
+      plane and perpendicular to R), and N (normal component, completes right 
+      handed set).
+      
+      These MAG data were processed (calibrated, and rotated into RTN        
+      coordinates) by the Cassini MAG team at Imperial College. They were     
+      acquired by the PDS PPI node at UCLA where they were converted from     
+      binary to ASCII, and the B-field magnitude, and position data removed. These
+      data have been processed using an updated calibration that was produced using 
+      the Proximal Orbit data.
+      
+      The original binary data file contained a large number of          
+      backwards time steps. Due to the large number and overlap in these      
+      timing errors, these data have been sorted by time. However, a large    
+      number of repeated times and extremely small time steps (1-2 msec) are  
+      still present. No attempt has been to correct these errors.             
+                                                                              
+          Repeated Times                                                      
+          =======================                                             
+          2000-02-07T22:26:42.529                                             
+          2000-02-07T22:26:42.654                                             
+          2000-02-07T22:26:42.779                                             
+          2000-02-07T22:26:42.904                                             
+          2000-02-07T22:26:43.029                                             
+          2000-02-07T22:26:43.841                                             
+          2000-02-07T22:26:43.966                                             
+          2000-02-07T22:26:44.091                                             
+          2000-02-07T22:26:44.216                                             
+          2000-02-07T22:26:44.341                                             
+          2000-02-07T22:28:10.751                                             
+          2000-02-07T22:28:10.876                                             
+          2000-02-07T22:28:11.001                                             
+          2000-02-07T22:28:11.126                                             
+          2000-02-07T22:28:11.251                                             
+          2000-02-07T22:28:12.063                                             
+          2000-02-07T22:28:12.188                                             
+          2000-02-07T22:28:12.313                                             
+          2000-02-07T22:28:12.438                                             
+          2000-02-07T22:32:26.480                                             
+          2000-02-07T22:32:26.605                                             
+          2000-02-07T22:32:27.417                                             
+          2000-02-07T22:32:27.542                                             
+          2000-02-07T22:32:27.667                                             
+          2000-02-07T22:32:27.792                                             
+          2000-02-07T22:32:27.917                                             
+          2000-02-07T22:35:22.553                                             
+          2000-02-07T22:35:22.678                                             
+          2000-02-07T22:35:22.803                                             
+          2000-02-07T22:35:23.615                                             
+          2000-02-07T22:35:23.740                                             
+          2000-02-07T22:35:23.865                                             
+          2000-02-07T22:35:23.990                                             
+          2000-02-07T22:35:24.115                                             
+          2000-02-07T22:36:46.369                                             
+          2000-02-07T22:36:47.056                                             
+          2000-02-07T22:36:47.181                                             
+          2000-02-07T22:36:47.306                                             
+          2000-02-07T22:36:47.431                                             
+          2000-02-07T22:36:47.556                                             
+          2000-02-07T22:36:47.681                                             
+          2000-02-07T22:36:48.368                                             
+          2000-02-07T22:38:14.591                                             
+          2000-02-07T22:38:15.403                                             
+          2000-02-07T22:38:15.528                                             
+          2000-02-07T22:38:15.653                                             
+          2000-02-07T22:38:15.778                                             
+          2000-02-07T22:38:15.903                                             
+          2000-02-07T22:39:38.969                                             
+          2000-02-07T22:39:39.094                                             
+          2000-02-07T22:39:39.219                                             
+          2000-02-07T22:39:39.344                                             
+          2000-02-07T22:39:39.469                                             
+          2000-02-07T22:39:40.281                                             
+          2000-02-07T22:42:35.167                                             
+          2000-02-07T22:42:35.292                                             
+          2000-02-07T22:42:35.417                                             
+          2000-02-07T22:42:35.542                                             
+          2000-02-07T22:42:35.667                                             
+          2000-02-07T22:45:26.955                                             
+          2000-02-07T22:45:27.080                                             
+          2000-02-07T22:45:27.205                                             
+          2000-02-07T22:45:27.330                                             
+          2000-02-07T22:45:27.455                                             
+          2000-02-07T22:45:28.267                                             
+          2000-02-07T22:45:28.392                                             
+          2000-02-07T22:46:55.177                                             
+          2000-02-07T22:46:55.302                                             
+          2000-02-07T22:46:55.427                                             
+          2000-02-07T22:46:55.552                                             
+          2000-02-07T22:46:55.677                                             
+          2000-02-07T22:50:18.283                                             
+                                                                              
+                                                                              
+      For more information on the timing errors, and on this and previous     
+      versions of the data, please refer to the collection description file for this     
+      collection (data-full-rtn.txt).
+                
+      These spice kernels were used to process these data but are not archived:
+      171215R_SCPSEops_97288_17258.bsp
+            </comment>
+        </File>  
+            <Table_Character>
+                <offset unit="byte">0</offset>
+                <records>18</records>
+                <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+                <Record_Character>
+                    <fields>4</fields>
+                    <groups>0</groups>
+                    <record_length unit="byte">58</record_length>
+                    <Field_Character>
+                        <name>TIME</name>
+                        <field_number>1</field_number>
+                        <field_location unit="byte">1</field_location>
+                        <data_type>ASCII_Date_Time_YMD</data_type>
+                        <field_length unit="byte">23</field_length>  
+                        <description>                                              
+      Spacecraft event time of the sample.
+                        </description>
+                    </Field_Character>
+                    <Field_Character>
+                        <name>BR</name>
+                        <field_number>2</field_number>
+                        <field_location unit="byte">25</field_location>
+                        <data_type>ASCII_Real</data_type>
+                        <field_length unit="byte">10</field_length>  
+                        <unit>nT</unit>
+                        <description>                                              
+      RTN radial component of the magnetic-field component in nT.             
+      The radial component (R) points from the Sun to the spacecraft,         
+      positive away from the Sun.
+                        </description>
+                        <Special_Constants>
+                            <valid_maximum>44000.000</valid_maximum> 
+                            <valid_minimum>-44000.000</valid_minimum>
+                        </Special_Constants>
+                    </Field_Character>
+                    <Field_Character>
+                        <name>BT</name>
+                        <field_number>3</field_number>
+                        <field_location unit="byte">36</field_location>
+                        <data_type>ASCII_Real</data_type>
+                        <field_length unit="byte">10</field_length>  
+                        <unit>nT</unit>
+                        <description>                                              
+      RTN tangential component of the magnetic field component in nT.         
+      The tangential component (T) is parallel to the Solar Equatorial        
+      plane (Omega Sun x R).
+                        </description>
+                        <Special_Constants>
+                            <valid_maximum>44000.000</valid_maximum> 
+                            <valid_minimum>-44000.000</valid_minimum>
+                        </Special_Constants>
+                    </Field_Character>
+                    <Field_Character>
+                        <name>BN</name>
+                        <field_number>4</field_number>
+                        <field_location unit="byte">47</field_location>
+                        <data_type>ASCII_Real</data_type>
+                        <field_length unit="byte">10</field_length>  
+                        <unit>nT</unit>
+                        <description>                                              
+      RTN normal component of the magnetic field component in nT.             
+      The normal component (N) completes the right handed set, and            
+      is roughly normal to the Solar Equatorial plane (R x Phi).
+                        </description>
+                        <Special_Constants>
+                            <valid_maximum>44000.000</valid_maximum> 
+                            <valid_minimum>-44000.000</valid_minimum>
+                        </Special_Constants>
+                    </Field_Character>
+                </Record_Character>
+            </Table_Character>
+    </File_Area_Observational> 
+</Product_Observational>
