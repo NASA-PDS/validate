@@ -92,7 +92,7 @@ jobs:
                     password: ${{secrets.DOCKERHUB_TOKEN}}
             -
                 name: 🎰 QEMU Multiple Machine Emulation
-                uses: docker/setup-qemu-action@v2
+                uses: docker/setup-qemu-action@v3
             -
                 name: 🚢 Docker Buildx
                 uses: docker/setup-buildx-action@v2
