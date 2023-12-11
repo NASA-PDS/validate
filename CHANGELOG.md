@@ -6,6 +6,7 @@
 
 **Requirements:**
 
+- As a user, I want validate with the registry when a file is being referenced by more than one label [\#773](https://github.com/NASA-PDS/validate/issues/773)
 - As a user, I want validate to throw an error when a file is being referenced by more than one label [\#755](https://github.com/NASA-PDS/validate/issues/755)
 
 **Defects:**
