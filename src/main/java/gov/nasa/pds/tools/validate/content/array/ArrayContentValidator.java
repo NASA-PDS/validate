@@ -364,6 +364,8 @@ public class ArrayContentValidator {
   public static boolean isSpecialConstant(Number value, SpecialConstants constants,
       ProblemReporter reporter) {
     boolean matched = false;
+    boolean matchEdge = true;
+    boolean rangeChecked = false;
     matched |= sameContent (value, constants.getErrorConstant());
     matched |= sameContent (value, constants.getInvalidConstant());
     matched |= sameContent (value, constants.getMissingConstant());
@@ -376,7 +378,8 @@ public class ArrayContentValidator {
     matched |= sameContent (value, constants.getUnknownConstant());
     if (matched) return true;
     if (constants.getValidMaximum() != null) {
-      int comparison;
+      int comparison = 0;
+      rangeChecked = true;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
             .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum()));
@@ -389,15 +392,17 @@ public class ArrayContentValidator {
         if (value instanceof Double) {
           val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
           if (con.equals (val)) {
-            return true;
+            matchEdge &= true;
+          } else {
+            comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
           }
-          comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
         } else if (value instanceof Float) {
           val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
           if (con.equals (val)) {
-            return true;
+            matchEdge &= true;
+          } else {
+            comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
           }
-          comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
         } else {
           comparison = val.compareTo(con);
         }
@@ -406,11 +411,12 @@ public class ArrayContentValidator {
         reporter.addProblem("Field has a value '" + value.toString()
             + "' that is greater than the defined maximum value '" + constants.getValidMaximum()
             + "'. ");
-      }
-      return comparison == 0;
+      } 
+      matchEdge &= comparison == 0;
     }
     if (constants.getValidMinimum() != null) {
-      int comparison;
+      int comparison = 0;
+      rangeChecked = true;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
             .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum()));
@@ -429,17 +435,19 @@ public class ArrayContentValidator {
           if (value instanceof Double) {
             val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
             if (con.equals (val)) {
-              return true;
+              matchEdge &= true;
+            } else {
+              comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
             }
-            comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
           } else if (value instanceof Float) {
             val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
             if (con.equals (val)) {
-              return true;
+              matchEdge &= true;
+            } else {
+              float a = Float.intBitsToFloat(con.intValue());
+              float b = (Float)value;
+              comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
             }
-            float a = Float.intBitsToFloat(con.intValue());
-            float b = (Float)value;
-            comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
           } else {
             comparison = val.compareTo(con);
           }
@@ -450,9 +458,9 @@ public class ArrayContentValidator {
             + "' that is less than the defined minimum value '" + constants.getValidMinimum()
             + "'. ");
       }
-      return comparison == 0;
+      matchEdge = comparison == 0;
     }
-    return false;
+    return rangeChecked ? matchEdge : false;
   }
 
   /**
