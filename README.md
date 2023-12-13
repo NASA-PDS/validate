@@ -14,6 +14,7 @@ Within the NASA Planetary Data System, we value the health of our community as m
 -   Our [contributor's guide](https://github.com/NASA-PDS/.github/blob/main/CONTRIBUTING.md) delineates the kinds of contributions we accept.
 -   Our [code of conduct](https://github.com/NASA-PDS/.github/blob/main/CODE_OF_CONDUCT.md) outlines the standards of behavior we practice and expect by everyone who participates with our software.
 
+Join our mailing list! Send an email to pds-validate-users+subscribe@groups.io to subscribe.
 
 # Documentation
 The [documentation for the latest release of the Validate Tool, including release notes, installation and operation of the software are online](https://NASA-PDS.github.io/validate/). If you would like to get the latest documentation, including any updates since the last release, you can execute the "mvn site:run" command and view the documentation locally at http://localhost:8080.
