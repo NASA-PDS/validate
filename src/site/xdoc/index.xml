@@ -119,8 +119,11 @@ POSSIBILITY OF SUCH DAMAGE.
         <li>Source Code: <a href="https://github.com/NASA-PDS/validate/">https://github.com/NASA-PDS/validate</a></li>
       </ul>
       
-      <p>Need help with installation or operation of the software, or any other additional feedback, please contact us at 
+      <p><b>Need help with installation or operation of the software</b>, or any other additional feedback, please contact us at 
         <a href="mailto:pds_operator@jpl.nasa.gov">pds_operator@jpl.nasa.gov</a>.
+      </p>
+
+      <p><b>Join our Mailing List!</b> Get notified of new releases or ask questions of the development team or community. Send an email to <a href="mailto:pds-validate-users+subscribe@groups.io">pds-validate-users+subscribe@groups.io</a> to subscribe.
       </p>
       
       <p></p>
