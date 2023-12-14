@@ -97,7 +97,7 @@ Pre-Commit and `detect-secrets` are language-neutral, but they themselves are wr
 ```console
 $ python -m venv .venv
 $ source .venv/bin/activate   # Use source .venv/bin/activate.csh if you're using a C-style shell
-$ pip install pre-commit https://github.com/NASA-AMMOS/slim-detect-secrets.git@exp
+$ pip install pre-commit git+https://github.com/NASA-AMMOS/slim-detect-secrets.git@exp
 ```
 
 You can then establish a secrets baseline in your Maven-based repository:
