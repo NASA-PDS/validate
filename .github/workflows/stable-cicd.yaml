@@ -82,7 +82,8 @@ jobs:
             -
                 name: 🫙 Tar and Tag Determination
                 id: gettartag
-                run: echo "tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/.*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?-bin\.tar\.gz')" >> $GITHUB_OUTPUT
+                run: |
+                    echo "tar_file=$(find ./target/ -maxdepth 1 -regextype posix-extended -regex '.*/.*-[0-9]+\.[0-9]+\.[0-9]+(-SNAPSHOT)?-bin\.tar\.gz')" >> $GITHUB_OUTPUT
                     echo "image_tag=$(echo ${{github.ref}} | awk -F/ '{print $NF}')" >> $GITHUB_OUTPUT
             -
                 name: 💳 Docker Hub Identification
