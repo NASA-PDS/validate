@@ -10,15 +10,12 @@ Visit the project's website at: https://nasa-pds.github.io/validate/
 ## Getting Started
 
 ### Build the Software
-The software can be compiled and built with the "mvn compile" command but in order 
-to create the JAR file, you must execute the "mvn compile jar:jar" command. 
+The software can be compiled and built with the `mvn compile` or `mvn package` commands.
 
-In order to create a complete distribution package, execute the 
-following commands: 
+In order to create a complete distribution package with the site build, execute the following commands: 
 
 ```console
-mvn site
-mvn package
+mvn package site
 ```
 
 ### Documentation
