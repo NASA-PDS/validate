@@ -88,7 +88,7 @@ to produce a complete package. This runs all the phases necessary, including com
 -   `deploy` - deploy to a remote repository — note that the Roundup action does this automatically for releases
 
 
-#### 🪝 Pre-Commit Hooks
+#### 🪝 Pre-Commit Hooks and Detect Secrets
 
 This package comes with a configuration for [Pre-Commit](https://pre-commit.com/), a system for automating and standardizing `git` hooks for code linting, security scanning, etc. Here in this Java template repository, we use Pre-Commit with [Detect Secrets](https://nasa-ammos.github.io/slim/docs/guides/software-lifecycle/security/secrets-detection/) to prevent the accidental committing or commit messages containing secrets like API keys and passwords.
 
@@ -100,7 +100,7 @@ $ source .venv/bin/activate   # Use source .venv/bin/activate.csh if you're usin
 $ pip install pre-commit git+https://github.com/NASA-AMMOS/slim-detect-secrets.git@exp
 ```
 
-You can then establish a secrets baseline in your Maven-based repository:
+If you encounter a failed secrets check run, you can establish a secrets baseline in your Maven-based repository:
 
     detect-secrets scan . \
         --all-files \
