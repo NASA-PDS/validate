@@ -358,7 +358,7 @@ public class ValidateLauncher {
         }
         query(c);
       } else if (Flag.REPORT.getShortName().equals(o.getOpt())) {
-        setReport(new File(o.getValue()));
+        this.reportFile = new File(o.getValue());
       } else if (Flag.LOCAL.getShortName().equals(o.getOpt())) {
         setTraverse(false);
       } else if (Flag.CATALOG.getShortName().equals(o.getOpt())) {
@@ -680,7 +680,7 @@ public class ValidateLauncher {
         throw new ConfigurationException("Configuration file is empty: " + configuration);
       }
       if (config.containsKey(ConfigKey.REPORT)) {
-        setReport(new File(config.getString(ConfigKey.REPORT)));
+        this.reportFile = new File(config.getString(ConfigKey.REPORT));
       }
       if (config.containsKey(ConfigKey.TARGET)) {
         // Removes quotes surrounding each pattern being specified
@@ -951,24 +951,6 @@ public class ValidateLauncher {
 
     }
     this.catalogs.addAll(catalogs);
-  }
-
-  /**
-   * Sets the report file.
-   *
-   * @param report A report file.
-   */
-  public void setReport(File report) {
-    this.reportFile = report;
-  }
-
-  /**
-   * Gets the object representation of the Validation Report.
-   *
-   * @return The Report object.
-   */
-  public Report getReport() {
-    return report;
   }
 
   /**

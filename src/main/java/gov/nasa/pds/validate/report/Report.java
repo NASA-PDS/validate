@@ -418,13 +418,14 @@ public abstract class Report {
     writer.printf("    %-10d product(s) passed\n", this.numPassedProds);
     writer.printf("    %-10d product(s) failed\n", this.numFailedProds);
     writer.printf("    %-10d product(s) skipped\n", this.numSkippedProds);
+    writer.printf("    %-10d product(s) total\n", this.totalProducts);
     // writer.println(" Total # of Product(s) processed: " + getTotalProducts());
     writer.println();
     writer.println("  Referential Integrity Check Summary:");
     writer.printf("    %-10d check(s) passed\n", this.numPassedIntegrityChecks);
     writer.printf("    %-10d check(s) failed\n", this.numFailedIntegrityChecks);
     writer.printf("    %-10d check(s) skipped\n", this.numSkippedIntegrityChecks);
-    // writer.println(" Total # of Integrity Check(s) processed: " + getTotalIntegrityChecks());
+    writer.printf("    %-10d check(s) total\n", this.totalIntegrityChecks);
 
     writer.println();
 
