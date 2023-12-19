@@ -1723,6 +1723,11 @@ public class ValidateLauncher {
       }
     } catch (Exception e) {
       throw new Exception(e);
+    } finally {
+      if (this.reportFile != null) {
+        this.reportFile = null;
+        this.report.close();
+      }
     }
 
     return (success) ? 0 : 1;
