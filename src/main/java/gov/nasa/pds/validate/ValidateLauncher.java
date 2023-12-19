@@ -1726,7 +1726,7 @@ public class ValidateLauncher {
     } finally {
       if (this.reportFile != null) {
         this.reportFile = null;
-        this.report.close();
+        this.report.getWriter().close();
       }
     }
 

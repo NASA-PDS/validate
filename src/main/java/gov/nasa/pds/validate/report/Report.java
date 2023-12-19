@@ -97,9 +97,6 @@ public abstract class Report {
   final public void addParameter (String label, String msg, String value) {
     this.parameters.add (new Tuple(label,msg,value));
   }
-  final public void close() {
-    this.writer.close();
-  }
   final public int getTotalIntegrityChecks() {
     return totalIntegrityChecks;
   }
