@@ -36,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -1255,79 +1256,70 @@ public class ValidateLauncher {
     }
     report.setLevel(severity);
     if (reportFile != null) {
-      report.setOutput(reportFile);
+      report.setWriter(new PrintWriter(reportFile));
     }
 
     if (this.deprecatedFlagWarning) {
-      report.enableDeprecatedFlagWarning();
+      report.setDeprecatedFlagWarning(true);
     }
 
     String version = ToolInfo.getVersion().replaceFirst("Version", "").trim();
     SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
     df.setTimeZone(TimeZone.getTimeZone("UTC"));
     Date date = Calendar.getInstance().getTime();
-    report.addConfiguration("   Version                       " + version);
-    report.addConfiguration("   Date                          " + df.format(date));
-    report.addParameter("   Targets                       " + targets);
+    report.addConfiguration("version", "Version", version);
+    report.addConfiguration("date", "Date", df.format(date));
+    report.addParameter("targets", "Targets", targets.toString());
     if (validationRule != null) {
-      report.addParameter("   Rule Type                     " + validationRule);
+      report.addParameter("ruleType", "Rule Type", validationRule);
     }
     if (!schemas.isEmpty()) {
-      report.addParameter("   User Specified Schemas        " + schemas);
+      report.addParameter("schemas", "User Specified Schemas", schemas.toString());
     }
     if (!catalogs.isEmpty()) {
-      report.addParameter("   User Specified Catalogs       " + catalogs);
+      report.addParameter("catalogs", "User Specified Catalogs", catalogs.toString());
     }
     if (!schematrons.isEmpty()) {
-      report.addParameter("   User Specified Schematrons    " + schematrons);
+      report.addParameter("schematrons", "User Specified Schematrons", schematrons.toString());
     }
-    report.addParameter("   Severity Level                " + severity.getName());
-    report.addParameter("   Recurse Directories           " + traverse);
+    report.addParameter("level", "Severity Level", severity.getName());
+    report.addParameter("recurse", "Recurse Directories", String.valueOf(traverse));
     if (!regExps.isEmpty()) {
-      report.addParameter("   File Filters Used             " + regExps);
+      report.addParameter("regex", "File Filters Used", regExps.toString());
     }
     /*
      * Deprecated issue-23 if (force) { report.addParameter("   Force Mode                    on");
      * } else { report.addParameter("   Force Mode                    off"); }
      */
     if (checksumManifest != null) {
-      report.addParameter("   Checksum Manifest File        " + checksumManifest.toString());
-      report.addParameter("   Manifest File Base Path       " + manifestBasePath.toString());
+      report.addParameter("manifestCksum", "Checksum Manifest File", checksumManifest.toString());
+      report.addParameter("manifestPath", "Manifest File Base Path", manifestBasePath.toString());
     }
-    if (contentValidationFlag) {
-      report.addParameter("   Data Content Validation       on");
-    } else {
-      report.addParameter("   Data Content Validation       off");
-    }
-
-    if (!skipProductValidation) {
-      report.addParameter("   Product Level Validation      on");
-    } else {
-      report.addParameter("   Product Level Validation      off");
-    }
+    report.addParameter("contentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
+    report.addParameter("productLevelValidation", "Product Level Validation", skipProductValidation ? "off" : "on");
     if (everyN != 1) {
-      report.addParameter("   Data Every N                  " + everyN);
+      report.addParameter("everyN", "Data Every N", String.valueOf(everyN));
     }
     if (this.completeDescriptions) {
-      report.addParameter("   Complete Descriptions         true");
+      report.addParameter("descriptions", "Complete Descriptions", "true");
     }
     if (!pdfErrorDir.isEmpty()) {
-      report.addParameter("   PDF Error Directory           " + pdfErrorDir);
+      report.addParameter("pdfErrDir", "PDF Error Directory", pdfErrorDir);
     }
     if (spotCheckData != -1) {
-      report.addParameter("   Data Spot Check               " + spotCheckData);
+      report.addParameter("spotCk", "Data Spot Check", String.valueOf(spotCheckData));
     }
     if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle")
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
-      report.addParameter("   Allow Unlabeled Files         " + allowUnlabeledFiles);
+      report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files", String.valueOf(allowUnlabeledFiles));
     }
-    report.addParameter("   Max Errors                    " + maxErrors);
-    report.addParameter("   Registered Contexts File      " + registeredProductsFile.toString());
+    report.addParameter("maxErrs", "Max Errors", String.valueOf(maxErrors));
+    report.addParameter("regProds", "Registered Contexts File", registeredProductsFile.toString());
     if (nonRegisteredProductsFile != null) {
       report
-          .addParameter("   Non Registered Contexts File  " + nonRegisteredProductsFile.toString());
+          .addParameter("nonRegProds", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
     }
-    report.printHeader();
+    report.printHeader(null);
   }
 
   /**

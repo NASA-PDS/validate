@@ -30,19 +30,11 @@
 
 package gov.nasa.pds.validate.report;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Writer;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.lang.WordUtils;
 import com.google.gson.stream.JsonWriter;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -58,178 +50,113 @@ import gov.nasa.pds.validate.status.Status;
  *
  */
 public class JSONReport extends Report {
-  private JsonWriter jsonWriter;
+  final private ArrayList<Tuple> configs = new ArrayList<Tuple>();
+  final private ArrayList<Tuple> msgs = new ArrayList<Tuple>();
+  final private ArrayList<ValidationProblem> otherProblems = new ArrayList<ValidationProblem>();
+  final private ArrayList<Tuple> params = new ArrayList<Tuple>();
+  final private Map<String, List<ValidationProblem>> contentProblems = new LinkedHashMap<>();
+  final private Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
+  private JsonWriter stream = null;
+  private Status status = Status.PASS;
+  private String target = "";
 
-  public JSONReport() {
-    super();
-    refreshWriter();
-  }
-
-  private void refreshWriter() {
-    if (jsonWriter != null) {
-      try {
-        writer.flush();
-        writer.close();
-        jsonWriter.flush();
-        jsonWriter.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-    writer = null;
-    jsonWriter = null;
-    writer = new PrintWriter(new OutputStreamWriter(System.out));
-    jsonWriter = new JsonWriter(writer);
-    jsonWriter.setIndent("  ");
-  }
-
-  /**
-   * Handles writing a Report to the writer interface. This is is useful if someone would like to
-   * put the contents of the Report to something such as {@link java.io.StringWriter}.
-   *
-   * @param writer which the report will be written to
-   */
-  @Override
-  public void setOutput(Writer writer) {
-    this.writer = new PrintWriter(writer);
-    this.jsonWriter = new JsonWriter(this.writer);
-    this.jsonWriter.setIndent("  ");
-  }
-
-  /**
-   * Handle writing a Report to an {@link java.io.OutputStream}. This is useful to get the report to
-   * print to something such as System.out
-   *
-   * @param os stream which the report will be written to
-   */
-  @Override
-  public void setOutput(OutputStream os) {
-    this.setOutput(new OutputStreamWriter(os));
-  }
-
-  /**
-   * Handles writing a Report to a {@link java.io.File}.
-   *
-   * @param file which the report will output to
-   * @throws IOException if there is an issue in writing the report to the file
-   */
-  @Override
-  public void setOutput(File file) throws IOException {
-    this.setOutput(new FileWriter(file));
-  }
-
-  @Override
-  public void printHeader() {
-    try {
-      this.jsonWriter.beginObject();
-      this.jsonWriter.name("title").value("PDS Validation Tool Report");
-      this.jsonWriter.name("configuration");
-      this.jsonWriter.beginObject();
-      for (String configuration : configurations) {
-        String[] tokens = configuration.trim().split("\\s{2,}+", 2);
-        String key = tokens[0].replaceAll("\\s", "");
-        this.jsonWriter.name(WordUtils.uncapitalize(key)).value(tokens[1]);
-      }
-      this.jsonWriter.endObject();
-      this.jsonWriter.name("parameters");
-      this.jsonWriter.beginObject();
-      for (String parameter : parameters) {
-        String[] tokens = parameter.trim().split("\\s{2,}+", 2);
-        String key = tokens[0].replaceAll("\\s", "");
-        System.out.println ("param: " + parameter);
-        this.jsonWriter.name(WordUtils.uncapitalize(key)).value(tokens[1]);
-      }
-      this.jsonWriter.endObject();
-      this.jsonWriter.name("productLevelValidationResults");
-      this.jsonWriter.beginArray();
-    } catch (ArrayIndexOutOfBoundsException ae) {
-      ae.printStackTrace();
-    } catch (IOException io) {
-      io.printStackTrace();
+  private void append (ArrayList<Tuple> tuples) throws IOException {
+    for (Tuple t : tuples) {
+      this.stream.beginObject();
+      this.stream.name("messageType").value(t.a);
+      this.stream.name("total").value(t.b);
+      this.stream.endObject();
     }
   }
-
   @Override
-  protected void printHeader(PrintWriter writer, String title) {
+  protected void append(Status status, String target) {
     try {
-      this.jsonWriter.endArray();
-      title = title.replaceAll("\\s+", "");
-      this.jsonWriter.name(title);
-      this.jsonWriter.beginArray();
-    } catch (IOException io) {
-      io.printStackTrace();
+      this.target = target;
+      this.stream.name("status").value(status.getName());
+      this.stream.name("label").value(target);
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
   }
-
   @Override
-  protected void printRecordMessages(PrintWriter writer, Status status, URI sourceUri,
-      List<ValidationProblem> problems) {
-    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
-    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<>();
+  protected void append(String title) {
     try {
-      this.jsonWriter.beginObject();
-      this.jsonWriter.name("status").value(status.getName());
-      this.jsonWriter.name("label").value(sourceUri.toString());
-      this.jsonWriter.name("messages");
-      this.jsonWriter.beginArray();
-      for (ValidationProblem problem : problems) {
-        if (problem instanceof ContentProblem) {
-          ContentProblem contentProb = (ContentProblem) problem;
-          List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
-          if (contentProbs == null) {
-            contentProbs = new ArrayList<>();
-          }
-          contentProbs.add(contentProb);
-          contentProblems.put(contentProb.getSource(), contentProbs);
-        } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
-            || sourceUri.toString().equals(problem.getTarget().getLocation())) {
-          printProblem(problem);
+      this.stream.name("title").value(title);
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+  }
+  private void append (String name, ArrayList<Tuple> tuples) throws IOException {
+    this.stream.name (name).beginObject();
+    for (Tuple t : tuples) {
+      this.stream.name(t.a).value(t.b);
+    }
+    this.stream.endObject();
+  }
+  private void append (String name, Map<String, List<ValidationProblem>> content, boolean getType) throws IOException {
+    this.stream.name (name).beginObject();
+    for (String key : content.keySet()) {
+      this.stream.beginObject();
+      if (0 < key.length()) {
+        if (getType) {
+          this.stream.name(getType(key).toLowerCase()).value(key);
         } else {
-          List<ValidationProblem> extProbs =
-              externalProblems.get(problem.getTarget().getLocation());
-          if (extProbs == null) {
-            extProbs = new ArrayList<>();
-          }
-          extProbs.add(problem);
-          externalProblems.put(problem.getTarget().getLocation(), extProbs);
+          this.stream.name("dataFile").value(key);
         }
       }
-      this.jsonWriter.endArray();
-      this.jsonWriter.name("fragments");
-      this.jsonWriter.beginArray();
-      for (String extSystemId : externalProblems.keySet()) {
-        this.jsonWriter.beginObject();
-        this.jsonWriter.name(getType(extSystemId).toLowerCase()).value(extSystemId.toString());
-        this.jsonWriter.name("messages");
-        this.jsonWriter.beginArray();
-        for (ValidationProblem problem : externalProblems.get(extSystemId)) {
-          printProblem(problem);
-        }
-        this.jsonWriter.endArray();
-        this.jsonWriter.endObject();
+      this.stream.name("messages");
+      this.stream.beginArray();
+      for (ValidationProblem problem : content.get(key)) {
+        appendProblem(problem);
       }
-      this.jsonWriter.endArray();
-      this.jsonWriter.name("dataContents");
-      this.jsonWriter.beginArray();
-      for (String dataFile : contentProblems.keySet()) {
-        this.jsonWriter.beginObject();
-        this.jsonWriter.name("dataFile").value(dataFile);
-        this.jsonWriter.name("messages");
-        this.jsonWriter.beginArray();
-        for (ContentProblem problem : contentProblems.get(dataFile)) {
-          printProblem(problem);
-        }
-        this.jsonWriter.endArray();
-        this.jsonWriter.endObject();
+      this.stream.endArray();
+      this.stream.endObject();
+    }
+    this.stream.endObject();
+  }
+  @Override
+  protected void append(ValidationProblem problem) {
+    if (this.status == Status.SKIP)
+    {
+      try {
+        this.stream.name("messages");
+        this.stream.beginArray();
+        appendProblem(problem);
+        this.stream.endArray();
+        this.stream.endObject();
+      } catch (IOException io) {
+        io.printStackTrace();
       }
-      this.jsonWriter.endArray();
-      this.jsonWriter.endObject();
-    } catch (IOException io) {
-      io.printStackTrace();
+    } else if (problem instanceof ContentProblem) {
+      ContentProblem contentProb = (ContentProblem) problem;
+      List<ValidationProblem> contentProbs = this.contentProblems.get(contentProb.getSource());
+      if (contentProbs == null) {
+        contentProbs = new ArrayList<>();
+      }
+      contentProbs.add(contentProb);
+      this.contentProblems.put(contentProb.getSource(), contentProbs);
+    } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
+        || this.target.equals(problem.getTarget().getLocation())) {
+      this.otherProblems.add(problem);
+    } else {
+      List<ValidationProblem> extProbs =
+          this.externalProblems.get(problem.getTarget().getLocation());
+      if (extProbs == null) {
+        extProbs = new ArrayList<>();
+      }
+      extProbs.add(problem);
+      this.externalProblems.put(problem.getTarget().getLocation(), extProbs);
     }
   }
-
-  private void printProblem(final ValidationProblem problem) throws IOException {
+  @Override
+  protected void appendConfig(String label, String message, String value) {
+    this.configs.add (new Tuple(label, value, ""));
+  }
+  @Override
+  protected void appendParam(String label, String message, String value) {
+    this.configs.add (new Tuple(label, value, ""));
+  }
+  private void appendProblem(final ValidationProblem problem) throws IOException {
     String severity = "";
     if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
       severity = "FATAL_ERROR";
@@ -242,87 +169,151 @@ public class JSONReport extends Report {
     } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
       severity = "DEBUG";
     }
-    this.jsonWriter.beginObject();
-    this.jsonWriter.name("severity").value(severity);
-    this.jsonWriter.name("type").value(problem.getProblem().getType().getKey());
+    this.stream.beginObject();
+    this.stream.name("severity").value(severity);
+    this.stream.name("type").value(problem.getProblem().getType().getKey());
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;
       if (tcProblem.getTableID() != null && !tcProblem.getTableID().equals("-1")) {
-        this.jsonWriter.name("table").value(tcProblem.getTableID());
+        this.stream.name("table").value(tcProblem.getTableID());
       }
       if (tcProblem.getRecord() != -1) {
-        this.jsonWriter.name("record").value(tcProblem.getRecord());
+        this.stream.name("record").value(tcProblem.getRecord());
       }
       if (tcProblem.getField() != null && tcProblem.getField() != -1) {
-        this.jsonWriter.name("field").value(tcProblem.getField());
+        this.stream.name("field").value(tcProblem.getField());
       }
     } else if (problem instanceof ArrayContentProblem) {
       ArrayContentProblem aProblem = (ArrayContentProblem) problem;
       if (aProblem.getArrayID() != null && !aProblem.getArrayID().equals("-1")) {
-        this.jsonWriter.name("array").value(aProblem.getArrayID());
+        this.stream.name("array").value(aProblem.getArrayID());
       }
       if (aProblem.getLocation() != null) {
-        this.jsonWriter.name("location").value(aProblem.getLocation());
+        this.stream.name("location").value(aProblem.getLocation());
       }
     } else if (problem.getLineNumber() != -1) {
-      this.jsonWriter.name("line").value(problem.getLineNumber());
+      this.stream.name("line").value(problem.getLineNumber());
       if (problem.getColumnNumber() != -1) {
-        this.jsonWriter.name("column").value(problem.getColumnNumber());
+        this.stream.name("column").value(problem.getColumnNumber());
       }
     }
-    this.jsonWriter.name("message").value(problem.getMessage());
-    this.jsonWriter.endObject();
+    this.stream.name("message").value(problem.getMessage());
+    this.stream.endObject();
   }
 
   @Override
-  protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
-      final ValidationProblem problem) {
+  protected void begin(Block block) {
     try {
-      this.jsonWriter.beginObject();
-      this.jsonWriter.name("status").value(Status.SKIP.getName());
-      this.jsonWriter.name("label").value(sourceUri.toString());
-      this.jsonWriter.name("messages");
-      this.jsonWriter.beginArray();
-
-      printProblem(problem);
-
-      this.jsonWriter.endArray();
-      this.jsonWriter.endObject();
-    } catch (IOException io) {
-      io.printStackTrace();
+      switch (block) {
+        case BODY:
+          this.stream.name("productLevelValidationResults");
+          this.stream.beginArray();
+         break;
+        case FOOTER:
+          this.stream.name("summary");
+          this.stream.beginObject();
+          break;
+        case HEADER:
+          this.stream = new JsonWriter(this.getWriter());
+          this.stream.beginObject(); // start root
+          this.configs.clear();
+          this.msgs.clear();
+          this.params.clear();
+          this.target = "";
+          break;
+        case LABEL:
+          this.status = Status.PASS;
+          this.target = "";
+          this.stream.beginObject();
+          break;
+      }
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
   }
-
   @Override
-  protected void printFooter(PrintWriter writer) {
-
-  }
-
-  @Override
-  public void printFooter() {
+  protected void end(Block block) {
     try {
-      this.jsonWriter.endArray();
-      this.jsonWriter.name("summary");
-      this.jsonWriter.beginObject();
-      this.jsonWriter.name("totalProducts").value(getTotalProducts());
-      this.jsonWriter.name("totalErrors").value(getTotalErrors());
-      this.jsonWriter.name("totalWarnings").value(getTotalWarnings());
-      this.jsonWriter.name("messageTypes");
-      this.jsonWriter.beginArray();
-      Map<String, Long> sortedMessageSummary = sortMessageSummary(this.messageSummary);
-      for (String type : sortedMessageSummary.keySet()) {
-        this.jsonWriter.beginObject();
-        this.jsonWriter.name("messageType").value(type);
-        this.jsonWriter.name("total").value(sortedMessageSummary.get(type));
-        this.jsonWriter.endObject();
+      switch (block) {
+        case BODY:
+          this.stream.endArray();
+          break;
+        case FOOTER:
+          this.stream.name("messageTypes");
+          this.stream.beginArray();
+          this.append(this.msgs);
+          this.stream.endArray();
+          this.stream.endObject(); // finish summary
+          this.stream.endObject(); // finish root
+          this.msgs.clear();
+          break;
+        case HEADER:
+          this.append ("configurations", this.configs);
+          this.append ("parameters", this.params);
+          this.configs.clear();
+          this.params.clear();
+          break;
+        case LABEL:
+          Map<String, List<ValidationProblem>> others = new LinkedHashMap<String, List<ValidationProblem>>();
+          others.put ("", this.otherProblems);
+          this.append ("messages", others, false);
+          this.append ("fragments", this.externalProblems, true);
+          this.append ("dataContents", this.contentProblems, false);
+          this.stream.endObject();
+          this.status = Status.PASS;
+          this.target = "";
+          break;
       }
-      this.jsonWriter.endArray();
-      this.jsonWriter.endObject();
-      this.jsonWriter.endObject();
-    } catch (IOException io) {
-      io.getMessage();
-    } finally {
-      refreshWriter();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+  }
+  @Override
+  protected void summarizeAddMessage(String msg, long count) {
+    this.msgs.add (new Tuple(msg, String.valueOf(count), ""));
+  }
+  @Override
+  protected void summarizeDepWarn(String msg) {
+    try {
+      this.stream.name("deprecatedFlagWarning").value(msg);
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+  }
+  @Override
+  protected void summarizeProds(int failed, int passed, int skipped, int total) {
+    try {
+      this.stream.name("productValidation").beginObject();
+      this.stream.name("passed").value (String.valueOf(passed));
+      this.stream.name("failed").value (String.valueOf(failed));
+      this.stream.name("skipped").value (String.valueOf(skipped));
+      this.stream.name("total").value (String.valueOf(total));
+      this.stream.endObject();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+  }
+  @Override
+  protected void summarizeRefs(int failed, int passed, int skipped, int total) {    
+    try {
+      this.stream.name("referentialIntegrity").beginObject();
+      this.stream.name("passed").value (String.valueOf(passed));
+      this.stream.name("failed").value (String.valueOf(failed));
+      this.stream.name("skipped").value (String.valueOf(skipped));
+      this.stream.name("total").value (String.valueOf(total));
+      this.stream.endObject();
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
+    }
+  }
+  @Override
+  protected void summarizeTotals(int errors, int total, int warnings) {
+    try {
+      this.stream.name("totalProducts").value(total);
+      this.stream.name("totalErrors").value(errors);
+      this.stream.name("totalWarnings").value(warnings);
+    } catch (IOException ioe) {
+      ioe.printStackTrace();
     }
   }
 }
