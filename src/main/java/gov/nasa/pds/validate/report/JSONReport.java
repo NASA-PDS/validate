@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.WordUtils;
 import com.google.gson.stream.JsonWriter;
-import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
@@ -164,20 +163,8 @@ public class JSONReport extends Report {
     this.params.add (new Tuple(label, value, ""));
   }
   private void appendProblem(final ValidationProblem problem) throws IOException {
-    String severity = "";
-    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-      severity = "FATAL_ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-      severity = "ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-      severity = "WARNING";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-      severity = "INFO";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
-      severity = "DEBUG";
-    }
     this.stream.beginObject();
-    this.stream.name("severity").value(severity);
+    this.stream.name("severity").value(problem.getProblem().getSeverity().getName());
     this.stream.name("type").value(problem.getProblem().getType().getKey());
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;

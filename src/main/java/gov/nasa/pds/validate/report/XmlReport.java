@@ -37,7 +37,6 @@ import java.util.Properties;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.WordUtils;
 import com.jamesmurty.utils.XMLBuilder2;
-import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.content.array.ArrayContentProblem;
@@ -97,17 +96,7 @@ public class XmlReport extends Report {
     }
   }
   private void append(XMLBuilder2 node, final ValidationProblem problem) {
-    String severity = "";
-    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-      severity = "FATAL_ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-      severity = "ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-      severity = "WARNING";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-      severity = "INFO";
-    }
-    node = node.e("message").a("severity", severity);
+    node = node.e("message").a("severity", problem.getProblem().getSeverity().getName());
     node = node.a("type", problem.getProblem().getType().getKey());
     if (problem instanceof TableContentProblem) {
       TableContentProblem tcProblem = (TableContentProblem) problem;

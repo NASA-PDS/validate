@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -82,19 +81,7 @@ public class FullReport extends Report {
   protected void append(ValidationProblem problem) {
     if (this.currentStatus == Status.SKIP) {
       this.getWriter().print("      ");
-      String severity = "";
-      if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-        severity = "FATAL_ERROR";
-      } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-        severity = "ERROR";
-      } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-        severity = "WARNING";
-      } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-        severity = "INFO";
-      } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
-        severity = "DEBUG";
-      }
-      this.getWriter().print(severity);
+      this.getWriter().print(problem.getProblem().getSeverity().getName());
       this.getWriter().print("  ");
       this.getWriter().print("[" + problem.getProblem().getType().getKey() + "]");
       this.getWriter().print("   ");
@@ -208,19 +195,7 @@ public class FullReport extends Report {
 
   private void printProblem(PrintWriter writer, final ValidationProblem problem) {
     writer.print("      ");
-    String severity = "";
-    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-      severity = "FATAL_ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-      severity = "ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-      severity = "WARNING";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-      severity = "INFO";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
-      severity = "DEBUG";
-    }
-    writer.print(severity);
+    writer.print(problem.getProblem().getSeverity().getName());
     writer.print("  ");
     writer.print("[" + problem.getProblem().getType().getKey() + "]");
     writer.print("   ");
