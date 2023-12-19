@@ -133,24 +133,9 @@ public abstract class Report {
     this.end (Block.FOOTER);
     this.writer.flush();
   }
-  final public void printHeader(String title) {
+  final public void printHeader() {
     this.begin (Block.HEADER);
-    if (title != null) {
-      /*
-       * barrowed code/comment from older version of FullReport:
-       * 
-       * A hacky way to properly track when we are completing product validation versus integrity
-       * checks. Once we try to print a header other than the initial product level validation,
-       * we are now into integrity checks.
-       */
-      if (title.toLowerCase().contains("pds4 bundle")
-          || title.toLowerCase().contains("pds4 collection")) {
-        this.integrityCheckFlag = true;
-      }
-      this.append (title);
-    } else {
-      this.append("PDS Validate Tool Report");
-    }
+    this.append("PDS Validate Tool Report");
     for (Tuple t : this.configurations) {
       this.appendConfig (t.a, t.b, t.c);
     }
@@ -158,8 +143,6 @@ public abstract class Report {
       this.appendParam (t.a, t.b, t.c);
     }
     this.end (Block.HEADER);
-    this.begin (Block.BODY);
-    this.append ("Product Level Validation Results");
     this.writer.flush();
   }
  /**
@@ -287,5 +270,23 @@ public abstract class Report {
   }
   final public void setWriter(PrintWriter writer) {
     this.writer = writer;
+  }
+  final public void startBody (String title) {
+    /*
+     * barrowed code/comment from older version of FullReport:
+     * 
+     * A hacky way to properly track when we are completing product validation versus integrity
+     * checks. Once we try to print a header other than the initial product level validation,
+     * we are now into integrity checks.
+     */
+    if (title.toLowerCase().contains("pds4 bundle")
+        || title.toLowerCase().contains("pds4 collection")) {
+      this.integrityCheckFlag = true;
+    }
+    this.begin (Block.BODY);
+    this.append (title);
+  }
+  final public void stopBody() {
+    this.end (Block.BODY);
   }
 }

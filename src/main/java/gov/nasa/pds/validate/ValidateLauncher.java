@@ -1319,7 +1319,8 @@ public class ValidateLauncher {
       report
           .addParameter("nonRegProds", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
     }
-    report.printHeader(null);
+    report.printHeader();
+    report.startBody("Product Level Validation Results");
   }
 
   /**
@@ -1815,7 +1816,8 @@ public class ValidateLauncher {
 
     @Override
     public void printHeader(String title) {
-      report.printHeader(title);
+      report.stopBody();
+      report.startBody(title);
     }
 
     @Override
