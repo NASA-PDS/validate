@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang.WordUtils;
 import com.google.gson.stream.JsonWriter;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -50,6 +51,7 @@ import gov.nasa.pds.validate.status.Status;
  *
  */
 public class JSONReport extends Report {
+  private boolean ignoreTitle = true;
   final private ArrayList<Tuple> configs = new ArrayList<Tuple>();
   final private ArrayList<Tuple> msgs = new ArrayList<Tuple>();
   final private ArrayList<ValidationProblem> otherProblems = new ArrayList<ValidationProblem>();
@@ -81,7 +83,10 @@ public class JSONReport extends Report {
   @Override
   protected void append(String title) {
     try {
-      this.stream.name("title").value(title);
+      if (!this.ignoreTitle) {
+        title = WordUtils.uncapitalize(title.replaceAll("\\s+", ""));
+        this.stream.name(title).beginArray();
+      }
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
@@ -94,25 +99,27 @@ public class JSONReport extends Report {
     this.stream.endObject();
   }
   private void append (String name, Map<String, List<ValidationProblem>> content, boolean getType) throws IOException {
-    this.stream.name (name).beginObject();
+    this.stream.name (name).beginArray();
     for (String key : content.keySet()) {
-      this.stream.beginObject();
       if (0 < key.length()) {
+        this.stream.beginObject();
         if (getType) {
           this.stream.name(getType(key).toLowerCase()).value(key);
         } else {
           this.stream.name("dataFile").value(key);
         }
+        this.stream.name("messages");
+        this.stream.beginArray();
       }
-      this.stream.name("messages");
-      this.stream.beginArray();
       for (ValidationProblem problem : content.get(key)) {
         appendProblem(problem);
       }
-      this.stream.endArray();
-      this.stream.endObject();
+      if (0 < key.length()) {
+        this.stream.endArray();
+        this.stream.endObject();
+      }
     }
-    this.stream.endObject();
+    this.stream.endArray();
   }
   @Override
   protected void append(ValidationProblem problem) {
@@ -206,9 +213,8 @@ public class JSONReport extends Report {
     try {
       switch (block) {
         case BODY:
-          this.stream.name("productLevelValidationResults");
-          this.stream.beginArray();
-         break;
+          this.ignoreTitle = false;
+          break;
         case FOOTER:
           this.stream.name("summary");
           this.stream.beginObject();
@@ -217,6 +223,7 @@ public class JSONReport extends Report {
           this.stream = new JsonWriter(this.getWriter());
           this.stream.setIndent("  ");
           this.stream.beginObject(); // start root
+          this.stream.name("title").value("PDS Validation Tool Report");
           this.configs.clear();
           this.msgs.clear();
           this.params.clear();

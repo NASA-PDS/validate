@@ -35,6 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.WordUtils;
 import com.jamesmurty.utils.XMLBuilder2;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.validate.ContentProblem;
@@ -70,7 +71,7 @@ public class XmlReport extends Report {
   @Override
   protected void append(String title) {
     if (!this.ignoreTitle) {
-      title = title.replaceAll("\\s+", "");
+      title = WordUtils.uncapitalize(title.replaceAll("\\s+", ""));
       this.bodyBlock = this.root.e(title);
     }
   }
