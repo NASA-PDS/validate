@@ -75,7 +75,6 @@ public class FullReport extends Report {
   @Override
   protected void append(String title) {
     this.getWriter().println();
-    this.getWriter().println();
     this.getWriter().println(title);
   }
 
@@ -179,8 +178,6 @@ public class FullReport extends Report {
         break;
       case HEADER:
         this.getWriter().println();
-        this.getWriter().println("PDS Validate Tool Report");
-        this.getWriter().println();
         this.getWriter().println("Configuration:");
         for (Tuple configuration : this.configurations) {
           this.getWriter().print ("   ");
@@ -197,7 +194,7 @@ public class FullReport extends Report {
           this.getWriter().println(parameter.b);
         }
         this.getWriter().println();
-        this.append ("Product Level Validation Results");
+        this.getWriter().println();
         break;
       case LABEL:
         processMaps();

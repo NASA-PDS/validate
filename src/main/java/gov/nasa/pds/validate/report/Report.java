@@ -148,6 +148,8 @@ public abstract class Report {
         this.integrityCheckFlag = true;
       }
       this.append (title);
+    } else {
+      this.append("PDS Validate Tool Report");
     }
     for (Tuple t : this.configurations) {
       this.appendConfig (t.a, t.b, t.c);
@@ -157,6 +159,7 @@ public abstract class Report {
     }
     this.end (Block.HEADER);
     this.begin (Block.BODY);
+    this.append ("Product Level Validation Results");
     this.writer.flush();
   }
  /**

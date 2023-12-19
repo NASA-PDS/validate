@@ -154,7 +154,7 @@ public class JSONReport extends Report {
   }
   @Override
   protected void appendParam(String label, String message, String value) {
-    this.configs.add (new Tuple(label, value, ""));
+    this.params.add (new Tuple(label, value, ""));
   }
   private void appendProblem(final ValidationProblem problem) throws IOException {
     String severity = "";
@@ -215,6 +215,7 @@ public class JSONReport extends Report {
           break;
         case HEADER:
           this.stream = new JsonWriter(this.getWriter());
+          this.stream.setIndent("  ");
           this.stream.beginObject(); // start root
           this.configs.clear();
           this.msgs.clear();

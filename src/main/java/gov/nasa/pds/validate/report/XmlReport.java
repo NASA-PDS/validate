@@ -44,6 +44,7 @@ import gov.nasa.pds.tools.validate.content.table.TableContentProblem;
 import gov.nasa.pds.validate.status.Status;
 
 public class XmlReport extends Report {
+  private boolean ignoreTitle = true;
   final private Map<String, XMLBuilder2> externalProblems = new LinkedHashMap<>();
   final private Map<String, XMLBuilder2> contentProblems = new LinkedHashMap<>();
   private String target = "";
@@ -68,8 +69,10 @@ public class XmlReport extends Report {
   }
   @Override
   protected void append(String title) {
-    title = title.replaceAll("\\s+", "");
-    this.bodyBlock = this.root.e(title);
+    if (!this.ignoreTitle) {
+      title = title.replaceAll("\\s+", "");
+      this.bodyBlock = this.root.e(title);
+    }
   }
   @Override
   protected void append(ValidationProblem problem) {
@@ -146,6 +149,7 @@ public class XmlReport extends Report {
   protected void begin(Block block) {
     switch (block) {
       case BODY:
+        this.ignoreTitle = false;
         break;
       case FOOTER:
         this.summary = this.root.e("summary");
