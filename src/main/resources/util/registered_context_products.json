@@ -101,6 +101,42 @@
           },
           {
                "name": [
+                    "APOLLO 12 PASSIVE SEISMIC EXPERIMENT (PSE)"
+               ],
+               "type": [
+                    "SEISMOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:pse.a12a::1.0"
+          },
+          {
+               "name": [
+                    "SOAR IMAGER (SOI)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ctio-cerro_tololo.soar_4m1.soi::1.0"
+          },
+          {
+               "name": [
+                    "C/1984 U2 (SHOEMAKER)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.c1984_u2_shoemaker::1.0"
+          },
+          {
+               "name": [
+                    "REAR HAZARD AVOIDANCE CAMERA LEFT STRING B"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rhaz_left_b.msl::1.0"
+          },
+          {
+               "name": [
                     "MECA COMMON ELECTRONICS"
                ],
                "type": [
@@ -6318,39 +6354,39 @@
           },
           {
                "name": [
-                    "QUADRISPHERICAL PLASMA ANALYZER"
+                    "RESPONSIVITY"
                ],
                "type": [
-                    "SPECTROMETER"
+                    "CALIBRATOR"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:pa.p10::1.0"
+               "lidvid": "urn:nasa:pds:context:target:calibrator.responsivity::1.0"
           },
           {
                "name": [
-                    "GALILEO PROBE"
+                    "PI2 ORIONIS"
                ],
                "type": [
-                    "Spacecraft"
+                    "STAR"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.gp::1.1"
+               "lidvid": "urn:nasa:pds:context:target:star.pi.02_ori::1.0"
           },
           {
                "name": [
-                    "N/A"
+                    "(162173) RYUGU"
                ],
                "type": [
-                    "N/A"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.162173_ryugu::1.0"
           },
           {
                "name": [
-                    "2002 VD130"
+                    "2000 OH67"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_vd130::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
           },
           {
                "name": [
@@ -19652,39 +19688,39 @@
           },
           {
                "name": [
-                    "APOLLO 12 PASSIVE SEISMIC EXPERIMENT (PSE)"
+                    "QUADRISPHERICAL PLASMA ANALYZER"
                ],
                "type": [
-                    "SEISMOMETER"
+                    "SPECTROMETER"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:pse.a12a::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:pa.p10::1.0"
           },
           {
                "name": [
-                    "SOAR IMAGER (SOI)"
+                    "GALILEO PROBE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.gp::1.1"
+          },
+          {
+               "name": [
+                    "N/A"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:ctio-cerro_tololo.soar_4m1.soi::1.0"
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
           },
           {
                "name": [
-                    "C/1984 U2 (SHOEMAKER)"
+                    "2002 VD130"
                ],
                "type": [
-                    "COMET"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.c1984_u2_shoemaker::1.0"
-          },
-          {
-               "name": [
-                    "REAR HAZARD AVOIDANCE CAMERA LEFT STRING B"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rhaz_left_b.msl::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2002_vd130::1.0"
           },
           {
                "name": [
@@ -26500,42 +26536,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.sakig::1.2"
-          },
-          {
-               "name": [
-                    "RESPONSIVITY"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.responsivity::1.0"
-          },
-          {
-               "name": [
-                    "PI2 ORIONIS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.pi.02_ori::1.0"
-          },
-          {
-               "name": [
-                    "(162173) RYUGU"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.162173_ryugu::1.0"
-          },
-          {
-               "name": [
-                    "2000 OH67"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
           },
           {
                "name": [
