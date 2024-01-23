@@ -360,8 +360,12 @@ public class FieldValueValidator {
           if (checkFieldFormat) {
             // Due to CCB-214, the tool should validate against the
             // validation_format field for Character Tables.
-            if (record instanceof FixedTableRecord && !fields[i].getValidationFormat().isEmpty()) {
-              checkFormat(value, fields[i].getValidationFormat(), i + 1, record.getLocation());
+            if (record instanceof FixedTableRecord && (!fields[i].getValidationFormat().isEmpty() || !fields[i].getFieldFormat().isEmpty())) {
+              String format = fields[i].getValidationFormat();
+              if (format.isEmpty())
+                format = fields[i].getFieldFormat();
+
+              checkFormat(value, format, i + 1, record.getLocation());
             }
             if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
               checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation());
@@ -833,19 +837,22 @@ public class FieldValueValidator {
         isValid = false;
       }
       if (precision != -1) {
+        // Per StdRef 4B.1.2, field_format defines the maximum precision, not the only precision allowed:
+        // For character tables, <field_format> is used to describe the maximum length and alignment of
+        // the data. <field_format> also gives an indication of the maximum precision of real numbers, but
+        // does not require all values to have this precision.
         if (specifier.matches("[feE]")) {
           String[] tokens = value.trim().split("[eE]", 2);
-          int length = 0;
+          int actual_precision = 0;
           if (tokens[0].indexOf(".") != -1) {
-            length = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
+            actual_precision = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
           }
-          if (length != precision) {
+          if (actual_precision > precision) {
             isValid = false;
             addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                 "The number of digits to the right of the decimal point " + "in the value '"
-                    + value.trim() + "' does not equal the "
-                    + "precision set in the defined field format " + "(expected " + precision
-                    + ", got " + length + ").",
+                    + value.trim() + "' must be <= the precision set in the defined field format '"
+                    + format+ "' (Expected: <=" + precision + ", Actual: " + actual_precision + ").",
                     recordLocation, fieldIndex);
           }
         }

@@ -1,36 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-Copyright 2019–2021, California Institute of Technology ("Caltech").
-U.S. Government sponsorship acknowledged.
-
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-• Redistributions of source code must retain the above copyright notice,
-  this list of conditions and the following disclaimer.
-• Redistributions must reproduce the above copyright notice, this list of
-  conditions and the following disclaimer in the documentation and/or other
-  materials provided with the distribution.
-• Neither the name of Caltech nor its operating division, the Jet Propulsion
-  Laboratory, nor the names of its contributors may be used to endorse or
-  promote products derived from this software without specific prior written
-  permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
--->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
@@ -38,7 +6,7 @@ POSSIBILITY OF SUCH DAMAGE.
   <parent>
     <groupId>gov.nasa</groupId>
     <artifactId>pds</artifactId>
-    <version>1.13.0</version>
+    <version>1.15.0</version>
   </parent>
 
   <groupId>gov.nasa.pds</groupId>
@@ -262,11 +230,11 @@ POSSIBILITY OF SUCH DAMAGE.
               
          Better ideas for how to do this welcome!
      -->
-    <!--dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
-      <version>1.7.28</version>
-    </dependency-->
+<!--    <dependency>-->
+<!--      <groupId>org.slf4j</groupId>-->
+<!--      <artifactId>slf4j-simple</artifactId>-->
+<!--      <version>1.7.28</version>-->
+<!--    </dependency>-->
      <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
@@ -349,7 +317,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
-      <version>2.7.1</version>
+      <version>2.8.0-SNAPSHOT</version>
       <scope>compile</scope>
       <exclusions>
       <exclusion>
