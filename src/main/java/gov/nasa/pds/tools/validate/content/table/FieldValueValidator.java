@@ -360,8 +360,12 @@ public class FieldValueValidator {
           if (checkFieldFormat) {
             // Due to CCB-214, the tool should validate against the
             // validation_format field for Character Tables.
-            if (record instanceof FixedTableRecord && !fields[i].getValidationFormat().isEmpty()) {
-              checkFormat(value, fields[i].getValidationFormat(), i + 1, record.getLocation());
+            if (record instanceof FixedTableRecord && (!fields[i].getValidationFormat().isEmpty() || !fields[i].getFieldFormat().isEmpty())) {
+              String format = fields[i].getValidationFormat();
+              if (format.isEmpty())
+                format = fields[i].getFieldFormat();
+
+              checkFormat(value, format, i + 1, record.getLocation());
             }
             if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
               checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation());
@@ -843,13 +847,12 @@ public class FieldValueValidator {
           if (tokens[0].indexOf(".") != -1) {
             actual_precision = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
           }
-          if (actual_precision <= precision) {
+          if (actual_precision > precision) {
             isValid = false;
             addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                 "The number of digits to the right of the decimal point " + "in the value '"
-                    + value.trim() + "' must be <= the "
-                    + "precision set in the defined field format " + "(Expected: <=" + precision
-                    + ", Actual: " + actual_precision + ").",
+                    + value.trim() + "' must be <= the precision set in the defined field format '"
+                    + format+ "' (Expected: <=" + precision + ", Actual: " + actual_precision + ").",
                     recordLocation, fieldIndex);
           }
         }

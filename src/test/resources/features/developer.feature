@@ -28,7 +28,8 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
 
 # Validate#681
-|"NASA-PDS/validate#681 Success and Failure of ASCII table with space in number" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681.json -s json --skip-context-validation  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681.json" |
+|"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
+|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 2 | "2 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml {resourceDir}/github681/ff_del_fail.xml" | "report_github681_2.json" |
 
 # Validate#680
 |"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
