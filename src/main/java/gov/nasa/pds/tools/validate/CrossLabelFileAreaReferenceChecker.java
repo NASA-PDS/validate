@@ -1,6 +1,7 @@
 package gov.nasa.pds.tools.validate;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,9 +15,9 @@ import gov.nasa.pds.tools.util.LabelUtil;
 
 public class CrossLabelFileAreaReferenceChecker {
   final private static HashMap<String,List<String>> knownRefs = new HashMap<String,List<String>>();
-  private static String resolve (String name, ValidationTarget target) {
+  private static String resolve (String name, ValidationTarget target) throws URISyntaxException {
     if (!name.startsWith ("/")) {
-      name = Path.of(target.getUrl().getPath()).getParent().resolve(name).toString();
+      name = Path.of(target.getUrl().toURI()).getParent().resolve(name).toString();
     }
     return name;
   }
@@ -30,8 +31,9 @@ public class CrossLabelFileAreaReferenceChecker {
    * @throws IOException
    * @throws ParserConfigurationException
    * @throws SAXException
+   * @throws URISyntaxException
    */
-  public static boolean add (String name, ValidationTarget target) throws IOException, ParserConfigurationException, SAXException {
+  public static boolean add (String name, ValidationTarget target) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
     boolean success = false;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     Document xml = dbf.newDocumentBuilder().parse(target.getUrl().openStream());
@@ -49,10 +51,10 @@ public class CrossLabelFileAreaReferenceChecker {
     }
     return success;
   }
-  public static String getOtherId (String name, ValidationTarget target) {
+  public static String getOtherId (String name, ValidationTarget target) throws URISyntaxException {
     return knownRefs.get(resolve(name, target)).get(0);
   }
-  public static String getOtherFilename (String name, ValidationTarget target) {
+  public static String getOtherFilename (String name, ValidationTarget target) throws URISyntaxException {
     return knownRefs.get(resolve(name, target)).get(1);
   }
   public static void reset() {
