@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-02-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-02-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...«unknown»)
 
@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- Validate fails to read files on Windows systems after Internal Reference check updates \(\#308\) [\#809](https://github.com/NASA-PDS/validate/issues/809) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate incorrectly throws precision mismatch error for Table\_Delimited [\#681](https://github.com/NASA-PDS/validate/issues/681) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.4.1](https://github.com/NASA-PDS/validate/tree/v3.4.1) (2023-12-14)
