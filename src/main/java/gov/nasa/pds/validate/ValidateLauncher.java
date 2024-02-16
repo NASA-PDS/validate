@@ -1282,10 +1282,10 @@ public class ValidateLauncher {
     if (!schematrons.isEmpty()) {
       report.addParameter("schematrons", "User Specified Schematrons", schematrons.toString());
     }
-    report.addParameter("level", "Severity Level", severity.getName());
-    report.addParameter("recurse", "Recurse Directories", String.valueOf(traverse));
+    report.addParameter("severityLevel", "Severity Level", severity.getName());
+    report.addParameter("recurseDirectories", "Recurse Directories", String.valueOf(traverse));
     if (!regExps.isEmpty()) {
-      report.addParameter("regex", "File Filters Used", regExps.toString());
+      report.addParameter("fileFiltersUsed", "File Filters Used", regExps.toString());
     }
     /*
      * Deprecated issue-23 if (force) { report.addParameter("   Force Mode                    on");
@@ -1295,7 +1295,7 @@ public class ValidateLauncher {
       report.addParameter("manifestCksum", "Checksum Manifest File", checksumManifest.toString());
       report.addParameter("manifestPath", "Manifest File Base Path", manifestBasePath.toString());
     }
-    report.addParameter("contentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
+    report.addParameter("dataContentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
     report.addParameter("productLevelValidation", "Product Level Validation", skipProductValidation ? "off" : "on");
     if (everyN != 1) {
       report.addParameter("everyN", "Data Every N", String.valueOf(everyN));
@@ -1313,8 +1313,8 @@ public class ValidateLauncher {
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
       report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files", String.valueOf(allowUnlabeledFiles));
     }
-    report.addParameter("maxErrs", "Max Errors", String.valueOf(maxErrors));
-    report.addParameter("regProds", "Registered Contexts File", registeredProductsFile.toString());
+    report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
+    report.addParameter("registeredContextsFile", "Registered Contexts File", registeredProductsFile.toString());
     if (nonRegisteredProductsFile != null) {
       report
           .addParameter("nonRegProds", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
