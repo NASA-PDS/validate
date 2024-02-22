@@ -1274,50 +1274,50 @@ public class ValidateLauncher {
       report.addParameter("ruleType", "Rule Type", validationRule);
     }
     if (!schemas.isEmpty()) {
-      report.addParameter("schemas", "User Specified Schemas", schemas.toString());
+      report.addParameter("userSpecifiedSchemas", "User Specified Schemas", schemas.toString());
     }
     if (!catalogs.isEmpty()) {
-      report.addParameter("catalogs", "User Specified Catalogs", catalogs.toString());
+      report.addParameter("userSpecifiedCatalogs", "User Specified Catalogs", catalogs.toString());
     }
     if (!schematrons.isEmpty()) {
-      report.addParameter("schematrons", "User Specified Schematrons", schematrons.toString());
+      report.addParameter("userSpecifiedSchematrons", "User Specified Schematrons", schematrons.toString());
     }
-    report.addParameter("level", "Severity Level", severity.getName());
-    report.addParameter("recurse", "Recurse Directories", String.valueOf(traverse));
+    report.addParameter("severityLevel", "Severity Level", severity.getName());
+    report.addParameter("recurseDirectories", "Recurse Directories", String.valueOf(traverse));
     if (!regExps.isEmpty()) {
-      report.addParameter("regex", "File Filters Used", regExps.toString());
+      report.addParameter("fileFiltersUsed", "File Filters Used", regExps.toString());
     }
     /*
      * Deprecated issue-23 if (force) { report.addParameter("   Force Mode                    on");
      * } else { report.addParameter("   Force Mode                    off"); }
      */
     if (checksumManifest != null) {
-      report.addParameter("manifestCksum", "Checksum Manifest File", checksumManifest.toString());
-      report.addParameter("manifestPath", "Manifest File Base Path", manifestBasePath.toString());
+      report.addParameter("checksumManifestFile", "Checksum Manifest File", checksumManifest.toString());
+      report.addParameter("manifestFileBasePath", "Manifest File Base Path", manifestBasePath.toString());
     }
-    report.addParameter("contentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
+    report.addParameter("dataContentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
     report.addParameter("productLevelValidation", "Product Level Validation", skipProductValidation ? "off" : "on");
     if (everyN != 1) {
-      report.addParameter("everyN", "Data Every N", String.valueOf(everyN));
+      report.addParameter("dataEveryN", "Data Every N", String.valueOf(everyN));
     }
     if (this.completeDescriptions) {
-      report.addParameter("descriptions", "Complete Descriptions", "true");
+      report.addParameter("completeDescriptions", "Complete Descriptions", "true");
     }
     if (!pdfErrorDir.isEmpty()) {
-      report.addParameter("pdfErrDir", "PDF Error Directory", pdfErrorDir);
+      report.addParameter("pdfErrorDirectory", "PDF Error Directory", pdfErrorDir);
     }
     if (spotCheckData != -1) {
-      report.addParameter("spotCk", "Data Spot Check", String.valueOf(spotCheckData));
+      report.addParameter("dataSpotCheck", "Data Spot Check", String.valueOf(spotCheckData));
     }
     if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle")
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
       report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files", String.valueOf(allowUnlabeledFiles));
     }
-    report.addParameter("maxErrs", "Max Errors", String.valueOf(maxErrors));
-    report.addParameter("regProds", "Registered Contexts File", registeredProductsFile.toString());
+    report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
+    report.addParameter("registeredContextsFile", "Registered Contexts File", registeredProductsFile.toString());
     if (nonRegisteredProductsFile != null) {
       report
-          .addParameter("nonRegProds", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
+          .addParameter("nonRegisteredContextsFile", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
     }
     report.printHeader();
     report.startBody("Product Level Validation Results");

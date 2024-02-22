@@ -243,7 +243,7 @@ public class JSONReport extends Report {
           this.msgs.clear();
           break;
         case HEADER:
-          this.append ("configurations", this.configs);
+          this.append ("configuration", this.configs);
           this.append ("parameters", this.params);
           this.configs.clear();
           this.params.clear();
