@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#824
+|"NASA-PDS/validate#824 Success PDF vs PDF/A" | "github824" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github824.json -s json --skip-context-validation  -t {resourceDir}/github824/1203_12.xml" | "report_github824.json" |
+
 # Validate#785
 |"NASA-PDS/validate#785 Success detecting out of range values" | "github785" | 6 | "6 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github785.json -s json --skip-context-validation  -t {resourceDir}/github785/00038_FGM_RTN.xml" | "report_github785.json" |
 
