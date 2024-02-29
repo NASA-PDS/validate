@@ -56,7 +56,6 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -191,7 +190,7 @@ public class ValidateLauncher {
 
   private SchematronTransformer schematronTransformer;
 
-  private List<Transformer> transformedSchematrons;
+  private List<String> transformedSchematrons;
 
   private CachedEntityResolver resolver;
 
@@ -1563,11 +1562,9 @@ public class ValidateLauncher {
    *
    * @throws TransformerException If an error occurred during the transform process.
    */
-  private Transformer transformSchematron(URL schematron, ProblemContainer container) {
-    Transformer transformer = null;
+  private String transformSchematron(URL schematron, ProblemContainer container) {
     try {
-      transformer = schematronTransformer.transform(schematron, container);
-      return transformer;
+      return schematronTransformer.fetch(schematron, container);
     } catch (Exception e) {
       container.addProblem(new ValidationProblem(
           new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR,
@@ -1701,13 +1698,13 @@ public class ValidateLauncher {
       if (!schematrons.isEmpty()) {
         for (URL schematron : schematrons) {
           ProblemContainer container = new ProblemContainer();
-          Transformer transformer = transformSchematron(schematron, container);
+          String document = transformSchematron(schematron, container);
           if (container.getProblems().size() != 0) {
             report.record(schematron.toURI(), container.getProblems());
             invalidSchematron = true;
             success = false;
           } else {
-            transformedSchematrons.add(transformer);
+            transformedSchematrons.add(document);
           }
         }
       }

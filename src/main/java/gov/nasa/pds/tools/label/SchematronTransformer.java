@@ -19,9 +19,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -35,10 +33,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XslURIResolver;
-import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
-import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.ValidationProblem;
 
 /**
  * A class that transforms Schematron files based on the isoSchematron stylesheet.
@@ -48,10 +43,7 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
  */
 public class SchematronTransformer {
   private static final Logger LOG = LoggerFactory.getLogger(SchematronTransformer.class);
-  private Transformer isoTransformer;
-  private TransformerFactory transformerFactory;
-  private Map<String, Transformer> cachedTransformers;
-
+  
   /**
    * Constructor.
    *
@@ -62,6 +54,9 @@ public class SchematronTransformer {
     System.setProperty("javax.xml.transform.TransformerFactory",
         "net.sf.saxon.TransformerFactoryImpl");
     DocumentBuilderFactory.newInstance().setNamespaceAware(true);
+  }
+
+  private Transformer buildIsoTransformer() throws TransformerConfigurationException {
     TransformerFactory isoFactory = TransformerFactory.newInstance();
     // Set the resolver that will look in the jar for imports
     isoFactory.setURIResolver(new XslURIResolver());
@@ -69,11 +64,8 @@ public class SchematronTransformer {
     // schematron file
     Source isoSchematron = new StreamSource(
         LabelValidator.class.getResourceAsStream("/schematron/iso_svrl_for_xslt2.xsl"));
-    isoTransformer = isoFactory.newTransformer(isoSchematron);
-    transformerFactory = TransformerFactory.newInstance();
-    cachedTransformers = new HashMap<String, Transformer>();
+    return isoFactory.newTransformer(isoSchematron);    
   }
-
   /**
    * Transform the given schematron source.
    *
@@ -98,21 +90,23 @@ public class SchematronTransformer {
    * @throws TransformerException If an error occurred during the transform process.
    */
   public Transformer transform(Source source, ProblemHandler handler) throws TransformerException {
-    Transformer transformer = null;
-    if (cachedTransformers.containsKey(source.getSystemId())) {
-      transformer = cachedTransformers.get(source.getSystemId());
-    } else {
-      if (handler != null) {
-        isoTransformer.setErrorListener(new TransformerErrorListener(handler));
-      }
-      StringWriter schematronStyleSheet = new StringWriter();
-      isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
-      transformer = transformerFactory
-          .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
+    Transformer isoTransformer = this.buildIsoTransformer();
+
+    if (handler != null) {
+      isoTransformer.setErrorListener(new TransformerErrorListener(handler));
     }
-    return transformer;
+    StringWriter schematronStyleSheet = new StringWriter();
+    isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
+    return TransformerFactory.newInstance()
+        .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
   }
 
+  public Transformer transform(String source) throws TransformerException {
+    return this.transform(source, null);
+  }
+  public Transformer transform(String source, ProblemHandler handler) throws TransformerException {
+    return transform (new StreamSource(new StringReader(source)), handler);
+  }
   /**
    * Transform the given schematron.
    *
@@ -122,8 +116,8 @@ public class SchematronTransformer {
    *
    * @throws TransformerException If an error occurred during the transform process.
    */
-  public Transformer transform(URL schematron) throws TransformerException {
-    return transform(schematron, null);
+  public String fetch(URL schematron) throws TransformerException {
+    return fetch(schematron, null);
   }
 
   /**
@@ -136,60 +130,24 @@ public class SchematronTransformer {
    *
    * @throws TransformerException if an error occurred during the transform process.
    */
-  public Transformer transform(URL schematron, ProblemHandler handler) throws TransformerException {
-    Transformer transformer = null;
+  public String fetch(URL schematron, ProblemHandler handler) throws TransformerException {
     LOG.debug("transform:schematron {}", schematron);
-
-    if (cachedTransformers.containsKey(schematron.toString())) {
-      transformer = cachedTransformers.get(schematron.toString());
-    } else {
-      if (handler != null) {
-        isoTransformer.setErrorListener(new TransformerErrorListener(handler));
+    try (InputStream in = Utility.openConnection(schematron.openConnection())) {
+      String document = IOUtils.toString(in, StandardCharsets.UTF_8);
+      this.transform(document, handler); // test that document is valid
+      return document;
+    } catch (IOException io) {
+      String message = "";
+      if (io instanceof FileNotFoundException) {
+        message = "Cannot read schematron as URL cannot be found: " + io.getMessage();
+      } else {
+        // message = io.getMessage();
+        // Put a more detail message since io.getMessage only return the schematron file
+        // name.
+        message = "Cannot read schematron from URL " + schematron;
       }
-      StringWriter schematronStyleSheet = new StringWriter();
-      InputStream in = null;
-      URLConnection conn = null;
-      try {
-        conn = schematron.openConnection();
-        in = Utility.openConnection(conn);
-
-        StreamSource source = new StreamSource(in);
-        /* This fixes the problem but is it a good fix. The message now indicates that it is finding
-         * the same URI (systemId) for two files. The one it is reading and the source that we have?
-         * Maybe in saxon 12.3 it fills in the systemId correctly? Cannot find anything that makes
-         * this fix definitive good or bad but that is a search skill problem not lack of information
-         * 
-         * source.setSystemId(schematron.toString()); */
-        isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
-        transformer = transformerFactory
-            .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
-      } catch (TransformerException te) {
-        // Only throw problem if a handler was not set.
-        if (handler == null) {
-          throw te;
-        }
-      } catch (IOException io) {
-        String message = "";
-        if (io instanceof FileNotFoundException) {
-          message = "Cannot read schematron as URL cannot be found: " + io.getMessage();
-        } else {
-          // message = io.getMessage();
-          // Put a more detail message since io.getMessage only return the schematron file
-          // name.
-          message = "Cannot read schematron from URL " + schematron;
-        }
-        LOG.debug("transform:message {}", message);
-        if (handler == null) {
-          throw new TransformerException(message);
-        }
-        handler.addProblem(new ValidationProblem(
-            new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR, message),
-            schematron));
-      } finally {
-        IOUtils.closeQuietly(in);
-        IOUtils.close(conn);
-      }
-    }
-    return transformer;
+      LOG.debug("transform:message {}", message);
+      throw new TransformerException(message);
+    } 
   }
 }
