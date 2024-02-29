@@ -387,24 +387,31 @@ public class ArrayContentValidator {
         comparison = ((BigInteger) value)
             .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()));
       } else {
-        Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()).longValue();
-        Long val = value.longValue();
-        if (value instanceof Double) {
-          val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
-          if (con.equals (val)) {
-            matchEdge &= true;
-          } else {
-            comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
-          }
-        } else if (value instanceof Float) {
-          val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
-          if (con.equals (val)) {
-            matchEdge &= true;
-          } else {
-            comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
-          }
+        if (constants.getValidMaximum().contains(".") || 
+            ((constants.getValidMaximum().contains("e") || constants.getValidMaximum().contains("E")) && 
+                !(constants.getValidMaximum().startsWith("0x") || constants.getValidMaximum().startsWith("0X") || constants.getValidMaximum().startsWith("16#")))) {
+          comparison = Double.valueOf(value.doubleValue())
+              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum()).doubleValue());
         } else {
-          comparison = val.compareTo(con);
+          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()).longValue();
+          Long val = value.longValue();
+          if (value instanceof Double) {
+            val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
+            if (con.equals (val)) {
+              matchEdge &= true;
+            } else {
+              comparison = ((Double)value).compareTo(Double.longBitsToDouble(con));
+            }
+          } else if (value instanceof Float) {
+            val = Long.valueOf(Float.floatToRawIntBits((Float)value)) & 0xFFFFFFFFL;
+            if (con.equals (val)) {
+              matchEdge &= true;
+            } else {
+              comparison = ((Float)value).compareTo(Float.intBitsToFloat(con.intValue()));
+            }
+          } else {
+            comparison = val.compareTo(con);
+          }
         }
       }
       if (0 < comparison) {
