@@ -48,6 +48,7 @@ import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.content.AudioVideo;
@@ -751,7 +752,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(this.getContext().getPDFErrorDir(), pdfName, new URL(parent, directory));
 
       // Report an error if the PDF file is not PDF/A compliant.
-      if (!pdfValidateFlag) {
+      if (!pdfValidateFlag && TargetExaminer.isTargetDocumentType(target.getUrl())) {
         URL urlRef = null;
         if (!directory.isEmpty()) {
           urlRef = new URL(parent, directory + File.separator + pdfName); // Make the separator OS
