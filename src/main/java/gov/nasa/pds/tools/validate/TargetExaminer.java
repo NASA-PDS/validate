@@ -35,6 +35,7 @@ public class TargetExaminer extends Target {
   private static final Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
   private static String BUNDLE_NODE_TAG = "Product_Bundle";
   private static String COLLECTION_NODE_TAG = "Product_Collection";
+  private static String DOCUMENT_NODE_TAG = "Product_Document";
 
   /**
    * Creates a new instance.
@@ -107,6 +108,30 @@ public class TargetExaminer extends Target {
     return (targetIsCollectionFlag);
   }
 
+  public static boolean isTargetDocumentType (URL url) { return isTargetDocumentType(url,false); }
+  public static boolean isTargetDocumentType (URL url, boolean ignoreErrors) {
+    String PRODUCT_NAME_TAG = TargetExaminer.DOCUMENT_NODE_TAG;
+    boolean targetIsDocumentFlag = false;
+
+    // Do a sanity check if the file or directory exist.
+    if (!"file".equalsIgnoreCase(url.getProtocol())) {
+      return (targetIsDocumentFlag);     
+    }
+    if (!FileUtils.toFile(url).exists()) {
+      LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
+      return (targetIsDocumentFlag);
+    }
+
+    if (FileUtils.toFile(url).isFile() && TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors)) {
+      targetIsDocumentFlag = true;
+    }
+    LOG.debug("isTargetCollectionType:url,(new File(url.getPath()).isFile() {},{}", url,
+        FileUtils.toFile(url).isFile());
+    LOG.debug("isTargetCollectionType:url,PRODUCT_NAME_TAG,targetIsCollectionFlag {},{},{}", url,
+        PRODUCT_NAME_TAG, targetIsDocumentFlag);
+
+    return targetIsDocumentFlag;
+  }
   /**
    * Check if content of url contains a node that matches tagCheck.
    *

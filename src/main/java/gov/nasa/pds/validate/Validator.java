@@ -35,7 +35,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import org.xml.sax.SAXException;
 import gov.nasa.pds.tools.label.CachedEntityResolver;
@@ -127,7 +126,7 @@ public abstract class Validator {
    *
    * @param schematrons A list of schematrons.
    */
-  public void setSchematrons(List<Transformer> schematrons) {
+  public void setSchematrons(List<String> schematrons) {
     labelValidator.setSchematrons(schematrons);
   }
 

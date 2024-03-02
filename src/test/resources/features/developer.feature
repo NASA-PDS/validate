@@ -9,6 +9,8 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#824
+|"NASA-PDS/validate#824 Success PDF vs PDF/A" | "github824" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github824.json -s json --skip-context-validation  -t {resourceDir}/github824/1203_12.xml" | "report_github824.json" |
 
 # Validate#823
 |"NASA-PDS/validate#823 Success process problematic floats" | "github823" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github823.json -s json --skip-context-validation  -t {resourceDir}/github823/mvn_swi_l2_onboardsvymom_20230827_v02_r01.xml" | "report_github823.json" |
