@@ -1,16 +1,18 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-02-27)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-03-02)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...«unknown»)
 
 **Requirements:**
 
 - As a user, I want to have the parameter names used in 3.5.0 reports to be the same as they were in ≤3.4.1 [\#827](https://github.com/NASA-PDS/validate/issues/827)
+- Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
 - As a user, I want to have the same information available in the validation report no matter which style I choose [\#797](https://github.com/NASA-PDS/validate/issues/797)
 
 **Defects:**
 
+- validate is slow or runs out of memory when validating a bundle [\#826](https://github.com/NASA-PDS/validate/issues/826) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate V.3.4.1 reports file read errors on products which read correctly under V.3.2.0 [\#823](https://github.com/NASA-PDS/validate/issues/823) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Check for unlabeled files no longer works [\#822](https://github.com/NASA-PDS/validate/issues/822) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails to read files on Windows systems after Internal Reference check updates \(\#308\) [\#809](https://github.com/NASA-PDS/validate/issues/809) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
