@@ -208,8 +208,6 @@ public abstract class Report {
 
     if (numErrors > 0) {
       status = Status.FAIL;
-      LOG.debug("record:sourceUri {}", sourceUri);
-      LOG.debug("record:sourceUri.toString {}", sourceUri == null ? "null":sourceUri.toString());
 
       if (!Utility.isDir(sourceUri.toString())) {
         if (!this.integrityCheckFlag) {

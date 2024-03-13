@@ -1532,9 +1532,6 @@ public class ValidateLauncher {
       // Do a sanity check if url exist first before attempting to report on
       // collocated data.
       try {
-        LOG.debug(
-            "printWarningCollocatedData:url.getPath(),(new File(url.getPath()).exists() {},{}",
-            url.getPath(), FileUtils.toFile(url).exists());
         if (FileUtils.toFile(url).exists()) {
           ValidationProblem p1 = new ValidationProblem(
               new ProblemDefinition(ExceptionType.WARNING, ProblemType.GENERAL_INFO,

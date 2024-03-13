@@ -211,8 +211,7 @@ public class LabelValidator {
    */
   public void setSchematrons(List<String> schematrons) {
     userSchematronTransformers = schematrons;
-    LOG.debug("setSchematrons:schematrons.size(),schematrons {},{}", schematrons.size(),
-        schematrons);
+    LOG.debug("setSchematrons:schematrons.size(),schematrons {}", schematrons.size());
   }
 
   /**

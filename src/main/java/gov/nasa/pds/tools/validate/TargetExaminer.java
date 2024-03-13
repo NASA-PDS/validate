@@ -100,10 +100,6 @@ public class TargetExaminer extends Target {
     if (FileUtils.toFile(url).isFile() && TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors)) {
       targetIsCollectionFlag = true;
     }
-    LOG.debug("isTargetCollectionType:url,(new File(url.getPath()).isFile() {},{}", url,
-        FileUtils.toFile(url).isFile());
-    LOG.debug("isTargetCollectionType:url,PRODUCT_NAME_TAG,targetIsCollectionFlag {},{},{}", url,
-        PRODUCT_NAME_TAG, targetIsCollectionFlag);
 
     return (targetIsCollectionFlag);
   }
@@ -150,8 +146,6 @@ public class TargetExaminer extends Target {
     //
     // <Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
     // xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
-
-    LOG.debug("tagMatches:url,tagCheck {},{}", url, tagCheck);
     boolean tagMatchedFlag = false;
 
     if (!url.getPath().endsWith(".xml")) {
