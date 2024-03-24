@@ -119,33 +119,6 @@
           },
           {
                "name": [
-                    "2000 YH2"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_yh2::1.0"
-          },
-          {
-               "name": [
-                    "ULYSSES"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.uly::1.1"
-          },
-          {
-               "name": [
-                    "83982 CRANTOR"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.83982_crantor::1.0"
-          },
-          {
-               "name": [
                     "(24835) 1995 SM55"
                ],
                "type": [
@@ -6218,6 +6191,87 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:navcam.sdu::1.0"
+          },
+          {
+               "name": [
+                    "2003 HG57"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_hg57::1.0"
+          },
+          {
+               "name": [
+                    "STAR"
+               ],
+               "type": [
+                    "CALIBRATION FIELD"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:calibration_field.star::1.0"
+          },
+          {
+               "name": [
+                    "1998 FS144"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_fs144::1.0"
+          },
+          {
+               "name": [
+                    "(90568) 2004 GV9"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.90568_2004_gv9::1.0"
+          },
+          {
+               "name": [
+                    "ALPHA PARTICLE X-RAY SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:apxs.mer2::1.0"
+          },
+          {
+               "name": [
+                    "HELIKE"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.helike::1.1"
+          },
+          {
+               "name": [
+                    "KIVIUQ"
+               ],
+               "type": [
+                    "SATELLITE"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.kiviuq::1.1"
+          },
+          {
+               "name": [
+                    "COMET NUCLEUS TOUR"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.con::1.1"
+          },
+          {
+               "name": [
+                    "ROSETTA LANDER IMAGINAG SYSTEM - DESCENT AND CLOSEUP IMAGER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:rl.rolis::1.0"
           },
           {
                "name": [
@@ -19483,39 +19537,30 @@
           },
           {
                "name": [
-                    "2003 HG57"
+                    "2000 YH2"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_hg57::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_yh2::1.0"
           },
           {
                "name": [
-                    "STAR"
+                    "ULYSSES"
                ],
                "type": [
-                    "CALIBRATION FIELD"
+                    "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:target:calibration_field.star::1.0"
+               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.uly::1.1"
           },
           {
                "name": [
-                    "1998 FS144"
+                    "83982 CRANTOR"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "CENTAUR"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_fs144::1.0"
-          },
-          {
-               "name": [
-                    "(90568) 2004 GV9"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.90568_2004_gv9::1.0"
+               "lidvid": "urn:nasa:pds:context:target:centaur.83982_crantor::1.0"
           },
           {
                "name": [
@@ -26788,51 +26833,6 @@
                     "EQUIPMENT"
                ],
                "lidvid": "urn:nasa:pds:context:target:equipment.probe::1.0"
-          },
-          {
-               "name": [
-                    "ALPHA PARTICLE X-RAY SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:apxs.mer2::1.0"
-          },
-          {
-               "name": [
-                    "HELIKE"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.helike::1.1"
-          },
-          {
-               "name": [
-                    "KIVIUQ"
-               ],
-               "type": [
-                    "SATELLITE"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.kiviuq::1.1"
-          },
-          {
-               "name": [
-                    "COMET NUCLEUS TOUR"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.con::1.1"
-          },
-          {
-               "name": [
-                    "ROSETTA LANDER IMAGINAG SYSTEM - DESCENT AND CLOSEUP IMAGER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:rl.rolis::1.0"
           }
      ]
 }
