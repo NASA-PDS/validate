@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#849
+|"NASA-PDS/validate#849 Fails inventory with duplicate entries" | "github849" | 2 | "2 errors expected" | "INVENTORY_DUPLICATE_LIDVID" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github849.json -s json --skip-context-validation  -t {resourceDir}/github849/collection_uvs_data_raw.xml" | "report_github849.json" |
+
 # Validate#824
 |"NASA-PDS/validate#824 Success PDF vs PDF/A" | "github824" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github824.json -s json --skip-context-validation  -t {resourceDir}/github824/1203_12.xml" | "report_github824.json" |
 
