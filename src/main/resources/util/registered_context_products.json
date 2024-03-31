@@ -119,6 +119,15 @@
           },
           {
                "name": [
+                    "83982 CRANTOR"
+               ],
+               "type": [
+                    "CENTAUR"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:centaur.83982_crantor::1.0"
+          },
+          {
+               "name": [
                     "(24835) 1995 SM55"
                ],
                "type": [
@@ -6227,6 +6236,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.90568_2004_gv9::1.0"
+          },
+          {
+               "name": [
+                    "PROBE"
+               ],
+               "type": [
+                    "EQUIPMENT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:equipment.probe::1.0"
           },
           {
                "name": [
@@ -19555,15 +19573,6 @@
           },
           {
                "name": [
-                    "83982 CRANTOR"
-               ],
-               "type": [
-                    "CENTAUR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:centaur.83982_crantor::1.0"
-          },
-          {
-               "name": [
                     "INFRARED INTERFEROMETER SPECTROMETER AND RADIOMETER"
                ],
                "type": [
@@ -26824,15 +26833,6 @@
                     "PLANETARY SYSTEM"
                ],
                "lidvid": "urn:nasa:pds:context:target:planetary_system.solar_system::1.0"
-          },
-          {
-               "name": [
-                    "PROBE"
-               ],
-               "type": [
-                    "EQUIPMENT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:equipment.probe::1.0"
           }
      ]
 }
