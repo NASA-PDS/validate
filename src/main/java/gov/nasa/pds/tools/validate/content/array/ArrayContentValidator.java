@@ -343,7 +343,8 @@ public class ArrayContentValidator {
     if (number instanceof Integer) number = BigInteger.valueOf(number.intValue());
     if (number instanceof Long) number = BigInteger.valueOf(number.longValue());
     if (number instanceof Short) number = BigInteger.valueOf(number.shortValue());
-    boolean repr_decimal = constant_repr.contains (".") || constant_repr.contains("E") || constant_repr.contains("e");
+    boolean repr_decimal = (constant_repr.contains (".") || constant_repr.contains("E") || constant_repr.contains("e"))
+        && !constant_repr.startsWith("0x");
     if (repr_decimal) {
       BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr);
       return constant.equals (number);
