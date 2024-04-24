@@ -652,7 +652,7 @@ public class LabelValidator {
 
         SAXSource saxSource = new SAXSource(Utility.getInputSourceByURL(url));
         saxSource.setSystemId(url.toString());
-        TreeInfo docInfo = LabelParser.parse(saxSource);
+        TreeInfo docInfo = LabelParser.parse(saxSource, false);
         for (DocumentValidator dv : documentValidators) {
           dv.validate(handler, docInfo.getRootNode());
         }

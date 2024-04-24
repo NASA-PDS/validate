@@ -114,7 +114,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     DOMSource source = new DOMSource(label);
     source.setSystemId(uri.toString());
     try {
-      TreeInfo xml = LabelParser.parse(source);
+      TreeInfo xml = LabelParser.parse(source, false);
       LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}", uri);
       validate(xml.getRootNode());
     } catch (TransformerException te) {
