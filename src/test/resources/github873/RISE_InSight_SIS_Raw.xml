@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:insight_documents:document_rise:rise_raw_sis</logical_identifier>
+        <version_id>1.2</version_id>
+        <title>InSight RISE Raw Data Product SIS</title>
+        <information_model_version>1.9.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        <Citation_Information>
+            <publication_year>2017</publication_year>
+            <description>InSight RISE Raw Data Product Software Interface Specification</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2017-06-27</modification_date>
+                <version_id>1.0</version_id>
+                <description>First release</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2020-07-28</modification_date>
+                <version_id>1.1</version_id>
+                <description>Revised with Insight release 6</description>
+            </Modification_Detail>
+            <Modification_Detail>
+                <modification_date>2021-04-01</modification_date>
+                <version_id>1.2</version_id>
+                <description>Revised with Insight release 9</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Document>
+        <publication_date>2017-06-27</publication_date>
+        <description>InSight RISE Raw Data Product Software Interface Specification</description>
+        <Document_Edition>
+            <edition_name>InSight RISE Raw Data Product SIS, PDF</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>RISE_InSight_SIS_Raw.pdf</file_name>
+                <document_standard_id>PDF/A</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+        <Document_Edition>
+            <edition_name>InSight RISE Raw Data Product SIS, HTML</edition_name>
+            <language>English</language>
+            <files>6</files>
+            <Document_File>
+                <file_name>RISE_InSight_SIS_Raw.htm</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image001.jpg</file_name>
+                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
+                <document_standard_id>JPEG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image002.png</file_name>
+                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image003.png</file_name>
+                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image004.png</file_name>
+                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image005.png</file_name>
+                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
