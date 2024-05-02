@@ -12,6 +12,10 @@
 
 **Defects:**
 
+- SXXP0003 Error when running on PDS3 data sets for v3.3.3 or v3.4.1 [\#874](https://github.com/NASA-PDS/validate/issues/874) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate 3.5.0-SNAPSHOT attempts to look at all files, not just \*.xml [\#854](https://github.com/NASA-PDS/validate/issues/854) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate stalls when validating collection inventory file with duplicates records [\#849](https://github.com/NASA-PDS/validate/issues/849) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate incorrectly handles special constant high\_instrument\_saturation [\#831](https://github.com/NASA-PDS/validate/issues/831) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate is slow or runs out of memory when validating a bundle [\#826](https://github.com/NASA-PDS/validate/issues/826) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate V.3.4.1 reports file read errors on products which read correctly under V.3.2.0 [\#823](https://github.com/NASA-PDS/validate/issues/823) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Check for unlabeled files no longer works [\#822](https://github.com/NASA-PDS/validate/issues/822) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
