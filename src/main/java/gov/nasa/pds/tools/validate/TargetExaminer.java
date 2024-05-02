@@ -148,14 +148,11 @@ public class TargetExaminer extends Target {
     // xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
     boolean tagMatchedFlag = false;
 
-    if (!url.getPath().endsWith(".xml")) {
-      tagMatchedFlag = false;
-    }
     try {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource, ignoreErrors); // Parses a label.
       LOG.debug("tagMatches:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
@@ -209,7 +206,7 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource, false); // Parses a label.
       LOG.debug("getTargetContent:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
@@ -254,7 +251,7 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource, true); // Parses a label.
       @SuppressWarnings("unused")
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());

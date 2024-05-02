@@ -42,7 +42,7 @@ class UserInput {
       if (file.exists()) {
         try {
           SAXSource saxSource = new SAXSource(new InputSource(new FileReader(file)));
-          TreeInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+          TreeInfo docInfo = LabelParser.parse(saxSource, true); // Parses a label.
           List<TinyNodeImpl> xmlModels = new ArrayList<>();
           XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
           xmlModels = extractor.getNodesFromDoc("//logical_identifier");
