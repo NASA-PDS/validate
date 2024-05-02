@@ -28,22 +28,9 @@
         <description>Describes the geometry of the Medium Gain Antennas (MGA) on the InSight RISE
             instrument with directions for determining which antenna is being utilized at a given time.</description>
         <Document_Edition>
-            <edition_name>InSight East-West MGA, PDF</edition_name>
-            <language>English</language>
-            <files>1</files>
-            <Document_File>
-                <file_name>InSight_EastWestMGA.pdf</file_name>
-                <document_standard_id>PDF/A</document_standard_id>
-            </Document_File>
-        </Document_Edition>
-        <Document_Edition>
             <edition_name>InSight East-West MGA, HTML</edition_name>
             <language>English</language>
-            <files>6</files>
-            <Document_File>
-                <file_name>InSight_EastWestMGA.htm</file_name>
-                <document_standard_id>HTML</document_standard_id>
-            </Document_File>
+            <files>2</files>
             <Document_File>
                 <file_name>image001.png</file_name>
                 <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
@@ -51,66 +38,6 @@
             </Document_File>
             <Document_File>
                 <file_name>image002.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image003.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image004.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image005.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image006.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image007.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image008.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image009.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image010.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image011.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image012.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image013.png</file_name>
-                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image014.png</file_name>
                 <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
                 <document_standard_id>PNG</document_standard_id>
             </Document_File>

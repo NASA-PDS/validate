@@ -36,22 +36,9 @@
         <publication_date>2017-06-27</publication_date>
         <description>InSight RISE Raw Data Product Software Interface Specification</description>
         <Document_Edition>
-            <edition_name>InSight RISE Raw Data Product SIS, PDF</edition_name>
-            <language>English</language>
-            <files>1</files>
-            <Document_File>
-                <file_name>RISE_InSight_SIS_Raw.pdf</file_name>
-                <document_standard_id>PDF/A</document_standard_id>
-            </Document_File>
-        </Document_Edition>
-        <Document_Edition>
             <edition_name>InSight RISE Raw Data Product SIS, HTML</edition_name>
             <language>English</language>
-            <files>6</files>
-            <Document_File>
-                <file_name>RISE_InSight_SIS_Raw.htm</file_name>
-                <document_standard_id>HTML</document_standard_id>
-            </Document_File>
+            <files>2</files>
             <Document_File>
                 <file_name>image001.jpg</file_name>
                 <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
@@ -59,21 +46,6 @@
             </Document_File>
             <Document_File>
                 <file_name>image002.png</file_name>
-                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image003.png</file_name>
-                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image004.png</file_name>
-                <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
-                <document_standard_id>PNG</document_standard_id>
-            </Document_File>
-            <Document_File>
-                <file_name>image005.png</file_name>
                 <directory_path_name>RISE_InSight_SIS_Raw_files</directory_path_name>
                 <document_standard_id>PNG</document_standard_id>
             </Document_File>
