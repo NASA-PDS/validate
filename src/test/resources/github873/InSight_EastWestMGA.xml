@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1900.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:insight_documents:document_rise:east_west_mga</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>InSight Antenna Utilization Geometry</title>
+        <information_model_version>1.9.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        <Citation_Information>
+            <publication_year>2017</publication_year>
+            <description>Describes the geometry of the Medium Gain Antennas (MGA) on the InSight RISE
+              instrument with directions for determining which antenna is being utilized at a given time.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2017-06-21</modification_date>
+                <version_id>1.0</version_id>
+                <description>First release</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Document>
+        <publication_date>2017-06-21</publication_date>
+        <description>Describes the geometry of the Medium Gain Antennas (MGA) on the InSight RISE
+            instrument with directions for determining which antenna is being utilized at a given time.</description>
+        <Document_Edition>
+            <edition_name>InSight East-West MGA, PDF</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>InSight_EastWestMGA.pdf</file_name>
+                <document_standard_id>PDF/A</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+        <Document_Edition>
+            <edition_name>InSight East-West MGA, HTML</edition_name>
+            <language>English</language>
+            <files>6</files>
+            <Document_File>
+                <file_name>InSight_EastWestMGA.htm</file_name>
+                <document_standard_id>HTML</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image001.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image002.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image003.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image004.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image005.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image006.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image007.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image008.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image009.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image010.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image011.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image012.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image013.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+            <Document_File>
+                <file_name>image014.png</file_name>
+                <directory_path_name>InSight_EastWestMGA_files</directory_path_name>
+                <document_standard_id>PNG</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
