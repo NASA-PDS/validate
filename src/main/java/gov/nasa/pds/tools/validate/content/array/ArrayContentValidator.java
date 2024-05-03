@@ -291,7 +291,12 @@ public class ArrayContentValidator {
       ProblemReporter reporter = new ArrayProblemReporter(this, ExceptionType.WARNING,
           ProblemType.ARRAY_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, ArrayContentValidator.tableNameReportStr,
           location);
-      isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants(), reporter);
+      try {
+        isSpecialConstant = isSpecialConstant(value, array.getSpecialConstants(), reporter);
+      } catch (NumberFormatException nfe) {
+        addArrayProblem(ExceptionType.ERROR, ProblemType.ARRAY_INVALID_SPECIAL_CONSTANT,
+            "One of the special constants could not be converted to the numeric data type of the array", location);
+      }
     }
 
     // LOG.debug("validatePosition:dataType,isSpecialConstant,array.getSpecialConstants()

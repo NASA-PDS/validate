@@ -495,8 +495,15 @@ public class FieldValueValidator {
       if (specialConstants != null) {
         FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
             ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
-        isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
-            specialConstants, reporter);
+        try {
+          isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
+              specialConstants, reporter);
+        } catch (NumberFormatException nfe) {
+          addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
+              "One of the special constants could not be converted to the numeric data type of the table cell",
+              recordLocation, fieldIndex);
+        }
+
       }
 
       if (!isSpecialConstant) {
