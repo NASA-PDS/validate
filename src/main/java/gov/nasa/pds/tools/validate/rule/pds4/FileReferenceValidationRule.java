@@ -114,7 +114,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     DOMSource source = new DOMSource(label);
     source.setSystemId(uri.toString());
     try {
-      TreeInfo xml = LabelParser.parse(source);
+      TreeInfo xml = LabelParser.parse(source, false);
       LOG.debug("FileReferenceValidationRule:validateFileReferences:uri {}", uri);
       validate(xml.getRootNode());
     } catch (TransformerException te) {
@@ -282,15 +282,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 name = child.getStringValue();
                 this.fileMapping.put(name, "");
                 LOG.debug("FileReferenceValidationRule:validate:name {}", name);
-                if (!CrossLabelFileAreaReferenceChecker.add (name, target)) {
-                  this.getListener().addProblem(
-                      new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,
-                              "This file area references " + name + " that is already used by label "
-                              + CrossLabelFileAreaReferenceChecker.getOtherId(name, target)
-                              + " in file " + CrossLabelFileAreaReferenceChecker.getOtherFilename(name, target)),
-                          target, fileObject.getLineNumber(), -1));
-                };
               } else if ("md5_checksum".equals(child.getLocalPart())) {
                 checksum = child.getStringValue();
                 LOG.debug("FileReferenceValidationRule:validate:checksum {}", checksum);
@@ -330,6 +321,19 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 LOG.debug("FileReferenceValidationRule:validate:filesize {}", filesize);
               }
             } // for (TinyNodeImpl child : children)
+            
+            if (!name.isBlank()) {
+              String fullName = directory.isBlank() ? name : String.join(File.pathSeparator, directory, name);
+              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target)) {
+                this.getListener().addProblem(
+                    new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,
+                            "This file area references " + fullName + " that is already used by label "
+                                + CrossLabelFileAreaReferenceChecker.getOtherId(fullName, target)
+                                + " in file " + CrossLabelFileAreaReferenceChecker.getOtherFilename(fullName, target)),
+                        target, fileObject.getLineNumber(), -1));
+              }
+            }
 
             this.checkExtension(name, encodingStandardId);
 
