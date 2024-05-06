@@ -20,10 +20,10 @@ public class SpecialConstantChecker {
       matched |= value.equals(constants.getErrorConstant());
       matched |= value.equals(constants.getInvalidConstant());
       matched |= value.equals(constants.getMissingConstant());
-      matched |= value.equals(constants.getHighInstrumentSaturation());
-      matched |= value.equals(constants.getHighRepresentationSaturation());
-      matched |= value.equals(constants.getLowInstrumentSaturation());
-      matched |= value.equals(constants.getLowRepresentationSaturation());
+      //matched |= value.equals(constants.getHighInstrumentSaturation());
+      //matched |= value.equals(constants.getHighRepresentationSaturation());
+      //matched |= value.equals(constants.getLowInstrumentSaturation());
+      //matched |= value.equals(constants.getLowRepresentationSaturation());
       matched |= value.equals(constants.getNotApplicableConstant());
       matched |= value.equals(constants.getSaturatedConstant());
       matched |= value.equals(constants.getUnknownConstant());
