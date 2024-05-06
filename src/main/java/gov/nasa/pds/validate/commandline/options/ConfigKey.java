@@ -119,7 +119,7 @@ public class ConfigKey {
   /**
    * Property to if context ref mismatches should be INFO or WARNING.
    */
-  public static final String CONTEXT_MISMATCH_AS_WARNING = "validate.contextMismatchAsWarning";
+  public static final String DISABLE_CONTEXT_MISMATCH_WARNINGS = "validate.disableContextMismatchWarnings";
 
   /**
    * Property to enable/disable (true/false) full bit checking of tables and arrays

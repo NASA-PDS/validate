@@ -222,7 +222,7 @@ public class ValidateLauncher {
 
   private int everyN;
 
-  private boolean contextMismatchAsWarn = false;
+  private boolean contextMismatchAsWarn = true;
   
   private String pdfErrorDir;
 
@@ -278,7 +278,7 @@ public class ValidateLauncher {
     maxErrors = MAX_ERRORS;
     completeDescriptions = false;
     everyN = 1;
-    contextMismatchAsWarn = false;
+    contextMismatchAsWarn = true;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
     registeredAndNonRegistedProducts = new HashMap<>();
@@ -429,8 +429,8 @@ public class ValidateLauncher {
         setContextReferenceCheck(false);
       } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
         setCheckInbetweenFields(true);
-      } else if (Flag.CONTEXT_MISMATCH_AS_WARNING.getLongName().equals(o.getLongOpt())) {
-        setContextMismatchAsWarn(true);
+      } else if (Flag.DISABLE_CONTEXT_MISMATCH_WARNINGS.getLongName().equals(o.getLongOpt())) {
+        setContextMismatchAsWarn(false);
       } else if (Flag.ENABLE_STACK_PRINTING.getLongName().equals(o.getLongOpt())) {
         FlagsUtil.setStackPrintingFlag(true);
         // Also call setSeverity to 0.
@@ -773,9 +773,9 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.EVERY_N)) {
         setEveryN(config.getInt(ConfigKey.EVERY_N));
       }
-      if (config.containsKey(ConfigKey.CONTEXT_MISMATCH_AS_WARNING)) {
-        contextMismatchAsWarn = true;
-        setContextMismatchAsWarn(true);
+      if (config.containsKey(ConfigKey.DISABLE_CONTEXT_MISMATCH_WARNINGS)) {
+        contextMismatchAsWarn = false;
+        setContextMismatchAsWarn(false);
       }
       if (config.containsKey(ConfigKey.COMPLETE_DESCRIPTIONS)) {
         setCompleteDescriptions(true);
