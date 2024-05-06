@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-02)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-06)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...«unknown»)
 
@@ -13,6 +13,7 @@
 **Defects:**
 
 - SXXP0003 Error when running on PDS3 data sets for v3.3.3 or v3.4.1 [\#874](https://github.com/NASA-PDS/validate/issues/874) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate 3.5.0-snapshot Giving Unexpected Errors for Matching Filenames in Separate Directories [\#873](https://github.com/NASA-PDS/validate/issues/873) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 3.5.0-SNAPSHOT attempts to look at all files, not just \*.xml [\#854](https://github.com/NASA-PDS/validate/issues/854) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate stalls when validating collection inventory file with duplicates records [\#849](https://github.com/NASA-PDS/validate/issues/849) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate incorrectly handles special constant high\_instrument\_saturation [\#831](https://github.com/NASA-PDS/validate/issues/831) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
@@ -71,7 +72,6 @@
 - Validate-refs with manifest of file paths does not seem to read the files correctly [\#750](https://github.com/NASA-PDS/validate/issues/750) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Buffer limit IOException thrown with validate-refs [\#748](https://github.com/NASA-PDS/validate/issues/748) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Intermittent network failures attempting repeated downloads of schemas/schematrons [\#739](https://github.com/NASA-PDS/validate/issues/739) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
-- Installation instructions need updates for Windows [\#723](https://github.com/NASA-PDS/validate/issues/723)
 - Investigate and Fix code scanning alert for potential improvements [\#698](https://github.com/NASA-PDS/validate/issues/698) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate crashes on invalid \# of records, and spurious file left behind [\#475](https://github.com/NASA-PDS/validate/issues/475) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate does not work correct when path name contains a space on mac [\#427](https://github.com/NASA-PDS/validate/issues/427) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
