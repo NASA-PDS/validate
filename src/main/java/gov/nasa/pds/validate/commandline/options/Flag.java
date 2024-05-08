@@ -69,6 +69,7 @@ public enum Flag {
       "Specify file extension for the labels files. Default: xml. NOTE: Support for intermingled bundles where collections have differing label file extensions is not yet supported."),
 
   EVERY_N(null, "everyN", "value", int.class, "Process every N files with the default being every file."),
+  DISABLE_CONTEXT_MISMATCH_WARNINGS(null, "disable-context-mismatch-warnings", "When present, context mismatches will reported as info otherwise as warnings"),
   /**
    * DEPRECATED: Flag to force the tool to perform validation against the schema and schematron
    * specified in a given label.

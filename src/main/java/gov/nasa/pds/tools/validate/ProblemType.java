@@ -264,7 +264,8 @@ public enum ProblemType {
 
   CONTEXT_REFERENCE_FOUND("info.label.context_ref_found"),
 
-  CONTEXT_REFERENCE_FOUND_MISMATCH("info.label.context_ref_mismatch"),
+  CONTEXT_REFERENCE_FOUND_MISMATCH_INFO("info.label.context_ref_mismatch"),
+  CONTEXT_REFERENCE_FOUND_MISMATCH_WARN("warning.label.context_ref_mismatch"),
 
   LOCAL_ID_FOUND("info.label.local_identifier_found"),
 

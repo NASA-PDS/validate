@@ -40,7 +40,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentValidator;
+import gov.nasa.pds.tools.validate.SpecialConstantChecker;
 import gov.nasa.pds.tools.validate.rule.RuleContext;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 
@@ -349,11 +349,17 @@ public class FieldValueValidator {
                     + fields[i].getType().getXMLType() + "'.",
                 record.getLocation(), (i + 1));
           } catch (InvalidTableException e) {
-            String message = "Value does not match its data type '"
-                + fields[i].getType().getXMLType() + "': " + e.getMessage();
-            LOG.debug("recordLocation.getLabel: " + record.getLocation().getLabel());
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                message, record.getLocation(), (i + 1));
+            if (!SpecialConstantChecker.isNonConformantSpecialConstant(value.trim(), fields[i].getSpecialConstants())) {
+              String message = "Value does not match its data type '"
+                  + fields[i].getType().getXMLType() + "': " + e.getMessage();
+              LOG.debug("recordLocation.getLabel: " + record.getLocation().getLabel());
+              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+                  message, record.getLocation(), (i + 1));
+            } else {
+              addTableProblem(ExceptionType.DEBUG, ProblemType.FIELD_VALUE_DATA_TYPE_MATCH,
+                  "Value '" + value.trim() + "' matches a special constant.",
+                  record.getLocation(), (i + 1));
+            }
           }
           // Check that the format of the field value in the table matches
           // the defined formation of the field
@@ -382,15 +388,19 @@ public class FieldValueValidator {
           }
         } else {
           try {
-
             checkType(value, fields[i].getType());
             addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field is blank.",
                 record.getLocation(), (i + 1));
           } catch (Exception e) {
-            String message = "Value does not match its data type '"
-                + fields[i].getType().getXMLType() + "': " + e.getMessage();
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                message, record.getLocation(), (i + 1));
+            if (!SpecialConstantChecker.isNonConformantSpecialConstant(value.trim(), fields[i].getSpecialConstants())) {
+              String message = "Value does not match its data type '"
+                  + fields[i].getType().getXMLType() + "': " + e.getMessage();
+              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+                  message, record.getLocation(), (i + 1));
+            } else {
+              addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field matches special constant.",
+                  record.getLocation(), (i + 1));
+            }
           }
         }
       } catch (Exception e) {
@@ -496,16 +506,14 @@ public class FieldValueValidator {
         FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
             ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
         try {
-          isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
+          isSpecialConstant = SpecialConstantChecker.isConformantSpecialConstant(number.stripTrailingZeros(),
               specialConstants, reporter);
         } catch (NumberFormatException nfe) {
           addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
               "One of the special constants could not be converted to the numeric data type of the table cell",
               recordLocation, fieldIndex);
         }
-
       }
-
       if (!isSpecialConstant) {
         Double dnumber = number.doubleValue();
         if (minimum != null) {
@@ -651,6 +659,7 @@ public class FieldValueValidator {
       }
     } else if (FieldType.ASCII_ANYURI.getXMLType().equals(type.getXMLType())) {
       try {
+        @SuppressWarnings("unused") // looking for exception side effect
         URI uri = new URI(value);
       } catch (URISyntaxException e) {
         throw new InvalidTableException(e.getMessage());
@@ -817,6 +826,7 @@ public class FieldValueValidator {
           }
           Double.parseDouble(value.trim());
         } else if (specifier.equals("d")) {
+          @SuppressWarnings("unused") // looking for exception side effect
           BigInteger bi = new BigInteger(value.trim());
         } else if (specifier.equals("o")) {
           BigInteger bi = new BigInteger(value.trim());

@@ -279,8 +279,8 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                   for (String name : names) {
                     if (!rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
                       getListener().addProblem(new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.INFO,
-                              ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
+                          new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
+                              this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
                               "Context reference name mismatch. Value: '" + name + "'"
                                   + " Expected one of: '" + rgp.getNames() + "'"),
                           target, locator.getLineNumber(), -1));
@@ -292,8 +292,8 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                         !topNode.getLocalName().equals("Observing_System_Component")) {
                       // TODO: For now, we are punting on Observing_System_Component
                       getListener().addProblem(new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.INFO,
-                              ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH,
+                          new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
+                              this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
                               "Context reference type mismatch. Value: '" + type + "'"
                                   + " Expected one of: '" + rgp.getTypes() + "'"),
                           target, locator.getLineNumber(), -1));
