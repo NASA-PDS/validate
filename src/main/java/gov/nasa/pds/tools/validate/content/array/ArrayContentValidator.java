@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate.content.array;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import com.google.common.primitives.UnsignedLong;
 import gov.nasa.arc.pds.xml.generated.Array;
 import gov.nasa.arc.pds.xml.generated.ElementArray;
 import gov.nasa.arc.pds.xml.generated.ObjectStatistics;
+import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.label.object.ArrayObject;
 import gov.nasa.pds.objectAccess.DataType.NumericDataType;
 import gov.nasa.pds.tools.label.ExceptionType;
@@ -34,6 +36,7 @@ import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.SpecialConstantChecker;
 import gov.nasa.pds.tools.validate.content.ProblemReporter;
+import gov.nasa.pds.tools.validate.content.SpecialConstantBitPatternTransforms;
 import gov.nasa.pds.validate.constants.Constants;
 
 /**
