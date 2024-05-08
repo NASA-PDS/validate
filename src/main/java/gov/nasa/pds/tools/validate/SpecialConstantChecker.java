@@ -2,11 +2,21 @@ package gov.nasa.pds.tools.validate;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.tools.validate.content.ProblemReporter;
 import gov.nasa.pds.tools.validate.content.SpecialConstantBitPatternTransforms;
 
 public class SpecialConstantChecker {
+  final private static List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
+      "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
+  public static boolean isInf (String value) {
+    return INF_NAN_VALUES.subList(0, 6).contains(value.toUpperCase());
+  }
+  public static boolean isInfOrNan (String value) {
+    return INF_NAN_VALUES.contains (value.toUpperCase());
+  }
   /**
    * Use this when the special constant may not conform to the type constraints
    * meaning only string comparisons can be done.
@@ -150,6 +160,23 @@ public class SpecialConstantChecker {
     if (constant_repr == null) return false;
     if (number.toString().equals(constant_repr)) {
       return true;
+    }
+    if (isInfOrNan(constant_repr)) {
+      if (number instanceof BigDecimal || number instanceof Double) {
+        Double d = number instanceof Double ? (Double)number : ((BigDecimal)number).doubleValue();
+        if (isInf(constant_repr)) {
+          return d.isInfinite();
+        } else {
+          return d.isNaN();
+        }
+      }
+      if (number instanceof Float) {
+        if (isInf(constant_repr)) {
+          return ((Float)number).isInfinite();
+        } else {
+          return ((Float)number).isNaN();
+        }
+      }
     }
     if (number instanceof BigDecimal) number = ((BigDecimal)number).doubleValue();
     if (number instanceof Byte) number = BigInteger.valueOf(number.byteValue());
