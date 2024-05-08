@@ -13,15 +13,24 @@
 // $Id$
 package gov.nasa.pds.tools.util;
 
+import java.util.function.Function;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import net.sf.saxon.Configuration;
+import net.sf.saxon.lib.ErrorReporter;
 import net.sf.saxon.lib.ParseOptions;
 import net.sf.saxon.om.TreeInfo;
+import net.sf.saxon.s9api.XmlProcessingError;
 import net.sf.saxon.xpath.XPathEvaluator;
 
-public class LabelParser {
-
+public class LabelParser implements ErrorReporter {
+  private static class Factory implements Function<Configuration,ErrorReporter> {
+    final ErrorReporter ignorer = new LabelParser();
+    @Override
+    public ErrorReporter apply(Configuration t) {
+      return ignorer;
+    }
+  }
   /**
    * Parses a label.
    * 
@@ -29,9 +38,10 @@ public class LabelParser {
    * @return a DocumentInfo object.
    * @throws TransformerException
    */
-  public static TreeInfo parse(Source source) throws TransformerException {
+  public static TreeInfo parse(Source source, boolean ignoreErrors) throws TransformerException {
     XPathEvaluator xpath = new XPathEvaluator();
     Configuration configuration = xpath.getConfiguration();
+    if (ignoreErrors) configuration.setErrorReporterFactory(new Factory());
     configuration.setLineNumbering(true);
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
@@ -39,5 +49,9 @@ public class LabelParser {
     options.withLineNumbering(true);
     options.withXIncludeAware(Utility.supportXincludes());
     return configuration.buildDocumentTree(source, options);
+  }
+  @Override
+  public void report(XmlProcessingError error) {
+    // do nothing
   }
 }
