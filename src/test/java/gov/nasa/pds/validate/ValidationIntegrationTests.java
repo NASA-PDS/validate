@@ -219,7 +219,7 @@ class ValidationIntegrationTests {
 
       count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
       count +=
-          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO.getKey());
       assertEquals(count, 3,
           "Three errors expected for invalid context reference (Lid, name, value) test.");
 
@@ -255,7 +255,7 @@ class ValidationIntegrationTests {
       int count =
           this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
       count +=
-          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO.getKey());
       assertEquals(count, 0, "No errors expected. Context validation disabled.");
 
       // test without option: "--no-context-valid"
@@ -274,7 +274,7 @@ class ValidationIntegrationTests {
 
       count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
       count +=
-          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
+          this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO.getKey());
       assertEquals(count, 3, "Three errors expected. Context validation enabled.");
 
     } catch (ExitException e) {

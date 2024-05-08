@@ -51,6 +51,7 @@ public class FlagOptions {
     options.addOption(new ToolsOption(Flag.CHECKSUM_MANIFEST));
     options.addOption(new ToolsOption(Flag.COMPLETE_DESCRIPTIONS));
     options.addOption(new ToolsOption(Flag.CONFIG));
+    options.addOption(new ToolsOption(Flag.DISABLE_CONTEXT_MISMATCH_WARNINGS));
     options.addOption(new ToolsOption(Flag.MAX_ERRORS));
     options.addOption(new ToolsOption(Flag.EXTENSION));
     options.addOption(new ToolsOption(Flag.EVERY_N));

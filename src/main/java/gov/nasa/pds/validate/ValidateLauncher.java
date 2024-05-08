@@ -222,6 +222,8 @@ public class ValidateLauncher {
 
   private int everyN;
 
+  private boolean contextMismatchAsWarn = true;
+  
   private String pdfErrorDir;
 
   private int spotCheckData;
@@ -276,6 +278,7 @@ public class ValidateLauncher {
     maxErrors = MAX_ERRORS;
     completeDescriptions = false;
     everyN = 1;
+    contextMismatchAsWarn = true;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
     registeredAndNonRegistedProducts = new HashMap<>();
@@ -426,6 +429,8 @@ public class ValidateLauncher {
         setContextReferenceCheck(false);
       } else if (Flag.CHECK_INBETWEEN_FIELDS.getLongName().equals(o.getLongOpt())) {
         setCheckInbetweenFields(true);
+      } else if (Flag.DISABLE_CONTEXT_MISMATCH_WARNINGS.getLongName().equals(o.getLongOpt())) {
+        setContextMismatchAsWarn(false);
       } else if (Flag.ENABLE_STACK_PRINTING.getLongName().equals(o.getLongOpt())) {
         FlagsUtil.setStackPrintingFlag(true);
         // Also call setSeverity to 0.
@@ -768,6 +773,10 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.EVERY_N)) {
         setEveryN(config.getInt(ConfigKey.EVERY_N));
       }
+      if (config.containsKey(ConfigKey.DISABLE_CONTEXT_MISMATCH_WARNINGS)) {
+        contextMismatchAsWarn = false;
+        setContextMismatchAsWarn(false);
+      }
       if (config.containsKey(ConfigKey.COMPLETE_DESCRIPTIONS)) {
         setCompleteDescriptions(true);
       }
@@ -1064,6 +1073,10 @@ public class ValidateLauncher {
 
   public void setEveryN(int value) {
     this.everyN = value;
+  }
+
+  public void setContextMismatchAsWarn(boolean value) {
+    this.contextMismatchAsWarn = value;
   }
 
   public void setCompleteDescriptions(boolean b) {
@@ -1383,6 +1396,7 @@ public class ValidateLauncher {
         validator.setCheckData(contentValidationFlag);
         validator.setSpotCheckData(spotCheckData);
         validator.setEveryN(everyN);
+        validator.setContextMismatchAsWarn(contextMismatchAsWarn);
         validator.setCompleteDescriptions(this.completeDescriptions);
         validator.setPDFErrorDir(pdfErrorDir);
         validator.setAllowUnlabeledFiles(allowUnlabeledFiles);

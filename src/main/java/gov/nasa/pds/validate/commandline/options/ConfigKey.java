@@ -117,6 +117,11 @@ public class ConfigKey {
   public static final String EVERY_N = "validate.everyN";
 
   /**
+   * Property to if context ref mismatches should be INFO or WARNING.
+   */
+  public static final String DISABLE_CONTEXT_MISMATCH_WARNINGS = "validate.disableContextMismatchWarnings";
+
+  /**
    * Property to enable/disable (true/false) full bit checking of tables and arrays
    */
   public static final String COMPLETE_DESCRIPTIONS = "validate.completeDescriptions";

@@ -431,6 +431,9 @@ public class LocationValidator {
   public void setEveryN(int value) {
     ruleContext.setEveryN(value);
   }
+  public void setContextMismatchAsWarn(boolean value) {
+    ruleContext.setContextMismatchAsWarn(value);
+  }
   public void setCompleteDescriptions(boolean b) {
     ruleContext.setCompleteDescriptions(b);
   }

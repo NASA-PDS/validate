@@ -79,7 +79,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
 
 # Validate#628
-|"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
+|"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation --disable-context-mismatch-warnings -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
 
 # Validate#617
 |"NASA-PDS/validate#617 Warning File Extension Mismatch" | "github617" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github617.json -s json --skip-content-validation -t {resourceDir}/github617/uvis_euv_2005_159_solar_time_series_ingress.xml" | "report_github617.json" |
@@ -213,8 +213,8 @@ Scenario Outline: Execute validate command for tests below.
 
 # https://github.com/NASA-PDS/validate/issues/15 Verify that all name/type attribute values correspond to names denoted context products
 
- |"NASA-PDS/validate#15 1" | "github15" | 0 | "0 valid context references should be found" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_pass.json -s json -R pds4.label -t {resourceDir}/github15/test_check-pass_context_products.xml" | "report_github15_pass.json" |
- |"NASA-PDS/validate#15 2" | "github15" | 4 | "4 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
+ |"NASA-PDS/validate#15 1" | "github15" | 0 | "0 valid context references should be found" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_pass.json -s json --disable-context-mismatch-warnings -R pds4.label -t {resourceDir}/github15/test_check-pass_context_products.xml" | "report_github15_pass.json" |
+ |"NASA-PDS/validate#15 2" | "github15" | 4 | "4 errors expected for invalid context reference (Lid, name, value) test." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH_INFO" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github15_no-pass.json -s json --disable-context-mismatch-warnings {resourceDir}/github15/test_check-no-pass_context_products.xml" | "report_github15_no-pass.json" |
 
 # The below tests are for real.
 
@@ -225,8 +225,8 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#137 1" | "github137" | 2 | "FIELD_VALUE_DATA_TYPE_MISMATCH info/error messages not expected." | "FIELD_VALUE_DATA_TYPE_MISMATCH" |  "src/test/resources" | "target/test" | "-r {reportDir}/report_github137_2.json -s json -t {resourceDir}/github137/delimited_table_bad.xml" | "report_github137_2.json" |
 
 ## Note that the reference code re-use the JSON report file for both tests but we won't
- |"NASA-PDS/validate#47 1" | "github47" | 0 | "No errors expected. Context validation disabled" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github47_disable-valid.json -s json -R pds4.label --skip-content-validation --skip-context-validation {resourceDir}/github47/test_context_products.xml" | "report_github47_disable-valid.json" |
- |"NASA-PDS/validate#47 2" | "github47" | 4 | "4 errors expected. Context validation enabled." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH" | "src/test/resources" | "target/test" | "-v1 --skip-content-validation -r {reportDir}/report_github47_enable-valid.json -s json -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
+ |"NASA-PDS/validate#47 1" | "github47" | 0 | "No errors expected. Context validation disabled" | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github47_disable-valid.json -s json --disable-context-mismatch-warnings -R pds4.label --skip-content-validation --skip-context-validation {resourceDir}/github47/test_context_products.xml" | "report_github47_disable-valid.json" |
+ |"NASA-PDS/validate#47 2" | "github47" | 4 | "4 errors expected. Context validation enabled." | "CONTEXT_REFERENCE_NOT_FOUND,CONTEXT_REFERENCE_FOUND_MISMATCH_INFO" | "src/test/resources" | "target/test" | "-v1 --skip-content-validation -r {reportDir}/report_github47_enable-valid.json -s json --disable-context-mismatch-warnings -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
 
  |"NASA-PDS/validate#62 1"   | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --no-data-check -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
  |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --no-data-check -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
@@ -264,12 +264,12 @@ Scenario Outline: Execute validate command for tests below.
 
 # The 3 tests below are from "github209"
 # There should be no WARN message for VALID test.
- |"NASA-PDS/validate#209 VALID" | "github209" | 0 | "0 WARN message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json  -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
+ |"NASA-PDS/validate#209 VALID" | "github209" | 0 | "0 WARN message(s) expected. See validation report:" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_1.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github209/VALID_odf07155_msgr_11.xml" | "report_github209_1.json" |
 # For some reason, when ran, the actual number is 4 instead of 1.
 # [{"severity":"ERROR","type":"error.table.field_value_overlap","table":12,"record":1,"field":5,"message":"The bit field overlaps the next field. Current stop_bit_location: 23. Next start_bit_location: 20"}]}]}],"summary":{"totalErrors":4,
- |"NASA-PDS/validate#209 FAIL1" | "github209" | 1 | "1 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_2.json -s json  -t {resourceDir}/github209/FAIL1_overlapping_bit_fields.xml" | "report_github209_2.json" |
+ |"NASA-PDS/validate#209 FAIL1" | "github209" | 1 | "1 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_2.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github209/FAIL1_overlapping_bit_fields.xml" | "report_github209_2.json" |
 # ,{"severity":"ERROR","type":"error.table.bad_field_read","table":12,"record":1,"field":6,"message":"Error while getting field value: Stop bit past end of packed field (32 > 31)"}]}]}],"summary":{"totalErrors":5,
- |"NASA-PDS/validate#209 FAIL2" | "github209" | 2 | "2 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP,BAD_FIELD_READ" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_3.json -s json  -t {resourceDir}/github209/FAIL2_bad_stop_bit.xml" | "report_github209_3.json" |
+ |"NASA-PDS/validate#209 FAIL2" | "github209" | 2 | "2 message(s) expected. See validation report:" | "FIELD_VALUE_OVERLAP,BAD_FIELD_READ" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github209_3.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github209/FAIL2_bad_stop_bit.xml" | "report_github209_3.json" |
 #
 #
 # The correct location of file catalog.xml is in {reportDir} and not {resourceDir}
@@ -454,12 +454,12 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/419 validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt 
 
 
- |"NASA-PDS/validate#419 VALID" | "github419" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github419_label_valid.json -s json -t {resourceDir}/github419/bundle_astromat_chem.xml" | "report_github419_label_valid.json" |
+ |"NASA-PDS/validate#419 VALID" | "github419" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github419_label_valid.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github419/bundle_astromat_chem.xml" | "report_github419_label_valid.json" |
 
 
 # https://github.com/NASA-PDS/validate/issues/429 validate warns "document standard id ... is not correct" on good labels
 
- |"NASA-PDS/validate#429 VALID" | "github429" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github429_label_valid.json -s json -t {resourceDir}/github429/EPPS_EDR_SIS.xml" | "report_github429_label_valid.json" |
+ |"NASA-PDS/validate#429 VALID" | "github429" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github429_label_valid.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github429/EPPS_EDR_SIS.xml" | "report_github429_label_valid.json" |
 
 # Validate#427
 |"NASA-PDS/validate#427 Success with spaces in directory" | "github427" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github427.json -s json --skip-context-validation  -t {resourceDir}/github427/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github427.json" |
