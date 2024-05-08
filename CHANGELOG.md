@@ -1,11 +1,13 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-08)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...«unknown»)
 
 **Requirements:**
 
+- As a user, I want to receive a WARNING message when the `Target_Identification.name` does not match the value in the context product [\#861](https://github.com/NASA-PDS/validate/issues/861)
+- As a user, I want to receive a WARNING message when the `Observing_System_Component.name` does not match the value in the context product [\#857](https://github.com/NASA-PDS/validate/issues/857)
 - As a user, I want to have the parameter names used in 3.5.0 reports to be the same as they were in ≤3.4.1 [\#827](https://github.com/NASA-PDS/validate/issues/827)
 - Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
 - As a user, I want to have the same information available in the validation report no matter which style I choose [\#797](https://github.com/NASA-PDS/validate/issues/797)
@@ -16,6 +18,7 @@
 - Validate 3.5.0-snapshot Giving Unexpected Errors for Matching Filenames in Separate Directories [\#873](https://github.com/NASA-PDS/validate/issues/873) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 3.5.0-SNAPSHOT attempts to look at all files, not just \*.xml [\#854](https://github.com/NASA-PDS/validate/issues/854) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate stalls when validating collection inventory file with duplicates records [\#849](https://github.com/NASA-PDS/validate/issues/849) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- In text tables, validate attempts to match pattern associated with `data_type` before checking `Special_Constants` [\#837](https://github.com/NASA-PDS/validate/issues/837) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate incorrectly handles special constant high\_instrument\_saturation [\#831](https://github.com/NASA-PDS/validate/issues/831) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate is slow or runs out of memory when validating a bundle [\#826](https://github.com/NASA-PDS/validate/issues/826) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate V.3.4.1 reports file read errors on products which read correctly under V.3.2.0 [\#823](https://github.com/NASA-PDS/validate/issues/823) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
