@@ -91,7 +91,9 @@ public enum ProblemType {
   INVALID_MEMBER_STATUS("error.inventory_table.invalid_member_status"),
 
   INVENTORY_DUPLICATE_LIDVID("error.inventory.duplicate_lidvid"),
-
+  
+  ARRAY_INVALID_SPECIAL_CONSTANT("error.array.invalid_special_constant"),
+  FIELD_INVALID_SPECIAL_CONSTANT("error.field.invalid_special_constant"),
   // Referential Integrity Checking messages
 
   DUPLICATE_VERSIONS("error.integrity.duplicate_versions"),
