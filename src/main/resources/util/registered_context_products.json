@@ -119,6 +119,24 @@
           },
           {
                "name": [
+                    "MECA COMMON ELECTRONICS"
+               ],
+               "type": [
+                    "REGOLITH PROPERTIES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:meca_elec.phx::1.0"
+          },
+          {
+               "name": [
+                    "SUPERNOVA INTEGRAL FIELD SPECTROGRAPH (SNIFS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:maunakea.2m24.snifs::1.0"
+          },
+          {
+               "name": [
                     "9P/TEMPEL 1"
                ],
                "type": [
@@ -6272,21 +6290,12 @@
           },
           {
                "name": [
-                    "(300240) 2007 CP26"
+                    "D/1993 F2-E (SHOEMAKER-LEVY 9-E)"
                ],
                "type": [
-                    "ASTEROID"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300240_2007_cp26::1.0"
-          },
-          {
-               "name": [
-                    "(307251) 2002 KW14"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.307251_2002_kw14::1.0"
+               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-e_shoemaker-levy_9-e::1.0"
           },
           {
                "name": [
@@ -11815,9 +11824,9 @@
                     "MULTISPECTRAL VISIBLE IMAGING CAMERA"
                ],
                "type": [
-                    "IMAGER"
+                    "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:nh.mvic::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:nh.mvic::2.0"
           },
           {
                "name": [
@@ -14016,6 +14025,15 @@
                     "SATELLITE"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.s2010j2::1.1"
+          },
+          {
+               "name": [
+                    "FRAMING CAMERA 1"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:dawn.fc1::1.0"
           },
           {
                "name": [
@@ -16513,21 +16531,21 @@
           },
           {
                "name": [
+                    "NEW HORIZONS"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.new_horizons::2.0"
+          },
+          {
+               "name": [
                     "N/A"
                ],
                "type": [
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:mount_canopus.1m0::0.0"
-          },
-          {
-               "name": [
-                    "NEW HORIZONS"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.new_horizons::1.1"
           },
           {
                "name": [
@@ -17507,6 +17525,15 @@
           },
           {
                "name": [
+                    "DAWN"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.dawn::1.2"
+          },
+          {
+               "name": [
                     "(300192) 2006 WW87"
                ],
                "type": [
@@ -18047,6 +18074,15 @@
           },
           {
                "name": [
+                    "CLPS"
+               ],
+               "type": [
+                    "Other Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:other_investigation.clps::1.0"
+          },
+          {
+               "name": [
                     "ULTRAVIOLET SPECTROMETER"
                ],
                "type": [
@@ -18540,15 +18576,6 @@
                     "IMAGER"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:descam.mer1::1.0"
-          },
-          {
-               "name": [
-                    "DAWN"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.dawn::1.1"
           },
           {
                "name": [
@@ -19552,21 +19579,21 @@
           },
           {
                "name": [
-                    "MECA COMMON ELECTRONICS"
+                    "(300240) 2007 CP26"
                ],
                "type": [
-                    "REGOLITH PROPERTIES"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:meca_elec.phx::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300240_2007_cp26::1.0"
           },
           {
                "name": [
-                    "SUPERNOVA INTEGRAL FIELD SPECTROGRAPH (SNIFS)"
+                    "(307251) 2002 KW14"
                ],
                "type": [
-                    "N/A"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:maunakea.2m24.snifs::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.307251_2002_kw14::1.0"
           },
           {
                "name": [
@@ -25191,7 +25218,7 @@
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.new_horizons_kem1::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.new_horizons_kem1::1.1"
           },
           {
                "name": [
@@ -26327,7 +26354,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.3"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.4"
           },
           {
                "name": [
@@ -26878,15 +26905,6 @@
                     "Laboratory"
                ],
                "lidvid": "urn:nasa:pds:context:facility:laboratory.hofmeister::1.0"
-          },
-          {
-               "name": [
-                    "D/1993 F2-E (SHOEMAKER-LEVY 9-E)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.d1993_f2-e_shoemaker-levy_9-e::1.0"
           }
      ]
 }
