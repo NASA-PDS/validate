@@ -53,8 +53,6 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
-  private final List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
-      "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
 
   /** List of valid datetime formats. */
   private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
@@ -583,7 +581,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (INF_NAN_VALUES.contains(value.toUpperCase()) && !realTypes.contains(type)) {
+    if (SpecialConstantChecker.isInfOrNan(value) && !realTypes.contains(type)) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
