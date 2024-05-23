@@ -18,6 +18,7 @@
 - Validate 3.5.0-snapshot Giving Unexpected Errors for Matching Filenames in Separate Directories [\#873](https://github.com/NASA-PDS/validate/issues/873) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 3.5.0-SNAPSHOT attempts to look at all files, not just \*.xml [\#854](https://github.com/NASA-PDS/validate/issues/854) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate stalls when validating collection inventory file with duplicates records [\#849](https://github.com/NASA-PDS/validate/issues/849) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Exception when trying to handle `missing_constant` == `Infinity` [\#844](https://github.com/NASA-PDS/validate/issues/844) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - In text tables, validate attempts to match pattern associated with `data_type` before checking `Special_Constants` [\#837](https://github.com/NASA-PDS/validate/issues/837) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate incorrectly handles special constant high\_instrument\_saturation [\#831](https://github.com/NASA-PDS/validate/issues/831) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate is slow or runs out of memory when validating a bundle [\#826](https://github.com/NASA-PDS/validate/issues/826) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
