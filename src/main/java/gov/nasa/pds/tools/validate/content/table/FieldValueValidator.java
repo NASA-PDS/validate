@@ -858,7 +858,7 @@ public class FieldValueValidator {
             addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
                 asError ? ProblemType.FIELD_VALID_FORMAT_PRECISION_MISMATCH : ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                 "The number of digits to the right of the decimal point " + "in the value '"
-                    + value.trim() + "' must be <= the precision set in the defined field format '"
+                    + value.trim() + "' should be <= the precision set in the defined field format '"
                     + format+ "' (Expected: <=" + precision + ", Actual: " + actual_precision + ").",
                     recordLocation, fieldIndex);
           }

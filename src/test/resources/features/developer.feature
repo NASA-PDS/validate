@@ -4,7 +4,7 @@ Scenario Outline: Execute validate command for tests below.
     Given a test <testName> at dir <testDir> at resource <resourceDir> sending report to <reportDir> with <commandArgs> as arguments
     When with test property count <messageCount> text <messageText> problem <problemEnum> reference <refOutputValue>
     When execute a validate command
-    Then produced output from validate command should be similiar to reference <refOutputValue> or no error reported.
+    Then produced output from validate command should be similar to reference <refOutputValue> or no error reported.
 
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
@@ -44,7 +44,10 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#681
 |"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
-|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 2 | "2 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml {resourceDir}/github681/ff_del_fail.xml" | "report_github681_2.json" |
+|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml {resourceDir}/github681/ff_del_fail.xml" | "report_github681_2.json" |
+
+# Validate#817
+|"NASA-PDS/validate#817 Failure of ASCII table invalid precision" | "github681" | 1 | "1 error expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github817_1.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github817_1.json" |
 
 # Validate#680
 |"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
