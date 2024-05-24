@@ -24,6 +24,9 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#823
 |"NASA-PDS/validate#823 Success process problematic floats" | "github823" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github823.json -s json --skip-context-validation  -t {resourceDir}/github823/mvn_swi_l2_onboardsvymom_20230827_v02_r01.xml" | "report_github823.json" |
 
+# Validate#817
+|"NASA-PDS/validate#817 Failure of ASCII table invalid precision" | "github681" | 1 | "1 error expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github817_1.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github817_1.json" |
+
 # Validate#785
 |"NASA-PDS/validate#785 Success detecting out of range values" | "github785" | 6 | "6 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github785.json -s json --skip-context-validation  -t {resourceDir}/github785/00038_FGM_RTN.xml" | "report_github785.json" |
 
@@ -42,23 +45,21 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#690
 |"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
 
-# Validate#681
-|"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
-|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml {resourceDir}/github681/ff_del_fail.xml" | "report_github681_2.json" |
-
-# Validate#817
-|"NASA-PDS/validate#817 Failure of ASCII table invalid precision" | "github681" | 1 | "1 error expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github817_1.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github817_1.json" |
-
-# Validate#680
-|"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
-|"NASA-PDS/validate#680 Failure char table bad length" | "github680" | 1 | "1 errors expected" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.2.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen95.xml" | "report_github680.2.json" |
-
 # Validate#684
 |"NASA-PDS/validate#684 Success without filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_1.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_noFileSize.xml" | "report_github684_1.json" |
 |"NASA-PDS/validate#684 Success with filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_2.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_wFileSize.xml" | "report_github684_2.json" |
 
 # Validate#683
 |"NASA-PDS/validate#683 Success warn out of order offsets" | "github614" | 1 | "1 warnings expected" | "DATA_OBJECTS_OUT_OF_ORDER" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github683.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github683.json" |
+
+# Validate#681
+|"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
+|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 1 | "1 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github681_2.json" |
+|"NASA-PDS/validate#681 Warning ASCII tables" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json  -t {resourceDir}/github681/ff_char_warn.xml {resourceDir}/github681/ff_del_warn.xml" | "report_github681_2.json" |
+
+# Validate#680
+|"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
+|"NASA-PDS/validate#680 Failure char table bad length" | "github680" | 1 | "1 errors expected" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.2.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen95.xml" | "report_github680.2.json" |
 
 # Validate#671
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
