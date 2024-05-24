@@ -4,7 +4,7 @@ Scenario Outline: Execute validate command for tests below.
     Given a test <testName> at dir <testDir> at resource <resourceDir> sending report to <reportDir> with <commandArgs> as arguments
     When with test property count <messageCount> text <messageText> problem <problemEnum> reference <refOutputValue>
     When execute a validate command
-    Then produced output from validate command should be similiar to reference <refOutputValue> or no error reported.
+    Then produced output from validate command should be similar to reference <refOutputValue> or no error reported.
 
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
