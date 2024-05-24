@@ -54,7 +54,7 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#681
 |"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
-|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 1 | "1 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github681_2.json" |
+|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 1 | "1 errors expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github681_2.json" |
 |"NASA-PDS/validate#681 Warning ASCII tables" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_3.json -s json  -t {resourceDir}/github681/ff_char_warn.xml {resourceDir}/github681/ff_del_warn.xml" | "report_github681_3.json" |
 
 # Validate#680
