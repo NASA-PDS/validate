@@ -278,25 +278,25 @@ public class StepDefs {
     }
   }
 
-  @Then("produced output from validate command should be similiar to reference {string} or no error reported.")
-  public void produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported(
+  @Then("produced output from validate command should be similar to reference {string} or no error reported.")
+  public void produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported(
       String refOutputValue) {
     this.refOutputValue = refOutputValue;
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testName
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.testName
     // = " + this.testName);
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testDir
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.testDir
     // = " + this.testDir);
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.commandArgs
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.commandArgs
     // = " + this.commandArgs);
     StepDefs.LOG.info(
-        "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = "
+        "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = "
             + this.refOutputValue);
 
     try {
       Gson gson = new Gson();
       File report = new File(this.reportDir + File.separator + this.refOutputValue);
       StepDefs.LOG.info(
-          "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:report = ["
+          "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:report = ["
               + report.getName() + "]");
       JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
@@ -305,16 +305,16 @@ public class StepDefs {
       int count = this.getMessageCountBasedOnProblemType(this.problemEnum, reportJson);
 
       StepDefs.LOG.debug(
-          "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: "
+          "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: "
               + this.testName + " " + problemEnum + " " + Integer.toString(count) + " "
               + this.refOutputValue);
 
       // Compare the count from this test with the this.messageCount from test table.
       assertEquals(count, this.messageCount, this.messageText + " " + reportJson.toString());
 
-      // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported()
+      // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported()
       // count = [" + count + "]");
-      // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported()
+      // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported()
       // reportJson.toString() = [" + reportJson.toString() + "]");
     } catch (ExitException e) {
       assertEquals(0, e.status, "Exit status");
