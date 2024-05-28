@@ -1,12 +1,8 @@
 # Changelog
 
-## [release/3.5.1](https://github.com/NASA-PDS/validate/tree/release/3.5.1) (2024-05-25)
+## [v3.5.1](https://github.com/NASA-PDS/validate/tree/v3.5.1) (2024-05-25)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.0...release/3.5.1)
-
-## [v3.5.0](https://github.com/NASA-PDS/validate/tree/v3.5.0) (2024-05-24)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...v3.5.0)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...v3.5.1)
 
 **Requirements:**
 
