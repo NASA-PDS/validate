@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-28)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.1...«unknown»)
+
+**Defects:**
+
+- Validate not retrying on sch load failure [\#903](https://github.com/NASA-PDS/validate/issues/903) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+
 ## [v3.5.1](https://github.com/NASA-PDS/validate/tree/v3.5.1) (2024-05-25)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...v3.5.1)
