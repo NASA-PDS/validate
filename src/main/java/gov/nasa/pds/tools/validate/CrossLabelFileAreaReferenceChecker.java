@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 import gov.nasa.pds.tools.util.LabelUtil;
 
 public class CrossLabelFileAreaReferenceChecker {
+  final private static HashMap<String,Boolean> isObservational = new HashMap<String,Boolean>();
   final private static HashMap<String,List<String>> knownRefs = new HashMap<String,List<String>>();
   private static String resolve (String name, ValidationTarget target) throws URISyntaxException {
     if (!name.startsWith ("/")) {
@@ -33,20 +34,24 @@ public class CrossLabelFileAreaReferenceChecker {
    * @throws SAXException
    * @throws URISyntaxException
    */
-  public static boolean add (String name, ValidationTarget target) throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
+  public static boolean add (String name, ValidationTarget target, boolean isObs)
+      throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
     boolean success = false;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     Document xml = dbf.newDocumentBuilder().parse(target.getUrl().openStream());
-    DOMSource domSource = new DOMSource(xml);    
+    DOMSource domSource = new DOMSource(xml);
+    String full_name = resolve(name, target);
+    isObservational.put(full_name,
+        (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false) | isObs);
     for (String lid : LabelUtil.getLogicalIdentifiers (domSource, target.getUrl())) {
       if (lid.contains("::")) {
         lid = lid.substring (0, lid.indexOf("::"));
       }
-      if (!knownRefs.keySet().contains (resolve(name, target))) {
-        knownRefs.put(resolve(name, target), (List<String>)Arrays.asList(lid, target.getUrl().getPath()));
+      if (!knownRefs.keySet().contains (full_name)) {
+        knownRefs.put(full_name, (List<String>)Arrays.asList(lid, target.getUrl().getPath()));
         success = true;
       } else {
-        success = false;
+        success = !isObservational.get(full_name);
       }
     }
     return success;

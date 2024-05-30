@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch" 
+schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Document
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 	
+  http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+  
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:radiosci.documentation:dsn.0159-science:2008-02-29</logical_identifier>
+    <version_id>1.1</version_id>
+    <title>0159-SCIENCE Radio Science Receiver SFDU Software Interface Specification: Revision B</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Document</product_class>
+    
+    <Citation_Information>
+      <author_list>Machuzak, Richard</author_list>
+      <publication_year>2008</publication_year>
+      <description>
+        Description of the format of Radio Science Receiver files, updated in 2008.
+      </description>
+    </Citation_Information>
+    
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-08-25</modification_date>
+        <version_id>1.1</version_id>
+        <description>Updated to IM v1.16.0.0</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2020-02-21</modification_date>
+        <version_id>1.0</version_id>
+        <description>Original</description>
+      </Modification_Detail>
+    </Modification_History>
+    
+  </Identification_Area>
+  
+  <Document>
+    <document_name>DSN 820-013 0159-SCIENCE Radio Science Receiver Standard Format Data Unit (SFDU): Revision B</document_name>
+    <publication_date>2008-02-29</publication_date>
+    <description>
+      Description of the format of Radio Science Receiver files.  This revision has editorial updates
+      (only) compared to Revision A, which was dated 2004-06-02.  In Revision A newly added parameters schan,
+      fgain, and mult were described in Sections 1.2 and 3.5.  The format of Revision B is ASCII; seven JPEG
+      figures are in separate files.  This revision applies to files from the DSN Open Loop Receiver (OLR) 
+      formatted to look like RSR files; OLR files were delivered by the DSN starting in mid-2019.
+    </description>
+    <Document_Edition>
+       <edition_name>Revision B</edition_name>
+       <starting_point_identifier>Main_Text</starting_point_identifier>
+       <language>English</language>
+       <files>8</files>
+       <Document_File>
+         <file_name>dsn_0159-science.2008-02-29.txt</file_name>
+         <local_identifier>Main_Text</local_identifier>
+         <document_standard_id>7-Bit ASCII Text</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_1.jpg</file_name>
+         <local_identifier>Figure_2-1</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_2.jpg</file_name>
+         <local_identifier>Figure_2-2</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_3.jpg</file_name>
+         <local_identifier>Figure_2-3</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_4.jpg</file_name>
+         <local_identifier>Figure_2-4</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_5.jpg</file_name>
+         <local_identifier>Figure_2-5</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_6.jpg</file_name>
+         <local_identifier>Figure_2-6</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+       <Document_File>
+         <file_name>dsn_0159-science2_7.jpg</file_name>
+         <local_identifier>Figure_2-7</local_identifier>
+         <document_standard_id>JPEG</document_standard_id>
+       </Document_File>
+     </Document_Edition>
+  </Document>
+  
+</Product_Document>
+
