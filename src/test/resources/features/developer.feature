@@ -10,7 +10,7 @@ Scenario Outline: Execute validate command for tests below.
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
 # Validate#905
-|"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -R pds4.bundle -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
+|"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
 
 # Validate#873
 |"NASA-PDS/validate#873 Success files same name different paths" | "github873" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github873.json -s json --skip-context-validation -R pds4.bundle -t {resourceDir}/github873" | "report_github873.json" |
