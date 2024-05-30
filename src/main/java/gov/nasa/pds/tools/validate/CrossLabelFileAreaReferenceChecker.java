@@ -42,7 +42,7 @@ public class CrossLabelFileAreaReferenceChecker {
     DOMSource domSource = new DOMSource(xml);
     String full_name = resolve(name, target);
     isObservational.put(full_name,
-        (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false) | isObs);
+        isObs || (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false));
     for (String lid : LabelUtil.getLogicalIdentifiers (domSource, target.getUrl())) {
       if (lid.contains("::")) {
         lid = lid.substring (0, lid.indexOf("::"));
