@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-30)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-31)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.1...«unknown»)
 
 **Defects:**
 
+- Validate 3.5.0-snapshot gives error when encountering Document objects/files used in other Document products. [\#905](https://github.com/NASA-PDS/validate/issues/905) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate not retrying on sch load failure [\#903](https://github.com/NASA-PDS/validate/issues/903) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 ## [v3.5.1](https://github.com/NASA-PDS/validate/tree/v3.5.1) (2024-05-25)
