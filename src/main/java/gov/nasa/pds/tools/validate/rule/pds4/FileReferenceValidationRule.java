@@ -22,7 +22,9 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -73,7 +75,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    */
   private final String FILE_AREA_OBJECTS_XPATH =
       "//*[starts-with(name(), 'File_Area')] | //Document_File";
-
+  private final HashSet<String> OBS_DATA_TAGS = new HashSet<String>(Arrays.asList(
+      "Product_Observational", "Observation_Area", "File_Area_Observational", "File_Area_Observational_Supplemental"));
   private Map<URL, String> checksumManifest;
   private PDFUtil pdfUtil = null; // Define pdfUtil so we can reuse it for every call to
                                   // validateFileReferences()
@@ -323,8 +326,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             } // for (TinyNodeImpl child : children)
             
             if (!name.isBlank()) {
+              boolean isObservational = OBS_DATA_TAGS.contains(fileAreaObject.getLocalPart());
+              NodeInfo ancestor = fileAreaObject;
               String fullName = directory.isBlank() ? name : String.join(File.pathSeparator, directory, name);
-              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target)) {
+              while (!isObservational && !fileAreaObject.getRoot().isSameNodeInfo(ancestor)) {
+                ancestor = ancestor.getParent();
+                isObservational |= OBS_DATA_TAGS.contains(ancestor.getLocalPart());
+              }
+              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target, isObservational)) {
                 this.getListener().addProblem(
                     new ValidationProblem(
                         new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,

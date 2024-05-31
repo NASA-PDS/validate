@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#905
+|"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
+
 # Validate#873
 |"NASA-PDS/validate#873 Success files same name different paths" | "github873" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github873.json -s json --skip-context-validation -R pds4.bundle -t {resourceDir}/github873" | "report_github873.json" |
 
@@ -296,7 +299,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/188 As a user, I want to validate a bundle that uses multiple versions of the Information Model / Discipline LDDs
  |"NASA-PDS/validate#188 VALID" | "github188" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github188_label_valid_both.json  -s json -t {resourceDir}/github188/bundle_cassini-huygens-coradar.xml {resourceDir}/github188/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github188_label_valid_both.json" |
 
- |"NASA-PDS/validate#217 Success with Errors: Tables Types" | "github217" | 65 | "65 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github217.json  -s json -t {resourceDir}/github217" | "report_github217.json" |
+ |"NASA-PDS/validate#217 Success with Errors: Tables Types" | "github217" | 63 | "63 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github217.json  -s json -t {resourceDir}/github217" | "report_github217.json" |
 
 # https://github.com/NASA-PDS/validate/issues/210 As a user, I want validate to raise a WARNING when differing versions of IM are used within a bundle
  |"NASA-PDS/validate#210 WITH_WARNING" | "github210" | 1 | "1 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github210_label_valid_both_with_warning.json  -s json -t {resourceDir}/github210/bundle_cassini-huygens-coradar.xml {resourceDir}/github210/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github210_label_valid_both_with_warning.json" |

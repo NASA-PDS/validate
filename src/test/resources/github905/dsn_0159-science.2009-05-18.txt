@@ -1,0 +1,1778 @@
+PDS_VERSION_ID         = PDS3
+RECORD_TYPE            = STREAM
+OBJECT                 = TEXT
+  INTERCHANGE_FORMAT   = ASCII
+  PUBLICATION_DATE     = 2009-05-18
+  NOTE                 = "N/A"
+END_OBJECT             = TEXT
+END
+                              Mars Reconnaissance Orbiter
+                              MRO  Radio Science Receiver
+                            Software Interface  Description
+
+                                 An Ad Hoc Revision of
+                                       820-013
+                                Deep Space Network (DSN)
+                           External Interface Specification
+                                     JPL D-16765
+
+                                    0159-Science
+                                 Radio Science Receiver
+                           Standard Formatted Data Unit (SFDU)
+                              Revision B: February 29, 2008
+
+
+                                       Author:
+                                   Daniel S. Kahan
+                             Radio Science Systems Group
+
+                                    Concurrence:
+                                     Sami Asmar
+                             Radio Science Systems Group
+
+                                    May 18, 2009
+
+
+
+
+
+|============================================================================|
+|                                                                            |
+|                                  Change Log                                |
+|                                                                            |
+|============================================================================|
+|Revision|Issue Date| Sections |               Change Summary                |
+|        |          | Affected |                                             |
+|========|==========|==========|=============================================|
+|  1.0   |2009-05-18|    All   |Adapted from 0159-SCIENCE, Rev. B            |
+|--------+----------+----------+---------------------------------------------|
+|        |          |          |                                             |
+|============================================================================|
+
+
+
+Contents
+Section                                                     Page
+1     Introduction                                           1-1
+1.1   Purpose and Scope                                      1-1
+1.2   Effectivity                                            1-1
+1.3   Revision and Control                                   1-1
+1.4   Relationship to Other Documents                        1-1
+1.5   Conventions for Figures                                1-1
+1.6   Data Item Formats                                      1-2
+1.6.1 Integer                                                1-2
+1.6.2 Unsigned Integer                                       1-2
+1.6.3 Floating Point                                         1-2
+1.6.4 Double Floating Point                                  1-2
+1.6.5 Restricted ASCII                                       1-2
+1.7   References                                             1-3
+2     Functional Overview                                    2-1
+2.1   General Information                                    2-1
+2.2   Interface Diagram                                      2-1
+2.3   RSR Signal Path                                        2-2
+2.4   NCO Phase and Frequency                                2-7
+2.5   RSR Data Time Tags                                     2-8
+2.6   Analyzing RSR Data                                     2-8
+2.7   RSR Data Storage and Delivery                          2-9
+2.8   Just What is an SFDU Anyway?                           2-9
+2.9   LVO Structure of the RSR SFDU                          2-10
+3     Detailed Interface Description                         3-1
+3.1   RSR SFDU Physical Layout                               3-1
+3.2   RSR SFDU Label                                         3-3
+3.3   Header Aggregation CHDO Label                          3-5
+3.4   Primary Header CHDO                                    3-6
+3.5   Secondary Header CHDO                                  3-8
+3.6   Data CHDO                                              3-18
+
+
+
+Figures
+Figure                                                      Page
+2-1   RSR to Radio Science user data flow                    2-2
+2-2   Bands, Channels and Sub-channels in the RSR            2-3
+2-3   Antenna to RSR Signal Path                             2-4
+2-4   Digitizer Signal Path                                  2-4
+2-5   Digital Down Converter Signal Path                     2-5
+2-6   VME Data Processor Signal Path                         2-6
+2-7   LVO Structure of the RSR SFDU                          2-11
+3-1   Physical Layout of the RSR SFDU                        3-1
+3-2   RSR SFDU Label                                         3-3
+3-3   Header Aggregation CHDO Label                          3-5
+3-4   Primary Header CHDO                                    3-6
+3-5   Secondary Header CHDO                                  3-11
+3-6   RSR Data CHDO                                          3-18
+
+Tables
+Table                                                       Page
+3-1   Supported Sample Rates and Samples Sizes               3-19
+3-2   Sample Packing                                         3-20
+
+
+
+Section 1
+
+Introduction
+
+
+1.1 Purpose and Scope
+
+             This interface module specifies the format and contents of the
+Deep Space Network (DSN) Radio Science Receiver (RSR) Standard Formatted Data
+Unit (SFDU) as generated during certain Mars Reconnaissance Orbiter (MRO)
+radio science observations.  THE MRO RSR IS A NON-STANDARD PRODUCT; this
+version of the module was written solely to document non-standard MRO RSR
+files delivered to the NASA Planetary Data System (PDS).
+
+             An RSR SFDU, as specified by this module, is a self-identifying,
+self-delimiting data structure that is used to encapsulate a portion of the
+radio science data acquired by the RSR.   Each SFDU contains data and
+ancillary information required for post processing.  The Radio Science users
+access the data from the Advanced Multi-Mission Operations System (AMMOS)
+using a client interface.
+
+             While the primary scope of this module is to document the format
+and contents of the RSR SFDU it also briefly describes the RSR itself and the
+various mechanisms by which RSR SFDUs are stored and transported.
+
+1.2 Effectivity
+
+             This MRO revision was based on [11] and documents changes in
+the data acquisition software and the RSR SFDU which were implemented on an
+experimental basis to support certain MRO radio science observations.  Other
+MRO data are documented by the original [11].  Modifications, compared with
+the original [11], are primarily in this Introduction (Section 1), in
+Sections 2.4 and 2.6, and in the details of a few fields in the secondary
+header CHDO description (Section 3.5) where "NaN" should be expected in the
+non-standard files.
+
+             Revision B of [11] provides editorial updates only 
+and supersedes Revision A.
+
+             Revision A differs from the initial release in its description
+of the change in the content of an RSR SFDU.  Namely, the 16 bytes of reserved
+space at the end of the secondary data CHDO in the SFDU has been reduced to 12
+bytes and the 4 bytes remaining are occupied by the single precision floating
+point sub-channel fgain multiplier.
+
+1.3 Revision and Control
+
+             Revisions or changes to the information herein presented may be
+initiated according to the procedure specified in the Introduction to Document
+820-013.
+
+             Documents controlling this version include DSN 813-109, D-17818,
+Preparation Guidelines and Procedures for Deep Space Mission System (DSMS)
+Interface Specifications, (DSN Internal Use Only)
+
+1.4 Relationship to Other Documents
+
+             This document was derived from [11].  It documents non-standard
+RSR SFDUs generated during certain MRO radio science observations.
+
+1.5 Conventions for Figures
+
+             The following conventions are used in figures defining the format
+of a data record or piece of a data record.
+
+* All byte offsets are assumed to be relative to the beginning of a structure
+or substructure.  The first byte of a structure is called offset 0 (normally
+shown as the left byte of two); the second byte is at offset 1 (normally shown
+as the right byte of two), etc.
+
+* If a field in the SFDU requires more than one byte, the most significant
+byte is at the lowest-number byte offset with each succeeding byte in the next
+higher byte offset so that the least significant byte is in the highest-number
+byte offset.
+
+* Bits in a byte are labeled 1 through 8, where the 1st bit (left-most bit) is
+the most-significant or sign bit and the 8th bit is the least-significant bit
+(right-most bit).  For fields using more than one byte, bits are labeled
+1 - n correspondingly.
+
+1.6 Data Item Formats
+
+1.6.1 Integer
+
+             An integer format is used to express integral quantities, using
+two's complement notation.  The range for an integer field is [-1 * (2n/2)]
+to [(2n/2) - 1], where n is the number of bits in the field.  For example, an
+8 bit integer field would have the following range.
+
+             range = [-1 * (28/2)] to [(28/2) - 1] = -128 to 127.
+
+1.6.2 Unsigned Integer
+
+             An unsigned integer format is used to express integral quantities
+using the base 2 number system, also known as binary.  The range for an
+unsigned integer field is 0 to (2n - 1), where n is the number of bits in the
+field.
+
+1.6.3 Floating Point
+
+             Floating point numbers are represented in the basic single format
+defined in document ANSI/IEEE Std 754-1985.  This representation is commonly
+referred to as the 32-bit IEEE floating point format.
+
+1.6.4 Double Floating Point
+
+             Double floating point numbers are represented in the basic double
+format defined in document ANSI/IEEE Std 754-1985.  This representation is
+commonly referred to as the 64-bit IEEE floating point format.
+
+1.6.5 Restricted ASCII
+
+             Restricted ASCII is a subset of the ASCII character set
+consisting of uppercase letters A to Z and digits 0 to 9.
+
+1.7 References
+
+Documents
+
+The interface requirements established in this module are derived from
+guidelines and criteria contained in the following 'Reference Documents'.
+Some documents are internal to the DSN and are included for reference only and
+do not form a part of this interface.
+
+[1] DSN Terms and Abbreviations (obsolete reference)
+
+[2] DSN 810-047, DSN Antenna and Facility Identifiers, DSN internal document,
+ for reference only
+
+[3] DSN 820-013, Module OPS-6-21, DSN External Interface
+Specification-Standard Code Assignments
+
+[4] DSN 820-013, Module GCF-10-11, AMMOS/GCS Data Communications, DSN internal document, for reference only.
+
+[5] DSN 820-019, Module DFL-1-01, Interface Design Standards-Network-Level
+Data Flow Standard, DSN internal document, for reference only.
+
+[6] DSN 820-019, Module DFL-1-06, DSN Fault Tolerant Data Delivery Services
+Standard, DSN internal document, for reference only.
+
+[7] DSN 834-070, Radio Science Receiver Functional Design and Software
+Requirements Document, DSN internal document, for reference only.
+
+[8] JPL D-5325, JPL Standard Formatted Data Unit (SFDU) Usage and Description
+(Issue 5, March 7, 1988), DSN obsolete, internal document, for reference only.
+
+[9] CCSDS 620.0-B-2, CCSDS Recommendation for Space Data System
+Standards-Standard Formatted Data Units-Structure and Construction Rules
+(Issue 2, May 1992)
+
+[10] ANSI T-49-12, ANSI/IEEE STD 754-1985-IEEE Standard for Binary
+Floating-Point Arithmetic
+
+[11] 820-013 Deep Space Mission System (DSMS) External Interface Description,
+JPL D-16765, 0159-Science, Radio Science Receiver Standard Formatted Data
+Unit (SFDU), Revision B, February 29, 2008.
+
+[12] H. and B. S. Jeffreys, Methods of Mathematical Physics, Third Edition.
+The Syndics of the Cambridge University Press, 1962. p. 269.
+
+
+Web Sites
+
+None
+
+
+
+
+Section 2
+
+Functional Overview
+
+2.1 General Information
+
+             The RSR is a computer controlled open loop receiver that
+digitally records a spacecraft signal through the use of an analog to
+digital converter (ADC) and up to four digital filter sub-channels.
+The digital samples from each sub-channel are stored to disk in one
+second records in real time.  In near real time the one second records are
+partitioned and formatted into a sequence of RSR SFDUs which are
+transmitted to JPL's Advanced Multi-Mission Operations System (AMMOS).
+Included in each RSR SFDU is the ancillary data necessary to reconstruct the
+signal represented by the recorded data samples in that SFDU Analysis of
+variations in the amplitude, phase, and frequency of the recorded signals
+provides information on the ring structure, atmospheric density, magnetic
+field, and charged-particle environment of planets which occult the
+spacecraft. Variations in the recorded signal can also be used for gravity
+wave detection.
+
+2.2 Interface Diagram
+
+             The functional data flow, as depicted in Figure 2-1, operates
+using a DSN internal Fault Tolerant Data Delivery (FTDD) service starting from
+ the RSR and ending with a TDS client receiving the data at the Radio Science
+host computer.  Both sides of the interface utilize DSN common software.
+
+             Application programs will link with common services
+communications software.  This software provides the facilities, transparent
+to the application program, for the transporting of the data.    The
+functional flow consists of
+
+(1) RSR publishing the RSR SFDUs as stream data, using Fault Tolerant Data
+Delivery (FTDD) services.
+(2) The Reliable Network Service (RNS) delivering the data to its subscriber,
+the GCF Interface (GIF).
+(3) The GIF sending the SFDUs to the Telemetry Delivery Subsystem (TDS),
+which spools the data for real-time delivery or archival.  This segment of
+the data flow uses the communication services of the Data Transport Subsystem
+(DTS).
+(4) The Radio Science user (or project) using its TDS-provided client to
+access the collected data.  The TDS client must run on UNIX-based hosts.
+
+
+
+
+
+
+
+
+
+
+
+Figure 2-1.  RSR to Radio Science user data flow
+
+2.3 RSR Signal Path
+
+             The diagram in Figure 2-2 shows the relationship between the
+subchannels, channels and bands that are supported by the RSR and described
+in more detail in this section.
+
+             A spacecraft transmits a signal at RF,  S-Band, X-Band, or
+Ka-band, to a receiving antenna on earth.  Once received the RF signal is
+down converted to an IF signal of about 300 MHz and then fed via an IF
+distribution network into one input of the IF Selector Switch (IFS).  The IFS
+is a full cross-bar switch which allows each RSR to select from any of the IF
+signals feeding the IFS inputs.  Each output of the IFS feeds an IF signal
+into one input of the RSR Digitizer (DIG).  Figure 2-3 illustrates the signal
+path from the antenna to the RSR and the signal path within the RSR.
+
+             Figure 2-4 illustrates the signal path through the DIG.  In the
+DIG, the IF signal first passes through a programmable attenuator which is
+automatically adjusted at the start of each pass to provide the proper signal
+level at the ADC.  Next, the signal passes through a Band Pass Filter (BPF)
+which selects a frequency band from 265 to 375 MHz.  The filtered signal is
+then down converted by a 256 MHz LO and low pass filtered (LPF) before being
+sampled by the ADC.  The ADC converts the signal into a 256 Msample/sec
+stream of 8-bit digital data which is fed into the Digital Down Converter
+(DDC).  The DIG also provides a 1 Pulse Per Second (1PPS) signal and a
+256 MHz data clock.  The 1PPS signal marks the digital sample taken at the
+start of each second.
+
+
+
+Figure Section 2-2.  Bands, Channels and Sub-channels in the RSR
+
+
+Figure Section 2-3.  Antenna to RSR Signal Path
+
+
+Figure Section 2-4.  Digitizer Signal Path
+
+             Figure 2-5 illustrates the signal path through the Digital Down
+Converter (DDC).  The function of the DDC is to select a 16MHz channel from
+the frequency band digitized by the DIG.  This is accomplished through the
+use of Finite Impulse Response (FIR) filters with revolving banks of filter
+coefficients.  The data stream from the DIG is separated into eight
+decimated data streams.  These streams are fed into two sets of FIR filters,
+one set produces In-phase (I) data while the other produces Quadrature-phase
+(Q) data.  This arrangement acts as a digital filter, down converter and
+decimator.  The position of the selected 16MHz channel can be adjusted in
+1MHz steps, it is usually set so that the spacecraft signal is centered in
+the pass band of the channel filter.  The output of the DDC is a
+16 Msample/sec complex digital data stream with a bandwidth between -8 MHz
+and +8 MHz.  Each of the complex samples contains 8-bit I and Q components.
+The timing circuits in the DDC convert the 256 MHz clock and 1PPS signals
+supplied by the DIG into a msec time code.  The msec time code marks the msec
+samples and identifies the msec of the second to which they correspond.  The
+16 Msample/sec data stream and the msec time code are fed to the VME Data
+Processor (VDP) for further processing.
+
+
+
+
+
+Figure Section 2-5.  Digital Down Converter Signal Path
+
+             The VDP contains a real-time control computer (RT) and a set of
+custom boards to perform the necessary digital signal processing (DSP).  The
+custom boards are controlled by the RT, which in turn is controlled via a
+point-to-point network connection by a Unix workstation known as the
+Data Processor (DP).  The VDP receives the 16 Msample/sec complex data stream
+and msec time code from the DDC.  The data stream is split into four identical
+copies, each copy feeding a separate VDP sub-channel.  The msec time code is
+converted into a msec interrupt used to drive the real time software running
+on the RT.
+
+             As depicted in Figure 2-6, each VDP sub-channel is composed of a
+numerically controlled oscillator (NCO), a complex multiplier, a decimating
+FIR filter, and a data packer.  These components function together to isolate
+and record a desired portion of the 16MHz channel.  The 16 Msample/sec data
+stream is fed into the complex multiplier where it is multiplied by the signal
+generated by the NCO.  The phase and frequency of the NCO signal are updated
+at each millisecond by the RT and are selected so that the center frequency of
+the desired portion of the 16 MHz channel is down converted to zero Hz.
+
+
+Ordinarily, the RT uses polynomials derived from frequency predicts to compute
+the desired phase and frequency of the NCO signal.
+More details regarding the phase and frequency of the NCO
+signal and the unique aspects of the MRO RSR data are provided in Section 2.4.
+
+
+
+
+
+
+Figure 2-6.  VME Data Processor Signal Path
+
+             After down conversion in the complex multiplier, the data stream
+is fed into the decimating FIR filter where its bandwidth and sample rate are
+reduced.  The output bandwidth and sample rate of the decimating FIR filter
+is adjustable from 1 KHz to 16 MHz.  Valid selections are listed in Table 3-1.
+The decimating FIR filter also provides for adjustment to the sub-channel
+gain.  This gain adjustment is necessary to take full advantage of the dynamic
+range in the hardware.  For example, a signal which is dominated by noise and
+reduced to a 1KHz bandwidth will require more gain than a signal that is
+dominated by a spacecraft carrier.  The RSR software automatically sets the
+sub-channel gain at the start of each pass based on the filter bandwidth and
+the expected signal-to-noise ratio of the signal.
+
+             The next step of the signal processing reduces the sample size of
+the filtered data.  As the digital data flows through the various DSP circuits
+in the VDP sub-channel the number of bits in a data sample is increased.  This
+is necessary in order to maintain precision in the various operations
+performed on the data.  When the DSP operations are complete, the sample size
+of the data can be reduced to the desired number of bits per output sample.
+The size of the output samples is adjustable: 1, 2, 4, 8, and 16 bit samples
+are supported.  The reduction in sample size is accomplished through
+truncation.  For example, if the sub channel is configured to produce 8-bit
+samples the upper most 8-bits of the digital data produced by the FIR filter
+are taken as the sample, while the remaining lower order bits are discarded.
+This truncation creates an offset of -0.5 in the output data stream which must
+be corrected in post processing software.  This is easily accomplished by
+adding 0.5 to each data sample.
+
+             After the samples have been truncated to the correct size they
+are packed together to form 32-bit data words.  The most significant 16 bits
+are packed with quadrature (Q) data and the least significant 16 bits are
+packed with in-phase (I) data.  Between 1 to 16 samples are packed into each
+32 data word depending on how many bits per sample are used.  When the data
+packer finishes filling a 32-bit data word with samples, it stores the data
+word in a memory buffer and starts filling a new data word. Each millisecond
+the RT reads the data words from the sub-channel memory buffers and moves
+them into one second data buffers stored in the RT's on board memory.  At the
+end of each second the RT sends the one second data buffers collected from
+each sub-channel to the DP on a point to point 100 Mbit ethernet connection.
+Each one second data buffer sent to the DP also contains ancillary information
+needed to analize the data in the buffer.  On the DP the one second data
+buffers are analyzed to provide monitor data and spectrum plots.  If recording
+is enabled they are stored as one second records in a DP data file.
+
+2.4 NCO Phase and Frequency
+
+             At the beginning of each pass, Downlink Frequency (DLF)
+predictions (in the form of a text file) are loaded into the RSR to tune
+the numerically controlled oscillator (NCO) to the expected frequency
+of the spacecraft signal once each millisecond. In the DLF, predicted
+frequencies are provided at time intervals up to several minutes apart
+at time precisions of  milliseconds. A set of four coefficients
+is provided on each line, and the RSR interpolates between the given
+frequencies using these coefficients according to formulas for an
+Everett Polynomial (see Section 2.6).  Millisecond time precision was chosen
+to minimize frequency residuals when uplink transmissions, using linear
+frequency ramps and ramp rate changes on integral seconds, were echoed back to
+Earth by the spacecraft transponder and arrived in the middle of a DLF
+prediction interval.
+
+             In the standard RSR [11], tuning intervals are specified with
+one second precision; the RSR calculates frequency and phase polynomial
+coefficients for each second and the NCO values are calculated from the
+coefficients at each millisecond.  The coefficients are stored in the RSR
+secondary header CHDO and can be used to recover the sky frequency during
+later processing.
+
+             In the MRO variation of the RSR, the coefficients change
+irregularly. Only the first of the three RF frequency points and subchannel
+frequency points stored in the RSR file (see Secondary Header CHDO, section
+3.5) remain valid. In addition, only the zero-order terms of the sub-channel
+frequency polynomial and sub-channel phase polynomial fields remain valid.
+Remaining entries in these fields are "NaN" ("not a number," or 
+"7fffffffffffffff" in Hexadecimal) as indicated in section 3.5. Consequently,
+processing tools that read the RSR file according to [11] will be unable to
+extract the original frequency prediction normally stored in the RSR data. 
+To make it possible for the user to retrieve the original frequency 
+predictions, the original downlink frequency (DLF) files are included in the
+MRO archive for RSR files which need them. Details on how to use these files 
+are given in section 2.6.
+
+2.5 RSR Data Time Tag
+
+             Each SFDU generated by the RSR contains sub-channel sample data
+and sub-channel NCO phase and frequency polynomials which require time tags.
+The RSR hardware and software have been designed to compensate for pipeline
+delays in the signal processing path that would cause offsets between the
+data time tags and the polynomial timetags.  The DDC compensates for the
+pipeline delay associated with its signal processing by adjusting the msec
+time code that it generates.  The VDP sub-channel partially compensates for
+the delay associated with its signal processing by delaying the start time
+of the FIR filter so that the total delay is in multiples of an output sample.
+The RT completes the VDP sub-channel compensation by copying data read from
+the sub-channel into the correct place in its one second data buffers.
+
+             The time tag of the first data sample in an SFDU is obtained from
+the "year", "day of year", and "second of day" fields of the SFDU time tag.
+It indicates the time at which the sample was created by the DIG ADC.  Time
+tags for subsequent samples in the SFDU should be obtained by incrementing the
+time tag with the sample period of the data.  RSR time tags are accurate to
+the 100 nano-sec level.
+
+             The NCO phase and frequency polynomials span one second intervals
+which begin and end on the second.  The polynomial coefficients are copied
+into the ancillary information of each SFDU when the one second data buffers
+from the RSR RT are partitioned into multiple SFDUs.  For a given SFDU the
+time tag of the one second interval over which the polynomials apply is
+specified by the "day counter" and "second counter" fields of the SFDU time
+tag.
+
+2.6 Analyzing RSR Data
+
+             The previous sections of this document described how RSR SFDUs
+are created; this section will describe how to use the information they
+contain.  The "RF frequency" or "Sky frequency" is a characteristic of the
+recorded signal that is of primary interest.  An equation for obtaining the
+Sky frequency from the information contained in the SFDU is given below.
+
+            Sky Freq = RF_to_IF_LO + DDC_LO - NCO_Freq + Resid_Freq
+
+RF_to_IF_LO is the amount of down conversion applied to the signal in the
+RF to IF down converter.  This information is stored in the secondary header
+of the RSR SFDU; its value depends on the RF band of the spacecraft signal,
+S-Band, X-Band, or Ka-band.  It is constant for an observation.
+
+DDC_LO is the total amount of down conversion applied to the signal in the
+DIG and DDC.  This information is stored in the secondary header of the RSR
+SFDU; its value depends on the position of the spacecraft signal in the
+IF frequency band.  It is usually constant for an observation, but its value
+can be changed during a pass with the DDCLO command
+
+NCO_Freq is the frequency of the signal generated by the VDP sub-channel NCO.
+As described in section 2.2 the NCO signal is used in conjunction with a
+complex multiplier to down convert the spacecraft signal to zero Hz.  The
+phase and frequency of the NCO signal are updated each msec based on
+polynomials derived from frequency predicts.  The coefficients of these
+polynomials are stored in the secondary header of the RSR SFDU.
+Because of changes in the way the coefficients were calculated for the
+non-standard MRO RSR data, only the zero-order coefficients at integer second
+time steps are valid; the other coefficient fields are set to "NaN"
+("7fffffffffffffff" in Hexadecimal).  To recover the predicted NCO
+frequencies, the user must employ the accompanying DLF file, as explained
+below.
+
+
+
+
+The following equation describes how to obtain Sky Freq from the non-standard
+MRO RSR data.  Resid_Freq is the residual frequency measured after spectral
+analysis of the data; it is the 'observable' -- the difference between the
+predicted frequency and the actual frequency.
+
+            Sky Freq = Pred_Freq + Resid_Freq
+
+The DLF which accompanies an RSR file contains rows of data in the following
+format:
+
+     TIME   FREQUENCY (HZ)   D2N   D2N+1   D4N   D4N+1
+     t0     f0               d20   d21     d40   d41
+     t1     f1               etc
+
+where f is the predicted frequency at time t and D2N, D2N+1, D4N, and D4N+1
+are the coefficients of an Everett polynomial (d20, d21, d40, and d41,
+respectively; see [12]) at each time step. Frequency at time t can be
+computed according to the following equation:
+
+          Pred_Freq = (1-p)*f0 + ev2(1-p)*d20 + ev4(1-p)*d40
+                            + p*f1 +ev2(p)*d21 + ev4(p)*d41
+
+where p = (t-t0) / (t1-t0) and ev2(x) and ev4(x) are Everett polynomials:
+                     ev2(x) = x*(x*x - 1.0) / 6.0, and
+             ev4(x) = x*(x*x - 1.0) * (x*x - 4) / 120.0
+
+When adding values derived for Resid_Freq from the RSR data to values
+derived for Pred_Freq from the DLF, care should be taken to make sure
+that the time tags match precisely.
+
+2.7 RSR Data Storage and Delivery
+
+             The digital samples from each RSR sub-channel are stored to disk
+in one second records in real time.  In near real time the one second records
+are partitioned and formatted into a sequence of RSR SFDUs which are
+transmitted to JPL.  The number of SFDUs per one second data record depends
+on the bandwidth and sample size of the recorded data.  Table 3-1 contains a
+list of valid configurations.
+
+             The RSR delivers the RSR SFDUs to JPL in accordance with
+references {4} and [5}.Each RSR SFDU is encapsulated in a Standard DSN Block
+(SDB).  For details regarding the FTDD interface refer to reference
+document [6].
+
+
+
+2.8 Just What is an SFDU Anyway?
+
+             The SFDU is an international structure standard for data
+products. This standard was developed to facilitate the transfer of spacecraft
+data between organizations that use different computer systems and to ensure
+that data can be preserved effectively for future use.   The JPL SFDU
+structure and construction rules are based on guidelines for SFDU structure
+provided by the Consultative Committee for Space Data Systems (CCSDS).
+Within these guidelines, JPL has devised its own standards for the structure
+and construction of SFDUs used within JPL.
+
+             Any SFDU is composed of Label-Value Objects (LVOs).  An LVO is a
+data structure that is composed of a fixed length label field and a variable
+length value field.  The label field provides for the data structure to be
+self-identifying and self-delimiting.  The value field contains either more
+LVOs or user-defined data.  An LVO with a value field containing purely
+user-defined data is referred to as a simple LVO.  An LVO with a value field
+containing a sequence of one or more LVOs is referred to as a compound LVO.
+
+             The label field of an LVO is divided into type attribute and
+length attribute subfields.  The type attribute subfield(s) of the LVO label
+provides the self-identifying property of the LVO.  Within the application
+domain, the type attribute is a unique reference to a description of the
+format and interpretation of the data contained in the value field of the
+LVO.  For JPL SFDUs, type attributes are assigned by the NASA JPL Control
+Authority, which is also responsible for maintaining the associated data
+descriptions.  The CCSDS maintains a registry of control authorities.
+
+             The length attribute subfield(s) of the LVO label provides the
+self-delimiting property of the LVO.  The length attribute subfield contains
+the length, in bytes, of the value field of the LVO.  While all of the LVOs
+described in this module make use of length attribute subfields it should be
+noted that other means are available to enable an LVO to be self-delimiting.
+
+             Label-Value Objects used to construct CCSDS SFDUs must follow
+specific CCSDS structuring and labeling recommendations.  In particular they
+must contain a standard 20-byte LVO label that conforms to strict format
+requirements.  In some situations the standard 20-byte CCSDS LVO label incurs
+too much overhead to be used practically.  To deal with this problem JPL has
+defined a short, 4-byte label that can be used in the same manner as the
+longer CCSDS label.  An LVO constructed with this type of label is termed a
+Compressed Header Data Object (CHDO), usually pronounced "chay-doe."  The
+CHDO label contains a two-byte type field and a two-byte length field.
+CHDOs are used when concerns for efficiency rule out the use of full CCSDS
+labels.  Although the CHDO structure itself is used for exchange within JPL
+subsystems, CHDOs must be enclosed within legal CCSDS SFDU labels in order
+to be readable by other systems that use the SFDU standard.
+
+2.9 LVO Structure of the RSR SFDU
+
+             An RSR SFDU is a compound LVO that conforms to the JPL SFDU
+structure and construction rules specified in reference [8].  At the top
+level it is composed of an SFDU label field and a value field.  The value
+field of the RSR SFDU contains two LVOs, a header aggregation CHDO and a
+data CHDO.  The header aggregation CHDO is a compound LVO; its value field
+contains two simple LVOs, a primary header CHDO and a secondary header CHDO.
+The header aggregation CHDO exists solely for the purpose of allowing the
+primary and secondary header CHDOs to be grouped together and treated as a
+single object.  The value fields of the primary and secondary header CHDOs
+contain ancillary data (identification, configuration, predicts models, etc.)
+that pertain to the information in the data CHDO.  The data CHDO is a simple
+LVO; its value field contains the data samples recorded by the RSR.  Figure
+2-7 depicts the LVO structure of the RSR SFDU.
+Figure Section 2-7.  LVO Structure of the RSR SFDU
+
+
+
+
+
+
+
+
+
+Section 3
+
+Detailed Interface Description
+
+3.1 RSR SFDU Physical Layout
+
+             The physical layout of the RSR SFDU is shown in figure 3-1.  The
+structure is divided into five sections: the SFDU label, the header
+aggregation CHDO label, the primary header CHDO, the secondary header CHDO,
+and the data CHDO.  The primary header CHDO and the secondary header CHDO
+together constitute the value field of the header aggregation CHDO; the
+header aggregation CHDO and the data CHDO together constitute the value field
+of the RSR SFDU.
+
+       BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0|                                               |
+      |                                               |
+     ...                  SFDU LABEL                 ...
+     ...                  [20 Bytes]                 ...
+      |                                               |
+    18|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    20|                                               |
+      +         HEADER AGGREGATION CHDO LABEL         +
+    22|                   [4 Bytes]                   |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    24|                                               |
+      |                                               |
+     ...             PRIMARY HEADER CHDO             ...
+     ...                  [8 Bytes]                  ...
+      |                                               |
+    30|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    32|                                               |
+      |                                               |
+     ...            SECONDARY HEADER CHDO            ...
+     ...                  [224 Bytes]                ...
+      |                                               |
+   254|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   256|                                               |
+      |                                               |
+     ...                   DATA CHDO                 ...
+     ...                  [ ?? Bytes]                ...
+      |                                               |
+   N-2|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-1.  Physical Layout of the RSR SFDU
+
+             As shown in figure 3-1, the length of the RSR SFDU (in 8-bit
+bytes) is designated as N in this module.  In general, the length of all
+items in the RSR SFDU are fixed, except for the data CHDO.  The length of the
+data CHDO is variable and is determined by the sample rate and sample size of
+the recorded data.  The length of the data CHDO is designated as M in this
+module  In any case, the total length of the RSR SFDU is easily ascertained
+from the length attribute in the SFDU label (total SFDU length N = SFDU
+length attribute + 20).  Each section of the RSR SFDU is described in more
+detail in the following paragraphs.
+
+3.2 RSR SFDU Label
+
+             Bytes 0 through 19 of the RSR SFDU in figure 3-1 contain the
+SFDU label field, which is illustrated in figure 3-2 and defined in the
+following paragraphs.  The concatenation of bytes 0 to 3 and 8 to 11
+constitutes the type attribute of the SFDU.  In CCSDS parlance, that
+concatenated field is known as the Authority and Description Identifier
+(ADID).  Bytes 12 through 19 constitute the length attribute of the SFDU.
+
+       BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0| CONTROL AUTHORITY ID = 'NJPL'                 |
+      +                                               +
+     2|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     4| VERSION ID = '2'      | CLASS ID = 'I'        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     6| RESERVED                                      |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     8| DATA DESCRIPTION ID = 'C997'                  |
+      +                                               +
+    10|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    12| LENGTH ATTRIBUTE                              |
+      +                                               +
+    14|                                               |
+      +                                               +
+    16|                                               |
+      +                                               +
+    18|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-2.  RSR SFDU Label
+
+BYTES 0 TO 3
+      BITS
+            1 thru 8    Control authority identifier, value = 'NJPL',
+restricted ASCII.  Indicates that the data description information for this
+type of SFDU is maintained and disseminated by the NASA/JPL control authority.
+Control authority identifiers are assigned by the CCSDS.
+
+BYTE 4
+      BITS
+            1 thru 8    SFDU label version identifier, value = '2', restricted
+ASCII.  Indicates that the length attribute field in bytes 12 to 19 of the
+SFDU label is formatted as a binary unsigned integer.
+
+BYTE 5
+      BITS
+            1 thru 8    SFDU class identifier, value = 'I', restricted ASCII.
+Indicates that this is a CHDO structured SFDU.
+
+BYTES 6 AND 7
+      BITS
+            1 thru 8    Reserved.
+
+BYTES 8 TO 11
+      BITS
+            1 thru 8    Data description identifier, value = 'C997',
+restricted ASCII.  Uniquely identifies the data description information
+maintained for this type of SFDU within the domain of the control authority
+identified in bytes 0 to 3.  The value shown here is registered with the
+identified control authority (i.e., NJPL).
+
+NB: For non-standard MRO RSR data, C997 does not accurately describe the
+SFDU contents.
+
+BYTES 12 TO 19
+      BITS
+            1 thru 8    Length attribute of the RSR SFDU, value varies but
+is always < 31K, binary unsigned integer.  Indicates the length, in bytes,
+of the value field of the RSR SFDU, bytes 20 through N-1 in figure 3-1.
+The length of the value field of the RSR SFDU is the sum of the total lengths
+of the header aggregation CHDO and the data CHDO.
+
+3.3 Header Aggregation CHDO Label
+
+             Bytes 20 to 23 of the RSR SFDU in figure 3-1 contain the header
+aggregation CHDO label field, which is illustrated in figure 3-3 and defined
+in the following paragraphs.  The value field of the header aggregation CHDO
+is composed of the primary header CHDO and the secondary header CHDO, which
+are defined in sections 3.4 and 3.5
+
+       BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0| TYPE ATTRIBUTE = 1                            |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     2| LENGTH ATTRIBUTE = 232                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-3.  Header Aggregation CHDO Label
+
+BYTES 0 AND 1
+      BITS
+            1 thru 8    Type attribute of the header aggregation CHDO,
+value = 1, binary unsigned integer.  Indicates that this CHDO is an
+aggregation of header CHDOs.  The NJPL control authority maintains a registry
+of CHDO type attributes.
+
+BYTES 2 AND 3
+      BITS
+            1 thru 8    Length attribute of the header aggregation CHDO,
+value = 232,  binary unsigned integer.  Indicates the length, in bytes, of
+the value field of the header aggregation CHDO, bytes 24 through 255 in
+figure 3-1.
+
+3.4 Primary Header CHDO
+
+             Bytes 24 through 31 of the RSR SFDU in figure 3-1 contain the
+primary header CHDO, which is illustrated in figure 3-4 and defined in the
+following paragraphs.  Bytes 0 through 3 of the primary header CHDO are the
+label field; bytes 4 to 7 are the value field.
+
+       BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0| TYPE ATTRIBUTE = 2                            |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     2| LENGTH ATTRIBUTE = 4                          |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     4| MAJOR DATA CLASS = 21 | MINOR DATA CLASS = 4  |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     6| MISSION ID = 255      | FORMAT CODE = 0       |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-4.  Primary Header CHDO
+
+BYTES 0 AND 1
+      BITS
+           1 thru 8     Type attribute of the primary header CHDO, value = 2,
+binary unsigned integer.  Indicates that this CHDO is a primary header CHDO.
+The NJPL control authority maintains a registry of CHDO type attributes.
+
+BYTES 2 AND 3
+      BITS
+            1 thru 8    Length attribute of the primary header CHDO;
+value = 4, binary unsigned integer.  Indicates the length, in bytes, of the
+value field of the primary header CHDO.
+
+BYTE 4
+      BITS
+            1 thru 8    Major data class, value = 21, binary unsigned integer.
+Indicates that this SFDU contains radio science data.
+
+BYTE 5
+      BITS
+1 thru 8    Minor data class, value = 4, binary unsigned integer.  Indicates
+that this SFDU was created by the RSR.
+
+BYTE 6
+      BITS
+            1 thru 8    Mission identifier, value = 255, binary unsigned
+integer.  Indicates that the RSR  does not use this field.  The mission
+identifier is added by the AMMOS GIF, the value is specified in 820-013,
+OPS-6-21A, Table 3-4.
+
+BYTE 7
+      BITS
+            1 thru 8    Format code, value = 0, binary unsigned integer.  The
+RSR only supports one data format which is discussed in section 3.6
+
+3.5 Secondary Header CHDO
+
+             Bytes 32 through 255 of the RSR SFDU in figure 3-1 contain the
+secondary header CHDO, which is illustrated in figure 3-5 and defined in the
+following paragraphs.  Bytes 0 to 3 of the secondary header CHDO are the label
+field; bytes 4 through 207 are the value field.
+
+              BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0| TYPE ATTRIBUTE = 104                          |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     2| LENGTH ATTRIBUTE = 220                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     4| ORIGINATOR ID = 48    | LAST MODIFIER ID = 48 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     6| RSR SOFTWARE ID                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     8| RECORD SEQUENCE NUMBER                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    10| SPC ID                | DSS ID                |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    12| RSR ID                | SCHAN ID              |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    14| RESERVED              | SPACECRAFT            |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    16| PRDX PASS NUMBER                              |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    18| U/L BAND (S,X,Ka)     | D/L BAND (S,X,Ka)     |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    20| TRK MODE (1,2,3WAY)   | U/L DSS ID            |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    22| FGAIN PX/NO           | FGAIN IF BANDWIDTH    |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    24| FROV FLAG             | ATTENUATION           |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    26| ADC RMS               | ADC PEAK              |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    28| ADC INFO TIME TAG, YEAR                       |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    30| ADC INFO TIME TAG, DAY OF YEAR                |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    32| ADC INFO TIME TAG, SECONDS OF DAY             |
+      +                                               +
+    34|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    36| BITS PER SAMPLE       | DATA ERROR            |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    38| SAMPLE RATE                                   |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    40| DDC LO                                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    42| RF->IF LO                                     |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    44| SFDU TIME TAG, YEAR                           |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    46| SFDU TIME TAG, DAY OF YEAR                    |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    48| SFDU TIME TAG, SECONDS OF DAY                 |
+      +                                               +
+    50|                                               |
+      +                                               +
+    52|                                               |
+      +                                               +
+    54|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    56| PREDICTS TIME SHIFT                           |
+      +                                               +
+    58|                                               |
+      +                                               +
+    60|                                               |
+      +                                               +
+    62|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    64| PREDICTS FREQ OVERRIDE (FROV)                 |
+      +                                               +
+    66|                                               |
+      +                                               +
+    68|                                               |
+      +                                               +
+    70|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    72| PREDICTS FREQ RATE (FRR)                      |
+      +                                               +
+    74|                                               |
+      +                                               +
+    76|                                               |
+      +                                               +
+    78|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    80| PREDICTS FREQ OFFSET (FRR + FRO)              |
+      +                                               +
+    82|                                               |
+      +                                               +
+    84|                                               |
+      +                                               +
+    86|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    88| SUB-CHANNEL FREQ OFFSET (SFRO)                |
+      +                                               +
+    90|                                               |
+      +                                               +
+    92|                                               |
+      +                                               +
+    94|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+    96| RF FREQ POINT 1                               |
+      +                                               +
+    98|                                               |
+      +                                               +
+   100|                                               |
+      +                                               +
+   102|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   104| RF FREQ POINT 2 = "NaN"                       |
+      +                                               +
+   106|                                               |
+      +                                               +
+   108|                                               |
+      +                                               +
+   110|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   112| RF FREQ POINT 3 = "NaN"                       |
+      +                                               +
+   114|                                               |
+      +                                               +
+   116|                                               |
+      +                                               +
+   118|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   120| SCHAN FREQ POINT 1                            |
+      +                                               +
+   122|                                               |
+      +                                               +
+   124|                                               |
+      +                                               +
+   126|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   128| SCHAN FREQ POINT 2 = "NaN"                    |
+      +                                               +
+   130|                                               |
+      +                                               +
+   132|                                               |
+      +                                               +
+   134|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   136| SCHAN FREQ POINT 3 = "NaN"                    |
+      +                                               +
+   138|                                               |
+      +                                               +
+   140|                                               |
+      +                                               +
+   142|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   144| SCHAN FREQ POLY COEF 1                        |
+      +                                               +
+   146|                                               |
+      +                                               +
+   148|                                               |
+      +                                               +
+   150|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   152| SCHAN FREQ POLY COEF 2 = "NaN"                |
+      +                                               +
+   154|                                               |
+      +                                               +
+   156|                                               |
+      +                                               +
+   158|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   160| SCHAN FREQ POLY COEF 3 = "NaN"                |
+      +                                               +
+   162|                                               |
+      +                                               +
+   164|                                               |
+      +                                               +
+   166|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   168| SCHAN ACCUM PHASE                             |
+      +                                               +
+   170|                                               |
+      +                                               +
+   172|                                               |
+      +                                               +
+   174|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   176| SCHAN PHASE POLY COEF 1                       |
+      +                                               +
+   178|                                               |
+      +                                               +
+   180|                                               |
+      +                                               +
+   182|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   184| SCHAN PHASE POLY COEF 2 = "NaN"               |
+      +                                               +
+   186|                                               |
+      +                                               +
+   188|                                               |
+      +                                               +
+   190|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   192| SCHAN PHASE POLY COEF 3 = "NaN"               |
+      +                                               +
+   194|                                               |
+      +                                               +
+   196|                                               |
+      +                                               +
+   198|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   200| SCHAN PHASE POLY COEF 4 = "NaN"               |
+      +                                               +
+   202|                                               |
+      +                                               +
+   204|                                               |
+      +                                               +
+   206|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   208| SCHAN MULT                                    |
+      +                                               +
+   210|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+   212| RESERVED                                      |
+      +                                               +
+   214|                                               |
+      +                                               +
+   216|                                               |
+      +                                               +
+   218|                                               |
+      +                                               +
+   220|                                               |
+      +                                               +
+   222|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-5.  Secondary Header CHDO
+
+BYTES 0 AND 1
+      BITS
+            1 thru 8    Type attribute of the secondary header CHDO;
+value = 104; unsigned binary integer.  Indicates that this is an RSR secondary
+header CHDO.  The NJPL control authority maintains a registry of CHDO type
+attributes.
+
+BYTES 2 AND 3
+      BITS
+            1 thru 8    Length attribute of the secondary header CHDO;
+value = 220; unsigned binary integer.  Indicates the length, in bytes, of the
+value field of the secondary header CHDO.
+
+BYTE 4
+      BITS
+            1 thru 8    Originator identifier; value = 48; unsigned binary
+integer.  Indicates that this SFDU originated within the DSN.
+
+BYTE 5
+      BITS
+            1 thru 8    Last modifier identifier; value = 48; unsigned binary
+integer.  Indicates that the contents of this SFDU were last modified by the
+DSN.
+
+BYTE 6 AND 7
+      BITS
+            1 thru 8     RSR software identifier, value range 0 to 216-1;
+unsigned binary integer.  Identifies the RSR software version used to create
+this SFDU.
+
+BYTES 8 AND 9
+      BITS
+            1 thru 8    Record sequence number (RSN); value range 0 to 216-1;
+unsigned binary integer.  The RSN is a sequence counter for the RSR SFDUs.
+It starts at zero and increments by one for each successive RSR SFDU in a
+stream.  It wraps around from 216-1 to zero. The RSN may reset to zero at any
+time (e.g., whenever the RSR is started or restarted); however, such resets
+should be infrequent.  The RSN is provided by the originator of the RSR SFDU
+and shall not be changed subsequently; e.g., a RSR SFDU replayed from a
+recording shall retain the RSN that was assigned when the SFDU was created.
+
+BYTE 10
+      BITS
+            1 thru 8    Signal Processing Center (SPC) identifier; valid
+values are 10, 40, 60, and 21; unsigned binary integer.  Indicates the SPC at
+which the SFDU was created,
+10 => Goldstone, 40 => Canberra, 60 => Madrid, 21 => DTF21.
+
+BYTE 11
+      BITS
+            1 thru 8    Deep Space Station (DSS) identifier; value range 0 to
+28-1; unsigned binary integer.  Specifies the DSS identifier listed in the
+frequency predicts file used to collect the radio science data in this SFDU.
+For example a  value of 15 indicates DSS-15.  DSS identifiers are defined in
+820-013, OPS-6-3.
+
+BYTE 12
+      BITS
+            1 thru 8     Radio Science Receiver (RSR) identifier; value range
+1 to 16; unsigned binary integer.  Specifies the RSR used to acquire the
+radio science data in this SFDU,
+1 => RSR1A, 2 => RSR1B, 3 => RSR2A, 4 => RSR2B, etc.
+
+BYTE 13
+      BITS
+            1 thru 8    Sub-channel identifier; value range 1 to 4; unsigned
+binary integer.  Specifies the RSR sub-channel used to acquire the radio
+science data in this SFDU.
+
+BYTE 14
+      BITS
+             1 thru 8    Reserved.
+
+BYTE  15
+      BITS
+            1 thru 8    DSN-assigned spacecraft identifier; value range 0 to
+28-1; unsigned binary integer.  Specifies the spacecraft identifier listed
+in the frequency predicts file used to collect the radio science data in this
+SFDU.  See 820-013, OPS-6-21A, Table 3-4.
+
+BYTES 16 AND 17
+      BITS
+            1 thru 8    Predicts Pass Number; value range 0 to 216-1; unsigned
+binary integer. Specifies the DSN pass number listed in the predicts file used
+to collect the radio science data in this SFDU.
+
+BYTE 18
+      BITS
+            1 thru 8    Uplink frequency band; valid values are S, X, and K;
+restricted ASCII.  Specifies the uplink frequency band listed in the predicts
+file used to collect the radio science data in this SFDU, S => S-band,
+X => X-band, K => Ka-band.
+
+BYTE 19
+      BITS
+            1 thru 8    Downlink frequency band; valid values are S, X, and K;
+restricted ASCII.  Specifies the downlink frequency band listed in the
+predicts file used to collect the radio science data in this SFDU,
+S => S-band, X => X-band, K => Ka-band.
+
+BYTE 20
+      BITS
+            1 thru 8    Tracking mode; value range 1 to 3; unsigned binary
+integer.  Specifies the tracking mode in use by the RSR at the time the radio
+science data in this SFDU was acquired, 1 => one-way, 2 => two-way,
+3 => three-way.  Refer to the WAY command in the SOM for more information.
+
+BYTE 21
+      BITS
+            1 thru 8    Uplink DSS identifier for tracking mode = three-way;
+value range 0-255; unsigned binary integer, as specified in 820-013, OPS-6-3.
+Specifies the uplink DSS identifier portion of the tracking mode when the
+RSR is configured for three way tracking.
+
+BYTE 22
+      BITS
+            1 thru 8    FGAIN Px/No in dB-Hz; value range -128 to +127;
+signed binary integer.  Specifies the value of the expected Px/No in use by
+the RSR at the time the radio science data in this SFDU was acquired.  This
+parameter is used to compute the settings of the sub-channel filter gain.
+Refer to the FGAIN command in the SOM for more information.
+
+BYTE 23
+      BITS
+            1 thru 8    FGAIN IF Bandwidth in Mega-Hz; value range 1 to 127;
+unsigned binary integer.  Specifies the value of the expected IF bandwidth
+in use by the RSR at the time the radio science data in this SFDU was
+acquired.  This parameter is used to compute the settings of the sub-channel
+filter gain.  Refer to the FGAIN command in the SOM for more information.
+
+BYTE 24
+      BITS
+            1 thru 8    Frequency predicts override flag; range 255; unsigned
+binary integer.  A value of 0 indicates that the frequency predicts file is
+in use, any other value indicates that the frequency specified by the FROV
+command is in use.  The value of the override frequency is specified in bytes
+64-71
+
+BYTE 25
+      BITS
+            1 thru 8    DIG attenuation; value range 0-63; unsigned binary
+integer.  Specifies the current setting of the DIG attenuator in 0.5 dB
+increments.  Refer to the ATT command in the SOM for more information.
+
+BYTE 26
+      BITS
+            1 thru 8    DIG ADC RMS amplitude; value range 0-128; unsigned
+binary integer.  Indicates the RMS amplitude of the 8-bit sample stream
+produced by the DIG ADC.  A time-tag for the measurement is provided in
+bytes 28-35
+
+BYTE 27
+      BITS
+            1 thru 8    DIG ADC peak amplitude; value range 0-128; unsigned
+binary integer.  Indicates the peak amplitude of the 8-bit sample stream
+produced by the DIG ADC.  A time-tag for the measurement is provided in bytes
+28-35
+
+BYTES 28 AND 29
+      BITS
+            1 thru 8    ADC info time tag - year; value range 1900 to 3000;
+unsigned binary integer.  Specifies the UTC year of the ADC info.
+
+BYTES 30 AND 31
+      BITS
+            1 thru 8    ADC info time tag - day of year; value range 1 to 366;
+unsigned binary integer  Specifies the UTC day of year of the ADC info.
+
+BYTES 32 TO 35
+      BITS
+            1 thru 8    ADC info time tag - seconds of day; value range 0 to
+86400; unsigned binary integer  Specifies the UTC second of day of the ADC
+info.
+
+BYTE 36
+      BITS
+            1 thru 8    Sample resolution in bits per data sample; valid
+values are 1, 2, 4, 8, and 16; unsigned binary integer.  Specifies the size of
+the data samples contained in this SFDU.  Sample resolution is specified by
+the operator while the RSR is in the configure state.  Refer to the SOM
+for more information.
+
+BYTE 37
+      BITS
+            1 thru 8    Data error count; value range 0 to 255; unsigned
+binary integer.  Specifies the number of hardware errors encountered while
+the data contained in this SFDU was being recorded.  A value greater than 0
+indicates data may be corrupted due to hardware errors.
+
+BYTES 38 AND 39
+      BITS
+            1 thru 8    Sample rate in Kilo-samples per second ; valid values
+are listed in table 3-1; unsigned binary integer.  Specifies the sample rate
+of the data contained in this SFDU.  Sample rate or bandwidth is specified by
+the operator while the RSR is in the configure state.  Refer to the SOM for
+more information.
+
+BYTE 40 AND 41
+      BITS
+            1 thru 8    Digital Down Converter LO (DDC LO) in Mega-Hz; value
+range 265 to 375; unsigned binary integer.  Specifies the total down
+conversion applied to the signal in the DIG and DDC.  This frequency is needed
+in order to compute the sky frequency of the data contained in this SFDU.
+Refer to the DDCLO command in the SOM for more information.
+
+BYTE 42 AND 43
+      BITS
+           1 thru 8     RF to IF down converter LO in Mega-Hz; value range
+0 to 216-1; unsigned binary integer.  Specifies the total down conversion
+applied to the signal before it entered the RSR DIG.  This value is subtracted
+from the RF predicts points in order to obtain the frequency of the desired
+signal at IF.  This frequency is needed in order to compute the sky frequency
+of the data contained in this SFDU.  The RSR selects a default value based on
+the  downlink frequency band, S-band => 2000, X-band => 8100, Ka-band =>31700.
+
+BYTES 44 AND 45
+      BITS
+            1 thru 8    SFDU time tag - year; value range 1900 to 3000;
+unsigned binary integer.  Specifies the UTC year of the SFDU data and models.
+More information on time tags is provided is section 2.5
+
+BYTES 46 AND 47
+      BITS
+            1 thru 8    SFDU time tag - day of year; value range 1 to 366;
+unsigned binary integer  Specifies the UTC day of year of the SFDU data
+and models.
+
+BYTES 48 TO 55
+      BITS
+            1 thru 8    SFDU time tag - seconds of day; value range 0.0 to
+86400.0; double precision floating point.  Specifies the UTC second of day of
+the SFDU data and models.
+
+BYTES 56 TO 63
+      BITS
+            1 thru 8    Predicts time shift in seconds; double precision
+floating point.  Indicates the number a seconds added to the time tags of the
+frequency predicts points in order to shift them in time.  This is a feature
+of the RSR that is provided to allow testing the system with old predicts
+files.  Should have a value of 0.0 in all SFDUs recorded during a standard
+pass.
+
+BYTES 64 TO 71
+      BITS
+            1 thru 8    Predicts frequency override in Hz; double precision
+floating point.  Indicates the value of the predicts frequency override as
+specified by the FROV command.  Byte 24 contains a flag which indicates if
+the frequency override is active.
+
+BYTES 72 TO 79
+      BITS
+            1 thru 8    Predicts frequency rate in Hz per second; value range
+-8 to +8 Kilo-Hz per second; double precision floating point.  Indicates the
+frequency rate added to the RF frequency predicts as specified by the
+FRR command.
+
+BYTES 80 TO 87
+      BITS
+            1 thru 8    Predicts frequency offset in Hz; value range -8 to +8
+Mega-Hz; double precision floating point.  Indicates the total frequency
+added to the RF frequency predicts as specified by the FRO command and the
+accumulation of the frequency rate as specified by the FRR command .
+
+BYTES 88 TO 95
+      BITS
+            1 thru 8    Sub-channel frequency offset in Hz; value range
+-8 to +8 Mega-Hz; double precision floating point.  Indicates the value of the
+frequency offset added to the frequency predicts for this sub-channel as
+specified by the SFRO command.
+
+BYTES 96 TO 119
+      BITS
+            1 thru 8    RF frequency points; double precision floating point,
+The values of the RF frequency points as calculated from the frequency
+predicts for the beginning of the second. The second and third terms are "NaN"
+for the MRO RSR data.
+
+BYTES 120 TO 143
+      BITS
+            1 thru 8    Sub-channel frequency points; double precision
+floating point.  The values of the sub-channel frequency points for the
+beginning of the second. The second and third terms are "NaN" for the MRO
+RSR data.
+
+BYTES 144 TO 167
+      BITS
+            1 thru 8    Sub-channel frequency polynomial coefficients;
+double precision floating point. The values of the sub-channel frequency
+polynomial coefficients as calculated from the sub-channel frequency points.
+The second and third terms are "NaN" for the MRO RSR data.
+Refer to section 2.4 for more information.
+
+BYTES 168 TO 175
+      BITS
+            1 thru 8    Sub-channel accumulated phase; double precision
+floating point.  The value of the accumulated whole turns of the sub-channel
+phase polynomial.
+
+BYTES 176 TO 207
+      BITS
+            1 thru 8    Sub-channel phase polynomial coefficients; double
+precision floating point.  The values of the sub-channel phase polynomial
+coefficients as calculated from the sub-channel frequency polynomial
+coefficients.  The second, third, and fourth terms are "NaN" for the
+MRO RSR data. Refer to section 2.4 for more information.
+
+BYTES 208 TO 211
+      BITS
+            1 thru 8    Sub_channel fgain multiplier; single precision
+floating point.  The value of the filter gain adjustment entered by the
+operator or calculated during an automatic fgain adjustment.
+
+BYTES 212 TO 223
+      BITS
+
+            1 thru 8    Reserved.
+
+
+3.6 Data CHDO
+
+             Bytes 256 through N-1 of the RSR SFDU in figure 3-1 contain
+the data CHDO, which is illustrated in figure 3-6 and is defined in the
+following paragraphs.  Bytes 0 to 3 of the data CHDO are the label field;
+Bytes 4 through M-1 are the value field.
+
+       BIT
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+BYTE 0| TYPE ATTRIBUTE = 10                           |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     2| LENGTH ATTRIBUTE                              |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     4| SAMPLE WORD 1 - Q DATA                        |
+      +                                               +
+     6| SAMPLE WORD 1 - I DATA                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+     8| SAMPLE WORD 2 - Q DATA                        |
+      +                                               +
+    10| SAMPLE WORD 2 - I DATA                        |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |                                               |
+     ...                                             ...
+     ...                                             ...
+      |                                               |
+      +                                               +
+   M-2|                                               |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+      |1 |2 |3 |4 |5 |6 |7 |8 |1 |2 |3 |4 |5 |6 |7 |8 |
+      +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
+
+Figure 3-6.  RSR Data CHDO
+
+BYTES 0 AND 1
+      BITS
+            1 thru 8    Type attribute of the data CHDO; value = 10; unsigned
+binary integer. Indicates that this CHDO contains binary data.
+
+BYTES 2 AND 3
+      BITS
+            1 thru 8    Length attribute of the data CHDO in bytes; value
+range 0 to 216-1; unsigned binary integer.  Indicates the length of the
+value field of the data CHDO.  The length is determined by the sample rate and
+sample size of the recorded data as specified in Table 3-1.
+
+Table 3-1.  Supported Sample Rates and Samples Sizes
+
+==============================================================================
+|Category        |Sample Rate|Sample Size|Data rate  |Data rate  |Data Length|
+|                |(Ksamp/sec)|(bits/samp)|(bytes/sec)|(SFDUs/sec)|(bytes)    |
+==============================================================================
+|NB - narrow band|       1   |     8     |     2,000 |     1     |   2,000   |
+|----------------------------------------------------------------------------|
+|                |       2   |     8     |     4,000 |     1     |   4,000   |
+|----------------------------------------------------------------------------|
+|                |       4   |     8     |     8,000 |     1     |   8,000   |
+|----------------------------------------------------------------------------|
+|                |       8   |     8     |    16,000 |     1     |  16,000   |
+|----------------------------------------------------------------------------|
+|                |      16   |     8     |    32,000 |     2     |  16,000   |
+|----------------------------------------------------------------------------|
+|                |      25   |     8     |    50,000 |     2     |  25,000   |
+|----------------------------------------------------------------------------|
+|                |      50   |     8     |   100,000 |     4     |  25,000   |
+|----------------------------------------------------------------------------|
+|                |     100   |     8     |   200,000 |     10    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|                |       1   |    16     |     4,000 |      1    |   4,000   |
+|----------------------------------------------------------------------------|
+|                |       2   |    16     |     8,000 |      1    |   8,000   |
+|----------------------------------------------------------------------------|
+|                |       4   |    16     |    16,000 |      1    |  16,000   |
+|----------------------------------------------------------------------------|
+|                |       8   |    16     |    32,000 |      2    |  16,000   |
+|----------------------------------------------------------------------------|
+|                |      16   |    16     |    64,000 |      4    |  16,000   |
+|----------------------------------------------------------------------------|
+|                |      25   |    16     |   100,000 |      4    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |      50   |    16     |   200,000 |     10    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |     100   |    16     |   400,000 |     20    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|MB - medium band|     250   |     1     |    62,500 |      5    |  12,500   |
+|----------------------------------------------------------------------------|
+|                |     500   |     1     |   125,000 |      5    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   1,000   |     1     |   250,000 |     10    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   2,000   |     1     |   500,000 |     20    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   4,000   |     1     | 1,000,000 |     40    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|                |     250   |     2     |   125,000 |      5    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |     500   |     2     |   250,000 |     10    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   1,000   |     2     |   500,000 |     20    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   2,000   |     2     | 1,000,000 |     40    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   4,000   |     2     | 2,000,000 |    100    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|                |     250   |     4     |   250,000 |     10    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |     500   |     4     |   500,000 |     20    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   1,000   |     4     | 1,000,000 |     40    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   2,000   |     4     | 2,000,000 |    100    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|                |     250   |     8     |   500,000 |     20    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |     500   |     8     | 1,000,000 |     40    |  25,000   |
+|----------------------------------------------------------------------------|
+|                |   1,000   |     8     | 2,000,000 |    100    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|WB - wide band  |   8,000   |     1     | 2,000,000 |    100    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |  16,000   |     1     | 4,000,000 |    200    |  20,000   |
+|----------------------------------------------------------------------------|
+|                |           |           |           |           |           |
+|----------------------------------------------------------------------------|
+|                |   8,000   |     2     | 4,000,000 |    200    |  20,000   |
+==============================================================================
+
+
+Category      The supported data rates and resolutions are split into three
+              different catagories based of the number of sub-channels that
+              can be supported.  In NB, up to 4 sub-channels can be recorded
+              simultaneously; in MB, at most 2 sub-channels; and in WB, only
+              1 sub-channel can be recorded.
+
+Sample Rate   The supported sample rate in Kilo-samples / sec.
+
+Sample Size   The number of bits of resolution in each of the In-phase (I)
+              and Quadrature-phase (Q) samples.
+
+Data Rate 1   The number of bytes per second coming from a subchannel.
+
+Data Rate 2   The number of SFDUs per second coming from a subchannel.
+
+Data Length   The number of data bytes in the value field of each data CHDO
+              coming from a subchannel.
+
+BYTES 4 THRU (M-1)
+      BITS
+            1 thru 8    RSR data samples; The RSR digitally samples the
+received spacecraft signal with between 1-bit and 16-bit resolution.  The
+samples are packed into 32-bit words.  The most significant 16 bits always
+contain quadrature-phase (Q) data and the least significant 16 bits always
+contain in-phase (I) data.  Between 1 to 16 samples are packed into each
+32-bit word depending on how many bits per sample are used.  The time order
+of the packed bits is from LSB to MSB.  Table 3-2 specifies the bit packing
+for the various sample resolutions.
+
+The RSR uses truncation to reduce the number of bits per sample to the
+desired value.  This truncation creates an offset of -0.5 in the output
+data stream which must be corrected in post processing software.  To
+compensate for this offset each RSR data sample should be put through the
+transformation 2*k + 1 where k is the 2's complement value of the 1, 2, 4,
+8 or 16 bit sample. Note that the value zero is not present in this data
+representation. However, all bits are used and the data is symmetric about
+zero.
+
+                      Table 3-2.  Sample Packing
+
+==================================================================
+| Bits Per Sample | Contents of 32 Bit Packed Data Register      |
+==================================================================
+|    16 Bits      | [Q1],[I1]                                    |
+|-----------------|----------------------------------------------|
+|     8 Bits      | [Q2,Q1] , [I2, I1]                           |
+|-----------------|----------------------------------------------|
+|     4 Bits      | [Q4, Q3, Q2, Q1], [I4, I3, I2, I1]           |
+|-----------------|----------------------------------------------|
+|     2 Bits      | [Q8, Q7,... Q2, Q1], [I8, I7,... I2, I1]     |
+|-----------------|----------------------------------------------|
+|     1 Bit       | [Q16, Q15,... Q2, Q1], [I16, I15,... I2, I1] |
+==================================================================
+
+
+
+
+Appendix A Abbreviations
+
+A.1   Abbreviations
+
+       Abbreviations and acronyms used in this document are defined where they
+first occur in the text.  A complete list is provided here for the convenience
+of the reader.  Abbreviations and acronyms approved for use are listed in
+Document 820-062.
+
+ADC         Analog to Digital Conversion
+AMMOS       Advanced Multi-Mission Operations System
+ANSI        American National Standards Institute
+ASCII       American Standard Code for Information Interchange
+ASD         Application Specific Digital Signal Processing Board
+BSN         Block Serial Number
+BPF         Band Pass Filter
+CCSDS       Consultative Committee for Space Data Systems
+CDE         Cognizant Development Engineer
+CDR         Central Data Recorder
+CHDO        Compressed Header Data Object
+DDC         Digital Down Converter subassembly
+DDD         DSN Data Delivery
+DDS         Distributed Data Service (proprietary to FSP)
+DIG         Digitizer subassembly
+DLT         Digital Linear Tape
+DP          RSR Data Processor
+DSCC        Deep Space Communications Complex
+DSN         Deep Space Network
+DSP         Digital Signal Processing
+DSS         Deep Space Station
+DTF         Development and Test Facility
+DTS         Data Transport Subsystem
+FFT         Fast Fourier Transform
+FIR         Finite Impulse Response filter
+FRO         Frequency Offset
+FROV        Frequency Override
+FRR         Frequency Rate
+FSP         Full Spectrum Processing subsystem
+FTDD        Fault Tolerant Data Delivery
+FTP         File Transfer Protocol
+FTS         Frequency and Timing Subsystem
+GCF         Ground Communications Facility
+GCS         Ground Communications System
+GIF         GCF Interface
+I, Q        In-phase and Quad-phase samples
+ID          Identifier
+IF          Intermediate Frequency
+IFS         IF Switch
+IP          Internet Protocol
+ISO         International Organization for Standardization
+JPL         Jet Propulsion Laboratory
+LO          Local Oscilator
+LPF         Low Pass Filter
+LSB         Least Significant Bit
+LVO         Label Value Object
+MGDS        Multi-Mission Ground Data System
+MRO         Mars Reconnaissance Orbiter
+MSB         Most Significant Bit
+N0          Noise power in 1 Hz.
+NASA        National Aeronautics and Space Administration
+NB, MB, WB  Narrow-band, Medium-band, Wide-band
+NCO         Numerically Controlled Oscillator
+NJPL        NASA/Jet Propulsion Laboratory (control authority identifier)
+NOPE        Network Operations Project Engineer
+PCNO        Carrier power relative to noise power in a 1Hz bandwidth
+PDS         Planetary Data system
+1PPS        1 Pulse Per Second
+RA          Restricted ASCII
+RF          Radio frequency
+RNS         Reliable Network Server
+RSN         Record Sequence Number
+RSR         Radio Science Receiver
+RT          Real Time processor
+SDB         Standard DSN Block
+SFDU        Standard Formatted Data Unit
+SNR         Signal-to-Noise Ratio
+TCP         Transmission Control Protocol
+TDS         Telemetry Delivery Subsystem
+UTC         Coordinated Universal Time
+VDP         VME Data Processor
+VME         VersaModule Eurocard
+
+
+
+
+(c) 2009 California Institute of Technology. 
+Government sponsorship acknowledged.
+
+
+
+
