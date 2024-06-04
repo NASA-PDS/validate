@@ -79,13 +79,10 @@ public class ImageUtil {
     // File(uri.getPath()).getParent()" which will only get the top level directory.
     // It would be a bug if the file is in a sub directory of the top level
     // directory.
-    String parent = parentURL.getFile();
-
-    LOG.debug("isJPEG:,parent,jpegBase {},{}", parent, jpegBase);
-
+    
+    // try using Paths and URI internal consistency to make this work for #902
     // Build the full pathname of the file.
-    String jpegRef = Paths.get(parent, jpegBase).toString();
-    LOG.debug("isJPEG:parent,jpegBase,jpegRef [{}],[{}],[{}]", parent, jpegBase, jpegRef);
+    String jpegRef = Paths.get(parentURL.toURI().resolve(jpegBase)).toString();
 
     File jpegFile = new File(jpegRef);
     RandomAccessFile raf = new RandomAccessFile(jpegFile, "r");
