@@ -823,7 +823,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     }
 
     jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent,
-        directory.endsWith("/") ? directory : (directory + "/")));
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the JPEG file is not compliant.
     if (!jpegValidateFlag) {
@@ -868,7 +868,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
     }
 
     validateFlag = this.imageUtil.isPNG(pngName, new URL(parent,
-        directory.endsWith("/") ? directory : (directory + "/")));
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the PNG file is not compliant.
     if (!validateFlag) {
