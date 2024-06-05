@@ -411,7 +411,7 @@ public class RuleContext extends ContextBase {
     return getContextValue(EVERY_N_KEY, Integer.class) == null ? 1 : getContextValue(EVERY_N_KEY, Integer.class);
   }
   public boolean getContextMismatchAsWarn() {
-    return getContextValue(CONTEXT_MISMATCH_AS_WARN_KEY, Boolean.class) == null ? false : getContextValue(CONTEXT_MISMATCH_AS_WARN_KEY, Boolean.class);
+    return getContextValue(CONTEXT_MISMATCH_AS_WARN_KEY, Boolean.class) == null ? true : getContextValue(CONTEXT_MISMATCH_AS_WARN_KEY, Boolean.class);
   }
   public void setEveryN(int value) {
 	putContextValue(EVERY_N_KEY, value);
