@@ -1,0 +1,71 @@
+Bolometric Hemispherical Albedo Map of Pluto from New Horizons Observations
+                                                                              
+Data Set Overview                                                             
+=================                                                             
+                                                                              
+The NASA New Horizons encounter with the Pluto system in 2015 revealed Pluto to
+have an extraordinary range of surface albedos, abundant volatile and refractory
+ices, and complex geology from endogenous and exogenous processes (Stern et al.,
+2015). Pluto is an active world with ongoing convective and glacial resurfacing,
+seasonal volatile transport that includes nitrogen and methane cycles, and
+chemical processing by ionizing radiation (e.g., Gladstone et al., 2016; Grundy
+et al., 2016; Moore et al., 2016). Photometric properties of a surface,
+including albedo, are useful for constraining volatile transport by quantifying
+absorbed solar energy, as well as for providing insights into surface processes.
+For example, albedo measurements can contribute to relative estimates of
+processing, mixing, temporal variability, and age for different terrains.
+
+This dataset is a map of Pluto's incidence-angle-average bolometric
+hemispherical albedo. Hemispherical albedo is the ratio of total power scattered
+by a surface, where total refers to integration over all emission angles, to
+incident power. Bolometric hemispherical albedo is the flux-weighted,
+wavelength-integrated ratio and is crucial for understanding the thermal behavior
+of a surface. The map was produced using the best-fit lunar-Lambert photometric
+functions for Pluto's extreme dark and bright terrains, Cthulhu and Sputnik
+Planitia (some names are informal), as representative of low and high
+reflectance regions and by approximating intermediate reflectance regions as a
+linear combination of these two extremes. New Horizons Long Range Reconnaissance
+Imager (LORRI) panchromatic and Multispectral Visible Imaging Camera (MVIC)
+panchromatic, blue, and red filter observations were used to approximate
+bolometric albedo. The LORRI and MVIC data were from the NASA Planetary Data
+System (PDS) Small Bodies Node (SBN) v3.0 archive. Regions south of 38 degrees
+South were in winter darkness (polar night) during the New Horizons flyby of
+Pluto and the map does not include areas south of approximately 30 degrees
+South.
+
+The map was produced using the USGS Integrated Software for Imagers and
+Spectrometers (ISIS). The mapping group parameters are:
+
+  ProjectionName     = Equirectangular
+  CenterLongitude    = 180.0
+  CenterLatitude     = 0.0
+  TargetName         = pluto
+  EquatorialRadius   = 1188300 <meters>
+  PolarRadius        = 1188300 <meters>
+  LatitudeType       = Planetocentric
+  LongitudeDirection = PositiveEast
+  LongitudeDomain    = 360
+  MinimumLatitude    = -49.381884697957
+  MaximumLatitude    = 90.0
+  MinimumLongitude   = 0.0
+  MaximumLongitude   = 360.0
+  PixelResolution    = 879.23076275961 <meters/pixel>
+
+Pluto's incidence-angle-average bolometric hemispherical albedo,
+spatially-averaged over areas north of approximately 30 degrees South, is
+approximately 0.54. Pluto has three general albedo categories: 1) very low
+albedo southern equatorial terrains including Cthulhu, 2) high albedo terrains
+that constitute most of Pluto’s surface, and 3) very high albedo terrains
+including Sputnik Planitia. Pluto’s extraordinary albedo variability with
+location is also spatially sharp at some places.
+
+Users are strongly encouraged to read the publication titled 'Bolometric
+Hemispherical Albedo Map of Pluto from New Horizons Observations' in the
+Planetary Science Journal by Hofgartner et al. in 2023 for further information,
+including data used, methods, uncertainty, and interpretation.
+
+We thank the entire NASA New Horizons team for enabling the production of this
+map. Financial support from the NASA New Frontiers Data Analysis Program (NFDAP)
+is gratefully acknowledged (Grant Number 80NSSC22K1118). Constructive reviews of
+the map and documentation by Jian-Yang Li, Xiao-Duan Zou, and the SBN team
+improved this archive.

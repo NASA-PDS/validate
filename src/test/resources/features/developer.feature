@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#915
+|"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 6 | "6 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN|UNALLOWED_BUNDLE_SUBDIR_NAME" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-context-validation --skip-content-validation -t {resourceDir}/github915/dsn_0159-science.2008-02-29.xml {resourceDir}/github915/dsn_0159-science.2009-05-18.xml" | "report_github915.json" |
+
 # Validate#905
 |"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
 
