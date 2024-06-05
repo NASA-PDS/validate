@@ -2,8 +2,6 @@ package gov.nasa.pds.tools.util;
 
 import java.io.File;
 import java.io.RandomAccessFile;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -16,7 +14,6 @@ import org.slf4j.LoggerFactory;
 
 public class ImageUtil {
   private static final Logger LOG = LoggerFactory.getLogger(ImageUtil.class);
-  private URL target = null;
 
   private static int JPEG_FIRST_SHORT = 0xffd8;
   private static int JPEG_LAST_SHORT = 0xffd9;
@@ -24,17 +21,9 @@ public class ImageUtil {
   private static int PNG_SIGNATURE_FIRST_INT = 0x89504e47;
   private static int PNG_SIGNATURE_SECOND_INT = 0x0d0a1a0a;
 
-  public ImageUtil(URL target) {
-    this.target = target;
+  public ImageUtil() {
   }
 
-  /**
-   * Returns the URL of the target.
-   *
-   */
-  public URL getTarget() {
-    return (this.target);
-  }
 
   /**
    * Check if a JPEG file is valid by inspecting the first 2 bytes for 0xffd8 and last 2 bytes for
@@ -48,19 +37,6 @@ public class ImageUtil {
   public boolean isJPEG(String jpegBase, URL parentURL) throws Exception {
 
     LOG.debug("isJPEG:jpegBase {}", jpegBase);
-
-    // Get the location of the input file.
-    URI uri = null;
-    try {
-      uri = getTarget().toURI();
-    } catch (URISyntaxException e) {
-      // Should never happen
-      // but if it does, print an error message.
-      // Observed in DEV that if the file name contains spaces, the getURI() results
-      // in the URISyntaxException exception.
-      LOG.error("isJPEG:Cannot build URI for target {}", getTarget());
-      throw new Exception("isJPEG:Cannot build URI for target [" + getTarget() + "]");
-    }
 
     // Note: The function FilenameUtils.getPath() doesn't seem to work correctly.
     // It returns the path without the leading slash '/':
@@ -139,19 +115,6 @@ public class ImageUtil {
   public boolean isPNG(String pngBase, URL parentURL) throws Exception {
 
     LOG.debug("isPNG:pngBase {}", pngBase);
-
-    // Get the location of the input file.
-    URI uri = null;
-    try {
-      uri = getTarget().toURI();
-    } catch (URISyntaxException e) {
-      // Should never happen
-      // but if it does, print an error message.
-      // Observed in DEV that if the file name contains spaces, the getURI() results
-      // in the URISyntaxException exception.
-      LOG.error("isPNG:Cannot build URI for target {}", getTarget());
-      throw new Exception("isPNG:Cannot build URI for target [" + getTarget() + "]");
-    }
 
     // Get the parent from parentURL instead of using "new
     // File(uri.getPath()).getParent()" which will only get the top level directory.
