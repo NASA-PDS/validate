@@ -1,0 +1,41 @@
+PDS_VERSION_ID                = PDS3
+
+/* File characteristics */
+RECORD_TYPE                   = UNDEFINED
+
+/* Pointers to objects in file */
+^DOCUMENT                          = "S_00168901_THM.JPG"
+
+/* Identification data elements */
+DATA_SET_ID                        = "MRO-M-SHARAD-5-RADARGRAM-V2.0"
+PRODUCT_ID                         = "S_00168901_THM"
+INSTRUMENT_HOST_ID                 = "MRO"
+INSTRUMENT_HOST_NAME               = "MARS RECONNAISSANCE ORBITER"
+INSTRUMENT_ID                      = "SHARAD"
+INSTRUMENT_NAME                    = "SHALLOW RADAR"
+TARGET_NAME                        = "MARS"
+ORBIT_NUMBER                       = 1689
+MRO:START_SUB_SPACECRAFT_LONGITUDE = 230.67676 <DEGREE>
+MRO:START_SUB_SPACECRAFT_LATITUDE  = 64.239113 <DEGREE>
+MRO:STOP_SUB_SPACECRAFT_LONGITUDE  = 229.39072 <DEGREE>
+MRO:STOP_SUB_SPACECRAFT_LATITUDE   = 59.864001 <DEGREE>
+START_TIME                         = 2006-12-06T02:08:22.929
+STOP_TIME                          = 2006-12-06T02:09:48.723
+SPACECRAFT_CLOCK_START_COUNT       = "UNK"
+SPACECRAFT_CLOCK_STOP_COUNT        = "UNK"
+PRODUCT_CREATION_TIME              = 2021-05-19T16:15:43.494
+PRODUCT_VERSION_ID                 = "1"
+PRODUCER_FULL_NAME                 = "BRUCE A. CAMPBELL"
+PRODUCER_INSTITUTION_NAME          = "SMITHSONIAN INSTITUTION"
+
+/* JPEG information */
+OBJECT                         = DOCUMENT
+ DOCUMENT_NAME                 = "JPEG BROWSE"
+ DOCUMENT_FORMAT               = JPG
+ DOCUMENT_TOPIC_TYPE           = "BROWSE IMAGE"
+ INTERCHANGE_FORMAT            = BINARY
+ PUBLICATION_DATE              = 2021-05-19
+ DESCRIPTION                   = "Browse version of TIFF radargram image."
+END_OBJECT                     = DOCUMENT
+
+END

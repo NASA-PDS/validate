@@ -819,10 +819,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     if (this.imageUtil == null) {
       // Save imageUtil so it can be reused.
-      this.imageUtil = new ImageUtil(fileRef);
+      this.imageUtil = new ImageUtil();
     }
 
-    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent, directory));
+    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent,
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the JPEG file is not compliant.
     if (!jpegValidateFlag) {
@@ -863,10 +864,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     if (this.imageUtil == null) {
       // Save imageUtil so it can be reused.
-      this.imageUtil = new ImageUtil(fileRef);
+      this.imageUtil = new ImageUtil();
     }
 
-    validateFlag = this.imageUtil.isPNG(pngName, new URL(parent, directory));
+    validateFlag = this.imageUtil.isPNG(pngName, new URL(parent,
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the PNG file is not compliant.
     if (!validateFlag) {
