@@ -14,7 +14,6 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#915
 |"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 4 | "4 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-content-validation -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github915.json" |
->>>>>>> 312444a0e5b598019e3648bd12557e532fb5a7fa
 
 # Validate#905
 |"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
