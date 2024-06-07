@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mro/v1/PDS4_MRO_1I00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1I00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Browse
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mro="http://pds.nasa.gov/pds4/mission/mro/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xsi:schemaLocation=
+    "http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd
+    http://pds.nasa.gov/pds4/mission/mro/v1 https://pds.nasa.gov/pds4/mission/mro/v1/PDS4_MRO_1I00_1300.xsd
+    http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1I00_1960.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:mro_sharad_us_radargrams:browse:s_00168901_thm</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>MRO SHARAD US Radargrams Browse THM Products</title>
+        <information_model_version>1.18.0.0</information_model_version>
+        <product_class>Product_Browse</product_class>
+        <Citation_Information>
+            <author_list>Campbell, B. A.</author_list>
+            <publication_year>2024</publication_year>
+            <description>JPEG Browse Product for MRO SHARAD US Radargram</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2024-05-17T10:59:43.592Z</modification_date>
+                <version_id>1.0</version_id>
+                <description>PDS4 XML Label Creation</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2006-12-06T02:08:22.929Z</start_date_time>
+            <stop_date_time>2006-12-06T02:09:48.723Z</stop_date_time>
+        </Time_Coordinates>
+
+        <Investigation_Area>
+            <name>MARS RECONNAISSANCE ORBITER</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars_reconnaissance_orbiter</lid_reference>
+                <reference_type>browse_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+
+        <Observing_System>
+            <Observing_System_Component>
+                <name>MARS RECONNAISSANCE ORBITER</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mro</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>SHALLOW RADAR</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:sharad.mro</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+
+        <Target_Identification>
+            <name>MARS</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>browse_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        
+        <Mission_Area>
+            <mro:MRO_Parameters>
+                <mro:product_version_id>1</mro:product_version_id>
+                <mro:orbit_number>1689</mro:orbit_number>
+                <mro:producer_institution_name>SMITHSONIAN INSTITUTION</mro:producer_institution_name>
+            </mro:MRO_Parameters>
+        </Mission_Area>
+
+        <Discipline_Area>
+            <geom:Geometry>
+            <geom:Geometry_Orbiter>
+                    <geom:geometry_start_time_utc>2006-12-06T02:08:22.929Z</geom:geometry_start_time_utc>
+                    <geom:geometry_stop_time_utc>2006-12-06T02:09:48.723Z</geom:geometry_stop_time_utc>
+                    <geom:Surface_Geometry>
+                        <geom:Surface_Geometry_Start_Stop>
+                            <geom:start_subspacecraft_latitude unit="deg">64.239113</geom:start_subspacecraft_latitude>
+                            <geom:stop_subspacecraft_latitude unit="deg">59.864001</geom:stop_subspacecraft_latitude>
+                            <geom:start_subspacecraft_longitude unit="deg">230.67676</geom:start_subspacecraft_longitude>
+                            <geom:stop_subspacecraft_longitude unit="deg">229.39072</geom:stop_subspacecraft_longitude>
+                        </geom:Surface_Geometry_Start_Stop>
+                    </geom:Surface_Geometry>
+                </geom:Geometry_Orbiter>
+            </geom:Geometry>
+        </Discipline_Area>
+        
+    </Context_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mro_sharad_us_radargrams:browse:s_00168901_tiff</lid_reference>
+            <reference_type>browse_to_browse</reference_type>
+            <comment>US RDR Browse Images (TIFF).</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mro_sharad_us_radargrams:data:s_00168901_geom</lid_reference>
+            <reference_type>browse_to_data</reference_type>
+            <comment>US RDR Geometry information.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mro_sharad_us_radargrams:data:s_00168901_rgram</lid_reference>
+            <reference_type>browse_to_data</reference_type>
+            <comment>SHARAD US RDR.</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mro_sharad_us_radargrams:document:rgram_processing</lid_reference>
+            <reference_type>browse_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mro_sharad_us_radargrams:document:edr_to_usrdr</lid_reference>
+            <reference_type>browse_to_document</reference_type>
+        </Internal_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>MGS-M-MOLA-5-MEGDR-L3-V1.0:MEGA90N000EB.IMG</external_source_product_identifier>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <curating_facility>PDS GEO</curating_facility>
+            <description>Model of the Martian areoid used to vertically datum this simulation.</description>
+        </Source_Product_External>
+        <Source_Product_External>
+            <external_source_product_identifier>MGS-M-MOLA-5-MEGDR-L3-V1.0</external_source_product_identifier>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <doi>10.17189/1519460</doi>
+            <curating_facility>PDS GEO</curating_facility>
+            <description>MOLA Mission Experiment Gridded Data Records</description>
+        </Source_Product_External>
+        <Source_Product_External>
+            <external_source_product_identifier>MRO-M-SPICE-6-V1.0</external_source_product_identifier>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <doi>10.17189/1520100</doi>
+            <curating_facility>PDS NAIF</curating_facility>
+            <description>Mars Reconnaissance Orbiter SPICE data archive</description>
+        </Source_Product_External>
+    </Reference_List>
+    
+    <File_Area_Browse>
+        <File>
+            <file_name>s_00168901_thm.jpg</file_name>
+            <creation_date_time>2021-05-19T16:15:43.494Z</creation_date_time>
+        </File>
+        <Encoded_Image>
+            <name>Low resolution browse image</name>
+            <offset unit="byte">0</offset>
+            <encoding_standard_id>JPEG</encoding_standard_id>
+        </Encoded_Image>
+    </File_Area_Browse>
+    
+    <File_Area_Browse>
+        <File>
+            <file_name>s_00168901_thm.lbl</file_name>
+        </File>
+        <Stream_Text>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS3</parsing_standard_id>
+            <description>Original PDS3 label</description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Browse>
+    
+</Product_Browse>

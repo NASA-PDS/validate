@@ -12,8 +12,15 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#919
 |"NASA-PDS/validate#919 Success with 61 bit value" | "github919" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github919.json -s json --skip-context-validation -t {resourceDir}/github919/uh0003b_draft.xml" | "report_github919.json" |
 
+# Validate#915
+|"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 4 | "4 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-content-validation -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github915.json" |
+>>>>>>> 312444a0e5b598019e3648bd12557e532fb5a7fa
+
 # Validate#905
 |"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
+
+# Validate#902
+|"NASA-PDS/validate#902 Success with windows file URL" | "github902" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github902.json -s json --skip-context-validation -t {resourceDir}/github902/s_00168901_thm.xml" | "report_github902.json" |
 
 # Validate#873
 |"NASA-PDS/validate#873 Success files same name different paths" | "github873" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github873.json -s json --skip-context-validation -R pds4.bundle -t {resourceDir}/github873" | "report_github873.json" |
