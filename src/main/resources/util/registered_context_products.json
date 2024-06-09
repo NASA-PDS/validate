@@ -119,6 +119,15 @@
           },
           {
                "name": [
+                    "PLASMA SCIENCE EXPERIMENT"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:go.pls::1.0"
+          },
+          {
+               "name": [
                     "APOLLO 17 LUNAR ATMOSPHERIC COMPOSITION EXPERIMENT"
                ],
                "type": [
@@ -6306,6 +6315,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.95625_2002_gx32::1.0"
+          },
+          {
+               "name": [
+                    "(119070) 2001 KP77"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.119070_2001_kp77::1.0"
           },
           {
                "name": [
@@ -13056,15 +13074,6 @@
           },
           {
                "name": [
-                    "C/1979 Y1 (BRADFIELD)"
-               ],
-               "type": [
-                    "COMET"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:comet.c1979_y1_bradfield::1.0"
-          },
-          {
-               "name": [
                     "THETA HYDRAE"
                ],
                "type": [
@@ -18543,6 +18552,15 @@
                     "COMET"
                ],
                "lidvid": "urn:nasa:pds:context:target:comet.c1987_h1_shoemaker::1.0"
+          },
+          {
+               "name": [
+                    "C/1979 Y1 (BRADFIELD)"
+               ],
+               "type": [
+                    "COMET"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.c1979_y1_bradfield::1.0"
           },
           {
                "name": [
@@ -25042,15 +25060,6 @@
           },
           {
                "name": [
-                    "PLASMA SCIENCE EXPERIMENT"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:go.pls::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -27067,15 +27076,6 @@
                     "Observatory"
                ],
                "lidvid": "urn:nasa:pds:context:facility:observatory.irtf-maunakea::1.1"
-          },
-          {
-               "name": [
-                    "(119070) 2001 KP77"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.119070_2001_kp77::1.0"
           }
      ]
 }
