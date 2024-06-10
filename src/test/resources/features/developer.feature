@@ -92,7 +92,8 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#644 Success NaN and Inf in FITS" | "github644" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github644.json -s json -t {resourceDir}/github644/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "report_github644.json" |
 
 # Validate#631
-|"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
+# NOTE: Commenting out this test for now as the JAXA site is down
+# |"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
 
 # Validate#628
 |"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation --disable-context-mismatch-warnings -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
