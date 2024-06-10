@@ -6,7 +6,7 @@
   <parent>
     <groupId>gov.nasa</groupId>
     <artifactId>pds</artifactId>
-    <version>1.17.0</version>
+    <version>1.18.0</version>
   </parent>
 
   <groupId>gov.nasa.pds</groupId>
@@ -140,6 +140,25 @@
           <skip>false</skip>  <!-- This is `true` in parent pom -->
           <skipDeploy>false</skipDeploy>  <!-- This is `true` in parent pom -->
         </configuration>
+      </plugin>
+      <!-- Add maven source for maven central deployment -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.3.1</version>
+        <executions>
+          <execution>
+            <id>make-source-jar</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+              <goal>test-jar-no-fork</goal>
+            </goals>
+            <configuration>
+              <excludeResources>true</excludeResources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
