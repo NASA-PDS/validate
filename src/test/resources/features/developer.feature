@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#923
+|"NASA-PDS/validate#923 Fail from bad config value" | "github923" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github923.json -s json --skip-context-validation -c {resourceDir}/github923/config.txt -t {resourceDir}/github923/uh0003b_draft.xml" | "report_github923.json" |
+
 # Validate#919
 |"NASA-PDS/validate#919 Success with 61 bit value" | "github919" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github919.json -s json --skip-context-validation -t {resourceDir}/github919/uh0003b_draft.xml" | "report_github919.json" |
 
