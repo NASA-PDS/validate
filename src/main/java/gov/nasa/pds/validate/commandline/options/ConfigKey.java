@@ -180,8 +180,8 @@ public class ConfigKey {
         try {
           ALL_KEYWORDS.add(field.get(null).toString());
         } catch (IllegalArgumentException | IllegalAccessException e) {
-          // can we every get here??
-          e.printStackTrace();
+          // can we ever get here??
+          throw new IllegalStateException("Got to place we should not be able to reach.", e);
         }
       }
     }
