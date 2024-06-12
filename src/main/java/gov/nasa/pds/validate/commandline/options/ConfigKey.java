@@ -30,6 +30,11 @@
 
 package gov.nasa.pds.validate.commandline.options;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * An interface that contains the valid property keys for the Validate Tool configuration file.
  *
@@ -159,4 +164,26 @@ public class ConfigKey {
   public static final String TARGET_MANIFEST = "validate.targetManifest";
 
   public static final String SKIP_PRODUCT_VALIDATION = "validate.ignoreProductValidation";
+  
+  /* dumb way to fix this, but this class should have been enum to start with and now it is too late
+   * 
+   * Declare a Set then put all the values in it. This way we can check that values in the
+   * config file are allowable. As currently written it is simple to expand this list but
+   * not include an update later checks if it is valid or not. Really, this is just a smelly
+   * code hack for bad design choice back when it was a quick and dirty tool.
+   */
+  public static final Set<String> ALL_KEYWORDS;
+  static {
+    ALL_KEYWORDS = new HashSet<String>();
+    for (Field field : ConfigKey.class.getDeclaredFields()) {
+      if (Modifier.isStatic(field.getModifiers()) && field.getType().equals(String.class)) {
+        try {
+          ALL_KEYWORDS.add(field.get(null).toString());
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+          // can we ever get here??
+          throw new IllegalStateException("Got to place we should not be able to reach.", e);
+        }
+      }
+    }
+  }
 }

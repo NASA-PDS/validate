@@ -50,6 +50,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +66,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
@@ -73,7 +75,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.client.solrj.impl.Http2SolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -513,7 +515,7 @@ public class ValidateLauncher {
     String endpoint = ToolInfo.getEndpoint();
     String query = ToolInfo.getQuery();
 
-    SolrClient client = new HttpSolrClient.Builder(url).build();
+    SolrClient client = new Http2SolrClient.Builder(url).build();
     SolrQuery solrQuery = new SolrQuery(query);
     solrQuery.setRequestHandler("/" + endpoint);
     solrQuery.setStart(0);
@@ -676,9 +678,21 @@ public class ValidateLauncher {
    */
   public void query(File configuration) throws ConfigurationException {
     try {
-      Configuration config = null;
       AbstractConfiguration.setDefaultListDelimiter(',');
-      config = new PropertiesConfiguration(configuration);
+      Configuration config = new PropertiesConfiguration(configuration);
+      Iterator<String> keys = config.getKeys();
+      String unknowns = "";
+
+      while (keys.hasNext()) {
+        String key = keys.next();
+        if (!ConfigKey.ALL_KEYWORDS.contains(key)) {
+          if (unknowns.isBlank()) unknowns = key;
+          else unknowns += ", " + key;
+        }
+      }
+      if (!unknowns.isBlank()) {
+        throw new UnrecognizedOptionException("Unrecognized keyword(s) in given configuration file: " + unknowns);
+      }
 
       List<String> targetList = new ArrayList<>();
       if (config.isEmpty()) {
