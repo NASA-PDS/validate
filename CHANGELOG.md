@@ -1,8 +1,16 @@
 # Changelog
 
-## [release/3.5.2](https://github.com/NASA-PDS/validate/tree/release/3.5.2) (2024-06-11)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-06-12)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.1...release/3.5.2)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
+
+**Defects:**
+
+- Configuration file parser does not reject incorrect options  [\#923](https://github.com/NASA-PDS/validate/issues/923) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.5.2](https://github.com/NASA-PDS/validate/tree/v3.5.2) (2024-06-12)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.1...v3.5.2)
 
 **Defects:**
 
