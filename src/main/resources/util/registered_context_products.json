@@ -119,6 +119,69 @@
           },
           {
                "name": [
+                    "KPLO MAGNETOMETER (KMAG)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:kari:kpds:context:instrument:kplo.kmag::1.0"
+          },
+          {
+               "name": [
+                    "(506496) 2003 UZ377"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.506496_2003_uz377::1.0"
+          },
+          {
+               "name": [
+                    "(34312) 2000 QO188"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.34312_2000_qo188::1.0"
+          },
+          {
+               "name": [
+                    "ULTRAVIOLET PHOTOMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:uv.p11::1.0"
+          },
+          {
+               "name": [
+                    "899 JOKASTE"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.899_jokaste::1.1"
+          },
+          {
+               "name": [
+                    "HIGH RATE DETECTOR"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:hrd.co::1.0"
+          },
+          {
+               "name": [
+                    "MICROWAVE INSTRUMENT FOR THE ROSETTA ORBITER"
+               ],
+               "type": [
+                    "RADIOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:miro.ro::1.0"
+          },
+          {
+               "name": [
                     "PLASMA SCIENCE EXPERIMENT"
                ],
                "type": [
@@ -512,7 +575,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:lowell.loneos_0m60.loneos_mosaic_ccd::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:lowell.loneos_0m60.loneos_mosaic_ccd::1.2"
           },
           {
                "name": [
@@ -6273,48 +6336,66 @@
           },
           {
                "name": [
-                    "SOLAR WIND ION ANALYZER"
+                    "RESPONSIVITY"
                ],
                "type": [
-                    "ENERGETIC PARTICLE DETECTOR"
+                    "CALIBRATOR"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:swia.maven::1.0"
+               "lidvid": "urn:nasa:pds:context:target:calibrator.responsivity::1.0"
           },
           {
                "name": [
-                    "VIKING LANDER SEISMOMETER"
+                    "PI2 ORIONIS"
                ],
                "type": [
-                    "N/A"
+                    "STAR"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:seis.vl2::1.0"
+               "lidvid": "urn:nasa:pds:context:target:star.pi.02_ori::1.0"
           },
           {
                "name": [
-                    "2005 VA123"
+                    "(162173) RYUGU"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.162173_ryugu::1.0"
+          },
+          {
+               "name": [
+                    "2000 OH67"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_va123::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
           },
           {
                "name": [
-                    "DENIS 3-CHANNEL NEAR-INFRARED CAMERA"
+                    "14792 THYESTES"
                ],
                "type": [
-                    "IMAGER"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:eso.photometric1m.denis::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.14792_thyestes::1.1"
           },
           {
                "name": [
-                    "(95625) 2002 GX32"
+                    "(300237) 2006 YD45"
                ],
                "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
+                    "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.95625_2002_gx32::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300237_2006_yd45::1.0"
+          },
+          {
+               "name": [
+                    "Infra Red Telescope Facility-Maunakea"
+               ],
+               "type": [
+                    "Observatory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:observatory.irtf-maunakea::1.1"
           },
           {
                "name": [
@@ -9430,15 +9511,6 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.300181_2006_wk45::1.0"
-          },
-          {
-               "name": [
-                    "THERMAL EMISSION IMAGING SYSTEM"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:ody.themis::1.0"
           },
           {
                "name": [
@@ -13020,57 +13092,48 @@
           },
           {
                "name": [
-                    "7696 LIEBE"
+                    "SOLAR WIND ION ANALYZER"
                ],
                "type": [
-                    "ASTEROID"
+                    "ENERGETIC PARTICLE DETECTOR"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.7696_liebe::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:swia.maven::1.0"
           },
           {
                "name": [
-                    "MAGNETOMETER"
+                    "VIKING LANDER SEISMOMETER"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:mag.near::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:seis.vl2::1.0"
           },
           {
                "name": [
-                    "2003 TH58"
+                    "2005 VA123"
                ],
                "type": [
                     "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_th58::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2005_va123::1.0"
           },
           {
                "name": [
-                    "146 LUCINA"
+                    "DENIS 3-CHANNEL NEAR-INFRARED CAMERA"
                ],
                "type": [
-                    "ASTEROID"
+                    "IMAGER"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.146_lucina::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:eso.photometric1m.denis::1.0"
           },
           {
                "name": [
-                    "(13331) 1998 SU52"
+                    "(95625) 2002 GX32"
                ],
                "type": [
-                    "ASTEROID"
+                    "TRANS-NEPTUNIAN OBJECT"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.13331_1998_su52::1.0"
-          },
-          {
-               "name": [
-                    "(300214) 2006 WH174"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300214_2006_wh174::1.0"
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.95625_2002_gx32::1.0"
           },
           {
                "name": [
@@ -15913,6 +15976,15 @@
           },
           {
                "name": [
+                    "THERMAL EMISSION IMAGING SYSTEM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:ody.themis::1.0"
+          },
+          {
+               "name": [
                     "GLIESE 436"
                ],
                "type": [
@@ -16244,6 +16316,15 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:pic_du_midi.bernardlyot_2m0::1.0"
+          },
+          {
+               "name": [
+                    "MATERIAL PROPERTIES OF ORGANIC LIQUIDS, ICES, AND HAZES ON TITAN"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.titan-material-database::1.0"
           },
           {
                "name": [
@@ -18555,6 +18636,60 @@
           },
           {
                "name": [
+                    "7696 LIEBE"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.7696_liebe::1.1"
+          },
+          {
+               "name": [
+                    "MAGNETOMETER"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mag.near::1.1"
+          },
+          {
+               "name": [
+                    "2003 TH58"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2003_th58::1.0"
+          },
+          {
+               "name": [
+                    "146 LUCINA"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.146_lucina::1.1"
+          },
+          {
+               "name": [
+                    "(13331) 1998 SU52"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.13331_1998_su52::1.0"
+          },
+          {
+               "name": [
+                    "(300214) 2006 WH174"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300214_2006_wh174::1.0"
+          },
+          {
+               "name": [
                     "C/1979 Y1 (BRADFIELD)"
                ],
                "type": [
@@ -18785,7 +18920,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:lowell.loneos_0m60::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.loneos_0m60::1.2"
           },
           {
                "name": [
@@ -21176,15 +21311,6 @@
           },
           {
                "name": [
-                    "MATERIAL PROPERTIES OF ORGANIC LIQUIDS, ICES, AND HAZES ON TITAN"
-               ],
-               "type": [
-                    "Individual Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:individual.titan-material-database::1.0"
-          },
-          {
-               "name": [
                     "KPLO GAMMA RAY SPECTROMETER (KGRS)"
                ],
                "type": [
@@ -23412,15 +23538,6 @@
           },
           {
                "name": [
-                    "THERMAL EMISSION IMAGING SYSTEM"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:themis.ody::1.0"
-          },
-          {
-               "name": [
                     "(300180) 2006 WX42"
                ],
                "type": [
@@ -23877,6 +23994,15 @@
                     "TRANS-NEPTUNIAN OBJECT"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wg24::1.0"
+          },
+          {
+               "name": [
+                    "THERMAL EMISSION IMAGING SYSTEM"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:themis.ody::1.0"
           },
           {
                "name": [
@@ -24400,6 +24526,15 @@
                     "ASTEROID"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.43460_2000_ym123::1.0"
+          },
+          {
+               "name": [
+                    "MORDOR ULTRA-HIGH VACUUM SYSTEM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:classe.mordor::1.0"
           },
           {
                "name": [
@@ -24994,69 +25129,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:uvs.mr6::1.0"
-          },
-          {
-               "name": [
-                    "KPLO MAGNETOMETER (KMAG)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:kari:kpds:context:instrument:kplo.kmag::1.0"
-          },
-          {
-               "name": [
-                    "(506496) 2003 UZ377"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.506496_2003_uz377::1.0"
-          },
-          {
-               "name": [
-                    "(34312) 2000 QO188"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.34312_2000_qo188::1.0"
-          },
-          {
-               "name": [
-                    "ULTRAVIOLET PHOTOMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:uv.p11::1.0"
-          },
-          {
-               "name": [
-                    "899 JOKASTE"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.899_jokaste::1.1"
-          },
-          {
-               "name": [
-                    "HIGH RATE DETECTOR"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:hrd.co::1.0"
-          },
-          {
-               "name": [
-                    "MICROWAVE INSTRUMENT FOR THE ROSETTA ORBITER"
-               ],
-               "type": [
-                    "RADIOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:miro.ro::1.0"
           },
           {
                "name": [
@@ -26338,6 +26410,15 @@
           },
           {
                "name": [
+                    "Center for Laboratory Astrophysics and Space Science Experiments"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.classe::1.0"
+          },
+          {
+               "name": [
                     "5026 MARTES"
                ],
                "type": [
@@ -26741,7 +26822,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.4"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.lowell::1.5"
           },
           {
                "name": [
@@ -27013,69 +27094,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.sakig::1.2"
-          },
-          {
-               "name": [
-                    "RESPONSIVITY"
-               ],
-               "type": [
-                    "CALIBRATOR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:calibrator.responsivity::1.0"
-          },
-          {
-               "name": [
-                    "PI2 ORIONIS"
-               ],
-               "type": [
-                    "STAR"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.pi.02_ori::1.0"
-          },
-          {
-               "name": [
-                    "(162173) RYUGU"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.162173_ryugu::1.0"
-          },
-          {
-               "name": [
-                    "2000 OH67"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.2000_oh67::1.0"
-          },
-          {
-               "name": [
-                    "14792 THYESTES"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.14792_thyestes::1.1"
-          },
-          {
-               "name": [
-                    "(300237) 2006 YD45"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300237_2006_yd45::1.0"
-          },
-          {
-               "name": [
-                    "Infra Red Telescope Facility-Maunakea"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.irtf-maunakea::1.1"
           }
      ]
 }
