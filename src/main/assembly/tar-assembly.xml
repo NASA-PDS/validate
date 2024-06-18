@@ -56,7 +56,7 @@ POSSIBILITY OF SUCH DAMAGE.
       </excludes>
     </fileSet>
     <fileSet>
-      <directory>src/main/resources/bin</directory>
+      <directory>target/classes/bin</directory>
       <outputDirectory>bin</outputDirectory>
       <includes>
         <include>validate</include>
@@ -69,7 +69,7 @@ POSSIBILITY OF SUCH DAMAGE.
       <lineEnding>keep</lineEnding>
     </fileSet>
     <fileSet>
-      <directory>src/main/resources/bin</directory>
+      <directory>target/classes/bin</directory>
       <outputDirectory>bin</outputDirectory>
       <includes>
         <include>logging.properties</include>
