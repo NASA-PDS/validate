@@ -23,13 +23,11 @@ import org.verapdf.pdfa.results.ValidationResult;
  */
 public class PDFUtil {
   private static final Logger LOG = LoggerFactory.getLogger(PDFUtil.class);
-  private URL target = null;
   private String externalErrorFilename = null;
   private String parserFlavor = null;
   private String errorMessage = null;
 
-  public PDFUtil(URL target) {
-    this.target = target;
+  public PDFUtil() {
     VeraGreenfieldFoundryProvider.initialise(); // Should only do this once.
   }
 
@@ -39,14 +37,6 @@ public class PDFUtil {
    */
   public synchronized String getExternalErrorFilename() {
     return (this.externalErrorFilename);
-  }
-
-  /**
-   * Returns the URL of the target.
-   *
-   */
-  public URL getTarget() {
-    return (this.target);
   }
 
   private synchronized void writeErrorToFile(String baseDir, String pdfFullName, ValidationResult result, String flavor) {
@@ -149,7 +139,7 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public synchronized boolean validateFileStandardConformity(String baseDir, String pdfBase, URL parentURL)
+  public synchronized boolean validateFileStandardConformity(String baseDir, String pdfBase, URL parentURL, URL target)
       throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
@@ -160,15 +150,15 @@ public class PDFUtil {
     // Get the location of the PDF file.
     URI uri = null;
     try {
-      uri = getTarget().toURI();
+      uri = target.toURI();
     } catch (URISyntaxException e) {
       // Should never happen
       // but if it does, print an error message and returns false for pdfValidateFlag.
       // Observed in DEV that if the file name contains spaces, the getURI() results
       // in the URISyntaxException exception.
-      LOG.error("validateFileStandardConformity:Cannot build URI for target {}", getTarget());
+      LOG.error("validateFileStandardConformity:Cannot build URI for target {}", target);
       throw new Exception(
-          "validateFileStandardConformity:Cannot build URI for target [" + getTarget() + "]");
+          "validateFileStandardConformity:Cannot build URI for target [" + target + "]");
     }
 
     // Get the parent from parentURL instead of using "new
