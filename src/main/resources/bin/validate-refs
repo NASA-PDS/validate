@@ -59,7 +59,7 @@ if [ ! -f ${LIB_DIR}/validate-*.jar ]; then
 fi
 
 # Finds the jar file in LIB_DIR and sets it to VALIDATE_JAR.
-VALIDATE_JAR=`ls ${LIB_DIR}/validate-@project.version@.jar`
+VALIDATE_JAR=${LIB_DIR}/validate-@project.version@.jar
 
 # Executes Validate Tool via the executable jar file
 # Arguments are passed in to the tool via '$@'
