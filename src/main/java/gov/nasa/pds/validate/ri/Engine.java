@@ -87,7 +87,7 @@ public class Engine implements CamShaft {
             this.workers.wait();
           } catch (InterruptedException e) {
             log.trace(
-                "This should never happen and means there is one or more workers stuck in teh abyss",
+                "This should never happen and means there is one or more workers stuck in the abyss",
                 e);
           }
       }
