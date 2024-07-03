@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-07-02)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-07-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
 
@@ -17,7 +17,7 @@
 
 - Missing operation documentation [\#933](https://github.com/NASA-PDS/validate/issues/933) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate throws an error when UnsignedBitString has 61 bits [\#919](https://github.com/NASA-PDS/validate/issues/919) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- context\_ref\_mismatch does not run except when -R pds4.label [\#915](https://github.com/NASA-PDS/validate/issues/915) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- `context_ref_mismatch` check only executes when -R pds4.label [\#915](https://github.com/NASA-PDS/validate/issues/915) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate 3.5.0-snapshot gives error when encountering Document objects/files used in other Document products. [\#905](https://github.com/NASA-PDS/validate/issues/905) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate not retrying on sch load failure [\#903](https://github.com/NASA-PDS/validate/issues/903) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Validate error during JPEG content validation [\#902](https://github.com/NASA-PDS/validate/issues/902) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
