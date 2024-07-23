@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-07-03)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-07-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
 
@@ -31,10 +31,13 @@
 - As a user, I want to receive a WARNING message when the `Target_Identification.name` does not match the value in the context product [\#861](https://github.com/NASA-PDS/validate/issues/861)
 - As a user, I want to receive a WARNING message when the `Observing_System_Component.name` does not match the value in the context product [\#857](https://github.com/NASA-PDS/validate/issues/857)
 - As a user, I want to have the parameter names used in 3.5.0 reports to be the same as they were in ≤3.4.1 [\#827](https://github.com/NASA-PDS/validate/issues/827)
-- Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
 - As a user, I want an ERROR to be thrown when a character table value does not match the expected `validation_format` [\#817](https://github.com/NASA-PDS/validate/issues/817)
 - As a user, I want a WARNING to be thrown when a delimited or character table value does not match the expected `field_format` [\#816](https://github.com/NASA-PDS/validate/issues/816)
 - As a user, I want to have the same information available in the validation report no matter which style I choose [\#797](https://github.com/NASA-PDS/validate/issues/797)
+
+**Improvements:**
+
+- Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
 
 **Defects:**
 
