@@ -48,15 +48,12 @@ set PARENT_DIR=%SCRIPT_DIR%..
 set LIB_DIR=%PARENT_DIR%\lib
 
 :: Check for dependencies.
-if exist "%LIB_DIR%\validate-*.jar" (
-set VALIDATE_JAR=%LIB_DIR%\validate-*.jar
+if exist "%LIB_DIR%\validate-@project.validate@.jar" (
+set VALIDATE_JAR=%LIB_DIR%\validate-@project.version@.jar
 ) else (
-echo Cannot find VTool jar file in %LIB_DIR%
+echo Cannot find VTool jar file (validate-@project.validate@.jar) in %LIB_DIR%
 goto END
 )
-
-:: Finds the jar file in LIB_DIR and sets it to VALIDATE_JAR
-for %%i in ("%LIB_DIR%"\validate-*.jar) do set VALIDATE_JAR=%%i
 
 :: Executes the Validate Tool via the executable jar file
 :: The special variable '%*' allows the arguments

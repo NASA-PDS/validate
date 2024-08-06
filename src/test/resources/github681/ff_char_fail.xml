@@ -59,6 +59,7 @@
           <data_type>ASCII_Real</data_type>
           <field_length unit="byte">4</field_length>
           <field_format>%4.2f</field_format>
+          <validation_format>%4.2f</validation_format>
         </Field_Character>
         <Field_Character>
           <name>field 3</name>

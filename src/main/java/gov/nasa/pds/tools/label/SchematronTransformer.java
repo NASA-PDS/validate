@@ -33,7 +33,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XslURIResolver;
+import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
+import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.ValidationProblem;
 
 /**
  * A class that transforms Schematron files based on the isoSchematron stylesheet.
@@ -132,22 +135,32 @@ public class SchematronTransformer {
    */
   public String fetch(URL schematron, ProblemHandler handler) throws TransformerException {
     LOG.debug("transform:schematron {}", schematron);
-    try (InputStream in = Utility.openConnection(schematron.openConnection())) {
-      String document = IOUtils.toString(in, StandardCharsets.UTF_8);
-      this.transform(document, handler); // test that document is valid
-      return document;
-    } catch (IOException io) {
-      String message = "";
-      if (io instanceof FileNotFoundException) {
-        message = "Cannot read schematron as URL cannot be found: " + io.getMessage();
-      } else {
-        // message = io.getMessage();
-        // Put a more detail message since io.getMessage only return the schematron file
-        // name.
-        message = "Cannot read schematron from URL " + schematron;
+    final int MAX_RETRIES = 3;
+    int retry = 0;
+    while (retry < MAX_RETRIES) {
+      try (InputStream in = Utility.openConnection(schematron.openConnection())) {
+        String document = IOUtils.toString(in, StandardCharsets.UTF_8);
+        this.transform(document, handler); // test that document is valid
+        return document;
+      } catch (IOException io) {
+        String message = "";
+        retry++;
+        if (io instanceof FileNotFoundException) {
+          message = "Cannot read schematron as URL cannot be found: " + io.getMessage();
+        } else {
+          // message = io.getMessage();
+          // Put a more detail message since io.getMessage only return the schematron file
+          // name.
+          message = "Cannot read schematron from URL " + schematron;
+        }
+        LOG.debug("transform:message {}", message);
+        if (retry < MAX_RETRIES) {
+          LOG.info(message);
+        } else {
+          throw new TransformerException(message);
+        }
       }
-      LOG.debug("transform:message {}", message);
-      throw new TransformerException(message);
-    } 
+    }
+    throw new RuntimeException("impossible to get here but static analysis cannot tell so adding this useless exception");
   }
 }

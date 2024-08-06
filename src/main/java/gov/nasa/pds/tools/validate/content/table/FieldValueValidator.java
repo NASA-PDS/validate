@@ -53,8 +53,6 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
-  private final List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
-      "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
 
   /** List of valid datetime formats. */
   private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
@@ -256,7 +254,7 @@ public class FieldValueValidator {
             String message = "The length of the value '" + value.trim()
                 + "' exceeds the defined max field length (expected max " + fields[i].getMaxLength()
                 + ", got " + value.trim().length() + ")";
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_TOO_LONG, message,
+            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALID_TOO_LONG, message,
                 record.getLocation(), (i + 1));
           }
         }
@@ -367,14 +365,17 @@ public class FieldValueValidator {
             // Due to CCB-214, the tool should validate against the
             // validation_format field for Character Tables.
             if (record instanceof FixedTableRecord && (!fields[i].getValidationFormat().isEmpty() || !fields[i].getFieldFormat().isEmpty())) {
+              boolean asError = true;
               String format = fields[i].getValidationFormat();
-              if (format.isEmpty())
+              if (format.isEmpty()) {
+                asError = false;
                 format = fields[i].getFieldFormat();
+              }
 
-              checkFormat(value, format, i + 1, record.getLocation());
+              checkFormat(value, format, i + 1, record.getLocation(), asError);
             }
             if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
-              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation());
+              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation(), false);
             }
           }
           // Check that the field value is within the defined min/max values
@@ -583,7 +584,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (INF_NAN_VALUES.contains(value.toUpperCase()) && !realTypes.contains(type)) {
+    if (SpecialConstantChecker.isInfOrNan(value) && !realTypes.contains(type)) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
@@ -784,8 +785,7 @@ public class FieldValueValidator {
    * @param fieldIndex Where the field value is located.
    * @param recordLocation The record location where the field is located.
    */
-  private void checkFormat(String value, String format, int fieldIndex,
-      RecordLocation recordLocation) {
+  private void checkFormat(String value, String format, int fieldIndex, RecordLocation recordLocation, boolean asError) {
     Matcher matcher = formatPattern.matcher(format);
     int precision = -1;
     boolean isValid = true;
@@ -800,13 +800,15 @@ public class FieldValueValidator {
         if ("+".equals(justified)) {
           // check if there is trailing whitespace
           if (trailingWhiteSpacePattern.matcher(value).matches()) {
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_RIGHT_JUSTIFIED,
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_NOT_RIGHT_JUSTIFIED : ProblemType.FIELD_VALUE_NOT_RIGHT_JUSTIFIED,
                 "The value '" + value + "' is not right-justified.", recordLocation, fieldIndex);
             isValid = false;
           }
         } else if ("-".equals(justified)) {
           if (leadingWhiteSpacePattern.matcher(value).matches()) {
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_LEFT_JUSTIFIED,
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_NOT_LEFT_JUSTIFIED : ProblemType.FIELD_VALUE_NOT_LEFT_JUSTIFIED,
                 "The value '" + value + "' is not left-justified.", recordLocation, fieldIndex);
             isValid = false;
           }
@@ -840,13 +842,15 @@ public class FieldValueValidator {
           }
         }
       } catch (NumberFormatException e) {
-        addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH,
+        addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+            asError ? ProblemType.FIELD_VALID_FORMAT_SPECIFIER_MISMATCH : ProblemType.FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH,
             "The value '" + value.trim() + "' does not match the "
                 + "defined field format specifier '" + specifier + "': " + e.getMessage(),
             recordLocation, fieldIndex);
       }
       if (value.trim().length() > width) {
-        addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_TOO_LONG,
+        addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+            asError ? ProblemType.FIELD_VALID_TOO_LONG : ProblemType.FIELD_VALUE_TOO_LONG,
             "The length of the value '" + value.trim() + "' exceeds the max "
                 + "width set in the defined field format " + "(max " + width + ", got "
                 + value.trim().length() + ").",
@@ -866,9 +870,10 @@ public class FieldValueValidator {
           }
           if (actual_precision > precision) {
             isValid = false;
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_FORMAT_PRECISION_MISMATCH : ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
                 "The number of digits to the right of the decimal point " + "in the value '"
-                    + value.trim() + "' must be <= the precision set in the defined field format '"
+                    + value.trim() + "' should be <= the precision set in the defined field format '"
                     + format+ "' (Expected: <=" + precision + ", Actual: " + actual_precision + ").",
                     recordLocation, fieldIndex);
           }

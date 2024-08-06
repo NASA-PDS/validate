@@ -4,10 +4,22 @@ Scenario Outline: Execute validate command for tests below.
     Given a test <testName> at dir <testDir> at resource <resourceDir> sending report to <reportDir> with <commandArgs> as arguments
     When with test property count <messageCount> text <messageText> problem <problemEnum> reference <refOutputValue>
     When execute a validate command
-    Then produced output from validate command should be similiar to reference <refOutputValue> or no error reported.
+    Then produced output from validate command should be similar to reference <refOutputValue> or no error reported.
 
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
+
+# Validate#919
+|"NASA-PDS/validate#919 Success with 61 bit value" | "github919" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github919.json -s json --skip-context-validation -t {resourceDir}/github919/uh0003b_draft.xml" | "report_github919.json" |
+
+# Validate#915
+|"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 4 | "4 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-content-validation -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github915.json" |
+
+# Validate#905
+|"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
+
+# Validate#902
+|"NASA-PDS/validate#902 Success with windows file URL" | "github902" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github902.json -s json --skip-context-validation -t {resourceDir}/github902/s_00168901_thm.xml" | "report_github902.json" |
 
 # Validate#873
 |"NASA-PDS/validate#873 Success files same name different paths" | "github873" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github873.json -s json --skip-context-validation -R pds4.bundle -t {resourceDir}/github873" | "report_github873.json" |
@@ -27,6 +39,9 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#823
 |"NASA-PDS/validate#823 Success process problematic floats" | "github823" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github823.json -s json --skip-context-validation  -t {resourceDir}/github823/mvn_swi_l2_onboardsvymom_20230827_v02_r01.xml" | "report_github823.json" |
 
+# Validate#817
+|"NASA-PDS/validate#817 Failure of ASCII table invalid precision" | "github681" | 1 | "1 error expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github817_1.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github817_1.json" |
+
 # Validate#785
 |"NASA-PDS/validate#785 Success detecting out of range values" | "github785" | 6 | "6 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github785.json -s json --skip-context-validation  -t {resourceDir}/github785/00038_FGM_RTN.xml" | "report_github785.json" |
 
@@ -43,15 +58,8 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#693 Invalid PDF/A Checks"           | "github693" | 4 | "4 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github693.json -s json -t {resourceDir}/github693/" | "report_github693.json" |
 
 # Validate#690
-|"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
-
-# Validate#681
-|"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
-|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 2 | "2 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml {resourceDir}/github681/ff_del_fail.xml" | "report_github681_2.json" |
-
-# Validate#680
-|"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
-|"NASA-PDS/validate#680 Failure char table bad length" | "github680" | 1 | "1 errors expected" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.2.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen95.xml" | "report_github680.2.json" |
+# NOTE: Commenting out this test for now as the JAXA site is down
+# |"NASA-PDS/validate#690 Success new constant expression" | "github690" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github690.json -s json --skip-context-validation  -t {resourceDir}/github690/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github690.json" |
 
 # Validate#684
 |"NASA-PDS/validate#684 Success without filesize" | "github684" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github684_1.json -s json --skip-context-validation -t {resourceDir}/github684/example_params_noFileSize.xml" | "report_github684_1.json" |
@@ -59,6 +67,15 @@ Scenario Outline: Execute validate command for tests below.
 
 # Validate#683
 |"NASA-PDS/validate#683 Success warn out of order offsets" | "github614" | 1 | "1 warnings expected" | "DATA_OBJECTS_OUT_OF_ORDER" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github683.json -s json -t {resourceDir}/github614/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "report_github683.json" |
+
+# Validate#681
+|"NASA-PDS/validate#681 Success ASCII table with extra whitespace, valid precision" | "github681" | 0 | "0 errors expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_1.json -s json  -t {resourceDir}/github681/ff_char.xml {resourceDir}/github681/ff_del.xml" | "report_github681_1.json" |
+|"NASA-PDS/validate#681 Failure of ASCII table invalid precision" | "github681" | 1 | "1 errors expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github681_2.json" |
+|"NASA-PDS/validate#681 Warning ASCII tables" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_3.json -s json  -t {resourceDir}/github681/ff_char_warn.xml {resourceDir}/github681/ff_del_warn.xml" | "report_github681_3.json" |
+
+# Validate#680
+|"NASA-PDS/validate#680 Success char table correct length" | "github680" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.1.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen96.xml" | "report_github680.1.json" |
+|"NASA-PDS/validate#680 Failure char table bad length" | "github680" | 1 | "1 errors expected" | "RECORD_LENGTH_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github680.2.json -s json --skip-context-validation  -t {resourceDir}/github680/ORB12_EUR_EPHIO_reclen95.xml" | "report_github680.2.json" |
 
 # Validate#671
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
@@ -76,7 +93,8 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#644 Success NaN and Inf in FITS" | "github644" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github644.json -s json -t {resourceDir}/github644/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "report_github644.json" |
 
 # Validate#631
-|"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
+# NOTE: Commenting out this test for now as the JAXA site is down
+# |"NASA-PDS/validate#631 Success context case matching" | "github631" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github631.json -s json -v 1 -t {resourceDir}/github631/hyb2_tir_20180629_075501_l1.xml" | "report_github631.json" |
 
 # Validate#628
 |"NASA-PDS/validate#628 Warning Version Mismatch" | "github628" | 1 | "1 warnings expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github628.json -s json --skip-content-validation --disable-context-mismatch-warnings -t {resourceDir}/github628/mp2_flat_20061109.xml" | "report_github628.json" |
@@ -292,7 +310,7 @@ Scenario Outline: Execute validate command for tests below.
 # https://github.com/NASA-PDS/validate/issues/188 As a user, I want to validate a bundle that uses multiple versions of the Information Model / Discipline LDDs
  |"NASA-PDS/validate#188 VALID" | "github188" | 0 | "0 errors message expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github188_label_valid_both.json  -s json -t {resourceDir}/github188/bundle_cassini-huygens-coradar.xml {resourceDir}/github188/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github188_label_valid_both.json" |
 
- |"NASA-PDS/validate#217 Success with Errors: Tables Types" | "github217" | 65 | "65 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github217.json  -s json -t {resourceDir}/github217" | "report_github217.json" |
+ |"NASA-PDS/validate#217 Success with Errors: Tables Types" | "github217" | 63 | "63 error message expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github217.json  -s json -t {resourceDir}/github217" | "report_github217.json" |
 
 # https://github.com/NASA-PDS/validate/issues/210 As a user, I want validate to raise a WARNING when differing versions of IM are used within a bundle
  |"NASA-PDS/validate#210 WITH_WARNING" | "github210" | 1 | "1 warning message expected" | "totalWarnings" | "src/test/resources" | "target/test" | "--skip-content-validation -r {reportDir}/report_github210_label_valid_both_with_warning.json  -s json -t {resourceDir}/github210/bundle_cassini-huygens-coradar.xml {resourceDir}/github210/BILQH07S314_D065_T008S02_V02_without_Missing_Area_tag.xml" | "report_github210_label_valid_both_with_warning.json" |
@@ -462,7 +480,8 @@ Scenario Outline: Execute validate command for tests below.
  |"NASA-PDS/validate#429 VALID" | "github429" | 0 | "0 warning messages expected" | "totalWarnings" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github429_label_valid.json -s json --disable-context-mismatch-warnings -t {resourceDir}/github429/EPPS_EDR_SIS.xml" | "report_github429_label_valid.json" |
 
 # Validate#427
-|"NASA-PDS/validate#427 Success with spaces in directory" | "github427" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github427.json -s json --skip-context-validation  -t {resourceDir}/github427/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github427.json" |
+# NOTE: Commenting out this test for now as the JAXA site is down
+# |"NASA-PDS/validate#427 Success with spaces in directory" | "github427" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github427.json -s json --skip-context-validation  -t {resourceDir}/github427/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "report_github427.json" |
 
 # https://github.com/nasa-pds/validate/issues/424 Validate does not allow SIP tab file to have lines of differing lengths  
 # The checking should NOT be done based on the file extension but based on the table type.  The Table_Delimited can have variable length records.

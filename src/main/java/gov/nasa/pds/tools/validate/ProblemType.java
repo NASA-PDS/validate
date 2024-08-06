@@ -146,7 +146,7 @@ public enum ProblemType {
   FIELD_VALUE_OUT_OF_MIN_MAX_RANGE("error.table.field_value_out_of_min_max_range"),
   FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE("warning.table.field_value_out_of_special_constant_min_max_range"),
 
-  FIELD_VALUE_TOO_LONG("error.table.field_value_too_long"),
+  FIELD_VALID_TOO_LONG("error.table.field_value_too_long"),
 
   FIELD_VALUE_DATA_TYPE_MISMATCH("error.table.field_value_data_type_mismatch"),
 
@@ -156,13 +156,13 @@ public enum ProblemType {
 
   FIELD_VALUE_NOT_A_NUMBER("error.table.field_value_not_a_number"),
 
-  FIELD_VALUE_NOT_RIGHT_JUSTIFIED("error.table.field_value_not_right_justified"),
+  FIELD_VALID_NOT_RIGHT_JUSTIFIED("error.table.field_value_not_right_justified"),
 
-  FIELD_VALUE_NOT_LEFT_JUSTIFIED("error.table.field_value_not_left_justified"),
+  FIELD_VALID_NOT_LEFT_JUSTIFIED("error.table.field_value_not_left_justified"),
 
-  FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH("error.table.field_value_format_specifier_mismatch"),
+  FIELD_VALID_FORMAT_SPECIFIER_MISMATCH("error.table.field_value_format_specifier_mismatch"),
 
-  FIELD_VALUE_FORMAT_PRECISION_MISMATCH("error.table.field_value_format_precision_mismatch"),
+  FIELD_VALID_FORMAT_PRECISION_MISMATCH("error.table.field_value_format_precision_mismatch"),
 
   LOCAL_IDENTIFIER_NOT_FOUND("error.label.local_identifier_not_found"),
 
@@ -171,6 +171,15 @@ public enum ProblemType {
   NO_PRODUCTS_FOUND("error.execution.no_products_found", ProblemCategory.EXECUTION),
 
   // Warning message types
+
+  FIELD_VALUE_TOO_LONG("warning.table.field_value_too_long"),
+  FIELD_VALUE_NOT_RIGHT_JUSTIFIED("warning.table.field_value_not_right_justified"),
+
+  FIELD_VALUE_NOT_LEFT_JUSTIFIED("warning.table.field_value_not_left_justified"),
+
+  FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH("warning.table.field_value_format_specifier_mismatch"),
+
+  FIELD_VALUE_FORMAT_PRECISION_MISMATCH("warning.table.field_value_format_precision_mismatch"),
 
   DATA_OBJECTS_OUT_OF_ORDER("warning.data_objects.out_of_order"),
   

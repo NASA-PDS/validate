@@ -1,16 +1,43 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-05-09)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-08-01)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
+
+**Defects:**
+
+- Validate does not show correct filename for PDF/A failures when validating a directory [\#936](https://github.com/NASA-PDS/validate/issues/936) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Configuration file parser does not reject incorrect options  [\#923](https://github.com/NASA-PDS/validate/issues/923) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.5.2](https://github.com/NASA-PDS/validate/tree/v3.5.2) (2024-06-12)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.1...v3.5.2)
+
+**Defects:**
+
+- Missing operation documentation [\#933](https://github.com/NASA-PDS/validate/issues/933) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Validate throws an error when UnsignedBitString has 61 bits [\#919](https://github.com/NASA-PDS/validate/issues/919) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- `context_ref_mismatch` check only executes when -R pds4.label [\#915](https://github.com/NASA-PDS/validate/issues/915) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate 3.5.0-snapshot gives error when encountering Document objects/files used in other Document products. [\#905](https://github.com/NASA-PDS/validate/issues/905) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate not retrying on sch load failure [\#903](https://github.com/NASA-PDS/validate/issues/903) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
+- Validate error during JPEG content validation [\#902](https://github.com/NASA-PDS/validate/issues/902) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.5.1](https://github.com/NASA-PDS/validate/tree/v3.5.1) (2024-05-25)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.4.1...v3.5.1)
 
 **Requirements:**
 
 - As a user, I want to receive a WARNING message when the `Target_Identification.name` does not match the value in the context product [\#861](https://github.com/NASA-PDS/validate/issues/861)
 - As a user, I want to receive a WARNING message when the `Observing_System_Component.name` does not match the value in the context product [\#857](https://github.com/NASA-PDS/validate/issues/857)
 - As a user, I want to have the parameter names used in 3.5.0 reports to be the same as they were in ≤3.4.1 [\#827](https://github.com/NASA-PDS/validate/issues/827)
-- Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
+- As a user, I want an ERROR to be thrown when a character table value does not match the expected `validation_format` [\#817](https://github.com/NASA-PDS/validate/issues/817)
+- As a user, I want a WARNING to be thrown when a delimited or character table value does not match the expected `field_format` [\#816](https://github.com/NASA-PDS/validate/issues/816)
 - As a user, I want to have the same information available in the validation report no matter which style I choose [\#797](https://github.com/NASA-PDS/validate/issues/797)
+
+**Improvements:**
+
+- Check for PDF/A-1a only if Product\_Document [\#824](https://github.com/NASA-PDS/validate/issues/824)
 
 **Defects:**
 
@@ -18,12 +45,14 @@
 - Validate 3.5.0-snapshot Giving Unexpected Errors for Matching Filenames in Separate Directories [\#873](https://github.com/NASA-PDS/validate/issues/873) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate 3.5.0-SNAPSHOT attempts to look at all files, not just \*.xml [\#854](https://github.com/NASA-PDS/validate/issues/854) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate stalls when validating collection inventory file with duplicates records [\#849](https://github.com/NASA-PDS/validate/issues/849) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Exception when trying to handle `missing_constant` == `Infinity` [\#844](https://github.com/NASA-PDS/validate/issues/844) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - In text tables, validate attempts to match pattern associated with `data_type` before checking `Special_Constants` [\#837](https://github.com/NASA-PDS/validate/issues/837) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate incorrectly handles special constant high\_instrument\_saturation [\#831](https://github.com/NASA-PDS/validate/issues/831) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate is slow or runs out of memory when validating a bundle [\#826](https://github.com/NASA-PDS/validate/issues/826) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate V.3.4.1 reports file read errors on products which read correctly under V.3.2.0 [\#823](https://github.com/NASA-PDS/validate/issues/823) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Check for unlabeled files no longer works [\#822](https://github.com/NASA-PDS/validate/issues/822) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails to read files on Windows systems after Internal Reference check updates \(\#308\) [\#809](https://github.com/NASA-PDS/validate/issues/809) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Installation instructions need updates for Windows [\#723](https://github.com/NASA-PDS/validate/issues/723)
 - Validate incorrectly throws precision mismatch error for Table\_Delimited [\#681](https://github.com/NASA-PDS/validate/issues/681) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.4.1](https://github.com/NASA-PDS/validate/tree/v3.4.1) (2023-12-14)

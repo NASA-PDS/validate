@@ -22,7 +22,9 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -73,7 +75,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
    */
   private final String FILE_AREA_OBJECTS_XPATH =
       "//*[starts-with(name(), 'File_Area')] | //Document_File";
-
+  private final HashSet<String> OBS_DATA_TAGS = new HashSet<String>(Arrays.asList(
+      "Product_Observational", "Observation_Area", "File_Area_Observational", "File_Area_Observational_Supplemental"));
   private Map<URL, String> checksumManifest;
   private PDFUtil pdfUtil = null; // Define pdfUtil so we can reuse it for every call to
                                   // validateFileReferences()
@@ -323,8 +326,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             } // for (TinyNodeImpl child : children)
             
             if (!name.isBlank()) {
+              boolean isObservational = OBS_DATA_TAGS.contains(fileAreaObject.getLocalPart());
+              NodeInfo ancestor = fileAreaObject;
               String fullName = directory.isBlank() ? name : String.join(File.pathSeparator, directory, name);
-              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target)) {
+              while (!isObservational && !fileAreaObject.getRoot().isSameNodeInfo(ancestor)) {
+                ancestor = ancestor.getParent();
+                isObservational |= OBS_DATA_TAGS.contains(ancestor.getLocalPart());
+              }
+              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target, isObservational)) {
                 this.getListener().addProblem(
                     new ValidationProblem(
                         new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,
@@ -746,14 +755,14 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     if (this.pdfUtil == null) {
       // Save pdfUtil so it can be reused.
-      this.pdfUtil = new PDFUtil(fileRef);
+      this.pdfUtil = new PDFUtil();
     }
 
     // First, let's check the filename even makes sense
     DocumentsChecker check = new DocumentsChecker();
     if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
       // The parent is also needed for validateFileStandardConformity function.
-      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(this.getContext().getPDFErrorDir(), pdfName, new URL(parent, directory));
+      pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(this.getContext().getPDFErrorDir(), pdfName, new URL(parent, directory), fileRef);
 
       // Report an error if the PDF file is not PDF/A compliant.
       if (!pdfValidateFlag && TargetExaminer.isTargetDocumentType(target.getUrl())) {
@@ -810,10 +819,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     if (this.imageUtil == null) {
       // Save imageUtil so it can be reused.
-      this.imageUtil = new ImageUtil(fileRef);
+      this.imageUtil = new ImageUtil();
     }
 
-    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent, directory));
+    jpegValidateFlag = this.imageUtil.isJPEG(jpegName, new URL(parent,
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the JPEG file is not compliant.
     if (!jpegValidateFlag) {
@@ -854,10 +864,11 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     if (this.imageUtil == null) {
       // Save imageUtil so it can be reused.
-      this.imageUtil = new ImageUtil(fileRef);
+      this.imageUtil = new ImageUtil();
     }
 
-    validateFlag = this.imageUtil.isPNG(pngName, new URL(parent, directory));
+    validateFlag = this.imageUtil.isPNG(pngName, new URL(parent,
+        directory.endsWith("/") || directory.isBlank() ? directory : (directory + "/")));
 
     // Report a warning if the PNG file is not compliant.
     if (!validateFlag) {
