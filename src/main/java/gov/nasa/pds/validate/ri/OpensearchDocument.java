@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.opensearch.client.HttpAsyncResponseConsumerFactory;
-import org.opensearch.client.RequestOptions;
 import gov.nasa.pds.registry.common.RestClient;
 
 public class OpensearchDocument implements DocumentInfo {
@@ -19,7 +17,6 @@ public class OpensearchDocument implements DocumentInfo {
   final private HashMap<String, List<String>> references = new HashMap<String, List<String>>();
   final private LidvidComparator lidvid_compare = new LidvidComparator();
   final private Logger log = LogManager.getLogger(OpensearchDocument.class);
-  final private RequestOptions.Builder hugeMemory = RequestOptions.DEFAULT.toBuilder();
   private RestClient client = null;
   private void load(String lidvid) {
     if (!this.documents.containsKey(lidvid)) {
@@ -79,8 +76,6 @@ public class OpensearchDocument implements DocumentInfo {
 
   public OpensearchDocument(AuthInformation context) {
     this.context = context;
-    this.hugeMemory.setHttpAsyncResponseConsumerFactory(
-        new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(Integer.MAX_VALUE)); // almost 2 GB
   }
 
   @Override

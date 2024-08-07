@@ -369,19 +369,35 @@
       <version>2.17.1</version>
     </dependency>
     <dependency>
-      <groupId>org.opensearch.client</groupId>
-      <artifactId>opensearch-rest-client</artifactId>
-      <version>2.5.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.opensearch.client</groupId>
-      <artifactId>opensearch-rest-high-level-client</artifactId>
-      <version>2.5.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.mp4parser</groupId>
       <artifactId>isoparser</artifactId>
       <version>1.9.56</version>
+    </dependency>
+    <!-- three (4) artifacts for complete configuration parsing and RI calls -->
+    <dependency>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>registry-common</artifactId>
+      <version>1.6.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>gov.nasa.pds</groupId>
+      <artifactId>harvest</artifactId>
+      <version>3.9.0-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>4.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.activation</groupId>
+      <artifactId>jakarta.activation-api</artifactId>
+      <version>2.1.2</version>
     </dependency>
   </dependencies>
 

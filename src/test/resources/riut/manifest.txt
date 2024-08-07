@@ -1,2 +1,0 @@
-urn:nasa:pds:insight_rad::2.1
-urn:nasa:pds:insight_rad::2.0

@@ -5,7 +5,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Cylinder implements Runnable {
-  final private AuthInformation registry;
   final private AuthInformation search;
   final private CamShaft cam;
   final private Logger log = LogManager.getLogger(Cylinder.class);
@@ -13,10 +12,9 @@ public class Cylinder implements Runnable {
   final private String lidvid;
   private long broken = 0;
 
-  public Cylinder(String lidvid, AuthInformation registry, AuthInformation search, CamShaft cam) {
+  public Cylinder(String lidvid, AuthInformation search, CamShaft cam) {
     this.cam = cam;
     this.lidvid = lidvid;
-    this.registry = registry;
     this.search = search;
   }
 
@@ -37,8 +35,7 @@ public class Cylinder implements Runnable {
   public void run() {
     try {
       ArrayList<String> referenced_valid_lidvids = new ArrayList<String>();
-      DocumentInfo search = AuthInformation.NO_AUTH.equals (this.registry) ? new OpensearchDocument(this.search) : new RegistryDocument(this.registry);;
-      String magicWord = AuthInformation.NO_AUTH.equals (this.registry) ? "database." : "registry.";
+      DocumentInfo search = new OpensearchDocument(this.search);
 
       if (search.exists(this.lidvid)) {
         this.log.info(
@@ -49,11 +46,11 @@ public class Cylinder implements Runnable {
           else {
             this.broken++;
             this.reporter.error("In the search the lidvid '" + this.lidvid + "' references '"
-                + reference + "' that is missing in the " + magicWord);
+                + reference + "' that is missing in the database.");
           }
         }
       } else
-        this.reporter.error("The given lidvid '" + this.lidvid + "' is missing from the " + magicWord);
+        this.reporter.error("The given lidvid '" + this.lidvid + "' is missing from the database.");
 
       if (this.has_children(search))
         this.cam.addAll(referenced_valid_lidvids);
