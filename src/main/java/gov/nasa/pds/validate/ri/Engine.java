@@ -10,17 +10,14 @@ import org.apache.logging.log4j.Logger;
 public class Engine implements CamShaft {
   private final int cylinders;
   private long broken, total = 0;
-  private final AuthInformation registry;
   private final AuthInformation search;
   private final Queue<String> queue = new ArrayDeque<String>();
   private final ArrayList<Cylinder> workers = new ArrayList<Cylinder>();
   private final Logger log = LogManager.getLogger(Engine.class);
 
-  public Engine(int cylinders, List<String> lidvids, AuthInformation registry,
-      AuthInformation search) {
+  public Engine(int cylinders, List<String> lidvids, AuthInformation search) {
     this.cylinders = cylinders;
     this.queue.addAll(lidvids);
-    this.registry = registry;
     this.search = search;
     this.total = this.queue.size();
   }
@@ -64,7 +61,7 @@ public class Engine implements CamShaft {
         synchronized (this.queue) {
           lidvid = this.queue.remove();
         }
-        applicants.add(new Cylinder(lidvid, this.registry, this.search, this));
+        applicants.add(new Cylinder(lidvid, this.search, this));
       }
 
       if (this.cylinders == 1) {
@@ -87,7 +84,7 @@ public class Engine implements CamShaft {
             this.workers.wait();
           } catch (InterruptedException e) {
             log.trace(
-                "This should never happen and means there is one or more workers stuck in teh abyss",
+                "This should never happen and means there is one or more workers stuck in the abyss",
                 e);
           }
       }

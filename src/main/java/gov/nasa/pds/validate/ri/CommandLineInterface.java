@@ -32,10 +32,16 @@ public class CommandLineInterface {
         "file with the URL and credential content to have full (all product states) read-only access to the Registry Search API")
         .hasArg(true).longOpt("auth-api").numberOfArgs(1).optionalArg(true).build()); */
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
-        "file with the URL and credential content to have full, direct read-only access to the Registry OpenSearch DB")
+        "file with the credential content to have full, direct read-only access to the Registry OpenSearch DB")
         .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
+    this.opts.addOption(Option.builder("c").argName("harvest-config").desc(
+        "file used by harvest to ingest data that contains the appropriate authorization and registry connection information")
+        .hasArg(true).longOpt("harvest-config").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
+    this.opts.addOption(Option.builder("r").argName("registry-connection").desc(
+        "URL point to the registry connection information usually of the form app://connection/direct/localhost.xml")
+        .hasArg(true).longOpt("registry-connection").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("t").argName("count").desc(
         "process the lidvids in parallel (multiple threads) with this argument being the maximum number of threads")
         .hasArg(true).longOpt("threads").optionalArg(true).build());
@@ -55,16 +61,11 @@ public class CommandLineInterface {
         "Multiple arguments may be given in any order, for example:\n" +
         "   > validate-refs urn:nasa:pds:foo::1.0 label.xml urn:nasa:pds:bar::2.0 manifest.txt\n\n",
         opts,
-        "\nAn auth-file is either a text file of the Java property format " +
-        "with two variables, 'url' and 'credentials': \n\n" +
-        "  - The 'url' property is the complete base URL to the Registry OpenSearch endpoint or Search API\n" +
-        "      * 'https://my-registry.es.amazonaws.com/_search'\n\n" + 
-        "  - The 'credentials' is the path to:\n" +
-        "      * Harvest config file containing the necessary Registry OpenSearch authorization\n" +
-        "          <registry url=\"http://localhost:9200\" index=\"registry\" auth=\"/path/to/auth.cfg\" />\n" +
-        "      * Java Properties file with a 'user' and 'password' specified, for example: \n" +
-        "          user=janedoe\n" +
-        "          password=mypassword\n\n",
+        "\nAn auth-file is a text file of the Java property format " +
+        "with two variables, 'user' and 'password' for example: \n" +
+        "      user=janedoe\n" +
+        "      password=mypassword\n\n" +
+        "Both -a and -r are required with using them and are mutually exclusive with -c.\n\n",
         true);
   }
 
@@ -89,17 +90,19 @@ public class CommandLineInterface {
       loggerConfig.setLevel(Level.INFO);
     ctx.updateLoggers();
 
-    if (!cl.hasOption("a")) {
-      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information.");
-    } else if (!cl.hasOption("A")) {
-      log.warn("Using Registry OpenSearch Database to check references.");
+    if (cl.hasOption("A")) {
+      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information through -a and -r, or through -c.");
     } else {
-      /* not true statement until registry handles authentication
-       * throw new ParseException("Must supply authorization file for access to either OpenSearch Database (auth-opensearch) or OpenSearch Registry (auth-api).");
-       */
-      throw new ParseException("Must define authorization file for access to OpenSearch Database (auth-opensearch).");
+      boolean both = cl.hasOption("a") && cl.hasOption("r");
+      boolean neither = !cl.hasOption("a") && !cl.hasOption("r");
+      if (cl.hasOption("c") && !neither) {
+        throw new ParseException("Cannot give -a nor -r with -c.");
+      } else if (!both) {
+        throw new ParseException("Both -a and -r must be given when either is given.");
+      } else {
+        log.warn("Using Registry OpenSearch Database to check references.");
+      }
     }
-
     if (cl.getArgList().size() < 1)
       throw new ParseException("Must provide at least one LIDVID, Label file path, or manifest file path as a starting point.");
 
@@ -115,31 +118,17 @@ public class CommandLineInterface {
     } else
       this.log.info("lidvids will be sequentially processed.");
 
-    try {
-      DuplicateFileAreaFilenames scanner = new DuplicateFileAreaFilenames(
-          AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch", "")));
-      Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-api", "")),
-          AuthInformation.buildFrom(cl.getOptionValue("auth-opensearch", "")));
-      this.log.info("Starting the duplicate filename in FileArea checks.");
-      scanner.findDuplicatesInBackground();
-      this.log.info("Starting the reference integrity checks.");
-      engine.processQueueUntilEmpty();
-      scanner.waitTillDone();
-      this.broken = engine.getBroken();
-      this.duplicates = scanner.getResults();
-      this.total = engine.getTotal();
-    } catch (IOException e) {
-      this.log.fatal("Cannot process request because of IO problem.", e);
-      throw e;
-    } catch (ParserConfigurationException e) {
-      this.log.fatal("Could not parse the harvest configuration file.", e);
-      throw e;
-    } catch (SAXException e) {
-      this.log.fatal("Mal-formed harvest configuration file.", e);
-      throw e;
-    }
+    DuplicateFileAreaFilenames scanner = new DuplicateFileAreaFilenames(AuthInformation.buildFrom(cl));
+    Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()), AuthInformation.buildFrom(cl));
+    this.log.info("Starting the duplicate filename in FileArea checks.");
+    scanner.findDuplicatesInBackground();
+    this.log.info("Starting the reference integrity checks.");
+    engine.processQueueUntilEmpty();
+    scanner.waitTillDone();
+    this.broken = engine.getBroken();
+    this.duplicates = scanner.getResults();
+    this.total = engine.getTotal();
+
     if (-1 < this.total) {
       this.log.info("Reference Summary:");
       this.log.info("   " + this.total + " products processed");
