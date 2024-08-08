@@ -32,12 +32,14 @@ public class AuthInformation {
         throw new NotImplementedException();
       }
       if (!this.osAuthFile.isBlank()) {
-        this.factory = EstablishConnectionFactory.from(regConn, osAuthFile);
+        this.factory = EstablishConnectionFactory.from(this.regConn, this.osAuthFile);
       }
       if (!this.harvestConfig.isBlank()) {
         this.factory = ConfigManager.exchangeRegistry(ConfigManager.read(new File(this.harvestConfig)).getRegistry());
       }
-      throw new IllegalArgumentException("did not supply necessary arguments on the CLI");
+      if (this.factory == null) {
+        throw new IllegalArgumentException("did not supply necessary arguments on the CLI");
+      }
     }
     return this.factory;
   }

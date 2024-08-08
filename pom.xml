@@ -399,6 +399,27 @@
       <artifactId>jakarta.activation-api</artifactId>
       <version>2.1.2</version>
     </dependency>
+    <!-- four artifacts for opensearch serverless -->
+    <dependency>
+      <groupId>org.apache.httpcomponents.client5</groupId>
+      <artifactId>httpclient5</artifactId>
+      <version>5.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.opensearch.client</groupId>
+      <artifactId>opensearch-java</artifactId>
+      <version>2.13.0</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>opensearch</artifactId>
+      <version>2.25.31</version>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>apache-client</artifactId>
+      <version>2.25.31</version>
+    </dependency>
   </dependencies>
 
   <!-- Inherit from parent -->
