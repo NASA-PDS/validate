@@ -9,6 +9,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir     | commandArgs                                                                | refOutputValue | 
 
+# Validate#950
+|"NASA-PDS/validate#950 Disable context ref mismatch collection" | "github915" | 0 | "0 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github950.json -s json --skip-content-validation --disable-context-mismatch-warnings -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github950.json" |
+
 # Validate#919
 |"NASA-PDS/validate#919 Success with 61 bit value" | "github919" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github919.json -s json --skip-context-validation -t {resourceDir}/github919/uh0003b_draft.xml" | "report_github919.json" |
 
