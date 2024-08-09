@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-08-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-08-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
 
 **Defects:**
 
+- `--disable-context-mismatch-warnings` only works for rule `pds4.label` [\#950](https://github.com/NASA-PDS/validate/issues/950) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not show correct filename for PDF/A failures when validating a directory [\#936](https://github.com/NASA-PDS/validate/issues/936) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Configuration file parser does not reject incorrect options  [\#923](https://github.com/NASA-PDS/validate/issues/923) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
