@@ -49,7 +49,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized void addTarget(String parentLocation, TargetType type, String location) {
     ValidationTarget target;
     try {
-      target = new ValidationTarget(location, type);
+      target = ValidationTarget.build(location, type);
       if (parentLocation == null) {
         this.rootTarget = target;
       }

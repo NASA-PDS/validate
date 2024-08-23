@@ -29,7 +29,7 @@ public class InventoryTableValidator {
       InventoryTableValidator.checkAllUnique(ids, listener, aggregate);
     } catch (XPathException | XPathExpressionException e) {
       listener.addProblem(new ValidationProblem(GenericProblems.UNCAUGHT_EXCEPTION,
-          new ValidationTarget(aggregate),-1, -1, e.getMessage()));
+          ValidationTarget.build(aggregate),-1, -1, e.getMessage()));
     }
   }
   public static void uniqueCollectionRefs (ProblemListener listener, URL aggregate) {
@@ -46,7 +46,7 @@ public class InventoryTableValidator {
       InventoryTableValidator.checkAllUnique(ids, listener, aggregate);
     } catch (InventoryReaderException e) {
       listener.addProblem(new ValidationProblem(GenericProblems.UNCAUGHT_EXCEPTION,
-          new ValidationTarget(aggregate),-1, -1, e.getMessage()));
+          ValidationTarget.build(aggregate),-1, -1, e.getMessage()));
     }
   }
   private static void checkAllUnique(List<String> ids, ProblemListener listener, URL aggregate) {

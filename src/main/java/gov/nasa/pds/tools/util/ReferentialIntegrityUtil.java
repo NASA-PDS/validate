@@ -949,7 +949,7 @@ public class ReferentialIntegrityUtil {
    */
   protected static void reportError(ProblemDefinition defn, URL targetUrl, int lineNumber,
       int columnNumber) {
-    ValidationProblem problem = new ValidationProblem(defn, new ValidationTarget(targetUrl),
+    ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(targetUrl),
         lineNumber, columnNumber, defn.getMessage());
     problemListener.addProblem(problem);
   }
@@ -965,7 +965,7 @@ public class ReferentialIntegrityUtil {
    */
   protected static void reportError(ProblemDefinition defn, URL target, int lineNumber,
       int columnNumber, String message) {
-    ValidationProblem problem = new ValidationProblem(defn, new ValidationTarget(target),
+    ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(target),
         lineNumber, columnNumber, message);
     problemListener.addProblem(problem);
   }

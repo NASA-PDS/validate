@@ -124,10 +124,10 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       ProblemDefinition pd =
           new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR, te.getMessage());
       if (te.getLocator() != null) {
-        getListener().addProblem(new ValidationProblem(pd, new ValidationTarget(getTarget()),
+        getListener().addProblem(new ValidationProblem(pd, ValidationTarget.build(getTarget()),
             te.getLocator().getLineNumber(), te.getLocator().getColumnNumber(), te.getMessage()));
       } else {
-        getListener().addProblem(new ValidationProblem(pd, new ValidationTarget(getTarget())));
+        getListener().addProblem(new ValidationProblem(pd, ValidationTarget.build(getTarget())));
       }
     }
     LOG.debug("validateFileReferences:leaving:uri {}", uri);
@@ -160,7 +160,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   }
 
   private boolean validate(NodeInfo xml) {
-    this.target = new ValidationTarget(getTarget());
+    this.target = ValidationTarget.build(getTarget());
 
     try {
       // Perform checksum validation on the label itself
