@@ -575,13 +575,10 @@ public class ValidateLauncher {
   private void parseJsonObjectWriteTofile(SolrDocumentList docs) {
     // backup old file
     try {
-      copyFile(registeredProductsFile, new File(System.getProperty("resources.home")
-          + File.separator + ToolInfo.getOutputFileName() + ".backup"));
-      // System.out.println("back up " +
-      // System.getProperty("resources.home") + "/" +
-      // ToolInfo.getOutputFileName()
-      // + " to " + System.getProperty("resources.home") + "/" +
-      // ToolInfo.getOutputFileName() + ".backup");
+    	if (registeredProductsFile.exists()) {
+	      copyFile(registeredProductsFile, new File(System.getProperty("resources.home")
+	          + File.separator + ToolInfo.getOutputFileName() + ".backup"));
+    	}
     } catch (IOException e) {
       e.printStackTrace();
     }
