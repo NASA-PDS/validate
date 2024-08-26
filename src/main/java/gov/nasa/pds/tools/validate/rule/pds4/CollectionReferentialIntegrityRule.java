@@ -152,7 +152,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
             List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
             for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
                 .entrySet()) {
-              if (id.equals(idEntry.getKey())) {
+              if (id.nearNeighbor(idEntry.getKey())) {
                 matchingMembers.add(idEntry);
               }
             }
