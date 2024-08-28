@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import org.apache.commons.io.FilenameUtils;
 import gov.nasa.pds.tools.util.Utility;
 
@@ -22,6 +23,11 @@ import gov.nasa.pds.tools.util.Utility;
  * Represents a location within a validation subtree that can have errors reported against it.
  */
 public class ValidationTarget implements Comparable<ValidationTarget> {
+  // A static cache of the ValidationTargets.
+  // There is no need to re-evaluate and/or create these
+  // as validation proceeds, as they are static things like
+  // a file or a URL.
+  public static HashMap<String, ValidationTarget> cachedTargets = new HashMap<>();
 
   private TargetType type;
   private String name;
@@ -32,17 +38,36 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
 
   private int knownHashCode;
 
-  /**
-   * Creates a new instance.
-   *
-   * @param target the target file or directory
-   */
-  public ValidationTarget(URL target) {
-    this(target, null);
+  private static ValidationTarget build (URL target, URL source, TargetType type) {
+    String key = target == null ? "" : target.toString();
+    if (!cachedTargets.containsKey(key)) {
+      cachedTargets.put (key,new ValidationTarget(target, source, type));
+    }
+    return cachedTargets.get(key);
   }
-  public ValidationTarget(URL target, URL label) {
+  public static ValidationTarget build (URL target) {return build (target, null, null);}
+  public static ValidationTarget build (URL target, URL label) {return build (target, label, null);}
+  public static ValidationTarget build (String targetLocation, TargetType type) throws MalformedURLException
+  {
+    int slashPos = targetLocation.lastIndexOf('/');
+    ValidationTarget result = build(new URL(targetLocation), null, type);
+    result.setLocation(targetLocation);
+    if (slashPos < 0) {
+      slashPos = targetLocation.lastIndexOf('\\');
+    }
+
+    if (slashPos < 0) {
+      result.setName(targetLocation);
+    } else {
+      result.setName(targetLocation.substring(slashPos + 1));
+    }
+    return result;
+  }
+
+  private ValidationTarget(URL target, URL label, TargetType type) {
     this.url = target;
-    if (target != null) {
+    this.type = type;
+    if (target != null && type == null) {
       if (label == null) {
         type = Utility.getTargetType(target);
       } else {
@@ -57,32 +82,8 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
         name = FilenameUtils.getName(target.toString());
       }
     } else {
-      type = TargetType.FILE;
       location = null;
       name = null;
-    }
-  }
-
-  /**
-   * Creates an instance with a given location.
-   *
-   * @param location the location
-   * @throws MalformedURLException
-   */
-  public ValidationTarget(String location, TargetType type) throws MalformedURLException {
-    this.location = location;
-    this.type = type;
-    this.url = new URL(location);
-
-    int slashPos = location.lastIndexOf('/');
-    if (slashPos < 0) {
-      slashPos = location.lastIndexOf('\\');
-    }
-
-    if (slashPos < 0) {
-      name = location;
-    } else {
-      name = location.substring(slashPos + 1);
     }
   }
 
@@ -118,7 +119,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
    *
    * @param location the new location
    */
-  public void setLocation(String location) {
+  protected void setLocation(String location) {
     this.location = location;
   }
 
@@ -189,8 +190,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   @Override
   public int hashCode() {
     if (knownHashCode == 0) {
-      String combined = location + ":" + (type == null ? "" : type.toString());
-      knownHashCode = combined.hashCode();
+      knownHashCode = location.hashCode();
     }
 
     return knownHashCode;
@@ -209,9 +209,4 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   public URL getUrl() {
     return url;
   }
-
-  public void setUrl(URL url) {
-    this.url = url;
-  }
-
 }

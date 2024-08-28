@@ -176,7 +176,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
       } catch (URISyntaxException e) {
         // Should never happen
       }
-      ValidationTarget target = new ValidationTarget(getTarget());
+      ValidationTarget target = ValidationTarget.build(getTarget());
       Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
       DOMSource source = new DOMSource(label);
       source.setSystemId(uri.toString());

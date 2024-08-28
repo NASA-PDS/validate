@@ -161,7 +161,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
             .entrySet()) {
           LOG.debug("getBundleMembers:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",
               reference, memberStatus, id, idEntry.getKey());
-          if (id.equals(idEntry.getKey())) {
+          if (id.nearNeighbor(idEntry.getKey())) {
             matchingMembers.add(idEntry);
             LOG.debug(
                 "getBundleMembers:ADDING_IDENTRY:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",

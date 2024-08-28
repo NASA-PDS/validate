@@ -123,7 +123,7 @@ public interface TargetRegistrar {
    * @param identifier the identifier
    * @return true, if the identifier was referenced
    */
-  boolean isIdentifierReferenced(Identifier identifier);
+  boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor);
 
   /**
    * Gets the location where an identifier was defined.
@@ -131,7 +131,7 @@ public interface TargetRegistrar {
    * @param identifier the identifier
    * @return the location where it was defined, or null if not defined
    */
-  String getTargetForIdentifier(Identifier identifier);
+  String getTargetForIdentifier(Identifier identifier, boolean orNearNeighbor);
 
   /**
    * Gets a mapping of identifiers to their locations.
@@ -175,7 +175,7 @@ public interface TargetRegistrar {
    *
    * @return The location where the given identifier is referenced.
    */
-  String getIdentifierReferenceLocation(Identifier id);
+  String getIdentifierReferenceLocation(Identifier id, boolean orNearNeighbor);
 
   public Map<String, ValidationTarget> getCollections();
 

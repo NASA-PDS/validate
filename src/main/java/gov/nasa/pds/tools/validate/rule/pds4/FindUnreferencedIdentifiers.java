@@ -59,7 +59,7 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
           getRegistrar().getIdentifierDefinitions().keySet().size());
       long startTime = System.currentTimeMillis();
       for (Identifier id : getRegistrar().getIdentifierDefinitions().keySet()) {
-        String location = getRegistrar().getTargetForIdentifier(id);
+        String location = getRegistrar().getTargetForIdentifier(id, false);
         URL locationUrl = null;
         try {
           locationUrl = new URL(location);
@@ -68,22 +68,17 @@ public class FindUnreferencedIdentifiers extends AbstractValidationRule {
         }
         this.filesProcessed += 1;
         getListener().addLocation(location);
-        boolean found = false;
-        for (Identifier ri : getRegistrar().getReferencedIdentifiers()) {
-          if (ri.equals(id)) {
-            found = true;
-            getListener()
-                .addProblem(new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.INFO, ProblemType.REFERENCED_MEMBER,
-                        "Identifier '" + id.toString() + "' is a member of '"
-                            + getRegistrar().getIdentifierReferenceLocation(id) + "'"),
-                    locationUrl));
-            break;
-          }
-        }
+        boolean found = this.getRegistrar().isIdentifierReferenced(id, true);
         LOG.debug("findUnreferencedIdentifiers:id,location,found,filesProcessed: {},{},{},{}", id,
             location, found, this.filesProcessed);
-        if (!found) {
+        if (found) {
+          getListener()
+          .addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.INFO, ProblemType.REFERENCED_MEMBER,
+                  "Identifier '" + id.toString() + "' is a member of '"
+                      + getRegistrar().getIdentifierReferenceLocation(id, true) + "'"),
+              locationUrl));
+        } else {
           String memberType = "collection";
           if (TargetExaminer.isTargetCollectionType (locationUrl)) {
             memberType = "bundle";

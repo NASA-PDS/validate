@@ -22,26 +22,26 @@ package gov.nasa.pds.tools.validate;
 public class Identifier {
 
   /** The logical identifier. */
-  private String lid;
+  final private String lid;
 
   /** The version. */
-  private String version;
+  final private String version;
 
   /** Flag to indicate if a version exists. */
-  private boolean hasVersion;
+  final private boolean hasVersion;
 
+  final private String representation;
+  
   public Identifier(String id) {
     this(id, null);
   }
 
   public Identifier(String lid, String version) {
+    if (lid == null) throw new IllegalArgumentException("cannot be an identifier if the lid is null");
+    this.hasVersion = version != null;
     this.lid = lid;
+    this.representation = lid + "::" + (version == null ? "-1.-1" : version);
     this.version = version;
-    if (this.version == null) {
-      hasVersion = false;
-    } else {
-      hasVersion = true;
-    }
   }
 
   public String getLid() {
@@ -66,36 +66,24 @@ public class Identifier {
   }
 
   /**
-   * Determines where 2 LIDVIDs are equal.
+   * Determines where 2 LIDVIDs are near neighbors (equal in some cases).
    *
    */
-  @Override
-  public boolean equals(Object o) {
-    boolean isEqual = false;
-    if (o instanceof Identifier) {
-      Identifier identifier = (Identifier) o;
-      if (this.lid.equals(identifier.getLid())) {
-        if (this.hasVersion) {
-          if (identifier.hasVersion() && this.version.equals(identifier.getVersion())) {
-            isEqual = true;
-          }
-        } else {
-          isEqual = true;
-        }
-      }
-    }
-    return isEqual;
+  public boolean nearNeighbor(Identifier identifier) {
+    return this.lid.equals(identifier.lid) && 
+        (this.version == null || identifier.version == null || this.version.equals(identifier.version));
   }
 
   @Override
+  public boolean equals(Object o) {
+    if (o instanceof Identifier) {
+      Identifier i = (Identifier)o;
+      return this.representation.equals(i.representation);
+    }
+    return false;
+  }
+  @Override
   public int hashCode() {
-    final int prime = 31;
-    int result = 17;
-    // result = prime * result
-    // + (hasVersion ? 0 : 1);
-    result = prime * result + ((lid == null) ? 0 : lid.hashCode());
-    // result = prime * result
-    // + ((version == null) ? 0 : version.hashCode());
-    return result;
+    return this.representation.hashCode();
   }
 }

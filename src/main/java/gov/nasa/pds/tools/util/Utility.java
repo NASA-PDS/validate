@@ -23,11 +23,9 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -35,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.TargetType;
-import gov.nasa.pds.tools.validate.ValidationTarget;
 
 /**
  * Utility class.
@@ -45,15 +42,6 @@ import gov.nasa.pds.tools.validate.ValidationTarget;
  */
 public class Utility {
   private static final Logger LOG = LoggerFactory.getLogger(Utility.class);
-
-  // A static cache of the ValidationTargets.
-  // There is no need to re-evaluate and/or create these
-  // as validation proceeds, as they are static things like
-  // a file or a URL.
-  public static HashMap<String, ValidationTarget> cachedTargets;
-  static {
-    cachedTargets = new HashMap<>();
-  }
 
   // Implementation is needed since pds.nasa.gov currently uses SNI
   // which is not supported in Java 6, but is supported in Java 7.
@@ -68,40 +56,6 @@ public class Utility {
             return false;
           }
         });
-  }
-
-  /**
-   * Returns a ValidationTarget for the specified target URL.
-   *
-   * If a cached target already exists in the cache, then that is returned, otherwise a new
-   * ValidationTarget is returned.
-   *
-   */
-  public static ValidationTarget getValidationTarget(URL target) {
-    if (target == null) {
-      // for backwards-compatability with previous code, supporting the null case.
-      // This seems to be null in the additional context products case.
-      return new ValidationTarget(null);
-    }
-    ValidationTarget valTarget = cachedTargets.get(target.toString());
-    if (valTarget == null) {
-      valTarget = new ValidationTarget(target);
-      cachedTargets.put(target.toString(), valTarget);
-    }
-    return valTarget;
-  }
-  public static ValidationTarget getValidationTarget(URL source, URL label) {
-    if (source == null) {
-      // for backwards-compatability with previous code, supporting the null case.
-      // This seems to be null in the additional context products case.
-      return new ValidationTarget(null);
-    }
-    ValidationTarget valTarget = cachedTargets.get(source.toString());
-    if (valTarget == null) {
-      valTarget = new ValidationTarget(source, label);
-      cachedTargets.put(source.toString(), valTarget);
-    }
-    return valTarget;
   }
 
   /**
@@ -126,8 +80,8 @@ public class Utility {
           SSLContext context = SSLContext.getInstance("TLSv1.2");
           context.init(null, null, new java.security.SecureRandom());
           HttpsURLConnection test = (HttpsURLConnection) conn;
-          SSLSocketFactory sf = test.getSSLSocketFactory();
-          SSLSocketFactory d = HttpsURLConnection.getDefaultSSLSocketFactory();
+          test.getSSLSocketFactory();
+          HttpsURLConnection.getDefaultSSLSocketFactory();
           ((HttpsURLConnection) conn).setSSLSocketFactory(context.getSocketFactory());
         } catch (Exception e) {
           throw new IOException(e.getMessage());
