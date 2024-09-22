@@ -119,6 +119,51 @@
           },
           {
                "name": [
+                    "STUDENT DUST COUNTER"
+               ],
+               "type": [
+                    "DUST"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:sdc.nh::1.0"
+          },
+          {
+               "name": [
+                    "(41003) 1999 UZ12"
+               ],
+               "type": [
+                    "ASTEROID"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.41003_1999_uz12::1.0"
+          },
+          {
+               "name": [
+                    "NET FLUX RADIOMETER"
+               ],
+               "type": [
+                    "RADIOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gp.nfr::1.0"
+          },
+          {
+               "name": [
+                    "LAB.HYDROCARBON SPECTRA"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual_investigation.lab.hydrocarbon_spectra::1.0"
+          },
+          {
+               "name": [
+                    "NAVIGATION CAMERA"
+               ],
+               "type": [
+                    "IMAGER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:sdu.navcam::1.0"
+          },
+          {
+               "name": [
                     "JPL MID-INFRARED LARGE-WELL IMAGER"
                ],
                "type": [
@@ -6078,57 +6123,48 @@
           },
           {
                "name": [
-                    "ION AND NEUTRAL MASS SPECTROMETER"
-               ],
-               "type": [
-                    "SPECTROMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:inms.co::1.0"
-          },
-          {
-               "name": [
-                    "(300203) 2006 WE111"
+                    "1220 CROCUS"
                ],
                "type": [
                     "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.300203_2006_we111::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.1220_crocus::1.1"
           },
           {
                "name": [
-                    "108P/CIFFREO"
+                    "RHEA"
                ],
                "type": [
-                    "COMET"
+                    "SATELLITE"
                ],
-               "lidvid": "urn:nasa:pds:context:target:comet.108p_ciffreo::1.0"
+               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.rhea::1.1"
           },
           {
                "name": [
-                    "LUNAR SIMULANTS JSC-1A AND LMS-1 FAR-ULTRAVIOLET REFLECTANCE"
-               ],
-               "type": [
-                    "Individual Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:individual.lunar_simulants_fuv_reflectance_gimar_22::1.0"
-          },
-          {
-               "name": [
-                    "1998 WV24"
-               ],
-               "type": [
-                    "TRANS-NEPTUNIAN OBJECT"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wv24::1.0"
-          },
-          {
-               "name": [
-                    "GAS INSTRUMENT"
+                    "LOW ENERGY CHARGED PARTICLE"
                ],
                "type": [
                     "PARTICLE DETECTOR"
                ],
-               "lidvid": "urn:esa:psa:context:instrument:uly.gas::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:lecp.vg1::1.0"
+          },
+          {
+               "name": [
+                    "PRIMO I PHOTOMETER"
+               ],
+               "type": [
+                    "PHOTOMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.primo_1::1.0"
+          },
+          {
+               "name": [
+                    "RADIO SCIENCE SUBSYSTEM"
+               ],
+               "type": [
+                    "ATMOSPHERIC SCIENCES"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rss.ody::1.0"
           },
           {
                "name": [
@@ -19052,51 +19088,6 @@
           },
           {
                "name": [
-                    "STUDENT DUST COUNTER"
-               ],
-               "type": [
-                    "DUST"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:sdc.nh::1.0"
-          },
-          {
-               "name": [
-                    "(41003) 1999 UZ12"
-               ],
-               "type": [
-                    "ASTEROID"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.41003_1999_uz12::1.0"
-          },
-          {
-               "name": [
-                    "NET FLUX RADIOMETER"
-               ],
-               "type": [
-                    "RADIOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gp.nfr::1.0"
-          },
-          {
-               "name": [
-                    "LAB.HYDROCARBON SPECTRA"
-               ],
-               "type": [
-                    "Individual Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:individual_investigation.lab.hydrocarbon_spectra::1.0"
-          },
-          {
-               "name": [
-                    "NAVIGATION CAMERA"
-               ],
-               "type": [
-                    "IMAGER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:sdu.navcam::1.0"
-          },
-          {
-               "name": [
                     "15810 ARAWN"
                ],
                "type": [
@@ -25169,48 +25160,57 @@
           },
           {
                "name": [
-                    "1220 CROCUS"
+                    "ION AND NEUTRAL MASS SPECTROMETER"
+               ],
+               "type": [
+                    "SPECTROMETER"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:inms.co::1.0"
+          },
+          {
+               "name": [
+                    "(300203) 2006 WE111"
                ],
                "type": [
                     "ASTEROID"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.1220_crocus::1.1"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.300203_2006_we111::1.0"
           },
           {
                "name": [
-                    "RHEA"
+                    "108P/CIFFREO"
                ],
                "type": [
-                    "SATELLITE"
+                    "COMET"
                ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.saturn.rhea::1.1"
+               "lidvid": "urn:nasa:pds:context:target:comet.108p_ciffreo::1.0"
           },
           {
                "name": [
-                    "LOW ENERGY CHARGED PARTICLE"
+                    "LUNAR SIMULANTS JSC-1A AND LMS-1 FAR-ULTRAVIOLET REFLECTANCE"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.lunar_simulants_fuv_reflectance_gimar_22::1.0"
+          },
+          {
+               "name": [
+                    "1998 WV24"
+               ],
+               "type": [
+                    "TRANS-NEPTUNIAN OBJECT"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.1998_wv24::1.0"
+          },
+          {
+               "name": [
+                    "GAS INSTRUMENT"
                ],
                "type": [
                     "PARTICLE DETECTOR"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:lecp.vg1::1.0"
-          },
-          {
-               "name": [
-                    "PRIMO I PHOTOMETER"
-               ],
-               "type": [
-                    "PHOTOMETER"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf.3m0.primo_1::1.0"
-          },
-          {
-               "name": [
-                    "RADIO SCIENCE SUBSYSTEM"
-               ],
-               "type": [
-                    "ATMOSPHERIC SCIENCES"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:rss.ody::1.0"
+               "lidvid": "urn:esa:psa:context:instrument:uly.gas::1.0"
           },
           {
                "name": [
