@@ -27,8 +27,7 @@ public class OpensearchDocument implements DocumentInfo {
         List<Map<String,Object>> docs = this.client.performRequest(
             this.client.createSearchRequest()
               .buildTermQuery(lidvid.contains("::") ? "lidvid" : "lid", lidvid)
-              .setIndex(this.context.getConnectionFactory().getIndexName())
-              .setSize(this.PAGE_SIZE)).documents();
+              .setIndex(this.context.getConnectionFactory().getIndexName())).documents();
         if (docs.size() == 1) {
           this.documents.put(lidvid, docs.get(0));
         } else {
@@ -61,8 +60,7 @@ public class OpensearchDocument implements DocumentInfo {
         List<Map<String,Object>> docs = this.client.performRequest(
             this.client.createSearchRequest()
               .buildTermQuery(lidvid.contains("::") ? "collection_lidvid" : "collection_lid", lidvid)
-              .setIndex(this.context.getConnectionFactory().getIndexName() + "-refs")
-              .setSize(this.PAGE_SIZE)).documents();
+              .setIndex(this.context.getConnectionFactory().getIndexName() + "-refs")).documents();
             for (Map<String,Object> doc : docs) {
               newbies.addAll((List<String>)doc.get("product_lid"));
               newbies.addAll((List<String>)doc.get("product_lidvid"));
