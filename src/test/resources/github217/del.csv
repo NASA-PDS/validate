@@ -1,5 +1,0 @@
-Star Number,Star Name,Source catalog,Catalog ID,RA(ICRS),DE(ICRS),Epoch,Plx,pmRA,pmDE,e_RAdeg,e_DEdeg,e_Plx,e_pmRA,e_pmDE
- ,, , ,deg,deg, ,mas,mas/yr,mas/yr,mas,mas,mas,mas/yr,mas/yr
-3,Bper,Hipparcos,14576,47.04220716,40.9556512,JD 2448349.0625,35.14,2.39,-1.44,0.71,0.58,0.9,0.77,0.88
-8,SSgr,Hipparcos,92855,283.8163196,-26.29659428,JD 2448349.0625,14.54,13.87,-52.65,0.87,0.45,0.88,1.09,0.6
-12,U0,Hipparcos,71567,219.5492129,-14.95473933,JD 2448349.0625,1.77,-52.61,-12.21,1.22,0.81,1.3,1.38,0.97
