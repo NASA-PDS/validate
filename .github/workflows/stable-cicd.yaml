@@ -121,6 +121,7 @@ jobs:
                     image: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.gettartag.outputs.image_tag}}
             -
                 name: 🧱 Image Construction and Remote Publication
+                uses: docker/build-push-action@v6
                 with:
                     context: ./
                     file: ./docker/Dockerfile
