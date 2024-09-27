@@ -3,9 +3,9 @@ package gov.nasa.pds.validate.ri;
 import java.io.File;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang.NotImplementedException;
-import gov.nasa.pds.harvest.cfg.ConfigManager;
 import gov.nasa.pds.registry.common.ConnectionFactory;
 import gov.nasa.pds.registry.common.EstablishConnectionFactory;
+import gov.nasa.pds.registry.common.cfg.ConfigManager;
 
 public class AuthInformation {
   final private String apiAuthFile;
