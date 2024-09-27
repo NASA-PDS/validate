@@ -14,7 +14,7 @@
 #     A *private* key with which we can sign artifacts.
 # ``OSSRH_USERNAME``
 #     Username for the Central Repository.
-# ``OSSRH_USERNAME``
+# ``OSSRH_PASSWORD``
 #     Password for the Central Repository.
 #
 
@@ -102,8 +102,25 @@ jobs:
                 name: 🚢 Docker Buildx
                 uses: docker/setup-buildx-action@v3
             -
-                name: 🧱 Image Construction and Publication
+                name: 🧱 Image Construction and Local Publication
                 uses: docker/build-push-action@v6
+                with:
+                    context: ./
+                    file: ./docker/Dockerfile
+                    build-args: tar_file=${{steps.gettartag.outputs.tar_file}}
+                    platforms: linux/amd64,linux/arm64
+                    push: false
+                    load: true
+                    tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.gettartag.outputs.image_tag}}
+            -
+                name: 🕵️‍♂️ Image Vulnerability Scanning
+                uses: anchore/scan-action@v4
+                with:
+                    fail-build: true
+                    severity-cutoff: critical
+                    image: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.gettartag.outputs.image_tag}}
+            -
+                name: 🧱 Image Construction and Remote Publication
                 with:
                     context: ./
                     file: ./docker/Dockerfile
