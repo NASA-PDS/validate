@@ -26,7 +26,8 @@ This document describes how to operate the Validate Tool. The following topics c
         - [pds4.collection](#pds4collection)
         - [pds3.volume](#pds3volume)
     - [Referential Integrity Checking](#referential-integrity-checking)
-    - [Advanced Bundle Validation](#advanced-bundle-validation)
+    - [Improve Performance](#improve-performance)
+        - [Batching](#batching)   
         - [Referential Integrity Checking Only](#referential-integrity-checking-only)
         - [Specify Additional File Paths for Accumulating Bundles](#specify-additional-file-paths-for-accumulating-bundles)
         - [Example of using multiple-flags to improve performance](#example-of-using-multiple-flags-to-improve-performance)
@@ -385,12 +386,34 @@ In the case that 2 targets are specified on the command line, the tool will trea
 ```
 The tool will perform referential integrity checking within the products located in the _$\{HOME\}/bundle1_ target, then will perform referential integrity checking within the products located in the _$\{HOME\}/bundle2_ target. In other words, the tool will not cross over to the _$\{HOME\}/bundle2_ directory to find LID/LIDVID references of a product in the _$\{HOME\}/bundle1_ directory.
 
-### Advanced Bundle Validation
+### Improve Performance
+
+Validate is a very memory intensive applications that requires a significant amount of resources and time in order to complete validation on large data sets.
 
 There are a few ways you can enhance the way validate executes PDS4 Bundle validation using several options. There are several flags added to validate so you can split out various parts
 and run multiple Validate executions to speed up the processing. However, to ensure proper validity of the archive, several of these flags should
 
 only be used during development or staging of data prior to release.
+
+#### Batching
+
+For both memory and performance improvements, it is highly recommended that you batch large bundles, both in terms of data volume and number of products, into batches.
+
+You can batch either by directory or by using target manifests.
+
+```
+# Point at several targets with different validate runs for parallelizing content validation
+validate --rule pds4.label --target my_bundle/document/*.xml
+validate --rule pds4.label --target my_bundle/release1/*.xml
+validate --rule pds4.label --target my_bundle/release2/*.xml
+validate --rule pds4.label --target my_bundle/release3/*.xml
+
+# Or you could do the same thing with target manifests
+validate --rule pds4.label --target-manifest documents.txt
+validate --rule pds4.label --target-manifest release1_data.txt
+validate --rule pds4.label --target-manifest release2_data.txt
+validate --rule pds4.label --target-manifest release3_data.txt
+```
 
 #### Referential Integrity Checking Only
 
