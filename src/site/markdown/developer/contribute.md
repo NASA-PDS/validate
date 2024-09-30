@@ -25,5 +25,7 @@
   * refOutputValue - same filename as the `--report-file` specified above
 * Now run the test(s):
   * Via Eclipse: right-click `Run as` -> `Cucumber Feature`
-  * Via Maven: `mvn test -Dtest=\!ReferenceIntegrityTest* -Dcucumber.filter.tags='@v3.6.x'` (replace with applicable tag for this build)
+  * Via Maven (replace with applicable tag for this build):
+    * bash: `mvn test -Dtest=\!ReferenceIntegrityTest* -Dcucumber.filter.tags='@v3.6.x'`
+    * tcsh: `mvn test -Dtest="\!ReferenceIntegrityTest*" -Dcucumber.filter.tags='@v3.6.x'`
  
