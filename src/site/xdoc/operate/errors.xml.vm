@@ -80,6 +80,12 @@ Exception in thread "main" java.lang.OutOfMemoryError: GC overhead limit exceede
       <source>
 "%JAVA_HOME%"\bin\java -Xms4096m -Xmx8192m -jar "%VALIDATE_JAR%" %*
       </source> 
+      
+      <p><b>Still not working?</b> 
+      </p>
+      
+      <p>See Operate documentation on how to improve performance, including ensuring your execution is sufficiently batched.
+      </p>
 
     </section>
       
