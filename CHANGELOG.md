@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-09-30)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-10-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
 
 **Defects:**
 
+- OutOfMemoryError when NASA validate v3.5.2 is executed through a library for a batch of products [\#979](https://github.com/NASA-PDS/validate/issues/979) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Slow performance with all content and product validation turned off [\#969](https://github.com/NASA-PDS/validate/issues/969) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `--disable-context-mismatch-warnings` only works for rule `pds4.label` [\#950](https://github.com/NASA-PDS/validate/issues/950) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not show correct filename for PDF/A failures when validating a directory [\#936](https://github.com/NASA-PDS/validate/issues/936) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
