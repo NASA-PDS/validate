@@ -1,21 +1,17 @@
 package gov.nasa.pds.validate.ri;
 
-import java.io.File;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.lang.NotImplementedException;
 import gov.nasa.pds.registry.common.ConnectionFactory;
 import gov.nasa.pds.registry.common.EstablishConnectionFactory;
-import gov.nasa.pds.registry.common.cfg.ConfigManager;
 
 public class AuthInformation {
   final private String apiAuthFile;
-  final private String harvestConfig;
   final private String osAuthFile;
   final private String regConn;
   private transient ConnectionFactory factory = null;
-  private AuthInformation(String a, String A, String c, String r) {
+  private AuthInformation(String a, String A, String r) {
     this.apiAuthFile = A;
-    this.harvestConfig = c;
     this.osAuthFile = a;
     this.regConn = r;
   }
@@ -23,7 +19,6 @@ public class AuthInformation {
     return new AuthInformation(
         cl.getOptionValue("a",""),
         cl.getOptionValue("A",""),
-        cl.getOptionValue("c",""),
         cl.getOptionValue("r",""));
   }
   public synchronized ConnectionFactory getConnectionFactory() throws Exception {
@@ -33,9 +28,6 @@ public class AuthInformation {
       }
       if (!this.osAuthFile.isBlank()) {
         this.factory = EstablishConnectionFactory.from(this.regConn, this.osAuthFile);
-      }
-      if (!this.harvestConfig.isBlank()) {
-        this.factory = ConfigManager.exchangeRegistry(ConfigManager.read(new File(this.harvestConfig)).getRegistry());
       }
       if (this.factory == null) {
         throw new IllegalArgumentException("did not supply necessary arguments on the CLI");

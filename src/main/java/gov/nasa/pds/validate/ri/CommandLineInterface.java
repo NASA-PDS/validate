@@ -34,9 +34,6 @@ public class CommandLineInterface {
     this.opts.addOption(Option.builder("a").argName("auth-file").desc(
         "file with the credential content to have full, direct read-only access to the Registry OpenSearch DB")
         .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
-    this.opts.addOption(Option.builder("c").argName("harvest-config").desc(
-        "file used by harvest to ingest data that contains the appropriate authorization and registry connection information")
-        .hasArg(true).longOpt("harvest-config").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
     this.opts.addOption(Option.builder("r").argName("registry-connection").desc(
@@ -65,7 +62,7 @@ public class CommandLineInterface {
         "with two variables, 'user' and 'password' for example: \n" +
         "      user=janedoe\n" +
         "      password=mypassword\n\n" +
-        "Both -a and -r are required with using them and are mutually exclusive with -c.\n\n",
+        "Both -a and -r are required.\n\n",
         true);
   }
 
@@ -91,14 +88,11 @@ public class CommandLineInterface {
     ctx.updateLoggers();
 
     if (cl.hasOption("A")) {
-      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information through -a and -r, or through -c.");
+      throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information through -a and -r.");
     } else {
       boolean both = cl.hasOption("a") && cl.hasOption("r");
-      boolean neither = !cl.hasOption("a") && !cl.hasOption("r");
-      if (cl.hasOption("c") && !neither) {
-        throw new ParseException("Cannot give -a nor -r with -c.");
-      } else if (!both) {
-        throw new ParseException("Both -a and -r must be given when either is given.");
+      if (!both) {
+        throw new ParseException("Both -a and -r must be given.");
       } else {
         log.warn("Using Registry OpenSearch Database to check references.");
       }
