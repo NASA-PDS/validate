@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1M00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Document
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1M00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:example:document:example</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Example PDF</title>
+        <information_model_version>1.22.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        <Citation_Information>
+            <publication_year>2024</publication_year>
+            <description>
+                PDF with example label used only to facilitate PDF/A validation.
+            </description>
+            <List_Author>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Ethan I.</given_name>
+                    <family_name>Schaefer</family_name>
+                    <sequence_number>1</sequence_number>
+                    <Affiliation>
+                        <organization_name>Planetary Data System, Geosciences Node</organization_name>
+                        <sequence_number>1</sequence_number>
+                    </Affiliation>
+                </Person>
+            </List_Author>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2024-09-21</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time xsi:nil="true" nilReason="inapplicable"/>
+            <stop_date_time xsi:nil="true" nilReason="inapplicable"/>
+        </Time_Coordinates>
+        <Investigation_Area>
+            <name>Magellan</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.magellan</lid_reference>
+                <reference_type>document_to_investigation</reference_type>
+                <comment>Alias: Venus Radar Mapper</comment>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Magellan</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mgn</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Radio Science Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mgn.rss</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>document_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    
+    <Document>
+        <publication_date>2024</publication_date>
+        <Document_Edition>
+            <edition_name>PDF Version</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>example.pdf</file_name>
+                <document_standard_id>PDF/A</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+        <List_Author>
+            <Person>
+                <contributor_type>Producer</contributor_type>
+                <given_name>Ethan I.</given_name>
+                <family_name>Schaefer</family_name>
+                <sequence_number>1</sequence_number>
+                <Affiliation>
+                    <organization_name>Planetary Data System, Geosciences Node</organization_name>
+                    <sequence_number>1</sequence_number>
+                </Affiliation>
+            </Person>
+        </List_Author>
+    </Document>
+</Product_Document>
