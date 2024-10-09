@@ -10,6 +10,9 @@ Scenario Outline: Execute validate command for tests below.
   Examples:
  | testName                                             | testDir     | messageCount | messageText         | problemEnum     | resourceDir          | reportDir       | commandArgs                                                                | refOutputValue | 
 
+# Validate#1008
+|"NASA-PDS/validate#1008 PDF on windows" | "github1008" | 1 | "1 errors expected" | "NON_PDFA_FILE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github1008.json -s json --skip-context-validation -t {resourceDir}/github1008/example.xml" | "report_github1008.json" |
+
 # Validate#816 (reuse validate#681 tests)
 |"NASA-PDS/validate#816 Field format FAIL: ASCII table invalid precision" | "github681" | 1 | "1 errors expected" | "FIELD_VALID_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_2.json -s json -t {resourceDir}/github681/ff_char_fail.xml" | "report_github681_2.json" |
 |"NASA-PDS/validate#816 Field format WARNING: Precision mismatch" | "github681" | 2 | "2 warnings expected" | "FIELD_VALUE_FORMAT_PRECISION_MISMATCH" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github681_3.json -s json  -t {resourceDir}/github681/ff_char_warn.xml {resourceDir}/github681/ff_del_warn.xml" | "report_github681_3.json" |
