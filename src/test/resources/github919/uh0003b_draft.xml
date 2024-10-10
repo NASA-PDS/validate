@@ -70,7 +70,7 @@
                          </Internal_Reference>
                    </Observing_System_Component>
                    <Observing_System_Component>
-                         <name>Voyager 2 Spacecraft Sensors</name>
+                         <name>Voyager 2 Engineering</name>
                          <type>Instrument</type>
                          <Internal_Reference>
                                <lid_reference>urn:nasa:pds:context:instrument:vg2.eng</lid_reference>
@@ -78,13 +78,13 @@
                          </Internal_Reference>
                    </Observing_System_Component>
              </Observing_System>
-             <Target_Identification>
-                   <name>Voyager 1</name>
-                   <type>Equipment</type>
-                   <Internal_Reference>
-                         <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg2</lid_reference>
-                         <reference_type>data_to_target</reference_type>
-                   </Internal_Reference>
+             <Target_Identification>  <!--RChen was Voyager 1, Equipment, unpc:insthost:spacecraft.vg2-->
+                 <name>Venus</name>
+                 <type>Planet</type>
+                 <Internal_Reference>
+                     <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                     <reference_type>data_to_target</reference_type>
+                 </Internal_Reference>
              </Target_Identification>
        </Observation_Area>
        <Reference_List>  
