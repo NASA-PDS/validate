@@ -167,6 +167,11 @@ public class PDFUtil {
     // directory.
     String parent = parentURL.getFile();
 
+    // tired of tricks to make it work everywhere so explicitly handling windoze
+    if (System.getProperty("os.name").toLowerCase().startsWith("window")) {
+      parent = new File(parentURL.toURI()).getAbsolutePath();
+    }
+
     // Build the full pathname of the PDF file.
     String pdfRef = parent + File.separator + pdfBase;
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]", parent,
