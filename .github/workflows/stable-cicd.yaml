@@ -114,7 +114,7 @@ jobs:
                     tags: ${{secrets.DOCKERHUB_USERNAME}}/validate:${{steps.gettartag.outputs.image_tag}}
             -
                 name: 🕵️‍♂️ Image Vulnerability Scanning
-                uses: anchore/scan-action@v4
+                uses: anchore/scan-action@v5
                 with:
                     fail-build: true
                     severity-cutoff: critical
