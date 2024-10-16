@@ -91,7 +91,7 @@ public class FileAreaExtractor {
     }
 
     Map<String, Integer> numTables = scanTables(tableFileAreas, objectAccess);
-    Map<URL, Integer> tableIndexes = new LinkedHashMap<>();
+    Map<URL, Integer> tableIndexes = new LinkedHashMap<URL, Integer>();
     LOG.debug("findAndFlagBadFilenames:numTables {}", numTables.size());
     LOG.debug("findAndFlagBadFilenames:tableIndexes {}", tableIndexes.size());
     // int fileAreaObserveIndex = 0;
@@ -114,10 +114,10 @@ public class FileAreaExtractor {
       List<Object> tables = objectAccess.getTableObjects(fileArea);
       Integer numTables = results.get(dataFile);
       if (numTables == null) {
-        results.put(dataFile, new Integer(tables.size()));
+        results.put(dataFile, Integer.valueOf(tables.size()));
       } else {
         numTables = results.get(dataFile);
-        numTables = new Integer(numTables.intValue() + tables.size());
+        numTables = Integer.valueOf(numTables.intValue() + tables.size());
         results.put(dataFile, numTables);
       }
     }

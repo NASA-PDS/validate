@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,7 +33,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.dom.DOMResult;
@@ -47,7 +45,6 @@ import javax.xml.validation.ValidatorHandler;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -84,7 +81,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.constants.Constants;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.trans.XPathException;
 
 /**
@@ -98,15 +95,15 @@ public class LabelValidator {
   private Map<String, Boolean> configurations = new HashMap<>();
   private List<URL> userSchemaFiles;
   private List<URL> userSchematronFiles;
-  private List<Transformer> userSchematronTransformers;
+  private List<String> userSchematronTransformers;
   private XMLReader cachedParser;
   private ValidatorHandler cachedValidatorHandler;
-  private List<Transformer> cachedSchematron;
+  private List<String> cachedSchematron;
   private XMLCatalogResolver resolver;
   private Boolean useLabelSchema;
   private Boolean useLabelSchematron;
   private Boolean skipProductValidation;
-  private Map<String, Transformer> cachedLabelSchematrons;
+  private Map<String, String> cachedLabelSchematrons;
 
   public static final String SCHEMA_CHECK = "gov.nasa.pds.tools.label.SchemaCheck";
   public static final String SCHEMATRON_CHECK = "gov.nasa.pds.tools.label.SchematronCheck";
@@ -120,7 +117,6 @@ public class LabelValidator {
   private SchemaFactory schemaFactory;
   private Schema validatingSchema;
   private SchematronTransformer schematronTransformer;
-  private XPathFactory xPathFactory;
 
   private long filesProcessed = 0;
   private double totalTimeElapsed = 0.0;
@@ -195,8 +191,6 @@ public class LabelValidator {
 
     documentValidators.add(new DefaultDocumentValidator());
     schematronTransformer = new SchematronTransformer();
-
-    xPathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
   }
 
   /**
@@ -215,10 +209,9 @@ public class LabelValidator {
    *
    * @param schematrons A list of transformed schematrons.
    */
-  public void setSchematrons(List<Transformer> schematrons) {
+  public void setSchematrons(List<String> schematrons) {
     userSchematronTransformers = schematrons;
-    LOG.debug("setSchematrons:schematrons.size(),schematrons {},{}", schematrons.size(),
-        schematrons);
+    LOG.debug("setSchematrons:schematrons.size(),schematrons {}", schematrons.size());
   }
 
   /**
@@ -227,7 +220,7 @@ public class LabelValidator {
    *
    * @param schematronMap
    */
-  public void setLabelSchematrons(Map<String, Transformer> schematronMap) {
+  public void setLabelSchematrons(Map<String, String> schematronMap) {
     cachedLabelSchematrons = schematronMap;
   }
 
@@ -252,7 +245,7 @@ public class LabelValidator {
     resolver.setPreferPublic(true);
     resolver.setCatalogList(catalogFiles);
     useLabelSchematron = true;
-    LOG.debug("setCatalogs:catalogFiles {}", catalogFiles);
+    LOG.debug("setCatalogs:catalogFiles {}", (Object[])catalogFiles);
     LOG.debug("setCatalogs:useLabelSchematron explitly set to true");
   }
 
@@ -396,8 +389,7 @@ public class LabelValidator {
         for (String schema : specifiedSchema) {
           try {
             URL schemaURL = new URL(schema);
-            String schemaName =
-                Paths.get(schemaURL.getPath()).getFileName().toString().toLowerCase();
+            String schemaName = schemaURL.getFile().toLowerCase();
             if (schemaName.endsWith(".xsd")) {
               schemaName = schemaName.substring(0, schemaName.length() - 4);
               schemas.add(schemaName);
@@ -412,8 +404,7 @@ public class LabelValidator {
               String modelHREF = part.substring(part.indexOf('"') + 1, part.lastIndexOf('"'));
               try {
                 URL schematronURL = new URL(modelHREF);
-                String schematronName =
-                    Paths.get(schematronURL.getPath()).getFileName().toString().toLowerCase();
+                String schematronName = schematronURL.getFile().toLowerCase();
                 if (schematronName.endsWith(".sch")) {
                   schematronName = schematronName.substring(0, schematronName.length() - 4);
                   schematrons.add(schematronName);
@@ -575,12 +566,9 @@ public class LabelValidator {
           LOG.debug("parseAndValidate:0003:url,useLabelSchematron,cachedSchematron.size() {},{},{}",
               url, useLabelSchematron, cachedSchematron.size());
         } else if (userSchematronFiles != null) {
-          List<Transformer> transformers = new ArrayList<>();
+          List<String> transformers = new ArrayList<>();
           for (URL schematron : userSchematronFiles) {
-            StreamSource source = new StreamSource(schematron.toString());
-            source.setSystemId(schematron.toString());
-            Transformer transformer = schematronTransformer.transform(source, handler);
-            transformers.add(transformer);
+            transformers.add(schematronTransformer.fetch(schematron, handler));
           }
           cachedSchematron = transformers;
           LOG.debug("parseAndValidate:0004:url,useLabelSchematron,cachedSchematron.size() {},{},{}",
@@ -615,31 +603,37 @@ public class LabelValidator {
       LOG.debug("parseAndValidate:url,skipProductValidation,validateAgainstSchematronFlag {},{},{}",
           url, skipProductValidation, validateAgainstSchematronFlag);
 
-      for (Transformer schematron : cachedSchematron) {
-        long singleSchematronStartTime = System.currentTimeMillis();
-        if (!validateAgainstSchematronFlag) {
-          continue; // Skip the validation if validateAgainstSchematronFlag is not true.
-        }
-        DOMResult result = new DOMResult();
-        DOMSource domSource = new DOMSource(xml);
-        LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:START {} against schematron", url);
-        domSource.setSystemId(url.toString());
-        // Apply the rules specified in the schematron file
-        schematron.transform(domSource, result);
-        // Output is svrl:schematron-output document
-        // Select out svrl:failed-assert nodes and put into problem container
-        Document reportDoc = (Document) result.getNode();
-        NodeList nodes =
-            reportDoc.getElementsByTagNameNS("http://purl.oclc.org/dsdl/svrl", "failed-assert");
-        for (int i = 0; i < nodes.getLength(); i++) {
-          Node node = nodes.item(i);
-          // Add an error for each failed asssert
-          handler.addProblem(processFailedAssert(url, node, xml));
-        }
-        long singleSchematronFinishTime = System.currentTimeMillis();
-        long singleSchematronTimeElapsed = singleSchematronFinishTime - singleSchematronStartTime;
-        LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:ELAPSED {} {}", url,
-            singleSchematronTimeElapsed);
+      for (String schematron : cachedSchematron) {
+        try {
+          long singleSchematronStartTime = System.currentTimeMillis();
+          if (!validateAgainstSchematronFlag) {
+            continue; // Skip the validation if validateAgainstSchematronFlag is not true.
+          }
+          DOMResult result = new DOMResult();
+          DOMSource domSource = new DOMSource(xml);
+          LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:START {} against schematron", url);
+          domSource.setSystemId(url.toString());
+          // Apply the rules specified in the schematron file
+          schematronTransformer.transform(schematron).transform(domSource, result);
+          // Output is svrl:schematron-output document
+          // Select out svrl:failed-assert nodes and put into problem container
+          Document reportDoc = (Document) result.getNode();
+          NodeList nodes =
+              reportDoc.getElementsByTagNameNS("http://purl.oclc.org/dsdl/svrl", "failed-assert");
+          for (int i = 0; i < nodes.getLength(); i++) {
+            Node node = nodes.item(i);
+            // Add an error for each failed asssert
+            handler.addProblem(processFailedAssert(url, node, xml));
+          }
+          long singleSchematronFinishTime = System.currentTimeMillis();
+          long singleSchematronTimeElapsed = singleSchematronFinishTime - singleSchematronStartTime;
+          LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:ELAPSED {} {}", url,
+              singleSchematronTimeElapsed);
+        } catch (TransformerException te) {
+          // should never get here
+          handler.addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR, te.getLocalizedMessage()),
+              url));        }
       }
       LOG.debug("parseAndValidate:VALIDATING_SCHEMATRON_URL:DONE {} against schematron", url);
     }
@@ -658,9 +652,9 @@ public class LabelValidator {
 
         SAXSource saxSource = new SAXSource(Utility.getInputSourceByURL(url));
         saxSource.setSystemId(url.toString());
-        DocumentInfo docInfo = LabelParser.parse(saxSource);
+        TreeInfo docInfo = LabelParser.parse(saxSource, false);
         for (DocumentValidator dv : documentValidators) {
-          dv.validate(handler, docInfo);
+          dv.validate(handler, docInfo.getRootNode());
         }
       }
     }
@@ -874,12 +868,14 @@ public class LabelValidator {
     return results;
   }
 
-  private List<Transformer> loadLabelSchematrons(List<String> schematronSources, URL url,
+  private List<String> loadLabelSchematrons(List<String> schematronSources, URL url,
       ProblemHandler handler) {
-    List<Transformer> transformers = new ArrayList<>();
+    List<String> transformers = new ArrayList<>();
     LOG.debug("loadLabelSchematrons:resolver,schematronSources {},{}", resolver, schematronSources);
     for (String source : schematronSources) {
       try {
+        String document;
+
         if (resolver != null) {
           try {
             String absoluteUrl = Utility.makeAbsolute(Utility.getParent(url).toString(), source);
@@ -895,20 +891,20 @@ public class LabelValidator {
                 + "' through the catalog: " + io.getMessage());
           }
         }
-        Transformer transformer = cachedLabelSchematrons.get(source);
-        if (transformer != null) {
-          transformers.add(transformer);
-          LOG.debug("loadLabelSchematrons:transformers.add:source {}", source);
-        } else {
+        if (!this.cachedLabelSchematrons.containsKey(source)) {
           URL sourceUrl = new URL(source);
           LOG.debug("loadLabelSchematrons:sourceUrl {}", sourceUrl);
-          try {
-            transformer = schematronTransformer.transform(sourceUrl);
-            cachedLabelSchematrons.put(source, transformer);
-          } catch (TransformerException te) {
-            throw new Exception("Schematron '" + source + "' error: " + te.getMessage());
-          }
+          document = schematronTransformer.fetch(sourceUrl);
+          cachedLabelSchematrons.put(source, document);          
         }
+        document = cachedLabelSchematrons.get(source);
+        transformers.add(document);
+        LOG.debug("loadLabelSchematrons:transformers.add:source {}", source);
+      } catch (TransformerException te) {
+        String message = "Schematron '" + source + "' error: " + te.getMessage();
+        handler.addProblem(new ValidationProblem(
+            new ProblemDefinition(ExceptionType.ERROR, ProblemType.SCHEMATRON_ERROR, message),
+            url));
       } catch (Exception e) {
         String message = "Error occurred while loading schematron: " + e.getMessage();
         handler.addProblem(new ValidationProblem(
@@ -950,7 +946,7 @@ public class LabelValidator {
     String location = ((Attr) node.getAttributes().getNamedItem("location")).getValue();
     SourceLocation sourceLoc = null;
     try {
-      XPath documentPath = xPathFactory.newXPath();
+      XPath documentPath = new net.sf.saxon.xpath.XPathFactoryImpl().newXPath();
       Node failureNode = (Node) documentPath.evaluate(location, doc, XPathConstants.NODE);
       sourceLoc = (SourceLocation) failureNode.getUserData(SourceLocation.class.getName());
     } catch (XPathExpressionException e) {

@@ -10,10 +10,10 @@ import java.net.URL;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.verapdf.gf.foundry.VeraGreenfieldFoundryProvider;
 import org.verapdf.pdfa.Foundries;
 import org.verapdf.pdfa.PDFAParser;
 import org.verapdf.pdfa.PDFAValidator;
-import org.verapdf.pdfa.PdfBoxFoundryProvider;
 import org.verapdf.pdfa.flavours.PDFAFlavour;
 import org.verapdf.pdfa.results.TestAssertion;
 import org.verapdf.pdfa.results.ValidationResult;
@@ -23,14 +23,12 @@ import org.verapdf.pdfa.results.ValidationResult;
  */
 public class PDFUtil {
   private static final Logger LOG = LoggerFactory.getLogger(PDFUtil.class);
-  private URL target = null;
   private String externalErrorFilename = null;
   private String parserFlavor = null;
   private String errorMessage = null;
 
-  public PDFUtil(URL target) {
-    this.target = target;
-    PdfBoxFoundryProvider.initialise(); // Should only do this once.
+  public PDFUtil() {
+    VeraGreenfieldFoundryProvider.initialise(); // Should only do this once.
   }
 
   /**
@@ -39,14 +37,6 @@ public class PDFUtil {
    */
   public synchronized String getExternalErrorFilename() {
     return (this.externalErrorFilename);
-  }
-
-  /**
-   * Returns the URL of the target.
-   *
-   */
-  public URL getTarget() {
-    return (this.target);
   }
 
   private synchronized void writeErrorToFile(String baseDir, String pdfFullName, ValidationResult result, String flavor) {
@@ -62,8 +52,6 @@ public class PDFUtil {
     FileWriter myWriter = null;
     try {
       myWriter = new FileWriter(this.externalErrorFilename);
-      // myWriter.write("Error messages for PDF file " + uri.getPath() + " using
-      // flavor " + this.parserFlavor + "\n") ;
       myWriter.write("PDF_FILE " + pdfFullName + " PARSER_FLAVOR " + this.parserFlavor + "\n");
       String headerMessage = "getRuleId, getStatus, getMessage, getLocation";
       myWriter.write(headerMessage + "\n");
@@ -151,7 +139,7 @@ public class PDFUtil {
    * @return true if the PDF is PDF/A compliant, and false otherwise
    *
    */
-  public synchronized boolean validateFileStandardConformity(String baseDir, String pdfBase, URL parentURL)
+  public synchronized boolean validateFileStandardConformity(String baseDir, String pdfBase, URL parentURL, URL target)
       throws Exception {
     // Do the validation of the PDF document.
     // https://verapdf.org/category/software/
@@ -162,15 +150,15 @@ public class PDFUtil {
     // Get the location of the PDF file.
     URI uri = null;
     try {
-      uri = getTarget().toURI();
+      uri = target.toURI();
     } catch (URISyntaxException e) {
       // Should never happen
       // but if it does, print an error message and returns false for pdfValidateFlag.
       // Observed in DEV that if the file name contains spaces, the getURI() results
       // in the URISyntaxException exception.
-      LOG.error("validateFileStandardConformity:Cannot build URI for target {}", getTarget());
+      LOG.error("validateFileStandardConformity:Cannot build URI for target {}", target);
       throw new Exception(
-          "validateFileStandardConformity:Cannot build URI for target [" + getTarget() + "]");
+          "validateFileStandardConformity:Cannot build URI for target [" + target + "]");
     }
 
     // Get the parent from parentURL instead of using "new
@@ -178,6 +166,11 @@ public class PDFUtil {
     // It would be a bug if the file is in a sub directory of the top level
     // directory.
     String parent = parentURL.getFile();
+
+    // tired of tricks to make it work everywhere so explicitly handling windoze
+    if (System.getProperty("os.name").toLowerCase().startsWith("window")) {
+      parent = new File(parentURL.toURI()).getAbsolutePath();
+    }
 
     // Build the full pathname of the PDF file.
     String pdfRef = parent + File.separator + pdfBase;

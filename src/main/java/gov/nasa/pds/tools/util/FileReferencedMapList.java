@@ -49,11 +49,9 @@ public class FileReferencedMapList {
   // Class to hold a map of every labels that referenced a physical file.
   // If a file is referenced by more than one label, an error should be thrown.
   class FileReferencedMap {
-    private URL url = null;
     private List<String> labelNames = new ArrayList<>();
 
-    public FileReferencedMap(URL url) {
-      this.url = url;
+    public FileReferencedMap() {
     }
 
     public void setLabels(String labelName) {
@@ -86,7 +84,7 @@ public class FileReferencedMapList {
     } else {
       // If fileReferencedMaps does not contain an existing, url, create a new
       // FileReferencedMap and add labelName to the new empty list.
-      fileReferencedMap = new FileReferencedMap(url);
+      fileReferencedMap = new FileReferencedMap();
       fileReferencedMap.setLabels(labelName);
       fileReferencedMaps.put(url, fileReferencedMap);
     }

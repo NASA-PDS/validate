@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/PDS4_VCO_1J00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+    xmlns:vco="http://darts.isas.jaxa.jp/pds4/mission/vco/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd
+                        http://pds.nasa.gov/pds4/msn/v1 https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.xsd
+                        http://darts.isas.jaxa.jp/pds4/mission/vco/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/PDS4_VCO_1J00_1000.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts:vco_rs:data_derived:rs_20160518_014000_udsc64_l3_e</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Venus Climate Orbiter Akatsuki Radio Science Derived Data Product rs_20160518_014000_udsc64_l3_e_v10</title>
+        <information_model_version>1.19.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2016-05-18T02:24:21.556Z</start_date_time>
+            <stop_date_time>2016-05-18T02:28:27.082Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>This file contains derived data from the Radio Science experiment of the Venus Climate Orbiter Akatsuki. Observation was conducted properly.</description>
+            <Science_Facets>
+                <wavelength_range>Microwave</wavelength_range>
+                <wavelength_range>Radio</wavelength_range>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+                <facet1>Meteorology</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Venus Climate Orbiter Akatsuki Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.vco</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Venus Climate Orbiter Akatsuki</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.vco</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Radio Science Subsystem for Venus Climate Orbiter Akatsuki</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:vco.rss</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>The Usuda Deep Space Center 64-meter Station</name>
+                <type>Telescope</type>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <vco:Observation_Information>
+                <vco:Orbit_Information>
+                    <vco:orbit_number>16</vco:orbit_number>
+                    <vco:periapsis_passage_date_time>2016-05-18T01:48:32Z</vco:periapsis_passage_date_time>
+                    <vco:subspacecraft_latitude_at_periapsis_passage unit="deg">4.2</vco:subspacecraft_latitude_at_periapsis_passage>
+                    <vco:subspacecraft_longitude_at_periapsis_passage unit="deg">121.85</vco:subspacecraft_longitude_at_periapsis_passage>
+                    <vco:subspacecraft_altitude_at_periapsis_passage unit="km">9726.52</vco:subspacecraft_altitude_at_periapsis_passage>
+                    <vco:orbit_inclination_angle unit="deg">168.44</vco:orbit_inclination_angle>
+                    <vco:orbit_eccentricity>0.918</vco:orbit_eccentricity>
+                    <vco:orbit_longitude unit="deg">220.1</vco:orbit_longitude>
+                    <vco:orbit_argument unit="deg">158.57</vco:orbit_argument>
+                    <vco:orbit_semimajor_axis_length unit="km">192670.47</vco:orbit_semimajor_axis_length>
+                </vco:Orbit_Information>
+            </vco:Observation_Information>
+        </Mission_Area>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                <msn:mission_phase_name>Primary Science Phase</msn:mission_phase_name>
+                <msn:product_type_name>VCO Akatsuki Radio Science Level 3</msn:product_type_name>
+                <msn:Orbital_Mission>
+                    <msn:start_orbit_number>16</msn:start_orbit_number>
+                    <msn:stop_orbit_number>16</msn:stop_orbit_number>
+                </msn:Orbital_Mission>
+            </msn:Mission_Information>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:jaxa:darts:vco_rs:data_raw:rs_20160518_014000_udsc64_l1_rhcp::1.0</lidvid_reference>
+            <reference_type>data_to_raw_source_product</reference_type>
+        </Source_Product_Internal>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:jaxa:darts:vco_rs:data_calibrated:rs_20160518_014000_udsc64_l2::1.0</lidvid_reference>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+        </Source_Product_Internal>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>rs_20160518_014000_udsc64_l3_e_v10.tab</file_name>
+            <creation_date_time>2022-11-25T07:45:40Z</creation_date_time>
+            <file_size unit="byte">308</file_size>
+        </File>
+        <Table_Character>
+            <name>Venus Climate Orbiter Akatsuki Radio Science (RS) Level 3 data, refractivity, bending angle, and impact parameter profile</name>
+            <offset unit="byte">0</offset>
+            <records>1</records>
+            <description>
+                This is a refractivity, bending angle and, impact parameter profiles derived from Venus Climate Orbiter Akatsuki radio occultation data.
+                The raw data were processed to level 2 and converted to bending angles and impact parameters.
+                These results were then inverted to refractive index and refractivity via an Abel transform.
+            </description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>19</fields>
+                <groups>0</groups>
+                <record_length unit="byte">306</record_length>
+                <Field_Character>
+                    <name>Sample Number</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <field_format>%05d</field_format>
+                    <description>The number of this row in the table, starting from 1 in the first row.</description>
+                    <Special_Constants>
+                        <valid_minimum>00001</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>UTC Time</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">8</field_location>
+                    <data_type>ASCII_Date_Time_YMD</data_type>
+                    <field_length unit="byte">23</field_length>
+                    <description>The receiver date and time of this measurement in UTC.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>Ephemeris Seconds</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">33</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">16</field_length>
+                    <field_format>%16.6f</field_format>
+                    <unit>s</unit>
+                    <description>Seconds from 12h 1 January 2000 TDB (2000-01-01T12:00:00 TDB) corresponding to "UTC Time" (field_number 2); includes leap seconds, if any.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>Residual Calibrated X-Band Frequency Shift</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">51</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">16</field_length>
+                    <field_format>%16.6f</field_format>
+                    <unit>Hz</unit>
+                    <description>Observed sky frequency minus predicted frequency both taken from level 2 data product averaged for new sampling time.</description>
+                    <Special_Constants>
+                        <invalid_constant>-999999.999999</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Residual Calibrated X-Band Frequency Shift after Baseline Fit</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">69</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">16</field_length>
+                    <field_format>%16.6f</field_format>
+                    <unit>Hz</unit>
+                    <description>Value of "Residual Calibrated X-Band Frequency Shift" (field_number 4) after subtraction of a polynomial to correct for non-atmospheric effects.</description>
+                    <Special_Constants>
+                        <invalid_constant>-999999.999999</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Reconstructed Transmit Frequency</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">87</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">19</field_length>
+                    <field_format>%19.6f</field_format>
+                    <unit>Hz</unit>
+                    <description>Reconstructed transmitted frequency of the spacecraft.</description>
+                    <Special_Constants>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Radius</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">108</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%12.3f</field_format>
+                    <unit>km</unit>
+                    <description>Closest approach of the bended ray to the planet. The value gives the distance between the bended ray and the center of the planet.</description>
+                    <Special_Constants>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Sigma Radius</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">122</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">13</field_length>
+                    <field_format>%13.4e</field_format>
+                    <unit>km</unit>
+                    <description>One standard deviation uncertainty in "Radius" (field_number 7).</description>
+                    <Special_Constants>
+                        <invalid_constant>-0.9999E+01</invalid_constant>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Bending Angle</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">135</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">15</field_length>
+                    <field_format>%15.6f</field_format>
+                    <unit>rad</unit>
+                    <scaling_factor>10e-6</scaling_factor>
+                    <description>Total bending angle measured as the angle between the ray asymptotes of the radio ray link.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>Sigma Bending Angle</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">152</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">15</field_length>
+                    <field_format>%15.6f</field_format>
+                    <unit>rad</unit>
+                    <scaling_factor>10e-6</scaling_factor>
+                    <description>One standard deviation uncertainty in "Bending Angle" (field_number 9).</description>
+                    <Special_Constants>
+                        <invalid_constant>-9999999.999999</invalid_constant>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Refractive Index</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">169</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">20</field_length>
+                    <field_format>%20.10f</field_format>
+                    <unit>none</unit>
+                    <description>Refractive index of the atmosphere.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>Refractivity</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">191</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">15</field_length>
+                    <field_format>%15.6f</field_format>
+                    <unit>none</unit>
+                    <description>Refractivity of the atmosphere.</description>
+                </Field_Character>
+                <Field_Character>
+                    <name>Sigma Refractivity</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">208</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">15</field_length>
+                    <field_format>%15.6f</field_format>
+                    <unit>none</unit>
+                    <description>One standard deviation uncertainty in "Refractivity" (field_number 12).</description>
+                    <Special_Constants>
+                        <invalid_constant>-9999999.999999</invalid_constant>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Signal Level</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">225</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">11</field_length>
+                    <field_format>%11.4e</field_format>
+                    <unit>none</unit>
+                    <description>Signal level in arbitrary linear unit with the effect of inaccurate antenna pointing corrected (relative unit).</description>
+                    <Special_Constants>
+                        <invalid_constant>-0.9999E+01</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Differential Doppler</name>
+                    <field_number>15</field_number>
+                    <field_location unit="byte">238</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <field_format>%18.6f</field_format>
+                    <unit>Hz</unit>
+                    <description>Contribution of dispersive media to the received signal frequency calculated from two coherent bands.</description>
+                    <Special_Constants>
+                        <invalid_constant>-99999999.999999</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Impact Parameter</name>
+                    <field_number>16</field_number>
+                    <field_location unit="byte">258</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">12</field_length>
+                    <field_format>%12.3f</field_format>
+                    <unit>km</unit>
+                    <description>Distance of the ray asymptotes to the planet. The value is defined as the distance between the ray asymptote and the center of planet.</description>
+                    <Special_Constants>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Sigma Impact Parameter</name>
+                    <field_number>17</field_number>
+                    <field_location unit="byte">272</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">11</field_length>
+                    <field_format>%11.4e</field_format>
+                    <unit>km</unit>
+                    <description>One standard deviation uncertainty in "Impact Parameter" (field_number 16).</description>
+                    <Special_Constants>
+                        <invalid_constant>-0.9999E+01</invalid_constant>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Longitude</name>
+                    <field_number>18</field_number>
+                    <field_location unit="byte">285</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <field_format>%9.2f</field_format>
+                    <unit>deg</unit>
+                    <description>East longitude of measurement in body fixed coordinates.</description>
+                    <Special_Constants>
+                        <valid_maximum>360.0</valid_maximum>
+                        <valid_minimum>0.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>Latitude</name>
+                    <field_number>19</field_number>
+                    <field_location unit="byte">296</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <field_format>%9.2f</field_format>
+                    <unit>deg</unit>
+                    <description>North latitude of measurement in body fixed coordinates.</description>
+                    <Special_Constants>
+                        <valid_maximum>90.0</valid_maximum>
+                        <valid_minimum>-90.0</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

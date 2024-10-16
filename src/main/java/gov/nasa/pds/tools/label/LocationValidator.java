@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import org.apache.commons.chain.Catalog;
 import org.apache.commons.chain.CatalogFactory;
@@ -72,7 +71,6 @@ public class LocationValidator {
   private RuleContext ruleContext;
   private String validationRule;
   private String labelExtension;
-  private String pdfErrorDir;
 
   /*
    * Sets the report object in BundleManager static class.
@@ -349,7 +347,7 @@ public class LocationValidator {
     LOG.debug("setSchema:schemaFiles {}", schemaFiles);
   }
 
-  public void setSchematrons(List<Transformer> schematrons) {
+  public void setSchematrons(List<String> schematrons) {
     labelValidator.setSchematrons(schematrons);
   }
 
@@ -379,7 +377,7 @@ public class LocationValidator {
     labelValidator.addValidator(validator);
   }
 
-  public void setLabelSchematrons(Map<String, Transformer> labelSchematrons) {
+  public void setLabelSchematrons(Map<String, String> labelSchematrons) {
     labelValidator.setLabelSchematrons(labelSchematrons);
   }
 
@@ -432,6 +430,9 @@ public class LocationValidator {
 
   public void setEveryN(int value) {
     ruleContext.setEveryN(value);
+  }
+  public void setContextMismatchAsWarn(boolean value) {
+    ruleContext.setContextMismatchAsWarn(value);
   }
   public void setCompleteDescriptions(boolean b) {
     ruleContext.setCompleteDescriptions(b);

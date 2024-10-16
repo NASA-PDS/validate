@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1L00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1L00_1890.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1L00_1970.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+  xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd
+  http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1L00_1510.xsd
+  http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1L00_1890.xsd
+  http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1L00_1970.xsd">
+
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:kplo-shadowcam:observation:e004246319sc</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Korea Pathfinder Lunar Orbiter ShadowCam Calibrated Product</title>
+    <information_model_version>1.21.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-01-27T22:53:08.112700Z</modification_date>
+        <version_id>1.0</version_id>
+        <description>
+          Initial Release
+        </description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-09-23T02:39:59.931890Z</start_date_time>
+      <stop_date_time>2022-09-23T02:40:42.952997Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <description>ShadowCam is a Time Delay Integration(TDI) pushbroom imager 
+      </description>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>KOREA PATHFINDER LUNAR ORBITER</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:kari:kpds:context:investigation:mission.kplo</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+        <comment>This is the PDS4 logical identifier for KPLO</comment>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Korea Pathfinder Lunar Orbiter (Danuri)</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:kari:kpds:context:instrument_host:spacecraft.kplo</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SHADOWCAM</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:kari:kpds:context:instrument:kplo.shc</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Earth</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.earth</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+    </Mission_Area>
+    <Discipline_Area>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>DATA_FILE</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Optical_Filter>
+          <img:bandwidth unit="nm">300</img:bandwidth>
+          <img:center_filter_wavelength unit="nm">600</img:center_filter_wavelength>
+        </img:Optical_Filter>
+      </img:Imaging>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>Array_2D_Image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>kplo.cub</file_name>
+      <local_identifier>DATA_FILE</local_identifier>
+      <creation_date_time>2024-02-02T23:19:08.197538Z</creation_date_time>
+      <file_size unit="byte">513</file_size>
+      <!--md5_checksum>80393407b982ed98f6f1ce99f5af7638</md5_checksum-->
+      <comment>Korea Pathfinder Lunar Orbiter Calibrated Product.</comment>
+    </File>
+    <Array_2D_Image>
+      <local_identifier>Array_2D_Image</local_identifier>
+      <offset unit="byte">0</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>IEEE754LSBSingle</data_type>
+        <unit>Radiance</unit>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>16</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>8</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Special_Constants>
+        <missing_constant>0xFF7FFFFB</missing_constant>
+        <high_instrument_saturation>0xFF7FFFFE</high_instrument_saturation>
+        <high_representation_saturation>0xFF7FFFFF</high_representation_saturation>
+        <valid_minimum>0xFF7FFFFA</valid_minimum>
+        <low_instrument_saturation>0xFF7FFFFD</low_instrument_saturation>
+        <low_representation_saturation>0xFF7FFFFC</low_representation_saturation>
+      </Special_Constants>
+    </Array_2D_Image>
+  </File_Area_Observational>
+</Product_Observational>

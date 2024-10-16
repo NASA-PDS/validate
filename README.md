@@ -7,31 +7,22 @@ to execute validation.
 
 Visit the project's website at: https://nasa-pds.github.io/validate/
 
-## 👥 Contributing
+## Getting Started
 
-Within the NASA Planetary Data System, we value the health of our community as much as the code. Towards that end, we ask that you read and practice what's described in these documents:
+### Build the Software
+The software can be compiled and built with the `mvn compile` or `mvn package` commands.
 
--   Our [contributor's guide](https://github.com/NASA-PDS/.github/blob/main/CONTRIBUTING.md) delineates the kinds of contributions we accept.
--   Our [code of conduct](https://github.com/NASA-PDS/.github/blob/main/CODE_OF_CONDUCT.md) outlines the standards of behavior we practice and expect by everyone who participates with our software.
-
-
-# Documentation
-The [documentation for the latest release of the Validate Tool, including release notes, installation and operation of the software are online](https://NASA-PDS.github.io/validate/). If you would like to get the latest documentation, including any updates since the last release, you can execute the "mvn site:run" command and view the documentation locally at http://localhost:8080.
-
-# Build
-The software can be compiled and built with the "mvn compile" command but in order 
-to create the JAR file, you must execute the "mvn compile jar:jar" command. 
-
-In order to create a complete distribution package, execute the 
-following commands: 
+In order to create a complete distribution package with the site build, execute the following commands: 
 
 ```console
-mvn site
-mvn package
+mvn package site
 ```
 
-# Debugging Notes
-Since Validate re-uses logging for it's reporting, as of now, there is no easy way to see the debug log messages scattered throughout the code. To see them while debugging/testing your implementation, you will need to replace the SLF4J NOP dependency with the SimpleLogger dependency and enable the DEBUG level.
+### Documentation
+The [documentation for the latest release of the Validate Tool, including release notes, installation and operation of the software are online](https://NASA-PDS.github.io/validate/). If you would like to get the latest documentation, including any updates since the last release, you can execute the `mvn site:run` command and view the documentation locally at http://localhost:8080.
+
+### Debugging Notes
+Since Validate extends the slf4j logging mechanism for it's reporting. As of now, there is no easy way to see the debug log messages scattered throughout the code. To see them while debugging/testing your implementation, you will need to replace the SLF4J NOP dependency with the SimpleLogger dependency and enable the DEBUG level.
 
 Here is how to do it via command-line. This may differ if you use Eclipse for debugging:
 
@@ -69,44 +60,83 @@ mvn clean package -DskipTests
 ```
 4. Then untar and test the software.
 
+## 👥 Contributing
 
-# Operational Release
+Within the NASA Planetary Data System, we value the health of our community as much as the code. Towards that end, we ask that you read and practice what's described in these documents:
 
-A release candidate should be created after the community has determined that a release should occur. The Planetary Data System automates the release of software using GitHub Actions. The instructions below are kept for posterity.
+-   Our [contributor's guide](https://github.com/NASA-PDS/.github/blob/main/CONTRIBUTING.md) delineates the kinds of contributions we accept.
+-   Our [code of conduct](https://github.com/NASA-PDS/.github/blob/main/CODE_OF_CONDUCT.md) outlines the standards of behavior we practice and expect by everyone who participates with our software.
 
-## Clone fresh repo
-```bash
-git clone git@github.com:NASA-PDS/validate.git
+Join our mailing list! Send an email to pds-validate-users+subscribe@groups.io to subscribe.
+
+### 🔢 Versioning
+
+We use the [SemVer](https://semver.org/) philosophy for versioning this software. Or not! Update this as you see fit.
+
+
+### 🪛 Development
+
+To develop this project, use your favorite text editor, or an integrated development environment with Java support, such as [Eclipse](https://www.eclipse.org/ide/). You'll also need [Apache Maven](https://maven.apache.org/) version 3. With these tools, you can typically run
+
+    mvn package
+
+to produce a complete package. This runs all the phases necessary, including compilation, testing, and package assembly. Other common Maven phases include:
+
+-   `compile` - just compile the source code
+-   `test` - just run unit tests
+-   `install` - install into your local repository
+-   `deploy` - deploy to a remote repository — note that the Roundup action does this automatically for releases
+
+
+#### 🪝 Pre-Commit Hooks and Detect Secrets
+
+This package comes with a configuration for [Pre-Commit](https://pre-commit.com/), a system for automating and standardizing `git` hooks for code linting, security scanning, etc. Here in this Java template repository, we use Pre-Commit with [Detect Secrets](https://nasa-ammos.github.io/slim/docs/guides/software-lifecycle/security/secrets-detection/) to prevent the accidental committing or commit messages containing secrets like API keys and passwords.
+
+Pre-Commit and `detect-secrets` are language-neutral, but they themselves are written in Python. To take advantage of these features, you'll need a nearby Python installation. A recommended way to do this is with a virtual Python environment. Using the command line interface, run:
+
+```console
+$ python -m venv .venv
+$ source .venv/bin/activate   # Use source .venv/bin/activate.csh if you're using a C-style shell
+$ pip install pre-commit git+https://github.com/NASA-AMMOS/slim-detect-secrets.git@exp
 ```
 
+If you encounter a failed secrets check run, you can establish a secrets baseline in your Maven-based repository:
 
-## Run pre-build software
+    detect-secrets scan . \
+        --all-files \
+        --disable-plugin AbsolutePathDetectorExperimental \
+        --exclude-files '\.secrets..*' \
+        --exclude-files '\.git.*' \
+        --exclude-files 'target' > .secrets.baseline
 
-Until we automate this, we must manually generate this file. Follow [semantic versioning](https://semver.org/) for version numbers.
+Review the secrets to determine which should be allowed and which are false positives:
 
-```bash
-build/pre-build.sh
-```
+    detect-secrets audit .secrets.baseline
 
-```
-+ rm -fr validate-1.22.0-SNAPSHOT/
-+ mvn clean package -DskipTests
-...
-+ cp validate-1.22.0-SNAPSHOT/resources/registered_context_products.json src/main/resources/util/
-+ git add src/main/resources/util/
-+ git commit -m 'Update context products for release'
-[main a54fc34] Update context products for release
- 3 files changed, 4842 insertions(+), 18478 deletions(-)
- rename build/{build.sh => pre-build.sh} (100%)
- rewrite src/main/resources/util/registered_context_products.json (73%)
-+ set +x
-```
+Please remove any secrets that should not be seen by the public. You can then add the baseline file to the commit:
 
-## Release with ConMan
+    git add .secrets.baseline
 
-For internal JPL use, the ConMan software package can be used for releasing software, otherwise the following sections outline how to complete these steps manually.
+Finally, install the pre-commit hooks:
 
-## Manual Release
+    pre-commit install
+    pre-commit install -t pre-push
+    pre-commit install -t prepare-commit-msg
+    pre-commit install -t commit-msg
+
+You can then work normally. Pre-commit will run automatically during `git commit` and `git push` so long as the Python virtual environment is active.
+
+👉 **Note:** For Detect Secrets to work, there is a one-time setup required to your personal global Git configuration. See [the wiki entry on Detect Secrets](https://github.com/NASA-PDS/nasa-pds.github.io/wiki/Git-and-Github-Guide#detect-secrets) to learn how to do this.
+
+### 🚅 Continuous Integration & Deployment
+
+Thanks to [GitHub Actions](https://github.com/features/actions) and the [Roundup Action](https://github.com/NASA-PDS/roundup-action), this software undergoes continuous integration and deployment. Every time a change is merged into the `main` branch, an "unstable" (known in Java software development circles as a "SNAPSHOT") is created and delivered to [the releases page](https://github.com/NASA-PDS/pds-template-repo-java/releases) and to the [OSSRH](https://central.sonatype.org/publish/publish-guide/).
+
+You can make an official delivery by pushing a `release/X.Y.Z` branch to GitHub, replacing `X` with the major version number, `Y` with the minor version number, and `Z` with the micro version number. This results in a stable (non-SNAPSHOT) release generated and cryptographically signed (but by an automated process so alter trust expectations accordingly) and made available on the releases page and OSSRH; the [website published](https://nasa-pds.github.io/pds-template-repo-java/); changelogs and requirements updated; and a new version number in the `main` branch prepared for future development.
+
+The following sections detail how to do this manually should the automated steps fail.
+
+## Manual Publication
 
 ### Update Version Numbers
 

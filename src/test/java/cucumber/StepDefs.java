@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.validate.ValidateLauncher;
 import gov.nasa.pds.validate.constants.TestConstants;
@@ -78,6 +79,8 @@ public class StepDefs {
     this.launcher.flushValidators();
     // It seems the launcher does not completely flush any references to schematron
     // which causes problem for subsequent tests.
+    // get rid of the cross references
+    CrossLabelFileAreaReferenceChecker.reset();
   }
 
   private void createManifestFileDo(String testPath) {
@@ -143,121 +146,6 @@ public class StepDefs {
         count = this.getMessageCount(reportJson,
             ProblemType.valueOf(ProblemType.class, strTemp).getKey());
       }
-      // if (strTemp.equals("MISSING_REFERENCED_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_REFERENCED_FILE.getKey());
-      // } else if (strTemp.equals("NON_PDFA_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_PDFA_FILE.getKey());
-      // } else if (strTemp.equals("NON_JPEG_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_JPEG_FILE.getKey());
-      // } else if (strTemp.equals("NON_PNG_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_PNG_FILE.getKey());
-      // } else if (strTemp.equals("NON_HTML_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_HTML_FILE.getKey());
-      // } else if (strTemp.equals("NON_MSWORD_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_MSWORD_FILE.getKey());
-      // } else if (strTemp.equals("NON_MSEXCEL_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_MSEXCEL_FILE.getKey());
-      // } else if (strTemp.equals("NON_LATEX_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_LATEX_FILE.getKey());
-      // } else if (strTemp.equals("NON_POSTSCRIPT_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_POSTSCRIPT_FILE.getKey());
-      // } else if (strTemp.equals("NON_ENCAPSULATED_POSTSCRIPT_FILE")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.NON_ENCAPSULATED_POSTSCRIPT_FILE.getKey());
-      // } else if (strTemp.equals("NON_RICHTEXT_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_RICHTEXT_FILE.getKey());
-      // } else if (strTemp.equals("NON_GIF_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_GIF_FILE.getKey());
-      // } else if (strTemp.equals("NON_TIFF_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_TIFF_FILE.getKey());
-      // } else if (strTemp.equals("NON_MP4_FILE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NON_MP4_FILE.getKey());
-      // } else if (strTemp.equals("LABEL_UNRESOLVABLE_RESOURCE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.LABEL_UNRESOLVABLE_RESOURCE.getKey());
-      // } else if (strTemp.equals("CONTEXT_REFERENCE_NOT_FOUND")) {
-      // count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_NOT_FOUND.getKey());
-      // } else if (strTemp.equals("CONTEXT_REFERENCE_FOUND")) {
-      // count = this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND.getKey());
-      // } else if (strTemp.equals("CONTEXT_REFERENCE_FOUND_MISMATCH")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH.getKey());
-      // } else if (strTemp.equals("FIELD_VALUE_DATA_TYPE_MISMATCH")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH.getKey());
-      // } else if (strTemp.equals("RECORDS_MISMATCH")) {
-      // count = this.getMessageCount(reportJson, ProblemType.RECORDS_MISMATCH.getKey());
-      // } else if (strTemp.equals("GENERAL_INFO")) {
-      // count = this.getMessageCount(reportJson, ProblemType.GENERAL_INFO.getKey());
-      // } else if (strTemp.equals("MISSING_VERSION")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_VERSION.getKey());
-      // } else if (strTemp.equals("INVALID_LABEL")) {
-      // count = this.getMessageCount(reportJson, ProblemType.INVALID_LABEL.getKey());
-      // } else if (strTemp.equals("CHECKSUM_MISMATCH")) {
-      // count = this.getMessageCount(reportJson, ProblemType.CHECKSUM_MISMATCH.getKey());
-      // } else if (strTemp.equals("FILESIZE_MISMATCH")) {
-      // count = this.getMessageCount(reportJson, ProblemType.FILESIZE_MISMATCH.getKey());
-      // } else if (strTemp.equals("FILE_NAME_HAS_INVALID_CHARS")) {
-      // count = this.getMessageCount(reportJson, ProblemType.FILE_NAME_HAS_INVALID_CHARS.getKey());
-      // } else if (strTemp.equals("UNALLOWED_FILE_NAME")) {
-      // count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_FILE_NAME.getKey());
-      // } else if (strTemp.equals("DIR_NAME_HAS_INVALID_CHARS")) {
-      // count = this.getMessageCount(reportJson, ProblemType.DIR_NAME_HAS_INVALID_CHARS.getKey());
-      // } else if (strTemp.equals("UNALLOWED_BUNDLE_SUBDIR_NAME")) {
-      // count = this.getMessageCount(reportJson,
-      // ProblemType.UNALLOWED_BUNDLE_SUBDIR_NAME.getKey());
-      // } else if (strTemp.equals("UNALLOWED_BASE_NAME")) {
-      // count = this.getMessageCount(reportJson, ProblemType.UNALLOWED_BASE_NAME.getKey());
-      // } else if (strTemp.equals("FIELD_VALUE_OVERLAP")) {
-      // count = this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_OVERLAP.getKey());
-      // } else if (strTemp.equals("BAD_FIELD_READ")) {
-      // count = this.getMessageCount(reportJson, ProblemType.BAD_FIELD_READ.getKey());
-      // } else if (strTemp.equals("BAD_SCHEMATYPENS")) {
-      // count = this.getMessageCount(reportJson, ProblemType.BAD_SCHEMATYPENS.getKey());
-      // } else if (strTemp.equals("MISSING_SCHEMATRON_SPEC")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_SCHEMATRON_SPEC.getKey());
-      // } else if (strTemp.equals("RECORD_LENGTH_MISMATCH")) {
-      // count = this.getMessageCount(reportJson, ProblemType.RECORD_LENGTH_MISMATCH.getKey());
-      // } else if (strTemp.equals("INTEGRITY_PDS4_VERSION_MISMATCH")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.INTEGRITY_PDS4_VERSION_MISMATCH.getKey());
-      // } else if (strTemp.equals("MISSING_LF")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_LF.getKey());
-      // } else if (strTemp.equals("MISSING_CRLF")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_CRLF.getKey());
-      // } else if (strTemp.equals("INVALID_FIELD_VALUE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.INVALID_FIELD_VALUE.getKey());
-      // } else if (strTemp.equals("FIELDS_MISMATCH")) {
-      // count = this.getMessageCount(reportJson, ProblemType.FIELDS_MISMATCH.getKey());
-      // } else if (strTemp.equals("MISSING_CONTEXT_REFERENCE")) {
-      // count = this.getMessageCount(reportJson, ProblemType.MISSING_CONTEXT_REFERENCE.getKey());
-      // } else if (strTemp.equals("UNREFERENCED_MEMBER")) {
-      // count = this.getMessageCount(reportJson, ProblemType.UNREFERENCED_MEMBER.getKey());
-      // } else if (strTemp.equals("BAD_EXTENSION")) {
-      // count = this.getMessageCount(reportJson, ProblemType.BAD_EXTENSION.getKey());
-      // } else if (strTemp.equals("ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE.getKey());
-      // } else if (strTemp.equals("NO_PRODUCTS_FOUND")) {
-      // count = this.getMessageCount(reportJson, ProblemType.NO_PRODUCTS_FOUND.getKey());
-      // } else if (strTemp.equals("TABLE_FILE_READ_ERROR")) {
-      // count = this.getMessageCount(reportJson, ProblemType.TABLE_FILE_READ_ERROR.getKey());
-      // } else if (strTemp.equals("FIELD_VALUE_OUT_OF_MIN_MAX_RANGE")) {
-      // count =
-      // this.getMessageCount(reportJson, ProblemType.FIELD_VALUE_OUT_OF_MIN_MAX_RANGE.getKey());
-      // } else if (strTemp.equals("totalWarnings")) {
-      // count = reportJson.getAsJsonObject("summary").get("totalWarnings").getAsInt();
-      // } else if (strTemp.equals("totalErrors")) {
-      // count = reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt();
-      // } else if (strTemp.equals("summary_message_only")) {
-      // count = reportJson.getAsJsonObject("summary").get("totalErrors").getAsInt();
-      // } else {
-      // StepDefs.LOG.error(
-      // "getMessageCountBasedOnProblemType:ERROR: This program does not yet support problem type
-      // (strTemp) "
-      // + strTemp);
-      // System.exit(1);
-      // // Exit to allow developer to add new error type.
-      // }
       StepDefs.LOG.info("getMessageCountBasedOnProblemType: strTemp, count " + strTemp + " "
           + Integer.toString(count));
       totalCount += count;
@@ -291,7 +179,7 @@ public class StepDefs {
       // Replace every occurence of "{resourceDir}" with actual value.
       resolvedToken = temp.replace("{reportDir}", this.reportDir);
       resolvedToken = resolvedToken.replace("{resourceDir}", this.resourceDir);
-
+      resolvedToken = resolvedToken.replace("%20", " ");
       args[argIndex++] = resolvedToken;
     }
 
@@ -390,25 +278,25 @@ public class StepDefs {
     }
   }
 
-  @Then("produced output from validate command should be similiar to reference {string} or no error reported.")
-  public void produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported(
+  @Then("produced output from validate command should be similar to reference {string} or no error reported.")
+  public void produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported(
       String refOutputValue) {
     this.refOutputValue = refOutputValue;
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testName
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.testName
     // = " + this.testName);
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.testDir
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.testDir
     // = " + this.testDir);
-    // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.commandArgs
+    // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.commandArgs
     // = " + this.commandArgs);
     StepDefs.LOG.info(
-        "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = "
+        "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:this.refOutputValue = "
             + this.refOutputValue);
 
     try {
       Gson gson = new Gson();
       File report = new File(this.reportDir + File.separator + this.refOutputValue);
       StepDefs.LOG.info(
-          "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:report = ["
+          "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:report = ["
               + report.getName() + "]");
       JsonObject reportJson = gson.fromJson(new FileReader(report), JsonObject.class);
 
@@ -417,16 +305,16 @@ public class StepDefs {
       int count = this.getMessageCountBasedOnProblemType(this.problemEnum, reportJson);
 
       StepDefs.LOG.debug(
-          "produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: "
+          "produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported:testName,problemEnum,count,refOutputValue: "
               + this.testName + " " + problemEnum + " " + Integer.toString(count) + " "
               + this.refOutputValue);
 
       // Compare the count from this test with the this.messageCount from test table.
       assertEquals(count, this.messageCount, this.messageText + " " + reportJson.toString());
 
-      // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported()
+      // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported()
       // count = [" + count + "]");
-      // System.out.println("produced_output_from_validate_command_should_be_similiar_to_reference_ref_output_value_or_no_error_reported()
+      // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported()
       // reportJson.toString() = [" + reportJson.toString() + "]");
     } catch (ExitException e) {
       assertEquals(0, e.status, "Exit status");

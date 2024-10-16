@@ -33,7 +33,29 @@ import gov.nasa.pds.tools.validate.ValidationProblem;
  */
 public class TransformerErrorListener implements ErrorListener {
   private ProblemHandler handler;
+  private class DefaultSourceLocator implements SourceLocator{
 
+    @Override
+    public String getPublicId() {
+      return "null";
+    }
+
+    @Override
+    public String getSystemId() {
+      return "null";
+    }
+
+    @Override
+    public int getLineNumber() {
+      return -1;
+    }
+
+    @Override
+    public int getColumnNumber() {
+      return -1;
+    }
+  }
+  final private SourceLocator nullLocator = new DefaultSourceLocator();
   /**
    * Constructor.
    *
@@ -46,6 +68,9 @@ public class TransformerErrorListener implements ErrorListener {
   @Override
   public void error(TransformerException exception) throws TransformerException {
     SourceLocator locator = exception.getLocator();
+    if (locator == null) {
+      locator = this.nullLocator;
+    }
     addProblem(ExceptionType.ERROR, ProblemType.SCHEMATRON_ERROR, exception.getMessage(),
         locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
   }
@@ -53,6 +78,9 @@ public class TransformerErrorListener implements ErrorListener {
   @Override
   public void fatalError(TransformerException exception) throws TransformerException {
     SourceLocator locator = exception.getLocator();
+    if (locator == null) {
+      locator = this.nullLocator;
+    }
     addProblem(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR, exception.getMessage(),
         locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
   }
@@ -60,6 +88,9 @@ public class TransformerErrorListener implements ErrorListener {
   @Override
   public void warning(TransformerException exception) throws TransformerException {
     SourceLocator locator = exception.getLocator();
+    if (locator == null) {
+      locator = this.nullLocator;
+    }
     addProblem(ExceptionType.WARNING, ProblemType.SCHEMATRON_WARNING, exception.getMessage(),
         locator.getSystemId(), locator.getLineNumber(), locator.getColumnNumber());
   }

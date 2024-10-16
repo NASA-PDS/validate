@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashSet;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.validate.SkippedItems;
@@ -69,7 +70,7 @@ public class FindUnreferencedFiles extends AbstractValidationRule {
   }
 
   private String extractPath(URL url) {
-    Path fullpath = Paths.get(url.getPath());
+    Path fullpath = FileUtils.toFile(url).toPath();
     return fullpath.getParent().toString();
   }
 

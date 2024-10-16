@@ -2,7 +2,7 @@ package gov.nasa.pds.tools.validate.content.table;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import javax.xml.xpath.XPathExpressionException;
@@ -29,7 +29,7 @@ public class InventoryTableValidator {
       InventoryTableValidator.checkAllUnique(ids, listener, aggregate);
     } catch (XPathException | XPathExpressionException e) {
       listener.addProblem(new ValidationProblem(GenericProblems.UNCAUGHT_EXCEPTION,
-          new ValidationTarget(aggregate),-1, -1, e.getMessage()));
+          ValidationTarget.build(aggregate),-1, -1, e.getMessage()));
     }
   }
   public static void uniqueCollectionRefs (ProblemListener listener, URL aggregate) {
@@ -46,24 +46,24 @@ public class InventoryTableValidator {
       InventoryTableValidator.checkAllUnique(ids, listener, aggregate);
     } catch (InventoryReaderException e) {
       listener.addProblem(new ValidationProblem(GenericProblems.UNCAUGHT_EXCEPTION,
-          new ValidationTarget(aggregate),-1, -1, e.getMessage()));
+          ValidationTarget.build(aggregate),-1, -1, e.getMessage()));
     }
   }
   private static void checkAllUnique(List<String> ids, ProblemListener listener, URL aggregate) {
-      HashSet<String> uniqueIDs = new HashSet<String>(ids);
-      if (ids.size() != uniqueIDs.size()) {
-        int dups = ids.size() - uniqueIDs.size();
-        for (String uid : uniqueIDs) {
-          int copies = Collections.frequency (ids, uid);
-          if (1 < copies) {
-            dups = dups - copies + 1;
-            listener.addProblem(new ValidationProblem(
-                new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVENTORY_DUPLICATE_LIDVID,
-                    "Inventory contains " + Integer.toString(copies) + "' instances of LIDVID " + uid),
-                aggregate));
-          }
-          if (dups < 1) break;  // shortcut the for loop
-        }
+    HashSet<String> dups = new HashSet<String>();
+    HashMap<String,Integer> counts = new HashMap<String,Integer>();
+    for (String id : ids) {
+      Integer count = counts.getOrDefault(id, Integer.valueOf(0));
+      counts.put(id, ++count);
+      if (count > 1) {
+        dups.add(id);
       }
+    }
+    for (String id : dups) {
+      listener.addProblem(new ValidationProblem(
+          new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVENTORY_DUPLICATE_LIDVID,
+              "Inventory contains " + Integer.toString(counts.get(id)) + " instances of LIDVID " + id),
+          aggregate));
+    }
   }
 }

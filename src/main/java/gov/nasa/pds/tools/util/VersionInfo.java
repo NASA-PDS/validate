@@ -30,6 +30,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import org.apache.commons.io.FileUtils;
 
 /**
  * This class provides the means to retrieve underlying supported versions of standards.
@@ -224,7 +225,7 @@ public class VersionInfo {
 
     if (dirURL.getProtocol().equals("jar")) {
       /* A JAR path */
-      String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!")); // strip out
+      String jarPath = FileUtils.toFile(dirURL).getPath().substring(5, FileUtils.toFile(dirURL).getPath().indexOf("!")); // strip out
                                                                                      // only the JAR
                                                                                      // file
       JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));

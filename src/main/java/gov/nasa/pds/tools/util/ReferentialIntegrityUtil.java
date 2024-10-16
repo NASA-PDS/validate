@@ -49,9 +49,10 @@ public class ReferentialIntegrityUtil {
   private static ArrayList<URL> urlsParsedCumulative = new ArrayList<>(0);
   private static ArrayList<String> logicalIdentifiersCumulative = new ArrayList<>(0);
   private static ArrayList<String> lidOrLidVidReferencesCumulative = new ArrayList<>(0);
+  private static HashSet<String> lidAndFilenameCombo = new HashSet<String>();
   private static HashMap<String, HashSetReferenceInfo> contextReferencesCumulative =
       new HashMap<>(0); // Collect all references defined in "Context_Area" tag from all labels.
-  private static HashMap<String, HashSet> bundleOrCollectionReferenceMap = new HashMap<String, HashSet>(); // Collect
+  private static HashMap<String, HashSet<String>> bundleOrCollectionReferenceMap = new HashMap<String, HashSet<String>>(); // Collect
                                                                                             // all
                                                                                             // references
                                                                                             // defined
@@ -170,6 +171,7 @@ public class ReferentialIntegrityUtil {
     // and it will be difficult to figure out why. The code may work when validate
     // runs from the command line
     // but not in regression test.
+    ReferentialIntegrityUtil.lidAndFilenameCombo.clear();
     ReferentialIntegrityUtil.logicalIdentifiersCumulative.clear();
     ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.clear();
     ReferentialIntegrityUtil.contextReferencesCumulative.clear();
@@ -300,13 +302,6 @@ public class ReferentialIntegrityUtil {
 
   private static void performReporting(String singleLidOrLidvidReference, boolean referenceIsLidvid,
       int indexToFilenames) {
-    // https://github.com/NASA-PDS/validate/issues/368 Product referential integrity
-    // check throws invalid WARNINGs
-    // Per request of user, we will disable the reporting until further
-    // instructions.
-    // Set the reportFlag to true if desire to do the reporting of this warning.
-    boolean reportFlag = false;
-
     try {
       String message = "";
       URL url =
@@ -329,17 +324,11 @@ public class ReferentialIntegrityUtil {
       }
       LOG.debug("performReporting:" + message);
 
-      if (reportFlag) {
-        // Build the ValidationProblem and add it to the report.
-        // The problem type is now ProblemType.REFERENCE_NOT_FOUND and not
-        // ProblemType.GENERAL_INFO
-        ValidationProblem p1 = new ValidationProblem(
-            new ProblemDefinition(ExceptionType.WARNING, ProblemType.REFERENCE_NOT_FOUND, message),
-            url);
-        // Append the WARNING message to the report.
-        getListener().addProblem(p1);
-      }
-
+      ValidationProblem p1 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.WARNING, ProblemType.REFERENCE_NOT_FOUND, message),
+          url);
+      // Append the WARNING message to the report.
+      getListener().addProblem(p1);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -360,7 +349,7 @@ public class ReferentialIntegrityUtil {
       LOG.debug(
           "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier {},{}",
           singleLidOrLidvidReference, singleLogicalIdentifier);
-      if (singleLogicalIdentifier.contains(singleLidOrLidvidReference)) {
+      if (singleLogicalIdentifier.startsWith(singleLidOrLidvidReference)) {
         referenceIsValid = true;
         LOG.debug(
             "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier,REFERENCE_IS_VALID {},{}",
@@ -415,14 +404,18 @@ public class ReferentialIntegrityUtil {
 
             boolean productBelongToBundleFlag = ReferentialIntegrityUtil
                 .isIdentiferMatchingBundleBaseID(logicalIdentifierPerLidReference);
+            boolean referenceBelongToBundleFlag = ReferentialIntegrityUtil
+                .isIdentiferMatchingBundleBaseID(singleLidOrLidvidReference);
 
             // Only throw a WARNING if the product does belong to this bundle.
             if (productBelongToBundleFlag) {
-              LOG.debug(
-                  "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
-                  filename, logicalIdentifierPerLidReference);
-              ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
-                  indexToFilenames);
+              if (referenceBelongToBundleFlag) {
+                LOG.debug(
+                    "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_IS_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
+                    filename, logicalIdentifierPerLidReference);
+                ReferentialIntegrityUtil.performReporting(singleLidOrLidvidReference, false,
+                    indexToFilenames);
+              }
             } else {
               LOG.debug(
                   "reportLidOrLidvidReferenceToNonExistLogicalReferences:PRODUCT_NOT_IN_BUNDLE:filename,logicalIdentifierPerLidReference {},{}",
@@ -475,35 +468,6 @@ public class ReferentialIntegrityUtil {
     }
   }
 
-  private static boolean hasReferenceIDAndFilenameComboAdded(String singleLidorLidVidReference,
-      URL filename) {
-    boolean referenceIDAndFilenameComboAddedFlag = false;
-    // Build the combo of reference and filename together from input parameters.
-    // Remove the use of the slash '/' to avoid confusion. We are merely looking at
-    // the combination of the lid_reference (or lidvid_reference) plus filename as
-    // strings for comparison.
-    String referenceIDAndFilenameComboValue = singleLidorLidVidReference + filename.toString();
-    for (int ii = 0; ii < ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.size(); ii++) {
-      // Build the combo of reference and filename together from each value in
-      // ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.get and
-      // ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames.get.
-      // Remove the use of the slash '/' to avoid confusion. We are merely looking at
-      // the combination of the lid_reference (or lidvid_reference) plus filename as
-      // strings for comparison.
-      String singleComboValue = ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.get(ii)
-          + ReferentialIntegrityUtil.lidOrLidVidReferencesCumulativeFileNames.get(ii);
-      LOG.debug(
-          "hasReferenceIDAndFilenameComboAdded:referenceIDAndFilenameComboValue,singleComboValue {},{}",
-          referenceIDAndFilenameComboValue, singleComboValue);
-      if (referenceIDAndFilenameComboValue.equals(singleComboValue)) {
-        // If there is a compare, we have found our answer and will break out of loop.
-        referenceIDAndFilenameComboAddedFlag = true;
-        break;
-      }
-    }
-    return (referenceIDAndFilenameComboAddedFlag);
-  }
-
   private static boolean isIdentiferMatchingBundleBaseID(String singleLogicalIdentifier) {
     // Given a logical identifier, check if it contains the bundle base identifier.
     // If the bundle base identifier is urn:nasa:pds:kaguya_grs_spectra
@@ -512,7 +476,7 @@ public class ReferentialIntegrityUtil {
     boolean identifierMatchBundleBaseIDFlag = false;
     if (singleLogicalIdentifier != null) {
       if ((ReferentialIntegrityUtil.bundleBaseID != null)
-          && singleLogicalIdentifier.contains(ReferentialIntegrityUtil.bundleBaseID)) {
+          && singleLogicalIdentifier.startsWith(ReferentialIntegrityUtil.bundleBaseID)) {
         identifierMatchBundleBaseIDFlag = true;
       }
     }
@@ -702,7 +666,7 @@ public class ReferentialIntegrityUtil {
     List<Target> children = new ArrayList<>();
     try {
       if (getContext().getCrawler() != null) {
-        children = getContext().getCrawler().crawl(parentURL, false); // Get also the directories.
+        children = getContext().getCrawler().crawl(parentURL, false, getContext().getFileFilters()); // Get also the directories.
       } else {
         LOG.warn("crawlParentForBundleLabel:getContext().getCrawler() is null for URL {}",
             crawlTarget);
@@ -766,12 +730,12 @@ public class ReferentialIntegrityUtil {
 
     boolean labelIsCollectionFlag = false;
     boolean labelIsBundleFlag = false;
+    List<Target> children = new ArrayList<>();
     String parentId = null;
 
     try {
-      List<Target> children = new ArrayList<>();
       if (getContext().getCrawler() != null) {
-        children = getContext().getCrawler().crawl(crawlTarget, true); // Get also the directories.
+        children = getContext().getCrawler().crawl(crawlTarget, true, getContext().getFileFilters()); // Get also the directories.
       } else {
         LOG.warn("additionalReferentialIntegrityChecks:getContext().getCrawler() is null");
       }
@@ -799,15 +763,15 @@ public class ReferentialIntegrityUtil {
         // local_identifier and lid_reference or lidvid_reference tags.
         url = child.getUrl();
 
-        if (url.toString().endsWith("." + getContext().getLabelExtension()) && TargetExaminer.isTargetALabel(url)) {
+        // Check this URL has been parsed before. If yes, skip this file.
+        if (ReferentialIntegrityUtil.urlsParsedCumulative.contains(url)) {
+          LOG.info("SKIPPING_URL_TRUE:referenceType,url {},{}",
+              ReferentialIntegrityUtil.getReferenceType(), url);
+          continue;
+        }
 
-          // Check this URL has been parsed before. If yes, skip this file.
-          if (ReferentialIntegrityUtil.urlsParsedCumulative.contains(url)) {
-            LOG.info("SKIPPING_URL_TRUE:referenceType,url {},{}",
-                ReferentialIntegrityUtil.getReferenceType(), url);
-            continue;
-          }
-          LOG.info("SKIPPING_URL_FALSE:referenceType,url {},{}",
+        if (url.toString().endsWith("." + getContext().getLabelExtension()) && TargetExaminer.isTargetALabel(url)) {
+         LOG.info("SKIPPING_URL_FALSE:referenceType,url {},{}",
               ReferentialIntegrityUtil.getReferenceType(), url);
           labelIsCollectionFlag = false;
           labelIsBundleFlag = false;
@@ -822,10 +786,8 @@ public class ReferentialIntegrityUtil {
           if (TargetExaminer.isTargetCollectionType (child.getUrl())) {
             labelIsCollectionFlag = true;
           }
-
           xml = db.parse(url.openStream());
           domSource = new DOMSource(xml);
-
           // Note that the function getLidVidReferences() collects all references in the
           // Reference_List group in Internal_Reference tags.
           // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
@@ -833,7 +795,6 @@ public class ReferentialIntegrityUtil {
 
           ArrayList<String> lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource, url);
           ArrayList<String> logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, url);
-
           LOG.debug("additionalReferentialIntegrityChecks:url,lidOrLidVidReferences {},{}", url,
               lidOrLidVidReferences.size());
           LOG.debug("additionalReferentialIntegrityChecks:url,logicalIdentifiers {},{}", url,
@@ -857,6 +818,7 @@ public class ReferentialIntegrityUtil {
           }
 
           if ((lidOrLidVidReferences != null) && !lidOrLidVidReferences.isEmpty()) {
+            String urlstr = url.toString();
             for (int ii = 0; ii < lidOrLidVidReferences.size(); ii++) {
               LOG.debug(
                   "additionalReferentialIntegrityChecks:ii,url,lidOrLidVidReferences.get(ii) {},{},[{}]",
@@ -868,7 +830,7 @@ public class ReferentialIntegrityUtil {
               // Note that because the reference id can be the same, the combination of the id
               // plus the file name will make it unique.
               if (!ReferentialIntegrityUtil
-                  .hasReferenceIDAndFilenameComboAdded(lidOrLidVidReferences.get(ii), url)) {
+                  .lidAndFilenameCombo.contains(lidOrLidVidReferences.get(ii) + urlstr)) {
 
                 ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative
                     .add(lidOrLidVidReferences.get(ii));
@@ -883,7 +845,7 @@ public class ReferentialIntegrityUtil {
                                                                                             // be
                                                                                             // referred
                                                                                             // to.
-
+                ReferentialIntegrityUtil.lidAndFilenameCombo.add(lidOrLidVidReferences.get(ii) + urlstr);
                 LOG.debug("additionalReferentialIntegrityChecks:ADDING_REFERENCE {}",
                     lidOrLidVidReferences.get(ii), lidOrLidVidReferencesCumulative.size());
               }
@@ -947,7 +909,7 @@ public class ReferentialIntegrityUtil {
         ReferentialIntegrityUtil.referenceType, crawlTarget, bundleOrCollectionReferenceMap,
         bundleOrCollectionReferenceMap.size());
   }
-
+ 
   /**
    * Reports an error to the validation listener.
    *
@@ -958,7 +920,7 @@ public class ReferentialIntegrityUtil {
    */
   protected static void reportError(ProblemDefinition defn, URL targetUrl, int lineNumber,
       int columnNumber) {
-    ValidationProblem problem = new ValidationProblem(defn, new ValidationTarget(targetUrl),
+    ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(targetUrl),
         lineNumber, columnNumber, defn.getMessage());
     problemListener.addProblem(problem);
   }
@@ -974,7 +936,7 @@ public class ReferentialIntegrityUtil {
    */
   protected static void reportError(ProblemDefinition defn, URL target, int lineNumber,
       int columnNumber, String message) {
-    ValidationProblem problem = new ValidationProblem(defn, new ValidationTarget(target),
+    ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(target),
         lineNumber, columnNumber, message);
     problemListener.addProblem(problem);
   }

@@ -40,7 +40,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FileService;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.content.array.ArrayContentValidator;
+import gov.nasa.pds.tools.validate.SpecialConstantChecker;
 import gov.nasa.pds.tools.validate.rule.RuleContext;
 import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 
@@ -53,8 +53,6 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
-  private final List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
-      "-INFINITY", "+INFINITY", "NAN", "-NAN", "+NAN");
 
   /** List of valid datetime formats. */
   private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
@@ -256,7 +254,7 @@ public class FieldValueValidator {
             String message = "The length of the value '" + value.trim()
                 + "' exceeds the defined max field length (expected max " + fields[i].getMaxLength()
                 + ", got " + value.trim().length() + ")";
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_TOO_LONG, message,
+            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALID_TOO_LONG, message,
                 record.getLocation(), (i + 1));
           }
         }
@@ -349,22 +347,35 @@ public class FieldValueValidator {
                     + fields[i].getType().getXMLType() + "'.",
                 record.getLocation(), (i + 1));
           } catch (InvalidTableException e) {
-            String message = "Value does not match its data type '"
-                + fields[i].getType().getXMLType() + "': " + e.getMessage();
-            LOG.debug("recordLocation.getLabel: " + record.getLocation().getLabel());
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                message, record.getLocation(), (i + 1));
+            if (!SpecialConstantChecker.isNonConformantSpecialConstant(value.trim(), fields[i].getSpecialConstants())) {
+              String message = "Value does not match its data type '"
+                  + fields[i].getType().getXMLType() + "': " + e.getMessage();
+              LOG.debug("recordLocation.getLabel: " + record.getLocation().getLabel());
+              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+                  message, record.getLocation(), (i + 1));
+            } else {
+              addTableProblem(ExceptionType.DEBUG, ProblemType.FIELD_VALUE_DATA_TYPE_MATCH,
+                  "Value '" + value.trim() + "' matches a special constant.",
+                  record.getLocation(), (i + 1));
+            }
           }
           // Check that the format of the field value in the table matches
           // the defined formation of the field
           if (checkFieldFormat) {
             // Due to CCB-214, the tool should validate against the
             // validation_format field for Character Tables.
-            if (record instanceof FixedTableRecord && !fields[i].getValidationFormat().isEmpty()) {
-              checkFormat(value, fields[i].getValidationFormat(), i + 1, record.getLocation());
+            if (record instanceof FixedTableRecord && (!fields[i].getValidationFormat().isEmpty() || !fields[i].getFieldFormat().isEmpty())) {
+              boolean asError = true;
+              String format = fields[i].getValidationFormat();
+              if (format.isEmpty()) {
+                asError = false;
+                format = fields[i].getFieldFormat();
+              }
+
+              checkFormat(value, format, i + 1, record.getLocation(), asError);
             }
             if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
-              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation());
+              checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation(), false);
             }
           }
           // Check that the field value is within the defined min/max values
@@ -378,15 +389,19 @@ public class FieldValueValidator {
           }
         } else {
           try {
-
             checkType(value, fields[i].getType());
             addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field is blank.",
                 record.getLocation(), (i + 1));
           } catch (Exception e) {
-            String message = "Value does not match its data type '"
-                + fields[i].getType().getXMLType() + "': " + e.getMessage();
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
-                message, record.getLocation(), (i + 1));
+            if (!SpecialConstantChecker.isNonConformantSpecialConstant(value.trim(), fields[i].getSpecialConstants())) {
+              String message = "Value does not match its data type '"
+                  + fields[i].getType().getXMLType() + "': " + e.getMessage();
+              addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_DATA_TYPE_MISMATCH,
+                  message, record.getLocation(), (i + 1));
+            } else {
+              addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field matches special constant.",
+                  record.getLocation(), (i + 1));
+            }
           }
         }
       } catch (Exception e) {
@@ -491,10 +506,15 @@ public class FieldValueValidator {
       if (specialConstants != null) {
         FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
             ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
-        isSpecialConstant = ArrayContentValidator.isSpecialConstant(number.stripTrailingZeros(),
-            specialConstants, reporter);
+        try {
+          isSpecialConstant = SpecialConstantChecker.isConformantSpecialConstant(number.stripTrailingZeros(),
+              specialConstants, reporter);
+        } catch (NumberFormatException nfe) {
+          addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
+              "One of the special constants could not be converted to the numeric data type of the table cell",
+              recordLocation, fieldIndex);
+        }
       }
-
       if (!isSpecialConstant) {
         Double dnumber = number.doubleValue();
         if (minimum != null) {
@@ -564,7 +584,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (INF_NAN_VALUES.contains(value.toUpperCase()) && !realTypes.contains(type)) {
+    if (SpecialConstantChecker.isInfOrNan(value) && !realTypes.contains(type)) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
@@ -640,6 +660,7 @@ public class FieldValueValidator {
       }
     } else if (FieldType.ASCII_ANYURI.getXMLType().equals(type.getXMLType())) {
       try {
+        @SuppressWarnings("unused") // looking for exception side effect
         URI uri = new URI(value);
       } catch (URISyntaxException e) {
         throw new InvalidTableException(e.getMessage());
@@ -764,8 +785,7 @@ public class FieldValueValidator {
    * @param fieldIndex Where the field value is located.
    * @param recordLocation The record location where the field is located.
    */
-  private void checkFormat(String value, String format, int fieldIndex,
-      RecordLocation recordLocation) {
+  private void checkFormat(String value, String format, int fieldIndex, RecordLocation recordLocation, boolean asError) {
     Matcher matcher = formatPattern.matcher(format);
     int precision = -1;
     boolean isValid = true;
@@ -780,13 +800,15 @@ public class FieldValueValidator {
         if ("+".equals(justified)) {
           // check if there is trailing whitespace
           if (trailingWhiteSpacePattern.matcher(value).matches()) {
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_RIGHT_JUSTIFIED,
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_NOT_RIGHT_JUSTIFIED : ProblemType.FIELD_VALUE_NOT_RIGHT_JUSTIFIED,
                 "The value '" + value + "' is not right-justified.", recordLocation, fieldIndex);
             isValid = false;
           }
         } else if ("-".equals(justified)) {
           if (leadingWhiteSpacePattern.matcher(value).matches()) {
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_LEFT_JUSTIFIED,
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_NOT_LEFT_JUSTIFIED : ProblemType.FIELD_VALUE_NOT_LEFT_JUSTIFIED,
                 "The value '" + value + "' is not left-justified.", recordLocation, fieldIndex);
             isValid = false;
           }
@@ -806,6 +828,7 @@ public class FieldValueValidator {
           }
           Double.parseDouble(value.trim());
         } else if (specifier.equals("d")) {
+          @SuppressWarnings("unused") // looking for exception side effect
           BigInteger bi = new BigInteger(value.trim());
         } else if (specifier.equals("o")) {
           BigInteger bi = new BigInteger(value.trim());
@@ -819,13 +842,15 @@ public class FieldValueValidator {
           }
         }
       } catch (NumberFormatException e) {
-        addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH,
+        addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+            asError ? ProblemType.FIELD_VALID_FORMAT_SPECIFIER_MISMATCH : ProblemType.FIELD_VALUE_FORMAT_SPECIFIER_MISMATCH,
             "The value '" + value.trim() + "' does not match the "
                 + "defined field format specifier '" + specifier + "': " + e.getMessage(),
             recordLocation, fieldIndex);
       }
       if (value.trim().length() > width) {
-        addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_TOO_LONG,
+        addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+            asError ? ProblemType.FIELD_VALID_TOO_LONG : ProblemType.FIELD_VALUE_TOO_LONG,
             "The length of the value '" + value.trim() + "' exceeds the max "
                 + "width set in the defined field format " + "(max " + width + ", got "
                 + value.trim().length() + ").",
@@ -833,20 +858,24 @@ public class FieldValueValidator {
         isValid = false;
       }
       if (precision != -1) {
+        // Per StdRef 4B.1.2, field_format defines the maximum precision, not the only precision allowed:
+        // For character tables, <field_format> is used to describe the maximum length and alignment of
+        // the data. <field_format> also gives an indication of the maximum precision of real numbers, but
+        // does not require all values to have this precision.
         if (specifier.matches("[feE]")) {
           String[] tokens = value.trim().split("[eE]", 2);
-          int length = 0;
+          int actual_precision = 0;
           if (tokens[0].indexOf(".") != -1) {
-            length = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
+            actual_precision = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
           }
-          if (length != precision) {
-            addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
-                "The number of digits to the right of the decimal point " + "in the value '"
-                    + value.trim() + "' does not equal the "
-                    + "precision set in the defined field format " + "(expected " + precision
-                    + ", got " + length + ").",
-                recordLocation, fieldIndex);
+          if (actual_precision > precision) {
             isValid = false;
+            addTableProblem(asError ? ExceptionType.ERROR : ExceptionType.WARNING,
+                asError ? ProblemType.FIELD_VALID_FORMAT_PRECISION_MISMATCH : ProblemType.FIELD_VALUE_FORMAT_PRECISION_MISMATCH,
+                "The number of digits to the right of the decimal point " + "in the value '"
+                    + value.trim() + "' should be <= the precision set in the defined field format '"
+                    + format+ "' (Expected: <=" + precision + ", Actual: " + actual_precision + ").",
+                    recordLocation, fieldIndex);
           }
         }
       }

@@ -15,7 +15,6 @@ package gov.nasa.pds.tools.validate;
 
 import java.net.URL;
 import java.util.Collection;
-import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.rule.GenericProblems;
 
 public class ValidationProblem {
@@ -30,7 +29,7 @@ public class ValidationProblem {
 
   public ValidationProblem(ProblemDefinition defn, URL target, int lineNumber, int columnNumber,
       String message) {
-    this(defn, Utility.getValidationTarget(target), lineNumber, columnNumber, message);
+    this(defn, ValidationTarget.build(target), lineNumber, columnNumber, message);
   }
 
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target, int lineNumber,
@@ -49,7 +48,7 @@ public class ValidationProblem {
   }
 
   public ValidationProblem(ProblemDefinition defn, URL target, int lineNumber, int columnNumber) {
-    this(defn, Utility.getValidationTarget(target), lineNumber, columnNumber);
+    this(defn, ValidationTarget.build(target), lineNumber, columnNumber);
   }
 
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target, int lineNumber,
@@ -58,7 +57,7 @@ public class ValidationProblem {
   }
 
   public ValidationProblem(ProblemDefinition defn, URL target, String message) {
-    this(defn, Utility.getValidationTarget(target), message);
+    this(defn, ValidationTarget.build(target), message);
   }
 
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target, String message) {
@@ -66,7 +65,10 @@ public class ValidationProblem {
   }
 
   public ValidationProblem(ProblemDefinition defn, URL target) {
-    this(defn, Utility.getValidationTarget(target));
+    this(defn, ValidationTarget.build(target));
+  }
+  public ValidationProblem(ProblemDefinition defn, URL source, URL label) {
+    this(defn, ValidationTarget.build(source, label));
   }
 
   public ValidationProblem(ProblemDefinition defn, ValidationTarget target) {

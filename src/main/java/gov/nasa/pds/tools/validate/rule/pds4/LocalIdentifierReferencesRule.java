@@ -68,7 +68,7 @@ public class LocalIdentifierReferencesRule extends AbstractValidationRule {
   @ValidationTest
   public void validateLocalIdentifiers() {
     List<ValidationProblem> problems = new ArrayList<>();
-    ValidationTarget target = new ValidationTarget(getTarget());
+    ValidationTarget target = ValidationTarget.build(getTarget());
     Document label = getContext().getContextValue(PDS4Context.LABEL_DOCUMENT, Document.class);
     DOMSource source = new DOMSource(label);
 
@@ -80,7 +80,7 @@ public class LocalIdentifierReferencesRule extends AbstractValidationRule {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
           "Error while finding local_identifier_reference attributes using XPath '"
               + LOCAL_IDENTIFIER_REF_PATH + "': " + xe.getMessage());
-      getListener().addProblem(new ValidationProblem(pd, new ValidationTarget(getTarget())));
+      getListener().addProblem(new ValidationProblem(pd, ValidationTarget.build(getTarget())));
       return;
     }
     NodeList localIds = null;
@@ -91,7 +91,7 @@ public class LocalIdentifierReferencesRule extends AbstractValidationRule {
       ProblemDefinition pd = new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
           "Error while finding local_identifier attributes using XPath '" + LOCAL_IDENTIFIER_PATH
               + "': " + xe.getMessage());
-      getListener().addProblem(new ValidationProblem(pd, new ValidationTarget(getTarget())));
+      getListener().addProblem(new ValidationProblem(pd, ValidationTarget.build(getTarget())));
       return;
     }
 

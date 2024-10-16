@@ -51,7 +51,7 @@ public class AuthInformation {
     // Determine which file processing to use
     if (line.startsWith("<?xml ") && line.endsWith("?>")) { // XML
       // <registry url="http://localhost:9200" index="registry" auth="/path/to/auth.cfg" />
-      DocumentBuilder builder = DocumentBuilderFactory.newDefaultInstance().newDocumentBuilder();
+      DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
       Document document = builder.parse(file);
       NodeList registries = document.getElementsByTagName("registry");
 

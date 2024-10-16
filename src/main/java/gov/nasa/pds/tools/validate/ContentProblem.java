@@ -33,7 +33,7 @@ public class ContentProblem extends ValidationProblem {
    * @param label url of the label file.
    */
   public ContentProblem(ProblemDefinition defn, URL source, URL label) {
-    super(defn, source);
+    super(defn, source, label);
     this.label = label;
   }
 

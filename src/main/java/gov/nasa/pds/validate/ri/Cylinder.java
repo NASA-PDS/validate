@@ -1,9 +1,8 @@
 package gov.nasa.pds.validate.ri;
 
 import java.util.ArrayList;
-import java.util.List;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Cylinder implements Runnable {
   final private AuthInformation registry;
@@ -38,8 +37,8 @@ public class Cylinder implements Runnable {
   public void run() {
     try {
       ArrayList<String> referenced_valid_lidvids = new ArrayList<String>();
-      DocumentInfo registry = new RegistryDocument(this.registry);
-      DocumentInfo search = new OpensearchDocument(this.search);
+      DocumentInfo search = AuthInformation.NO_AUTH.equals (this.registry) ? new OpensearchDocument(this.search) : new RegistryDocument(this.registry);;
+      String magicWord = AuthInformation.NO_AUTH.equals (this.registry) ? "database." : "registry.";
 
       if (search.exists(this.lidvid)) {
         this.log.info(
@@ -50,32 +49,11 @@ public class Cylinder implements Runnable {
           else {
             this.broken++;
             this.reporter.error("In the search the lidvid '" + this.lidvid + "' references '"
-                + reference + "' that is missing in the database.");
+                + reference + "' that is missing in the " + magicWord);
           }
         }
       } else
-        this.reporter.error("The given lidvid '" + this.lidvid + "' is missing from the database.");
-
-      if (!AuthInformation.NO_AUTH.equals(this.registry)) {
-        if (registry.exists(this.lidvid)) {
-          this.log.info("In the registry-api the lidvid '" + this.lidvid + "' is of type: "
-              + registry.getProductTypeOf(this.lidvid));
-          List<String> members = registry.getReferencesOf(this.lidvid);
-          for (String member : members) {
-            if (!referenced_valid_lidvids.contains(member))
-              this.reporter.error("For the lidvid '" + this.lidvid
-                  + "' the registry-api erroneously references the lidvid '" + member + "'.");
-          }
-          for (String reference : referenced_valid_lidvids) {
-            if (!members.contains(reference))
-              this.reporter.error("For the lidvid '" + this.lidvid
-                  + "' the registry-api erroneously failed to reference the lidvid '" + reference
-                  + "'.");
-          }
-        } else
-          this.reporter
-              .error("The given lidvid '" + this.lidvid + "' is missing from the registry");
-      }
+        this.reporter.error("The given lidvid '" + this.lidvid + "' is missing from the " + magicWord);
 
       if (this.has_children(search))
         this.cam.addAll(referenced_valid_lidvids);

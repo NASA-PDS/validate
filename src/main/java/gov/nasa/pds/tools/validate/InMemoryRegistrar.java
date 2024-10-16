@@ -35,7 +35,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<String, ValidationTarget> targets = new HashMap<>();
   private Map<String, ValidationTarget> collections = new HashMap<>();
   private Map<String, ValidationTarget> bundles = new HashMap<>();
-  private Map<String, String> references = new HashMap<>();
   private Set<String> referencedTargetLocations = new HashSet<>();
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
@@ -50,7 +49,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized void addTarget(String parentLocation, TargetType type, String location) {
     ValidationTarget target;
     try {
-      target = new ValidationTarget(location, type);
+      target = ValidationTarget.build(location, type);
       if (parentLocation == null) {
         this.rootTarget = target;
       }
@@ -133,7 +132,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addTargetReference(String referenceLocation, String targetLocation) {
-    references.put(referenceLocation, targetLocation);
     referencedTargetLocations.add(targetLocation);
   }
 
@@ -144,18 +142,35 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addIdentifierReference(String referenceLocation, Identifier identifier) {
-    referencedIdentifiers.add(identifier);
+    referencedIdentifiers.add(identifier); // this one allows duplicates!
     identifierReferenceLocations.put(identifier, referenceLocation);
   }
 
   @Override
-  public synchronized boolean isIdentifierReferenced(Identifier identifier) {
-    return referencedIdentifiers.contains(identifier);
+  public synchronized boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
+    boolean result = referencedIdentifiers.contains(identifier);
+    if (!result && orNearNeighbor) {
+      for (Identifier id : this.referencedIdentifiers) {
+        result = identifier.nearNeighbor(id);
+        if (result) break;
+      }
+    }
+    return result;
   }
 
   @Override
-  public synchronized String getTargetForIdentifier(Identifier identifier) {
-    return identifierDefinitions.get(identifier);
+  public synchronized String getTargetForIdentifier(Identifier identifier, boolean orNearNeighbor) {
+    String result = null;
+    if (this.identifierDefinitions.containsKey(identifier)) {
+      result = identifierDefinitions.get(identifier);
+    } else if (orNearNeighbor) {
+      for (Identifier id : this.identifierDefinitions.keySet()) {
+        if (id.nearNeighbor(identifier)) {
+          result = this.identifierDefinitions.get(id);
+        }
+      }
+    }
+    return result;
   }
 
   @Override
@@ -210,11 +225,13 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized Collection<Identifier> getUnreferencedIdentifiers() {
     List<Identifier> unreferencedIdentifiers = new ArrayList<>();
     for (Identifier id : identifierDefinitions.keySet()) {
-      boolean found = false;
-      for (Identifier ri : referencedIdentifiers) {
-        if (ri.equals(id)) {
-          found = true;
-          break;
+      boolean found = this.referencedIdentifiers.contains(id);
+      if (!found) {
+        for (Identifier ri : referencedIdentifiers) {
+          if (ri.nearNeighbor(id)) {
+            found = true;
+            break;
+          }
         }
       }
       if (!found) {
@@ -240,12 +257,16 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized String getIdentifierReferenceLocation(Identifier id) {
+  public synchronized String getIdentifierReferenceLocation(Identifier id, boolean orNearNeighbor) {
     String result = null;
-    for (Identifier ri : identifierReferenceLocations.keySet()) {
-      if (ri.equals(id)) {
-        result = identifierReferenceLocations.get(ri);
-        break;
+    if (this.identifierReferenceLocations.containsKey(id)) {
+      result = this.identifierReferenceLocations.get(id);
+    } else if (orNearNeighbor) {
+      for (Identifier ri : identifierReferenceLocations.keySet()) {
+        if (ri.nearNeighbor(id)) {
+          result = identifierReferenceLocations.get(ri);
+          break;
+        }
       }
     }
     return result;

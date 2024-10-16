@@ -13,35 +13,34 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.xml.transform.sax.SAXSource;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
-import net.sf.saxon.om.DocumentInfo;
+import net.sf.saxon.om.TreeInfo;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
 
 /**
  * Class to examine if a Target maches a certain product type, either a bundle or a collection.
  *
  */
-public class TargetExaminer extends Target {
-  private static final Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
-  private static String BUNDLE_NODE_TAG = "Product_Bundle";
-  private static String COLLECTION_NODE_TAG = "Product_Collection";
-
-  /**
-   * Creates a new instance.
-   */
-  public TargetExaminer(URL url, boolean isDir) {
-    super(url, isDir);
+public class TargetExaminer {
+  private static class Examination {
+    boolean isBundle=false, isCollection=false, isDocument=false, isLabel=false;
   }
+  final private static HashMap<String,Examination> examined = new HashMap<String,Examination>();
+  final private static Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
+  final private static String BUNDLE_NODE_TAG = "Product_Bundle";
+  final private static String COLLECTION_NODE_TAG = "Product_Collection";
+  final private static String DOCUMENT_NODE_TAG = "Product_Document";
 
   /**
    * Check if a given url is of Bundle type.
@@ -51,25 +50,7 @@ public class TargetExaminer extends Target {
    */
   public static boolean isTargetBundleType(URL url) { return isTargetBundleType(url, false); }
   public static boolean isTargetBundleType(URL url, boolean ignoreErrors) {
-    // Function returns true if the product has the tag defined in PRODUCT_NAME_TAG.
-    String PRODUCT_NAME_TAG = TargetExaminer.BUNDLE_NODE_TAG;
-    boolean targetIsBundleFlag = false;
-
-    // Do a sanity check if the file or directory exist.
-    if (!(new File(url.getPath()).exists())) {
-      LOG.error("Provided url does not exist: {}", url);
-      return (targetIsBundleFlag);
-    }
-
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
-      targetIsBundleFlag = true;
-    }
-    LOG.debug("isTargetBundleType:url,(new File(url.getPath()).isFile() {},{}", url,
-        (new File(url.getPath()).isFile()));
-    LOG.debug("isTargetBundleType:url,PRODUCT_NAME_TAG,targetIsBundleFlag {},{},{}", url,
-        PRODUCT_NAME_TAG, targetIsBundleFlag);
-
-    return (targetIsBundleFlag);
+    return TargetExaminer.examine(url, ignoreErrors).isBundle;
   }
 
   /**
@@ -80,27 +61,26 @@ public class TargetExaminer extends Target {
    */
   public static boolean isTargetCollectionType(URL url) { return isTargetCollectionType(url,false); }
   public static boolean isTargetCollectionType(URL url, boolean ignoreErrors) {
-    // Function returns true if the product has the tag defined in PRODUCT_NAME_TAG.
-    String PRODUCT_NAME_TAG = TargetExaminer.COLLECTION_NODE_TAG;
-    boolean targetIsCollectionFlag = false;
-
-    // Do a sanity check if the file or directory exist.
-    if (!(new File(url.getPath()).exists())) {
-      LOG.error("Provided url does not exist: {}", url);
-      return (targetIsCollectionFlag);
-    }
-
-    if ((new File(url.getPath()).isFile()) && (TargetExaminer.tagMatches(url, PRODUCT_NAME_TAG, ignoreErrors))) {
-      targetIsCollectionFlag = true;
-    }
-    LOG.debug("isTargetCollectionType:url,(new File(url.getPath()).isFile() {},{}", url,
-        (new File(url.getPath()).isFile()));
-    LOG.debug("isTargetCollectionType:url,PRODUCT_NAME_TAG,targetIsCollectionFlag {},{},{}", url,
-        PRODUCT_NAME_TAG, targetIsCollectionFlag);
-
-    return (targetIsCollectionFlag);
+    return TargetExaminer.examine(url, ignoreErrors).isCollection;
   }
 
+  public static boolean isTargetDocumentType (URL url) { return isTargetDocumentType(url,false); }
+  public static boolean isTargetDocumentType (URL url, boolean ignoreErrors) {
+    return TargetExaminer.examine(url, ignoreErrors).isDocument;
+  }
+  private static Examination examine (URL url, boolean ignoreErrors) {
+    String key = url.toString();
+    if (!TargetExaminer.examined.containsKey(key)) {
+      synchronized (TargetExaminer.examined) {
+        if (!TargetExaminer.examined.containsKey(key)) {
+          Examination patient = new Examination();
+          TargetExaminer.tagMatches(url, patient, ignoreErrors);
+          TargetExaminer.examined.put(key, patient);
+        }
+      }      
+    }
+    return TargetExaminer.examined.get(key);
+  }
   /**
    * Check if content of url contains a node that matches tagCheck.
    *
@@ -108,40 +88,37 @@ public class TargetExaminer extends Target {
    * @param tagCheck the tag of the node to check.
    * @return true if the given url contains a node that matches tagCheck.
    */
-  private static boolean tagMatches(URL url, String tagCheck, boolean ignoreErrors) {
-    // Given a target URL, make an educated guess by checking if content of target
-    // contains a given tag.
-    // A PDS4 label uses the tag to identify itself the first 10 lines, e.g.
-    // head /data/home/pds4/insight_cameras/bundle.xml
-    // <?xml version="1.0" encoding="UTF-8"?>
-    // <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B10.sch"
-    // schematypens="http://purl.oclc.org/dsdl/schematron"?>
-    //
-    // <Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
-    // xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+  private static void tagMatches(URL url, Examination patient, boolean ignoreErrors) {
+    if (!"file".equalsIgnoreCase(url.getProtocol())) {
+      LOG.error("Provided URL is not a a file: {}", url.toString());
+      return;     
+    }
+    if (!FileUtils.toFile(url).exists()) {
+      LOG.error("Provided file does not exist: {}", FileUtils.toFile(url));
+      return;
+    }
 
-    LOG.debug("tagMatches:url,tagCheck {},{}", url, tagCheck);
-    boolean tagMatchedFlag = false;
-
+    if (!FileUtils.toFile(url).isFile()) {
+      LOG.error("Provided file is not a regular file: {}", FileUtils.toFile(url));
+      return;
+    }
     try {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource, ignoreErrors); // Parses a label.
       LOG.debug("tagMatches:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
-        XMLExtractor extractor = new XMLExtractor(docInfo);
-        xmlModels = extractor.getNodesFromDoc(tagCheck);
-        LOG.debug("tagMatches:url,tagCheck,xmlModels.size() {},{},{}", url, tagCheck,
-            xmlModels.size());
-        if (xmlModels.size() > 0) {
-          tagMatchedFlag = true; // If xmlModels has more than one element, the tag matches.
-          // Should only print debug if you really mean it. Too busy for operation.
-          // for (TinyNodeImpl xmlModel : xmlModels) {
-          // LOG.debug("xmlModel.getStringValue() {}",xmlModel.getStringValue());
-          // }
-        }
+        XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
+        xmlModels = extractor.getNodesFromDoc("logical_identifier");
+        patient.isLabel = true;
+        xmlModels = extractor.getNodesFromDoc(TargetExaminer.BUNDLE_NODE_TAG);
+        patient.isBundle = xmlModels.size() > 0;
+        xmlModels = extractor.getNodesFromDoc(TargetExaminer.COLLECTION_NODE_TAG);
+        patient.isCollection = xmlModels.size() > 0;
+        xmlModels = extractor.getNodesFromDoc(TargetExaminer.DOCUMENT_NODE_TAG);
+        patient.isDocument = xmlModels.size() > 0;
       } catch (Exception e) {
         if (!ignoreErrors) {
           LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
@@ -154,9 +131,6 @@ public class TargetExaminer extends Target {
         e.printStackTrace();
       }
     }
-
-    LOG.debug("tagMatches:url,tagCheck,tagMatchedFlag {},{},{}", url, tagCheck, tagMatchedFlag);
-    return (tagMatchedFlag);
   }
 
   /**
@@ -181,11 +155,11 @@ public class TargetExaminer extends Target {
       InputSource source = Utility.getInputSourceByURL(url);
       SAXSource saxSource = new SAXSource(source);
       saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
+      TreeInfo docInfo = LabelParser.parse(saxSource, false); // Parses a label.
       LOG.debug("getTargetContent:docInfo {},{}", docInfo, docInfo.getClass());
       List<TinyNodeImpl> xmlModels = new ArrayList<>();
       try {
-        XMLExtractor extractor = new XMLExtractor(docInfo);
+        XMLExtractor extractor = new XMLExtractor(docInfo.getRootNode());
         xmlModels = extractor.getNodesFromDoc(nodeCheck);
         LOG.debug("getTargetContent:url,nodeCheck,xmlModels.size() {},{},{}", url, nodeCheck,
             xmlModels.size());
@@ -222,19 +196,7 @@ public class TargetExaminer extends Target {
     return (fieldContent);
   }
   public static boolean isTargetALabel(URL url) {
-    try {
-      InputSource source = Utility.getInputSourceByURL(url);
-      SAXSource saxSource = new SAXSource(source);
-      saxSource.setSystemId(url.toString());
-      DocumentInfo docInfo = LabelParser.parse(saxSource); // Parses a label.
-      @SuppressWarnings("unused")
-      List<TinyNodeImpl> xmlModels = new ArrayList<>();
-      XMLExtractor extractor = new XMLExtractor(docInfo);
-      xmlModels = extractor.getNodesFromDoc("logical_identifier");
-      return true;
-    } catch (Throwable t) {
-      return false;
-    }
+    return TargetExaminer.examine(url, true).isLabel;
   }
   /**
    * Modifies the input array and returns it so the same call can be used

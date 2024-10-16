@@ -102,11 +102,11 @@ public class RegisterLabelIdentifiers extends AbstractValidationRule {
     }
     LOG.debug("RegisterLabelIdentifiers:registerIdentifier:getTarget(),identifier {},{}",
         getTarget(), identifier);
-    if (registrar.getTargetForIdentifier(identifier) == null) {
+    if (registrar.getTargetForIdentifier(identifier, false) == null) {
       registrar.setTargetIdentifier(target.normalize().toString(), identifier);
     } else {
       String message = String.format("Identifier %s already defined (old location: %s)",
-          identifier.toString(), registrar.getTargetForIdentifier(identifier));
+          identifier.toString(), registrar.getTargetForIdentifier(identifier, false));
       reportError(PDS4Problems.DUPLICATE_LOGICAL_IDENTIFIER, getTarget(), -1, -1, message);
     }
   }

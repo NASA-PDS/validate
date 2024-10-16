@@ -27,7 +27,6 @@ import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -71,9 +70,9 @@ public class LabelValidationRule extends AbstractValidationRule {
 
   private SchemaValidator schemaValidator;
   private SchematronTransformer schematronTransformer;
-  private Map<URL, ProblemContainer> labelSchemaResults;
-  private Map<URL, ProblemContainer> labelSchematronResults;
-  private Map<URL, Transformer> labelSchematrons;
+  private Map<String, ProblemContainer> labelSchemaResults;
+  private Map<String, ProblemContainer> labelSchematronResults;
+  private Map<String, String> labelSchematrons;
   private XMLExtractor extractor;
 
   private static Object lock = new Object();
@@ -83,7 +82,7 @@ public class LabelValidationRule extends AbstractValidationRule {
     schematronTransformer = new SchematronTransformer();
     labelSchemaResults = new HashMap<>();
     labelSchematronResults = new HashMap<>();
-    labelSchematrons = new HashMap<>();
+    this.labelSchematrons = new HashMap<>();
     extractor = null;
   }
 
@@ -242,7 +241,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (getContext().getCatalogResolver() != null
           || getContext().isForceLabelSchemaValidation()) {
         // boolean hasValidSchemas = false;
-        Map<String, Transformer> labelSchematrons = null;
+        Map<String, String> labelSchematrons = null;
         synchronized (lock) {
           // Validate the label's schema and schematron first before doing
           // label validation
@@ -442,10 +441,11 @@ public class LabelValidationRule extends AbstractValidationRule {
         } catch (MalformedURLException ignore) {
           // Should never throw an exception
         }
+        String schemaUrlStr = schemaUrl.toString();
         LOG.debug("validateAllLoadedSchemas:schemaUrl {}", schemaUrl);
         ProblemContainer container = new ProblemContainer();
-        if (labelSchemaResults.containsKey(schemaUrl)) {
-          container = labelSchemaResults.get(schemaUrl);
+        if (this.labelSchemaResults.containsKey(schemaUrlStr)) {
+          container = labelSchemaResults.get(schemaUrlStr);
           if (container.getProblems().size() != 0) {
             for (ValidationProblem le : container.getProblems()) {
               le.setSource(label.toURI().toString());
@@ -492,7 +492,7 @@ public class LabelValidationRule extends AbstractValidationRule {
                   schemaUrl, passFlag);
             }
           }
-          labelSchemaResults.put(schemaUrl, container);
+          labelSchemaResults.put(schemaUrlStr, container);
         }
         LOG.debug("validateAllLoadedSchemas:label,schemaUrl,passFlag {},{},{}", label, schemaUrl,
             passFlag);
@@ -588,7 +588,7 @@ public class LabelValidationRule extends AbstractValidationRule {
 
   private boolean validateSingleSchematron(URL label, URL schematronRef,
       XMLCatalogResolver resolver, ProblemContainer labelProblems,
-      Map<String, Transformer> results) {
+      Map<String, String> results) {
     // Note that these 2 parameters will serve as both input and output:
     // labelProblems, and results.
     // for holding problems with the label and the results will grow as a map.
@@ -628,8 +628,9 @@ public class LabelValidationRule extends AbstractValidationRule {
       LOG.debug("validateSingleSchematron:schematronRef,resolvableUrl {},{}", schematronRef,
           resolvableUrl);
       if (resolvableUrl) {
-        if (labelSchematrons.containsKey(schematronRef)) {
-          container = labelSchematronResults.get(schematronRef);
+        String schematronRefStr = schematronRef.toString();
+        if (this.labelSchematrons.containsKey(schematronRefStr)) {
+          container = this.labelSchematronResults.get(schematronRefStr);
           if (container.getProblems().size() != 0) {
             for (ValidationProblem le : container.getProblems()) {
               le.setSource(label.toURI().toString());
@@ -639,17 +640,18 @@ public class LabelValidationRule extends AbstractValidationRule {
               schematronPassFlag = false;
             }
           } else {
-            results.put(schematronRef.toString(), labelSchematrons.get(schematronRef));
+            results.put(schematronRefStr, this.labelSchematrons.get(schematronRefStr));
           }
         } else {
           container = new ProblemContainer();
           try {
-            Transformer transformer = schematronTransformer.transform(schematronRef, container);
-            labelSchematrons.put(schematronRef, transformer);
-            results.put(schematronRef.toString(), transformer);
+            String transformer = schematronTransformer.fetch(schematronRef, container);
+            this.labelSchematrons.put(schematronRefStr, transformer);
+            results.put(schematronRefStr, transformer);
           } catch (TransformerException te) {
-            // Ignore as the listener handles the exceptions and puts it into
-            // the container
+            container.addProblem(new ValidationProblem(
+                new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR, te.getLocalizedMessage()),
+                schematronRef));            
           } catch (Exception e) {
             container.addProblem(new ValidationProblem(
                 new ProblemDefinition(ExceptionType.FATAL, ProblemType.SCHEMATRON_ERROR,
@@ -665,7 +667,7 @@ public class LabelValidationRule extends AbstractValidationRule {
               schematronPassFlag = false;
             }
           }
-          labelSchematronResults.put(schematronRef, container);
+          this.labelSchematronResults.put(schematronRefStr, container);
         }
       } else {
         schematronPassFlag = false;
@@ -681,10 +683,10 @@ public class LabelValidationRule extends AbstractValidationRule {
     return (schematronPassFlag);
   }
 
-  private Map<String, Transformer> validateLabelSchematrons(URL label,
+  private Map<String, String> validateLabelSchematrons(URL label,
       ProblemContainer labelProblems, XMLCatalogResolver resolver) {
     boolean passFlag = true;
-    Map<String, Transformer> results = new HashMap<>();
+    Map<String, String> results = new HashMap<>();
     List<URL> schematronRefs = new ArrayList<>();
     try {
       schematronRefs = getSchematrons(label, labelProblems);

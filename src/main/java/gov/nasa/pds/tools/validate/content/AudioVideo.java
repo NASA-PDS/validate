@@ -7,6 +7,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationTarget;
 import java.net.URL;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.mp4parser.IsoFile;
 import org.mp4parser.boxes.iso14496.part12.MovieBox;
@@ -24,7 +25,7 @@ public class AudioVideo {
   public void checkMetadata (boolean audio, boolean video) {
     try {
       boolean a = false,v = false;
-      IsoFile content = new IsoFile(this.urlRef.getPath());
+      IsoFile content = new IsoFile(FileUtils.toFile(this.urlRef).getPath());
       MovieBox movie = content.getMovieBox();
       if (movie == null) {
         this.listener.addProblem(new ValidationProblem(

@@ -31,13 +31,10 @@
 package gov.nasa.pds.validate.report;
 
 import java.io.PrintWriter;
-import java.net.URI;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ContentProblem;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -54,109 +51,151 @@ import gov.nasa.pds.validate.status.Status;
  *
  */
 public class FullReport extends Report {
-
+  private boolean firstMSG = false;
+  private int maxC = 0, maxP = 0;
+  final private ArrayList<Tuple> configurations = new ArrayList<Tuple>();
+  final private ArrayList<Tuple> parameters = new ArrayList<Tuple>();
+  final private Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<>();
+  final private Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
+  private Status currentStatus = Status.PASS;
+  private String currentTarget = "";
+  
   @Override
-  protected void printHeader(PrintWriter writer, String title) {
-    // writer.println("Validation Details:");
-
-    // A hacky way to properly track when we are completing product validation
-    // versus integrity
-    // checks. Once we try to print a header other than the initial product level
-    // validation,
-    // we are now into integrity checks.
-    if (title.toLowerCase().contains("pds4 bundle")
-        || title.toLowerCase().contains("pds4 collection")) {
-      this.integrityCheckFlag = true;
-    }
-
-    writer.println();
-    writer.println();
-    writer.println(title);
+  protected void append(Status status, String target) {
+    this.currentStatus = status;
+    this.currentTarget = target;
+    this.getWriter().println();
+    this.getWriter().print("  ");
+    this.getWriter().print(status.getName());
+    this.getWriter().print(": ");
+    this.getWriter().println(target);
   }
 
   @Override
-  protected void printRecordMessages(PrintWriter writer, Status status, URI sourceUri,
-      List<ValidationProblem> problems) {
-    Map<String, List<ValidationProblem>> externalProblems = new LinkedHashMap<>();
-    Map<String, List<ContentProblem>> contentProblems = new LinkedHashMap<>();
-    writer.println();
-    writer.print("  ");
-    writer.print(status.getName());
-    writer.print(": ");
-    writer.println(sourceUri.toString());
+  protected void append(String title) {
+    this.getWriter().println();
+    this.getWriter().println(title);
+  }
 
-    // Print all the sources problems and gather all external problems
-    for (Iterator<ValidationProblem> iterator = problems.iterator(); iterator.hasNext();) {
-      ValidationProblem problem = iterator.next();
-      if (problem instanceof ContentProblem) {
-        ContentProblem contentProb = (ContentProblem) problem;
-        List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
-        if (contentProbs == null) {
-          contentProbs = new ArrayList<>();
+  @Override
+  protected void append(ValidationProblem problem) {
+    if (this.currentStatus == Status.SKIP) {
+      this.getWriter().print("      ");
+      this.getWriter().print(problem.getProblem().getSeverity().getName());
+      this.getWriter().print("  ");
+      this.getWriter().print("[" + problem.getProblem().getType().getKey() + "]");
+      this.getWriter().print("   ");
+      if (problem.getLineNumber() != -1) {
+        this.getWriter().print("line ");
+        this.getWriter().print(problem.getLineNumber());
+        if (problem.getColumnNumber() != -1) {
+          this.getWriter().print(", ");
+          this.getWriter().print(problem.getColumnNumber());
         }
-        contentProbs.add(contentProb);
-        contentProblems.put(contentProb.getSource(), contentProbs);
-      } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
-          || sourceUri.toString().equals(problem.getTarget().getLocation())) {
-        printProblem(writer, problem);
-      } else {
-        List<ValidationProblem> extProbs = externalProblems.get(problem.getTarget().getLocation());
-        if (extProbs == null) {
-          extProbs = new ArrayList<>();
+        this.getWriter().print(": ");
+      }
+      this.getWriter().println(problem.getMessage());      
+    } else if (problem instanceof ContentProblem) {
+      ContentProblem contentProb = (ContentProblem) problem;
+      List<ContentProblem> contentProbs = contentProblems.get(contentProb.getSource());
+      if (contentProbs == null) {
+        contentProbs = new ArrayList<>();
+      }
+      contentProbs.add(contentProb);
+      contentProblems.put(contentProb.getSource(), contentProbs);
+    } else if (((problem.getTarget() == null)) || (problem.getTarget().getLocation() == null)
+        || this.currentTarget.equals(problem.getTarget().getLocation())) {
+      printProblem(this.getWriter(), problem);
+    } else {
+      List<ValidationProblem> extProbs = externalProblems.get(problem.getTarget().getLocation());
+      if (extProbs == null) {
+        extProbs = new ArrayList<>();
+      }
+      extProbs.add(problem);
+      externalProblems.put(problem.getTarget().getLocation(), extProbs);
+    }
+  }
+
+  @Override
+  protected void appendConfig(String label, String message, String value) {
+    this.configurations.add (new Tuple(message, value, ""));
+    if (message.length() > this.maxC) this.maxC = message.length();
+  }
+
+  @Override
+  protected void appendParam(String label, String message, String value) {
+    this.parameters.add (new Tuple(message, value, ""));
+    if (message.length() > this.maxP) this.maxP = message.length();
+  }
+
+  @Override
+  protected void begin(Block block) {
+    switch (block) {
+      case BODY:
+        break;
+      case FOOTER:
+        this.getWriter().println();
+        this.getWriter().println("Summary:");
+        this.getWriter().println();
+        this.firstMSG = true;
+        break;
+      case HEADER:
+        this.maxC = 0;
+        this.maxP = 0;
+        this.configurations.clear();
+        this.parameters.clear();
+        break;
+      case LABEL:
+        this.contentProblems.clear();
+        this.externalProblems.clear();
+        this.currentStatus = Status.PASS;
+        this.currentTarget = "";
+        break;
+    }
+  }
+
+  @Override
+  protected void end(Block block) {
+    switch (block) {
+      case BODY:
+        break;
+      case FOOTER:
+        this.getWriter().println();
+        this.getWriter().println("End of Report");
+        break;
+      case HEADER:
+        this.getWriter().println();
+        this.getWriter().println("Configuration:");
+        for (Tuple configuration : this.configurations) {
+          this.getWriter().print ("   ");
+          this.getWriter().print(configuration.a);
+          this.getWriter().print(" ".repeat(this.maxC - configuration.a.length() + 5));
+          this.getWriter().println(configuration.b);
         }
-        extProbs.add(problem);
-        externalProblems.put(problem.getTarget().getLocation(), extProbs);
-      }
-      iterator.remove();
-    }
-    for (String extSystemId : externalProblems.keySet()) {
-      writer.print("    Begin " + getType(extSystemId) + ": ");
-      writer.println(extSystemId);
-      for (ValidationProblem problem : externalProblems.get(extSystemId)) {
-        printProblem(writer, problem);
-      }
-      writer.print("    End " + getType(extSystemId) + ": ");
-      writer.println(extSystemId);
-    }
-    for (String dataFile : contentProblems.keySet()) {
-      writer.print("    Begin Content Validation: ");
-      writer.println(dataFile);
-      for (ContentProblem problem : contentProblems.get(dataFile)) {
-        printProblem(writer, problem);
-      }
-      writer.print("    End Content Validation: ");
-      writer.println(dataFile);
-    }
-    // issue_132: for the progress monitoring
-    if (!Utility.isDir(sourceUri.toString())) {
-      String msg = "";
-      if (totalProducts > 0) {
-        msg = "        " + totalProducts + " product validation(s) completed";
-      }
-
-      if (totalIntegrityChecks > 0) {
-        msg = "        " + totalIntegrityChecks + " integrity check(s) completed";
-      }
-
-      writer.println(msg);
+        this.getWriter().println();
+        this.getWriter().println("Parameters:");
+        for (Tuple parameter : this.parameters) {
+          this.getWriter().print ("   ");
+          this.getWriter().print(parameter.a);
+          this.getWriter().print(" ".repeat(this.maxP - parameter.a.length() + 5));
+          this.getWriter().println(parameter.b);
+        }
+        this.getWriter().println();
+        this.getWriter().println();
+        break;
+      case LABEL:
+        processMaps();
+        this.contentProblems.clear();
+        this.externalProblems.clear();
+        this.currentStatus = Status.PASS;
+        this.currentTarget = "";
+        break;
     }
   }
 
   private void printProblem(PrintWriter writer, final ValidationProblem problem) {
     writer.print("      ");
-    String severity = "";
-    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-      severity = "FATAL_ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-      severity = "ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-      severity = "WARNING";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-      severity = "INFO";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
-      severity = "DEBUG";
-    }
-    writer.print(severity);
+    writer.print(problem.getProblem().getSeverity().getName());
     writer.print("  ");
     writer.print("[" + problem.getProblem().getType().getKey() + "]");
     writer.print("   ");
@@ -198,48 +237,82 @@ public class FullReport extends Report {
     }
     writer.println(problem.getMessage());
   }
-
-  @Override
-  protected void printFooter(PrintWriter writer) {
-    // No op
+  private void processMaps() {
+    for (String extSystemId : externalProblems.keySet()) {
+      this.getWriter().print("    Begin " + getType(extSystemId) + ": ");
+      this.getWriter().println(extSystemId);
+      for (ValidationProblem problem : externalProblems.get(extSystemId)) {
+        printProblem(this.getWriter(), problem);
+      }
+      this.getWriter().print("    End " + getType(extSystemId) + ": ");
+      this.getWriter().println(extSystemId);
+    }
+    for (String dataFile : contentProblems.keySet()) {
+      this.getWriter().print("    Begin Content Validation: ");
+      this.getWriter().println(dataFile);
+      for (ContentProblem problem : contentProblems.get(dataFile)) {
+        printProblem(this.getWriter(), problem);
+      }
+      this.getWriter().print("    End Content Validation: ");
+      this.getWriter().println(dataFile);
+    }
+    // issue_132: for the progress monitoring
+    if (!Utility.isDir(this.currentTarget)) {
+      String msg = "";
+      if (this.getTotalProducts() > 0) {
+        msg = "        " + getTotalProducts() + " product validation(s) completed";
+      }
+      if (this.getTotalIntegrityChecks() > 0) {
+        msg = "        " + this.getTotalIntegrityChecks() + " integrity check(s) completed";
+      }
+      this.getWriter().println(msg);
+    }    
   }
 
   @Override
-  protected void printRecordSkip(PrintWriter writer, final URI sourceUri,
-      final ValidationProblem problem) {
-    writer.println();
-    writer.print("  ");
-    writer.print(Status.SKIP.getName());
-    writer.print(": ");
-    writer.println(sourceUri.toString());
-
-    writer.print("      ");
-    String severity = "";
-    if (problem.getProblem().getSeverity() == ExceptionType.FATAL) {
-      severity = "FATAL_ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR) {
-      severity = "ERROR";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
-      severity = "WARNING";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
-      severity = "INFO";
-    } else if (problem.getProblem().getSeverity() == ExceptionType.DEBUG) {
-      severity = "DEBUG";
+  protected void summarizeAddMessage(String msg, long count) {  
+    if (firstMSG) {
+      this.getWriter().println("  Message Types:");
+      this.firstMSG = false;
     }
-    writer.print(severity);
-    writer.print("  ");
-    writer.print("[" + problem.getProblem().getType().getKey() + "]");
-    writer.print("   ");
-    if (problem.getLineNumber() != -1) {
-      writer.print("line ");
-      writer.print(problem.getLineNumber());
-      if (problem.getColumnNumber() != -1) {
-        writer.print(", ");
-        writer.print(problem.getColumnNumber());
-      }
-      writer.print(": ");
-    }
-    writer.println(problem.getMessage());
+    this.getWriter().print("    ");
+    this.getWriter().printf("%-10d", count);
+    this.getWriter().print("   ");
+    this.getWriter().println(msg);
+  }
 
+  @Override
+  protected void summarizeDepWarn(String msg) {
+    this.getWriter().println();
+    this.getWriter().println(msg);
+    this.getWriter().println();
+  }
+
+  @Override
+  protected void summarizeProds(int failed, int passed, int skipped, int total) {
+    this.getWriter().println("  Product Validation Summary:");
+    this.getWriter().printf("    %-10d product(s) passed\n", passed);
+    this.getWriter().printf("    %-10d product(s) failed\n", failed);
+    this.getWriter().printf("    %-10d product(s) skipped\n", skipped);
+    this.getWriter().printf("    %-10d product(s) total\n", total);
+    this.getWriter().println();
+  }
+
+  @Override
+  protected void summarizeRefs(int failed, int passed, int skipped, int total) {
+    this.getWriter().println("  Referential Integrity Check Summary:");
+    this.getWriter().printf("    %-10d check(s) passed\n", passed);
+    this.getWriter().printf("    %-10d check(s) failed\n", failed);
+    this.getWriter().printf("    %-10d check(s) skipped\n", skipped);
+    this.getWriter().printf("    %-10d check(s) total\n", total);
+    this.getWriter().println();
+  }
+
+  @Override
+  protected void summarizeTotals(int errors, int total, int warnings) {
+    this.getWriter().println("  " + total + " product(s)");
+    this.getWriter().println("  " + errors + " error(s)");
+    this.getWriter().println("  " + warnings + " warning(s)");
+    this.getWriter().println();
   }
 }

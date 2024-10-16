@@ -84,7 +84,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
 
     URL bundleURL = null;
     try {
-      List<Target> children = getContext().getCrawler().crawl(getTarget());
+      List<Target> children = getContext().getCrawler().crawl(getTarget(), getContext().getFileFilters());
       LOG.debug("bundleReferentialIntegrityRule:getTarget() {}", getTarget());
       LOG.debug("bundleReferentialIntegrityRule:children.size():afor_reduced: {}", children.size());
 
@@ -161,7 +161,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
             .entrySet()) {
           LOG.debug("getBundleMembers:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",
               reference, memberStatus, id, idEntry.getKey());
-          if (id.equals(idEntry.getKey())) {
+          if (id.nearNeighbor(idEntry.getKey())) {
             matchingMembers.add(idEntry);
             LOG.debug(
                 "getBundleMembers:ADDING_IDENTRY:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",
