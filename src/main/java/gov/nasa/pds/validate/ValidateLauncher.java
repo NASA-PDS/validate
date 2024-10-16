@@ -508,25 +508,41 @@ public class ValidateLauncher {
 
   @SuppressWarnings("unchecked")
   private void getLatestJsonContext() {
+    final String searchAfterParam = "search-after";
+    final String pageSize = "1000";
+    final String searchAfterKey = "ops:Harvest_Info.ops:harvest_date_time";
     List<ValidationProblem> pList = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
     String base = ToolInfo.getSearchURL();
     String endpoint = ToolInfo.getEndpoint();
     String query = ToolInfo.getQuery();
     URL url = null;
+    Scanner reader = null;
+    String searchAfter = "";
     try {
       int total = 0;
       List<Map<String,Object>> contexts = new ArrayList<Map<String,Object>>();
       do {
-        url = new URL(base + "/" + endpoint + "?" + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&start=" + contexts.size());
-        Scanner reader = new Scanner(url.openStream());
+        url = new URL(base + "/" + endpoint + "?limit=1000"
+            + "&q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
+            + "&sort=" + searchAfterKey
+            + "&" + searchAfter);
+        LOG.debug("Query URL: " + url.toString());
+        reader = new Scanner(url.openStream()).useDelimiter("\\Z");
         StringBuffer buffer = new StringBuffer();
         while (reader.hasNext()) {
           buffer.append(reader.next());
         }
         Map<String, Object> response = mapper.readValue(buffer.toString(), HashMap.class);
         total = (Integer)((Map<String,Object>)response.get("summary")).get("hits");
-        contexts.addAll((List<Map<String,Object>>)response.get("data"));
+        List<Map<String, Object>> dataDocuments = (List<Map<String, Object>>) response.get("data");
+
+        contexts.addAll(dataDocuments);
+        String searchAfterValue =
+            getSearchAfterFromDocument(dataDocuments.get(dataDocuments.size() - 1), searchAfterKey);
+
+        searchAfter =
+            searchAfterParam + "=" + URLEncoder.encode(searchAfterValue, StandardCharsets.UTF_8);
       } while (contexts.size() < total);
       parseJsonObjectWriteTofile(contexts);
       ValidationProblem p1 =
@@ -551,6 +567,8 @@ public class ValidateLauncher {
       }
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      reader.close();
     }
 
     try {
@@ -561,6 +579,12 @@ public class ValidateLauncher {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private String getSearchAfterFromDocument(Map<String, Object> document, String searchAfterKey) {
+    @SuppressWarnings("unchecked")
+    Map<String, Object> properties = (Map<String, Object>) document.get("properties");
+    return ((List<String>) properties.get(searchAfterKey)).get(0);
   }
 
   private void parseJsonObjectWriteTofile(List<Map<String,Object>> documents) {
@@ -606,6 +630,7 @@ public class ValidateLauncher {
             jsonWriter.name("name");
             jsonWriter.beginArray();
             for (Object n : names) {
+              System.out.println("name: " + (String) n);
               jsonWriter.value((String) n);
             }
             jsonWriter.endArray();
