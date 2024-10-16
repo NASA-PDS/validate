@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Metadata_Supplemental xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd">
+<!--RChen: this file will be poop because I've never seen a Product_Metadata_Supplemental -->
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:lab_shocked_feldspars:data:ftir_cube_wvlns_dm3</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Wavelength Centers of FTIR Cube Detector Bands</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Metadata_Supplemental</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2019-04-23</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial PDS4 version of this product.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <File_Area_Metadata>
+        <File>
+            <file_name>del.csv</file_name>
+            <local_identifier>input-stars</local_identifier>
+            <creation_date_time>2019-12-21T00:14:00Z</creation_date_time>
+            <comment>This file contains star positions for occultation stars used in the
+               ring orbit model uranus_occultation_ring_fit_rfrench_data_20191221.tab.</comment>
+        </File>
+        <Table_Delimited>
+            <offset unit="byte">185</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>3</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>15</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">300</maximum_record_length>
+                <Field_Delimited>
+                    <name>Star Number</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Reference ID number used to identify star position used in ring orbit fit.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Star Name</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Internal shorthand name for occultation star.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Source Catalog</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>Name of source catalog for star position (e.g., Hipparcos, 2MASS, UCAC4).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Catalog ID</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The identification number of the star within the Source Catalog.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>RA(ICRS)</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean right ascencion International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DE(ICRS)</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Degree</unit>
+                    <description>Mean declination International Celestial Reference System (ICRS) J2000.0 epoch.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Epoch</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <description>The epoch of RA(ICRS)/DE(ICRS).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>Plx</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc</unit>
+                    <description>Trigonometric parallax in millisecond of arc milli-second of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmRA</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in RA in equatorial coordinates in millisecond of arc milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>pmDE</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>milli-second of arc per year</unit>
+                    <description>Proper motion in DE in equatorial coordinates in milli-second of arc per year.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_RAdeg</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in RA*cos(delta) in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_DEdeg</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in DE in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_Plx</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in Plx in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmRA</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmRA in millisecond of arc.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>e_pmDE</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>millisecond of arc</unit>
+                    <description>Standard error in pmDE in millisecond of arc.</description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Metadata>
+</Product_Metadata_Supplemental>

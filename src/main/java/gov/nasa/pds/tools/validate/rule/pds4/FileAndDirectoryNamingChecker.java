@@ -40,7 +40,7 @@ public class FileAndDirectoryNamingChecker extends FileAndDirectoryNamingRule {
 
   private ValidationProblem constructError(ProblemDefinition defn, URL targetUrl, int lineNumber,
       int columnNumber) {
-    ValidationProblem problem = new ValidationProblem(defn, new ValidationTarget(targetUrl),
+    ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(targetUrl),
         lineNumber, columnNumber, defn.getMessage());
     return (problem);
   }

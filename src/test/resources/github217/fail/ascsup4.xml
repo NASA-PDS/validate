@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1C00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:uranus_occ_u17b_saao_188cm:data:2220nm_predicted_ring_event_times_au4</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Predicted Ring Event Times for Uranus System Occultation of star u17b (Hipparcos 80841) Observed from the SAAO 188cm Telescope</title>
+        <information_model_version>1.12.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>French, R. G.; McGhee-French, C. A.; Gordon, M. K.</author_list>
+            <publication_year>2020</publication_year>
+            <keyword>uranus rings</keyword>
+            <keyword>uranus rings stellar occultation</keyword>
+            <keyword>uranus rings stellar occultation predicted event times</keyword>
+            <description>Approximate predicted ring event times (Earth Received Time) for the occultation of star u17b (Hipparcos 80841) by the rings of Uranus. Should not be used for detailed ring orbit reconstruction or for the determination of the Uranus system geometry.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2020-01-29</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1983-03-25T00:26:01.19Z</start_date_time>   
+            <stop_date_time>1983-03-25T04:51:37.39Z</stop_date_time>     
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+            <description>These are the approximate predicted ring event times (Earth Received Time) for the occultation of star u17b (Hipparcos 80841) by the rings of Uranus. Should not be used for detailed ring orbit reconstruction or for the determination of the Uranus system geometry.</description>
+            <Science_Facets>
+                <wavelength_range>Infrared</wavelength_range>
+                <discipline_name>Ring-Moon Systems</discipline_name>
+                <facet1>Ring Occultation Profile</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Uranus System Occultation of star u17b (Hipparcos 80841) Observed from the SAAO 188cm Telescope.</name>
+            <type>Individual Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>South African Astronomical Observatory 188cm Telescope.</name>
+            <Observing_System_Component>
+                <name>South African Astronomical Observatory</name>
+                <type>Observatory</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:observatory.arecibo</lid_reference>
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Uranus Rings</name>
+            <type>Ring</type>
+        </Target_Identification>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>asc.tab</file_name>
+            <creation_date_time>2020-01-29T18:55:43Z</creation_date_time>
+            <comment>This figure shows the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
+stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope, 
+plotted as a function of time in UTC at the telescope. The thin black line plots the altitude of Uranus, and the
+thin red line (if on scale) shows the altitude of the Sun. If there is a planetary occultation, the lines are
+thickened to show the interval when the star is hidden behind the planet. The approximate predicted ring occultation
+times are shown as filled circles, with selected ring features individually labeled.</comment>
+        </File>
+        <Stream_Text>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+        </Stream_Text>
+    </File_Area_Observational>
+    <File_Area_Observational_Supplemental>
+        <File>
+            <file_name>asc.tab</file_name>
+            <creation_date_time>2016-07-13T15:33:44Z</creation_date_time>
+            <comment>This file provides some supplemental information regarding input parameters.</comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>4</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>2</fields>
+                <groups>0</groups>
+                <record_length unit="byte">14</record_length>
+                <Field_Character>
+                    <name>Band Number</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">5</field_length>
+                </Field_Character>
+                <Field_Character>
+                    <name>Center Wavenumber</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">6</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <unit>cm^-1</unit>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational_Supplemental>
+</Product_Observational>

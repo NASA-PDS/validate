@@ -79,7 +79,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.4.2</version>
         <configuration>
           <archive>
             <manifest>
@@ -93,7 +93,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>buildnumber-maven-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <executions>
           <execution>
             <phase>validate</phase>
@@ -135,7 +135,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>4.0.0-M15</version>
+        <version>4.0.0-M13</version>
         <configuration>
           <skip>false</skip>  <!-- This is `true` in parent pom -->
           <skipDeploy>false</skipDeploy>  <!-- This is `true` in parent pom -->
@@ -174,13 +174,13 @@
     <dependency>
         <groupId>com.sun.xml.bind</groupId>
         <artifactId>jaxb-xjc</artifactId>
-        <version>2.3.4</version>
+        <version>4.0.5</version>
     </dependency>
 
 <dependency>
   <groupId>org.verapdf</groupId>
   <artifactId>validation-model</artifactId>
-  <version>1.24.2</version>
+  <version>1.26.1</version>
 </dependency>
 <dependency>
   <groupId>org.verapdf</groupId>
@@ -191,12 +191,12 @@
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
-      <version>12.4</version>
+      <version>12.5</version>
     </dependency>
     <dependency>
       <groupId>commons-cli</groupId>
       <artifactId>commons-cli</artifactId>
-      <version>1.7.0</version>
+      <version>1.9.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -214,7 +214,7 @@
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.3.3</version>
+      <version>1.3.4</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -242,7 +242,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>2.16.1</version>
+      <version>2.17.0</version>
     </dependency>
     <!-- NOTE FOR DEVELOPER: To test via command-line and see all logger messages
          uncomment this, and comment out the NOP dependency to see both developer
@@ -261,7 +261,7 @@
      <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
-      <version>2.0.13</version>
+      <version>2.0.16</version>
     </dependency>
     <dependency>
       <groupId>com.jamesmurty.utils</groupId>
@@ -276,17 +276,17 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.14.0</version>
+      <version>3.17.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-compress</artifactId>
-      <version>1.26.2</version>
+      <version>1.27.1</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.2.0-jre</version>
+      <version>33.3.0-jre</version>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
@@ -301,7 +301,7 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>2.23.1</version>
+      <version>2.24.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>
@@ -311,25 +311,25 @@
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
-        <version>5.10.2</version>
+        <version>5.11.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-java</artifactId>
-        <version>6.9.1</version>
+        <version>7.18.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-junit</artifactId>
-        <version>6.9.1</version>
+        <version>7.18.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>org.junit.vintage</groupId>
         <artifactId>junit-vintage-engine</artifactId>
-        <version>5.10.2</version>
+        <version>5.11.2</version>
         <scope>test</scope>
     </dependency>
     <dependency>
@@ -340,7 +340,7 @@
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
-      <version>2.9.0-SNAPSHOT</version>
+      <version>2.9.0</version>
       <scope>compile</scope>
       <exclusions>
       <exclusion>
@@ -366,7 +366,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.17.1</version>
+      <version>2.18.0</version>
     </dependency>
     <dependency>
       <groupId>org.mp4parser</groupId>
