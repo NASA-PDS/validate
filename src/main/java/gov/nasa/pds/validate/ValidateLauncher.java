@@ -509,7 +509,7 @@ public class ValidateLauncher {
   @SuppressWarnings("unchecked")
   private void getLatestJsonContext() {
     final String searchAfterParam = "search-after";
-    final String pageSize = "1000";
+    final int pageSize = 1000;
     final String searchAfterKey = "ops:Harvest_Info.ops:harvest_date_time";
     List<ValidationProblem> pList = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
@@ -523,7 +523,7 @@ public class ValidateLauncher {
       int total = 0;
       List<Map<String,Object>> contexts = new ArrayList<Map<String,Object>>();
       do {
-        url = new URL(base + "/" + endpoint + "?limit=1000"
+        url = new URL(base + "/" + endpoint + "?limit=" + Integer.toString(pageSize)
             + "&q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
             + "&sort=" + searchAfterKey
             + "&" + searchAfter);
@@ -544,24 +544,27 @@ public class ValidateLauncher {
         searchAfter =
             searchAfterParam + "=" + URLEncoder.encode(searchAfterValue, StandardCharsets.UTF_8);
       } while (contexts.size() < total);
-      parseJsonObjectWriteTofile(contexts);
+      parseJsonObjectWriteTofile(contexts, registeredProductsFile.getAbsolutePath());
+      
       ValidationProblem p1 =
           new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-              "Successfully updated registered context products config file. "), url);
+              "Successfully updated registered context products config file from PDS Search API."),
+              registeredProductsFile.toURI().toURL());
       pList.add(p1);
       ValidationProblem p2 =
           new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-              contexts.size() + " registered context products found."), url);
+              contexts.size() + " registered context products found."),
+              registeredProductsFile.toURI().toURL());
       pList.add(p2);
     } catch (IOException ex) {
       try {
         ValidationProblem p = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
             ProblemType.INTERNAL_ERROR,
             "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
-            url);
-        report.record(new URI(
-            System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()),
+            registeredProductsFile.toURI().toURL());
+        report.record(registeredProductsFile.toURI(),
             p);
+        ex.printStackTrace();
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -587,7 +590,8 @@ public class ValidateLauncher {
     return ((List<String>) properties.get(searchAfterKey)).get(0);
   }
 
-  private void parseJsonObjectWriteTofile(List<Map<String,Object>> documents) {
+  private void parseJsonObjectWriteTofile(List<Map<String, Object>> documents,
+      String contextJsonFilePath) {
     final List<String> empty = Arrays.asList("N/A");
     final List<String> fieldNames = Arrays.asList(
         "pds:Airborne.pds",
@@ -600,8 +604,7 @@ public class ValidateLauncher {
     // backup old file
     try {
     	if (registeredProductsFile.exists()) {
-	      copyFile(registeredProductsFile, new File(System.getProperty("resources.home")
-	          + File.separator + ToolInfo.getOutputFileName() + ".backup"));
+          copyFile(registeredProductsFile, new File(contextJsonFilePath + ".backup"));
     	}
     } catch (IOException e) {
       e.printStackTrace();
@@ -609,8 +612,7 @@ public class ValidateLauncher {
 
     JsonWriter jsonWriter;
     try {
-      jsonWriter = new JsonWriter(new FileWriter(
-          System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()));
+      jsonWriter = new JsonWriter(new FileWriter(contextJsonFilePath));
       jsonWriter.setIndent("     ");
       jsonWriter.beginObject(); // start Product_Context
       jsonWriter.name("Product_Context");
@@ -630,7 +632,6 @@ public class ValidateLauncher {
             jsonWriter.name("name");
             jsonWriter.beginArray();
             for (Object n : names) {
-              System.out.println("name: " + (String) n);
               jsonWriter.value((String) n);
             }
             jsonWriter.endArray();
