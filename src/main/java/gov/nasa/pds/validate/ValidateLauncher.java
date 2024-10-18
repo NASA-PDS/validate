@@ -222,7 +222,7 @@ public class ValidateLauncher {
   private int everyN;
 
   private boolean contextMismatchAsWarn = true;
-  
+
   private String pdfErrorDir;
 
   private int spotCheckData;
@@ -521,12 +521,11 @@ public class ValidateLauncher {
     String searchAfter = "";
     try {
       int total = 0;
-      List<Map<String,Object>> contexts = new ArrayList<Map<String,Object>>();
+      List<Map<String, Object>> contexts = new ArrayList<Map<String, Object>>();
       do {
-        url = new URL(base + "/" + endpoint + "?limit=" + Integer.toString(pageSize)
-            + "&q=" + URLEncoder.encode(query, StandardCharsets.UTF_8)
-            + "&sort=" + searchAfterKey
-            + "&" + searchAfter);
+        url = new URL(base + "/" + endpoint + "?limit=" + Integer.toString(pageSize) + "&q="
+            + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&sort=" + searchAfterKey + "&"
+            + searchAfter);
         LOG.debug("Query URL: " + url.toString());
         reader = new Scanner(url.openStream()).useDelimiter("\\Z");
         StringBuffer buffer = new StringBuffer();
@@ -534,7 +533,7 @@ public class ValidateLauncher {
           buffer.append(reader.next());
         }
         Map<String, Object> response = mapper.readValue(buffer.toString(), HashMap.class);
-        total = (Integer)((Map<String,Object>)response.get("summary")).get("hits");
+        total = (Integer) ((Map<String, Object>) response.get("summary")).get("hits");
         List<Map<String, Object>> dataDocuments = (List<Map<String, Object>>) response.get("data");
 
         contexts.addAll(dataDocuments);
@@ -545,16 +544,16 @@ public class ValidateLauncher {
             searchAfterParam + "=" + URLEncoder.encode(searchAfterValue, StandardCharsets.UTF_8);
       } while (contexts.size() < total);
       parseJsonObjectWriteTofile(contexts, registeredProductsFile.getAbsolutePath());
-      
-      ValidationProblem p1 =
-          new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+
+      ValidationProblem p1 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
               "Successfully updated registered context products config file from PDS Search API."),
-              registeredProductsFile.toURI().toURL());
+          registeredProductsFile.toURI().toURL());
       pList.add(p1);
-      ValidationProblem p2 =
-          new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+      ValidationProblem p2 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
               contexts.size() + " registered context products found."),
-              registeredProductsFile.toURI().toURL());
+          registeredProductsFile.toURI().toURL());
       pList.add(p2);
     } catch (IOException ex) {
       try {
@@ -562,8 +561,7 @@ public class ValidateLauncher {
             ProblemType.INTERNAL_ERROR,
             "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
             registeredProductsFile.toURI().toURL());
-        report.record(registeredProductsFile.toURI(),
-            p);
+        report.record(registeredProductsFile.toURI(), p);
         ex.printStackTrace();
       } catch (Exception e) {
         e.printStackTrace();
@@ -593,19 +591,14 @@ public class ValidateLauncher {
   private void parseJsonObjectWriteTofile(List<Map<String, Object>> documents,
       String contextJsonFilePath) {
     final List<String> empty = Arrays.asList("N/A");
-    final List<String> fieldNames = Arrays.asList(
-        "pds:Airborne.pds",
-        "pds:Facility.pds",
-        "pds:Instrument.pds",
-        "pds:Instrument_Host.pds",
-        "pds:Investigation.pds",
-        "pds:Resource.pds",
-        "pds:Target.pds");
+    final List<String> fieldNames = Arrays.asList("pds:Airborne.pds", "pds:Facility.pds",
+        "pds:Instrument.pds", "pds:Instrument_Host.pds", "pds:Investigation.pds",
+        "pds:Resource.pds", "pds:Target.pds");
     // backup old file
     try {
-    	if (registeredProductsFile.exists()) {
-          copyFile(registeredProductsFile, new File(contextJsonFilePath + ".backup"));
-    	}
+      if (registeredProductsFile.exists()) {
+        copyFile(registeredProductsFile, new File(contextJsonFilePath + ".backup"));
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -617,17 +610,18 @@ public class ValidateLauncher {
       jsonWriter.beginObject(); // start Product_Context
       jsonWriter.name("Product_Context");
       jsonWriter.beginArray();
-      for (Map<String,Object> document : documents) {
+      for (Map<String, Object> document : documents) {
         @SuppressWarnings("unchecked")
-        Map<String,Object> properties = (Map<String,Object>)document.get("properties");
+        Map<String, Object> properties = (Map<String, Object>) document.get("properties");
         @SuppressWarnings("unchecked")
-        String lidvid = ((List<String>)properties.get("lidvid")).get(0);
+        String lidvid = ((List<String>) properties.get("lidvid")).get(0);
         for (String fieldName : fieldNames) {
-          if (properties.containsKey (fieldName + ":name") || properties.containsKey (fieldName + ":type")) {           
+          if (properties.containsKey(fieldName + ":name")
+              || properties.containsKey(fieldName + ":type")) {
             @SuppressWarnings("unchecked")
-            List<Object> names = (List<Object>)properties.getOrDefault(fieldName + ":name", empty);
+            List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", empty);
             @SuppressWarnings("unchecked")
-            List<Object> types = (List<Object>)properties.getOrDefault(fieldName + ":type", empty);
+            List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
             jsonWriter.beginObject(); // start a product
             jsonWriter.name("name");
             jsonWriter.beginArray();
@@ -701,12 +695,15 @@ public class ValidateLauncher {
       while (keys.hasNext()) {
         String key = keys.next();
         if (!ConfigKey.ALL_KEYWORDS.contains(key)) {
-          if (unknowns.isBlank()) unknowns = key;
-          else unknowns += ", " + key;
+          if (unknowns.isBlank())
+            unknowns = key;
+          else
+            unknowns += ", " + key;
         }
       }
       if (!unknowns.isBlank()) {
-        throw new UnrecognizedOptionException("Unrecognized keyword(s) in given configuration file: " + unknowns);
+        throw new UnrecognizedOptionException(
+            "Unrecognized keyword(s) in given configuration file: " + unknowns);
       }
 
       List<String> targetList = new ArrayList<>();
@@ -1323,7 +1320,8 @@ public class ValidateLauncher {
       report.addParameter("userSpecifiedCatalogs", "User Specified Catalogs", catalogs.toString());
     }
     if (!schematrons.isEmpty()) {
-      report.addParameter("userSpecifiedSchematrons", "User Specified Schematrons", schematrons.toString());
+      report.addParameter("userSpecifiedSchematrons", "User Specified Schematrons",
+          schematrons.toString());
     }
     report.addParameter("severityLevel", "Severity Level", severity.getName());
     report.addParameter("recurseDirectories", "Recurse Directories", String.valueOf(traverse));
@@ -1335,11 +1333,15 @@ public class ValidateLauncher {
      * } else { report.addParameter("   Force Mode                    off"); }
      */
     if (checksumManifest != null) {
-      report.addParameter("checksumManifestFile", "Checksum Manifest File", checksumManifest.toString());
-      report.addParameter("manifestFileBasePath", "Manifest File Base Path", manifestBasePath.toString());
+      report.addParameter("checksumManifestFile", "Checksum Manifest File",
+          checksumManifest.toString());
+      report.addParameter("manifestFileBasePath", "Manifest File Base Path",
+          manifestBasePath.toString());
     }
-    report.addParameter("dataContentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
-    report.addParameter("productLevelValidation", "Product Level Validation", skipProductValidation ? "off" : "on");
+    report.addParameter("dataContentValidation", "Data Content Validation",
+        contentValidationFlag ? "on" : "off");
+    report.addParameter("productLevelValidation", "Product Level Validation",
+        skipProductValidation ? "off" : "on");
     if (everyN != 1) {
       report.addParameter("dataEveryN", "Data Every N", String.valueOf(everyN));
     }
@@ -1354,13 +1356,15 @@ public class ValidateLauncher {
     }
     if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle")
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
-      report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files", String.valueOf(allowUnlabeledFiles));
+      report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files",
+          String.valueOf(allowUnlabeledFiles));
     }
     report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
-    report.addParameter("registeredContextsFile", "Registered Contexts File", registeredProductsFile.toString());
+    report.addParameter("registeredContextsFile", "Registered Contexts File",
+        registeredProductsFile.toString());
     if (nonRegisteredProductsFile != null) {
-      report
-          .addParameter("nonRegisteredContextsFile", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
+      report.addParameter("nonRegisteredContextsFile", "Non Registered Contexts File  ",
+          nonRegisteredProductsFile.toString());
     }
     report.printHeader();
     report.startBody("Product Level Validation Results");
