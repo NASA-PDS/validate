@@ -45,10 +45,10 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#905 Success no duplicates in non-observational;" | "github905" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github905.json -s json --skip-context-validation -t {resourceDir}/github905/dsn_0159-science.2008-02-29.xml {resourceDir}/github905/dsn_0159-science.2009-05-18.xml" | "report_github905.json" |
 
 # Validate#915
-|"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 4 | "4 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-content-validation -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github915.json" |
+|"NASA-PDS/validate#915 Failure context ref mismatch" | "github915" | 5 | "5 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github915.json -s json --skip-content-validation -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github915.json" |
 
 # Validate#919
 |"NASA-PDS/validate#919 Success with 61 bit value" | "github919" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github919.json -s json --skip-context-validation -t {resourceDir}/github919/uh0003b_draft.xml" | "report_github919.json" |
 
 # Validate#950
-|"NASA-PDS/validate#950 Disable context ref mismatch collection" | "github915" | 0 | "0 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github950.json -s json --skip-content-validation --disable-context-mismatch-warnings -R pds4.collection -t {resourceDir}/githfub915/collection.xml" | "report_github950.json" |
+|"NASA-PDS/validate#950 Disable context ref mismatch collection" | "github915" | 0 | "0 warnings expected" | "CONTEXT_REFERENCE_FOUND_MISMATCH_WARN" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github950.json -s json --skip-content-validation --disable-context-mismatch-warnings -R pds4.collection -t {resourceDir}/github915/collection.xml" | "report_github950.json" |
