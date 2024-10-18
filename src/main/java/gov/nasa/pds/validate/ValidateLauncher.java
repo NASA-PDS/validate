@@ -41,7 +41,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -54,6 +56,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -72,18 +75,12 @@ import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FileUtils;
-import org.apache.solr.client.solrj.SolrClient;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.Http2SolrClient;
-import org.apache.solr.client.solrj.response.QueryResponse;
-import org.apache.solr.common.SolrDocument;
-import org.apache.solr.common.SolrDocumentList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -225,7 +222,7 @@ public class ValidateLauncher {
   private int everyN;
 
   private boolean contextMismatchAsWarn = true;
-  
+
   private String pdfErrorDir;
 
   private int spotCheckData;
@@ -509,57 +506,70 @@ public class ValidateLauncher {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private void getLatestJsonContext() {
-
-    String url = ToolInfo.getSearchURL();
+    final String searchAfterParam = "search-after";
+    final int pageSize = 1000;
+    final String searchAfterKey = "ops:Harvest_Info.ops:harvest_date_time";
+    List<ValidationProblem> pList = new ArrayList<>();
+    ObjectMapper mapper = new ObjectMapper();
+    String base = ToolInfo.getSearchURL();
     String endpoint = ToolInfo.getEndpoint();
     String query = ToolInfo.getQuery();
-
-    SolrClient client = new Http2SolrClient.Builder(url).build();
-    SolrQuery solrQuery = new SolrQuery(query);
-    solrQuery.setRequestHandler("/" + endpoint);
-    solrQuery.setStart(0);
-    solrQuery.setParam("fl",
-        "identifier, " + "version_id, " + "data_product_type, " + "target_name, "
-            + "instrument_name, " + "instrument_host_name, " + "resource_name, "
-            + "investigation_name, " + "target_type, " + "instrument_type, "
-            + "instrument_host_type, " + "resource_type, " + "investigation_type, "
-            + "facility_name, facility_type, airborne_name, airborne_type");
-
-    QueryResponse resp;
-    List<ValidationProblem> pList = new ArrayList<>();
+    URL url = null;
+    Scanner reader = null;
+    String searchAfter = "";
     try {
-      resp = client.query(solrQuery);
-      SolrDocumentList res = resp.getResults();
-      solrQuery.setRows((int) res.getNumFound());
-      resp = client.query(solrQuery);
-      res = resp.getResults();
-      parseJsonObjectWriteTofile(res);
+      int total = 0;
+      List<Map<String, Object>> contexts = new ArrayList<Map<String, Object>>();
+      do {
+        url = new URL(base + "/" + endpoint + "?limit=" + Integer.toString(pageSize) + "&q="
+            + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&sort=" + searchAfterKey + "&"
+            + searchAfter);
+        LOG.debug("Query URL: " + url.toString());
+        reader = new Scanner(url.openStream()).useDelimiter("\\Z");
+        StringBuffer buffer = new StringBuffer();
+        while (reader.hasNext()) {
+          buffer.append(reader.next());
+        }
+        Map<String, Object> response = mapper.readValue(buffer.toString(), HashMap.class);
+        total = (Integer) ((Map<String, Object>) response.get("summary")).get("hits");
+        List<Map<String, Object>> dataDocuments = (List<Map<String, Object>>) response.get("data");
 
-      client.close();
-      ValidationProblem p1 =
-          new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-              "Successfully updated registered context products config file. "), new URL(url));
+        contexts.addAll(dataDocuments);
+        String searchAfterValue =
+            getSearchAfterFromDocument(dataDocuments.get(dataDocuments.size() - 1), searchAfterKey);
+
+        searchAfter =
+            searchAfterParam + "=" + URLEncoder.encode(searchAfterValue, StandardCharsets.UTF_8);
+      } while (contexts.size() < total);
+      parseJsonObjectWriteTofile(contexts, registeredProductsFile.getAbsolutePath());
+
+      ValidationProblem p1 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+              "Successfully updated registered context products config file from PDS Search API."),
+          registeredProductsFile.toURI().toURL());
       pList.add(p1);
-      ValidationProblem p2 =
-          new ValidationProblem(new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
-              res.size() + " registered context products found."), new URL(url));
+      ValidationProblem p2 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.INFO, ProblemType.GENERAL_INFO,
+              contexts.size() + " registered context products found."),
+          registeredProductsFile.toURI().toURL());
       pList.add(p2);
-
-    } catch (SolrServerException | IOException ex) {
+    } catch (IOException ex) {
       try {
         ValidationProblem p = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
             ProblemType.INTERNAL_ERROR,
             "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
-            new URL(url));
-        report.record(new URI(
-            System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()),
-            p);
+            registeredProductsFile.toURI().toURL());
+        report.record(registeredProductsFile.toURI(), p);
+        ex.printStackTrace();
       } catch (Exception e) {
         e.printStackTrace();
       }
     } catch (Exception e) {
       e.printStackTrace();
+    } finally {
+      reader.close();
     }
 
     try {
@@ -572,61 +582,63 @@ public class ValidateLauncher {
     }
   }
 
-  private void parseJsonObjectWriteTofile(SolrDocumentList docs) {
+  private String getSearchAfterFromDocument(Map<String, Object> document, String searchAfterKey) {
+    @SuppressWarnings("unchecked")
+    Map<String, Object> properties = (Map<String, Object>) document.get("properties");
+    return ((List<String>) properties.get(searchAfterKey)).get(0);
+  }
+
+  private void parseJsonObjectWriteTofile(List<Map<String, Object>> documents,
+      String contextJsonFilePath) {
+    final List<String> empty = Arrays.asList("N/A");
+    final List<String> fieldNames = Arrays.asList("pds:Airborne.pds", "pds:Facility.pds",
+        "pds:Instrument.pds", "pds:Instrument_Host.pds", "pds:Investigation.pds",
+        "pds:Resource.pds", "pds:Target.pds");
     // backup old file
     try {
-    	if (registeredProductsFile.exists()) {
-	      copyFile(registeredProductsFile, new File(System.getProperty("resources.home")
-	          + File.separator + ToolInfo.getOutputFileName() + ".backup"));
-    	}
+      if (registeredProductsFile.exists()) {
+        copyFile(registeredProductsFile, new File(contextJsonFilePath + ".backup"));
+      }
     } catch (IOException e) {
       e.printStackTrace();
     }
 
     JsonWriter jsonWriter;
     try {
-      jsonWriter = new JsonWriter(new FileWriter(
-          System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName()));
-
+      jsonWriter = new JsonWriter(new FileWriter(contextJsonFilePath));
       jsonWriter.setIndent("     ");
       jsonWriter.beginObject(); // start Product_Context
       jsonWriter.name("Product_Context");
       jsonWriter.beginArray();
-      for (SolrDocument document : docs) {
-        String id = (String) document.getFirstValue("identifier");
-        String ver = (String) document.getFirstValue("version_id");
-        String data_type = (String) document.getFirstValue("data_product_type");
-        List<Object> names =
-            (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_name");
-        List<Object> types =
-            (ArrayList<Object>) document.getFieldValues(data_type.toLowerCase() + "_type");
-
-        jsonWriter.beginObject(); // start a product
-
-        jsonWriter.name("name");
-        jsonWriter.beginArray();
-        if (names == null) {
-          jsonWriter.value("N/A");
-        } else {
-          for (Object n : names) {
-            jsonWriter.value((String) n);
+      for (Map<String, Object> document : documents) {
+        @SuppressWarnings("unchecked")
+        Map<String, Object> properties = (Map<String, Object>) document.get("properties");
+        @SuppressWarnings("unchecked")
+        String lidvid = ((List<String>) properties.get("lidvid")).get(0);
+        for (String fieldName : fieldNames) {
+          if (properties.containsKey(fieldName + ":name")
+              || properties.containsKey(fieldName + ":type")) {
+            @SuppressWarnings("unchecked")
+            List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", empty);
+            @SuppressWarnings("unchecked")
+            List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
+            jsonWriter.beginObject(); // start a product
+            jsonWriter.name("name");
+            jsonWriter.beginArray();
+            for (Object n : names) {
+              jsonWriter.value((String) n);
+            }
+            jsonWriter.endArray();
+            jsonWriter.name("type");
+            jsonWriter.beginArray();
+            for (Object t : types) {
+              jsonWriter.value((String) t);
+            }
+            jsonWriter.endArray();
+            jsonWriter.name("lidvid").value(lidvid);
+            jsonWriter.endObject(); // end a product
           }
         }
-        jsonWriter.endArray();
-
-        jsonWriter.name("type");
-        jsonWriter.beginArray();
-        if (types == null) {
-          jsonWriter.value("N/A");
-        } else {
-          for (Object t : types) {
-            jsonWriter.value((String) t);
-          }
-        }
-        jsonWriter.endArray();
-
-        jsonWriter.name("lidvid").value(id + "::" + ver);
-        jsonWriter.endObject(); // end a product
       }
       jsonWriter.endArray();
       jsonWriter.endObject(); // end Product_Context
@@ -683,12 +695,15 @@ public class ValidateLauncher {
       while (keys.hasNext()) {
         String key = keys.next();
         if (!ConfigKey.ALL_KEYWORDS.contains(key)) {
-          if (unknowns.isBlank()) unknowns = key;
-          else unknowns += ", " + key;
+          if (unknowns.isBlank())
+            unknowns = key;
+          else
+            unknowns += ", " + key;
         }
       }
       if (!unknowns.isBlank()) {
-        throw new UnrecognizedOptionException("Unrecognized keyword(s) in given configuration file: " + unknowns);
+        throw new UnrecognizedOptionException(
+            "Unrecognized keyword(s) in given configuration file: " + unknowns);
       }
 
       List<String> targetList = new ArrayList<>();
@@ -852,6 +867,8 @@ public class ValidateLauncher {
     // must be further split using comma inside the for loop below.
     LOG.debug("setAdditionalPaths:additionalPaths {},{}", additionalPaths, additionalPaths.size());
     this.alternateReferentialPaths.clear();
+    while (alternateReferentialPaths.remove("")) {
+    }
     for (String pathEntries : additionalPaths) {
       LOG.debug("setAdditionalPaths:pathEntries {}", pathEntries);
       // The value of pathEntries are comma separated values.
@@ -1303,7 +1320,8 @@ public class ValidateLauncher {
       report.addParameter("userSpecifiedCatalogs", "User Specified Catalogs", catalogs.toString());
     }
     if (!schematrons.isEmpty()) {
-      report.addParameter("userSpecifiedSchematrons", "User Specified Schematrons", schematrons.toString());
+      report.addParameter("userSpecifiedSchematrons", "User Specified Schematrons",
+          schematrons.toString());
     }
     report.addParameter("severityLevel", "Severity Level", severity.getName());
     report.addParameter("recurseDirectories", "Recurse Directories", String.valueOf(traverse));
@@ -1315,11 +1333,15 @@ public class ValidateLauncher {
      * } else { report.addParameter("   Force Mode                    off"); }
      */
     if (checksumManifest != null) {
-      report.addParameter("checksumManifestFile", "Checksum Manifest File", checksumManifest.toString());
-      report.addParameter("manifestFileBasePath", "Manifest File Base Path", manifestBasePath.toString());
+      report.addParameter("checksumManifestFile", "Checksum Manifest File",
+          checksumManifest.toString());
+      report.addParameter("manifestFileBasePath", "Manifest File Base Path",
+          manifestBasePath.toString());
     }
-    report.addParameter("dataContentValidation", "Data Content Validation", contentValidationFlag ? "on" : "off");
-    report.addParameter("productLevelValidation", "Product Level Validation", skipProductValidation ? "off" : "on");
+    report.addParameter("dataContentValidation", "Data Content Validation",
+        contentValidationFlag ? "on" : "off");
+    report.addParameter("productLevelValidation", "Product Level Validation",
+        skipProductValidation ? "off" : "on");
     if (everyN != 1) {
       report.addParameter("dataEveryN", "Data Every N", String.valueOf(everyN));
     }
@@ -1334,13 +1356,15 @@ public class ValidateLauncher {
     }
     if (validationRule != null && (validationRule.equalsIgnoreCase("pds4.bundle")
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
-      report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files", String.valueOf(allowUnlabeledFiles));
+      report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files",
+          String.valueOf(allowUnlabeledFiles));
     }
     report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
-    report.addParameter("registeredContextsFile", "Registered Contexts File", registeredProductsFile.toString());
+    report.addParameter("registeredContextsFile", "Registered Contexts File",
+        registeredProductsFile.toString());
     if (nonRegisteredProductsFile != null) {
-      report
-          .addParameter("nonRegisteredContextsFile", "Non Registered Contexts File  ", nonRegisteredProductsFile.toString());
+      report.addParameter("nonRegisteredContextsFile", "Non Registered Contexts File  ",
+          nonRegisteredProductsFile.toString());
     }
     report.printHeader();
     report.startBody("Product Level Validation Results");
