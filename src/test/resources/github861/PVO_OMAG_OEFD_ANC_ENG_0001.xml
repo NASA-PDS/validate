@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1M00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1M00.xsd
+      ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:pvo-omag-oefd-anc:data-eng-asc:0001</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>PVO OMAG/OEFD Engineering ASCII Data Orbit 0001</title>
+        <information_model_version>1.22.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <publication_year>2024</publication_year>
+            <keyword>Magnetometer</keyword>
+            <description>
+                PVO_OMAG_OEFD_ANC_ENG_0001.TAB is an ASCII file containing
+                spacecraft and engineering data, including magnetometer
+                mode and temperature information, and spacecraft sample
+                rate spin period infomation.
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2024-09-20</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    This product, PVO_OMAG_OEFD_ANC_ENG_0001.TAB, was originally released in 2022 
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1978-12-05T07:20:07.282Z</start_date_time>
+            <stop_date_time>1978-12-06T04:09:45.882Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Engineering</purpose>
+            <processing_level>Raw</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Pioneer Venus</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.pioneer_venus</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Pioneer Venus Orbiter</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.pvo</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Star</type>  <!--RChen of course was Planet-->
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:nasa:pds:pvo-omag-oefd-anc:data-eng-bin:0001::1.0</lidvid_reference>
+            <reference_type>data_to_raw_product</reference_type>
+        </Internal_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>PVO-V-OMAG-3--SCCOORDS-HIRES-V2.0:PVO_OMAG_OEFD_ANC_ENG_0001.TAB:PVO_OMAG_OEFD_ANC_ENG_0001.TAB</external_source_product_identifier>
+            <reference_type>data_to_raw_source_product</reference_type>
+            <doi>10.17189/6skx-3c53</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>
+                This product was originally part of the following data sets:
+                PVO-V-OMAG-3--SCCOORDS-HIRES-V2.0
+                PVO-V-OMAG-4--SCCOORDS-24SEC-V2.0
+                PVO-V-OEFD-4--EFIELD-24SEC-V1.0
+                PVO-V-OEFD-3--EFIELD-HIRES-V1.0
+                As the data were identical in each case, only a single data set reference is included here.
+                This is the first version of this product converted to PDS4. The DOI provided
+                references the PDS3 source data set.
+            </description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>PVO_OMAG_OEFD_ANC_ENG_0001.TAB</file_name>
+            <creation_date_time>2022-05-19T17:43:20</creation_date_time>
+            <file_size unit="byte">236496</file_size>
+            <md5_checksum>8f073b86ba1c6e9bef9e3851c48734bd</md5_checksum>
+            <comment>This data file is unmodified from the PDS3 version.</comment>
+        </File>
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>2274</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>14</fields>
+                <groups>0</groups>
+                <record_length unit="byte">104</record_length>
+                <Field_Character> 
+                    <name>UT</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <description>
+                        
+  Universal Time given in PDS format: yyyy-mm-ddThh:mm:ss.sssZ.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>ELECT</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">26</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>deg</unit>
+                    <description>
+                        ELECT: Magnetometer electronics temperature.
+                    </description>
+                    <Special_Constants>
+                        <invalid_constant>-99.9</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>PSENST</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">32</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>deg</unit>
+                    <description>
+                        PSENST: Magnetometer P and T sensor
+temperatures.
+                    </description>
+                    <Special_Constants>
+                        <invalid_constant>-99.9</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>GSENST</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">38</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <unit>deg</unit>
+                    <description>
+                        GSENST: Magnetometer G sensor temperature.
+                    </description>
+                    <Special_Constants>
+                        <invalid_constant>-99.9</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>MODE</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">44</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <description>
+                        MODE: Magnetometer mode 1=Fast, 2=Normal,
+3=Gradiometer.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SMPLRATE</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">46</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <description>
+                        SMPLRATE: Magnetometer sample format
+(either 1 or 3).
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>CAL</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">48</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <description>
+                        CAL: Magnetometer calibration cycle: 0=No,
+1=Yes.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SAS</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">50</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <description>
+                        SAS: Magnetometer Spin Average Select (SAS).
+Valid values are 1, 2, and 4.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>FORMAT</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">52</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <description>
+                        FORMAT: Telemetry data format (0-15).
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>BITRATE</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">55</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <unit>bits/s</unit>
+                    <description>
+                        BITRATE: Telemetry bit rate.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SPIN</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">60</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <unit>s</unit>
+                    <description>
+                        SPIN: Spacecraft spin period from the SEDR.
+                    </description>
+                    <Special_Constants>
+                        <invalid_constant>99.999</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>TFS</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">67</field_location>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <field_length unit="byte">24</field_length>
+                    <unit>s</unit>
+                    <description>
+                        TFS: Pulse time (Fs) from the SEDR.
+                    </description>
+                </Field_Character>
+                <Field_Character> 
+                    <name>SMINR</name>
+                    <field_number>13</field_number>
+                    <field_location unit="byte">92</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>s</unit>
+                    <description>
+                        SMINR: The difference between the Sun pulse
+time and the Rip pulse time (Sun - Rip).
+                    </description>
+                    <Special_Constants>
+                        <invalid_constant>9999.999</invalid_constant>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character> 
+                    <name>PTFLAG</name>
+                    <field_number>14</field_number>
+                    <field_location unit="byte">101</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">2</field_length>
+                    <description>
+                        PTFLAG: Pulse time flag (0 if there is a
+real Sun pulse associated with this data sample, -1 otherwise).
+                    </description>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational> 
+</Product_Observational>

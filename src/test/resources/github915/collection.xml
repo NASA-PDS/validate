@@ -124,7 +124,7 @@
     <Inventory>
       <offset unit="byte">0</offset>
       <parsing_standard_id>PDS DSV 1</parsing_standard_id>
-      <records>4</records>
+      <records>3</records>
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <field_delimiter>Comma</field_delimiter>
       <Record_Delimited>

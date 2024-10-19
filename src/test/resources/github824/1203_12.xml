@@ -77,7 +77,7 @@
                   </Internal_Reference>
               </Observing_System_Component>
               <Observing_System_Component>
-                  <name>GAS Instrument for Ulysses</name>
+                  <name>GAS Instrument</name>
                   <type>Instrument</type>
                   <Internal_Reference>
                       <lid_reference>urn:esa:psa:context:instrument:uly.gas</lid_reference>

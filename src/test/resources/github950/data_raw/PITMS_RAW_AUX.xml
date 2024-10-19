@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="
+                        http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clps_to_2ab_pll.pitms:data_raw:pitms_raw_aux</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>PITMS_RAW_AUX</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2024-01-09T18:36:19Z</start_date_time>
+      <stop_date_time>2024-01-15T13:24:42Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <description>These products contain PITMS raw data. The following files contains all the raw PITMS packets as they were produced by the instrument: the HK file contains Housekeeping data, the AUX file contains auxiliary data, and the SCI file contains science data. The CAT (Concatenated) file contains PITMS raw data concatenated from the SCI data packets to show the full science spectrum in a single row along with data from the HK and AUX files that is useful in interpreting the science spectra. The timestamp for the concatenated spectrum is the closest HK timestamp to the initiation of the spectrum acquisition.</description>
+      <Science_Facets>
+        <wavelength_range nilReason="inapplicable" xsi:nil="true"/>
+        <domain>Magnetosphere</domain>
+        <discipline_name>Atmospheres</discipline_name>
+        <facet1>Structure</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>CLPS Task Order 2AB</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clps_to_2ab</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>PITMS onboard the Peregrine Lunar Lander</name>
+      <Observing_System_Component>
+        <name>CLPS Task Order 2 AB Peregrine Lunar Lander</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clps_to_2ab_pll</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+    
+    <!-- insert mission-specific information (e.g. s/c clock info) -->
+    
+    </Mission_Area>
+    <Discipline_Area/>
+  </Observation_Area>
+  <Reference_List>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>PITMS_RAW_AUX.csv</file_name>
+      <creation_date_time>2024-01-22T13:47:46Z</creation_date_time>
+      <comment>AUX packet data received from the PITMS instrument</comment>
+    </File>
+    <Table_Delimited>
+      <local_identifier>PITMS_RAW_AUX</local_identifier>
+      <offset unit="byte">378</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>Tabulated data from AUX packets received from the PITMS instrument</description>
+      <records>1</records>  <!--RChen was 83-->
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>19</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>TIME</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+          <description>UTC converted date time of the time in the packet (SCET), YYYY_MM_DDTHH:MM:SS format</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PITMS_PACKET_ID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>PITMS packet ID calibrated value</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PACKET_COUNT</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Packet count of this packet</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>PACKET_LENGTH</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The length of this packet</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TIME_IN_SECONDS</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Time in seconds of the packet</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>FRACTIONS_OF_SECONDS</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Fractions of seconds of the time in the packet</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>OPERATING_FREQUENCY</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Operating frequency</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>VOLTS_PER_AMU</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Volts per amu</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DAC_SCALING_GRADIENT</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>DAC scaling gradient</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DAC_SCALING_INTERCEPT</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>DAC scaling intercept</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>START_SCALING</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Start scaling</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>FINAL_SCALING</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Final scaling</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CALCULATED_DAC_SCALING_GRADIENT</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Calculated DAC scaling gradient</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CALCULATED_DAC_SCALING_INTERCEPT</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Calculated DAC scaling intercept</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CALCULATED_OPERATING_FREQUENCY</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Calculated operating frequency</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CALCULATED_VOLTS_PER_AMU</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Calculated volts per amu</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CALIBRATION_APPLIED</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Calibration applied</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SCIENCE_SEQUENCE_NUMBER</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Science sequence number</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SCAN_FUNCTION_NUMBER</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Scan function number</description>
+        </Field_Delimited>
+      </Record_Delimited>
+   </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
