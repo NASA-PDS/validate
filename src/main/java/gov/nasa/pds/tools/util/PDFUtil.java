@@ -173,7 +173,7 @@ public class PDFUtil {
     }
 
     // Build the full pathname of the PDF file.
-    String pdfRef = parent + File.separator + pdfBase;
+    String pdfRef = parent + (parent.endsWith(File.separator) ? "" : File.separator) + pdfBase;
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]", parent,
         pdfBase, pdfRef);
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef,uri [{}],[{}],[{}],{}", parent,
