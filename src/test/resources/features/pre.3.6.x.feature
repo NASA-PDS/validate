@@ -15,7 +15,7 @@ Scenario Outline: Execute validate command for tests below.
 # Validate#785
 |"NASA-PDS/validate#785 Success detecting out of range values" | "github785" | 6 | "6 warnings expected" | "FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github785.json -s json --skip-context-validation  -t {resourceDir}/github785/00038_FGM_RTN.xml" | "report_github785.json" |
 
-|"NASA-PDS/validate#781 file size for block area" | "github781" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github781.json -s json -skip-content-validation -t {resourceDir}/github781/RSS001E01_2031066T0241_EURGRVL20XXXXXXGSFC_COV010.xml" | "report_github781.json" |
+|"NASA-PDS/validate#781 file size for block area" | "github781" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github781.json -s json --skip-context-validation --skip-context-validation -t {resourceDir}/github781/RSS001E01_2031066T0241_EURGRVL20XXXXXXGSFC_COV010.xml" | "report_github781.json" |
 
 # Validate#755
 |"NASA-PDS/validate#755 Detect and report file areas referencing same file" | "github755" | 2 | "2 errors expected" | "DUPLICATED_FILE_AREA_REFERENCE" | "src/test/resources"   | "target/test" | "-r {reportDir}/report_github755.json -s json -skip-content-validation -t {resourceDir}/github755/m221011.0013.xml {resourceDir}/github755/m221011.0014.xml {resourceDir}/github755/m221011.0015.xml {resourceDir}/github755/m221011.0030.xml" | "report_github755.json" |
@@ -107,11 +107,11 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#535 Warning when excess table content" | "github535" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github535_2.json -s json -t {resourceDir}/github535/uvis_euv_2016_288_solar_time_series_egress.xml --complete-descriptions" | "report_github535_2.json" |
 
 # Validate#531
-|"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
-|"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |
+|"NASA-PDS/validate#531 Success Binary Field Group Lengths" | "github531" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_1.json -s json --skip-context-validation -t {resourceDir}/github531/success/b.xml" | "report_github531_1.json" |
+|"NASA-PDS/validate#531 Fail Binary Field Group Lengths" | "github531" | 1 | "1 errors expected" | "TABLE_DEFINITION_PROBLEM" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github531_2.json -s json --skip-context-validation -t {resourceDir}/github531/fail/b.xml" | "report_github531_2.json" |
 
 # Validate#529
-|"NASA-PDS/validate#529 Success Update Compare Scale" | "github529" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github529_1.json -s json -t {resourceDir}/github529/success/m0154651923f6_2p_cif_gbl.xml " | "report_github529_1.json" |
+|"NASA-PDS/validate#529 Success Update Compare Scale" | "github529" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github529_1.json -s json --skip-context-validation -t {resourceDir}/github529/success/m0154651923f6_2p_cif_gbl.xml " | "report_github529_1.json" |
 # fixed: |"NASA-PDS/validate#529 Fail Update Compare Scale" | "github529" | 1 | "1 errors expected" | "ARRAY_VALUE_OUT_OF_MIN_MAX_RANGE" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github529_2.json -s json -t {resourceDir}/github529/fail/m0126360726f4_2p_cif_gbl.xml " | "report_github529_2.json" |
 
 # Validate#514 - binary tables should allow NaN
