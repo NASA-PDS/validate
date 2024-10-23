@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/alt/v1/PDS4_ALT_1000.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="http://pds.nasa.gov/pds4/particle/v1/PDS4_PARTICLE_1100.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/mvn/v1/PDS4_MVN_1D00_1110.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:alt="http://pds.nasa.gov/pds4/alt/v1"
+   xmlns:particle="http://pds.nasa.gov/pds4/particle/v1"
+   xmlns:mvn="http://pds.nasa.gov/pds4/mission/mvn/v1"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1D00.xsd
+
+      http://pds.nasa.gov/pds4/alt/v1
+      http://pds.nasa.gov/pds4/alt/v1/PDS4_ALT_1000.xsd
+
+      http://pds.nasa.gov/pds4/particle/v1
+      http://pds.nasa.gov/pds4/particle/v1/PDS4_PARTICLE_1100.xsd
+
+      http://pds.nasa.gov/pds4/mission/mvn/v1
+      https://pds.nasa.gov/pds4/mission/mvn/v1/PDS4_MVN_1D00_1110.xsd
+ ">
+   <Identification_Area>
+      <logical_identifier>urn:nasa:pds:maven.swia.calibrated:data.onboard_svy_mom:mvn_swi_l2_onboardsvymom_20230827</logical_identifier>
+      <version_id>1.0</version_id>
+      <title>MAVEN SWIA Onboard Moments </title>
+      <information_model_version>1.13.0.0</information_model_version>
+      <product_class>Product_Observational</product_class>
+      <Citation_Information>
+         <author_list>Halekas, J. S.</author_list>
+         <publication_year>2024</publication_year>
+         <description>
+            MAVEN SWIA Onboard Moments for 2023-08-27
+         </description>
+      </Citation_Information>
+      <Modification_History>
+         <Modification_Detail>
+            <modification_date>2024-01-05</modification_date>
+            <version_id>1.0</version_id>
+            <description>
+               Initial Version
+            </description>
+         </Modification_Detail>
+      </Modification_History>
+   </Identification_Area>
+   <Observation_Area>
+      <Time_Coordinates>
+         <start_date_time>2023-08-27T00:00:24.351Z</start_date_time>
+         <stop_date_time>2023-08-28T00:00:19.478Z</stop_date_time>
+      </Time_Coordinates>
+      <Primary_Result_Summary>
+         <purpose>Science</purpose>
+         <processing_level>Calibrated</processing_level>
+         <Science_Facets>
+            <domain>Magnetosphere</domain>
+            <discipline_name>Particles</discipline_name>
+            <facet1>Ions</facet1>
+            <facet2>Solar Energetic</facet2>
+         </Science_Facets>
+      </Primary_Result_Summary>
+      <Investigation_Area>
+         <name>MAVEN</name>
+         <type>Mission</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:investigation:mission.maven</lid_reference>
+            <reference_type>data_to_investigation</reference_type>
+         </Internal_Reference>
+      </Investigation_Area>
+      <Observing_System>
+         <Observing_System_Component>
+            <name>Mars Atmosphere and Volatile Evolution (MAVEN)</name>
+            <type>Spacecraft</type>
+            <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.maven</lid_reference>
+               <reference_type>is_instrument_host</reference_type>
+            </Internal_Reference>
+         </Observing_System_Component>
+         <Observing_System_Component>
+            <name>Solar Wind Ion Analyzer</name>
+            <type>Instrument</type>
+            <Internal_Reference>
+               <lid_reference>urn:nasa:pds:context:instrument:swia.maven</lid_reference>
+               <reference_type>is_instrument</reference_type>
+            </Internal_Reference>
+         </Observing_System_Component>
+      </Observing_System>
+      <Target_Identification>
+         <name>Mars</name>
+         <type>Planet</type>
+         <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+            <reference_type>data_to_target</reference_type>
+         </Internal_Reference>
+      </Target_Identification>
+      <Mission_Area>
+         <mvn:MAVEN>
+            <mvn:mission_phase_name>EM-5</mvn:mission_phase_name>
+            <mvn:spacecraft_clock_start_count>4.891385072106101E13</mvn:spacecraft_clock_start_count>
+            <mvn:spacecraft_clock_stop_count>4.891951270041187E13</mvn:spacecraft_clock_stop_count>
+            <mvn:mission_event_time_start_count>7.463661329310303E8</mvn:mission_event_time_start_count>
+            <mvn:mission_event_time_stop_count>7.464525278797455E8</mvn:mission_event_time_stop_count>
+            <mvn:Parameter>
+               <mvn:name>num_mom</mvn:name>
+               <mvn:description>Number of Moment Sets in File</mvn:description>
+               <mvn:value>21600</mvn:value>
+            </mvn:Parameter>
+         </mvn:MAVEN>
+      </Mission_Area>
+      <Discipline_Area>
+         <alt:Alternate_Values>
+            <alt:name>time values</alt:name>
+            <alt:Data_Values>
+               <alt:Local_Internal_Reference>
+                  <alt:local_identifier_reference>epoch</alt:local_identifier_reference>
+                  <alt:local_reference_type>data_values_to_data_values</alt:local_reference_type>
+               </alt:Local_Internal_Reference>
+            </alt:Data_Values>
+            <alt:Data_Values>
+               <alt:Local_Internal_Reference>
+                  <alt:local_identifier_reference>time_met</alt:local_identifier_reference>
+                  <alt:local_reference_type>data_values_to_data_values</alt:local_reference_type>
+               </alt:Local_Internal_Reference>
+            </alt:Data_Values>
+            <alt:Data_Values>
+               <alt:Local_Internal_Reference>
+                  <alt:local_identifier_reference>time_unix</alt:local_identifier_reference>
+                  <alt:local_reference_type>data_values_to_data_values</alt:local_reference_type>
+               </alt:Local_Internal_Reference>
+            </alt:Data_Values>
+         </alt:Alternate_Values>
+      </Discipline_Area>
+   </Observation_Area>
+   <Reference_List>
+      <Internal_Reference>
+         <lidvid_reference>urn:nasa:pds:maven.spice:spice_kernels:lsk_naif0012.tls::1.0</lidvid_reference>
+         <reference_type>data_to_spice_kernel</reference_type>
+         <comment>
+            This data file was processed using the SPICE leapsecond kernel: naif0012.tls.
+         </comment>
+      </Internal_Reference>
+      <Internal_Reference>
+         <lidvid_reference>urn:nasa:pds:maven.spice:spice_kernels:sclk_mvn_sclkscet_00117.tsc::1.0</lidvid_reference>
+         <reference_type>data_to_spice_kernel</reference_type>
+         <comment>
+            This data file was processed using the SPICE MAVEN SCLK kernel: MVN_SCLKSCET.00117.tsc.
+         </comment>
+      </Internal_Reference>
+   </Reference_List>
+   <File_Area_Observational>
+      <File>
+         <file_name>mvn_swi_l2_onboardsvymom_20230827_v02_r01.cdf</file_name>
+         <creation_date_time>2024-01-05T03:12:57</creation_date_time>
+         <file_size unit="byte">2417015</file_size>
+         <md5_checksum>b69cd8ed03af0e0dbaa8081fba3f7bb9</md5_checksum>
+      </File>
+      <Header>
+         <name>CDF Header</name>
+         <offset unit="byte">0</offset>
+         <object_length unit="byte">404</object_length>
+         <parsing_standard_id>CDF 3.4 ISTP/IACG</parsing_standard_id>
+      </Header>
+      <Array>
+         <name>epoch</name>
+         <local_identifier>epoch</local_identifier>
+         <offset unit="byte">16107</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Time, start of sample, in TT2000 time base</description>
+         <Element_Array>
+            <data_type>SignedMSB8</data_type>
+            <unit>ns</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+      </Array>
+      <Array>
+         <name>time_met</name>
+         <local_identifier>time_met</local_identifier>
+         <offset unit="byte">190267</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Time, start of sample, in raw mission elapsed time</description>
+         <Element_Array>
+            <data_type>IEEE754MSBDouble</data_type>
+            <unit>s</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>9.7826394E8</valid_maximum>
+            <valid_minimum>4.380048E8</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>time_unix</name>
+         <local_identifier>time_unix</local_identifier>
+         <offset unit="byte">364503</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Time, start of sample, in Unix time</description>
+         <Element_Array>
+            <data_type>IEEE754MSBDouble</data_type>
+            <unit>s</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1.92499194E9</valid_maximum>
+            <valid_minimum>1.3847328E9</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>atten_state</name>
+         <local_identifier>atten_state</local_identifier>
+         <offset unit="byte">538719</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Attenuator state, 1 = open, 2 = closed, 3 = cover closed</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1</invalid_constant>
+            <valid_maximum>3</valid_maximum>
+            <valid_minimum>1</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>telem_mode</name>
+         <local_identifier>telem_mode</local_identifier>
+         <offset unit="byte">561601</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Telemetry Mode: 1 = Sheath, 0 = Solar Wind</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1</invalid_constant>
+            <valid_maximum>1</valid_maximum>
+            <valid_minimum>0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>quality_flag</name>
+         <local_identifier>quality_flag</local_identifier>
+         <offset unit="byte">584470</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Quality Flag: 0 = bad, 1 = good</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1.0</valid_maximum>
+            <valid_minimum>0.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>decom_flag</name>
+         <local_identifier>decom_flag</local_identifier>
+         <offset unit="byte">672150</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Decommutation Flag: 0 = uncertain mode/attenuator flags, 1 = known mode/attenuator flags</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1.0</valid_maximum>
+            <valid_minimum>0.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>density</name>
+         <local_identifier>density</local_identifier>
+         <offset unit="byte">759883</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard density Moment</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>cm^-3</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1000000.0</valid_maximum>
+            <valid_minimum>0.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>pressure</name>
+         <local_identifier>pressure</local_identifier>
+         <offset unit="byte">847605</offset>
+         <axes>2</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard pressure Moment (Inst. Coords)</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>eV/cm^-3</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+          <Axis_Array>
+            <axis_name>pindex</axis_name>
+            <elements>6</elements>
+            <sequence_number>2</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1000000.0</valid_maximum>
+            <valid_minimum>-1000000.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>velocity</name>
+         <local_identifier>velocity</local_identifier>
+         <offset unit="byte">1367473</offset>
+         <axes>2</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard velocity Moment (Inst. Coords)</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>km/s</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+          <Axis_Array>
+            <axis_name>vindex</axis_name>
+            <elements>3</elements>
+            <sequence_number>2</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1.0E7</valid_maximum>
+            <valid_minimum>-1.0E7</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>velocity_mso</name>
+         <local_identifier>velocity_mso</local_identifier>
+         <offset unit="byte">1628137</offset>
+         <axes>2</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard velocity Moment (MSO Coords)</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>km/s</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+          <Axis_Array>
+            <axis_name>vindex</axis_name>
+            <elements>3</elements>
+            <sequence_number>2</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1.0E7</valid_maximum>
+            <valid_minimum>-1.0E7</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>temperature</name>
+         <local_identifier>temperature</local_identifier>
+         <offset unit="byte">1888807</offset>
+         <axes>2</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard temperature Moment (Inst. Coords)</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>eV</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+          <Axis_Array>
+            <axis_name>tindex</axis_name>
+            <elements>3</elements>
+            <sequence_number>2</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1000000.0</valid_maximum>
+            <valid_minimum>0.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>temperature_mso</name>
+         <local_identifier>temperature_mso</local_identifier>
+         <offset unit="byte">2149478</offset>
+         <axes>2</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Onboard temperature Moment (MSO Coords)</description>
+         <Element_Array>
+            <data_type>IEEE754MSBSingle</data_type>
+            <unit>eV</unit>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>epoch</axis_name>
+            <elements>21600</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+          <Axis_Array>
+            <axis_name>tindex</axis_name>
+            <elements>3</elements>
+            <sequence_number>2</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1.0E31</invalid_constant>
+            <valid_maximum>1000000.0</valid_maximum>
+            <valid_minimum>0.0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>pindex</name>
+         <local_identifier>pindex</local_identifier>
+         <offset unit="byte">2410152</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>pressure Index for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>6</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-127</invalid_constant>
+            <valid_maximum>5</valid_maximum>
+            <valid_minimum>0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>vindex</name>
+         <local_identifier>vindex</local_identifier>
+         <offset unit="byte">2411358</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>velocity Index for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>3</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1</invalid_constant>
+            <valid_maximum>2</valid_maximum>
+            <valid_minimum>0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>tindex</name>
+         <local_identifier>tindex</local_identifier>
+         <offset unit="byte">2412560</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>temperature Index for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>3</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-1</invalid_constant>
+            <valid_maximum>2</valid_maximum>
+            <valid_minimum>0</valid_minimum>
+         </Special_Constants>
+      </Array>
+      <Array>
+         <name>p_label</name>
+         <local_identifier>p_label</local_identifier>
+         <offset unit="byte">2414108</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Pressure Tensor Label for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>6</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+      </Array>
+      <Array>
+         <name>v_label</name>
+         <local_identifier>v_label</local_identifier>
+         <offset unit="byte">2414966</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Velocity Label for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>3</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+      </Array>
+      <Array>
+         <name>t_label</name>
+         <local_identifier>t_label</local_identifier>
+         <offset unit="byte">2415815</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Energy Axis Label for CDF compatibility</description>
+         <Element_Array>
+            <data_type>UnsignedByte</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>3</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+      </Array>
+      <Array>
+         <name>num_mom</name>
+         <local_identifier>num_mom</local_identifier>
+         <offset unit="byte">2416319</offset>
+         <axes>1</axes>
+         <axis_index_order>Last Index Fastest</axis_index_order>
+         <description>Number of Moment Sets in File</description>
+         <Element_Array>
+            <data_type>SignedMSB2</data_type>
+         </Element_Array>
+          <Axis_Array>
+            <axis_name>index</axis_name>
+            <elements>1</elements>
+            <sequence_number>1</sequence_number>
+         </Axis_Array>
+         <Special_Constants>
+            <invalid_constant>-32767</invalid_constant>
+            <valid_maximum>21600</valid_maximum>
+            <valid_minimum>0</valid_minimum>
+         </Special_Constants>
+      </Array>
+   </File_Area_Observational>
+</Product_Observational>

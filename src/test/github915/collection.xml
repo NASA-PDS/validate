@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:nh_derived:pluto_albedo</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Bolometric Hemispherical Albedo Map of Pluto from New Horizons Observations</title>
+    <information_model_version>1.21.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>Hofgartner, J. D.</author_list>
+      <publication_year>2024</publication_year>
+      <doi>10.26007/62b6-ya11</doi>
+      <description>Map of Pluto's incidence-angle-average bolometric hemispherical albedo
+        (local energy-balance albedo, equal to one minus absorption). The map is based on
+        analyses of New Horizons Long Range Reconnaissance Imager (LORRI) and
+        Multispectral Visible Imaging Camera (MVIC) images of Pluto in 2015. Users are
+        strongly encouraged to read the publication titled 'Bolometric Hemispherical
+        Albedo Map of Pluto from New Horizons Observations' in the Planetary Science
+        Journal by Hofgartner et al. in 2023.</description>
+        <Funding_Acknowledgement>
+          <funding_source>NASA</funding_source>
+          <funding_award>80NSSC22K1118</funding_award>
+          <funding_acknowledgement_text>Financial support from the NASA New Frontiers Data Analysis Program (NFDAP)
+            is gratefully acknowledged (Grant Number 80NSSC22K1118).</funding_acknowledgement_text>
+        </Funding_Acknowledgement>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2015-07-08T15:58:00.775Z</start_date_time>
+      <stop_date_time>2015-07-14T08:29:13.781Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Derived</processing_level>
+      <Science_Facets>
+        <wavelength_range>Near Infrared</wavelength_range>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Imaging</discipline_name>
+        <facet1>Color</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <wavelength_range>Near Infrared</wavelength_range>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Flux Measurements</discipline_name>
+        <facet1>Photometry</facet1>
+      </Science_Facets>
+      <Science_Facets>
+        <wavelength_range>Near Infrared</wavelength_range>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Physical Properties</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>None</name>
+      <type>Other Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>NEW HORIZONS</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>LONG RANGE RECONNAISSANCE IMAGER</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:nh.lorri</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>NEW HORIZONS</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>MULTISPECTRAL VISIBLE IMAGING CAMERA</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:nh.mvic</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>(134340) Pluto</name>
+      <type>Dwarf Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:dwarf_planet.134340_pluto</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:nh_derived:pluto_albedo:overview</lid_reference>
+	  <reference_type>collection_to_document</reference_type>
+	  <comment>This brief document provides an overview of the collection content and history.</comment>
+	</Internal_Reference>
+  </Reference_List>
+  <Collection>
+    <collection_type>Data</collection_type>
+  </Collection>
+  <File_Area_Inventory>
+    <File>
+      <file_name>inventory.csv</file_name>
+      <local_identifier>data</local_identifier>
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>3</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>

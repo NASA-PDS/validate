@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:voyager1_rss_uranus_49xr_raw:geometry:uh0003b</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>
+	            Voyager 2 Uranus High-Gain Antenna (HGA) Limbtrack Reconstruction (binary).
+             </title>
+             <information_model_version>1.21.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+             <Citation_Information>
+                   <author_list>Simpson, R. A.</author_list>
+                   <publication_year>2024</publication_year>
+                   <description>
+                         High-gain antenna pointing for the Voyager 2 encounter with Uranus.
+                         Ones' complement binary: 18 72-bit floating point numbers per record.
+                   </description>
+             </Citation_Information>
+             <Modification_History>
+                   <Modification_Detail>
+                         <modification_date>2024-06-03</modification_date>
+                         <version_id>1.0</version_id>
+                         <description>
+                                This data file has been recovered from holdings of the Voyager
+                                Radio Science Team. A PDS4 label was created as part of the process.
+                         </description>
+                  </Modification_Detail>
+             </Modification_History>
+       </Identification_Area>
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>1986-01-24T18:55:00Z</start_date_time>
+                   <stop_date_time>1986-01-25T00:13:36Z</stop_date_time>
+             </Time_Coordinates>
+             <Primary_Result_Summary>
+                   <purpose>Calibration</purpose>
+                   <processing_level>Calibrated</processing_level>
+                   <description>
+                         High-gain antenna pointing for the Voyager 2 radio science 
+                         encounter with Uranus (binary).
+                   </description>
+                   <Science_Facets>
+                           <discipline_name>Radio Science</discipline_name>
+                   </Science_Facets>
+             </Primary_Result_Summary>
+             <Investigation_Area>
+                   <name>Voyager</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+             <Observing_System>                                                                                                                                          
+                   <Observing_System_Component>
+                         <name>Voyager 2</name>
+                         <type>Host</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg2</lid_reference>
+                               <reference_type>is_instrument_host</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>Voyager 2 Engineering</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:vg2.eng</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+             <Target_Identification>  <!--RChen was Voyager 1, Equipment, unpc:insthost:spacecraft.vg2-->
+                 <name>Venus</name>
+                 <type>Planet</type>
+                 <Internal_Reference>
+                     <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                     <reference_type>data_to_target</reference_type>
+                 </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+       <Reference_List>  
+             <Internal_Reference>
+                   <lid_reference>urn:nasa:pds:voyager1_rss_uranus_49xr_raw:document:hga1</lid_reference>
+                   <reference_type>data_to_document</reference_type>
+                   <comment>
+                         The referenced product is documentation of the HGA reconstruction.
+                   </comment>
+             </Internal_Reference>  
+             <Internal_Reference>
+                   <lid_reference>urn:nasa:pds:voyager1_rss_uranus_49xr_raw:document:hga3</lid_reference>
+                   <reference_type>data_to_document</reference_type>
+                   <comment>
+                         The referenced product is the S-band antenna pattern of the Voyager 2 HGA.
+                   </comment>
+             </Internal_Reference>  
+             <Internal_Reference>
+                  <lid_reference>urn:nasa:pds:voyager1_rss_uranus_49xr_raw:geometry:uh0003a</lid_reference>
+                  <reference_type>data_to_associate</reference_type>
+                  <comment>
+                        The referenced product is an ASCII translation of this binary file.
+                  </comment>
+            </Internal_Reference>             
+       </Reference_List>
+      
+       <File_Area_Observational>
+             <File>
+                   <file_name>uh0003b.dat</file_name>
+                   <creation_date_time>2024-05-29T07:08:00</creation_date_time>
+                   <file_size unit="byte">803376</file_size>
+                   <md5_checksum>d53c4a56b0c6b0e8f386d09677e758e5</md5_checksum>
+             </File>
+   
+             <Table_Binary>
+                   <name>Voyager 2 Uranus - HGA Limbtrack Reconstruction (binary)</name>
+                   <offset unit="byte">0</offset>
+                   <records>3187</records>
+                   <description>
+                        A binary table with spacecraft HGA pointing data from the Voyager 2 encounter 
+                        with Uranus.  Each record comprises 18 fields each with a Univac 72-bit floating 
+                        point one's complement value. The first 36 bits and the last 684 bits of each
+                        record are undefined. Record 3188 contains zeros and is not part of this table
+                        specification.  Angles are in degrees; unit vectors are in the EME 50 spacecraft 
+                        centered copordinate system.
+                        NB: The descriptions below are based on the best available documentation; but 
+                        they include easily recognized errors. For analysis, HGA pointing during the 
+                        Uranus occultation should be obtained from NAIF SPICE kernels.  This file is
+                        included primarily for its historic value.
+                   </description>
+                   
+                   <Record_Binary>
+                         <fields>1</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">252</record_length> 
+                         
+                         <Field_Binary>
+                               <name>Container for 18 non-standard binary double precision values</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">252</field_length>
+                               <Packed_Data_Fields>
+                                     <bit_fields>55</bit_fields>
+                                     
+                                     <Field_Bit>
+                                           <name>Spacecraft Event Time - Sign</name>
+                                           <field_number>1</field_number>
+                                           <start_bit_location>37</start_bit_location>
+                                           <stop_bit_location>37</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The first quantity in the record is the Spacecraft Event Time
+                                                 (SCET) in seconds from 1950.0. This bit field contains the 
+                                                 sign bit for the SCET; "0" indicates a positive sign 
+                                                 (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Spacecraft Event Time - Exponent</name>
+                                           <field_number>2</field_number>
+                                           <start_bit_location>38</start_bit_location>
+                                           <stop_bit_location>48</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The first quantity in the record is the Spacecraft Event Time
+                                                 (SCET) in seconds from 1950.0. This field of 11 bits contains
+                                                 the exponent (EXP) for the SCET value.  The exponent is biased  
+                                                 by 1024; after removing the bias, the result is used to create
+                                                 the factor 2**(EXP-1024).  Hexadecimal values in this field
+                                                 are expected to be "41F" (binary 10000011111, decimal 1055).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Spacecraft Event Time - Mantissa</name>
+                                           <field_number>3</field_number>
+                                           <start_bit_location>49</start_bit_location>
+                                           <stop_bit_location>108</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The first quantity in the record is the Spacecraft Event Time
+                                                 (SCET) in seconds from 1950.0. These 60 bits contain the 
+                                                 mantissa for the SCET value.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc.  The hexadecimal mantissa for the 
+                                                 first record in this file is "87ACF0080000000".  The 
+                                                 corresponding SCET -- combining the sign bit, the exponent 
+                                                 factor 2**(EXP-1024), and the mantissa -- is 1138128900 
+                                                 seconds from 1950.0 (or 1986-01-24T18:55:00 at the spacecraft).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Virtual Image of Earth - Sign</name>
+                                           <field_number>4</field_number>
+                                           <start_bit_location>109</start_bit_location>
+                                           <stop_bit_location>109</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The second quantity in the record is the angle between the HGA 
+                                                 boresight and the virtual image of Earth (in degrees). This 
+                                                 is the sign bit for that angle; "0" indicates a positive sign 
+                                                 (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Virtual Image of Earth - Exponent</name>
+                                           <field_number>5</field_number>
+                                           <start_bit_location>110</start_bit_location>
+                                           <stop_bit_location>120</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The second quantity in the record is the angle between the HGA 
+                                                 boresight and the virtual image of Earth (in degrees).  These
+                                                 11 bits contain the exponent for the HGA to virtual image 
+                                                 angle value.  The exponent is biased by 1024; after removing 
+                                                 the bias, the result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Virtual Image of Earth - Mantissa</name>
+                                           <field_number>6</field_number>
+                                           <start_bit_location>121</start_bit_location>
+                                           <stop_bit_location>180</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The second quantity in the record is the angle between the HGA 
+                                                 boresight and the virtual image of Earth (in degrees). These 
+                                                 60 bits contain the mantissa for that angle.  The first bit in 
+                                                 the mantissa is the bit representing 2**-1, the second is the 
+                                                 bit representing 2**-2, etc.  The corresponding angle value is
+                                                 the product of the exponent factor 2**(EXP-1024) and the 
+                                                 mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Earth to Virtual Image of Earth - Sign</name>
+                                           <field_number>7</field_number>
+                                           <start_bit_location>181</start_bit_location>
+                                           <stop_bit_location>181</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The third quantity in the record is the angle between the Earth 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 This is the sign bit for that angle; "0" indicates a positive
+                                                 sign (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Earth to Virtual Image of Earth - Exponent</name>
+                                           <field_number>8</field_number>
+                                           <start_bit_location>182</start_bit_location>
+                                           <stop_bit_location>192</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The third quantity in the record is the angle between the Earth 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 These 11 bits contain the exponent (EXP) for value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias, the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Earth to Virtual Image of Earth - Mantissa</name>
+                                           <field_number>9</field_number>
+                                           <start_bit_location>193</start_bit_location>
+                                           <stop_bit_location>252</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The third quantity in the record is the angle between the Earth 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 These 60 bits contain the mantissa for that angle.  The first 
+                                                 bit in the mantissa is the bit representing 2**-1, the second 
+                                                 is the bit representing 2**-2, etc.  The corresponding angle 
+                                                 value is the product of the exponent factor 2**(EXP-1024) and 
+                                                 the mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Virtual Image of Earth - Sign</name>
+                                           <field_number>10</field_number>
+                                           <start_bit_location>253</start_bit_location>
+                                           <stop_bit_location>253</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourth quantity in the record is the angle between Uranus 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 This is the sign bit for that angle; "0" indicates a positive
+                                                 sign (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Virtual Image of Earth - Exponent</name>
+                                           <field_number>11</field_number>
+                                           <start_bit_location>254</start_bit_location>
+                                           <stop_bit_location>264</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourth quantity in the record is the angle between Uranus 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 These 11 bits contain the exponent (EXP) for value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Virtual Image of Earth - Mantissa</name>
+                                           <field_number>12</field_number>
+                                           <start_bit_location>265</start_bit_location>
+                                           <stop_bit_location>324</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourth quantity in the record is the angle between Uranus 
+                                                 and the virtual image of Earth (in degrees) at the spacecraft.
+                                                 These 60 bits contain the mantissa for the Uranus to virtual 
+                                                 image angle.  The first bit in the mantissa is the bit 
+                                                 representing 2**-1, the second is the bit representing 2**-2, 
+                                                 etc.  The corresponding angle value is the product of the 
+                                                 exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Earth - Sign</name>
+                                           <field_number>13</field_number>
+                                           <start_bit_location>325</start_bit_location>
+                                           <stop_bit_location>325</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifth quantity in the record is the angle between the HGA 
+                                                 boresight and the Earth (in degrees) at the spacecraft.  This
+                                                 is the sign bit for that angle; "0" indicates a positive sign 
+                                                 (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Earth - Exponent</name>
+                                           <field_number>14</field_number>
+                                           <start_bit_location>326</start_bit_location>
+                                           <stop_bit_location>336</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifth quantity in the record is the angle between the HGA 
+                                                 boresight and the Earth (in degrees) at the spacecraft.  These
+                                                 11 bits contain the exponent for the value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: HGA Boresight to Earth - Mantissa</name>
+                                           <field_number>15</field_number>
+                                           <start_bit_location>337</start_bit_location>
+                                           <stop_bit_location>396</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifth quantity in the record is the angle between the HGA 
+                                                 boresight and the Earth (in degrees) at the spacecraft.
+                                                 These 60 bits contain the mantissa for that angle.
+                                                 The first bit in the mantissa is the bit representing
+                                                 2**-1, the second is the bit representing 2**-2, etc.
+                                                 The corresponding angle value is the product of the 
+                                                 exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Earth - Sign</name>
+                                           <field_number>16</field_number>
+                                           <start_bit_location>397</start_bit_location>
+                                           <stop_bit_location>397</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixth quantity in the record is the angle between Uranus
+                                                  and the Earth (in degrees) at the spacecraft.  This
+                                                 is the sign bit for that angle; "0" indicates a positive sign 
+                                                 (expected); "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Earth - Exponent</name>
+                                           <field_number>17</field_number>
+                                           <start_bit_location>398</start_bit_location>
+                                           <stop_bit_location>408</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixth quantity in the record is the angle between Uranus 
+                                                 and the Earth (in degrees) at the spacecraft.  These
+                                                 11 bits contain the exponent for the value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Angle: Uranus to Earth - Mantissa</name>
+                                           <field_number>18</field_number>
+                                           <start_bit_location>409</start_bit_location>
+                                           <stop_bit_location>468</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixth quantity in the record is the angle between Uranus 
+                                                 and the Earth (in degrees) at the spacecraft. These 60 bits 
+                                                 contain the mantissa for that angle.  The first bit in the 
+                                                 mantissa is the bit representing 2**-1, the second is the 
+                                                 bit representing 2**-2, etc. The corresponding angle value 
+                                                 is the product of the exponent factor 2**(EXP-1024) and the 
+                                                 mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, x-component - Sign</name>
+                                           <field_number>19</field_number>
+                                           <start_bit_location>469</start_bit_location>
+                                           <stop_bit_location>469</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventh quantity in the record is the x-component of the
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 This is the sign bit for that component; "0" indicates a 
+                                                 positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, x-component - Exponent</name>
+                                           <field_number>20</field_number>
+                                           <start_bit_location>470</start_bit_location>
+                                           <stop_bit_location>480</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventh quantity in the record is the x-component of the 
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 These 11 bits contain the exponent for the value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, x-component - Mantissa</name>
+                                           <field_number>21</field_number>
+                                           <start_bit_location>481</start_bit_location>
+                                           <stop_bit_location>540</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventh quantity in the record is the x-component of the
+                                                 unit vector from the spacecraft to the virttual image of Earth.
+                                                 These 60 bits contain the mantissa for that angle.  The first 
+                                                 bit in the mantissa is the bit representing 2**-1, the second 
+                                                 is the bit representing 2**-2, etc. The corresponding value 
+                                                 is the product of the exponent factor 2**(EXP-1024) and the 
+                                                 mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, y-component - Sign</name>
+                                           <field_number>22</field_number>
+                                           <start_bit_location>541</start_bit_location>
+                                           <stop_bit_location>541</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighth quantity in the record is the y-component of the
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 This is the sign bit for that component; "0" indicates a 
+                                                 positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, y-component - Exponent</name>
+                                           <field_number>23</field_number>
+                                           <start_bit_location>542</start_bit_location>
+                                           <stop_bit_location>552</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighth quantity in the record is the y-component of the 
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 These 11 bits contain the exponent for the value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, y-component - Mantissa</name>
+                                           <field_number>24</field_number>
+                                           <start_bit_location>553</start_bit_location>
+                                           <stop_bit_location>612</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighth quantity in the record is the y-component of the
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 These 60 bits contain the mantissa for that angle.  The first 
+                                                 bit in the mantissa is the bit representing 2**-1, the second 
+                                                 is the bit representing 2**-2, etc. The corresponding value 
+                                                 is the product of the exponent factor 2**(EXP-1024) and the 
+                                                 mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, z-component - Sign</name>
+                                           <field_number>25</field_number>
+                                           <start_bit_location>613</start_bit_location>
+                                           <stop_bit_location>613</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The ninth quantity in the record is the z-component of the
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 This is the sign bit for that component; "0" indicates a 
+                                                 positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, z-component - Exponent</name>
+                                           <field_number>26</field_number>
+                                           <start_bit_location>614</start_bit_location>
+                                           <stop_bit_location>624</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The ninth quantity in the record is the z-component of the 
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 These 11 bits contain the exponent for the value of that angle.
+                                                 The exponent is biased by 1024; after removing the bias the
+                                                 result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Virtual Image of Earth, z-component - Mantissa</name>
+                                           <field_number>27</field_number>
+                                           <start_bit_location>625</start_bit_location>
+                                           <stop_bit_location>684</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The ninth quantity in the record is the z-component of the
+                                                 unit vector from the spacecraft to the virtual image of Earth.
+                                                 These 60 bits contain the mantissa for that angle.  The first 
+                                                 bit in the mantissa is the bit representing 2**-1, the second 
+                                                 is the bit representing 2**-2, etc. The corresponding value 
+                                                 is the product of the exponent factor 2**(EXP-1024) and the 
+                                                 mantissa with the appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>                              
+                                   
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, x-component - Sign</name>
+                                           <field_number>28</field_number>
+                                           <start_bit_location>685</start_bit_location>
+                                           <stop_bit_location>685</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The tenth quantity in the record is the x-component of the HGA
+                                                 boresight unit vector. This is the sign bit for that component;
+                                                 "0" indicates a positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, x-component - Exponent</name>
+                                           <field_number>29</field_number>
+                                           <start_bit_location>686</start_bit_location>
+                                           <stop_bit_location>696</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The tenth quantity in the record is the x-component of the HGA
+                                                 boresight unit vector. These 11 bits contain the exponent for 
+                                                 that component. The exponent is biased by 1024; after removing
+                                                 the bias, the result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, x-component - Mantissa</name>
+                                           <field_number>30</field_number>
+                                           <start_bit_location>697</start_bit_location>
+                                           <stop_bit_location>756</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The tenth quantity in the record is the x-component of the HGA
+                                                 boresight unit vector. These 60 bits contain the mantissa for 
+                                                 that component.  The first bit in the mantissa is the bit 
+                                                 representing 2**-1, the second is the bit representing 2**-2, 
+                                                 etc. The corresponding value is the product of the exponent 
+                                                 factor 2**(EXP-1024) and the mantissa with the appropriate 
+                                                 sign attached.
+                                           </description>
+                                     </Field_Bit>
+
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, y-component - Sign</name>
+                                           <field_number>31</field_number>
+                                           <start_bit_location>757</start_bit_location>
+                                           <stop_bit_location>757</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eleventh quantity in the record is the y-component of the HGA
+                                                 boresight unit vector. This is the sign bit for that component;
+                                                 "0" indicates a positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, y-component - Exponent</name>
+                                           <field_number>32</field_number>
+                                           <start_bit_location>758</start_bit_location>
+                                           <stop_bit_location>768</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eleventh quantity in the record is the y-component of the HGA
+                                                 boresight unit vector. These 11 bits contain the exponent for 
+                                                 that component. The exponent is biased by 1024; after removing
+                                                 the bias, the result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, y-component - Mantissa</name>
+                                           <field_number>33</field_number>
+                                           <start_bit_location>769</start_bit_location>
+                                           <stop_bit_location>828</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eleventh quantity in the record is the y-component of the HGA
+                                                 boresight unit vector. These 60 bits contain the mantissa for 
+                                                 that component.  The first bit in the mantissa is the bit 
+                                                 representing 2**-1, the second is the bit representing 2**-2, 
+                                                 etc. The corresponding value is the product of the exponent 
+                                                 factor 2**(EXP-1024) and the mantissa with the appropriate 
+                                                 sign attached.
+                                           </description>
+                                     </Field_Bit>
+
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, z-component - Sign</name>
+                                           <field_number>34</field_number>
+                                           <start_bit_location>829</start_bit_location>
+                                           <stop_bit_location>829</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The twelfth quantity in the record is the z-component of the HGA
+                                                 boresight unit vector. This is the sign bit for that component;
+                                                 "0" indicates a positive sign; "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, z-component - Exponent</name>
+                                           <field_number>35</field_number>
+                                           <start_bit_location>830</start_bit_location>
+                                           <stop_bit_location>840</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The twelfth quantity in the record is the z-component of the HGA
+                                                 boresight unit vector. These 11 bits contain the exponent for 
+                                                 that component. The exponent is biased by 1024; after removing
+                                                 the bias, the result is used to create the factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: HGA Boresight, z-component - Mantissa</name>
+                                           <field_number>36</field_number>
+                                           <start_bit_location>841</start_bit_location>
+                                           <stop_bit_location>900</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The twelfth quantity in the record is the z-component of the HGA
+                                                 boresight unit vector. These 60 bits contain the mantissa for 
+                                                 that component.  The first bit in the mantissa is the bit 
+                                                 representing 2**-1, the second is the bit representing 2**-2, 
+                                                 etc. The corresponding value is the product of the exponent 
+                                                 factor 2**(EXP-1024) and the mantissa with the appropriate 
+                                                 sign attached.
+                                           </description>
+                                     </Field_Bit>
+
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, x-component - Sign</name>
+                                           <field_number>37</field_number>
+                                           <start_bit_location>901</start_bit_location>
+                                           <stop_bit_location>901</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The thirteenth quantity in the record is the x-component of the 
+                                                 unit vector from the spacecraft to Earth. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, x-component - Exponent</name>
+                                           <field_number>38</field_number>
+                                           <start_bit_location>902</start_bit_location>
+                                           <stop_bit_location>912</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The thirteenth quantity in the record is the x-component of the
+                                                 unit vector from the spacecraft to Earth. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, x-component - Mantissa</name>
+                                           <field_number>39</field_number>
+                                           <start_bit_location>913</start_bit_location>
+                                           <stop_bit_location>972</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The thirteenth quantity in the record is the x-component of the 
+                                                 unit vector from the spacecraft to Earth. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, y-component - Sign</name>
+                                           <field_number>40</field_number>
+                                           <start_bit_location>973</start_bit_location>
+                                           <stop_bit_location>973</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourteenth quantity in the record is the y-component of the 
+                                                 unit vector from the spacecraft to Earth. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, y-component - Exponent</name>
+                                           <field_number>41</field_number>
+                                           <start_bit_location>974</start_bit_location>
+                                           <stop_bit_location>984</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourteenth quantity in the record is the y-component of the
+                                                 unit vector from the spacecraft to Earth. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, y-component - Mantissa</name>
+                                           <field_number>42</field_number>
+                                           <start_bit_location>985</start_bit_location>
+                                           <stop_bit_location>1044</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fourteenth quantity in the record is the y-component of the 
+                                                 unit vector from the spacecraft to Earth. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, z-component - Sign</name>
+                                           <field_number>43</field_number>
+                                           <start_bit_location>1045</start_bit_location>
+                                           <stop_bit_location>1045</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifteenth quantity in the record is the z-component of the 
+                                                 unit vector from the spacecraft to Earth. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, z-component - Exponent</name>
+                                           <field_number>44</field_number>
+                                           <start_bit_location>1046</start_bit_location>
+                                           <stop_bit_location>1056</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifteenth quantity in the record is the z-component of the
+                                                 unit vector from the spacecraft to Earth. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Earth, z-component - Mantissa</name>
+                                           <field_number>45</field_number>
+                                           <start_bit_location>1057</start_bit_location>
+                                           <stop_bit_location>1116</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The fifteenth quantity in the record is the z-component of the 
+                                                 unit vector from the spacecraft to Earth. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, x-component - Sign</name>
+                                           <field_number>46</field_number>
+                                           <start_bit_location>1117</start_bit_location>
+                                           <stop_bit_location>1117</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixteenth quantity in the record is the x-component of the 
+                                                 unit vector from the spacecraft to Uranus. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, x-component - Exponent</name>
+                                           <field_number>47</field_number>
+                                           <start_bit_location>1118</start_bit_location>
+                                           <stop_bit_location>1128</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixteenth quantity in the record is the x-component of the
+                                                 unit vector from the spacecraft to Uranus. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, x-component - Mantissa</name>
+                                           <field_number>48</field_number>
+                                           <start_bit_location>1129</start_bit_location>
+                                           <stop_bit_location>1188</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The sixteenth quantity in the record is the x-component of the 
+                                                 unit vector from the spacecraft to Earth. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit> 
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, y-component - Sign</name>
+                                           <field_number>49</field_number>
+                                           <start_bit_location>1189</start_bit_location>
+                                           <stop_bit_location>1189</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventeenth quantity in the record is the y-component of the 
+                                                 unit vector from the spacecraft to Uranus. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, y-component - Exponent</name>
+                                           <field_number>50</field_number>
+                                           <start_bit_location>1190</start_bit_location>
+                                           <stop_bit_location>1200</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventeenth quantity in the record is the y-component of the
+                                                 unit vector from the spacecraft to Uranus. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, y-component - Mantissa</name>
+                                           <field_number>51</field_number>
+                                           <start_bit_location>1201</start_bit_location>
+                                           <stop_bit_location>1260</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The seventeenth quantity in the record is the y-component of the 
+                                                 unit vector from the spacecraft to Uranus. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit> 
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, z-component - Sign</name>
+                                           <field_number>52</field_number>
+                                           <start_bit_location>1261</start_bit_location>
+                                           <stop_bit_location>1261</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighteenth quantity in the record is the z-component of the 
+                                                 unit vector from the spacecraft to Uranus. This is the sign bit 
+                                                 for that component; "0" indicates a positive sign; 
+                                                 "1" indicates a negative sign.
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, z-component - Exponent</name>
+                                           <field_number>53</field_number>
+                                           <start_bit_location>1262</start_bit_location>
+                                           <stop_bit_location>1272</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighteenth quantity in the record is the z-component of the
+                                                 unit vector from the spacecraft to Uranus. These 11 bits contain
+                                                 the exponent for that component. The exponent is biased by 1024;
+                                                 after removing the bias, the result is used to create the 
+                                                 factor 2**(EXP-1024).
+                                           </description>
+                                     </Field_Bit>
+                                     
+                                     <Field_Bit>
+                                           <name>Unit Vector: Uranus, z-component - Mantissa</name>
+                                           <field_number>54</field_number>
+                                           <start_bit_location>1273</start_bit_location>
+                                           <stop_bit_location>1332</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 The eighteenth quantity in the record is the z-component of the 
+                                                 unit vector from the spacecraft to Uranus. These 60 bits contain
+                                                 the mantissa for that component.  The first bit in the mantissa 
+                                                 is the bit representing 2**-1, the second is the bit 
+                                                 representing 2**-2, etc. The corresponding value is the product
+                                                 of the exponent factor 2**(EXP-1024) and the mantissa with the 
+                                                 appropriate sign attached.
+                                           </description>
+                                     </Field_Bit> 
+                                     
+                                     <Field_Bit>
+                                           <name>Spares</name>
+                                           <field_number>55</field_number>
+                                           <start_bit_location>1333</start_bit_location>
+                                           <stop_bit_location>1393</stop_bit_location>
+                                           <data_type>UnsignedBitString</data_type>
+                                           <description>
+                                                 Undefined bits.
+                                           </description>
+                                     </Field_Bit> 
+                                                                         
+                               </Packed_Data_Fields>
+                         </Field_Binary>
+                   </Record_Binary>
+                               
+             </Table_Binary>
+      </File_Area_Observational>
+      
+</Product_Observational>
