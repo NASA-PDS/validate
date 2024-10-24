@@ -1,5 +1,6 @@
 package gov.nasa.pds.validate.ri;
 
+import java.io.Serializable;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.core.ErrorHandler;
@@ -11,7 +12,7 @@ class CountingAppender implements Appender {
   private int err = 0, fatal = 0, warn = 0;
   private ErrorHandler handler = null;
   private Filter filter = null;
-  private Layout layout = null;
+  private Layout<Serializable> layout = null;
   private String name = "";
 
   public void addFilter(Filter newFilter) {
@@ -54,7 +55,7 @@ class CountingAppender implements Appender {
   }
 
   @Override
-  public Layout getLayout() {
+  public Layout<Serializable> getLayout() {
     return this.layout;
   }
 
