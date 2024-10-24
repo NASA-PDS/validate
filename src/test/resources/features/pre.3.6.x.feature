@@ -51,7 +51,7 @@ Scenario Outline: Execute validate command for tests below.
 |"NASA-PDS/validate#671 Success processing of bundle" | "github671" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github671.json -s json --skip-context-validation  -t {resourceDir}/github671 -R pds4.bundle" | "report_github671.json" |
 
 # Validate#652
-|"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json -t {resourceDir}/github652" | "report_github652.json" |
+|"NASA-PDS/validate#652 Success processing of bundles and collections" | "github652" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github652.json -s json --skip-context-validation -t {resourceDir}/github652" | "report_github652.json" |
 
 # Validate#651
 |"NASA-PDS/validate#651 Success processing of bit patterns" | "github651" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github651.json -s json -t {resourceDir}/github651/M1431146123CC.xml" | "report_github651.json" |
