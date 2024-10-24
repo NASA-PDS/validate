@@ -816,7 +816,7 @@ public class FieldValueValidator {
       }
       try {
         if (specifier.matches("[eE]")) {
-          String p = "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)";
+          String p = "(\\+|-)?([0-9](\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)";
           if (!value.trim().matches(p)) {
             throw new NumberFormatException("Value does not match pattern.");
           }
