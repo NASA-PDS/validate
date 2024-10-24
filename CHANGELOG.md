@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-10-19)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-10-24)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
+
+**Requirements:**
+
+- As a user, I want to validate that there is exactly one digit to the left of the decimal point for the specifier `e` or `E` [\#992](https://github.com/NASA-PDS/validate/issues/992)
 
 **Improvements:**
 
@@ -10,7 +14,7 @@
 
 **Defects:**
 
-- `validate --update-context-products` no longer works with Solr upgrade [\#1034](https://github.com/NASA-PDS/validate/issues/1034)
+- `validate --update-context-products` no longer works with Solr upgrade [\#1034](https://github.com/NASA-PDS/validate/issues/1034) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - The PDF verification / VeraPDF component of Validate seems to error on Windows paths [\#1008](https://github.com/NASA-PDS/validate/issues/1008) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - OutOfMemoryError when NASA validate v3.5.2 is executed through a library for a batch of products [\#979](https://github.com/NASA-PDS/validate/issues/979) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Slow performance with all content and product validation turned off [\#969](https://github.com/NASA-PDS/validate/issues/969) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
