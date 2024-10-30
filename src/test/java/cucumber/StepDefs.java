@@ -310,7 +310,7 @@ public class StepDefs {
               + this.refOutputValue);
 
       // Compare the count from this test with the this.messageCount from test table.
-      assertEquals(count, this.messageCount, this.messageText + " " + reportJson.toString());
+      assertEquals(this.messageCount, count, this.messageText + " " + reportJson.toString());
 
       // System.out.println("produced_output_from_validate_command_should_be_similar_to_reference_ref_output_value_or_no_error_reported()
       // count = [" + count + "]");
