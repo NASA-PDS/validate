@@ -40,7 +40,7 @@
   
   <properties>
     <model-version>1K00</model-version>
-    <pds3-product-tools.version>4.4.0</pds3-product-tools.version>
+    <pds3-product-tools.version>4.4.1</pds3-product-tools.version>
   </properties>
 
   <build>
@@ -135,7 +135,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>4.0.0-M13</version>
+        <version>4.0.0-M16</version>
         <configuration>
           <skip>false</skip>  <!-- This is `true` in parent pom -->
           <skipDeploy>false</skipDeploy>  <!-- This is `true` in parent pom -->
@@ -287,13 +287,13 @@
     <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
-        <version>5.11.2</version>
+        <version>5.11.3</version>
         <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-java</artifactId>
-        <version>7.18.1</version>
+        <version>7.20.1</version>
         <scope>test</scope>
     </dependency>
     <dependency>
