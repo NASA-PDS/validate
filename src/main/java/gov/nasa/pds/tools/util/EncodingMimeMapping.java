@@ -12,7 +12,7 @@ public enum EncodingMimeMapping {
   PDF(Arrays.asList("pdf")),
   PDFA(Arrays.asList("pdf", "pdfa")),
   PNG(Arrays.asList("png")),
-  SEED(Arrays.asList("mseed")),
+  SEED(Arrays.asList("mseed","seed")),
   TIFF(Arrays.asList("tif", "tiff")),
   WAV(Arrays.asList("wav"));
   final private List<String> extensions;
