@@ -12,6 +12,7 @@ public enum EncodingMimeMapping {
   PDF(Arrays.asList("pdf")),
   PDFA(Arrays.asList("pdf", "pdfa")),
   PNG(Arrays.asList("png")),
+  SEED(Arrays.asList("mseed")),
   TIFF(Arrays.asList("tif", "tiff")),
   WAV(Arrays.asList("wav"));
   final private List<String> extensions;
@@ -35,6 +36,7 @@ public enum EncodingMimeMapping {
       if (encoding.equalsIgnoreCase("PDFA")) return PDFA;
       if (encoding.equalsIgnoreCase("PDF/A")) return PDFA;
       if (encoding.equalsIgnoreCase("PNG")) return PNG;
+      if (encoding.startsWith("SEED 2.")) return SEED;
       if (encoding.equalsIgnoreCase("TIFF")) return TIFF;
       if (encoding.equalsIgnoreCase("WAV")) return WAV;
       throw new IllegalArgumentException("encoding parameter '" + encoding + "' is not known to this version of validate.");
