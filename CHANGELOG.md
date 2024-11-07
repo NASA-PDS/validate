@@ -7,6 +7,7 @@
 **Defects:**
 
 - `validate.bat` no executes correctly on windows [\#1054](https://github.com/NASA-PDS/validate/issues/1054) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- validate incorrectly disallows Encoded\_Native/encoding\_standard\_id = 'SEED 2.4' [\#1028](https://github.com/NASA-PDS/validate/issues/1028) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.6.0](https://github.com/NASA-PDS/validate/tree/v3.6.0) (2024-11-05)
 
