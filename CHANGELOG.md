@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-11-07)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.0...«unknown»)
+
+**Defects:**
+
+- `validate.bat` no executes correctly on windows [\#1054](https://github.com/NASA-PDS/validate/issues/1054) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+
 ## [v3.6.0](https://github.com/NASA-PDS/validate/tree/v3.6.0) (2024-11-05)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...v3.6.0)
