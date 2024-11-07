@@ -150,8 +150,8 @@ public class LabelValidator {
     cachedParser = null;
     cachedValidatorHandler = null;
     cachedSchematron = new ArrayList<>();
-    userSchemaFiles = null;
-    userSchematronFiles = null;
+    userSchemaFiles = new ArrayList<>();
+    userSchematronFiles = new ArrayList<>();
     userSchematronTransformers = new ArrayList<>();
     resolver = null;
     externalValidators = new ArrayList<>();
@@ -200,7 +200,7 @@ public class LabelValidator {
    *
    */
   public void setSchema(List<URL> schemaFiles) {
-    this.userSchemaFiles = schemaFiles;
+    this.userSchemaFiles.addAll(schemaFiles);
     LOG.debug("setSchema:schemaFiles.size(),schemaFiles {},{}", schemaFiles.size(), schemaFiles);
   }
 
@@ -213,7 +213,11 @@ public class LabelValidator {
     userSchematronTransformers = schematrons;
     LOG.debug("setSchematrons:schematrons.size(),schematrons {}", schematrons.size());
   }
-
+  public void clear() {
+    this.userSchemaFiles.clear();
+    this.userSchematronFiles.clear();
+    this.userSchematronTransformers.clear();
+  }
   /**
    * Pass in a hash map of schematron URLs to its transformed schematron object. This is used when
    * validating a label against it's referenced schematron.
@@ -230,7 +234,7 @@ public class LabelValidator {
    * @param schematronFiles A list of schematron URLs.
    */
   public void setSchematronFiles(List<URL> schematronFiles) {
-    userSchematronFiles = schematronFiles;
+    userSchematronFiles.addAll(schematronFiles);
     LOG.debug("setSchematronFiles:schematronFiles.size(),schematronFiles {},{}",
         schematronFiles.size(), schematronFiles);
   }
@@ -565,7 +569,7 @@ public class LabelValidator {
           cachedSchematron = userSchematronTransformers;
           LOG.debug("parseAndValidate:0003:url,useLabelSchematron,cachedSchematron.size() {},{},{}",
               url, useLabelSchematron, cachedSchematron.size());
-        } else if (userSchematronFiles != null) {
+        } else if (!userSchematronFiles.isEmpty()) {
           List<String> transformers = new ArrayList<>();
           for (URL schematron : userSchematronFiles) {
             transformers.add(schematronTransformer.fetch(schematron, handler));
@@ -699,7 +703,7 @@ public class LabelValidator {
       }
       LOG.debug("createParserIfNeeded:#00BB6");
       // Time to load schema that will be used for validation
-      if (userSchemaFiles != null) {
+      if (!userSchemaFiles.isEmpty()) {
         LOG.debug("createParserIfNeeded:#00BB7");
         // User has specified schema files to use
         validatingSchema = schemaFactory
@@ -1027,16 +1031,6 @@ public class LabelValidator {
 
   public void setCachedLSResourceResolver(CachedLSResourceResolver resolver) {
     this.cachedLSResolver = resolver;
-  }
-
-  public static void main(String[] args) throws Exception {
-    LabelValidator lv = new LabelValidator();
-    lv.setCatalogs(new String[] {args[1]});
-    ProblemContainer container = new ProblemContainer();
-    lv.validate(container, new File(args[0]));
-    for (ValidationProblem problem : container.getProblems()) {
-      System.out.println(problem.getMessage());
-    }
   }
 
   /**

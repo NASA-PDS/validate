@@ -88,6 +88,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonWriter;
 import gov.nasa.pds.tools.label.CachedEntityResolver;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.label.LabelValidator;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
@@ -105,6 +106,7 @@ import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidateProblemHandler;
 import gov.nasa.pds.tools.validate.ValidationProblem;
+import gov.nasa.pds.tools.validate.ValidationResourceManager;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
@@ -1785,6 +1787,9 @@ public class ValidateLauncher {
   public void flushValidators() {
     if (this.factory != null) {
       this.factory.flush();
+    }
+    if (ValidationResourceManager.INSTANCE.getResource(LabelValidator.class) != null) {
+      ValidationResourceManager.INSTANCE.getResource(LabelValidator.class).clear();
     }
   }
 
