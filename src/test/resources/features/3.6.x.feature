@@ -1,4 +1,4 @@
-Feature: validate_integration_36 
+Feature: validate_integration_3_6 
 
   Scenario Outline: <testId>
     Given a test <testName> at dir <testDir> at resource <resourceDir> sending report to <reportDir> with <commandArgs> as arguments
