@@ -11,7 +11,7 @@
 
   <groupId>gov.nasa.pds</groupId>
   <artifactId>validate</artifactId>
-  <version>3.7.0-SNAPSHOT</version>
+  <version>3.6.1</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
