@@ -51,7 +51,7 @@ set LIB_DIR=%PARENT_DIR%\lib
 if exist "%LIB_DIR%\validate-@project.version@.jar" (
 set VALIDATE_JAR=%LIB_DIR%\validate-@project.version@.jar
 ) else (
-echo Cannot find VTool jar file (validate-@project.version@.jar) in %LIB_DIR%
+echo "Cannot find VTool jar file (validate-@project.version@.jar) in %LIB_DIR%"
 goto END
 )
 

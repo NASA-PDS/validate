@@ -1,8 +1,17 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-10-31)
+## [release/3.6.1](https://github.com/NASA-PDS/validate/tree/release/3.6.1) (2024-11-08)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.0...release/3.6.1)
+
+**Defects:**
+
+- `validate.bat` no executes correctly on windows [\#1054](https://github.com/NASA-PDS/validate/issues/1054) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- validate incorrectly disallows Encoded\_Native/encoding\_standard\_id = 'SEED 2.4' [\#1028](https://github.com/NASA-PDS/validate/issues/1028) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v3.6.0](https://github.com/NASA-PDS/validate/tree/v3.6.0) (2024-11-05)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...v3.6.0)
 
 **Requirements:**
 
