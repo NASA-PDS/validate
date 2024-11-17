@@ -1,17 +1,8 @@
 # Changelog
 
-## [release/3.6.1](https://github.com/NASA-PDS/validate/tree/release/3.6.1) (2024-11-08)
+## [v3.6.1](https://github.com/NASA-PDS/validate/tree/v3.6.1) (2024-11-09)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.0...release/3.6.1)
-
-**Defects:**
-
-- `validate.bat` no executes correctly on windows [\#1054](https://github.com/NASA-PDS/validate/issues/1054) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
-- validate incorrectly disallows Encoded\_Native/encoding\_standard\_id = 'SEED 2.4' [\#1028](https://github.com/NASA-PDS/validate/issues/1028) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
-## [v3.6.0](https://github.com/NASA-PDS/validate/tree/v3.6.0) (2024-11-05)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...v3.6.0)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...v3.6.1)
 
 **Requirements:**
 
@@ -23,7 +14,9 @@
 
 **Defects:**
 
+- `validate.bat` no executes correctly on windows [\#1054](https://github.com/NASA-PDS/validate/issues/1054) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - `validate --update-context-products` no longer works with Solr upgrade [\#1034](https://github.com/NASA-PDS/validate/issues/1034) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- validate incorrectly disallows Encoded\_Native/encoding\_standard\_id = 'SEED 2.4' [\#1028](https://github.com/NASA-PDS/validate/issues/1028) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - The PDF verification / VeraPDF component of Validate seems to error on Windows paths [\#1008](https://github.com/NASA-PDS/validate/issues/1008) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - OutOfMemoryError when NASA validate v3.5.2 is executed through a library for a batch of products [\#979](https://github.com/NASA-PDS/validate/issues/979) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Slow performance with all content and product validation turned off [\#969](https://github.com/NASA-PDS/validate/issues/969) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
