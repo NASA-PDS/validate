@@ -621,25 +621,29 @@ public class ValidateLauncher {
         @SuppressWarnings("unchecked")
         List<String> title = (List<String>) properties.get("title");
         for (String fieldName : fieldNames) {
-	        @SuppressWarnings("unchecked")
-	        List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", title);
-	        @SuppressWarnings("unchecked")
-	        List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
-	        jsonWriter.beginObject(); // start a product
-	        jsonWriter.name("name");
-	        jsonWriter.beginArray();
-	        for (Object n : names) {
-	          jsonWriter.value((String) n);
-	        }
-	        jsonWriter.endArray();
-	        jsonWriter.name("type");
-	        jsonWriter.beginArray();
-	        for (Object t : types) {
-	          jsonWriter.value((String) t);
-	        }
-	        jsonWriter.endArray();
-	        jsonWriter.name("lidvid").value(lidvid);
-	        jsonWriter.endObject(); // end a product
+            if (properties.containsKey(fieldName + ":name")
+                    || properties.containsKey(fieldName + ":type")
+                    || properties.containsKey(fieldName + ":aperture")) {
+		        @SuppressWarnings("unchecked")
+		        List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", title);
+		        @SuppressWarnings("unchecked")
+		        List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
+		        jsonWriter.beginObject(); // start a product
+		        jsonWriter.name("name");
+		        jsonWriter.beginArray();
+		        for (Object n : names) {
+		          jsonWriter.value((String) n);
+		        }
+		        jsonWriter.endArray();
+		        jsonWriter.name("type");
+		        jsonWriter.beginArray();
+		        for (Object t : types) {
+		          jsonWriter.value((String) t);
+		        }
+		        jsonWriter.endArray();
+		        jsonWriter.name("lidvid").value(lidvid);
+		        jsonWriter.endObject(); // end a product
+            }
         }
       }
       jsonWriter.endArray();
