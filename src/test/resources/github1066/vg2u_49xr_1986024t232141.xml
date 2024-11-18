@@ -1,0 +1,1918 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+
+       <Identification_Area>
+             <logical_identifier>urn:nasa:pds:voyager2_rss_uranus_49xr_raw:data_podr:vg2u_49xr_1986024t232141</logical_identifier>
+             <version_id>1.0</version_id>
+             <title>
+                 Voyager 2 DSS-49 X RCP Uranus Open Loop Raw Data
+                 from 1986-01-24T23:21:41.000000Z to 1986-01-24T23:28:20.000000Z
+             </title>
+             <information_model_version>1.21.0.0</information_model_version>
+             <product_class>Product_Observational</product_class>
+
+             <Citation_Information>
+                   <author_list>Simpson, R. A.</author_list>
+                   <publication_year>2024</publication_year>
+                   <description>
+                        Voyager 2 DSS-49 X-band RCP open loop data from Uranus
+                        from 1986-01-24T23:21:41.000000Z to 1986-01-24T23:28:20.000000Z.
+                        This product includes the original binary data file plus an ASCII data file
+                        with record headers, an ASCII file with column headers for the ASCII header
+                        data file, and an ASCII file with the open loop X-band data samples.
+                   </description>
+             </Citation_Information>
+
+             <Modification_History>
+                  <Modification_Detail>
+                         <modification_date>2024-05-13</modification_date>
+                         <version_id>1.0</version_id>
+                         <description>
+                           This data product has been restored from an Original Data Record (ODR) with
+                           identifier UL0323 to PDS4. The original data file has been
+                           parsed into an ASCII file containing record headers and an ASCII file
+                           containing data samples.  A PDS4 label has been created.
+			   
+                           The ODR format in this product is described by DSN Software Interface Specification
+                           (SIS) RSC-11-9 dated 1 March 1982.  This format was used for data collection at
+                           the Parkes Observatory (Australia) during the Voyager 2 encounter with Uranus.
+                           The Parkes format is slightly different from the format used at the DSN complex near
+                           Canberra (Australia) during the same encounter.  The Parkes format may be identified
+                           as PODR to distinguish it from the ODR collected at Canberra.
+			   
+                           Original files with names including the character 'x' have been corrected for
+                           one or more defective records.  See the archive SIS for details.
+                         </description>
+                  </Modification_Detail>
+             </Modification_History>
+       </Identification_Area>
+
+       <Observation_Area>
+             <Time_Coordinates>
+                   <start_date_time>1986-01-24T23:21:41.000000Z</start_date_time>
+                   <stop_date_time>1986-01-24T23:28:20.000000Z</stop_date_time>
+             </Time_Coordinates>
+             <Primary_Result_Summary>
+                   <purpose>Science</purpose>
+                   <processing_level>Raw</processing_level>
+                   <description>
+                       Voyager 2 DSS-49 X-band open loop raw data from Uranus
+                       from 1986-01-24T23:21:41.000000Z to 1986-01-24T23:28:20.000000Z
+                   </description>
+                   <Science_Facets>
+                           <discipline_name>Radio Science</discipline_name>
+                   </Science_Facets>
+             </Primary_Result_Summary>
+
+             <Investigation_Area>
+                   <name>Voyager</name>
+                   <type>Mission</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                         <reference_type>data_to_investigation</reference_type>
+                   </Internal_Reference>
+             </Investigation_Area>
+
+             <Observing_System>
+                   <Observing_System_Component>
+                         <name>Voyager 2</name>
+                         <type>Host</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg2</lid_reference>
+                               <reference_type>is_instrument_host</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>Radio Science Subsystem</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:vg2.rss</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>NASA Deep Space Network</name>
+                         <type>Host</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:facility:observatory.dsn</lid_reference>
+                               <reference_type>is_facility</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>DSN Instrumentation</name>
+                         <type>Instrument</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:instrument:dsn.rss</lid_reference>
+                               <reference_type>is_instrument</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+                   <Observing_System_Component>
+                         <name>DSS-49 Antenna</name>
+                         <type>Telescope</type>
+                         <Internal_Reference>
+                               <lid_reference>urn:nasa:pds:context:telescope:parkes.dss49_64m</lid_reference>
+                               <reference_type>is_telescope</reference_type>
+                         </Internal_Reference>
+                   </Observing_System_Component>
+             </Observing_System>
+
+             <Target_Identification>
+                   <name>Uranus</name>
+                   <type>Planet</type>
+                   <Internal_Reference>
+                         <lid_reference>urn:nasa:pds:context:target:planet.uranus</lid_reference>
+                         <reference_type>data_to_target</reference_type>
+                   </Internal_Reference>
+             </Target_Identification>
+       </Observation_Area>
+
+       <Reference_List>
+            <Internal_Reference>
+                  <lid_reference>urn:nasa:pds:radiosci.documentation:dsn.podr:1982-03-01</lid_reference>
+                  <reference_type>data_to_document</reference_type>
+                  <comment>
+                    Reference document for Radio Science open loop data in the PODR fomat
+                    as used by data acquisition equipment at Parkes Observatory during the
+                    Voyager 2 encounter with Uranus.
+                  </comment>
+            </Internal_Reference>
+       </Reference_List>
+       
+       <File_Area_Observational>
+             <File>
+                   <file_name>ul0323.dat</file_name>
+                   <creation_date_time>2024-05-13T15:45:05</creation_date_time>
+                   <file_size unit="byte">32720000</file_size>
+                   <md5_checksum>c28b37a96594356156b4fbc8a934f183</md5_checksum>
+             </File>
+
+             <Table_Binary>
+                   <name>PODR Binary Raw Data</name>
+                   <offset unit="byte">0</offset>
+                   <records>8000</records>
+                   <description>
+                        Raw Radio Science PODR data.
+                   </description>
+                   <Record_Binary>
+                         <fields>28</fields>
+                         <groups>3</groups>
+                         <record_length unit="byte">4090</record_length> 
+
+                         <Field_Binary>
+                               <name>ADC Block Format</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  First byte of each record gives record status.
+                               </description>
+                               <Packed_Data_Fields>
+                                  <bit_fields>5</bit_fields>
+                                  <Field_Bit>
+                                     <name>Time and Status Validity</name>
+                                     <field_number>1</field_number>
+                                     <start_bit_location>1</start_bit_location>
+                                     <stop_bit_location>1</stop_bit_location>
+                                     <data_type>UnsignedBitString</data_type>
+                                     <description>
+                                          Indicates that time-tag data in Words 6 through 9 are valid for this record.
+                                                    0 = invalid
+                                                    1 = valid 
+                                     </description>
+                                  </Field_Bit>
+                                     
+                                  <Field_Bit>
+                                       <name>Sequence Flag</name>
+                                       <field_number>2</field_number>
+                                       <start_bit_location>2</start_bit_location>
+                                       <stop_bit_location>2</stop_bit_location>
+                                       <data_type>UnsignedBitString</data_type>                                         
+                                       <description>
+                                          Indicates that this record is the start of a sequence block.
+				                                     1 = start of a sequence block
+				                                     0 = continuation
+                                       </description>
+                                    </Field_Bit>
+
+                                    <Field_Bit>
+                                       <name>Master Tape Error Flag</name>
+                                       <field_number>3</field_number>
+                                       <start_bit_location>3</start_bit_location>
+                                       <stop_bit_location>3</stop_bit_location>
+                                       <data_type>UnsignedBitString</data_type>
+                                       <description>
+                                          Indicates whether there was an error in the master tape.
+                                             0 = no error in master tape.
+                                             1 = error in master tape
+                                       </description>
+                                    </Field_Bit>
+                                     
+                                    <Field_Bit>
+                                       <name>Conversion Flag</name>
+                                       <field_number>4</field_number>
+                                       <start_bit_location>4</start_bit_location>
+                                       <stop_bit_location>4</stop_bit_location>
+                                       <data_type>UnsignedBitString</data_type>
+                                       <description>
+                                          Indicates whether data were converted.
+                                             0 = 8-bit conversion
+                                             1 = 12-bit conversion
+                                       </description>
+                                    </Field_Bit>
+                                     
+                                    <Field_Bit>
+                                       <name>Compression Factor Type Indicator</name>
+                                       <field_number>5</field_number>
+                                       <start_bit_location>5</start_bit_location>
+                                       <stop_bit_location>8</stop_bit_location>
+                                       <data_type>UnsignedBitString</data_type>
+                                       <description>
+                                          Indicates whether data have been compressed.
+				                                     0001 = narrow band data, no compression
+				                                     0010 = narrow band, compression by 2
+				                                     1010 = narrow band, compression by 10
+                                       </description>
+                                    </Field_Bit>
+                              </Packed_Data_Fields>
+			                   </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Tape Number</name>
+                            <field_number>2</field_number>
+                            <field_location unit="byte">2</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               The number of the tape in this sequence (starting from 1)
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Record Number</name>
+                            <field_number>3</field_number>
+                            <field_location unit="byte">3</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Number of the record in this tape, starting from 1.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Record Length</name>
+                            <field_number>4</field_number>
+                            <field_location unit="byte">5</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Length of this record (in bytes).
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Spacecraft Identifier</name>
+                            <field_number>5</field_number>
+                            <field_location unit="byte">7</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               Identifier for spacecraft.  Expected value is 32 (for Voyager 2).
+                            </description>
+                         </Field_Binary>
+                         
+                         <Field_Binary>
+                            <name>Source Station</name>
+                            <field_number>6</field_number>
+                            <field_location unit="byte">8</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               Identifier for the source antenna.  Set to 43, which is incorrect.
+                               The true DSS identifier for Parkes Observatory was 49.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Date and Time</name>
+                            <field_number>7</field_number>
+                            <field_location unit="byte">9</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">4</field_length>
+                            <description>
+                               Day of year and seconds of day.
+                            </description>
+			                      <Packed_Data_Fields>
+				                       <bit_fields>3</bit_fields>
+				                       <Field_Bit>
+                                  <name>Day of Year</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>9</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Day of year, expressed as a 9-bit binary number between 1 and 366 (inclusive).
+                                  </description>
+                               </Field_Bit>
+                                     
+                               <Field_Bit>
+                                  <name>Zeroes-1</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>10</start_bit_location>
+                                  <stop_bit_location>15</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>                                         
+                                  <description>
+                                     An unused field, set to 0.
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Seconds of Day</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>16</start_bit_location>
+                                  <stop_bit_location>32</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Seconds of day, expressed as a 17-bit binary number between 0 and 86399.
+                                  </description>
+                               </Field_Bit>
+                            </Packed_Data_Fields>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Predict Set ID</name>
+                            <field_number>8</field_number>
+                            <field_location unit="byte">13</field_location>
+                            <data_type>ASCII_String</data_type>
+                            <field_length unit="byte">4</field_length>
+                            <description>
+                               A four character identifier for the predict set used to control receiver tuning.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>POCA Status</name>
+                            <field_number>9</field_number>
+                            <field_location unit="byte">17</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                                One byte of POCA status flags followed by the POCA frequency (7 bytes)
+                            </description>
+                            <Packed_Data_Fields>
+                               <bit_fields>9</bit_fields>
+                               <Field_Bit>
+                                  <name>Control Mode</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>1</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether the POCA is under manual or computer control.
+                                        0 = computer control (normal radio science usage)
+                                        1 = manual control
+                                  </description>
+                               </Field_Bit>
+                                     
+                               <Field_Bit>
+                                  <name>Control Ready</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>2</start_bit_location>
+                                  <stop_bit_location>2</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>                                         
+                                  <description>
+                                     POCA computer control is ready (or not)
+				                                0 = not ready
+				                                1 = ready (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Synthesizer Power</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>3</start_bit_location>
+                                  <stop_bit_location>3</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether there was an error in the master tape.
+                                        0 = synthesizer power is OFF
+                                        1 = synthesizer power is ON (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+                                     
+                               <Field_Bit>
+                                  <name>Synthesizer Lock Status</name>
+                                  <field_number>4</field_number>
+                                  <start_bit_location>4</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether the synthesizer ias in lock (or not)
+                                        0 = not in lock
+                                        1 = in lock (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Limit Enable</name>
+                                  <field_number>5</field_number>
+                                  <start_bit_location>5</start_bit_location>
+                                  <stop_bit_location>5</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates limit is enabled
+                                        0 = limit enable is OFF (normal radio science usage)
+                                        1 = limit enable is ON
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Track Status</name>
+                                  <field_number>6</field_number>
+                                  <start_bit_location>6</start_bit_location>
+                                  <stop_bit_location>6</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether tracking is ON
+                                        0 = tracking is OFF
+                                        1 = tracking is ON (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Acquisition Status</name>
+                                  <field_number>7</field_number>
+                                  <start_bit_location>7</start_bit_location>
+                                  <stop_bit_location>7</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether acquisition is ON
+                                        0 = acquisition is OFF
+                                        1 = acquisition is ON (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Sweep Status</name>
+                                  <field_number>8</field_number>
+                                  <start_bit_location>8</start_bit_location>
+                                  <stop_bit_location>8</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Indicates whether sweep is ON
+                                        0 = sweep is OFF
+                                        1 = sweep is ON (normal radio science usage)
+                                  </description>
+                               </Field_Bit>
+
+                            </Packed_Data_Fields>
+                         </Field_Binary>
+
+                         <Group_Field_Binary>
+                            <name>POCA Frequency</name>
+                            <group_number>1</group_number>
+                            <repetitions>7</repetitions>
+                            <fields>1</fields>
+                            <groups>0</groups>
+                            <description>
+                               Each 8-bit field contains two binary-coded decimal digits.
+                               The 14 digits in the 7 repetitions give the POCA frequency
+                               in microhertz at the Date and Time in Field 7.
+                               Expected values are about 46 10**12 microhertz.
+                            </description>
+                            <group_location unit="byte">18</group_location>
+                            <group_length unit="byte">7</group_length>
+                            <Field_Binary>
+                               <name>POCA Digit Pair</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedBitString</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A pair of 4-bit binary-coded decimal digits.
+                                  For example, the bit string 10000101 is the decimal digit pair '85'.
+                               </description>
+				  
+                               <Packed_Data_Fields>
+                                 <bit_fields>2</bit_fields>
+                                 <description>
+                                    A pair of binary-coded decimal digits.
+                                 </description>
+                                 <Field_Bit>
+                                    <name>First Digit</name>
+                                    <start_bit_location>1</start_bit_location>
+                                    <stop_bit_location>4</stop_bit_location>
+                                    <data_type>UnsignedBitString</data_type>
+                                    <description>
+                                       The first of two digits in a 14-character string giving the POCA frequency.
+                                    </description>
+                                 </Field_Bit>
+				    
+                                 <Field_Bit>
+                                    <name>Second Digit</name>
+                                    <start_bit_location>5</start_bit_location>
+                                    <stop_bit_location>8</stop_bit_location>
+                                    <data_type>UnsignedBitString</data_type>
+                                    <description>
+                                       The second of two digits in a 14-character string giving the POCA frequency.
+                                    </description>
+                                 </Field_Bit>
+                              </Packed_Data_Fields>
+                            </Field_Binary>
+			       
+                         </Group_Field_Binary>
+
+                         <Field_Binary>
+                            <name>Zeroes-2</name>
+                            <field_number>10</field_number>
+                            <field_location unit="byte">25</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               An unused byte set to 0.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>POCA Rate</name>
+                            <field_number>11</field_number>
+                            <field_location unit="byte">26</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">3</field_length>
+                            <description>
+                               The POCA rate given as a mantissa, exponent, and sign.
+                            </description>
+	  		   
+                            <Packed_Data_Fields>
+                               <bit_fields>7</bit_fields>
+                               <description>
+                                 The POCA rate given as a mantissa (5 binary-coded decimal digit
+                                 with fixed point before the first digit), a 3-bit exponent
+                                 (giving the power to ten multiplier for the mantissa), and a sign bit.
+                               </description>
+		 	     
+                               <Field_Bit>
+                                  <name>POCA Rate - Mantissa Digit 1</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                    The first digit in the POCA rate mantissa, after the fixed decimal point.
+                                    It is a binary-coded decimal number.  For example the bit string 0011
+                                    should be interpreted as '3'.
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>POCA Rate - Mantissa Digit 2</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>5</start_bit_location>
+                                  <stop_bit_location>8</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     The second digit in the POCA rate mantissa, after the fixed decimal point.
+                                     It is a binary-coded decimal number.  For example the bit string 0010
+                                     should be interpreted as '2'.
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>POCA Rate - Mantissa Digit 3</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>9</start_bit_location>
+                                  <stop_bit_location>12</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                    The third digit in the POCA rate mantissa, after the fixed decimal point.
+                                    It is a binary-coded decimal number.  For example the bit string 0110
+                                    should be interpreted as '6'.
+                                 </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>POCA Rate - Mantissa Digit 4</name>
+                                  <field_number>4</field_number>
+                                  <start_bit_location>13</start_bit_location>
+                                  <stop_bit_location>16</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     The fourth digit in the POCA rate mantissa, after the fixed decimal point.
+                                     It is a binary-coded decimal number.  For example the bit string 0111
+                                     should be interpreted as '7'.
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                 <name>POCA Rate - Mantissa Digit 5</name>
+                                 <field_number>5</field_number>
+                                 <start_bit_location>17</start_bit_location>
+                                 <stop_bit_location>20</stop_bit_location>
+                                 <data_type>UnsignedBitString</data_type>
+                                 <description>
+                                    The fifth digit in the POCA rate mantissa, after the fixed decimal point.
+                                    It is a binary-coded decimal number.  For example the bit string 1001
+                                    should be interpreted as '9'.
+                                 </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                 <name>POCA Rate - Exponent</name>
+                                 <field_number>6</field_number>
+                                 <start_bit_location>21</start_bit_location>
+                                 <stop_bit_location>23</stop_bit_location>
+                                 <data_type>UnsignedBitString</data_type>
+                                 <description>
+                                    The power of ten multiplier for the POCA frequency rate.
+                                    It is a binary number.  For example, the bit string 010 means that
+                                    the mantissa should be multiplied by 10**2.
+                                 </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>POCA Rate - Sign</name>
+                                  <field_number>7</field_number>
+                                  <start_bit_location>24</start_bit_location>
+                                  <stop_bit_location>24</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     The sign of the POCA frequency rate.
+                                        0 = negative (-)
+                                        1 = positive (+)
+                                  </description>
+                               </Field_Bit>
+                            </Packed_Data_Fields>
+                         </Field_Binary>
+                     
+                         <Field_Binary>
+                            <name>Converter Sampling Rate</name>
+                            <field_number>12</field_number>
+                            <field_location unit="byte">29</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>byte per second</unit>
+                            <description>
+                               The sampling rate of one analog-to-digital converter.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Signal Select</name>
+                            <field_number>13</field_number>
+                            <field_location unit="byte">31</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               Four 2-bit flags that show the input signal assignments to the four
+                               analog-to-digital converters.
+                            </description>
+                            <Packed_Data_Fields>
+                               <bit_fields>4</bit_fields>
+                               <description>
+                                  Assignments of input signal(s) to analog-to-gitial converters.
+                               </description>
+                             
+                               <Field_Bit>
+                                  <name>Signal to ADC-1</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>2</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Signal assigned to ADC-1.
+                                        00 = signal 1 is assigned to ADC-1
+                                        01 = signal 2 is assigned to ADC-1
+                                        02 = signal 3 is assigned to ADC-1
+                                        03 = signal 4 is assigned to ADC-1
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Signal to ADC-2</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>3</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                    Signal assigned to ADC-2.
+                                       00 = signal 1 is assigned to ADC-2
+                                       01 = signal 2 is assigned to ADC-2
+                                       02 = signal 3 is assigned to ADC-2
+                                       03 = signal 4 is assigned to ADC-2
+                                 </description>
+                              </Field_Bit>
+
+                              <Field_Bit>
+                                 <name>Signal to ADC-3</name>
+                                 <field_number>3</field_number>
+                                 <start_bit_location>5</start_bit_location>
+                                 <stop_bit_location>6</stop_bit_location>
+                                 <data_type>UnsignedBitString</data_type>
+                                 <description>
+                                    Signal assigned to ADC-3.
+                                       00 = signal 1 is assigned to ADC-3
+                                       01 = signal 2 is assigned to ADC-3
+                                       02 = signal 3 is assigned to ADC-3
+                                       03 = signal 4 is assigned to ADC-3
+                                 </description>
+                              </Field_Bit>
+
+                              <Field_Bit>
+                                 <name>Signal to ADC-4</name>
+                                 <field_number>4</field_number>
+                                 <start_bit_location>7</start_bit_location>
+                                 <stop_bit_location>8</stop_bit_location>
+                                 <data_type>UnsignedBitString</data_type>
+                                 <description>
+                                    Signal assigned to ADC-4.
+                                       00 = signal 1 is assigned to ADC-4
+                                       01 = signal 2 is assigned to ADC-4
+                                       02 = signal 3 is assigned to ADC-4
+                                       03 = signal 4 is assigned to ADC-4
+                                 </description>
+                              </Field_Bit>
+                           </Packed_Data_Fields>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>N Counter</name>
+                            <field_number>14</field_number>
+                            <field_location unit="byte">32</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               The value N where  N = 257 - M, 
+                                                  M = 10**7/(20*SRATE), and 
+                                                  SRATE is the Converter Sampling Rate in Field 12.
+                                                  Allowable values for M are 250, 125, 100, 50, and 25.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 1 - High Part</name>
+                            <field_number>15</field_number>
+                            <field_location unit="byte">33</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The high part of Cumulative Phase as measured by Counter 1 (H1).
+                               Total phase in cycles is H1*2**24 + M1*2**8 + L1*2**-8.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 1 - Mid Part</name>
+                            <field_number>16</field_number>
+                            <field_location unit="byte">35</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The mid part of Cumulative Phase as measured by Counter 1 (M1).
+                               Total phase in cycles is H1*2**24 + M1*2**8 + L1*2**-8.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 1 - Low Part</name>
+                            <field_number>17</field_number>
+                            <field_location unit="byte">37</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The low part of Cumulative Phase as measured by Counter 1 (L1).
+                               Total phase in cycles is H1*2**24 + M1*2**8 + L1*2**-8.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 2 - High Part</name>
+                            <field_number>18</field_number>
+                            <field_location unit="byte">39</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The high part of Cumulative Phase as measured by Counter 2 (H2).
+                               Total phase in cycles is H2*2**24 + M2*2**8 + L2*2**-8.
+                            </description>
+                         </Field_Binary>
+                       
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 2 - Mid Part</name>
+                            <field_number>19</field_number>
+                            <field_location unit="byte">41</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The mid part of Cumulative Phase as measured by Counter 2 (M2).
+                               Total phase in cycles is H2*2**24 + M2*2**8 + L2*2**-8.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Cumulative Phase - Counter 2 - Low Part</name>
+                            <field_number>20</field_number>
+                            <field_location unit="byte">43</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <unit>cycle</unit>
+                            <description>
+                               The low part of Cumulative Phase as measured by Counter 2 (L2).
+                               Total phase in cycles is H2*2**24 + M2*2**8 + L2*2**-8.
+                            </description>
+                         </Field_Binary>
+			 
+                         <Field_Binary>
+                            <name>Frequency Counter Status</name>
+                            <field_number>21</field_number>
+                            <field_location unit="byte">45</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Frequency counter status.
+                            </description>
+                            <Packed_Data_Fields>
+                               <bit_fields>4</bit_fields>
+                               <description>
+                                  Four flags giving status of frequency counters.
+                               </description>
+                             
+                               <Field_Bit>
+                                  <name>Test Signal Selection</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Test signal selection.  Possible values include:
+                                        0001 = Live input of Counter 1 (POCA)
+                                        0010 = Live input of counter 2
+                                        1000 = 1 MHz
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Sample Control Register</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>5</start_bit_location>
+                                  <stop_bit_location>8</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Sample Control Register:
+                                        1011 = Enable live sample; internal 10 MHz to
+                                               resolvers and test facilities.
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Frequency Counter 1 Mode Register</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>9</start_bit_location>
+                                  <stop_bit_location>12</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Frequency Counter 1 Mode Register -- binary values:
+                                        0000 = Test frequency to counter
+                                        0001 = Live frequency to counter (POCA)
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Frequency Counter 2 Mode Register</name>
+                                  <field_number>4</field_number>
+                                  <start_bit_location>13</start_bit_location>
+                                  <stop_bit_location>16</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Frequency Counter 2 Mode Register -- binary values:
+                                        0000 = Test frequency to counter
+                                        0001 = Live frequency to counter (POCA)
+                                  </description>
+                               </Field_Bit>
+
+                            </Packed_Data_Fields>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Spares-1</name>
+                            <field_number>22</field_number>
+                            <field_location unit="byte">47</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Usually zeroes; but the low order byte is set to "1" if the samples
+                               in the original tape record were truncated.  In that case the samples
+                               in the record were filled out to the normal record length with whatever
+                               values happened to be available, record bytes 4057-4090 were set to
+                               zero, and this low order byte (byte 48) was set to "1".
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Zeroes-3</name>
+                            <field_number>23</field_number>
+                            <field_location unit="byte">49</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Unused, set to zero.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>20 Counter - Value 1</name>
+                            <field_number>24</field_number>
+                            <field_location unit="byte">51</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               According to the SIS, always octal 023.  In fact, the value 
+                               appears to be decimal 23 in Voyager 2 Uranus data from Parkes.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>20 Counter - Value 2</name>
+                            <field_number>25</field_number>
+                            <field_location unit="byte">52</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A copy of Field 24.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Zeroes-4</name>
+                            <field_number>26</field_number>
+                            <field_location unit="byte">53</field_location>
+                            <data_type>UnsignedMSB2</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Unused, set to zero.
+                            </description>
+                         </Field_Binary>
+
+                         <Field_Binary>
+                            <name>Sampling Strategy - Value 1</name>
+                            <field_number>27</field_number>
+                            <field_location unit="byte">55</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                                Sampling status - first set of values (repeated in Field 28).
+                            </description>
+                            <Packed_Data_Fields>
+                               <bit_fields>5</bit_fields>
+                               <description>
+                                  Five flags giving status of sampling.
+                               </description>
+                             
+                               <Field_Bit>
+                                  <name>Overflow Indicator - 1</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>1</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Overflow flag:
+                                        0 = no overflow
+                                        1 = overflow
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Ones-1</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>2</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Unused, set to all ones (decimal 7).
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Test Mode - 1</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>5</start_bit_location>
+                                  <stop_bit_location>5</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Flag indicating test or normal mode.
+                                        0 = normal
+                                        1 = test
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Short Conversions - 1</name>
+                                  <field_number>4</field_number>
+                                  <start_bit_location>6</start_bit_location>
+                                  <stop_bit_location>6</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Flag confirming bits per sample:
+                                        0 = 12-bit samples
+                                        1 = 8-bit samples
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Sampling Mode - 1</name>
+                                  <field_number>5</field_number>
+                                  <start_bit_location>7</start_bit_location>
+                                  <stop_bit_location>8</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Sampling configuration.  Binary values as follows:
+                                        00 = 4 signals, each sampled by a separate ADC at SRATE (Field 12)
+                                        01 = 1 signal, effectively sampled at 4*SRATE
+                                        10 = 2 signals, each effectively sampled at 2*SRATE
+                                        11 = 1 signal sampled at SRATE using ADC-1 and
+                                             1 signal effectively sampled at 3*SRATE sequentially
+                                               using ADC-2, ADC-3, and ADC-4
+                                  </description>
+                               </Field_Bit>
+                            </Packed_Data_Fields>
+                         </Field_Binary>        
+
+                         <Field_Binary>
+                            <name>Sampling Strategy - Value 2</name>
+                            <field_number>28</field_number>
+                            <field_location unit="byte">56</field_location>
+                            <data_type>UnsignedBitString</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               Sampling status - second set of values (a copy of Field 27).
+                            </description>
+                            <Packed_Data_Fields>
+                               <bit_fields>5</bit_fields>
+                               <description>
+                                  Five flags giving status of sampling.
+                               </description>
+                             
+                               <Field_Bit>
+                                  <name>Overflow Indicator - 2</name>
+                                  <field_number>1</field_number>
+                                  <start_bit_location>1</start_bit_location>
+                                  <stop_bit_location>1</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Overflow flag:
+                                        0 = no overflow
+                                        1 = overflow
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Ones-2</name>
+                                  <field_number>2</field_number>
+                                  <start_bit_location>2</start_bit_location>
+                                  <stop_bit_location>4</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Unused, set to all ones (decimal 7).
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Test Mode - 2</name>
+                                  <field_number>3</field_number>
+                                  <start_bit_location>5</start_bit_location>
+                                  <stop_bit_location>5</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Flag indicating test or normal mode.
+                                        0 = normal
+                                        1 = test
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Short Conversions - 2</name>
+                                  <field_number>4</field_number>
+                                  <start_bit_location>6</start_bit_location>
+                                  <stop_bit_location>6</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Flag indicating bits per sample:
+                                        0 = 12-bit samples
+                                        1 = 8-bit samples
+                                  </description>
+                               </Field_Bit>
+
+                               <Field_Bit>
+                                  <name>Sampling Mode - 2</name>
+                                  <field_number>5</field_number>
+                                  <start_bit_location>7</start_bit_location>
+                                  <stop_bit_location>8</stop_bit_location>
+                                  <data_type>UnsignedBitString</data_type>
+                                  <description>
+                                     Sampling configuration.  Binary values as follows:
+                                        00 = 4 signals, each sampled by a separate ADC at SRATE (Field 12)
+                                        01 = 1 signal, effectively sampled at 4*SRATE
+                                        10 = 2 signals, each effectively sampled at 2*SRATE
+                                        11 = 1 signal sampled at SRATE using ADC-1 and
+                                             1 signal effectively sampled at 3*SRATE sequentially 
+                                               using ADC-2, ADC-3, and ADC-4
+                                  </description>
+                               </Field_Bit>
+                            </Packed_Data_Fields>
+                         </Field_Binary>        
+
+                         <Group_Field_Binary>
+                            <name>PODR Samples</name>
+                            <group_number>2</group_number>
+                            <repetitions>4000</repetitions>
+                            <fields>1</fields>
+                            <groups>0</groups>
+                            <description>
+                               4000 8-bit samples captured during the Voyager 2 Uranus encounter at Parkes Observatory.
+                            </description>
+                            <group_location unit="byte">57</group_location>
+                            <group_length unit="byte">4000</group_length>
+
+                            <Field_Binary>
+                               <name>POCA Sample</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>UnsignedByte</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  Each sample has a value between 0 and 255.
+                                  The first sample is from ADC-1 at the time given by Field 7 (if valid).
+                                  The second sample is from ADC-2 at one sample interval later.
+                                  The third sample is from ADC-3 one sample interval after ADC-2.
+                                  The fourth sample is from ADC-4 one sample interval after ADC-3.
+                                  The fifth sample is from ADC-1 one sample interval after ADC-4.
+                                  And so on.
+                               </description>
+                            </Field_Binary>
+                         </Group_Field_Binary>
+
+                      <Group_Field_Binary>
+                         <name>Trailer</name>
+                         <group_number>3</group_number>
+                         <repetitions>34</repetitions>
+                         <fields>1</fields>
+                         <groups>0</groups>
+                         <description>
+                            34 bytes of trailer data, not used for Voyager 2 Uranus data acquisition.
+                         </description>
+                         <group_location unit="byte">4057</group_location>
+                         <group_length unit="byte">34</group_length>
+
+                         <Field_Binary>
+                            <name>Unused</name>
+                            <field_number>1</field_number>
+                            <field_location unit="byte">1</field_location>
+                            <data_type>UnsignedByte</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               Byte not used during Voyager 2 Uranus data acquisition.
+                            </description>
+                         </Field_Binary>
+                      </Group_Field_Binary>
+
+                   </Record_Binary>
+                </Table_Binary>
+                                  
+       </File_Area_Observational>
+
+       <File_Area_Observational>
+             <File>
+                   <file_name>vg2u_49xr_1986024t232141.hdr</file_name>
+                   <creation_date_time>2024-05-13T15:45:05</creation_date_time>
+                   <file_size unit="byte">1560000</file_size>
+                   <md5_checksum>4d41990d81174741c46652aa5e33dd5a</md5_checksum>
+             </File>
+             <Table_Character>
+                   <name>PODR Headers in ASCII</name>
+                   <offset unit="byte">0</offset>
+                   <records>8000</records>
+                   <description>
+                        PODR record headers in ASCII.  Translation of binary fields in PODR
+                        records to ASCII.  Duplicates -- namely bytes 51-52 and 55-56 -- have
+                        not been retained.  The record number (not in the binary file) has
+                        been prepended to the ASCII record to facilitate use.  The table has
+                        fixed width columns, delimited by ASCII commas.
+                   </description>
+                   <record_delimiter>Line-Feed</record_delimiter>
+                   <Record_Character>
+                         <fields>45</fields>
+                         <groups>0</groups>
+                         <record_length unit="byte">195</record_length> 
+
+                         <Field_Character>
+                               <name>Record Number</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">5</field_length>
+                               <description>
+                                     Record number.  This field does not exist in the binary file.
+                                     It was added for user convenience in tracking records in the
+                                     ASCII file.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>O_Flag</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">7</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                   Time and status validity flag.  A value 1 means that time
+                                   and status information in Fields 12-22 is valid.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>S_Flag</name>
+                               <field_number>3</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>    
+                               <description>
+                                   A value 1 indicates that this record starts a new sequence 
+                                   of records.  A value 0 indicates that this record is a 
+                                   continuation of an existing sequence.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>E-Flag</name>
+                               <field_number>4</field_number>
+                               <field_location unit="byte">11</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>    
+                               <description>
+                                   A value 1 indicates that the master tape from which this
+                                   record was copied had an error.  A value 0 indicates that
+                                   there was no error on the master tape.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>C-Flag</name>
+                               <field_number>5</field_number>
+                               <field_location unit="byte">13</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>    
+                               <description>
+                                 A value 1 indicates that the data samples in this record have
+                                 12-bit sample resolution.  A value 0 indicates that the samples
+                                 have 8-bit resolution.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>T-Flag</name>
+                               <field_number>6</field_number>
+                               <field_location unit="byte">15</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>    
+                               <description>
+                                 The Compression factor type indicator.  The following bit strings
+                                 are valid values:
+                                     0001 = narrowband, no compression
+                                     0010 = narrowband 2
+                                     1010 = narrowband 10
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Tape Number</name>
+                               <field_number>7</field_number>
+                               <field_location unit="byte">18</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>    
+                               <description>
+                                  The tape number within the sequence identified by S-Flag (Field 3).
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Record Number</name>
+                               <field_number>8</field_number>
+                               <field_location unit="byte">22</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">5</field_length> 
+                               <description>
+                                  The record number within the file.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Record Length</name>
+                               <field_number>9</field_number>
+                               <field_location unit="byte">28</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                  Record length in 16-bit words.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Spacecraft Identifier</name>
+                               <field_number>10</field_number>
+                               <field_location unit="byte">33</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                  The numerical identifier for the spacecraft.  Possible
+                                  values include:
+                                     31  Voyager 1
+                                     32  Voyager 2
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>DSS Identifier</name>
+                               <field_number>11</field_number>
+                               <field_location unit="byte">36</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                  The numerical identifier for the DSN antenna through which 
+                                  the data were acquired.  For Voyager 2 data from Uranus
+                                  captured using the Parkes antenna, the value was set to 43
+                                  for hardware compatibility; however, the actual identifier
+                                  for Parkes was 49.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Day of Year</name>
+                               <field_number>12</field_number>
+                               <field_location unit="byte">39</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>
+                               <description>
+                                  The day of year at the start of this tape/file.  For 
+                                  Voyager 2 Uranus data captured using the Parkes antenna,
+                                  the year was 1986 (not included in the binary file).
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Seconds of Day</name>
+                               <field_number>13</field_number>
+                               <field_location unit="byte">43</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">5</field_length>
+                               <description>
+                                  The time in integer seconds (since UTC midnight) at
+                                  the most recent valid time signal (Field 2).
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Predict Set ID</name>
+                               <field_number>14</field_number>
+                               <field_location unit="byte">49</field_location>
+                               <data_type>ASCII_String</data_type>
+                               <field_length unit="byte">4</field_length>
+                               <description>
+                                  A 4-character identifier for the set of predictions used 
+                                  to tune the receiver.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>POCA Control</name>
+                               <field_number>15</field_number>
+                               <field_location unit="byte">54</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that the Programmable Oscillator Control
+                                  Assembly (POCA) was under manual control.  A value 0 indicates
+                                  that the POCA was under computer control.  Computer control 
+                                  was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>POCA Control Status</name>
+                               <field_number>16</field_number>
+                               <field_location unit="byte">56</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that the POCA was READY.
+                                  A value 0 indicates that the POCA was NOT READY.
+                                  READY was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Synthesizer Power</name>
+                               <field_number>17</field_number>
+                               <field_location unit="byte">58</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <unit>Hz</unit>
+                               <description>
+                                  A value 1 indicates that synthesizer power was ON.
+                                  A value 0 indicates that synthesizer power was OFF.
+                                  ON was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Synthesizer Lock</name>
+                               <field_number>18</field_number>
+                               <field_location unit="byte">60</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <unit>cycle</unit>
+                               <description>
+                                  A value 1 indicates that the synthesizer was IN-LOCK.
+                                  A value 0 indicates that the synthesizer was OUT-OF-LOCK.
+                                  IN-LOCK was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Limit Enable</name>
+                               <field_number>19</field_number>
+                               <field_location unit="byte">62</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that the POCA limit enable was ON.
+                                  A value 0 indicates that the POCA limit enable was OFF.
+                                  OFF was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Track</name>
+                               <field_number>20</field_number>
+                               <field_location unit="byte">64</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that track was ON.
+                                  A value 0 indicates that track was OFF.
+                                  ON was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Acquisition</name>
+                               <field_number>21</field_number>
+                               <field_location unit="byte">66</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that acquisition was ON.
+                                  A value 0 indicates that acquisition was OFF.
+                                  OFF was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Sweep</name>
+                               <field_number>22</field_number>
+                               <field_location unit="byte">68</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  A value 1 indicates that sweep was ON.
+                                  A value 0 indicates that sweep was OFF.
+                                  ON was normal radio science usage.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>POCA Frequency</name>
+                               <field_number>23</field_number>
+                               <field_location unit="byte">70</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">16</field_length>
+                               <field_format>%16.6f</field_format>
+                               <unit>Hz</unit>
+                               <description>
+                                  The frequency of the POCA at the time given in Field 13.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>POCA Rate</name>
+                               <field_number>24</field_number>
+                               <field_location unit="byte">87</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">12</field_length>
+                               <field_format>%12.5e</field_format>
+                               <unit>Hz/s</unit>
+                               <description>
+                                  The rate of change in the POCA frequency at the time given in Field 13.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Sample Rate</name>
+                               <field_number>25</field_number>
+                               <field_location unit="byte">100</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">6</field_length>
+                                         <unit>sample per second</unit>
+                               <description>
+                                  The sampling rate of one analog-to-digital converter (ADC) in the
+                                  data acquisition system.  Four ADCs are available.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>J1 Signal Select</name>
+                               <field_number>26</field_number>
+                               <field_location unit="byte">107</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  The signal selected as input to ADC-1.  Possible values are:
+                                     0 = signal 1
+                                     1 = signal 2
+                                     2 = signal 3
+                                     3 = signal 4
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>J2 Signal Select</name>
+                               <field_number>27</field_number>
+                               <field_location unit="byte">109</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  The signal selected as input to ADC-2.  Possible values are:
+                                     0 = signal 1
+                                     1 = signal 2
+                                     2 = signal 3
+                                     3 = signal 4
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>J3 Signal Select</name>
+                               <field_number>28</field_number>
+                               <field_location unit="byte">111</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  The signal selected as input to ADC-2.  Possible values are:
+                                     0 = signal 1
+                                     1 = signal 2
+                                     2 = signal 3
+                                     3 = signal 4
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>J4 Signal Select</name>
+                               <field_number>29</field_number>
+                               <field_location unit="byte">113</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">1</field_length>
+                               <description>
+                                  The signal selected as input to ADC-2.  Possible values are:
+                                     0 = signal 1
+                                     1 = signal 2
+                                     2 = signal 3
+                                     3 = signal 4
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>N Counter</name>
+                               <field_number>30</field_number>
+                               <field_location unit="byte">115</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">3</field_length>
+                               <description>
+                                  A value derived from the sampling rate SRATE (Field 25).
+                                     N = 257 - M where 
+                                     M = 10**7/(20*SRATE)
+                                  Allowable values for M are 250, 125, 100, 50, and 25.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Frequency Counter 1 Cumulative Phase</name>
+                               <field_number>31</field_number>
+                               <field_location unit="byte">119</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">22</field_length>
+                               <field_format>%22.15e</field_format>
+                               <description>
+                                  Cumulative phase from Frequency Counter 1 in units of 2**-8 cycles.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Frequency Counter 2 Cumulative Phase</name>
+                               <field_number>32</field_number>
+                               <field_location unit="byte">142</field_location>
+                               <data_type>ASCII_Real</data_type>
+                               <field_length unit="byte">22</field_length>
+                               <description>
+                                  Cumulative phase from Frequency Counter 2 in units of 2**-8 cycles.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Test Signal Select</name>
+                               <field_number>33</field_number>
+                               <field_location unit="byte">165</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                  Test signal selection.  Possible bit string values are:
+                                     0001 = live input of Counter 1 (POCA)
+                                     0010 = live input of Counter 2
+                                     1000 = 1 MHz
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Sample Control Register</name>
+                               <field_number>34</field_number>
+                               <field_location unit="byte">168</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">2</field_length>
+                               <description>
+                                  Possible (bit string) values include:
+                                     1011 = Enable live sample; internal to 10 MHz
+                                            resolvers and test facilities
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                            <name>Frequency Counter 1 Mode Register</name>
+                            <field_number>35</field_number>
+                            <field_location unit="byte">171</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Possible (bit string) values include:
+                                  0000 = Test frequency to counter
+                                  0001 = Live frequency to counter (POCA)
+                            </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                            <name>Frequency Counter 2 Mode Register</name>
+                            <field_number>36</field_number>
+                            <field_location unit="byte">174</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               Possible (bit string) values include:
+                                  0000 = Test frequency to counter
+                                  0001 = Live frequency to counter (POCA)
+                            </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                            <name>Spares-1</name>
+                            <field_number>37</field_number>
+                            <field_location unit="byte">177</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               An unused field in the binary file; contents are undefined.
+                            </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                            <name>Zeroes-1</name>
+                            <field_number>38</field_number>
+                            <field_location unit="byte">179</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               An unused field in the binary file; set to zero here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>20-Counter</name>
+                            <field_number>39</field_number>
+                            <field_location unit="byte">181</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">2</field_length>
+                            <description>
+                               A field with unknown meaning.  The SIS says it contains the
+                               octal value 023; but the Voyager 2 Uranus data from Parkes
+                               have decimal 23 or decimal 0.  The value appears twice in
+                               adjacent bytes in the binary records; only one is carried here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Zeroes-2</name>
+                            <field_number>40</field_number>
+                            <field_location unit="byte">184</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               An unused field in the binary file; set to zero here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Overflow Flag</name>
+                            <field_number>41</field_number>
+                            <field_location unit="byte">186</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A value 1 indicates that there has been an overflow.
+                               A value 0 indicates no overflow.
+                               The Overflow Flag appears twice in the binary record 
+                               (in binary Fields 27 and 28).  Only the first is carried here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Ones</name>
+                            <field_number>42</field_number>
+                            <field_location unit="byte">188</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A binary value 111 (decimal 7) is expected from the SIS; 
+                               but Voyager 2 Uranus records from Parkes have either 
+                               binary 100 or binary 000.
+                               The Ones field appears twice in the binary record 
+                               (in binary Fields 27 and 28).  Only the first is carried here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Test Mode</name>
+                            <field_number>43</field_number>
+                            <field_location unit="byte">190</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A value 1 indicates that test data were acquired.
+                               A value 0 indicates that normal data were acquired.
+                               Test Mode appears twice in the binary record 
+                               (in binary Fields 27 and 28).  Only the first is carried here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Short Conversions</name>
+                            <field_number>44</field_number>
+                            <field_location unit="byte">192</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A value 1 indicates that 8-bit data were acquired.
+                               A value 0 indicates that 12-bit data were acquired.
+                               Short Conversions appears twice in the binary record 
+                               (in binary Fields 27 and 28).  Only the first is carried here.
+                            </description>
+                         </Field_Character>
+                      
+                         <Field_Character>
+                            <name>Sampling Mode</name>
+                            <field_number>45</field_number>
+                            <field_location unit="byte">194</field_location>
+                            <data_type>ASCII_Integer</data_type>
+                            <field_length unit="byte">1</field_length>
+                            <description>
+                               A value 0 indicates that 4 different signals were sampled, each at SRATE.
+                               A value 1 indicates that one signal was sampled (using 4 ADCs) at an
+                                  effective sampling rate of 4*SRATE.
+                               A value 2 indicates that two signals were sampled, each using 2 ADCs;
+                                  the effective sampling rate on each signal was 2*SRATE.
+                               A value 3 indicates that two signals were sampled.  The first signal
+                                  was sampled using ADC-1 at SRATE; the second signal was sampled using
+                                  ADC-2, ADC-3, and ADC-4 at 3*SRATE.  Mode 3 could be used to sample
+                                  and record an S-band signal using ADC-1 and an X-band signal using the
+                                  other ADCs at 3 times the S-band rate.
+                               Sampling Mode appears twice in each binary record (in binary Fields 27-28).
+                               Only the first is carried forward here.
+                            </description>
+                         </Field_Character>
+                      
+                   </Record_Character>
+             </Table_Character>
+       </File_Area_Observational>
+
+       <File_Area_Observational>
+             <File>
+                   <file_name>vg2u_49xr_1986024t232141.tab</file_name>
+                   <creation_date_time>2024-05-13T15:45:05</creation_date_time>
+                   <file_size unit="byte">251200000</file_size>
+                   <md5_checksum>1a3a274b46474b31b642798d56e492db</md5_checksum>
+             </File>
+             <Table_Character>
+                   <name>PODR X-band ASCII Raw Data Samples</name>
+                   <offset unit="byte">0</offset>
+                   <records>1600000</records>
+                   <description>
+                        PODR X-band data samples converted to ASCII.
+                   </description>
+                   <record_delimiter>Line-Feed</record_delimiter>
+                   <Record_Character>
+                         <fields>2</fields>
+                         <groups>1</groups>
+                         <record_length unit="byte">157</record_length> 
+                         
+                         <Field_Character>
+                               <name>Original Record Number</name>
+                               <field_number>1</field_number>
+                               <field_location unit="byte">1</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                   The number of the record in the original binary file from
+                                   which these samples came, counting from 1.
+                               </description>
+                         </Field_Character>
+
+                         <Field_Character>
+                               <name>Original Sample Number</name>
+                               <field_number>2</field_number>
+                               <field_location unit="byte">9</field_location>
+                               <data_type>ASCII_Integer</data_type>
+                               <field_length unit="byte">8</field_length>
+                               <description>
+                                     The number of the first sample in this record as it appeared
+                                     in the original binary record, counting from 0.
+                               </description>
+                         </Field_Character>
+
+                         <Group_Field_Character>
+                               <name>Data Samples</name>
+                               <group_number>1</group_number>
+                               <repetitions>20</repetitions>
+                               <fields>1</fields>
+                               <groups>0</groups>
+                               <description>
+                                     Each field contains one X-band sample value in the range 0 to 255.
+                               </description>
+                               <group_location unit="byte">17</group_location>
+                               <group_length unit="byte">140</group_length>
+                               <Field_Character>
+                                     <name>Sample</name>
+                                     <field_number>1</field_number>
+                                     <field_location unit="byte">1</field_location>
+                                     <data_type>ASCII_Integer</data_type>
+                                     <field_length unit="byte">7</field_length>
+                                     <description>
+                                           One X-band sample from the original binary data record.
+                                     </description>
+                               </Field_Character>
+                         </Group_Field_Character>
+                   </Record_Character>
+             </Table_Character>
+      </File_Area_Observational>
+
+      <File_Area_Observational_Supplemental>
+            <File>
+                  <file_name>vg2u_49xr_1986024t232141.txt</file_name>
+                  <creation_date_time>2024-05-13T15:45:05</creation_date_time>
+                  <file_size unit="byte">679</file_size>
+                  <md5_checksum>82288cca509155f07519dbe0c2301bb5</md5_checksum>
+            </File>
+            <Stream_Text>
+                  <name>Record Header File - Field Headers</name>
+                  <offset unit="byte">0</offset>
+                  <object_length unit="byte">679</object_length>
+                  <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+                  <description>
+                        This file contains field headers for the ASCII file containing PODR record
+                        headers. There are 45 fixed-width fields, delimited by commas,
+                        in the ASCII data file. The 45 field headers in this file are also delimited
+                        by commas; but they have variable widths.  Record 1 in this file contains
+                        column names; record 2 contains formats for the values in the column.
+                        It should be possible to read both the data file with record headers and this
+                        file of field headers into a spreadsheet, such as Excel.
+                  </description>
+                  <record_delimiter>Line-Feed</record_delimiter>
+            </Stream_Text>
+      </File_Area_Observational_Supplemental>
+      
+</Product_Observational>
