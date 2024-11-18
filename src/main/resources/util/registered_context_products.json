@@ -13127,6 +13127,123 @@
           },
           {
                "name": [
+                    "InfraRed Telescope Facility 3.0-Meter Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:irtf.3m0::1.0"
+          },
+          {
+               "name": [
+                    "3.6-m equatorial Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso.3m6::0.0"
+          },
+          {
+               "name": [
+                    "2.7m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.smith2m7::0.0"
+          },
+          {
+               "name": [
+                    "New Technology Telescope (NTT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso.ntt::0.0"
+          },
+          {
+               "name": [
+                    "2.24-m Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mauna_kea.2m24::0.0"
+          },
+          {
+               "name": [
+                    "1-m Boller &amp; Chivens Ritchey-Chretien reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio.smarts1m0::0.0"
+          },
+          {
+               "name": [
+                    "2.3-m Advanced Technology Telescope (ATT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:siding_spring.att2m3::0.0"
+          },
+          {
+               "name": [
+                    "1-m photometric Cassegrain reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso.photometric1m::0.0"
+          },
+          {
+               "name": [
+                    "2MASS 1.3m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio.2mass1m3::0.0"
+          },
+          {
+               "name": [
+                    "61-cm Boller &amp; Chivens Cassegrain reflector #1"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mauna_kea.0m61::0.0"
+          },
+          {
+               "name": [
+                    "SOAR"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio.soar4m1::1.0"
+          },
+          {
+               "name": [
+                    "1.5-m Ritchey-Chretien Cassegrain reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio.smarts1m5::0.0"
+          },
+          {
+               "name": [
+                    "1.52-m spectrographic Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso.1m52::0.0"
+          },
+          {
+               "name": [
                     "HUYGENS PROBE"
                ],
                "type": [
@@ -15420,15 +15537,6 @@
           },
           {
                "name": [
-                    "Balloon Observation Platform for Planetary Science (BOPPS)"
-               ],
-               "type": [
-                    "Balloon"
-               ],
-               "lidvid": "urn:nasa:pds:context:airborne:balloon.bopps::1.0"
-          },
-          {
-               "name": [
                     "Advanced Photon Source"
                ],
                "type": [
@@ -15438,7 +15546,7 @@
           },
           {
                "name": [
-                    "N/A"
+                    "The ARC/SSA Astrochemistry Lab"
                ],
                "type": [
                     "Laboratory"
@@ -15501,7 +15609,7 @@
           },
           {
                "name": [
-                    "N/A"
+                    "A. Hofmeister/Mineral Spectroscopy Laboratory"
                ],
                "type": [
                     "Laboratory"
@@ -15969,7 +16077,7 @@
           },
           {
                "name": [
-                    "N/A"
+                    "Las Cumbres Observatory"
                ],
                "type": [
                     "Observatory"
@@ -23413,7 +23521,7 @@
           },
           {
                "name": [
-                    "N/A"
+                    "Double Asteroid Redirection Test (DART) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -23629,7 +23737,7 @@
           },
           {
                "name": [
-                    "N/A"
+                    "Light Italian CubeSat for Imaging of Asteroids (LICIACube) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -38629,6 +38737,1374 @@
                     "Trans-Neptunian Object"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.95625_2002_gx32::1.0"
+          },
+          {
+               "name": [
+                    "AEOS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:amos.aeos::0.0"
+          },
+          {
+               "name": [
+                    "Ground-based Electro-Optical Deep Space Surveillance (GEODSS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:amos.geodss::0.0"
+          },
+          {
+               "name": [
+                    "Maui Space Surveillance Site (MSSS) 1.2m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:amos.msss1m2::0.0"
+          },
+          {
+               "name": [
+                    "Apache Point Observatory 3.5M ARC Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:apache_point.arc3m5::1.0"
+          },
+          {
+               "name": [
+                    "2.5-m SDSS Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:apache_point.sdss2m5::0.0"
+          },
+          {
+               "name": [
+                    "305-m fixed spherical reflecting antenna"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:arecibo.305m::1.1"
+          },
+          {
+               "name": [
+                    "Copernico 1.82m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:asiago.copernico1m82::0.0"
+          },
+          {
+               "name": [
+                    "Stratospheric TeraHertz Observatory (STO) Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:bopps.sto::1.0"
+          },
+          {
+               "name": [
+                    "1.23m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:caha-calar_alto.1m23::1.0"
+          },
+          {
+               "name": [
+                    "DSS-33 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss33_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-34 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss34_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-35 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss35_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-36 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss36_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS 42 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss42_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS 42 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss42_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-43 64-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss43_64m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-43 70-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss43_70m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-45 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss45_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-46 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:canberra.dss46_26m::1.0"
+          },
+          {
+               "name": [
+                    "0.35m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:carbuncle_hill.0m35::0.0"
+          },
+          {
+               "name": [
+                    "70 cm AZT-8"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:chuguev.azt8_0m70::1.0"
+          },
+          {
+               "name": [
+                    "0.7 m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:chuguevskaya.0m7::0.0"
+          },
+          {
+               "name": [
+                    "2MASS 1.3m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.2mass_1m3::1.0"
+          },
+          {
+               "name": [
+                    "1-m Boller &amp; Chivens Ritchey-Chretien reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m0::1.0"
+          },
+          {
+               "name": [
+                    "SMARTS 1.5m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.smarts_1m50::1.0"
+          },
+          {
+               "name": [
+                    "SOAR"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.soar_4m1::1.1"
+          },
+          {
+               "name": [
+                    "Victor Blanco 4.0m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ctio-cerro_tololo.victorblanco_4m0::1.1"
+          },
+          {
+               "name": [
+                    "RCC Richey-Chretien Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:dushanbe.rcc::0.0"
+          },
+          {
+               "name": [
+                    "2.15-m Boller &amp; Chivens reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:el_leoncito.js2m15::0.0"
+          },
+          {
+               "name": [
+                    "1.5 m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ensenada.1m5::0.0"
+          },
+          {
+               "name": [
+                    "2.12-m Ritchey-Chretien reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ensenada.2m12::0.0"
+          },
+          {
+               "name": [
+                    "Atacama Millimeter/submillimeter Array (ALMA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-chajnantor.alma::1.0"
+          },
+          {
+               "name": [
+                    "ESO-La Silla 1.04m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.1m04::1.0"
+          },
+          {
+               "name": [
+                    "1.52-m spectrographic Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.1m52::1.1"
+          },
+          {
+               "name": [
+                    "ESO-La Silla 2.2m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.2m2::1.0"
+          },
+          {
+               "name": [
+                    "ESO-La Silla 3.6m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.3m6::1.0"
+          },
+          {
+               "name": [
+                    "New Technology Telescope (NTT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-la_silla.ntt::1.0"
+          },
+          {
+               "name": [
+                    "Very Large Telescope (VLT) Unit Telescope 1 (UT1) Antu, 8.2-m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_antu_8m2_ut1::1.0"
+          },
+          {
+               "name": [
+                    "Very Large Telescope (VLT) Unit Telescope 2 (UT2) Kueyen, 8.2-m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_kueyen_8m2_ut2::1.0"
+          },
+          {
+               "name": [
+                    "Very Large Telescope (VLT) Unit Telescope 3 (UT3) Melipal, 8.2-m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_melipal_8m2_ut3::1.0"
+          },
+          {
+               "name": [
+                    "Very Large Telescope (VLT) Unit Telescope 4 (UT4) Yepun, 8.2-m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:eso-paranal.vlt_yepun_8m2_ut4::1.0"
+          },
+          {
+               "name": [
+                    "2MASS 1.3m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:flwo.2mass1m3::0.0"
+          },
+          {
+               "name": [
+                    "FPO 0.32m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:fremonte_peak.fpo0m32::0.0"
+          },
+          {
+               "name": [
+                    "Robert C. Byrd Green Bank Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:gbo.gbt_100m::1.0"
+          },
+          {
+               "name": [
+                    "Gemini Observatory (South) 8.1-meter Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:gemini-south.8m1::1.1"
+          },
+          {
+               "name": [
+                    "8.1-m Gemini Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:gemini_north-maunakea.8m1::1.0"
+          },
+          {
+               "name": [
+                    "DSS 11 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss11_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-12 26-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss12_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-12 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss12_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-13 26-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss13_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-13 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss13_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-14 64-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss14_64m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-14 70-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss14_70m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-15 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss15_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-16 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss16_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-23 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss23_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-24 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-25 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss25_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-26 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss26_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-27 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss27_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-28 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss28_34m::1.0"
+          },
+          {
+               "name": [
+                    "Orion Astroview 120ST EQ"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:goodricke-pigott.orion_astroview::0.0"
+          },
+          {
+               "name": [
+                    "1.20-m Newtonian reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:haute-provence.1m20::0.0"
+          },
+          {
+               "name": [
+                    "0.36-m SCT"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:hunters_hill.sct0m36::0.0"
+          },
+          {
+               "name": [
+                    "IRTF 3.2m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:irtf-maunakea.3m2::1.1"
+          },
+          {
+               "name": [
+                    "3.8-m UK Grubb-Parsons IR Cass. eq. reflector (UKIRT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:jac.ukirt3m8::0.0"
+          },
+          {
+               "name": [
+                    "10-m Keck I Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:keck.10m_keck1::0.0"
+          },
+          {
+               "name": [
+                    "10-m Keck II Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:keck.10m_keck2::0.0"
+          },
+          {
+               "name": [
+                    "McMath-Pierce Main Solar Telescope (1.61m)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:kpno-mcmath-pierce-solar.main_1m61::1.0"
+          },
+          {
+               "name": [
+                    "1.3-m Boller &amp; Chivens Cassegrain reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:kpno.boller1m3::0.0"
+          },
+          {
+               "name": [
+                    "2.13-m Corning Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:kpno.corning2m13::0.0"
+          },
+          {
+               "name": [
+                    "4-m Mayall Ritchey-Chretien equatorial reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:kpno.mayall4m::0.0"
+          },
+          {
+               "name": [
+                    "0.91m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:kuiper-airborne.0m91::1.0"
+          },
+          {
+               "name": [
+                    "Irenee du Pont 2.5m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_campanas.ireneedupont_2m5::1.0"
+          },
+          {
+               "name": [
+                    "Walter Baade Telescope at Las Campanas Observatory"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_campanas.magellan_baade_6m5::1.0"
+          },
+          {
+               "name": [
+                    "Landon T. Clay Telescope at Las Campanas Observatory"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_campanas.magellan_clay_6m5::1.0"
+          },
+          {
+               "name": [
+                    "Swope 1.0m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_campanas.swope_1m0::1.1"
+          },
+          {
+               "name": [
+                    "Las Cumbres Global Telescope Network - 0.4m Telescopes"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_cumbres.0m4_telescopes::1.0"
+          },
+          {
+               "name": [
+                    "Las Cumbres Global Telescope Network - 1m Telescopes"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_cumbres.1m0_telescopes::1.1"
+          },
+          {
+               "name": [
+                    "Las Cumbres Global Telescope Network - 2m Telescopes"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:las_cumbres.2m0_telescopes::1.0"
+          },
+          {
+               "name": [
+                    "0.25m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:leura.0m25::0.0"
+          },
+          {
+               "name": [
+                    "3.05-m Shane reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lick.shane3m05::0.0"
+          },
+          {
+               "name": [
+                    "Lowell Obersvatory 21-in Reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.21in0::1.0"
+          },
+          {
+               "name": [
+                    "Lowell Discovery Telescope (LDT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.discovery_4m3::1.0"
+          },
+          {
+               "name": [
+                    "1.07-m Hall Ritchey-Chretien reflector #1"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.hall_ritchey-chretien_1_1m07::1.1"
+          },
+          {
+               "name": [
+                    "LONEOS 0.6m Schmidt Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.loneos_0m60::1.2"
+          },
+          {
+               "name": [
+                    "NURO 0.79m (31inch)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.nuro_0m79::1.0"
+          },
+          {
+               "name": [
+                    "1.83-m Perkins Warner &amp; Swasey reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:lowell.perkins_warner1m83::1.1"
+          },
+          {
+               "name": [
+                    "DSS-53 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss53_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-54 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss54_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-55 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss55_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-56 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss56_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-61 26-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss61_26m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-61 34-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss61_34m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-63 64-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss63_64m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-63 70-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss63_70m::1.0"
+          },
+          {
+               "name": [
+                    "DSS-65 34-m Radio Telescope after 2005 Relocation"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss65_34m-post2005::1.0"
+          },
+          {
+               "name": [
+                    "DSS 65 34-m Radio Telescope before 2005 Relocation"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss65_34m::1.1"
+          },
+          {
+               "name": [
+                    "DSS-66 Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:madrid.dss66_26m::1.0"
+          },
+          {
+               "name": [
+                    "MRO 2.4m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:magdalena_ridge.mro2m4::1.2"
+          },
+          {
+               "name": [
+                    "DSS-84 35-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:malarguee.dss84_35m::1.0"
+          },
+          {
+               "name": [
+                    "61-cm Boller &amp; Chivens Cassegrain reflector #1"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:maunakea.0m61::1.0"
+          },
+          {
+               "name": [
+                    "2.24-m Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:maunakea.2m24::1.0"
+          },
+          {
+               "name": [
+                    "United Kingdom Infrared Telescope 3.8m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:maunakea.ukirt_3m8::1.0"
+          },
+          {
+               "name": [
+                    "91-cm Boller &amp; Chivens Cassegrain reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.0m91::0.0"
+          },
+          {
+               "name": [
+                    "Harlan J. Smith 2.7m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.harlanjsmith_2m7::1.1"
+          },
+          {
+               "name": [
+                    "2.1-m Struve Warner &amp; Swasey reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mcdonald.struve2m1::1.2"
+          },
+          {
+               "name": [
+                    "2.4-m Hiltner Ritchey-Chretien equatorial reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mdm.hiltner2m4::1.1"
+          },
+          {
+               "name": [
+                    "1.3-m Tinsley Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mdm.tinsley1m3::1.1"
+          },
+          {
+               "name": [
+                    "6.5-m Single Mirror (MMT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mmt.single_mirror6m5::1.1"
+          },
+          {
+               "name": [
+                    "0.6-m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:modra.0m6::0.0"
+          },
+          {
+               "name": [
+                    "Catalina Sky Survey 0.7-m Schmidt telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.0m7::1.0"
+          },
+          {
+               "name": [
+                    "1.54-m Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_bigelow.1m54::1.1"
+          },
+          {
+               "name": [
+                    "1.0 m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_canopus.1m0::0.0"
+          },
+          {
+               "name": [
+                    "1.02-m Cassegrain reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_lemmon.1m02::1.0"
+          },
+          {
+               "name": [
+                    "1.54-m multipurpose reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_lemmon.1m54::1.1"
+          },
+          {
+               "name": [
+                    "1.9m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_stromlo.1m9::1.0"
+          },
+          {
+               "name": [
+                    "Electro Optic Systems"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:mount_stromlo.eos::0.0"
+          },
+          {
+               "name": [
+                    "National Astronomical Observatory of Japan at Mauna Kea, Hawai'i Subaru 8.2 m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:naoj-hawaii.subaru_8m2::1.0"
+          },
+          {
+               "name": [
+                    "DSS-74 35-m Radio Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:new_norcia.dss74_35m::1.0"
+          },
+          {
+               "name": [
+                    "USNO 1.55m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:nofs.usno1m55::0.0"
+          },
+          {
+               "name": [
+                    "0.65 m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:ondrejov.0m65::0.0"
+          },
+          {
+               "name": [
+                    "3.5-m Galileo Zeiss Ritchey-Chretien altazimuth reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:orm.galileo_zeiss3m5::0.0"
+          },
+          {
+               "name": [
+                    "Gran Telescopio Canaria (GTC)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:orm.gtc10m4::1.0"
+          },
+          {
+               "name": [
+                    "2.54-m Isaac Newton Grubb-Parsons Cass. equat. refl. (INT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:orm.int2m54::1.1"
+          },
+          {
+               "name": [
+                    "0.5m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.0m5::0.0"
+          },
+          {
+               "name": [
+                    "Old Ten Inch"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.old10inch::0.0"
+          },
+          {
+               "name": [
+                    "1.52-m Ritchey-Chretien Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palomar.1m52::0.0"
+          },
+          {
+               "name": [
+                    "Hale 5.08m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palomar.hale_5m08::2.0"
+          },
+          {
+               "name": [
+                    "1.24/1.83-m Oschin Schmidt photographic equat. telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palomar.oschin_schmidt_1m2::1.0"
+          },
+          {
+               "name": [
+                    "Parkes 64-m Radio Telescope (as a DSN Antenna)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:parkes.dss49_64m::1.0"
+          },
+          {
+               "name": [
+                    "1.25m Ritchey-Chretien Reflector AZT-11"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:partizanskoye.1m25_azt11::0.0"
+          },
+          {
+               "name": [
+                    "Australia Telescope Compact Array - 2008"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:paul_wild.dss47_2008::1.0"
+          },
+          {
+               "name": [
+                    "1.06m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:pic_du_midi.1m06::1.0"
+          },
+          {
+               "name": [
+                    "Bernard Lyot 2.0m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:pic_du_midi.bernardlyot_2m0::1.0"
+          },
+          {
+               "name": [
+                    "Radcliffe 1.88m telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:saao.radcliffe_1m88::1.0"
+          },
+          {
+               "name": [
+                    "3.9m Anglo-Australian Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:siding_spring.aat_3m9::1.0"
+          },
+          {
+               "name": [
+                    "Australian National University 2.3m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:siding_spring.anu_2m3::1.0"
+          },
+          {
+               "name": [
+                    "Catalina Sky Survey 0.5-m Uppsala Schmidt telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:siding_spring.uppsala0m5::1.0"
+          },
+          {
+               "name": [
+                    "1-m Grubb reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:simeis.grubb1m::0.0"
+          },
+          {
+               "name": [
+                    "10-m Heinrich Hertz Submillimeter Telescope (SMT)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:smt.heinrich_hertz10m::0.0"
+          },
+          {
+               "name": [
+                    "Black Springs 0.8m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:star_castle.black_springs0m8::0.0"
+          },
+          {
+               "name": [
+                    "2.29-m Bok Boller & Chivens Ritchey-Chretien refl."
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.bok2m3::1.0"
+          },
+          {
+               "name": [
+                    "Spacewatch 0.9-m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.spacewatch_0m9::1.0"
+          },
+          {
+               "name": [
+                    "Spacewatch 1.8m"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:steward-kittpeak.spacewatch_1m8::1.0"
+          },
+          {
+               "name": [
+                    "Jubilee Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:stockport.jubilee::0.0"
+          },
+          {
+               "name": [
+                    "61-cm Astro Mechanics Cassegrain/Coude reflector"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:table_mountain.astro_mechanics0m61::0.0"
+          },
+          {
+               "name": [
+                    "Carlos Sanchez 1.55 Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:teide.carlossanchez_1m55::1.0"
+          },
+          {
+               "name": [
+                    "25-cm Fecker refractor"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:u_alabama.fecker0m25::0.0"
+          },
+          {
+               "name": [
+                    "Usuda 64-m Radio Telescope (as a DSN Antenna)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:usuda.dss48_64m::1.0"
+          },
+          {
+               "name": [
+                    "Canadian Meteor Orbit Radar"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:uwo_meteor_radar.cmor::0.0"
+          },
+          {
+               "name": [
+                    "OAVdA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::0.0"
           }
      ]
 }

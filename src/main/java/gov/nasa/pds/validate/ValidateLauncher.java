@@ -120,6 +120,7 @@ import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
+import jdk.internal.org.jline.utils.Log;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and querying, in addition
@@ -593,9 +594,9 @@ public class ValidateLauncher {
   private void parseJsonObjectWriteTofile(List<Map<String, Object>> documents,
       String contextJsonFilePath) {
     final List<String> empty = Arrays.asList("N/A");
-    final List<String> fieldNames = Arrays.asList("pds:Airborne.pds", "pds:Facility.pds",
+    final List<String> fieldNames = Arrays.asList("pds:Facility.pds",
         "pds:Instrument.pds", "pds:Instrument_Host.pds", "pds:Investigation.pds",
-        "pds:Resource.pds", "pds:Target.pds");
+        "pds:Resource.pds", "pds:Target.pds", "pds:Telescope.pds");
     // backup old file
     try {
       if (registeredProductsFile.exists()) {
@@ -617,29 +618,32 @@ public class ValidateLauncher {
         Map<String, Object> properties = (Map<String, Object>) document.get("properties");
         @SuppressWarnings("unchecked")
         String lidvid = ((List<String>) properties.get("lidvid")).get(0);
+        @SuppressWarnings("unchecked")
+        List<String> title = (List<String>) properties.get("title");
         for (String fieldName : fieldNames) {
-          if (properties.containsKey(fieldName + ":name")
-              || properties.containsKey(fieldName + ":type")) {
-            @SuppressWarnings("unchecked")
-            List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", empty);
-            @SuppressWarnings("unchecked")
-            List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
-            jsonWriter.beginObject(); // start a product
-            jsonWriter.name("name");
-            jsonWriter.beginArray();
-            for (Object n : names) {
-              jsonWriter.value((String) n);
+            if (properties.containsKey(fieldName + ":name")
+                    || properties.containsKey(fieldName + ":type")
+                    || properties.containsKey(fieldName + ":aperture")) {
+		        @SuppressWarnings("unchecked")
+		        List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", title);
+		        @SuppressWarnings("unchecked")
+		        List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
+		        jsonWriter.beginObject(); // start a product
+		        jsonWriter.name("name");
+		        jsonWriter.beginArray();
+		        for (Object n : names) {
+		          jsonWriter.value((String) n);
+		        }
+		        jsonWriter.endArray();
+		        jsonWriter.name("type");
+		        jsonWriter.beginArray();
+		        for (Object t : types) {
+		          jsonWriter.value((String) t);
+		        }
+		        jsonWriter.endArray();
+		        jsonWriter.name("lidvid").value(lidvid);
+		        jsonWriter.endObject(); // end a product
             }
-            jsonWriter.endArray();
-            jsonWriter.name("type");
-            jsonWriter.beginArray();
-            for (Object t : types) {
-              jsonWriter.value((String) t);
-            }
-            jsonWriter.endArray();
-            jsonWriter.name("lidvid").value(lidvid);
-            jsonWriter.endObject(); // end a product
-          }
         }
       }
       jsonWriter.endArray();
@@ -648,10 +652,6 @@ public class ValidateLauncher {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
-    // System.out.println("New Registered Products File: " +
-    // registeredProductsFile);
-
   }
 
   private void copyFile(File source, File dest) throws IOException {
