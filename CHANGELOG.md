@@ -1,8 +1,16 @@
 # Changelog
 
-## [release/3.6.2](https://github.com/NASA-PDS/validate/tree/release/3.6.2) (2024-11-17)
+## [release/3.6.3](https://github.com/NASA-PDS/validate/tree/release/3.6.3) (2024-11-18)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.1...release/3.6.2)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.2...release/3.6.3)
+
+**Defects:**
+
+- Telescopes missing from registry context products config [\#1066](https://github.com/NASA-PDS/validate/issues/1066) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
+## [v3.6.2](https://github.com/NASA-PDS/validate/tree/v3.6.2) (2024-11-17)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.1...v3.6.2)
 
 ## [v3.6.1](https://github.com/NASA-PDS/validate/tree/v3.6.1) (2024-11-09)
 
