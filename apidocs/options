@@ -15,10 +15,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'gov.nasa.pds:validate 3.6.2 API'
+'gov.nasa.pds:validate 3.6.3 API'
 -linkoffline
 'https://docs.oracle.com/en/java/javase/11/docs/api' '/github/workspace/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'gov.nasa.pds:validate 3.6.2 API'
+'gov.nasa.pds:validate 3.6.3 API'
