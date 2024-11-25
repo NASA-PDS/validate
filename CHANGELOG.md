@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2024-11-25)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
+
+**Other closed issues:**
+
+- Switchover to using registry-common library to communicate with OpenSearch Serverless Registry [\#895](https://github.com/NASA-PDS/validate/issues/895)
+
 ## [v3.6.3](https://github.com/NASA-PDS/validate/tree/v3.6.3) (2024-11-19)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.2...v3.6.3)
