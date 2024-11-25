@@ -1,8 +1,8 @@
 # Changelog
 
-## [release/3.6.3](https://github.com/NASA-PDS/validate/tree/release/3.6.3) (2024-11-18)
+## [v3.6.3](https://github.com/NASA-PDS/validate/tree/v3.6.3) (2024-11-19)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.2...release/3.6.3)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.2...v3.6.3)
 
 **Defects:**
 
