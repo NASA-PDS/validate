@@ -1,42 +1,15 @@
 package gov.nasa.pds.validate.ri;
 
-import java.io.IOException;
-import java.net.ConnectException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import org.apache.http.HttpHost;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.nio.client.HttpAsyncClientBuilder;
-import org.apache.http.ssl.SSLContextBuilder;
-import org.apache.http.ssl.SSLContexts;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.opensearch.action.search.SearchRequest;
-import org.opensearch.action.search.SearchResponse;
-import org.opensearch.client.HttpAsyncResponseConsumerFactory;
-import org.opensearch.client.RequestOptions;
-import org.opensearch.client.RestClient;
-import org.opensearch.client.RestClientBuilder;
-import org.opensearch.client.RestHighLevelClient;
-import org.opensearch.index.query.QueryBuilders;
-import org.opensearch.search.SearchHit;
-import org.opensearch.search.builder.SearchSourceBuilder;
+import gov.nasa.pds.registry.common.RestClient;
 
-public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpClientConfigCallback,
-    RestClientBuilder.RequestConfigCallback {
-  protected static OpensearchDocument sourceOverride = null;
+public class OpensearchDocument implements DocumentInfo {
   protected final int PAGE_SIZE = 5000;
   final private AuthInformation context;
   final private HashMap<String, Map<String, Object>> documents =
@@ -44,53 +17,34 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   final private HashMap<String, List<String>> references = new HashMap<String, List<String>>();
   final private LidvidComparator lidvid_compare = new LidvidComparator();
   final private Logger log = LogManager.getLogger(OpensearchDocument.class);
-  final private RequestOptions.Builder hugeMemory = RequestOptions.DEFAULT.toBuilder();
-
+  private RestClient client = null;
   private void load(String lidvid) {
     if (!this.documents.containsKey(lidvid)) {
       try {
-        RestHighLevelClient client = null;
-        SearchRequest request =
-            new SearchRequest()
-                .indices(
-                    "registry")
-                .source(
-                    new SearchSourceBuilder()
-                        .query(
-                            QueryBuilders.boolQuery()
-                                .must(QueryBuilders
-                                    .termQuery(lidvid.contains("::") ? "lidvid" : "lid", lidvid)))
-                        .size(this.PAGE_SIZE));
-        SearchResponse response;
-        URL url = new URL(this.context.getUrl());
-        try {
-          client = new RestHighLevelClient(
-              RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
-                  .setHttpClientConfigCallback(this).setRequestConfigCallback(this));
-          response = this.search(client, request);
-          if (response != null && response.getHits() != null
-              && response.getHits().getTotalHits() != null) {
-            if (response.getHits().getTotalHits().value == 1L)
-              this.documents.put(lidvid, response.getHits().getAt(0).getSourceAsMap());
-            else {
-              ArrayList<String> ids = new ArrayList<String>();
-              for (SearchHit hit : response.getHits())
-                ids.add(hit.getId());
-              ids.sort(lidvid_compare);
-              for (SearchHit hit : response.getHits()) {
-                if (hit.getId().equals(ids.get(ids.size() - 1))) {
-                  this.documents.put(lidvid, hit.getSourceAsMap());
-                  this.documents.put(hit.getId(), hit.getSourceAsMap());
-                }
-              }
+        synchronized (this) {
+          if (this.client == null) this.client = this.context.getConnectionFactory().createRestClient();
+        }
+        List<Map<String,Object>> docs = this.client.performRequest(
+            this.client.createSearchRequest()
+              .buildTermQuery(lidvid.contains("::") ? "lidvid" : "lid", lidvid)
+              .setIndex(this.context.getConnectionFactory().getIndexName())).documents();
+        if (docs.size() == 1) {
+          this.documents.put(lidvid, docs.get(0));
+        } else {
+          ArrayList<String> ids = new ArrayList<String>();
+          for (Map<String,Object> doc : docs) {
+            ids.add(doc.get("lidvid").toString());
+          }
+          ids.sort(lidvid_compare);
+          for (Map<String,Object> doc : docs) {
+            if (doc.get("lidvid").toString().equals(ids.get(ids.size() - 1))) {
+              this.documents.put(lidvid, doc);
+              this.documents.put(ids.get(ids.size() - 1), doc);
             }
           }
-        } finally {
-          if (client != null)
-            client.close();
         }
-      } catch (IOException ioe) {
-        this.log.fatal("Error reading from URL: " + this.context.getUrl(), ioe);
+      } catch (Exception e) {
+        this.log.fatal("Error reading from URL: " + this.context.getURL(), e);    
       }
     }
   }
@@ -99,73 +53,27 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
   private void load_refs(String lidvid) {
     if (!this.references.containsKey(lidvid)) {
       try {
-        RestHighLevelClient client = null;
-        SearchRequest request = new SearchRequest().indices("registry-refs")
-            .source(new SearchSourceBuilder()
-                .query(QueryBuilders.boolQuery()
-                    .must(QueryBuilders.termQuery(
-                        lidvid.contains("::") ? "collection_lidvid" : "collection_lid", lidvid)))
-                .size(this.PAGE_SIZE));
-        SearchResponse response;
-        URL url = new URL(this.context.getUrl());
-        try {
-          HashSet<String> newbies = new HashSet<String>();
-          client = new RestHighLevelClient(
-              RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
-                  .setHttpClientConfigCallback(this).setRequestConfigCallback(this));
-          response = this.search(client, request);
-          if (response != null && response.getHits() != null) {
-            for (SearchHit hit : response.getHits()) {
-              newbies.addAll((List<String>) hit.getSourceAsMap().get("product_lid"));
-              newbies.addAll((List<String>) hit.getSourceAsMap().get("product_lidvid"));
-            }
-          }
-          this.references.put(lidvid, new ArrayList<String>(newbies));
-        } finally {
-          if (client != null)
-            client.close();
+        synchronized (this) {
+          if (this.client == null) this.client = this.context.getConnectionFactory().createRestClient();
         }
-      } catch (IOException ioe) {
-        this.log.fatal("Error reading from URL: " + this.context.getUrl(), ioe);
-      }
-    }
-  }
-
-  protected SearchResponse search(RestHighLevelClient client, SearchRequest request)
-      throws IOException {
-    /*
-     * Below is a particularly evil bit of code. It allows unit test to set the static variable
-     * (evil 1) which can then flow a priori data back through the code as though it was retreived
-     * from an opensearch database. It means the unit test code no only returns values it has to
-     * wrap them up as though opensearch did its work (evil 2). Therefore the code becomes sensitive
-     * to the ability of unit testing to emulate opensearch as well as the performance of the
-     * integrity checks.
-     * 
-     * Despite the evil, it keeps the operational code from knowing about the unit test code.
-     * Unfortunately the opensearch code RestHighLevelClient is not written to be overriden either.
-     * Therefore cannot simply extend it or implement a common interface to do a more subtle
-     * insertion of unit testing.
-     */
-    int iteration = 0;
-    while (true) {
-      try {
-        if (OpensearchDocument.sourceOverride != null)
-          return OpensearchDocument.sourceOverride.search(client, request);
-        return client.search(request, this.hugeMemory.build());
-      } catch (ConnectException ce) {
-        iteration++;
-        if (iteration < 5)
-          this.log.warn("Could not connect but trying again: " + iteration);
-        else
-          throw ce;
+        HashSet<String> newbies = new HashSet<String>();
+        List<Map<String,Object>> docs = this.client.performRequest(
+            this.client.createSearchRequest()
+              .buildTermQuery(lidvid.contains("::") ? "collection_lidvid" : "collection_lid", lidvid)
+              .setIndex(this.context.getConnectionFactory().getIndexName() + "-refs")).documents();
+            for (Map<String,Object> doc : docs) {
+              newbies.addAll((List<String>)doc.get("product_lid"));
+              newbies.addAll((List<String>)doc.get("product_lidvid"));
+            }
+          this.references.put(lidvid, new ArrayList<String>(newbies));
+      } catch (Exception ioe) {
+        this.log.fatal("Error reading from URL: " + this.context.getURL(), ioe);
       }
     }
   }
 
   public OpensearchDocument(AuthInformation context) {
     this.context = context;
-    this.hugeMemory.setHttpAsyncResponseConsumerFactory(
-        new HttpAsyncResponseConsumerFactory.HeapBufferedResponseConsumerFactory(Integer.MAX_VALUE)); // almost 2 GB
   }
 
   @Override
@@ -205,34 +113,5 @@ public class OpensearchDocument implements DocumentInfo, RestClientBuilder.HttpC
       }
     }
     return references;
-  }
-
-  @Override
-  public HttpAsyncClientBuilder customizeHttpClient(HttpAsyncClientBuilder httpClientBuilder) {
-    if (this.context.getTrustSelfSigned()) {
-      try {
-        SSLContextBuilder sslBld = SSLContexts.custom();
-        sslBld.loadTrustMaterial(new TrustSelfSignedStrategy());
-        httpClientBuilder.setSSLContext(sslBld.build());
-      } catch (KeyManagementException | KeyStoreException | NoSuchAlgorithmException e) {
-        this.log.fatal("Could not set self signed trust", e);
-      }
-    }
-    if (!Objects.equals(this.context.getUsername(), "")) {
-      BasicCredentialsProvider handler = new BasicCredentialsProvider();
-      handler.setCredentials(AuthScope.ANY,
-          new UsernamePasswordCredentials(this.context.getUsername(), this.context.getPassword()));
-      httpClientBuilder.setDefaultCredentialsProvider(handler);
-    } else
-      log.info("Skipping credentials because no username was given.");
-    return httpClientBuilder;
-  }
-
-  @Override
-  public RequestConfig.Builder customizeRequestConfig(RequestConfig.Builder requestConfigBuilder) {
-    final int ms = 1000;
-    requestConfigBuilder.setConnectionRequestTimeout(5 * ms);
-    requestConfigBuilder.setSocketTimeout(10 * ms);
-    return requestConfigBuilder;
   }
 }

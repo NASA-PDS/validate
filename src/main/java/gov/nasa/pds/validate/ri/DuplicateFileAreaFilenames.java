@@ -1,45 +1,26 @@
 package gov.nasa.pds.validate.ri;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import org.apache.http.HttpHost;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.opensearch.action.search.SearchRequest;
-import org.opensearch.action.search.SearchResponse;
-import org.opensearch.client.RestClient;
-import org.opensearch.client.RestClientBuilder;
-import org.opensearch.client.RestHighLevelClient;
-import org.opensearch.index.query.QueryBuilders;
-import org.opensearch.search.SearchHit;
-import org.opensearch.search.aggregations.bucket.terms.Terms;
-import org.opensearch.search.aggregations.bucket.terms.TermsAggregationBuilder;
-import org.opensearch.search.builder.SearchSourceBuilder;
+import gov.nasa.pds.registry.common.RestClient;
 
-class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable, RestClientBuilder.HttpClientConfigCallback, RestClientBuilder.RequestConfigCallback {
-  final private AuthInformation registry;
+
+class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable {
   final private AuthInformation search;
   final private HashMap<String, List<String>> duplicates = new HashMap<String, List<String>>();
   final private Logger log = LogManager.getLogger(CommandLineInterface.class);
   private boolean done = true;
 
-  public DuplicateFileAreaFilenames(AuthInformation registry, AuthInformation search) {
+  public DuplicateFileAreaFilenames(AuthInformation search) {
     super(search);
-    this.registry = registry;
     this.search = search;    
-  }
-  public void findDuplicates() {
-    if (AuthInformation.NO_AUTH.equals(this.registry)) {
-      viaOpenSearch();
-    } else {
-      viaRegistry();
-    }
   }
   public void findDuplicatesInBackground() {
     this.done = false;
@@ -58,69 +39,24 @@ class DuplicateFileAreaFilenames extends OpensearchDocument implements Runnable,
       this.notifyAll();
     }
   }
-  private void viaOpenSearch() {
-    RestHighLevelClient client = null;
-    /* 
-     * GET registry/_search
-     * {
-     *   "size": 0,
-     *   "aggregations": {
-     *     "duplicates": {
-     *       "terms": {
-     *         "field": "ops:Data_File_Info/ops:file_ref",
-     *         "size": 100,
-     *         "min_doc_count": 2
-     *       }
-     *     }
-     *   }
-     * }
-    */
-    SearchRequest request = new SearchRequest()
-        .indices("registry")
-        .source(new SearchSourceBuilder()
-            .aggregation(new TermsAggregationBuilder("duplicates")
-                .field("ops:Data_File_Info/ops:file_ref")
-                .minDocCount(2)
-                .size(this.PAGE_SIZE)
-                )
-            .size(0));
-    SearchResponse response;
+  public void findDuplicates() {
     try {
-      URL url = new URL(this.search.getUrl());
-      client = new RestHighLevelClient(
-          RestClient.builder(new HttpHost(url.getHost(), url.getPort(), url.getProtocol()))
-              .setHttpClientConfigCallback(this).setRequestConfigCallback(this));
-      response = this.search(client, request);
-      if (response.getAggregations() == null || response.getAggregations().get("duplicates") == null)
-        return;
-      for (Terms.Bucket bucket : ((Terms)response.getAggregations().get("duplicates")).getBuckets()) {
-        SearchRequest findIDs = new SearchRequest()
-            .indices("registry")
-            .source(new SearchSourceBuilder()
-                .fetchSource ("lid", null)
-                .query(
-                    QueryBuilders.boolQuery()
-                        .must(QueryBuilders
-                            .termQuery("ops:Data_File_Info/ops:file_ref", bucket.getKeyAsString())))
-                .size(this.PAGE_SIZE));
-        SearchResponse duplicators = this.search(client, findIDs);
+      RestClient client = this.search.getConnectionFactory().createRestClient();
+      for (String file_ref : client.performRequest(client.createSearchRequest()
+          .buildFindDuplicates(PAGE_SIZE)
+          .setIndex(this.search.getConnectionFactory().getIndexName())).bucketValues()) {
         HashSet<String> lids = new HashSet<String>();
-        for (SearchHit hit : duplicators.getHits()) {
-          lids.add(hit.getSourceAsMap().get("lid").toString());
-        }
+        lids.addAll(client.performRequest(client.createSearchRequest()
+            .buildTermQuery("ops:Data_File_Info/ops:file_ref", file_ref)
+            .setReturnedFields(Arrays.asList("lid"))).fields());
         if (1 < lids.size()) {
-          this.log.error("Found duplicate file: " + bucket.getKeyAsString());
-          this.duplicates.put (bucket.getKeyAsString(), new ArrayList<String>(lids));
+          this.log.error("Found duplicate file: " + file_ref);
+          this.duplicates.put (file_ref, new ArrayList<String>(lids));
         }
       }
-    } catch (MalformedURLException e) {
-      this.log.error ("Could not form a valid URL from " + this.search.getUrl(), e);
-    } catch (IOException e) {
-      this.log.error ("Something went wrong talking to opensearch.", e);
+    } catch (Exception e) {
+      this.log.error("Had an error communicating with opensearch", e);
     }
-  }
-  private void viaRegistry() {
-    this.log.fatal("finding duplicate file area filenames is not implemented.");
   }
   public synchronized void waitTillDone() {
     while (!this.done) {
