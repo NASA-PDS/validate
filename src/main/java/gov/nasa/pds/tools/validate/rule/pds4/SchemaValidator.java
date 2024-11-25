@@ -69,7 +69,13 @@ public class SchemaValidator {
   public SchemaValidator() {
     // Support for XSD 1.1
     schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-
+    try {
+      schemaFactory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+      schemaFactory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+      schemaFactory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+    } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+      LOG.error("Error setting SchemaFactory features to prevent XXE", e);
+    }
     schemaFactory.setResourceResolver(new XMLCatalogResolver());
   }
 
