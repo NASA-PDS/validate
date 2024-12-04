@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
 import org.apache.commons.cli.ParseException;
 import org.xml.sax.SAXException;
+import gov.nasa.pds.registry.common.util.ExceptionUtils;
 import gov.nasa.pds.validate.ri.CommandLineInterface;
 
 public class ReferenceIntegrityMain {
@@ -13,7 +14,7 @@ public class ReferenceIntegrityMain {
     try {
       return_code = cli.process(args);
     } catch (ParseException pe) {
-      System.err.println("[ERROR] " + pe.getMessage());
+      System.err.println("[ERROR] " + ExceptionUtils.getMessage(pe));
       cli.help();
     } catch (IOException | ParserConfigurationException | SAXException e) {
       // do nothing because they are already logged.
