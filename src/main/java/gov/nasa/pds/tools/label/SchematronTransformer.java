@@ -21,6 +21,7 @@ import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -61,6 +62,13 @@ public class SchematronTransformer {
 
   private Transformer buildIsoTransformer() throws TransformerConfigurationException {
     TransformerFactory isoFactory = TransformerFactory.newInstance();
+    try {
+      isoFactory.setFeature("http://javax.xml.XMLConstants/feature/secure-processing", true);
+      isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+    } catch (TransformerConfigurationException e) {
+      throw new TransformerConfigurationException("Failed to configure TransformerFactory for secure processing", e);
+    }
     // Set the resolver that will look in the jar for imports
     isoFactory.setURIResolver(new XslURIResolver());
     // Load the isoSchematron stylesheet that will be used to transform each
