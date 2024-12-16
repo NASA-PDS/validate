@@ -77,3 +77,30 @@ jobs:
       with:
         name: codeql-artifacts
         path: ${{ env.RESULTS_DIR }}
+
+
+  sloc-count:
+      name: SLOC Count
+      runs-on: ubuntu-latest
+      if: github.actor != 'pdsen-ci'
+      steps:
+          -
+              name: 💳 Checkout
+              uses: actions/checkout@v4
+              with:
+                  lfs: true
+                  fetch-depth: 0
+                  token: ${{secrets.ADMIN_GITHUB_TOKEN}}
+
+          -
+            name: Count Lines of Code (cloc)
+            uses: djdefi/cloc-action@6
+            with:
+                options: --report-file=cloc.md
+        
+          -
+            name: Upload SLOC
+            uses: actions/upload-artifact@v4
+            with:
+              name: sloc-count
+              path: ${{ github.workspace }}/cloc.md
