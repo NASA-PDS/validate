@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,7 +152,7 @@ public class PDFUtil {
     // Get the location of the PDF file.
     URI uri = null;
     try {
-      uri = target.toURI();
+      uri = new URI(URLEncoder.encode(URLDecoder.decode(target.toString(), "UTF-8"), "UTF-8"));
     } catch (URISyntaxException e) {
       // Should never happen
       // but if it does, print an error message and returns false for pdfValidateFlag.
