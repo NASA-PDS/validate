@@ -44,6 +44,8 @@ public enum ProblemType {
 
   CONTEXT_REFERENCE_NOT_FOUND("error.label.context_ref_not_found"),
 
+  CONNECTION_ERROR("error.connection.registry"),
+  
   OUT_OF_MEMORY("error.validation.out_of_memory", ProblemCategory.EXECUTION),
 
   INTERNAL_ERROR("error.validation.internal_error"),
