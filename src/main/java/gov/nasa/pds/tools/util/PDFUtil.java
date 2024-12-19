@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Paths;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.verapdf.gf.foundry.VeraGreenfieldFoundryProvider;
@@ -92,6 +93,11 @@ public class PDFUtil {
     boolean pdfValidateFlag = false;
 
     try {
+      // make sure file is not 0 bytes in length
+      if (FileUtils.sizeOf(new File(pdfRef)) == 0) {
+        this.errorMessage = "Zero length file is an invalid PDF file.";
+        return pdfValidateFlag;
+      }
       // Create a parser and auto-detect flavour
       PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
       PDFAFlavour detectedFlavour = parser.getFlavour();
@@ -175,7 +181,7 @@ public class PDFUtil {
     }
 
     // Build the full pathname of the PDF file.
-    String pdfRef = parent + (parent.endsWith(File.separator) ? "" : File.separator) + pdfBase;
+    String pdfRef = parent + (parent.endsWith(File.separator) ? "" : File.separator) + URLDecoder.decode(pdfBase, "UTF-8");
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef [{}],[{}],[{}]", parent,
         pdfBase, pdfRef);
     LOG.debug("validateFileStandardConformity:parent,pdfBase,pdfRef,uri [{}],[{}],[{}],{}", parent,
