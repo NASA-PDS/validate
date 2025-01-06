@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
+**Improvements:**
+
+- Improve error handling for Registry connection issues [\#1085](https://github.com/NASA-PDS/validate/issues/1085)
+
 **Defects:**
 
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
