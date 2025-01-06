@@ -120,7 +120,6 @@ import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
-import jdk.internal.org.jline.utils.Log;
 
 /**
  * Wrapper class for the Validate Tool. Class handles command-line parsing and querying, in addition
@@ -561,7 +560,7 @@ public class ValidateLauncher {
     } catch (IOException ex) {
       try {
         ValidationProblem p = new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
-            ProblemType.INTERNAL_ERROR,
+            ProblemType.CONNECTION_ERROR,
             "Error connecting to Registry to update registered context products config file. Verify internet connection and try again."),
             registeredProductsFile.toURI().toURL());
         report.record(registeredProductsFile.toURI(), p);
