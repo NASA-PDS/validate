@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-01-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-01-07)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 **Other closed issues:**
