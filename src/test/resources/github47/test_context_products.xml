@@ -11,8 +11,7 @@
      http://pds.nasa.gov/pds4/sp/v1 http://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1100.xsd">
 
 	<Identification_Area>
-		<logical_identifier>urn:nasa:pds:mer_pancam_photometry:mer2:a0708_p242914_02_02v01
-		</logical_identifier>
+		<logical_identifier>urn:nasa:pds:mer_pancam_photometry:mer2:a0708_p242914_02_02v01</logical_identifier>
 		<version_id>1.0</version_id>
 		<title>MER Photometry Cube: a0708_p242914_02_02v01.qub</title>
 		<information_model_version>1.4.0.0</information_model_version>

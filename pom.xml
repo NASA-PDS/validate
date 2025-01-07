@@ -162,7 +162,13 @@
       </plugin>
     </plugins>
   </build>
-  
+  <repositories>
+    <repository>
+      <id>OSGeo</id>
+      <name>OSGeo</name>
+      <url>	https://repo.osgeo.org/repository/release/</url>
+    </repository>
+  </repositories>
   <dependencies>
 	<dependency>
   		<groupId>org.verapdf</groupId>
@@ -276,8 +282,8 @@
     </dependency>
     <dependency>
       <groupId>xml-resolver</groupId>
-      <artifactId>xml-resolver</artifactId>
-      <version>1.2</version>
+      <artifactId>xml-resolver-patched</artifactId>
+      <version>1.2.1</version>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
