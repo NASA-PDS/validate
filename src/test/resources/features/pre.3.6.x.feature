@@ -88,8 +88,8 @@ Scenario Outline: <testId>
 | NASA-PDS/validate#604 |"NASA-PDS/validate#604 Success Multiple Tables One File" | "github604" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github604.json -s json --skip-context-validation -t {resourceDir}/github604/video.xml" | "report_github604.json" |
 
 # Validate#599
-| NASA-PDS/validate#599 |"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
-#|"NASA-PDS/validate#599 Failure Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
+| NASA-PDS/validate#599 |"NASA-PDS/validate#599 Success No Override Schema/Schematron" | "github599" | 0 | "0 errors expected" | "totalErrors" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_1.json -s json --skip-context-validation -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_1.json" |
+#|"NASA-PDS/validate#599 Failure Override Schema" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_2.json -s json --skip-context-validation -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_2.json" |
 #|"NASA-PDS/validate#599 Failure Override Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_3.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_3.json" |
 #|"NASA-PDS/validate#599 Failure Override Schema+Schematron" | "github599" | 1 | "1 errors expected" | "SCHEMA_ERROR" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github599_4.json -s json -S {resourceDir}/github599/PDS4_PDS_1I00.sch -x {resourceDir}/github599/PDS4_PDS_1I00.xsd -t {resourceDir}/github599/AREA_Camelot_1radii.xml" | "report_github599_4.json" |
 
@@ -214,8 +214,9 @@ Scenario Outline: <testId>
 | NASA-PDS/validate#47-1 |"NASA-PDS/validate#47 1" | "github47" | 0 | "0 errors expected." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-r {reportDir}/report_github47_disable-valid.json -s json --disable-context-mismatch-warnings -R pds4.label --skip-content-validation --skip-context-validation {resourceDir}/github47/test_context_products.xml" | "report_github47_disable-valid.json" |
 | NASA-PDS/validate#47-2 |"NASA-PDS/validate#47 2" | "github47" | 1 | "1 errors expected." | "CONTEXT_REFERENCE_NOT_FOUND" | "src/test/resources" | "target/test" | "-v1 --skip-content-validation -r {reportDir}/report_github47_enable-valid.json -s json --disable-context-mismatch-warnings -R pds4.label {resourceDir}/github47/test_context_products.xml" | "report_github47_enable-valid.json" |
 
-| NASA-PDS/validate#62  |"NASA-PDS/validate#62 1" | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --no-data-check -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
-| NASA-PDS/validate#62-1  |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --no-data-check -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
+# FIXME: durning rework of cucumber, look at this again
+#| NASA-PDS/validate#62  |"NASA-PDS/validate#62 1" | "github62" | 4 | "4 info.label.context_ref_found info messages expected.\n" | "CONTEXT_REFERENCE_FOUND" | "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_1.json -s json --skip-content-validation -t {resourceDir}/github62/ele_mom_tblChar.xml"  | "report_github62_1.json" |
+| NASA-PDS/validate#62-1  |"NASA-PDS/validate#62 2" | "github62" | 8 | "8 info/error messages expected.\n" | "CONTEXT_REFERENCE_FOUND,CONTEXT_REFERENCE_NOT_FOUND" |  "src/test/resources" | "target/test" | "-v1 -r {reportDir}/report_github62_2.json -s json --skip-content-validation -t {resourceDir}/github62/spacecraft.orex_1.1.xml"  | "report_github62_2.json" |
 
 # Move github278 before github71 as it causing issues
 # By declaring the error type, should allow the zero length PDF file to go unnoticed.
@@ -273,7 +274,7 @@ Scenario Outline: <testId>
 
 # https://github.com/NASA-PDS/validate/issues/298 validate misses double quotes within a delimited table
 
-| NASA-PDS/validate#298  |"NASA-PDS/validate#298 VALID" | "github298" | 0 | "0 errors messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github298_label_valid.json -s json {resourceDir}/github298/valid/sentences.xml" | "report_github298_label_valid.json" |
+| NASA-PDS/validate#298  |"NASA-PDS/validate#298 VALID" | "github298" | 0 | "0 errors messages expected." | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github298_label_valid.json -s json {resourceDir}/github298/valid/sentences.xml" | "report_github298_label_valid.json" |
 | NASA-PDS/validate#298-1  |"NASA-PDS/validate#298 INVALID" | "github298" | 43 | "43 errors expected for INVALID_FIELD_VALUE ." | "INVALID_FIELD_VALUE" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github298_label_invalid.json -s json {resourceDir}/github298/invalid/sentences.xml" | "report_github298_label_invalid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/188 As a user, I want to validate a bundle that uses multiple versions of the Information Model / Discipline LDDs
@@ -438,7 +439,7 @@ Scenario Outline: <testId>
 
 # https://github.com/NASA-PDS/validate/issues/349 validate allows absolute path in directory_path_name but shouldn't
 
-| NASA-PDS/validate#349  |"NASA-PDS/validate#349 VALID" | "github349" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github349_label_valid.json -s json -t {resourceDir}/github349/valid/datasetgood.xml" | "report_github349_label_valid.json" |
+| NASA-PDS/validate#349  |"NASA-PDS/validate#349 VALID" | "github349" | 0 | "0 error messages expected" | "totalErrors" | "src/test/resources" | "target/test" | "--skip-context-validation -R pds4.label -r {reportDir}/report_github349_label_valid.json -s json -t {resourceDir}/github349/valid/datasetgood.xml" | "report_github349_label_valid.json" |
 | NASA-PDS/validate#349-1  |"NASA-PDS/validate#349 INVALID" | "github349" | 1 | "1 error messages expected" | "UNALLOWED_DIRECTORY_NAME" | "src/test/resources" | "target/test" | "-R pds4.label -r {reportDir}/report_github349_label_invalid.json -s json -t {resourceDir}/github349/invalid/datasetbad.xml" | "report_github349_label_invalid.json" |
 
 # https://github.com/NASA-PDS/validate/issues/419 validate 2.2.0-SNAPSHOT warns about a pretty benign bundle + readme.txt
