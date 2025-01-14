@@ -34,10 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XslURIResolver;
-import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
-import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.ValidationProblem;
 
 /**
  * A class that transforms Schematron files based on the isoSchematron stylesheet.
