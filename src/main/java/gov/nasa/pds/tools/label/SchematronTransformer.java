@@ -64,7 +64,7 @@ public class SchematronTransformer {
     TransformerFactory isoFactory = TransformerFactory.newInstance();
     try {
       isoFactory.setFeature("http://javax.xml.XMLConstants/feature/secure-processing", true);
-      //isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      //isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); see validate#1103
       isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
     } catch (TransformerConfigurationException e) {
       throw new TransformerConfigurationException("Failed to configure TransformerFactory for secure processing", e);
