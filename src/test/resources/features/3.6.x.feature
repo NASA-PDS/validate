@@ -8,6 +8,7 @@ Feature: 3.6.x
       | issueNumber | subtest | datasrc | args | expectation |
 #begin
 
+| 1100 |  | "github1100" | "--skip-context-validation -R pds4.bundle -t {datasrc}" |  |
 | 1066 |  | "github1066" | "--skip-content-validation -t {datasrc}/vg2u_49xr_1986024t232141.xml" |  |
 | 1028 |  | "github1028" | "--skip-context-validation -t {datasrc}/xa.s16..shz.1976.070.0.xml --schema {datasrc}/PDS4_PDS_1N00.xsd --schematron {datasrc}/PDS4_PDS_1N00.sch" |  |
 | 1008 |  | "github1008" | "--skip-context-validation -t {datasrc}/example.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.pdf.file.not_pdfa_compliant=1" |

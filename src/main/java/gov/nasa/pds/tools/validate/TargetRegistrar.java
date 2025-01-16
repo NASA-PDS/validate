@@ -166,7 +166,6 @@ public interface TargetRegistrar {
    *
    * @return a collection of referenced identifiers.
    */
-  Collection<Identifier> getReferencedIdentifiers();
 
   /**
    * Gets the location of where the given identifier is referenced.

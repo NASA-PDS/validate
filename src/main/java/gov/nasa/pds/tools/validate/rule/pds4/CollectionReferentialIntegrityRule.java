@@ -75,12 +75,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       LOG.debug("collectionReferentialIntegrityRule:getTarget() {}, num collections {}",
           getTarget(), collections.keySet().size());
 
-      // Check for collection(_.*)?\.(xml or lblx) file.
       for (Map.Entry<String, ValidationTarget> collection : collections.entrySet()) {
-        if (!collection.getValue().getLocation().endsWith(getContext().getLabelExtension())) {
-          continue;
-        }
-
         Target collectionTarget = new Target(collection.getValue().getUrl(), false);
         try {
           XMLExtractor extractor = new XMLExtractor(collectionTarget.getUrl());

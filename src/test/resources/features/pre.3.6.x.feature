@@ -37,7 +37,10 @@ Feature: < 3.6
 | 611 |  | "github611" | "-t {datasrc}/GRD-L1A-150313-150319_150625-BGO.xml" | "summary:totalErrors=0,summary:totalWarnings=1,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=1" |
 | 605 |  | "github605" | "--skip-context-validation -t {datasrc}/video_and_audio.xml" |  |
 | 604 |  | "github604" | "--skip-context-validation -t {datasrc}/video.xml" |  |
-| 599 |  | "github599" | "-t {datasrc}/AREA_Camelot_1radii.xml" |  |
+| 599 | 1 | "github599" | "--skip-context-validation -t {datasrc}/AREA_Camelot_1radii.xml" |  |
+| 599 | 2 | "github599" | "--skip-context-validation -x {datasrc}/PDS4_PDS_1I00.xsd -t {datasrc}/AREA_Camelot_1radii.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=1" |
+| 599 | 3 | "github599" | "--skip-context-validation -S {datasrc}/PDS4_PDS_1I00.sch -t {datasrc}/AREA_Camelot_1radii.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=1" |
+| 599 | 4 | "github599" | "--skip-context-validation -S {datasrc}/PDS4_PDS_1I00.sch -x {datasrc}/PDS4_PDS_1I00.xsd -t {datasrc}/AREA_Camelot_1radii.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=1" |
 | 597 | 1 | "github597" | "--skip-context-validation -R pds4.bundle -t {datasrc}" |  |
 | 597 | 2 | "github562" | "-t {datasrc}" |  |
 | 597 | 3 | "github561" | "-R pds4.collection --label-extension lblx --skip-context-validation -t {datasrc}" |  |
@@ -113,8 +116,8 @@ Feature: < 3.6
 | 357 | 4 | "github357" | "-R pds4.label -t {datasrc}/whypointsremovedfromdata_4_records.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.validation.invalid_field_value=1" |
 | 356 | 1 | "github356" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -t {resourceDir}/github240/valid/bundle_kaguya_derived.xml" |  |
 | 356 | 2 | "github356" | "-R pds4.bundle --skip-product-validation --skip-context-validation --skip-content-validation -t {resourceDir}/github240/invalid/bundle_kaguya_derived.xml" | "summary:totalErrors=0,summary:totalWarnings=1,summary:messageTypes:warning.sub_directory.unallowed_name=1" |
-| 349 | 1 | "github349" | "-R pds4.label -t {datasrc}/valid/datasetgood.xml" |  |
-| 349 | 2 | "github349" | "-R pds4.label -t {datasrc}/invalid/datasetbad.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.directory.unallowed_name=1" |
+| 349 | 1 | "github349" | "-R pds4.label --skip-context-validation -t {datasrc}/valid/datasetgood.xml" |  |
+| 349 | 2 | "github349" | "-R pds4.label --skip-context-validation -t {datasrc}/invalid/datasetbad.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.directory.unallowed_name=1" |
 | 345 | 1 | "github345" | "-R pds4.label -t {datasrc}/astro_sample_t.xml" |  |
 | 345 | 2 | "github345" | "-R pds4.label -t {datasrc}/astro_sample_data_t.xml" |  |
 | 344 |  | "github344" | "-R pds4.bundle -t {datasrc}/bundle.xml" |  |
@@ -136,8 +139,8 @@ Feature: < 3.6
 | 303 | 2 | "github303" | "-R pds4.label --skip-context-validation -t {datasrc}/valid/I52_20210207_1A_U1B03A_01_0001.avgs.xml" |  |
 | 299 | 1 | "github299" | "-R pds4.label -t {datasrc}/valid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" |  |
 | 299 | 2 | "github299" | "-R pds4.label -t {datasrc}/invalid/gbo_ast_fieber-beyer_spectra_v2.0_20210211_aip_v1.0.xml" | "summary:totalErrors=0,summary:totalWarnings=3" |
-| 298 | 1 | "github298" | "-R pds4.label {datasrc}/valid/sentences.xml" |  |
-| 298 | 2 | "github298" | "-R pds4.label {datasrc}/invalid/sentences.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.validation.invalid_field_value=1" |
+| 298 | 1 | "github298" | "-R pds4.label --skip-context-validation {datasrc}/valid/sentences.xml" |  |
+| 298 | 2 | "github298" | "-R pds4.label --skip-context-validation {datasrc}/invalid/sentences.xml" | "summary:totalErrors=1,summary:totalWarnings=0,summary:productValidation:failed=1,summary:messageTypes:error.validation.invalid_field_value=1" |
 | 297 | 1 | "github297" | "--skip-context-validation -R pds4.label -t {datasrc}/valid/rimfax_rdr_0081_example.xml" |  |
 | 297 | 2 | "github297" | "--skip-context-validation -R pds4.label -t {datasrc}/invalid/rimfax_rdr_0081_example.xml" | "summary:totalErrors=0,summary:totalWarnings=1" |
 | 294 | 1 | "github294" | "--skip-context-validation -R pds4.label -t {datasrc}/valid/minmax-error.xml" |  |

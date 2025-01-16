@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<Product_Collection
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clipper.sud:data_sci_calibrated</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Europa Clipper SUDA Calibrated Data</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>Kempf, Sascha; Curtin, Alexandra; Polson, Shawn</author_list>
+      <publication_year>2024</publication_year>
+      <description>This collection contains the calibrated (L2a and L2b) data products produced by the SUDA instrument onboard the Europa Clipper spacecraft.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-12-03</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial release.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-08-30T16:10:50.000000Z</start_date_time>
+      <stop_date_time>2022-08-30T16:21:56.525535Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Partially Processed</processing_level>
+      <Science_Facets>
+        <domain>Surface</domain>
+        <discipline_name>Small Bodies</discipline_name>
+        <facet1>Dust Study</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Europa Clipper Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Europa Clipper</name>
+      <Observing_System_Component>
+        <name>Europa Clipper Spacecraft</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SUrface Dust Analyzer (SUDA)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:clipper.sud</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>DUST</name>
+      <type>Dust</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:dust.dust</lid_reference>
+        <reference_type>collection_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Collection>
+    <collection_type>Data</collection_type>
+  </Collection>
+  <File_Area_Inventory>
+    <File>
+      <file_name>collection_suda_data_sci_calibrated.csv</file_name>
+      <creation_date_time>2024-12-03T12:33:49.920502Z</creation_date_time>
+      <!--file_size unit="byte">10385</file_size-->
+      <records>3</records>
+      <!--md5_checksum>a5ca2320d244e62fc825f0fbeae717f8</md5_checksum-->
+    </File>
+    <Inventory>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>3</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <maximum_record_length unit="byte">259</maximum_record_length>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+          <description>This column specifies the Member Status of the files that comprise the collection.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+          <description>This column specifies the LIDVID or LID of the files that comprise the collection.</description>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>

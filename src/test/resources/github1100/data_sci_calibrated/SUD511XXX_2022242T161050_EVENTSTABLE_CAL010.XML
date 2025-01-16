@@ -1,0 +1,288 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clipper.sud:data_sci_calibrated:sud511xxx_2022242t161050_eventstable_cal010</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>L2 Events Table, AID 0x8FFF401D</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Kempf, Sascha; Curtin, Alexandra; Polson, Shawn</author_list>
+      <publication_year>2024</publication_year>
+      <description>This file contains calibration state flags active for each event within this AID.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-12-03</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial release.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-08-30T16:10:50Z</start_date_time>
+      <stop_date_time>2022-08-30T16:21:56Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Europa Clipper Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Europa Clipper</name>
+      <Observing_System_Component>
+        <name>Europa Clipper Spacecraft</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SUrface Dust Analyzer (SUDA)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:clipper.sud</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>DUST</name>
+      <type>Dust</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:dust.dust</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>SUD511XXX_2022242T161050_EVENTSTABLE_CAL010.CSV</file_name>
+      <creation_date_time>2024-12-03T11:29:14Z</creation_date_time>
+      <file_size unit="byte">22183</file_size>
+      <md5_checksum>59ad4ad27ce8845255a942f220c369d3</md5_checksum>
+    </File>
+    <Table_Delimited>
+      <offset unit="byte">662</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>113</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>33</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>Event Number</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>This column specifies the event number.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>incompleteData</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the incompleteData flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>massScaleAssigned</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the massScaleAssigned flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>baselineAssigned</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the baselineAssigned flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>baselineModelAssigned</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the baselineModelAssigned flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>linesIdentified</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the linesIdentified flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>lineShapesFitted</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the lineShapesFitted flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>clippedLines</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the clippedLines flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>referenceLineAssigned</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the referenceLineAssigned flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>hdrSpectrum</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the hdrSpectrum flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>calibrationSpectrum</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the calibrationSpectrum flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>spectrumFitted</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the spectrumFitted flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>stretchParameterDerived</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the stretchParameterDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>shiftParameterDerived</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the shiftParameterDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactPositionIdentified</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactPositionIdentified flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>contaminationsRemoved</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the contaminationsRemoved flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>targetWaveformClipped</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the targetWaveformClipped flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>targetWaveformProcessed</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the targetWaveformProcessed flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>targetWaveformFitted</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the targetWaveformFitted flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ionGridWaveformClipped</name>
+          <field_number>20</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the ionGridWaveformClipped flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ionGridWaveformProcessed</name>
+          <field_number>21</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the ionGridWaveformProcessed flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ionGridWaveformFitted</name>
+          <field_number>22</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the ionGridWaveformFitted flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>gridWaveformClipped</name>
+          <field_number>23</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the gridWaveformClipped flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>gridWaveformProcessed</name>
+          <field_number>24</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the gridWaveformProcessed flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>gridWaveformFitted</name>
+          <field_number>25</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the gridWaveformFitted flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorMaterialIdentified</name>
+          <field_number>26</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorMaterialIdentified flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>compositionTypeIdentified</name>
+          <field_number>27</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the compositionTypeIdentified flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorSpeedDerived</name>
+          <field_number>28</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorSpeedDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorMassDerived</name>
+          <field_number>29</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorMassDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorSizeDerived</name>
+          <field_number>30</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorSizeDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorChargeDerived</name>
+          <field_number>31</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorChargeDerived flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>impactorOriginIdentified</name>
+          <field_number>32</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the impactorOriginIdentified flag.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>verified</name>
+          <field_number>33</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>This column specifies the verified flag.</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>

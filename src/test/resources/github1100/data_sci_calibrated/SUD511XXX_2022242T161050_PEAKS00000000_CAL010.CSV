@@ -1,0 +1,2 @@
+PeakNumber,Amplitude,Area,CreatedAt,Height,IsClipped,IsIgnored,IsLocked,IsReferenceLine,IsTriggerLine,MassAtPeak,MassResolution,Quality,SignalToNoise,ShapeFitChi2,ShapeFitParam,ShapeFitParamSigma,ShapeModel,ShapeTimeRange,TimeAtPeak,TimeOfFlightAtPeak,TimesAtFWHM
+1,0.02009231224656105,N/A,1669482337636.984,1,false,false,false,true,false,22.989769280900003,0,5,9.147062301635742,-9999,N/A,N/A,No model,N/A,-1.0338640305535893e-07,3.859785646672004e-06,"[0, 0]"

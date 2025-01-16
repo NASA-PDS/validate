@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clipper.sud:data_sci_calibrated:sud511xxx_2022242t161050_peaks00000000_cal010</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>L2b Peaks File, Event 00000000</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Kempf, Sascha; Curtin, Alexandra; Polson, Shawn</author_list>
+      <publication_year>2024</publication_year>
+      <description>This file contains information about the peaks identified in the time-of-flight spectrum for this event.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-12-03</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial release.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-08-30T16:10:50.365129Z</start_date_time>
+      <stop_date_time>2022-08-30T16:10:50.365255Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Europa Clipper Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Europa Clipper</name>
+      <Observing_System_Component>
+        <name>Europa Clipper Spacecraft</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SUrface Dust Analyzer (SUDA)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:clipper.sud</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>DUST</name>
+      <type>Dust</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:dust.dust</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <Reference_List>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:clipper.sud:data_sci_partially_processed:sud511xxx_2022242t161050_sig00000000_ppb::1.0</lidvid_reference>
+      <reference_type>data_to_partially_processed_source_product</reference_type>
+      <comment>The L1b product which is the source of this L2b product.</comment>
+    </Source_Product_Internal>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>SUD511XXX_2022242T161050_PEAKS00000000_CAL010.CSV</file_name>
+      <creation_date_time>2024-12-03T11:29:15Z</creation_date_time>
+      <file_size unit="byte">464</file_size>
+      <md5_checksum>eb01df4a20a41ce4d9cc829b50a4780d</md5_checksum>
+    </File>
+    <Table_Delimited>
+      <offset unit="byte">265</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>1</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>22</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>PeakNumber</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>This column specifies the peak number.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Amplitude</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Peak amplitude relative to the spectrum's background.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Area</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The area of the mass line and its uncertainty, in physical units, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>CreatedAt</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The time the peak was created, in milliseconds since the 2010-01-01 epoch.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Height</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Peak height relative to the strongest peak in the spectrum (values between 0 and 1).</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>IsClipped</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the peak is clipped.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>IsIgnored</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the peak should be ignored for further processing.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>IsLocked</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the peak's assignment is locked and should not be changed.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>IsReferenceLine</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the peak is the reference line of the mass spectrum.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>IsTriggerLine</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the peak triggered the spectrum recording.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MassAtPeak</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The mass at the peak amplitude of the peak.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>MassResolution</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Mass resolution at 50% of the peak amplitude.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>Quality</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The calibration quality of the peak, on a scale from 1 to 5.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>SignalToNoise</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The signal-to-noise ratio of the peak's amplitude with respect to the spectrum's baseline.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ShapeFitChi2</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>Chi-squared value of the shape model fit to the peak.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ShapeFitParam</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The fitted parameters of the peak's shape model, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ShapeFitParamSigma</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The uncertainties of the fitted parameters of the shape model, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ShapeModel</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The model describing the peak's shape.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ShapeTimeRange</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The time range for the shape fit, relative to the time of flight at peak maximum (given as tau = TOF/TOF_at_peak_max), given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TimeAtPeak</name>
+          <field_number>20</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The instrument time at the peak amplitude.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TimeOfFlightAtPeak</name>
+          <field_number>21</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The time of flight at the peak maximum.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>TimesAtFWHM</name>
+          <field_number>22</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>Instrument times at the peak's full width half maximum (FWHM), given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>

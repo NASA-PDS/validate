@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<?xml-model
+  href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"
+?>
+<Product_Observational
+  xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+                      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:clipper.sud:data_sci_calibrated:sud511xxx_2022242t161050_auxvalues_cal010</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>L2a Auxiliary Waveform Values Table, AID 0x8FFF401D</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Citation_Information>
+      <author_list>Kempf, Sascha; Curtin, Alexandra; Polson, Shawn</author_list>
+      <publication_year>2024</publication_year>
+      <description>This file contains auxiliary waveform values for each event within this AID.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-12-03</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial release.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-08-30T16:10:50Z</start_date_time>
+      <stop_date_time>2022-08-30T16:21:56Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Europa Clipper Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.clipper</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Europa Clipper</name>
+      <Observing_System_Component>
+        <name>Europa Clipper Spacecraft</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clipper</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>SUrface Dust Analyzer (SUDA)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:clipper.sud</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>DUST</name>
+      <type>Dust</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:dust.dust</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>SUD511XXX_2022242T161050_AUXVALUES_CAL010.CSV</file_name>
+      <creation_date_time>2024-12-03T11:29:15Z</creation_date_time>
+      <file_size unit="byte">65038</file_size>
+      <md5_checksum>13db3eaa599812c455f4c6cf1c680153</md5_checksum>
+    </File>
+    <Table_Delimited>
+      <offset unit="byte">495</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>113</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>34</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>EventNumber</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>This column specifies the event number.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtIsClipped</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the target waveform is clipped.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtBaseline</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The baseline value of the target waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtBaselineModel</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The model used for the target baseline.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtFitModel</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The model used for QT data fitting.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtIsInverted</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the target waveform's amplitudes have been inverted.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtIsSelected</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the target waveform has been downselected for further analysis.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtRiseTime</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The rise time of the target waveform, which is defined as the time it takes the waveform to rise from 10% to 90% of its maximum amplitude.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QtRmsNoise</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The root mean square noise of the target waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiIsClipped</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the ion waveform is clipped.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiBaseline</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The baseline value of the ion waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiBaselineModel</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The model used for the ion baseline.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiFitModel</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The model used for QI data fitting.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiIsInverted</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the ion waveform's amplitudes have been inverted.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiIsSelected</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the ion waveform has been downselected for further analysis.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiRiseTime</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The rise time of the ion waveform, which is defined as the time it takes the waveform to rise from 10% to 90% of its maximum amplitude.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QiRmsNoise</name>
+          <field_number>17</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The root mean square noise of the ion waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvIsClipped</name>
+          <field_number>18</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the velocity waveform is clipped.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvBaseline</name>
+          <field_number>19</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The baseline value of the velocity waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvBaselineModel</name>
+          <field_number>20</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The model used for the velocity baseline.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvFitModel</name>
+          <field_number>21</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The model used for QV data fitting.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvIsInverted</name>
+          <field_number>22</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the velocity waveform's amplitudes have been inverted.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvIsSelected</name>
+          <field_number>23</field_number>
+          <data_type>ASCII_Boolean</data_type>
+          <description>Indicates whether the velocity waveform has been downselected for further analysis.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvRiseTime</name>
+          <field_number>24</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The rise time of the velocity waveform, which is defined as the time it takes the waveform to rise from 10% to 90% of its maximum amplitude.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>QvRmsNoise</name>
+          <field_number>25</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The root mean square noise of the velocity waveform.</description>
+          <Special_Constants>
+            <missing_constant>-9999</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ImpactChargeValue</name>
+          <field_number>26</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The impact charge value given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ImpactChargeFitParams</name>
+          <field_number>27</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The parameters used for fitting the impact charge, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>ImpactChargeUncertainties</name>
+          <field_number>28</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The uncertainties associated with the impact charge fit parameters, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustChargeValues</name>
+          <field_number>29</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The dust charge values measured during the event, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustChargeFitParams</name>
+          <field_number>30</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The parameters used for fitting the dust charge data, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustChargeUncertainties</name>
+          <field_number>31</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The uncertainties associated with the dust charge fit parameters, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustVelocity</name>
+          <field_number>32</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The velocity of the dust particles during the event, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustVelocityFitParams</name>
+          <field_number>33</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The parameters used for fitting the dust velocity data, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>DustVelocityUncertainties</name>
+          <field_number>34</field_number>
+          <data_type>ASCII_String</data_type>
+          <description>The uncertainties associated with the dust velocity fit parameters, given as a list of ASCII_Reals.</description>
+          <Special_Constants>
+            <missing_constant>N/A</missing_constant>
+          </Special_Constants>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>
