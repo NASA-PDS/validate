@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-01-07)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-01-16)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -10,11 +10,13 @@
 
 **Defects:**
 
+- validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 **Other closed issues:**
 
+- Quiet `Selected XML parser...` output that goes to stdout [\#1103](https://github.com/NASA-PDS/validate/issues/1103)
 - Switchover to using registry-common library to communicate with OpenSearch Serverless Registry [\#895](https://github.com/NASA-PDS/validate/issues/895)
 
 ## [v3.6.3](https://github.com/NASA-PDS/validate/tree/v3.6.3) (2024-11-19)
