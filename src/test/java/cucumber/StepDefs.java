@@ -54,6 +54,7 @@ public class StepDefs {
         throw new IllegalArgumentException("{Defining the report style is no longer valid.");
       }
       resolved.add(arg
+          .replace("{datasink}", this.datasink.toAbsolutePath().toString())
           .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
           .replace("%20", " "));
     }
