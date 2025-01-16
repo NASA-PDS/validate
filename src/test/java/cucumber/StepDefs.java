@@ -7,9 +7,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import org.apache.commons.io.FileUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.validate.ValidateLauncher;
@@ -109,21 +111,34 @@ public class StepDefs {
     
     Gson gson = new Gson();
     try (FileReader report = new FileReader(this.datasink.resolve("report.json").toFile())) {
+      HashMap<String,Integer> messages = new HashMap<String,Integer>();
       JsonObject reportJson = gson.fromJson(report, JsonObject.class), node;
+      for (JsonElement msg : reportJson.getAsJsonObject("summary").getAsJsonArray("messageTypes")) {
+        messages.put(
+            msg.getAsJsonObject().getAsJsonPrimitive("messageType").getAsString(),
+            msg.getAsJsonObject().getAsJsonPrimitive("total").getAsInt());
+      }
       for (String detail : expectation.split(",")) {
+        boolean nextIsMessage = false;
         Integer expected = Integer.valueOf(detail.split("=")[1].strip());
         Integer reported = -1;
         String keyword = detail.split("=")[0];
         node = reportJson;
         for (String key : keyword.split(":")) {
-          if (keyword.endsWith(key)) {
+          if (nextIsMessage) {
+            reported = messages.get(key);
+            messages.remove(key);
+          } else if (keyword.endsWith(key)) {
             reported = node.getAsJsonPrimitive(key).getAsInt();
+          } else if (key.equals("messageTypes")) {
+            nextIsMessage = true;
           } else {
             node = node.getAsJsonObject(key);
           }
         }
         assertEquals (expected, reported, keyword);
       }
+      assertEquals (0, messages.size(), "Did not identify all message types generated.");
     } catch (ExitException e) {
       assertEquals(0, e.status, "Exit status");
     } catch (Exception e) {
