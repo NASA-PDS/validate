@@ -34,10 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XslURIResolver;
-import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
-import gov.nasa.pds.tools.validate.ProblemType;
-import gov.nasa.pds.tools.validate.ValidationProblem;
 
 /**
  * A class that transforms Schematron files based on the isoSchematron stylesheet.
@@ -64,7 +61,7 @@ public class SchematronTransformer {
     TransformerFactory isoFactory = TransformerFactory.newInstance();
     try {
       isoFactory.setFeature("http://javax.xml.XMLConstants/feature/secure-processing", true);
-      isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      //isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); see validate#1103
       isoFactory.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
     } catch (TransformerConfigurationException e) {
       throw new TransformerConfigurationException("Failed to configure TransformerFactory for secure processing", e);

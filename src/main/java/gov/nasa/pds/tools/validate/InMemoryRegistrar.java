@@ -217,11 +217,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized Collection<Identifier> getReferencedIdentifiers() {
-    return referencedIdentifiers;
-  }
-
-  @Override
   public synchronized Collection<Identifier> getUnreferencedIdentifiers() {
     List<Identifier> unreferencedIdentifiers = new ArrayList<>();
     for (Identifier id : identifierDefinitions.keySet()) {
