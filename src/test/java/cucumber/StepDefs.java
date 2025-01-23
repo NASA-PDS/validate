@@ -2,7 +2,9 @@ package cucumber;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -43,17 +45,39 @@ public class StepDefs {
   }
 
   private List<String> resolveArgumentStrings(String args) {
+    boolean catalogNext = false, manifestNext = false;
     List<String> resolved = new ArrayList<String>(Arrays.asList("--report-file",
         this.datasink.resolve("report.json").toString(), "--report-style", "json"));
     for (String arg : args.split("\\s+")) {
       if (arg.contains("{reportDir}") || arg.contains("{resourceDir}")) {
         throw new IllegalArgumentException("{reportDir} and {resourceDir} are no longer valid.");
       }
+      if (catalogNext) {
+        catalogNext = false;
+        this.createCatalogFile(arg
+            .replace("{datasink}", this.datasink.toAbsolutePath().toString())
+            .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
+            .replace("%20", " "),
+            this.datasink.toAbsolutePath().toString());
+      }
+      if (manifestNext) {
+        // read manifest
+        // do datasrc/datasink translations
+        // write to datasink
+        // change arg to new location
+        arg = "{datasink}/target-manifest.xml";
+      }
+      if (arg.equals("-C") || arg.equals("--catalog")) {
+        catalogNext = true;
+      }
       if (arg.equals("-r}") || arg.equals("--report-file")) {
         throw new IllegalArgumentException("Defining the report file is no longer valid.");
       }
       if (arg.equals("-s") || arg.equals("--report-style")) {
         throw new IllegalArgumentException("{Defining the report style is no longer valid.");
+      }
+      if (arg.equals("--target-manifest") ) {
+        manifestNext = true;
       }
       resolved.add(arg
           .replace("{datasink}", this.datasink.toAbsolutePath().toString())
@@ -147,6 +171,25 @@ public class StepDefs {
     }
   }
 
+  private void createCatalogFile(String catFile, String substitutePath) {
+    // Create catalog file
+    String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!--\n"
+        + "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd\">\n"
+        + "-->\n" + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
+        + "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
+        + substitutePath + "\" />\n"
+        + "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
+        + substitutePath + "\" />\n" + "</catalog>";
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(catFile))) {
+      writer.write(catText);
+      writer.close();
+    } catch (Exception e) {
+      e.printStackTrace();
+      fail("Test Failed Due To Exception: " + e.getMessage());
+    }
+  }
+  
   protected static class ExitException extends SecurityException {
     private static final long serialVersionUID = -1535371619727142623L;
 
