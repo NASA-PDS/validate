@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class StepDefs {
     FileUtils.forceMkdir(this.datasink.toFile()); // Create directory if one does not already exist.
     System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
     this.launcher = new ValidateLauncher();
+    this.datasink.resolve("cucumber.success").toFile().delete();
+    this.datasink.resolve("cucumber.failed").toFile().createNewFile();
   }
 
   /**
@@ -44,6 +47,12 @@ public class StepDefs {
     CrossLabelFileAreaReferenceChecker.reset();
   }
 
+  private String normalize (String s) {
+    return s
+        .replace("{datasink}", this.datasink.toAbsolutePath().toString())
+        .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
+        .replace("%20", " ");
+  }
   private List<String> resolveArgumentStrings(String args) {
     boolean catalogNext = false, manifestNext = false;
     List<String> resolved = new ArrayList<String>(Arrays.asList("--report-file",
@@ -54,18 +63,21 @@ public class StepDefs {
       }
       if (catalogNext) {
         catalogNext = false;
-        this.createCatalogFile(arg
-            .replace("{datasink}", this.datasink.toAbsolutePath().toString())
-            .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
-            .replace("%20", " "),
-            this.datasink.toAbsolutePath().toString());
+        if (!this.createCatalogFile(this.normalize(arg), this.datasink.toAbsolutePath().toString())) {
+          arg = arg.replace("datasrc", "datasink");
+        }
       }
       if (manifestNext) {
-        // read manifest
-        // do datasrc/datasink translations
-        // write to datasink
-        // change arg to new location
-        arg = "{datasink}/target-manifest.xml";
+        manifestNext = false;
+        Path path = Paths.get(this.normalize(arg));
+        try {
+          Files.writeString(this.datasink.resolve(path.getFileName()),
+              this.normalize(Files.readString(path)));
+          arg = this.datasink.resolve(path.getFileName()).toAbsolutePath().toString();
+        } catch (Exception e) {
+          e.printStackTrace();
+          fail("Test Failed Due To Exception: " + e.getMessage());
+        }
       }
       if (arg.equals("-C") || arg.equals("--catalog")) {
         catalogNext = true;
@@ -79,10 +91,7 @@ public class StepDefs {
       if (arg.equals("--target-manifest") ) {
         manifestNext = true;
       }
-      resolved.add(arg
-          .replace("{datasink}", this.datasink.toAbsolutePath().toString())
-          .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
-          .replace("%20", " "));
+      resolved.add(this.normalize(arg));
     }
     return resolved;
   }
@@ -163,6 +172,8 @@ public class StepDefs {
         assertEquals (expected, reported, keyword);
       }
       assertEquals (0, messages.size(), "Did not identify all message types generated.");
+      this.datasink.resolve("cucumber.failed").toFile().delete();
+      this.datasink.resolve("cucumber.success").toFile().createNewFile();
     } catch (ExitException e) {
       assertEquals(0, e.status, "Exit status");
     } catch (Exception e) {
@@ -171,23 +182,38 @@ public class StepDefs {
     }
   }
 
-  private void createCatalogFile(String catFile, String substitutePath) {
-    // Create catalog file
-    String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!--\n"
-        + "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd\">\n"
-        + "-->\n" + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
-        + "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
-        + substitutePath + "\" />\n"
-        + "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
-        + substitutePath + "\" />\n" + "</catalog>";
+  private boolean createCatalogFile(String catFile, String substitutePath) {
+    boolean isNew = true;
+    Path catPath = Paths.get(catFile);
+    
+    if (catPath.toFile().exists()) {
+      try {
+        Files.writeString(this.datasink.resolve(catPath.getFileName()),
+            this.normalize(Files.readString(catPath)));
+        isNew = true;
+      } catch (Exception e) {
+        e.printStackTrace();
+        fail("Test Failed Due To Exception: " + e.getMessage());
+      }
+    } else {
+      // Create catalog file
+      String catText = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + "<!--\n"
+          + "<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD XML Catalogs V1.1//EN\" \"http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd\">\n"
+          + "-->\n" + "<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n"
+          + "    <rewriteURI uriStartString=\"http://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
+          + substitutePath + "\" />\n"
+          + "    <rewriteURI uriStartString=\"https://pds.nasa.gov/pds4\" rewritePrefix=\"file://"
+          + substitutePath + "\" />\n" + "</catalog>";
 
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(catFile))) {
-      writer.write(catText);
-      writer.close();
-    } catch (Exception e) {
-      e.printStackTrace();
-      fail("Test Failed Due To Exception: " + e.getMessage());
+      try (BufferedWriter writer = new BufferedWriter(new FileWriter (catPath.toFile()))) {
+        writer.write(catText);
+        writer.close();
+      } catch (Exception e) {
+        e.printStackTrace();
+        fail("Test Failed Due To Exception: " + e.getMessage());
+      }
     }
+    return isNew;
   }
   
   protected static class ExitException extends SecurityException {

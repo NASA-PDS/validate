@@ -11,16 +11,16 @@
        Note: These will not work when the schemas are released into development area -->
 
   <rewriteSystem systemIdStartString="http://pds.nasa.gov/pds4/"
-    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+    rewritePrefix="file://{datasrc}"/>
 
   <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/"
-    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+    rewritePrefix="file://{datasrc}"/>
 
   <rewriteURI uriStartString="http://pds.nasa.gov/pds4/"
-    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+    rewritePrefix="file://{datasrc}"/>
 
   <rewriteURI uriStartString="https://pds.nasa.gov/pds4/"
-    rewritePrefix="file:///Users/jpadams/Documents/workspace/img-oxy-workspace/schema/"/>
+    rewritePrefix="file://{datasrc}"/>
 
 
   <!-- Everything after this is just around as examples of other ways to configure the catalog.xml -->
