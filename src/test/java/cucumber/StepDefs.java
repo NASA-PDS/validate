@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,8 +33,8 @@ public class StepDefs {
    * @throws java.lang.Exception
    */
   void setUp() throws Exception {
-    FileUtils.forceMkdir(this.datasink.toFile()); // Create directory if one does not already exist.
     System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
+    this.makeSink();
     this.launcher = new ValidateLauncher();
     this.datasink.resolve("cucumber.success").toFile().delete();
     this.datasink.resolve("cucumber.failed").toFile().createNewFile();
@@ -47,16 +48,23 @@ public class StepDefs {
     CrossLabelFileAreaReferenceChecker.reset();
   }
 
+  public void makeSink() throws IOException {
+    FileUtils.forceMkdir(this.datasink.toFile()); // Create directory if one does not already exist.    
+  }
   private String normalize (String s) {
     return s
         .replace("{datasink}", this.datasink.toAbsolutePath().toString())
         .replace("{datasrc}", this.datasrc.toAbsolutePath().toString())
         .replace("%20", " ");
   }
-  private List<String> resolveArgumentStrings(String args) {
+  public List<String> resolveArgumentStrings(String args, boolean noReportInArgs) {
     boolean catalogNext = false, manifestNext = false;
-    List<String> resolved = new ArrayList<String>(Arrays.asList("--report-file",
-        this.datasink.resolve("report.json").toString(), "--report-style", "json"));
+    List<String> resolved = new ArrayList<String>();
+
+    if (noReportInArgs) {
+      resolved.addAll(Arrays.asList("--report-file",
+          this.datasink.resolve("report.json").toString(), "--report-style", "json"));
+    }
     for (String arg : args.split("\\s+")) {
       if (arg.contains("{reportDir}") || arg.contains("{resourceDir}")) {
         throw new IllegalArgumentException("{reportDir} and {resourceDir} are no longer valid.");
@@ -82,11 +90,13 @@ public class StepDefs {
       if (arg.equals("-C") || arg.equals("--catalog")) {
         catalogNext = true;
       }
-      if (arg.equals("-r}") || arg.equals("--report-file")) {
-        throw new IllegalArgumentException("Defining the report file is no longer valid.");
-      }
-      if (arg.equals("-s") || arg.equals("--report-style")) {
-        throw new IllegalArgumentException("{Defining the report style is no longer valid.");
+      if (noReportInArgs) {
+        if (arg.equals("-r}") || arg.equals("--report-file")) {
+          throw new IllegalArgumentException("Defining the report file is no longer valid.");
+        }
+        if (arg.equals("-s") || arg.equals("--report-style")) {
+          throw new IllegalArgumentException("{Defining the report style is no longer valid.");
+        }
       }
       if (arg.equals("--target-manifest") ) {
         manifestNext = true;
@@ -110,9 +120,9 @@ public class StepDefs {
 
   @When("execute validate with {string}")
   public void execute_validate(String args) {
-    List<String> arguments = this.resolveArgumentStrings(args);
     try {
       this.setUp();
+      List<String> arguments = this.resolveArgumentStrings(args, true);
       this.launcher.processMain(arguments.toArray(new String[0]));
       this.tearDown();
     } catch (ExitException e) {
