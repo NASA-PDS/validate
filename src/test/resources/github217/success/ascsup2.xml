@@ -68,7 +68,7 @@
     </Observation_Area>
     <File_Area_Observational>
         <File>
-            <file_name>asc.tab</file_name>
+            <file_name>asc.09.tab</file_name>
             <creation_date_time>2020-01-29T18:55:43Z</creation_date_time>
             <comment>This figure shows the altitude (in degrees) of Uranus and the sun relative to the horizon over the duration of the 
 stellar occultation of star u17b (Hipparcos 80841) Observed by the SAAO 188cm Telescope, 
@@ -85,7 +85,7 @@ times are shown as filled circles, with selected ring features individually labe
     </File_Area_Observational>
     <File_Area_Observational_Supplemental>
         <File>
-            <file_name>asc.tab</file_name>
+            <file_name>asc.10.tab</file_name>
             <creation_date_time>2016-07-13T15:33:44Z</creation_date_time>
             <comment>This file provides some supplemental information regarding input parameters.</comment>
         </File>

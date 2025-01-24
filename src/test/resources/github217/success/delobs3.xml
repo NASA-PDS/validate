@@ -86,7 +86,7 @@
 
     <File_Area_Observational>
         <File>
-            <file_name>del.csv</file_name>
+            <file_name>del.07.csv</file_name>
             <local_identifier>input-stars</local_identifier>
             <creation_date_time>2019-12-21T00:14:00Z</creation_date_time>
             <comment>This file contains star positions for occultation stars used in the
