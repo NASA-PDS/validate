@@ -144,6 +144,31 @@ public class LabelValidator {
    *         responsible for doing the transformations of the schematrons.
    */
   public LabelValidator() throws ParserConfigurationException, TransformerConfigurationException {
+    this.clear();
+  }
+
+  /**
+   * Pass in a list of schemas to validate against.
+   *
+   * @param schemaFiles A list of schema URLs.
+   *
+   */
+  public void setSchema(List<URL> schemaFiles) {
+    this.userSchemaFiles.addAll(schemaFiles);
+    LOG.debug("setSchema:schemaFiles.size(),schemaFiles {},{}", schemaFiles.size(), schemaFiles);
+  }
+
+  /**
+   * Pass in a list of transformed schematrons to validate against.
+   *
+   * @param schematrons A list of transformed schematrons.
+   */
+  public void setSchematrons(List<String> schematrons) {
+    userSchematronTransformers = schematrons;
+    LOG.debug("setSchematrons:schematrons.size(),schematrons {}", schematrons.size());
+  }
+  public void clear() throws ParserConfigurationException, TransformerConfigurationException {
+    this.configurations.clear();
     this.configurations.put(SCHEMA_CHECK, true);
     this.configurations.put(SCHEMATRON_CHECK, true);
     cachedParser = null;
@@ -190,32 +215,6 @@ public class LabelValidator {
 
     documentValidators.add(new DefaultDocumentValidator());
     schematronTransformer = new SchematronTransformer();
-  }
-
-  /**
-   * Pass in a list of schemas to validate against.
-   *
-   * @param schemaFiles A list of schema URLs.
-   *
-   */
-  public void setSchema(List<URL> schemaFiles) {
-    this.userSchemaFiles.addAll(schemaFiles);
-    LOG.debug("setSchema:schemaFiles.size(),schemaFiles {},{}", schemaFiles.size(), schemaFiles);
-  }
-
-  /**
-   * Pass in a list of transformed schematrons to validate against.
-   *
-   * @param schematrons A list of transformed schematrons.
-   */
-  public void setSchematrons(List<String> schematrons) {
-    userSchematronTransformers = schematrons;
-    LOG.debug("setSchematrons:schematrons.size(),schematrons {}", schematrons.size());
-  }
-  public void clear() {
-    this.userSchemaFiles.clear();
-    this.userSchematronFiles.clear();
-    this.userSchematronTransformers.clear();
   }
   /**
    * Pass in a hash map of schematron URLs to its transformed schematron object. This is used when

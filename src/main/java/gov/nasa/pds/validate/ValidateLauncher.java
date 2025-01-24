@@ -60,6 +60,7 @@ import java.util.Scanner;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -291,8 +292,6 @@ public class ValidateLauncher {
     checkInbetweenFields = false;
     pdfErrorDir = "";
     setLabelExtension(Constants.DEFAULT_LABEL_EXTENSION);
-
-    this.flushValidators();
   }
 
   /**
@@ -1783,7 +1782,7 @@ public class ValidateLauncher {
    * validation data between runs, which can cause issues, specifically when using varying
    * dictionaries and catalog files.
    */
-  public void flushValidators() {
+  public void flushValidators() throws ParserConfigurationException, TransformerConfigurationException {
     if (this.factory != null) {
       this.factory.flush();
     }
