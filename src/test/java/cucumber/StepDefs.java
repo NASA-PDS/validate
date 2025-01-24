@@ -63,8 +63,8 @@ public class StepDefs {
       }
       if (catalogNext) {
         catalogNext = false;
-        if (!this.createCatalogFile(this.normalize(arg), this.datasink.toAbsolutePath().toString())) {
-          arg = arg.replace("datasrc", "datasink");
+        if (!this.createCatalogFile(this.normalize(arg), this.datasrc.toAbsolutePath().toString())) {
+          arg = arg.replace("{datasrc}", "{datasink}");
         }
       }
       if (manifestNext) {
