@@ -1,5 +1,5 @@
 Feature: 3.6.x
-  Scenario Outline: NASA-PDS/validate#<issueNumber> <subtest>
+  Scenario Outline: NASA-PDS/validate#<issueNumber>_<subtest>
     Given an <issueNumber>, <subtest>, and <datasrc>
     When execute validate with <args>
     Then compare to the <expectation>.
