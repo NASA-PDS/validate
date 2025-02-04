@@ -2,7 +2,7 @@ Feature: < 3.6
   Scenario Outline: NASA-PDS/validate#<issueNumber>_<subtest>
     Given validate issue <issueNumber>, test <subtest>, and test data at <datasrc>
     When execute validate with <args>
-    Then compare to the <expectation>.
+    Then compare to the expected outcome <expectation>.
     @pre.3.6
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
