@@ -106,12 +106,12 @@ public class StepDefs {
     return resolved;
   }
 
-  @Given("an {int}, , and {string}")
+  @Given("validate issue {int} and test data at {string}")
   public void an_and(Integer issueNumber, String datasrc) {
     an_and(issueNumber, null, datasrc);
   }
 
-  @Given("an {int}, {int}, and {string}")
+  @Given("validate issue {int}, test {int}, and test data at {string}")
   public void an_and(Integer issueNumber, Integer count, String datasrc) {
     this.datasink = Paths.get(TestConstants.TEST_OUT_DIR,
         "issue-" + issueNumber + (count == null ? "" : ("-" + count.toString())));
@@ -133,12 +133,12 @@ public class StepDefs {
     }
   }
 
-  @Then("compare to the .")
+  @Then("compare to the expected outcome .")
   public void compare_to_the() {
     compare_to_the("");
   }
 
-  @Then("compare to the {string}.")
+  @Then("compare to the expected outcome {string}.")
   public void compare_to_the(String expectation) {
     for (String mustExpectation : Arrays.asList(
         "summary:totalErrors",
