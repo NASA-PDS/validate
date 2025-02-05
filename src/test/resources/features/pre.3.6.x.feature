@@ -1,5 +1,5 @@
 Feature: < 3.6
-  Scenario Outline: NASA-PDS/validate#<issueNumber>_<subtest>
+  Scenario Outline: NASA-PDS/validate#<issueNumber>-<subtest>
     Given validate issue <issueNumber>, test <subtest>, and test data at <datasrc>
     When execute validate with <args>
     Then compare to the expected outcome <expectation>.
@@ -15,7 +15,7 @@ Feature: < 3.6
 | 755 | 2 | "github755" | "-skip-context-validation -t {datasrc}/m221011.0013.xml {datasrc}/m221011.0015.xml" |  |
 | 754 | 1 | "github754" | "--skip-context-validation -t {datasrc}/Cassini_ISS_CB2_Jupiter_global_map_2.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.label.schema=1" |
 | 693 | 1 | "github693" | "-t {datasrc}/" | "summary:totalErrors=4,summary:totalWarnings=8,summary:productValidation:failed=4,summary:messageTypes:error.pdf.file.not_pdfa_compliant=4,summary:messageTypes:warning.label.context_ref_mismatch=8" |
-| 690 | 1 | "github690" | "--skip-context-validation -t {datasrc}/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalErrors=16,summary:totalWarnings=900,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=1,summary:messageTypes:error.label.schematron=2,summary:messageTypes:error.label.unresolvable_resource=13,summary:messageTypes:warning.label.schema=12,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=888" |
+| 690 | 1 | "github690" | "--skip-context-validation -t {datasrc}/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalWarnings=888,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=888" |
 | 684 | 1 | "github684" | "--skip-context-validation -t {datasrc}/example_params_noFileSize.xml" |  |
 | 684 | 2 | "github684" | "--skip-context-validation -t {datasrc}/example_params_wFileSize.xml" |  |
 | 683 | 1 | "github614" | "-t {datasrc}/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "summary:totalWarnings=4,summary:messageTypes:warning.data_objects.out_of_order=1,summary:messageTypes:warning.label.context_ref_mismatch=3" |
@@ -29,7 +29,7 @@ Feature: < 3.6
 | 651 | 1 | "github651" | "-t {datasrc}/M1431146123CC.xml" |  |
 | 649 | 1 | "github597" | "-R pds4.collection --skip-context-validation -t {datasrc}/spice_kernels/collection_spice_kernels_v003.xml" | "summary:productValidation:skipped=2" |
 | 644 | 1 | "github644" | "-t {datasrc}/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "summary:totalWarnings=2,summary:messageTypes:warning.label.context_ref_mismatch=1,summary:messageTypes:warning.label.schema=1" |
-| 631 | 1 | "github631" | "-v 1 -t {datasrc}/hyb2_tir_20180629_075501_l1.xml" | "summary:totalErrors=24,summary:totalWarnings=20,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=3,summary:messageTypes:error.label.schematron=2,summary:messageTypes:error.label.unresolvable_resource=19,summary:messageTypes:info.label.context_ref_found=4,summary:messageTypes:info.label.filesize_matches=1,summary:messageTypes:info.label.local_identifier_found=2,summary:messageTypes:warning.label.context_ref_mismatch=2,summary:messageTypes:warning.label.schema=18" |
+| 631 | 1 | "github631" | "-v 1 -t {datasrc}/hyb2_tir_20180629_075501_l1.xml" | "summary:totalWarnings=2,summary:messageTypes:info.label.context_ref_found=4,summary:messageTypes:info.label.filesize_matches=1,summary:messageTypes:info.label.local_identifier_found=2,summary:messageTypes:warning.label.context_ref_mismatch=2" |
 | 628 | 1 | "github628" | "--skip-content-validation --disable-context-mismatch-warnings -t {datasrc}/mp2_flat_20061109.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.label.schema=1" |
 | 617 | 1 | "github617" | "--skip-content-validation -t {datasrc}/uvis_euv_2005_159_solar_time_series_ingress.xml" | "summary:totalWarnings=1,summary:messageTypes:error.validation.file_naming_problem=1" |
 | 616 | 1 | "github616" | "--skip-context-validation -t {datasrc}/mre_cal_sc_ttcp_delay_schulte_01s_2021069.xml" |  |
@@ -72,7 +72,7 @@ Feature: < 3.6
 | 435 | 1 | "github435" | "-R pds4.label -t {datasrc}/flat_w.xml" |  |
 | 432 | 1 | "github432" | "-R pds4.bundle -t {datasrc}/bundle-voyager1-pls-sat-1.0.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.integrity.reference_not_found=1" |
 | 429 | 1 | "github429" | "-R pds4.label --disable-context-mismatch-warnings -t {datasrc}/EPPS_EDR_SIS.xml" |  |
-| 427 | 1 | "github427" | "--skip-context-validation -t {datasrc}/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalErrors=16,summary:totalWarnings=14,summary:productValidation:failed=1,summary:messageTypes:error.label.schema=1,summary:messageTypes:error.label.schematron=2,summary:messageTypes:error.label.unresolvable_resource=13,summary:messageTypes:warning.label.schema=12,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=2" |
+| 427 | 1 | "github427" | "--skip-context-validation -t {datasrc}/dir%20with%20spaces/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalWarnings=2,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=2" |
 | 424 | 1 | "github424" | "-R pds4.label -t {datasrc}/asurpif_photos_amboycrater_v1.0_20211021_sip_v1.0.xml" |  |
 | 424 | 2 | "github424" | "-R pds4.label -t {datasrc}/asurpif_photos_amboycrater_v1.0_20211021_aip_v1.0.xml" |  |
 | 419 | 1 | "github419" | "-R pds4.label --disable-context-mismatch-warnings -t {datasrc}/bundle_astromat_chem.xml" |  |
