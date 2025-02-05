@@ -86,7 +86,7 @@
 
     <File_Area_Observational>
         <File>
-            <file_name>del.csv</file_name>
+            <file_name>del.10.csv</file_name>
             <creation_date_time>2019-12-21T00:14:00Z</creation_date_time>
             <comment>This file contains star positions for occultation stars used in the
                ring orbit model uranus_occultation_ring_fit_rfrench_data_20191221.tab.</comment>
@@ -99,7 +99,7 @@
     </File_Area_Observational>
     <File_Area_Observational_Supplemental>
         <File>
-            <file_name>del.csv</file_name>
+            <file_name>del.11.csv</file_name>
             <creation_date_time>2019-12-21T00:14:00Z</creation_date_time>
             <comment>This file contains star positions for occultation stars used in the
                ring orbit model uranus_occultation_ring_fit_rfrench_data_20191221.tab.</comment>
