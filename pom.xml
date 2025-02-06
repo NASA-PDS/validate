@@ -173,7 +173,7 @@
 	<dependency>
   		<groupId>org.verapdf</groupId>
   		<artifactId>validation-model-jakarta</artifactId>
-  		<version>1.26.2</version>
+  		<version>1.26.5</version>
 	</dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>
