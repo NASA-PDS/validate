@@ -40,7 +40,7 @@
   
   <properties>
     <model-version>1K00</model-version>
-    <pds3-product-tools.version>4.4.1</pds3-product-tools.version>
+    <pds3-product-tools.version>4.4.2</pds3-product-tools.version>
   </properties>
 
   <build>
