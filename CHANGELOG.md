@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-05)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-06)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -11,6 +11,7 @@
 
 **Defects:**
 
+- Validate does not work for multiple executions with LDDs in the same Java run [\#1105](https://github.com/NASA-PDS/validate/issues/1105) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
