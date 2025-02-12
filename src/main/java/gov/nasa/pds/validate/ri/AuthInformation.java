@@ -19,7 +19,7 @@ public class AuthInformation {
     return new AuthInformation(
         cl.getOptionValue("a",""),
         cl.getOptionValue("A",""),
-        cl.getOptionValue("r",""));
+        cl.getOptionValue("r","app://connections/cognito/registry.xml"));
   }
   public synchronized ConnectionFactory getConnectionFactory() throws Exception {
     if (this.factory == null) {
