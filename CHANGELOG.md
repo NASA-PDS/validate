@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-18)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -11,6 +11,7 @@
 
 **Defects:**
 
+- Inappropriately applies valid values to Encoded\_Byte\_Stream.encoding\_standard\_id [\#1129](https://github.com/NASA-PDS/validate/issues/1129) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not work for multiple executions with LDDs in the same Java run [\#1105](https://github.com/NASA-PDS/validate/issues/1105) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
@@ -18,6 +19,7 @@
 
 **Other closed issues:**
 
+- Find a way not to have a configuration or hard-code the list of indexes in validate or harvest, so to check products across nodes [\#1116](https://github.com/NASA-PDS/validate/issues/1116)
 - Quiet `Selected XML parser...` output that goes to stdout [\#1103](https://github.com/NASA-PDS/validate/issues/1103)
 - Switchover to using registry-common library to communicate with OpenSearch Serverless Registry [\#895](https://github.com/NASA-PDS/validate/issues/895)
 
