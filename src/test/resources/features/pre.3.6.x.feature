@@ -15,7 +15,7 @@ Feature: < 3.6
 | 755 | 2 | "github755" | "-skip-context-validation -t {datasrc}/m221011.0013.xml {datasrc}/m221011.0015.xml" |  |
 | 754 | 1 | "github754" | "--skip-context-validation -t {datasrc}/Cassini_ISS_CB2_Jupiter_global_map_2.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.label.schema=1" |
 | 693 | 1 | "github693" | "-t {datasrc}/" | "summary:totalErrors=4,summary:totalWarnings=8,summary:productValidation:failed=4,summary:messageTypes:error.pdf.file.not_pdfa_compliant=4,summary:messageTypes:warning.label.context_ref_mismatch=8" |
-| 690 | 1 | "github690" | "--skip-context-validation -t {datasrc}/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalWarnings=888,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=888" |
+| 690 | 1 | "github690" | "-C {datasrc}/catalog.xml --skip-context-validation -t {datasrc}/rs_20160518_014000_udsc64_l3_e_v10.xml" | "summary:totalWarnings=888,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=888" |
 | 684 | 1 | "github684" | "--skip-context-validation -t {datasrc}/example_params_noFileSize.xml" |  |
 | 684 | 2 | "github684" | "--skip-context-validation -t {datasrc}/example_params_wFileSize.xml" |  |
 | 683 | 1 | "github614" | "-t {datasrc}/ss__0505_0711794861_465rmo__0261222srlc10000w0__cgnj02.xml" | "summary:totalWarnings=4,summary:messageTypes:warning.data_objects.out_of_order=1,summary:messageTypes:warning.label.context_ref_mismatch=3" |
