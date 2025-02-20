@@ -36,6 +36,8 @@ public class CommandLineInterface {
         .hasArg(true).longOpt("auth-opensearch").numberOfArgs(1).optionalArg(true).build());
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
+    this.opts.addOption(Option.builder("o").desc("override the index in the connection file with this value (set to '' for no override) [registry]")
+        .hasArg(true).longOpt("override-index-name").optionalArg(true).build());
     this.opts.addOption(Option.builder("r").argName("registry-connection").desc(
         "URL point to the registry connection information usually of the form app://connection/direct/localhost.xml")
         .hasArg(true).longOpt("registry-connection").numberOfArgs(1).optionalArg(true).build());
