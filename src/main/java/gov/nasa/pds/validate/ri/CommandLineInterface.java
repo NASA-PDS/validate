@@ -37,10 +37,10 @@ public class CommandLineInterface {
     this.opts.addOption(Option.builder("h").desc("show this text and exit").hasArg(false)
         .longOpt("help").optionalArg(true).build());
     this.opts.addOption(Option.builder("o").desc("override the index in the connection file with this value (set to '' for no override) [registry]")
-        .hasArg(true).longOpt("override-index-name").optionalArg(true).build());
+        .hasArg(true).longOpt("override-index-name").optionalArg(true).numberOfArgs(1).build());
     this.opts.addOption(Option.builder("r").argName("registry-connection").desc(
         "URL point to the registry connection information usually of the form app://connection/direct/localhost.xml")
-        .hasArg(true).longOpt("registry-connection").numberOfArgs(1).optionalArg(true).build());
+        .hasArg(true).longOpt("registry-connection").numberOfArgs(1).optionalArg(false).build());
     this.opts.addOption(Option.builder("t").argName("count").desc(
         "process the lidvids in parallel (multiple threads) with this argument being the maximum number of threads")
         .hasArg(true).longOpt("threads").optionalArg(true).build());
@@ -63,8 +63,7 @@ public class CommandLineInterface {
         "\nAn auth-file is a text file of the Java property format " +
         "with two variables, 'user' and 'password' for example: \n" +
         "      user=janedoe\n" +
-        "      password=mypassword\n\n" +
-        "Both -a and -r are required.\n\n",
+        "      password=mypassword\n\n",
         true);
   }
 
@@ -91,13 +90,6 @@ public class CommandLineInterface {
 
     if (cl.hasOption("A")) {
       throw new ParseException("Not yet implemented. Must provide OpenSearch Registry authorization information through -a and -r.");
-    } else {
-      boolean both = cl.hasOption("a") && cl.hasOption("r");
-      if (!both) {
-        throw new ParseException("Both -a and -r must be given.");
-      } else {
-        log.warn("Using Registry OpenSearch Database to check references.");
-      }
     }
     if (cl.getArgList().size() < 1)
       throw new ParseException("Must provide at least one LIDVID, Label file path, or manifest file path as a starting point.");
