@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-18)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-20)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -8,6 +8,8 @@
 
 - Reformat cucumber feature files to be more succinct [\#1102](https://github.com/NASA-PDS/validate/issues/1102)
 - Improve error handling for Registry connection issues [\#1085](https://github.com/NASA-PDS/validate/issues/1085)
+- move test data to git large file storage repo [\#659](https://github.com/NASA-PDS/validate/issues/659)
+- Reintegrate cucumber test for ticket \#599 [\#633](https://github.com/NASA-PDS/validate/issues/633)
 
 **Defects:**
 
