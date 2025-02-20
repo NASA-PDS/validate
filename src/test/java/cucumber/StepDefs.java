@@ -200,7 +200,7 @@ public class StepDefs {
       try {
         Files.writeString(this.datasink.resolve(catPath.getFileName()),
             this.normalize(Files.readString(catPath)));
-        isNew = true;
+        isNew = false;
       } catch (Exception e) {
         e.printStackTrace();
         fail("Test Failed Due To Exception: " + e.getMessage());
