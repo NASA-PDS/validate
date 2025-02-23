@@ -1331,6 +1331,78 @@
           },
           {
                "name": [
+                    "CLPS Task Order 2IM Stereo Cameras for Lunar Plume-Surface Studies (SCALPSS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.scalpss::1.1"
+          },
+          {
+               "name": [
+                    "APOLLO 17 SUBSATELLITE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.0"
+          },
+          {
+               "name": [
+                    "APOLLO 17 SUBSATELLITE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.1"
+          },
+          {
+               "name": [
+                    "Apollo 17 Particles and Fields Subsatellite"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.2"
+          },
+          {
+               "name": [
+                    "SATURN RING PLANE CROSSING 1995"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.0"
+          },
+          {
+               "name": [
+                    "SATURN RING PLANE CROSSING 1995"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.1"
+          },
+          {
+               "name": [
+                    "SATURN SMALL SATELLITE ASTROMETRY"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_small_satellite_astrometry::1.0"
+          },
+          {
+               "name": [
+                    "SATURN SMALL SATELLITE ASTROMETRY"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_small_satellite_astrometry::1.1"
+          },
+          {
+               "name": [
                     "Advanced Photon Source"
                ],
                "type": [
@@ -2993,6 +3065,15 @@
                     "Observatory"
                ],
                "lidvid": "urn:nasa:pds:context:facility:observatory.valle_d'aosta::1.1"
+          },
+          {
+               "name": [
+                    "The Mineral Spectroscopy Laboratory at Mount Holyoke College"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.mhc::1.0"
           },
           {
                "name": [
@@ -10467,6 +10548,69 @@
           },
           {
                "name": [
+                    "ChemLIBS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mhc.chemlibs::1.0"
+          },
+          {
+               "name": [
+                    "pLIBS Z-300"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mhc.plibs_z300::1.0"
+          },
+          {
+               "name": [
+                    "pLIBS Z-903"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mhc.plibs_z903::1.0"
+          },
+          {
+               "name": [
+                    "SuperLIBS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:mhc.superlibs::1.0"
+          },
+          {
+               "name": [
+                    "Curiosity"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:rover.msl::1.0"
+          },
+          {
+               "name": [
+                    "VENERA 13 ENERGETIC PARTICLES, MSU-TASPD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v13.ep::1.0"
+          },
+          {
+               "name": [
+                    "VENERA 9 ENERGETIC PARTICLES, MSU-TASPD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v9.ep::1.0"
+          },
+          {
+               "name": [
                     "GRAVITY SCIENCE INSTRUMENT"
                ],
                "type": [
@@ -16452,7 +16596,7 @@
           },
           {
                "name": [
-                    "THERMAL EMISSION IMAGING SYSTEM"
+                    "THEMIS"
                ],
                "type": [
                     "N/A"
@@ -17137,21 +17281,12 @@
           },
           {
                "name": [
-                    "CLPS Task Order 2AB PROSPECT Ion-Trap Mass Spectrometer (PITMS) for Lunar Surface Volatiles"
+                    "CLPS Task Order 2AB Peregrine Ion Trap Mass Spectrometer (PITMS)"
                ],
                "type": [
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:clps_to_2ab_pll.pitms::1.1"
-          },
-          {
-               "name": [
-                    "CLPS Task Order 2IM Stereo Cameras for Lunar Plume-Surface Studies (SCALPSS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.scalpss::1.1"
           },
           {
                "name": [
@@ -17881,24 +18016,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17l::1.1"
-          },
-          {
-               "name": [
-                    "APOLLO 17 SUBSATELLITE"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.0"
-          },
-          {
-               "name": [
-                    "APOLLO 17 SUBSATELLITE"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.1"
           },
           {
                "name": [
@@ -19081,12 +19198,12 @@
           },
           {
                "name": [
-                    "MASCOT"
+                    "The Apollo 11 Early Apollo Scientific Experiment Package"
                ],
                "type": [
-                    "Lander"
+                    "Spacecraft"
                ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.2"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a11e::1.1"
           },
           {
                "name": [
@@ -19117,16 +19234,7 @@
           },
           {
                "name": [
-                    "Apollo 11 Early Apollo Scientific Experiment Package"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a11e::1.1"
-          },
-          {
-               "name": [
-                    "Apollo 12 Lunar Surface Experiments Package"
+                    "The Apollo 12 Lunar Surface Experiments Package"
                ],
                "type": [
                     "Spacecraft"
@@ -19135,7 +19243,7 @@
           },
           {
                "name": [
-                    "Apollo 12 Command and Service Module"
+                    "The Apollo 12 Command and Service Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19144,7 +19252,7 @@
           },
           {
                "name": [
-                    "Apollo 12 Lunar Module"
+                    "The Apollo 12 Lunar Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19153,7 +19261,7 @@
           },
           {
                "name": [
-                    "Apollo 14 Lunar Surface Experiments Package"
+                    "The Apollo 14 Lunar Surface Experiments Package"
                ],
                "type": [
                     "Spacecraft"
@@ -19162,7 +19270,7 @@
           },
           {
                "name": [
-                    "Apollo 14 Command and Service Module"
+                    "The Apollo 14 Command and Service Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19171,7 +19279,7 @@
           },
           {
                "name": [
-                    "Apollo 14 Lunar Module"
+                    "The Apollo 14 Lunar Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19180,7 +19288,7 @@
           },
           {
                "name": [
-                    "Apollo 15 Lunar Surface Experiments Package"
+                    "The Apollo 15 Lunar Surface Experiments Package"
                ],
                "type": [
                     "Spacecraft"
@@ -19189,7 +19297,7 @@
           },
           {
                "name": [
-                    "Apollo 15 Command and Service Module"
+                    "The Apollo 15 Command and Service Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19198,7 +19306,7 @@
           },
           {
                "name": [
-                    "Apollo 15 Lunar Module"
+                    "The Apollo 15 Lunar Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19207,7 +19315,7 @@
           },
           {
                "name": [
-                    "Apollo 15 Particles and Fields Subsatellite"
+                    "The Apollo 15 Particles and Fields Subsatellite"
                ],
                "type": [
                     "Spacecraft"
@@ -19216,7 +19324,7 @@
           },
           {
                "name": [
-                    "Apollo 16 Lunar Surface Experiments Package"
+                    "The Apollo 16 Lunar Surface Experiments Package"
                ],
                "type": [
                     "Spacecraft"
@@ -19225,7 +19333,7 @@
           },
           {
                "name": [
-                    "Apollo 16 Command and Service Module"
+                    "The Apollo 16 Command and Service Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19234,7 +19342,7 @@
           },
           {
                "name": [
-                    "Apollo 16 Lunar Module"
+                    "The Apollo 16 Lunar Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19243,7 +19351,7 @@
           },
           {
                "name": [
-                    "Apollo 16 Particles and Fields Subsatellite"
+                    "The Apollo 16 Particles and Fields Subsatellite"
                ],
                "type": [
                     "Spacecraft"
@@ -19261,7 +19369,7 @@
           },
           {
                "name": [
-                    "Apollo 17 Command and Service Module"
+                    "The Apollo 17 Command and Service Module"
                ],
                "type": [
                     "Spacecraft"
@@ -19276,15 +19384,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17l::1.2"
-          },
-          {
-               "name": [
-                    "Apollo 17 Particles and Fields Subsatellite"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.2"
           },
           {
                "name": [
@@ -19315,7 +19414,7 @@
           },
           {
                "name": [
-                    "CLPS Task Order 2 AB Peregrine Lunar Lander"
+                    "The CLPS Task Order 2-AB Peregrine Lunar Lander"
                ],
                "type": [
                     "Lander"
@@ -19324,7 +19423,16 @@
           },
           {
                "name": [
-                    "COMET NUCLEUS TOUR"
+                    "CLPS Task Order 2IM Nova-C Lunar Lander"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clps_to_2im_ncll::1.1"
+          },
+          {
+               "name": [
+                    "The Comet Nucleus Tour (CONTour) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19342,7 +19450,7 @@
           },
           {
                "name": [
-                    "DAWN"
+                    "The Dawn Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19351,7 +19459,7 @@
           },
           {
                "name": [
-                    "DCAM3 (Deployable Camera 3)"
+                    "Deployable Camera for Hayabusa2"
                ],
                "type": [
                     "Spacecraft"
@@ -19360,7 +19468,7 @@
           },
           {
                "name": [
-                    "DEEP IMPACT FLYBY SPACECRAFT"
+                    "The Deep Impact Flyby (DIF) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19369,7 +19477,7 @@
           },
           {
                "name": [
-                    "DEEP IMPACT IMPACTOR SPACECRAFT"
+                    "The Deep Impact Impactor (DII) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19378,7 +19486,7 @@
           },
           {
                "name": [
-                    "DEEP SPACE 1"
+                    "The Deep Space 1 (DS1) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19387,7 +19495,7 @@
           },
           {
                "name": [
-                    "GIOTTO"
+                    "The Giotto Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19414,7 +19522,7 @@
           },
           {
                "name": [
-                    "Gravity Recovery and Interior Laboratory A"
+                    "The Gravity Recovery and Interior Laboratory A Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19423,7 +19531,7 @@
           },
           {
                "name": [
-                    "Gravity Recovery and Interior Laboratory B"
+                    "The Gravity Recovery and Interior Laboratory B Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19432,7 +19540,7 @@
           },
           {
                "name": [
-                    "Hayabusa"
+                    "The Hayabusa Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19441,7 +19549,7 @@
           },
           {
                "name": [
-                    "HUYGENS PROBE"
+                    "Huygens Probe"
                ],
                "type": [
                     "Spacecraft"
@@ -19459,7 +19567,7 @@
           },
           {
                "name": [
-                    "Hayabusa2"
+                    "The Hayabusa2 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19468,7 +19576,7 @@
           },
           {
                "name": [
-                    "ICE"
+                    "The International Cometary Explorer (ICE) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19477,7 +19585,7 @@
           },
           {
                "name": [
-                    "InSight"
+                    "The InSight Mars Lander"
                ],
                "type": [
                     "Lander"
@@ -19486,7 +19594,7 @@
           },
           {
                "name": [
-                    "IRAS"
+                    "The Infrared Astronomical Satellite (IRAS) Space Telescope"
                ],
                "type": [
                     "Spacecraft"
@@ -19495,7 +19603,7 @@
           },
           {
                "name": [
-                    "INTERNATIONAL ULTRAVIOLET EXPLORER"
+                    "The International Ultraviolet Explorer (IUE) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19513,7 +19621,7 @@
           },
           {
                "name": [
-                    "Kaguya"
+                    "Kaguya Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19522,7 +19630,7 @@
           },
           {
                "name": [
-                    "Korea Pathfinder Lunar Orbiter (Danuri)"
+                    "Korea Aerospace Research Institute KPLO Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19531,7 +19639,7 @@
           },
           {
                "name": [
-                    "LADEE"
+                    "Lunar Atmosphere and Dust Environment Explorer (LADEE)"
                ],
                "type": [
                     "Spacecraft"
@@ -19540,7 +19648,7 @@
           },
           {
                "name": [
-                    "Lunar Crater Observation and Sensing Satellite"
+                    "The Lunar Crater Observation and Sensing Satellite"
                ],
                "type": [
                     "Spacecraft"
@@ -19549,7 +19657,7 @@
           },
           {
                "name": [
-                    "Light Italian CubeSat for Imaging of Asteroids (LICIACube) Spacecraft"
+                    "The Light Italian CubeSat for Imaging of Asteroids (LICIACube) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19558,7 +19666,7 @@
           },
           {
                "name": [
-                    "Lunar Prospector"
+                    "The Lunar Prospector Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19567,7 +19675,7 @@
           },
           {
                "name": [
-                    "Lunar Reconnaissance Orbiter"
+                    "The Lunar Reconnaissance Orbiter"
                ],
                "type": [
                     "Spacecraft"
@@ -19576,7 +19684,7 @@
           },
           {
                "name": [
-                    "Lunar Trailblazer Orbiter"
+                    "The Lunar Trailblazer Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19585,7 +19693,7 @@
           },
           {
                "name": [
-                    "Lucy"
+                    "The Lucy Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19603,7 +19711,7 @@
           },
           {
                "name": [
-                    "Perseverance"
+                    "The Mars 2020 Perseverance Rover"
                ],
                "type": [
                     "Rover"
@@ -19612,7 +19720,7 @@
           },
           {
                "name": [
-                    "Mars Atmosphere and Volatile Evolution (MAVEN)"
+                    "Mars Atmosphere and Volatile EvolutioN"
                ],
                "type": [
                     "Spacecraft"
@@ -19621,7 +19729,7 @@
           },
           {
                "name": [
-                    "Mars Exploration Rover 1"
+                    "The Mars Exploration Rover Opportunity"
                ],
                "type": [
                     "Spacecraft"
@@ -19630,7 +19738,7 @@
           },
           {
                "name": [
-                    "Mars Exploration Rover 2"
+                    "The Mars Exploration Rover Spirit"
                ],
                "type": [
                     "Spacecraft"
@@ -19648,7 +19756,7 @@
           },
           {
                "name": [
-                    "Mars Express"
+                    "The Mars Express Orbiter"
                ],
                "type": [
                     "Spacecraft"
@@ -19657,7 +19765,7 @@
           },
           {
                "name": [
-                    "Magellan"
+                    "The Magellan Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19666,7 +19774,7 @@
           },
           {
                "name": [
-                    "Mars Global Surveyor"
+                    "The Mars Global Surveyor Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19702,7 +19810,7 @@
           },
           {
                "name": [
-                    "Mariner 6"
+                    "The Mariner 6 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19711,7 +19819,7 @@
           },
           {
                "name": [
-                    "MARINER 7"
+                    "The Mariner 7 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19720,7 +19828,7 @@
           },
           {
                "name": [
-                    "Mariner 9"
+                    "The Mariner 9 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19729,7 +19837,7 @@
           },
           {
                "name": [
-                    "Mars Reconnaissance Orbiter"
+                    "The Mars Reconnaissance Orbiter"
                ],
                "type": [
                     "Spacecraft"
@@ -19738,7 +19846,7 @@
           },
           {
                "name": [
-                    "Mars Science Laboratory"
+                    "The Mars Science Laboratory Curiosity Rover"
                ],
                "type": [
                     "Spacecraft"
@@ -19747,7 +19855,7 @@
           },
           {
                "name": [
-                    "MIDCOURSE SPACE EXPERIMENT"
+                    "The Midcourse Space Experiment (MSX) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19756,7 +19864,7 @@
           },
           {
                "name": [
-                    "NEAR EARTH ASTEROID RENDEZVOUS"
+                    "The Near-Earth Asteroid Rendezvous (NEAR) Shoemaker Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19765,7 +19873,7 @@
           },
           {
                "name": [
-                    "neas"
+                    "Near Earth Asteroid Scout (NEA Scout) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19774,7 +19882,7 @@
           },
           {
                "name": [
-                    "NEW HORIZONS"
+                    "The New Horizons (NH) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19783,7 +19891,7 @@
           },
           {
                "name": [
-                    "2001 Mars Odyssey"
+                    "The 2001 Mars Odyssey Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19792,7 +19900,7 @@
           },
           {
                "name": [
-                    "OSIRIS-REx"
+                    "The Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx) Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19819,6 +19927,15 @@
           },
           {
                "name": [
+                    "The Mobile Asteroid surface SCOuT (MASCOT) Lander"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.2"
+          },
+          {
+               "name": [
                     "Pioneer 8"
                ],
                "type": [
@@ -19837,7 +19954,7 @@
           },
           {
                "name": [
-                    "PHOBOS 2"
+                    "The Phobos 2 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19846,7 +19963,7 @@
           },
           {
                "name": [
-                    "Phoenix"
+                    "The Phoenix Lander"
                ],
                "type": [
                     "Spacecraft"
@@ -19855,7 +19972,7 @@
           },
           {
                "name": [
-                    "Psyche"
+                    "The Psyche Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19873,7 +19990,7 @@
           },
           {
                "name": [
-                    "PIONEER VENUS MULTIPROBE"
+                    "PIONEER VENUS LARGE PROBE"
                ],
                "type": [
                     "Spacecraft"
@@ -19918,7 +20035,7 @@
           },
           {
                "name": [
-                    "ROSETTA-LANDER"
+                    "The Rosetta Philae Lander"
                ],
                "type": [
                     "Spacecraft"
@@ -19927,7 +20044,7 @@
           },
           {
                "name": [
-                    "ROSETTA-ORBITER"
+                    "The Rosetta Orbiter Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19936,7 +20053,7 @@
           },
           {
                "name": [
-                    "SAKIGAKE"
+                    "The Sakigake Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -19945,111 +20062,12 @@
           },
           {
                "name": [
-                    "STARDUST"
+                    "The Stardust Spacecraft"
                ],
                "type": [
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.sdu::1.3"
-          },
-          {
-               "name": [
-                    "CLPS Task Order 2IM Nova-C Lunar Lander"
-               ],
-               "type": [
-                    "Lander"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clps_to_2im_ncll::1.1"
-          },
-          {
-               "name": [
-                    "Cassini Orbiter"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.co::1.4"
-          },
-          {
-               "name": [
-                    "SOLAR AND HELIOSPHERIC OBSERVATORY"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.soho::1.2"
-          },
-          {
-               "name": [
-                    "Spitzer Space Telescope"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.spitzer::1.1"
-          },
-          {
-               "name": [
-                    "SUISEI"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.suisei::1.3"
-          },
-          {
-               "name": [
-                    "ULYSSES"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.uly::1.2"
-          },
-          {
-               "name": [
-                    "VENERA 15"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v15::1.2"
-          },
-          {
-               "name": [
-                    "VENERA 16"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v16::1.2"
-          },
-          {
-               "name": [
-                    "Venus Climate Orbiter Akatsuki"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.vco::1.1"
-          },
-          {
-               "name": [
-                    "VEGA 1"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.3"
-          },
-          {
-               "name": [
-                    "VEGA 2"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.3"
           },
           {
                "name": [
@@ -20080,7 +20098,97 @@
           },
           {
                "name": [
-                    "Viking Lander 1"
+                    "Cassini Orbiter"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.co::1.4"
+          },
+          {
+               "name": [
+                    "The Solar and Heliospheric Observatory (SOHO) Space Telescope"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.soho::1.2"
+          },
+          {
+               "name": [
+                    "Spitzer Space Telescope"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.spitzer::1.1"
+          },
+          {
+               "name": [
+                    "The Suisei Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.suisei::1.3"
+          },
+          {
+               "name": [
+                    "The Ulysses Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.uly::1.2"
+          },
+          {
+               "name": [
+                    "VENERA 15"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v15::1.2"
+          },
+          {
+               "name": [
+                    "VENERA 16"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v16::1.2"
+          },
+          {
+               "name": [
+                    "Venus Climate Orbiter Akatsuki Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.vco::1.1"
+          },
+          {
+               "name": [
+                    "The Vega 1 Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.3"
+          },
+          {
+               "name": [
+                    "The Vega 2 Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.3"
+          },
+          {
+               "name": [
+                    "The Viking Lander 1 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -20089,7 +20197,7 @@
           },
           {
                "name": [
-                    "Viking Lander 2"
+                    "The Viking Lander 2 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -20098,7 +20206,7 @@
           },
           {
                "name": [
-                    "Viking Orbiter 1"
+                    "The Viking Orbiter 1 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -20107,7 +20215,7 @@
           },
           {
                "name": [
-                    "Viking Orbiter 2"
+                    "The Viking Orbiter 2 Spacecraft"
                ],
                "type": [
                     "Spacecraft"
@@ -20116,7 +20224,7 @@
           },
           {
                "name": [
-                    "Wide-Field Infrared Survey Explorer"
+                    "The Wide-Field Infrared Survey Explorer (WISE) Space Telescope"
                ],
                "type": [
                     "Spacecraft"
@@ -22249,42 +22357,6 @@
           },
           {
                "name": [
-                    "SATURN RING PLANE CROSSING 1995"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.0"
-          },
-          {
-               "name": [
-                    "SATURN RING PLANE CROSSING 1995"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_ring_plane_crossing_1995::1.1"
-          },
-          {
-               "name": [
-                    "SATURN SMALL SATELLITE ASTROMETRY"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_small_satellite_astrometry::1.0"
-          },
-          {
-               "name": [
-                    "SATURN SMALL SATELLITE ASTROMETRY"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.saturn_small_satellite_astrometry::1.1"
-          },
-          {
-               "name": [
                     "SOLAR AND HELIOSPHERIC OBSERVATORY"
                ],
                "type": [
@@ -23392,6 +23464,15 @@
           },
           {
                "name": [
+                    "Saturn Ring Plane Crossing (1995)"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_ring_plane_crossing_1995::1.2"
+          },
+          {
+               "name": [
                     "Viking Project"
                ],
                "type": [
@@ -23407,6 +23488,15 @@
                     "Other Investigation"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:other_investigation.wt_threshold::1.1"
+          },
+          {
+               "name": [
+                    "Saturn Small Satellite Astrometry"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_small_satellite_astrometry::1.2"
           },
           {
                "name": [
@@ -23542,33 +23632,6 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:mission.sakigake::1.2"
-          },
-          {
-               "name": [
-                    "Saturn Occultation of 28 Sagittarius (1989)"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_occultation_of_28_sagittarius_1989::1.1"
-          },
-          {
-               "name": [
-                    "Saturn Ring Plane Crossing (1995)"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_ring_plane_crossing_1995::1.2"
-          },
-          {
-               "name": [
-                    "Saturn Small Satellite Astrometry"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_small_satellite_astrometry::1.2"
           },
           {
                "name": [
@@ -23734,6 +23797,24 @@
           },
           {
                "name": [
+                    "Saturn Occultation of 28 Sagittarius (1989)"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_occultation_of_28_sagittarius_1989::1.1"
+          },
+          {
+               "name": [
+                    "Acquisition of a Multi-Parameter LIBS Reference Database of Geological Materials"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.libs_reference_database::1.0"
+          },
+          {
+               "name": [
                     "CLPS Task Order 2IM"
                ],
                "type": [
@@ -23749,6 +23830,24 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.saturn_occultation_of_28_sagittarius_1989::1.0"
+          },
+          {
+               "name": [
+                    "VENERA 13"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_13::1.0"
+          },
+          {
+               "name": [
+                    "VENERA 9"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_9::1.0"
           },
           {
                "name": [
@@ -40267,6 +40366,51 @@
                     "Star"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.rs_cnc::1.0"
+          },
+          {
+               "name": [
+                    "Gravitational Waves"
+               ],
+               "type": [
+                    "Astrophysical"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:astrophysical.gravitational_waves::1.1"
+          },
+          {
+               "name": [
+                    "Zeta Pegasi"
+               ],
+               "type": [
+                    "Star"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.42_peg::1.0"
+          },
+          {
+               "name": [
+                    "51 Pegasi"
+               ],
+               "type": [
+                    "Star"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.51_peg::1.0"
+          },
+          {
+               "name": [
+                    "Epsilon Geminorum"
+               ],
+               "type": [
+                    "Star"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.eps_gem::1.0"
+          },
+          {
+               "name": [
+                    "Epsilon Geminorum"
+               ],
+               "type": [
+                    "Star"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.hd_44594::1.0"
           },
           {
                "name": [
