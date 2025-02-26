@@ -1,0 +1,1260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- PDS4 XML/Schema for Name Space Id:vco  Version:1.0.0.0 - Mon Mar 04 15:40:19 JST 2024 -->
+  <!-- Generated from the PDS4 Information Model Version 1.19.0.0 - System Build 13.0 -->
+  <!-- *** This PDS4 product schema is an operational deliverable. *** -->
+  <!--                                                                           -->
+  <!--               Dictionary Stack                                            -->
+  <!-- 1.19.0.0 - pds: - Common Dictionary                                       -->
+  <!-- 1.0.0.0 - vco: - Venus Climate Orbiter Akatsuki Local Data Dictionary     -->
+  <!--                                                                           -->
+  <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://darts.isas.jaxa.jp/pds4/mission/vco/v1"
+    xmlns:vco="http://darts.isas.jaxa.jp/pds4/mission/vco/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.0.0.0">
+ 
+    <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd"/>
+ 
+  <xs:annotation>
+    <xs:documentation>
+
+        This dictionary contains classes and attributes used in the Venus Climate Orbiter Akatsuki mission products.
+        
+        ## Change Log ##
+        1.0.0.0
+    
+    </xs:documentation>
+  </xs:annotation>
+ 
+  <xs:element name="IR1_Instrument_Attributes" type="vco:IR1_Instrument_Attributes"> </xs:element>
+  <xs:element name="IR2_Instrument_Attributes" type="vco:IR2_Instrument_Attributes"> </xs:element>
+  <xs:element name="LIR_Instrument_Attributes" type="vco:LIR_Instrument_Attributes"> </xs:element>
+  <xs:element name="Observation_Information" type="vco:Observation_Information"> </xs:element>
+  <xs:element name="RS_Experiment_Attributes" type="vco:RS_Experiment_Attributes"> </xs:element>
+  <xs:element name="UVI_Instrument_Attributes" type="vco:UVI_Instrument_Attributes"> </xs:element>
+
+  <xs:complexType name="IR1_Instrument_Attributes">
+    <xs:annotation>
+      <xs:documentation>This class contains IR1 instrument-specific
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ir1_thermoelectric_cooler_power_status" type="vco:ir1_thermoelectric_cooler_power_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_thermoelectric_cooler_heater_status" type="vco:ir1_thermoelectric_cooler_heater_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_calibration_lamp_permission" type="vco:ir1_calibration_lamp_permission" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_calibration_lamp_status" type="vco:ir1_calibration_lamp_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_calibration_lamp_brightness" type="vco:ir1_calibration_lamp_brightness" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_led_power_status" type="vco:ir1_led_power_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_photodiode1_status" type="vco:ir1_photodiode1_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_photodiode2_status" type="vco:ir1_photodiode2_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_filter_wheel_rotation_status" type="vco:ir1_filter_wheel_rotation_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_thermoelectric_cooler_set_value" type="vco:ir1_thermoelectric_cooler_set_value" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir_clock_pattern_version" type="vco:ir_clock_pattern_version" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="IR1_Interquadrant_Sensitivity_Correction_Status" type="vco:IR1_Interquadrant_Sensitivity_Correction_Status" minOccurs="0" maxOccurs="4"> </xs:element>
+      <xs:element name="IR1_Interquadrant_Sensitivity_Correction" type="vco:IR1_Interquadrant_Sensitivity_Correction" minOccurs="0" maxOccurs="4"> </xs:element>
+      <xs:element name="IR1_Smear_Corrections" type="vco:IR1_Smear_Corrections" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:ir1_thermoelectric_cooler_power_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir1_thermoelectric_cooler_heater_status = ('Cooling', 'Heating')"/> -->
+    <!-- <xs:assert test="vco:ir1_calibration_lamp_permission = ('Disabled', 'Enabled')"/> -->
+    <!-- <xs:assert test="vco:ir1_calibration_lamp_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir1_calibration_lamp_brightness = ('Bright', 'Dark')"/> -->
+    <!-- <xs:assert test="vco:ir1_led_power_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir1_photodiode1_status = ('Ack', 'No Ack')"/> -->
+    <!-- <xs:assert test="vco:ir1_photodiode2_status = ('Ack', 'No Ack')"/> -->
+    <!-- <xs:assert test="vco:ir1_filter_wheel_rotation_status = ('Not Rotating', 'Rotating')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR1_Interquadrant_Sensitivity_Correction">
+    <xs:annotation>
+      <xs:documentation>This class contains IR1 inter-quadrant
+        sensitivity correction status.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="quadrant" type="vco:quadrant" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_sensitivity_correction_factor" type="vco:ir1_sensitivity_correction_factor" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:quadrant = ('Bottom Left', 'Bottom Right', 'Top Left', 'Top Right')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR1_Interquadrant_Sensitivity_Correction_Status">
+    <xs:annotation>
+      <xs:documentation>This class contains IR1 inter-quadrant
+        sensitivity correction status.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="quadrant" type="vco:quadrant" minOccurs="2" maxOccurs="2"> </xs:element>
+      <xs:element name="interquadrant_sensitivity_correction_status" type="vco:interquadrant_sensitivity_correction_status" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:quadrant = ('Bottom Left', 'Bottom Right', 'Top Left', 'Top Right')"/> -->
+    <!-- <xs:assert test="vco:interquadrant_sensitivity_correction_status = ('Applied', 'Not Applied')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR1_Smear_Correction_Quadrant">
+    <xs:annotation>
+      <xs:documentation>This class contains IR1 smear correction factor
+        value for a quadrant.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="quadrant" type="vco:quadrant" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir1_smear_correction_factor" type="vco:ir1_smear_correction_factor" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:quadrant = ('Bottom Left', 'Bottom Right', 'Top Left', 'Top Right')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR1_Smear_Corrections">
+    <xs:annotation>
+      <xs:documentation>This class is a container class for IR1 smear
+        correction factor values.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ir1_smear_correction_factor_version" type="vco:ir1_smear_correction_factor_version" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="IR1_Smear_Correction_Quadrant" type="vco:IR1_Smear_Correction_Quadrant" minOccurs="4" maxOccurs="4"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IR2_Instrument_Attributes">
+    <xs:annotation>
+      <xs:documentation>This class contains IR2 instrument-specific
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ir2_heater_power_status" type="vco:ir2_heater_power_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_heater_permission" type="vco:ir2_heater_permission" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_calibration_lamp_permission" type="vco:ir2_calibration_lamp_permission" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_calibration_lamp_power_status" type="vco:ir2_calibration_lamp_power_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_calibration_lamp_brightness" type="vco:ir2_calibration_lamp_brightness" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_gain" type="vco:ir2_gain" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_led_power_status" type="vco:ir2_led_power_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_photodiode1_status" type="vco:ir2_photodiode1_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_photodiode2_status" type="vco:ir2_photodiode2_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_filter_wheel_rotation_status" type="vco:ir2_filter_wheel_rotation_status" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir_clock_pattern_version" type="vco:ir_clock_pattern_version" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="IR2_Temperature_Corrections" type="vco:IR2_Temperature_Corrections" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:ir2_heater_power_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir2_heater_permission = ('Disabled', 'Enabled')"/> -->
+    <!-- <xs:assert test="vco:ir2_calibration_lamp_permission = ('Disabled', 'Enabled')"/> -->
+    <!-- <xs:assert test="vco:ir2_calibration_lamp_power_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir2_calibration_lamp_brightness = ('Bright', 'Dark')"/> -->
+    <!-- <xs:assert test="vco:ir2_gain = ('High', 'Low')"/> -->
+    <!-- <xs:assert test="vco:ir2_led_power_status = ('Off', 'On')"/> -->
+    <!-- <xs:assert test="vco:ir2_photodiode1_status = ('Ack', 'No Ack')"/> -->
+    <!-- <xs:assert test="vco:ir2_photodiode2_status = ('Ack', 'No Ack')"/> -->
+    <!-- <xs:assert test="vco:ir2_filter_wheel_rotation_status = ('Not Rotating', 'Rotating')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR2_Temperature_Correction">
+    <xs:annotation>
+      <xs:documentation>This class contains IR2 temperature correction
+        factor value for a quadrant.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="quadrant" type="vco:quadrant" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="ir2_temperature_correction_factor" type="vco:ir2_temperature_correction_factor" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:quadrant = ('Bottom Left', 'Bottom Right', 'Top Left', 'Top Right')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="IR2_Temperature_Corrections">
+    <xs:annotation>
+      <xs:documentation>This class is a container class for IR2
+        temperature correction factor values.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="ir2_temperature_correction_version" type="vco:ir2_temperature_correction_version" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="IR2_Temperature_Correction" type="vco:IR2_Temperature_Correction" minOccurs="4" maxOccurs="4"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LIR_Instrument_Attributes">
+    <xs:annotation>
+      <xs:documentation>LIR instrument-specific
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="lir_image_type" type="vco:lir_image_type" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="number_of_first_accumulation" type="vco:number_of_first_accumulation" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="number_of_second_accumulation" type="vco:number_of_second_accumulation" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="peltier_target_temperature" type="vco:peltier_target_temperature" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="bolometer_calibration_target" type="vco:bolometer_calibration_target" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="bolometer_calibration_range" type="vco:bolometer_calibration_range" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_calibration_reference_shutter_temperature" type="vco:lir_calibration_reference_shutter_temperature" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_calibration_reference_baffle_temperature" type="vco:lir_calibration_reference_baffle_temperature" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_wrong_bit_operation_flag" type="vco:lir_wrong_bit_operation_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_housekeeping_packet_date_time_before_observation" nillable="true" type="vco:lir_housekeeping_packet_date_time_before_observation" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_housekeeping_packet_date_time_after_observation" nillable="true" type="vco:lir_housekeeping_packet_date_time_after_observation" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_housekeeping_packet_before_observation_time_delta" nillable="true" type="vco:lir_housekeeping_packet_before_observation_time_delta" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_housekeeping_packet_after_observation_time_delta" nillable="true" type="vco:lir_housekeeping_packet_after_observation_time_delta" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_housekeeping_packet_interpolation_flag" type="vco:lir_housekeeping_packet_interpolation_flag" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_operating_time" type="vco:lir_operating_time" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_sensitivity_degradation_rate" type="vco:lir_sensitivity_degradation_rate" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="lir_l2d_reference_shutter_temperature" type="vco:lir_l2d_reference_shutter_temperature" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:lir_image_type = ('OPN', 'PIC', 'SHT')"/> -->
+    <!-- <xs:assert test="vco:number_of_first_accumulation = ('1', '128', '16', '2', '32', '4', '64', '8')"/> -->
+    <!-- <xs:assert test="vco:number_of_second_accumulation = ('1', '128', '16', '2', '32', '4', '64', '8')"/> -->
+    <!-- <xs:assert test="vco:peltier_target_temperature = ('10', '40')"/> -->
+    <!-- <xs:assert test="vco:lir_housekeeping_packet_interpolation_flag = ('No data', 'Within 120 seconds', 'Within 2048 seconds')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="Observation_Information">
+    <xs:annotation>
+      <xs:documentation>This class contains information about
+        observation. The attributes in this class are common to all
+        mission data products.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="observation_date_time" type="vco:observation_date_time" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="naif_instrument_name" type="vco:naif_instrument_name" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="observation_program_id" type="vco:observation_program_id" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="observation_program_name" type="vco:observation_program_name" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="observation_program_start_date_time" type="vco:observation_program_start_date_time" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="target_apparent_diameter" type="vco:target_apparent_diameter" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="instrument_status_guess_flag" type="vco:instrument_status_guess_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="image_processing_return_status" type="vco:image_processing_return_status" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="Orbit_Information" type="vco:Orbit_Information" minOccurs="1" maxOccurs="unbounded"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:image_processing_return_status = ('Buffer Size Error', 'Data Recorder Write Fail', 'Data Recorder Write Fail/Image Size Error', 'Normal End', 'Operation Interruption', 'Overflow', 'Overflow and Underflow', 'Parameter Error', 'Underflow', 'Zero Division')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="Orbit_Information">
+    <xs:annotation>
+      <xs:documentation>This class contains information about orbit of
+        the spacecraft. The attributes in this class are common to all
+        mission data products after the successful Venus' orbit
+        insertion, VOI-R1.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="orbit_number" type="vco:orbit_number" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="periapsis_passage_date_time" type="vco:periapsis_passage_date_time" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="subspacecraft_latitude_at_periapsis_passage" type="vco:subspacecraft_latitude_at_periapsis_passage" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="subspacecraft_longitude_at_periapsis_passage" type="vco:subspacecraft_longitude_at_periapsis_passage" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="subspacecraft_altitude_at_periapsis_passage" type="vco:subspacecraft_altitude_at_periapsis_passage" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="orbit_inclination_angle" type="vco:orbit_inclination_angle" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="orbit_eccentricity" nillable="true" type="vco:orbit_eccentricity" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="orbit_longitude" type="vco:orbit_longitude" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="orbit_argument" type="vco:orbit_argument" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="orbit_semimajor_axis_length" nillable="true" type="vco:orbit_semimajor_axis_length" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RS_Experiment_Attributes">
+    <xs:annotation>
+      <xs:documentation>This class contains Radio Science
+        experiment-specific parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="downconversion_frequency" type="vco:downconversion_frequency" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="circular_polarization" type="vco:circular_polarization" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="last_zero_padding_size" nillable="true" type="vco:last_zero_padding_size" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:circular_polarization = ('Left-handed_Circulary_Polarized', 'Right-handed_Circulary_Polarized')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="UVI_Instrument_Attributes">
+    <xs:annotation>
+      <xs:documentation>This class contains UVI instrument-specific
+        parameters.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="uvi_optical_black_area_mode" type="vco:uvi_optical_black_area_mode" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="uvi_filter_wheel_position_flag" type="vco:uvi_filter_wheel_position_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="vco:uvi_optical_black_area_mode = ('Left OB', 'Normal', 'Right OB', 'Top OB')"/> -->
+    <!-- <xs:assert test="vco:uvi_filter_wheel_position_flag = ('Bad', 'Good')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+    <xs:annotation>
+      <xs:documentation>This section contains the simpleTypes that provide more constraints
+        than those at the base data type level. The simpleTypes defined here build on the base data
+        types. This is another component of the common dictionary and therefore falls within the
+        common namespace.
+      </xs:documentation>
+    </xs:annotation>
+
+  <xs:simpleType name="bolometer_calibration_range">
+    <xs:annotation>
+      <xs:documentation>This value means a target value which determines
+        the temperature range measured by LIR when onboard calibration
+        of the micro-bolometer is executed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="bolometer_calibration_target">
+    <xs:annotation>
+      <xs:documentation>This value means a target value for an average
+        of outputs from all pixels of the micro-bolometer of LIR when
+        onboard calibration of the micro-bolometer is executed. Usually
+        this value should be set to be the center value of 12-bit
+        integers.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="circular_polarization">
+    <xs:annotation>
+      <xs:documentation>This value gives circular polarization of signal
+        for acquired data.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="downconversion_frequency_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="downconversion_frequency">
+    <xs:annotation>
+      <xs:documentation>This value gives frequency of signal used for
+        downconversion for recording.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:downconversion_frequency_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Frequency" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="image_processing_return_status">
+    <xs:annotation>
+      <xs:documentation>The image_processing_return_status gives an
+        image processing error message.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="instrument_status_guess_flag">
+    <xs:annotation>
+      <xs:documentation>The instrument_status_guess_flag is a flag
+        whether instrument status packet is guessed from the house
+        keeping packets. If true, instrument status packet is
+        guessed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Boolean">
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="interquadrant_sensitivity_correction_status">
+    <xs:annotation>
+      <xs:documentation>This attribute specifies inter-quadrant
+        sensitivity correction status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_calibration_lamp_brightness">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 calibration lamp
+        brightness.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_calibration_lamp_permission">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 calibration lamp
+        permission.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_calibration_lamp_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 calibration lamp
+        status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_filter_wheel_rotation_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 filter wheel
+        rotation status. This should usually be "Not Rotating" in all
+        images.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_led_power_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 LED power
+        status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_photodiode1_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 photodiode-1
+        status. To verify the filter-wheel position, there are two LED
+        and PD (photodiode) pairs for redundancy. LED light will be
+        detected (ACKnowledged) by PD thorough a hole of wheel if a
+        filter is in position. The value "NO ACK" indicates
+        mis-positioned filter wheel but may usually be just a few motor
+        pulses offset which can not be noticed from an image. Note the
+        status remains after LEDs are turned off.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_photodiode2_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 photodiode-2
+        status. To verify the filter-wheel position, there are two LED
+        and PD (photodiode) pairs for redundancy. LED light will be
+        detected (ACKnowledged) by PD thorough a hole of wheel if a
+        filter is in position. The value "NO ACK" indicates
+        mis-positioned filter wheel but may usually be just a few motor
+        pulses offset which can not be noticed from an image. Note the
+        status remains after LEDs are turned off.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_sensitivity_correction_factor">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 sensitivity
+        correction factor.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_smear_correction_factor">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 smear correction
+        factor.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_smear_correction_factor_version">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 smear correction
+        factor version.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_thermoelectric_cooler_heater_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 Thermoelectric
+        Cooler (TEC) heater status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_thermoelectric_cooler_power_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 Thermoelectric
+        Cooler (TEC) power status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir1_thermoelectric_cooler_set_value_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="ir1_thermoelectric_cooler_set_value">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR1 Thermoelectric
+        cooler (TEC) set value in amperes.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:ir1_thermoelectric_cooler_set_value_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Current" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="ir2_calibration_lamp_brightness">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 calibration lamp
+        brightness.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_calibration_lamp_permission">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 calibration lamp
+        permission.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_calibration_lamp_power_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 calibration lamp
+        power status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_filter_wheel_rotation_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 filter wheel
+        rotation status. This should usually be "Not Rotating" in all
+        images.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_gain">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2
+        gain.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_heater_permission">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 on-chip heater
+        permission.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_heater_power_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 on-chip heater
+        power status.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_led_power_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 LED power status.
+        There are two LED and photodiode pairs to verify the
+        filter-wheel position. The LEDs turn on only when the
+        filter-wheel rotates. Therefore, this should usually be OFF in
+        all images.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_photodiode1_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 photodiode-1
+        status. To verify the filter-wheel position, there are two LED
+        and PD (photodiode) pairs for redundancy. LED light will be
+        detected (ACKnowledged) by PD thorough a hole of wheel if a
+        filter is in position. The value "NO ACK" indicates
+        mis-positioned filter wheel but may usually be just a few motor
+        pulses offset which can not be noticed from an image. Note the
+        status remains after LEDs are turned off.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_photodiode2_status">
+    <xs:annotation>
+      <xs:documentation>This attribute describes IR2 photodiode-2
+        status. To verify the filter-wheel position, there are two LED
+        and PD (photodiode) pairs for redundancy. LED light will be
+        detected (ACKnowledged) by PD thorough a hole of wheel if a
+        filter is in position. The value "NO ACK" indicates
+        mis-positioned filter wheel but may usually be just a few motor
+        pulses offset which can not be noticed from an image. Note the
+        status remains after LEDs are turned off.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_temperature_correction_factor">
+    <xs:annotation>
+      <xs:documentation>This attribute describes a temperature
+        correction factor value of flat-field for a
+        quadrant.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir2_temperature_correction_version">
+    <xs:annotation>
+      <xs:documentation>This attribute describes version of temperature
+        correction of flat-field.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ir_clock_pattern_version">
+    <xs:annotation>
+      <xs:documentation>This attribute describes version string for IR
+        clock-pattern program for IR1 and IR2. The program is a
+        compilation of clock patterns each of which drives the CCD with
+        various exposure time, cal-lamp setting, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="last_zero_padding_size_WO_Units">
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="-9223372036854775808"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="last_zero_padding_size">
+    <xs:annotation>
+      <xs:documentation>This value gives appended bytes of zero to the
+        end of the original file.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:last_zero_padding_size_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Storage" use="required" />
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_calibration_reference_baffle_temperature_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_calibration_reference_baffle_temperature">
+    <xs:annotation>
+      <xs:documentation>This value means reference temperature of the
+        baffle for calibration.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_calibration_reference_baffle_temperature_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Temperature" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_calibration_reference_shutter_temperature_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_calibration_reference_shutter_temperature">
+    <xs:annotation>
+      <xs:documentation>This value means reference temperature of the
+        shutter for calibration.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_calibration_reference_shutter_temperature_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Temperature" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_housekeeping_packet_after_observation_time_delta_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_housekeeping_packet_after_observation_time_delta">
+    <xs:annotation>
+      <xs:documentation>This value gives a time difference between
+        observation time and the house keeping packaet acquisition time
+        at the nearest time with HK data after
+        observation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_housekeeping_packet_after_observation_time_delta_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Time" use="required" />
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_housekeeping_packet_before_observation_time_delta_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_housekeeping_packet_before_observation_time_delta">
+    <xs:annotation>
+      <xs:documentation>This value gives a time difference between
+        observation time and the house keeping packet acquisition time
+        at the nearest time with HK data before
+        observation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_housekeeping_packet_before_observation_time_delta_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Time" use="required" />
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="lir_housekeeping_packet_date_time_after_observation">
+    <xs:annotation>
+      <xs:documentation>This value gives a house keeping (HK) packet
+        acquisition time in UTC that is the nearest time with HK data
+        after the observation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="pds:ASCII_Date_Time_YMD_UTC">
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="lir_housekeeping_packet_date_time_before_observation">
+    <xs:annotation>
+      <xs:documentation>This value gives a house keeping (HK) packet
+        acquisition time in UTC that is the nearest time with HK data
+        before the observation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="pds:ASCII_Date_Time_YMD_UTC">
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_housekeeping_packet_interpolation_flag">
+    <xs:annotation>
+      <xs:documentation>This value gives interpolation condition of
+        baffle temperature derived from the housekeeping
+        packets.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="lir_image_type">
+    <xs:annotation>
+<xs:documentation>Type of LIR image.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="lir_l2d_reference_shutter_temperature_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_l2d_reference_shutter_temperature">
+    <xs:annotation>
+      <xs:documentation>This value means reference temperature of the
+        shutter for calibration of degradation in
+        time.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_l2d_reference_shutter_temperature_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Temperature" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_operating_time_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="lir_operating_time">
+    <xs:annotation>
+      <xs:documentation>This value means operating time of LIR-AE from
+        the launch at the time of the observation.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:lir_operating_time_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Time" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="lir_sensitivity_degradation_rate">
+    <xs:annotation>
+      <xs:documentation>This value means sensitivity degradation rate in
+        time for the optics.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-1.7976931348623157e308"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="lir_wrong_bit_operation_flag">
+    <xs:annotation>
+      <xs:documentation>This value gives an error flag for wrong
+        bit-shift in onboard calculation of LIR, which happened from
+        June 16 to September 28, 2016. If this value is true, the error
+        has happened and corrected with a correction equation. If this
+        value is false, no error has happened. Please see SIS for more
+        detail.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Boolean">
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="naif_instrument_name">
+    <xs:annotation>
+      <xs:documentation>The value field shall contain a character string
+        that gives NAIF name of the instrument.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="number_of_first_accumulation">
+    <xs:annotation>
+      <xs:documentation>This number_of_first_accumulation means the
+        number of first accumulation of the images.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="128"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="number_of_second_accumulation">
+    <xs:annotation>
+      <xs:documentation>This number_of_second_accumulation means the
+        number of second accumulation of the images.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="128"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="observation_date_time">
+    <xs:annotation>
+      <xs:documentation>The observation_date_time gives the reference
+        observation time in UTC.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Date_Time_YMD_UTC">
+  <!-- format="YYYY-MM-DDTHH:MM:SS.SSSSSSZ" -->
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="observation_program_id">
+    <xs:annotation>
+      <xs:documentation>The observation_program_id describes observation
+        program ID.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+    	<xs:pattern value='0x[0-9a-f][0-9a-f]_v[1-9]'/>
+     <xs:minLength value="7"/>
+     <xs:maxLength value="7"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="observation_program_name">
+    <xs:annotation>
+      <xs:documentation>The observation_program_name describes
+        observation program name.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="observation_program_start_date_time">
+    <xs:annotation>
+      <xs:documentation>The observation_program_start_date_time gives
+        the start date time of the observation program in
+        UTC.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Date_Time_YMD_UTC">
+  <!-- format="YYYY-MM-DDTHH:MM:SS.SSSSSSZ" -->
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="orbit_argument_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="360.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="orbit_argument">
+    <xs:annotation>
+      <xs:documentation>The orbit_argument gives the argument of
+        periapsis of the orbit for the orbit number given by
+        orbit_number.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:orbit_argument_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="orbit_eccentricity">
+    <xs:annotation>
+      <xs:documentation>The orbit_eccentricity gives the eccentricity of
+        the orbit plane about Venus for the orbit number given by
+        orbit_number.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="pds:ASCII_Real">
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="orbit_inclination_angle_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="180.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="orbit_inclination_angle">
+    <xs:annotation>
+      <xs:documentation>Th orbit_inclination_angle gives the inclination
+        of the orbit at the periapsis passage time given by
+        periapsis_passage_date_time.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:orbit_inclination_angle_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="orbit_longitude_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="360.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="orbit_longitude">
+    <xs:annotation>
+      <xs:documentation>The orbit_longitude gives the longitude of the
+        ascending node of the orbit for the orbit number given by
+        orbit_number.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:orbit_longitude_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="orbit_number">
+    <xs:annotation>
+      <xs:documentation>The orbit_number is a orbit number for the Venus
+        Climate Orbiter Akatsuki spacecraft around Venus. The value zero
+        means before the successful orbit insertion,
+        VOI-R1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="orbit_semimajor_axis_length_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="orbit_semimajor_axis_length">
+    <xs:annotation>
+      <xs:documentation>The orbit_semimajor_axis_length gives the length
+        of the semimajor axis of the orbit for the orbit number given by
+        orbit_number.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:orbit_semimajor_axis_length_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+        <xs:attribute name="nilReason" type="pds:nil_reason" use="optional" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="peltier_target_temperature_WO_Units">
+    <xs:restriction base="pds:ASCII_NonNegative_Integer">
+    	<xs:pattern value='[0-9]+'/>
+     <xs:minInclusive value="0"/>
+     <xs:maxInclusive value="18446744073709551615"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="peltier_target_temperature">
+    <xs:annotation>
+      <xs:documentation>Setting of desired temprerature by Peltier
+        temperature controller.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:peltier_target_temperature_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Temperature" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="periapsis_passage_date_time">
+    <xs:annotation>
+      <xs:documentation>The periapsis_passage_date_time gives the
+        periapsis passage date time for the orbit number given by
+        orbit_number.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Date_Time_YMD_UTC">
+  <!-- format="YYYY-MM-DDTHH:MM:SS.SSSSSSZ" -->
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="quadrant">
+    <xs:annotation>
+      <xs:documentation>This attribute specifies
+        quadrant.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="subspacecraft_altitude_at_periapsis_passage_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="subspacecraft_altitude_at_periapsis_passage">
+    <xs:annotation>
+      <xs:documentation>The subspacecraft_altitude_at_periapsis_passage
+        gives the sub-spacecraft altitude of Venus at the periapsis
+        passage time given by
+        periapsis_passage_date_time.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:subspacecraft_altitude_at_periapsis_passage_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Length" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="subspacecraft_latitude_at_periapsis_passage_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="-90.0"/>
+     <xs:maxInclusive value="90.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="subspacecraft_latitude_at_periapsis_passage">
+    <xs:annotation>
+      <xs:documentation>The subspacecraft_latitude_at_periapsis_passage
+        gives the sub-spacecraft latitude of Venus at the periapsis
+        passage time given by
+        periapsis_passage_date_time.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:subspacecraft_latitude_at_periapsis_passage_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="subspacecraft_longitude_at_periapsis_passage_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="360.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="subspacecraft_longitude_at_periapsis_passage">
+    <xs:annotation>
+      <xs:documentation>The subspacecraft_longitude_at_periapsis_passage
+        gives the sub-spacecraft longitude of Venus at the periapsis
+        passage time given by
+        periapsis_passage_date_time.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:subspacecraft_longitude_at_periapsis_passage_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="target_apparent_diameter_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="180.0"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="target_apparent_diameter">
+    <xs:annotation>
+      <xs:documentation>The target_apparent_diameter describes apparent
+        diameter of the target planet.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="vco:target_apparent_diameter_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Angle" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="uvi_filter_wheel_position_flag">
+    <xs:annotation>
+      <xs:documentation>The filter wheel position is good or bad for
+        this image.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="uvi_optical_black_area_mode">
+    <xs:annotation>
+      <xs:documentation>Image storing mode on optical black area for UVI
+        image.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
