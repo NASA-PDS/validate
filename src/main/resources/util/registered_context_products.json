@@ -20233,6 +20233,24 @@
           },
           {
                "name": [
+                    "Venera 13"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v13::1.0"
+          },
+          {
+               "name": [
+                    "Venera 9"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v9::1.0"
+          },
+          {
+               "name": [
                     "PHOENIX"
                ],
                "type": [
