@@ -7,7 +7,7 @@ import java.util.List;
 public enum EncodingMimeMapping {
   DAT(Arrays.asList("dat","DAT")),
   GIF(Arrays.asList("gif")),
-  J2C(Arrays.asList("j2c", "mj2", "mjp2")),
+  J2C(Arrays.asList("j2c", ""jp2", mj2", "mjp2")),
   JPEG(Arrays.asList("jpg", "jpeg")),
   MP4(Arrays.asList("mp4")),
   PDF(Arrays.asList("pdf")),
