@@ -789,6 +789,13 @@ public class ValidateLauncher {
           setCheckInbetweenFields(false);
         }
       }
+      if (config.containsKey(ConfigKey.STRICT_FIELD_CHECKS)) {
+        if (config.getBoolean(ConfigKey.STRICT_FIELD_CHECKS)) {
+          setCheckInbetweenFields(true);
+        } else {
+          setCheckInbetweenFields(false);
+        }
+      }
       if (config.containsKey(ConfigKey.SKIP_PRODUCT_VALIDATION)) {
         setSkipProductValidation(true);
         FlagsUtil.setSkipProductValidation(true);
