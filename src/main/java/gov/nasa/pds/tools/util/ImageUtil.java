@@ -1,10 +1,11 @@
 package gov.nasa.pds.tools.util;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.URL;
 import java.nio.file.Paths;
-
+import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,6 +95,13 @@ public class ImageUtil {
       if ((firstShort == JPEG_FIRST_SHORT) && (lastShort == JPEG_LAST_SHORT)) {
         LOG.debug("The file " + jpegRef + " is a valid JPEG file");
         return (true);
+      }
+      try {
+        ImageIO.read(jpegFile);
+        LOG.debug("The file " + jpegRef + " should be a valid JPEG file given checks on extensions prior to asking ImageIO to load it.");
+        return (true);
+      } catch (IOException ioe) {
+        // do nothing and let the rest of the code behave as before
       }
       LOG.warn("The file " + jpegRef + " is not a valid JPEG file");
       LOG.debug("The file " + jpegRef + " is not a valid JPEG file");
