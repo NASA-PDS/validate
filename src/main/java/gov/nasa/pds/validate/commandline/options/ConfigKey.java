@@ -110,7 +110,8 @@ public class ConfigKey {
    * Property to enable check in between fields validation for Table_Character file.
    */
   public static final String CHECK_INBETWEEN_FIELDS = "validate.checkInbetweenFields";
-
+  public static final String STRICT_FIELD_CHECKS = "validate.strictFieldChecks";
+  
   /**
    * Property to specify the maximum number of errors to report before terminating a validation run.
    */
