@@ -161,130 +161,144 @@ public class LocationValidator {
   /**
    * Validates a URL location with a given problem handler. This must be a URL that can be resolved
    * to a file location.
-   * 
+   *
    * @param problemHandler the problem handler
    * @param url the URL to validate
    * @throws URISyntaxException
    */
   public void validate(ValidateProblemHandler problemHandler, URL url) {
     if (targetRegistrar == null) {
-      System.err.println("Configuration error - targetRegistrar not specified"
-          + " in LocationValidator.validate()");
-      return;
+        System.err.println("Configuration error - targetRegistrar not specified"
+            + " in LocationValidator.validate()");
+        return;
     }
 
     ProblemListener listener = new ListenerExceptionPropagator(problemHandler);
 
     if (!Utility.isDir(url) && !Utility.canRead(url)) {
-      listener.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
-          ProblemType.NO_PRODUCTS_FOUND, "Path not found."), url));
-      return;
+        listener.addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+            ProblemType.NO_PRODUCTS_FOUND, "Path not found."), url));
+        return;
     }
 
     ValidationRule rule = getRule(url);
     String location = url.toString();
     LOG.info("location " + location);
     if (rule == null) {
-      LOG.error("No matching validation rule found for location {}", location);
+        LOG.error("No matching validation rule found for location {}", location);
     } else {
-      LOG.info("Using validation style '{}' for location {}", rule.getCaption(), location);
+        LOG.info("Using validation style '{}' for location {}", rule.getCaption(), location);
 
-      LOG.debug("validate:ruleContext.getCheckData() " + ruleContext.getCheckData());
-      LOG.debug("validate:rule.isApplicable() {} location {}", rule.isApplicable(location),
-          location);
-      LOG.debug("validate:rule.getCaption () {} location {}", rule.getCaption(), location);
-
-      ArrayList<Target> ignoreList = new ArrayList<>(); // List of items to be ignored from result
-                                                        // of
-                                                        // crawl() function.
-
-      // Make an initial check whether the rule is applicable and if the rule is not
-      // applicable,
-      // check to see if target is a bundle type and attempt to process the bundle
-      // product.
-      if (!rule.isApplicable(location)) {
-        boolean isAggregate = TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url);
-        LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}", url, isAggregate);
-        if (isAggregate) {
-          // If the target is a bundle, the exception can now be made.
-          // Make the following changes:
-          // 1. Change the location from a file into a directory.
-          // 2. Create a list of other bundle files to ignore so only the provided bundle
-          // is processed
-          // 3. Create a list of collection files to ignore so only the latest collection
-          // file is processed.
-          // 4. Create new rule based on new location.
-          AggregateManager.makeException(url, location, this.labelExtension);
-          ignoreList = AggregateManager.getIgnoreList();
-          location = AggregateManager.getLocation();
-          try {
-            rule = getRule(new File(location).toURI().toURL());
-          } catch (Exception e) {
-            LOG.error("Cannot get rule for location. " + location + ": " + e.getMessage());
-            return;
-          }
-          LOG.debug("after:url,ignoreList.size {},{}", url, ignoreList.size());
-          LOG.debug("after:url,location {},{}", url, location);
-        }
-      } else {
-        // Rule is applicable for given location.
-        // Check to see if url is a directory and crawl for bundle and collection files.
-        // Note that the crawler does not allow crawling if the url is a file.
-        File directory = FileUtils.toFile(url);
-        if (directory.isDirectory()) {
-          LOG.debug("Input url is a directory, will indeed crawl for bundle/collection files {}",
-              url);
-          // Build two list of files to ignore so the crawler will only process the latest
-          // Bundle and Collection.
-          ArrayList<Target> ignoreBundleList = AggregateManager.buildBundleIgnoreList(url,
-              this.labelExtension);
-          ignoreList.addAll(ignoreBundleList);
-          Target latestBundle = AggregateManager.getLatestBundle();
-
-          // Only build collection ignore list if latestBundle is not null. The reason is
-          // a bundle
-          // contains collection and if there is no bundle, then there is no collection
-          // information to be gathered.
-          if (latestBundle != null) {
-            ArrayList<Target> ignoreCollectionList = AggregateManager.buildCollectionIgnoreList(url,
-                latestBundle.getUrl(), this.labelExtension, true);
-            ignoreList.addAll(ignoreCollectionList);
-            LOG.debug("url,ignoreCollectionList {},{}", url, ignoreCollectionList);
-            LOG.debug("url,ignoreCollectionList.size() {},{}", url, ignoreCollectionList.size());
-          }
-          LOG.debug("url,latestBundle {},{}", url, latestBundle);
-          LOG.debug("url,ignoreBundleList {},{}", url, ignoreBundleList);
-          LOG.debug("url,ignoreBundleList.size() {},{}", url, ignoreBundleList.size());
-        } else {
-          LOG.debug("Input url is a file, will not crawl for bundle/collection files {}", url);
-        }
-      }
-
-      if (!rule.isApplicable(location)) {
-        LOG.error("'{}' validation style is not applicable for location {}", rule.getCaption(),
+        LOG.debug("validate:ruleContext.getCheckData() " + ruleContext.getCheckData());
+        LOG.debug("validate:rule.isApplicable() {} location {}", rule.isApplicable(location),
             location);
-        return;
-      }
+        LOG.debug("validate:rule.getCaption () {} location {}", rule.getCaption(), location);
 
-      ValidationTask task = new ValidationTask(listener, ruleContext, targetRegistrar);
-      task.setLocation(location);
-      task.setRule(rule);
-      task.setRuleManager(ruleManager);
-      Crawler crawler = CrawlerFactory.newInstance(url);
-      // Set filter so the crawler will ignore other bundle/collection files that are
-      // not latest.
-      crawler.addAllIgnoreItems(ignoreList);
+        ArrayList<Target> ignoreList = new ArrayList<>(); // List of items to be ignored from result
+                                                          // of
+                                                          // crawl() function.
 
-      ruleContext.setCrawler(crawler);
-      ruleContext.setRule(rule);
+        // Make an initial check whether the rule is applicable and if the rule is not
+        // applicable,
+        // check to see if target is a bundle type and attempt to process the bundle
+        // product.
+        if (!rule.isApplicable(location)) {
+            boolean isAggregate = TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url);
+            LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}", url, isAggregate);
+            if (isAggregate) {
+                // If the target is a bundle, the exception can now be made.
+                // Make the following changes:
+                // 1. Change the location from a file into a directory.
+                // 2. Create a list of other bundle files to ignore so only the provided bundle
+                // is processed
+                // 3. Create a list of collection files to ignore so only the latest collection
+                // file is processed.
+                // 4. Create new rule based on new location.
+                AggregateManager.makeException(url, location, this.labelExtension);
+                ignoreList = AggregateManager.getIgnoreList();
+                location = AggregateManager.getLocation();
+                try {
+                    rule = getRule(new File(location).toURI().toURL());
+                } catch (Exception e) {
+                    LOG.error("Cannot get rule for location. " + location + ": " + e.getMessage());
+                    return;
+                }
+                LOG.debug("after:url,ignoreList.size {},{}", url, ignoreList.size());
+                LOG.debug("after:url,location {},{}", url, location);
+            }
+        } else {
+            // Rule is applicable for given location.
+            // Check to see if url is a directory and crawl for bundle and collection files.
+            // Note that the crawler does not allow crawling if the url is a file.
+            File directory = FileUtils.toFile(url);
+            if (directory.isDirectory()) {
+                LOG.debug("Input url is a directory, will indeed crawl for bundle/collection files {}",
+                    url);
+                // Build two lists of files to ignore so the crawler will only process the latest
+                // Bundle and Collection.
+                ArrayList<Target> ignoreBundleList = AggregateManager.buildBundleIgnoreList(url,
+                    this.labelExtension);
+                ignoreList.addAll(ignoreBundleList);
+                Target latestBundle = AggregateManager.getLatestBundle();
 
-      LOG.debug("validate:Submitting task to taskManager location {} rule {} ", location,
-          rule.getCaption());
-      taskManager.submit(task);
-      LOG.debug("validate:Returning from task to taskManager location {} rule {} ", location,
-          rule.getCaption());
+                // Only build collection ignore list if latestBundle is not null. The reason is
+                // a bundle
+                // contains collection and if there is no bundle, then there is no collection
+                // information to be gathered.
+                if (latestBundle != null) {
+                    ArrayList<Target> ignoreCollectionList = AggregateManager.buildCollectionIgnoreList(url,
+                        latestBundle.getUrl(), this.labelExtension, true);
+                    ignoreList.addAll(ignoreCollectionList);
+                    LOG.debug("url,ignoreCollectionList {},{}", url, ignoreCollectionList);
+                    LOG.debug("url,ignoreCollectionList.size() {},{}", url, ignoreCollectionList.size());
+                }
+                LOG.debug("url,latestBundle {},{}", url, latestBundle);
+                LOG.debug("url,ignoreBundleList {},{}", url, ignoreBundleList);
+                LOG.debug("url,ignoreBundleList.size() {},{}", url, ignoreBundleList.size());
+            } else {
+                LOG.debug("Input url is a file, will not crawl for bundle/collection files {}", url);
+            }
+        }
+
+        if (!rule.isApplicable(location)) {
+            LOG.error("'{}' validation style is not applicable for location {}", rule.getCaption(),
+                location);
+            return;
+        }
+
+        ValidationTask task = new ValidationTask(listener, ruleContext, targetRegistrar);
+        task.setLocation(location);
+        task.setRule(rule);
+        task.setRuleManager(ruleManager);
+        Crawler crawler = CrawlerFactory.newInstance(url);
+        // Set filter so the crawler will ignore other bundle/collection files that are
+        // not latest.
+        crawler.addAllIgnoreItems(ignoreList);
+
+        ruleContext.setCrawler(crawler);
+        ruleContext.setRule(rule);
+
+        LOG.debug("validate:Submitting task to taskManager location {} rule {} ", location,
+            rule.getCaption());
+
+        // 🟢 Progress Tracking Implementation
+        int fileCounter = 0;
+        int trackProgress = ruleContext.getEveryN(); // Get user-defined tracking interval
+
+        for (Target targetFile : crawler.crawl()) { // Loop over validated files
+            taskManager.submit(task);
+            fileCounter++;
+
+            // Log progress every N files
+            if (fileCounter % trackProgress == 0) {
+                System.out.println("Processed " + fileCounter + " files so far...");
+            }
+        }
+
+        LOG.debug("validate:Returning from task to taskManager location {} rule {} ", location,
+            rule.getCaption());
     }
-  }
+}
 
   public void setExtraTargetInContext(ArrayList<URL> alternateReferentialPaths) {
     try {
