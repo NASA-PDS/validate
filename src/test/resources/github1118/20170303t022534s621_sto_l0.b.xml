@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch"        schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1  https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:orex.tagcams:miscellaneous:20170303t022534s621_sto_l0.jpg</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>OSIRIS-REx TAGCAMS Level 0 Sample Return Capsule Monitoring Image Product</title>
+    <information_model_version>1.7.0.0</information_model_version>
+    <product_class>Product_Ancillary</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-08-01</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial product label.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2017-03-03T02:25:34.621Z</start_date_time>
+      <stop_date_time>2017-03-03T02:25:34.631Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Engineering</purpose>
+      <processing_level>Raw</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>OSIRIS-REx</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>OSIRIS-REx Touch-and-Go Camera Suite (TAGCAMS)</name>
+      <Observing_System_Component>
+        <name>OSIRIS-REx</name>
+        <type>Spacecraft</type>
+        <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>TAGCAMS</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:tagcams.orex</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>OSIRIS-REx</name>
+      <type>Equipment</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <File_Area_Ancillary>
+    <File>
+      <file_name>20170303t022534s621_sto_l0.jpg</file_name>
+      <file_size unit="byte">314726</file_size>
+    </File>
+    <Encoded_Image>
+      <name>TAGCAMS JPEG image of Sample Return Capsule</name>
+      <local_identifier>Primary Image Data</local_identifier>
+      <offset unit="byte">0</offset>
+      <encoding_standard_id>JPEG</encoding_standard_id>
+    </Encoded_Image>
+  </File_Area_Ancillary>
+</Product_Ancillary>
