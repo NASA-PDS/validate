@@ -9,7 +9,7 @@
 
 ### Procedure
 * Create new directory with test data src/test/resources/github123
-* Add new line(s) for test cases to src/test/resources/features/v3.6.0.feature
+* Add new line(s) for test cases to src/test/resources/features/v3.7.x.feature
   * testName - title for the test, e.g. `NASA-PDS/validate#693 Invalid PDF/A Checks`, `NASA-PDS/validate#693 Valid PDF/A File Checks`
   * testDir - `github123`
   * messageCount - number of expected errors or warnings 
