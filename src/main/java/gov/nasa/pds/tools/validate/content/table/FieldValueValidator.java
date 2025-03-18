@@ -440,6 +440,10 @@ public class FieldValueValidator {
   private void checkSpecialMinMax(String value, SpecialConstants specialConstants, Double minimum,
       Double maximum, int fieldIndex, RecordLocation recordLocation, FieldType type) {
     value = value.trim();
+    final List<FieldType> dateTimes = Arrays.asList(
+        FieldType.ASCII_DATE, FieldType.ASCII_DATE_DOY, FieldType.ASCII_DATE_YMD,
+        FieldType.ASCII_DATE_TIME, FieldType.ASCII_DATE_TIME_DOY, FieldType.ASCII_DATE_TIME_DOY_UTC,
+        FieldType.ASCII_DATE_TIME_UTC, FieldType.ASCII_DATE_TIME_YMD, FieldType.ASCII_DATE_TIME_YMD_UTC);
 
     // https://github.com/NASA-PDS/validate/issues/297 Content validation of
     // ASCII_Integer field does not accept value with leading zeroes
@@ -548,10 +552,24 @@ public class FieldValueValidator {
             "Value is a special constant defined in the label: " + value.toString(), recordLocation,
             fieldIndex);
       }
+    } else if (dateTimes.contains (type)) {
+      String message = "okay, what now";
+      System.out.println (message);
+      if (specialConstants != null) {
+        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
+            ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
+        try {
+          SpecialConstantChecker.isTemporalSpecialConstant(value, specialConstants, reporter);
+        } catch (NumberFormatException nfe) {
+          addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
+              "One of the special constants could not be converted to the numeric data type of the table cell",
+              recordLocation, fieldIndex);
+        }
+      }
     } else {
       // Value cannot be converted to a number
       String message = "Cannot cast field value '" + value
-          + "' to a Number data type to validate against the min/max"
+          + "' to a Number data type or Time data type to validate against the min/max"
           + " values defined in the label.";
       addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_A_NUMBER, message,
           recordLocation, fieldIndex);
