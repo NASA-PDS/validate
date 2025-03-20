@@ -18,9 +18,7 @@ import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.apache.commons.io.FilenameUtils;
@@ -53,23 +51,6 @@ import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
-
-  /** List of valid datetime formats. */
-  private static final Map<String, String> DATE_TIME_VALID_FORMATS = new HashMap<>();
-  static {
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_DOY.getXMLType(), "YYYY[Z], YYYY-DOY[Z]");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_TIME_DOY.getXMLType(),
-        "YYYY[Z], YYYY-DOYThh[Z], YYYY-DOYThh:mm[Z], " + "YYYY-DOYThh:mm:ss[.ffffff][Z]");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_TIME_DOY_UTC.getXMLType(),
-        "YYYYZ, YYYY-DOYThhZ, YYYY-DOYThh:mmZ, YYYY-DOYThh:mm:ss[.ffffff]Z");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_TIME_YMD.getXMLType(),
-        "YYYY[Z], YYYY-MM-DDThh[Z], YYYY-MM-DDThh:mm[Z], " + "YYYY-MM-DDThh:mm:ss[.ffffff][Z]");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_TIME_YMD_UTC.getXMLType(),
-        "YYYYZ, YYYY-MM-DDThhZ, YYYY-MM-DDThh:mmZ, " + "YYYY-MM-DDThh:mm:ss[.ffffff]Z");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_DATE_YMD.getXMLType(),
-        "YYYY[Z], YYYY-MM[Z], YYYY-MM-DD[Z]");
-    DATE_TIME_VALID_FORMATS.put(FieldType.ASCII_TIME.getXMLType(), "hh:mm:ss[.ffffff][Z]");
-  }
 
   private static List<FieldType> realTypes = Arrays.asList(
       FieldType.IEEE754LSBDOUBLE,
@@ -439,8 +420,11 @@ public class FieldValueValidator {
    */
   private void checkSpecialMinMax(String value, SpecialConstants specialConstants, Double minimum,
       Double maximum, int fieldIndex, RecordLocation recordLocation, FieldType type) {
+    final List<FieldType> dateTimes = Arrays.asList(
+        FieldType.ASCII_DATE, FieldType.ASCII_DATE_DOY, FieldType.ASCII_DATE_YMD,
+        FieldType.ASCII_DATE_TIME, FieldType.ASCII_DATE_TIME_DOY, FieldType.ASCII_DATE_TIME_DOY_UTC,
+        FieldType.ASCII_DATE_TIME_UTC, FieldType.ASCII_DATE_TIME_YMD, FieldType.ASCII_DATE_TIME_YMD_UTC);
     value = value.trim();
-
     // https://github.com/NASA-PDS/validate/issues/297 Content validation of
     // ASCII_Integer field does not accept value with leading zeroes
     // Some values may start with a zero but the user may not intend for it to be an
@@ -548,10 +532,23 @@ public class FieldValueValidator {
             "Value is a special constant defined in the label: " + value.toString(), recordLocation,
             fieldIndex);
       }
+    } else if (dateTimes.contains (type)) {
+      if (specialConstants != null) {
+        FieldProblemReporter reporter = new FieldProblemReporter(this, ExceptionType.WARNING,
+            ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
+        try { 
+          SpecialConstantChecker.isTemporalSpecialConstant(DateTimeValidator.toInstant(type, value), specialConstants, reporter);
+        } catch (Exception e) {
+          String message = "Cannot cast field value '" + value
+              + "' to a java.time.Instant from " + type.getXMLType() + " data type.";
+          addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_A_DATETIME, message,
+              recordLocation, fieldIndex);
+        }
+      }
     } else {
       // Value cannot be converted to a number
       String message = "Cannot cast field value '" + value
-          + "' to a Number data type to validate against the min/max"
+          + "' to a Number data type or Time data type to validate against the min/max"
           + " values defined in the label.";
       addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_VALUE_NOT_A_NUMBER, message,
           recordLocation, fieldIndex);
@@ -724,7 +721,7 @@ public class FieldValueValidator {
         }
       } catch (Exception e) {
         throw new InvalidTableException("Could not parse " + value + " using these patterns '"
-            + DATE_TIME_VALID_FORMATS.get(type.getXMLType()) + "'");
+            + DateTimeValidator.DATE_TIME_FORMATS.get(type.getXMLType()) + "'");
       }
     } else if (FieldType.ASCII_DIRECTORY_PATH_NAME.getXMLType().equals(type.getXMLType())) {
       String[] dirs = value.split("/");

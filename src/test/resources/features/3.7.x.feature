@@ -7,4 +7,5 @@ Feature: 3.7.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 
+| 1135 | 1 | "github1135" | "--skip-context-validation -t {datasrc}/2017_FGM_KRTP_1M.xml" |  |
 | 1118 | 1 | "github1118" | "--skip-context-validation -t {datasrc}/20170303t022534s621_sto_l0.b.xml" |  |
