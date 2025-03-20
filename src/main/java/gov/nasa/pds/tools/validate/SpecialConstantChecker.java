@@ -2,11 +2,13 @@ package gov.nasa.pds.tools.validate;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.tools.validate.content.ProblemReporter;
 import gov.nasa.pds.tools.validate.content.SpecialConstantBitPatternTransforms;
+import gov.nasa.pds.tools.validate.rule.pds4.DateTimeValidator;
 
 public class SpecialConstantChecker {
   final private static List<String> INF_NAN_VALUES = Arrays.asList("INF", "-INF", "+INF", "INFINITY",
@@ -197,5 +199,55 @@ public class SpecialConstantChecker {
       return constant.xor (value).longValue() == 0L;
     }
   }
-
+  public static boolean sameContent (Instant value, String constant_repr, ProblemReporter reporter) {
+    if (constant_repr == null) return false;
+    try {
+      Instant spc = DateTimeValidator.anyToInstant(constant_repr);
+      return spc == value;
+    } catch (Exception e) {
+      reporter.addProblem("Cannot cast special constant '" + value + "' to a java.time.Instant.");
+    }
+    return false;
+  }
+  public static boolean isTemporalSpecialConstant(Instant value, SpecialConstants constants, ProblemReporter reporter) {
+    boolean matched = false;
+    matched |= SpecialConstantChecker.sameContent (value, constants.getErrorConstant(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getInvalidConstant(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getMissingConstant(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getHighInstrumentSaturation(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getHighRepresentationSaturation(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getLowInstrumentSaturation(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getLowRepresentationSaturation(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getNotApplicableConstant(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getSaturatedConstant(), reporter);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getUnknownConstant(), reporter);
+    if (matched) return true;
+    if (constants.getValidMaximum() != null) {
+      try {
+        Instant maximum = DateTimeValidator.anyToInstant(constants.getValidMaximum());
+        if (maximum.compareTo(value) < 0) {
+          matched = true;
+          reporter.addProblem("Field has a value '" + value.toString()
+          + "' that is greater than the defined maximum value '" + constants.getValidMaximum()
+          + "'. ");
+        }
+      } catch (Exception e) {
+        reporter.addProblem("Cannot cast special constant maximum '" + constants.getValidMaximum() + "' to a java.time.Instant.");
+      }
+    }
+    if (constants.getValidMinimum() != null) {
+      try {
+        Instant minimum = DateTimeValidator.anyToInstant(constants.getValidMinimum());
+        if (value.compareTo(minimum) < 0) {
+          matched = true;
+          reporter.addProblem("Field has a value '" + value.toString()
+          + "' that is less than the defined minimum value '" + constants.getValidMinimum()
+          + "'. ");
+        }
+      } catch (Exception e) {
+        reporter.addProblem("Cannot cast special constant minimum '" + constants.getValidMinimum() + "' to a java.time.Instant. " + e.getLocalizedMessage());
+      }        
+    }
+    return matched;
+  }
 }
