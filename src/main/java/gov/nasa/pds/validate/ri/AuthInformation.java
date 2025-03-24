@@ -8,18 +8,21 @@ import gov.nasa.pds.registry.common.EstablishConnectionFactory;
 public class AuthInformation {
   final private String apiAuthFile;
   final private String osAuthFile;
+  final private String overrideIndex;
   final private String regConn;
   private transient ConnectionFactory factory = null;
-  private AuthInformation(String a, String A, String r) {
+  private AuthInformation(String a, String A, String r, String o) {
     this.apiAuthFile = A;
     this.osAuthFile = a;
     this.regConn = r;
+    this.overrideIndex = o;
   }
   public static AuthInformation buildFrom(CommandLine cl) {
     return new AuthInformation(
         cl.getOptionValue("a",""),
         cl.getOptionValue("A",""),
-        cl.getOptionValue("r",""));
+        cl.getOptionValue("r",""),
+        cl.getOptionValue("o", "registry"));
   }
   public synchronized ConnectionFactory getConnectionFactory() throws Exception {
     if (this.factory == null) {
@@ -32,6 +35,7 @@ public class AuthInformation {
       if (this.factory == null) {
         throw new IllegalArgumentException("did not supply necessary arguments on the CLI");
       }
+      if (!this.overrideIndex.isBlank()) this.factory.setIndexName(this.overrideIndex);
     }
     return this.factory;
   }
