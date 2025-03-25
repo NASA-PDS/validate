@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1I00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1I00_1510.xsd">    
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:gbo.ast.loneos.survey:data_original:980226_046_fits</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Unprocessed LONEOS Survey Image</title>
+    <information_model_version>1.18.0.0</information_model_version>
+    <product_class>Product_Ancillary</product_class>
+    <Citation_Information>
+      <editor_list>Tedesco, E.F.</editor_list>
+      <publication_year>2023</publication_year>
+      <description>Unprocessed image from the LONEOS survey.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>1998-02-26T04:18:59Z</start_date_time>
+      <stop_date_time>1998-02-26T04:19:59Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Imaging</discipline_name>
+        <facet1>Grayscale</facet1>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Lowell Observatory Near-Earth Object Survey</name>
+      <type>Individual Investigation</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:individual.lowell_observatory_near_earth_object_survey</lid_reference>
+        <reference_type>ancillary_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>LONEOS 0.6m Schmidt Telescope</name>
+        <type>Telescope</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:telescope:lowell.loneos_0m60</lid_reference>
+          <reference_type>is_telescope</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lowell Observatory</name>  <!--RChen somehow old version wanted Anderson Mesa Station-->
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:facility:observatory.lowell</lid_reference>
+          <reference_type>is_facility</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>LONEOS Mosaic CCD</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lowell.loneos_0m60.loneos_mosaic_ccd</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Multiple Asteroids</name>
+      <type>Asteroid</type>
+    </Target_Identification>
+    <Discipline_Area>
+    <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>primary_image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+  </Discipline_Area>
+  </Context_Area>
+  <File_Area_Ancillary>
+    <File>
+      <file_name>980226_046.fits</file_name>
+    </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">5760</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+        </Header>    
+    <Array_2D>
+      <local_identifier>primary_image</local_identifier>
+      <offset unit="byte">5760</offset>
+      <axes>2</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>SignedMSB2</data_type>
+        <unit>counts</unit>
+        <scaling_factor>1.0</scaling_factor>
+        <value_offset>32768.0</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>4146</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>2098</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+    </Array_2D>
+  </File_Area_Ancillary>
+</Product_Ancillary>
