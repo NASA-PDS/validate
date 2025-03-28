@@ -69,7 +69,7 @@
           </Investigation_Area>
           <Observing_System>
               <Observing_System_Component>
-                  <name>The Ulysses Spacecraft</name>
+                  <name>Ulysses</name>
                   <type>Host</type>
                   <Internal_Reference>
                       <lid_reference>urn:esa:psa:context:instrument_host:spacecraft.uly</lid_reference>
