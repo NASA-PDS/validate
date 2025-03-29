@@ -1,0 +1,1016 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img_surface/v1/PDS4_IMG_SURFACE_1J00_1270.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1J00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1J00_1220.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msss_cam_mh/v1/PDS4_MSSS_CAM_MH_1J00_1030.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" 
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+  xmlns:img="http://pds.nasa.gov/pds4/img/v1" 
+  xmlns:img_surface="http://pds.nasa.gov/pds4/img_surface/v1" 
+  xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+  xmlns:msn="http://pds.nasa.gov/pds4/msn/v1" 
+  xmlns:msn_surface="http://pds.nasa.gov/pds4/msn_surface/v1" 
+  xmlns:msss_cam_mh="http://pds.nasa.gov/pds4/msss_cam_mh/v1" 
+
+  xsi:schemaLocation="
+  http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd   
+  http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.xsd   
+  http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.xsd   
+  http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.xsd      
+  http://pds.nasa.gov/pds4/img_surface/v1 https://pds.nasa.gov/pds4/img_surface/v1/PDS4_IMG_SURFACE_1J00_1270.xsd   
+  http://pds.nasa.gov/pds4/proc/v1 https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1J00_1300.xsd      
+  http://pds.nasa.gov/pds4/msn/v1 https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.xsd   
+  http://pds.nasa.gov/pds4/msn_surface/v1 https://pds.nasa.gov/pds4/msn_surface/v1/PDS4_MSN_SURFACE_1J00_1220.xsd   
+  http://pds.nasa.gov/pds4/msss_cam_mh/v1 https://pds.nasa.gov/pds4/msss_cam_mh/v1/PDS4_MSSS_CAM_MH_1J00_1030.xsd">
+
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:msl_mmm:data_mslmst:3778ml1037770010808163i01_dxxx</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>MARS SCIENCE LABORATORY MAST CAMERA LEFT Observational Product - urn:nasa:pds:msl_mmm:data_mslmst:3778ml1037770010808163i01_dxxx</title>
+    <information_model_version>1.19.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Alias_List>
+      <Alias>
+        <alternate_id>3778ML1037770010808163I01_DXXX</alternate_id>
+        <comment>MMM PICNO IMAGE IDENTIFIER</comment>
+      </Alias>
+    </Alias_List>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2023-03-23T23:14:12.664Z</start_date_time>
+      <stop_date_time>2023-03-23T23:14:12.670Z</stop_date_time>
+      <local_mean_solar_time>Sol-03778M12:22:38.85564</local_mean_solar_time>
+      <local_true_solar_time>Sol-03778M12:11:16</local_true_solar_time>
+      <solar_longitude unit="deg">41.210</solar_longitude>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Calibrated</processing_level>
+      <description>Multispectral documentation of Dust Removal Tool (DRT) target Marabitana</description>
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <domain>Surface</domain>
+        <discipline_name>Imaging</discipline_name>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>MARS SCIENCE LABORATORY</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars_science_laboratory</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>MARS SCIENCE LABORATORY</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.msl</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>MAST CAMERA LEFT</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mast_left.msl</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+    </Target_Identification>
+    <Discipline_Area>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>thumbnail_image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Top to Bottom</disp:vertical_display_direction>
+        </disp:Display_Direction>
+        <disp:Color_Display_Settings>
+          <disp:color_display_axis>Band</disp:color_display_axis>
+          <disp:red_channel_band>1</disp:red_channel_band>
+          <disp:green_channel_band>2</disp:green_channel_band>
+          <disp:blue_channel_band>3</disp:blue_channel_band>
+        </disp:Color_Display_Settings>
+      </disp:Display_Settings>
+      <geom:Geometry>
+        <geom:SPICE_Kernel_Files>
+          <geom:SPICE_Kernel_Identification>
+            <geom:spice_kernel_file_name>MMM_CHRONOS_V05.TM</geom:spice_kernel_file_name>
+          </geom:SPICE_Kernel_Identification>
+        </geom:SPICE_Kernel_Files>
+        <geom:Geometry_Lander>
+          <geom:geometry_state>Telemetry</geom:geometry_state>
+          <geom:description>Geometry as reported by the spacecraft in telemetry</geom:description>
+          <local_identifier>geom_telemetry_state</local_identifier>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>RSM</geom:device_id>
+            <geom:device_name>REMOTE SENSING MAST</geom:device_name>
+            <geom:device_mode>DEPLOYED</geom:device_mode>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION REQUESTED</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION FINAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>AZIMUTH INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>ELEVATION INITIAL-ENCODER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Articulation_Device_Parameters>
+            <geom:device_id>ARM</geom:device_id>
+            <geom:device_name>SAMPLE ARM</geom:device_name>
+            <geom:Device_Angle>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 1 AZIMUTH-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 2 ELEVATION-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 3 ELBOW-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 4 WRIST-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+              <geom:Device_Angle_Index>
+                <geom:index_id>JOINT 5 TURRET-RESOLVER</geom:index_id>
+                <geom:index_value_angle unit="rad">1E+30</geom:index_value_angle>
+              </geom:Device_Angle_Index>
+            </geom:Device_Angle>
+          </geom:Articulation_Device_Parameters>
+          <geom:Camera_Model_Parameters>
+            <geom:model_type>CAHVOR</geom:model_type>
+            <geom:CAHVOR_Model>
+              <geom:Vector_Center>
+                <geom:x_position unit="m">7.821131e-01</geom:x_position>
+                <geom:y_position unit="m">4.348851e-01</geom:y_position>
+                <geom:z_position unit="m">-1.980044e+00</geom:z_position>
+              </geom:Vector_Center>
+              <geom:Vector_Axis>
+                <geom:x_unit>7.194892e-01</geom:x_unit>
+                <geom:y_unit>-1.966158e-01</geom:y_unit>
+                <geom:z_unit>6.660792e-01</geom:z_unit>
+              </geom:Vector_Axis>
+              <geom:Vector_Horizontal>
+                <geom:x_pixel>1.173164e+03</geom:x_pixel>
+                <geom:y_pixel>4.494435e+03</geom:y_pixel>
+                <geom:z_pixel>-1.369395e+02</geom:z_pixel>
+              </geom:Vector_Horizontal>
+              <geom:Vector_Vertical>
+                <geom:x_pixel>-2.925530e+03</geom:x_pixel>
+                <geom:y_pixel>8.676853e+02</geom:y_pixel>
+                <geom:z_pixel>3.502319e+03</geom:z_pixel>
+              </geom:Vector_Vertical>
+              <geom:Vector_Optical>
+                <geom:x_unit>7.212551e-01</geom:x_unit>
+                <geom:y_unit>-1.952107e-01</geom:y_unit>
+                <geom:z_unit>6.645810e-01</geom:z_unit>
+              </geom:Vector_Optical>
+              <geom:Radial_Terms>
+                <geom:c0>-1.510000e-04</geom:c0>
+                <geom:c1>-1.391890e-01</geom:c1>
+                <geom:c2>-1.250336e+00</geom:c2>
+              </geom:Radial_Terms>
+            </geom:CAHVOR_Model>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:solution_id>TELEMETRY</geom:solution_id>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Camera_Model_Parameters>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>ROVER_NAV_FRAME_TELEMETRY</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:solution_id>TELEMETRY</geom:solution_id>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">-150.833740</geom:x_position>
+              <geom:y_position unit="m">24.855228</geom:y_position>
+              <geom:z_position unit="m">-10.143730</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.1753555</geom:qcos>
+              <geom:qsin1>-0.0597133</geom:qsin1>
+              <geom:qsin2>-0.0084190</geom:qsin2>
+              <geom:qsin3>0.9826565</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>SITE_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>SITE_FRAME</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">-147.000946</geom:x_position>
+              <geom:y_position unit="m">64.456680</geom:y_position>
+              <geom:z_position unit="m">-4.453814</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>1.0000000</geom:qcos>
+              <geom:qsin1>0.0000000</geom:qsin1>
+              <geom:qsin2>0.0000000</geom:qsin2>
+              <geom:qsin3>0.0000000</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>SITE_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>99</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>RSM_HEAD_FRAME_TELEMETRY</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>RSM_HEAD_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:solution_id>TELEMETRY</geom:solution_id>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">0.804367</geom:x_position>
+              <geom:y_position unit="m">0.559465</geom:y_position>
+              <geom:z_position unit="m">-1.906076</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.9237003</geom:qcos>
+              <geom:qsin1>-0.0520844</geom:qsin1>
+              <geom:qsin2>-0.3526345</geom:qsin2>
+              <geom:qsin3>-0.1404065</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Coordinate_Space_Definition>
+            <local_identifier>ARM_TURRET_FRAME_TELEMETRY</local_identifier>
+            <geom:positive_azimuth_direction>Clockwise</geom:positive_azimuth_direction>
+            <geom:positive_elevation_direction>Up</geom:positive_elevation_direction>
+            <geom:Coordinate_Space_Present>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:solution_id>TELEMETRY</geom:solution_id>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Present>
+            <geom:Vector_Origin_Offset>
+              <geom:x_position unit="m">2.348957</geom:x_position>
+              <geom:y_position unit="m">-1.127000</geom:y_position>
+              <geom:z_position unit="m">-0.312417</geom:z_position>
+            </geom:Vector_Origin_Offset>
+            <geom:Quaternion_Plus_Direction>
+              <geom:qcos>0.0067328</geom:qcos>
+              <geom:qsin1>0.9444402</geom:qsin1>
+              <geom:qsin2>-0.3280173</geom:qsin2>
+              <geom:qsin3>-0.0197986</geom:qsin3>
+              <geom:rotation_direction>Forward</geom:rotation_direction>
+            </geom:Quaternion_Plus_Direction>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Coordinate_Space_Definition>
+          <geom:Derived_Geometry>
+            <geom:instrument_azimuth unit="deg">147.4524</geom:instrument_azimuth>
+            <geom:instrument_elevation unit="deg">-35.6429</geom:instrument_elevation>
+            <geom:solar_azimuth unit="deg">352.3551</geom:solar_azimuth>
+            <geom:solar_elevation unit="deg">68.8657</geom:solar_elevation>
+            <geom:Coordinate_Space_Reference>
+              <geom:Coordinate_Space_Indexed>
+                <geom:coordinate_space_frame_type>ROVER_NAV_FRAME</geom:coordinate_space_frame_type>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>SITE</geom:index_id>
+                  <geom:index_value_number>100</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRIVE</geom:index_id>
+                  <geom:index_value_number>1586</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>POSE</geom:index_id>
+                  <geom:index_value_number>14</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>ARM</geom:index_id>
+                  <geom:index_value_number>94</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>CHIMRA</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>DRILL</geom:index_id>
+                  <geom:index_value_number>0</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>RSM</geom:index_id>
+                  <geom:index_value_number>194</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+                <geom:Coordinate_Space_Index>
+                  <geom:index_id>HGA</geom:index_id>
+                  <geom:index_value_number>120</geom:index_value_number>
+                </geom:Coordinate_Space_Index>
+              </geom:Coordinate_Space_Indexed>
+            </geom:Coordinate_Space_Reference>
+          </geom:Derived_Geometry>
+          <geom:Motion_Counter>
+            <geom:name>RMC</geom:name>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>SITE</geom:index_id>
+              <geom:index_value_number>100</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRIVE</geom:index_id>
+              <geom:index_value_number>1586</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>POSE</geom:index_id>
+              <geom:index_value_number>14</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>ARM</geom:index_id>
+              <geom:index_value_number>94</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>CHIMRA</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>DRILL</geom:index_id>
+              <geom:index_value_number>0</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>RSM</geom:index_id>
+              <geom:index_value_number>194</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+            <geom:Motion_Counter_Index>
+              <geom:index_id>HGA</geom:index_id>
+              <geom:index_value_number>120</geom:index_value_number>
+            </geom:Motion_Counter_Index>
+          </geom:Motion_Counter>
+        </geom:Geometry_Lander>
+      </geom:Geometry>
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>thumbnail_image</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Color_Filter_Array>
+          <img:processing_venue>Hardware</img:processing_venue>
+          <img:processing_algorithm>Malvar</img:processing_algorithm>
+          <img:color_filter_array_type>Bayer RGGB</img:color_filter_array_type>
+          <img:color_filter_array_state>Decoded</img:color_filter_array_state>
+        </img:Color_Filter_Array>
+        <img:Detector>
+          <img:first_line>545</img:first_line>
+          <img:first_sample>961</img:first_sample>
+          <img:lines>16</img:lines>
+          <img:samples>16</img:samples>
+          <img:erase_count>4094</img:erase_count>
+          <img:analog_offset>117</img:analog_offset>
+        </img:Detector>
+        <img:Downsampling>
+          <img:Pixel_Averaging_Dimensions>
+            <img:height_pixels unit="pixel">8</img:height_pixels>
+            <img:width_pixels unit="pixel">8</img:width_pixels>
+          </img:Pixel_Averaging_Dimensions>
+        </img:Downsampling>
+        <img:Exposure>
+          <img:exposure_duration unit="ms">6.2</img:exposure_duration>
+        </img:Exposure>
+        <img:Focus>
+          <img:focus_mode>Manual</img:focus_mode>
+          <img:focus_position_count>2274</img:focus_position_count>
+        </img:Focus>
+        <img:Onboard_Compression>
+          <img:onboard_compression_class>Lossy</img:onboard_compression_class>
+          <img:onboard_compression_type>JPEG</img:onboard_compression_type>
+          <img:onboard_compression_quality>0.95</img:onboard_compression_quality>
+        </img:Onboard_Compression>
+        <img:Optical_Filter>
+          <img:filter_name>MASTCAM_L0_CLEAR</img:filter_name>
+          <img:filter_number>0</img:filter_number>
+          <img:filter_position_count>0</img:filter_position_count>
+          <img:center_filter_wavelength unit="nm">590</img:center_filter_wavelength>
+        </img:Optical_Filter>
+        <img:Optical_Properties>
+          <img:focal_length unit="mm">34.0</img:focal_length>
+        </img:Optical_Properties>
+        <img:Sampling>
+          <img:sample_bits>8</img:sample_bits>
+          <img:Companding>
+            <img:processing_venue>Hardware</img:processing_venue>
+            <img:processing_algorithm>MMM_LUT0</img:processing_algorithm>
+            <img:companding_state>Companded</img:companding_state>
+          </img:Companding>
+        </img:Sampling>
+        <img:Subframe>
+          <img:line_fov unit="deg">1.5799</img:line_fov>
+          <img:sample_fov unit="deg">1.5773</img:sample_fov>
+        </img:Subframe>
+        <img:Instrument_State>
+          <img:Device_Temperatures>
+            <img:Device_Temperature>
+              <img:device_name>DEA</img:device_name>
+              <img:temperature_value unit="degC">17.6350</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>HEAD_FPA</img:device_name>
+              <img:temperature_value unit="degC">-21.9229</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>ELECTRONICS</img:device_name>
+              <img:temperature_value unit="degC">-22.0783</img:temperature_value>
+              <img:temperature_status>0</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>ELECTRONICS_A</img:device_name>
+              <img:temperature_value unit="degC" xsi:nil="true" nilReason="missing"></img:temperature_value>
+              <img:temperature_status>-1</img:temperature_status>
+            </img:Device_Temperature>
+            <img:Device_Temperature>
+              <img:device_name>ELECTRONICS_B</img:device_name>
+              <img:temperature_value unit="degC" xsi:nil="true" nilReason="missing"></img:temperature_value>
+              <img:temperature_status>-1</img:temperature_status>
+            </img:Device_Temperature>
+          </img:Device_Temperatures>
+        </img:Instrument_State>
+        <img:Commanded_Parameters>
+          <img:Exposure>
+            <img:exposure_count>8</img:exposure_count>
+            <img:exposure_duration unit="ms">1.0</img:exposure_duration>
+          <img:exposure_type>Auto</img:exposure_type>
+          </img:Exposure>
+          <img:Focus>
+            <img:focus_mode>Manual</img:focus_mode>
+            <img:focus_position>2274</img:focus_position>
+            <img:autofocus_step_size>6</img:autofocus_step_size>
+            <img:autofocus_step_count>1</img:autofocus_step_count>
+          </img:Focus>
+          <img:Onboard_Compression>
+            <img:onboard_compression_class>Lossless</img:onboard_compression_class>
+            <img:onboard_compression_type>MSSS Lossless</img:onboard_compression_type>
+          </img:Onboard_Compression>
+          <img:Optical_Filter>
+            <img:filter_name>MASTCAM_L0_CLEAR</img:filter_name>
+            <img:filter_number>0</img:filter_number>
+          </img:Optical_Filter>
+          <img:Sampling>
+            <img:Companding>
+              <img:processing_algorithm>MMM_LUT0</img:processing_algorithm>
+              <img:companding_state>Companded</img:companding_state>
+            </img:Companding>
+          </img:Sampling>
+        </img:Commanded_Parameters>
+      </img:Imaging>
+      <img_surface:Surface_Imaging>
+        <img_surface:Image_Identifiers>
+          <img_surface:image_id>8163</img_surface:image_id>
+          <img_surface:tracking_id>2103777001</img_surface:tracking_id>
+        </img_surface:Image_Identifiers>
+        <img_surface:Instrument_Information>
+          <img_surface:image_type>THUMBNAIL</img_surface:image_type>
+          <img_surface:image_acquire_mode>IMAGE</img_surface:image_acquire_mode>
+          <img_surface:instrument_type>IMAGING CAMERA</img_surface:instrument_type>
+          <img_surface:instrument_serial_number>3003</img_surface:instrument_serial_number>
+          <img_surface:instrument_version_number>FM</img_surface:instrument_version_number>
+          <img_surface:camera_product_id>8163</img_surface:camera_product_id>
+        </img_surface:Instrument_Information>
+      </img_surface:Surface_Imaging>
+      <msn:Mission_Information>
+        <msn:mission_phase_name>EXTENDED SURFACE MISSION</msn:mission_phase_name>
+        <msn:release_number>0033</msn:release_number>
+        <msn:product_type_name>MMMEDR</msn:product_type_name>
+        <msn:spacecraft_clock_start>732881969.0000</msn:spacecraft_clock_start>
+        <msn:spacecraft_clock_stop>732881969.0062</msn:spacecraft_clock_stop>
+        <msn:spacecraft_clock_partition>1</msn:spacecraft_clock_partition>
+        <msn:Surface_Mission>
+          <msn:start_sol_number>3778</msn:start_sol_number>
+          <msn:start_local_mean_solar_time>Sol-03778M12:22:38.85564</msn:start_local_mean_solar_time>
+          <msn:start_local_mean_solar_time_sol>3778</msn:start_local_mean_solar_time_sol>
+          <msn:start_local_true_solar_time>12:11:16</msn:start_local_true_solar_time>
+          <msn:start_local_true_solar_time_sol>3778</msn:start_local_true_solar_time_sol>
+          <msn:solar_longitude unit="deg">41.210</msn:solar_longitude>
+        </msn:Surface_Mission>
+        <msn:Observation_Context>
+          <msn:active_flight_computer>B</msn:active_flight_computer>
+        </msn:Observation_Context>
+      </msn:Mission_Information>
+      <msn_surface:Surface_Mission_Information>
+        <msn_surface:Command_Execution>
+          <msn_surface:sequence_id>mcam03777</msn_surface:sequence_id>
+          <msn_surface:sequence_version_id>4000</msn_surface:sequence_version_id>
+          <msn_surface:sequence_execution_count>1</msn_surface:sequence_execution_count>
+          <msn_surface:command_sequence_number>1</msn_surface:command_sequence_number>
+          <msn_surface:request_id>2103777001</msn_surface:request_id>
+        </msn_surface:Command_Execution>
+        <msn_surface:Telemetry>
+          <msn_surface:application_id>411</msn_surface:application_id>
+          <msn_surface:application_name>McamLThumbnail</msn_surface:application_name>
+          <msn_surface:flight_software_version_id>41343824</msn_surface:flight_software_version_id>
+          <msn_surface:telemetry_source_name>McamLThumbnail_0732881968-00000-1</msn_surface:telemetry_source_name>
+          <msn_surface:transport_protocol>Data Product</msn_surface:transport_protocol>
+          <msn_surface:communication_session_id>47780</msn_surface:communication_session_id>
+          <msn_surface:telemetry_source_start_time>2023-082T23:14:12Z</msn_surface:telemetry_source_start_time>
+          <msn_surface:telemetry_source_sclk_start>1/732881968-00000</msn_surface:telemetry_source_sclk_start>
+          <msn_surface:product_completion_status>COMPLETE_CHECKSUM_PASS</msn_surface:product_completion_status>
+          <msn_surface:earth_received_start_date_time>2023-03-24T11:05:20.23Z</msn_surface:earth_received_start_date_time>
+          <msn_surface:download_priority>41</msn_surface:download_priority>
+        </msn_surface:Telemetry>
+      </msn_surface:Surface_Mission_Information>
+      <proc:Processing_Information>
+        <Local_Internal_Reference>
+          <local_identifier_reference>thumbnail_image</local_identifier_reference>
+          <local_reference_type>processing_information_to_data_object</local_reference_type>
+        </Local_Internal_Reference>
+        <proc:Input_Product_List>
+          <proc:Input_Product>
+            <Internal_Reference>
+              <lidvid_reference>urn:nasa:pds:msl_mmm:data_mslmst:mcamlthumbnail_0732881968-00000-1::1.0</lidvid_reference>
+              <reference_type>data_to_input_product</reference_type>
+            </Internal_Reference>
+          </proc:Input_Product>
+        </proc:Input_Product_List>
+        <proc:Process>
+          <proc:process_owner_institution_name>MALIN SPACE SCIENCE SYSTEMS</proc:process_owner_institution_name>
+          <proc:Software>
+            <proc:Software_Program>
+              <proc:name>MMMEDRGEN</proc:name>
+              <proc:program_version>rel_4 CS_2752</proc:program_version>
+              <proc:description>DAT to EDR</proc:description>
+            </proc:Software_Program>
+          </proc:Software>
+        </proc:Process>
+      </proc:Processing_Information>
+      <msss_cam_mh:MSSS_Camera_Mini_Header>
+        <msss_cam_mh:camera_product_id>8163</msss_cam_mh:camera_product_id>
+        <msss_cam_mh:magic_initial>FF00F0CA</msss_cam_mh:magic_initial>
+        <msss_cam_mh:magic_final>1010CC28</msss_cam_mh:magic_final>
+        <msss_cam_mh:spacecraft_clock_start>732881969.0000</msss_cam_mh:spacecraft_clock_start>
+        <msss_cam_mh:instrument_mode_id>0</msss_cam_mh:instrument_mode_id>
+        <msss_cam_mh:instrument_serial_number>3003</msss_cam_mh:instrument_serial_number>
+        <msss_cam_mh:initial_size>1472</msss_cam_mh:initial_size>
+        <msss_cam_mh:analog_offset>117</msss_cam_mh:analog_offset>
+        <img:Detector>
+          <img:first_line>545</img:first_line>
+          <img:first_sample>961</img:first_sample>
+          <img:lines>16</img:lines>
+          <img:samples>16</img:samples>
+          <img:erase_count>4094</img:erase_count>
+          <img:readout_rate unit="MHz">10</img:readout_rate>
+          <img:analog_offset>117</img:analog_offset>
+        </img:Detector>
+        <img:Exposure>
+          <img:exposure_count>8</img:exposure_count>
+          <img:exposure_duration unit="ms">6.2</img:exposure_duration>
+          <img:exposure_type>Auto</img:exposure_type>
+          <img:Autoexposure>
+            <img:auto_exposure_data_cut>130</img:auto_exposure_data_cut>
+            <img:auto_exposure_percent>10</img:auto_exposure_percent>
+            <img:auto_exposure_pixel_fraction>1</img:auto_exposure_pixel_fraction>
+            <img:max_auto_exposure_iteration_count>8</img:max_auto_exposure_iteration_count>
+          </img:Autoexposure>
+        </img:Exposure>
+        <img:Focus>
+            <img:focus_mode>Manual</img:focus_mode>
+            <img:focus_position_count>2274</img:focus_position_count>
+            <img:autofocus_step_size>6</img:autofocus_step_size>
+            <img:autofocus_step_count>1</img:autofocus_step_count>
+        </img:Focus>
+        <img:Onboard_Compression>
+          <img:onboard_compression_class>Lossy</img:onboard_compression_class>
+          <img:onboard_compression_type>JPEG</img:onboard_compression_type>
+          <img:JPEG_Parameters>
+            <img:color_subsampling_mode>4:4:4</img:color_subsampling_mode>
+            <img:jpeg_quality>95</img:jpeg_quality>
+          </img:JPEG_Parameters>
+        </img:Onboard_Compression>
+        <img:Optical_Filter>
+          <img:filter_number>0</img:filter_number>
+        </img:Optical_Filter>
+        <img:Sampling>
+          <img:Companding>
+            <img:processing_algorithm>MMM_LUT0</img:processing_algorithm>
+          </img:Companding>
+        </img:Sampling>
+        <img:Subframe>
+          <img:first_line>545</img:first_line>
+          <img:first_sample>961</img:first_sample>
+          <img:lines>16</img:lines>
+          <img:samples>16</img:samples>
+        </img:Subframe>
+        <img:Instrument_State>
+          <img:Device_Component_States>
+            <img:Device_Component_State>
+              <img:device_name>UV_LED</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>VIS1_LED</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>VIS2_LED</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>FILTER_HALL_STATE</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>COVER_HALL_STATE</img:device_name>
+              <img:device_state>1</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>FOCUS_HALL_STATE</img:device_name>
+              <img:device_state>1</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>CCD_STATE</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>LED1_CONTROL</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>LED2_CONTROL</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>LED3_CONTROL</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>VIDEO_EXPOSURE</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>CLKDIV2</img:device_name>
+              <img:device_state>1</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>LONG_INTEGRATION_MODE</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>TEST_MODE</img:device_name>
+              <img:device_state>0</img:device_state>
+            </img:Device_Component_State>
+            <img:Device_Component_State>
+              <img:device_name>CLKDIV1</img:device_name>
+              <img:device_state>1</img:device_state>
+            </img:Device_Component_State>
+          </img:Device_Component_States>
+          <img:Device_Motor_Counts>
+            <img:Device_Motor_Count>
+              <img:device_name>FOCUS</img:device_name>
+              <img:motor_count>2274</img:motor_count>
+            </img:Device_Motor_Count>
+            <img:Device_Motor_Count>
+              <img:device_name>FILTER</img:device_name>
+              <img:motor_count>0</img:motor_count>
+            </img:Device_Motor_Count>
+          </img:Device_Motor_Counts>
+        </img:Instrument_State>
+      </msss_cam_mh:MSSS_Camera_Mini_Header>
+    </Discipline_Area>
+  </Observation_Area>
+  <Reference_List>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:msl_mmm:data_mslmst:3778ml1037770010808163i01_xxxx::1.0</lidvid_reference>
+      <reference_type>data_to_telemetry_source_product</reference_type>
+      <comment>Source ODR product</comment>
+    </Source_Product_Internal>
+  </Reference_List>
+  <File_Area_Observational>
+    <File>
+      <file_name>3778ML1037770010808163I01_DXXX.IMG</file_name>
+      <creation_date_time>2023-07-24T11:27:38.686Z</creation_date_time>
+      <file_size unit="byte">26096</file_size>
+    </File>
+    <Header>
+      <local_identifier>ODL3_Header</local_identifier>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">25328</object_length>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>ODL3 Header</description>
+    </Header>
+    <Array_3D_Image>
+      <local_identifier>thumbnail_image</local_identifier>
+      <offset unit="byte">25328</offset>
+      <axes>3</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>UnsignedByte</data_type>
+        <scaling_factor>1</scaling_factor>
+        <value_offset>0</value_offset>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Band</axis_name>
+        <elements>3</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Line</axis_name>
+        <elements>16</elements>
+        <sequence_number>2</sequence_number>
+      </Axis_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <elements>16</elements>
+        <sequence_number>3</sequence_number>
+      </Axis_Array>
+      <!--Special_Constants-->
+        <!--missing_constant>NONE</missing_constant-->
+        <!--invalid_constant>NONE</invalid_constant-->
+      <!--/Special_Constants-->
+    </Array_3D_Image>
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>3778ML1037770010808163I01_XXXX.DAT</file_name>
+      <local_identifier>ODR</local_identifier>
+      <file_size unit="byte">832</file_size>
+    </File>
+    <Encoded_Byte_Stream>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">64</object_length>
+      <encoding_standard_id>MSSS Camera Mini Header</encoding_standard_id>
+      <description>MMM Original Data Record Mini Header</description>
+    </Encoded_Byte_Stream>
+    <Encoded_Byte_Stream>
+      <offset unit="byte">64</offset>
+      <encoding_standard_id>MMM ODR Stream</encoding_standard_id>
+      <description>MMM Original Data Record payload data</description>
+    </Encoded_Byte_Stream>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>
