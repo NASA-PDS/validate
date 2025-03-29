@@ -57,7 +57,7 @@
       <type>Satellite</type>
       <Internal_Reference>
         <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
-        <reference_type>data_to_target</reference_type>
+        <reference_type>native_to_target</reference_type>
       </Internal_Reference>
     </Target_Identification>
   </Context_Area>
