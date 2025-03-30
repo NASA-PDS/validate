@@ -13,8 +13,13 @@
 // $Id$
 package gov.nasa.pds.tools.validate.rule.pds4;
 
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 import gov.nasa.pds.label.object.FieldType;
 import gov.nasa.pds.registry.common.util.TimeFormatRegex;
@@ -26,6 +31,18 @@ import gov.nasa.pds.registry.common.util.TimeFormatRegex;
  *
  */
 public class DateTimeValidator {
+  private static final Map<String,String> Accepted_DateFormats = new TreeMap<String, String>();
+  static {
+    for (Pattern p : TimeFormatRegex.DATE_TIME_DOY_FORMATS) {
+      Accepted_DateFormats.put(p.pattern(), "u[-D['T'H[:m[:s[.S]]]]]X");
+    }
+    for (Pattern p : TimeFormatRegex.DATE_TIME_YMD_FORMATS) {
+      Accepted_DateFormats.put(p.pattern(), "u[-M[-d['T'H[:m[:s[.S]]]]]]X");
+    }
+    for (Pattern p : TimeFormatRegex.TIME_FORMATS) {
+      Accepted_DateFormats.put(p.pattern(), "H[:m[:s[.S]]]X");
+    }
+  };
 
   /**
    * Mapping of field datetime types to its list of valid datetime formats.
@@ -55,17 +72,52 @@ public class DateTimeValidator {
    * @throws Exception
    */
   public static boolean isValid(FieldType type, String value) throws Exception {
-    boolean success = false;
-    if (!DATE_TIME_FORMATS.containsKey(type.getXMLType())) {
-      throw new Exception("'" + type.getXMLType() + "' is not one of the valid datetime formats: "
+    return locateRegEx(type.getXMLType(), value) != null;
+  }
+  
+  private static Pattern locateRegEx (String type, String value) throws Exception {
+    Pattern match = null; 
+    if (!DATE_TIME_FORMATS.containsKey(type)) {
+      throw new Exception("'" + type + "' is not one of the valid datetime formats: "
           + DATE_TIME_FORMATS.toString());
     }
-    for (Pattern format : DATE_TIME_FORMATS.get(type.getXMLType())) {
+    for (Pattern format : DATE_TIME_FORMATS.get(type)) {
       if (format.matcher (value.trim()).matches()) {
-        success = true;
+        match = format;
         break;
       }
     }
-    return success;
+    return match;
+  }
+ 
+  private static Instant to (String value, String pattern) {
+    // need to java datetime parse normalize value (super annoying)
+    pattern = Accepted_DateFormats.get(pattern);
+    value = value.trim(); // remove extra whitespace
+    if (pattern.endsWith("X")) value = (value + "Z").replace("ZZ","Z"); // force timezone
+    if (value.contains(".")) { // need enough S to do the trick
+      int decidx = value.indexOf(".");
+      int eol = value.length() - (value.endsWith("Z") ? 2:1);
+      String enoughS = "";
+      for (int i = 0 ; i < eol-decidx ; i++) enoughS += "S";
+      pattern = pattern.replace("S", enoughS);
+    }
+    return ZonedDateTime.parse(value,DateTimeFormatter.ofPattern(pattern)).toInstant();
+  }
+  public static Instant toInstant (FieldType type, String value) throws Exception {
+    Pattern regex = locateRegEx (type.getXMLType(), value);
+    if (regex == null)
+      throw new Exception("'" + value + "' cannot be parsed by the regular expressions defining '" + type.getXMLType() + "'");
+    return to (value, regex.pattern());
+  } 
+  public static Instant anyToInstant (String value) throws Exception {
+    Pattern regex = null;
+    for (String ft : DATE_TIME_FORMATS.keySet()) {
+      regex = locateRegEx (ft, value);
+      if (regex != null) break;
+    }
+    if (regex == null)
+      throw new Exception("'" + value + "' cannot be parsed by the regular expressions defining for any PDS4 support ASCII date time formats.");
+    return to(value, regex.pattern());
   }
 }

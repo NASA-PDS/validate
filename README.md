@@ -65,6 +65,7 @@ mvn clean package -DskipTests
 Within the NASA Planetary Data System, we value the health of our community as much as the code. Towards that end, we ask that you read and practice what's described in these documents:
 
 -   Our [contributor's guide](https://github.com/NASA-PDS/.github/blob/main/CONTRIBUTING.md) delineates the kinds of contributions we accept.
+-   Specifically for validate, see https://github.com/NASA-PDS/validate/blob/main/src/site/markdown/developer/contribute.md
 -   Our [code of conduct](https://github.com/NASA-PDS/.github/blob/main/CODE_OF_CONDUCT.md) outlines the standards of behavior we practice and expect by everyone who participates with our software.
 
 Join our mailing list! Send an email to pds-validate-users+subscribe@groups.io to subscribe.

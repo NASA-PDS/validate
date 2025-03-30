@@ -157,6 +157,7 @@ public enum ProblemType {
   BAD_FIELD_READ("error.table.bad_field_read"),
 
   FIELD_VALUE_NOT_A_NUMBER("error.table.field_value_not_a_number"),
+  FIELD_VALUE_NOT_A_DATETIME("error.table.field_value_not_a_datetime"),
 
   FIELD_VALID_NOT_RIGHT_JUSTIFIED("error.table.field_value_not_right_justified"),
 
