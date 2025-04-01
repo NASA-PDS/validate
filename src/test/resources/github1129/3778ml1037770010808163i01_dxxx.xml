@@ -74,7 +74,7 @@
     </Investigation_Area>
     <Observing_System>
       <Observing_System_Component>
-        <name>MARS SCIENCE LABORATORY</name>
+        <name>The Mars Science Laboratory Curiosity Rover</name>
         <type>Host</type>
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.msl</lid_reference>
