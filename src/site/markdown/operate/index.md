@@ -20,11 +20,11 @@ This document describes how to operate the Validate Tool. The following topics c
         - [Changing Tool Behaviors With The Configuration File](#changing-tool-behaviors-with-the-configuration-file)
     - [Specifying Targets](#specifying-targets)
     - [Validation Rules](#validation-rules)
-        - [pds4.label](#pds4label)
-        - [pds4.bundle](#pds4bundle)
-        - [pds4.folder](#pds4folder)
-        - [pds4.collection](#pds4collection)
-        - [pds3.volume](#pds3volume)
+        - [pds4.label](#pds4-label)
+        - [pds4.bundle](#pds4-bundle)
+        - [pds4.folder](#pds4-folder)
+        - [pds4.collection](#pds4-collection)
+        - [pds3.volume](#pds3-volume)
     - [Referential Integrity Checking](#referential-integrity-checking)
     - [Improve Performance](#improve-performance)
         - [Batching](#batching)   
@@ -181,7 +181,7 @@ By default, the Validate Tool will recursively traverse a target directory durin
 ```
 #### Changing Tool Behaviors With The Configuration File
 
-A configuration file can be passed into the command-line to change the default behaviors of the tool and to also provide users a way to perform validation with a single flag. For more details on how to setup the configuration file, see the [Using a Configuration File](Using_a_Configuration_File) section.
+A configuration file can be passed into the command-line to change the default behaviors of the tool and to also provide users a way to perform validation with a single flag. For more details on how to setup the configuration file, see the [Using a Configuration File](#using-a-configuration-file) section.
 
 The following command demonstrates performing validation using a configuration file:
 
@@ -787,32 +787,8 @@ Since backslashes (\\) have special meanings in a configuration file, keyword va
 
 Note: Any flag specified on the command-line takes precedence over any equivalent settings placed in the configuration file.
 
-The following table contains valid keywords that can be specified in the configuration file:
+See the [Config Key](https://github.com/NASA-PDS/validate/blob/8287091b9fa5c375f0f9d0b6ba8e82335dc3f902/src/main/java/gov/nasa/pds/validate/commandline/options/ConfigKey.java#L46C43-L46C61) class for available configuration options that match to the command-line option.
 
-|Property Keyword|Property Value|Associated Command-Line Option|
-|---|---|---|
-|validate.target|[files,dirs]|-t, --target|
-|validate.rule|[validation rule name]|-R, --rule|
-|validate.checksum|[file]|-M, --checksum-manifest|
-|validate.basePath|[path]|-B, --base-path|
-|validate.catalog|[catalog files]|-C, --catalog|
-|validate.schema|[schema files]|-x, --xsd|
-|validate.schematron|[schematron files]|-S, --schematron|
-|validate.noDataCheck|true|-D, --no-data-check|
-|validate.spotCheckData|[number]|--spot-check-data|
-|validate.allowUnlabeledFiles|true|--allow-unlabeled-files|
-|validate.report|[file name]|-r, --report-file|
-|validate.verbose|[1|2|3]|-v, --verbose|
-|validate.reportStyle|[full|json|xml]|-s, --report-style|
-|validate.regexp|[patterns]|-e, --regexp|
-|validate.local|true|-L, --local|
-|validate.model|[version]|-m, --model-version (DEPRECATED)|
-|validate.force|true|-f, --force (DEPRECATED)|
-|validate.maxErrors|[number]|-E, --max-errors|
-|validate.updateContextProducts|true|-u,--update-context-products|
-|validate.addContextProducts|[dir/files]|--add-context-products|
-|validate.skipContextValidation|true|--skip-context-validation|
-|validate.targetListFile|[dir/file]|--target-list-file|
 
 The following example demonstrates how to set a configuration file:
 
