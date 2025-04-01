@@ -14,5 +14,5 @@ Feature: 3.7.x
 | 1104 | 2 | "github1104" | "-t {datasrc}/xrs2.xml" |  |
 | 1104 | 3 | "github1104" | "-t {datasrc}/xrs3.xml" |  |
 | 1118 | 1 | "github1118" | "--skip-context-validation -t {datasrc}/20170303t022534s621_sto_l0.b.xml" |  |
-| 1129 | 1 | "github1129" | "-t {datasrc}/3778ml1037770010808163i01_dxxx.xml" |  |
+| 1129 | 1 | "github1129" | "--disable-context-mismatch-warnings -t {datasrc}/3778ml1037770010808163i01_dxxx.xml" |  |
 | 1158 | 1 | "github1158" | "--skip-content-validation -t {datasrc}/980226_046.xml" |  |
