@@ -11,6 +11,7 @@
 
 **Improvements:**
 
+- Deprecate `validate.checkInbetweenFields` and add `validate.strictFieldChecks` as synonymous [\#1147](https://github.com/NASA-PDS/validate/issues/1147)
 - Add new `encoding_standard_id` values for `Encoded_Byte_Stream` quality check [\#1129](https://github.com/NASA-PDS/validate/issues/1129)
 - Reformat cucumber feature files to be more succinct [\#1102](https://github.com/NASA-PDS/validate/issues/1102)
 - Improve error handling for Registry connection issues [\#1085](https://github.com/NASA-PDS/validate/issues/1085)
