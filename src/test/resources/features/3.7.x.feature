@@ -8,6 +8,7 @@ Feature: 3.7.x
       | issueNumber | subtest | datasrc | args | expectation |
 
 | 1135 | 1 | "github1135" | "--skip-context-validation -t {datasrc}/2017_FGM_KRTP_1M.xml" |  |
+| 1130 | 1 | "github1130" | "--skip-context-validation -t {datasrc}/hyb2_ldr_l0_aocsm_range_ts_20151219_v01.xml" |  |
 | 1118 | 1 | "github1118" | "--skip-context-validation -t {datasrc}/20170303t022534s621_sto_l0.b.xml" |  |
 | 1100 | 1 | "github1100" | "-R pds4.bundle -t {datasrc}" |  |
 | 1104 | 1 | "github1104" | "-t {datasrc}/xrs1.xml" |  |
