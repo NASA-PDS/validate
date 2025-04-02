@@ -16,3 +16,4 @@ Feature: 3.7.x
 | 1118 | 1 | "github1118" | "--skip-context-validation -t {datasrc}/20170303t022534s621_sto_l0.b.xml" |  |
 | 1129 | 1 | "github1129" | "--disable-context-mismatch-warnings -t {datasrc}/3778ml1037770010808163i01_dxxx.xml" |  |
 | 1158 | 1 | "github1158" | "--skip-content-validation -t {datasrc}/980226_046.xml" |  |
+| 1090 | 1 | "github1135" | "--skip-context-validation --skip-product-validation -t {datasrc}/2017_FGM_KRTP_1M.xml" | "summary:productValidation:passed=0,summary:productValidation:skipped=1,summary:productValidation:total=1" |
