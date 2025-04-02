@@ -21,6 +21,7 @@
 
 **Defects:**
 
+- validate-refs appears to be validating many more products than the input LIDVID [\#1183](https://github.com/NASA-PDS/validate/issues/1183) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Context object name check does not match against latest version of context object [\#1158](https://github.com/NASA-PDS/validate/issues/1158) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Fix failing integration tests [\#1157](https://github.com/NASA-PDS/validate/issues/1157)
 - Min/Max value check does not handle ASCII\_Time\_\* Strings [\#1135](https://github.com/NASA-PDS/validate/issues/1135) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
@@ -32,6 +33,7 @@
 
 **Other closed issues:**
 
+- Every Tuesday, check https://psa.esa.int/psa/v1 [\#1187](https://github.com/NASA-PDS/validate/issues/1187)
 - Update test cases referencing JAXA LDDs to use local versions of the schemas/schematrons [\#1133](https://github.com/NASA-PDS/validate/issues/1133)
 - Find a way not to have a configuration or hard-code the list of indexes in validate or harvest, so to check products across nodes [\#1116](https://github.com/NASA-PDS/validate/issues/1116)
 - Quiet `Selected XML parser...` output that goes to stdout [\#1103](https://github.com/NASA-PDS/validate/issues/1103)
