@@ -109,7 +109,7 @@ public class CommandLineInterface {
     DuplicateFileAreaFilenames scanner = new DuplicateFileAreaFilenames(AuthInformation.buildFrom(cl));
     Engine engine = new Engine(cylinders, UserInput.toLidvids (cl.getArgList()), AuthInformation.buildFrom(cl));
     this.log.info("Starting the duplicate filename in FileArea checks.");
-    scanner.findDuplicatesInBackground();
+    // see issue 1183: scanner.findDuplicatesInBackground();
     this.log.info("Starting the reference integrity checks.");
     engine.processQueueUntilEmpty();
     scanner.waitTillDone();
