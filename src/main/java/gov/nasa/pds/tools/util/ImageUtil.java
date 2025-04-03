@@ -97,9 +97,10 @@ public class ImageUtil {
         return (true);
       }
       try {
-        ImageIO.read(jpegFile);
-        LOG.debug("The file " + jpegRef + " should be a valid JPEG file given checks on extensions prior to asking ImageIO to load it.");
-        return (true);
+        if (ImageIO.read(jpegFile) != null) {
+          LOG.debug("The file " + jpegRef + " should be a valid JPEG file given checks on extensions prior to asking ImageIO to load it.");
+          return (true);
+        }
       } catch (IOException ioe) {
         // do nothing and let the rest of the code behave as before
       }

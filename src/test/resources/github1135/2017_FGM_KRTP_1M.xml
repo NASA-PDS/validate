@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1K00_1300.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+   xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1
+      https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1K00.xsd
+
+      http://pds.nasa.gov/pds4/msn/v1
+      https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1K00_1300.xsd
+     ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:cassini-mag-cal:data-1min-krtp:2017_fgm_krtp_1m</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Cassini MAG Calibrated 1 Min. Avg. Data in KRTP Coords 2017</title>
+        <information_model_version>1.20.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Dougherty, Michele K.; Kellock, Stephen; Slootweg, A. Peter; Achilleos, Nicholas; Joy, Steven P.; Mafi, Joseph N.</author_list>
+            <publication_year>2023</publication_year>
+            <description>
+                Cassini magnetic-field 1 minute averages, from the Fluxgate 
+                Magnetometer (FGM) instrument, for the year 2017 in KRTP 
+                coordinates.
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2023-10-17</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                  Original 2017_FGM_KRTP_1M.TAB, product version 7, from the 
+                  PDS3 CO-E/SW/J/S-MAG-4-SUMM-1MINAVG-V2.1 dataset, 
+                  DATA directory, converted to PDS4.
+                </description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2017-01-01T00:00:31.000Z</start_date_time>
+            <stop_date_time>2017-09-15T10:30:31.000Z</stop_date_time>  
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+            <Science_Facets>
+                <discipline_name>Fields</discipline_name>
+                <facet1>Magnetic</facet1>
+                <facet2>Background</facet2>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Cassini-Huygens</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.cassini-huygens</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+            <Observing_System>
+                <Observing_System_Component>
+                    <name>Cassini Orbiter</name>
+                    <type>Host</type>
+                    <Internal_Reference>
+                        <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.co</lid_reference>
+                        <reference_type>is_instrument_host</reference_type>
+                    </Internal_Reference>
+                </Observing_System_Component>
+                <Observing_System_Component>
+                    <name>Dual Technique Magnetometer</name>
+                    <type>Instrument</type>
+                    <Internal_Reference>
+                        <lid_reference>urn:nasa:pds:context:instrument:mag.co</lid_reference>
+                        <reference_type>is_instrument</reference_type>
+                    </Internal_Reference>
+                </Observing_System_Component> 
+        </Observing_System>
+        <Target_Identification>
+            <name>Saturn</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.saturn</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+         <Target_Identification>
+            <name>Titan</name>
+            <type>Satellite</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:satellite.saturn.titan</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                <msn:mission_phase_name>Solstice Mission</msn:mission_phase_name>
+            </msn:Mission_Information>
+            <msn:Mission_Information>
+                <msn:spacecraft_clock_start>1/1861924075.223</msn:spacecraft_clock_start>
+                <msn:spacecraft_clock_stop>1/1884166818.141</msn:spacecraft_clock_stop>
+                <msn:spacecraft_clock_partition>1</msn:spacecraft_clock_partition>
+            </msn:Mission_Information>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:cassini-mag-cal:spice_kernel:cas_2017</lid_reference> 
+            <reference_type>data_to_spice_kernel</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:cassini-mag-cal:document:data-1min-krtp-desc</lid_reference>
+                <reference_type>data_to_document</reference_type>
+                <comment>
+                    Document containing a description of the Cassini MAG 
+                    Calibrated 1 Min. Avg. Data in KRTP Coords. Collection.
+                </comment>
+        </Internal_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>CO-E/SW/J/S-MAG-4-SUMM-1MINAVG-V2.1:2017_FGM_KRTP_1M:2017_FGM_KRTP_1M.TAB</external_source_product_identifier>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+            <doi>10.17189/5rhj-sm88</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>
+                This is the first version converted to PDS4. The DOI provided
+                references the PDS3 source data set. 
+            </description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>2017_FGM_KRTP_1M.TAB</file_name>
+            <creation_date_time>2023-09-18T13:56:12.000Z</creation_date_time>
+            <file_size unit="byte">34719840</file_size>
+            <md5_checksum>1b7b98b831145b0802029b8111592f4c</md5_checksum>
+            <comment>
+                KRTP coordinates are the standard right-handed spherical   
+      triad: R (Saturn to spacecraft), Phi (parallel to Saturn's equator),    
+      and Theta (completes right handed set).                                 
+                                                                              
+      These MAG data were processed (calibrated, rotated into KRTP            
+      coordinates, and averaged) by the Cassini MAG team at Imperial          
+      College. They were provided to PDS by the MAG team Co-I at UCLA.        
+      Trajectory and the number of points in the average were added at the    
+      PDS/PPI node. For more information on this and previous versions,       
+      please refer to the collection description file for this collection                  
+      (data-1min-krtp-desc.txt).
+            </comment>
+        </File>  
+        <Table_Character>
+            <offset unit="byte">0</offset>
+            <records>361665</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>10</fields>
+                <groups>0</groups>
+                <record_length unit="byte">96</record_length>
+                <Field_Character>
+                    <name>TIME</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_Date_Time_YMD</data_type>
+                    <field_length unit="byte">19</field_length>  
+                    <description>                                             
+      Spacecraft event time of the sample.
+                    </description>
+                    <Special_Constants>
+                        <missing_constant>0001-001T00:00:00.000</missing_constant>
+                        <valid_maximum>2017-09-16T00:00:00.000</valid_maximum>
+                        <valid_minimum>1999-01-04T00:00:00.001</valid_minimum>
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>BR</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">21</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">10</field_length>  
+                    <unit>nT</unit>
+                    <description>                                             
+      KRTP radial (r) component of the magnetic-field in nT. R is along the   
+      Saturn to spacecraft line, positive away from Saturn.
+                    </description>
+                    <Special_Constants>
+                        <valid_maximum>44000.000</valid_maximum> 
+                        <valid_minimum>-44000.000</valid_minimum>                  
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>BTHETA</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">32</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">10</field_length>  
+                    <unit>nT</unit>
+                    <description>                                             
+      KRTP southward (theta) component of the magnetic field in nT. Theta     
+      completes the right handed set (Phi x R) and is positive southward.
+                    </description>
+                    <Special_Constants>
+                        <valid_maximum>44000.000</valid_maximum> 
+                        <valid_minimum>-44000.000</valid_minimum>                  
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>BPHI</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">43</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">10</field_length>  
+                    <unit>nT</unit>
+                    <description>                                             
+      KRTP azimuthal (phi) component of the magnetic field in nT. Phi is      
+      parallel to Saturn's equator, perpendicular to the Saturn-spacecraft    
+      line (Omega x R).
+                    </description>
+                    <Special_Constants>
+                        <valid_maximum>44000.000</valid_maximum> 
+                        <valid_minimum>-44000.000</valid_minimum>                  
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>BTOTAL</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">54</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">10</field_length>  
+                    <unit>nT</unit>
+                    <description>                                             
+      Average of the magnetic field magnitudes in nT.
+                    </description>
+                    <Special_Constants>
+                        <valid_maximum>44000.000</valid_maximum> 
+                        <valid_minimum>0.0</valid_minimum>                  
+                    </Special_Constants>
+                </Field_Character>
+                <Field_Character>
+                    <name>RANGE</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">65</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">8</field_length>  
+                    <unit>Saturn Radii</unit>
+                    <description>                                             
+      Range from Saturn center of mass to the spacecraft in units of Rs =     
+      60268 km.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>LATITUDE</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">74</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">6</field_length>  
+                    <unit>Degree</unit>
+                    <description>                                             
+      Planetographic latitude of the spacecraft in degrees.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>EAST LONGITUDE</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">81</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">6</field_length>  
+                    <unit>Degree</unit>
+                    <description>                                             
+      Planetographic east longitude of the spacecraft in degrees.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>LOCAL HOUR</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">88</field_location>
+                    <data_type>ASCII_Real</data_type> 
+                    <field_length unit="byte">4</field_length>  
+                    <unit>hr</unit>
+                    <description>                                             
+      Angle between the observer's (Cassini) sub-Saturn meridian and the      
+      anti-sunward meridian, measured in Saturn's equatorial plane in the     
+      direction of planetary rotation. The local hour angle is converted to a 
+      decimal hour (one hour equal to fifteen degrees longitude). The sun     
+      meridian is defined to be noon (12.000), with midnight (0.000) opposite 
+      it. Dawn (6.000) and dusk (18.000) are where the sun rises and sets     
+      according to the planet's rotation.
+                    </description>
+                </Field_Character>
+                <Field_Character>
+                    <name>NPTS</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">93</field_location>
+                    <data_type>ASCII_Integer</data_type> 
+                    <field_length unit="byte">2</field_length>  
+                    <description>                                             
+      Number of points in the average.
+                    </description>
+                    <Special_Constants>
+                        <missing_constant>-1</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>   
+</Product_Observational>

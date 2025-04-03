@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Browse xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1A10.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:mess_xrs_derived:data_maps:xrs2.jp2</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>MESSENGER XRS RDR Map product: xrs_map_ca_si_20150424</title>
+    <information_model_version>1.10.1.0</information_model_version>
+    <product_class>Product_Browse</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2018-07-27</modification_date>
+        <version_id>1.0</version_id>
+        <description>PDS4 migrated product.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <File_Area_Browse>
+    <File>
+      <file_name>xrs2.jp2</file_name>
+      <creation_date_time>2015-11-25T16:23:01Z</creation_date_time>
+    </File>
+    <Encoded_Image>
+      <offset unit="byte">0</offset>
+      <encoding_standard_id>J2C</encoding_standard_id>
+      <description>Original JPEG-2000 image in PDS3 archive</description>
+    </Encoded_Image>
+  </File_Area_Browse>
+</Product_Browse>

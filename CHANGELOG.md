@@ -1,26 +1,41 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-02-20)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
+**Requirements:**
+
+- As a user, I want to support the JP2 as an acceptable file extension per the PDS4 standards [\#1104](https://github.com/NASA-PDS/validate/issues/1104)
+- As a user, I want to validate that there is exactly one digit to the left of the decimal point for the specifier `e` or `E` [\#992](https://github.com/NASA-PDS/validate/issues/992)
+
 **Improvements:**
 
+- Deprecate `validate.checkInbetweenFields` and add `validate.strictFieldChecks` as synonymous [\#1147](https://github.com/NASA-PDS/validate/issues/1147)
+- Add new `encoding_standard_id` values for `Encoded_Byte_Stream` quality check [\#1129](https://github.com/NASA-PDS/validate/issues/1129)
 - Reformat cucumber feature files to be more succinct [\#1102](https://github.com/NASA-PDS/validate/issues/1102)
 - Improve error handling for Registry connection issues [\#1085](https://github.com/NASA-PDS/validate/issues/1085)
 - move test data to git large file storage repo [\#659](https://github.com/NASA-PDS/validate/issues/659)
 - Reintegrate cucumber test for ticket \#599 [\#633](https://github.com/NASA-PDS/validate/issues/633)
+- Upgrade validate-refs to work with new AOSS registry [\#621](https://github.com/NASA-PDS/validate/issues/621)
 
 **Defects:**
 
-- Inappropriately applies valid values to Encoded\_Byte\_Stream.encoding\_standard\_id [\#1129](https://github.com/NASA-PDS/validate/issues/1129) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate-refs appears to be validating many more products than the input LIDVID [\#1183](https://github.com/NASA-PDS/validate/issues/1183) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Context object name check does not match against latest version of context object [\#1158](https://github.com/NASA-PDS/validate/issues/1158) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Fix failing integration tests [\#1157](https://github.com/NASA-PDS/validate/issues/1157)
+- Min/Max value check does not handle ASCII\_Time\_\* Strings [\#1135](https://github.com/NASA-PDS/validate/issues/1135) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- JPEG validation does not allow JPEG files with trailers [\#1118](https://github.com/NASA-PDS/validate/issues/1118) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not work for multiple executions with LDDs in the same Java run [\#1105](https://github.com/NASA-PDS/validate/issues/1105) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate run with --skip-product-validation reports product success in log [\#1090](https://github.com/NASA-PDS/validate/issues/1090) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
 **Other closed issues:**
 
+- Every Tuesday, check https://psa.esa.int/psa/v1 [\#1187](https://github.com/NASA-PDS/validate/issues/1187)
+- Update test cases referencing JAXA LDDs to use local versions of the schemas/schematrons [\#1133](https://github.com/NASA-PDS/validate/issues/1133)
 - Find a way not to have a configuration or hard-code the list of indexes in validate or harvest, so to check products across nodes [\#1116](https://github.com/NASA-PDS/validate/issues/1116)
 - Quiet `Selected XML parser...` output that goes to stdout [\#1103](https://github.com/NASA-PDS/validate/issues/1103)
 - Switchover to using registry-common library to communicate with OpenSearch Serverless Registry [\#895](https://github.com/NASA-PDS/validate/issues/895)
@@ -40,10 +55,6 @@
 ## [v3.6.1](https://github.com/NASA-PDS/validate/tree/v3.6.1) (2024-11-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.5.2...v3.6.1)
-
-**Requirements:**
-
-- As a user, I want to validate that there is exactly one digit to the left of the decimal point for the specifier `e` or `E` [\#992](https://github.com/NASA-PDS/validate/issues/992)
 
 **Improvements:**
 
