@@ -4,6 +4,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemCategory;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -68,7 +70,6 @@ public abstract class Report {
   private boolean integrityCheckFlag = false;
   private int totalWarnings = 0;
   private int totalErrors = 0;
-  private int numSkipped = 0;
   private int numPassedProds = 0;
   private int numFailedProds = 0;
   private int numSkippedProds = 0;
@@ -153,10 +154,7 @@ public abstract class Report {
    * @return
    */
   final public Status record(URI sourceUri, final ValidationProblem problem) {
-    List<ValidationProblem> problems = new ArrayList<>();
-    problems.add(problem);
-    LOG.debug("record:RECORDING_PROBLEM:sourceUri {}", sourceUri);
-    return record(sourceUri, problems);
+    return record(sourceUri, Arrays.asList(problem));
   }
 
   /**
@@ -216,6 +214,14 @@ public abstract class Report {
           this.numFailedIntegrityChecks++;
         }
       }
+    } else if (FlagsUtil.getSkipProductValidation()) {
+      if (!Utility.isDir(sourceUri.toString())) {
+        if (!this.integrityCheckFlag) {
+          this.numSkippedProds++;
+        } else {
+          this.numPassedIntegrityChecks++;
+        }
+      }
     } else {
       if (!Utility.isDir(sourceUri.toString())) {
         if (!this.integrityCheckFlag) {
@@ -226,7 +232,7 @@ public abstract class Report {
       }
     }
 
-    this.totalProducts = this.numFailedProds + this.numPassedProds - ignoreFromProductCounts;
+    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds - ignoreFromProductCounts;
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks
         + this.numSkippedIntegrityChecks;
     this.begin (Block.LABEL);
@@ -239,8 +245,6 @@ public abstract class Report {
     return status;
   }
   public Status recordSkip(final URI sourceUri, final ValidationProblem problem) {
-    this.numSkipped++;
-    LOG.debug("recordSkip:sourceUri,numSkipped {},{}", sourceUri, this.numSkipped);
     LOG.debug(
         "recordSkip:sourceUri,problem.getProblem().getSeverity().getValue(),this.level.getValue() {},{},{},{}",
         sourceUri, problem.getProblem().getSeverity().getValue(), this.level.getValue(),

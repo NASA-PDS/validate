@@ -467,7 +467,7 @@ public class LabelValidator {
     LOG.debug("parseAndValidate:url,performsSchemaValidation() {},{}", url,
         performsSchemaValidation());
 
-    // Are we perfoming schema validation?
+    // Are we performing schema validation?
     if (performsSchemaValidation()) {
       createParserIfNeeded(handler);
       checkSchemaSchematronVersions(handler, url);
