@@ -53,38 +53,38 @@ public class SpecialConstantChecker {
    * @return true if the given value is a Special Constant.
    */
   public static boolean isConformantSpecialConstant(Number value, SpecialConstants constants,
-      ProblemReporter reporter) {
+      ProblemReporter reporter, int radix) {
     boolean matched = false;
     boolean matchEdge = true;
     boolean rangeChecked = false;
-    matched |= SpecialConstantChecker.sameContent (value, constants.getErrorConstant());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getInvalidConstant());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getMissingConstant());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getHighInstrumentSaturation());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getHighRepresentationSaturation());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getLowInstrumentSaturation());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getLowRepresentationSaturation());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getNotApplicableConstant());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getSaturatedConstant());
-    matched |= SpecialConstantChecker.sameContent (value, constants.getUnknownConstant());
+    matched |= SpecialConstantChecker.sameContent (value, constants.getErrorConstant(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getInvalidConstant(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getMissingConstant(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getHighInstrumentSaturation(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getHighRepresentationSaturation(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getLowInstrumentSaturation(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getLowRepresentationSaturation(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getNotApplicableConstant(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getSaturatedConstant(), radix);
+    matched |= SpecialConstantChecker.sameContent (value, constants.getUnknownConstant(), radix);
     if (matched) return true;
     if (constants.getValidMaximum() != null) {
       int comparison = 0;
       rangeChecked = true;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
-            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum(), radix));
       } else if (value instanceof BigInteger) {
         comparison = ((BigInteger) value)
-            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum(), radix));
       } else {
         if (constants.getValidMaximum().contains(".") || 
             ((constants.getValidMaximum().contains("e") || constants.getValidMaximum().contains("E")) && 
                 !(constants.getValidMaximum().startsWith("0x") || constants.getValidMaximum().startsWith("0X") || constants.getValidMaximum().startsWith("16#")))) {
           comparison = Double.valueOf(value.doubleValue())
-              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum()).doubleValue());
+              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMaximum(), radix).doubleValue());
         } else {
-          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum()).longValue();
+          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum(), radix).longValue();
           Long val = value.longValue();
           if (value instanceof Double) {
             val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
@@ -117,18 +117,18 @@ public class SpecialConstantChecker {
       rangeChecked = true;
       if (value instanceof BigDecimal) {
         comparison = ((BigDecimal) value)
-            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum(), radix));
       } else if (value instanceof BigInteger) {
         comparison = ((BigInteger) value)
-            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()));
+            .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum(), radix));
       } else {
         if (constants.getValidMinimum().contains(".") || 
             ((constants.getValidMinimum().contains("e") || constants.getValidMinimum().contains("E")) && 
                 !(constants.getValidMinimum().startsWith("0x") || constants.getValidMinimum().startsWith("0X") || constants.getValidMinimum().startsWith("16#")))) {
           comparison = Double.valueOf(value.doubleValue())
-              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum()).doubleValue());
+              .compareTo(SpecialConstantBitPatternTransforms.asBigDecimal(constants.getValidMinimum(), radix).doubleValue());
         } else {
-          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum()).longValue();
+          Long con = SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum(), radix).longValue();
           Long val = value.longValue();
           if (value instanceof Double) {
             val = Long.valueOf(Double.doubleToRawLongBits((Double)value));
@@ -158,7 +158,7 @@ public class SpecialConstantChecker {
     }
     return rangeChecked ? matchEdge : false;
   }
-  public static boolean sameContent (Number number, String constant_repr) {
+  public static boolean sameContent (Number number, String constant_repr, int radix) {
     if (constant_repr == null) return false;
     if (number.toString().equals(constant_repr)) {
       return true;
@@ -191,10 +191,10 @@ public class SpecialConstantChecker {
         ((constant_repr.contains("E") || constant_repr.contains("e")) &&
             !(constant_repr.startsWith("0x") || constant_repr.startsWith("0X")));
     if (repr_decimal) {
-      BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr);
+      BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr, radix);
       return constant.equals (number);
     } else {
-      BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr);
+      BigInteger constant = SpecialConstantBitPatternTransforms.asBigInt(constant_repr, radix);
       BigInteger value = (BigInteger)number;
       return constant.xor (value).longValue() == 0L;
     }

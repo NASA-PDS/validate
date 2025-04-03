@@ -94,8 +94,8 @@ public enum ProblemType {
 
   INVENTORY_DUPLICATE_LIDVID("error.inventory.duplicate_lidvid"),
   
-  ARRAY_INVALID_SPECIAL_CONSTANT("error.array.invalid_special_constant"),
-  FIELD_INVALID_SPECIAL_CONSTANT("error.field.invalid_special_constant"),
+  ARRAY_INVALID_SPECIAL_CONSTANT("warning.array.invalid_special_constant"),
+  FIELD_INVALID_SPECIAL_CONSTANT("warning.field.invalid_special_constant"),
   // Referential Integrity Checking messages
 
   DUPLICATE_VERSIONS("error.integrity.duplicate_versions"),

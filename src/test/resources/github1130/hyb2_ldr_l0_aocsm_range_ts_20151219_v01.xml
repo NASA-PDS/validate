@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:hyb2="http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts:hyb2_lidar:data_raw:hyb2_ldr_l0_aocsm_range_ts_20151219</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Hayabusa2 LIDAR Raw Time Series Range Data Product</title>
+        <information_model_version>1.14.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2015-12-19T15:25:22.811622Z</start_date_time>
+            <stop_date_time>2015-12-19T16:29:58.757451Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+            <processing_level>Raw</processing_level>
+            <description>This file contains a raw time series range data stored in AOCSM telemetry packet from the LIDAR instrument.</description>
+            <Science_Facets>
+                <wavelength_range>Infrared</wavelength_range>
+                <discipline_name>Flux Measurements</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Hayabusa2</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.hyb2</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>LIDAR</name>
+            <Observing_System_Component>
+                <name>Hayabusa2</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.hyb2</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>LIDAR</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:hyb2.lidar</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Laser emitted from Earth</name>
+            <type>Calibrator</type>
+            <description>Laser emitted from Mount Stromlo Observatory with 1064 nanometers wavelength.</description>
+        </Target_Identification>
+        <Mission_Area>
+            <hyb2:Mission_Information>
+                <hyb2:mission_phase_name>Earth Swing-by Phase</hyb2:mission_phase_name>
+            </hyb2:Mission_Information>
+        </Mission_Area>
+    </Observation_Area>
+    <File_Area_Observational>
+        <File>
+            <file_name>hyb2_ldr_l0_aocsm_range_ts_20151219_v01.csv</file_name>
+        </File>
+        <Table_Delimited>
+            <name>Hayabusa2 LIDAR Raw Time Series Range Data</name>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>3758</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>25</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>PACKET_TIME</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Time</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <description>Packet generation time in UTC. This is just a reference information and is not used to generate L1b data.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>TI_TIME</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Numeric_Base16</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <description>TI of packet generated time.</description>
+                    <Special_Constants>
+                        <valid_maximum>FFFFFFFF</valid_maximum>
+                        <valid_minimum>00000000</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DUMP_NUM</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">2</maximum_field_length>
+                    <description>A number indicating data position in 16 seconds of data contained in one AOCSM packet.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>CMD_TI</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Numeric_Base16</data_type>
+                    <maximum_field_length unit="byte">4</maximum_field_length>
+                    <description>Lower 2 bytes of TI of command issued time.</description>
+                    <Special_Constants>
+                        <valid_maximum>FFFF</valid_maximum>
+                        <valid_minimum>0000</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDAR_MODE</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>Mode of LIDAR. 0: MEAS (ranging), 1: DUST, 2: OPT (laser link).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>STOP_OVF</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>A flag indicating whether counter overflow occurred (1) or not (0) for stop (reception) pulse.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>INTERVAL</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>Time interval of LIDAR shot command. 1 second (1) or 32 seconds (0).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>TX_PLS_DET</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>A flag indicating whether transmitted pulse detected (1) or not (0).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>RX_PLS_DET_FAR</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>A flag indicating whether received pulse detected (1) or not (0) for far optics.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>RX_PLS_DET_NEAR</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>A flag indicating whether received pulse detected (1) or not (0) for near optics.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>VAL_ST</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>A flag indicating whether status of data transmission from LIDAR to AOCU is valid (1) or invalid (0).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_RX_TELESCOPE</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>Selected LIDAR optics: far (0) or near (1).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>TIMING_RX_FAR</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <description>Count value of reception timing for far optics (17bits).</description>
+                    <Special_Constants>
+                        <valid_maximum>131071</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>TIMING_RX_NEAR</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <description>Count value of reception timing for near optics (17bits).</description>
+                    <Special_Constants>
+                        <valid_maximum>131071</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>TIMING_TX</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <description>Count value of interval between laser diode triggering and laser transmission (17 bits).</description>
+                    <Special_Constants>
+                        <valid_maximum>131071</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_INTENS_RX_FAR</name>
+                    <field_number>16</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Peak value of signal received by far optics.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_INTENS_RX_NEAR</name>
+                    <field_number>17</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Peak value of signal received by near optics.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_INTENS_TX</name>
+                    <field_number>18</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Peak value of transmitted signal.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_APD_HV_FAR</name>
+                    <field_number>19</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">4</maximum_field_length>
+                    <description>APD applied voltage for far range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>4095</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_APD_HV_NEAR</name>
+                    <field_number>20</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">4</maximum_field_length>
+                    <description>APD applied voltage for near range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>4095</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_TEMP_RX_APD_FAR</name>
+                    <field_number>21</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Temperature of APD for far range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_TEMP_RX_APD_NEAR</name>
+                    <field_number>22</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Temperature of APD for near range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_TEMP_RX_PK_FAR</name>
+                    <field_number>23</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Temperature of peak-detection circuit for far range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_TEMP_RX_PK_NEAR</name>
+                    <field_number>24</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Temperature of peak-detection circuit for near range finder.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>DN_TEMP_TX_PK</name>
+                    <field_number>25</field_number>
+                    <data_type>ASCII_NonNegative_Integer</data_type>
+                    <maximum_field_length unit="byte">3</maximum_field_length>
+                    <description>Temperature of peak-detection circuit for laser transmitter.</description>
+                    <Special_Constants>
+                        <valid_maximum>255</valid_maximum>
+                        <valid_minimum>0</valid_minimum>
+                    </Special_Constants>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

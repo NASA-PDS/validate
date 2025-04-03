@@ -424,6 +424,9 @@ public class FieldValueValidator {
         FieldType.ASCII_DATE, FieldType.ASCII_DATE_DOY, FieldType.ASCII_DATE_YMD,
         FieldType.ASCII_DATE_TIME, FieldType.ASCII_DATE_TIME_DOY, FieldType.ASCII_DATE_TIME_DOY_UTC,
         FieldType.ASCII_DATE_TIME_UTC, FieldType.ASCII_DATE_TIME_YMD, FieldType.ASCII_DATE_TIME_YMD_UTC);
+    final int radix = type == FieldType.ASCII_NUMERIC_BASE2 ? 2 : 
+      (type == FieldType.ASCII_NUMERIC_BASE8 ? 8 :
+        (type == FieldType.ASCII_NUMERIC_BASE16 ? 16 : 10));
     value = value.trim();
     // https://github.com/NASA-PDS/validate/issues/297 Content validation of
     // ASCII_Integer field does not accept value with leading zeroes
@@ -460,10 +463,13 @@ public class FieldValueValidator {
           minimum, maximum);
     }
 
+    if (radix != 10) { // Long.valueOf does not like leading zeros
+      while (value.startsWith("0")) value = value.substring(1);
+    }
     LOG.debug("checkMinMax:FIELD_VALUE,FIELD_LENGTH [{}],{}", value, value.length());
 
     // if (NumberUtils.isCreatable(value))
-    if (!issueWithLeadingZerosRemovalFlag && NumberUtils.isCreatable(value)) {
+    if ((!issueWithLeadingZerosRemovalFlag && NumberUtils.isCreatable(value)) || radix != 10) {
       // In comparing double or floats, it is important how these values are built.
       // Since the values of 'minimum' and 'maximum' variables are both of types
       // Double,
@@ -480,11 +486,7 @@ public class FieldValueValidator {
       // The below line is commented out and kept for education purpose.
       //
       // Number number = NumberUtils.createNumber(value);
-
-      BigDecimal number = NumberUtils.createBigDecimal(value); // Create a Double value from
-                                                               // '0.12345' to match
-                                                               // 'mininum' and 'maximum' variables'
-                                                               // type.
+      BigDecimal number = radix == 10 ? NumberUtils.createBigDecimal(value) : BigDecimal.valueOf(Long.valueOf(value, radix));
 
       boolean isSpecialConstant = false;
       if (specialConstants != null) {
@@ -492,9 +494,9 @@ public class FieldValueValidator {
             ProblemType.FIELD_VALUE_OUT_OF_SPECIAL_CONSTANT_MIN_MAX_RANGE, recordLocation, fieldIndex);
         try {
           isSpecialConstant = SpecialConstantChecker.isConformantSpecialConstant(number.stripTrailingZeros(),
-              specialConstants, reporter);
+              specialConstants, reporter, radix);
         } catch (NumberFormatException nfe) {
-          addTableProblem(ExceptionType.ERROR, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
+          addTableProblem(ExceptionType.WARNING, ProblemType.FIELD_INVALID_SPECIAL_CONSTANT,
               "One of the special constants could not be converted to the numeric data type of the table cell",
               recordLocation, fieldIndex);
         }
