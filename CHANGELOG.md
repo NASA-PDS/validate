@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-02)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-03)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -28,6 +28,7 @@
 - JPEG validation does not allow JPEG files with trailers [\#1118](https://github.com/NASA-PDS/validate/issues/1118) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not work for multiple executions with LDDs in the same Java run [\#1105](https://github.com/NASA-PDS/validate/issues/1105) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate run with --skip-product-validation reports product success in log [\#1090](https://github.com/NASA-PDS/validate/issues/1090) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - validate cucumber testing is not exercising all tests as it should be [\#1058](https://github.com/NASA-PDS/validate/issues/1058) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate fails when installed into the same directory [\#935](https://github.com/NASA-PDS/validate/issues/935) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 
