@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-03)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-04)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -25,6 +25,7 @@
 - Context object name check does not match against latest version of context object [\#1158](https://github.com/NASA-PDS/validate/issues/1158) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Fix failing integration tests [\#1157](https://github.com/NASA-PDS/validate/issues/1157)
 - Min/Max value check does not handle ASCII\_Time\_\* Strings [\#1135](https://github.com/NASA-PDS/validate/issues/1135) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Min/Max value check does not handle ASCII\_Numeric\_Base16 values [\#1130](https://github.com/NASA-PDS/validate/issues/1130) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - JPEG validation does not allow JPEG files with trailers [\#1118](https://github.com/NASA-PDS/validate/issues/1118) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not work for multiple executions with LDDs in the same Java run [\#1105](https://github.com/NASA-PDS/validate/issues/1105) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate's PDS4 Bundle Level Validation Results are wrong if filenames end in XML [\#1100](https://github.com/NASA-PDS/validate/issues/1100) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
