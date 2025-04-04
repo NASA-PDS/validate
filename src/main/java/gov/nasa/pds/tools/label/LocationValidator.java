@@ -161,7 +161,7 @@ public class LocationValidator {
   /**
    * Validates a URL location with a given problem handler. This must be a URL that can be resolved
    * to a file location.
-   * 
+   *
    * @param problemHandler the problem handler
    * @param url the URL to validate
    * @throws URISyntaxException
@@ -203,7 +203,8 @@ public class LocationValidator {
       // check to see if target is a bundle type and attempt to process the bundle
       // product.
       if (!rule.isApplicable(location)) {
-        boolean isAggregate = TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url);
+        boolean isAggregate =
+            TargetExaminer.isTargetBundleType(url) || TargetExaminer.isTargetCollectionType(url);
         LOG.debug("url,TargetExaminer.isTargetBundleType(url) {},{}", url, isAggregate);
         if (isAggregate) {
           // If the target is a bundle, the exception can now be made.
@@ -234,10 +235,10 @@ public class LocationValidator {
         if (directory.isDirectory()) {
           LOG.debug("Input url is a directory, will indeed crawl for bundle/collection files {}",
               url);
-          // Build two list of files to ignore so the crawler will only process the latest
+          // Build two lists of files to ignore so the crawler will only process the latest
           // Bundle and Collection.
-          ArrayList<Target> ignoreBundleList = AggregateManager.buildBundleIgnoreList(url,
-              this.labelExtension);
+          ArrayList<Target> ignoreBundleList =
+              AggregateManager.buildBundleIgnoreList(url, this.labelExtension);
           ignoreList.addAll(ignoreBundleList);
           Target latestBundle = AggregateManager.getLatestBundle();
 
@@ -280,7 +281,21 @@ public class LocationValidator {
 
       LOG.debug("validate:Submitting task to taskManager location {} rule {} ", location,
           rule.getCaption());
-      taskManager.submit(task);
+
+      // 🟢 Progress Tracking Implementation
+      int fileCounter = 0;
+      int trackProgress = ruleContext.getEveryN(); // Get user-defined tracking interval
+
+      for (Target targetFile : crawler.crawl()) { // Loop over validated files
+        taskManager.submit(task);
+        fileCounter++;
+
+        // Log progress every N files
+        if (fileCounter % trackProgress == 0) {
+          System.out.println("Processed " + fileCounter + " files so far...");
+        }
+      }
+
       LOG.debug("validate:Returning from task to taskManager location {} rule {} ", location,
           rule.getCaption());
     }
@@ -431,15 +446,19 @@ public class LocationValidator {
   public void setEveryN(int value) {
     ruleContext.setEveryN(value);
   }
+
   public void setContextMismatchAsWarn(boolean value) {
     ruleContext.setContextMismatchAsWarn(value);
   }
+
   public void setCompleteDescriptions(boolean b) {
     ruleContext.setCompleteDescriptions(b);
   }
+
   public void setSpotCheckData(int value) {
     ruleContext.setSpotCheckData(value);
   }
+
   public void setPDFErrorDir(String dir) {
     ruleContext.setPDFErrorDir(dir);
   }
