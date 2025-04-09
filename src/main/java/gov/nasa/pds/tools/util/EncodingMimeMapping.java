@@ -30,6 +30,7 @@ public enum EncodingMimeMapping {
     if (encoding != null) {
       if (encoding.equalsIgnoreCase("GIF")) return GIF;
       if (encoding.equalsIgnoreCase("J2C")) return J2C;
+      if (encoding.equalsIgnoreCase("JP2")) return J2C;
       if (encoding.equalsIgnoreCase("JPEG")) return JPEG;
       if (encoding.equalsIgnoreCase("MMM ODR Stream")) return DAT;
       if (encoding.equalsIgnoreCase("MP4/H.264")) return MP4;
