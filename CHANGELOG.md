@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-07)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
 
@@ -21,6 +21,7 @@
 
 **Defects:**
 
+- JP2 as encoding standard id still throws and error [\#1210](https://github.com/NASA-PDS/validate/issues/1210) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate-refs appears to be validating many more products than the input LIDVID [\#1183](https://github.com/NASA-PDS/validate/issues/1183) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Context object name check does not match against latest version of context object [\#1158](https://github.com/NASA-PDS/validate/issues/1158) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Fix failing integration tests [\#1157](https://github.com/NASA-PDS/validate/issues/1157)
