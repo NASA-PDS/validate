@@ -6,6 +6,7 @@
 
 **Requirements:**
 
+- As a user, I want to know how much progress is being made during a validate run [\#1137](https://github.com/NASA-PDS/validate/issues/1137)
 - As a user, I want to support the JP2 as an acceptable file extension per the PDS4 standards [\#1104](https://github.com/NASA-PDS/validate/issues/1104)
 - As a user, I want to validate that there is exactly one digit to the left of the decimal point for the specifier `e` or `E` [\#992](https://github.com/NASA-PDS/validate/issues/992)
 
