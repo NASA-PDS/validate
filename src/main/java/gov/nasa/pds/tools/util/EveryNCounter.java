@@ -20,9 +20,8 @@ public class EveryNCounter {
     synchronized (of) {
       this.progress[of.ordinal()]++;
         if (n > 0 && this.progress[of.ordinal()] > 0 && (this.progress[of.ordinal()] % this.n) == 0) {
-          System.out.println("Progress: processed another "+ this.n 
-              + " for a total of " + this.progress[of.ordinal()] 
-              + " of " + of.name());
+          System.out.println("Progress: running total of " + this.progress[of.ordinal()] 
+              + " " + of.name());
         }
     }
   }
