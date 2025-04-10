@@ -121,6 +121,7 @@ public class ConfigKey {
    * Property to specify how many lines or records to skip during content validation.
    */
   public static final String EVERY_N = "validate.everyN";
+  public static final String PROGRESS_N = "validate.progressN";
 
   /**
    * Property to if context ref mismatches should be INFO or WARNING.

@@ -95,6 +95,7 @@ import gov.nasa.pds.tools.label.MissingLabelSchemaException;
 import gov.nasa.pds.tools.label.SchematronTransformer;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
@@ -336,6 +337,16 @@ public class ValidateLauncher {
     } catch (IllegalArgumentException a) {
       throw new InvalidOptionException(
           "Could not parse value '" + line.getOptionValue("everyN", "1") + "': " + a.getMessage());
+    }
+    try {
+      int progressN = Integer.valueOf(line.getOptionValue("progressN", "0")).intValue();
+      if (progressN < 0)
+        throw new InvalidOptionException("Value must be greater than or equal to 0 not '"
+            + line.getOptionValue("progressN", "0") + "'");
+      EveryNCounter.getInstance().setProgressN(progressN);
+    } catch (IllegalArgumentException a) {
+      throw new InvalidOptionException(
+          "Could not parse value '" + line.getOptionValue("progressN", "0") + "': " + a.getMessage());
     }
     setCompleteDescriptions(line.hasOption("complete-descriptions"));
     setPDFErrorDir(line.getOptionValue("pdf-error-dir", ""));
@@ -805,6 +816,9 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.EVERY_N)) {
         setEveryN(config.getInt(ConfigKey.EVERY_N));
+      }
+      if (config.containsKey(ConfigKey.PROGRESS_N)) {
+        EveryNCounter.getInstance().setProgressN (config.getInt(ConfigKey.PROGRESS_N));
       }
       if (config.containsKey(ConfigKey.DISABLE_CONTEXT_MISMATCH_WARNINGS)) {
         contextMismatchAsWarn = false;
@@ -1413,6 +1427,7 @@ public class ValidateLauncher {
     ReferentialIntegrityUtil.setContextReferenceCheckFlag(this.contextReferenceCheck);
 
     for (URL target : targets) {
+      EveryNCounter.getInstance().increment(EveryNCounter.Group.labels);
       try {
         LocationValidator validator = factory.newInstance(severity);
         validator.setReport(report);
