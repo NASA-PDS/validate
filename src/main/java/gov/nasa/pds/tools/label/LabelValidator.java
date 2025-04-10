@@ -69,11 +69,13 @@ import org.xml.sax.helpers.AttributesImpl;
 import gov.nasa.pds.tools.label.validate.DefaultDocumentValidator;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.label.validate.ExternalValidator;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.VersionInfo;
 import gov.nasa.pds.tools.util.XMLExtractor;
+import gov.nasa.pds.tools.util.EveryNCounter.Group;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
 import gov.nasa.pds.tools.validate.ProblemHandler;
 import gov.nasa.pds.tools.validate.ProblemType;
@@ -454,6 +456,7 @@ public class LabelValidator {
   public synchronized Document parseAndValidate(ProblemHandler handler, URL url)
       throws SAXException, IOException, ParserConfigurationException, TransformerException,
       MissingLabelSchemaException {
+    EveryNCounter.getInstance().increment(Group.labels);
     List<String> labelSchematronRefs = new ArrayList<>();
     Document xml = null;
 

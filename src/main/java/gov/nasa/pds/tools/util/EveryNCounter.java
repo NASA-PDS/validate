@@ -19,13 +19,11 @@ public class EveryNCounter {
   public void increment (Group of) {
     synchronized (of) {
       this.progress[of.ordinal()]++;
-      if (n > 0) {
-        if ((progress[of.ordinal()] % this.n) == 0) {
+        if (n > 0 && this.progress[of.ordinal()] > 0 && (this.progress[of.ordinal()] % this.n) == 0) {
           System.out.println("Progress: processed another "+ this.n 
               + " for a total of " + this.progress[of.ordinal()] 
               + " of " + of.name());
         }
-      }
     }
   }
   public void setProgressN (int n) { this.n = n; }

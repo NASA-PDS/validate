@@ -31,6 +31,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.validate.DocumentValidator;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.util.EveryNCounter;
+import gov.nasa.pds.tools.util.EveryNCounter.Group;
 import gov.nasa.pds.tools.util.FileFinder;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.Utility;

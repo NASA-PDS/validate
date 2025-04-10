@@ -1427,7 +1427,6 @@ public class ValidateLauncher {
     ReferentialIntegrityUtil.setContextReferenceCheckFlag(this.contextReferenceCheck);
 
     for (URL target : targets) {
-      EveryNCounter.getInstance().increment(EveryNCounter.Group.labels);
       try {
         LocationValidator validator = factory.newInstance(severity);
         validator.setReport(report);
