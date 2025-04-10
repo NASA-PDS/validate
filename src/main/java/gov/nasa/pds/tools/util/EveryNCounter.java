@@ -3,7 +3,7 @@ package gov.nasa.pds.tools.util;
 public class EveryNCounter {
   private static EveryNCounter myself = null;
   private static Object lock = new Object();
-  public enum Group { content, labels, references }; 
+  public enum Group { content, labels, references }
   private int n = 0;
   private int progress[] = {-1,0,0};
   private EveryNCounter(){
