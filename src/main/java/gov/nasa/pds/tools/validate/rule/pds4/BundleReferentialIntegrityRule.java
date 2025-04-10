@@ -22,6 +22,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -161,6 +162,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
             .entrySet()) {
           LOG.debug("getBundleMembers:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",
               reference, memberStatus, id, idEntry.getKey());
+          EveryNCounter.getInstance().increment(EveryNCounter.Group.references);
           if (id.nearNeighbor(idEntry.getKey())) {
             matchingMembers.add(idEntry);
             LOG.debug(

@@ -24,6 +24,7 @@ import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
 import gov.nasa.pds.tools.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.tools.inventory.reader.InventoryTableReader;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -147,6 +148,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
             List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
             for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
                 .entrySet()) {
+              EveryNCounter.getInstance().increment(EveryNCounter.Group.references);
               if (id.nearNeighbor(idEntry.getKey())) {
                 matchingMembers.add(idEntry);
               }

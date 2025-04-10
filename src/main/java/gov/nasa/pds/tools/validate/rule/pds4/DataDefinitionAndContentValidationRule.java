@@ -69,7 +69,7 @@ public class DataDefinitionAndContentValidationRule extends AbstractValidationRu
 
       URL previousDataFile = null;
       DataObjectCompareViaOffset comparator = new DataObjectCompareViaOffset();
-      EveryNCounter.getInstance().increment();
+      EveryNCounter.getInstance().increment(EveryNCounter.Group.content);
       List<DataObject> offsetSorted = new ArrayList<DataObject>(label.getObjects());
       for (int idx = 1 ; idx < offsetSorted.size() ; idx++) {
         if (offsetSorted.get(idx-1).getDataFile().equals (offsetSorted.get(idx).getDataFile())) {

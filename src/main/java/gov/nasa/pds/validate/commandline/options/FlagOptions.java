@@ -55,6 +55,7 @@ public class FlagOptions {
     options.addOption(new ToolsOption(Flag.MAX_ERRORS));
     options.addOption(new ToolsOption(Flag.EXTENSION));
     options.addOption(new ToolsOption(Flag.EVERY_N));
+    options.addOption(new ToolsOption(Flag.PROGRESS_N));
     options.addOption(new ToolsOption(Flag.HELP));
     options.addOption(new ToolsOption(Flag.PDF_ERROR_DIR));
     options.addOption(new ToolsOption(Flag.REPORT));
