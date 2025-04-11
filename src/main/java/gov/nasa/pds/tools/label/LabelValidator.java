@@ -456,7 +456,7 @@ public class LabelValidator {
   public synchronized Document parseAndValidate(ProblemHandler handler, URL url)
       throws SAXException, IOException, ParserConfigurationException, TransformerException,
       MissingLabelSchemaException {
-    EveryNCounter.getInstance().increment(Group.labels);
+    EveryNCounter.getInstance().increment(Group.label_validation);
     List<String> labelSchematronRefs = new ArrayList<>();
     Document xml = null;
 

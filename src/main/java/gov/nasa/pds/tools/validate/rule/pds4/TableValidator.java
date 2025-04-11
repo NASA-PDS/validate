@@ -124,7 +124,7 @@ public class TableValidator implements DataObjectValidator {
 
   @Override
   public boolean validateDataObjectContents() throws InvalidTableException, IOException, Exception {
-		if (EveryNCounter.getInstance().getValue(EveryNCounter.Group.content) % this.context.getEveryN() != 0) return true;
+		if (EveryNCounter.getInstance().getValue(EveryNCounter.Group.content_validation) % this.context.getEveryN() != 0) return true;
 
     LOG.debug("START table content validation");
     LOG.debug("validateTableDataContents:getTarget() {}", this.context.getTarget());
