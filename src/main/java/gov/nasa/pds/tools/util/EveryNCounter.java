@@ -3,7 +3,7 @@ package gov.nasa.pds.tools.util;
 public class EveryNCounter {
   private static EveryNCounter myself = null;
   private static Object lock = new Object();
-  public enum Group { content, labels, references }
+  public enum Group { content_validation, label_validation, reference_integrity }
   private int n = 0;
   private int progress[] = {-1,0,0};
   private EveryNCounter(){
@@ -20,8 +20,7 @@ public class EveryNCounter {
     synchronized (of) {
       this.progress[of.ordinal()]++;
         if (n > 0 && this.progress[of.ordinal()] > 0 && (this.progress[of.ordinal()] % this.n) == 0) {
-          System.out.println("Progress: running total of " + this.progress[of.ordinal()] 
-              + " " + of.name());
+          System.out.println("[" + of.name().replace("_", ".") + "] " + this.progress[of.ordinal()] + " products completed.");
         }
     }
   }
