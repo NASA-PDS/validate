@@ -1,8 +1,8 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-14)
+## [release/3.7.0](https://github.com/NASA-PDS/validate/tree/release/3.7.0) (2025-04-14)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.6.3...release/3.7.0)
 
 **Requirements:**
 
