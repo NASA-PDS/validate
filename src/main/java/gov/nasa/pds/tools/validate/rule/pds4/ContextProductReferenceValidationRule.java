@@ -67,6 +67,10 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
 
   private final String PDS4_NS = "http://pds.nasa.gov/pds4/pds/v1";
 
+  private final String ALTERNATIVE_NAMES = ""
+      + "//*:Identification_Area/*:title | "
+      + "//*:Identification_Area/*:Alias_List/*:Alias/*:alternate_id | "
+      + "//*:Identification_Area/*:Alias_List/*:Alias/*:alternate_title";
   /**
    * XPath to the internal references within a PDS4 data product label.
    *
@@ -181,7 +185,13 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
       DOMSource source = new DOMSource(label);
       source.setSystemId(uri.toString());
       XPathFactory xpathFactory = new net.sf.saxon.xpath.XPathFactoryImpl();
-      NodeList references = (NodeList) xpathFactory.newXPath().evaluate(INTERNAL_REF_XPATH, source,
+      List<String> alternatives = new ArrayList<String>();
+      NodeList references = (NodeList) xpathFactory.newXPath().evaluate(ALTERNATIVE_NAMES, source,
+          XPathConstants.NODESET);
+      for (int i=0 ; i < references.getLength() ; i++) {
+        alternatives.add(references.item(i).getTextContent());
+      }
+      references = (NodeList) xpathFactory.newXPath().evaluate(INTERNAL_REF_XPATH, source,
           XPathConstants.NODESET);
 
       List<ContextProductReference> rgProds =
@@ -269,15 +279,17 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                     target, locator.getLineNumber(), -1));
 
                 // now lets check name and type
-                List<String> rgpNames = null;
-                List<String> rgpTypes = null;
                 if (names != null && types != null) {
                   rgp = rgProds.get(rgProds.indexOf(lidvidObj));
-                  rgpNames = rgp.getNames();
-                  rgpTypes = rgp.getTypes();
+                  List<String> rgpNames = rgp.getNames();
+                  List<String> rgpTypes = rgp.getTypes();
                   // check the name
                   for (String name : names) {
-                    if (!rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
+                    boolean any = rgpNames.stream().anyMatch(name::equalsIgnoreCase);
+                    for (int altIndex=0 ; !any && altIndex < alternatives.size() ; altIndex++) {
+                      any |= rgpNames.stream().anyMatch(alternatives.get(altIndex)::equalsIgnoreCase);
+                    }
+                    if (!any) {
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
                               this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
