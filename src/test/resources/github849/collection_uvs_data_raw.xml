@@ -49,7 +49,7 @@
         <processing_level>Raw</processing_level>
      </Primary_Result_Summary>
     <Investigation_Area>
-      <name>LADEE</name>
+      <name>Lunar Atmosphere and Dust Environment Explorer (LADEE)</name>
       <type>Mission</type>
       <Internal_Reference>
         <lid_reference>urn:nasa:pds:context:investigation:mission.ladee</lid_reference>
@@ -65,7 +65,7 @@
 	Document Collection.
       </description>
       <Observing_System_Component>
-        <name>UVS</name>
+        <name>Ultraviolet-Visible Spectrometer</name>
         <type>Instrument</type>
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:instrument:ladee.uvs</lid_reference>
@@ -79,8 +79,7 @@
           <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.ladee</lid_reference>
           <reference_type>is_instrument_host</reference_type>
         </Internal_Reference>
-      </Observing_System_Component>
-    </Observing_System>
+      </Observing_System_Component> </Observing_System>
     <Target_Identification>
       <name>Moon</name>
       <type>Satellite</type>

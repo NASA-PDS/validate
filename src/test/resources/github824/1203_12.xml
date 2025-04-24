@@ -60,7 +60,7 @@
                 </Science_Facets>
           </Primary_Result_Summary>
           <Investigation_Area>
-              <name>Ulysses</name>
+              <name>Ulysses Mission</name>
               <type>Mission</type>
               <Internal_Reference>
                   <lid_reference>urn:esa:psa:context:investigation:mission.ulysses</lid_reference>

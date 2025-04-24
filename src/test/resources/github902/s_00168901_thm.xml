@@ -50,7 +50,7 @@
 
         <Observing_System>
             <Observing_System_Component>
-                <name>MARS RECONNAISSANCE ORBITER</name>
+                <name>The Mars Reconnaissance Orbiter</name>
                 <type>Host</type>
                 <Internal_Reference>
                     <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mro</lid_reference>

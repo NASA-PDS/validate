@@ -46,7 +46,7 @@
         <Observing_System>
             <name>PITMS onboard the Peregrine Lunar Lander</name>
             <Observing_System_Component>
-                <name>CLPS Task Order 2 AB Peregrine Lunar Lander</name>
+                <name>The CLPS Task Order 2-AB Peregrine Lunar Lander</name>
                 <type>Host</type>
                 <Internal_Reference>
                     <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clps_to_2ab_pll</lid_reference>

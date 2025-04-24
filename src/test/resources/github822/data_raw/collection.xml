@@ -43,7 +43,7 @@
         <Observing_System>
             <name>Peregrine Ion-Trap Mass Spectrometer (PITMS)</name>
         <Observing_System_Component>
-            <name>CLPS Task Order 2 AB Peregrine Lunar Lander</name>
+            <name>The CLPS Task Order 2-AB Peregrine Lunar Lander</name>
             <type>Host</type>
             <Internal_Reference>
               <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.clps_to_2ab_pll</lid_reference>
@@ -51,7 +51,7 @@
             </Internal_Reference>
         </Observing_System_Component>
         <Observing_System_Component>
-            <name>CLPS Task Order 2AB PROSPECT Ion-Trap Mass Spectrometer (PITMS) for Lunar Surface Volatiles</name>
+            <name>CLPS Task Order 2AB Peregrine Ion Trap Mass Spectrometer (PITMS)</name>
             <type>Instrument</type>
             <description>The .</description>
             <Internal_Reference>

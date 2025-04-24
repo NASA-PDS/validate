@@ -45,8 +45,8 @@ Weaver, H. A.; Young, L. A.</author_list>
       </Science_Facets>
     </Primary_Result_Summary>
     <Investigation_Area>
-      <name>None</name>
-      <type>Other Investigation</type>
+      <name>No Specific Investigation</name>
+      <type>Individual Investigation</type>
       <Internal_Reference>
         <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
         <reference_type>data_to_investigation</reference_type>
@@ -54,7 +54,7 @@ Weaver, H. A.; Young, L. A.</author_list>
     </Investigation_Area>
     <Observing_System>
       <Observing_System_Component>
-        <name>NEW HORIZONS</name>
+        <name>The New Horizons (NH) Spacecraft</name>
         <type>Host</type>
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
@@ -72,7 +72,7 @@ Weaver, H. A.; Young, L. A.</author_list>
     </Observing_System>
     <Observing_System>
       <Observing_System_Component>
-        <name>NEW HORIZONS</name>
+        <name>The New Horizons (NH) Spacecraft</name>
         <type>Host</type>
         <Internal_Reference>
           <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
