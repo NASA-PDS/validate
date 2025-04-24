@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-21)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-04-24)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.0...«unknown»)
+
+**Requirements:**
+
+- As a user, I want to includes titles and aliases in context product name validation [\#970](https://github.com/NASA-PDS/validate/issues/970)
 
 **Defects:**
 
