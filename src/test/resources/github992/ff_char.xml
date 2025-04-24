@@ -38,7 +38,7 @@
     </File>
     <Table_Character>
       <offset unit="byte">0</offset>
-      <records>6</records>
+      <records>7</records>
       <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
       <Record_Character>
         <fields>4</fields>
