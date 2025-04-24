@@ -52,6 +52,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -518,7 +519,6 @@ public class ValidateLauncher {
     }
   }
 
-  @SuppressWarnings("unchecked")
   private void getLatestJsonContext() {
     final String searchAfterParam = "search-after";
     final int pageSize = 1000;
@@ -600,12 +600,13 @@ public class ValidateLauncher {
     return ((List<String>) properties.get(searchAfterKey)).get(0);
   }
 
+  @SuppressWarnings("unchecked")
   private void parseJsonObjectWriteTofile(List<Map<String, Object>> documents,
       String contextJsonFilePath) {
     final List<String> empty = Arrays.asList("N/A");
     final List<String> fieldNames = Arrays.asList("pds:Facility.pds",
         "pds:Instrument.pds", "pds:Instrument_Host.pds", "pds:Investigation.pds",
-        "pds:Resource.pds", "pds:Target.pds", "pds:Telescope.pds");
+        "pds:Resource.pds", "pds:Target.pds", "pds:Telescope.pds", "pds:Alias.pds");
     // backup old file
     try {
       if (registeredProductsFile.exists()) {
@@ -628,32 +629,39 @@ public class ValidateLauncher {
         @SuppressWarnings("unchecked")
         String lidvid = ((List<String>) properties.get("lidvid")).get(0);
         @SuppressWarnings("unchecked")
-        List<String> title = (List<String>) properties.get("title");
+        List<Object> names = (List<Object>) properties.get("title");
+        @SuppressWarnings("unchecked")
+        List<Object> types = new ArrayList<Object>();
         for (String fieldName : fieldNames) {
-            if (properties.containsKey(fieldName + ":name")
-                    || properties.containsKey(fieldName + ":type")
-                    || properties.containsKey(fieldName + ":aperture")) {
-		        @SuppressWarnings("unchecked")
-		        List<Object> names = (List<Object>) properties.getOrDefault(fieldName + ":name", title);
-		        @SuppressWarnings("unchecked")
-		        List<Object> types = (List<Object>) properties.getOrDefault(fieldName + ":type", empty);
-		        jsonWriter.beginObject(); // start a product
-		        jsonWriter.name("name");
-		        jsonWriter.beginArray();
-		        for (Object n : names) {
-		          jsonWriter.value((String) n);
-		        }
-		        jsonWriter.endArray();
-		        jsonWriter.name("type");
-		        jsonWriter.beginArray();
-		        for (Object t : types) {
-		          jsonWriter.value((String) t);
-		        }
-		        jsonWriter.endArray();
-		        jsonWriter.name("lidvid").value(lidvid);
-		        jsonWriter.endObject(); // end a product
-            }
+          if (properties.containsKey(fieldName + ":name")) {
+            names.addAll ((List<Object>)properties.get(fieldName + ":name"));
+          }
+          if (properties.containsKey(fieldName + ":alternate_id")) {
+            names.addAll ((List<Object>)properties.get(fieldName + ":alternate_id"));
+          }
+          if (properties.containsKey(fieldName + ":alternate_title")) {
+            names.addAll ((List<Object>)properties.get(fieldName + ":alternate_title"));
+          }
+          if (properties.containsKey(fieldName + ":type")) {
+            types.addAll((List<Object>)properties.get(fieldName + ":type"));
+          }
         }
+        if (types.size() == 0) types.addAll(empty);
+        jsonWriter.beginObject(); // start a product
+        jsonWriter.name("name");
+        jsonWriter.beginArray();
+        for (Object n : new HashSet<Object>(names)) {
+          jsonWriter.value((String) n);
+        }
+        jsonWriter.endArray();
+        jsonWriter.name("type");
+        jsonWriter.beginArray();
+        for (Object t : types) {
+          jsonWriter.value((String) t);
+        }
+        jsonWriter.endArray();
+        jsonWriter.name("lidvid").value(lidvid);
+        jsonWriter.endObject(); // end a product
       }
       jsonWriter.endArray();
       jsonWriter.endObject(); // end Product_Context
