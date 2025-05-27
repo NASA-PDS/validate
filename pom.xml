@@ -402,7 +402,7 @@
     <dependency>
       <groupId>org.apache.httpcomponents.client5</groupId>
       <artifactId>httpclient5</artifactId>
-      <version>5.4.4</version>
+      <version>5.5</version>
     </dependency>
     <dependency>
       <groupId>org.opensearch.client</groupId>
@@ -417,7 +417,7 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>apache-client</artifactId>
-      <version>2.31.45</version>
+      <version>2.31.50</version>
     </dependency>
   </dependencies>
 
