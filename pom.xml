@@ -377,33 +377,6 @@
       <artifactId>isoparser</artifactId>
       <version>1.9.56</version>
     </dependency>
-    <!-- three (4) artifacts for complete configuration parsing and RI calls -->
-    <dependency>
-      <groupId>gov.nasa.pds</groupId>
-      <artifactId>registry-common</artifactId>
-      <version>2.1.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.2</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb-impl</artifactId>
-      <version>4.0.4</version>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.activation</groupId>
-      <artifactId>jakarta.activation-api</artifactId>
-      <version>2.1.3</version>
-    </dependency>
-    <!-- four artifacts for opensearch serverless -->
-    <dependency>
-      <groupId>org.apache.httpcomponents.client5</groupId>
-      <artifactId>httpclient5</artifactId>
-      <version>5.5</version>
-    </dependency>
     <dependency>
       <groupId>org.opensearch.client</groupId>
       <artifactId>opensearch-java</artifactId>
