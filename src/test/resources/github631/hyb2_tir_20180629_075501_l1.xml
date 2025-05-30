@@ -2,7 +2,6 @@
 <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1860.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
                        xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
                        xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
@@ -11,8 +10,7 @@
                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                        xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd
                                            http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.xsd
-                                           http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1860.xsd
-                                           http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.xsd">
+                                           http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1E00_1860.xsd">
     <Identification_Area>
         <logical_identifier>urn:jaxa:darts:hyb2_tir:data_raw:hyb2_tir_20180629_075501_l1</logical_identifier>
         <version_id>1.0</version_id>
@@ -68,29 +66,6 @@
                 <reference_type>data_to_target</reference_type>
             </Internal_Reference>
         </Target_Identification>
-        <Mission_Area>
-            <hyb2:Mission_Information>
-                <hyb2:mission_phase_name>Asteroid Proximity Phase</hyb2:mission_phase_name>
-            </hyb2:Mission_Information>
-            <hyb2:Observation_Information>
-                <hyb2:observation_date_time>2018-06-29T07:55:00.230Z</hyb2:observation_date_time>
-                <hyb2:naif_instrument_name>HAYABUSA2_TIR-S</hyb2:naif_instrument_name>
-            </hyb2:Observation_Information>
-            <hyb2:TIR_Instrument_Attributes>
-                <hyb2:tir_image_type>SHT</hyb2:tir_image_type>
-                <hyb2:number_of_accumulated_images>32</hyb2:number_of_accumulated_images>
-                <hyb2:number_of_bit_shift>2</hyb2:number_of_bit_shift>
-                <hyb2:peltier_power_status>On</hyb2:peltier_power_status>
-                <hyb2:peltier_desired_temperature unit="degC">40</hyb2:peltier_desired_temperature>
-                <hyb2:coarse_grained_temperature_status>Ready</hyb2:coarse_grained_temperature_status>
-                <hyb2:fine_grained_temperature_status>Ready</hyb2:fine_grained_temperature_status>
-                <hyb2:bolometer_temperature unit="degC">40.326</hyb2:bolometer_temperature>
-                <hyb2:package_temperature unit="degC">30.677</hyb2:package_temperature>
-                <hyb2:case_temperature unit="degC">29.282</hyb2:case_temperature>
-                <hyb2:shutter_temperature unit="degC">27.948</hyb2:shutter_temperature>
-                <hyb2:lens_temperature unit="degC">28.783</hyb2:lens_temperature>
-            </hyb2:TIR_Instrument_Attributes>
-        </Mission_Area>
         <Discipline_Area>
             <disp:Display_Settings>
                 <Local_Internal_Reference>

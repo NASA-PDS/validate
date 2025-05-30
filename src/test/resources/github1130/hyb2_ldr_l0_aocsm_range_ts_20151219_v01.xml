@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
-<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:hyb2="http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/hyb2/v1/PDS4_HYB2_1E00_1100.xsd">
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:hyb2="http://darts.isas.jaxa.jp/pds4/mission/hyb2/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd">
     <Identification_Area>
         <logical_identifier>urn:jaxa:darts:hyb2_lidar:data_raw:hyb2_ldr_l0_aocsm_range_ts_20151219</logical_identifier>
         <version_id>1.0</version_id>
@@ -55,11 +54,6 @@
             <type>Calibrator</type>
             <description>Laser emitted from Mount Stromlo Observatory with 1064 nanometers wavelength.</description>
         </Target_Identification>
-        <Mission_Area>
-            <hyb2:Mission_Information>
-                <hyb2:mission_phase_name>Earth Swing-by Phase</hyb2:mission_phase_name>
-            </hyb2:Mission_Information>
-        </Mission_Area>
     </Observation_Area>
     <File_Area_Observational>
         <File>
