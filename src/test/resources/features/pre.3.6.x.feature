@@ -8,7 +8,6 @@ Feature: < 3.6
       | issueNumber | subtest | datasrc | args | expectation |
 #begin
 
-| 817 | 2 | "github681" | "-t {datasrc}/ff_char_fail.xml" |  |
 | 817 | 1 | "github681" | "-t {datasrc}/ff_char_fail.xml" | "summary:totalErrors=1,summary:totalWarnings=2,summary:productValidation:failed=1,summary:messageTypes:error.table.field_value_format_precision_mismatch=1,summary:messageTypes:warning.label.context_ref_mismatch=2" |
 | 785 | 1 | "github785" | "--skip-context-validation -t {datasrc}/00038_FGM_RTN.xml" | "summary:totalWarnings=6,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=6" |
 | 781 | 1 | "github781" | "--skip-context-validation --skip-context-validation -t {datasrc}/RSS001E01_2031066T0241_EURGRVL20XXXXXXGSFC_COV010.xml" |  |
