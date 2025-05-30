@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-05-27)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-05-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.0...«unknown»)
 
@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- Tests are failing gracefully and not triggering a build failure [\#1257](https://github.com/NASA-PDS/validate/issues/1257) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Configuration file documenation does not match actual config file options [\#1019](https://github.com/NASA-PDS/validate/issues/1019) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate configuration includes context product names that do not match the products [\#967](https://github.com/NASA-PDS/validate/issues/967) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
