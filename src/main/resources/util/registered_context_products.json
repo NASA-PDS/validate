@@ -1180,6 +1180,15 @@
           },
           {
                "name": [
+                    "Palmer Divide 0.5m CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.old10inch.ccd0m5::1.1"
+          },
+          {
+               "name": [
                     "esa",
                     "European Space Agency"
                ],
@@ -2091,7 +2100,7 @@
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.palmer_divide::1.1"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.palmer_divide::1.2"
           },
           {
                "name": [
@@ -8384,15 +8393,6 @@
           },
           {
                "name": [
-                    "Palmer Divide 0.5m CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.old10inch.ccd0m5::1.1"
-          },
-          {
-               "name": [
                     "SBIG ST-8"
                ],
                "type": [
@@ -10873,6 +10873,24 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:wise.wise_camera::1.1"
+          },
+          {
+               "name": [
+                    "Palmer Divide 0.5m CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.0m5.ccd0m5::1.0"
+          },
+          {
+               "name": [
+                    "Juno JunoCam"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:junocam.jno::1.0"
           },
           {
                "name": [
@@ -38663,26 +38681,6 @@
           },
           {
                "name": [
-                    "0.5m",
-                    "Palmer Divide Observatory 0.5m Telescope"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.0m5::1.1"
-          },
-          {
-               "name": [
-                    "Old Ten Inch",
-                    "Palmer Divide Observatory Old Ten Inch Telescope"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.old10inch::1.1"
-          },
-          {
-               "name": [
                     "Palomar Observatory 1.52-m Ritchey-Chretien Cassegrain/Coude Reflector",
                     "1.52-m Ritchey-Chretien Cassegrain/Coude reflector"
                ],
@@ -38927,6 +38925,26 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:valle_d_aosta.oavda::1.1"
+          },
+          {
+               "name": [
+                    "0.5m",
+                    "Palmer Divide Observatory 0.5m Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.0m5::1.2"
+          },
+          {
+               "name": [
+                    "Old Ten Inch",
+                    "Palmer Divide Observatory Old Ten Inch Telescope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.old10inch::1.2"
           }
      ]
 }
