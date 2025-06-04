@@ -44,6 +44,14 @@ public class InventoryTableValidator {
         entry = reader.getNext();
       }
       InventoryTableValidator.checkAllUnique(ids, listener, aggregate);
+      if (ids.size() != reader.getNumRecords()) {
+        listener.addProblem(new TableContentProblem(ExceptionType.ERROR, ProblemType.RECORDS_MISMATCH,
+            "Number of records read is not equal "
+                + "to the defined number of records in the label (expected "
+                + reader.getNumRecords() + ", got " + ids.size()
+                + ").",
+               reader.getDataFile(), aggregate, "-1", -1, -1));
+      }
     } catch (InventoryReaderException e) {
       listener.addProblem(new ValidationProblem(GenericProblems.UNCAUGHT_EXCEPTION,
           ValidationTarget.build(aggregate),-1, -1, e.getMessage()));
