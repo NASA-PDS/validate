@@ -105,7 +105,7 @@ The shape model of Phoebe derived by
     <File>
       <file_name>delinv.01.csv</file_name>
       <local_identifier>data</local_identifier>
-      <file_size unit="byte">219</file_size>
+      <file_size unit="byte">146</file_size>
       <records>2</records>
     </File>
     <Inventory>
