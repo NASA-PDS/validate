@@ -3537,30 +3537,6 @@
           },
           {
                "name": [
-                    "DCAM3-A (DCAM3 Analog)",
-                    "dcam3-a",
-                    "DCAM3-A",
-                    "DCAM3-A (DCAM3 Analog) onboard DCAM3"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:dcam3.dcam3-a::1.1"
-          },
-          {
-               "name": [
-                    "DCAM3-D (DCAM3 Digital)",
-                    "DCAM3-D (DCAM3 Digital) onboard DCAM3",
-                    "dcam3-d",
-                    "DCAM3-D"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:dcam3.dcam3-d::1.1"
-          },
-          {
-               "name": [
                     "DEEP IMPACT HIGH RESOLUTION INSTRUMENT - IR SPECTROMETER",
                     "DEEP IMPACT HIGH RESOLUTION INSTRUMENT - IR SPECTROMETER for DIF",
                     "urn:nasa:pds:context:instrument:hrii.dif",
@@ -4170,18 +4146,6 @@
           },
           {
                "name": [
-                    "GALILEO PROBE MASS SPECTROMETER for GP",
-                    "GALILEO PROBE MASS SPECTROMETER",
-                    "Mass Spectrometer for Galileo Probe",
-                    "urn:nasa:pds:context:instrument:gpms.gp"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:gp.gpms::1.1"
-          },
-          {
-               "name": [
                     "HELIUM ABUNDANCE DETECTOR for GP",
                     "HELIUM ABUNDANCE DETECTOR",
                     "Helium Abundance Detector for Galileo Probe",
@@ -4527,81 +4491,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:hst.wfpc2::2.1"
-          },
-          {
-               "name": [
-                    "CAM-H",
-                    "Small Monitor Camera (CAM-H) for Hayabusa2",
-                    "Small Monitor Camera (CAM-H)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.cam-h::1.1"
-          },
-          {
-               "name": [
-                    "The LIDAR (Light Detection and Ranging) Instrument for Hayabusa2",
-                    "LIDAR",
-                    "lidar",
-                    "LIght Detection And Ranging (LIDAR)",
-                    "LIght Detection And Ranging for Hayabusa2"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.lidar::1.1"
-          },
-          {
-               "name": [
-                    "Near InfraRed Spectrometer for Hayabusa2",
-                    "The Near InfraRed Spectrometer (NIRS3) for Hayabusa2",
-                    "nirs3",
-                    "NIRS3",
-                    "Near InfraRed Spectrometer (NIRS3)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.nirs3::1.1"
-          },
-          {
-               "name": [
-                    "Optical Navigation Camera for Hayabusa2",
-                    "onc",
-                    "ONC",
-                    "Optical Navigation Camera",
-                    "The Optical Navigation Camera (ONC) for Hayabusa2"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.onc::1.1"
-          },
-          {
-               "name": [
-                    "Small Carry-on Impactor (SCI)",
-                    "sci",
-                    "SCI",
-                    "Small Carry-on Impactor for Hayabusa2"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.sci::1.1"
-          },
-          {
-               "name": [
-                    "Thermal Infrared Imager (TIR)",
-                    "The Thermal InfraRed Imager (TIR) for Hayabusa2",
-                    "Thermal InfraRed Imager for Hayabusa2",
-                    "tir",
-                    "TIR"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.tir::1.1"
           },
           {
                "name": [
@@ -5982,63 +5871,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:mars2020.supercam::1.1"
-          },
-          {
-               "name": [
-                    "MARA",
-                    "MASCOT Radiometer MARA instrument",
-                    "The MASCOT Radiometer (MARA) for the Hayabusa2 MASCOT Rover"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mara::1.1"
-          },
-          {
-               "name": [
-                    "The MASCOT Camera (MASCAM) for the Hayabusa2 MASCOT Rover",
-                    "MASCOT Camera",
-                    "mascam",
-                    "MASCAM"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mascam::1.1"
-          },
-          {
-               "name": [
-                    "MASCOT Fluxgate Magnetometer",
-                    "The MASCOT Fluxgate Magnetometer (MASMAG) for the Hayabusa2 MASCOT Rover",
-                    "MasMag",
-                    "masmag"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:mascot.masmag::1.1"
-          },
-          {
-               "name": [
-                    "mbus",
-                    "MASCOT Lander Bus",
-                    "MBUS",
-                    "The MASCOT Lander Bus"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mbus::1.1"
-          },
-          {
-               "name": [
-                    "MicrOmega for MASCOT",
-                    "MicrOmega"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:mascot.micromega::1.1"
           },
           {
                "name": [
@@ -10023,77 +9855,6 @@
           },
           {
                "name": [
-                    "1-micron Camera",
-                    "1-micron Camera for Venus Climate Orbiter Akatsuki",
-                    "ir1",
-                    "IR1"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.ir1::1.2"
-          },
-          {
-               "name": [
-                    "2-micron Camera for Venus Climate Orbiter Akatsuki",
-                    "2-micron Camera",
-                    "ir2",
-                    "IR2"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.ir2::1.2"
-          },
-          {
-               "name": [
-                    "Lightning and Airglow Camera for Venus Climate Orbiter Akatsuki",
-                    "lac",
-                    "LAC",
-                    "Lightning and Airglow Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.lac::1.2"
-          },
-          {
-               "name": [
-                    "lir",
-                    "LIR",
-                    "Longwave Infrared Camera for Venus Climate Orbiter Akatsuki",
-                    "Longwave Infrared Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.lir::1.2"
-          },
-          {
-               "name": [
-                    "rss",
-                    "RSS",
-                    "Radio Science Subsystem for Venus Climate Orbiter Akatsuki"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.rss::1.2"
-          },
-          {
-               "name": [
-                    "uvi",
-                    "UVI",
-                    "Ultraviolet Imager",
-                    "Ultraviolet Imager for Venus Climate Orbiter Akatsuki"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument:vco.uvi::1.2"
-          },
-          {
-               "name": [
                     "urn:nasa:pds:context:instrument:ducma.vega1",
                     "DUST PARTICLE COUNTER AND MASS ANALYZER",
                     "The Dust Particle Counter and Mass Analyzer (DUCMA) for Vega 1",
@@ -10894,15 +10655,258 @@
           },
           {
                "name": [
+                    "DCAM3-A (DCAM3 Analog)",
+                    "dcam3-a",
+                    "DCAM3-A",
+                    "DCAM3-A (DCAM3 Analog) onboard DCAM3"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:dcam3.dcam3-a::1.2"
+          },
+          {
+               "name": [
+                    "DCAM3-D (DCAM3 Digital)",
+                    "DCAM3-D (DCAM3 Digital) onboard DCAM3",
+                    "dcam3-d",
+                    "DCAM3-D"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:dcam3.dcam3-d::1.2"
+          },
+          {
+               "name": [
+                    "GALILEO PROBE MASS SPECTROMETER for GP",
+                    "GALILEO PROBE MASS SPECTROMETER",
+                    "Mass Spectrometer for Galileo Probe",
+                    "urn:nasa:pds:context:instrument:gpms.gp"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:gp.gpms::1.1"
+          },
+          {
+               "name": [
+                    "CAM-H",
+                    "Small Monitor Camera (CAM-H) for Hayabusa2",
+                    "Small Monitor Camera (CAM-H)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.cam-h::1.2"
+          },
+          {
+               "name": [
+                    "LIght Detection And Ranging (LIDAR) for Hayabusa2",
+                    "LIDAR",
+                    "lidar",
+                    "LIght Detection And Ranging (LIDAR)",
+                    "LIght Detection And Ranging for Hayabusa2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.lidar::1.2"
+          },
+          {
+               "name": [
+                    "Near InfraRed Spectrometer for Hayabusa2",
+                    "Near InfraRed Spectrometer (NIRS3) for Hayabusa2",
+                    "nirs3",
+                    "NIRS3",
+                    "Near InfraRed Spectrometer (NIRS3)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.nirs3::1.2"
+          },
+          {
+               "name": [
+                    "Optical Navigation Camera for Hayabusa2",
+                    "onc",
+                    "ONC",
+                    "Optical Navigation Camera",
+                    "Optical Navigation Camera (ONC)",
+                    "The Optical Navigation Camera (ONC) for Hayabusa2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.onc::1.2"
+          },
+          {
+               "name": [
+                    "Small Carry-on Impactor (SCI)",
+                    "sci",
+                    "SCI",
+                    "Small Carry-on Impactor (SCI) for Hayabusa2",
+                    "Small Carry-on Impactor for Hayabusa2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.sci::1.2"
+          },
+          {
+               "name": [
+                    "Thermal InfraRed Imager (TIR) for Hayabusa2",
+                    "Thermal InfraRed Imager (TIR)",
+                    "tir",
+                    "TIR"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:hyb2.tir::1.2"
+          },
+          {
+               "name": [
+                    "MARA",
+                    "MASCOT Radiometer MARA instrument",
+                    "MASCOT Radiometer (MARA) for the Hayabusa2 MASCOT Lander",
+                    "MASCOT Radiometer (MARA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mara::1.2"
+          },
+          {
+               "name": [
+                    "MASCOT Camera (MASCAM) for the Hayabusa2 MASCOT Lander",
+                    "MASCOT Camera",
+                    "mascam",
+                    "MASCAM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mascam::1.2"
+          },
+          {
+               "name": [
+                    "MASCOT Fluxgate Magnetometer (MASMAG) for the Hayabusa2 MASCOT Lander",
+                    "MASCOT Fluxgate Magnetometer",
+                    "MasMag",
+                    "masmag"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.masmag::1.2"
+          },
+          {
+               "name": [
+                    "mbus",
+                    "MASCOT Lander Bus for the Hayabusa2 MASCOT Lander",
+                    "MASCOT Lander Bus",
+                    "MBUS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.mbus::1.2"
+          },
+          {
+               "name": [
+                    "MicrOmega for the Hayabusa2 MASCOT Lander",
+                    "MicrOmega"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:mascot.micromega::1.2"
+          },
+          {
+               "name": [
+                    "1-micron Camera",
+                    "1-micron Camera (IR1)",
+                    "1-micron Camera for Venus Climate Orbiter Akatsuki",
+                    "ir1",
+                    "IR1"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.ir1::1.3"
+          },
+          {
+               "name": [
+                    "2-micron Camera (IR2)",
+                    "2-micron Camera for Venus Climate Orbiter Akatsuki",
+                    "ir2",
+                    "IR2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.ir2::1.3"
+          },
+          {
+               "name": [
+                    "Lightning and Airglow Camera for Venus Climate Orbiter Akatsuki",
+                    "Lightning and Airglow Camera",
+                    "lac",
+                    "LAC"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.lac::1.3"
+          },
+          {
+               "name": [
+                    "Longwave Infrared Camera (LIR)",
+                    "lir",
+                    "LIR",
+                    "Longwave Infrared Camera for Venus Climate Orbiter Akatsuki",
+                    "Longwave Infrared Camera"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.lir::1.3"
+          },
+          {
+               "name": [
+                    "rss",
+                    "RSS",
+                    "Radio Science Subsystem for Venus Climate Orbiter Akatsuki"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.rss::1.3"
+          },
+          {
+               "name": [
+                    "Ultraviolet Imager (UVI)",
+                    "uvi",
+                    "UVI",
+                    "Ultraviolet Imager",
+                    "Ultraviolet Imager for Venus Climate Orbiter Akatsuki"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:vco.uvi::1.3"
+          },
+          {
+               "name": [
                     "mascot",
                     "MASCOT",
-                    "MASCOT (Mobile Asteroid surface SCOuT) Lander",
-                    "The Mobile Asteroid surface SCOuT (MASCOT) Lander"
+                    "MASCOT (Mobile Asteroid surface SCOuT) Lander"
                ],
                "type": [
                     "Lander"
                ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.2"
+               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.mascot::1.3"
           },
           {
                "name": [
@@ -11211,13 +11215,13 @@
                "name": [
                     "Deployable Camera for Hayabusa2",
                     "DCAM3",
-                    "dcam3",
-                    "DCAM3 (Deployable Camera 3)"
+                    "DCAM3 (Deployable Camera 3)",
+                    "dcam3"
                ],
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.dcam3::1.1"
+               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.dcam3::1.2"
           },
           {
                "name": [
@@ -11334,16 +11338,15 @@
           },
           {
                "name": [
-                    "The Hayabusa2 Spacecraft",
                     "hyb2",
                     "hayabusa2",
-                    "Hayabusa2",
-                    "Hayabusa2 Spacecraft"
+                    "Hayabusa2 Spacecraft",
+                    "Hayabusa2"
                ],
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.hyb2::1.1"
+               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.hyb2::1.2"
           },
           {
                "name": [
@@ -11964,22 +11967,6 @@
           },
           {
                "name": [
-                    "PLANET-C",
-                    "vco",
-                    "akatsuki",
-                    "plc",
-                    "Akatsuki",
-                    "Venus Climate Orbiter Akatsuki",
-                    "Venus Climate Orbiter",
-                    "Venus Climate Orbiter Akatsuki Spacecraft"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.vco::1.1"
-          },
-          {
-               "name": [
                     "VEGA 1",
                     "The Vega 1 Spacecraft"
                ],
@@ -12075,6 +12062,22 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.wise::1.1"
+          },
+          {
+               "name": [
+                    "PLANET-C",
+                    "vco",
+                    "akatsuki",
+                    "plc",
+                    "Akatsuki",
+                    "Venus Climate Orbiter Akatsuki",
+                    "Venus Climate Orbiter",
+                    "Venus Climate Orbiter Akatsuki Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.vco::1.2"
           },
           {
                "name": [
@@ -12582,7 +12585,7 @@
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:jaxa:darts:context:investigation:mission.hyb2::1.1"
+               "lidvid": "urn:jaxa:darts:context:investigation:mission.hyb2::1.2"
           },
           {
                "name": [
@@ -13229,20 +13232,6 @@
           },
           {
                "name": [
-                    "INTERNATIONAL_SOLAR_POLAR_MISSION",
-                    "urn:nasa:pds:context:investigation:mission.ulysses",
-                    "INTERNATIONAL SOLAR POLAR MISSION",
-                    "Ulysses Mission",
-                    "The Ulysses Mission",
-                    "ULYSSES"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:esa:psa:context:investigation:mission.ulysses::1.1"
-          },
-          {
-               "name": [
                     "PLANET-C",
                     "vco",
                     "akatsuki",
@@ -13532,6 +13521,20 @@
                     "Other Investigation"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:other_investigation.wt_threshold::1.1"
+          },
+          {
+               "name": [
+                    "INTERNATIONAL_SOLAR_POLAR_MISSION",
+                    "urn:nasa:pds:context:investigation:mission.ulysses",
+                    "INTERNATIONAL SOLAR POLAR MISSION",
+                    "Ulysses Mission",
+                    "Ulysses",
+                    "ULYSSES"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:esa:psa:context:investigation:mission.ulysses::1.2"
           },
           {
                "name": [
@@ -37443,6 +37446,16 @@
                     "Trans-Neptunian Object"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.95625_2002_gx32::1.1"
+          },
+          {
+               "name": [
+                    "Interplanetary Medium",
+                    "IPM"
+               ],
+               "type": [
+                    "Astrophysical"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:astrophysical.interplanetary_medium::1.0"
           },
           {
                "name": [
