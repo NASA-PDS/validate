@@ -38958,6 +38958,56 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:palmer_divide.old10inch::1.2"
+          },
+          {
+               "name": [
+                    "NASA/Keck Reflectance Experiment Laboratory (RELAB), Brown University, Providence, Rhode Island, United States",
+                    "NASA/Keck Reflectance Experiment Laboratory (RELAB)"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.relab::1.0"
+          },
+          {
+               "name": [
+                    "RELAB Reflectance Spectra Measurements",
+                    "RELAB Spectral Library"
+               ],
+               "type": [
+                    "Other Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:other_investigation.relab_speclib::1.0"
+          },
+          {
+               "name": [
+                    "Nicolet 740 Biconical FTIR Spectrometer at RELAB",
+                    "RELAB Nicolet 740 FTIR with Spectra-Tech Biconical Diffuse Reflectance Accessory"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:relab.bc-ftir1::1.0"
+          },
+          {
+               "name": [
+                    "Thermo Nexus 870 Biconical Off-Axis FTIR Spectrometer at RELAB",
+                    "RELAB Thermo Nexus 870 FTIR with Pike AutoDiff Diffuse Reflectance Accessory"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
+          },
+          {
+               "name": [
+                    "Bi-directional Visible and Near Infrared Spectrometer at RELAB",
+                    "RELAB Bidirectional Spectrometer"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:relab.bd-vnir::1.0"
           }
      ]
 }
