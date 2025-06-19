@@ -46,7 +46,7 @@ usage()
     echo "                                              NOTE: Reports from all parallel executed validation"
     echo "                                                    runs will be output to the parent directory of"
     echo "                                                    this file path."
-    echo "  -d, --dir-path       <dir-path>             Optional argument to specify the directory to output"
+    echo "  -d, --report-dir     <report-path>          Optional argument to specify the directory to output"
     echo "                                              the final summary report."
     echo "  --dry-run                                   Optional argument to make a dry run to confirm the created output directory"
     echo "                                              specified in the --dir-path parameter."
@@ -102,11 +102,13 @@ if [ "$PRODUCT_DIR" == "" ]; then
 fi
 
 # If the user has provided the REPORT_DIR (not a blank space), append the unique directory.
-if [ "$REPORT_DIR" != "" ]; then
+if [ -n "$REPORT_DIR" ]; then
     REPORT_DIR=$REPORT_DIR/$DEFAULT_UNIQUE_REPORT_DIR_STEM
+else
+    REPORT_DIR=$DEFAULT_UNIQUE_REPORT_DIR_DIR
 fi
 # If the user has not provided the REPORT_FILE (not a blank space), set to unique file beneath the default dir.
-if [ "$REPORT_FILE" = "" ]; then
+if [ -z "$REPORT_FILE" ]; then
     REPORT_FILE=$REPORT_DIR/validate_summary.log
 fi
 
