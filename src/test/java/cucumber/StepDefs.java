@@ -176,7 +176,11 @@ public class StepDefs {
           } else if (key.equals("messageTypes")) {
             nextIsMessage = true;
           } else {
-            node = node.getAsJsonObject(key);
+            if (node.keySet().contains(key)) {
+              node = node.getAsJsonObject(key);              
+            } else {
+              fail("Test failed because '" + key + "' is not one of " + "{ " + String.join(",", node.keySet()) + " }");
+            }
           }
         }
         assertEquals (expected, reported, keyword);
@@ -188,7 +192,7 @@ public class StepDefs {
       assertEquals(0, e.status, "Exit status");
     } catch (Exception e) {
       e.printStackTrace();
-      fail("Test Failed Due To Exception: " + e.getMessage());
+      fail("Test failed due to exception: " + e.getMessage());
     }
   }
 

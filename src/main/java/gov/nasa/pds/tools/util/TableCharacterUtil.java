@@ -98,12 +98,13 @@ public class TableCharacterUtil {
     try {
       XMLExtractor extractor = new XMLExtractor(getTarget());
 
-      List<TinyNodeImpl> FieldCharacterNodeList = extractor.getNodesFromDoc(FIELD_CHARACTER);
+      List<TinyNodeImpl> fieldCharacterNodeList = extractor.getNodesFromDoc(FIELD_CHARACTER);
       String fieldValue = "";
 
+      fieldCharacterNodeList.addAll(extractor.getNodesFromDoc(FIELD_CHARACTER.replace("Observational", "Ancillary")));
       // Note that the function getValueFromItem() returns an empty string if the
       // field we seek is not present in the node.
-      for (TinyNodeImpl node : FieldCharacterNodeList) {
+      for (TinyNodeImpl node : fieldCharacterNodeList) {
         fieldValue = extractor.getValueFromItem(FIELD_NUMBER_SIMPLE, node);
         fieldNumberList.add(fieldValue);
         fieldValue = extractor.getValueFromItem(FIELD_LOCATION_SIMPLE, node);
