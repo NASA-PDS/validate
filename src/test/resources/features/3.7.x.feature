@@ -7,6 +7,9 @@ Feature: 3.7.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 
+| 1276 | 1 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.lon.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |
+| 1276 | 2 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.no.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |
+| 1276 | 3 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.utc.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |
 | 1135 | 1 | "github1135" | "-t {datasrc}/2017_FGM_KRTP_1M.xml" |  |
 | 1130 | 1 | "github1130" | "--skip-context-validation -t {datasrc}/hyb2_ldr_l0_aocsm_range_ts_20151219_v01.xml" |  |
 | 1118 | 1 | "github1118" | "--skip-context-validation -t {datasrc}/20170303t022534s621_sto_l0.b.xml" |  |
