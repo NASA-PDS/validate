@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1I00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:jaxa:darts:vco_spice:miscellaneous:orbnum_vco_v07.orb</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>vco_v07.orb</title>
+    <information_model_version>1.18.0.0</information_model_version>
+    <product_class>Product_Ancillary</product_class>
+    <Citation_Information>
+      <publication_year>2023</publication_year>
+      <keyword>Observation Geometry</keyword>
+      <description>SPICE text orbit number file containing orbit numbers and start times for orbits numbered by/starting at periapsis events, and sets of selected geometric parameters at the orbit start times. SPICE text PCK file constants from the ESA planetary missions using IAU 2000 report constants (rssd0002.tpc). Created by ISAS, JAXA.</description>
+    </Citation_Information>
+  </Identification_Area>
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2022-01-01T00:00:00Z</start_date_time>
+      <stop_date_time>2023-01-01T00:00:00Z</stop_date_time>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Observation Geometry</purpose>
+      <processing_level>Derived</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Venus Climate Orbiter Akatsuki Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:jaxa:darts:context:investigation:mission.vco</lid_reference>
+        <reference_type>ancillary_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Venus Climate Orbiter Akatsuki</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.vco</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Venus</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+        <reference_type>ancillary_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:jaxa:darts:vco_spice:document:spiceds</lid_reference>
+      <reference_type>ancillary_to_document</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <File_Area_Ancillary>
+    <File>
+      <file_name>vco_v07.orb.lon</file_name>
+      <creation_date_time>2023-06-07T17:44:16.503Z</creation_date_time>
+      <file_size unit="byte">43133</file_size>
+      <md5_checksum>1e8c6614a76aca62ecacd44a0f9ce547</md5_checksum>
+    </File>
+    <Header>
+      <name>Orbit number header</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">363</object_length>
+      <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+    </Header>
+    <Table_Character>
+      <name>Orbit number table</name>
+      <offset unit="byte">363</offset>
+      <records>235</records>
+      <record_delimiter>Line-Feed</record_delimiter>
+      <Record_Character>
+        <fields>15</fields>
+        <groups>0</groups>
+        <record_length unit="byte">182</record_length>
+        <Field_Character>
+          <name>No.</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>ASCII_Integer</data_type>
+          <field_length unit="byte">5</field_length>
+          <field_format>%5d</field_format>
+          <description>Number that provides an incremental orbit count determined by the pericenter event.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Event UTC PERI</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">8</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>%20s</field_format>
+          <description>UTC time of the pericenter event that signifies the start of an orbit.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Event SCLK PERI</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">30</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>%20s</field_format>
+          <description>SCLK time of the pericenter event that signifies the start of an orbit.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>OP-Event UTC APO</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">52</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">20</field_length>
+          <field_format>%20s</field_format>
+          <description>UTC time of opposite event (apocenter).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SolLon</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">74</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Sub-solar planetodetic longitude at the pericenter event time in the Venus Mean Equator of date J2000 (VME2000).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SolLat</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">83</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Sub-solar planetodetic latitude at the pericenter event time in the Venus Mean Equator of date J2000 (VME2000).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SC Lon</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">92</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Sub-target planetodetic longitude at the pericenter event time in the Venus Mean Equator of date J2000 (VME2000).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>SC Lat</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">101</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Sub-target planetodetic latitude at at the pericenter event time in the Venus Mean Equator of date J2000 (VME2000).</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Alt</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">110</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">10</field_length>
+          <field_format>%10.2f</field_format>
+          <unit>km</unit>
+          <description>Altitude of the target above the observer body at the pericenter event time relative to the Venus ellipsoid.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Inc</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">122</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>km</unit>
+          <description>Inclination of the vehicle orbit plane at event time.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Ecc</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">131</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">6</field_length>
+          <field_format>%6.3f</field_format>
+          <unit>deg</unit>
+          <description>Eccentricity of the target orbit about the primary body at the pericenter event time.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>LonNode</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">139</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Longitude of the ascending node of the orbit plane at the pericenter event time.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Arg Per</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">148</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">7</field_length>
+          <field_format>%7.2f</field_format>
+          <unit>deg</unit>
+          <description>Argument of periapsis of the orbit plane at the pericenter event time.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Sol Dist</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">157</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">12</field_length>
+          <field_format>%12.1f</field_format>
+          <unit>km</unit>
+          <description>Solar distance from target at the pericenter event time.</description>
+        </Field_Character>
+        <Field_Character>
+          <name>Semi Axis</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">171</field_location>
+          <data_type>ASCII_Real</data_type>
+          <field_length unit="byte">11</field_length>
+          <field_format>%11.2f</field_format>
+          <unit>km</unit>
+          <description>Semi-major axis of the target's orbit at the pericenter event time.</description>
+        </Field_Character>
+      </Record_Character>
+    </Table_Character>
+  </File_Area_Ancillary>
+</Product_Ancillary>
