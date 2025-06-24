@@ -1,5 +1,14 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-06-24)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
+
+**Defects:**
+
+- `--strict-field-checks` not working as expected [\#1276](https://github.com/NASA-PDS/validate/issues/1276) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- `validate-bundle` has no default value for `--report-dir` [\#1149](https://github.com/NASA-PDS/validate/issues/1149) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v3.7.1](https://github.com/NASA-PDS/validate/tree/v3.7.1) (2025-05-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.0...v3.7.1)
