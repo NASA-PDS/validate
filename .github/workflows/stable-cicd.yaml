@@ -78,8 +78,8 @@ jobs:
                     maven-stable-artifact-phases: clean,site,site:stage,deploy
                     documentation-dir: target/staging/validate
                 env:
-                    ossrh_username: ${{secrets.OSSRH_USERNAME}}
-                    ossrh_password: ${{secrets.OSSRH_PASSWORD}}
+                    central_portal_username: ${{secrets.CENTRAL_REPOSITORY_USERNAME}}
+                    central_portal_token: ${{secrets.CENTRAL_REPOSITORY_TOKEN}}
                     CODE_SIGNING_KEY: ${{secrets.CODE_SIGNING_KEY}}
                     ADMIN_GITHUB_TOKEN: ${{secrets.ADMIN_GITHUB_TOKEN}}
 
