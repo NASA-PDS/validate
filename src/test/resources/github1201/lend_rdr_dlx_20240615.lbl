@@ -1,0 +1,50 @@
+PDS_VERSION_ID                 = PDS3
+LABEL_REVISION_NOTE            = "2016-06-15, LEND Team, initial release;"
+
+
+/*** FILE FORMAT ***/
+FILE_RECORDS                   = 74898
+RECORD_TYPE                    = FIXED_LENGTH
+RECORD_BYTES                   = 71
+
+/*** GENERAL DATA DESCRIPTION PARAMETERS ***/
+PRODUCT_ID                     = "LEND_RDR_DLX_20240615_DAT"
+PRODUCT_VERSION_ID             = "1.0"
+PRODUCT_CREATION_TIME          = 2025-02-24T18:00:49
+PRODUCT_TYPE                   = "LEND_RDR_DLX"
+SOFTWARE_NAME                  = "GEN_LEND_RDR"
+SOFTWARE_VERSION_ID            = "1.0.0"
+INSTRUMENT_HOST_NAME           = "LUNAR RECONNAISSANCE ORBITER"
+INSTRUMENT_NAME                = "LUNAR EXPLORATION NEUTRON DETECTOR"
+INSTRUMENT_ID                  = "LEND"
+DATA_SET_ID                    = "LRO-L-LEND-4/5-RDR-V1.0"
+
+MISSION_PHASE_NAME             = "FIFTH EXTENDED SCIENCE MISSION"
+TARGET_NAME                    = "MOON"
+START_TIME                     = 2024-06-15T00:00:00
+STOP_TIME                      = 2024-06-15T23:59:59
+SPACECRAFT_CLOCK_START_COUNT   = "740102399"
+SPACECRAFT_CLOCK_STOP_COUNT    = "740188798"
+^TABLE                         = "LEND_RDR_DLX_20240615.DAT"
+
+OBJECT                         = TABLE
+   COLUMNS                     = 12
+   INTERCHANGE_FORMAT          = BINARY
+   ROW_BYTES                   = 71
+   ROWS                        = 74898
+   DESCRIPTION                 = "
+    This table contains a calculated sum of neutron counts for 
+    the four CSETN detectors and uncertainties for neutron
+    counting data for each of the nine neutron sensors
+    aboard the Lunar Reconnaissance Orbiter (LRO) Lunar
+    Exploration Neutron Detector (LEND).
+
+    Detailed descriptions for the parameters defined below are
+    contained in the 'LRO_LEND_RDR_SIS' document.
+
+    The complete column definitions are contained in an external file
+    found in the LABEL directory of the archive volume.
+    "
+   ^STRUCTURE                  = "LEND_RDR_DLX.FMT"
+END_OBJECT                     = TABLE
+END

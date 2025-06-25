@@ -17,11 +17,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.Nullable;
 import javax.xml.transform.sax.SAXSource;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
+import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -204,13 +206,19 @@ public class TargetExaminer {
    * @param targets
    * @return
    */
-  public static List<Target> removeNonLabels(List<Target> targets) {
+  public static List<Target> removeNonLabels(List<Target> targets, @Nullable ProblemListener listener) {
     ArrayList<Target> nons = new ArrayList<Target>();
     for (Target t : targets) {
       if (!isTargetALabel (t.getUrl())) {
         nons.add (t);
+        if (listener != null) {
+          ExceptionType et = t.getUrl().getPath().endsWith(".lblx") ? ExceptionType.ERROR : ExceptionType.WARNING;
+          ProblemType pt = et == ExceptionType.ERROR ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
+          String msg = "The label file cannot be parsed or understood using PDS4 schema" + (et == ExceptionType.ERROR ? "." : " but it may be a data file being as a label.");
+          listener.addProblem(new ValidationProblem(new ProblemDefinition(et,pt,msg), t.getUrl()));            
+          }
+        }
       }
-    }
     for (Target t : nons) {
       targets.remove (t);
     }

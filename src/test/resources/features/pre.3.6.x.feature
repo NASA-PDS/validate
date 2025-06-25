@@ -54,9 +54,9 @@ Feature: < 3.6
 | 499 | 1 | "github499" | "--skip-context-validation -t {datasrc}/success/M7_217_044546_N.xml" |  |
 | 499 | 2 | "github499" | "--skip-context-validation -t {datasrc}/fail/M7_217_044546_N.xml" | "summary:totalErrors=25,summary:productValidation:failed=1,summary:messageTypes:error.table.missing_CRLF=25" |
 | 482 | 1 | "github482" | "--skip-context-validation -e lblx -R pds4.folder -t {datasrc}/bundle1/" |  |
-| 482 | 2 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle2/" |  |
+| 482 | 2 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle2/" | "summary:totalWarnings=1,summary:productValidation:skipped=1,summary:messageTypes:warning.label.not_understandable=1" |
 | 482 | 3 | "github482" | "--skip-context-validation -R pds4.bundle -e lblx -t {datasrc}/bundle1/bundle_kaguya_derived.lblx" | "summary:totalWarnings=3,summary:messageTypes:warning.integrity.reference_not_found=3" |
-| 482 | 4 | "github482" | "--skip-context-validation -R pds4.bundle -t {datasrc}/bundle2/bundle_kaguya_derived.xml" | "summary:totalWarnings=4,summary:messageTypes:warning.file.not_referenced_in_label=1,summary:messageTypes:warning.integrity.reference_not_found=3" |
+| 482 | 4 | "github482" | "--skip-context-validation -R pds4.bundle -t {datasrc}/bundle2/bundle_kaguya_derived.xml" | "summary:totalWarnings=5,summary:messageTypes:warning.file.not_referenced_in_label=1,summary:messageTypes:warning.integrity.reference_not_found=3,summary:messageTypes:warning.label.not_understandable=1" |
 | 482 | 5 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle1/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
 | 482 | 6 | "github482" | "--skip-context-validation -R pds4.folder -e lblx -t {datasrc}/bundle2/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
 | 480 | 1 | "github480" | "--skip-context-validation -t {datasrc}/test_success.xml --skip-content-validation" |  |

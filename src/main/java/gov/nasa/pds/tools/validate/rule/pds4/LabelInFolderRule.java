@@ -133,7 +133,7 @@ public class LabelInFolderRule extends AbstractValidationRule {
       } else {
         targetList = crawler.crawl(target, false, getContext().getFileFilters());
       }
-      TargetExaminer.removeNonLabels (targetList);
+      TargetExaminer.removeNonLabels (targetList, this.getContext().getProblemListener());
 
       if (targetList.size() > 0) {
         getListener().addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.DEBUG,
