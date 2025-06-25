@@ -15,6 +15,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemCategory;
+import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.status.Status;
 
@@ -166,6 +167,7 @@ public abstract class Report {
    * @return status of the file (i.e. PASS, FAIL, or SKIP)
    */
   final public Status record(URI sourceUri, final List<ValidationProblem> problems) {
+    int badLabels = 0;
     int numErrors = 0;
     int numWarnings = 0;
     Status status = Status.PASS;
@@ -183,6 +185,9 @@ public abstract class Report {
       } else if (problem.getProblem().getSeverity() == ExceptionType.WARNING) {
         if (ExceptionType.WARNING.getValue() <= this.level.getValue()) {
           numWarnings++;
+          if (problem.getProblem().getType() == ProblemType.BAD_LABEL_FILE_WARN) {
+            badLabels++;
+          }
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
       } else if (problem.getProblem().getSeverity() == ExceptionType.INFO) {
@@ -214,7 +219,8 @@ public abstract class Report {
           this.numFailedIntegrityChecks++;
         }
       }
-    } else if (FlagsUtil.getSkipProductValidation()) {
+    } else if (badLabels > 0 || FlagsUtil.getSkipProductValidation()) {
+      if (badLabels > 0) status = Status.SKIP;
       if (!Utility.isDir(sourceUri.toString())) {
         if (!this.integrityCheckFlag) {
           this.numSkippedProds++;
