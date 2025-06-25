@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1H00_1020.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:lro="http://pds.nasa.gov/pds4/mission/lro/v1" 
+    xmlns:proc="http://pds.nasa.gov/pds4/proc/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1  https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1H00.xsd
+    http://pds.nasa.gov/pds4/mission/lro/v1 https://pds.nasa.gov/pds4/mission/lro/v1/PDS4_LRO_1H00_1020.xsd
+    http://pds.nasa.gov/pds4/proc/v1        https://pds.nasa.gov/pds4/proc/v1/PDS4_PROC_1H00_1210.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:lro_lend:data_science_derived:lend_rdr_dld_20240615</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>LRO LEND derived science product: lend_rdr_dld_20240615</title>
+    <information_model_version>1.17.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-09-15</modification_date>
+        <version_id>1.0</version_id>
+        <description>Migration to PDS4</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>2024-06-15T00:00:00Z</start_date_time>
+      <stop_date_time>2024-06-15T23:59:59Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Lunar Reconnaissance Orbiter</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.lunar_reconnaissance_orbiter</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>LEND</name>
+      <Observing_System_Component>
+        <name>Lunar Reconnaissance Orbiter</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.lro</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Lunar Exploration Neutron Detector for LRO</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:lro.lend</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Moon</name>
+      <type>Satellite</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <lro:LRO_Parameters>
+        <lro:product_type>LEND_RDR_DLD</lro:product_type>
+        <lro:product_version_id>1.0</lro:product_version_id>
+        <lro:mission_phase_name>FIFTH EXTENDED SCIENCE MISSION</lro:mission_phase_name>
+        <lro:spacecraft_clock_start_count>740102399</lro:spacecraft_clock_start_count>
+        <lro:spacecraft_clock_stop_count>740188798</lro:spacecraft_clock_stop_count>
+      </lro:LRO_Parameters>
+    </Mission_Area>
+    <Discipline_Area>
+      <proc:Processing_Information>
+        <Local_Internal_Reference>
+          <local_identifier_reference>dld_data_table</local_identifier_reference>
+          <local_reference_type>processing_information_to_data_object</local_reference_type>
+        </Local_Internal_Reference>
+        <proc:Process>
+          <proc:Software>
+            <proc:Software_Program>
+              <proc:name>GEN_LEND_RDR</proc:name>
+              <proc:program_version>1.0.0</proc:program_version>
+            </proc:Software_Program>
+          </proc:Software>
+        </proc:Process>
+      </proc:Processing_Information>
+    </Discipline_Area>
+  </Observation_Area>
+  <File_Area_Observational>
+    <File>
+      <file_name>lend_rdr_dld_20240615.dat</file_name>
+      <local_identifier>dld_data_table</local_identifier>
+      <creation_date_time>2025-02-24T18:00:05</creation_date_time>
+    </File>
+    <Table_Binary>
+      <offset unit="byte">0</offset>
+      <records>1</records>
+      <description>This table contains backgrounds and background subtracted neutron
+            counting data for each of the nine neutron sensors
+            aboard the Lunar Reconnaissance Orbiter (LRO) Lunar
+            Exploration Neutron Detector (LEND). Detailed descriptions for the parameters 
+            defined below are contained in the LRO_LEND_RDR_SIS document.</description>
+      <Record_Binary>
+        <fields>25</fields>
+        <groups>2</groups>
+        <record_length unit="byte">239</record_length>
+        <Field_Binary>
+          <name>LRO_TIME</name>
+          <field_number>1</field_number>
+          <field_location unit="byte">1</field_location>
+          <data_type>UnsignedMSB8</data_type>
+          <field_length unit="byte">8</field_length>
+          <description>5 upper bytes of LRO time.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>UTC</name>
+          <field_number>2</field_number>
+          <field_location unit="byte">9</field_location>
+          <data_type>ASCII_String</data_type>
+          <field_length unit="byte">23</field_length>
+          <description>UTC time at the middle of the collection interval,
+            stored as yyyy-mm-ddThh:mm:ss.sss.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>LOCAL_HOUR</name>
+          <field_number>3</field_number>
+          <field_location unit="byte">32</field_location>
+          <data_type>UnsignedByte</data_type>
+          <field_length unit="byte">1</field_length>
+          <description>Local Sun hour at the sub-spacecraft point.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>LOCAL_MINUTE</name>
+          <field_number>4</field_number>
+          <field_location unit="byte">33</field_location>
+          <data_type>UnsignedByte</data_type>
+          <field_length unit="byte">1</field_length>
+          <description>Local Sun minute at the sub-spacecraft point.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>LUNARCENTRIC_LATITUDE</name>
+          <field_number>5</field_number>
+          <field_location unit="byte">34</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Latitude in LUNAR fixed coordinates at the middle of the frame.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>LUNARCENTIC_EAST_LONGITUDE</name>
+          <field_number>6</field_number>
+          <field_location unit="byte">38</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <description>Longitude in Lunar fixed coordinates at the middle of the frame.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>COLLECTION_DURATION</name>
+          <field_number>7</field_number>
+          <field_location unit="byte">42</field_location>
+          <data_type>UnsignedMSB4</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>s</unit>
+          <description>Value of collection time register, length of time in seconds.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN1_BKGD</name>
+          <field_number>8</field_number>
+          <field_location unit="byte">46</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for STN1 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN1_COUNTS</name>
+          <field_number>9</field_number>
+          <field_location unit="byte">50</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in STN1 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>SETN_BKGD</name>
+          <field_number>10</field_number>
+          <field_location unit="byte">54</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for SETN detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>SETN_COUNTS</name>
+          <field_number>11</field_number>
+          <field_location unit="byte">58</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in SETN detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN2_BKGD</name>
+          <field_number>12</field_number>
+          <field_location unit="byte">62</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for STN2 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN2_COUNTS</name>
+          <field_number>13</field_number>
+          <field_location unit="byte">66</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>km/s</unit>
+          <description>Counts gathered in STN2 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN3_BKGD</name>
+          <field_number>14</field_number>
+          <field_location unit="byte">70</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for STN3 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>STN3_COUNTS</name>
+          <field_number>15</field_number>
+          <field_location unit="byte">74</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in STN3 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN1_BKGD</name>
+          <field_number>16</field_number>
+          <field_location unit="byte">78</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN1_COUNTS</name>
+          <field_number>17</field_number>
+          <field_location unit="byte">82</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in CSETN1 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN2_BKGD</name>
+          <field_number>18</field_number>
+          <field_location unit="byte">86</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for CSETN2 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN2_COUNTS</name>
+          <field_number>19</field_number>
+          <field_location unit="byte">90</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in CSETN2 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN3_BKGD</name>
+          <field_number>20</field_number>
+          <field_location unit="byte">94</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for CSETN3 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN3_COUNTS</name>
+          <field_number>21</field_number>
+          <field_location unit="byte">98</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in CSETN3 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN4_BKGD</name>
+          <field_number>22</field_number>
+          <field_location unit="byte">102</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Background counts for CSETN4 detector (counts).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>CSETN4_COUNTS</name>
+          <field_number>23</field_number>
+          <field_location unit="byte">106</field_location>
+          <data_type>IEEE754MSBSingle</data_type>
+          <field_length unit="byte">4</field_length>
+          <unit>counts</unit>
+          <description>Counts gathered in CSETN4 detector during frame interval.
+            A negative in this column indicates it should not be used.</description>
+        </Field_Binary>
+        <Group_Field_Binary>
+          <group_number>1</group_number>
+          <repetitions>16</repetitions>
+          <fields>1</fields>
+          <groups>0</groups>
+          <description>Background counts for all channels of neutron channel of
+            Inner Scintillator (counts). The Channels contain data as follows:
+            Channel 0 - sum of channels 0 through 5,
+            Channel 1 - sum of channel 6,
+            Channel 2 - sum of channel 7,
+            Channel 3 - sum of channel 8,
+            Channel 4 - sum of channel 9,
+            Channel 5 - sum of channel 10,
+            Channel 6 - sum of channel 11,
+            Channel 7 - sum of channel 12,
+            Channel 8 - sum of channel 13,
+            Channel 9 - sum of channel 14,
+            Channel 10 - sum of channel 15,
+            Channel 11 - sum of channel 6 through 8,
+            Channel 12 - sum of channel 9 through 12,
+            Channel 13 - sum of channel 13 through 14,
+            Channel 14 - sum of channel 6 through 14,
+            Channel 15 - sum of channel 0 through 16</description>
+          <group_location unit="byte">110</group_location>
+          <group_length unit="byte">64</group_length>
+          <Field_Binary>
+            <name>SHEN_BCGD</name>
+            <field_number>1</field_number>
+            <field_location unit="byte">1</field_location>
+            <data_type>IEEE754MSBSingle</data_type>
+            <field_length unit="byte">4</field_length>
+            <unit>counts</unit>
+          </Field_Binary>
+        </Group_Field_Binary>
+        <Group_Field_Binary>
+          <group_number>2</group_number>
+          <repetitions>16</repetitions>
+          <fields>1</fields>
+          <groups>0</groups>
+          <description>Counts gathered in all channels of neutron channel of 
+            Inner Scintillator during frame interval. The Channels contain data as follows:
+            Channel 0 - sum of channels 0 through 5,
+            Channel 1 - sum of channel 6,
+            Channel 2 - sum of channel 7,
+            Channel 3 - sum of channel 8,
+            Channel 4 - sum of channel 9,
+            Channel 5 - sum of channel 10,
+            Channel 6 - sum of channel 11,
+            Channel 7 - sum of channel 12,
+            Channel 8 - sum of channel 13,
+            Channel 9 - sum of channel 14,
+            Channel 10 - sum of channel 15,
+            Channel 11 - sum of channel 6 through 8,
+            Channel 12 - sum of channel 9 through 12,
+            Channel 13 - sum of channel 13 through 14,
+            Channel 14 - sum of channel 6 through 14,
+            Channel 15 - sum of channel 0 through 16
+            A negative in any channel indicates it should not be used.</description>
+          <group_location unit="byte">174</group_location>
+          <group_length unit="byte">64</group_length>
+          <Field_Binary>
+            <name>SHEN_COUNTS</name>
+            <field_number>1</field_number>
+            <field_location unit="byte">1</field_location>
+            <data_type>IEEE754MSBSingle</data_type>
+            <field_length unit="byte">4</field_length>
+            <unit>counts</unit>
+          </Field_Binary>
+        </Group_Field_Binary>
+        <Field_Binary>
+          <name>SUN_ACTIVITY</name>
+          <field_number>24</field_number>
+          <field_location unit="byte">238</field_location>
+          <data_type>UnsignedByte</data_type>
+          <field_length unit="byte">1</field_length>
+          <description>1 (active sun during frame interval); 
+            0 (no active sun during frame interval).</description>
+        </Field_Binary>
+        <Field_Binary>
+          <name>NADIR_POINTING</name>
+          <field_number>25</field_number>
+          <field_location unit="byte">239</field_location>
+          <data_type>UnsignedByte</data_type>
+          <field_length unit="byte">1</field_length>
+          <description>1 (instrument is nadir pointing); 
+            0 (anything other than nadir pointing).</description>
+        </Field_Binary>
+      </Record_Binary>
+    </Table_Binary>
+  </File_Area_Observational>
+  <File_Area_Observational_Supplemental>
+    <File>
+      <file_name>lend_rdr_dld_20240615.lbl</file_name>
+    </File>
+    <Stream_Text>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS3</parsing_standard_id>
+      <description>PDS3 label</description>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+    </Stream_Text>
+  </File_Area_Observational_Supplemental>
+</Product_Observational>
