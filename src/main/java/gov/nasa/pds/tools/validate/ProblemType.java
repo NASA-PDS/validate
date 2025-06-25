@@ -69,6 +69,9 @@ public enum ProblemType {
   MISSING_SCHEMA("error.label.missing_schema"),
 
   BAD_EXTENSION("error.label.bad_extension"),
+  
+  BAD_LABEL_FILE_ERROR("error.label.not_understandable"),
+  BAD_LABEL_FILE_WARN("warning.label.not_understandable"),
 
   FILE_NAME_TOO_LONG("error.file.name_too_long"),
 
