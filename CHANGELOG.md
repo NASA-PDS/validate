@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-06-24)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-06-25)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
+
+**Requirements:**
+
+- As a user, I want validate to report empty \(blank\) PDS4 labels [\#1201](https://github.com/NASA-PDS/validate/issues/1201)
 
 **Defects:**
 
