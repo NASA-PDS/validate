@@ -1315,7 +1315,7 @@ public class ValidateLauncher {
    *
    * @throws IOException If an error occurred while setting up the report.
    */
-  public void setupReport() throws IOException {
+  public void setupReport(String cliArgs[]) throws IOException {
     if (this.reportStyle.equals("full")) {
       this.report = new FullReport();
     } else if (this.reportStyle.equals("json")) {
@@ -1338,6 +1338,7 @@ public class ValidateLauncher {
     Date date = Calendar.getInstance().getTime();
     report.addConfiguration("version", "Version", version);
     report.addConfiguration("date", "Date", df.format(date));
+    report.addConfiguration("cliArgs", "CLI args", String.join(" ", cliArgs));
     report.addParameter("targets", "Targets", targets.toString());
     if (validationRule != null) {
       report.addParameter("ruleType", "Rule Type", validationRule);
@@ -1752,7 +1753,7 @@ public class ValidateLauncher {
               + checksumManifest.toString() + "': " + io.getMessage());
         }
       }
-      setupReport();
+      setupReport(args);
 
       if (updateRegisteredProducts) {
         // download the latest Registered Context Products JSON file and
