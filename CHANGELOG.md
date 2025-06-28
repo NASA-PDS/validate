@@ -1,16 +1,18 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-06-25)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-06-28)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
 **Requirements:**
 
+- As a user, I want to see the exact validate command used in the log [\#1286](https://github.com/NASA-PDS/validate/issues/1286)
 - As a user, I want validate to report empty \(blank\) PDS4 labels [\#1201](https://github.com/NASA-PDS/validate/issues/1201)
 
 **Defects:**
 
 - `--strict-field-checks` not working as expected [\#1276](https://github.com/NASA-PDS/validate/issues/1276) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not raise a warning when a table has more records than label says it has [\#1234](https://github.com/NASA-PDS/validate/issues/1234) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `validate-bundle` has no default value for `--report-dir` [\#1149](https://github.com/NASA-PDS/validate/issues/1149) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v3.7.1](https://github.com/NASA-PDS/validate/tree/v3.7.1) (2025-05-30)
