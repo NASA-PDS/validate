@@ -5,6 +5,8 @@ import java.math.BigInteger;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.List;
+import com.google.common.primitives.UnsignedInteger;
+import com.google.common.primitives.UnsignedLong;
 import gov.nasa.arc.pds.xml.generated.SpecialConstants;
 import gov.nasa.pds.tools.validate.content.ProblemReporter;
 import gov.nasa.pds.tools.validate.content.SpecialConstantBitPatternTransforms;
@@ -184,8 +186,8 @@ public class SpecialConstantChecker {
     if (number instanceof Byte) number = BigInteger.valueOf(number.byteValue());
     if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
     if (number instanceof Float) number = BigInteger.valueOf(Float.floatToRawIntBits((Float)number) & 0xFFFFFFFFL);
-    if (number instanceof Integer) number = BigInteger.valueOf(number.intValue());
-    if (number instanceof Long) number = BigInteger.valueOf(number.longValue());
+    if (number instanceof Integer || number instanceof UnsignedInteger) number = BigInteger.valueOf(number.intValue());
+    if (number instanceof Long || number instanceof UnsignedLong) number = BigInteger.valueOf(number.longValue());
     if (number instanceof Short) number = BigInteger.valueOf(number.shortValue());
     boolean repr_decimal = constant_repr.contains (".") || 
         ((constant_repr.contains("E") || constant_repr.contains("e")) &&
