@@ -1,0 +1,204 @@
+<?xml version="1.0" ?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1A10.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational 
+  xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+  xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" 
+  xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+  xmlns:img="http://pds.nasa.gov/pds4/img/v1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="           
+    http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd     
+    http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1A10.xsd     
+    http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1B00.xsd     
+    http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1A10.xsd">
+  
+  <Identification_Area>
+    <logical_identifier>urn:esa:psa:bc_gnd_tele:data_raw:t014_b0606_sp_20110528_17550949_y3</logical_identifier>
+    <version_id>0.1</version_id>
+    <title>Sodium emission spectra</title>
+    <information_model_version>1.11.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2022-07-05</modification_date>
+        <version_id>0.1</version_id>
+        <description>This is the first version of this product</description>
+      </Modification_Detail>
+    </Modification_History>
+    
+  </Identification_Area>
+  
+  <Observation_Area>
+    
+    <Time_Coordinates>
+      <start_date_time>2011-05-28T17:55:09.49Z</start_date_time>
+      <stop_date_time>2011-05-28T17:55:42.41Z</stop_date_time>
+    </Time_Coordinates>
+    
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <description>
+          This file contains a raw image from the THEMIS MTR instrument
+      </description>
+      
+      <Science_Facets>
+        <wavelength_range>Visible</wavelength_range>
+        <discipline_name>Spectroscopy</discipline_name>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    
+    <Investigation_Area>
+        <name>THEMIS</name>
+        <type>Observing Campaign</type>
+        <Internal_Reference>
+          <lid_reference>urn:esa:psa:context:investigation:themis.solar</lid_reference>
+          <reference_type>data_to_investigation</reference_type>
+        </Internal_Reference>
+
+    </Investigation_Area>
+
+
+      <Observing_System>
+        <Observing_System_Component>
+          <name>Teide Observatory</name>
+          <type>Observatory</type>
+          <Internal_Reference>
+            <lid_reference>urn:esa:psa:context:telescope:telescope.themis</lid_reference>
+            <reference_type>is_facility</reference_type>
+          </Internal_Reference>
+        </Observing_System_Component>
+   
+        <Observing_System_Component>
+          <name>THEMIS</name>
+          <type>Telescope</type>
+          <Internal_Reference>
+            <lid_reference>urn:esa:psa:context:telescope:telescope.themis</lid_reference>
+            <reference_type>is_telescope</reference_type>
+          </Internal_Reference>
+        </Observing_System_Component>
+        
+        <Observing_System_Component>
+          <name>MTR</name>
+          <type>Instrument</type>
+          <description>THEMIS MTR spectropraph</description>
+          <Internal_Reference>
+            <lid_reference>urn:esa:psa:context:instrument:themis.mtm</lid_reference>
+            <reference_type>is_instrument</reference_type>
+          </Internal_Reference>
+        </Observing_System_Component>
+        
+      </Observing_System>
+    
+    <Target_Identification>
+      <name>Mercury</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mercury</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    
+    
+    
+    <Discipline_Area>
+      <disp:Display_Settings>
+        <Local_Internal_Reference>
+          <local_identifier_reference>themis_image</local_identifier_reference>
+          <local_reference_type>display_settings_to_array</local_reference_type>
+        </Local_Internal_Reference>
+        <disp:Display_Direction>
+          <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+          <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+          <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+          <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+        </disp:Display_Direction>
+      </disp:Display_Settings>
+      
+      <img:Imaging>
+        <Local_Internal_Reference>
+          <local_identifier_reference>themis_image</local_identifier_reference>
+          <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+        </Local_Internal_Reference>
+        <img:Image_Product_Information>
+          <img:Exposure_Parameters>
+            <img:exposure_duration unit="s">10</img:exposure_duration>
+          </img:Exposure_Parameters>
+        </img:Image_Product_Information>
+        <img:Imaging_Instrument_State_Parameters>
+          <img:analog_offset>0</img:analog_offset>
+          <img:gain_number>1</img:gain_number>
+        </img:Imaging_Instrument_State_Parameters>
+      </img:Imaging>
+      
+    </Discipline_Area>
+  </Observation_Area>
+  
+  <!--
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference></lid_reference>
+      <reference_type>data_to_browse</reference_type>
+    </Internal_Reference>
+  
+  </Reference_List>
+  
+    -->
+  
+  <File_Area_Observational>
+    <File>
+      <file_name>t014_b0606_sp_20110528_17550949_y3.fts</file_name>
+      <file_size unit="byte">142593</file_size>
+      <!--md5_checksum>556db80984286b8179471b55a70c0a56</md5_checksum-->
+    </File>
+    <Header>
+      <name>FITS header</name>
+      <offset unit="byte">0</offset>
+      <object_length unit="byte">11520</object_length>
+      <parsing_standard_id>FITS 3.0</parsing_standard_id>
+      <description>
+        FITS primary header
+      </description>
+    </Header>
+    
+    <Array_3D_Image>
+      <name>THEMIS image</name>
+      <local_identifier>themis_image</local_identifier>
+      <offset unit="byte">11520</offset>
+      <axes>3</axes>
+      <axis_index_order>Last Index Fastest</axis_index_order>
+      <Element_Array>
+        <data_type>UnsignedMSB4</data_type>
+      </Element_Array>
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <local_identifier>sample</local_identifier>
+        <elements>2</elements>
+        <sequence_number>1</sequence_number>
+      </Axis_Array>
+      
+       <Axis_Array>
+         <axis_name>Line</axis_name>
+         <local_identifier>line</local_identifier>
+         <elements>32</elements>
+         <sequence_number>2</sequence_number>
+       </Axis_Array>
+      
+      <Axis_Array>
+        <axis_name>Sample</axis_name>
+        <local_identifier>wavelength</local_identifier>
+        <elements>512</elements>
+        <sequence_number>3</sequence_number>
+      </Axis_Array>
+
+      <Special_Constants>
+        <missing_constant>-1</missing_constant>
+      </Special_Constants>
+
+    </Array_3D_Image>
+  </File_Area_Observational>
+</Product_Observational>
