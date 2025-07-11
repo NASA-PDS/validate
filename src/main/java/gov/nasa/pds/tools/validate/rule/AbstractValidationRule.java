@@ -55,6 +55,7 @@ public abstract class AbstractValidationRule implements ValidationRule {
   public boolean execute(Context theContext) throws Exception {
     this.context = (RuleContext) theContext;
     listener = context.getProblemListener();
+
     if (isApplicable(getTarget().toString())) {
       // Run each annotated validation test.
       for (Method m : getClass().getMethods()) {
@@ -70,8 +71,8 @@ public abstract class AbstractValidationRule implements ValidationRule {
 
           if (isDebugLogLevel() && (t1-t0 > 1000)) {
             System.out.println(
-                    "\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
-                            + " :: " + getTarget().getFile() + " :: " + m.getDeclaringClass().getName() + ":" + m.getName() + " in " + (t1 - t0) + " ms\n");
+                    "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                            + " :: " + getTarget().getFile() + " :: " + m.getDeclaringClass().getName() + ":" + m.getName() + " in " + (t1 - t0) + " ms");
           }
         }
       }
