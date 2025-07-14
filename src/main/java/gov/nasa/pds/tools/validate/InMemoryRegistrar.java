@@ -15,15 +15,8 @@ package gov.nasa.pds.tools.validate;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
@@ -39,6 +32,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
   private List<Identifier> referencedIdentifiers = new ArrayList<>();
+  private Map<String, Set<Identifier>> referencedIdentifiersByLid = new HashMap<>();
 
   @Override
   public ValidationTarget getRoot() {
@@ -144,13 +138,17 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized void addIdentifierReference(String referenceLocation, Identifier identifier) {
     referencedIdentifiers.add(identifier); // this one allows duplicates!
     identifierReferenceLocations.put(identifier, referenceLocation);
+
+    String lid = identifier.getLid();
+    referencedIdentifiersByLid.putIfAbsent(identifier.getLid(), new HashSet<>());
+    referencedIdentifiersByLid.get(lid).add(identifier);
   }
 
   @Override
   public synchronized boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
     boolean result = referencedIdentifiers.contains(identifier);
     if (!result && orNearNeighbor) {
-      for (Identifier id : this.referencedIdentifiers) {
+      for (Identifier id : this.referencedIdentifiersByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
         result = identifier.nearNeighbor(id);
         if (result) break;
       }
@@ -222,7 +220,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     for (Identifier id : identifierDefinitions.keySet()) {
       boolean found = this.referencedIdentifiers.contains(id);
       if (!found) {
-        for (Identifier ri : referencedIdentifiers) {
+        for (Identifier ri : referencedIdentifiersByLid.getOrDefault(id.getLid(), new HashSet<>())) {
           if (ri.nearNeighbor(id)) {
             found = true;
             break;
