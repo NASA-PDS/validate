@@ -117,11 +117,12 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           numOfCollectionMembers++;
           long t0 = System.currentTimeMillis();
           validateEntry(collection, numOfCollectionMembers, entry);
-          long elapsed = System.currentTimeMillis() - t0;
-          System.out.println(
-                  "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
-                          + " :: " + entry.getIdentifier() + " :: " + "referentialIntegrity" + " in " + (elapsed) + " ms");
-
+          if (isDebugLogLevel()) {
+            long elapsed = System.currentTimeMillis() - t0;
+            System.out.println(
+                    "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                            + " :: " + entry.getIdentifier() + " :: " + "referentialIntegrity" + " in " + (elapsed) + " ms");
+          }
         }
         entry = reader.getNext();
       }
