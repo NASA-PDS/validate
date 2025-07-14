@@ -11,6 +11,7 @@
 
 **Defects:**
 
+- validate does not handle Special Constants for UnsignedMSB4 [\#1294](https://github.com/NASA-PDS/validate/issues/1294) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `--strict-field-checks` not working as expected [\#1276](https://github.com/NASA-PDS/validate/issues/1276) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not raise a warning when a table has more records than label says it has [\#1234](https://github.com/NASA-PDS/validate/issues/1234) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `validate-bundle` has no default value for `--report-dir` [\#1149](https://github.com/NASA-PDS/validate/issues/1149) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
