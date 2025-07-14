@@ -379,6 +379,7 @@ public class ReferentialIntegrityUtil {
     try {
       int indexToFilenames = 0;
       for (String singleLidOrLidvidReference : ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative) {
+        long t0 = System.currentTimeMillis();
         LOG.debug(
             "reportLidOrLidvidReferenceToNonExistLogicalReferences:VALIDATING_REFERENCE:singleLidOrLidvidReference,filename {},{}",
             singleLidOrLidvidReference,
@@ -462,6 +463,13 @@ public class ReferentialIntegrityUtil {
               singleLidOrLidvidReference);
         }
         indexToFilenames += 1;
+        if (isDebugLogLevel()) {
+          long elapsed = System.currentTimeMillis() - t0;
+          System.out.println(
+                  "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                          + " :: " + singleLidOrLidvidReference + " :: " + "bundleReferentialIntegrity" + " in " + (elapsed) + " ms");
+        }
+
       } // end for loop
     } catch (Exception e) {
       e.printStackTrace();
@@ -939,5 +947,9 @@ public class ReferentialIntegrityUtil {
     ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(target),
         lineNumber, columnNumber, message);
     problemListener.addProblem(problem);
+  }
+
+  protected static boolean isDebugLogLevel() {
+    return getContext().getLogLevel().isDebugApplicable();
   }
 }
