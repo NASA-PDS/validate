@@ -14,10 +14,9 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
@@ -112,11 +111,17 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       int numOfCollectionMembers = 0;
 
       InventoryTableReader reader = new InventoryTableReader(collection);
+
+      Map<String, Set<Identifier>> identifersByLid = new HashMap<>();
+      for (Identifier idEntry : getRegistrar().getIdentifierDefinitions().keySet()) {
+        indexEntry(identifersByLid, idEntry);
+      }
+
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
         if (!entry.isEmpty()) {
           numOfCollectionMembers++;
           long t0 = System.currentTimeMillis();
-          validateEntry(collection, numOfCollectionMembers, entry);
+          validateEntry(collection, numOfCollectionMembers, entry, identifersByLid);
           if (isDebugLogLevel()) {
             long elapsed = System.currentTimeMillis() - t0;
             System.out.println(
@@ -150,7 +155,14 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     }
   }
 
-  private void validateEntry(URL collection, int numOfCollectionMembers, InventoryEntry entry) {
+  private static void indexEntry(Map<String, Set<Identifier>> identifersByLid, Identifier idEntry) {
+    String lid = idEntry.getLid();
+    identifersByLid.putIfAbsent(lid, new HashSet<>());
+    Set<Identifier> identifiersForLid = Objects.requireNonNull(identifersByLid.get(lid));
+    identifiersForLid.add(idEntry);
+  }
+
+  private void validateEntry(URL collection, int numOfCollectionMembers, InventoryEntry entry, Map<String, Set<Identifier>> identifersByLid) {
     String identifier = entry.getIdentifier();
 
     LOG.debug("getCollectionMembers: numOfCollectionMembers {}", numOfCollectionMembers);
@@ -181,14 +193,12 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         }
       }
 
-      List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
-      for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
-          .entrySet()) {
-        EveryNCounter.getInstance().increment(EveryNCounter.Group.reference_integrity);
-        if (id.nearNeighbor(idEntry.getKey())) {
-          matchingMembers.add(idEntry);
-        }
-      }
+
+      List<Identifier> matchingMembers = identifersByLid.getOrDefault(id.getLid(), new HashSet<>()).stream().
+              filter(id::nearNeighbor).collect(Collectors.toList());
+      Map<Identifier, String> idMap = getRegistrar().getIdentifierDefinitions();
+
+
       LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}", id,
           matchingMembers.size());
       LOG.debug(
@@ -207,7 +217,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
                 new ValidationProblem(
                     new ProblemDefinition(ExceptionType.INFO, ProblemType.MEMBER_FOUND,
                         "The member '" + id + "' is identified in "
-                            + "the following product: " + matchingMembers.get(0).getValue()),
+                            + "the following product: " + idMap.get(matchingMembers.get(0))),
                         collection));
         // LOG.debug("getCollectionMembers: id {} SUCCESS",id);
         // LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id +
@@ -234,8 +244,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           }
           if (!foundDuplicates) {
             List<String> targets = new ArrayList<>();
-            for (Map.Entry<Identifier, String> m : matchingMembers) {
-              targets.add(m.getValue());
+            for (Identifier m : matchingMembers) {
+              targets.add(idMap.get(m));
             }
             getListener()
                 .addProblem(
@@ -248,8 +258,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           }
         } else {
           List<String> targets = new ArrayList<>();
-          for (Map.Entry<Identifier, String> m : matchingMembers) {
-            targets.add(m.getValue());
+          for (Identifier m : matchingMembers) {
+            targets.add(idMap.get(m));
           }
           getListener().addProblem(new ValidationProblem(new ProblemDefinition(exceptionType,
               ProblemType.DUPLICATE_MEMBERS, "The member '" + id + "' is identified "
@@ -258,6 +268,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
         }
       }
       getRegistrar().addIdentifierReference(collection.toString(), id);
+      indexEntry(identifersByLid, id);
+
     }
   }
 
@@ -276,16 +288,18 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     return new Identifier(identifier.split("::")[0].trim());
   }
 
-  private Map<String, List<String>> findMatchingIds(List<Map.Entry<Identifier, String>> products) {
+  private Map<String, List<String>> findMatchingIds(List<Identifier> products) {
+    Map<Identifier, String> idMap = getRegistrar().getIdentifierDefinitions();
+
     Map<String, List<String>> results = new HashMap<>();
-    for (Map.Entry<Identifier, String> product : products) {
-      if (results.get(product.getKey().toString()) != null) {
-        List<String> targets = results.get(product.getKey().toString());
-        targets.add(product.getValue());
+    for (Identifier product : products) {
+      if (results.get(product.toString()) != null) {
+        List<String> targets = results.get(product.toString());
+        targets.add(idMap.get(product));
       } else {
         List<String> targets = new ArrayList<>();
-        targets.add(product.getValue());
-        results.put(product.getKey().toString(), targets);
+        targets.add(idMap.get(product));
+        results.put(product.toString(), targets);
       }
     }
     return results;
