@@ -156,10 +156,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
   }
 
   private static void indexEntry(Map<String, Set<Identifier>> identifersByLid, Identifier idEntry) {
-    String lid = idEntry.getLid();
-    identifersByLid.putIfAbsent(lid, new HashSet<>());
-    Set<Identifier> identifiersForLid = Objects.requireNonNull(identifersByLid.get(lid));
-    identifiersForLid.add(idEntry);
+    identifersByLid.computeIfAbsent(idEntry.getLid(), x -> new HashSet<>()).add(idEntry);
   }
 
   private void validateEntry(URL collection, int numOfCollectionMembers, InventoryEntry entry, Map<String, Set<Identifier>> identifersByLid) {
