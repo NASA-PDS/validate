@@ -15,15 +15,8 @@ package gov.nasa.pds.tools.validate;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
@@ -37,8 +30,10 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<String, ValidationTarget> bundles = new HashMap<>();
   private Set<String> referencedTargetLocations = new HashSet<>();
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
+  private Map<String, Set<Identifier>> identifierDefinitionsByLid = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
-  private List<Identifier> referencedIdentifiers = new ArrayList<>();
+  private Set<Identifier> referencedIdentifiers = new HashSet<>();
+  private Map<String, Set<Identifier>> referencedIdentifiersByLid = new HashMap<>();
 
   @Override
   public ValidationTarget getRoot() {
@@ -128,6 +123,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
     targets.get(location).setIdentifier(identifier);
     LOG.debug("setTargetIdentifier:identifier,location {},{}", identifier, location);
     identifierDefinitions.put(identifier, location);
+
+    identifierDefinitionsByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
   }
 
   @Override
@@ -142,15 +139,19 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addIdentifierReference(String referenceLocation, Identifier identifier) {
-    referencedIdentifiers.add(identifier); // this one allows duplicates!
+    referencedIdentifiers.add(identifier);
     identifierReferenceLocations.put(identifier, referenceLocation);
+
+    String lid = identifier.getLid();
+
+    referencedIdentifiersByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
   }
 
   @Override
   public synchronized boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
     boolean result = referencedIdentifiers.contains(identifier);
     if (!result && orNearNeighbor) {
-      for (Identifier id : this.referencedIdentifiers) {
+      for (Identifier id : this.referencedIdentifiersByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
         result = identifier.nearNeighbor(id);
         if (result) break;
       }
@@ -164,7 +165,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     if (this.identifierDefinitions.containsKey(identifier)) {
       result = identifierDefinitions.get(identifier);
     } else if (orNearNeighbor) {
-      for (Identifier id : this.identifierDefinitions.keySet()) {
+      for (Identifier id : identifierDefinitionsByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
         if (id.nearNeighbor(identifier)) {
           result = this.identifierDefinitions.get(id);
         }
@@ -222,7 +223,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     for (Identifier id : identifierDefinitions.keySet()) {
       boolean found = this.referencedIdentifiers.contains(id);
       if (!found) {
-        for (Identifier ri : referencedIdentifiers) {
+        for (Identifier ri : referencedIdentifiersByLid.getOrDefault(id.getLid(), new HashSet<>())) {
           if (ri.nearNeighbor(id)) {
             found = true;
             break;
