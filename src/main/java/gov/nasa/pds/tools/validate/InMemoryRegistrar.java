@@ -30,8 +30,9 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<String, ValidationTarget> bundles = new HashMap<>();
   private Set<String> referencedTargetLocations = new HashSet<>();
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
+  private Map<String, Set<Identifier>> identifierDefinitionsByLid = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
-  private List<Identifier> referencedIdentifiers = new ArrayList<>();
+  private Set<Identifier> referencedIdentifiers = new HashSet<>();
   private Map<String, Set<Identifier>> referencedIdentifiersByLid = new HashMap<>();
 
   @Override
@@ -122,6 +123,9 @@ public class InMemoryRegistrar implements TargetRegistrar {
     targets.get(location).setIdentifier(identifier);
     LOG.debug("setTargetIdentifier:identifier,location {},{}", identifier, location);
     identifierDefinitions.put(identifier, location);
+
+    identifierDefinitionsByLid.putIfAbsent(identifier.getLid(), new HashSet<>());
+    identifierDefinitionsByLid.get(identifier.getLid()).add(identifier);
   }
 
   @Override
@@ -136,7 +140,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addIdentifierReference(String referenceLocation, Identifier identifier) {
-    referencedIdentifiers.add(identifier); // this one allows duplicates!
+    referencedIdentifiers.add(identifier);
     identifierReferenceLocations.put(identifier, referenceLocation);
 
     String lid = identifier.getLid();
@@ -162,7 +166,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     if (this.identifierDefinitions.containsKey(identifier)) {
       result = identifierDefinitions.get(identifier);
     } else if (orNearNeighbor) {
-      for (Identifier id : this.identifierDefinitions.keySet()) {
+      for (Identifier id : identifierDefinitionsByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
         if (id.nearNeighbor(identifier)) {
           result = this.identifierDefinitions.get(id);
         }
