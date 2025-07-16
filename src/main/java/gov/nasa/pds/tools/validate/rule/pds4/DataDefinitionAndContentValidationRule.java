@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import gov.nasa.pds.label.Label;
+import gov.nasa.pds.tools.util.Label;
 import gov.nasa.pds.label.NameNotKnownException;
 import gov.nasa.pds.label.ProductType;
 import gov.nasa.pds.label.object.ArrayObject;
