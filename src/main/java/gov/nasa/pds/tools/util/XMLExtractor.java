@@ -86,7 +86,8 @@ public class XMLExtractor {
     ParseOptions options = new ParseOptions();
     options.withErrorHandler(new XMLErrorListener());
     try {
-      xml = configuration.buildDocumentTree(new SAXSource(Utility.getInputSourceByURL(url)), options).getRootNode();
+      ti = configuration.buildDocumentTree(new SAXSource(Utility.getInputSourceByURL(url)), options);
+      xml = ti.getRootNode();
       String definedNamespace = getValueFromDoc("namespace-uri(/*)");
       xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of (definedNamespace));
     } catch (IOException io) {
@@ -101,7 +102,8 @@ public class XMLExtractor {
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
     options.withErrorHandler(new XMLErrorListener());
-    xml = configuration.buildDocumentTree(new SAXSource(source), options).getRootNode();
+    ti = configuration.buildDocumentTree(new SAXSource(source), options);
+    xml = ti.getRootNode();
     String definedNamespace = getValueFromDoc("namespace-uri(/*)");
     xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of(definedNamespace));
   }
