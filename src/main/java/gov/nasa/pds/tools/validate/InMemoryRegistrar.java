@@ -20,6 +20,7 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
+import software.amazon.awssdk.services.opensearch.endpoints.internal.Value;
 
 public class InMemoryRegistrar implements TargetRegistrar {
 
@@ -188,6 +189,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
     int fileCount = 0;
     int unreferencedCount = 0;
 
+    Set<String> candidates = new TreeSet<>(targets.keySet());
+    candidates.removeAll(referencedTargetLocations);
     // The function Utility.isDir() has a bug as of 01/20/2021. It thinks a file
     // with no extension is a directory.
     // This bug causes any files without extension to be ignored to be checked for
@@ -196,16 +199,17 @@ public class InMemoryRegistrar implements TargetRegistrar {
     // a correct accounting
     // of unreferenced files.
 
-    for (String target : targets.keySet()) {
+    for (String target : candidates) {
       fileCount += 1;
+      boolean isDir = Utility.isDir(target);
       LOG.debug("getUnreferencedTargets: fileCount,target,Utility.isDir(target) {},{},{}",
-          fileCount, target, Utility.isDir(target));
-      if (!Utility.isDir(target)) {
+          fileCount, target, isDir);
+      if (!isDir) {
         unreferencedCount += 1;
         unreferencedTargets.add(target);
         LOG.debug(
             "getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,target,Utility.isDir(target),unreferencedCount {},{},{},{}",
-            fileCount, target, Utility.isDir(target), unreferencedCount);
+            fileCount, target, isDir, unreferencedCount);
         LOG.debug(
             "getUnreferencedTargets: UNREFERENCED_TARGETS_ADD,fileCount,unreferencedCount,target {},{},{}",
             fileCount, unreferencedCount, target);
@@ -213,7 +217,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
     }
     LOG.debug("getUnreferencedTargets: UNREFERENCED_COUNT fileCount,unreferencedCount {},{}",
         fileCount, unreferencedCount);
-    unreferencedTargets.removeAll(referencedTargetLocations);
     return unreferencedTargets;
   }
 
