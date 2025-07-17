@@ -16,6 +16,8 @@ package gov.nasa.pds.tools.validate;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -189,8 +191,10 @@ public class InMemoryRegistrar implements TargetRegistrar {
     int fileCount = 0;
     int unreferencedCount = 0;
 
-    Set<String> candidates = new TreeSet<>(targets.keySet());
-    candidates.removeAll(referencedTargetLocations);
+    Set<String> candidates = targets.keySet().stream().
+            filter(Predicate.not(referencedTargetLocations::contains)).
+            collect(Collectors.toCollection(TreeSet::new));
+
     // The function Utility.isDir() has a bug as of 01/20/2021. It thinks a file
     // with no extension is a directory.
     // This bug causes any files without extension to be ignored to be checked for
