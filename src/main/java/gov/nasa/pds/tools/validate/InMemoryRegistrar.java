@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.util.Utility;
-import software.amazon.awssdk.services.opensearch.endpoints.internal.Value;
 
 public class InMemoryRegistrar implements TargetRegistrar {
 
@@ -181,6 +180,12 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public Map<Identifier, String> getIdentifierDefinitions() {
     return this.identifierDefinitions;
   }
+
+  @Override
+  public Set<Identifier> getIdentifierDefinitionsForLid(String lid) {
+    return this.identifierDefinitionsByLid.get(lid);
+  }
+
 
   @Override
   public synchronized Collection<String> getUnreferencedTargets() {

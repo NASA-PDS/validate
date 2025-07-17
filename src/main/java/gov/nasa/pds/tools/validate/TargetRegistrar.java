@@ -15,6 +15,7 @@ package gov.nasa.pds.tools.validate;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Defines an interface for keeping track of validation targets and their attributes.
@@ -139,6 +140,8 @@ public interface TargetRegistrar {
    * @return a mapping of identifiers to the location where it was defined.
    */
   Map<Identifier, String> getIdentifierDefinitions();
+
+  Set<Identifier> getIdentifierDefinitionsForLid(String lid);
 
   /**
    * Gets a collection of target locations that are never referenced.
