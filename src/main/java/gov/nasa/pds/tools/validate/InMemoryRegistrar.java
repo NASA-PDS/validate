@@ -16,6 +16,7 @@ package gov.nasa.pds.tools.validate;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -182,8 +183,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public Set<Identifier> getIdentifierDefinitionsForLid(String lid) {
-    return this.identifierDefinitionsByLid.get(lid);
+  public Map<Identifier, String> getIdentifierDefinitionsForLid(String lid) {
+    return identifierDefinitionsByLid.getOrDefault(lid, Collections.emptySet()).stream().collect(Collectors.toMap(Function.identity(), id -> identifierDefinitions.get(id)));
   }
 
 
