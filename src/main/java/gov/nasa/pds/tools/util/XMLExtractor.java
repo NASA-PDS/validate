@@ -41,7 +41,7 @@ public class XMLExtractor {
 
   /** The XPath evaluator object. */
   private XPathEvaluator xpath = null;
-
+  private TreeInfo ti = null;
   public static final String SCHEMA_LOCATION_XPATH = "//*/@xsi:schemaLocation";
 
   public static final String XML_MODEL_XPATH = "/processing-instruction('xml-model')";
@@ -136,7 +136,9 @@ public class XMLExtractor {
    * @throws XPathException
    */
   public String getValueFromDoc(String expression) throws XPathExpressionException, XPathException {
-    TreeInfo ti = xpath.getConfiguration().buildDocumentTree(xml);
+    if (ti == null) {
+      ti = xpath.getConfiguration().buildDocumentTree(xml);
+    }
     return getValueFromItem(expression, ti); // xpath.setSource(xml));
   }
 
