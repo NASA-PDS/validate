@@ -4150,16 +4150,6 @@
           },
           {
                "name": [
-                    "DSS-13 X-band Goldstone Solar System Radar Transmitter",
-                    "DSS-14 X-band Goldstone Solar System Radar Transmitter"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.1"
-          },
-          {
-               "name": [
                     "ATMOSPHERIC STRUCTURE INSTRUMENT",
                     "ATMOSPHERIC STRUCTURE INSTRUMENT for GP",
                     "urn:nasa:pds:context:instrument:asi.gp",
@@ -11011,6 +11001,42 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:slim.lra::1.0"
+          },
+          {
+               "name": [
+                    "DSS-14 X-band Goldstone Solar System Radar Transmitter"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.2"
+          },
+          {
+               "name": [
+                    "Infrared cold coronagraph (CoCo)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.coco::1.0"
+          },
+          {
+               "name": [
+                    "NSFCam"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.nsfcam::1.0"
+          },
+          {
+               "name": [
+                    "RC2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.rc2::1.0"
           },
           {
                "name": [
@@ -38209,12 +38235,12 @@
           },
           {
                "name": [
-                    "DSS-24 Radio Telescope"
+                    "DSS-24 34-m Radio Telescope"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:goldstone.dss24_34m::1.2"
           },
           {
                "name": [
@@ -38291,7 +38317,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:irtf-maunakea.3m2::1.2"
+               "lidvid": "urn:nasa:pds:context:telescope:irtf-maunakea.3m2::1.3"
           },
           {
                "name": [
