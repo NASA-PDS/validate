@@ -17,8 +17,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import javax.annotation.Nullable;
 import javax.xml.transform.sax.SAXSource;
+
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +42,7 @@ public class TargetExaminer {
   private static class Examination {
     boolean isBundle=false, isCollection=false, isDocument=false, isLabel=false;
   }
-  final private static HashMap<String,Examination> examined = new HashMap<String,Examination>();
+  final private static Cache<String,Examination> examined = CacheBuilder.newBuilder().softValues().build();
   final private static Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
   final private static String BUNDLE_NODE_TAG = "Product_Bundle";
   final private static String COLLECTION_NODE_TAG = "Product_Collection";
@@ -72,17 +76,19 @@ public class TargetExaminer {
   }
   private static Examination examine (URL url, boolean ignoreErrors) {
     String key = url.toString();
-    if (!TargetExaminer.examined.containsKey(key)) {
-      synchronized (TargetExaminer.examined) {
-        if (!TargetExaminer.examined.containsKey(key)) {
-          Examination patient = new Examination();
-          TargetExaminer.tagMatches(url, patient, ignoreErrors);
-          TargetExaminer.examined.put(key, patient);
-        }
-      }      
+    try {
+      return TargetExaminer.examined.get(key, () -> doExamine(url, ignoreErrors));
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e);
     }
-    return TargetExaminer.examined.get(key);
   }
+
+  private static Examination doExamine(URL url, boolean ignoreErrors) {
+    Examination patient = new Examination();
+    TargetExaminer.tagMatches(url, patient, ignoreErrors);
+    return patient;
+  }
+
   /**
    * Check if content of url contains a node that matches tagCheck.
    *
