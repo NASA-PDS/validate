@@ -35,7 +35,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<Identifier, String> identifierDefinitions = new HashMap<>();
   private Map<String, Set<Identifier>> identifierDefinitionsByLid = new HashMap<>();
   private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
-  private Set<Identifier> referencedIdentifiers = new HashSet<>();
   private Map<String, Set<Identifier>> referencedIdentifiersByLid = new HashMap<>();
 
   @Override
@@ -142,7 +141,6 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized void addIdentifierReference(String referenceLocation, Identifier identifier) {
-    referencedIdentifiers.add(identifier);
     identifierReferenceLocations.put(identifier, referenceLocation);
 
     String lid = identifier.getLid();
@@ -152,7 +150,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
-    boolean result = referencedIdentifiers.contains(identifier);
+    boolean result = identifierReferenceLocations.containsKey(identifier);
     if (!result && orNearNeighbor) {
       for (Identifier id : this.referencedIdentifiersByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
         result = identifier.nearNeighbor(id);
@@ -234,7 +232,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   public synchronized Collection<Identifier> getUnreferencedIdentifiers() {
     List<Identifier> unreferencedIdentifiers = new ArrayList<>();
     for (Identifier id : identifierDefinitions.keySet()) {
-      boolean found = this.referencedIdentifiers.contains(id);
+      boolean found = this.identifierReferenceLocations.containsKey(id);
       if (!found) {
         for (Identifier ri : referencedIdentifiersByLid.getOrDefault(id.getLid(), new HashSet<>())) {
           if (ri.nearNeighbor(id)) {
@@ -253,7 +251,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   @Override
   public synchronized Collection<IdentifierReference> getDanglingReferences() {
     Set<Identifier> undefinedIdentifiers = new HashSet<>();
-    undefinedIdentifiers.addAll(referencedIdentifiers);
+    undefinedIdentifiers.addAll(identifierReferenceLocations.keySet());
     undefinedIdentifiers.removeAll(identifierDefinitions.keySet());
 
     Set<IdentifierReference> danglingRefs = new TreeSet<>();
