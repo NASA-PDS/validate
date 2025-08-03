@@ -37666,6 +37666,32 @@
           },
           {
                "name": [
+                    "2010 KV134",
+                    "NAIF ID 20620094",
+                    "(620094) 2016 AJ193",
+                    "2016 AJ193"
+               ],
+               "type": [
+                    "Asteroid"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.620094_2016_aj193::1.0"
+          },
+          {
+               "name": [
+                    "99942 Apophis (2004 MN4)",
+                    "Minor Planet 99942",
+                    "Apophis",
+                    "99942 apophis",
+                    "NAIF ID 20099942",
+                    "(99942) Apophis"
+               ],
+               "type": [
+                    "Asteroid"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.99942_apophis::1.0"
+          },
+          {
+               "name": [
                     "Advanced Electro-Optic Systems (AEOS)",
                     "AEOS"
                ],
