@@ -14,10 +14,9 @@
 package gov.nasa.pds.tools.validate.rule.pds4;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
@@ -112,116 +111,22 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       int numOfCollectionMembers = 0;
 
       InventoryTableReader reader = new InventoryTableReader(collection);
+
+      Map<String, Set<Identifier>> identifersByLid = new HashMap<>();
+      for (Identifier idEntry : getRegistrar().getIdentifierDefinitions().keySet()) {
+        indexEntry(identifersByLid, idEntry);
+      }
+
       for (InventoryEntry entry = new InventoryEntry(); entry != null;) {
         if (!entry.isEmpty()) {
           numOfCollectionMembers++;
-          String identifier = entry.getIdentifier();
-
-          LOG.debug("getCollectionMembers: numOfCollectionMembers {}", numOfCollectionMembers);
-          LOG.debug("getCollectionMembers: identifier: {}", identifier);
-          LOG.debug("getCollectionMembers: getTarget(): {}", getTarget());
-          LOG.debug("getCollectionMembers: collection: {}", collection);
-          if (!identifier.equals("")) {
-            // Check for a LID or LIDVID
-            Identifier id = parseIdentifier(identifier);
-            LOG.debug("getCollectionMembers: id {}", id);
-            LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}", id,
-                id.hasVersion(), id.getVersion());
-            LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}", id,
-                id.hasVersion(), collection);
-
-            // https://github.com/NASA-PDS/validate/issues/230
-            // New requirement: The 'P' entry must be a LIDVID (logical identifier and
-            // version id separated by '::').
-            // Report as error if not a LIDVID.
-            if ("P".equalsIgnoreCase(entry.getMemberStatus())) {
-              // If identifier has no version, it is not a LIDVID and should be flagged as an
-              // error with the new type ProblemType.MISSING_VERSION.
-              if (!id.hasVersion()) {
-                getListener().addProblem(new ValidationProblem(
-                    new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_VERSION,
-                        "The primary member '" + id + "' should include the version number"),
-                    collection));
-              }
-            }
-
-            List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
-            for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
-                .entrySet()) {
-              EveryNCounter.getInstance().increment(EveryNCounter.Group.reference_integrity);
-              if (id.nearNeighbor(idEntry.getKey())) {
-                matchingMembers.add(idEntry);
-              }
-            }
-            LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}", id,
-                matchingMembers.size());
-            LOG.debug(
-                "getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",
-                id, matchingMembers.isEmpty(), entry.getMemberStatus());
-            if (matchingMembers.isEmpty() && "P".equalsIgnoreCase(entry.getMemberStatus())) {
-              getListener()
-                  .addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                      ProblemType.MEMBER_NOT_FOUND, "The member '" + id + "' could not be found in "
-                          + "any product within the given target."),
-                      collection));
-            } else if (matchingMembers.size() == 1) {
-              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
-              getListener()
-                  .addProblem(
-                      new ValidationProblem(
-                          new ProblemDefinition(ExceptionType.INFO, ProblemType.MEMBER_FOUND,
-                              "The member '" + id + "' is identified in "
-                                  + "the following product: " + matchingMembers.get(0).getValue()),
-                          collection));
-              // LOG.debug("getCollectionMembers: id {} SUCCESS",id);
-              // LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id +
-              // "' is identified in "
-              // + "the following product: "
-              // + matchingMembers.get(0).getValue());
-            } else if (matchingMembers.size() > 1) {
-              super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
-              ExceptionType exceptionType = ExceptionType.ERROR;
-              if (!id.hasVersion()) {
-                Map<String, List<String>> matchingIds = findMatchingIds(matchingMembers);
-                boolean foundDuplicates = false;
-                for (String matchingId : matchingIds.keySet()) {
-                  if (matchingIds.get(matchingId).size() > 1) {
-                    getListener().addProblem(new ValidationProblem(
-                        new ProblemDefinition(exceptionType, ProblemType.DUPLICATE_VERSIONS,
-                            "The member '" + id + "' is identified "
-                                + "in multiple products, but with the same " + "version id '"
-                                + matchingId.split("::")[1] + "': "
-                                + matchingIds.get(matchingId).toString()),
-                        collection));
-                    foundDuplicates = true;
-                  }
-                }
-                if (!foundDuplicates) {
-                  List<String> targets = new ArrayList<>();
-                  for (Map.Entry<Identifier, String> m : matchingMembers) {
-                    targets.add(m.getValue());
-                  }
-                  getListener()
-                      .addProblem(
-                          new ValidationProblem(
-                              new ProblemDefinition(ExceptionType.INFO,
-                                  ProblemType.DUPLICATE_MEMBERS_INFO,
-                                  "The member '" + id + "' is identified "
-                                      + "in multiple products: " + targets.toString()),
-                              collection));
-                }
-              } else {
-                List<String> targets = new ArrayList<>();
-                for (Map.Entry<Identifier, String> m : matchingMembers) {
-                  targets.add(m.getValue());
-                }
-                getListener().addProblem(new ValidationProblem(new ProblemDefinition(exceptionType,
-                    ProblemType.DUPLICATE_MEMBERS, "The member '" + id + "' is identified "
-                        + "in multiple products: " + targets.toString()),
-                    collection));
-              }
-            }
-            getRegistrar().addIdentifierReference(collection.toString(), id);
+          long t0 = System.currentTimeMillis();
+          validateEntry(collection, numOfCollectionMembers, entry, identifersByLid);
+          if (isDebugLogLevel()) {
+            long elapsed = System.currentTimeMillis() - t0;
+            System.out.println(
+                    "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                            + " :: " + entry.getIdentifier() + " :: " + "referentialIntegrity" + " in " + (elapsed) + " ms");
           }
         }
         entry = reader.getNext();
@@ -250,6 +155,121 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     }
   }
 
+  private static void indexEntry(Map<String, Set<Identifier>> identifersByLid, Identifier idEntry) {
+    identifersByLid.computeIfAbsent(idEntry.getLid(), x -> new HashSet<>()).add(idEntry);
+  }
+
+  private void validateEntry(URL collection, int numOfCollectionMembers, InventoryEntry entry, Map<String, Set<Identifier>> identifersByLid) {
+    String identifier = entry.getIdentifier();
+
+    LOG.debug("getCollectionMembers: numOfCollectionMembers {}", numOfCollectionMembers);
+    LOG.debug("getCollectionMembers: identifier: {}", identifier);
+    LOG.debug("getCollectionMembers: getTarget(): {}", getTarget());
+    LOG.debug("getCollectionMembers: collection: {}", collection);
+    if (!identifier.equals("")) {
+      // Check for a LID or LIDVID
+      Identifier id = parseIdentifier(identifier);
+      LOG.debug("getCollectionMembers: id {}", id);
+      LOG.debug("getCollectionMembers: id,id.hasVersion(),id.getVersion() {},{},{}", id,
+          id.hasVersion(), id.getVersion());
+      LOG.debug("getCollectionMembers: id,id.hasVersion(),collection {},{},{}", id,
+          id.hasVersion(), collection);
+
+      // https://github.com/NASA-PDS/validate/issues/230
+      // New requirement: The 'P' entry must be a LIDVID (logical identifier and
+      // version id separated by '::').
+      // Report as error if not a LIDVID.
+      if ("P".equalsIgnoreCase(entry.getMemberStatus())) {
+        // If identifier has no version, it is not a LIDVID and should be flagged as an
+        // error with the new type ProblemType.MISSING_VERSION.
+        if (!id.hasVersion()) {
+          getListener().addProblem(new ValidationProblem(
+              new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_VERSION,
+                  "The primary member '" + id + "' should include the version number"),
+                  collection));
+        }
+      }
+
+
+      List<Identifier> matchingMembers = identifersByLid.getOrDefault(id.getLid(), new HashSet<>()).stream().
+              filter(id::nearNeighbor).collect(Collectors.toList());
+      Map<Identifier, String> idMap = getRegistrar().getIdentifierDefinitions();
+
+
+      LOG.debug("getCollectionMembers: id,matchingMembers.size() {},{}", id,
+          matchingMembers.size());
+      LOG.debug(
+          "getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",
+          id, matchingMembers.isEmpty(), entry.getMemberStatus());
+      if (matchingMembers.isEmpty() && "P".equalsIgnoreCase(entry.getMemberStatus())) {
+        getListener()
+            .addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
+                ProblemType.MEMBER_NOT_FOUND, "The member '" + id + "' could not be found in "
+                    + "any product within the given target."),
+                    collection));
+      } else if (matchingMembers.size() == 1) {
+        super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
+        getListener()
+            .addProblem(
+                new ValidationProblem(
+                    new ProblemDefinition(ExceptionType.INFO, ProblemType.MEMBER_FOUND,
+                        "The member '" + id + "' is identified in "
+                            + "the following product: " + idMap.get(matchingMembers.get(0))),
+                        collection));
+        // LOG.debug("getCollectionMembers: id {} SUCCESS",id);
+        // LOG.debug("getCollectionMembers: id {} SUCCESS: {}",id,"The member '" + id +
+        // "' is identified in "
+        // + "the following product: "
+        // + matchingMembers.get(0).getValue());
+      } else if (matchingMembers.size() > 1) {
+        super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
+        ExceptionType exceptionType = ExceptionType.ERROR;
+        if (!id.hasVersion()) {
+          Map<String, List<String>> matchingIds = findMatchingIds(matchingMembers);
+          boolean foundDuplicates = false;
+          for (String matchingId : matchingIds.keySet()) {
+            if (matchingIds.get(matchingId).size() > 1) {
+              getListener().addProblem(new ValidationProblem(
+                  new ProblemDefinition(exceptionType, ProblemType.DUPLICATE_VERSIONS,
+                      "The member '" + id + "' is identified "
+                          + "in multiple products, but with the same " + "version id '"
+                          + matchingId.split("::")[1] + "': "
+                          + matchingIds.get(matchingId).toString()),
+                      collection));
+              foundDuplicates = true;
+            }
+          }
+          if (!foundDuplicates) {
+            List<String> targets = new ArrayList<>();
+            for (Identifier m : matchingMembers) {
+              targets.add(idMap.get(m));
+            }
+            getListener()
+                .addProblem(
+                    new ValidationProblem(
+                        new ProblemDefinition(ExceptionType.INFO,
+                            ProblemType.DUPLICATE_MEMBERS_INFO,
+                            "The member '" + id + "' is identified "
+                                + "in multiple products: " + targets.toString()),
+                            collection));
+          }
+        } else {
+          List<String> targets = new ArrayList<>();
+          for (Identifier m : matchingMembers) {
+            targets.add(idMap.get(m));
+          }
+          getListener().addProblem(new ValidationProblem(new ProblemDefinition(exceptionType,
+              ProblemType.DUPLICATE_MEMBERS, "The member '" + id + "' is identified "
+                  + "in multiple products: " + targets.toString()),
+                  collection));
+        }
+      }
+      getRegistrar().addIdentifierReference(collection.toString(), id);
+      indexEntry(identifersByLid, id);
+
+    }
+  }
+
   private Identifier parseIdentifier(String identifier) {
     // Even though the below identifier contains errors (blanks around '::' and too
     // many digits)
@@ -265,16 +285,18 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
     return new Identifier(identifier.split("::")[0].trim());
   }
 
-  private Map<String, List<String>> findMatchingIds(List<Map.Entry<Identifier, String>> products) {
+  private Map<String, List<String>> findMatchingIds(List<Identifier> products) {
+    Map<Identifier, String> idMap = getRegistrar().getIdentifierDefinitions();
+
     Map<String, List<String>> results = new HashMap<>();
-    for (Map.Entry<Identifier, String> product : products) {
-      if (results.get(product.getKey().toString()) != null) {
-        List<String> targets = results.get(product.getKey().toString());
-        targets.add(product.getValue());
+    for (Identifier product : products) {
+      if (results.get(product.toString()) != null) {
+        List<String> targets = results.get(product.toString());
+        targets.add(idMap.get(product));
       } else {
         List<String> targets = new ArrayList<>();
-        targets.add(product.getValue());
-        results.put(product.getKey().toString(), targets);
+        targets.add(idMap.get(product));
+        results.put(product.toString(), targets);
       }
     }
     return results;

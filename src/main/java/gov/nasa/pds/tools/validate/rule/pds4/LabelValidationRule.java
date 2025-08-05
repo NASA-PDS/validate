@@ -334,11 +334,6 @@ public class LabelValidationRule extends AbstractValidationRule {
     }
     long t1 = System.currentTimeMillis();
 
-    if (isDebugLogLevel()) {
-      System.out.println(
-          "\nDEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
-              + " :: " + targetFileName + " :: validateLabel() in " + (t1 - t0) + " ms\n");
-    }
     LOG.debug("validateLabel:target,labelIsValidFlag {},{}", target, labelIsValidFlag);
   }
 

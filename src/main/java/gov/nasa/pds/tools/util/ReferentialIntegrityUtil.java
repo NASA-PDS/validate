@@ -14,11 +14,7 @@ package gov.nasa.pds.tools.util;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -46,8 +42,9 @@ import gov.nasa.pds.tools.validate.rule.RuleContext;
 public class ReferentialIntegrityUtil {
   private static final Logger LOG = LoggerFactory.getLogger(ReferentialIntegrityUtil.class);
 
-  private static ArrayList<URL> urlsParsedCumulative = new ArrayList<>(0);
-  private static ArrayList<String> logicalIdentifiersCumulative = new ArrayList<>(0);
+  private static Set<URL> urlsParsedCumulative = new HashSet<>();
+  private static Set<String> lidvidsCumulative = new HashSet<>();
+  private static Set<String> lidsCumulative = new HashSet<>();
   private static ArrayList<String> lidOrLidVidReferencesCumulative = new ArrayList<>(0);
   private static HashSet<String> lidAndFilenameCombo = new HashSet<String>();
   private static HashMap<String, HashSetReferenceInfo> contextReferencesCumulative =
@@ -172,7 +169,7 @@ public class ReferentialIntegrityUtil {
     // runs from the command line
     // but not in regression test.
     ReferentialIntegrityUtil.lidAndFilenameCombo.clear();
-    ReferentialIntegrityUtil.logicalIdentifiersCumulative.clear();
+    ReferentialIntegrityUtil.lidvidsCumulative.clear();
     ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.clear();
     ReferentialIntegrityUtil.contextReferencesCumulative.clear();
     ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.clear();
@@ -340,24 +337,7 @@ public class ReferentialIntegrityUtil {
     // logicalIdentifiersCumulative.
     // Because the reference may not contain the version, we must do a brute-force
     // check since the logicalIdentifiersCumulative contains a version number.
-    boolean referenceIsValid = false;
-    LOG.debug(
-        "bruteForceCheckForNonExistLogicalReferences:ReferentialIntegrityUtil.logicalIdentifiersCumulative.size,singleLidOrLidvidReference  {},{}",
-        ReferentialIntegrityUtil.logicalIdentifiersCumulative.size(), singleLidOrLidvidReference);
-
-    for (String singleLogicalIdentifier : ReferentialIntegrityUtil.logicalIdentifiersCumulative) {
-      LOG.debug(
-          "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier {},{}",
-          singleLidOrLidvidReference, singleLogicalIdentifier);
-      if (singleLogicalIdentifier.startsWith(singleLidOrLidvidReference)) {
-        referenceIsValid = true;
-        LOG.debug(
-            "bruteForceCheckForNonExistLogicalReferences:singleLidOrLidvidReference,singleLogicalIdentifier,REFERENCE_IS_VALID {},{}",
-            singleLidOrLidvidReference, singleLogicalIdentifier);
-        break;
-      }
-    }
-    return (referenceIsValid);
+    return lidvidsCumulative.contains(singleLidOrLidvidReference) || lidsCumulative.contains(singleLidOrLidvidReference);
   }
 
   /**
@@ -379,6 +359,7 @@ public class ReferentialIntegrityUtil {
     try {
       int indexToFilenames = 0;
       for (String singleLidOrLidvidReference : ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative) {
+        long t0 = System.currentTimeMillis();
         LOG.debug(
             "reportLidOrLidvidReferenceToNonExistLogicalReferences:VALIDATING_REFERENCE:singleLidOrLidvidReference,filename {},{}",
             singleLidOrLidvidReference,
@@ -426,7 +407,7 @@ public class ReferentialIntegrityUtil {
                 "reportLidOrLidvidReferenceToNonExistLogicalReferences:LID_REFERENCE:singleLidOrLidvidReference {} is in logicalIdentifiersCumulative",
                 singleLidOrLidvidReference);
           }
-        } else if (!ReferentialIntegrityUtil.logicalIdentifiersCumulative
+        } else if (!ReferentialIntegrityUtil.lidvidsCumulative
             .contains(singleLidOrLidvidReference)) {
 
           // We also need to check if the product is actually a product in the bundle.
@@ -462,6 +443,13 @@ public class ReferentialIntegrityUtil {
               singleLidOrLidvidReference);
         }
         indexToFilenames += 1;
+        if (isDebugLogLevel()) {
+          long elapsed = System.currentTimeMillis() - t0;
+          System.out.println(
+                  "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                          + " :: " + singleLidOrLidvidReference + " :: " + "bundleReferentialIntegrity" + " in " + (elapsed) + " ms");
+        }
+
       } // end for loop
     } catch (Exception e) {
       e.printStackTrace();
@@ -801,7 +789,8 @@ public class ReferentialIntegrityUtil {
               logicalIdentifiers.size());
 
           if ((logicalIdentifiers != null) && !logicalIdentifiers.isEmpty()) {
-            ReferentialIntegrityUtil.logicalIdentifiersCumulative.addAll(logicalIdentifiers);
+            ReferentialIntegrityUtil.lidvidsCumulative.addAll(logicalIdentifiers);
+            lidsCumulative.addAll(removeVersionIds(logicalIdentifiers));
 
             // If the label is a bundle, parse the logical identifier for the base ID.
             if (labelIsBundleFlag) {
@@ -895,7 +884,7 @@ public class ReferentialIntegrityUtil {
     LOG.debug(
         "additionalReferentialIntegrityChecks:referenceType,crawlTarget,logicalIdentifiersCumulative.size() {},{},{}",
         ReferentialIntegrityUtil.referenceType, crawlTarget,
-        ReferentialIntegrityUtil.logicalIdentifiersCumulative.size());
+        ReferentialIntegrityUtil.lidvidsCumulative.size());
     LOG.debug(
         "additionalReferentialIntegrityChecks:referenceType,crawlTarget,lidOrLidVidReferencesCumulative.size() {},{},{}",
         ReferentialIntegrityUtil.referenceType, crawlTarget,
@@ -909,7 +898,20 @@ public class ReferentialIntegrityUtil {
         ReferentialIntegrityUtil.referenceType, crawlTarget, bundleOrCollectionReferenceMap,
         bundleOrCollectionReferenceMap.size());
   }
- 
+
+  private static Collection<String> removeVersionIds(Collection<String> logicalIdentifiers) {
+    Collection<String> result = new HashSet<String>();
+    for (String lidOrLidVid : logicalIdentifiers) {
+      if (lidOrLidVid.contains("::")) {
+        result.add(lidOrLidVid.split("::")[0]);
+      }
+      else {
+        result.add(lidOrLidVid);
+      }
+    }
+    return result;
+  }
+
   /**
    * Reports an error to the validation listener.
    *
@@ -939,5 +941,9 @@ public class ReferentialIntegrityUtil {
     ValidationProblem problem = new ValidationProblem(defn, ValidationTarget.build(target),
         lineNumber, columnNumber, message);
     problemListener.addProblem(problem);
+  }
+
+  protected static boolean isDebugLogLevel() {
+    return getContext().getLogLevel().isDebugApplicable();
   }
 }

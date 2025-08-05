@@ -41,7 +41,7 @@ public class XMLExtractor {
 
   /** The XPath evaluator object. */
   private XPathEvaluator xpath = null;
-
+  private TreeInfo ti = null;
   public static final String SCHEMA_LOCATION_XPATH = "//*/@xsi:schemaLocation";
 
   public static final String XML_MODEL_XPATH = "/processing-instruction('xml-model')";
@@ -86,7 +86,8 @@ public class XMLExtractor {
     ParseOptions options = new ParseOptions();
     options.withErrorHandler(new XMLErrorListener());
     try {
-      xml = configuration.buildDocumentTree(new SAXSource(Utility.getInputSourceByURL(url)), options).getRootNode();
+      ti = configuration.buildDocumentTree(new SAXSource(Utility.getInputSourceByURL(url)), options);
+      xml = ti.getRootNode();
       String definedNamespace = getValueFromDoc("namespace-uri(/*)");
       xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of (definedNamespace));
     } catch (IOException io) {
@@ -101,7 +102,8 @@ public class XMLExtractor {
     configuration.setXIncludeAware(Utility.supportXincludes());
     ParseOptions options = new ParseOptions();
     options.withErrorHandler(new XMLErrorListener());
-    xml = configuration.buildDocumentTree(new SAXSource(source), options).getRootNode();
+    ti = configuration.buildDocumentTree(new SAXSource(source), options);
+    xml = ti.getRootNode();
     String definedNamespace = getValueFromDoc("namespace-uri(/*)");
     xpath.getStaticContext().setDefaultElementNamespace(NamespaceUri.of(definedNamespace));
   }
@@ -136,7 +138,9 @@ public class XMLExtractor {
    * @throws XPathException
    */
   public String getValueFromDoc(String expression) throws XPathExpressionException, XPathException {
-    TreeInfo ti = xpath.getConfiguration().buildDocumentTree(xml);
+    if (ti == null) {
+      ti = xpath.getConfiguration().buildDocumentTree(xml);
+    }
     return getValueFromItem(expression, ti); // xpath.setSource(xml));
   }
 

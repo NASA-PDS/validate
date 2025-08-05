@@ -158,7 +158,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
         LOG.debug("getBundleMembers:reference,memberStatus,id {},{},{}", reference, memberStatus,
             id);
         List<Map.Entry<Identifier, String>> matchingMembers = new ArrayList<>();
-        for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitions()
+        for (Map.Entry<Identifier, String> idEntry : getRegistrar().getIdentifierDefinitionsForLid(id.getLid())
             .entrySet()) {
           LOG.debug("getBundleMembers:reference,memberStatus,id,idEntry.getKey()) {},{},{},{}",
               reference, memberStatus, id, idEntry.getKey());
