@@ -25,7 +25,7 @@ import gov.nasa.arc.pds.xml.generated.ProductBrowse;
 import gov.nasa.arc.pds.xml.generated.ProductCollection;
 import gov.nasa.arc.pds.xml.generated.ProductObservational;
 import gov.nasa.arc.pds.xml.generated.ProductSIPDeepArchive;
-import gov.nasa.pds.tools.util.ObjectAccess;
+import gov.nasa.pds.objectAccess.ObjectAccess;
 import gov.nasa.pds.objectAccess.ObjectProvider;
 import gov.nasa.pds.objectAccess.ParseException;
 import gov.nasa.pds.tools.util.Utility;
