@@ -19,8 +19,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import org.apache.commons.io.IOUtils;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
@@ -35,39 +38,42 @@ import gov.nasa.pds.tools.util.Utility;
  */
 public class CachedEntityResolver implements EntityResolver {
 
-  /** Hashmap to hold the entities. */
-  private Map<String, byte[]> cachedEntities = new HashMap<>();
+  /** LoadingCache to hold the entities. */
+  private LoadingCache<String, byte[]> cachedEntities =
+          CacheBuilder.newBuilder().softValues().build(CacheLoader.from(CachedEntityResolver::createEntity));
 
   /**
    * Constructor.
    */
   public CachedEntityResolver() {
-    cachedEntities = new HashMap<>();
   }
 
   @Override
   public InputSource resolveEntity(String publicId, String systemId)
       throws SAXException, IOException {
-    byte[] entity = cachedEntities.get(systemId);
-    if (entity == null) {
-      URL url = new URL(systemId);
-      InputStream in = null;
-      URLConnection conn = null;
-      try {
-        conn = url.openConnection();
-        in = Utility.openConnection(conn);
-        entity = IOUtils.toByteArray(in);
-        cachedEntities.put(systemId, entity);
-      } catch (IOException io) {
-        throw io;
-      } finally {
-        IOUtils.closeQuietly(in);
-        IOUtils.close(conn);
-      }
-    }
+
+    byte[] entity = cachedEntities.getUnchecked(systemId);
     InputSource inputSource = new InputSource(new ByteArrayInputStream(entity));
     inputSource.setSystemId(systemId);
     return inputSource;
+  }
+
+  private static byte[] createEntity(String systemId) {
+    byte[] entity;
+    InputStream in = null;
+    URLConnection conn = null;
+    try {
+      URL url = new URL(systemId);
+      conn = url.openConnection();
+      in = Utility.openConnection(conn);
+      entity = IOUtils.toByteArray(in);
+      return entity;
+    } catch (IOException io) {
+      throw new RuntimeException(io);
+    } finally {
+      IOUtils.closeQuietly(in);
+      IOUtils.close(conn);
+    }
   }
 
   public void addCachedEntities(Map<String, byte[]> entities) {

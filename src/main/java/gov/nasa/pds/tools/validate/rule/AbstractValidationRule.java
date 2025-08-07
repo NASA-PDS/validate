@@ -55,13 +55,25 @@ public abstract class AbstractValidationRule implements ValidationRule {
   public boolean execute(Context theContext) throws Exception {
     this.context = (RuleContext) theContext;
     listener = context.getProblemListener();
+
     if (isApplicable(getTarget().toString())) {
       // Run each annotated validation test.
       for (Method m : getClass().getMethods()) {
+
         Annotation a = m.getAnnotation(ValidationTest.class);
         if (a != null) {
+          long t0 = System.currentTimeMillis();
+
           LOG.debug("AbstractValidationRule:execute: m,a {},{}", m, a);
           m.invoke(this, new Object[0]);
+
+          long t1 = System.currentTimeMillis();
+
+          if (isDebugLogLevel() && (t1-t0 > 1000)) {
+            System.out.println(
+                    "DEBUG  [" + ProblemType.TIMING_METRICS.getKey() + "]  " + System.currentTimeMillis()
+                            + " :: " + getTarget().getFile() + " :: " + m.getDeclaringClass().getName() + ":" + m.getName() + " in " + (t1 - t0) + " ms");
+          }
         }
       }
     }

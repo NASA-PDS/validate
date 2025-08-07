@@ -140,6 +140,8 @@ public interface TargetRegistrar {
    */
   Map<Identifier, String> getIdentifierDefinitions();
 
+  Map<Identifier, String> getIdentifierDefinitionsForLid(String lid);
+
   /**
    * Gets a collection of target locations that are never referenced.
    *
