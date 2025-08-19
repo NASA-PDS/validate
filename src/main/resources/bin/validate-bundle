@@ -164,7 +164,7 @@ else
   echo "  Splitting up into groups, based on --num-groups (${NUM_GROUPS}) specified on command-line..."
 fi
 
-find  ${PRODUCT_DIR} -name "*.xml" > validate_all_files.txt
+find  ${PRODUCT_DIR} -iname "*.xml" > validate_all_files.txt
 
 TOTAL_PRODUCTS=`wc -l < validate_all_files.txt`
 
@@ -186,7 +186,7 @@ echo "  |       Group        |   # in Group   |"
 echo "  +--------------------+----------------+"
 
 PRODUCT_IDX=0
-find $PRODUCT_DIR -name "*.xml" -type f -print0 | while IFS= read -r -d '' LABEL_FILEPATH; do
+find $PRODUCT_DIR -iname "*.xml" -type f -print0 | while IFS= read -r -d '' LABEL_FILEPATH; do
   echo $LABEL_FILEPATH >> ./validate_set_$((PRODUCT_IDX % NUM_GROUPS))
   ((PRODUCT_IDX++))
 done
