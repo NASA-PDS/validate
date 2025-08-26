@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-08-20)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-08-26)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
@@ -11,6 +11,7 @@
 
 **Defects:**
 
+- `validate-bundle` does not find same files as `validate` \(uppercase label filenames\) [\#1331](https://github.com/NASA-PDS/validate/issues/1331) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not handle Special Constants for UnsignedMSB4 [\#1294](https://github.com/NASA-PDS/validate/issues/1294) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `--strict-field-checks` not working as expected [\#1276](https://github.com/NASA-PDS/validate/issues/1276) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not raise a warning when a table has more records than label says it has [\#1234](https://github.com/NASA-PDS/validate/issues/1234) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
