@@ -3168,25 +3168,6 @@
           },
           {
                "name": [
-                    "The CLPS Task Order 2-IM Nova-C Lunar Lander Radio Wave Observation at the Lunar Surface of the Photoelectron Sheath"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.rolses::1.0"
-          },
-          {
-               "name": [
-                    "CLPS Task Order 2IM Stereo Cameras for Lunar Plume-Surface Studies (SCALPSS)",
-                    "The CLPS Task Order 2-IM Nova-C Lunar Lander Stereo Cameras for Lunar Plume-Surface Studies"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.scalpss::1.1"
-          },
-          {
-               "name": [
                     "Far-Infrared Beamline at the Canadian Light Source Facility"
                ],
                "type": [
@@ -9841,16 +9822,6 @@
           },
           {
                "name": [
-                    "VENERA 13 ENERGETIC PARTICLES, MSU-TASPD",
-                    "ENERGETIC PARTICLES, MSU-TASPD, for VENERA 13"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:v13.ep::1.0"
-          },
-          {
-               "name": [
                     "urn:nasa:pds:context:instrument:roe.v15",
                     "RADIO OCCULTATION EXPERIMENT",
                     "RADIO OCCULTATION EXPERIMENT for V15",
@@ -9872,16 +9843,6 @@
                     "Atmospheric Sciences"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:v16.roe::1.1"
-          },
-          {
-               "name": [
-                    "VENERA 9 ENERGETIC PARTICLES, MSU-TASPD",
-                    "ENERGETIC PARTICLES, MSU-TASPD, for VENERA 9"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:v9.ep::1.0"
           },
           {
                "name": [
@@ -10939,6 +10900,51 @@
           },
           {
                "name": [
+                    "Chandrayaan-3 Laser Retro-Reflector Array (LRA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:chandrayaan-3_vikram.lra::1.0"
+          },
+          {
+               "name": [
+                    "DSS-14 X-band Goldstone Solar System Radar Transmitter"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.2"
+          },
+          {
+               "name": [
+                    "Infrared cold coronagraph (CoCo)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.coco::1.0"
+          },
+          {
+               "name": [
+                    "NSFCam"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.nsfcam::1.0"
+          },
+          {
+               "name": [
+                    "RC2"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.rc2::1.0"
+          },
+          {
+               "name": [
                     "Jovian Auroral Plasma Distributions Experiment"
                ],
                "type": [
@@ -10977,24 +10983,6 @@
           },
           {
                "name": [
-                    "Chandrayaan-3 Laser Retro-Reflector Array (LRA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:chandrayaan-3_vikram.lra::1.0"
-          },
-          {
-               "name": [
-                    "CLPS Task Order 2IM Laser Retro-Reflector Array (LRA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.lra::1.0"
-          },
-          {
-               "name": [
                     "SLIM Laser Retro-Reflector Array (LRA)"
                ],
                "type": [
@@ -11004,39 +10992,228 @@
           },
           {
                "name": [
-                    "DSS-14 X-band Goldstone Solar System Radar Transmitter"
+                    "CLPS Task Order 2IM Laser Retro-Reflector Array (LRA)"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:goldstone.dss14_70m.trans_x::1.2"
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.lra::1.1"
           },
           {
                "name": [
-                    "Infrared cold coronagraph (CoCo)"
+                    "The CLPS Task Order 2-IM Nova-C Lunar Lander Radio Wave Observation at the Lunar Surface of the Photoelectron Sheath"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.coco::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.rolses::1.1"
           },
           {
                "name": [
-                    "NSFCam"
+                    "CLPS Task Order 2IM Stereo Cameras for Lunar Plume-Surface Studies (SCALPSS)",
+                    "The CLPS Task Order 2-IM Nova-C Lunar Lander Stereo Cameras for Lunar Plume-Surface Studies"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.nsfcam::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_2im_ncll.scalpss::1.1"
           },
           {
                "name": [
-                    "RC2"
+                    "CLPS Task Order PRIME-1 Laser Retro-Reflector Array (LRA)"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:irtf-maunakea.3m2.rc2::1.0"
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_prime1_athena.lra::1.0"
+          },
+          {
+               "name": [
+                    "CLPS Task Order PRIME-1 Mass Spectrometer Observing Lunar Operations (MSolo)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_prime1_athena.msolo::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Venera 10",
+                    "Venera 10 Energetic Particles, MSU-TASPD",
+                    "KS-18-5M"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v10.ep::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Venera 11",
+                    "Venera 11 Energetic Particles, MSU-TASPD",
+                    "ASP-8"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v11.ep::1.0"
+          },
+          {
+               "name": [
+                    "Venera 13 Energetic Particles, MSU-TASPD",
+                    "ASP-18M",
+                    "Energetic Particles, MSU-TASPD, for Venera 13"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v13.ep::1.1"
+          },
+          {
+               "name": [
+                    "ASP-18M",
+                    "Venera 14 Energetic Particles, MSU-TASPD",
+                    "Energetic Particles, MSU-TASPD, for Venera 14"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v14.ep::1.0"
+          },
+          {
+               "name": [
+                    "KS-18-6V",
+                    "Venera 16 Energetic Particles, MSU-TASPD",
+                    "Energetic Particles, MSU-TASPD, for Venera 16"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v16.ep::1.0"
+          },
+          {
+               "name": [
+                    "KS-18M",
+                    "Energetic Particles, MSU-TASPD, for Venera 2",
+                    "Venera 2 EP",
+                    "Venera 2 Energetic Particles, MSU-TASPD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v2.ep::1.0"
+          },
+          {
+               "name": [
+                    "Venera 3 EP",
+                    "Energetic Particles, MSU-TASPD, for Venera 3",
+                    "KS-18M",
+                    "Venera 3 Energetic Particles, MSU-TASPD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v3.ep::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Venera 4",
+                    "Venera 4 EP",
+                    "KS-2M",
+                    "Venera 4 Energetic Particles, MSU-TASPD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v4.ep::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Venera 5",
+                    "Venera 5 Energetic Particles, MSU-TASPD",
+                    "Venera 5 EP",
+                    "KS-3M"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v5.ep::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Venera 6",
+                    "Venera 6 Energetic Particles, MSU-TASPD",
+                    "KS-3M"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v6.ep::1.0"
+          },
+          {
+               "name": [
+                    "Venera 7 Energetic Particles, MSU-TASPD",
+                    "KS-4M",
+                    "Energetic Particles, MSU-TASPD, for Venera 7"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v7.ep::1.0"
+          },
+          {
+               "name": [
+                    "Venera 8 Energetic Particles, MSU-TASPD",
+                    "Energetic Particles, MSU-TASPD, for Venera 8",
+                    "KS-18-4M"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v8.ep::1.0"
+          },
+          {
+               "name": [
+                    "Venera 9 Energetic Particles, MSU-TASPD",
+                    "KS-18-5M",
+                    "Energetic Particles, MSU-TASPD, for Venera 9"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:v9.ep::1.1"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Vega 1",
+                    "Vega 1 Energetic Particles, MSU-TASPD",
+                    "VFS-VK"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vega1.ep::1.0"
+          },
+          {
+               "name": [
+                    "Energetic Particles, MSU-TASPD, for Vega 2",
+                    "Vega 2 Energetic Particles, MSU-TASPD",
+                    "VFS-VK"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:vega2.ep::1.0"
+          },
+          {
+               "name": [
+                    "JUNO",
+                    "Juno"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.jno::2.4"
           },
           {
                "name": [
@@ -11536,13 +11713,17 @@
           },
           {
                "name": [
-                    "JUNO",
-                    "Juno"
+                    "Mariner 67",
+                    "Venus 67",
+                    "Mariner 5",
+                    "Mariner V",
+                    "Mariner5",
+                    "Mariner Venus 67"
                ],
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.jno::2.4"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mr5::1.0"
           },
           {
                "name": [
@@ -12072,62 +12253,6 @@
           },
           {
                "name": [
-                    "Venera 13"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v13::1.0"
-          },
-          {
-               "name": [
-                    "VENERA 15"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v15::1.2"
-          },
-          {
-               "name": [
-                    "VENERA 16"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v16::1.2"
-          },
-          {
-               "name": [
-                    "Venera 9"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v9::1.0"
-          },
-          {
-               "name": [
-                    "VEGA 1",
-                    "The Vega 1 Spacecraft"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.3"
-          },
-          {
-               "name": [
-                    "VEGA 2",
-                    "The Vega 2 Spacecraft"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.3"
-          },
-          {
-               "name": [
                     "urn:nasa:pds:context:instrument_host:spacecraft.vex",
                     "VENUS EXPRESS"
                ],
@@ -12222,20 +12347,6 @@
           },
           {
                "name": [
-                    "Mariner 67",
-                    "Venus 67",
-                    "Mariner 5",
-                    "Mariner V",
-                    "Mariner5",
-                    "Mariner Venus 67"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.mr5::1.0"
-          },
-          {
-               "name": [
                     "Chandrayaan-3 Vikram Lander"
                ],
                "type": [
@@ -12251,6 +12362,185 @@
                     "Lander"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.slim::1.0"
+          },
+          {
+               "name": [
+                    "CLPS Task Order PRIME-1 Athena Lunar Lander",
+                    "Athena Lunar Lander"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clps_to_prime1_athena::1.0"
+          },
+          {
+               "name": [
+                    "Venera 10",
+                    "Venera 10 Orbiter"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v10::1.0"
+          },
+          {
+               "name": [
+                    "Venera 11 Flight Platform",
+                    "Venera 11 Flyby Platform",
+                    "Venera 11"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v11::1.0"
+          },
+          {
+               "name": [
+                    "Venera 13",
+                    "Venera 13 Flight Platform",
+                    "Venera 13 Flyby Platform"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v13::1.1"
+          },
+          {
+               "name": [
+                    "Venera 14",
+                    "Venera 14 Flight Platform",
+                    "Venera 14 Flyby Platform"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v14::1.0"
+          },
+          {
+               "name": [
+                    "Venera 15"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v15::1.3"
+          },
+          {
+               "name": [
+                    "Venera 16"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v16::1.3"
+          },
+          {
+               "name": [
+                    "Venera 2"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v2::1.0"
+          },
+          {
+               "name": [
+                    "Venera 3"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v3::1.0"
+          },
+          {
+               "name": [
+                    "Venera 4 Carrier Bus",
+                    "Venera 4"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v4::1.0"
+          },
+          {
+               "name": [
+                    "Venera 5",
+                    "Venera 5 Carrier Bus"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v5::1.0"
+          },
+          {
+               "name": [
+                    "Venera 6 Carrier Bus",
+                    "Venera 6"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v6::1.0"
+          },
+          {
+               "name": [
+                    "Venera 7 Carrier Bus",
+                    "Venera 7"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v7::1.0"
+          },
+          {
+               "name": [
+                    "Venera 8 Carrier Bus",
+                    "Venera 8"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v8::1.0"
+          },
+          {
+               "name": [
+                    "Venera 9",
+                    "Venera 9 Orbiter"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.v9::1.1"
+          },
+          {
+               "name": [
+                    "VEGA 1",
+                    "The Vega 1 Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega1::1.4"
+          },
+          {
+               "name": [
+                    "VEGA 2",
+                    "The Vega 2 Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.vega2::1.4"
+          },
+          {
+               "name": [
+                    "JUNO",
+                    "Juno"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.juno::2.3"
           },
           {
                "name": [
@@ -12830,13 +13120,13 @@
           },
           {
                "name": [
-                    "JUNO",
-                    "Juno"
+                    "Smart Lander for Investigating Moon",
+                    "SLIM"
                ],
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.juno::2.3"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.slim::1.0"
           },
           {
                "name": [
@@ -13420,58 +13710,6 @@
           },
           {
                "name": [
-                    "VEGA 1",
-                    "The Vega Program - Vega 1",
-                    "Vega Mission - Vega 1"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_1::1.2"
-          },
-          {
-               "name": [
-                    "VEGA 2",
-                    "VENERA-GALLEY_2",
-                    "VENERA-GALLEY 2",
-                    "The Vega Program - Vega 2",
-                    "Vega Mission - Vega 2"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_2::1.2"
-          },
-          {
-               "name": [
-                    "VENERA 13"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_13::1.0"
-          },
-          {
-               "name": [
-                    "VENERA 15 AND 16",
-                    "Venera 15 and 16"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15_and_16::1.1"
-          },
-          {
-               "name": [
-                    "VENERA 9"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_9::1.0"
-          },
-          {
-               "name": [
                     "urn:nasa:pds:context:investigation:mission.venus_express",
                     "VEX",
                     "Venus Express",
@@ -13711,6 +13949,16 @@
           },
           {
                "name": [
+                    "Chandrayaan-3",
+                    "CH3"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-3::1.0"
+          },
+          {
+               "name": [
                     "Mariner 67",
                     "Venus 67",
                     "Mariner 5",
@@ -13725,23 +13973,163 @@
           },
           {
                "name": [
-                    "Chandrayaan-3",
-                    "CH3"
+                    "CLPS Task Order PRIME-1",
+                    "Intuitive Machines Mission 2 (IM-2)"
                ],
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-3::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.clps_to_prime1::1.0"
           },
           {
                "name": [
-                    "Smart Lander for Investigating Moon",
-                    "SLIM"
+                    "VEGA 1",
+                    "The Vega Program - Vega 1",
+                    "Vega Mission - Vega 1"
                ],
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.slim::1.0"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_1::1.3"
+          },
+          {
+               "name": [
+                    "VEGA 2",
+                    "VENERA-GALLEY_2",
+                    "VENERA-GALLEY 2",
+                    "The Vega Program - Vega 2",
+                    "Vega Mission - Vega 2"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.vega_2::1.3"
+          },
+          {
+               "name": [
+                    "Venera 10"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_10::1.0"
+          },
+          {
+               "name": [
+                    "Venera 11"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_11::1.0"
+          },
+          {
+               "name": [
+                    "Venera 13"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_13::1.1"
+          },
+          {
+               "name": [
+                    "Venera 14"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_14::1.0"
+          },
+          {
+               "name": [
+                    "Venera 15"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15::1.0"
+          },
+          {
+               "name": [
+                    "Venera 16"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_16::1.0"
+          },
+          {
+               "name": [
+                    "Venera 2"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_2::1.0"
+          },
+          {
+               "name": [
+                    "Venera 3"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_3::1.0"
+          },
+          {
+               "name": [
+                    "Venera 4"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_4::1.0"
+          },
+          {
+               "name": [
+                    "Venera 5"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_5::1.0"
+          },
+          {
+               "name": [
+                    "Venera 6"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_6::1.0"
+          },
+          {
+               "name": [
+                    "Venera 7"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_7::1.0"
+          },
+          {
+               "name": [
+                    "Venera 8"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_8::1.0"
+          },
+          {
+               "name": [
+                    "Venera 9"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_9::1.1"
           },
           {
                "name": [
@@ -22145,18 +22533,6 @@
           },
           {
                "name": [
-                    "NAIF ID 526",
-                    "Isonoe",
-                    "S/2002 J 1",
-                    "Jupiter XXVI (Isonoe)"
-               ],
-               "type": [
-                    "Satellite"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.isonoe::1.2"
-          },
-          {
-               "name": [
                     "NAIF ID 537",
                     "Jupiter XXXVII (Kale)",
                     "Kale",
@@ -28587,54 +28963,6 @@
                     "Star"
                ],
                "lidvid": "urn:nasa:pds:context:target:star.hd_339479::1.1"
-          },
-          {
-               "name": [
-                    "FK5 2486",
-                    "Gaia DR2 5553647083168192512",
-                    "N30 1368",
-                    "WISEA J062006.38-484430.5",
-                    "SAO 217861",
-                    "uvby98 100044594",
-                    "WDS J06201-4844A",
-                    "LTT 2525",
-                    "HIC 30104",
-                    "Mebsuta",
-                    "IRAS 06187-4842",
-                    "UBV M 12025",
-                    "Gaia DR1 5553647078872137088",
-                    "Epsilon Geminorum",
-                    "GC 8179",
-                    "GCRV 57460",
-                    "SPOCS 306",
-                    "CPD-48 833",
-                    "PLX 1477.00",
-                    "Gaia DR3 5553647083168192512",
-                    "SKY# 10766",
-                    "CD-48 2259A",
-                    "HD 44594A",
-                    "WEB 5989",
-                    "HD 44594",
-                    "HIP 30104",
-                    "TYC 8106-311-1",
-                    "UCAC4 207-008006",
-                    "2MASS J06200615-4844280",
-                    "HR 2290",
-                    "TD1 6911",
-                    "CPC 0 3500",
-                    "GEN# +1.00044594",
-                    "UBV 6380",
-                    "PPM 310646",
-                    "NLTT 16414",
-                    "KPP 2945A",
-                    "TIC 238949177",
-                    "PLX 1477",
-                    "CD-48 2259"
-               ],
-               "type": [
-                    "Star"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:star.hd_44594::1.1"
           },
           {
                "name": [
@@ -37678,17 +38006,76 @@
           },
           {
                "name": [
+                    "NAIF ID 526",
+                    "Isonoe",
+                    "S/2000 J 6",
+                    "Jupiter XXVI (Isonoe)"
+               ],
+               "type": [
+                    "Satellite"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.jupiter.isonoe::1.3"
+          },
+          {
+               "name": [
+                    "FK5 2486",
+                    "Gaia DR2 5553647083168192512",
+                    "N30 1368",
+                    "WISEA J062006.38-484430.5",
+                    "SAO 217861",
+                    "uvby98 100044594",
+                    "WDS J06201-4844A",
+                    "LTT 2525",
+                    "HIC 30104",
+                    "IRAS 06187-4842",
+                    "UBV M 12025",
+                    "Gaia DR1 5553647078872137088",
+                    "Epsilon Geminorum",
+                    "GC 8179",
+                    "GCRV 57460",
+                    "SPOCS 306",
+                    "CPD-48 833",
+                    "PLX 1477.00",
+                    "Gaia DR3 5553647083168192512",
+                    "SKY# 10766",
+                    "CD-48 2259A",
+                    "HD 44594A",
+                    "WEB 5989",
+                    "HD 44594",
+                    "HIP 30104",
+                    "TYC 8106-311-1",
+                    "UCAC4 207-008006",
+                    "2MASS J06200615-4844280",
+                    "HR 2290",
+                    "TD1 6911",
+                    "CPC 0 3500",
+                    "GEN# +1.00044594",
+                    "UBV 6380",
+                    "PPM 310646",
+                    "NLTT 16414",
+                    "KPP 2945A",
+                    "TIC 238949177",
+                    "PLX 1477",
+                    "CD-48 2259"
+               ],
+               "type": [
+                    "Star"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:star.hd_44594::1.2"
+          },
+          {
+               "name": [
+                    "99942 Apophis",
                     "99942 Apophis (2004 MN4)",
                     "Minor Planet 99942",
                     "Apophis",
-                    "99942 apophis",
                     "NAIF ID 20099942",
                     "(99942) Apophis"
                ],
                "type": [
                     "Asteroid"
                ],
-               "lidvid": "urn:nasa:pds:context:target:asteroid.99942_apophis::1.0"
+               "lidvid": "urn:nasa:pds:context:target:asteroid.99942_apophis::1.1"
           },
           {
                "name": [
@@ -38457,7 +38844,7 @@
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:las_cumbres.0m4_telescopes::1.1"
+               "lidvid": "urn:nasa:pds:context:telescope:las_cumbres.0m4_telescopes::1.2"
           },
           {
                "name": [
