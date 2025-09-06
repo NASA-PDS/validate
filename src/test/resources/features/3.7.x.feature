@@ -7,6 +7,7 @@ Feature: 3.7.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 
+| 1332 | 1 | "github1332" | "--skip-context-validation -t {datasrc}/nh0001x.xml" |  |
 | 1294 | 1 | "github1294" | "--skip-context-validation -t {datasrc}/t014_b0606_sp_20110528_17550949_y3.xml" |  |
 | 1276 | 1 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.lon.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |
 | 1276 | 2 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.no.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |

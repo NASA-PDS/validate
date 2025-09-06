@@ -273,7 +273,7 @@ public class FieldValueValidator {
             if (fields[i + 1].getStartBit() > 1) { // only check overlap is next start bit
               // Next, if next startBit > -1 we know we have another bit field to check
               // Let's check the bit fields aren't overlapping
-              if (fields[i].getStopBit() >= fields[i + 1].getStartBit()) {
+              if (fields[i].getStopBit() >= fields[i + 1].getStartBit() + fields[i+1].getOffset()) {
                 String message = "The bit field overlaps the next field. "
                     + "Current stop_bit_location: " + (fields[i].getStopBit() + 1)
                     + ". Next start_bit_location: " + (fields[i + 1].getStartBit() + 1);
