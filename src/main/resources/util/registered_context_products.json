@@ -2305,6 +2305,25 @@
           },
           {
                "name": [
+                    "Proxima Centauri b Laboratory Analog",
+                    "Alpha Centauri Cb"
+               ],
+               "type": [
+                    "Laboratory Analog"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:laboratory_analog.proxima_centauri-b::1.0"
+          },
+          {
+               "name": [
+                    "TRAPPIST-1e Laboratory Analog"
+               ],
+               "type": [
+                    "Laboratory Analog"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:laboratory_analog.trappist-1e::1.0"
+          },
+          {
+               "name": [
                     "Apollo 11 Early Apollo Scientific Experiment Package Passive Seismic Experiment",
                     "Apollo 11 Passive Seismic Experiment (PSE)"
                ],
@@ -10983,15 +11002,6 @@
           },
           {
                "name": [
-                    "SLIM Laser Retro-Reflector Array (LRA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:slim.lra::1.0"
-          },
-          {
-               "name": [
                     "CLPS Task Order 2IM Laser Retro-Reflector Array (LRA)"
                ],
                "type": [
@@ -11204,6 +11214,37 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:vega2.ep::1.0"
+          },
+          {
+               "name": [
+                    "SLIM Navigation Cameras",
+                    "cam",
+                    "CAM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:slim.cam::1.0"
+          },
+          {
+               "name": [
+                    "SLIM Laser Retro-Reflector Array (LRA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:slim.lra::1.1"
+          },
+          {
+               "name": [
+                    "Multi-Band Camera",
+                    "mbc",
+                    "MBC"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument:slim.mbc::1.0"
           },
           {
                "name": [
@@ -12525,6 +12566,17 @@
           },
           {
                "name": [
+                    "SLIM lander",
+                    "slim",
+                    "SLIM"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.slim::1.0"
+          },
+          {
+               "name": [
                     "JUNO",
                     "Juno"
                ],
@@ -13108,6 +13160,17 @@
                     "Mission"
                ],
                "lidvid": "urn:esa:psa:context:investigation:mission.iue::1.1"
+          },
+          {
+               "name": [
+                    "Smart Lander for Investigating Moon mission",
+                    "slim",
+                    "SLIM"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:jaxa:darts:context:investigation:mission.slim::1.0"
           },
           {
                "name": [
@@ -14111,6 +14174,15 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:mission.venera_9::1.1"
+          },
+          {
+               "name": [
+                    "Atmospheric Modeling Annex Individual Investigation"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.atmospheric_modeling_annex::1.0"
           },
           {
                "name": [
@@ -37987,6 +38059,26 @@
           },
           {
                "name": [
+                    "3I/ATLAS",
+                    "C/2025 N1 (ATLAS)",
+                    "NAIF ID 1004083"
+               ],
+               "type": [
+                    "Comet"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:comet.3i_atlas::1.0"
+          },
+          {
+               "name": [
+                    "TRAPPIST-1e"
+               ],
+               "type": [
+                    "Planet"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planet.trappist-1e::1.0"
+          },
+          {
+               "name": [
                     "NAIF ID 526",
                     "Isonoe",
                     "S/2000 J 6",
@@ -38057,6 +38149,17 @@
                     "Asteroid"
                ],
                "lidvid": "urn:nasa:pds:context:target:asteroid.99942_apophis::1.1"
+          },
+          {
+               "name": [
+                    "Alpha Centauri Cb",
+                    "Proxima Centauri b",
+                    "Proxima b"
+               ],
+               "type": [
+                    "Planet"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:planet.proxima_centauri-b::1.0"
           },
           {
                "name": [
