@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts-ard:hyb2_nirs3_sp_ard:data_iof_thermalcorr</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Hayabusa2 NIRS3 thermal removed reflectance spactra data product</title>
+        <information_model_version>1.24.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+            <publication_year>2025</publication_year>
+            <keyword>Hayabusa2</keyword>
+            <keyword>NIRS3</keyword>
+            <keyword>Asteroid</keyword>
+            <keyword>Near InfraRed</keyword>
+            <keyword>Spectrometer</keyword>
+            <keyword>Reflectance</keyword>
+            <keyword>Thermal Radiation</keyword>
+            <description>This collection contains thermal removed reflectance spectra from the NIRS3 instrument</description>
+            <List_Author>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Mayumi</given_name>
+                    <family_name>Ichikawa</family_name>
+                </Person>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Eri</given_name>
+                    <family_name>Tatsumi</family_name>
+                </Person>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Yasuhiro</given_name>
+                    <family_name>Yokota</family_name>
+                </Person>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Daigo</given_name>
+                    <family_name>Shoji</family_name>
+                </Person>
+                <Person>
+                    <contributor_type>Producer</contributor_type>
+                    <given_name>Shin-ya</given_name>
+                    <family_name>Murakami</family_name>
+                </Person>
+            </List_Author>
+            <List_Editor>
+                <Person>
+                    <contributor_type>DataCurator</contributor_type>
+                    <given_name>Shin-ya</given_name>
+                    <family_name>Murakami</family_name>
+                </Person>
+                <Person>
+                    <contributor_type>DataCurator</contributor_type>
+                    <given_name>Yuichiro</given_name>
+                    <family_name>Nagai</family_name>
+                </Person>
+            </List_Editor>
+            <List_Contributor>
+                <Organization>
+                    <organization_name>NIRS3 team</organization_name>
+                </Organization>
+                <Person>
+                    <given_name>Hiroki</given_name>
+                    <family_name>Senshu</family_name>
+                </Person>
+                <Person>
+                    <given_name>Lucie</given_name>
+                    <family_name>Riu</family_name>
+                </Person>
+            </List_Contributor>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-06-12</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial release.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2018-06-30T06:59:21.9Z</start_date_time>
+            <stop_date_time>2019-11-04T13:25:11.0Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Hayabusa2 Asteroid Sample Return Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.hyb2</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>The Hayabusa2 Spacecraft</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.hyb2</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Near InfraRed Spectrometer (NIRS3)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:hyb2.nirs3</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(162173) Ryugu</name>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.162173_ryugu</lid_reference>
+                <reference_type>collection_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Collection>
+        <collection_type>External</collection_type>
+    </Collection>
+    <File_Area_Inventory>
+        <File>
+            <file_name>collection_inventory_hyb2_nirs3_sp_ard_data_iof_thermalcorr_v001.csv</file_name>
+            <creation_date_time>2025-09-12T06:01:20Z</creation_date_time>
+            <file_size unit="byte">7719</file_size>
+            <records>83</records>
+            <md5_checksum>6ef27afa719c573f160be3ad4acc5901</md5_checksum>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>83</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">259</maximum_record_length>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>
+                        This columns specifies the Member Status of the files that
+                        comprise the collection.
+                    </description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                    <description>
+                        This columns specifies the LIDVID or LID of the files that
+                        comprise the collection.
+                    </description>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>
