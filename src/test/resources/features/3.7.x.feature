@@ -7,6 +7,7 @@ Feature: 3.7.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 
+| 1359 | 1 | "github1359" | "--skip-context-validation --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/collection_hyb2_nirs3_sp_ard_data_iof_thermalcorr_v001.lblx" |  |
 | 1332 | 1 | "github1332" | "--skip-context-validation -t {datasrc}/nh0001x.xml" |  |
 | 1294 | 1 | "github1294" | "--skip-context-validation -t {datasrc}/t014_b0606_sp_20110528_17550949_y3.xml" |  |
 | 1276 | 1 | "github1276" | "--skip-context-validation --strict-field-checks {datasrc}/vco_v07.lon.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.table.characters_between_fields=1" |
