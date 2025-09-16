@@ -81,6 +81,7 @@ public class SpecialConstantChecker {
             .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMaximum(), radix));
       } else {
         if (constants.getValidMaximum().contains(".") || 
+            (value instanceof Float || value instanceof Double) ||
             ((constants.getValidMaximum().contains("e") || constants.getValidMaximum().contains("E")) && 
                 !(constants.getValidMaximum().startsWith("0x") || constants.getValidMaximum().startsWith("0X") || constants.getValidMaximum().startsWith("16#")))) {
           comparison = Double.valueOf(value.doubleValue())
@@ -125,6 +126,7 @@ public class SpecialConstantChecker {
             .compareTo(SpecialConstantBitPatternTransforms.asBigInt(constants.getValidMinimum(), radix));
       } else {
         if (constants.getValidMinimum().contains(".") || 
+            (value instanceof Float || value instanceof Double) ||
             ((constants.getValidMinimum().contains("e") || constants.getValidMinimum().contains("E")) && 
                 !(constants.getValidMinimum().startsWith("0x") || constants.getValidMinimum().startsWith("0X") || constants.getValidMinimum().startsWith("16#")))) {
           comparison = Double.valueOf(value.doubleValue())
