@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-09-15)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-09-16)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
@@ -11,6 +11,8 @@
 
 **Defects:**
 
+- Validate doesn't correctly handle an integer value of valid\_maximum associated with floating point data array [\#1358](https://github.com/NASA-PDS/validate/issues/1358) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Encoded\_External/encoding\_standard\_id does not allow NetCDF [\#1357](https://github.com/NASA-PDS/validate/issues/1357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate Incorrectly Reports Overlap Error If Initial Bits Are Not Specified in Packed\_Data\_Fields [\#1332](https://github.com/NASA-PDS/validate/issues/1332) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `validate-bundle` does not find same files as `validate` \(uppercase label filenames\) [\#1331](https://github.com/NASA-PDS/validate/issues/1331) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not handle Special Constants for UnsignedMSB4 [\#1294](https://github.com/NASA-PDS/validate/issues/1294) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
