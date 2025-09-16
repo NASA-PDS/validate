@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_External
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts-ard:vco_uvi_map:data_map:uvi_20151207_051953_283_l3b</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Venus Climate Orbiter Akatsuki Ultraviolet Imager (UVI) L3b NetCDF 283-nm filter map data product uvi_20151207_051953_283_l3b</title>
+        <information_model_version>1.24.0.0</information_model_version>
+        <product_class>Product_External</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-09-16</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2015-12-07T05:19:52.816Z</start_date_time>
+            <stop_date_time>2015-12-07T05:19:55.160Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>This file contains Ultraviolet Imager (UVI) L3b map data product that consists of equally spaced longitude - latitude grid data created from l2b image.</description>
+            <Science_Facets>
+                <wavelength_range>Ultraviolet</wavelength_range>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+                <facet1>Meteorology</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Venus Climate Orbiter Akatsuki Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.vco</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Venus Climate Orbiter Akatsuki</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.vco</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Ultraviolet Imager</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:vco.uvi</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>external_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:data_map:uvi_20151207_051953_283_l3b::1.0</lidvid_reference>
+            <reference_type>data_to_derived_product</reference_type>
+        </Internal_Reference>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:data_calibrated:uvi_20151207_051953_283_l2b::1.0</lidvid_reference>
+            <reference_type>data_to_calibrated_source_product</reference_type>
+        </Source_Product_Internal>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:geometry:uvi_20151207_051953_283_geo::1.0</lidvid_reference>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:data-map:uvi_20151207_051953_283_l3b::1.0</lidvid_reference>
+            <reference_type>data_to_derived_source_product</reference_type>
+        </Source_Product_Internal>
+    </Reference_List>
+    <File_Area_External>
+        <File>
+            <file_name>uvi_20151207_051953_283_l3b_v21.nc</file_name>
+            <creation_date_time>2023-06-03T07:35:16Z</creation_date_time>
+            <file_size unit="byte">13003795</file_size>
+        </File>
+        <Encoded_External>
+            <name>Venus Climate Orbiter Akatsuki UVI L3b Map data in the NetCDF format.</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">13003795</object_length>
+            <encoding_standard_id>NetCDF 4.9.0</encoding_standard_id>
+        </Encoded_External>
+    </File_Area_External>
+</Product_External>
