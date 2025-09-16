@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/PDS4_VCO_1J00_1000.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1"
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1"
+    xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+    xmlns:vco="http://darts.isas.jaxa.jp/pds4/mission/vco/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd
+                        http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.xsd
+                        http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.xsd
+                        http://pds.nasa.gov/pds4/img/v1 https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.xsd
+                        http://pds.nasa.gov/pds4/msn/v1 https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1J00_1300.xsd
+                        http://darts.isas.jaxa.jp/pds4/mission/vco/v1 https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/PDS4_VCO_1J00_1000.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:jaxa:darts:vco_uvi:data_calibrated:uvi_20151207_051953_283_l2b</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Venus Climate Orbiter Akatsuki Ultraviolet Imager (UVI) L2b (calibrated) 283-nm filter image data product uvi_20151207_051953_283_l2b</title>
+        <information_model_version>1.19.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2023-06-14</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2015-12-07T05:19:52.816Z</start_date_time>
+            <stop_date_time>2015-12-07T05:19:55.160Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Calibrated</processing_level>
+            <description>This file contains Ultraviolet Imager (UVI) L2b (calibrated) 283-nm filter image data product.</description>
+            <Science_Facets>
+                <wavelength_range>Ultraviolet</wavelength_range>
+                <domain>Atmosphere</domain>
+                <discipline_name>Atmospheres</discipline_name>
+                <facet1>Meteorology</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Venus Climate Orbiter Akatsuki Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:jaxa:darts:context:investigation:mission.vco</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Venus Climate Orbiter Akatsuki</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument_host:spacecraft.vco</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Ultraviolet Imager</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:jaxa:darts:context:instrument:vco.uvi</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Venus</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <vco:Observation_Information>
+                <vco:observation_date_time>2015-12-07T05:19:53.988Z</vco:observation_date_time>
+                <vco:naif_instrument_name>VCO_UVI_283</vco:naif_instrument_name>
+                <vco:observation_program_id>0x07_v1</vco:observation_program_id>
+                <vco:observation_program_name>Vicinity deluxe (UVI, LIR)</vco:observation_program_name>
+                <vco:observation_program_start_date_time>2015-12-07T05:18:42Z</vco:observation_program_start_date_time>
+                <vco:target_apparent_diameter unit="deg">9.741</vco:target_apparent_diameter>
+                <vco:image_processing_return_status>Normal End</vco:image_processing_return_status>
+                <vco:Orbit_Information>
+                    <vco:orbit_number>1</vco:orbit_number>
+                    <vco:periapsis_passage_date_time>2015-12-07T00:01:31.000Z</vco:periapsis_passage_date_time>
+                    <vco:subspacecraft_latitude_at_periapsis_passage unit="deg">4.66</vco:subspacecraft_latitude_at_periapsis_passage>
+                    <vco:subspacecraft_longitude_at_periapsis_passage unit="deg">242.04</vco:subspacecraft_longitude_at_periapsis_passage>
+                    <vco:subspacecraft_altitude_at_periapsis_passage unit="km">540.83</vco:subspacecraft_altitude_at_periapsis_passage>
+                    <vco:orbit_inclination_angle unit="deg">173.15</vco:orbit_inclination_angle>
+                    <vco:orbit_eccentricity xsi:nil="true" nilReason="inapplicable"></vco:orbit_eccentricity>
+                    <vco:orbit_longitude unit="deg">200.18</vco:orbit_longitude>
+                    <vco:orbit_argument unit="deg">137.08</vco:orbit_argument>
+                    <vco:orbit_semimajor_axis_length unit="km" xsi:nil="true" nilReason="inapplicable"></vco:orbit_semimajor_axis_length>
+                </vco:Orbit_Information>
+            </vco:Observation_Information>
+            <vco:UVI_Instrument_Attributes>
+                <vco:uvi_optical_black_area_mode>Normal</vco:uvi_optical_black_area_mode>
+                <vco:uvi_filter_wheel_position_flag>Good</vco:uvi_filter_wheel_position_flag>
+            </vco:UVI_Instrument_Attributes>
+        </Mission_Area>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                <msn:mission_phase_name>Primary Science Phase</msn:mission_phase_name>
+                <msn:product_type_name>UVI L2b 283-nm filter</msn:product_type_name>
+                <msn:spacecraft_clock_start>2/1344168992</msn:spacecraft_clock_start>
+                <msn:spacecraft_clock_stop>2/1344169059</msn:spacecraft_clock_stop>
+                <msn:Orbital_Mission>
+                    <msn:start_orbit_number>1</msn:start_orbit_number>
+                    <msn:stop_orbit_number>1</msn:stop_orbit_number>
+                </msn:Orbital_Mission>
+            </msn:Mission_Information>
+            <disp:Display_Settings>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ImageData</local_identifier_reference>
+                    <local_reference_type>display_settings_to_array</local_reference_type>
+                </Local_Internal_Reference>
+                <disp:Display_Direction>
+                    <disp:horizontal_display_axis>Sample</disp:horizontal_display_axis>
+                    <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+                    <disp:vertical_display_axis>Line</disp:vertical_display_axis>
+                    <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+                </disp:Display_Direction>
+            </disp:Display_Settings>
+            <geom:Geometry>
+                <geom:SPICE_Kernel_Files>
+                    <geom:SPICE_Kernel_Identification>
+                        <geom:kernel_type>MK</geom:kernel_type>
+                        <geom:spice_kernel_file_name>vco_pds4_v07.tm</geom:spice_kernel_file_name>
+                        <geom:kernel_provenance>Mixed</geom:kernel_provenance>
+                        <Internal_Reference>
+                            <lidvid_reference>urn:jaxa:darts:vco_spice:spice_kernels:mk_vco_pds4::7.0</lidvid_reference>
+                            <reference_type>geometry_to_SPICE_kernel</reference_type>
+                        </Internal_Reference>
+                    </geom:SPICE_Kernel_Identification>
+                </geom:SPICE_Kernel_Files>
+                <geom:Expanded_Geometry>
+                    <Internal_Reference>
+                        <lid_reference>urn:jaxa:darts:vco_uvi:geometry:uvi_20151207_051953_283_geo</lid_reference>
+                        <reference_type>geometry_to_expanded_geometry</reference_type>
+                        <comment>Reference to geometry.</comment>
+                    </Internal_Reference>
+                    <Internal_Reference>
+                        <lid_reference>urn:jaxa:darts:vco_uvi:geometry:uvi_20151207_051953_283_l3bx</lid_reference>
+                        <reference_type>geometry_to_expanded_geometry</reference_type>
+                        <comment>Reference to geometry calculated with refined line-of-sight direction by limb-fitting based on L2b image.</comment>
+                    </Internal_Reference>
+                </geom:Expanded_Geometry>
+                <geom:Image_Display_Geometry>
+                    <Local_Internal_Reference>
+                        <local_identifier_reference>ImageData</local_identifier_reference>
+                        <local_reference_type>display_to_data_object</local_reference_type>
+                    </Local_Internal_Reference>
+                    <geom:Display_Direction>
+                        <geom:horizontal_display_axis>Sample</geom:horizontal_display_axis>
+                        <geom:horizontal_display_direction>Left to Right</geom:horizontal_display_direction>
+                        <geom:vertical_display_axis>Line</geom:vertical_display_axis>
+                        <geom:vertical_display_direction>Bottom to Top</geom:vertical_display_direction>
+                    </geom:Display_Direction>
+                    <geom:Central_Body_Identification>
+                        <geom:body_spice_name>VENUS</geom:body_spice_name>
+                        <geom:name>Venus</geom:name>
+                        <Internal_Reference>
+                            <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                            <reference_type>geometry_to_body</reference_type>
+                        </Internal_Reference>
+                    </geom:Central_Body_Identification>
+                    <geom:Geometry_Target_Identification>
+                        <geom:body_spice_name>VENUS</geom:body_spice_name>
+                        <geom:name>Venus</geom:name>
+                        <Internal_Reference>
+                            <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                            <reference_type>geometry_to_body</reference_type>
+                        </Internal_Reference>
+                    </geom:Geometry_Target_Identification>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:Reference_Pixel>
+                            <geom:vertical_coordinate_pixel unit="pixel">512.5</geom:vertical_coordinate_pixel>
+                            <geom:horizontal_coordinate_pixel unit="pixel">512.5</geom:horizontal_coordinate_pixel>
+                        </geom:Reference_Pixel>
+                        <geom:reference_pixel_location>Center</geom:reference_pixel_location>
+                        <geom:right_ascension_angle unit="deg">100.568</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">29.8897</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg" xsi:nil="true" nilReason="missing"></geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:frame_spice_name>VCO_UVI_283</geom:frame_spice_name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:Reference_Pixel>
+                            <geom:vertical_coordinate_pixel unit="pixel">1</geom:vertical_coordinate_pixel>
+                            <geom:horizontal_coordinate_pixel unit="pixel">1</geom:horizontal_coordinate_pixel>
+                        </geom:Reference_Pixel>
+                        <geom:reference_pixel_location>Lower Left Corner</geom:reference_pixel_location>
+                        <geom:right_ascension_angle unit="deg">92.736</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">35.1847</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg" xsi:nil="true" nilReason="missing"></geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:frame_spice_name>VCO_UVI_283</geom:frame_spice_name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:Reference_Pixel>
+                            <geom:vertical_coordinate_pixel unit="pixel">1024</geom:vertical_coordinate_pixel>
+                            <geom:horizontal_coordinate_pixel unit="pixel">1</geom:horizontal_coordinate_pixel>
+                        </geom:Reference_Pixel>
+                        <geom:reference_pixel_location>Lower Right Corner</geom:reference_pixel_location>
+                        <geom:right_ascension_angle unit="deg">107.399</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">36.1192</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg" xsi:nil="true" nilReason="missing"></geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:frame_spice_name>VCO_UVI_283</geom:frame_spice_name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:Reference_Pixel>
+                            <geom:vertical_coordinate_pixel unit="pixel">1</geom:vertical_coordinate_pixel>
+                            <geom:horizontal_coordinate_pixel unit="pixel">1024</geom:horizontal_coordinate_pixel>
+                        </geom:Reference_Pixel>
+                        <geom:reference_pixel_location>Upper Left Corner</geom:reference_pixel_location>
+                        <geom:right_ascension_angle unit="deg">94.5605</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">23.3506</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg" xsi:nil="true" nilReason="missing"></geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:frame_spice_name>VCO_UVI_283</geom:frame_spice_name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                    <geom:Object_Orientation_RA_Dec>
+                        <geom:Reference_Pixel>
+                            <geom:vertical_coordinate_pixel unit="pixel">1024</geom:vertical_coordinate_pixel>
+                            <geom:horizontal_coordinate_pixel unit="pixel">1024</geom:horizontal_coordinate_pixel>
+                        </geom:Reference_Pixel>
+                        <geom:reference_pixel_location>Upper Right Corner</geom:reference_pixel_location>
+                        <geom:right_ascension_angle unit="deg">107.58</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">24.1803</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg" xsi:nil="true" nilReason="missing"></geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:frame_spice_name>VCO_UVI_283</geom:frame_spice_name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>
+                    <geom:Quaternion_Plus_To_From>
+                        <geom:qcos>0.624597</geom:qcos>
+                        <geom:qsin1>0.433439</geom:qsin1>
+                        <geom:qsin2>-0.587645</geom:qsin2>
+                        <geom:qsin3>0.276918</geom:qsin3>
+                        <geom:Rotate_From>
+                            <geom:frame_spice_name>J2000</geom:frame_spice_name>
+                        </geom:Rotate_From>
+                        <geom:Rotate_To>
+                            <geom:frame_spice_name>VCO_SPACECRAFT</geom:frame_spice_name>
+                        </geom:Rotate_To>
+                    </geom:Quaternion_Plus_To_From>
+                </geom:Image_Display_Geometry>
+                <geom:Geometry_Orbiter>
+                    <geom:geometry_reference_time_utc>2015-12-07T05:19:53.988Z</geom:geometry_reference_time_utc>
+                    <geom:Orbiter_Identification>
+                        <geom:Central_Body_Identification>
+                            <geom:body_spice_name>VENUS</geom:body_spice_name>
+                            <geom:name>Venus</geom:name>
+                            <Internal_Reference>
+                                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                                <reference_type>geometry_to_body</reference_type>
+                            </Internal_Reference>
+                        </geom:Central_Body_Identification>
+                        <geom:Geometry_Target_Identification>
+                            <geom:body_spice_name>VENUS</geom:body_spice_name>
+                            <geom:name>Venus</geom:name>
+                            <Internal_Reference>
+                                <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                                <reference_type>geometry_to_body</reference_type>
+                            </Internal_Reference>
+                        </geom:Geometry_Target_Identification>
+                        <geom:Coordinate_System_Identification>
+                            <geom:coordinate_system_type>Cartesian</geom:coordinate_system_type>
+                            <geom:Coordinate_System_Origin_Identification>
+                                <geom:body_spice_name>VENUS</geom:body_spice_name>
+                                <geom:name>Venus</geom:name>
+                                <Internal_Reference>
+                                    <lid_reference>urn:nasa:pds:context:target:planet.venus</lid_reference>
+                                    <reference_type>geometry_to_body</reference_type>
+                                </Internal_Reference>
+                            </geom:Coordinate_System_Origin_Identification>
+                            <geom:Reference_Frame_Identification>
+                                <geom:frame_spice_name>J2000</geom:frame_spice_name>
+                                <geom:name>Earth mean equator and equinox of J2000 frame</geom:name>
+                            </geom:Reference_Frame_Identification>
+                        </geom:Coordinate_System_Identification>
+                    </geom:Orbiter_Identification>
+                    <geom:Pixel_Dimensions>
+                        <geom:pixel_field_of_view_method>Average</geom:pixel_field_of_view_method>
+                        <geom:horizontal_pixel_field_of_view unit="rad">0.000204619</geom:horizontal_pixel_field_of_view>
+                        <geom:vertical_pixel_field_of_view unit="rad">0.000204619</geom:vertical_pixel_field_of_view>
+                    </geom:Pixel_Dimensions>
+                    <geom:Distances>
+                        <geom:Distances_Specific>
+                            <geom:spacecraft_central_body_distance unit="km">72102.7</geom:spacecraft_central_body_distance>
+                            <geom:spacecraft_target_center_distance unit="km">72102.7</geom:spacecraft_target_center_distance>
+                            <geom:target_heliocentric_distance unit="km">107496000.0</geom:target_heliocentric_distance>
+                        </geom:Distances_Specific>
+                    </geom:Distances>
+                    <geom:Surface_Geometry>
+                        <geom:comment>Values in this class were calculated with the altitude of 70.0 km instead of the surface of the planet.</geom:comment>
+                        <geom:Surface_Geometry_Specific>
+                            <geom:subsolar_latitude unit="deg">-2.63393</geom:subsolar_latitude>
+                            <geom:subsolar_longitude unit="deg">141.454</geom:subsolar_longitude>
+                            <geom:subspacecraft_latitude unit="deg">-6.63319</geom:subspacecraft_latitude>
+                            <geom:subspacecraft_longitude unit="deg">95.1254</geom:subspacecraft_longitude>
+                        </geom:Surface_Geometry_Specific>
+                    </geom:Surface_Geometry>
+                    <geom:Illumination_Geometry>
+                        <geom:Illumination_Specific>
+                            <geom:reference_location>Subspacecraft Point</geom:reference_location>
+                            <geom:Reference_Pixel>
+                                <geom:vertical_coordinate_pixel unit="pixel">550.226</geom:vertical_coordinate_pixel>
+                                <geom:horizontal_coordinate_pixel unit="pixel">408.315</geom:horizontal_coordinate_pixel>
+                            </geom:Reference_Pixel>
+                            <geom:phase_angle unit="deg">46.334</geom:phase_angle>
+                        </geom:Illumination_Specific>
+                    </geom:Illumination_Geometry>
+                    <geom:Vectors>
+                        <geom:Vectors_Cartesian_Specific>
+                            <geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                                <geom:x_position unit="km">-87336500.0</geom:x_position>
+                                <geom:y_position unit="km">54824500.0</geom:y_position>
+                                <geom:z_position unit="km">30186800.0</geom:z_position>
+                                <geom:light_time_correction_applied>None</geom:light_time_correction_applied>
+                                <geom:Coordinate_System_Identification>
+                                    <geom:coordinate_system_type>Cartesian</geom:coordinate_system_type>
+                                    <geom:Coordinate_System_Origin_Identification>
+                                        <geom:body_spice_name>SUN</geom:body_spice_name>
+                                        <geom:name>Sun</geom:name>
+                                    </geom:Coordinate_System_Origin_Identification>
+                                    <geom:Reference_Frame_Identification>
+                                        <geom:frame_spice_name>J2000</geom:frame_spice_name>
+                                        <geom:name>J2000</geom:name>
+                                    </geom:Reference_Frame_Identification>
+                                </geom:Coordinate_System_Identification>
+                            </geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                        </geom:Vectors_Cartesian_Specific>
+                    </geom:Vectors>
+                </geom:Geometry_Orbiter>
+            </geom:Geometry>
+            <img:Imaging>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ImageData</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>
+                <img:Detector>
+                    <img:first_line>1</img:first_line>
+                    <img:first_sample>1</img:first_sample>
+                    <img:lines>1024</img:lines>
+                    <img:samples>1024</img:samples>
+                    <img:detector_to_image_rotation unit="deg">270</img:detector_to_image_rotation>
+                    <img:detector_to_image_flip>None</img:detector_to_image_flip>
+                </img:Detector>
+                <img:Exposure>
+                    <img:exposure_duration unit="s">0.25</img:exposure_duration>
+                    <img:exposure_type>Manual</img:exposure_type>
+                </img:Exposure>
+                <img:Flat_Field_Correction>
+                    <img:active_flag>true</img:active_flag>
+                    <img:processing_venue>Ground</img:processing_venue>
+                    <img:sequence_number>1</img:sequence_number>
+                    <img:Flat_Field_File>
+                        <img:description>This file is calculated from 1 devided by the flat field, therefore to apply the flat field file to the raw image data, this file should be mutiplied with the raw image data file.</img:description>
+                        <Internal_Reference>
+                            <lidvid_reference>urn:jaxa:darts:vco_uvi:calibration:vcouvi_nmrob_283_flat_20160813::1.0</lidvid_reference>
+                            <reference_type>data_to_calibration_product</reference_type>
+                        </Internal_Reference>
+                        <img:name>vcouvi_nmrob_283_flat_20160813.fit was applied with scaling factor .</img:name>
+                    </img:Flat_Field_File>
+                </img:Flat_Field_Correction>
+                <img:Onboard_Compression>
+                    <img:onboard_compression_class>Lossless</img:onboard_compression_class>
+                    <img:onboard_compression_type>StarPixel Lossless</img:onboard_compression_type>
+                    <img:deferred_flag>false</img:deferred_flag>
+                    <img:StarPixel_Lossless_Parameters>
+                        <img:starpixel_initial_subsampling_interval>4</img:starpixel_initial_subsampling_interval>
+                    </img:StarPixel_Lossless_Parameters>
+                </img:Onboard_Compression>
+                <img:Optical_Filter>
+                    <img:filter_name>283 nm</img:filter_name>
+                    <img:bandwidth unit="nm">0.014</img:bandwidth>
+                    <img:center_filter_wavelength unit="nm">0.283</img:center_filter_wavelength>
+                </img:Optical_Filter>
+                <img:Shutter_Subtraction>
+                    <img:active_flag>true</img:active_flag>
+                    <img:processing_venue>Onboard</img:processing_venue>
+                </img:Shutter_Subtraction>
+                <img:Instrument_State>
+                    <img:Device_Temperatures>
+                        <img:Device_Temperature>
+                            <img:device_name>UVI CCD temperature</img:device_name>
+                            <img:temperature_value unit="degC">-8.39</img:temperature_value>
+                        </img:Device_Temperature>
+                        <img:Device_Temperature>
+                            <img:device_name>UVI filter temperature</img:device_name>
+                            <img:temperature_value unit="degC">3.26</img:temperature_value>
+                        </img:Device_Temperature>
+                    </img:Device_Temperatures>
+                    <img:Device_Voltages>
+                        <img:Device_Voltage>
+                            <img:device_name>UVI 5V power supply monitor</img:device_name>
+                            <img:voltage_value unit="V">4.93</img:voltage_value>
+                        </img:Device_Voltage>
+                        <img:Device_Voltage>
+                            <img:device_name>UVI 15V power supply monitor</img:device_name>
+                            <img:voltage_value unit="V">14.69</img:voltage_value>
+                        </img:Device_Voltage>
+                        <img:Device_Voltage>
+                            <img:device_name>UVI 30V power supply monitor</img:device_name>
+                            <img:voltage_value unit="V">29.47</img:voltage_value>
+                        </img:Device_Voltage>
+                    </img:Device_Voltages>
+                </img:Instrument_State>
+            </img:Imaging>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:browse:uvi_20151207_051953_283_l2b::1.0</lidvid_reference>
+            <reference_type>data_to_browse</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:data_map:uvi_20151207_051953_283_l3b::1.0</lidvid_reference>
+            <reference_type>data_to_derived_product</reference_type>
+        </Internal_Reference>
+        <Source_Product_Internal>
+            <lidvid_reference>urn:jaxa:darts:vco_uvi:data_raw:uvi_20151207_051953_283_l1b::1.0</lidvid_reference>
+            <reference_type>data_to_raw_source_product</reference_type>
+        </Source_Product_Internal>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>uvi_20151207_051953_283_l2b_v21.fit</file_name>
+            <creation_date_time>2023-06-07T07:34:19Z</creation_date_time>
+            <file_size unit="byte">4219200</file_size>
+            <comment>Venus Climate Orbiter Akatsuki UVI image in the FITS standard format.</comment>
+        </File>
+        <Header>
+            <name>FITS header of primary HDU for Venus Climate Orbiter Akatsuki UVI</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 4.0</parsing_standard_id>
+        </Header>
+        <Header>
+            <name>FITS header of image extension HDU for Venus Climate Orbiter Akatsuki UVI</name>
+            <offset unit="byte">2880</offset>
+            <object_length unit="byte">20160</object_length>
+            <parsing_standard_id>FITS 4.0</parsing_standard_id>
+        </Header>
+        <Array_2D_Image>
+            <name>Venus Climate Orbiter Akatsuki Ultraviolet Imager (UVI) L2b (calibrated) 283-nm filter image data</name>
+            <local_identifier>ImageData</local_identifier>
+            <offset unit="byte">23040</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description>This is Venus Climate Orbiter Akatsuki Ultraviolet Imager (UVI) L2b (calibrated) 283-nm filter image data.</description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+                <unit>W/(m**2*sr*m)</unit>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>1024</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>1024</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Special_Constants>
+                <missing_constant>-3.4E38</missing_constant>
+                <valid_maximum>25693152</valid_maximum>
+                <valid_minimum>-759021</valid_minimum>
+            </Special_Constants>
+            <Object_Statistics>
+                <maximum>25693152.0</maximum>
+                <minimum>-759020.1</minimum>
+                <mean>6645114.412698412</mean>
+                <standard_deviation>7817447.575714113</standard_deviation>
+            </Object_Statistics>
+        </Array_2D_Image>
+    </File_Area_Observational>
+</Product_Observational>
