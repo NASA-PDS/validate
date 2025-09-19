@@ -6,7 +6,7 @@
   <parent>
     <groupId>gov.nasa.pds</groupId>
     <artifactId>parent</artifactId>
-    <version>1.19.0</version>
+    <version>1.20.0</version>
   </parent>
 
   <artifactId>validate</artifactId>
