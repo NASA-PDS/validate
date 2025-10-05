@@ -3024,26 +3024,6 @@
           },
           {
                "name": [
-                    "Europa Clipper Magnetometer (ECM)",
-                    "ECM"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.ecm::1.1"
-          },
-          {
-               "name": [
-                    "E-THEMIS",
-                    "Europa Thermal Emission Imaging System (E-THEMIS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.eth::1.1"
-          },
-          {
-               "name": [
                     "Europa Clipper Guidance, Navigation, and Control (GNC) Subsystem",
                     "GNC"
                ],
@@ -3051,57 +3031,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:clipper.gnc::1.1"
-          },
-          {
-               "name": [
-                    "MASPEX",
-                    "MAss SPectrometer for Planetary EXploration (MASPEX)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.mas::1.1"
-          },
-          {
-               "name": [
-                    "Mapping Imaging Spectrometer for Europa (MISE)",
-                    "MISE"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.mis::1.1"
-          },
-          {
-               "name": [
-                    "NAC",
-                    "Europa Imaging System (EIS) Narrow-Angle Camera (NAC)",
-                    "EIS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.nac::1.1"
-          },
-          {
-               "name": [
-                    "Plasma Instrument for Magnetic Sounding (PIMS)",
-                    "PIMS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.pim::1.1"
-          },
-          {
-               "name": [
-                    "Radar for Europa Assessment and Sounding: Ocean to Near-surface (REASON)",
-                    "REASON"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.rea::1.1"
           },
           {
                "name": [
@@ -3113,37 +3042,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:clipper.rss::1.1"
-          },
-          {
-               "name": [
-                    "SUDA",
-                    "SUrface Dust Analyzer (SUDA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.sud::1.1"
-          },
-          {
-               "name": [
-                    "UVS",
-                    "Europa Ultraviolet Spectrograph (Europa UVS)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.uvs::1.1"
-          },
-          {
-               "name": [
-                    "WAC",
-                    "Europa Imaging System (EIS) Wide-Angle Camera (WAC)",
-                    "EIS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:clipper.wac::1.1"
           },
           {
                "name": [
@@ -10928,6 +10826,37 @@
           },
           {
                "name": [
+                    "NAC",
+                    "Europa Imaging System (EIS) Narrow-Angle Camera (NAC)",
+                    "EIS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.nac::2.0"
+          },
+          {
+               "name": [
+                    "Radar for Europa Assessment and Sounding: Ocean to Near-surface (REASON)",
+                    "REASON"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.rea::2.0"
+          },
+          {
+               "name": [
+                    "UVS",
+                    "Europa Ultraviolet Spectrograph (Europa UVS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.uvs::2.0"
+          },
+          {
+               "name": [
                     "DSS-14 X-band Goldstone Solar System Radar Transmitter"
                ],
                "type": [
@@ -11248,6 +11177,77 @@
           },
           {
                "name": [
+                    "Europa Clipper Magnetometer (ECM)",
+                    "ECM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.ecm::2.0"
+          },
+          {
+               "name": [
+                    "E-THEMIS",
+                    "Europa Thermal Emission Imaging System (E-THEMIS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.eth::2.0"
+          },
+          {
+               "name": [
+                    "MASPEX",
+                    "MAss SPectrometer for Planetary EXploration (MASPEX)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.mas::2.0"
+          },
+          {
+               "name": [
+                    "Mapping Imaging Spectrometer for Europa (MISE)",
+                    "MISE"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.mis::2.0"
+          },
+          {
+               "name": [
+                    "Plasma Instrument for Magnetic Sounding (PIMS)",
+                    "PIMS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.pim::2.0"
+          },
+          {
+               "name": [
+                    "SUDA",
+                    "SUrface Dust Analyzer (SUDA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.sud::2.0"
+          },
+          {
+               "name": [
+                    "WAC",
+                    "Europa Imaging System (EIS) Wide-Angle Camera (WAC)",
+                    "EIS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clipper.wac::2.0"
+          },
+          {
+               "name": [
                     "JUNO",
                     "Juno"
                ],
@@ -11508,7 +11508,7 @@
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clipper::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clipper::2.0"
           },
           {
                "name": [
@@ -12894,7 +12894,7 @@
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.clipper::1.1"
+               "lidvid": "urn:nasa:pds:context:investigation:mission.clipper::2.0"
           },
           {
                "name": [
@@ -22173,18 +22173,6 @@
                     "Satellite"
                ],
                "lidvid": "urn:nasa:pds:context:target:satellite.152830_dinkinesh.selam::1.1"
-          },
-          {
-               "name": [
-                    "NAIF ID 2431011",
-                    "(243) Ida I (Dactyl)",
-                    "1993 (243) 1",
-                    "Dactyl"
-               ],
-               "type": [
-                    "Asteroid"
-               ],
-               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.1"
           },
           {
                "name": [
@@ -37334,6 +37322,18 @@
                     "Trans-Neptunian Object"
                ],
                "lidvid": "urn:nasa:pds:context:target:trans-neptunian_object.50000_quaoar::1.2"
+          },
+          {
+               "name": [
+                    "NAIF ID 2431011",
+                    "(243) Ida I (Dactyl)",
+                    "1993 (243) 1",
+                    "Dactyl"
+               ],
+               "type": [
+                    "Satellite"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:satellite.243_ida.dactyl::1.2"
           },
           {
                "name": [
