@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-06)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-07)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
@@ -11,6 +11,7 @@
 
 **Defects:**
 
+- missing\_constant treated differently to valid\_minimim/valid\_maximum [\#1379](https://github.com/NASA-PDS/validate/issues/1379) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not allow LIDVID for external products [\#1359](https://github.com/NASA-PDS/validate/issues/1359) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate doesn't correctly handle an integer value of valid\_maximum associated with floating point data array [\#1358](https://github.com/NASA-PDS/validate/issues/1358) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Encoded\_External/encoding\_standard\_id does not allow NetCDF [\#1357](https://github.com/NASA-PDS/validate/issues/1357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
