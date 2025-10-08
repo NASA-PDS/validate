@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model
+    href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<?xml-model
+    href="https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.sch"
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Ancillary xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:mars2020="http://pds.nasa.gov/pds4/mission/mars2020/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1                        https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd
+                        http://pds.nasa.gov/pds4/mission/mars2020/v1           https://pds.nasa.gov/pds4/mission/mars2020/v1/PDS4_MARS2020_1G00_1000.xsd">
+
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:m2020_edlcam_raw:data_audio:em__1125_concat_session170.wav</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Mars 2020 EDLCam Audio WAV Product</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Ancillary</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-12-03</modification_date>
+        <version_id>1.0</version_id>
+        <description>EDLCAM Concatenated Audio file</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+
+  <Context_Area>
+    <Time_Coordinates>
+      <start_date_time>2021-02-18T20:44:28.107000Z</start_date_time>
+      <stop_date_time xsi:nil="true" nilReason="inapplicable"/>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Partially Processed</processing_level>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>ancillary_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <name>Mars 2020</name>
+      <Observing_System_Component>
+        <name>Mars 2020</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Mars 2020 Entry, Descent, and Landing Camera Suite (EDL)</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mars2020.edlcam</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>ancillary_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+    <Mission_Area>
+      <mars2020:Mars2020_Parameters>
+        <mars2020:Observation_Information>
+          <mars2020:release_number>0001</mars2020:release_number>
+          <mars2020:mission_phase_name>Surface Mission</mars2020:mission_phase_name>
+          <mars2020:start_local_mean_solar_time>Sol-01125M10:31:04.307</mars2020:start_local_mean_solar_time>
+        </mars2020:Observation_Information>
+      </mars2020:Mars2020_Parameters>
+    </Mission_Area>
+  </Context_Area>
+
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:mars2020_mission:document_camera:camera_sis.pdf</lid_reference>
+      <reference_type>ancillary_to_document</reference_type>
+    </Internal_Reference>
+    <External_Reference>
+      <doi>10.1007/s11214-020-00765-9</doi>
+      <reference_text>Maki, J.N., Gruel, D., McKinney, C. et al. The Mars 2020 Engineering Cameras and Microphone on the Perseverance Rover: A Next-Generation Imaging System for Mars Exploration. Space Sci Rev 216, 137 (2020).</reference_text>
+    </External_Reference>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000000.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000001.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000002.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000003.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000004.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000005.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000006.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000007.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000008.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000009.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000010.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000011.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000012.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000013.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000014.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000015.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000016.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000017.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000018.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000019.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000020.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000021.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000022.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000023.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000024.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000025.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000026.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000027.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000028.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+    <Source_Product_Internal>
+      <lidvid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio:mic_00000170_000_000029.wav::1.0</lidvid_reference>
+      <reference_type>data_to_raw_source_product</reference_type>
+      <comment>LIDVID reference to raw 1-second file concatenated into this product.</comment>
+    </Source_Product_Internal>
+  </Reference_List>
+
+  <File_Area_Ancillary>
+    <File>
+      <file_name>EM__1125_concat_session170.wav</file_name>
+      <creation_date_time>2024-11-11</creation_date_time>
+      <md5_checksum>f8a4da3f1e10c059ad901320c888438c</md5_checksum>
+    </File>
+    <Encoded_Audio>
+      <offset unit="byte">0</offset>
+      <encoding_standard_id>WAV</encoding_standard_id>
+    </Encoded_Audio>
+  </File_Area_Ancillary>
+</Product_Ancillary>
