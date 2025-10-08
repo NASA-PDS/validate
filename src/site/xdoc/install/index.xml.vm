@@ -84,7 +84,7 @@ or
       </p>
 
       <subsection name="Java Runtime Environment">
-        <p>The Validate Tool was developed using Java and runs on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a> >= Java  version 11. The software was specifically compiled for and tested in OpenJDK 15.0.1. The following commands test the local Java installation in a UNIX-based environment:
+        <p>The Validate Tool was developed using Java and runs on any platform with a supported <a href="https://openjdk.java.net/install/">Java Runtime Environment (JRE)</a> >= Java  version 17. The software was specifically compiled for and tested in OpenJDK 21.0.8. The following commands test the local Java installation in a UNIX-based environment:
         </p>
 
         <source>
@@ -92,9 +92,9 @@ or
 /usr/bin/java
 
 % java -version
-openjdk version "15.0.1" 2020-10-20
-OpenJDK Runtime Environment (build 15.0.1+9)
-OpenJDK 64-Bit Server VM (build 15.0.1+9, mixed mode, sharing)
+openjdk 21.0.8 2025-07-15
+OpenJDK Runtime Environment (build 21.0.8)
+OpenJDK 64-Bit Server VM (build 21.0.8, mixed mode, sharing)
         </source>
 
         <p><i>NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In version output above, note the line <b>Java HotSpot(TM) 64-Bit Server VM</b></i>.</p>
