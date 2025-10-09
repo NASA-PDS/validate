@@ -1,0 +1,110 @@
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Bundle xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:m2020_edlcam_raw</logical_identifier>
+        <version_id>1.1</version_id>
+        <title>EDLCAM Raw Video and Audio Bundle </title>
+        <information_model_version>1.16.0.0</information_model_version>
+        <product_class>Product_Bundle</product_class>
+        <Citation_Information>
+            <author_list>Maki, Justin N.</author_list>
+            <editor_list>Culver, Amy D.; Kessler, David J.; Roth, Aaron K.; Ruoff, Nicholas A.; Williams, Nathan R</editor_list>
+            <publication_year>2021</publication_year>
+            <doi>10.17189/1522910</doi>
+            <description> Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio and Video Products. </description>
+        </Citation_Information>
+    </Identification_Area>
+
+    <Context_Area>
+        <comment>Observational Intent</comment>
+        <Time_Coordinates>
+            <start_date_time>2021-02-18T20:44:28.107000Z</start_date_time>
+            <stop_date_time xsi:nil="true" nilReason="unknown"/>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Raw</processing_level>
+            <processing_level>Partially Processed</processing_level>
+            <Science_Facets>
+                <wavelength_range>Visible</wavelength_range>
+                <domain>Surface</domain>
+                <discipline_name>Imaging</discipline_name>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Mars 2020 Perseverance Rover Mission</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+                <reference_type>bundle_to_investigation</reference_type>
+                <comment>This is the PDS4 logical identifier for the Mars 2020 Perseverance Rover Mission.</comment>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Perseverance</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                    <comment>This is the PDS4 logical identifier for the Mars 2020 Perseverance Rover.</comment>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Mars 2020 Entry Descent Landing Imager</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mars2020.edlcam</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                    <comment>This is the PDS4 logical identifier for the Entry Descent Landing Imager and microphone onboard the Mars 2020 Perseverance Rover.</comment>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Mars</name>
+            <type>Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+                <reference_type>bundle_to_target</reference_type>
+                <comment>Reference to the Planet - Mars target</comment>
+            </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mars2020_mission:document_camera:camera_bundle_sis.pdf</lid_reference>
+            <reference_type>bundle_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:mars2020_mission:document_camera:camera_sis.pdf</lid_reference>
+            <reference_type>bundle_to_document</reference_type>
+        </Internal_Reference>
+        <External_Reference>
+            <doi>10.1007/s11214-020-00765-9</doi>
+            <reference_text> Maki, J.N., Gruel, D., McKinney, C. et al. The Mars 2020 Engineering
+                Cameras and Microphone on the Perseverance Rover: A Next-Generation Imaging System
+                for Mars Exploration. Space Sci Rev 216, 137 (2020). </reference_text>
+        </External_Reference>
+        <External_Reference>
+            <doi>10.1007/s11214-020-00762-y</doi>
+            <reference_text> Farley, K.A., Williford, K.H., Stack, K.M. et al. Mars 2020 Mission
+                Overview. Space Sci Rev 216, 142 (2020) </reference_text>
+        </External_Reference>
+    </Reference_List>
+
+    <Bundle>
+        <bundle_type>Archive</bundle_type>
+        <description>This Bundle contains Mars 2020 raw audio and video files from the Entry, Descent and Landing cameras and microphone. </description>
+    </Bundle>
+      <Bundle_Member_Entry>
+        <lid_reference>urn:nasa:pds:m2020_edlcam_raw:data_audio</lid_reference>
+        <member_status>Primary</member_status>
+        <reference_type>bundle_has_data_collection</reference_type>
+    </Bundle_Member_Entry>
+
+   </Product_Bundle>

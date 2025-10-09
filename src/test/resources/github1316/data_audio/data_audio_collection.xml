@@ -1,0 +1,173 @@
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.sch"
+schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1G00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:m2020_edlcam_raw:data_audio</logical_identifier>
+    <version_id>8.0</version_id>
+    <title>Collection of document products for the EDLCAM Raw Video and Audio Bundle</title>
+    <information_model_version>1.16.0.0</information_model_version>
+    <product_class>Product_Collection</product_class>
+    <Citation_Information>
+      <author_list>J.Maki</author_list>
+      <editor_list>Culver, Amy D.; Kessler, David J.; Roth, Aaron K.; Ruoff, Nicholas A.; Williams, Nathan R</editor_list>
+      <publication_year>2021</publication_year>
+      <keyword>cameras</keyword>
+      <keyword>Mars</keyword>
+      <keyword>geosciences</keyword>
+      <keyword>imaging</keyword>
+      <description>Collection of audio data products.</description>
+    </Citation_Information>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2021-11-01</modification_date>
+        <version_id>2.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 90-179.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2022-03-01</modification_date>
+        <version_id>3.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 180-299.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2022-06-30</modification_date>
+        <version_id>4.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 300-419.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2023-03-16</modification_date>
+        <version_id>5.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 540-659. Note that no new products were delivered for Sols 420-539.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2023-07-05</modification_date>
+        <version_id>6.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 560-779.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2023-11-06</modification_date>
+        <version_id>7.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 780-899.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2024-03-08</modification_date>
+        <version_id>8.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 900-1019.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2024-07-09</modification_date>
+        <version_id>9.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 1020-1139.</description>
+      </Modification_Detail>
+      <Modification_Detail>
+        <modification_date>2024-11-11</modification_date>
+        <version_id>10.0</version_id>
+        <description>This collection contains the Mars 2020 Perseverance Rover Entry Descent Landing Raw Audio Products. Update for Sols 1140-1259.</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Context_Area>
+    <comment>Observational Intent</comment>
+    <Time_Coordinates>
+        <start_date_time>2021-02-18T20:44:28.107000Z</start_date_time>
+        <stop_date_time xsi:nil="true" nilReason="unknown"/>
+    </Time_Coordinates>
+    <Primary_Result_Summary>
+      <purpose>Science</purpose>
+      <processing_level>Raw</processing_level>
+      <processing_level>Partially Processed</processing_level>
+      <Science_Facets>
+        <domain>Surface</domain>
+        <discipline_name>Imaging</discipline_name>
+      </Science_Facets>
+    </Primary_Result_Summary>
+    <Investigation_Area>
+      <name>Mars 2020 Perseverance Rover Mission</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>
+        <reference_type>collection_to_investigation</reference_type>
+        <comment>This is the PDS4 logical identifier for the Mars 2020 Perseverance Rover Mission.</comment>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Perseverance</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+          <comment>This is the PDS4 logical identifier for the Mars 2020 Perseverance Rover.</comment>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Mars 2020 Entry Descent Landing Imager</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:mars2020.edlcam</lid_reference>
+          <reference_type>is_instrument</reference_type>
+          <comment>This is the PDS4 logical identifier for the Entry Descent Landing Imager and microphone onboard the Mars 2020 Perseverance Rover.</comment>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>document_to_target</reference_type>
+        <comment>Reference to the Planet - Mars target</comment>
+      </Internal_Reference>
+    </Target_Identification>
+  </Context_Area>
+  
+  <Reference_List>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:context:node:node.imaging</lid_reference>
+      <reference_type>collection_curated_by_node</reference_type>
+    </Internal_Reference>
+    <Internal_Reference>
+      <lid_reference>urn:nasa:pds:context:instrument:mars2020.edlcam</lid_reference>
+      <reference_type>collection_to_context</reference_type>
+    </Internal_Reference>
+  </Reference_List>
+  <Collection>
+    <collection_type>Data</collection_type>
+  </Collection>
+
+  <File_Area_Inventory>
+    <File>
+      <file_name>data_audio_collection_inventory.csv</file_name>
+      <local_identifier>inventory_collection.data_audio</local_identifier>
+    </File>
+    <Inventory>
+      <local_identifier>collection_inventory.data_audio</local_identifier>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <records>4</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>2</fields>
+        <groups>0</groups>
+        <maximum_record_length unit="byte">259</maximum_record_length>
+        <Field_Delimited>
+          <name>Member Status</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_String</data_type>
+          <maximum_field_length unit="byte">1</maximum_field_length>
+          <description> This columns specifies the Member Status of the files that comprise the collection. </description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>LIDVID_LID</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_LIDVID_LID</data_type>
+          <maximum_field_length unit="byte">255</maximum_field_length>
+          <description> This columns specifies the LIDVID of the files that comprise the collection. </description>
+        </Field_Delimited>
+      </Record_Delimited>
+      <reference_type>inventory_has_member_product</reference_type>
+    </Inventory>
+  </File_Area_Inventory>
+</Product_Collection>
