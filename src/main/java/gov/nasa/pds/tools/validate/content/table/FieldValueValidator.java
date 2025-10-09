@@ -52,6 +52,13 @@ public class FieldValueValidator {
   private static final Logger LOG = LoggerFactory.getLogger(FieldValueValidator.class);
   /** List of invalid values. */
 
+  private static List<FieldType> asciiNumbers = Arrays.asList(
+      FieldType.ASCII_INTEGER,
+      FieldType.ASCII_NONNEGATIVE_INTEGER,
+      FieldType.ASCII_NUMERIC_BASE2,
+      FieldType.ASCII_NUMERIC_BASE8,
+      FieldType.ASCII_NUMERIC_BASE16,
+      FieldType.ASCII_REAL);
   private static List<FieldType> realTypes = Arrays.asList(
       FieldType.IEEE754LSBDOUBLE,
       FieldType.IEEE754LSBSINGLE,
@@ -314,7 +321,8 @@ public class FieldValueValidator {
         // Because DSV can have quotes around the value, the value should have been
         // stripped of any double quotes above.
 
-        if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord)) {
+        if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord) ||
+            (value.isBlank() && record instanceof DelimitedTableRecord && asciiNumbers.contains (fields[i].getType()))) {
           LOG.debug("VALUE_IS_EMPTY_OR_VALUE_TRIM_IS_EMPTY_AND_FIXED_TABLE_RECORD_IS_OK [{}][{}]",
               value, record.getClass().getName());
           addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field is blank.",
@@ -355,7 +363,7 @@ public class FieldValueValidator {
 
               checkFormat(value, format, i + 1, record.getLocation(), asError);
             }
-            if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty()) {
+            if (record instanceof DelimitedTableRecord && !fields[i].getFieldFormat().isEmpty() && !value.isBlank()) {
               checkFormat(value, fields[i].getFieldFormat(), i + 1, record.getLocation(), false);
             }
           }
