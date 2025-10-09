@@ -338,7 +338,7 @@ public class FieldValueValidator {
          * ignore the cell because it is empty
          */
         if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord) ||
-            (value.isBlank() && record instanceof DelimitedTableRecord && asciiNumbers.contains (fields[i].getType()))) {
+            (value.isBlank() && record instanceof DelimitedTableRecord && asciiNumbers.contains(fields[i].getType()))) {
           LOG.debug("VALUE_IS_EMPTY_OR_VALUE_TRIM_IS_EMPTY_AND_FIXED_TABLE_RECORD_IS_OK [{}][{}]",
               value, record.getClass().getName());
           addTableProblem(ExceptionType.DEBUG, ProblemType.BLANK_FIELD_VALUE, "Field is blank.",
