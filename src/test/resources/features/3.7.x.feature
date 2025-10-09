@@ -7,6 +7,8 @@ Feature: 3.7.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 
+| 1391 | 1 | "github1391" | "--skip-context-validation -t {datasrc}/vl0axrat_char.xml" |  |
+| 1391 | 2 | "github1391" | "--skip-context-validation -t {datasrc}/vl0axrat_delim.xml" |  |
 | 1359 | 1 | "github1359" | "--skip-context-validation --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/collection_hyb2_nirs3_sp_ard_data_iof_thermalcorr_v001.lblx" |  |
 | 1358 | 1 | "github1358" | "--skip-context-validation --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/uvi_20151207_051953_283_l2b_v21_edited.lblx " |  |
 | 1357 | 1 | "github1357" | "--skip-context-validation --label-extension lblx -R pds4.label -t {datasrc}/uvi_20151207_051953_283_l3b_v21.lblx" |  |
