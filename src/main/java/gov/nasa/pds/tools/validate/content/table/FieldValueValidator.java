@@ -311,16 +311,32 @@ public class FieldValueValidator {
           // }
         }
 
-        // Per the DSV standard in section 4C.1 of the Standards Reference,
-        // empty fields are ok for DelimitedTableRecord and space-padded empty fields
-        // are ok for FixedTableRecord
+        /*
+         * `value.isEmpty() 
+         * Per the DSV standard in section 4C.1 of the Standards Reference,
+         * empty fields are ok for DelimitedTableRecord and space-padded empty fields
+         * are ok for FixedTableRecord
 
-        // https://github.com/NASA-PDS/validate/issues/345 validate incorrectly flags
-        // integers bounded by "" in a .csv
-        // Remove leading or trailing quotes if there are any.
-        // Because DSV can have quotes around the value, the value should have been
-        // stripped of any double quotes above.
+           OR ELSE
+           
+           `value.trim().isEmpty() && record instanceof FixedTableRecord
+         * https://github.com/NASA-PDS/validate/issues/345 validate incorrectly flags
+         * integers bounded by "" in a .csv
+         * Remove leading or trailing quotes if there are any.
+         * Because DSV can have quotes around the value, the value should have been
+         * stripped of any double quotes above.
 
+           OR ELSE
+           
+           
+         * `value.isBlank() && record instanceof DelimitedTableRecord && asciiNumbers.contains (fields[i].getType()))`
+         * https://github.com/NASA-PDS/validate/issues/1391 allow empty cells in delimited table
+         * If the value isBlank() and is in a delimited table and is a numeric type (from field type)
+         * 
+           THEN
+         * 
+         * ignore the cell because it is empty
+         */
         if (value.isEmpty() || (value.trim().isEmpty() && record instanceof FixedTableRecord) ||
             (value.isBlank() && record instanceof DelimitedTableRecord && asciiNumbers.contains (fields[i].getType()))) {
           LOG.debug("VALUE_IS_EMPTY_OR_VALUE_TRIM_IS_EMPTY_AND_FIXED_TABLE_RECORD_IS_OK [{}][{}]",
