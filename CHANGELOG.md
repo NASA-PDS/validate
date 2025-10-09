@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-08)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-09)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
@@ -17,6 +17,7 @@
 - Encoded\_External/encoding\_standard\_id does not allow NetCDF [\#1357](https://github.com/NASA-PDS/validate/issues/1357) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate Incorrectly Reports Overlap Error If Initial Bits Are Not Specified in Packed\_Data\_Fields [\#1332](https://github.com/NASA-PDS/validate/issues/1332) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `validate-bundle` does not find same files as `validate` \(uppercase label filenames\) [\#1331](https://github.com/NASA-PDS/validate/issues/1331) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Encoded\_Audio encoding\_standard\_id = WAV gives MP4 error in Validate 3.7.1 [\#1316](https://github.com/NASA-PDS/validate/issues/1316) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not handle Special Constants for UnsignedMSB4 [\#1294](https://github.com/NASA-PDS/validate/issues/1294) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - `--strict-field-checks` not working as expected [\#1276](https://github.com/NASA-PDS/validate/issues/1276) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not raise a warning when a table has more records than label says it has [\#1234](https://github.com/NASA-PDS/validate/issues/1234) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
