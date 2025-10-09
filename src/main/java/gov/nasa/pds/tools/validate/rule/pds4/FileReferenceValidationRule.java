@@ -495,8 +495,10 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
             new AudioVideo(this.getListener(), target, urlRef).checkMetadata (true, true);
           } else if (doctype.equalsIgnoreCase("MP4/H.264")){
             new AudioVideo(this.getListener(), target, urlRef).checkMetadata (false, true);
-          } else if (doctype.equalsIgnoreCase("M4A/AAC") || doctype.equalsIgnoreCase("WAV")){
+          } else if (doctype.equalsIgnoreCase("M4A/AAC")){
             new AudioVideo(this.getListener(), target, urlRef).checkMetadata (true, false);
+          } else if (doctype.equalsIgnoreCase("WAV")) {
+            new AudioVideo(this.getListener(), target, urlRef).checkWavHeader();
           } else if (!doctype.equalsIgnoreCase("UTF-8 Text")
               && !doctype.equalsIgnoreCase("7-Bit ASCII Text")
               && !doctype.equalsIgnoreCase("Rich Text")) {

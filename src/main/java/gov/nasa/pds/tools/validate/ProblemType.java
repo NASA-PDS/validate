@@ -222,6 +222,7 @@ public enum ProblemType {
   UNLABELED_FILE("warning.file.not_referenced_in_label"),
 
   NOT_MP4_FILE("error.file.not_mp4_m4a_compliant"),
+  NOT_WAV_FILE("error.file.not_wav_compliant"),
 
   NON_JPEG_FILE("error.file.not_jpeg_compliant"),
 
@@ -246,6 +247,7 @@ public enum ProblemType {
   NON_TIFF_FILE("warning.file.not_tiff_mimetype"),
 
   NON_MP4_FILE("warning.file.not_mp4_mimetype"),
+  NON_WAV_FILE("warning.file.not_wav_mimetype"),
 
   NON_REGISTERED_PRODUCT("warning.product_not_registered"),
 
