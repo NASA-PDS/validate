@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-09)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-10-10)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...«unknown»)
 
 **Requirements:**
 
+- As a validate user, I want validate to allow delimited tables with whitespace-only numeric fields \(CCB-28\) [\#1391](https://github.com/NASA-PDS/validate/issues/1391)
 - As a user, I want to see the exact validate command used in the log [\#1286](https://github.com/NASA-PDS/validate/issues/1286)
 - As a user, I want validate to report empty \(blank\) PDS4 labels [\#1201](https://github.com/NASA-PDS/validate/issues/1201)
 
