@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch"
+  schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+  <Identification_Area>
+    <logical_identifier>urn:nasa:pds:vl_rocks:data_derived:vl0axrat</logical_identifier>
+    <version_id>1.0</version_id>
+    <title>Viking Lander Rock Population Data: vl0axrat</title>
+    <information_model_version>1.21.0.0</information_model_version>
+    <product_class>Product_Observational</product_class>
+    <Modification_History>
+      <Modification_Detail>
+        <modification_date>2024-03-04</modification_date>
+        <version_id>1.0</version_id>
+        <description>Initial PDS4 product label</description>
+      </Modification_Detail>
+    </Modification_History>
+  </Identification_Area>
+  <Observation_Area>
+    <Time_Coordinates>
+      <start_date_time>1976-07-20Z</start_date_time>
+      <stop_date_time>1982-12-31Z</stop_date_time>
+    </Time_Coordinates>
+    <Investigation_Area>
+      <name>Viking</name>
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.viking</lid_reference>
+        <reference_type>data_to_investigation</reference_type>
+      </Internal_Reference>
+    </Investigation_Area>
+    <Observing_System>
+      <Observing_System_Component>
+        <name>Viking Lander 1</name>
+        <type>Host</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vl1</lid_reference>
+          <reference_type>is_instrument_host</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Camera 1 for VL1</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:cam1.vl1</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+      <Observing_System_Component>
+        <name>Camera 2 for VL1</name>
+        <type>Instrument</type>
+        <Internal_Reference>
+          <lid_reference>urn:nasa:pds:context:instrument:cam2.vl1</lid_reference>
+          <reference_type>is_instrument</reference_type>
+        </Internal_Reference>
+      </Observing_System_Component>
+    </Observing_System>
+    <Target_Identification>
+      <name>Mars</name>
+      <type>Planet</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
+        <reference_type>data_to_target</reference_type>
+      </Internal_Reference>
+    </Target_Identification>
+  </Observation_Area>   
+    <File_Area_Observational>
+    <File>
+      <file_name>vl0axrat.tab</file_name>
+      <creation_date_time>1998-05-11T18:00:00</creation_date_time>
+    </File>
+    <Table_Delimited>
+      <offset unit="byte">0</offset>
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+      <description>This file contains binned results from        
+        calculations based on dimensions of Mars rocks near the Viking Lander 1 site.
+        Estimates of surface area and of three axial ratios were computed from data  
+        in file VL0ROCKS.TAB; results were binned according to the average diameter  
+        as follows:                                                                  
+        
+        AREA = L*W*PI/4            binned according to    DLW = SQRT(L*W)     
+        ARLW = MIN(L,W)/MAX(L,W)   binned according to    DLW = SQRT(L*W)     
+        ARWH = MIN(W,H)/MAX(W,H)   binned according to    DWH = SQRT(W*H)     
+        ARLH = MIN(L,H)/MAX(L,H)   binned according to    DLH = SQRT(L*H)     
+        where                                                                        
+        ARxy  denotes axial ratio of dimensions  x  and  y           
+        Dxy   denotes average diameter using dimensions  x  and  y   
+        L = estimated longest dimension of the rock                  
+        W = estimated width of the rock (orthogonal to length)       
+        H = estimated vertical exposure of the rock                  
+        and                                                                          
+        MIN(X,Y) is the smaller of X and Y                           
+        MAX(X,Y) is the larger of X and Y                            
+        
+        Bin boundaries were set at 1/128th meter and at powers of SQRT(2) larger     
+        (0.008, 0.011, ... , 1.000, 1.414 m). The AREA covered by rocks in each bin 
+        was summed; the average and standard deviation of the axial ratios for rocks 
+        in each bin were calculated. The results are tabulated according to surface 
+        type (drift area, far field, near field, and excluded) and by burial state   
+        (perched, partially buried, buried, and unknown). The cumulative results    
+        for all bins are included for each surface type and burial state             
+        combination. This file is the same as VL1ASRAT.TAB except that two          
+        'outcrops' have been omitted.</description>
+      <records>304</records>
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+      <field_delimiter>Comma</field_delimiter>
+      <Record_Delimited>
+        <fields>16</fields>
+        <groups>0</groups>
+        <Field_Delimited>
+          <name>surface_type</name>
+          <field_number>1</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>A numerical key denoting the type of      
+            surface within which the rock was found. Values include:                
+            1 = Drift materials                                              
+            2 = Far field (approximately 3-9 m from the spacecraft)          
+            3 = Near field (less than about 3 meters from the spacecraft)    
+            4 = Excluded (not included in the statistical calculations)</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>burial_state</name>
+          <field_number>2</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>A numerical key denoting the burial state 
+            of the rock. Values include:                                            
+            1 = Perched (essentially not buried)                             
+            2 = Partially buried                                             
+            3 = Buried                                                       
+            4 = Unknown</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>bin_number</name>
+          <field_number>3</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The bin number, starting with 1 for rocks 
+            that could not be assigned to a bin (undefined) and 2 for rocks with    
+            the smallest average diameter (less than 0.008 m). Bin number increases 
+            monotonically to the largest bin number (18), which corresponds to rocks 
+            with average diameter greater than or equal to 1.414 m. Rocks having    
+            burial state 'buried' (3) and for which height (H) is one of the         
+            dimensions required for calculation are assigned to bin 1 since the      
+            results are not considered to be reliable. The field is left blank for  
+            summary lines in the table (rocks of all diameters).</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>lower_bin_boundary</name>
+          <field_number>4</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>meter</unit>
+          <description>The lower boundary for the bin. Rocks in this bin   
+            must have average diameters greater than or equal to this value.    
+            Left blank if bin number 1 (rocks with undefined average diameter)         
+            or bin number 2 (rocks with average diameters less than 0.008).</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>upper_bin_boundary</name>
+          <field_number>5</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>meter</unit>
+          <description>The upper boundary for the bin. Rocks in this bin
+            must have average diameters less than this value. Left blank if       
+            bin number 1 (rocks with undefined average diameter or bin number      
+            18 (rocks with average diameters greater than or equal to 1.414).</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>surface_area</name>
+          <field_number>6</field_number>
+          <data_type>ASCII_Real</data_type>
+          <unit>m^2</unit>
+          <description>The surface area covered by rocks in      
+            this bin.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>n_area</name>
+          <field_number>7</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>Number of rocks contributing to the       
+            surface area in field 6.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arlw_average</name>
+          <field_number>8</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The average width-to-length axial ratio   
+            for rocks in this bin.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arlw_standard_deviation</name>
+          <field_number>9</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The standard deviation of the             
+            width-to-length axial ratio for rocks in this bin.
+          </description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>n_arlw</name>
+          <field_number>10</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The number of rocks contributing to the   
+            average axial ratio in field 8.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arwh_average</name>
+          <field_number>11</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The average width-to-height axial ratio   
+            for rocks in this bin.</description>
+          <Special_Constants>
+            <invalid_constant>-9.9</invalid_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arwh_standard_deviation</name>
+          <field_number>12</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The standard deviation of the             
+            width-to-height axial ratio for rocks in this bin.</description>
+          <Special_Constants>
+            <invalid_constant>-9.9</invalid_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>n_arwh</name>
+          <field_number>13</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The number of rocks contributing to the   
+            average axial ratio in field 11.</description>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arlh_average</name>
+          <field_number>14</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The average height-to-length axial ratio  
+            for rocks in this bin.</description>
+          <Special_Constants>
+            <invalid_constant>-9.9</invalid_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>arlh_standard_deviation</name>
+          <field_number>15</field_number>
+          <data_type>ASCII_Real</data_type>
+          <description>The standard deviation of the             
+            height-to-length axial ratio for rocks in this bin.</description>
+          <Special_Constants>
+            <invalid_constant>-9.9</invalid_constant>
+          </Special_Constants>
+        </Field_Delimited>
+        <Field_Delimited>
+          <name>n_arlh</name>
+          <field_number>16</field_number>
+          <data_type>ASCII_Integer</data_type>
+          <description>The number of rocks contributing to the   
+            average axial ratio in field 14.</description>
+        </Field_Delimited>
+      </Record_Delimited>
+    </Table_Delimited>
+  </File_Area_Observational>
+</Product_Observational>

@@ -67,11 +67,18 @@
     </resources>
 
     <plugins>
-       <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.5.4</version>         
-          <configuration>
-          <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <!-- bug introduced in 3.5.3 prevents surefire from communicating
+             with maven and cucumber correctly. It is still present in 3.5.4
+             as well. -->
+        <version>3.5.2</version>
+        <configuration>
+	  <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
+    	  <excludes>
+            <!-- Excludes the Cucumber test runner class by its fully qualified name -->
+            <exclude>**/cucumber/CucumberTest.java</exclude>
+          </excludes>
         </configuration>
       </plugin>
       <plugin>
@@ -176,11 +183,11 @@
     </repository>
   </repositories>
   <dependencies>
-	<dependency>
-  		<groupId>org.verapdf</groupId>
-  		<artifactId>validation-model-jakarta</artifactId>
-  		<version>1.28.2</version>
-	</dependency>
+    <dependency>
+      <groupId>org.verapdf</groupId>
+      <artifactId>validation-model-jakarta</artifactId>
+      <version>1.28.2</version>
+    </dependency>
     <dependency>
       <groupId>net.sf.saxon</groupId>
       <artifactId>Saxon-HE</artifactId>
@@ -242,16 +249,16 @@
          and reporting logs. Then add the following to the validate CLI script
          (or your Eclipse config):
          
-              -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
-              
+         -Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG
+         
          Better ideas for how to do this welcome!
-     -->
-<!--    <dependency>-->
-<!--      <groupId>org.slf4j</groupId>-->
-<!--      <artifactId>slf4j-simple</artifactId>-->
-<!--      <version>1.7.28</version>-->
-<!--    </dependency>-->
-     <dependency>
+      -->
+    <!--    <dependency>-->
+      <!--      <groupId>org.slf4j</groupId>-->
+      <!--      <artifactId>slf4j-simple</artifactId>-->
+      <!--      <version>1.7.28</version>-->
+      <!--    </dependency>-->
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
       <version>2.0.17</version>
@@ -303,34 +310,34 @@
       <version>2.25.1</version>
     </dependency>
     <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>6.0.0</version>
-        <scope>test</scope>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>6.0.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>6.0.0</version>
-        <scope>test</scope>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>6.0.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
-        <groupId>org.junit.platform</groupId>
-        <artifactId>junit-platform-suite-api</artifactId>
-        <version>6.0.0</version>
-        <scope>test</scope>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite-api</artifactId>
+      <version>6.0.0</version>
+      <scope>test</scope>
     </dependency>
-     <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-java</artifactId>
-        <version>7.30.0</version>
-        <scope>test</scope>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>7.30.0</version>
+      <scope>test</scope>
     </dependency>
-   <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-junit-platform-engine</artifactId>
-        <version>7.30.0</version>
-        <scope>test</scope>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit-platform-engine</artifactId>
+      <version>7.30.0</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>gov.nasa.pds</groupId>
@@ -339,16 +346,16 @@
       <scope>compile</scope>
       <exclusions>
     	<exclusion>
-        	<groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
-        	<artifactId>vicario</artifactId>
+          <groupId>gov.nasa.jpl.ammos.ids.vicario</groupId>
+          <artifactId>vicario</artifactId>
       	</exclusion>
       	<exclusion>
-        	<groupId>com.google.guava</groupId>
-        	<artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
       	</exclusion>
       	<exclusion>
-        	<groupId>org.slf4j</groupId>
-        	<artifactId>slf4j-jdk14</artifactId>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-jdk14</artifactId>
       	</exclusion>
       </exclusions>
     </dependency>
