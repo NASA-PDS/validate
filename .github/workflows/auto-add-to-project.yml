@@ -1,0 +1,18 @@
+name: Auto-add Issues to Project
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  add-to-project:
+    uses: NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main
+    with:
+      issue_number: ${{ github.event.issue.number }}
+      repository: ${{ github.repository }}
+      # Update project_numbers below based on your needs
+      # Single project: project_numbers: "6"
+      # Multiple projects: project_numbers: "6,22"
+      project_numbers: "6"
+    secrets:
+      gh_token: ${{ secrets.GITHUB_TOKEN }}
