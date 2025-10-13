@@ -15,4 +15,7 @@ jobs:
       # Multiple projects: project_numbers: "6,22"
       project_numbers: "6"
     secrets:
-      gh_token: ${{ secrets.GITHUB_TOKEN }}
+      # IMPORTANT: GITHUB_TOKEN does not have permission for org projects
+      # You must create a PAT with 'project' scope and add it as ORG_PROJECT_PAT
+      # See workflow-templates/README.md for setup instructions
+      gh_token: ${{ secrets.ORG_PROJECT_PAT }}
