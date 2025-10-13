@@ -1,11 +1,13 @@
-name: Auto-add Issues to Project
+name: Issue Project Automation
 
 on:
   issues:
-    types: [opened]
+    types: [opened, labeled]
 
 jobs:
-  add-to-project:
+  # When an issue is opened, add it to default project(s)
+  add-new-issue-to-project:
+    if: github.event.action == 'opened'
     uses: NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
@@ -18,4 +20,15 @@ jobs:
       # IMPORTANT: GITHUB_TOKEN does not have permission for org projects
       # You must create a PAT with 'project' scope and add it as ORG_PROJECT_PAT
       # See workflow-templates/README.md for setup instructions
+      gh_token: ${{ secrets.ORG_PROJECT_PAT }}
+
+  # When a label is added, handle build labels and sprint-backlog automation
+  handle-label:
+    if: github.event.action == 'labeled'
+    uses: NASA-PDS/.github/.github/workflows/label-to-project.yml@main
+    with:
+      issue_number: ${{ github.event.issue.number }}
+      repository: ${{ github.repository }}
+      label_name: ${{ github.event.label.name }}
+    secrets:
       gh_token: ${{ secrets.ORG_PROJECT_PAT }}
