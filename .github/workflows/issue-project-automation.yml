@@ -2,7 +2,7 @@ name: Issue Project Automation
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened, labeled, unlabeled]
 
 jobs:
   # When an issue is opened, add it to default project(s)
@@ -22,13 +22,14 @@ jobs:
       # See workflow-templates/README.md for setup instructions
       gh_token: ${{ secrets.ORG_PROJECT_PAT }}
 
-  # When a label is added, handle build labels and sprint-backlog automation
+  # When a label is added or removed, handle build labels and sprint-backlog automation
   handle-label:
-    if: github.event.action == 'labeled'
+    if: github.event.action == 'labeled' || github.event.action == 'unlabeled'
     uses: NASA-PDS/.github/.github/workflows/label-to-project.yml@main
     with:
       issue_number: ${{ github.event.issue.number }}
       repository: ${{ github.repository }}
       label_name: ${{ github.event.label.name }}
+      action: ${{ github.event.action }}
     secrets:
       gh_token: ${{ secrets.ORG_PROJECT_PAT }}
