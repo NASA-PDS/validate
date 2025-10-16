@@ -309,7 +309,10 @@ public abstract class Report {
           result = parts.get(0) + "::" + parts.get(1);
         }
       }
-    } catch (MalformedURLException e) {
+    } catch (IllegalArgumentException e) {
+      // some unit tests cause this error but should never happen in real life
+      result = "label path was not absolute";
+    }catch (MalformedURLException e) {
       // We did our best. Just ignore it if malformed as default string says it all
     }
     return result;
