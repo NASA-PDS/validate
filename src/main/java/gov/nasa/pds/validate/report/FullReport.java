@@ -61,14 +61,17 @@ public class FullReport extends Report {
   private String currentTarget = "";
   
   @Override
-  protected void append(Status status, String target) {
+  protected void append(Status status, String lidvid, String target) {
     this.currentStatus = status;
     this.currentTarget = target;
     this.getWriter().println();
     this.getWriter().print("  ");
     this.getWriter().print(status.getName());
     this.getWriter().print(": ");
-    this.getWriter().println(target);
+    this.getWriter().print(target);
+    this.getWriter().print(" (");
+    this.getWriter().print(lidvid);
+    this.getWriter().println(")");
   }
 
   @Override

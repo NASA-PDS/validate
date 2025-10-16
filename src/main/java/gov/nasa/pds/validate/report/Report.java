@@ -2,6 +2,7 @@ package gov.nasa.pds.validate.report;
 
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.ProblemCategory;
 import gov.nasa.pds.tools.validate.ProblemType;
+import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.validate.status.Status;
 
@@ -34,7 +36,7 @@ public abstract class Report {
    * writer is done in this portion of the code to enforce consistent behavior.
    */
   protected enum Block { BODY, FOOTER, HEADER, LABEL };
-  abstract protected void append (Status status, String target);
+  abstract protected void append (Status status, String lidvid, String target);
   abstract protected void append (String title);
   abstract protected void append (ValidationProblem problem);
   abstract protected void appendConfig (String label, String message, String value);
@@ -242,7 +244,7 @@ public abstract class Report {
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks
         + this.numSkippedIntegrityChecks;
     this.begin (Block.LABEL);
-    this.append (status, sourceUri == null ? "null":sourceUri.toString());
+    this.append (status, lidvid(sourceUri), sourceUri == null ? "null":sourceUri.toString());
     for (ValidationProblem problem : problems) {
       this.append (problem);
     }
@@ -265,7 +267,7 @@ public abstract class Report {
       }
     }
     this.begin (Block.LABEL);
-    this.append (Status.SKIP, sourceUri.toString());
+    this.append (Status.SKIP, lidvid(sourceUri), sourceUri == null ? "null":sourceUri.toString());
     this.append(problem);
     this.end (Block.LABEL);
     return Status.SKIP;
@@ -296,5 +298,20 @@ public abstract class Report {
   }
   final public void stopBody() {
     this.end (Block.BODY);
+  }
+  private String lidvid (URI target) {
+    String result = "XML could not be parsed.";
+    try {
+      if (target != null && TargetExaminer.isTargetALabel(target.toURL())) {
+        List<String> parts = TargetExaminer.getTargetContent(target.toURL(),
+            "//Identification_Area", "logical_identifier", "version_id");
+        if (parts.size() == 2) {
+          result = parts.get(0) + "::" + parts.get(1);
+        }
+      }
+    } catch (MalformedURLException e) {
+      // We did our best. Just ignore it if malformed as default string says it all
+    }
+    return result;
   }
 }
