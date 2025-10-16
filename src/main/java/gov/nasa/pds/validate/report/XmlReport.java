@@ -60,9 +60,9 @@ public class XmlReport extends Report {
   private XMLBuilder2 summary = null;
 
   @Override
-  protected void append(Status status, String target) {
+  protected void append(Status status, String lidvid, String target) {
     this.target = target;
-    this.label = this.bodyBlock.e("label").a("target", target).a("status", status.getName());
+    this.label = this.bodyBlock.e("label").a("target", target).a("status", status.getName()).a("lidvid", lidvid);
     this.content = this.label.e("dataContents");
     this.fragments = this.label.e("fragments");
     this.messages = this.label.e("messages");

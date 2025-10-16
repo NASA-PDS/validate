@@ -70,11 +70,12 @@ public class JSONReport extends Report {
     }
   }
   @Override
-  protected void append(Status status, String target) {
+  protected void append(Status status, String lidvid, String target) {
     try {
       this.target = target;
       this.stream.name("status").value(status.getName());
       this.stream.name("label").value(target);
+      this.stream.name("lidvid").value(lidvid);
     } catch (IOException ioe) {
       ioe.printStackTrace();
     }
