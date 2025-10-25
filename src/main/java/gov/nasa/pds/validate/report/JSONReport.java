@@ -258,6 +258,10 @@ public class JSONReport extends Report {
           this.stream.endObject();
           this.status = Status.PASS;
           this.target = "";
+          // Clear problem collections to prevent duplication across products
+          this.otherProblems.clear();
+          this.externalProblems.clear();
+          this.contentProblems.clear();
           break;
       }
     } catch (IOException ioe) {
