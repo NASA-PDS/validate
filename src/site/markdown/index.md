@@ -1,54 +1,58 @@
 # About Validate Tool
 
-The Validate Tool project contains software for validating PDS4 product labels and product data. The associated specific schema for the product label specifies syntactic and semantic constraints. The product label itself specifies the constraints for the data.
+The Validate Tool helps you verify that your PDS4 product labels and data meet PDS standards. It checks your labels against schemas and schematrons, validates your data content, and ensures everything is properly referenced and formatted.
 
-## Tool Overview
+## What Validate Can Do
 
-The Validate Tool currently supports the following features:
+Validate checks your PDS4 archives to make sure they meet all the requirements. Here's what it can validate:
 
-* Validation against a Schema and Schematron through the following means:
-  - Supplied with the tool
-  - Specified by the user on the command-line
-  - Specified in the label
-  - Specified in an XML Catalog file
+* **Schema and Schematron validation** - You can validate using:
+  - Schemas bundled with the tool
+  - Your own schemas specified on the command line
+  - Schemas referenced in your labels
+  - Schemas from an XML Catalog file
 
-* Validation against file references in the product label:
-  - Check that files referenced do exist
-  - Check casing of file references to see if they match their physical files on the file system
-  - Checksum validation against the actual checksum and a Manifest file (if supplied)
+* **File reference checks**:
+  - Verifies that all referenced files actually exist
+  - Checks file name casing matches the physical files
+  - Validates checksums (when provided in labels or manifest files)
 
-* Validation at the Bundle/Collection level, including, but not limited to:
-  - Referential integrity
-  - Names of files and directories adhere to the PDS4 Standards
+* **Bundle and Collection validation**:
+  - Checks referential integrity across your archive
+  - Ensures file and directory names follow PDS4 naming standards
 
-Additionally, the tool performs data content validation of tables and arrays. The features that the tool supports with regards to table content validation are:
+### Table Validation
 
-* For all tables, field values are checked for the following:
-  - Values match their defined data type
-  - Values are within the defined minimum and maximum values of the field, if specified
+For tables, Validate checks:
 
-* Specifically for binary tables, fields are checked for the following:
-  - Fields that are packed match the defined number of bit-fields
-  - Bit-field values match their defined data type
+* **All tables**:
+  - Field values match their defined data types
+  - Values fall within specified min/max ranges
 
-* Specifically for character and delimited tables, records are checked for the following:
-  - Records in the data file end with a carriage return and line feed
-  - The length of a record does not exceed the defined length (or defined maximum length in the case of delimited tables)
-  - Number of records match the defined number in the label
-  - Values match their defined field format, if specified
+* **Binary tables**:
+  - Packed fields have the correct number of bit-fields
+  - Bit-field values match their data types
 
-With respect to array content validation, the tool checks the following:
+* **Character and delimited tables**:
+  - Records end with carriage return and line feed
+  - Record lengths don't exceed defined limits
+  - Record count matches the label
+  - Values match field formats (when specified)
 
-* The size of the array object is equal to the element size times the product of the sizes of all axes
-* Array elements have values which conform to their data type
-* Verify that the elements match the object statistics defined within their associated label, if they exist
+### Array Validation
 
-## Support
+For arrays, Validate checks:
 
-**Found a bug?** Or **want a new feature?** We would love your feedback and contributions. Here are some links to our public Github repository for source code and submitting issues:
+* Array size matches the expected dimensions (element size × product of axis sizes)
+* Element values conform to their defined data types
+* Elements match object statistics in the label (when provided)
 
-* Submit for a New Feature: [https://github.com/NASA-PDS/validate/issues/new?template=feature_request.yml](https://github.com/NASA-PDS/validate/issues/new?template=feature_request.yml)
-* Submit a Bug: [https://github.com/NASA-PDS/validate/issues/new?template=bug_report.yml](https://github.com/NASA-PDS/validate/issues/new?template=bug_report.yml)
-* Source Code: [https://github.com/NASA-PDS/validate/](https://github.com/NASA-PDS/validate/)
+## Need Help?
 
-Need help with installation or operation of the software, or any other additional feedback, please contact us at [pds_operator@jpl.nasa.gov](mailto:pds_operator@jpl.nasa.gov).
+**Found a bug or want a new feature?** We'd love to hear from you!
+
+* [Request a new feature](https://github.com/NASA-PDS/validate/issues/new?template=feature_request.yml)
+* [Report a bug](https://github.com/NASA-PDS/validate/issues/new?template=bug_report.yml)
+* [Browse the source code](https://github.com/NASA-PDS/validate/)
+
+For installation help, usage questions, or other feedback, contact us at [pds_operator@jpl.nasa.gov](mailto:pds_operator@jpl.nasa.gov).
