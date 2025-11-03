@@ -1,0 +1,175 @@
+# Installation
+
+This document describes how to install the Validate Tool software contained in the *${project.artifactId}* package. The following topics can be found in this document:
+
+* [Quick Start](#quick-start)
+* [System Requirements](#system-requirements)
+* [Unpacking the Package](#unpacking-the-package)
+* [Configuring the Environment](#configuring-the-environment)
+
+Quick Start
+-----------
+
+Initially, Validate Tool works out of the box without needing to perform any additional function:
+
+* [Unpack the Package](#unpacking-the-package)
+* Run the software:
+
+```
+% ${project.artifactId}-${project.version}/bin/validate --help
+```
+
+* If this doesn't work, see [System Requirements](#system-requirements) for more details.
+* Additionally, you can install the software globally on your machine using [Configuring Your Environment](#configuring-the-environment).
+
+Unpacking the Package
+---------------------
+
+Download the *${project.artifactId}* package from [Github](https://github.com/NASA-PDS/${project.artifactId}/releases/v${project.version}). The binary distribution is available in identical zip or tar/gzip packages. The installation directory may vary from environment to environment but in UNIX-based environments it is typical to install software packages in the */usr/local* directory and in Windows-based environments it is typical to install software packages in the *C:\Program Files* directory. Unpack the selected binary distribution file with one of the following commands:
+
+```
+% unzip ${project.artifactId}-${project.version}-bin.zip
+or
+% tar -xzvf ${project.artifactId}-${project.version}-bin.tar.gz
+```
+
+Note: Depending on the platform, the native version of *tar* may produce an error when attempting to unpack the distribution file because many of the file paths are greater than 100 characters. If available, the GNU version of tar will resolve this problem. If that is not available or cannot be installed, the zipped package will work just fine in a UNIX environment.
+
+The commands above result in the creation of the *${project.artifactId}-${project.version}* directory with the following directory structure:
+
+* **README.txt**
+
+  A README file directing the user to the available documentation for the project.
+
+* **LICENSE.txt**
+
+  The copyright notice from the [California Institute of Technology](http://www.caltech.edu/) detailing the restrictions regarding the use and distribution of this software. Although the license is strictly worded, the software has been classified as Technology and Software Publicly Available (TSPA) and is available for *anyone* to download and use.
+
+* **bin/**
+
+  This directory contains batch and shell scripts for executing the tool.
+
+* **doc/**
+
+  This directory contains a local web site with the Validate Tool documentation, javadoc, unit test results and other configuration management related information. Just point the desired web browser to the *index.html* file in this directory.
+
+* **lib/**
+
+  This directory contains the dependent jar files for the tool along with the executable jar file (${project.artifactId}-${project.version}.jar) containing the Validate Tool software.
+
+* **resources/**
+
+  This directory contains a JSON-formatted file containing a list of Context Product LIDVIDs that are registered at the PDS Engineering Node at the time of the Software Build release. This file will be used to check that product labels containing context product references exist in the registered list.
+
+System Requirements
+-------------------
+
+If you run into issues attempting to run Validate out of the box, this section details the system requirements for installing and operating the Validate Tool.
+
+### Java Runtime Environment
+
+The Validate Tool was developed using Java and runs on any platform with a supported [Java Runtime Environment (JRE)](https://openjdk.java.net/install/) >= Java version 17. The software was specifically compiled for and tested in OpenJDK 21.0.8. The following commands test the local Java installation in a UNIX-based environment:
+
+```
+% which java
+/usr/bin/java
+
+% java -version
+openjdk 21.0.8 2025-07-15
+OpenJDK Runtime Environment (build 21.0.8)
+OpenJDK 64-Bit Server VM (build 21.0.8, mixed mode, sharing)
+```
+
+*NOTE: Validate requires 64-bit Java in order to enable Java Virtual Machine memory requirements. In the version output above, note the line **OpenJDK 64-Bit Server VM** (or **Java HotSpot(TM) 64-Bit Server VM** for Oracle JDK).*
+
+***For Windows Users:** The 32-bit JRE is the default on Windows, and even the online installer for Windows on the [Java Download All Operating Systems page](https://www.java.com/en/download/manual.jsp) only installs the 32-bit JRE. If you see an error like that described under [this common error](/validate/operate/errors.html#invalid-heap), you have the wrong JRE installed.*
+
+If either of these commands fail, it indicates Java is not installed or the version is not at least 17. Consult the local system administrator for installation of this software. For the do-it-yourself crowd, the Java software can be downloaded from the [Java Download](https://openjdk.java.net/install/) page.
+
+Configuring the Environment
+----------------------------
+
+If you want to run Validate from anywhere on your system, you will need to configure your PATH to know where Validate is located. This section describes how to setup the user environment on UNIX-based and Windows machines.
+
+### UNIX-Based Environment
+
+This section details the environment setup for UNIX-based machines. The binary distribution includes a couple shell scripts that must be executed from the command-line. Setting the *PATH* environment variable to the location of the scripts, enables the shell scripts to be executed from any location on the local machine.
+
+The following command demonstrates how to set the *PATH* environment variable (in Bourne shell), by appending to its current setting:
+
+```
+# For a Bash Unix system, add the following to your $HOME/.bashrc
+% export PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin
+
+# For a C-Shell Unix system, add the following to your $HOME/.cshrc
+% set "PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin"
+```
+
+In addition, it is recommended that the *JAVA_HOME* environment variable be set. It should point to the appropriate location of the Java installation on the local machine. If this is not set, then the shell script tries to resolve it via the *which java* command. If it still cannot find Java at this point, then an error is returned.
+
+The following command demonstrates how to set the *JAVA_HOME* environment variable:
+
+```
+# For a Bash Unix system, add the following to your $HOME/.bashrc
+% export JAVA_HOME=/path/to/java/home
+
+# For a C-Shell Unix system, add the following to your $HOME/.cshrc
+% set JAVA_HOME=/usr
+```
+
+The system administrator for the local machine may need to be consulted for this location. The path specified should have a *bin* sub-directory that contains the *java* executable. This variable may also be defined within the scripts. Edit the scripts (files without the .bat extension) and change the line in the example above to represent the local Java installation.
+
+### Windows Environment
+
+This section details the environment setup for Windows machines. The binary distribution includes a couple batch scripts that must be executed from the command-line. Setting the *PATH* environment variable to the location of the files, enables the batch scripts to be executed from any location on the local machine.
+
+The following command demonstrates how to set the *PATH* environment variable, by appending to its current setting:
+
+```
+C:\> set Path=%Path%;C:\Program Files\\${project.artifactId}-${project.version}\bin
+```
+
+In addition, the batch scripts require that the *JAVA_HOME* environment variable be set to the appropriate location of the Java installation on the local machine. This may have already been set when Java was installed. However, if it hasn't, then run the following command to set the *JAVA_HOME* environment variable:
+
+```
+C:\> set JAVA_HOME=C:\path\to\java\home
+
+# For example
+C:\> set JAVA_HOME=C:\Program Files\Java\some-jre-version
+```
+
+The system administrator for the local machine may need to be consulted for this location. The path specified should have a *bin* sub-directory that contains the *java* executable. This variable may also be defined within the scripts. Edit the scripts (files with the .bat extension) and change the line in the example above to represent the local Java installation. Additional methods for setting Windows environment variables can be found in the [Windows System Properties](index-win.html) document.
+
+### Installation Location
+
+Both the shell and batch scripts for this software utilize system commands for determining the installation home directory that may or may not be available on all platforms. If these commands are not available in the current environment, their use can be replaced in the scripts by setting the *PARENT_DIR* variable with the actual installation path. Modify the UNIX-based shell scripts as follows (the actual installation path may be different in the current environment):
+
+```
+SCRIPT_DIR=`dirname $0`
+PARENT_DIR=`cd ${SCRIPT_DIR}/.. && pwd`
+
+  should be replaced with:
+
+PARENT_DIR=/usr/local/${project.artifactId}-${project.version}
+```
+
+Modify the Windows-based batch scripts as follows (the actual installation path may be different in the current environment):
+
+```
+set SCRIPT_DIR=%~dps0
+set PARENT_DIR=%SCRIPT_DIR%..
+
+  should be replaced with:
+
+set PARENT_DIR=C:\Program Files\\${project.artifactId}-${project.version}
+```
+
+### Verifying the Installation
+
+Verify that the tool was installed correctly by running the shell script or Windows batch file with no arguments. The output should look something like the following:
+
+```
+% ${project.artifactId}
+
+Type '${project.artifactId} -h' for usage
+```

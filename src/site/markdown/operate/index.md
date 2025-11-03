@@ -10,6 +10,8 @@ This document describes how to operate the Validate Tool. The following topics c
     - [Validating a Bundle](#validating-a-bundle)
     - [Validating References with PDS Registry \(NEW\)](#validating-references-with-pds-registry-new)
 - [Command-Line Options](#command-line-options)
+    - [Quick Reference: Most Common Flags](#quick-reference-most-common-flags)
+    - [Full Command-Line Options](#full-command-line-options)
 - [Advanced Usage](#advanced-usage)
     - [Tool Execution](#tool-execution)
         - [Validating a Target Directory](#validating-a-target-directory)
@@ -44,10 +46,21 @@ This document describes how to operate the Validate Tool. The following topics c
     - [Using a Configuration File](#using-a-configuration-file)
     - [Passing in Multiple Schemas](#passing-in-multiple-schemas)
     - [Context Product Reference Validation](#context-product-reference-validation)
+- [Understanding Your Results](#understanding-your-results)
+    - [Exit Codes](#exit-codes)
+    - [Interpreting the Summary](#interpreting-the-summary)
+    - [What Does "PASS" Mean?](#what-does-pass-mean)
 - [Report Format](#report-format)
+    - [Choosing a Report Format](#choosing-a-report-format)
     - [Full Report](#full-report)
     - [XML Report](#xml-report)
     - [JSON Report](#json-report)
+- [Recommended Workflows](#recommended-workflows)
+    - [During Development (Iterative)](#during-development-iterative)
+    - [Pre-Release Validation (Thorough)](#pre-release-validation-thorough)
+    - [Release Validation (Final Check)](#release-validation-final-check)
+    - [Incremental Validation (Large Bundles)](#incremental-validation-large-bundles)
+    - [CI/CD Integration](#cicd-integration)
 - [Common Errors](#common-errors)
 - [Performance](#performance)
     - [Metrics](#metrics)
@@ -59,25 +72,48 @@ This document describes how to operate the Validate Tool. The following topics c
 Note: The command-line examples in this section have been broken into multiple lines for readability. The commands should be reassembled into a single line prior to execution.
 
 ## Quick Start
-This section is intended to give a quick and easy way to run the Validate Tool. For a more detailed explanation on other ways to run the tool, go to the [Advanced Usage](Advanced_Usage) section.
+This section is intended to give a quick and easy way to run the Validate Tool. For a more detailed explanation on other ways to run the tool, go to the [Advanced Usage](#advanced-usage) section.
 
 ### Validating a Product
 
 The command below shows the recommended way to validate a single product:
 
 ```
-% validate --report validate-report.txt --target product.xml
+% validate --target product.xml
+
+PDS Validate Tool Report
+
+Configuration:
+   Version                       3.8.0-SNAPSHOT
+   ...
+
+Product Level Validation Results
+
+  PASS: file:/path/to/product.xml
+
+Summary:
+  0 error(s)
+  0 warning(s)
+
+End of Report
 ```
-This validates the given product against the latest core schema and schematron packaged with the tool and writes the results to a file.
+
+By default, validate prints results to the console. Use `--report-file filename.txt` to write results to a file instead:
+
+```
+% validate --report-file validate-report.txt --target product.xml
+```
+
+This validates the given product against the latest core schema and schematron packaged with the tool.
 
 ### Validating a Bundle
 
 The command below shows the recommended way to validate a bundle:
 
 ```
-% validate --rule pds4.bundle --checksum-manifest checksum-manifest.txt --report validate-report.txt --target $HOME/pds/bundle
+% validate --rule pds4.bundle --checksum-manifest checksum-manifest.txt --report-file validate-report.txt --target $HOME/pds/bundle
 ```
-The _--report_ flag indicates to the tool to apply bundle validation rules to the target bundle. This means that validation at the bundle level will be performed, which includes referential integrity checking among other things. Please see the [Validation Rules](Validation_Rules) section for more details. The _--checksum-manifest_ flag performs additional checksum validation.
+The _--rule_ flag indicates to the tool to apply bundle validation rules to the target bundle. This means that validation at the bundle level will be performed, which includes referential integrity checking among other things. Please see the [Validation Rules](#validation-rules) section for more details. The _--checksum-manifest_ flag performs additional checksum validation.
 
 ### Validating References with PDS Registry (NEW)
 
@@ -104,7 +140,24 @@ If given a collection LIDVID, it will validate the references for the collection
 Use your harvest configuration file as input to this tool in order to utilize the same authentication as Harvest.
 
 ## Command-Line Options
-To see the latest command-line options, run the following command for both the `validate` and `validate-refs` utilities:
+
+### Quick Reference: Most Common Flags
+
+| Flag | Description | Example |
+|------|-------------|---------|
+| `--target` or `-t` | File or directory to validate | `--target myproduct.xml` |
+| `--rule` or `-R` | Validation rule to apply | `--rule pds4.bundle` |
+| `--report-file` or `-r` | Output file for report | `--report-file results.txt` |
+| `--verbose` or `-v` | Set severity level (1=INFO, 2=WARNING, 3=ERROR) | `--verbose 1` |
+| `--skip-content-validation` | Skip data content checks (faster) | `--skip-content-validation` |
+| `--skip-context-validation` | Skip context product reference checks | `--skip-context-validation` |
+| `--config` or `-c` | Use configuration file | `--config myconfig.txt` |
+| `--schematron` or `-S` | Specify custom schematron | `--schematron custom.sch` |
+| `--schema` or `-x` | Specify custom schema | `--schema custom.xsd` |
+
+### Full Command-Line Options
+
+To see all command-line options, run the following command for both the `validate` and `validate-refs` utilities:
 
 ```
 % validate -h
@@ -223,19 +276,23 @@ In each scenario above, the target product(s) were the equivalent of observation
 
 ### Validation Rules
 
-The Validate Tool provides the capability of doing various additional checks passed the usual PDS4 label validation. This is done through the _-R, --rule_ flag option. The valid values are the following:
+The Validate Tool provides the capability of doing various additional checks beyond the usual PDS4 label validation. This is done through the _-R, --rule_ flag option.
 
-- pds4.label
+**Default Behavior:** If the _-R_ flag is not specified, the tool uses _pds4.label_ for file inputs and _pds4.folder_ for directory inputs.
 
-- pds4.folder
+#### Validation Rules Comparison
 
-- pds4.collection
+| Rule | When to Use | Key Checks | Referential Integrity |
+|------|-------------|------------|----------------------|
+| **pds4.label** | Single product validation | Schema, schematron, file refs, checksums | No |
+| **pds4.folder** | Directory of products | Same as pds4.label for each file | No |
+| **pds4.collection** | Collection product with inventory | File naming, all files referenced, member integrity | Yes - within collection |
+| **pds4.bundle** | Complete bundle validation | Root directory rules, all collections valid | Yes - entire bundle |
+| **pds3.volume** | PDS3 volume validation | PDS3-specific checks | N/A |
 
-- pds4.bundle
+**Important:** Bundle and collection validation can be slow for large datasets. See [Improve Performance](#improve-performance) for optimization strategies.
 
-- pds3.volume
-
-If the _-R_ flag is not specified on the command-line, the default behavior is to use the _pds4.label_ rule for target file inputs and to use the _pds4.folder_ rule for target directory inputs. This section details the checks that are made for each of the rule types. The command-line run examples below reference the example PDS4 Archive Bundle that can be found on the [PDS4 web site](https://pds.jpl.nasa.gov/pds4/doc/examples/).
+The command-line run examples below reference the example PDS4 Archive Bundle that can be found on the [PDS4 web site](https://pds.jpl.nasa.gov/pds4/doc/examples/).
 
 #### pds4.label
 
@@ -292,9 +349,9 @@ The _pds4.collection_ validation rule applies the _pds4.label_ validation rule o
 
 - Check that file names follow the file-naming rules as defined in section 6C.1.1 of the PDS4 Standards Reference.
 
-- Check that file names do not match the prohibitied file names as defined in section 6C.1.2 of the PDS4 Standards Reference.
+- Check that file names do not match the prohibited file names as defined in section 6C.1.2 of the PDS4 Standards Reference.
 
-- Check that file names do not contain the prohibitied base names as defined in section 6C.1.4 of the PDS4 Standards Reference.
+- Check that file names do not contain the prohibited base names as defined in section 6C.1.4 of the PDS4 Standards Reference.
 
 - Check that directory names follow directory-naming rules as defined in section 6C.2.1 of the PDS4 Standards Reference.
 
@@ -653,7 +710,7 @@ c226a6a0867e003696a752b8c24e56f3  .\context\PDS4_host_VG2_1.0.xml
 ...
 ```
 
-It is importatnt to note that the tool supports either absolute or relative file references specified in a Checksum Manifest file. In the event that the file references are relative paths, the tool assumes that the target root is the base path of these file references. The _Parameter_ section of the Validate Tool Report will indicate the base path that the tool uses to resolve relative file references in a Manifest file. This is found under the setting _Manifest File Base Path_.
+It is important to note that the tool supports either absolute or relative file references specified in a Checksum Manifest file. In the event that the file references are relative paths, the tool assumes that the target root is the base path of these file references. The _Parameter_ section of the Validate Tool Report will indicate the base path that the tool uses to resolve relative file references in a Manifest file. This is found under the setting _Manifest File Base Path_.
 
 The following command demonstrates performing Checksum Manifest file validation against the dph example archive bundle using its manifest file _bundle_checksums.txt_:
 
@@ -801,7 +858,7 @@ validate.regexp = "*.xml"
 This is equivalent to running the tool with the following flags:
 
 ```
---target ./collection --label-extension "*.xml" --report report.txt
+--target ./collection --label-extension "*.xml" --report-file report.txt
 ```
 The following example demonstrates how to set a configuration file with multiple values for a keyword:
 
@@ -933,12 +990,79 @@ then the _File_Area_Browse_ definition from the _schema1.xsd_ file takes precede
 
 ### Context Product Reference Validation
 
-The _resources/_ folder in the Validate Tool Release Package contains a JSON-formatted file that contains a list intended to represent a snapshot of the Context Product LIDVIDs (Logical Identifier/Version Identifier) currently registerd at the PDS Engineering Node. This file is read in at execution time so that the tool can validate that Context Products referenced in a product label exist within this supplied list. In the event that you would like the tool to check for additional Context Products that are not a part of this supplied list, simply edit the _resources/registered_context_products.json_ file and add to the existing list.
+The _resources/_ folder in the Validate Tool Release Package contains a JSON-formatted file (`registered-context-products.json`) that contains a list intended to represent a snapshot of the Context Product LIDVIDs (Logical Identifier/Version Identifier) currently registered at the PDS Engineering Node. This file is read in at execution time so that the tool can validate that Context Products referenced in a product label exist within this supplied list.
+
+**Updating the Registered Context Products List:**
+
+- To use the latest registered context products from the PDS Registry, use the `--latest-json-file` flag when running validate. This will download the current list from the Registry API.
+- For development purposes, you can provide your own list of non-registered products using the `--nonregprod-json-file` flag.
+- The context products JSON file is stored in the `resources.home` directory (configurable via system property).
+
+## Understanding Your Results
+
+### Exit Codes
+
+The validate tool uses exit codes to indicate validation status, which is essential for automation:
+
+| Exit Code | Meaning | Description |
+|-----------|---------|-------------|
+| 0 | Success | All validations passed with no errors or warnings above the specified severity level |
+| 1 | Failure | One or more validation errors occurred |
+
+**Example for CI/CD:**
+```bash
+validate --target bundle/ --rule pds4.bundle --report-file results.txt
+if [ $? -eq 0 ]; then
+    echo "Validation passed!"
+else
+    echo "Validation failed - see results.txt"
+    exit 1
+fi
+```
+
+### Interpreting the Summary
+
+At the end of each validation report, you'll see a summary section:
+
+```
+Summary:
+  5 error(s)
+  2 warning(s)
+
+  Message Types:
+    3   error.table.fields_mismatch
+    2   error.label.context_ref_not_found
+    1   warning.label.schematron
+    1   warning.integrity.unreferenced_member
+```
+
+**What this means:**
+- **Total counts**: Overall number of errors and warnings
+- **Message Types**: Breakdown by error/warning type with counts
+- Use these counts to prioritize fixes (e.g., if one error type appears many times, fix the root cause)
+
+### What Does "PASS" Mean?
+
+- **PASS**: Product passed all validation checks at the specified severity level
+- **FAIL**: Product has one or more errors at or above the severity level
+- **SKIP**: Product validation was skipped (e.g., when using `--skip-product-validation`)
+
+**Note:** A product can show PASS at the product level but FAIL at the bundle level if there are referential integrity issues.
 
 ## Report Format
 This section describes the contents of the Validate Tool report. The links below detail the validation results of the same run for each format.
 
 The tool can represent a validation report in three different formats: a full, XML, or JSON format. The report style option is used to change the formatting. When this option is not specified on the command-line, the default is to generate a full report.
+
+### Choosing a Report Format
+
+| Format | When to Use | Pros | Cons |
+|--------|-------------|------|------|
+| **Full (default)** | Human review, debugging | Easy to read, includes all details | Large file size for big datasets |
+| **JSON** | Automation, parsing, dashboards | Machine-readable, structured | Harder to read manually |
+| **XML** | Integration with XML tools | Structured, schema-based | More verbose than JSON |
+
+Use `--report-style json` or `--report-style xml` to change format.
 
 ### Full Report
 
@@ -951,6 +1075,101 @@ In an [XML](reports/index-xml.html) report, the contents are the same as the ful
 ### JSON Report
 
 In a [JSON](reports/index-json.html) report, the contents are the same as the full report.
+
+## Recommended Workflows
+
+Different phases of data preparation require different validation approaches. Here are recommended workflows:
+
+### During Development (Iterative)
+
+**Goal:** Quick feedback while developing labels
+
+```bash
+# 1. Validate individual products quickly (skip content validation for speed)
+validate --skip-content-validation --target myproduct.xml
+
+# 2. Once label structure is correct, validate content
+validate --target myproduct.xml
+
+# 3. Validate with context checks disabled if developing new context products
+validate --skip-context-validation --target myproduct.xml
+```
+
+### Pre-Release Validation (Thorough)
+
+**Goal:** Catch all issues before submitting to PDS
+
+```bash
+# 1. Full validation of entire bundle
+validate --rule pds4.bundle --target /path/to/bundle/
+
+# 2. If bundle is large, use batching approach (see Performance section)
+validate --skip-product-validation --rule pds4.bundle --target /path/to/bundle/
+validate --rule pds4.label --target /path/to/bundle/data/*.xml
+validate --rule pds4.label --target /path/to/bundle/document/*.xml
+
+# 3. Include checksum validation if you have a manifest
+validate --rule pds4.bundle --checksum-manifest bundle_checksums.txt --target /path/to/bundle/
+```
+
+### Release Validation (Final Check)
+
+**Goal:** Verify nothing was missed and document validation
+
+```bash
+# Full validation with detailed output saved to file
+validate --rule pds4.bundle \
+         --verbose 1 \
+         --report-file validation-report-$(date +%Y%m%d).txt \
+         --checksum-manifest bundle_checksums.txt \
+         --target /path/to/bundle/
+
+# For automation, capture exit code
+validate --rule pds4.bundle --target /path/to/bundle/ --report-file results.txt
+echo "Validation exit code: $?"
+```
+
+### Incremental Validation (Large Bundles)
+
+**Goal:** Validate only what changed since last release
+
+```bash
+# 1. Validate just the new collection
+validate --rule pds4.collection --target /path/to/bundle/new_collection/
+
+# 2. Validate bundle-level integrity with alternate paths to old data
+validate --skip-product-validation \
+         --rule pds4.bundle \
+         --alternate_file_paths /path/to/previous/release \
+         --target /path/to/new/release/
+```
+
+### CI/CD Integration
+
+**Goal:** Automated validation on every commit
+
+```bash
+#!/bin/bash
+# Example validation script for CI/CD
+
+# Set strict error handling
+set -e
+
+# Run validation
+validate --rule pds4.bundle \
+         --report-file validation-report.txt \
+         --target $BUNDLE_PATH
+
+# Check exit code
+if [ $? -eq 0 ]; then
+    echo "✓ Validation passed"
+    exit 0
+else
+    echo "✗ Validation failed - see validation-report.txt"
+    # Upload report as artifact for review
+    exit 1
+fi
+```
 
 ## Common Errors
 See [Common Errors](errors.html) page for more details.
