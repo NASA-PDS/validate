@@ -1,0 +1,164 @@
+# Installation
+
+This guide shows you how to install and set up Validate on your system.
+
+## Quick Start
+
+The fastest way to get started:
+
+1. [Download and unpack](#unpacking-the-package) the package
+2. Run Validate:
+
+```
+% ${project.artifactId}-${project.version}/bin/validate --help
+```
+
+If that doesn't work, check the [System Requirements](#system-requirements). To make Validate available from anywhere on your system, see [Configuring the Environment](#configuring-the-environment).
+
+## Unpacking the Package
+
+Download Validate from [GitHub](https://github.com/NASA-PDS/${project.artifactId}/releases/v${project.version}) (available as .zip or .tar.gz).
+
+**Where to install:**
+- **Unix/Linux/Mac**: `/usr/local` is typical
+- **Windows**: `C:\Program Files` is typical
+
+**Unpack the file:**
+
+```
+% unzip ${project.artifactId}-${project.version}-bin.zip
+# or
+% tar -xzvf ${project.artifactId}-${project.version}-bin.tar.gz
+```
+
+**Note:** If `tar` fails with path length errors, use GNU tar or the .zip file instead.
+
+This creates a `${project.artifactId}-${project.version}` directory containing:
+
+* **README.txt** - Getting started guide
+* **LICENSE.txt** - Software license (TSPA - publicly available for anyone to use)
+* **bin/** - Scripts to run Validate
+* **doc/** - Full documentation (open `index.html` in a browser)
+* **lib/** - Java JAR files
+* **resources/** - Registered context products list from PDS
+
+## System Requirements
+
+If Validate doesn't run right away, check these requirements:
+
+### Java Runtime Environment
+
+**Requirements:**
+- Java 17 or higher (tested with OpenJDK 21.0.8)
+- **Must be 64-bit Java** (not 32-bit)
+
+**Check your Java version:**
+
+```
+% which java
+/usr/bin/java
+
+% java -version
+openjdk 21.0.8 2025-07-15
+OpenJDK Runtime Environment (build 21.0.8)
+OpenJDK 64-Bit Server VM (build 21.0.8, mixed mode, sharing)
+```
+
+Look for **64-Bit Server VM** in the output. If you don't see it, you need 64-bit Java.
+
+**Windows users:** The default Java installer on Windows installs 32-bit Java. If you get [heap size errors](/validate/operate/errors.html#invalid-heap), you need to install 64-bit Java.
+
+If Java isn't installed or is the wrong version, download it from [https://openjdk.java.net/install/](https://openjdk.java.net/install/).
+
+## Configuring the Environment
+
+To run Validate from any directory, add it to your system PATH:
+
+### UNIX-Based Environment (Linux/Mac)
+
+**Add Validate to your PATH:**
+
+For Bash (add to `~/.bashrc` or `~/.bash_profile`):
+```bash
+export PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin
+```
+
+For C-Shell (add to `~/.cshrc`):
+```csh
+set "PATH=${PATH}:/usr/local/${project.artifactId}-${project.version}/bin"
+```
+
+**Optional: Set JAVA_HOME**
+
+If Validate can't find Java, set `JAVA_HOME`:
+
+For Bash:
+```bash
+export JAVA_HOME=/path/to/java/home
+```
+
+For C-Shell:
+```csh
+set JAVA_HOME=/usr
+```
+
+The `JAVA_HOME` path should contain a `bin` subdirectory with the `java` executable.
+
+### Windows Environment
+
+**Add Validate to your PATH:**
+
+From the command prompt:
+```
+C:\> set Path=%Path%;C:\Program Files\${project.artifactId}-${project.version}\bin
+```
+
+**Set JAVA_HOME:**
+
+```
+C:\> set JAVA_HOME=C:\Program Files\Java\jdk-21.0.8
+```
+
+The `JAVA_HOME` path should contain a `bin` subdirectory with `java.exe`.
+
+For permanent environment variables, see [Windows System Properties](index-win.html).
+
+### Installation Location (Advanced)
+
+If the startup scripts can't auto-detect the installation directory, you can manually set it:
+
+**For Unix/Linux/Mac scripts:**
+Replace the auto-detection code:
+```bash
+SCRIPT_DIR=`dirname $0`
+PARENT_DIR=`cd ${SCRIPT_DIR}/.. && pwd`
+```
+
+with a hardcoded path:
+```bash
+PARENT_DIR=/usr/local/${project.artifactId}-${project.version}
+```
+
+**For Windows batch files:**
+Replace:
+```bat
+set SCRIPT_DIR=%~dps0
+set PARENT_DIR=%SCRIPT_DIR%..
+```
+
+with:
+```bat
+set PARENT_DIR=C:\Program Files\${project.artifactId}-${project.version}
+```
+
+### Verifying the Installation
+
+Test that Validate is working:
+
+```
+% ${project.artifactId}
+
+Type '${project.artifactId} -h' for usage
+```
+
+If you see this message, you're all set!

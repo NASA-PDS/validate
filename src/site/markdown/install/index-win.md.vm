@@ -1,0 +1,21 @@
+# Windows System Properties
+
+The required environment variables for the *${project.artifactId}* package can also be set through the Windows system properties panel. The instructions provided below were based off of a Windows 7 machine. Windows 8 and 10 users should be able to use these steps as well to modify their environment.
+
+The *Path* environment variable can be modified as follows:
+
+* Click on the Windows icon on the bottom left. In the search text box, type in *edit system environment variables*. A search result called *Edit the system environment variables* should appear under the *Control Panel* area as follows:
+
+![Windows Search](../images/windows_search.jpg)
+
+* Click on *Edit the system environment variables* and in there, click on the *Environment Variables* button. At this point, you should now see a window like the one below:
+
+![Windows Panel](../images/windows_panel.jpg)
+
+* Highlight the *Path* variable in the System Variables list and select the *Edit* button.
+* Append to the current contents of the variable, the path to the *bin* directory within *${project.artifactId}* package. Separate the package path from the current contents of the variable with a semicolon.
+* Select the *OK* button when you are finished editing the *Path* variable, then select the *OK* button on the Environment Variables window to apply the changes.
+
+New environment variables (e.g., JAVA_HOME) may also be specified in the system properties panel. Instead of selecting the *Edit* button from the System Variables list, select the *New* button and enter the variable name and value. Select the *OK* button when you are finished, then select the *OK* button on the Environment Variables window to apply the changes.
+
+Note: If you already have a DOS window open, you will need to close and re-open the window for the environment variable changes to take effect.
