@@ -72,10 +72,10 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
-import org.apache.commons.configuration.AbstractConfiguration;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -706,8 +706,8 @@ public class ValidateLauncher {
    */
   public void query(File configuration) throws ConfigurationException {
     try {
-      AbstractConfiguration.setDefaultListDelimiter(',');
-      Configuration config = new PropertiesConfiguration(configuration);
+      Configurations configs = new Configurations();
+      Configuration config = configs.properties(configuration);
       Iterator<String> keys = config.getKeys();
       String unknowns = "";
 
