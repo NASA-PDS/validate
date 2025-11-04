@@ -69,6 +69,7 @@ src/test/temp/
 /bin/
 .*.swp
 *.sublime-*
+*.vscode
 *.DS_Store
 pom.xml.versionsBackup
 
