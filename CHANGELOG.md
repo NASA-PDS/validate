@@ -1,8 +1,8 @@
 # Changelog
 
-## [release/4.0.1](https://github.com/NASA-PDS/validate/tree/release/4.0.1) (2025-11-04)
+## [v4.0.1](https://github.com/NASA-PDS/validate/tree/v4.0.1) (2025-11-04)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...release/4.0.1)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v3.7.1...v4.0.1)
 
 **Requirements:**
 
