@@ -1,4 +1,4 @@
-FROM  tomcat:10.1.0-jdk17-openjdk-slim
+FROM  eclipse-temurin:17-jdk-slim
 
 ARG tar_file
 
