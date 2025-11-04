@@ -75,7 +75,7 @@ jobs:
                     packages: openjdk17-jdk
                     maven-build-phases: install
                     maven-doc-phases: clean,site,site:stage
-                    maven-stable-artifact-phases: clean,site,site:stage,deploy
+                    maven-stable-artifact-phases: clean,site,site:stage,deploy,-DskipTests
                     documentation-dir: target/staging/validate
                 env:
                     central_portal_username: ${{secrets.CENTRAL_REPOSITORY_USERNAME}}
