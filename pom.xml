@@ -68,6 +68,19 @@
 
     <plugins>
       <plugin>
+        <!-- See https://central.sonatype.org/publish/publish-portal-maven/ for more details -->
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.7.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+          <waitMaxTime>5400</waitMaxTime>
+        </configuration>
+      </plugin>
+      <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <!-- bug introduced in 3.5.3 prevents surefire from communicating
              with maven and cucumber correctly. It is still present in 3.5.4
