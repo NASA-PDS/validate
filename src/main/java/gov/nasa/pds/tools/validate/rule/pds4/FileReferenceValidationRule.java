@@ -344,7 +344,6 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               }
             }
 
-            System.out.println();
             if (!fileAreaObject.getLocalPart().equals("File_Area_External")) {
               this.checkExtension(name, encodingStandardId);
             }
