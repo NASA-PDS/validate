@@ -1,17 +1,5 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-11-05)
-
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.4...«unknown»)
-
-**Improvements:**
-
-- Upgrade to Java 17 [\#1424](https://github.com/NASA-PDS/validate/issues/1424)
-
-**Defects:**
-
-- Running validate 4.0.4 on terminal produces lots of new line characters while processing [\#1423](https://github.com/NASA-PDS/validate/issues/1423) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)] [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-
 ## [v4.0.4](https://github.com/NASA-PDS/validate/tree/v4.0.4) (2025-11-05)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.1...v4.0.4)
