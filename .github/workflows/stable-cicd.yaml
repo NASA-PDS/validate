@@ -73,7 +73,7 @@ jobs:
                 with:
                     assembly: stable
                     packages: openjdk17-jdk
-                    maven-build-phases: install
+                    maven-build-phases: install,-DskipTests
                     maven-doc-phases: clean,site,site:stage
                     maven-stable-artifact-phases: clean,site,site:stage,deploy,-DskipTests
                     documentation-dir: target/staging/validate
