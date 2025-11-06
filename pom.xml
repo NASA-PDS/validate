@@ -78,7 +78,7 @@
           <autoPublish>true</autoPublish>
           <waitUntil>published</waitUntil>
           <waitMaxTime>5400</waitMaxTime>
-		  <pollTimeoutSeconds>3600</pollTimeoutSeconds>
+		  <pollTimeoutSeconds>7200</pollTimeoutSeconds>
         </configuration>
       </plugin>
       <plugin>
