@@ -71,7 +71,7 @@
         <!-- See https://central.sonatype.org/publish/publish-portal-maven/ for more details -->
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>0.7.0</version>
+        <version>0.9.0</version>
         <extensions>true</extensions>
         <configuration>
           <publishingServerId>central</publishingServerId>
