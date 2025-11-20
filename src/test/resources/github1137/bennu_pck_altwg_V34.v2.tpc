@@ -1,0 +1,79 @@
+
+KPL/PCK
+
+Asteroid Bennu P_constants (PcK) SPICE kernel file
+===========================================================================
+ 
+	Update:  Eric Palmer					19 Aug 2019 21:45
+   By: Peter Antreasian (KinetX)    15-AUG-2019 21:16
+ 
+ 
+Version and Date
+--------------------------------------------------------
+ 
+   This file was created on 15-AUG-2019 21:16.
+     
+ 
+Disclaimer
+--------------------------------------------------------
+ 
+   This constants file contains parameter values that were estimated
+   by the OREx Navigation Team. Note that this file should not be modified 
+   by you or anyone else.
+ 
+ 
+Sources
+--------------------------------------------------------
+ 
+   The sources for the constants listed in this version of this file
+   are:
+ 
+     Working Area  : /nav/orex/od/work/2_asteroid/orbit_b/orbit/190814_gaskellV34/output
+     Solution File : sum.txt.21 
+     Attgen File   : attgen.nio
+     Shape Model   : GASKELL_V34
+
+
+Orientation constants for asteroid Bennu
+--------------------------------------------------------
+ 
+   The inertial reference frame for these constants is J2000; this is
+   the default reference frame for PCK orientation data.
+ 
+   The epoch of the constants is J2000; this is Julian ephemeris date
+   (JED) 2451545.0.
+ 
+   The NAIF integer code for Bennu is 2101955. See the NAIF_IDs
+   required reading for further information on NAIF integer codes.
+
+   These Bennu orientation and size constants are provided in the
+   keywords below. The pole rates are provided in degrees/Julian Century.
+   The rotation rate (W1) was derived from the period and is provided in 
+   degrees/day. The radii are 1/2s of the polar and equatorial dimensions 
+   provided in kilometers.
+
+   The LONG_AXIS keyword providing the offset between the longest axis
+   of the triaxial ellipsoid used to model Bennu and the Bennu prime
+   meridian is not used by SPICE geometry software. It is considered 
+   deprecated and provided solely for backwards compatibility.
+
+   Estimated Parameter Uncertainties: 
+      Solution Epoch   : 31-DEC-2018 00:00:00.000000 ET
+      WPL2101955       : 1.135E-03  (deg)
+
+
+   Estimated Parameters are mapped back to J2000.
+
+      \begindata
+ 
+         BODY2101955_POLE_RA    = (   8.545549522840111E+01   0.000000000000000E+00 )
+         BODY2101955_POLE_DEC   = (  -6.036394381230676E+01   0.000000000000000E+00 )
+         BODY2101955_PM         = (   138.8220994   2.011146011769066E+03   1.815000000000000E-06 )
+         BODY2101955_LONG_AXIS  = (   0.                              )
+
+         BODY2101955_RADII      = (   0.2825       0.2675       0.254 )
+ 
+      \begintext
+
+End of PCK file.
+
