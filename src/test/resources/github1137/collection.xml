@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1500.xsd">    
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.altimetry:data_derived_altimetry_global_models</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx): 
+        OSIRIS-REx Altimetry derived global terrain models.
+        </title>
+        <information_model_version>1.5.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>   
+        <Citation_Information>
+            <author_list>Barnouin, O.; Daly, M.; Espiritu, R.; Lauretta, D.S.</author_list>
+            <editor_list>Crombie, M.K.; Hammond, D.</editor_list>
+            <publication_year>2025</publication_year>
+            <description>
+                This collection contains the global digital terrain models and associated spice data derived from the
+                OSIRIS-REx Laser Altimeter (OLA) and Stereophotoclinometry (SPC) components. Several versions of the
+                models are given, with models designated SPC generated from Stereophotoclinometry and those designated
+                SPO generated from the combination of OLA and SPC. The model designated SPOv54 is to be used for ongoing
+                scientific analysis. Other models were used at various points during the mission for both operational
+                and publication purposes. The version numbers given here correspond to version numbers given in various
+                OSIRIS-REx scientific publications.
+                
+                USE SPOv54 FOR SCIENTIFIC ANALYSIS
+
+                
+                Note that in the SPC derived DTM .FITS files, there is an error in the statistics planes. 
+                
+                PLANE9  = 'Sigma   '                                                           
+                PLANE10 = 'Quality '  
+                
+                SIGMA was supposed to be the standard deviation from the individual SPC maplets that went into making the DTM at that pixel.
+                QUALITY was supposed to simply be the number of images that went into the SPC product at that pixel location.
+                
+                The values in these planes are nonsense, and should not be used. All other planes contain accurate values 
+                
+                This IS NOT a problem for OLA (data_derived_lidar_* collections) derived DTM .FITS files, which have good SIGMA and QUALITY planes.     
+            </description>
+        </Citation_Information>
+   
+        <Modification_History>
+            <Modification_Detail>
+              <modification_date>2025-07-01</modification_date>
+              <version_id>1.0</version_id>
+              <description>Initial delivery of OSIRIS-REx Altimetry digital terrain models.</description>
+            </Modification_Detail>
+
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2016-09-08Z</start_date_time>
+            <stop_date_time xsi:nil="true" nilReason="inapplicable"></stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>orex</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>orex</name>
+                <type>Spacecraft</type>
+                <description>
+                    The sub-systems that comprise the OSIRIS-REx spacecraft are the telecommunications subsystem; the power sub-system; the propulsion sub-system; and the guidance, navigation, control (GNC) sub-system. These sub-systems work together to communicate  with the Earth, deliver the spacecraft to the target asteroid, and navigate around the asteroid. The spacecraft hosts a navigation camera system (TAGCAMS), a science camera system (OCAMS), a visible and infrared spectrometer (OVIRS), a thermal emission spectrometer (OTES), and a laser altimeter (OLA). The collection, retrieval, storage and return of the asteroid sample is conducted using the Touch-And-Go Sample Acquisition System (TAGSAM), and the Sample Return Capsule (SRC). The combined spacecraft sub-systems and the hosted complement of instrumentation allows the OSIRIS-REx mission to gather data, collect a sample, and safely return the sample to Earth.
+                </description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>   
+            <Observing_System_Component>
+                <name>OLA</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ola.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OCAMS</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ocams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        
+ 	 <Target_Identification>
+            <name>(101955) Bennu</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>collection_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+    </Context_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.mission:document:orexmissioninfo</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.altimetry:document:altimetrysis</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.ola:document:olasis06</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    
+    <Collection>
+        <collection_type>Data</collection_type>
+    </Collection>
+    
+    <File_Area_Inventory>
+        <File>
+            <file_name>collection.csv</file_name>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>11</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+ 
+                <Field_Delimited>
+                    <name>Member_Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <field_format>%1s</field_format>
+                </Field_Delimited>
+
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                    <field_format>%-255s</field_format>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>
