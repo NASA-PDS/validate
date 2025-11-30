@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1O00_1310.sch" 
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/particle/v2/PDS4_PARTICLE_1O00_2020.sch"
+   schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Observational
+   xmlns="http://pds.nasa.gov/pds4/pds/v1"
+   xmlns:msn="http://pds.nasa.gov/pds4/msn/v1"
+   xmlns:particle="http://pds.nasa.gov/pds4/particle/v2"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+       http://pds.nasa.gov/pds4/pds/v1         https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1O00.xsd
+     http://pds.nasa.gov/pds4/particle/v2     https://pds.nasa.gov/pds4/particle/v2/PDS4_PARTICLE_1O00_2020.xsd
+     http://pds.nasa.gov/pds4/msn/v1        https://pds.nasa.gov/pds4/msn/v1/PDS4_MSN_1O00_1310.xsd
+     ">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:vg1-pws-ele-density:data-1sec:v11979060</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager 1 Jupiter PWS Electron Density 1.0 Second Data for 1979-03-01 - 1979-03-02</title>
+        <information_model_version>1.24.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <publication_year>2008</publication_year>
+            <description>This product lists the density determined
+    in various regions of Jupiter's outer magnetosphere in 1-second
+    increments during day 060 of year 1979. The product also 
+    includes the characteristic frequencies of the local plasma 
+    measured from PWS waveform data which were used to calculate the 
+    density. 
+    </description>
+            <List_Author>
+                <Person>
+                    <given_name>William S.</given_name>
+                    <family_name>Kurth</family_name>
+                    <person_orcid>https://orcid.org/0000-0002-5471-6202</person_orcid>
+                    <Affiliation>
+                        <organization_name>University of Iowa</organization_name>
+                        <organization_rorid>https://ror.org/036jqmy94</organization_rorid>
+                        <sequence_number>1</sequence_number>
+                    </Affiliation>
+                </Person>
+            </List_Author>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-09-30</modification_date>
+                <version_id>1.0</version_id>
+                <description>This product, V11979060.CSV, was originally released as part
+                    of the PDS3 VG1-J-PWS-5-DDR-ELE-DENSITY-1S-V1.0 data set. The metadata 
+                    have been migrated to PDS4. The data themselves are unchanged.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>1979-03-01T00:00:00.000Z</start_date_time>
+            <stop_date_time>1979-03-02T00:00:00.000Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>   
+            <Science_Facets>
+                <domain>Magnetosphere</domain>
+                <discipline_name>Particles</discipline_name>
+                <facet1>Electrons</facet1>
+                <facet2>Plasma</facet2>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>Mars2020</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.mars2020</lid_reference>  <!--RChen was .voyager-->
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Cache Camera</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:mars2020.ecam</lid_reference>  <!--RChen was vg1.pws-->
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Mars 2020</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mars2020</lid_reference>  <!--RChen was .vg1-->
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Alpha Crucis</name>  <!--RChen was Jupiter-->
+            <type>Star</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:star.alf_cru</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Discipline_Area>
+            <msn:Mission_Information>
+                <msn:mission_phase_name>Jupiter Encounter</msn:mission_phase_name>
+                <msn:spacecraft_clock_start>016254.18.202</msn:spacecraft_clock_start>
+                <msn:spacecraft_clock_stop>016284.18.202</msn:spacecraft_clock_stop>
+                <msn:spacecraft_clock_partition>2</msn:spacecraft_clock_partition>
+            </msn:Mission_Information>
+            <particle:Particle_Observation>
+                <particle:Particle_Parameter>
+                    <particle:particle_type>Electrons</particle:particle_type>
+                    <particle:particle_measurement_type>Density</particle:particle_measurement_type>
+                </particle:Particle_Parameter>
+            </particle:Particle_Observation>
+        </Discipline_Area>
+    </Observation_Area>
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:vg1-pws-ele-density:browse-1sec:v11979060</lid_reference>
+            <reference_type>data_to_browse</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:vg1-pws-ele-density:document:data-desc-1sec</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Source_Product_External>
+            <external_source_product_identifier>VG1-J-PWS-5-DDR-ELE-DENSITY-1S-V1.0:V11979060:V11979060.CSV</external_source_product_identifier>
+            <reference_type>data_to_derived_source_product</reference_type>
+            <doi>10.17189/1519902</doi>
+            <curating_facility>PDS Planetary Plasma Interactions Node</curating_facility>
+            <description>The DOI provided references the PDS3 source data set.</description>
+        </Source_Product_External>
+    </Reference_List>
+    <File_Area_Observational>
+        <File>
+            <file_name>V11979060.CSV</file_name>
+            <creation_date_time>2008-08-20T00:00:00.000Z</creation_date_time>
+            <file_size unit="byte">889065</file_size>
+            <md5_checksum>7e0423021143439a149acf4774acbcaf</md5_checksum>
+            <comment>This data file is unmodified from the PDS3 version.</comment>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">592</object_length>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+        </Header>
+        <Table_Delimited>
+            <offset unit="byte">592</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>6594</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>18</fields>
+                <groups>0</groups>
+                <Field_Delimited> 
+                    <name>SCET</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Date_Time_DOY</data_type>
+                    <maximum_field_length unit="byte">21</maximum_field_length>
+                    <description>Spacecraft Event Time (SCET) describing
+      when the frequency and density measurement was made according to
+      spacecraft time.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>FCE</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">7</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>Electron cyclotron frequency measured in 
+      Hz.  This term can be approximated by multiplying 28 times the 
+      magnetic field strength in nT, which is measured by the 
+      magnetometers on both Voyager 1 and 2.
+      
+      If magnetometer data is absent, this field is empty.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>MEASURED_FREQ_VALUE</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>This value is the frequency in Hz, 
+      measured from Voyager 1 and 2 high-resolution wideband spectrum 
+      data, that is used to calculate the electron number density as 
+      well as the remaining frequencies of interest.  This frequency 
+      will inevitably be identical to one of the four 
+      characteristic frequencies shown in subsequent columns.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>ELECTRON_NUMBER_DENSITY</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">9</maximum_field_length>
+                    <unit>cm-3</unit>
+                    <description>Electron number density in cm**-3 as 
+      determined from frequency measurements of the plasma (shown in the
+      MEASURED_FREQ column) and equations of cold plasma theory.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>JOVIGRAPHIC_DISTANCE</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">7</maximum_field_length>
+                    <unit>Jovian Radii</unit>
+                    <description>The distance from the center of Jupiter
+      to the spacecraft (in kilometers) divided by the radius of Jupiter
+      at the equator (71492 km).</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>SYS_III_LONGITUDE</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">7</maximum_field_length>
+                    <unit>Degrees</unit>
+                    <description>Jovian System III longitude</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>JOVIGRAPHIC_MAGNETIC_LATITUDE</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <unit>Degrees</unit>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>JSE_X</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Jovian Radii</unit>
+                    <description>The Jovicentric Solar Ecliptic (JSE) X
+      axis is chosen to point from Jupiter's equator towards the 
+      Sun.  The units are measured in Jovian radii where 1 Jovian radii
+      is equal to 71492 km.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>JSE_Y</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Jovian Radii</unit>
+                    <description>The JSE Y axis is chosen to be in
+      the ecliptic plane and points toward Jupiter's dusk (thus opposing
+      planetary motion). The units are measured in Jovian radii where 
+      1 Jovian radii is equal to 71492 km.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>JSE_Z</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <unit>Jovian Radii</unit>
+                    <description>The JSE Z axis is chosen to be
+      parallel to the ecliptic pole.  This axis is defined as the 
+      cross product of Jupiter's velocity vector j and the x-axis.  The 
+      units are measured in Jovian radii where 1 Jovian radii is equal 
+      to 71492 km.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>MAG_CHECK</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Boolean</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>This value is 1 when there exists 
+      magnetic field data from the magnetometers onboard Voyager 1 and 
+      2, and is 0 when data does not exist.  If there is no magnetic 
+      field data then the electron cyclotron frequency cannot be
+      determined.  Therefore, during periods when this value is 0, the
+      density can only determined if the measured frequency 
+      (MEASURED_FREQ_ABBREV) is the plasma frequency.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>DATA_QUALITY_INDEX</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                    <description>An integer between 0 and 3 which gives a 
+      qualitative description for the accuracy of a frequency 
+      measurement.  
+      
+      For measurement made from cutoff characteristic frequencies a data
+      quality index of 0 is given when a sharp cutoff is present within
+      a spectrum containing minimal background noise.  Conversely, a
+      quality index of 3 is given for measurements taken from a very
+      noisy background spectrum and where the cutoff is not well-
+      defined.  Voyager's wideband receivers have notch filters that are
+      used to suppress interference at the power supply frequency of 2.4
+      kHz and its third harmonic.  When a cutoff resides near a notch
+      filter, a quality index of 3 is used.  
+      
+      For measurements made from a peak characteristic frequency the
+      DATA_QUALITY_INDEX is directly related to the full-width at 
+      half-max as listed below.
+      
+      +---------------------------------------------------------------+
+      |    INTERVAL OF FWHM (Hz)   |    DATA_QUALITY_INDEX DESCRIPTOR |
+      +----------------------------+----------------------------------+
+      |       0 &lt; f &lt;= 20 Hz       |            0                     |
+      |                            |                                  |
+      |      20 &lt; f &lt;= 35 Hz       |            1                     |
+      |                            |                                  |
+      |      35 &lt; f &lt;= 50 Hz       |            2                     |
+      |                            |                                  |
+      |           f &gt;  50 Hz       |            3                     |
+      +---------------------------------------------------------------+</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>MEASURED_FREQ_ABBREV</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">2</maximum_field_length>
+                    <description>A letter is given to label which 
+      characteristic frequency of the plasma was used to calculate the
+      density.  Any of the four characteristic frequencies shown below 
+      can be measured and used with the cyclotron frequency to determine
+      the density.  The table below displays the characteristic 
+      frequencies used to calculate the density along with their 
+      corresponding common notation and abbreviated value. 
+      
+      +----------------------------------------------------------------+
+      |         Frequency            |  Common  | Measured_Freq_Abbrev |
+      |           Name               | Notation |       Value          |
+      +----------------------------------------------------------------+
+      |   Electron Plasma Frequency  |  fpe     |         p            |
+      |                              |          |                      |
+      |       R=0 Frequency          |  fR=0    |         R            |
+      |                              |          |                      |
+      |       L=0 Frequency          |  fL=0    |         L            |
+      |                              |          |                      |
+      |    Upper Hybrid Frequency    |  fUH     |         u            |
+      +----------------------------------------------------------------+</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>PLASMA_FREQ</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>The electron plasma frequency in Hz as
+      either measured directly from the Voyager wideband spectrum data
+      or calculated from the equations of cold plasma theory using the 
+      MEASURED_FREQUENCY measurement and the cyclotron frequency.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>L_FREQ</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>The L=0 frequency in Hz as
+      either measured directly from the Voyager wideband spectrum data
+      or calculated from the equations of cold plasma theory using the 
+      MEASURED_FREQUENCY measurement and the cyclotron frequency.
+      
+      If magnetometer data is absent, this field is empty.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>R_FREQ</name>
+                    <field_number>16</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>The R=0 frequency in Hz as
+      either measured directly from the Voyager wideband spectrum data
+      or calculated from the equations of cold plasma theory using the 
+      MEASURED_FREQUENCY measurement and the cyclotron frequency.
+      
+      If magnetometer data is absent, this field is empty.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>UH_FREQ</name>
+                    <field_number>17</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">8</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>The upper hybrid frequency in Hz as
+      either measured directly from the Voyager wideband spectrum data
+      or calculated from the equations of cold plasma theory using the 
+      MEASURED_FREQUENCY measurement and the cyclotron frequency.
+      
+      If magnetometer data is absent, this field is empty.</description>
+                </Field_Delimited>
+                <Field_Delimited> 
+                    <name>FWHM</name>
+                    <field_number>18</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <maximum_field_length unit="byte">6</maximum_field_length>
+                    <unit>Hz</unit>
+                    <description>
+      Full width at half maximum of the frequency peak.
+      
+      When the density is determined from a characteristic frequency
+      peak this field contains the full-width at half-maximum ratio
+      and this value determines the DATA_QUALITY_INDEX field.
+      
+      If number density is determined from a cutoff frequency, this
+      field is empty.</description>
+                </Field_Delimited>
+                </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>
