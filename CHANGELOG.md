@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2025-12-10)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
+
+**Defects:**
+
+- new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v4.0.8](https://github.com/NASA-PDS/validate/tree/v4.0.8) (2025-11-06)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.4...v4.0.8)
