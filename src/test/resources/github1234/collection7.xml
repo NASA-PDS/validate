@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.sch" 
+    schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Collection 
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+    http://pds.nasa.gov/pds4/pds/v1
+    https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1L00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:voyager2_rss_uranus_49xr_raw:document</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Voyager 2 Uranus Radio Occultation - Parkes - Document Collection</title>
+        <information_model_version>1.21.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+            <publication_year>2025</publication_year>
+            <description>
+                This collection contains (1) a mission description, (2) a radio science operations
+                plan for the Voyager 2 Uranus encounter, (3) the software interface specification
+                for the bundle, (4) a document describing the high-gain antenna gain pattern
+                and the reconstruction of spacecraft attitude during the encounter, (5) a
+                document describing Voyager celestial reference system files that contain
+                ephemerides for the spacecraft throughout the mission, and a document that includes
+                source code listings for five programs and 3 subroutines used to unpack the original
+                binary files and generate browse products.  The collection also includes the SIS
+                for the original binary files as a secondary member.
+            </description>
+        </Citation_Information>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-04-11</modification_date>
+                <version_id>1.0</version_id>
+                <description>
+                    Original collection of Voyager 2 Uranus radio science documentation
+                    for observations conducted at Parkes Observatory, Australia.  
+                </description>
+            </Modification_Detail>
+            
+        </Modification_History>
+    </Identification_Area>
+    
+    <Context_Area>
+        
+        <Investigation_Area>
+            <name>Voyager</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.voyager</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            
+            <Observing_System_Component>
+                <name>Deep Space Network</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:facility:observatory.dsn</lid_reference> 
+                    <reference_type>is_facility</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>NASA Deep Space Network Radio Science</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:dsn.rss</lid_reference> 
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>Parkes 64-m Radio Telescope (as a DSN Antenna)</name>
+                <type>Telescope</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:telescope:parkes.dss49_64m</lid_reference> 
+                    <reference_type>is_telescope</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>Voyager 2</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.vg2</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>Radio Science Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:vg2.rss</lid_reference> 
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+        </Observing_System>
+        
+    </Context_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:radiosci.documentation:dsn.rsc-11-9p:1982-03-01</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+            <comment>
+                This document describes the format and content of the raw radio science data files 
+                that were processed by the software in this file.
+            </comment>
+        </Internal_Reference>
+        
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:radiosci.documentation:dsn.rsc-11-9p:rsc-11-9p_unpack</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+            <comment>
+                This document provides examples of how the raw radio science data can be unpacked
+                by the software in this file.
+            </comment>
+        </Internal_Reference>
+        
+        <External_Reference>
+            <reference_text>https://hpc.sourceforge.net</reference_text>
+            <description>
+                Downloaded gcc-14.1-m1-bin.tar.gz and installed gcc (and gfortran) from this
+                web site.  gfortran was used to compile the code in the software document.
+            </description>
+        </External_Reference>
+    </Reference_List>
+    
+    <Collection>
+        <collection_type>Document</collection_type>
+        <description>
+            This collection contains (1) a mission description, (2) a radio science operations
+            plan for the Voyager 2 Uranus encounter, (3) the software interface specification
+            for the bundle, (4) a document describing the high-gain antenna gain pattern
+            and the reconstruction of spacecraft attitude during the encounter, (5) a
+            document describing Voyager celestial reference system files that contain
+            ephemerides for the spacecraft throughout the mission, and a document that includes
+            source code listings for five programs and 3 subroutines used to unpack the original
+            binary files and generate browse products.  The collection also includes the SIS
+            for the original binary files as a secondary member.
+        </description>
+    </Collection>
+    
+    <File_Area_Inventory>
+        <File>
+            <file_name>collection_document.csv</file_name>
+            <creation_date_time>2025-04-10T21:58:00</creation_date_time>
+            <file_size unit="byte">477</file_size>
+            <md5_checksum>6a4e69f020ed2e87fcec8b22013e68f9</md5_checksum>
+        </File>
+        
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>7</records> <!--Actual records: 7; but 6 passes, 8 fails-->                                                                 
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">257</maximum_record_length>               
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>    
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+    
+</Product_Collection>
