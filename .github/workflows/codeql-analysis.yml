@@ -73,7 +73,7 @@ jobs:
         
       
     - name: Upload CodeQL Artifacts
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v6
       with:
         name: codeql-artifacts
         path: ${{ env.RESULTS_DIR }}
@@ -100,7 +100,7 @@ jobs:
         
           -
             name: Upload SLOC
-            uses: actions/upload-artifact@v5
+            uses: actions/upload-artifact@v6
             with:
               name: sloc-count
               path: ${{ github.workspace }}/cloc.md
