@@ -60,7 +60,7 @@ jobs:
                     token: ${{secrets.ADMIN_GITHUB_TOKEN}}
             -
                 name: 💵 Maven Cache
-                uses: actions/cache@v4
+                uses: actions/cache@v5
                 with:
                     path: ~/.m2/repository
                     # The "key" used to indicate a set of cached files is the operating system runner
