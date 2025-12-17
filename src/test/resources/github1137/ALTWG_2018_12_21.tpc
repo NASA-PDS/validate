@@ -1,0 +1,92 @@
+KPL/PCK
+
+Asteroid Bennu P_constants (PcK) SPICE kernel file
+===========================================================================
+ 
+   By: Boris Semenov (NAIF)    04-NOV-2014
+ 
+ 
+Version and Date
+--------------------------------------------------------
+ 
+   This file was created on November 4, 2014.
+ 
+   This is the first Bennu PCK released for official use by OSIRIS-Rex
+   project. It contains values for the pole direction, rotation period
+   and shape from [1].
+     
+ 
+Disclaimer
+--------------------------------------------------------
+ 
+   This constants file may not contain the parameter values that you
+   prefer. Note that this file may be readily modified by you or anyone
+   else. NAIF suggests that you inspect this file visually before
+   proceeding with any critical or extended data processing.
+ 
+   NAIF requests that you update the ``by line'' and date if you modify
+   the file.
+ 
+ 
+Sources
+--------------------------------------------------------
+ 
+   The sources for the constants listed in this version of this file
+   are:
+ 
+     1) (101955) Bennu Design Reference Asteroid, 
+        Document Number: OREX-XLSX-04.00-00001, Rev_10,
+        Version: 2014 October 10
+        (OREX-XLSX-04.00-00001_Rev_10_Bennu_DRA_Final.xlsx)
+
+
+Orientation constants for asteroid Bennu
+--------------------------------------------------------
+ 
+   The inertial reference frame for these constants is J2000; this is
+   the default reference frame for PCK orientation data.
+ 
+   The epoch of the constants is J2000; this is Julian ephemeris date
+   (JED) 2451545.0.
+ 
+   The NAIF integer code for Bennu is 2101955. See the NAIF_IDs
+   required reading for further information on NAIF integer codes.
+ 
+   The pole direction, prime meridian location, rotation period and
+   radii in this version are set to the following values from [1]:
+
+       "
+        2.1.2  Polar Dimension               508                   meters
+
+        2.1.3  Equatorial Dimensions         565 x 535             meters
+
+        3.1.1  Rotation Period               4.297461              hours
+
+        3.1.6  Pole Position (J200 RA/DEC)   (+86.6388, -65.1086)  deg
+
+        3.1.7  Location of Prime Meridian    89.6456               deg
+               (epoch J2000)
+       "
+
+   These Bennu orientation and size constants are provided in the
+   keywords below. The rotation rate (W1) was derived from the period
+   and is provided in degrees/day. The radii are 1/2s of the polar and
+   equatorial dimensions provided in kilometers.
+
+   The LONG_AXIS keyword providing the offset between the longest axis
+   of the triaxial ellipsoid used to model Bennu and the Bennu prime
+   meridian is not used by SPICE geometry software. It is considered 
+   deprecated and provided solely for backwards compatibility.
+
+      \begindata
+ 
+         BODY2101955_POLE_RA    = (  85       0.              0. )
+         BODY2101955_POLE_DEC   = ( -60       0.              0. )
+         BODY2101955_PM         = ( 154.9182 2011.14576050637 1.5e-06 )
+         BODY2101955_LONG_AXIS  = (   0.                              )
+
+         BODY2101955_RADII      = (   0.2825       0.2675       0.254 )
+ 
+      \begintext
+
+End of PCK file.
