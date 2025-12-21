@@ -1047,17 +1047,6 @@
           },
           {
                "name": [
-                    "bc",
-                    "BepiColombo",
-                    "bepicolombo"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:esa:psa:context:investigation:mission.bc::1.2"
-          },
-          {
-               "name": [
                     "ExoMars 2016",
                     "EM16"
                ],
