@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <!-- PDS4 XML/Schema for Name Space Id:disp  Version:1.5.1.0 - Thu Oct 20 21:50:14 UTC 2022 -->
+  <!-- Generated from the PDS4 Information Model Version 1.19.0.0 - System Build 13.0 -->
+  <!-- *** This PDS4 product schema is an operational deliverable. *** -->
+  <!--                                                                           -->
+  <!--               Dictionary Stack                                            -->
+  <!-- 1.19.0.0 - pds: - Common Dictionary                                       -->
+  <!-- 1.5.1.0 - disp: - Display                                                 -->
+  <!--                                                                           -->
+  <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    elementFormDefault="qualified"
+    attributeFormDefault="unqualified"
+    version="1.5.1.0">
+ 
+    <xs:import namespace="http://pds.nasa.gov/pds4/pds/v1" schemaLocation="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd"/>
+ 
+  <xs:annotation>
+    <xs:documentation>
+This dictionary describes how to display Array data on a display device.
+  
+    ## CHANGE LOG ##
+
+    1.5.0.0
+    - ported from 1.4.0.0 schema to LDD for PDS IM 1E00 and 1F00
+    - added two rules under Display_Settings_0, (1) to add at least one 
+      local_reference_type, for now - 'display_settings_to_array' and 
+      (2) to make sure local_identifier_reference values under Display matches 
+      the local_identifier attribute under Array_*
+      - This rule also seems to be inserted during LDDtool build 
+        so currently it is being duplicated.
+      
+    1.5.1.0 
+    - Added display_settings_validate_axis rules and tests for the new rules by Jesse S.
+  
+  
+    </xs:documentation>
+  </xs:annotation>
+ 
+  <xs:element name="Display_Settings" type="disp:Display_Settings"> </xs:element>
+
+  <xs:complexType name="Color_Display_Settings">
+    <xs:annotation>
+      <xs:documentation>The Color_Display_Settings class provides
+        guidance to data users on how to display a multi-banded Array
+        object on a color-capable display device.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="color_display_axis" type="disp:color_display_axis" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="comment" type="pds:comment" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="red_channel_band" type="disp:red_channel_band" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="green_channel_band" type="disp:green_channel_band" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="blue_channel_band" type="disp:blue_channel_band" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Display_Direction">
+    <xs:annotation>
+      <xs:documentation>The Display_Direction class specifies how two of
+        the dimensions of an Array object should be displayed in the
+        vertical (line) and horizontal (sample) dimensions of a display
+        device.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="comment" type="pds:comment" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="horizontal_display_axis" type="disp:horizontal_display_axis" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="horizontal_display_direction" type="disp:horizontal_display_direction" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="vertical_display_axis" type="disp:vertical_display_axis" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="vertical_display_direction" type="disp:vertical_display_direction" minOccurs="1" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="disp:horizontal_display_direction = ('Left to Right', 'Right to Left')"/> -->
+    <!-- <xs:assert test="disp:vertical_display_direction = ('Bottom to Top', 'Top to Bottom')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+  <xs:complexType name="Display_Settings">
+    <xs:annotation>
+      <xs:documentation>The Display_Settings class contains one or more
+        classes describing how data should be displayed on a display
+        device.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="pds:Local_Internal_Reference" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="Display_Direction" type="disp:Display_Direction" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="Color_Display_Settings" type="disp:Color_Display_Settings" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="Movie_Display_Settings" type="disp:Movie_Display_Settings" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Movie_Display_Settings">
+    <xs:annotation>
+      <xs:documentation>The Movie_Display_Settings class provides
+        default values for the display of a multi-banded Array using a
+        software application capable of displaying video
+        content.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="time_display_axis" type="disp:time_display_axis" minOccurs="1" maxOccurs="1"> </xs:element>
+      <xs:element name="comment" type="pds:comment" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="frame_rate" type="disp:frame_rate" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="loop_flag" type="disp:loop_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="loop_count" type="disp:loop_count" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="loop_delay" type="disp:loop_delay" minOccurs="0" maxOccurs="1"> </xs:element>
+      <xs:element name="loop_back_and_forth_flag" type="disp:loop_back_and_forth_flag" minOccurs="0" maxOccurs="1"> </xs:element>
+    </xs:sequence>
+    <!-- Begin assert statements for schematron - Enumerated Values -->
+    <!-- <xs:assert test="disp:loop_flag = ('false', 'true')"/> -->
+    <!-- <xs:assert test="disp:loop_back_and_forth_flag = ('false', 'true')"/> -->
+    <!-- End assert statements for schematron - Enumerated Values -->
+  </xs:complexType>
+
+    <xs:annotation>
+      <xs:documentation>This section contains the simpleTypes that provide more constraints
+        than those at the base data type level. The simpleTypes defined here build on the base data
+        types. This is another component of the common dictionary and therefore falls within the
+        common namespace.
+      </xs:documentation>
+    </xs:annotation>
+
+  <xs:simpleType name="blue_channel_band">
+    <xs:annotation>
+      <xs:documentation>The blue_channel_band attribute identifies the
+        number of the band, along the band axis, that should be loaded,
+        by default, into the blue channel of a display device. The first
+        band along the band axis has band number 1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="color_display_axis">
+    <xs:annotation>
+      <xs:documentation>The color_display_axis attribute identifies, by
+        name, the axis of an Array (or Array subclass) that is intended
+        to be displayed in the color dimension of a display device.
+        I.e., bands from this dimension will be loaded into the red,
+        green, and blue bands of the display device. The value of this
+        attribute must match the value of one, and only one, axis_name
+        attribute in an Axis_Array class of the associated
+        Array.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="frame_rate_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="1.0"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="frame_rate">
+    <xs:annotation>
+      <xs:documentation>The frame_rate attribute indicates the number of
+        still pictures (or frames) that should be displayed per unit of
+        time in a video. Note this is NOT necessarily the same as the
+        rate at which the images were acquired.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="disp:frame_rate_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Frame_Rate" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="green_channel_band">
+    <xs:annotation>
+      <xs:documentation>The green_channel_band attribute identifies the
+        number of the band, along the band axis, that should be loaded,
+        by default, into the green channel of a display device. The
+        first band along the band axis has band number
+        1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="horizontal_display_axis">
+    <xs:annotation>
+      <xs:documentation>The horizontal_display_axis attribute
+        identifies, by name, the axis of an Array (or Array subclass)
+        that is intended to be displayed in the horizontal or "sample"
+        dimension on a display device. The value of this attribute must
+        match the value of one, and only one, axis_name attribute in an
+        Axis_Array class of the associated Array.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="horizontal_display_direction">
+    <xs:annotation>
+      <xs:documentation>The horizontal_display_direction attribute
+        specifies the direction across the screen of a display device
+        that data along the horizontal axis of an Array is supposed to
+        be displayed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="13"/>
+     <xs:maxLength value="13"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="loop_back_and_forth_flag">
+    <xs:annotation>
+      <xs:documentation>The loop_back_and_forth_flag attribute specifies
+        whether or not a movie should only be "looped" or played
+        repeatedly in the forward direction, or whether it should be
+        played forward followed by played in reverse,
+        iteratively.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Boolean">
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="loop_count">
+    <xs:annotation>
+      <xs:documentation>The loop_count attribute specifies the number of
+        times a movie should be "looped" or replayed before
+        stopping.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="loop_delay_WO_Units">
+    <xs:restriction base="pds:ASCII_Real">
+     <xs:minInclusive value="0.0"/>
+     <xs:maxInclusive value="1.7976931348623157e308"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="loop_delay">
+    <xs:annotation>
+      <xs:documentation>The loop_delay attribute specifies the amount of
+        time to pause between "loops" or repeated playbacks of a
+        movie.</xs:documentation>
+    </xs:annotation>
+    <xs:simpleContent>
+      <xs:extension base="disp:loop_delay_WO_Units">
+        <xs:attribute name="unit" type="pds:Units_of_Time" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="loop_flag">
+    <xs:annotation>
+      <xs:documentation>The loop_flag attribute specifies whether or not
+        a movie object should be played repeatedly without prompting
+        from the user.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Boolean">
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="red_channel_band">
+    <xs:annotation>
+      <xs:documentation>The red_channel_band attribute identifies the
+        number of the band, along the band axis, that should be loaded,
+        by default, into the red channel of a display device. The first
+        band along the band axis has band number 1.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Integer">
+     <xs:minInclusive value="1"/>
+     <xs:maxInclusive value="9223372036854775807"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="time_display_axis">
+    <xs:annotation>
+      <xs:documentation>The time_display_axis attribute identifies, by
+        name, the axis of an Array (or Array subclass), the bands of
+        which are intended to be displayed sequentially in time on a
+        display device. The frame_rate attribute, if present, provides
+        the rate at which these bands are to be
+        displayed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vertical_display_axis">
+    <xs:annotation>
+      <xs:documentation>The vertical_display_axis attribute identifies,
+        by name, the axis of an Array (or Array subclass) that is
+        intended to be displayed in the vertical or "line" dimension on
+        a display device. The value of this attribute must match the
+        value of one, and only one, axis_name attribute in an Axis_Array
+        class of the associated Array.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="1"/>
+     <xs:maxLength value="255"/>
+	   </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="vertical_display_direction">
+    <xs:annotation>
+      <xs:documentation>The vertical_display_direction attribute
+        specifies the direction along the screen of a display device
+        that data along the vertical axis of an Array is supposed to be
+        displayed.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="pds:ASCII_Short_String_Collapsed">
+     <xs:minLength value="13"/>
+     <xs:maxLength value="13"/>
+	   </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

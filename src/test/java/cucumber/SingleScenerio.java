@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import gov.nasa.pds.validate.ValidateLauncher;
 import gov.nasa.pds.validate.constants.TestConstants;
 
 public class SingleScenerio {
@@ -41,7 +39,7 @@ public class SingleScenerio {
             System.out.println("execute_validate");
             engine.execute_validate (scenerio[4].strip().substring(1,scenerio[4].strip().length()-1));
             System.out.println ("compare_to_the");
-            engine.compare_to_the(scenerio[5].strip().isBlank() ? null :
+            engine.compare_to_the(scenerio[5].strip().isBlank() ? "" :
               scenerio[5].strip().substring(1, scenerio[5].strip().length()-1));
             System.out.println ("success");
             return;
