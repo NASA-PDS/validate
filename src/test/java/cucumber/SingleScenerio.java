@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import gov.nasa.pds.validate.ValidateLauncher;
 import gov.nasa.pds.validate.constants.TestConstants;
 
 public class SingleScenerio {
