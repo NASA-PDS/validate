@@ -41,7 +41,7 @@ public class SingleScenerio {
             System.out.println("execute_validate");
             engine.execute_validate (scenerio[4].strip().substring(1,scenerio[4].strip().length()-1));
             System.out.println ("compare_to_the");
-            engine.compare_to_the(scenerio[5].strip().isBlank() ? null :
+            engine.compare_to_the(scenerio[5].strip().isBlank() ? "" :
               scenerio[5].strip().substring(1, scenerio[5].strip().length()-1));
             System.out.println ("success");
             return;

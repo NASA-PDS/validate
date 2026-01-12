@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE catalog PUBLIC "-//OASIS//DTD XML Catalogs V1.1//EN" 
+  "http://www.oasis-open.org/committees/entity/release/1.1/catalog.dtd">
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/pds/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/disp/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/geom/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/img/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteSystem systemIdStartString="https://pds.nasa.gov/pds4/msn/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteSystem systemIdStartString="https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uriStartString="https://pds.nasa.gov/pds4/pds/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uriStartString="https://pds.nasa.gov/pds4/disp/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uritartString="https://pds.nasa.gov/pds4/geom/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uriStartString="https://pds.nasa.gov/pds4/img/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uriStartString="https://pds.nasa.gov/pds4/msn/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+
+  <rewriteURI uriStartString="https://data.darts.isas.jaxa.jp/pub/pds4/mission/vco/v1/"
+    rewritePrefix="file://{datasrc}/../jaxa/"/>
+</catalog>
