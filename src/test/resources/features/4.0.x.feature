@@ -12,7 +12,7 @@ Feature: 4.0.x
 | 1391 | 2 | "github1391" | "--skip-context-validation -t {datasrc}/vl0axrat_delim.xml" |  |
 | 1379 | 1 | "github1379" | " -v1 -t {datasrc}/V11979080.xml" | "summary:totalWarnings=3,summary:messageTypes:warning.table.field_value_out_of_special_constant_min_max_range=3,summary:messageTypes:info.label.context_ref_found=3,summary:messageTypes:info.label.missing_filesize=1,summary:messageTypes:info.table.field_value_is_special_constant=3" |
 | 1359 | 1 | "github1359" | "--skip-context-validation --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/collection_hyb2_nirs3_sp_ard_data_iof_thermalcorr_v001.lblx" |  |
-| 1358 | 1 | "github1358" | "--skip-context-validation --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/uvi_20151207_051953_283_l2b_v21_edited.lblx " |  |
+| 1358 | 1 | "github1358" | "--skip-context-validation -C {datasrc}/catalog.xml --label-extension lblx -R pds4.label --strict-field-checks -t {datasrc}/uvi_20151207_051953_283_l2b_v21_edited.lblx " |  |
 | 1357 | 1 | "github1357" | "--skip-context-validation --label-extension lblx -R pds4.label -t {datasrc}/uvi_20151207_051953_283_l3b_v21.lblx" |  |
 | 1332 | 1 | "github1332" | " -t {datasrc}/nh0001x.xml" |  |
 | 1316 | 1 | "github1316" | "--skip-context-validation -R pds4.bundle -t {datasrc}/bundle.xml" |  |
