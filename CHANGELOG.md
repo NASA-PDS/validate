@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-01-13)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-01-20)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
 
@@ -8,6 +8,10 @@
 
 - new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validating large data file \(150GB\) is trying to write the entire file to local temp space - error upon not enough local space [\#1241](https://github.com/NASA-PDS/validate/issues/1241) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+
+**Other closed issues:**
+
+- B13.1 Validate [\#1482](https://github.com/NASA-PDS/validate/issues/1482)
 
 ## [v4.0.8](https://github.com/NASA-PDS/validate/tree/v4.0.8) (2025-11-06)
 
