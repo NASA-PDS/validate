@@ -1087,15 +1087,6 @@
           },
           {
                "name": [
-                    "Apollo 17 Particles and Fields Subsatellite"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.a17s::1.2"
-          },
-          {
-               "name": [
                     "Mars Atmosphere and Volatile Evolution (MAVEN)",
                     "Mars Atmosphere and Volatile EvolutioN"
                ],
@@ -1103,15 +1094,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.maven::2.0"
-          },
-          {
-               "name": [
-                    "Joint Astronomy Centre"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.jac::1.1"
           },
           {
                "name": [
@@ -1133,30 +1115,12 @@
           },
           {
                "name": [
-                    "3.8-m UK Grubb-Parsons IR Cass. eq. reflector (UKIRT)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:jac.ukirt3m8::1.1"
-          },
-          {
-               "name": [
                     "OAVdA"
                ],
                "type": [
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::1.1"
-          },
-          {
-               "name": [
-                    "Palmer Divide 0.5m CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.old10inch.ccd0m5::1.1"
           },
           {
                "name": [
@@ -1230,15 +1194,6 @@
           },
           {
                "name": [
-                    "CHANDRAYAAN-1 ORBITER"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.ch1-orb::1.2"
-          },
-          {
-               "name": [
                     "Chandrayaan-1",
                     "CH1",
                     "CHANDRAYAAN-1"
@@ -1258,6 +1213,15 @@
                     "Mission"
                ],
                "lidvid": "urn:esa:psa:context:investigation:mission.bc::1.3"
+          },
+          {
+               "name": [
+                    "PRE-MAGELLAN"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.pre-magellan::1.2"
           },
           {
                "name": [
@@ -1658,13 +1622,14 @@
           {
                "name": [
                     "ATLAS-South Africa, Sutherland Observing Station, South Africa",
+                    "urn:nasa:pds:context:facility:observatory.atlas-sth",
                     "M22",
                     "ATLAS South Africa, Sutherland"
                ],
                "type": [
                     "Observatory"
                ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.atlas-cpt::1.0"
+               "lidvid": "urn:nasa:pds:context:facility:observatory.atlas-sth::1.0"
           },
           {
                "name": [
@@ -2863,42 +2828,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:asiago.copernico1m82.afosc::1.3"
-          },
-          {
-               "name": [
-                    "STA-1600, 10.5x10.5k CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:atlas-chl.0m5.sta1600::1.2"
-          },
-          {
-               "name": [
-                    "STA-1600, 10.5x10.5k CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:atlas-cpt.0m5.sta1600::1.2"
-          },
-          {
-               "name": [
-                    "STA-1600, 10.5x10.5k CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:atlas-hko.0m5.sta1600::1.2"
-          },
-          {
-               "name": [
-                    "STA-1600, 10.5x10.5k CCD"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:atlas-mlo.0m5.sta1600::1.2"
           },
           {
                "name": [
@@ -7863,16 +7792,6 @@
           },
           {
                "name": [
-                    "Psyche Multispectral Imager (PMI)",
-                    "The Psyche Imager (PMI) aboard the Psyche spacecraft"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:psyche.imager::1.2"
-          },
-          {
-               "name": [
                     "The Psyche Magnetometer (MAG) aboard the Psyche spacecraft",
                     "Psyche Magnetometer (MAG)"
                ],
@@ -10396,6 +10315,63 @@
           },
           {
                "name": [
+                    "STA-1600, 10.5x10.5k CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:atlas-hko.0m5.sta1600::1.3"
+          },
+          {
+               "name": [
+                    "STA-1600, 10.5x10.5k CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:atlas-mlo.0m5.sta1600::1.3"
+          },
+          {
+               "name": [
+                    "urn:nasa:pds:context:instrument:atlas-cpt.0m5.sta160",
+                    "STA-1600, 10.5x10.5k CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:atlas-sth.0m5.sta1600::1.0"
+          },
+          {
+               "name": [
+                    "CLPS Task Order 19D Lunar PlanetVac (LPV)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:clps_to_19d_bgl.lpv::1.0"
+          },
+          {
+               "name": [
+                    "urn:nasa:pds:context:instrument:palmer_divide.old10inch.ccd0m5",
+                    "Palmer Divide 0.5m CCD"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.0m5.ccd0m5::1.2"
+          },
+          {
+               "name": [
+                    "Psyche Multispectral Imager",
+                    "The Psyche Multispectral Imager aboard the Psyche spacecraft"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:psyche.imager::1.3"
+          },
+          {
+               "name": [
                     "NAVIGATION CAMERA LEFT STRING A for MSL",
                     "NAVIGATION CAMERA LEFT STRING A",
                     "Mars Science Laboratory Curiosity Rover Navigation Camera Left String A"
@@ -11465,12 +11441,12 @@
           },
           {
                "name": [
-                    "Palmer Divide 0.5m CCD"
+                    "STA-1600, 10.5x10.5k CCD"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument:palmer_divide.0m5.ccd0m5::1.1"
+               "lidvid": "urn:nasa:pds:context:instrument:atlas-chl.0m5.sta1600::1.3"
           },
           {
                "name": [
@@ -12848,17 +12824,6 @@
           },
           {
                "name": [
-                    "SLIM lander",
-                    "slim",
-                    "SLIM"
-               ],
-               "type": [
-                    "Lander"
-               ],
-               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.slim::1.0"
-          },
-          {
-               "name": [
                     "Pioneer Venus Orbiter"
                ],
                "type": [
@@ -12875,6 +12840,18 @@
                     "Lander"
                ],
                "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.clps_to_19d_bgl::1.0"
+          },
+          {
+               "name": [
+                    "urn:nasa:pds:context:instrument_host:spacecraft.slim",
+                    "SLIM lander",
+                    "slim",
+                    "SLIM"
+               ],
+               "type": [
+                    "Lander"
+               ],
+               "lidvid": "urn:jaxa:darts:context:instrument_host:lander.slim::1.1"
           },
           {
                "name": [
@@ -13455,12 +13432,13 @@
                "name": [
                     "Smart Lander for Investigating Moon mission",
                     "slim",
-                    "SLIM"
+                    "SLIM",
+                    "urn:nasa:pds:context:investigation:mission.slim"
                ],
                "type": [
                     "Mission"
                ],
-               "lidvid": "urn:jaxa:darts:context:investigation:mission.slim::1.0"
+               "lidvid": "urn:jaxa:darts:context:investigation:mission.slim::1.1"
           },
           {
                "name": [
@@ -13951,15 +13929,6 @@
           },
           {
                "name": [
-                    "PRE-MAGELLAN"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.pre-magellan::1.2"
-          },
-          {
-               "name": [
                     "psyche",
                     "Psyche Mission",
                     "The Psyche Mission",
@@ -14056,6 +14025,16 @@
           },
           {
                "name": [
+                    "urn:nasa:pds:context:investigation:mission.venera_15_and_16",
+                    "Venera 16"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_16::1.1"
+          },
+          {
+               "name": [
                     "urn:nasa:pds:context:investigation:mission.venus_express",
                     "VEX",
                     "Venus Express",
@@ -14110,15 +14089,6 @@
                     "Mission"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:mission.wise::1.1"
-          },
-          {
-               "name": [
-                    "Asteroid Terrestrial-impact Last Alert System (ATLAS)"
-               ],
-               "type": [
-                    "Observing Campaign"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.atlas::1.0"
           },
           {
                "name": [
@@ -14389,24 +14359,6 @@
           },
           {
                "name": [
-                    "Venera 15"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15::1.0"
-          },
-          {
-               "name": [
-                    "Venera 16"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_16::1.0"
-          },
-          {
-               "name": [
                     "Venera 2"
                ],
                "type": [
@@ -14499,6 +14451,25 @@
                     "Mission"
                ],
                "lidvid": "urn:isro:isda:context:investigation:mission.ch1::1.0"
+          },
+          {
+               "name": [
+                    "Venera 15",
+                    "urn:nasa:pds:context:investigation:mission.venera_15_and_16"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.venera_15::1.1"
+          },
+          {
+               "name": [
+                    "Asteroid Terrestrial-impact Last Alert System (ATLAS)"
+               ],
+               "type": [
+                    "Observing Campaign"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.atlas::1.1"
           },
           {
                "name": [
@@ -38544,12 +38515,13 @@
           },
           {
                "name": [
-                    "0.5-m f/2 Wright-Schmidt Telescope"
+                    "0.5-m f/2 Wright-Schmidt Telescope",
+                    "urn:nasa:pds:context:telescope:atlas-cpt.0m5"
                ],
                "type": [
                     "N/A"
                ],
-               "lidvid": "urn:nasa:pds:context:telescope:atlas-cpt.0m5::1.0"
+               "lidvid": "urn:nasa:pds:context:telescope:atlas-sth.0m5::1.0"
           },
           {
                "name": [
