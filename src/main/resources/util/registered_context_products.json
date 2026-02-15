@@ -33929,6 +33929,19 @@
           },
           {
                "name": [
+                    "Eugenisis",
+                    "NAIF ID 2000743",
+                    "A913 DD",
+                    "743 Eugenisis",
+                    "(743) Eugenisis"
+               ],
+               "type": [
+                    "Asteroid"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:asteroid.743_eugenisis::1.0"
+          },
+          {
+               "name": [
                     "1998 UU43",
                     "NAIF ID 3024264"
                ],
