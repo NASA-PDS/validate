@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-02-09)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-03-04)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
+
+**Requirements:**
+
+- As a user, I want the validate report entry for when there is a context name mismatch to show the LID of the context object as well as the correct known values.. [\#1509](https://github.com/NASA-PDS/validate/issues/1509)
 
 **Defects:**
 
