@@ -281,7 +281,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
                               this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
-                              "Context reference name mismatch. Value: '" + name + "'"
+                              "Context reference name mismatch. LIDVID: '" + lidvid + "'. Value: '" + name + "'"
                                   + " Expected one of: '" + rgp.getNames() + "'"),
                           target, locator.getLineNumber(), -1));
                     }
@@ -294,7 +294,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
                               this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
-                              "Context reference type mismatch. Value: '" + type + "'"
+                              "Context reference type mismatch. LIDVID: '" + lidvid + "'. Value: '" + type + "'"
                                   + " Expected one of: '" + rgp.getTypes() + "'"),
                           target, locator.getLineNumber(), -1));
                     }
