@@ -86,7 +86,7 @@
         <!-- bug introduced in 3.5.3 prevents surefire from communicating
              with maven and cucumber correctly. It is still present in 3.5.4
              as well. -->
-        <version>3.5.2</version>
+        <version>3.5.5</version>
         <configuration>
 	  <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
     	  <excludes>
