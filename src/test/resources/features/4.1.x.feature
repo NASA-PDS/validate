@@ -6,3 +6,4 @@ Feature: 4.1.x
     @4.1.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
+| 956 | 1 | "github956" | "--skip-context-validation -t {datasrc}/" | |
