@@ -300,13 +300,15 @@ public abstract class Report {
     this.end (Block.BODY);
   }
   private String lidvid (URI target) {
-    String result = "XML could not be parsed.";
+    String result = "";
     try {
       if (target != null && TargetExaminer.isTargetALabel(target.toURL())) {
         List<String> parts = TargetExaminer.getTargetContent(target.toURL(),
             "//Identification_Area", "logical_identifier", "version_id");
         if (parts.size() == 2) {
           result = parts.get(0) + "::" + parts.get(1);
+        } else {
+          result = "LIDVID could not be extracted.";
         }
       }
     } catch (IllegalArgumentException e) {
