@@ -69,9 +69,12 @@ public class FullReport extends Report {
     this.getWriter().print(status.getName());
     this.getWriter().print(": ");
     this.getWriter().print(target);
-    this.getWriter().print(" (");
-    this.getWriter().print(lidvid);
-    this.getWriter().println(")");
+    if (!lidvid.isEmpty()) {
+      this.getWriter().print(" (");
+      this.getWriter().print(lidvid);
+      this.getWriter().print(")");
+    }
+    this.getWriter().println();
   }
 
   @Override
