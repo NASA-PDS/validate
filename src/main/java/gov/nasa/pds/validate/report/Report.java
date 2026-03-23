@@ -170,6 +170,7 @@ public abstract class Report {
    */
   final public Status record(URI sourceUri, final List<ValidationProblem> problems) {
     int badLabels = 0;
+    int ignoreFromTotalCounts = 0;
     int numErrors = 0;
     int numWarnings = 0;
     Status status = Status.PASS;
@@ -179,7 +180,7 @@ public abstract class Report {
     for (ValidationProblem problem : problems) {
       ProblemCategory category = problem.getProblem().getType().getProblemCategory();
       if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
-        // do nothing with these two categories
+        ignoreFromTotalCounts++;
       } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
@@ -227,7 +228,7 @@ public abstract class Report {
         }
       }
     } else {
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && problems.size() - ignoreFromTotalCounts > 0) {
         if (!this.integrityCheckFlag) {
           this.numPassedProds++;
         } else {
