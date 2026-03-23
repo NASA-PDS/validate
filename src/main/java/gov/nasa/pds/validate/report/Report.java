@@ -176,9 +176,11 @@ public abstract class Report {
     LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}", sourceUri, problems.size());
 
     // TODO: Handle null problems
-    int ignoreFromProductCounts = 0;
     for (ValidationProblem problem : problems) {
-      if (problem.getProblem().getSeverity() == ExceptionType.ERROR
+      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
+      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
+        // do nothing with these two categories
+      } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
           numErrors++;
@@ -200,12 +202,6 @@ public abstract class Report {
         if (ExceptionType.DEBUG.getValue() <= this.level.getValue()) {
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
-      }
-
-      // Check ProblemCategory to remove from product counts
-      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
-      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
-        ignoreFromProductCounts++;
       }
     }
     this.totalErrors += numErrors;
@@ -240,7 +236,7 @@ public abstract class Report {
       }
     }
 
-    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds - ignoreFromProductCounts;
+    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds;
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks
         + this.numSkippedIntegrityChecks;
     this.begin (Block.LABEL);
