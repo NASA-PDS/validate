@@ -19,8 +19,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -300,13 +298,12 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 // https://github.com/NASA-PDS/validate/issues/349 validate allows absolute path
                 // in directory_path_name but shouldn't
 
-                Path p = Paths.get(FilenameUtils.getFullPath(directory)); // Use getFullPath()
-                                                                          // function
-                                                                          // to get the actual name
-                                                                          // to
-                                                                          // avoid sonatype-lift
-                                                                          // complains.
-                if (p.isAbsolute()) {
+                // Use a platform-independent check: PDS4 directory_path_name uses
+                // forward-slash separators, so a leading '/' means absolute regardless of OS.
+                // Java's Path.isAbsolute() is platform-dependent: on Windows it returns false
+                // for paths starting with '/' that lack a drive letter (e.g. /test/foo/),
+                // which would miss this error on Windows.
+                if (directory.startsWith("/")) {
                   LOG.error(
                       "The directory name {} for tag 'directory_path_name' cannot be absolute",
                       directory);
