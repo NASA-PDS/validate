@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/chan1/v1/PDS4_CHAN1_1E00_1110.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+  xmlns:chan1="http://pds.nasa.gov/pds4/mission/chan1/v1"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1  https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1E00.xsd
+  http://pds.nasa.gov/pds4/mission/chan1/v1  https://pds.nasa.gov/pds4/mission/chan1/v1/PDS4_CHAN1_1E00_1110.xsd">
+
+
+  <Identification_Area>   
+    <logical_identifier>urn:nasa:pds:chand1-orb_mini_rf:data_hk:fsb_01500_rhk_xib_85s238_v1</logical_identifier>                   
+    <version_id>1.0</version_id>                                             
+    <title>Chandrayaan-1 mini-RF housekeeping product: fsb_01500_rhk_xib_85s238_v1</title>                                      
+    <information_model_version>1.14.0.0</information_model_version>          
+    <product_class>Product_Observational</product_class>                     
+    <Modification_History>
+      <Modification_Detail>                                                  
+      <modification_date>2020-05-21</modification_date>                    
+        <version_id>1.0</version_id>                                         
+        <description>Initial version migrated from PDS3.</description>       
+      </Modification_Detail>                                                 
+    </Modification_History>                                                  
+  </Identification_Area>  
+  <Observation_Area>      
+    <Time_Coordinates>    
+      <start_date_time>2009-03-12T14:11:25.000Z</start_date_time>            
+      <stop_date_time>2009-03-12T14:14:54.000Z</stop_date_time>              
+    </Time_Coordinates>   
+    <Investigation_Area>  
+      <name>Chandrayaan-1</name>                                             
+      <type>Mission</type>
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:investigation:mission.chandrayaan-1</lid_reference>                                 
+        <reference_type>data_to_investigation</reference_type>               
+      </Internal_Reference>                                                  
+    </Investigation_Area> 
+    <Observing_System>                                                                                                        
+      <Observing_System_Component>                                                                                            
+        <name>Chandrayaan-1 Orbiter</name>                                                                                    
+        <type>Host</type>                                                                                               
+        <Internal_Reference>                                                                                                  
+          <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.ch1-orb</lid_reference>                              
+          <reference_type>is_instrument_host</reference_type>                                                                 
+        </Internal_Reference>                                                                                                 
+      </Observing_System_Component>                                                                                           
+      <Observing_System_Component>                                                                                            
+        <name>Mini-RF Forerunner</name>                                                                                       
+        <type>Instrument</type>                                                                                               
+        <Internal_Reference>                                                                                                  
+          <lid_reference>urn:nasa:pds:context:instrument:mrffr.ch1-orb</lid_reference>                                        
+          <reference_type>is_instrument</reference_type>                                                                      
+        </Internal_Reference>                                                                                                 
+      </Observing_System_Component>                                                                                           
+    </Observing_System>  
+    <Target_Identification>                                                  
+      <name>Moon</name>   
+      <type>Satellite</type> 
+      <Internal_Reference>
+        <lid_reference>urn:nasa:pds:context:target:satellite.earth.moon</lid_reference>                                         
+        <reference_type>data_to_target</reference_type>                      
+      </Internal_Reference>                                                  
+    </Target_Identification>                                                 
+ 
+    <Mission_Area>        
+      <chan1:Chandrayaan-1_Parameters>
+        <chan1:release_id>0001</chan1:release_id>  
+        <chan1:orbit_number>1500</chan1:orbit_number>  
+        <chan1:producer_full_name>MINI-RF POC TEAM</chan1:producer_full_name>
+        <chan1:producer_institution_name>Johns Hopkins University Applied Physics Laboratory</chan1:producer_institution_name>
+      </chan1:Chandrayaan-1_Parameters>
+    </Mission_Area>       
+  </Observation_Area>     
+
+  <File_Area_Observational>                                                  
+    <File>                
+      <file_name>fsb_01500_rhk_xib_85s238_v1.csv</file_name>                 
+      <creation_date_time>2011-01-19T23:41:13Z</creation_date_time>           
+    </File>
+    <Header>
+        <offset unit="byte">0</offset>
+        <object_length unit="byte">40</object_length>
+        <parsing_standard_id>7-Bit ASCII Text</parsing_standard_id>
+        <description>The header is the first row in the file and contains column headings.</description>
+      </Header>	
+    <Table_Delimited>     
+      <offset unit="byte">40</offset>                                         
+      <parsing_standard_id>PDS DSV 1</parsing_standard_id>                   
+      <description>
+        Forerunner Housekeeping Data file.  This is ancillary data associated with the Raw data product.                 
+        The first 9 rows of the product file contain header information relating to the whole housekeeping 
+        product. The following rows repeat in sets beginning with 'Record Sequence Count'. These sets of 
+        rows contain the same set of housekeeping data points resampled over a regular interval.
+      </description>                                               
+      <records>3488</records>                                                  
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>         
+      <field_delimiter>Comma</field_delimiter>                               
+      <Record_Delimited>  
+        <fields>3</fields>
+        <groups>0</groups>
+        <Field_Delimited> 
+          <name>point_name</name>                                            
+          <field_number>1</field_number>                                     
+          <data_type>ASCII_String</data_type>                                
+          <description>The name of the housekeeping data point.</description>
+        </Field_Delimited>
+        <Field_Delimited> 
+          <name>value</name>                                                 
+          <field_number>2</field_number>                                     
+          <data_type>ASCII_String</data_type>                                
+          <description>
+		    The value of the housekeeping data point. This field may or may not contain data.                        
+          </description>  
+        </Field_Delimited>
+        <Field_Delimited> 
+          <name>units</name>                                                 
+          <field_number>3</field_number>                                     
+          <data_type>ASCII_String</data_type>                                
+          <description>The units of the housekeeping data point.</description>                                                  
+        </Field_Delimited>
+      </Record_Delimited> 
+    </Table_Delimited>    
+  </File_Area_Observational>                                                 
+
+  <File_Area_Observational_Supplemental>                                     
+    <File>                
+      <file_name>fsb_01500_rhk_xib_85s238_v1.lbl</file_name>                 
+    </File>               
+    <Stream_Text>         
+      <offset unit="byte">0</offset>                                         
+      <parsing_standard_id>PDS3</parsing_standard_id>                        
+      <description>Original PDS3 label</description>                         
+      <record_delimiter>Carriage-Return Line-Feed</record_delimiter>         
+    </Stream_Text>        
+  </File_Area_Observational_Supplemental>                                    
+</Product_Observational>  

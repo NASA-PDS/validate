@@ -1,0 +1,71 @@
+PDS_VERSION_ID             =  PDS3
+LABEL_REVISION_NOTE        =  "JHU/APL Version 1.0"
+RECORD_TYPE                =  STREAM
+RECORD_BYTES               =  85
+FILE_RECORDS               =  116
+^SPREADSHEET               =  "FSB_01500_RHK_XIB_85S238_V1.CSV"
+DATA_SET_ID                =  "CH1-ORB-L-MRFFR-1-PDR-V1.0"
+DATA_SET_NAME              =  "CH1-ORB MOON MINI-RF 1 PACKETIZED DATA RECORD
+V1.0"
+PRODUCER_ID                =  "JHUAPL"
+PRODUCER_FULL_NAME         =  "MINI-RF POC TEAM"
+PRODUCER_INSTITUTION_NAME  =  "JOHNS HOPKINS UNIVERSITY APPLIED PHYSICS
+LABORATORY"
+PRODUCT_ID                 =  "FSB_01500_RHK_XIB_85S238_V1"
+PRODUCT_VERSION_ID         =  "1.0"
+ORIGINAL_PRODUCT_ID        =  "Sar_20090312_141124_20101013_225036.hk"
+SOFTWARE_VERSION_ID        =  "V1.0"
+PRODUCT_CREATION_TIME      =  2011-01-19T23:41:13
+RELEASE_ID                 =  "0001"
+MISSION_NAME               =  "CHANDRAYAAN-1"
+INSTRUMENT_HOST_NAME       =  "CHANDRAYAAN-1 ORBITER"
+INSTRUMENT_HOST_ID         =  "CH1-ORB"
+INSTRUMENT_NAME            =  "MINI-RF FORERUNNER"
+INSTRUMENT_ID              =  MRFFR
+TARGET_NAME                =  MOON
+START_TIME                 =  2009-03-12T14:11:25.000
+STOP_TIME                  =  2009-03-12T14:14:54.000
+ORBIT_NUMBER               =  1500
+DESCRIPTION                =  "Forerunner Housekeeping Data file.  This is
+ancillary data associated with the Raw data product."
+
+/* The first 9 rows of the product file contain header information */
+/* relating to the whole housekeeping product.  The following rows repeat */
+/* in sets of 9 beginning with 'Record Sequence Count' and ending with */
+/* 'MRF-Dactive-by'.  These sets of 9 rows contain the same set of */
+/* housekeeping data points resampled over a regular interval. */
+
+OBJECT                     =  SPREADSHEET
+  ROWS                       =  116
+  ROW_BYTES                  =  85
+  FIELDS                     =  3
+  FIELD_DELIMITER            =  "COMMA"
+
+  OBJECT                     =  FIELD
+    NAME                       =  "POINT_NAME"
+    FIELD_NUMBER               =  1
+    BYTES                      =  50
+    DATA_TYPE                  =  "CHARACTER"
+    DESCRIPTION                =  "The name of the housekeeping data point."
+  END_OBJECT                 =  FIELD
+
+  OBJECT                     =  FIELD
+    /* This field may or may not contain data. */
+    NAME                       =  "VALUE"
+    FIELD_NUMBER               =  2
+    BYTES                      =  21
+    DATA_TYPE                  =  "CHARACTER"
+    DESCRIPTION                =  "The value of the housekeeping data point."
+  END_OBJECT                 =  FIELD
+
+  OBJECT                     =  FIELD
+    NAME                       =  "UNITS"
+    FIELD_NUMBER               =  3
+    BYTES                      =  10
+    DATA_TYPE                  =  "CHARACTER"
+    DESCRIPTION                =  "The units of the housekeeping data point."
+  END_OBJECT                 =  FIELD
+
+END_OBJECT                 =  SPREADSHEET
+
+END

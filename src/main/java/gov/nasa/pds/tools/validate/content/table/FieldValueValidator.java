@@ -64,6 +64,9 @@ public class FieldValueValidator {
       FieldType.IEEE754LSBSINGLE,
       FieldType.IEEE754MSBDOUBLE,
       FieldType.IEEE754MSBSINGLE);
+  // String types that accept any string value, including "NaN" (issue #956)
+  private static List<FieldType> stringTypes = Arrays.asList(
+      FieldType.ASCII_STRING);
 
   /** Container to capture messages. */
   private ProblemListener listener;
@@ -607,7 +610,7 @@ public class FieldValueValidator {
 
     LOG.debug("checkType:value,type:after [{}],[{}]", value, type);
 
-    if (SpecialConstantChecker.isInfOrNan(value) && !realTypes.contains(type)) {
+    if (SpecialConstantChecker.isInfOrNan(value) && !realTypes.contains(type) && !stringTypes.contains(type)) {
       throw new InvalidTableException(value + " is not allowed");
     }
     if (FieldType.ASCII_INTEGER.getXMLType().equals(type.getXMLType())) {
