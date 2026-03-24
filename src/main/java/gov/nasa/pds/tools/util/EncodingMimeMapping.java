@@ -6,6 +6,7 @@ import java.util.List;
 
 public enum EncodingMimeMapping {
   DAT(Arrays.asList("dat","DAT")),
+  UNKNOWN_EXTENSION(new ArrayList<>()),
   GIF(Arrays.asList("gif")),
   J2C(Arrays.asList("j2c", "jp2", "mj2", "mjp2")),
   JPEG(Arrays.asList("jpg", "jpeg")),
@@ -36,6 +37,8 @@ public enum EncodingMimeMapping {
       if (encoding.equalsIgnoreCase("MP4/H.264")) return MP4;
       if (encoding.equalsIgnoreCase("MP4/H.264/AAC")) return MP4;
       if (encoding.equalsIgnoreCase("MSSS Camera Mini Header")) return DAT;
+      if (encoding.equalsIgnoreCase("MSSS Original Data Record Mini Header")) return UNKNOWN_EXTENSION;
+      if (encoding.equalsIgnoreCase("MSSS Original Data Record Payload Data")) return UNKNOWN_EXTENSION;
       if (encoding.equalsIgnoreCase("PDF")) return PDF;
       if (encoding.equalsIgnoreCase("PDFA")) return PDFA;
       if (encoding.equalsIgnoreCase("PDF/A")) return PDFA;

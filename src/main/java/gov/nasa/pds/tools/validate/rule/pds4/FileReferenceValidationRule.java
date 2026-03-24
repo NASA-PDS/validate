@@ -137,7 +137,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
         try {
           EncodingMimeMapping emm = EncodingMimeMapping.find (encoding);
           String suffix = filename.substring(filename.lastIndexOf(".")+1);
-          if (!emm.contains (suffix)) {
+          if (!emm.allowed().isEmpty() && !emm.contains (suffix)) {
             this.getListener().addProblem(new ValidationProblem(
                 new ProblemDefinition(
                     ExceptionType.WARNING,
