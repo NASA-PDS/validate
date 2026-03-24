@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.derived_radio_science:data:obj</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>OSIRIS-REx Orbital Fit Parameters for Particles Ejected from Bennu</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Chesley, S. R.; French, A. S.; Davis, A. B.; Jacobson, R. A.; Brozović, M.; Farnocchia, D.;
+            Selznick, S.; Liounis, A.J.; Hergenrother, C. W.; Moreau, M. C.; Pelgrift, P.; Lessac‐Chenen, E.; Molaro, J. L.;
+            Park, R. S.; Rozitis,B.; Scheeres, D. J.; Takahashi, Y.,; Vokrouhlický, D.;  Wolner, C. W. V.; Adam, C.; 
+            Bos, B. J.; Christensen, E. J.; Emery, J. P.;  Leonard, J. M.; McMahon, J. W.; Nolan, M. C.; Shelly, F.C.;
+            Maleszewski, C., Li, J.‐Y., Pajola, M.; Lauretta, D. S.</author_list>
+        	<editor_list>Crombie, M. Katherine</editor_list>
+        	<publication_year>2025</publication_year>
+            <description>Orbital fit parameters for particles ejected from Bennu during the OSIRIS-REx mission.</description>
+		</Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-12-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2019-01-19T02:03:37.527Z</start_date_time>
+            <stop_date_time>2019-02-17T09:42:41.141Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Origins, Spectral Interpreation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Radio Science (Telecom) Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:rss.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Touch-and-Go Camera Suite (TAGCAMS)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:tagcams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(101955) Bennu</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+    </Observation_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.mission:document:orexmissioninfo</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.derived_radio_science:document:chesley_et_al_2020</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference> 
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.derived_radio_science:document:hergenrother_et_al_2020</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference> 
+    </Reference_List>
+    
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>obj.csv</file_name>
+            <file_size unit="byte">991</file_size>
+        </File>
+        <Header>
+            <name>Column Labels</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">692</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <description>Column headings for the DSV table.</description>
+        </Header>
+        <Table_Delimited>
+            <name>Orbital parameters table.</name>
+            <offset unit="byte">692</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>Parameters of orbital fits</description>
+            <records>1</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>80</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">1414</maximum_record_length>
+                <Field_Delimited>
+                    <name>object number</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Integer catalog number of the object. Automatically incremented in
+                     range 1-4999 for obj_class=1 and 5000-9999 for obj_class=2</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>total_det</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Number of detections available from tracks (incl. accepted and rejected det)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>t_beg</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <unit>s past J200</unit>
+                    <description>TDB Time of first detection</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>t_end</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Date_Time_YMD_UTC</data_type>
+                    <unit>s past J2000</unit>
+                    <description>TDB Time of last detection</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>delta_t</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Time interval of data arc</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>rms</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>pix</unit>
+                    <description>RMS of fit</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>arc_len</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Interval from first to last detection in fit.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>n_det</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>number of detections used in fit.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>n_rej</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>number of detections rejected as outliers.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>spice_id</name>
+                    <field_number>10</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>SPICE Body ID, e.g., -64000001.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>epoch</name>
+                    <field_number>11</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s past J2000</unit>
+                    <description>TDB Epoch of osculation for elements, typically selected near mid-arc of detections.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>x</name>
+                    <field_number>12</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>J2000 x coordinate wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>y</name>
+                    <field_number>13</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>J2000 y coordinate wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>z</name>
+                    <field_number>14</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>J2000 z coordinate wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>vx</name>
+                    <field_number>15</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km/s</unit>
+                    <description>J2000 x velocity wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>vy</name>
+                    <field_number>16</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km/s</unit>
+                    <description>J2000 y velocity wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>vz</name>
+                    <field_number>17</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km/s</unit>
+                    <description>J2000 z velocity wrt Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vx_vx</name>
+                    <field_number>18</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vx_vy</name>
+                    <field_number>19</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vx_vz</name>
+                    <field_number>20</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vy_vy</name>
+                    <field_number>21</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vy_vz</name>
+                    <field_number>22</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_vz_vz</name>
+                    <field_number>23</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_vx</name>
+                    <field_number>24</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_vy</name>
+                    <field_number>25</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_vz</name>
+                    <field_number>26</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_x</name>
+                    <field_number>27</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_y</name>
+                    <field_number>28</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_x_z</name>
+                    <field_number>29</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_y_vx</name>
+                    <field_number>30</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_y_vy</name>
+                    <field_number>31</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_y_vz</name>
+                    <field_number>32</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_y_y</name>
+                    <field_number>33</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_y_z</name>
+                    <field_number>34</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_z_vx</name>
+                    <field_number>35</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_z_vy</name>
+                    <field_number>36</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_z_vz</name>
+                    <field_number>37</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2/s</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>cov_z_z</name>
+                    <field_number>38</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^2</unit>
+                    <description>J2000 covariance element</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>gm_bennu</name>
+                    <field_number>39</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km^3/s^2</unit>
+                    <description>GM of Bennu</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>sma</name>
+                    <field_number>40</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>Semimajor axis at osculating epoch</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>ecc</name>
+                    <field_number>41</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Eccentricity at osculating epoch</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>inc</name>
+                    <field_number>42</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Inclination at osculating epoch ('ORX_BENNU_SUN_NORTH' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>arg_peri</name>
+                    <field_number>43</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Argument of periapsis at osculating epoch ('ORX_BENNU_SUN_NORTH' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>lon_asc_node</name>
+                    <field_number>44</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Longitude of ascending node at osculating epoch ('ORX_BENNU_SUN_NORTH' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>mean_anom</name>
+                    <field_number>45</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Mean anomaly at osculating epoch (for elliptic orbits)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>peri_r</name>
+                    <field_number>46</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>Periapsis distance at osculating epoch</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>apo_r</name>
+                    <field_number>47</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>Apoapsis distance at osculating epoch</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>t_peri</name>
+                    <field_number>48</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Time of periapsis relative to epoch (possible range: +/- half period)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>period</name>
+                    <field_number>49</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Osculating orbital period</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>amr</name>
+                    <field_number>50</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m^2/kg</unit>
+                    <description>Area-to-mass ratio</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>amr_sig</name>
+                    <field_number>51</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m^2/kg</unit>
+                    <description>Uncertainty in area-to-mass ratio</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>abs_mag</name>
+                    <field_number>52</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>magnitude</unit>
+                    <description>Absolute magnitude in H-G12 system</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>abs_mag_sig</name>
+                    <field_number>53</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>magnitude</unit>
+                    <description>Uncertainty in abs_mag</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>g12</name>
+                    <field_number>54</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>The g12 parameter models the phase slope and opposition surge (Pentillä et al. 2016)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>g12_sig</name>
+                    <field_number>55</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Uncertainty of g12 parameter.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>albedo</name>
+                    <field_number>56</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Albedo</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>albedo_sig</name>
+                    <field_number>57</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Uncertainty in albedo.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_epoch</name>
+                    <field_number>58</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s past J2000</unit>
+                    <description>Time of ejection (TDB).</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_epoch_sig</name>
+                    <field_number>59</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Uncertainty in time of ejection.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_lat</name>
+                    <field_number>60</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Latitude of ejection location.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_lat_sig</name>
+                    <field_number>61</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>Uncertainty in latitude of ejection location</unit>
+                    <description>Uncertainty in latitude of ejection location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_lon</name>
+                    <field_number>62</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>East longitude of ejection location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_lon_sig</name>
+                    <field_number>63</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Uncertainty in longitude of ejection location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_lst</name>
+                    <field_number>64</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Local solar time at time and location of ejection</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_r</name>
+                    <field_number>65</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>Radius of ejection location from center of shape model</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_vx</name>
+                    <field_number>66</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>x-component of velocity at ejection ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_vy</name>
+                    <field_number>67</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>y-component of velocity at ejection ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>eject_vz</name>
+                    <field_number>68</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>z-component of velocity at ejection ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_epoch</name>
+                    <field_number>69</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s past J2000</unit>
+                    <description>Time of impact (TDB)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_epoch_sig</name>
+                    <field_number>70</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>Uncertainty in time of impact</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_lat</name>
+                    <field_number>71</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Latitude of impact location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_lat_sig</name>
+                    <field_number>72</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Uncertainty in latitude of impact location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_lon</name>
+                    <field_number>73</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>East longitude of impact location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_lon_sig</name>
+                    <field_number>74</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Uncertainty in longitude of impact location</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_lst</name>
+                    <field_number>75</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>deg</unit>
+                    <description>Local solar time at time and location of impact</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_r</name>
+                    <field_number>76</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>km</unit>
+                    <description>Radius of impact location from center of shape model</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_vx</name>
+                    <field_number>77</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>x-component of velocity at impact ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>impact_vy</name>
+                    <field_number>78</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>y-component of velocity at impact ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>imapct_vz</name>
+                    <field_number>79</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m/s</unit>
+                    <description>z-component of velocity at impact ('IAU_BENNU' SPICE frame)</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>lifetime</name>
+                    <field_number>80</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>s</unit>
+                    <description>interval from ejection to impact</description>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

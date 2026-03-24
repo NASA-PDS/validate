@@ -6,3 +6,4 @@ Feature: 4.1.x
     @4.1.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
+| 1458 | 1 | "github1458" | " -t {datasrc}/" | "summary:productValidation:passed=2,summary:productValidation:total=2,summary:totalWarnings=6,messageTypes:warning.label.context_ref_mismatch=5,messageTypes:warning.label.schematron=1" |
