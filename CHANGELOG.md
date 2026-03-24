@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-03-04)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-03-23)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
 
@@ -10,8 +10,11 @@
 
 **Defects:**
 
+- error.directory.unallowed\_name not raised on Windows for absolute directory\_path\_name [\#1539](https://github.com/NASA-PDS/validate/issues/1539) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- When validate reports a directory has a warning it says "XML could not be parsed." which is misleading. [\#1510](https://github.com/NASA-PDS/validate/issues/1510) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validating large data file \(150GB\) is trying to write the entire file to local temp space - error upon not enough local space [\#1241](https://github.com/NASA-PDS/validate/issues/1241) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- Validate reports unexpected NaN error for ASCII\_String fields [\#956](https://github.com/NASA-PDS/validate/issues/956) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
