@@ -6,12 +6,15 @@
 
 **Requirements:**
 
+- As a data provider, I want to add a new encoding type for Product Native [\#1542](https://github.com/NASA-PDS/validate/issues/1542)
+- As a data provider, I want to add two new encoding types for Product Native [\#1541](https://github.com/NASA-PDS/validate/issues/1541)
 - As a user, I want the validate report entry for when there is a context name mismatch to show the LID of the context object as well as the correct known values.. [\#1509](https://github.com/NASA-PDS/validate/issues/1509)
 
 **Defects:**
 
 - error.directory.unallowed\_name not raised on Windows for absolute directory\_path\_name [\#1539](https://github.com/NASA-PDS/validate/issues/1539) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - When validate reports a directory has a warning it says "XML could not be parsed." which is misleading. [\#1510](https://github.com/NASA-PDS/validate/issues/1510) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Referential integrity not being checked in all places there is an Internal\_Reference area [\#1481](https://github.com/NASA-PDS/validate/issues/1481) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Number of passing products in summary does not match actual total [\#1458](https://github.com/NASA-PDS/validate/issues/1458) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validating large data file \(150GB\) is trying to write the entire file to local temp space - error upon not enough local space [\#1241](https://github.com/NASA-PDS/validate/issues/1241) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
