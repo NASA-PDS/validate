@@ -128,14 +128,12 @@ public class TargetExaminer {
         patient.isDocument = xmlModels.size() > 0;
       } catch (Exception e) {
         if (!ignoreErrors) {
-          LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
-          e.printStackTrace();
+          LOG.debug("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
         }
       }
     } catch (Exception e) {
       if (!ignoreErrors) {
-        LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
-        e.printStackTrace();
+        LOG.debug("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
       }
     }
   }
@@ -189,12 +187,10 @@ public class TargetExaminer {
           }
         }
       } catch (Exception e) {
-        LOG.error("Exception encountered in getTargetContent:url {},{}", url, e.getMessage());
-        e.printStackTrace();
+        LOG.debug("Exception encountered in getTargetContent:url {},{}", url, e.getMessage());
       }
     } catch (Exception e) {
-      LOG.error("Exception encountered in getTargetContent:url {},{}", url, e.getMessage());
-      e.printStackTrace();
+      LOG.debug("Exception encountered in getTargetContent:url {},{}", url, e.getMessage());
     }
 
     LOG.debug("getTargetContent:url,nodeCheck,fieldCheck,fieldContent {},{},{},{}", url, nodeCheck,
