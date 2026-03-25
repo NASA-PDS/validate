@@ -1,7 +1,6 @@
 package gov.nasa.pds.tools.util;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public enum EncodingMimeMapping {
@@ -20,13 +19,13 @@ public enum EncodingMimeMapping {
   WAV(Arrays.asList("wav"));
   final private List<String> extensions;
   EncodingMimeMapping (List<String> extensions){
-    this.extensions = extensions;
+    this.extensions = List.copyOf(extensions);
   }
   public boolean contains (String extension) {
     return this.extensions.contains (extension.toLowerCase());
   }
   public List<String> allowed() {
-    return Collections.unmodifiableList(this.extensions);
+    return this.extensions;
   }
   public static EncodingMimeMapping find (String encoding) throws IllegalArgumentException {
     if (encoding != null) {
