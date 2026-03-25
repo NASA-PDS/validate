@@ -136,14 +136,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
       if (filename.contains(".")) {
         try {
           EncodingMimeMapping emm = EncodingMimeMapping.find (encoding);
+          List<String> allowed = emm.allowed();
           String suffix = filename.substring(filename.lastIndexOf(".")+1);
-          if (!emm.contains (suffix)) {
+          if (!allowed.isEmpty() && !emm.contains (suffix)) {
             this.getListener().addProblem(new ValidationProblem(
                 new ProblemDefinition(
                     ExceptionType.WARNING,
                     ProblemType.FILE_NAMING_PROBLEM,
-                    "From the encoding type '" + encoding + "'the file extension '" + suffix + "' is not one of the allowed: " + emm.allowed().toString()),
-                this.target));            
+                    "From the encoding type '" + encoding + "'the file extension '" + suffix + "' is not one of the allowed: " + allowed.toString()),
+                this.target));
           }
         } catch (IllegalArgumentException iae) {
           this.getListener().addProblem(new ValidationProblem(

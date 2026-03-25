@@ -1,15 +1,16 @@
 package gov.nasa.pds.tools.util;
 
 import java.util.Arrays;
-import java.util.ArrayList;
 import java.util.List;
 
 public enum EncodingMimeMapping {
   DAT(Arrays.asList("dat","DAT")),
+  UNKNOWN_EXTENSION(List.of()),
   GIF(Arrays.asList("gif")),
   J2C(Arrays.asList("j2c", "jp2", "mj2", "mjp2")),
   JPEG(Arrays.asList("jpg", "jpeg")),
   MP4(Arrays.asList("mp4")),
+  NEF(Arrays.asList("nef")),
   PDF(Arrays.asList("pdf")),
   PDFA(Arrays.asList("pdf", "pdfa")),
   PNG(Arrays.asList("png")),
@@ -18,13 +19,13 @@ public enum EncodingMimeMapping {
   WAV(Arrays.asList("wav"));
   final private List<String> extensions;
   EncodingMimeMapping (List<String> extensions){
-    this.extensions = extensions;
+    this.extensions = List.copyOf(extensions);
   }
   public boolean contains (String extension) {
     return this.extensions.contains (extension.toLowerCase());
   }
   public List<String> allowed() {
-    return new ArrayList<String>(this.extensions);
+    return this.extensions;
   }
   public static EncodingMimeMapping find (String encoding) throws IllegalArgumentException {
     if (encoding != null) {
@@ -36,6 +37,9 @@ public enum EncodingMimeMapping {
       if (encoding.equalsIgnoreCase("MP4/H.264")) return MP4;
       if (encoding.equalsIgnoreCase("MP4/H.264/AAC")) return MP4;
       if (encoding.equalsIgnoreCase("MSSS Camera Mini Header")) return DAT;
+      if (encoding.equalsIgnoreCase("Nikon Electronic Format (NEF)")) return NEF;
+      if (encoding.equalsIgnoreCase("MSSS Original Data Record Mini Header")) return UNKNOWN_EXTENSION;
+      if (encoding.equalsIgnoreCase("MSSS Original Data Record Payload Data")) return UNKNOWN_EXTENSION;
       if (encoding.equalsIgnoreCase("PDF")) return PDF;
       if (encoding.equalsIgnoreCase("PDFA")) return PDFA;
       if (encoding.equalsIgnoreCase("PDF/A")) return PDFA;
