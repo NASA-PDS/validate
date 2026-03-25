@@ -170,15 +170,18 @@ public abstract class Report {
    */
   final public Status record(URI sourceUri, final List<ValidationProblem> problems) {
     int badLabels = 0;
+    int ignoreFromTotalCounts = 0;
     int numErrors = 0;
     int numWarnings = 0;
     Status status = Status.PASS;
     LOG.debug("record:RECORDING_PROBLEM:sourceUri,problems.size {},{}", sourceUri, problems.size());
 
     // TODO: Handle null problems
-    int ignoreFromProductCounts = 0;
     for (ValidationProblem problem : problems) {
-      if (problem.getProblem().getSeverity() == ExceptionType.ERROR
+      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
+      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
+        ignoreFromTotalCounts++;
+      } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
           numErrors++;
@@ -200,12 +203,6 @@ public abstract class Report {
         if (ExceptionType.DEBUG.getValue() <= this.level.getValue()) {
           addToMessageSummary(problem.getProblem().getType().getKey());
         }
-      }
-
-      // Check ProblemCategory to remove from product counts
-      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
-      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
-        ignoreFromProductCounts++;
       }
     }
     this.totalErrors += numErrors;
@@ -231,7 +228,7 @@ public abstract class Report {
         }
       }
     } else {
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && problems.size() - ignoreFromTotalCounts > 0) {
         if (!this.integrityCheckFlag) {
           this.numPassedProds++;
         } else {
@@ -240,7 +237,7 @@ public abstract class Report {
       }
     }
 
-    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds - ignoreFromProductCounts;
+    this.totalProducts = this.numFailedProds + this.numPassedProds + this.numSkippedProds;
     this.totalIntegrityChecks = this.numFailedIntegrityChecks + this.numPassedIntegrityChecks
         + this.numSkippedIntegrityChecks;
     this.begin (Block.LABEL);
