@@ -54,7 +54,7 @@ public class LabelUtil {
   private static String IDENTIFICATION_AREA =
       "//*:Identification_Area[namespace-uri()='" + PDS4_NS + "']";
   private static String INTERNAL_REFERENCE_AREA =
-      "//*:Reference_List/*:Internal_Reference[namespace-uri()='" + PDS4_NS + "']";
+      "//*:Internal_Reference[namespace-uri()='" + PDS4_NS + "']";
 
   public static String LIDVID_REFERENCE = "lidvid_reference";
   public static String LID_REFERENCE = "lid_reference";
@@ -346,7 +346,10 @@ public class LabelUtil {
   }
 
   /**
-   * Get the LIDVID references in the label (as a DOMSource)
+   * Get all LID and LIDVID references from Internal_Reference elements in the label (as a
+   * DOMSource). This searches all Internal_Reference elements in the PDS4 core namespace,
+   * regardless of where they appear in the label (Reference_List, Context_Area, discipline LDD
+   * areas, etc.).
    *
    * @param source The content of context as a DOMSource. # @param context The location of the label
    *        being parsed from.

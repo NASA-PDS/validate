@@ -782,8 +782,9 @@ public class ReferentialIntegrityUtil {
           }
           xml = db.parse(url.openStream());
           domSource = new DOMSource(xml);
-          // Note that the function getLidVidReferences() collects all references in the
-          // Reference_List group in Internal_Reference tags.
+          // Note that the function getLidVidReferences() collects all Internal_Reference
+          // elements in the PDS4 core namespace (including those in Reference_List,
+          // Context_Area, discipline LDD areas, and any other location in the label).
           // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
           // references collected in lidOrLidVidReferences for each label.
 
