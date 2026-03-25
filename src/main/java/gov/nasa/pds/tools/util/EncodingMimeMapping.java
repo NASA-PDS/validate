@@ -1,12 +1,12 @@
 package gov.nasa.pds.tools.util;
 
 import java.util.Arrays;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public enum EncodingMimeMapping {
   DAT(Arrays.asList("dat","DAT")),
-  UNKNOWN_EXTENSION(new ArrayList<>()),
+  UNKNOWN_EXTENSION(List.of()),
   GIF(Arrays.asList("gif")),
   J2C(Arrays.asList("j2c", "jp2", "mj2", "mjp2")),
   JPEG(Arrays.asList("jpg", "jpeg")),
@@ -25,7 +25,7 @@ public enum EncodingMimeMapping {
     return this.extensions.contains (extension.toLowerCase());
   }
   public List<String> allowed() {
-    return new ArrayList<String>(this.extensions);
+    return Collections.unmodifiableList(this.extensions);
   }
   public static EncodingMimeMapping find (String encoding) throws IllegalArgumentException {
     if (encoding != null) {
