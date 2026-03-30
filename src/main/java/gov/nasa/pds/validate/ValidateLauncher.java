@@ -1504,6 +1504,25 @@ public class ValidateLauncher {
         }
 
         LOG.debug("ValidateLauncher:doValidation: validator.validate():target {}", target);
+
+        // Check if explicitly-specified target file exists before running validation.
+        // If not, record an error directly so the product shows FAIL and the summary
+        // reflects the error (issue #1548).
+        File targetFile = FileUtils.toFile(target);
+        if (targetFile != null && !targetFile.exists()) {
+          ValidationProblem p = new ValidationProblem(
+              new ProblemDefinition(ExceptionType.ERROR, ProblemType.MISSING_REFERENCED_FILE,
+                  "Target path does not exist: " + target.getPath()),
+              target);
+          try {
+            report.record(target.toURI(), p);
+          } catch (URISyntaxException e) {
+            // Should not happen
+          }
+          success = false;
+          continue;
+        }
+
         validator.validate(monitor, target);
         monitor.endValidation();
 
