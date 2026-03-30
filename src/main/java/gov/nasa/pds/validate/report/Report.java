@@ -228,7 +228,7 @@ public abstract class Report {
         }
       }
     } else {
-      if (!Utility.isDir(sourceUri.toString()) && problems.size() - ignoreFromTotalCounts > 0) {
+      if (!Utility.isDir(sourceUri.toString())) {
         if (!this.integrityCheckFlag) {
           this.numPassedProds++;
         } else {
