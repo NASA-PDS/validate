@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-03-30)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-01)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
 
@@ -12,6 +12,8 @@
 
 **Defects:**
 
+- Validate does not count cleanly-passing products, incorrectly triggering no\_products\_found error [\#1557](https://github.com/NASA-PDS/validate/issues/1557) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not fail or report errors when an explicitly-specified target file does not exist [\#1548](https://github.com/NASA-PDS/validate/issues/1548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - error.directory.unallowed\_name not raised on Windows for absolute directory\_path\_name [\#1539](https://github.com/NASA-PDS/validate/issues/1539) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - When validate reports a directory has a warning it says "XML could not be parsed." which is misleading. [\#1510](https://github.com/NASA-PDS/validate/issues/1510) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Referential integrity not being checked in all places there is an Internal\_Reference area [\#1481](https://github.com/NASA-PDS/validate/issues/1481) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
