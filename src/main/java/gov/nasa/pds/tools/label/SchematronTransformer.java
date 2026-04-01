@@ -20,9 +20,12 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -44,6 +47,7 @@ import gov.nasa.pds.tools.validate.ProblemHandler;
  */
 public class SchematronTransformer {
   private static final Logger LOG = LoggerFactory.getLogger(SchematronTransformer.class);
+  private final Map<String, Templates> cachedTemplates = new HashMap<>();
   
   /**
    * Constructor.
@@ -98,22 +102,37 @@ public class SchematronTransformer {
    * @throws TransformerException If an error occurred during the transform process.
    */
   public Transformer transform(Source source, ProblemHandler handler) throws TransformerException {
-    Transformer isoTransformer = this.buildIsoTransformer();
+    return compileSchematron(source, handler).newTransformer();
+  }
 
+  private Templates compileSchematron(Source source, ProblemHandler handler) throws TransformerException {
+    Transformer isoTransformer = this.buildIsoTransformer();
     if (handler != null) {
       isoTransformer.setErrorListener(new TransformerErrorListener(handler));
     }
     StringWriter schematronStyleSheet = new StringWriter();
     isoTransformer.transform(source, new StreamResult(schematronStyleSheet));
     return TransformerFactory.newInstance()
-        .newTransformer(new StreamSource(new StringReader(schematronStyleSheet.toString())));
+        .newTemplates(new StreamSource(new StringReader(schematronStyleSheet.toString())));
   }
 
   public Transformer transform(String source) throws TransformerException {
     return this.transform(source, null);
   }
   public Transformer transform(String source, ProblemHandler handler) throws TransformerException {
-    return transform (new StreamSource(new StringReader(source)), handler);
+    Templates templates = cachedTemplates.get(source);
+    if (templates == null) {
+      LOG.debug("transform: cache miss, compiling schematron (length={})", source.length());
+      templates = compileSchematron(new StreamSource(new StringReader(source)), handler);
+      cachedTemplates.put(source, templates);
+    } else {
+      LOG.debug("transform: cache hit, reusing compiled schematron (length={})", source.length());
+    }
+    return templates.newTransformer();
+  }
+
+  public void clearCache() {
+    cachedTemplates.clear();
   }
   /**
    * Transform the given schematron.
