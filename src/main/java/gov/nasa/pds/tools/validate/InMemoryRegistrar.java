@@ -134,7 +134,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     LOG.debug("setTargetIdentifier:identifier,location {},{}", identifier, location);
     identifierDefinitions.put(identifier, location);
 
-    identifierDefinitionsByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
+    identifierDefinitionsByLid.computeIfAbsent(identifier.getLid(), x -> ConcurrentHashMap.newKeySet()).add(identifier);
   }
 
   @Override
@@ -153,7 +153,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
     String lid = identifier.getLid();
 
-    referencedIdentifiersByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
+    referencedIdentifiersByLid.computeIfAbsent(identifier.getLid(), x -> ConcurrentHashMap.newKeySet()).add(identifier);
   }
 
   @Override
