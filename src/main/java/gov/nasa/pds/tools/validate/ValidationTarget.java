@@ -209,4 +209,13 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   public URL getUrl() {
     return url;
   }
+
+  /**
+   * Clears the static cache of ValidationTargets to free memory between
+   * validation runs. Without this, cachedTargets grows unboundedly across
+   * runs and can cause OOM on large bundles.
+   */
+  public static void clearCache() {
+    cachedTargets.clear();
+  }
 }
