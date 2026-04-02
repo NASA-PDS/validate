@@ -65,15 +65,19 @@ public class InMemoryRegistrar implements TargetRegistrar {
         this.collections.put(location, target);
       }
 
+      boolean isNew = !this.targets.containsKey(location);
       this.targets.put(location, target);
 
-      // Index parent-child relationship for O(1) child lookups
-      if (parentLocation != null) {
-        childrenByParent.computeIfAbsent(parentLocation, k -> new ArrayList<>()).add(location);
-      }
+      // Only update indexes for genuinely new targets to avoid duplicates
+      if (isNew) {
+        // Index parent-child relationship for O(1) child lookups
+        if (parentLocation != null) {
+          childrenByParent.computeIfAbsent(parentLocation, k -> new ArrayList<>()).add(location);
+        }
 
-      // Increment count-by-type index
-      targetCountByType.merge(type, 1, Integer::sum);
+        // Increment count-by-type index
+        targetCountByType.merge(type, 1, Integer::sum);
+      }
 
       LOG.debug("addTarget(): location: {}, target: {}", location, target);
     } catch (MalformedURLException e) {
