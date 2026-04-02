@@ -17,6 +17,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -38,12 +39,14 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<Identifier, String> identifierReferenceLocations = new ConcurrentHashMap<>();
   private Map<String, Set<Identifier>> referencedIdentifiersByLid = new ConcurrentHashMap<>();
 
-  // Parent-child index: maps parent location to list of direct child locations
+  // Parent-child index: maps parent location to list of direct child locations.
+  // The inner ArrayLists are only accessed under the instance monitor (both addTarget()
+  // and getChildTargets() are synchronized), so they are thread-safe despite being mutable.
   private Map<String, List<String>> childrenByParent = new ConcurrentHashMap<>();
 
   // Count-by-type index: tracks target counts per TargetType
   private Map<TargetType, Integer> targetCountByType = new ConcurrentHashMap<>();
-  private int labelCount = 0;
+  private AtomicInteger labelCount = new AtomicInteger(0);
 
   @Override
   public ValidationTarget getRoot() {
@@ -104,7 +107,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized int getTargetCount(TargetType type) {
+  public int getTargetCount(TargetType type) {
     return targetCountByType.getOrDefault(type, 0);
   }
 
@@ -116,9 +119,9 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
     // Update label count index
     if (isLabel && !wasLabel) {
-      labelCount++;
+      labelCount.incrementAndGet();
     } else if (!isLabel && wasLabel) {
-      labelCount--;
+      labelCount.decrementAndGet();
     }
 
     // Labels refer to themselves.
@@ -128,8 +131,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized int getLabelCount() {
-    return labelCount;
+  public int getLabelCount() {
+    return labelCount.get();
   }
 
   @Override
