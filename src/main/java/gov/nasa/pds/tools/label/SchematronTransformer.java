@@ -22,6 +22,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -126,6 +127,9 @@ public class SchematronTransformer {
   }
   public Transformer transform(String source, ProblemHandler handler) throws TransformerException {
     String key = sha256(source);
+    // Intentional check-then-act: a concurrent miss may compile twice, but
+    // both results are equivalent and the race is self-healing after warmup.
+    // computeIfAbsent is avoided because it holds a lock during compilation.
     Templates templates = cachedTemplates.get(key);
     if (templates == null) {
       LOG.debug("transform: cache miss, compiling schematron (length={})", source.length());
@@ -149,19 +153,18 @@ public class SchematronTransformer {
     return cachedTemplates.size();
   }
 
-  private static String sha256(String input) {
+  private static final ThreadLocal<MessageDigest> SHA256 = ThreadLocal.withInitial(() -> {
     try {
-      MessageDigest digest = MessageDigest.getInstance("SHA-256");
-      byte[] hash = digest.digest(input.getBytes(StandardCharsets.UTF_8));
-      StringBuilder hex = new StringBuilder(hash.length * 2);
-      for (byte b : hash) {
-        hex.append(String.format("%02x", b));
-      }
-      return hex.toString();
+      return MessageDigest.getInstance("SHA-256");
     } catch (NoSuchAlgorithmException e) {
-      // SHA-256 is guaranteed to be available on all JVMs
       throw new RuntimeException(e);
     }
+  });
+
+  private static String sha256(String input) {
+    MessageDigest digest = SHA256.get();
+    digest.reset();
+    return HexFormat.of().formatHex(digest.digest(input.getBytes(StandardCharsets.UTF_8)));
   }
   /**
    * Transform the given schematron.

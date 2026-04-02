@@ -6,11 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 import javax.xml.transform.Transformer;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit tests for {@link SchematronTransformer} cache behavior.
+ * Tests for {@link SchematronTransformer} cache behavior.
+ *
+ * <p>These tests exercise the full ISO schematron → XSLT compilation pipeline and
+ * therefore require Saxon-HE on the classpath. They are slower than pure unit tests
+ * on first run due to XSLT compilation overhead.
  */
+@Tag("integration")
 public class SchematronTransformerTest {
 
   /** Minimal valid ISO Schematron document. */
