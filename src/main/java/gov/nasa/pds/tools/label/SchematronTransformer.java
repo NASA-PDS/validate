@@ -130,6 +130,8 @@ public class SchematronTransformer {
     // Intentional check-then-act: a concurrent miss may compile twice, but
     // both results are equivalent and the race is self-healing after warmup.
     // computeIfAbsent is avoided because it holds a lock during compilation.
+    // handler is intentionally unused on cache hit — compilation errors
+    // would only occur during the first call (cache miss), not on reuse.
     Templates templates = cachedTemplates.get(key);
     if (templates == null) {
       LOG.debug("transform: cache miss, compiling schematron (length={})", source.length());
