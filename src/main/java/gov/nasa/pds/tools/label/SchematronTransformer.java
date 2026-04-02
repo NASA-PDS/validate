@@ -20,8 +20,11 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
@@ -47,7 +50,7 @@ import gov.nasa.pds.tools.validate.ProblemHandler;
  */
 public class SchematronTransformer {
   private static final Logger LOG = LoggerFactory.getLogger(SchematronTransformer.class);
-  private final Map<String, Templates> cachedTemplates = new HashMap<>();
+  private final Map<String, Templates> cachedTemplates = new ConcurrentHashMap<>();
   
   /**
    * Constructor.
@@ -101,6 +104,9 @@ public class SchematronTransformer {
    *
    * @throws TransformerException If an error occurred during the transform process.
    */
+  // Not cached — Source objects are not stably comparable/hashable.
+  // In practice LabelValidator only calls the String-based overload (line 622),
+  // so this uncached path does not affect bundle-validation performance.
   public Transformer transform(Source source, ProblemHandler handler) throws TransformerException {
     return compileSchematron(source, handler).newTransformer();
   }
@@ -120,19 +126,47 @@ public class SchematronTransformer {
     return this.transform(source, null);
   }
   public Transformer transform(String source, ProblemHandler handler) throws TransformerException {
-    Templates templates = cachedTemplates.get(source);
+    String key = sha256(source);
+    // Intentional check-then-act: a concurrent miss may compile twice, but
+    // both results are equivalent and the race is self-healing after warmup.
+    // computeIfAbsent is avoided because it holds a lock during compilation.
+    // handler is intentionally unused on cache hit — compilation errors
+    // would only occur during the first call (cache miss), not on reuse.
+    Templates templates = cachedTemplates.get(key);
     if (templates == null) {
       LOG.debug("transform: cache miss, compiling schematron (length={})", source.length());
       templates = compileSchematron(new StreamSource(new StringReader(source)), handler);
-      cachedTemplates.put(source, templates);
+      cachedTemplates.put(key, templates);
     } else {
       LOG.debug("transform: cache hit, reusing compiled schematron (length={})", source.length());
     }
     return templates.newTransformer();
   }
 
-  public void clearCache() {
+  // Package-private: cache lifetime is tied to the SchematronTransformer instance.
+  // LabelValidator.clear() creates a new instance (line 219), which naturally
+  // starts with an empty cache. Exposed for testing.
+  void clearCache() {
     cachedTemplates.clear();
+  }
+
+  /** Returns the number of cached templates entries. Package-private for testing. */
+  int cacheSize() {
+    return cachedTemplates.size();
+  }
+
+  private static final ThreadLocal<MessageDigest> SHA256 = ThreadLocal.withInitial(() -> {
+    try {
+      return MessageDigest.getInstance("SHA-256");
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
+  });
+
+  private static String sha256(String input) {
+    MessageDigest digest = SHA256.get();
+    digest.reset();
+    return HexFormat.of().formatHex(digest.digest(input.getBytes(StandardCharsets.UTF_8)));
   }
   /**
    * Transform the given schematron.
