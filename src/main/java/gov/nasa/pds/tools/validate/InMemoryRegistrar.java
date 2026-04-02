@@ -44,8 +44,9 @@ public class InMemoryRegistrar implements TargetRegistrar {
   // and getChildTargets() are synchronized), so they are thread-safe despite being mutable.
   private Map<String, List<String>> childrenByParent = new ConcurrentHashMap<>();
 
-  // Count-by-type index: tracks target counts per TargetType
-  private Map<TargetType, Integer> targetCountByType = new ConcurrentHashMap<>();
+  // Count-by-type index: tracks target counts per TargetType.
+  // Uses AtomicInteger to avoid boxed Integer allocations on each merge() call.
+  private Map<TargetType, AtomicInteger> targetCountByType = new ConcurrentHashMap<>();
   private AtomicInteger labelCount = new AtomicInteger(0);
 
   @Override
@@ -69,9 +70,22 @@ public class InMemoryRegistrar implements TargetRegistrar {
       }
 
       boolean isNew = !this.targets.containsKey(location);
+
+      // Only update indexes for genuinely new targets to avoid duplicates.
+      // Invariant: a location is never re-registered with a different TargetType.
+      // Both RegisterTargets.java call sites derive the type from the location itself
+      // (via Utility.getTargetType), so re-registration with a different type cannot
+      // happen in practice. Log a warning if this invariant is ever violated.
+      if (!isNew) {
+        ValidationTarget existing = this.targets.get(location);
+        if (existing != null && !type.equals(existing.getType())) {
+          LOG.warn("addTarget(): location {} re-registered with type {} (was {})",
+              location, type, existing.getType());
+        }
+      }
+
       this.targets.put(location, target);
 
-      // Only update indexes for genuinely new targets to avoid duplicates
       if (isNew) {
         // Index parent-child relationship for O(1) child lookups
         if (parentLocation != null) {
@@ -79,7 +93,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
         }
 
         // Increment count-by-type index
-        targetCountByType.merge(type, 1, Integer::sum);
+        targetCountByType.computeIfAbsent(type, k -> new AtomicInteger(0)).incrementAndGet();
       }
 
       LOG.debug("addTarget(): location: {}, target: {}", location, target);
@@ -108,7 +122,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public int getTargetCount(TargetType type) {
-    return targetCountByType.getOrDefault(type, 0);
+    AtomicInteger count = targetCountByType.get(type);
+    return count != null ? count.get() : 0;
   }
 
   @Override
