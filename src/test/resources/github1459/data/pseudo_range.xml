@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.derived_radio_science:data:pseudo_range</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>OSIRIS-REx Bennu Pseudo Range Data</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>Farnocchia, D.</author_list>
+        	<editor_list>Crombie, M. Katherine</editor_list>
+        	<publication_year>2025</publication_year>
+            <description>The "Bennu pseudo-ranging" data product consists of a table giving DSN range measurements of the OSIRIS-REx spacecraft as if the measurements were received and transmitted by Bennu. This product was produced by the OSIRIS-REx science team and 
+was used to estimate the ephemeris of Bennu, Yarkovsky effect, and YORP effect.</description>
+		</Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-12-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2019-01-03T16:56:56Z</start_date_time>
+            <stop_date_time>2020-10-03T19:14:18Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Radio Science (Telecom) Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:rss.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(101955) Bennu</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+    </Observation_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.mission:document:orexmissioninfo</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+    
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>pseudo_range.tab</file_name>
+            <file_size unit="byte">2448</file_size>
+        </File>
+        <Table_Character>
+            <name>Pseudo ranging table.</name>
+            <offset unit="byte">0</offset>
+            <records>35</records>
+            <description>Bennu pseudo-ranging data table</description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <Record_Character>
+                <fields>6</fields>
+                <groups>0</groups>
+                <record_length unit="byte">68</record_length>
+                
+                <Field_Character>
+                    <name>Date</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">11</field_length>
+                    <field_format>%11s</field_format>
+                    <description>Date in YYYY-Mon-DD format</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Time</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">12</field_location>
+                    <data_type>ASCII_Time</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <field_format>%9s</field_format>
+                    <description>UTC time in HH:MM:SS</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Seconds Past J2000</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">21</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">18</field_length>
+                    <field_format>%18.3f</field_format>
+                    <unit>s</unit>
+                    <description>Seconds past J2000</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Delay</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">39</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">15</field_length>
+                    <field_format>%15.9f</field_format>
+                    <unit>Fourier order</unit>
+                    <description>Signal delay</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Delay Uncertainty</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">54</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">6</field_length>
+                    <field_format>%6d</field_format>
+                    <unit>nanoseconds</unit>
+                    <description>Uncertainty of the delay</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Station Number</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">60</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <field_format>%7d</field_format>
+                    <unit>Days</unit>
+                    <description>DSN Station number.</description>
+                </Field_Character>
+                                               
+            </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>

@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Observational
+    xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:pds="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.derived_radio_science:data:oblate</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>OSIRIS-REx Particle Shape Fits for Particles Ejected from Bennu</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Citation_Information>
+            <author_list>C. W. Hergenrother; C. Maleszewski; J.-Y. Li; M. Pajola; S. R. Chesley; A. S. French; A. B. Davis;
+            J. Y. Pelgrift; J. M. Leonard; F. Shelly; A. J. Liounis; K. Becker; S. S. Balram-Knutson; R. Garcia;
+            T. R. Kareta; C. Adam; K. Alkiek; B. J. Bos; M. Brozović; K. N. Burke; E. Christensen; B. E. Clark;
+            D. N. DellaGiustina; C. Drouet d'Aubigny; D. Farnocchia; E. S. Howell; R. A. Jacobson; J. N. Kidd;
+            E. J. Lessac-Chenen; R. Melikyan; M. C. Nolan; R. S. Park; S. Selznick; B. Rizk; D. S. Lauretta</author_list>
+        	<editor_list>Crombie, M. Katherine</editor_list>
+        	<publication_year>2025</publication_year>
+            <description>Parameters of the particle shape fits of particles ejected from Bennu during the OSIRIS-REx mission.</description>
+		</Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-12-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2019-01-19T02:03:37.527Z</start_date_time>
+            <stop_date_time>2019-02-17T09:42:41.141Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <name>Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx)</name>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Radio Science (Telecom) Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:rss.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Touch-and-Go Camera Suite (TAGCAMS)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:tagcams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>(101955) Bennu</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>  
+    </Observation_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.mission:document:orexmissioninfo</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.derived_radio_science:document:chesley_et_al_2020</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:orex.derived_radio_science:document:hergenrother_et_al_2020</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference> 
+    </Reference_List>
+    
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>oblate.csv</file_name>
+            <file_size unit="byte">8406</file_size>
+        </File>
+        <Header>
+            <name>Column Labels</name>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">50</object_length>
+            <parsing_standard_id>UTF-8 Text</parsing_standard_id>
+            <description>Column headings for the DSV table.</description>
+        </Header>
+        <Table_Delimited>
+            <name>Shape parameters table</name>
+            <offset unit="byte">50</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <description>Parameters of the particle shape fits.</description>
+            <records>130</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>9</fields>
+                <groups>0</groups>
+                <maximum_record_length unit="byte">68</maximum_record_length>
+                <Field_Delimited>
+                    <name>Obj. Num</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Integer</data_type>
+                    <description>Integer catalog number of the object.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>AMR</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>m^2/kg</unit>
+                    <description>Area to mass ratio</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>AMR_sig</name>
+                    <field_number>3</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Uncertainty of area to mass ratio</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>H</name>
+                    <field_number>4</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>mag</unit>
+                    <description>Absolute magnitude</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>H_sig</name>
+                    <field_number>5</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>mag</unit>
+                    <description>Uncertainty of absolute magnitude</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>a</name>
+                    <field_number>6</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>cm</unit>
+                    <description>Semi-axis of an oblate ellipsoid of revolution</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>b</name>
+                    <field_number>7</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>cm</unit>
+                    <description>Semi-axis of an oblate ellipsoid of revolution</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>p=b/a</name>
+                    <field_number>8</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <description>Axial ratio of particle.</description>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>D_equiv</name>
+                    <field_number>9</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <unit>cm</unit>
+                    <description>Volume equivalent spherical diameter.</description>
+                </Field_Delimited>                                
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+</Product_Observational>

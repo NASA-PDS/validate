@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/orex/v1/PDS4_OREX_1700_1500.sch" schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+                       xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" 
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                       xmlns:orex="http://pds.nasa.gov/pds4/mission/orex/v1" 
+                       
+                       xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd 
+                       http://pds.nasa.gov/pds4/mission/orex/v1 https://pds.nasa.gov/pds4/mission/orex/v1/PDS4_OREX_1700_1500.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.derived_radio_science:data:rswg_bouguer_map_shape_oct2021.fits</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>OSIRIS-REx Bouguer Anomaly Map for Bennu's Estimated Gravity Field.</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-12-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial version.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time xsi:nil="true" nilReason="inapplicable"/>
+            <stop_date_time xsi:nil="true" nilReason="inapplicable"/>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>OSIRIS-REx</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>OSIRIS-REx</name>
+                <type>Spacecraft</type>
+                <description>Origins, Spectral Interpretation, Resource Identification, Security - Regolith Explorer Spacecraft</description>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Radio Science (Telecom) Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:rss.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Touch-and-Go Camera Suite (TAGCAMS)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:tagcams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+    
+        <Target_Identification>
+            <name>(101955) BENNU</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        <Mission_Area>
+            <orex:Data_Processing_Information>
+                <orex:creator>B. Rozitis</orex:creator>
+                <orex:data_source>Flight</orex:data_source>
+                <orex:dispornt>lower left corner</orex:dispornt>
+                <orex:file_creation>2021-10-07T12:00:00.000Z</orex:file_creation>
+            </orex:Data_Processing_Information>
+            <orex:Mission_Information>
+                <orex:mission_phase_identifier>dsv</orex:mission_phase_identifier>
+                <orex:mission_phase_name>Detailed Survey</orex:mission_phase_name>
+            </orex:Mission_Information>
+            <orex:Map_Product>
+                <orex:header_version>3.0.0</orex:header_version>
+                <orex:Shape_Data_Source>
+                    <orex:datasrcd>2017-08-29T08:47:00Z</orex:datasrcd>
+                    <orex:obj_file>g_03170mm_spc_obj_0000n00000_v042.obj'</orex:obj_file>
+                </orex:Shape_Data_Source>    
+                <orex:Map_Specific_Information>
+                    <orex:map_name>RSWG_bouguer_map_shape_Oct2021</orex:map_name>
+                    <orex:map_ver>1.0</orex:map_ver>
+                    <orex:map_type>global</orex:map_type>
+                    <orex:gsd unit="mm">6330</orex:gsd>
+                    <orex:gsdi unit="mm">6330</orex:gsdi>
+                </orex:Map_Specific_Information>
+                <orex:Summary_Spatial_Information>
+                    <orex:clon unit="deg">0.0</orex:clon>
+                    <orex:clat unit="deg">0.0</orex:clat>
+                </orex:Summary_Spatial_Information>
+               </orex:Map_Product>
+         </Mission_Area>
+    </Observation_Area>
+        
+    <File_Area_Observational>
+        <File>
+            <file_name>RSWG_bouguer_map_shape_Oct2021.fits</file_name>
+        </File>
+        <Header>
+            <offset unit="byte">0</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>Primary FITS Header. This header contains metadata describing map product.</description>
+        </Header>
+        <Header>
+            <offset unit="byte">2880</offset>
+            <object_length unit="byte">5760</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description>Secondary FITS Header. This header contains metadata describing the format of the map product data table.</description>
+        </Header>
+        <Table_Binary>
+            <name>Bouguer Anomaly Map</name>
+            <local_identifier>RSWG_bouguer_map_shape_Oct202</local_identifier>
+            <offset unit="byte">8640</offset>
+            <records>196608</records>
+            <Record_Binary>
+                <fields>10</fields>
+                <groups>0</groups>
+                <record_length unit="byte">68</record_length>
+                <Field_Binary>
+                    <name>FACET_NUM</name>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>SignedMSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <description>facet number.</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>LATITUDE</name>
+                    <field_location unit="byte">5</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>deg</unit>
+                    <description>latitude at facet center</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>LONGITUDE</name>
+                    <field_location unit="byte">13</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>deg</unit>
+                    <description>longitude at facet center</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>RADIUS</name>
+                    <field_location unit="byte">21</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>km</unit>
+                    <description>radius at facet center</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>Normalized Gravity Anomaly</name>
+                    <field_location unit="byte">29</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <description>Normalized gravity anomaly at facet center</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>Gravity Anomaly</name>
+                    <field_location unit="byte">37</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>mGal</unit>
+                    <description>Gravity anomaly at facet center</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>not used 1</name>
+                    <field_location unit="byte">45</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <description>Empty field from template</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>not used 2</name>
+                    <field_location unit="byte">53</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <description>Empty field from template</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>not used 3</name>
+                    <field_location unit="byte">61</field_location>
+                    <data_type>SignedMSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <description>Empty field from template</description>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>not used 4</name>
+                    <field_location unit="byte">65</field_location>
+                    <data_type>SignedMSB4</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <description>Empty field from template</description>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary> 
+    </File_Area_Observational>
+</Product_Observational>
