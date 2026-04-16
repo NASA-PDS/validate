@@ -83,16 +83,9 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <!-- bug introduced in 3.5.3 prevents surefire from communicating
-             with maven and cucumber correctly. It is still present in 3.5.4
-             as well. -->
         <version>3.5.5</version>
         <configuration>
-	  <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
-    	  <excludes>
-            <!-- Excludes the Cucumber test runner class by its fully qualified name -->
-            <exclude>**/cucumber/CucumberTest.java</exclude>
-          </excludes>
+          <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
         </configuration>
       </plugin>
       <plugin>
@@ -337,6 +330,12 @@
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-suite-api</artifactId>
+      <version>6.0.3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-suite-engine</artifactId>
       <version>6.0.3</version>
       <scope>test</scope>
     </dependency>
