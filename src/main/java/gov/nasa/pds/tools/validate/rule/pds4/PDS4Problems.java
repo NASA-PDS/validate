@@ -66,6 +66,12 @@ public final class PDS4Problems {
       new ProblemDefinition(ExceptionType.ERROR, ProblemType.UNALLOWED_BASE_NAME,
           "File base name is not allowed", Standard.PDS4_STANDARDS_REFERENCE, "6C.1.4");
 
+  /** Indicates a file name uses a reserved pattern but the product type doesn't match. */
+  public static final ProblemDefinition RESERVED_FILE_NAME_MISMATCH =
+      new ProblemDefinition(ExceptionType.WARNING, ProblemType.RESERVED_FILE_NAME_MISMATCH,
+          "File name uses a reserved pattern but product type does not match",
+          Standard.PDS4_STANDARDS_REFERENCE, "6C.1.3");
+
   /** Indicates a directory name that exceeds the maximum length. */
   public static final ProblemDefinition DIRECTORY_NAME_TOO_LONG = new ProblemDefinition(
       ExceptionType.ERROR, ProblemType.DIR_NAME_TOO_LONG,

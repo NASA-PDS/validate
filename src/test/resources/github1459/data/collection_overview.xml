@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<Product_Document xmlns="http://pds.nasa.gov/pds4/pds/v1" xmlns:pds="http://pds.nasa.gov/pds4/pds/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1700.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:orex.derived_radio_science:data:collection_overview</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx): 
+        Radio Science Working Group Derived Radio Science Data Products</title>
+        <information_model_version>1.7.0.0</information_model_version>
+        <product_class>Product_Document</product_class>
+        <Citation_Information>
+            <author_list>Crombie, M. K.</author_list>
+            <publication_year>2025</publication_year>
+            <description>The Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx): 
+        Radio Science Working Group Derived Radio Science data collection overview.</description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-09-01</modification_date>
+                <version_id>1.0</version_id>
+                <description>Initial release version of this document.</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time xsi:nil="true" nilReason="unknown"></start_date_time>
+            <stop_date_time xsi:nil="true" nilReason="unknown"></stop_date_time>
+        </Time_Coordinates>
+        
+        <Investigation_Area>
+            <name>Origins, Spectral Interpretation, Resource Identification, Security, Regolith Explorer (OSIRIS-REx)</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.orex</lid_reference>
+                <reference_type>document_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Spacecraft</name>
+                <type>Spacecraft</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.orex</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS-REx Radio Science (Telecom) Subsystem</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:rss.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>Touch-and-Go Camera Suite (TAGCAMS)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:tagcams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            <Observing_System_Component>
+                <name>OSIRIS_REx Camera Suite (OCAMS)</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:ocams.orex</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>           
+        </Observing_System>
+        
+        <Target_Identification>
+            <name>(101955) Bennu</name>
+            <alternate_designation>1999 RQ36</alternate_designation>
+            <type>Asteroid</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:asteroid.101955_bennu</lid_reference>
+                <reference_type>document_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification>
+        
+    </Context_Area>
+    
+    <Document>
+        <document_name>OSIRIS-REx Derived Radio Science Collection Overview</document_name>
+        <author_list>Crombie, M. K.</author_list>
+        <publication_date>2025-09</publication_date>
+        <description>Overview of the OSIRIS-REx Derived Radio Science data collection</description>
+        <Document_Edition>
+            <edition_name>Plain text file</edition_name>
+            <language>English</language>
+            <files>1</files>
+            <Document_File>
+                <file_name>collection_overview.txt</file_name>
+                <local_identifier>collection_overview</local_identifier>
+                <creation_date_time>2025-09-01</creation_date_time>
+                <document_standard_id>UTF-8 Text</document_standard_id>
+            </Document_File>
+        </Document_Edition>
+    </Document>
+</Product_Document>
