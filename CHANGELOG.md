@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-14)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-16)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
 
@@ -19,6 +19,7 @@
 - error.directory.unallowed\_name not raised on Windows for absolute directory\_path\_name [\#1539](https://github.com/NASA-PDS/validate/issues/1539) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - When validate reports a directory has a warning it says "XML could not be parsed." which is misleading. [\#1510](https://github.com/NASA-PDS/validate/issues/1510) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Referential integrity not being checked in all places there is an Internal\_Reference area [\#1481](https://github.com/NASA-PDS/validate/issues/1481) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate is not failing products with reserved names [\#1459](https://github.com/NASA-PDS/validate/issues/1459) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Number of passing products in summary does not match actual total [\#1458](https://github.com/NASA-PDS/validate/issues/1458) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validating large data file \(150GB\) is trying to write the entire file to local temp space - error upon not enough local space [\#1241](https://github.com/NASA-PDS/validate/issues/1241) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
