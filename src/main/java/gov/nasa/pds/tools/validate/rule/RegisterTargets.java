@@ -107,6 +107,12 @@ public class RegisterTargets extends AbstractValidationRule {
       return;
     }
 
+    // PDS4 SR 6C.1.3 reserved name rules apply only to label files
+    String extension = FilenameUtils.getExtension(filename).toLowerCase();
+    if (!extension.equals("xml") && !extension.equals("lblx")) {
+      return;
+    }
+
     String basename = FilenameUtils.getBaseName(filename);
     LOG.debug("checkReservedFilenameMismatch:target,filename,basename,type {},{},{},{}", target,
         filename, basename, type);
