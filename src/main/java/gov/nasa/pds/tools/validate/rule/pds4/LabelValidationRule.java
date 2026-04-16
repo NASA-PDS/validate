@@ -176,49 +176,6 @@ public class LabelValidationRule extends AbstractValidationRule {
   }
 
   /**
-   * Check if a file uses a reserved filename pattern (collection_*, bundle_*, etc.) but the product
-   * type doesn't match the expected type. According to PDS4 Standards Reference 6C.1.3, certain file
-   * names are reserved for specific purposes.
-   */
-  private void checkReservedFilename(URL target) {
-    String filename = FilenameUtils.getName(target.toString());
-    String basename = FilenameUtils.getBaseName(filename);
-    LOG.debug("checkReservedFilename:target,filename,basename {},{},{}", target, filename, basename);
-
-    // Check if filename matches reserved patterns
-    boolean isReservedCollectionPattern = basename.toLowerCase().startsWith("collection_");
-    boolean isReservedBundlePattern = basename.toLowerCase().startsWith("bundle_");
-
-    if (!isReservedCollectionPattern && !isReservedBundlePattern) {
-      // Filename doesn't match any reserved patterns, no validation needed
-      return;
-    }
-
-    // Determine the actual product type by examining the XML content
-    gov.nasa.pds.tools.validate.TargetExaminer examiner =
-        new gov.nasa.pds.tools.validate.TargetExaminer();
-    boolean isCollectionProduct = examiner.isTargetCollectionType(target, true);
-    boolean isBundleProduct = examiner.isTargetBundleType(target, true);
-
-    // Check for mismatch between filename pattern and actual product type
-    if (isReservedCollectionPattern && !isCollectionProduct) {
-      String message = String.format(
-          "File name '%s' uses the reserved 'collection_' pattern but the product type is not Product_Collection. "
-              + "Reserved file names should only be used for their intended product types (PDS4 SR 6C.1.3).",
-          filename);
-      reportError(PDS4Problems.RESERVED_FILE_NAME_MISMATCH, target, -1, -1, message);
-      LOG.warn("checkReservedFilename: {}", message);
-    } else if (isReservedBundlePattern && !isBundleProduct) {
-      String message = String.format(
-          "File name '%s' uses the reserved 'bundle_' pattern but the product type is not Product_Bundle. "
-              + "Reserved file names should only be used for their intended product types (PDS4 SR 6C.1.3).",
-          filename);
-      reportError(PDS4Problems.RESERVED_FILE_NAME_MISMATCH, target, -1, -1, message);
-      LOG.warn("checkReservedFilename: {}", message);
-    }
-  }
-
-  /**
    * Parses the label and records any errors resulting from the parse, including schema and
    * schematron errors.
    */
@@ -265,9 +222,6 @@ public class LabelValidationRule extends AbstractValidationRule {
 
       // Do a sanity check on bad file name.
       this.flagBadFilename(target);
-
-      // Check if file uses a reserved filename pattern but product type doesn't match
-      this.checkReservedFilename(target);
 
       // Also check any file names referred to in this label.
       try {
