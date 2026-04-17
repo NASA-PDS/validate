@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.ProblemCategory;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -170,7 +169,6 @@ public abstract class Report {
    */
   final public Status record(URI sourceUri, final List<ValidationProblem> problems) {
     int badLabels = 0;
-    int ignoreFromTotalCounts = 0;
     int numErrors = 0;
     int numWarnings = 0;
     Status status = Status.PASS;
@@ -178,10 +176,9 @@ public abstract class Report {
 
     // TODO: Handle null problems
     for (ValidationProblem problem : problems) {
-      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
-      if (category.equals(ProblemCategory.GENERAL)) {
-        ignoreFromTotalCounts++;
-      } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
+      // Process all problems regardless of category (including GENERAL)
+      // to ensure they are counted in summary statistics
+      if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
           numErrors++;
@@ -211,7 +208,7 @@ public abstract class Report {
     if (numErrors > 0) {
       status = Status.FAIL;
 
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numFailedProds++;
         } else {
@@ -301,7 +298,7 @@ public abstract class Report {
   }
   private String lidvid (URI target) {
     if (!isFileURI(target)) {
-      return "EXECUTION_ERROR";
+      return "N/A";
     }
     String result = "";
     try {
