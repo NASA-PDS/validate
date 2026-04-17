@@ -211,7 +211,7 @@ public abstract class Report {
     if (numErrors > 0) {
       status = Status.FAIL;
 
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numFailedProds++;
         } else {
@@ -220,7 +220,7 @@ public abstract class Report {
       }
     } else if (badLabels > 0 || FlagsUtil.getSkipProductValidation()) {
       if (badLabels > 0) status = Status.SKIP;
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numSkippedProds++;
         } else {
@@ -228,7 +228,7 @@ public abstract class Report {
         }
       }
     } else {
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numPassedProds++;
         } else {
@@ -295,6 +295,9 @@ public abstract class Report {
   }
   final public void stopBody() {
     this.end (Block.BODY);
+  }
+  private boolean isFileURI(URI uri) {
+    return uri != null && "file".equals(uri.getScheme());
   }
   private String lidvid (URI target) {
     String result = "";
