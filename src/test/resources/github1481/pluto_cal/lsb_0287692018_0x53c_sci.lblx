@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<?xml-model href="https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1J00_1311.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/mission/nh/v1/PDS4_NH_1J00_1200.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="https://pds.nasa.gov/pds4/sb/v1/PDS4_SB_1J00_1100.sch" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1" 
+    xmlns:disp="http://pds.nasa.gov/pds4/disp/v1" 
+    xmlns:geom="http://pds.nasa.gov/pds4/geom/v1" 
+    xmlns:img="http://pds.nasa.gov/pds4/img/v1" 
+    xmlns:sp="http://pds.nasa.gov/pds4/sp/v1" 
+    xmlns:nh="http://pds.nasa.gov/pds4/mission/nh/v1" 
+    xmlns:sb="http://pds.nasa.gov/pds4/sb/v1" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 https://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd          
+    http://pds.nasa.gov/pds4/disp/v1 https://pds.nasa.gov/pds4/disp/v1/PDS4_DISP_1J00_1510.xsd          
+    http://pds.nasa.gov/pds4/geom/v1 https://pds.nasa.gov/pds4/geom/v1/PDS4_GEOM_1J00_1960.xsd          
+    http://pds.nasa.gov/pds4/img/v1  https://pds.nasa.gov/pds4/img/v1/PDS4_IMG_1J00_1870.xsd 
+    http://pds.nasa.gov/pds4/sp/v1  https://pds.nasa.gov/pds4/sp/v1/PDS4_SP_1J00_1311.xsd 
+    http://pds.nasa.gov/pds4/sb/v1   https://pds.nasa.gov/pds4/sb/v1/PDS4_SB_1J00_1100.xsd          
+    http://pds.nasa.gov/pds4/mission/nh/v1 https://pds.nasa.gov/pds4/mission/nh/v1/PDS4_NH_1J00_1200.xsd">
+ 
+
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_leisa:pluto_cal:lsb_0287692018_0x53c_sci</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>New Horizons lossless LEISA Image: lsb_0287692018_0x53c_sci (Calibrated Data)</title>
+        <information_model_version>1.19.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+        <Modification_History>
+      		<Modification_Detail>
+        		<modification_date>2025-04-11</modification_date>
+        		<version_id>1.0</version_id>
+        		<description>B. Sharkey, A. Gicquel-Brodtke, C. Gobat: Migrated from PDS3 product nh-p-leisa-3-pluto-v3.0:lsb_0287692018_0x53c_sci</description>
+      		</Modification_Detail>
+    	</Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2015-03-03T12:35:00.739Z</start_date_time> 
+            <stop_date_time>2015-03-03T12:35:15.739Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Calibration</purpose>
+      		<processing_level>Calibrated</processing_level>
+      		<Science_Facets>
+        		<wavelength_range>Near Infrared</wavelength_range>
+                <domain>Surface</domain>
+                <discipline_name>Spectroscopy</discipline_name>
+                <facet1>2D</facet1>
+            </Science_Facets>
+    	</Primary_Result_Summary>
+
+        <Investigation_Area>
+                <name>New Horizons</name>
+                <type>Mission</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:investigation:mission.new_horizons</lid_reference>
+                    <reference_type>data_to_investigation</reference_type>
+                </Internal_Reference>
+        </Investigation_Area>
+
+        <Observing_System>
+            <Observing_System_Component>
+                <name>New Horizons</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+            
+            <Observing_System_Component>
+                <name>Linear Etalon Imaging Spectral Array</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.leisa</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        
+        <Target_Identification>
+            <name>Calibration</name>
+            <type>Calibrator</type>
+            <Internal_Reference>
+        		<lid_reference>urn:nasa:pds:context:target:calibrator.calibration</lid_reference>
+        		<reference_type>data_to_target</reference_type>
+     		 </Internal_Reference>
+        </Target_Identification>
+
+         <Mission_Area>
+            <nh:Mission_Parameters>
+                <nh:mission_phase_name>Pluto Encounter</nh:mission_phase_name>
+                <nh:Observation_Parameters>
+                    <nh:telemetry_apid>0x53c</nh:telemetry_apid>
+                    <nh:sequence_id>RALPH_FUNC_SIDEA_065_Functional_01</nh:sequence_id>
+                    <nh:observation_description>CALIBRATION</nh:observation_description>
+                    <nh:Mission_Elapsed_Time>
+                        <nh:clock_partition>3</nh:clock_partition>
+                        <nh:start_clock_count>0287692018:00000</nh:start_clock_count>
+                        <nh:stop_clock_count>0287692033:00000</nh:stop_clock_count>
+                    </nh:Mission_Elapsed_Time>
+                    <nh:Detector>
+                        <nh:detector_name>Linear Etalon Imaging Spectral Array</nh:detector_name>
+                        <nh:detector_type>HgCdTe PICNIC array</nh:detector_type>
+                        <nh:Ralph_Details>
+                            <nh:met510 unit="s">287692018</nh:met510>
+                            <nh:hk_packet_is_real>true</nh:hk_packet_is_real>
+                        </nh:Ralph_Details>
+                        <nh:LEISA_Details>
+                            <nh:scan_type>LEISA</nh:scan_type>
+                            <nh:leisa_mode>SUBTRACTED</nh:leisa_mode>
+                            <nh:leisa_offset_1 unit="DN">3055</nh:leisa_offset_1>
+                            <nh:leisa_offset_2 unit="DN">3050</nh:leisa_offset_2>
+                            <nh:leisa_offset_3 unit="DN">3056</nh:leisa_offset_3>
+                            <nh:leisa_offset_4 unit="DN">3050</nh:leisa_offset_4>
+                            <nh:leisa_rate unit="ms">1000</nh:leisa_rate>
+                            <nh:leisa_side>A</nh:leisa_side>
+                            <nh:leisa_temperature unit="degC">-161.93731079413408</nh:leisa_temperature>
+                        </nh:LEISA_Details>
+                    </nh:Detector>
+                    
+ 					<nh:Spacecraft_State>
+                        <nh:thruster_x_enabled>true</nh:thruster_x_enabled>
+                        <nh:thruster_y_enabled>true</nh:thruster_y_enabled>
+                        <nh:thruster_z_enabled>true</nh:thruster_z_enabled>
+                        <nh:relative_control_mode_active>false</nh:relative_control_mode_active>
+                        <nh:spacecraft_spin_state>3-Axis</nh:spacecraft_spin_state>
+                    </nh:Spacecraft_State>
+				</nh:Observation_Parameters>
+            </nh:Mission_Parameters>
+        </Mission_Area>       
+
+
+        <Discipline_Area>
+            <disp:Display_Settings>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ObsData</local_identifier_reference>
+                    <local_reference_type>display_settings_to_array</local_reference_type>
+                </Local_Internal_Reference>
+                <disp:Display_Direction>
+                    <disp:horizontal_display_axis>Line</disp:horizontal_display_axis>
+                    <disp:horizontal_display_direction>Left to Right</disp:horizontal_display_direction>
+                    <disp:vertical_display_axis>Sample</disp:vertical_display_axis>
+                    <disp:vertical_display_direction>Bottom to Top</disp:vertical_display_direction>
+                </disp:Display_Direction>
+            </disp:Display_Settings>
+
+            <img:Imaging>
+                <Local_Internal_Reference>
+                    <local_identifier_reference>ObsData</local_identifier_reference>
+                    <local_reference_type>imaging_parameters_to_image_object</local_reference_type>
+                </Local_Internal_Reference>  
+                
+                <img:Exposure>
+                    <img:exposure_duration unit="s">1.0</img:exposure_duration>
+                </img:Exposure>  
+                
+                <img:Onboard_Compression>
+                	<img:onboard_compression_class>Lossless</img:onboard_compression_class>
+            	</img:Onboard_Compression>  
+            </img:Imaging>
+
+            <sp:Spectral_Characteristics>
+                <Local_Internal_Reference>
+                    	<local_identifier_reference>ObsData</local_identifier_reference>
+                    	<local_reference_type>spectral_characteristics_to_array_object</local_reference_type>
+                </Local_Internal_Reference>
+                <sp:spectrum_format>3D</sp:spectrum_format>
+                <sp:spectral_bin_type>wavelength</sp:spectral_bin_type>
+                <sp:Observation_Parameters>
+                    <sp:net_integration_time unit="s">1.0</sp:net_integration_time>
+                </sp:Observation_Parameters>
+                
+                <sp:Field_of_View>
+                    <sp:description>FOV</sp:description>
+                    <sp:Rectangular_FOV>
+                        <sp:width_angle unit="deg">0.9</sp:width_angle>
+                        <sp:length_angle unit="deg">0.9</sp:length_angle>
+                    </sp:Rectangular_FOV>
+                </sp:Field_of_View>
+                <sp:Bin_Description>
+                    <sp:bin_profile_description>Pixel Wavelength Centers and Widths</sp:bin_profile_description>
+                    <sp:Spectral_Lookup>
+                        <!-- Warning 1: Reference does not exist -->
+                        <sp:Bin_Center_Lookup>
+                            <Internal_Reference>
+                                <lidvid_reference>urn:nasa:pds:nh_leisa:calibration_files:wave_map::1.0</lidvid_reference>
+                                <reference_type>spectral_characteristics_to_bin_center_values</reference_type>
+                            </Internal_Reference>
+                        </sp:Bin_Center_Lookup>
+                        <sp:Bin_Width_Lookup>
+                            <Internal_Reference>
+                                <lidvid_reference>urn:nasa:pds:nh_leisa:calibration_files:wave_map::1.0</lidvid_reference>
+                                <reference_type>spectral_characteristics_to_bin_width_values</reference_type>
+                            </Internal_Reference>
+                        </sp:Bin_Width_Lookup>
+                        <sp:comment>The wavelength map ancillary product contains an array of bin
+                            center wavelengths and bin widths for each pixel. Each pixel index in
+                            the array contains a pair of (bin center, bin width) values in units of
+                            microns. This information is also duplicated in the first FITS extension
+                            (after the primary HDU) in raw LEISA products.</sp:comment>
+                    </sp:Spectral_Lookup>
+                </sp:Bin_Description>
+            </sp:Spectral_Characteristics>
+            <geom:Geometry>
+        		<geom:SPICE_Kernel_Files>
+          			<geom:SPICE_Kernel_Identification>
+            			<geom:kernel_type>MK</geom:kernel_type>
+            			<geom:spice_kernel_file_name>nh_v07.tm</geom:spice_kernel_file_name>    
+          			</geom:SPICE_Kernel_Identification>
+                    <geom:comment>Note that the geometry parameters in this label were calculated using the as-current release of the metakernal nh_v07. These kernels were reconstructed after the flyby, and differ from those calculated by the mission using an unpublished kernel set still in development at the time of the PDS3 archiving. Those PDS3 parameters were based on "predict geometry", which is generally not as accurate as metadata used for the PDS4 release.
+                    </geom:comment>
+                </geom:SPICE_Kernel_Files>
+
+                <geom:Image_Display_Geometry>
+
+                    <Local_Internal_Reference>
+                        <local_identifier_reference>ObsData</local_identifier_reference>
+                        <local_reference_type>display_to_data_object</local_reference_type>
+                    </Local_Internal_Reference>
+
+                    <geom:Display_Direction>
+                        <geom:horizontal_display_axis>Sample</geom:horizontal_display_axis>
+                        <geom:horizontal_display_direction>Left to Right</geom:horizontal_display_direction>
+                        <geom:vertical_display_axis>Line</geom:vertical_display_axis>
+                        <geom:vertical_display_direction>Bottom to Top</geom:vertical_display_direction>
+                    </geom:Display_Direction>
+                    
+                    
+                    <geom:Geometry_Target_Identification>             
+            			<geom:name>None</geom:name>           			
+                    </geom:Geometry_Target_Identification>
+                    
+                    <geom:Object_Orientation_RA_Dec> 
+                    	<geom:reference_pixel_location>Center</geom:reference_pixel_location>                   	
+                        <geom:right_ascension_angle unit="deg">273.7782402316675</geom:right_ascension_angle>
+                        <geom:declination_angle unit="deg">-14.542001358051978</geom:declination_angle>
+                        <geom:celestial_north_clock_angle unit="deg">108.25233324339393</geom:celestial_north_clock_angle>
+                        <geom:Reference_Frame_Identification>
+                            <geom:name>EME J2000</geom:name>
+                        </geom:Reference_Frame_Identification>
+                    </geom:Object_Orientation_RA_Dec>                   
+                    
+                    
+                    
+                   
+
+					<geom:Object_Orientation_Clock_Angles>
+            			<geom:sun_direction_clock_angle unit="deg">165.67911754719478</geom:sun_direction_clock_angle>
+            		</geom:Object_Orientation_Clock_Angles>          		
+
+          			<geom:Quaternion_Plus_To_From>
+            			<geom:qcos>0.19874891258358257</geom:qcos>
+            			<geom:qsin1>-0.6546807656987399</geom:qsin1>
+            			<geom:qsin2>-0.7287140229105582</geom:qsin2>
+            			<geom:qsin3>0.02945908322513715</geom:qsin3>
+            			<geom:Rotate_From>
+              				<geom:name>LEISA Instrument Frame</geom:name>
+            			</geom:Rotate_From>
+            			<geom:Rotate_To>
+              				<geom:name>EME J2000</geom:name>
+            			</geom:Rotate_To>
+          			</geom:Quaternion_Plus_To_From>
+                </geom:Image_Display_Geometry>
+                <geom:Geometry_Orbiter>
+                    <geom:geometry_reference_time_utc>2015-03-03T12:35:08.239Z</geom:geometry_reference_time_utc>
+                    <geom:geometry_reference_time_tdb unit="s">4.786581754242283E8</geom:geometry_reference_time_tdb>
+                    <geom:Orbiter_Identification>
+                        <geom:Geometry_Target_Identification>
+                            <geom:name>None</geom:name>
+                        </geom:Geometry_Target_Identification>
+                	</geom:Orbiter_Identification>
+        
+                	<geom:Pixel_Dimensions>
+                        <geom:pixel_field_of_view_method>Constant</geom:pixel_field_of_view_method>
+                        <geom:horizontal_pixel_field_of_view unit="mrad">0.06083</geom:horizontal_pixel_field_of_view>
+                        <geom:vertical_pixel_field_of_view unit="mrad">0.06083</geom:vertical_pixel_field_of_view>
+                    </geom:Pixel_Dimensions>
+                	
+                    <geom:Distances>
+                        <geom:Distances_Specific>
+                            <geom:spacecraft_geocentric_distance unit="km">4.836204864527348E9</geom:spacecraft_geocentric_distance>
+              				<geom:spacecraft_heliocentric_distance unit="km">4.757349818974463E9</geom:spacecraft_heliocentric_distance>
+                        </geom:Distances_Specific>                        
+                    </geom:Distances>
+
+
+                    
+                	<geom:Vectors>
+                        <geom:Vectors_Cartesian_Specific>
+                            <geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                                <geom:x_position unit="km">1.1334443271208959E9</geom:x_position>
+                                <geom:y_position unit="km">-4.299510726749555E9</geom:y_position>
+                                <geom:z_position unit="km">-1.6917117863215744E9</geom:z_position>
+                                <geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied>
+                            </geom:Vector_Cartesian_Position_Sun_To_Spacecraft>
+                            <geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Sun>
+                				<geom:x_velocity unit="km/s">5.550312945219618</geom:x_velocity>
+                				<geom:y_velocity unit="km/s">-12.583948867841846</geom:y_velocity>
+                				<geom:z_velocity unit="km/s">-4.876176508087526</geom:z_velocity>
+                				<geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied>
+              				</geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Sun>
+                            <geom:Vector_Cartesian_Position_Earth_To_Spacecraft>
+                				<geom:x_position unit="km">1.2745315307808797E9</geom:x_position>
+                				<geom:y_position unit="km">-4.340709392308511E9</geom:y_position>
+                				<geom:z_position unit="km">-1.7095873303952646E9</geom:z_position>
+                				<geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied>
+              				</geom:Vector_Cartesian_Position_Earth_To_Spacecraft>
+                            <geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Earth>
+                                <geom:x_velocity unit="km/s">15.11384678878176</geom:x_velocity>
+                                <geom:y_velocity unit="km/s">13.580445649570413</geom:y_velocity>
+                                <geom:z_velocity unit="km/s">6.465256945977262</geom:z_velocity>
+                                <geom:light_time_correction_applied>Received_Light_Time_Stellar_Abb</geom:light_time_correction_applied>
+                            </geom:Vector_Cartesian_Velocity_Spacecraft_Relative_To_Earth>
+                        </geom:Vectors_Cartesian_Specific>
+                    </geom:Vectors>
+                </geom:Geometry_Orbiter>
+            </geom:Geometry>
+                                          
+            <sb:SB_Metadata>																									
+                <sb:Observation_Parameters>																									
+                    <sb:Exposure>																									
+                        <sb:exposure_duration unit="s">1.0</sb:exposure_duration>																									
+                        <sb:exposure_description>
+                        The exposure duration is the amount of time that data was collected for each pixel in the array.
+                        </sb:exposure_description>																									
+                    </sb:Exposure>
+                    <sb:Filter>
+                        <sb:filter_name>WEDGE</sb:filter_name>
+                        <sb:filter_type>Broadband</sb:filter_type>
+                    </sb:Filter>
+                    <sb:Timing>																									
+                        <sb:midobservation_time_UTC_YMD>2015-03-03T12:35:08.239Z</sb:midobservation_time_UTC_YMD>
+                        <sb:midobservation_time_UTC_JD unit="julian day">2457085.0244009</sb:midobservation_time_UTC_JD>
+                    </sb:Timing>																									
+                </sb:Observation_Parameters>
+
+                <sb:Calibration_Information>
+                    <sb:Raw_Data_Product>
+                        <sb:file_name>lsb_0287692018_0x53c_eng.fit</sb:file_name>
+                        <!-- Warning 2: Reference does not exist -->
+                        <Internal_Reference>
+                            <lidvid_reference>urn:nasa:pds:nh_leisa:pluto_raw:lsb_0287692018_0x53c_eng::1.0</lidvid_reference>
+                            <reference_type>processed_data_to_raw_data</reference_type>
+                        </Internal_Reference>
+                    </sb:Raw_Data_Product>
+                    <sb:Calibration_Applied>
+                        <sb:flat_field_applied>true</sb:flat_field_applied>
+                        <sb:wavelength_solution_applied>true</sb:wavelength_solution_applied>
+                        <sb:conversion_to_physical_units>true</sb:conversion_to_physical_units>
+                    </sb:Calibration_Applied>
+                    <sb:Calibration_Reference_Files>
+                        <!-- Warning 3: Reference does not exist -->
+                        <sb:Flat_Field>
+                            <sb:file_name>flatmap_v3.fit</sb:file_name>
+                            <Internal_Reference>
+                                <lidvid_reference>urn:nasa:pds:nh_leisa:calibration_files:flatmap::3.0</lidvid_reference>
+                                <reference_type>image_to_flat_field_file</reference_type>
+                            </Internal_Reference>
+                        </sb:Flat_Field>
+                        <!-- Warning 4: Reference does not exist -->
+                        <sb:Bad_Pixel_Map>
+                            <sb:file_name>pixelmap_v2.fit</sb:file_name>
+                            <Internal_Reference>
+                                <lidvid_reference>urn:nasa:pds:nh_leisa:calibration_files:pixelmap::2.0</lidvid_reference>
+                                <reference_type>image_to_bad_pixel_map</reference_type>
+                            </Internal_Reference>
+                        </sb:Bad_Pixel_Map>
+                        <!-- Warning 5: Reference does not exist -->
+                        <sb:Wavelength_Solution>
+                            <sb:file_name>wavemap.fit</sb:file_name>
+                            <Internal_Reference>
+                            	<lidvid_reference>urn:nasa:pds:nh_leisa:calibration_files:wavemap::1.0</lidvid_reference>
+                                <reference_type>image_to_wavelength_solution_file</reference_type>
+                            </Internal_Reference>
+                        </sb:Wavelength_Solution>
+                        <!-- This document actually exists in the bundle and should not raise an error -->
+                        <sb:Wavelength_Solution>
+                            <sb:file_name>wavemap.fit</sb:file_name>
+                            <Internal_Reference>
+                                <lidvid_reference>urn:nasa:pds:nh_leisa:pluto_raw:overview::1.0</lidvid_reference>
+                                <reference_type>image_to_wavelength_solution_file</reference_type>
+                            </Internal_Reference>
+                        </sb:Wavelength_Solution>
+                    </sb:Calibration_Reference_Files>
+                </sb:Calibration_Information>	
+                 <sb:Additional_Image_Metadata>
+                     <Local_Internal_Reference>
+                         <local_identifier_reference>ObsData</local_identifier_reference>
+                         <local_reference_type>image_to_additional_metadata</local_reference_type>
+                     </Local_Internal_Reference>
+                                                                                                                                 
+                     <sb:image_observation_type>Single Image</sb:image_observation_type>
+                     
+                     <sb:Additional_Geometry_Metadata>
+                         <sb:comment>Note that the geometry parameters in this label were calculated using the as-current release of the metakernal nh_v07. These kernels were reconstructed after the flyby, and differ from those calculated by the mission using an unpublished kernel set still in development at the time of the PDS3 archiving. Those PDS3 parameters were based on "predict geometry", which is generally not as accurate as metadata used for the PDS4 release.</sb:comment>
+                         <sb:Instrument_Position_Angles>
+                             <sb:y_axis_position_angle unit="deg">108.25233324339393</sb:y_axis_position_angle>
+                             <sb:z_axis_position_angle unit="deg">198.25233324339393</sb:z_axis_position_angle>
+                         </sb:Instrument_Position_Angles>
+                        
+                       <sb:Geometry_Vector_Time>
+                         <sb:position_velocity_vectors>Spacecraft_to_Target</sb:position_velocity_vectors>
+                         <sb:time_at_target_UTC_JD unit="julian day">2457085.0244009</sb:time_at_target_UTC_JD>
+                         </sb:Geometry_Vector_Time>
+                             <sb:Geometry_Vector_Time>
+                             <sb:position_velocity_vectors>Earth_to_Target</sb:position_velocity_vectors>
+                             <sb:time_at_Earth_UTC_JD unit="julian day">2457085.0244009</sb:time_at_Earth_UTC_JD>
+                         </sb:Geometry_Vector_Time>
+                         <sb:Geometry_Vector_Time>
+                             <sb:position_velocity_vectors>Sun_to_Spacecraft</sb:position_velocity_vectors>
+                             <sb:time_at_Sun_UTC_JD unit="julian day">2457084.8407253</sb:time_at_Sun_UTC_JD>
+                         </sb:Geometry_Vector_Time>
+                         <sb:Geometry_Vector_Time>
+                             <sb:position_velocity_vectors>Earth_to_Spacecraft</sb:position_velocity_vectors>
+                             <sb:time_at_Earth_UTC_JD unit="julian day">2457084.8376652</sb:time_at_Earth_UTC_JD>
+                     </sb:Geometry_Vector_Time>
+                     </sb:Additional_Geometry_Metadata>
+                 </sb:Additional_Image_Metadata>
+            </sb:SB_Metadata>
+        </Discipline_Area>
+    </Observation_Area>
+        
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:nh_documents:ralph:ralph_ssr</lid_reference>
+            <reference_type>data_to_document</reference_type>
+        </Internal_Reference>
+    </Reference_List>
+
+    <File_Area_Observational>
+        <File> 
+            <file_name>lsb_0287692018_0x53c_sci.fit</file_name>
+        </File>
+    	<Header>
+      		<offset unit="byte">0</offset>
+      		<object_length unit="byte">23040</object_length>
+      		<parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> FITS format defined in NASA/Science Office Standards Technology 100-1.0  By mutual agreement with PDS-SBN, FITS headers are the domain of the NH Project and were not part of the peer review beyond adherence to the FITS standard.  FITS header values, especially geometric conventions regarding phase angle, direction of supplied vectors and sense of light time and stellar aberration corrections, were chosen to serve operational purposes and should be used with care. </description>
+    	</Header>
+        <Array_3D_Spectrum>
+        	<name>Calibrated Image Data</name>	
+            <local_identifier>ObsData</local_identifier>
+            <offset unit="byte">23040</offset>
+                        <axes>3</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS PDU PDU  - Calibrated image cube </description>
+            <Element_Array>           
+				<data_type>IEEE754MSBSingle</data_type>
+                <unit>erg s**-1 cm**-1 Angstrom**-1 sr**-1</unit>
+           	 	<scaling_factor>1.00000000000</scaling_factor>
+            	<value_offset>0.00000000000</value_offset>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>frame</axis_name>
+                <elements>17</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>3</sequence_number>
+            </Axis_Array>
+        </Array_3D_Spectrum>
+        <Header>
+            <offset unit="byte">4481280</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  1 FITS EDU name: UNNAMED FITS EXTENSION 1 </description>
+        </Header>
+        <Array_2D_Image>
+            <name>Per-pixel Wavelength Centers</name>
+            <offset unit="byte">4484160</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description>FITS EDU number:  1 UNNAMED FITS EXTENSION 1  Center wavelengths and filter widths, per-pixel map - 3D data cube:  256x256x2 - First plane contains wavelengths (micron) - Second plane contains filter widths (micron) - see SOC Instrument ICD for more detail.</description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+                <unit>Micron</unit>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+        <Array_2D_Image>
+            <name>Per-pixel Wavelength Widths</name>
+            <offset unit="byte">4746304</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  1 UNNAMED FITS EXTENSION 1  Center wavelengths and filter widths, per-pixel map - 3D data cube:  256x256x2 - First plane contains wavelengths (micron) - Second plane contains filter widths (micron) - see SOC Instrument ICD for more detail The third axis (BAND) is image number and could also be thought of as time. </description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+                <unit>Micron</unit>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+        <Header>
+            <offset unit="byte">5011200</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  2 FITS EDU name: UNNAMED FITS EXTENSION 2 </description>
+        </Header>
+        <Array_3D_Image>
+            <name>Per-pixel pointing vectors</name>
+            <offset unit="byte">5014080</offset>
+            <axes>3</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  2 UNNAMED FITS EXTENSION 2  Cartesian pointing vectors, per-pixel map - 3D data cube:  256x256x3 - First plane contains X component - Second plane contains Y component - Third plane contains Z component - see SOC Instrument ICD for more detail </description>
+            <Element_Array>
+                <data_type>IEEE754MSBDouble</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>dimension</axis_name>
+                <elements>3</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>3</sequence_number>
+            </Axis_Array>
+        </Array_3D_Image>
+        <Header>
+            <offset unit="byte">6589440</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  3 FITS EDU name: UNNAMED FITS EXTENSION 3 </description>
+        </Header>
+        <Array_2D_Image>
+            <name>Per-pixel flat field corrections</name>
+            <offset unit="byte">6592320</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  3 UNNAMED FITS EXTENSION 3  Flat field correction image - 2D image:  256x256 - Ratio values, typically near unity - Relative values express differences in pixel-to-pixel sensitivity - see SOC Instrument ICD for more detail </description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+        <Header>
+            <offset unit="byte">6857280</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  4 FITS EDU name: UNNAMED FITS EXTENSION 4 </description>
+        </Header>
+        <Array_2D_Image>
+            <name>Per-pixel gains</name>
+            <offset unit="byte">6860160</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  4 UNNAMED FITS EXTENSION 4  Radiomentric gains and offsets, per-pixel map - 3D data cube:  256x256x2 - First plane contains gains, radiance/[DN/s] - Second plane contains offsets, flat-corrected DN - Per-pixel radiance = gain * ((rawDN-bgDN)/flat - offset) / intTime - see SOC Instrument ICD for more detail </description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+        <Array_2D_Image>
+            <name>Per-pixel offsets</name>
+            <offset unit="byte">7122304</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  4 UNNAMED FITS EXTENSION 4  Radiomentric gains and offsets, per-pixel map - 3D data cube:  256x256x2 - First plane contains gains, radiance/[DN/s] - Second plane contains offsets, flat-corrected DN - Per-pixel radiance = gain * ((rawDN-bgDN)/flat - offset) / intTime - see SOC Instrument ICD for more detail </description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+        <Header>
+            <offset unit="byte">7387200</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  5 FITS EDU name: UNNAMED FITS EXTENSION 5 </description>
+        </Header>
+        <Array_3D_Image>
+            <name>Per-pixel error estimates</name>
+            <offset unit="byte">7390080</offset>
+            <axes>3</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  5 UNNAMED FITS EXTENSION 5  Error estimates, per-pixel map - N.B. error calculations are not yet implemented - All error values are zero - 3D data cube:  256x256xN - same number of planes (N) as primary image frames - see SOC Instrument ICD for more detail The third axis (BAND) is image number and could also be thought of as time. </description>
+            <Element_Array>
+                <data_type>IEEE754MSBSingle</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>frame</axis_name>
+                <elements>17</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>3</sequence_number>
+            </Axis_Array>
+        </Array_3D_Image>
+        <Header>
+            <offset unit="byte">11848320</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  6 FITS EDU name: UNNAMED FITS EXTENSION 6 </description>
+        </Header>
+        <Array_3D_Image>
+            <name>Per-pixel data quality flags</name>
+            <offset unit="byte">11851200</offset>
+            <axes>3</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  6 UNNAMED FITS EXTENSION 6  Data quality flags, perpixel map - 3D data cube:  256x256xN - same number of planes (N) as primary image frames - zero values indicate no data quality problems at corresponding pixel - non-zero values data quality problems, by bit mask: 1:  defect in a calibation file 2:  flat field out of bounds 4:  Known CCD defect 32:  Bad pixel not signaled by mask bits 1, 2 or 4 - see SOC Instrument ICD for more detail The third axis (BAND) is image number and could also be thought of as time. </description>
+            <Element_Array>
+                <data_type>SignedMSB2</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>frame</axis_name>
+                <elements>17</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>256</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>256</elements>
+                <sequence_number>3</sequence_number>
+            </Axis_Array>
+        </Array_3D_Image>
+       <Header>
+            <offset unit="byte">14080320</offset>
+            <object_length unit="byte">2880</object_length>
+            <parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  7 FITS EDU name: UNNAMED FITS EXTENSION 7 </description>
+        </Header>
+        <Table_Binary>
+            <name>Et Quaternion</name>
+            <offset unit="byte">14083200</offset>
+            <records>17</records>
+            <description> FITS EDU number:  7 UNNAMED FITS EXTENSION 7  Ephemeris time and quaternion of each frame - 2D data table:  5xN - same number of rows (N) as primary image frames - First column is ephemeris time, s past J2000 epoch, of the time of observaation for each frame. - Remaining four columns are instrument frame attitude quaternions, SPICE convention, for transforming vectors expressed in the instrument frame to vectors expressed in the J2000 frame. - refer to DOCUMENT/QUAT_AXYZ_INSTR_TO_J2K.ASC for the definition of the SPICE convention. </description>
+            <Record_Binary>
+                <fields>5</fields>
+                <groups>0</groups>
+                <record_length unit="byte">40</record_length>
+                <Field_Binary>
+                    <name>ET</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>s</unit>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>QUATERNION A</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">9</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>QUATERNION X</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">17</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>QUATERNION Y</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">25</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                </Field_Binary>
+                <Field_Binary>
+                    <name>QUATERNION Z</name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">33</field_location>
+                    <data_type>IEEE754MSBDouble</data_type>
+                    <field_length unit="byte">8</field_length>
+                    <unit>none</unit>
+                </Field_Binary>
+            </Record_Binary>
+        </Table_Binary>
+
+        <Header>
+            <offset unit="byte">14086080</offset>
+      		<object_length unit="byte">2880</object_length>
+      		<parsing_standard_id>FITS 3.0</parsing_standard_id>
+            <description> This is the FITS header for FITS EDU number:  8 FITS EDU name: UNNAMED FITS EXTENSION 8 </description>
+    	</Header>
+        <Array_2D_Image>
+            <name>Housekeeping</name>
+            <offset unit="byte">14088960</offset>
+            <axes>2</axes>
+            <axis_index_order>Last Index Fastest</axis_index_order>
+            <description> FITS EDU number:  8 UNNAMED FITS EXTENSION 8  Binary table of RALPH housekeeping - Not useful for PDS users - But this extersion was left in here in the FITS file as it was used by the Science Teams in the NH Project Science Operations Center (SOC) for diagnostics </description>
+            <Element_Array>
+                <data_type>UnsignedByte</data_type>
+            </Element_Array>
+            <Axis_Array>
+                <axis_name>Sample</axis_name>
+                <elements>115</elements>
+                <sequence_number>1</sequence_number>
+            </Axis_Array>
+            <Axis_Array>
+                <axis_name>Line</axis_name>
+                <elements>20</elements>
+                <sequence_number>2</sequence_number>
+            </Axis_Array>
+        </Array_2D_Image>
+    </File_Area_Observational>
+</Product_Observational>
