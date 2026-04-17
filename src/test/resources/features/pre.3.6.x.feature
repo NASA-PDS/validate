@@ -25,7 +25,7 @@ Feature: < 3.6
 | 680 | 1 | "github680" | "--skip-context-validation -t {datasrc}/ORB12_EUR_EPHIO_reclen96.xml" |  |
 | 680 | 2 | "github680" | "--skip-context-validation -t {datasrc}/ORB12_EUR_EPHIO_reclen95.xml" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.table.record_length_mismatch=1" |
 | 671 | 1 | "github671" | "--skip-context-validation -t {datasrc} -R pds4.bundle" |  |
-| 652 | 1 | "github652" | "--skip-context-validation -t {datasrc}" |  |
+| 652 | 1 | "github652" | "--skip-context-validation -t {datasrc}" | "summary:totalWarnings=1,summary:messageTypes:warning.file.reserved_name_mismatch=1" |
 | 651 | 1 | "github651" | "--skip-context-validation -t {datasrc}/M1431146123CC.xml" |  |
 | 649 | 1 | "github597" | "-R pds4.collection --skip-context-validation -t {datasrc}/spice_kernels/collection_spice_kernels_v003.xml" | "summary:productValidation:skipped=2" |
 | 644 | 1 | "github644" | "--skip-context-validation -t {datasrc}/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.label.schema=1" |

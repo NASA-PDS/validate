@@ -179,7 +179,7 @@ public abstract class Report {
     // TODO: Handle null problems
     for (ValidationProblem problem : problems) {
       ProblemCategory category = problem.getProblem().getType().getProblemCategory();
-      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
+      if (category.equals(ProblemCategory.GENERAL)) {
         ignoreFromTotalCounts++;
       } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
@@ -211,7 +211,7 @@ public abstract class Report {
     if (numErrors > 0) {
       status = Status.FAIL;
 
-      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
+      if (!Utility.isDir(sourceUri.toString())) {
         if (!this.integrityCheckFlag) {
           this.numFailedProds++;
         } else {
@@ -300,9 +300,12 @@ public abstract class Report {
     return uri != null && "file".equals(uri.getScheme());
   }
   private String lidvid (URI target) {
+    if (!isFileURI(target)) {
+      return "EXECUTION_ERROR";
+    }
     String result = "";
     try {
-      if (target != null && TargetExaminer.isTargetALabel(target.toURL())) {
+      if (TargetExaminer.isTargetALabel(target.toURL())) {
         List<String> parts = TargetExaminer.getTargetContent(target.toURL(),
             "//Identification_Area", "logical_identifier", "version_id");
         if (parts.size() == 2) {
@@ -311,11 +314,8 @@ public abstract class Report {
           result = "LIDVID could not be extracted.";
         }
       }
-    } catch (IllegalArgumentException e) {
-      // some unit tests cause this error but should never happen in real life
-      result = "label path was not absolute";
-    }catch (MalformedURLException e) {
-      // We did our best. Just ignore it if malformed as default string says it all
+    } catch (MalformedURLException e) {
+      // Should not happen for a validated file URI
     }
     return result;
   }
