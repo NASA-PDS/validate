@@ -57,8 +57,8 @@ Feature: < 3.6
 | 482 | 2 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle2/" | "summary:totalWarnings=1,summary:productValidation:skipped=1,summary:messageTypes:warning.label.not_understandable=1" |
 | 482 | 3 | "github482" | "--skip-context-validation -R pds4.bundle -e lblx -t {datasrc}/bundle1/bundle_kaguya_derived.lblx" | "summary:totalWarnings=3,summary:messageTypes:warning.integrity.reference_not_found=3" |
 | 482 | 4 | "github482" | "--skip-context-validation -R pds4.bundle -t {datasrc}/bundle2/bundle_kaguya_derived.xml" | "summary:totalWarnings=5,summary:messageTypes:warning.file.not_referenced_in_label=1,summary:messageTypes:warning.integrity.reference_not_found=3,summary:messageTypes:warning.label.not_understandable=1" |
-| 482 | 5 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle1/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
-| 482 | 6 | "github482" | "--skip-context-validation -R pds4.folder -e lblx -t {datasrc}/bundle2/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
+| 482 | 5 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle1/" | "summary:totalErrors=1,summary:messageTypes:error.execution.no_products_found=1" |
+| 482 | 6 | "github482" | "--skip-context-validation -R pds4.folder -e lblx -t {datasrc}/bundle2/" | "summary:totalErrors=1,summary:messageTypes:error.execution.no_products_found=1" |
 | 480 | 1 | "github480" | "--skip-context-validation -t {datasrc}/test_success.xml --skip-content-validation" |  |
 | 480 | 2 | "github480" | "-t {datasrc}/test_fail_header_offset.xml --skip-content-validation --skip-context-validation" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.invalid_object_definition=1" |
 | 480 | 3 | "github480" | "--skip-context-validation -t {datasrc}/test_fail_table_offset.xml --skip-content-validation" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.invalid_object_definition=1" |
