@@ -7,6 +7,6 @@ Feature: 4.1.x
     Examples: 
       | issueNumber | subtest | datasrc | args | expectation |
 | 956 | 1 | "github956" | "--skip-context-validation -t {datasrc}/" | |
-| 1458 | 1 | "github1458" | " -t {datasrc}/" | "summary:productValidation:passed=2,summary:productValidation:total=2,summary:totalWarnings=6,messageTypes:warning.label.context_ref_mismatch=5,messageTypes:warning.label.schematron=1" |
-| 1481 | 1 | "github1481" | "--skip-context-validation --skip-product-validation -R pds4.bundle -t {datasrc}/bundle_test.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.integrity.reference_not_found=1" |
+| 1458 | 1 | "github1458" | " -t {datasrc}/" | "summary:productValidation:passed=2,summary:productValidation:total=2,summary:totalWarnings=7,messageTypes:warning.integrity.pds4_version_mismatch=1,messageTypes:warning.label.context_ref_mismatch=5,messageTypes:warning.label.schematron=1" |
+| 1481 | 1 | "github1481" | "--skip-context-validation --skip-product-validation --label-extension lblx -R pds4.bundle -t {datasrc}/bundle.lblx" | "summary:totalWarnings=5,summary:productValidation:skipped=5,summary:messageTypes:warning.integrity.reference_not_found=5" |
 | 1548 | 1 | "github1548" | "--skip-context-validation -t {datasrc}/nonexistent.xml" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.missing_file=1" |

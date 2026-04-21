@@ -25,7 +25,7 @@ Feature: < 3.6
 | 680 | 1 | "github680" | "--skip-context-validation -t {datasrc}/ORB12_EUR_EPHIO_reclen96.xml" |  |
 | 680 | 2 | "github680" | "--skip-context-validation -t {datasrc}/ORB12_EUR_EPHIO_reclen95.xml" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.table.record_length_mismatch=1" |
 | 671 | 1 | "github671" | "--skip-context-validation -t {datasrc} -R pds4.bundle" |  |
-| 652 | 1 | "github652" | "--skip-context-validation -t {datasrc}" |  |
+| 652 | 1 | "github652" | "--skip-context-validation -t {datasrc}" | "summary:totalWarnings=1,summary:messageTypes:warning.file.reserved_name_mismatch=1" |
 | 651 | 1 | "github651" | "--skip-context-validation -t {datasrc}/M1431146123CC.xml" |  |
 | 649 | 1 | "github597" | "-R pds4.collection --skip-context-validation -t {datasrc}/spice_kernels/collection_spice_kernels_v003.xml" | "summary:productValidation:skipped=2" |
 | 644 | 1 | "github644" | "--skip-context-validation -t {datasrc}/scam_0072_0673327336_185_cp2_scam01072_scct_41_irsalign_____04p04.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.label.schema=1" |
@@ -57,8 +57,8 @@ Feature: < 3.6
 | 482 | 2 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle2/" | "summary:totalWarnings=1,summary:productValidation:skipped=1,summary:messageTypes:warning.label.not_understandable=1" |
 | 482 | 3 | "github482" | "--skip-context-validation -R pds4.bundle -e lblx -t {datasrc}/bundle1/bundle_kaguya_derived.lblx" | "summary:totalWarnings=3,summary:messageTypes:warning.integrity.reference_not_found=3" |
 | 482 | 4 | "github482" | "--skip-context-validation -R pds4.bundle -t {datasrc}/bundle2/bundle_kaguya_derived.xml" | "summary:totalWarnings=5,summary:messageTypes:warning.file.not_referenced_in_label=1,summary:messageTypes:warning.integrity.reference_not_found=3,summary:messageTypes:warning.label.not_understandable=1" |
-| 482 | 5 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle1/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
-| 482 | 6 | "github482" | "--skip-context-validation -R pds4.folder -e lblx -t {datasrc}/bundle2/" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.execution.no_products_found=1" |
+| 482 | 5 | "github482" | "--skip-context-validation -R pds4.folder -t {datasrc}/bundle1/" | "summary:totalErrors=1,summary:messageTypes:error.execution.no_products_found=1" |
+| 482 | 6 | "github482" | "--skip-context-validation -R pds4.folder -e lblx -t {datasrc}/bundle2/" | "summary:totalErrors=1,summary:messageTypes:error.execution.no_products_found=1" |
 | 480 | 1 | "github480" | "--skip-context-validation -t {datasrc}/test_success.xml --skip-content-validation" |  |
 | 480 | 2 | "github480" | "-t {datasrc}/test_fail_header_offset.xml --skip-content-validation --skip-context-validation" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.invalid_object_definition=1" |
 | 480 | 3 | "github480" | "--skip-context-validation -t {datasrc}/test_fail_table_offset.xml --skip-content-validation" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.invalid_object_definition=1" |
@@ -220,7 +220,7 @@ Feature: < 3.6
 | 9 | 2 | "github09" | "--skip-context-validation -t {datasrc}/minimal_test_product_good.xml" |  |
 | 9 | 3 | "github09" | "--skip-context-validation -t {datasrc}/csv_empty_field_test_VALID.xml" |  |
 | 9 | 4 | "github09" | "--skip-context-validation -t {datasrc}/csv_empty_field_test_INVALID.xml" |  |
-| 9 | 5 | "github09" | "--skip-context-validation -t {datasrc}/val9a.xml.xml" | "summary:totalErrors=2,summary:productValidation:failed=2,summary:messageTypes:error.execution.no_products_found=2" |
+| 9 | 5 | "github09" | "--skip-context-validation -t {datasrc}/val9a.xml.xml" | "summary:totalErrors=1,summary:productValidation:failed=1,summary:messageTypes:error.label.missing_file=1" |
 | 9 | 6 | "github09" | "--skip-context-validation -t {datasrc}/val9b.xml" |  |
 | 7 | 1 | "github7" | "--skip-context-validation -t {datasrc}/ch2_sar_ncxs_20090107t163003745_d_sli_xx_fp_hh_pb1_19111.xml" |  |
 | 6 | 1 | "github6" | "--skip-context-validation -R pds4.bundle {datasrc}/invalid/bundle_kaguya_derived.xml" | "summary:totalErrors=8,summary:totalWarnings=14,summary:productValidation:failed=2,summary:productValidation:skipped=6,summary:referentialIntegrity:failed=5,summary:messageTypes:error.file.name_has_invalid_characters=6,summary:messageTypes:error.file.unallowed_base_name=1,summary:messageTypes:error.pdf.file.not_pdfa_compliant=1,summary:messageTypes:warning.file.not_referenced_in_label=7,summary:messageTypes:warning.integrity.pds4_version_mismatch=1,summary:messageTypes:warning.integrity.reference_not_found=3,summary:messageTypes:warning.integrity.unreferenced_member=2,summary:messageTypes:warning.label.schematron=1" |

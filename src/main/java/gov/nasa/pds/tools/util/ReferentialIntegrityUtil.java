@@ -589,17 +589,23 @@ public class ReferentialIntegrityUtil {
     ArrayList<String> allContextLidOrLidVidReferencesPerLabel = new ArrayList<>();
     ArrayList<String> contextLidOrLidVidReferences = new ArrayList<>();
 
+    // Pass reportCarriageReturns=false here because getLidVidReferences() already
+    // checks all Internal_Reference elements (including context area ones) with the
+    // comprehensive INTERNAL_REFERENCE_AREA XPath. Reporting here too would cause
+    // duplicate error.validation.invalid_field_value errors for the same tag.
     contextLidOrLidVidReferences = LabelUtil.getIdentifiersCommon(domSource, url,
-        ReferentialIntegrityUtil.tagsList, LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE);
+        ReferentialIntegrityUtil.tagsList, LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE,
+        false);
     allContextLidOrLidVidReferencesPerLabel.addAll(contextLidOrLidVidReferences);
 
     contextLidOrLidVidReferences =
         LabelUtil.getIdentifiersCommon(domSource, url, ReferentialIntegrityUtil.tagsList,
-            LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE);
+            LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false);
     allContextLidOrLidVidReferencesPerLabel.addAll(contextLidOrLidVidReferences);
 
     contextLidOrLidVidReferences = LabelUtil.getIdentifiersCommon(domSource, url,
-        ReferentialIntegrityUtil.tagsList, LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE);
+        ReferentialIntegrityUtil.tagsList, LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE,
+        false);
     allContextLidOrLidVidReferencesPerLabel.addAll(contextLidOrLidVidReferences);
 
     // If the label is a bundle or collection, all identifiers in Context_Area can

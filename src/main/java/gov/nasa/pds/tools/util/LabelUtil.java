@@ -266,6 +266,11 @@ public class LabelUtil {
    */
   public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context,
       String[] tagsList, String searchPathName) {
+    return getIdentifiersCommon(source, context, tagsList, searchPathName, true);
+  }
+
+  public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context,
+      String[] tagsList, String searchPathName, boolean reportCarriageReturns) {
     ArrayList<String> commonIdentifiers = new ArrayList<>(0);
     LOG.debug("getIdentifiersCommon:context,tagsList,searchPathName {},{},searchPathName", context,
         tagsList, searchPathName);
@@ -297,19 +302,23 @@ public class LabelUtil {
             if (node.getNodeName().equals(tagsList[kk])
                 || node.getNodeName().equals(VERSION_ID_TAG)) {
               if (node.getNodeName().equals(tagsList[kk])) {
-                // Check for any extraneous carriage return.
+                // Check for any extraneous carriage return. Only report when
+                // reportCarriageReturns=true to avoid duplicate errors when this function
+                // is called multiple times on the same document with overlapping XPath scopes.
                 if (node.getTextContent().contains("\n")) {
-                  String trimmedId = node.getTextContent().trim();
-                  String message = "Unexpected carriage returns in tag '" + tagsList[kk]
-                      + "' with value '" + trimmedId + "'";
-                  LOG.error("{} in context {}", message, context);
-                  ValidationProblem p1 =
-                      new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
-                          ProblemType.INVALID_FIELD_VALUE, message), context);
-                  try {
-                    LabelUtil.report.record(context.toURI(), p1);
-                  } catch (URISyntaxException e) {
-                    LOG.error("URI Syntax Error: " + e.getMessage());
+                  if (reportCarriageReturns) {
+                    String trimmedId = node.getTextContent().trim();
+                    String message = "Unexpected carriage returns in tag '" + tagsList[kk]
+                        + "' with value '" + trimmedId + "'";
+                    LOG.error("{} in context {}", message, context);
+                    ValidationProblem p1 =
+                        new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+                            ProblemType.INVALID_FIELD_VALUE, message), context);
+                    try {
+                      LabelUtil.report.record(context.toURI(), p1);
+                    } catch (URISyntaxException e) {
+                      LOG.error("URI Syntax Error: " + e.getMessage());
+                    }
                   }
                 } else {
                   singleIdentifier = node.getTextContent().trim();
