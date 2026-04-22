@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-16)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
 
@@ -13,6 +13,8 @@
 
 **Defects:**
 
+- Maven exits 0 \(BUILD SUCCESS\) when Cucumber scenarios fail — Surefire does not capture JUnit Platform engine failures [\#1581](https://github.com/NASA-PDS/validate/issues/1581) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- warning.file.reserved\_name\_mismatch incorrectly fired for non-label files \(e.g. CSV collection inventory files\) [\#1580](https://github.com/NASA-PDS/validate/issues/1580) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not count cleanly-passing products, incorrectly triggering no\_products\_found error [\#1557](https://github.com/NASA-PDS/validate/issues/1557) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not support Product\_Resource - pds4-jparser JAXB context built against outdated IM schema \(1K00\) [\#1550](https://github.com/NASA-PDS/validate/issues/1550) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate does not fail or report errors when an explicitly-specified target file does not exist [\#1548](https://github.com/NASA-PDS/validate/issues/1548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
