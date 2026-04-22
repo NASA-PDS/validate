@@ -1,4 +1,5 @@
 cucumber
+gov.nasa.pds.tools.label
 gov.nasa.pds.validate
 gov.nasa.pds.validate.constants
 gov.nasa.pds.validate.report
