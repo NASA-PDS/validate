@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.sch"        schematypens="http://purl.oclc.org/dsdl/schematron" ?>
+
+<Product_Collection xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1   http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1J00.xsd">
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:nh_leisa:pluto_raw</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>New Horizons Linear Etalon Imaging Spectral Array Pluto Encounter Raw Data</title>
+        <information_model_version>1.19.0.0</information_model_version>
+        <product_class>Product_Collection</product_class>
+        <Citation_Information>
+        <author_list>Stern, S. Alan</author_list>
+            <editor_list>Sharkey, Benjamin; Gicquel, Adeline; Gobat, Caden; Finley, Tiffany</editor_list>
+            <publication_year>2025</publication_year>
+            <doi>10.26007/teh9-zj21</doi>
+            <description>
+                This collection contains a set of raw images in .FIT format for the
+                New Horizons Linear Etalon Imaging Spectral Array (LEISA) instrument during
+                the PLUTO ENCOUNTER mission phase. These data were migrated from the PDS3
+                dataset: NH-P-LEISA-2-PLUTO-V3.0.
+                
+                This data set contains LEISA observations taken during the              
+                the Approach (Jan-Jul, 2015), Encounter, Departure, and                 
+                Transition mission sub-phases, including flyby observations             
+                taken on 14 July, 2015, and departure and calibration data              
+                through late October, 2016.
+                
+                Changes since prior versions include the addition of data downlinked 
+                between the end of January, 2016 and the end of October, 2016, completing 
+                the delivery of all data covering the Pluto Encounter and subsequent 
+                Calibration Campaign.  It includes multi-map observations from the Approach 
+                phase, observations of the moons, and hi-res departure observations.  It 
+                also includes functional tests from the Calibration Campaign including 
+                scans across the detector of Arcturus, and a second test of the Solar 
+                Illumination Assembly.
+
+                Labels were redesigned during migration using the .FIT header and PDS3 .LBL
+                files, but the data files are unchanged from their PDS3 version.
+            </description>
+        </Citation_Information>
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2025-02-22</modification_date>
+                <version_id>1.0</version_id>
+                <description>B. Sharkey: Migrated from PDS3 product</description>
+            </Modification_Detail>
+        </Modification_History>  
+    </Identification_Area>
+    
+    <Context_Area>
+        <Time_Coordinates>
+            <start_date_time>2015-03-03T12:35:00.739Z</start_date_time>
+            <stop_date_time>2016-07-16T10:30:17.250Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <purpose>Calibration</purpose>
+            <processing_level>Raw</processing_level>
+            <Science_Facets>
+                <wavelength_range>Near Infrared</wavelength_range>
+                <domain>Surface</domain>
+                <discipline_name>Spectroscopy</discipline_name>
+                <facet1>2D</facet1>
+            </Science_Facets>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>New Horizons</name>
+            <type>Mission</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:mission.new_horizons</lid_reference>
+                <reference_type>collection_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>New Horizons</name>
+                <type>Host</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.nh</lid_reference>
+                    <reference_type>is_instrument_host</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>            
+            <Observing_System_Component>
+                <name>Linear Etalon Imaging Spectral Array</name>
+                <type>Instrument</type>
+                <Internal_Reference>
+                    <lid_reference>urn:nasa:pds:context:instrument:nh.leisa</lid_reference>
+                    <reference_type>is_instrument</reference_type>
+                </Internal_Reference>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>        	            
+            <name>(134340) Pluto</name>
+            <type>Dwarf Planet</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:target:dwarf_planet.134340_pluto</lid_reference>
+                <reference_type>data_to_target</reference_type>
+            </Internal_Reference>
+        </Target_Identification> 
+        <Target_Identification>
+          <name>Charon</name>
+          <type>Satellite</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:satellite.134340_pluto.charon</lid_reference>
+            <reference_type>data_to_target</reference_type>
+          </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+          <name>Nix</name>
+          <type>Satellite</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:satellite.134340_pluto.nix</lid_reference>
+            <reference_type>data_to_target</reference_type>
+          </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+          <name>Hydra</name>
+          <type>Satellite</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:satellite.134340_pluto.hydra</lid_reference>
+            <reference_type>data_to_target</reference_type>
+          </Internal_Reference>
+        </Target_Identification>
+        <Target_Identification>
+          <name>Kerberos</name>
+          <type>Satellite</type>
+          <Internal_Reference>
+            <lid_reference>urn:nasa:pds:context:target:satellite.134340_pluto.kerberos</lid_reference>
+            <reference_type>data_to_target</reference_type>
+          </Internal_Reference>
+        </Target_Identification>
+    </Context_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:nh_documents:ralph</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+            <comment>Ralph Document Collection</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:nh_documents:mission</lid_reference>
+            <reference_type>collection_to_document</reference_type>
+            <comment>New Horizon Mission Document Collection</comment>
+        </Internal_Reference>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:nh_leisa:pluto_cal</lid_reference>
+            <reference_type>collection_to_data</reference_type>
+            <comment>LEISA Pluto Encounter Calibrated Data Collection</comment>
+        </Internal_Reference>
+    </Reference_List>
+    
+    <Collection>
+        <collection_type>Data</collection_type>
+    </Collection>
+    
+    <File_Area_Inventory>
+        <File>
+            <file_name>inventory.csv</file_name>
+        </File>
+        <Inventory>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>1</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>Member Status</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_String</data_type>
+                    <maximum_field_length unit="byte">1</maximum_field_length>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>LIDVID_LID</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_LIDVID_LID</data_type>
+                    <maximum_field_length unit="byte">255</maximum_field_length>
+                </Field_Delimited>
+            </Record_Delimited>
+            <reference_type>inventory_has_member_product</reference_type>
+        </Inventory>
+    </File_Area_Inventory>
+</Product_Collection>

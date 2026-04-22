@@ -68,9 +68,8 @@ public class RegisterTargets extends AbstractValidationRule {
             String childLocation = child.getUrl().toURI().normalize().toString();
             TargetType childType = Utility.getTargetType(child.getUrl());
 
-            // Check for reserved filename pattern mismatches for child targets
-            checkReservedFilenameMismatch(child.getUrl(), childType);
-
+            // Reserved filename check is done when each target is validated (line 53),
+            // so we don't need to check it here during crawling to avoid duplicates
             registrar.addTarget(targetLocation, childType, childLocation);
           } catch (URISyntaxException e) {
             reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
@@ -104,6 +103,12 @@ public class RegisterTargets extends AbstractValidationRule {
       filename = new File(target.toURI()).getName();
     } catch (URISyntaxException e) {
       LOG.warn("Failed to extract filename from URL {}: {}", target, e.getMessage());
+      return;
+    }
+
+    // PDS4 SR 6C.1.3 reserved name rules apply only to label files
+    String extension = FilenameUtils.getExtension(filename).toLowerCase();
+    if (!extension.equals("xml") && !extension.equals("lblx")) {
       return;
     }
 
