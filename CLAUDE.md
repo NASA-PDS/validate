@@ -29,6 +29,9 @@ mvn test
 # Run tests excluding ReferenceIntegrityTest with specific Cucumber tags
 mvn test -Dtest=\!ReferenceIntegrityTest* -Dcucumber.filter.tags='@v3.7.x'
 
+# Run a single Cucumber scenario by name (issue number and subtest, e.g. #1458-1)
+mvn test -Dtest=\!ReferenceIntegrityTest* "-Dcucumber.filter.name=NASA-PDS/validate#1458-1"
+
 # Run a single test class
 mvn test -Dtest=ValidationIntegrationTests
 
