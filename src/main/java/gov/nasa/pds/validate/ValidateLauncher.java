@@ -110,6 +110,7 @@ import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidateProblemHandler;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationResourceManager;
+import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
@@ -1525,6 +1526,9 @@ public class ValidateLauncher {
 
         validator.validate(monitor, target);
         monitor.endValidation();
+
+        // Free cached ValidationTargets to prevent OOM on large bundles
+        ValidationTarget.clearCache();
 
         if (validationRule != null) {
           // If the rule is pds4.label, clear out the list of Information Model Versions

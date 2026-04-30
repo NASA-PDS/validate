@@ -16,6 +16,8 @@ package gov.nasa.pds.tools.validate;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -28,14 +30,24 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   private static Logger LOG = LoggerFactory.getLogger(InMemoryRegistrar.class);
   private ValidationTarget rootTarget;
-  private Map<String, ValidationTarget> targets = new HashMap<>();
-  private Map<String, ValidationTarget> collections = new HashMap<>();
-  private Map<String, ValidationTarget> bundles = new HashMap<>();
-  private Set<String> referencedTargetLocations = new HashSet<>();
-  private Map<Identifier, String> identifierDefinitions = new HashMap<>();
-  private Map<String, Set<Identifier>> identifierDefinitionsByLid = new HashMap<>();
-  private Map<Identifier, String> identifierReferenceLocations = new HashMap<>();
-  private Map<String, Set<Identifier>> referencedIdentifiersByLid = new HashMap<>();
+  private Map<String, ValidationTarget> targets = new ConcurrentHashMap<>();
+  private Map<String, ValidationTarget> collections = new ConcurrentHashMap<>();
+  private Map<String, ValidationTarget> bundles = new ConcurrentHashMap<>();
+  private Set<String> referencedTargetLocations = ConcurrentHashMap.newKeySet();
+  private Map<Identifier, String> identifierDefinitions = new ConcurrentHashMap<>();
+  private Map<String, Set<Identifier>> identifierDefinitionsByLid = new ConcurrentHashMap<>();
+  private Map<Identifier, String> identifierReferenceLocations = new ConcurrentHashMap<>();
+  private Map<String, Set<Identifier>> referencedIdentifiersByLid = new ConcurrentHashMap<>();
+
+  // Parent-child index: maps parent location to list of direct child locations.
+  // The inner ArrayLists are only accessed under the instance monitor (both addTarget()
+  // and getChildTargets() are synchronized), so they are thread-safe despite being mutable.
+  private Map<String, List<String>> childrenByParent = new ConcurrentHashMap<>();
+
+  // Count-by-type index: tracks target counts per TargetType.
+  // Uses AtomicInteger to avoid boxed Integer allocations on each merge() call.
+  private Map<TargetType, AtomicInteger> targetCountByType = new ConcurrentHashMap<>();
+  private AtomicInteger labelCount = new AtomicInteger(0);
 
   @Override
   public ValidationTarget getRoot() {
@@ -57,7 +69,33 @@ public class InMemoryRegistrar implements TargetRegistrar {
         this.collections.put(location, target);
       }
 
+      boolean isNew = !this.targets.containsKey(location);
+
+      // Only update indexes for genuinely new targets to avoid duplicates.
+      // Invariant: a location is never re-registered with a different TargetType.
+      // Both RegisterTargets.java call sites derive the type from the location itself
+      // (via Utility.getTargetType), so re-registration with a different type cannot
+      // happen in practice. Log a warning if this invariant is ever violated.
+      if (!isNew) {
+        ValidationTarget existing = this.targets.get(location);
+        if (existing != null && !type.equals(existing.getType())) {
+          LOG.warn("addTarget(): location {} re-registered with type {} (was {})",
+              location, type, existing.getType());
+        }
+      }
+
       this.targets.put(location, target);
+
+      if (isNew) {
+        // Index parent-child relationship for O(1) child lookups
+        if (parentLocation != null) {
+          childrenByParent.computeIfAbsent(parentLocation, k -> new ArrayList<>()).add(location);
+        }
+
+        // Increment count-by-type index
+        targetCountByType.computeIfAbsent(type, k -> new AtomicInteger(0)).incrementAndGet();
+      }
+
       LOG.debug("addTarget(): location: {}, target: {}", location, target);
     } catch (MalformedURLException e) {
       // TODO Auto-generated catch block
@@ -67,40 +105,39 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
   @Override
   public synchronized Collection<ValidationTarget> getChildTargets(ValidationTarget parent) {
-    List<ValidationTarget> children = new ArrayList<>();
-    String parentLocation = parent.getLocation() + File.separator;
-
-    for (String targetLocation : targets.keySet()) {
-      if (targetLocation.startsWith(parentLocation)
-          && !targetLocation.substring(parentLocation.length()).contains(File.separator)) {
-        children.add(targets.get(targetLocation));
-      }
+    List<String> childLocations = childrenByParent.getOrDefault(parent.getLocation(), Collections.emptyList());
+    List<ValidationTarget> children = new ArrayList<>(childLocations.size());
+    for (String loc : childLocations) {
+      ValidationTarget t = targets.get(loc);
+      if (t != null) children.add(t);
     }
-
     Collections.sort(children);
     return children;
   }
 
   @Override
-  public synchronized boolean hasTarget(String targetLocation) {
+  public boolean hasTarget(String targetLocation) {
     return targets.containsKey(targetLocation);
   }
 
   @Override
-  public synchronized int getTargetCount(TargetType type) {
-    int count = 0;
-
-    for (Map.Entry<String, ValidationTarget> entry : targets.entrySet()) {
-      if (entry.getValue().getType() == type) {
-        ++count;
-      }
-    }
-    return count;
+  public int getTargetCount(TargetType type) {
+    AtomicInteger count = targetCountByType.get(type);
+    return count != null ? count.get() : 0;
   }
 
   @Override
   public synchronized void setTargetIsLabel(String location, boolean isLabel) {
-    targets.get(location).setLabel(isLabel);
+    ValidationTarget target = targets.get(location);
+    boolean wasLabel = target.isLabel();
+    target.setLabel(isLabel);
+
+    // Update label count index
+    if (isLabel && !wasLabel) {
+      labelCount.incrementAndGet();
+    } else if (!isLabel && wasLabel) {
+      labelCount.decrementAndGet();
+    }
 
     // Labels refer to themselves.
     if (isLabel) {
@@ -109,15 +146,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized int getLabelCount() {
-    int count = 0;
-    for (Map.Entry<String, ValidationTarget> entry : targets.entrySet()) {
-      if (entry.getValue().isLabel()) {
-        ++count;
-      }
-    }
-
-    return count;
+  public int getLabelCount() {
+    return labelCount.get();
   }
 
   @Override
@@ -126,7 +156,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
     LOG.debug("setTargetIdentifier:identifier,location {},{}", identifier, location);
     identifierDefinitions.put(identifier, location);
 
-    identifierDefinitionsByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
+    identifierDefinitionsByLid.computeIfAbsent(identifier.getLid(), x -> ConcurrentHashMap.newKeySet()).add(identifier);
   }
 
   @Override
@@ -135,7 +165,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized boolean isTargetReferenced(String location) {
+  public boolean isTargetReferenced(String location) {
     return referencedTargetLocations.contains(location);
   }
 
@@ -145,11 +175,11 @@ public class InMemoryRegistrar implements TargetRegistrar {
 
     String lid = identifier.getLid();
 
-    referencedIdentifiersByLid.computeIfAbsent(identifier.getLid(), x -> new HashSet<>()).add(identifier);
+    referencedIdentifiersByLid.computeIfAbsent(identifier.getLid(), x -> ConcurrentHashMap.newKeySet()).add(identifier);
   }
 
   @Override
-  public synchronized boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
+  public boolean isIdentifierReferenced(Identifier identifier, boolean orNearNeighbor) {
     boolean result = identifierReferenceLocations.containsKey(identifier);
     if (!result && orNearNeighbor) {
       for (Identifier id : this.referencedIdentifiersByLid.getOrDefault(identifier.getLid(), Collections.emptySet())) {
