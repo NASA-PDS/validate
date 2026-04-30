@@ -1824,7 +1824,7 @@ public class ValidateLauncher {
     } catch (Exception e) {
       throw new Exception(e);
     } finally {
-      if (this.reportFile != null) {
+      if (this.reportFile != null && this.report != null) {
         this.reportFile = null;
         this.report.getWriter().close();
       }
