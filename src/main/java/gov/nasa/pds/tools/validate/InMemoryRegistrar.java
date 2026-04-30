@@ -17,6 +17,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -40,8 +41,8 @@ public class InMemoryRegistrar implements TargetRegistrar {
   private Map<String, Set<Identifier>> referencedIdentifiersByLid = new ConcurrentHashMap<>();
 
   // Parent-child index: maps parent location to list of direct child locations.
-  // The inner ArrayLists are only accessed under the instance monitor (both addTarget()
-  // and getChildTargets() are synchronized), so they are thread-safe despite being mutable.
+  // CopyOnWriteArrayList makes the inner lists intrinsically thread-safe, consistent
+  // with the rest of the concurrent data structures in this class.
   private Map<String, List<String>> childrenByParent = new ConcurrentHashMap<>();
 
   // Count-by-type index: tracks target counts per TargetType.
@@ -89,7 +90,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
       if (isNew) {
         // Index parent-child relationship for O(1) child lookups
         if (parentLocation != null) {
-          childrenByParent.computeIfAbsent(parentLocation, k -> new ArrayList<>()).add(location);
+          childrenByParent.computeIfAbsent(parentLocation, k -> new CopyOnWriteArrayList<>()).add(location);
         }
 
         // Increment count-by-type index
@@ -104,7 +105,7 @@ public class InMemoryRegistrar implements TargetRegistrar {
   }
 
   @Override
-  public synchronized Collection<ValidationTarget> getChildTargets(ValidationTarget parent) {
+  public Collection<ValidationTarget> getChildTargets(ValidationTarget parent) {
     List<String> childLocations = childrenByParent.getOrDefault(parent.getLocation(), Collections.emptyList());
     List<ValidationTarget> children = new ArrayList<>(childLocations.size());
     for (String loc : childLocations) {
