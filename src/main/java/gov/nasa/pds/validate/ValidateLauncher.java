@@ -72,10 +72,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
-import org.apache.commons.configuration.AbstractConfiguration;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -706,8 +708,13 @@ public class ValidateLauncher {
    */
   public void query(File configuration) throws ConfigurationException {
     try {
-      AbstractConfiguration.setDefaultListDelimiter(',');
-      Configuration config = new PropertiesConfiguration(configuration);
+      Parameters params = new Parameters();
+      FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
+          new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+              .configure(params.properties()
+                  .setFile(configuration)
+                  .setListDelimiterHandler(new DefaultListDelimiterHandler(',')));
+      Configuration config = builder.getConfiguration();
       Iterator<String> keys = config.getKeys();
       String unknowns = "";
 
@@ -1817,7 +1824,7 @@ public class ValidateLauncher {
     } catch (Exception e) {
       throw new Exception(e);
     } finally {
-      if (this.reportFile != null) {
+      if (this.reportFile != null && this.report != null) {
         this.reportFile = null;
         this.report.getWriter().close();
       }
