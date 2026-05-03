@@ -12363,13 +12363,14 @@
           },
           {
                "name": [
+                    "New Horizons Spacecraft",
                     "The New Horizons (NH) Spacecraft",
                     "NEW HORIZONS"
                ],
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.nh::1.3"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.nh::1.4"
           },
           {
                "name": [
@@ -14537,6 +14538,18 @@
                     "Observing Campaign"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.atlas::1.1"
+          },
+          {
+               "name": [
+                    "OSIRIS-APEX",
+                    "OSIRIS-APEX Mission",
+                    "Origins, Spectral Interpretation, Resource Identification, and Security – Apophis Explorer (OSIRIS-APEX) Mission",
+                    "APEX"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.apex::1.0"
           },
           {
                "name": [
