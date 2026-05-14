@@ -101,10 +101,12 @@ public class FieldValueValidator {
 
   // Pre-compiled patterns used inside checkFormat() to avoid per-call Pattern compilation
   private static final Pattern specifierEePattern = Pattern.compile("[eE]");
+  private static final Pattern specifierFeePattern = Pattern.compile("[feE]");
   private static final Pattern formatEeValuePattern =
       Pattern.compile("(\\+|-)?([0-9](\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)");
   private static final Pattern formatFValuePattern =
       Pattern.compile("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)");
+  private static final Pattern formatSplitEePattern = Pattern.compile("[eE]");
 
   // https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a
   // bundle with a single-character filename
@@ -893,8 +895,8 @@ public class FieldValueValidator {
         // For character tables, <field_format> is used to describe the maximum length and alignment of
         // the data. <field_format> also gives an indication of the maximum precision of real numbers, but
         // does not require all values to have this precision.
-        if (specifier.matches("[feE]")) {
-          String[] tokens = value.trim().split("[eE]", 2);
+        if (specifierFeePattern.matcher(specifier).matches()) {
+          String[] tokens = formatSplitEePattern.split(value.trim(), 2);
           int actual_precision = 0;
           if (tokens[0].indexOf(".") != -1) {
             actual_precision = tokens[0].substring(tokens[0].indexOf(".") + 1).length();
