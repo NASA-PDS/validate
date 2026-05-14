@@ -99,6 +99,13 @@ public class FieldValueValidator {
   private static final Pattern asciiDirPathNamePattern =
       Pattern.compile("[A-Za-z0-9][A-Za-z0-9_-]*[A-Za-z0-9]");
 
+  // Pre-compiled patterns used inside checkFormat() to avoid per-call Pattern compilation
+  private static final Pattern specifierEePattern = Pattern.compile("[eE]");
+  private static final Pattern formatEeValuePattern =
+      Pattern.compile("(\\+|-)?([0-9](\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)");
+  private static final Pattern formatFValuePattern =
+      Pattern.compile("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)");
+
   // https://github.com/NASA-PDS/validate/issues/299 Validate tool does not PASS a
   // bundle with a single-character filename
   // A better pattern allows for at least one character file name.
@@ -841,15 +848,13 @@ public class FieldValueValidator {
         }
       }
       try {
-        if (specifier.matches("[eE]")) {
-          String p = "(\\+|-)?([0-9](\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)";
-          if (!value.trim().matches(p)) {
+        if (specifierEePattern.matcher(specifier).matches()) {
+          if (!formatEeValuePattern.matcher(value.trim()).matches()) {
             throw new NumberFormatException("Value does not match pattern.");
           }
           Double.parseDouble(value.trim());
         } else if (specifier.equals("f")) {
-          String p = "(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)";
-          if (!value.trim().matches(p)) {
+          if (!formatFValuePattern.matcher(value.trim()).matches()) {
             throw new NumberFormatException("Value does not match pattern.");
           }
           Double.parseDouble(value.trim());
