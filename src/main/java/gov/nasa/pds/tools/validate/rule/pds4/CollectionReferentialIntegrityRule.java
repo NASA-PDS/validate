@@ -206,7 +206,7 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           "getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",
           id, matchingMembers.isEmpty(), entry.getMemberStatus());
       if (matchingMembers.isEmpty() && "P".equalsIgnoreCase(entry.getMemberStatus())) {
-        boolean downgradeToWarning = FlagsUtil.getAllowUnlistedMembers();
+        boolean downgradeToWarning = FlagsUtil.getSkipStrictCollectionMembership();
         getListener()
             .addProblem(new ValidationProblem(new ProblemDefinition(
                 downgradeToWarning ? ExceptionType.WARNING : ExceptionType.ERROR,

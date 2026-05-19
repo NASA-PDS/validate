@@ -39,7 +39,7 @@ public class FlagsUtil {
   private static boolean stackPrintingFlag = false;
 
   /** Flag to downgrade member_not_found from ERROR to WARNING (for accumulating bundles). */
-  private static boolean allowUnlistedMembers = false;
+  private static boolean skipStrictCollectionMembership = false;
 
   /**
    * Initialize flags to their default states
@@ -51,7 +51,7 @@ public class FlagsUtil {
     FlagsUtil.contentValidationFlag = true;
     FlagsUtil.skipProductValidation = false;
     FlagsUtil.stackPrintingFlag = false;
-    FlagsUtil.allowUnlistedMembers = false;
+    FlagsUtil.skipStrictCollectionMembership = false;
     LOG.debug("initialize:contentValidationFlag {}", FlagsUtil.contentValidationFlag);
     LOG.debug("initialize:skipProductValidation {}", FlagsUtil.skipProductValidation);
   }
@@ -119,13 +119,13 @@ public class FlagsUtil {
     return (FlagsUtil.skipProductValidation);
   }
 
-  public static void setAllowUnlistedMembers(boolean flag) {
-    FlagsUtil.allowUnlistedMembers = flag;
-    LOG.debug("setAllowUnlistedMembers: {}", FlagsUtil.allowUnlistedMembers);
+  public static void setSkipStrictCollectionMembership(boolean flag) {
+    FlagsUtil.skipStrictCollectionMembership = flag;
+    LOG.debug("setSkipStrictCollectionMembership: {}", FlagsUtil.skipStrictCollectionMembership);
   }
 
-  public static boolean getAllowUnlistedMembers() {
-    return FlagsUtil.allowUnlistedMembers;
+  public static boolean getSkipStrictCollectionMembership() {
+    return FlagsUtil.skipStrictCollectionMembership;
   }
 
   /**

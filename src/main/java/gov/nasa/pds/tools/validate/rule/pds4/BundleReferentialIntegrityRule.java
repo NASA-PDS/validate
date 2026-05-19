@@ -173,7 +173,7 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
         }
         if (matchingMembers.isEmpty() && "Primary".equalsIgnoreCase(memberStatus)) {
           LOG.debug("getBundleMembers:MATCHING_MEMBER_ID_IS_EMPTY {}", id);
-          boolean downgradeToWarning = FlagsUtil.getAllowUnlistedMembers();
+          boolean downgradeToWarning = FlagsUtil.getSkipStrictCollectionMembership();
           getListener()
               .addProblem(new ValidationProblem(new ProblemDefinition(
                   downgradeToWarning ? ExceptionType.WARNING : ExceptionType.ERROR,

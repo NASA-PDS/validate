@@ -171,7 +171,7 @@ public enum Flag {
   ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files",
       "Tells the tool to not check for unlabeled files in a bundle or collection."),
 
-  ALLOW_UNLISTED_MEMBERS(null, "allow-unlisted-members",
+  SKIP_STRICT_COLLECTION_MEMBERSHIP(null, "skip-strict-collection-membership",
       "When set, collection inventory members not found in the target are reported as warnings instead of errors. "
           + "Use when validating partial or accumulating bundles where prior-release products are intentionally absent."),
 

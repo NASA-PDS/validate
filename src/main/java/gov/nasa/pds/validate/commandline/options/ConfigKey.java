@@ -150,7 +150,7 @@ public class ConfigKey {
   /**
    * Property to downgrade member_not_found from ERROR to WARNING (for accumulating bundles).
    */
-  public static final String ALLOW_UNLISTED_MEMBERS = "validate.allowUnlistedMembers";
+  public static final String SKIP_STRICT_COLLECTION_MEMBERSHIP = "validate.skipStrictCollectionMembership";
 
   /**
    * Property to download the latest Registered Context Products JSON file and replace the existing
