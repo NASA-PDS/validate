@@ -237,6 +237,8 @@ public class ValidateLauncher {
 
   private boolean allowUnlabeledFiles;
 
+  private boolean allowUnlistedMembers;
+
   private File registeredProductsFile;
 
   private File nonRegisteredProductsFile;
@@ -288,6 +290,7 @@ public class ValidateLauncher {
     contextMismatchAsWarn = true;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
+    allowUnlistedMembers = false;
     registeredAndNonRegistedProducts = new HashMap<>();
     registeredProductsFile = new File(
         System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName());
@@ -477,6 +480,9 @@ public class ValidateLauncher {
         setSpotCheckData(value);
       } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
         setAllowUnlabeledFiles(true);
+      } else if (Flag.ALLOW_UNLISTED_MEMBERS.getLongName().equals(o.getLongOpt())) {
+        setAllowUnlistedMembers(true);
+        FlagsUtil.setAllowUnlistedMembers(true);
       } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
         setUpdateRegisteredProducts(true);
       } else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
@@ -852,6 +858,10 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
         setAllowUnlabeledFiles(true);
       }
+      if (config.containsKey(ConfigKey.ALLOW_UNLISTED_MEMBERS)) {
+        setAllowUnlistedMembers(true);
+        FlagsUtil.setAllowUnlistedMembers(true);
+      }
       if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
         setUpdateRegisteredProducts(true);
       }
@@ -1160,6 +1170,10 @@ public class ValidateLauncher {
     this.allowUnlabeledFiles = flag;
   }
 
+  public void setAllowUnlistedMembers(boolean flag) {
+    this.allowUnlistedMembers = flag;
+  }
+
   private void setRegisteredProducts() {
     URL url = null;
 
@@ -1396,6 +1410,8 @@ public class ValidateLauncher {
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
       report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files",
           String.valueOf(allowUnlabeledFiles));
+      report.addParameter("allowUnlistedMembers", "Allow Unlisted Members",
+          String.valueOf(allowUnlistedMembers));
     }
     report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
     report.addParameter("registeredContextsFile", "Registered Contexts File",
