@@ -820,20 +820,23 @@ public class ReferentialIntegrityUtil {
           if (TargetExaminer.isTargetCollectionType (child.getUrl())) {
             labelIsCollectionFlag = true;
           }
-          // Always re-parse from disk to correctly detect \n in lid_reference/lidvid_reference
-          // elements and report INVALID_FIELD_VALUE errors. The pds4-jparser DOM (used for
-          // caching) normalizes \n away, so we cannot rely on cached identifier lists here.
-          // The cache is kept for the collectAllContextReferences optimization below.
           LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(url);
-          xml = db.parse(url.openStream());
-          domSource = new DOMSource(xml);
-          // Note that the function getLidVidReferences() collects all Internal_Reference
-          // elements in the PDS4 core namespace (including those in Reference_List,
-          // Context_Area, discipline LDD areas, and any other location in the label).
-          // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
-          // references collected in lidOrLidVidReferences for each label.
-          ArrayList<String> lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource, url);
-          ArrayList<String> logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, url);
+          ArrayList<String> lidOrLidVidReferences;
+          ArrayList<String> logicalIdentifiers;
+          if (cached != null) {
+            logicalIdentifiers = cached.getLogicalIdentifiers();
+            lidOrLidVidReferences = cached.getLidOrLidVidReferences();
+          } else {
+            xml = db.parse(url.openStream());
+            domSource = new DOMSource(xml);
+            // Note that the function getLidVidReferences() collects all Internal_Reference
+            // elements in the PDS4 core namespace (including those in Reference_List,
+            // Context_Area, discipline LDD areas, and any other location in the label).
+            // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
+            // references collected in lidOrLidVidReferences for each label.
+            lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource, url);
+            logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, url);
+          }
           LOG.debug("additionalReferentialIntegrityChecks:url,lidOrLidVidReferences {},{}", url,
               lidOrLidVidReferences.size());
           LOG.debug("additionalReferentialIntegrityChecks:url,logicalIdentifiers {},{}", url,

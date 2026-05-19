@@ -3,6 +3,7 @@ package gov.nasa.pds.tools.validate;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +12,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+import gov.nasa.pds.tools.util.LabelCacheEntry;
 import gov.nasa.pds.tools.util.LabelUtil;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 
 public class CrossLabelFileAreaReferenceChecker {
   final private static HashMap<String,Boolean> isObservational = new HashMap<String,Boolean>();
@@ -31,13 +34,20 @@ public class CrossLabelFileAreaReferenceChecker {
   public static boolean add(String name, ValidationTarget target, boolean isObs)
       throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
     boolean success = false;
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    Document xml = dbf.newDocumentBuilder().parse(target.getUrl().openStream());
-    DOMSource domSource = new DOMSource(xml);
     String full_name = resolve(name, target);
     isObservational.put(full_name,
         isObs || (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false));
-    for (String lid : LabelUtil.getLogicalIdentifiers(domSource, target.getUrl())) {
+    ArrayList<String> logicalIdentifiers;
+    LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(target.getUrl());
+    if (cached != null) {
+      logicalIdentifiers = cached.getLogicalIdentifiers();
+    } else {
+      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+      Document xml = dbf.newDocumentBuilder().parse(target.getUrl().openStream());
+      DOMSource domSource = new DOMSource(xml);
+      logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, target.getUrl());
+    }
+    for (String lid : logicalIdentifiers) {
       if (lid.contains("::")) {
         lid = lid.substring (0, lid.indexOf("::"));
       }

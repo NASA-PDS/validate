@@ -345,8 +345,10 @@ public class LabelValidationRule extends AbstractValidationRule {
   private static void cacheIdentifiers(Document document, URL targetUrl) {
     DOMSource domSource = new DOMSource(document);
     String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
-    ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, false);
-    ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, false);
+    // Report \n errors here (true), so referential integrity phase can use cache safely.
+    // Context area calls stay false — getLidVidReferences(true) above already covers those nodes.
+    ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, true);
+    ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, true);
     ArrayList<String> contextRefs = new ArrayList<>();
     contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
         LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
