@@ -26,15 +26,9 @@ public class CrossLabelFileAreaReferenceChecker {
    * @param name - the file being referenced by the file area
    * @param target - the label being validated
    * @return true if name and target are unique and only known references and false otherwise
-   * All of these exceptions should not happen because they are getting the LID from the target.
-   * Would not have made it this far if that could not have happened already, So, just pass them
-   * back to the called and let them handle it with their own generic exception handler/message.
-   * @throws IOException
-   * @throws ParserConfigurationException
-   * @throws SAXException
    * @throws URISyntaxException
    */
-  public static boolean add (String name, ValidationTarget target, boolean isObs)
+  public static boolean add(String name, ValidationTarget target, boolean isObs)
       throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
     boolean success = false;
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -43,7 +37,7 @@ public class CrossLabelFileAreaReferenceChecker {
     String full_name = resolve(name, target);
     isObservational.put(full_name,
         isObs || (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false));
-    for (String lid : LabelUtil.getLogicalIdentifiers (domSource, target.getUrl())) {
+    for (String lid : LabelUtil.getLogicalIdentifiers(domSource, target.getUrl())) {
       if (lid.contains("::")) {
         lid = lid.substring (0, lid.indexOf("::"));
       }
@@ -64,5 +58,6 @@ public class CrossLabelFileAreaReferenceChecker {
   }
   public static void reset() {
     knownRefs.clear();
+    isObservational.clear();
   }
 }

@@ -59,6 +59,10 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
+import javax.xml.transform.dom.DOMSource;
+import gov.nasa.pds.tools.util.LabelCacheEntry;
+import gov.nasa.pds.tools.util.LabelUtil;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 
 /**
  * Implements a validation chain that validates PDS4 bundles. It is applicable if there is a bundle
@@ -318,6 +322,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (document != null) {
         getContext().put(PDS4Context.LABEL_DOCUMENT, document);
         labelIsValidFlag = true; // A non-null document signified that the label is valid.
+        cacheIdentifiers(document, getTarget());
       }
     } catch (SAXException | IOException | ParserConfigurationException | TransformerException
         | MissingLabelSchemaException e) {
@@ -335,6 +340,22 @@ public class LabelValidationRule extends AbstractValidationRule {
     long t1 = System.currentTimeMillis();
 
     LOG.debug("validateLabel:target,labelIsValidFlag {},{}", target, labelIsValidFlag);
+  }
+
+  private static void cacheIdentifiers(Document document, URL targetUrl) {
+    DOMSource domSource = new DOMSource(document);
+    String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
+    ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, false);
+    ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, false);
+    ArrayList<String> contextRefs = new ArrayList<>();
+    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+        LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
+    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+        LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false));
+    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+        LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
+    ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
+        new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs));
   }
 
   private boolean resolveSingleSchema(URL label, Map.Entry<String, URL> schemaLocation,

@@ -365,6 +365,11 @@ public class LabelUtil {
    * @return lidOrLidVidReference The LID or LIDVID referenced in this label.
    */
   public static ArrayList<String> getLidVidReferences(DOMSource source, URL context) {
+    return getLidVidReferences(source, context, true);
+  }
+
+  public static ArrayList<String> getLidVidReferences(DOMSource source, URL context,
+      boolean reportCarriageReturns) {
     LOG.debug("getLidVidReferences:MY_SOURCE[{}]", source);
 
     String[] tagsList = new String[2];
@@ -372,7 +377,8 @@ public class LabelUtil {
     tagsList[1] = LID_REFERENCE;
 
     ArrayList<String> lidOrLidVidReferences =
-        LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA);
+        LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA,
+            reportCarriageReturns);
 
     LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}", context,
         lidOrLidVidReferences);
@@ -387,13 +393,19 @@ public class LabelUtil {
    * @return logicalIdentifiers A list of logical identifiers in this label.
    */
   public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context) {
+    return getLogicalIdentifiers(source, context, true);
+  }
+
+  public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context,
+      boolean reportCarriageReturns) {
     LOG.debug("getLogicalIdentifiers:MY_SOURCE[{}]", source);
 
     String[] tagsList = new String[1];
     tagsList[0] = LOGICAL_IDENTIFIER_TAG;
 
     ArrayList<String> logicalIdentifiers =
-        LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA);
+        LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA,
+            reportCarriageReturns);
 
     LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}", context,
         logicalIdentifiers);
