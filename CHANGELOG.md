@@ -1,8 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-05-14)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-05-15)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...«unknown»)
+
+**Requirements:**
+
+- As a PDS developer, I want inline regex patterns in FieldValueValidator pre-compiled as static constants so that per-field Pattern compilation overhead is eliminated [\#1570](https://github.com/NASA-PDS/validate/issues/1570)
 
 **Defects:**
 
