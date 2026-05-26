@@ -451,6 +451,18 @@ and is in line with the other bundle data.
 % validate --skip-product-validation --rule pds4.bundle --target path/to/staged/bundle_v2 --alternate_file_paths path/to/online/bundle_v1
 ```
 
+#### Validating Partial/Incremental Bundle Deliveries
+
+By default, validate reports an **error** (`error.integrity.member_not_found`) when a collection inventory lists a primary member product that cannot be found in the validation target. This is the correct behavior for complete bundles.
+
+When validating a partial or incremental delivery of an accumulating bundle — where prior-release products are intentionally absent from the local target — use the `--skip-strict-collection-membership` flag to downgrade this condition to a warning:
+
+```
+% validate --skip-strict-collection-membership --rule pds4.bundle --target path/to/incremental/bundle
+```
+
+This flag should only be used when you have a legitimate reason for missing members (e.g., products delivered in a previous release). For standard bundle validation, the default error behavior is correct and should not be suppressed.
+
 #### Example of using multiple-flags to improve performance
 
 Here is one example of how to

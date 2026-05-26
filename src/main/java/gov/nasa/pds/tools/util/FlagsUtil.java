@@ -38,6 +38,9 @@ public class FlagsUtil {
   /** Flag to enable/disable stack trace printing. */
   private static boolean stackPrintingFlag = false;
 
+  /** Flag to downgrade member_not_found from ERROR to WARNING (for accumulating bundles). */
+  private static boolean skipStrictCollectionMembership = false;
+
   /**
    * Initialize flags to their default states
    *
@@ -48,6 +51,7 @@ public class FlagsUtil {
     FlagsUtil.contentValidationFlag = true;
     FlagsUtil.skipProductValidation = false;
     FlagsUtil.stackPrintingFlag = false;
+    FlagsUtil.skipStrictCollectionMembership = false;
     LOG.debug("initialize:contentValidationFlag {}", FlagsUtil.contentValidationFlag);
     LOG.debug("initialize:skipProductValidation {}", FlagsUtil.skipProductValidation);
   }
@@ -113,6 +117,15 @@ public class FlagsUtil {
    */
   public static boolean getSkipProductValidation() {
     return (FlagsUtil.skipProductValidation);
+  }
+
+  public static void setSkipStrictCollectionMembership(boolean flag) {
+    FlagsUtil.skipStrictCollectionMembership = flag;
+    LOG.debug("setSkipStrictCollectionMembership: {}", FlagsUtil.skipStrictCollectionMembership);
+  }
+
+  public static boolean getSkipStrictCollectionMembership() {
+    return FlagsUtil.skipStrictCollectionMembership;
   }
 
   /**
