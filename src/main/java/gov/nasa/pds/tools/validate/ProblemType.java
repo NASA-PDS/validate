@@ -211,6 +211,8 @@ public enum ProblemType {
 
   MEMBER_NOT_FOUND("warning.integrity.member_not_found"),
 
+  MEMBER_NOT_FOUND_ERROR("error.integrity.member_not_found"),
+
   INTEGRITY_PDS4_VERSION_MISMATCH("warning.integrity.pds4_version_mismatch",
       ProblemCategory.GENERAL),
 

@@ -238,6 +238,8 @@ public class ValidateLauncher {
 
   private boolean allowUnlabeledFiles;
 
+  private boolean skipStrictCollectionMembership;
+
   private File registeredProductsFile;
 
   private File nonRegisteredProductsFile;
@@ -289,6 +291,7 @@ public class ValidateLauncher {
     contextMismatchAsWarn = true;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
+    skipStrictCollectionMembership = false;
     registeredAndNonRegistedProducts = new HashMap<>();
     registeredProductsFile = new File(
         System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName());
@@ -478,6 +481,9 @@ public class ValidateLauncher {
         setSpotCheckData(value);
       } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
         setAllowUnlabeledFiles(true);
+      } else if (Flag.SKIP_STRICT_COLLECTION_MEMBERSHIP.getLongName().equals(o.getLongOpt())) {
+        setSkipStrictCollectionMembership(true);
+        FlagsUtil.setSkipStrictCollectionMembership(true);
       } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
         setUpdateRegisteredProducts(true);
       } else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
@@ -853,6 +859,10 @@ public class ValidateLauncher {
       if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
         setAllowUnlabeledFiles(true);
       }
+      if (config.containsKey(ConfigKey.SKIP_STRICT_COLLECTION_MEMBERSHIP)) {
+        setSkipStrictCollectionMembership(true);
+        FlagsUtil.setSkipStrictCollectionMembership(true);
+      }
       if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
         setUpdateRegisteredProducts(true);
       }
@@ -1161,6 +1171,10 @@ public class ValidateLauncher {
     this.allowUnlabeledFiles = flag;
   }
 
+  public void setSkipStrictCollectionMembership(boolean flag) {
+    this.skipStrictCollectionMembership = flag;
+  }
+
   private void setRegisteredProducts() {
     URL url = null;
 
@@ -1397,6 +1411,8 @@ public class ValidateLauncher {
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
       report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files",
           String.valueOf(allowUnlabeledFiles));
+      report.addParameter("skipStrictCollectionMembership", "Allow Unlisted Members",
+          String.valueOf(skipStrictCollectionMembership));
     }
     report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
     report.addParameter("registeredContextsFile", "Registered Contexts File",
