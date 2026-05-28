@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-05-15)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-05-27)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...«unknown»)
 
@@ -10,6 +10,7 @@
 
 **Defects:**
 
+- warning.integrity.member\_not\_found should be an ERROR by default, with new flag to downgrade to warning [\#1601](https://github.com/NASA-PDS/validate/issues/1601) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate does not complete validation of large bundles \(23000+ products\) due to OutOfMemoryError in InMemoryRegistrar [\#1571](https://github.com/NASA-PDS/validate/issues/1571) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 ## [v4.1.0](https://github.com/NASA-PDS/validate/tree/v4.1.0) (2026-04-22)
