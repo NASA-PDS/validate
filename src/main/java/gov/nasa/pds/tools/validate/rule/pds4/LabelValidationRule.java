@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -322,7 +323,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (document != null) {
         getContext().put(PDS4Context.LABEL_DOCUMENT, document);
         labelIsValidFlag = true; // A non-null document signified that the label is valid.
-        cacheIdentifiers(document, getTarget());
+        cacheIdentifiers(getTarget());
       }
     } catch (SAXException | IOException | ParserConfigurationException | TransformerException
         | MissingLabelSchemaException e) {
@@ -342,22 +343,32 @@ public class LabelValidationRule extends AbstractValidationRule {
     LOG.debug("validateLabel:target,labelIsValidFlag {},{}", target, labelIsValidFlag);
   }
 
-  private static void cacheIdentifiers(Document document, URL targetUrl) {
-    DOMSource domSource = new DOMSource(document);
-    String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
-    // Report \n errors here (true), so referential integrity phase can use cache safely.
-    // Context area calls stay false — getLidVidReferences(true) above already covers those nodes.
-    ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, true);
-    ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, true);
-    ArrayList<String> contextRefs = new ArrayList<>();
-    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
-        LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
-    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
-        LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false));
-    contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
-        LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
-    ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
-        new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs));
+  private static void cacheIdentifiers(URL targetUrl) {
+    // Re-parse using plain DocumentBuilderFactory so whitespace in text content (e.g. \n in
+    // logical_identifier or lid_reference) is preserved exactly as authored.
+    // Saxon's parseAndValidate() normalizes xs:token values, stripping \n before we can detect them.
+    try {
+      Document rawDoc =
+          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(targetUrl.openStream());
+      DOMSource domSource = new DOMSource(rawDoc);
+      String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
+      ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, true);
+      // false: lid_reference \n errors are only reported during bundle/collection validation
+      // (via additionalReferentialIntegrityChecks), not during single-label validation.
+      // Using true here would be a backwards-incompatible behavior change.
+      ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, false);
+      ArrayList<String> contextRefs = new ArrayList<>();
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false));
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
+      ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
+          new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs));
+    } catch (Exception e) {
+      LOG.error("cacheIdentifiers: failed to parse {}: {}", targetUrl, e.getMessage());
+    }
   }
 
   private boolean resolveSingleSchema(URL label, Map.Entry<String, URL> schemaLocation,

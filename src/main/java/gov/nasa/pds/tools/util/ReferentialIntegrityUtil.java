@@ -826,6 +826,12 @@ public class ReferentialIntegrityUtil {
           if (cached != null) {
             logicalIdentifiers = cached.getLogicalIdentifiers();
             lidOrLidVidReferences = cached.getLidOrLidVidReferences();
+            // Re-parse to report any lid_reference \n errors, matching the uncached path
+            // where getLidVidReferences(true) reports them. cacheIdentifiers() uses false
+            // to avoid reporting these in single-label validation (backwards compatibility).
+            xml = db.parse(url.openStream());
+            domSource = new DOMSource(xml);
+            LabelUtil.getLidVidReferences(domSource, url, true);
           } else {
             xml = db.parse(url.openStream());
             domSource = new DOMSource(xml);

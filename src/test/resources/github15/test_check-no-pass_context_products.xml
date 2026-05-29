@@ -28,8 +28,7 @@
 			<name>Test</name>
 			<type>Mission</type>
 			<Internal_Reference>
-				<lid_reference>urn:nasa:pds:context:investigation:mission.mars_exploration_rover
-				</lid_reference>
+				<lid_reference>urn:nasa:pds:context:investigation:mission.mars_exploration_rover</lid_reference>
 				<reference_type>data_to_investigation</reference_type>
 			</Internal_Reference>
 		</Investigation_Area>
@@ -39,8 +38,7 @@
 				<name>FOO</name>
 				<type>Spacecraft</type>
 				<Internal_Reference>
-					<lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.FOO
-					</lid_reference>
+					<lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.FOO</lid_reference>
 					<reference_type>is_instrument_host</reference_type>
 				</Internal_Reference>
 			</Observing_System_Component>
@@ -48,8 +46,7 @@
 				<name>MER2</name>
 				<type>Spacecraft</type>
 				<Internal_Reference>
-					<lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mer2
-					</lid_reference>
+					<lid_reference>urn:nasa:pds:context:instrument_host:spacecraft.mer2</lid_reference>
 					<reference_type>is_instrument_host</reference_type>
 				</Internal_Reference>
 			</Observing_System_Component>
@@ -57,8 +54,7 @@
 				<name>Pancam</name>
 				<type>Instrument</type>
 				<Internal_Reference>
-					<lid_reference>urn:nasa:pds:context:instrument:pancam.mer2
-					</lid_reference>
+					<lid_reference>urn:nasa:pds:context:instrument:pancam.mer2</lid_reference>
 					<reference_type>is_instrument</reference_type>
 				</Internal_Reference>
 			</Observing_System_Component>
@@ -67,8 +63,7 @@
 			<name>Mars</name>
 			<type>Planet</type>
 			<Internal_Reference>
-				<lid_reference>urn:nasa:pds:context:target:planet.mars
-				</lid_reference>
+				<lid_reference>urn:nasa:pds:context:target:planet.mars</lid_reference>
 				<reference_type>data_to_target</reference_type>
 			</Internal_Reference>
 		</Target_Identification>
