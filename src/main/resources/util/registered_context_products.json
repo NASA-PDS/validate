@@ -1097,33 +1097,6 @@
           },
           {
                "name": [
-                    "Osservatorio Astronomico della Reg. Aut. Valle D'Aosta"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.valle_d'aosta::1.1"
-          },
-          {
-               "name": [
-                    "FLI--FL-PL3041-1-BB"
-               ],
-               "type": [
-                    "Imager"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:valle_d'aosta.oavda.pl3041::1.1"
-          },
-          {
-               "name": [
-                    "OAVdA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::1.1"
-          },
-          {
-               "name": [
                     "NASA/Keck Reflectance Experiment Laboratory (RELAB), Brown University, Providence, Rhode Island, United States",
                     "NASA/Keck Reflectance Experiment Laboratory (RELAB)"
                ],
@@ -1174,37 +1147,6 @@
           },
           {
                "name": [
-                    "MOON MINERALOGY MAPPER for CH1-ORB",
-                    "MOON MINERALOGY MAPPER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:m3.ch1-orb::1.1"
-          },
-          {
-               "name": [
-                    "MINI-RF FORERUNNER for CH1-ORB",
-                    "MINI-RF FORERUNNER"
-               ],
-               "type": [
-                    "Radio-Radar"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mrffr.ch1-orb::1.1"
-          },
-          {
-               "name": [
-                    "Chandrayaan-1",
-                    "CH1",
-                    "CHANDRAYAAN-1"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-1::1.2"
-          },
-          {
-               "name": [
                     "bc",
                     "BepiColombo",
                     "bepicolombo"
@@ -1213,15 +1155,6 @@
                     "Mission"
                ],
                "lidvid": "urn:esa:psa:context:investigation:mission.bc::1.3"
-          },
-          {
-               "name": [
-                    "PRE-MAGELLAN"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.pre-magellan::1.2"
           },
           {
                "name": [
@@ -2877,15 +2810,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:carbuncle_hill.0m35.sbig_st8::1.2"
-          },
-          {
-               "name": [
-                    "Chandrayaan-3 Laser Retro-Reflector Array (LRA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:chandrayaan-3_vikram.lra::1.1"
           },
           {
                "name": [
@@ -12693,15 +12617,6 @@
           },
           {
                "name": [
-                    "Chandrayaan-3 Vikram Lander"
-               ],
-               "type": [
-                    "Lander"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.chandrayaan-3_vikram::1.0"
-          },
-          {
-               "name": [
                     "CLPS Task Order PRIME-1 Athena Lunar Lander",
                     "Athena Lunar Lander"
                ],
@@ -14330,16 +14245,6 @@
                     "Mission"
                ],
                "lidvid": "urn:esa:psa:context:investigation:mission.ulysses::1.2"
-          },
-          {
-               "name": [
-                    "Chandrayaan-3",
-                    "CH3"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-3::1.0"
           },
           {
                "name": [
