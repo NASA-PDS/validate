@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-05-27)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-06-02)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...«unknown»)
 
@@ -21,7 +21,7 @@
 
 - As a PDS data engineer, I want schematron transformers to be cached rather than recompiled for every label so that bundle validation is significantly faster [\#1565](https://github.com/NASA-PDS/validate/issues/1565)
 - As a data provider, I want to add a new encoding type for Product Native [\#1542](https://github.com/NASA-PDS/validate/issues/1542)
-- As a data provider, I want to add two new encoding types for Product Native [\#1541](https://github.com/NASA-PDS/validate/issues/1541)
+- As a data provider, I want to add two new encoding types for Product Native: `MSSS Original Data Record Mini Header` and `MSSS Original Data Record Payload Data` [\#1541](https://github.com/NASA-PDS/validate/issues/1541)
 - As a user, I want the validate report entry for when there is a context name mismatch to show the LID of the context object as well as the correct known values.. [\#1509](https://github.com/NASA-PDS/validate/issues/1509)
 
 **Defects:**
