@@ -37,7 +37,7 @@ public class CrossLabelFileAreaReferenceChecker {
     String full_name = resolve(name, target);
     isObservational.put(full_name,
         isObs || (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false));
-    ArrayList<String> logicalIdentifiers;
+    List<String> logicalIdentifiers;
     LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(target.getUrl());
     if (cached != null) {
       logicalIdentifiers = cached.getLogicalIdentifiers();

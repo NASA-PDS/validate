@@ -27,6 +27,7 @@ Usage
 import argparse
 import hashlib
 import os
+import shlex
 import shutil
 import subprocess
 import sys
@@ -480,7 +481,7 @@ def main():
         print()
 
         # --- run validate ---
-        extra = args.validate_args.split() if args.validate_args else []
+        extra = shlex.split(args.validate_args) if args.validate_args else []
         timings = []
         for run_n in range(1, args.runs + 1):
             label = f"Run {run_n}/{args.runs}" if args.runs > 1 else "Validate"

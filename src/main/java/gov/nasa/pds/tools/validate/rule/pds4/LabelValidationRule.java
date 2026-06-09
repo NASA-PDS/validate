@@ -347,16 +347,17 @@ public class LabelValidationRule extends AbstractValidationRule {
     // Re-parse using plain DocumentBuilderFactory so whitespace in text content (e.g. \n in
     // logical_identifier or lid_reference) is preserved exactly as authored.
     // Saxon's parseAndValidate() normalizes xs:token values, stripping \n before we can detect them.
-    try {
-      Document rawDoc =
-          DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(targetUrl.openStream());
+    try (var stream = targetUrl.openStream()) {
+      Document rawDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
       DOMSource domSource = new DOMSource(rawDoc);
       String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
       ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, true);
-      // false: lid_reference \n errors are only reported during bundle/collection validation
-      // (via additionalReferentialIntegrityChecks), not during single-label validation.
-      // Using true here would be a backwards-incompatible behavior change.
-      ArrayList<String> lidVidRefs = LabelUtil.getLidVidReferences(domSource, targetUrl, false);
+      // Collect suppressed lid_reference \n errors into the cache so the bundle/collection
+      // referential integrity path can replay them without re-parsing.  Using reportCarriageReturns=false
+      // here avoids reporting these errors during single-label validation (backwards compatibility).
+      List<String[]> suppressedLidVidErrors = new ArrayList<>();
+      ArrayList<String> lidVidRefs =
+          LabelUtil.getLidVidReferences(domSource, targetUrl, false, suppressedLidVidErrors);
       ArrayList<String> contextRefs = new ArrayList<>();
       contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
           LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
@@ -365,7 +366,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
           LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
       ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
-          new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs));
+          new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs, suppressedLidVidErrors));
     } catch (Exception e) {
       LOG.error("cacheIdentifiers: failed to parse {}: {}", targetUrl, e.getMessage());
     }

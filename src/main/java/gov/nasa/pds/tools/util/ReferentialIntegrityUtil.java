@@ -492,7 +492,7 @@ public class ReferentialIntegrityUtil {
     return (identifierMatchBundleBaseIDFlag);
   }
 
-  private static String getBundleBaseID(ArrayList<String> logicalIdentifiers,
+  private static String getBundleBaseID(List<String> logicalIdentifiers,
       String bundleFilename) {
     // Given a list of logical identifier from a bundle, fetch the bundle base ID
     // urn:nasa:pds:kaguya_grs_spectra:document:kgrs_calibrated_spectra -->
@@ -542,7 +542,7 @@ public class ReferentialIntegrityUtil {
   }
 
   private static void addUniqueReferencesToMap(HashMap<String, HashSetReferenceInfo> hashMap,
-      ArrayList<String> contextLidOrLidVidReferences, URL url, String parentId) {
+      List<String> contextLidOrLidVidReferences, URL url, String parentId) {
     // Given a list of references, add unique references to provided hashMap.
     // The key to hashMap is the logical identifier stored in parentId variable.
     LOG.debug("addUniqueReferencesToMap:contextLidOrLidVidReferences.size {},{}",
@@ -587,8 +587,8 @@ public class ReferentialIntegrityUtil {
         ReferentialIntegrityUtil.getReferenceType(), parentId, url, numReferencesAdded);
   }
 
-  private static void collectAllContextReferences(ArrayList<String> allContextAreaRefs,
-      ArrayList<String> logicalIdentifiers, ArrayList<String> lidOrLidVidReferences,
+  private static void collectAllContextReferences(List<String> allContextAreaRefs,
+      List<String> logicalIdentifiers, List<String> lidOrLidVidReferences,
       boolean labelIsBundleFlag, boolean labelIsCollectionFlag, URL url) {
     if ((logicalIdentifiers == null) || logicalIdentifiers.isEmpty()) {
       return;
@@ -612,7 +612,7 @@ public class ReferentialIntegrityUtil {
   }
 
   private static void collectAllContextReferences(DOMSource domSource,
-      ArrayList<String> logicalIdentifiers, ArrayList<String> lidOrLidVidReferences,
+      List<String> logicalIdentifiers, List<String> lidOrLidVidReferences,
       boolean labelIsBundleFlag, boolean labelIsCollectionFlag, URL url) {
     // https://github.com/NASA-PDS/validate/issues/69 As a user, I want to validate
     // that all context objects specified in observational products are referenced
@@ -821,17 +821,13 @@ public class ReferentialIntegrityUtil {
             labelIsCollectionFlag = true;
           }
           LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(url);
-          ArrayList<String> lidOrLidVidReferences;
-          ArrayList<String> logicalIdentifiers;
+          List<String> lidOrLidVidReferences;
+          List<String> logicalIdentifiers;
           if (cached != null) {
             logicalIdentifiers = cached.getLogicalIdentifiers();
             lidOrLidVidReferences = cached.getLidOrLidVidReferences();
-            // Re-parse to report any lid_reference \n errors, matching the uncached path
-            // where getLidVidReferences(true) reports them. cacheIdentifiers() uses false
-            // to avoid reporting these in single-label validation (backwards compatibility).
-            xml = db.parse(url.openStream());
-            domSource = new DOMSource(xml);
-            LabelUtil.getLidVidReferences(domSource, url, true);
+            // Replay any suppressed lid_reference \n errors from the cache without re-parsing.
+            LabelUtil.replayCarriageReturnErrors(cached.getSuppressedLidVidErrors(), url);
           } else {
             xml = db.parse(url.openStream());
             domSource = new DOMSource(xml);
