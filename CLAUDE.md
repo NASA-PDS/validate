@@ -23,10 +23,10 @@ mvn package site
 # Build without running tests (useful when tests fail with extra logging)
 mvn clean package -DskipTests
 
-# Run tests only
+# Run full test suite (always use this to verify changes)
 mvn test
 
-# Run tests excluding ReferenceIntegrityTest with specific Cucumber tags
+# Run a targeted subset during development (NOT for verifying changes — excludes ReferenceIntegrityTest)
 mvn test -Dtest=\!ReferenceIntegrityTest* -Dcucumber.filter.tags='@v3.7.x'
 
 # Run a single Cucumber scenario by name (issue number and subtest, e.g. #1458-1)
@@ -172,7 +172,7 @@ Alternatively, use `--verbose 1` flag for INFO level output in reports (default 
 - Source/Target: Java 17 (pom.xml:172-173)
 
 ### Main Dependencies
-- **pds4-jparser** (version 2.11.0) - PDS4 label parsing and validation
+- **pds4-jparser** (version 3.2.0-SNAPSHOT) - PDS4 label parsing and validation; **source is at `../pds4-jparser`** — check there first when tracing errors from pds4-jparser classes (e.g. `FieldValueValidator`, `ProblemType`, parser internals)
 - **pds3-product-tools** (version 4.4.2) - PDS3 validation
 - **Saxon-HE** (version 12.9) - XSLT and XPath processing
 - **registry-common** (version 2.1.0-SNAPSHOT) - Registry API integration

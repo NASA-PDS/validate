@@ -104,6 +104,7 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -1643,6 +1644,7 @@ public class ValidateLauncher {
     // Due to the util class ReferentialIntegrityUtil being static, it need to be
     // reset() if running a regression test.
     ReferentialIntegrityUtil.reset();
+    CrossLabelFileAreaReferenceChecker.reset();
 
     return success;
   }
