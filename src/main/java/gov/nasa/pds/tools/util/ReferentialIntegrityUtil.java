@@ -142,6 +142,7 @@ public class ReferentialIntegrityUtil {
   private static String[] tagsList = new String[2];
   private static HashSet<String> reportedErrorsReferenceSet = new HashSet<>();
   private static URL parentBundleURL = null;
+  private static HashMap<URL, LabelCacheEntry> labelIdentifierCache = new HashMap<>();
 
   /**
    * Initialize this class to ready for doing referential checks.
@@ -161,6 +162,14 @@ public class ReferentialIntegrityUtil {
     ReferentialIntegrityUtil.setContext(ruleContext);
     ReferentialIntegrityUtil.tagsList[0] = LabelUtil.LIDVID_REFERENCE;
     ReferentialIntegrityUtil.tagsList[1] = LabelUtil.LID_REFERENCE;
+  }
+
+  public static void cacheLabelIdentifiers(URL url, LabelCacheEntry entry) {
+    labelIdentifierCache.put(url, entry);
+  }
+
+  public static LabelCacheEntry getCachedLabelIdentifiers(URL url) {
+    return labelIdentifierCache.get(url);
   }
 
   /**
@@ -188,6 +197,7 @@ public class ReferentialIntegrityUtil {
     ReferentialIntegrityUtil.urlsParsedCumulative.clear();
     ReferentialIntegrityUtil.reportedErrorsReferenceSet.clear();
     ReferentialIntegrityUtil.parentBundleURL = null;
+    ReferentialIntegrityUtil.labelIdentifierCache.clear();
   }
 
   /**
@@ -482,7 +492,7 @@ public class ReferentialIntegrityUtil {
     return (identifierMatchBundleBaseIDFlag);
   }
 
-  private static String getBundleBaseID(ArrayList<String> logicalIdentifiers,
+  private static String getBundleBaseID(List<String> logicalIdentifiers,
       String bundleFilename) {
     // Given a list of logical identifier from a bundle, fetch the bundle base ID
     // urn:nasa:pds:kaguya_grs_spectra:document:kgrs_calibrated_spectra -->
@@ -532,7 +542,7 @@ public class ReferentialIntegrityUtil {
   }
 
   private static void addUniqueReferencesToMap(HashMap<String, HashSetReferenceInfo> hashMap,
-      ArrayList<String> contextLidOrLidVidReferences, URL url, String parentId) {
+      List<String> contextLidOrLidVidReferences, URL url, String parentId) {
     // Given a list of references, add unique references to provided hashMap.
     // The key to hashMap is the logical identifier stored in parentId variable.
     LOG.debug("addUniqueReferencesToMap:contextLidOrLidVidReferences.size {},{}",
@@ -577,8 +587,32 @@ public class ReferentialIntegrityUtil {
         ReferentialIntegrityUtil.getReferenceType(), parentId, url, numReferencesAdded);
   }
 
+  private static void collectAllContextReferences(List<String> allContextAreaRefs,
+      List<String> logicalIdentifiers, List<String> lidOrLidVidReferences,
+      boolean labelIsBundleFlag, boolean labelIsCollectionFlag, URL url) {
+    if ((logicalIdentifiers == null) || logicalIdentifiers.isEmpty()) {
+      return;
+    }
+    if (labelIsCollectionFlag || labelIsBundleFlag) {
+      if (labelIsBundleFlag) {
+        ReferentialIntegrityUtil.addUniqueReferencesToMap(ReferentialIntegrityUtil.bundleReferenceMap,
+            allContextAreaRefs, url, logicalIdentifiers.get(0));
+      } else {
+        ReferentialIntegrityUtil.addUniqueReferencesToMap(
+            ReferentialIntegrityUtil.collectionReferenceMap, allContextAreaRefs, url,
+            logicalIdentifiers.get(0));
+      }
+    } else {
+      ReferentialIntegrityUtil.addUniqueReferencesToMap(
+          ReferentialIntegrityUtil.contextReferencesCumulative, allContextAreaRefs, url,
+          logicalIdentifiers.get(0));
+    }
+    LOG.debug("collectAllContextReferences:url,contextReferencesCumulative {},{},{}", url,
+        contextReferencesCumulative, contextReferencesCumulative.size());
+  }
+
   private static void collectAllContextReferences(DOMSource domSource,
-      ArrayList<String> logicalIdentifiers, ArrayList<String> lidOrLidVidReferences,
+      List<String> logicalIdentifiers, List<String> lidOrLidVidReferences,
       boolean labelIsBundleFlag, boolean labelIsCollectionFlag, URL url) {
     // https://github.com/NASA-PDS/validate/issues/69 As a user, I want to validate
     // that all context objects specified in observational products are referenced
@@ -786,16 +820,25 @@ public class ReferentialIntegrityUtil {
           if (TargetExaminer.isTargetCollectionType (child.getUrl())) {
             labelIsCollectionFlag = true;
           }
-          xml = db.parse(url.openStream());
-          domSource = new DOMSource(xml);
-          // Note that the function getLidVidReferences() collects all Internal_Reference
-          // elements in the PDS4 core namespace (including those in Reference_List,
-          // Context_Area, discipline LDD areas, and any other location in the label).
-          // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
-          // references collected in lidOrLidVidReferences for each label.
-
-          ArrayList<String> lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource, url);
-          ArrayList<String> logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, url);
+          LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(url);
+          List<String> lidOrLidVidReferences;
+          List<String> logicalIdentifiers;
+          if (cached != null) {
+            logicalIdentifiers = cached.getLogicalIdentifiers();
+            lidOrLidVidReferences = cached.getLidOrLidVidReferences();
+            // Replay any suppressed lid_reference \n errors from the cache without re-parsing.
+            LabelUtil.replayCarriageReturnErrors(cached.getSuppressedLidVidErrors(), url);
+          } else {
+            xml = db.parse(url.openStream());
+            domSource = new DOMSource(xml);
+            // Note that the function getLidVidReferences() collects all Internal_Reference
+            // elements in the PDS4 core namespace (including those in Reference_List,
+            // Context_Area, discipline LDD areas, and any other location in the label).
+            // so the lidOrLidVidReferencesCumulative will be a cumulative collection of all
+            // references collected in lidOrLidVidReferences for each label.
+            lidOrLidVidReferences = LabelUtil.getLidVidReferences(domSource, url);
+            logicalIdentifiers = LabelUtil.getLogicalIdentifiers(domSource, url);
+          }
           LOG.debug("additionalReferentialIntegrityChecks:url,lidOrLidVidReferences {},{}", url,
               lidOrLidVidReferences.size());
           LOG.debug("additionalReferentialIntegrityChecks:url,logicalIdentifiers {},{}", url,
@@ -871,8 +914,14 @@ public class ReferentialIntegrityUtil {
           // Collect all the context references defined for each label under the
           // "Context_Area" tag.
           if (ReferentialIntegrityUtil.contextReferenceCheck) {
-            ReferentialIntegrityUtil.collectAllContextReferences(domSource, logicalIdentifiers,
-                lidOrLidVidReferences, labelIsBundleFlag, labelIsCollectionFlag, url);
+            if (cached != null) {
+              ReferentialIntegrityUtil.collectAllContextReferences(cached.getContextAreaRefs(),
+                  logicalIdentifiers, lidOrLidVidReferences, labelIsBundleFlag,
+                  labelIsCollectionFlag, url);
+            } else {
+              ReferentialIntegrityUtil.collectAllContextReferences(domSource, logicalIdentifiers,
+                  lidOrLidVidReferences, labelIsBundleFlag, labelIsCollectionFlag, url);
+            }
           }
 
         } else {
