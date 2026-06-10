@@ -19,7 +19,7 @@ updates:
     groups:
       github-actions:
         patterns:
-          - "*"kly"
+          - "*"
 
   - package-ecosystem: "docker"
     directory: "/docker/"
