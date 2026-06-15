@@ -1,12 +1,15 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-06-10)
+## [release/4.2.0](https://github.com/NASA-PDS/validate/tree/release/4.2.0) (2026-06-15)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...release/4.2.0)
 
 **Requirements:**
 
 - As a PDS developer, I want inline regex patterns in FieldValueValidator pre-compiled as static constants so that per-field Pattern compilation overhead is eliminated [\#1570](https://github.com/NASA-PDS/validate/issues/1570)
+
+**Improvements:**
+
 - As a PDS data engineer, I want parsed DOM trees cached and reused during referential integrity checks so that labels are not re-parsed from disk a second time [\#1568](https://github.com/NASA-PDS/validate/issues/1568)
 
 **Defects:**
