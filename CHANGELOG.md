@@ -1,23 +1,44 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-04-06)
+## [release/4.2.0](https://github.com/NASA-PDS/validate/tree/release/4.2.0) (2026-06-15)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...release/4.2.0)
 
 **Requirements:**
 
+- As a PDS developer, I want inline regex patterns in FieldValueValidator pre-compiled as static constants so that per-field Pattern compilation overhead is eliminated [\#1570](https://github.com/NASA-PDS/validate/issues/1570)
+
+**Improvements:**
+
+- As a PDS data engineer, I want parsed DOM trees cached and reused during referential integrity checks so that labels are not re-parsed from disk a second time [\#1568](https://github.com/NASA-PDS/validate/issues/1568)
+
+**Defects:**
+
+- warning.integrity.member\_not\_found should be an ERROR by default, with new flag to downgrade to warning [\#1601](https://github.com/NASA-PDS/validate/issues/1601) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- validate does not complete validation of large bundles \(23000+ products\) due to OutOfMemoryError in InMemoryRegistrar [\#1571](https://github.com/NASA-PDS/validate/issues/1571) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v4.1.0](https://github.com/NASA-PDS/validate/tree/v4.1.0) (2026-04-22)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.0.8...v4.1.0)
+
+**Requirements:**
+
+- As a PDS data engineer, I want schematron transformers to be cached rather than recompiled for every label so that bundle validation is significantly faster [\#1565](https://github.com/NASA-PDS/validate/issues/1565)
 - As a data provider, I want to add a new encoding type for Product Native [\#1542](https://github.com/NASA-PDS/validate/issues/1542)
-- As a data provider, I want to add two new encoding types for Product Native [\#1541](https://github.com/NASA-PDS/validate/issues/1541)
+- As a data provider, I want to add two new encoding types for Product Native: `MSSS Original Data Record Mini Header` and `MSSS Original Data Record Payload Data` [\#1541](https://github.com/NASA-PDS/validate/issues/1541)
 - As a user, I want the validate report entry for when there is a context name mismatch to show the LID of the context object as well as the correct known values.. [\#1509](https://github.com/NASA-PDS/validate/issues/1509)
 
 **Defects:**
 
+- Maven exits 0 \(BUILD SUCCESS\) when Cucumber scenarios fail — Surefire does not capture JUnit Platform engine failures [\#1581](https://github.com/NASA-PDS/validate/issues/1581) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
+- warning.file.reserved\_name\_mismatch incorrectly fired for non-label files \(e.g. CSV collection inventory files\) [\#1580](https://github.com/NASA-PDS/validate/issues/1580) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Validate does not count cleanly-passing products, incorrectly triggering no\_products\_found error [\#1557](https://github.com/NASA-PDS/validate/issues/1557) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate does not support Product\_Resource - pds4-jparser JAXB context built against outdated IM schema \(1K00\) [\#1550](https://github.com/NASA-PDS/validate/issues/1550) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate does not fail or report errors when an explicitly-specified target file does not exist [\#1548](https://github.com/NASA-PDS/validate/issues/1548) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - error.directory.unallowed\_name not raised on Windows for absolute directory\_path\_name [\#1539](https://github.com/NASA-PDS/validate/issues/1539) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - When validate reports a directory has a warning it says "XML could not be parsed." which is misleading. [\#1510](https://github.com/NASA-PDS/validate/issues/1510) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Referential integrity not being checked in all places there is an Internal\_Reference area [\#1481](https://github.com/NASA-PDS/validate/issues/1481) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Validate is not failing products with reserved names [\#1459](https://github.com/NASA-PDS/validate/issues/1459) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Number of passing products in summary does not match actual total [\#1458](https://github.com/NASA-PDS/validate/issues/1458) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - new/updated context objects have not been incorporated into the validator for 2 months [\#1453](https://github.com/NASA-PDS/validate/issues/1453) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validating large data file \(150GB\) is trying to write the entire file to local temp space - error upon not enough local space [\#1241](https://github.com/NASA-PDS/validate/issues/1241) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
@@ -462,7 +483,6 @@
 
 **Defects:**
 
-- Fix validate compilation issues due to removal of veraPDF artifacts from maven central [\#470](https://github.com/NASA-PDS/validate/issues/470) [[s.critical](https://github.com/NASA-PDS/validate/labels/s.critical)]
 - Validate content validation does not handle properly special\_constants and field\_statistics when they both appear [\#469](https://github.com/NASA-PDS/validate/issues/469) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Validate repo cannot be checked out on Windows without errors [\#411](https://github.com/NASA-PDS/validate/issues/411) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 

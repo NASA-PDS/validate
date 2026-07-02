@@ -18,6 +18,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
@@ -266,6 +267,25 @@ public class LabelUtil {
    */
   public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context,
       String[] tagsList, String searchPathName) {
+    return getIdentifiersCommon(source, context, tagsList, searchPathName, true);
+  }
+
+  public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context,
+      String[] tagsList, String searchPathName, boolean reportCarriageReturns) {
+    return getIdentifiersCommon(source, context, tagsList, searchPathName, reportCarriageReturns,
+        null);
+  }
+
+  /**
+   * Like {@link #getIdentifiersCommon(DOMSource, URL, String[], String, boolean)} but when
+   * {@code reportCarriageReturns} is {@code false} and {@code suppressedErrors} is non-null,
+   * carriage-return violations are collected into {@code suppressedErrors} as {@code [tag, value]}
+   * pairs rather than silently discarded. Callers can later replay them via
+   * {@link #replayCarriageReturnErrors}.
+   */
+  public static synchronized ArrayList<String> getIdentifiersCommon(DOMSource source, URL context,
+      String[] tagsList, String searchPathName, boolean reportCarriageReturns,
+      List<String[]> suppressedErrors) {
     ArrayList<String> commonIdentifiers = new ArrayList<>(0);
     LOG.debug("getIdentifiersCommon:context,tagsList,searchPathName {},{},searchPathName", context,
         tagsList, searchPathName);
@@ -297,19 +317,25 @@ public class LabelUtil {
             if (node.getNodeName().equals(tagsList[kk])
                 || node.getNodeName().equals(VERSION_ID_TAG)) {
               if (node.getNodeName().equals(tagsList[kk])) {
-                // Check for any extraneous carriage return.
+                // Check for any extraneous carriage return. Only report when
+                // reportCarriageReturns=true to avoid duplicate errors when this function
+                // is called multiple times on the same document with overlapping XPath scopes.
                 if (node.getTextContent().contains("\n")) {
                   String trimmedId = node.getTextContent().trim();
-                  String message = "Unexpected carriage returns in tag '" + tagsList[kk]
-                      + "' with value '" + trimmedId + "'";
-                  LOG.error("{} in context {}", message, context);
-                  ValidationProblem p1 =
-                      new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
-                          ProblemType.INVALID_FIELD_VALUE, message), context);
-                  try {
-                    LabelUtil.report.record(context.toURI(), p1);
-                  } catch (URISyntaxException e) {
-                    LOG.error("URI Syntax Error: " + e.getMessage());
+                  if (reportCarriageReturns) {
+                    String message = "Unexpected carriage returns in tag '" + tagsList[kk]
+                        + "' with value '" + trimmedId + "'";
+                    LOG.error("{} in context {}", message, context);
+                    ValidationProblem p1 =
+                        new ValidationProblem(new ProblemDefinition(ExceptionType.ERROR,
+                            ProblemType.INVALID_FIELD_VALUE, message), context);
+                    try {
+                      LabelUtil.report.record(context.toURI(), p1);
+                    } catch (URISyntaxException e) {
+                      LOG.error("URI Syntax Error: " + e.getMessage());
+                    }
+                  } else if (suppressedErrors != null) {
+                    suppressedErrors.add(new String[] {tagsList[kk], trimmedId});
                   }
                 } else {
                   singleIdentifier = node.getTextContent().trim();
@@ -356,6 +382,21 @@ public class LabelUtil {
    * @return lidOrLidVidReference The LID or LIDVID referenced in this label.
    */
   public static ArrayList<String> getLidVidReferences(DOMSource source, URL context) {
+    return getLidVidReferences(source, context, true);
+  }
+
+  public static ArrayList<String> getLidVidReferences(DOMSource source, URL context,
+      boolean reportCarriageReturns) {
+    return getLidVidReferences(source, context, reportCarriageReturns, null);
+  }
+
+  /**
+   * Like {@link #getLidVidReferences(DOMSource, URL, boolean)} but when
+   * {@code reportCarriageReturns} is {@code false}, carriage-return violations are collected into
+   * {@code suppressedErrors} for later replay via {@link #replayCarriageReturnErrors}.
+   */
+  public static ArrayList<String> getLidVidReferences(DOMSource source, URL context,
+      boolean reportCarriageReturns, List<String[]> suppressedErrors) {
     LOG.debug("getLidVidReferences:MY_SOURCE[{}]", source);
 
     String[] tagsList = new String[2];
@@ -363,11 +404,33 @@ public class LabelUtil {
     tagsList[1] = LID_REFERENCE;
 
     ArrayList<String> lidOrLidVidReferences =
-        LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA);
+        LabelUtil.getIdentifiersCommon(source, context, tagsList, INTERNAL_REFERENCE_AREA,
+            reportCarriageReturns, suppressedErrors);
 
     LOG.debug("getLidVidReferences:context,lidOrLidVidReferences {},{}", context,
         lidOrLidVidReferences);
     return (lidOrLidVidReferences);
+  }
+
+  /**
+   * Replays carriage-return validation errors that were collected (rather than reported) during
+   * label caching. Called by the bundle/collection referential integrity path on a cache-hit to
+   * preserve error-reporting behaviour without re-parsing the label.
+   */
+  static void replayCarriageReturnErrors(List<String[]> suppressedErrors, URL context) {
+    for (String[] err : suppressedErrors) {
+      String message =
+          "Unexpected carriage returns in tag '" + err[0] + "' with value '" + err[1] + "'";
+      LOG.error("{} in context {}", message, context);
+      ValidationProblem p1 = new ValidationProblem(
+          new ProblemDefinition(ExceptionType.ERROR, ProblemType.INVALID_FIELD_VALUE, message),
+          context);
+      try {
+        LabelUtil.report.record(context.toURI(), p1);
+      } catch (URISyntaxException e) {
+        LOG.error("URI Syntax Error: " + e.getMessage());
+      }
+    }
   }
 
   /**
@@ -378,13 +441,19 @@ public class LabelUtil {
    * @return logicalIdentifiers A list of logical identifiers in this label.
    */
   public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context) {
+    return getLogicalIdentifiers(source, context, true);
+  }
+
+  public static ArrayList<String> getLogicalIdentifiers(DOMSource source, URL context,
+      boolean reportCarriageReturns) {
     LOG.debug("getLogicalIdentifiers:MY_SOURCE[{}]", source);
 
     String[] tagsList = new String[1];
     tagsList[0] = LOGICAL_IDENTIFIER_TAG;
 
     ArrayList<String> logicalIdentifiers =
-        LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA);
+        LabelUtil.getIdentifiersCommon(source, context, tagsList, IDENTIFICATION_AREA,
+            reportCarriageReturns);
 
     LOG.debug("getLogicalIdentifiers:context,logicalIdentifiers {},{}", context,
         logicalIdentifiers);

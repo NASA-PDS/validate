@@ -171,6 +171,10 @@ public enum Flag {
   ALLOW_UNLABELED_FILES(null, "allow-unlabeled-files",
       "Tells the tool to not check for unlabeled files in a bundle or collection."),
 
+  SKIP_STRICT_COLLECTION_MEMBERSHIP(null, "skip-strict-collection-membership",
+      "When set, collection inventory members not found in the target are reported as warnings instead of errors. "
+          + "Use when validating partial or accumulating bundles where prior-release products are intentionally absent."),
+
   RULE("R", "rule", "validation rule name", String.class,
       "Specifies the validation rules to apply. (pds4.bundle|pds4.collection|pds4.folder|pds4.label|pds3.volume)."
           + " Default is pds4.label"),

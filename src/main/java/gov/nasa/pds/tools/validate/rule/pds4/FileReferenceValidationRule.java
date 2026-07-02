@@ -331,7 +331,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 ancestor = ancestor.getParent();
                 isObservational |= OBS_DATA_TAGS.contains(ancestor.getLocalPart());
               }
-              if (!CrossLabelFileAreaReferenceChecker.add (fullName, target, isObservational)) {
+              if (!CrossLabelFileAreaReferenceChecker.add(fullName, target, isObservational)) {
                 this.getListener().addProblem(
                     new ValidationProblem(
                         new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,

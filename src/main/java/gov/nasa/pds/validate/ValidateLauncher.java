@@ -72,10 +72,12 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.UnrecognizedOptionException;
-import org.apache.commons.configuration.AbstractConfiguration;
-import org.apache.commons.configuration.Configuration;
-import org.apache.commons.configuration.ConfigurationException;
-import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration2.Configuration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
+import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
+import org.apache.commons.configuration2.ex.ConfigurationException;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -102,6 +104,7 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -110,6 +113,7 @@ import gov.nasa.pds.tools.validate.Target;
 import gov.nasa.pds.tools.validate.ValidateProblemHandler;
 import gov.nasa.pds.tools.validate.ValidationProblem;
 import gov.nasa.pds.tools.validate.ValidationResourceManager;
+import gov.nasa.pds.tools.validate.ValidationTarget;
 import gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator;
 import gov.nasa.pds.validate.checksum.ChecksumManifest;
 import gov.nasa.pds.validate.commandline.options.ConfigKey;
@@ -235,6 +239,8 @@ public class ValidateLauncher {
 
   private boolean allowUnlabeledFiles;
 
+  private boolean skipStrictCollectionMembership;
+
   private File registeredProductsFile;
 
   private File nonRegisteredProductsFile;
@@ -286,6 +292,7 @@ public class ValidateLauncher {
     contextMismatchAsWarn = true;
     spotCheckData = -1;
     allowUnlabeledFiles = false;
+    skipStrictCollectionMembership = false;
     registeredAndNonRegistedProducts = new HashMap<>();
     registeredProductsFile = new File(
         System.getProperty("resources.home") + File.separator + ToolInfo.getOutputFileName());
@@ -475,6 +482,9 @@ public class ValidateLauncher {
         setSpotCheckData(value);
       } else if (Flag.ALLOW_UNLABELED_FILES.getLongName().equals(o.getLongOpt())) {
         setAllowUnlabeledFiles(true);
+      } else if (Flag.SKIP_STRICT_COLLECTION_MEMBERSHIP.getLongName().equals(o.getLongOpt())) {
+        setSkipStrictCollectionMembership(true);
+        FlagsUtil.setSkipStrictCollectionMembership(true);
       } else if (Flag.LATEST_JSON_FILE.getLongName().equals(o.getLongOpt())) {
         setUpdateRegisteredProducts(true);
       } else if (Flag.NONREGPROD_JSON_FILE.getLongName().equals(o.getLongOpt())) {
@@ -707,8 +717,13 @@ public class ValidateLauncher {
    */
   public void query(File configuration) throws ConfigurationException {
     try {
-      AbstractConfiguration.setDefaultListDelimiter(',');
-      Configuration config = new PropertiesConfiguration(configuration);
+      Parameters params = new Parameters();
+      FileBasedConfigurationBuilder<PropertiesConfiguration> builder =
+          new FileBasedConfigurationBuilder<>(PropertiesConfiguration.class)
+              .configure(params.properties()
+                  .setFile(configuration)
+                  .setListDelimiterHandler(new DefaultListDelimiterHandler(',')));
+      Configuration config = builder.getConfiguration();
       Iterator<String> keys = config.getKeys();
       String unknowns = "";
 
@@ -844,6 +859,10 @@ public class ValidateLauncher {
       }
       if (config.containsKey(ConfigKey.ALLOW_UNLABELED_FILES)) {
         setAllowUnlabeledFiles(true);
+      }
+      if (config.containsKey(ConfigKey.SKIP_STRICT_COLLECTION_MEMBERSHIP)) {
+        setSkipStrictCollectionMembership(true);
+        FlagsUtil.setSkipStrictCollectionMembership(true);
       }
       if (config.containsKey(ConfigKey.LATEST_JSON_FILE)) {
         setUpdateRegisteredProducts(true);
@@ -1156,6 +1175,10 @@ public class ValidateLauncher {
     this.allowUnlabeledFiles = flag;
   }
 
+  public void setSkipStrictCollectionMembership(boolean flag) {
+    this.skipStrictCollectionMembership = flag;
+  }
+
   private void setRegisteredProducts() {
     URL url = null;
 
@@ -1395,6 +1418,8 @@ public class ValidateLauncher {
         || validationRule.equalsIgnoreCase("pds4.collection"))) {
       report.addParameter("allowUnlabeledFiles", "Allow Unlabeled Files",
           String.valueOf(allowUnlabeledFiles));
+      report.addParameter("skipStrictCollectionMembership", "Allow Unlisted Members",
+          String.valueOf(skipStrictCollectionMembership));
     }
     report.addParameter("maxErrors", "Max Errors", String.valueOf(maxErrors));
     report.addParameter("registeredContextsFile", "Registered Contexts File",
@@ -1533,6 +1558,9 @@ public class ValidateLauncher {
         validator.validate(monitor, target);
         monitor.endValidation();
 
+        // Free cached ValidationTargets to prevent OOM on large bundles
+        ValidationTarget.clearCache();
+
         if (validationRule != null) {
           // If the rule is pds4.label, clear out the list of Information Model Versions
           // except the first element.
@@ -1623,6 +1651,7 @@ public class ValidateLauncher {
     // Due to the util class ReferentialIntegrityUtil being static, it need to be
     // reset() if running a regression test.
     ReferentialIntegrityUtil.reset();
+    CrossLabelFileAreaReferenceChecker.reset();
 
     return success;
   }
@@ -1824,7 +1853,7 @@ public class ValidateLauncher {
     } catch (Exception e) {
       throw new Exception(e);
     } finally {
-      if (this.reportFile != null) {
+      if (this.reportFile != null && this.report != null) {
         this.reportFile = null;
         this.report.getWriter().close();
       }

@@ -81,6 +81,8 @@ public enum ProblemType {
 
   UNALLOWED_BASE_NAME("error.file.unallowed_base_name"),
 
+  RESERVED_FILE_NAME_MISMATCH("warning.file.reserved_name_mismatch"),
+
   DIR_NAME_TOO_LONG("error.directory.name_too_long"),
 
   DIR_NAME_HAS_INVALID_CHARS("error.directory.name_has_invalid_characters"),
@@ -208,6 +210,8 @@ public enum ProblemType {
   REFERENCE_NOT_FOUND("warning.integrity.reference_not_found"),
 
   MEMBER_NOT_FOUND("warning.integrity.member_not_found"),
+
+  MEMBER_NOT_FOUND_ERROR("error.integrity.member_not_found"),
 
   INTEGRITY_PDS4_VERSION_MISMATCH("warning.integrity.pds4_version_mismatch",
       ProblemCategory.GENERAL),

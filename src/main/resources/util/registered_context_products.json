@@ -1097,33 +1097,6 @@
           },
           {
                "name": [
-                    "Osservatorio Astronomico della Reg. Aut. Valle D'Aosta"
-               ],
-               "type": [
-                    "Observatory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:observatory.valle_d'aosta::1.1"
-          },
-          {
-               "name": [
-                    "FLI--FL-PL3041-1-BB"
-               ],
-               "type": [
-                    "Imager"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:valle_d'aosta.oavda.pl3041::1.1"
-          },
-          {
-               "name": [
-                    "OAVdA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:telescope:valle_d'aosta.oavda::1.1"
-          },
-          {
-               "name": [
                     "NASA/Keck Reflectance Experiment Laboratory (RELAB), Brown University, Providence, Rhode Island, United States",
                     "NASA/Keck Reflectance Experiment Laboratory (RELAB)"
                ],
@@ -1174,37 +1147,6 @@
           },
           {
                "name": [
-                    "MOON MINERALOGY MAPPER for CH1-ORB",
-                    "MOON MINERALOGY MAPPER"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:m3.ch1-orb::1.1"
-          },
-          {
-               "name": [
-                    "MINI-RF FORERUNNER for CH1-ORB",
-                    "MINI-RF FORERUNNER"
-               ],
-               "type": [
-                    "Radio-Radar"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:mrffr.ch1-orb::1.1"
-          },
-          {
-               "name": [
-                    "Chandrayaan-1",
-                    "CH1",
-                    "CHANDRAYAAN-1"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-1::1.2"
-          },
-          {
-               "name": [
                     "bc",
                     "BepiColombo",
                     "bepicolombo"
@@ -1213,15 +1155,6 @@
                     "Mission"
                ],
                "lidvid": "urn:esa:psa:context:investigation:mission.bc::1.3"
-          },
-          {
-               "name": [
-                    "PRE-MAGELLAN"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.pre-magellan::1.2"
           },
           {
                "name": [
@@ -2877,15 +2810,6 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:instrument:carbuncle_hill.0m35.sbig_st8::1.2"
-          },
-          {
-               "name": [
-                    "Chandrayaan-3 Laser Retro-Reflector Array (LRA)"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:chandrayaan-3_vikram.lra::1.1"
           },
           {
                "name": [
@@ -12363,13 +12287,14 @@
           },
           {
                "name": [
+                    "New Horizons Spacecraft",
                     "The New Horizons (NH) Spacecraft",
                     "NEW HORIZONS"
                ],
                "type": [
                     "Spacecraft"
                ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.nh::1.3"
+               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.nh::1.4"
           },
           {
                "name": [
@@ -12689,15 +12614,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:jaxa:darts:context:instrument_host:spacecraft.vco::1.2"
-          },
-          {
-               "name": [
-                    "Chandrayaan-3 Vikram Lander"
-               ],
-               "type": [
-                    "Lander"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument_host:spacecraft.chandrayaan-3_vikram::1.0"
           },
           {
                "name": [
@@ -14332,16 +14248,6 @@
           },
           {
                "name": [
-                    "Chandrayaan-3",
-                    "CH3"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.chandrayaan-3::1.0"
-          },
-          {
-               "name": [
                     "Mariner 67",
                     "Venus 67",
                     "Mariner 5",
@@ -14537,6 +14443,18 @@
                     "Observing Campaign"
                ],
                "lidvid": "urn:nasa:pds:context:investigation:observing_campaign.atlas::1.1"
+          },
+          {
+               "name": [
+                    "OSIRIS-APEX",
+                    "OSIRIS-APEX Mission",
+                    "Origins, Spectral Interpretation, Resource Identification, and Security – Apophis Explorer (OSIRIS-APEX) Mission",
+                    "APEX"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.apex::1.0"
           },
           {
                "name": [
@@ -40034,6 +39952,283 @@
                     "N/A"
                ],
                "lidvid": "urn:nasa:pds:context:telescope:stockport.jubilee::1.2"
+          },
+          {
+               "name": [
+                    "chandrayaan-2",
+                    "Chandrayaan-2 Mission"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:mission.chandrayaan-2::1.0"
+          },
+          {
+               "name": [
+                    "imaging infrared spectrometer",
+                    "Chandrayaan-2 Orbiter Spacecraft"
+               ],
+               "type": [
+                    "Infrared Spectrometer"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:iir.chandrayaan-2::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-2 Orbiter Spacecraft",
+                    "orbiter high resolution camera"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:ohr.chandrayaan-2::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-2 Large Area Soft x-ray Spectrometer (CLASS) onboard Chandrayaan-2 Orbiter spacecraft",
+                    "Chandrayaan-2 Large Area Soft x-ray Spectrometer"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:isro:isda:context:instrument:cla.ch2orbiter::1.0"
+          },
+          {
+               "name": [
+                    "Dual Frequency Radio Science Experiment (DFRS)",
+                    "DFRS"
+               ],
+               "type": [
+                    "Radio Science"
+               ],
+               "lidvid": "urn:isro:isda:context:instrument:frs.ch2orbiter::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-2 Orbiter Spacecraft",
+                    "terrain maping camera"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:tmc.chandrayaan-2::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-2 Orbiter Spacecraft",
+                    "chandrayaan-2 Orbiter"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:spacecraft.chandrayaan2::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-2 Orbiter Spacecraft",
+                    "Dual frequency L and S band SAR"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch2_cho:context:sar.chandrayaan-2::1.0"
+          },
+          {
+               "name": [
+                    "Solar X-ray Monitor (XSM)",
+                    "XSM"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:isro:isda:context:instrument:xsm.ch2orbiter::1.0"
+          },
+          {
+               "name": [
+                    "Chandra's Atmospheric Composition Explorer 2",
+                    "CHACE2"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:isro:isda:context:instrument:cha.ch2orbiter::1.0"
+          },
+          {
+               "name": [
+                    "urn:nasa:pds:context:instrument_host:spacecraft.vex",
+                    "The Venus-Express Spacecraft",
+                    "VEX"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.vex::1.2"
+          },
+          {
+               "name": [
+                    "urn:nasa:pds:context:investigation:mission.venus_express",
+                    "VEX",
+                    "Venus Express",
+                    "VENUS EXPRESS"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:esa:psa:context:investigation:mission.venus_express::1.1"
+          },
+          {
+               "name": [
+                    "Spicav Solar Occultation in the Infrared (SPICAV-SOIR)",
+                    "SPICAV-SOIR",
+                    "The Spicav Solar Occultation in the Infrared (SPICAV-SOIR) for Venus-Express"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.spicavsoir::1.0"
+          },
+          {
+               "name": [
+                    "The Magnetometer for Venus-Express (MAG)",
+                    "MAG",
+                    "urn:nasa:pds:context:instrument:vex.mag"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.mag::1.2"
+          },
+          {
+               "name": [
+                    "ASPERA4",
+                    "The Analyzer of Space Plasma and Energetic Atoms 4th (ASPERA-4) for Venus-Express"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.aspera4::1.0"
+          },
+          {
+               "name": [
+                    "Venus Express Visible and Infrared Thermal Imaging Spectrometer (VIRTIS)",
+                    "VIRTIS",
+                    "urn:nasa:pds:context:instrument:vex.virtis"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.virtis::1.2"
+          },
+          {
+               "name": [
+                    "VRA",
+                    "The Venus-Express Orbiter Radio Science (VRA)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.vra::1.0"
+          },
+          {
+               "name": [
+                    "The Venus Monitoring Camera for Venus-Express (VMC)",
+                    "The Venus Monitoring Camera (VMC)",
+                    "VMC"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.vmc::1.0"
+          },
+          {
+               "name": [
+                    "SPICAV",
+                    "The Spectroscopy for the Investigation of the Characteristics of the Atmosphere of Venus (SPICAV) for Venus-Express"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:vex.spicav::1.0"
+          },
+          {
+               "name": [
+                    "Alpha Particle X-ray Spectrometer (APXS)",
+                    "APXS"
+               ],
+               "type": [
+                    "Spectrometer"
+               ],
+               "lidvid": "urn:isro:isda:context:instrument:apx.ch3rover::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-3 Rover Spacecraft",
+                    "chandrayaan-3 Rover Module"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chr:context:spacecraft.chandrayaan3rover::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-3 Rover Spacecraft",
+                    "Navigational Camera"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chr:context:nav.chandrayaan-3rover::1.0"
+          },
+          {
+               "name": [
+                    "chandrayaan-3",
+                    "Chandrayaan-3 Mission"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chr:context:mission.chandrayaan-3::1.0"
+          },
+          {
+               "name": [
+                    "Lander Hazard Detection and Avoidance Camera",
+                    "Chandrayaan-3 Lander Spacecraft"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chl:context:lhd.chandrayaan-3lander::1.0"
+          },
+          {
+               "name": [
+                    "Chandrayaan-3 Lander Spacecraft",
+                    "Lander Position Detection Camera"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chl:context:lpd.chandrayaan-3rover::1.0"
+          },
+          {
+               "name": [
+                    "chandrayaan-3 Lander Module",
+                    "Chandrayaan-3 Lander Spacecraft"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chl:context:spacecraft.chandrayaan3lander::1.0"
+          },
+          {
+               "name": [
+                    "Lander Imager",
+                    "Chandrayaan-3 Lander Spacecraft"
+               ],
+               "type": [
+                    "Imager"
+               ],
+               "lidvid": "urn:isro:isda:ch3_chl:context:lim.chandrayaan-3lander::1.0"
           }
      ]
 }

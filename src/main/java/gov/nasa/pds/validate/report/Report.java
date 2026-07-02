@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.Utility;
-import gov.nasa.pds.tools.validate.ProblemCategory;
 import gov.nasa.pds.tools.validate.ProblemType;
 import gov.nasa.pds.tools.validate.TargetExaminer;
 import gov.nasa.pds.tools.validate.ValidationProblem;
@@ -170,7 +169,6 @@ public abstract class Report {
    */
   final public Status record(URI sourceUri, final List<ValidationProblem> problems) {
     int badLabels = 0;
-    int ignoreFromTotalCounts = 0;
     int numErrors = 0;
     int numWarnings = 0;
     Status status = Status.PASS;
@@ -178,10 +176,9 @@ public abstract class Report {
 
     // TODO: Handle null problems
     for (ValidationProblem problem : problems) {
-      ProblemCategory category = problem.getProblem().getType().getProblemCategory();
-      if (category.equals(ProblemCategory.GENERAL) || category.equals(ProblemCategory.EXECUTION)) {
-        ignoreFromTotalCounts++;
-      } else if (problem.getProblem().getSeverity() == ExceptionType.ERROR
+      // Process all problems regardless of category (including GENERAL)
+      // to ensure they are counted in summary statistics
+      if (problem.getProblem().getSeverity() == ExceptionType.ERROR
           || problem.getProblem().getSeverity() == ExceptionType.FATAL) {
         if (ExceptionType.ERROR.getValue() <= this.level.getValue()) {
           numErrors++;
@@ -211,7 +208,7 @@ public abstract class Report {
     if (numErrors > 0) {
       status = Status.FAIL;
 
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numFailedProds++;
         } else {
@@ -220,7 +217,7 @@ public abstract class Report {
       }
     } else if (badLabels > 0 || FlagsUtil.getSkipProductValidation()) {
       if (badLabels > 0) status = Status.SKIP;
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numSkippedProds++;
         } else {
@@ -228,7 +225,7 @@ public abstract class Report {
         }
       }
     } else {
-      if (!Utility.isDir(sourceUri.toString())) {
+      if (!Utility.isDir(sourceUri.toString()) && isFileURI(sourceUri)) {
         if (!this.integrityCheckFlag) {
           this.numPassedProds++;
         } else {
@@ -296,10 +293,16 @@ public abstract class Report {
   final public void stopBody() {
     this.end (Block.BODY);
   }
+  private boolean isFileURI(URI uri) {
+    return uri != null && "file".equals(uri.getScheme());
+  }
   private String lidvid (URI target) {
+    if (!isFileURI(target)) {
+      return "N/A";
+    }
     String result = "";
     try {
-      if (target != null && TargetExaminer.isTargetALabel(target.toURL())) {
+      if (TargetExaminer.isTargetALabel(target.toURL())) {
         List<String> parts = TargetExaminer.getTargetContent(target.toURL(),
             "//Identification_Area", "logical_identifier", "version_id");
         if (parts.size() == 2) {
@@ -308,11 +311,8 @@ public abstract class Report {
           result = "LIDVID could not be extracted.";
         }
       }
-    } catch (IllegalArgumentException e) {
-      // some unit tests cause this error but should never happen in real life
-      result = "label path was not absolute";
-    }catch (MalformedURLException e) {
-      // We did our best. Just ignore it if malformed as default string says it all
+    } catch (MalformedURLException e) {
+      // Should not happen for a validated file URI
     }
     return result;
   }

@@ -148,6 +148,11 @@ public class ConfigKey {
   public static final String ALLOW_UNLABELED_FILES = "validate.allowUnlabeledFiles";
 
   /**
+   * Property to downgrade member_not_found from ERROR to WARNING (for accumulating bundles).
+   */
+  public static final String SKIP_STRICT_COLLECTION_MEMBERSHIP = "validate.skipStrictCollectionMembership";
+
+  /**
    * Property to download the latest Registered Context Products JSON file and replace the existing
    * file.
    */

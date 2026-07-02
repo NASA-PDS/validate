@@ -27,6 +27,7 @@ import gov.nasa.pds.tools.inventory.reader.InventoryEntry;
 import gov.nasa.pds.tools.inventory.reader.InventoryReaderException;
 import gov.nasa.pds.tools.inventory.reader.InventoryTableReader;
 import gov.nasa.pds.tools.label.ExceptionType;
+import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.util.XMLExtractor;
@@ -205,11 +206,14 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
           "getCollectionMembers: id,matchingMembers.isEmpty(),entry.getMemberStatus() {},{},{}",
           id, matchingMembers.isEmpty(), entry.getMemberStatus());
       if (matchingMembers.isEmpty() && "P".equalsIgnoreCase(entry.getMemberStatus())) {
+        boolean downgradeToWarning = FlagsUtil.getSkipStrictCollectionMembership();
         getListener()
-            .addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                ProblemType.MEMBER_NOT_FOUND, "The member '" + id + "' could not be found in "
+            .addProblem(new ValidationProblem(new ProblemDefinition(
+                downgradeToWarning ? ExceptionType.WARNING : ExceptionType.ERROR,
+                downgradeToWarning ? ProblemType.MEMBER_NOT_FOUND : ProblemType.MEMBER_NOT_FOUND_ERROR,
+                "The member '" + id + "' could not be found in "
                     + "any product within the given target."),
-                    collection));
+                collection));
       } else if (matchingMembers.size() == 1) {
         super.verifyLidPrefix(id.getLid(), this.lid, entry.getMemberStatus(), collection);
         getListener()

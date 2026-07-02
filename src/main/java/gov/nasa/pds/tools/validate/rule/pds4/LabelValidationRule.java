@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -59,6 +60,10 @@ import gov.nasa.pds.tools.validate.rule.ValidationTest;
 import gov.nasa.pds.validate.constants.Constants;
 import net.sf.saxon.trans.XPathException;
 import net.sf.saxon.tree.tiny.TinyNodeImpl;
+import javax.xml.transform.dom.DOMSource;
+import gov.nasa.pds.tools.util.LabelCacheEntry;
+import gov.nasa.pds.tools.util.LabelUtil;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 
 /**
  * Implements a validation chain that validates PDS4 bundles. It is applicable if there is a bundle
@@ -318,6 +323,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (document != null) {
         getContext().put(PDS4Context.LABEL_DOCUMENT, document);
         labelIsValidFlag = true; // A non-null document signified that the label is valid.
+        cacheIdentifiers(getTarget());
       }
     } catch (SAXException | IOException | ParserConfigurationException | TransformerException
         | MissingLabelSchemaException e) {
@@ -335,6 +341,35 @@ public class LabelValidationRule extends AbstractValidationRule {
     long t1 = System.currentTimeMillis();
 
     LOG.debug("validateLabel:target,labelIsValidFlag {},{}", target, labelIsValidFlag);
+  }
+
+  private static void cacheIdentifiers(URL targetUrl) {
+    // Re-parse using plain DocumentBuilderFactory so whitespace in text content (e.g. \n in
+    // logical_identifier or lid_reference) is preserved exactly as authored.
+    // Saxon's parseAndValidate() normalizes xs:token values, stripping \n before we can detect them.
+    try (var stream = targetUrl.openStream()) {
+      Document rawDoc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(stream);
+      DOMSource domSource = new DOMSource(rawDoc);
+      String[] tagsArr = {LabelUtil.LIDVID_REFERENCE, LabelUtil.LID_REFERENCE};
+      ArrayList<String> logicalIds = LabelUtil.getLogicalIdentifiers(domSource, targetUrl, true);
+      // Collect suppressed lid_reference \n errors into the cache so the bundle/collection
+      // referential integrity path can replay them without re-parsing.  Using reportCarriageReturns=false
+      // here avoids reporting these errors during single-label validation (backwards compatibility).
+      List<String[]> suppressedLidVidErrors = new ArrayList<>();
+      ArrayList<String> lidVidRefs =
+          LabelUtil.getLidVidReferences(domSource, targetUrl, false, suppressedLidVidErrors);
+      ArrayList<String> contextRefs = new ArrayList<>();
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_INVESTIGATION_AREA_REFERENCE, false));
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false));
+      contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
+          LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
+      ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
+          new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs, suppressedLidVidErrors));
+    } catch (Exception e) {
+      LOG.error("cacheIdentifiers: failed to parse {}: {}", targetUrl, e.getMessage());
+    }
   }
 
   private boolean resolveSingleSchema(URL label, Map.Entry<String, URL> schemaLocation,

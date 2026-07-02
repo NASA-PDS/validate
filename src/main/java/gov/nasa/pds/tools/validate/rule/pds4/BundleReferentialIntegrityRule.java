@@ -25,6 +25,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.Utility;
+import gov.nasa.pds.tools.util.FlagsUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.Identifier;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -172,9 +173,12 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
         }
         if (matchingMembers.isEmpty() && "Primary".equalsIgnoreCase(memberStatus)) {
           LOG.debug("getBundleMembers:MATCHING_MEMBER_ID_IS_EMPTY {}", id);
+          boolean downgradeToWarning = FlagsUtil.getSkipStrictCollectionMembership();
           getListener()
-              .addProblem(new ValidationProblem(new ProblemDefinition(ExceptionType.WARNING,
-                  ProblemType.MEMBER_NOT_FOUND, "The member '" + id + "' could not be found in "
+              .addProblem(new ValidationProblem(new ProblemDefinition(
+                  downgradeToWarning ? ExceptionType.WARNING : ExceptionType.ERROR,
+                  downgradeToWarning ? ProblemType.MEMBER_NOT_FOUND : ProblemType.MEMBER_NOT_FOUND_ERROR,
+                  "The member '" + id + "' could not be found in "
                       + "any product within the given target."),
                   bundle));
         } else if (matchingMembers.size() == 1) {
