@@ -38,14 +38,14 @@ jobs:
         steps:
             -
                 name: 💳 Checkout
-                uses: actions/checkout@v6
+                uses: actions/checkout@v7
                 with:
                     lfs: true
                     fetch-depth: 0
                     token: ${{secrets.ADMIN_GITHUB_TOKEN || github.token}}
             -
                 name: 💵 Maven Cache
-                uses: actions/cache@v5
+                uses: actions/cache@v6
                 with:
                     path: ~/.m2/repository
                     # The "key" used to indicate a set of cached files is the operating system runner
