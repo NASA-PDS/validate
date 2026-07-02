@@ -1,4 +1,4 @@
-// Copyright © 2019, California Institute of Technology ("Caltech").
+// Copyright © 2026, California Institute of Technology ("Caltech").
 // U.S. Government sponsorship acknowledged.
 //
 // All rights reserved.
@@ -125,6 +125,7 @@ import gov.nasa.pds.validate.report.FullReport;
 import gov.nasa.pds.validate.report.JSONReport;
 import gov.nasa.pds.validate.report.Report;
 import gov.nasa.pds.validate.report.XmlReport;
+import gov.nasa.pds.validate.report.StreamingJsonReport;
 import gov.nasa.pds.validate.util.ToolInfo;
 import gov.nasa.pds.validate.util.Utility;
 
@@ -1041,15 +1042,18 @@ public class ValidateLauncher {
   /**
    * Set the output style for the report.
    *
-   * @param style 'sum' for a summary report, 'min' for a minimal report, and 'full' for a full
-   *        report
-   * @throws Exception
+   * @param style 'full' for a full report, 'json' for a buffered JSON report,
+   * 'xml' for an XML report, or 'streaming-json' for a line-delimited
+   * JSON report (one object per product).
+   * @throws Exception If an invalid style is provided.
    */
   public void setReportStyle(String style) throws Exception {
-    if (!style.equalsIgnoreCase("full") && !style.equalsIgnoreCase("json")
-        && !style.equalsIgnoreCase("xml")) {
+    if (!style.equalsIgnoreCase("full") &&
+            !style.equalsIgnoreCase("json") &&
+            !style.equalsIgnoreCase("xml") &&
+            !style.equalsIgnoreCase("streaming-json")) {
       throw new Exception("Invalid value entered for 's' flag. Value can only "
-          + "be either 'full', 'json' or 'xml'");
+              + "be 'full', 'json', 'xml', or 'streaming-json'");
     }
     this.reportStyle = style;
   }
@@ -1339,13 +1343,16 @@ public class ValidateLauncher {
    * @throws IOException If an error occurred while setting up the report.
    */
   public void setupReport(String cliArgs[]) throws IOException {
-    if (this.reportStyle.equals("full")) {
+    if (this.reportStyle.equalsIgnoreCase("full")) {
       this.report = new FullReport();
-    } else if (this.reportStyle.equals("json")) {
+    } else if (this.reportStyle.equalsIgnoreCase("json")) {
       this.report = new JSONReport();
-    } else if (this.reportStyle.equals("xml")) {
+    } else if (this.reportStyle.equalsIgnoreCase("xml")) {
       this.report = new XmlReport();
+    } else if (this.reportStyle.equalsIgnoreCase("streaming-json")) {
+      this.report = new StreamingJsonReport();
     }
+
     report.setLevel(severity);
     if (reportFile != null) {
       report.setWriter(new PrintWriter(reportFile));
