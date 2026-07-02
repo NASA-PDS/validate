@@ -1,18 +1,16 @@
 package gov.nasa.pds.validate.report;
 
-import java.net.URI;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.logging.Logger;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import gov.nasa.pds.tools.validate.ValidationProblem;
-import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.validate.status.Status;
 
 public class StreamingJsonReport extends Report {
+    private static final Logger LOG = Logger.getLogger(StreamingJsonReport.class.getName());
     private static final Gson gson = new Gson();
     private JsonObject currentProduct;
     private JsonArray currentMessages;
@@ -51,8 +49,10 @@ public class StreamingJsonReport extends Report {
     @Override
     protected void end(Block block) {
         if (block == Block.LABEL) {
-            // Calculate error/warning counts from the collected messages
-            int fatals = 0, errors = 0, warnings = 0, infos = 0;
+            int fatals = 0;
+            int errors = 0;
+            int warnings = 0;
+            int infos = 0;
 
             for (JsonElement element : this.currentMessages) {
                 String severity = element.getAsJsonObject().get("severity").getAsString();
@@ -69,29 +69,54 @@ public class StreamingJsonReport extends Report {
 
             this.currentProduct.add("messages", this.currentMessages);
 
-            // Write to the configured output stream (file or console)
             if (getWriter() != null) {
                 getWriter().println(gson.toJson(this.currentProduct));
                 getWriter().flush();
             } else {
-                System.out.println(gson.toJson(this.currentProduct));
+                LOG.info(gson.toJson(this.currentProduct));
             }
 
-            // Clear memory
             this.currentProduct = null;
             this.currentMessages = null;
         }
     }
 
-    // --- Implement remaining abstract methods as empty ---
+    // --- Implement abstract overrides with explicit comments for SonarQube ---
 
-    @Override protected void append(String title) {}
-    @Override protected void appendConfig(String label, String message, String value) {}
-    @Override protected void appendParam(String label, String message, String value) {}
-    @Override protected void summarizeAddMessage(String msg, long count) {}
-    @Override protected void summarizeDepWarn(String msg) {}
-    @Override protected void summarizeRefs(int failed, int passed, int skipped, int total) {}
-    @Override protected void summarizeTotals(int errors, int total, int warnings) {}
+    @Override
+    protected void append(String title) {
+        // Intentionally empty: Title blocks are excluded from line-delimited JSON log output
+    }
+
+    @Override
+    protected void appendConfig(String label, String message, String value) {
+        // Intentionally empty: Global tool setup configurations are excluded from streaming records
+    }
+
+    @Override
+    protected void appendParam(String label, String message, String value) {
+        // Intentionally empty: Run parameter notifications are excluded from streaming records
+    }
+
+    @Override
+    protected void summarizeAddMessage(String msg, long count) {
+        // Intentionally empty: Aggregate counts are dropped in favor of line-item logs
+    }
+
+    @Override
+    protected void summarizeDepWarn(String msg) {
+        // Intentionally empty: Deprecation warnings are handled in global stdout rather than streaming targets
+    }
+
+    @Override
+    protected void summarizeRefs(int failed, int passed, int skipped, int total) {
+        // Intentionally empty: Context references are skipped to isolate file validation metrics
+    }
+
+    @Override
+    protected void summarizeTotals(int errors, int total, int warnings) {
+        // Intentionally empty: Replaced by target summary record type handled in summarizeProds
+    }
 
     @Override
     protected void summarizeProds(int failed, int passed, int skipped, int total) {
@@ -105,7 +130,7 @@ public class StreamingJsonReport extends Report {
             getWriter().println(gson.toJson(summary));
             getWriter().flush();
         } else {
-            System.out.println(gson.toJson(summary));
+            LOG.info(gson.toJson(summary));
         }
     }
 }
