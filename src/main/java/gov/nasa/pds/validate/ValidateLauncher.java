@@ -1326,7 +1326,7 @@ public class ValidateLauncher {
       this.report = new JSONReport();
     } else if (this.reportStyle.equalsIgnoreCase("xml")) {
       this.report = new XmlReport();
-    } else if (this.reportStyle.equalsIgnoreCase("streaming-json")) { // ADD THIS
+    } else if (this.reportStyle.equalsIgnoreCase("streaming-json")) {
       this.report = new StreamingJsonReport();
     }
 
