@@ -493,7 +493,15 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
           } else if (doctype.equalsIgnoreCase("MP4/H.264")){
             new AudioVideo(this.getListener(), target, urlRef).checkMetadata (false, true);
           } else if (doctype.equalsIgnoreCase("M4A/AAC")){
-            new AudioVideo(this.getListener(), target, urlRef).checkMetadata (true, false);
+            // Content validation for M4A/AAC is not yet fully implemented.
+            // Consult PDS4 experts to determine how to validate these products.
+            this.getListener().addProblem(new ValidationProblem(
+                new ProblemDefinition(ExceptionType.WARNING,
+                    ProblemType.CONTENT_VALIDATION_UNSUPPORTED,
+                    "Content validation for encoding type 'M4A/AAC' is not yet supported by this version of validate. "
+                        + "Please consult PDS4 experts for guidance on validating M4A/AAC audio products: "
+                        + urlRef.toString()),
+                target));
           } else if (doctype.equalsIgnoreCase("WAV")) {
             new AudioVideo(this.getListener(), target, urlRef).checkWavHeader();
           } else if (!doctype.equalsIgnoreCase("UTF-8 Text")
