@@ -221,7 +221,7 @@
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.3.6</version>
+      <version>1.4.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -329,7 +329,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>6.0.3</version>
+      <version>6.1.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -426,7 +426,7 @@
     <dependency>
       <groupId>org.opensearch.client</groupId>
       <artifactId>opensearch-java</artifactId>
-      <version>3.8.0</version>
+      <version>3.9.0</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
@@ -436,7 +436,7 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>apache-client</artifactId>
-      <version>2.46.7</version>
+      <version>2.46.15</version>
     </dependency>
   </dependencies>
 
