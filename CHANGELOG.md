@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-07-16)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
+
+**Defects:**
+
+- Throws an error processing M4A/AAC files [\#1635](https://github.com/NASA-PDS/validate/issues/1635) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v4.2.0](https://github.com/NASA-PDS/validate/tree/v4.2.0) (2026-06-15)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.1.0...v4.2.0)
