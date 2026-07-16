@@ -13097,17 +13097,6 @@
           },
           {
                "name": [
-                    "Apollo 17",
-                    "A17",
-                    "APOLLO 17"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_17::2.1"
-          },
-          {
-               "name": [
                     "Balloon Observation Platform for Planetary Science",
                     "Balloon Observation Platform for Planetary Science (BOPPS) - 2014 Flight"
                ],
@@ -40229,6 +40218,266 @@
                     "Imager"
                ],
                "lidvid": "urn:isro:isda:ch3_chl:context:lim.chandrayaan-3lander::1.0"
+          },
+          {
+               "name": [
+                    "JUpiter ICy moons Explorer",
+                    "Juice",
+                    "JUICE spacecraft",
+                    "JUICE"
+               ],
+               "type": [
+                    "Spacecraft"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.juice::1.1"
+          },
+          {
+               "name": [
+                    "JUpiter ICy moons Explorer",
+                    "Juice",
+                    "JUICE",
+                    "JUICE mission"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:esa:psa:context:investigation:mission.juice::1.1"
+          },
+          {
+               "name": [
+                    "PEP-Lo",
+                    "Particle Environment Package - Low energy"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.peplo::1.1"
+          },
+          {
+               "name": [
+                    "PRIDE",
+                    "Planetary Radio Interferometer and Doppler Experiment"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.pride::1.1"
+          },
+          {
+               "name": [
+                    "Camera System (Jupiter Amorum ac Natorum Undique Scrutator)",
+                    "JANUS"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.janus::1.1"
+          },
+          {
+               "name": [
+                    "JUICE UVS",
+                    "UVS",
+                    "JUICE Ultraviolet Spectrograph"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.uvs::1.1"
+          },
+          {
+               "name": [
+                    "3GM",
+                    "Gravity and Geophysics of Jupiter and Galilean Moons"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.3gm::1.1"
+          },
+          {
+               "name": [
+                    "J-MAG",
+                    "Magnetometer for JUICE"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.jmag::1.1"
+          },
+          {
+               "name": [
+                    "JMC",
+                    "JUICE Monitoring Camera"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.jmc::1.1"
+          },
+          {
+               "name": [
+                    "SWI",
+                    "Submillimeter Wave Instrument"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.swi::1.1"
+          },
+          {
+               "name": [
+                    "RPWI",
+                    "Radio and Plasma Wave Investigation"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.rpwi::1.1"
+          },
+          {
+               "name": [
+                    "RIME",
+                    "Radar for Icy Moons Exploration"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.rime::1.1"
+          },
+          {
+               "name": [
+                    "Ganymede Laser Altimeter",
+                    "GALA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.gala::1.1"
+          },
+          {
+               "name": [
+                    "MAJIS",
+                    "Moons and Jupiter Imaging Spectrometer"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.majis::1.1"
+          },
+          {
+               "name": [
+                    "JUICE Navigation Camera",
+                    "NAVCAM"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.navcam::1.1"
+          },
+          {
+               "name": [
+                    "PEP-Hi",
+                    "Particle Environment Package - High energy"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.pephi::1.1"
+          },
+          {
+               "name": [
+                    "High Accurary Accelerometer",
+                    "HAA"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:esa:psa:context:instrument:juice.haa::1.1"
+          },
+          {
+               "name": [
+                    "Balloon Observation Platform for Planetary Science (BOPPS)"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:airborne:balloon.bopps::1.1"
+          },
+          {
+               "name": [
+                    "Thermo Fisher iS50 FTIR Spectrometer"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:arc-ocf.thermo-fisher_is50-ftir-spec::1.0"
+          },
+          {
+               "name": [
+                    "Filmetrics-KLA F40-UVX Reflectance Microscope",
+                    "Filmetrics-KLA F40 UVX Reflectance Microscope"
+               ],
+               "type": [
+                    "N/A"
+               ],
+               "lidvid": "urn:nasa:pds:context:instrument:arc-ocf.flimetrics-kla_f40-uvx::1.0"
+          },
+          {
+               "name": [
+                    "Exoplanet Laboratory Analog",
+                    "Pluto Laboratory Analog"
+               ],
+               "type": [
+                    "Laboratory Analog"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:laboratory_analog.exoplanet::1.0"
+          },
+          {
+               "name": [
+                    "Pluto Laboratory Analog"
+               ],
+               "type": [
+                    "Laboratory Analog"
+               ],
+               "lidvid": "urn:nasa:pds:context:target:laboratory_analog.pluto::1.0"
+          },
+          {
+               "name": [
+                    "Apollo 17",
+                    "A17",
+                    "APOLLO 17"
+               ],
+               "type": [
+                    "Mission"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:mission.apollo_17::2.3"
+          },
+          {
+               "name": [
+                    "Optical Constants of Laboratory Generated Titan Atmospheric Aerosol Analogs"
+               ],
+               "type": [
+                    "Individual Investigation"
+               ],
+               "lidvid": "urn:nasa:pds:context:investigation:individual.lab_atm-opt-const-titan::1.0"
+          },
+          {
+               "name": [
+                    "NASA Ames - COsmic SImulation Chamber (COSmIC)"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.arc-cosmic::1.0"
+          },
+          {
+               "name": [
+                    "NASA Ames - Optical Constants Facility (OCF)"
+               ],
+               "type": [
+                    "Laboratory"
+               ],
+               "lidvid": "urn:nasa:pds:context:facility:laboratory.arc-ocf::1.0"
           }
      ]
 }
