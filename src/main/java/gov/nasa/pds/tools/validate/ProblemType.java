@@ -252,6 +252,7 @@ public enum ProblemType {
 
   NON_MP4_FILE("warning.file.not_mp4_mimetype"),
   NON_WAV_FILE("warning.file.not_wav_mimetype"),
+  CONTENT_VALIDATION_UNSUPPORTED("warning.validation.content_validation_not_yet_supported"),
 
   NON_REGISTERED_PRODUCT("warning.product_not_registered"),
 

@@ -9,6 +9,7 @@ public enum EncodingMimeMapping {
   GIF(Arrays.asList("gif")),
   J2C(Arrays.asList("j2c", "jp2", "mj2", "mjp2")),
   JPEG(Arrays.asList("jpg", "jpeg")),
+  M4A_AAC(Arrays.asList("m4a", "aac")),
   MP4(Arrays.asList("mp4")),
   NEF(Arrays.asList("nef")),
   PDF(Arrays.asList("pdf")),
@@ -34,6 +35,7 @@ public enum EncodingMimeMapping {
       if (encoding.equalsIgnoreCase("JP2")) return J2C;
       if (encoding.equalsIgnoreCase("JPEG")) return JPEG;
       if (encoding.equalsIgnoreCase("MMM ODR Stream")) return DAT;
+      if (encoding.equalsIgnoreCase("M4A/AAC")) return M4A_AAC;
       if (encoding.equalsIgnoreCase("MP4/H.264")) return MP4;
       if (encoding.equalsIgnoreCase("MP4/H.264/AAC")) return MP4;
       if (encoding.equalsIgnoreCase("MSSS Camera Mini Header")) return DAT;
