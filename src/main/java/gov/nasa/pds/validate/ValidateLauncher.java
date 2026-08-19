@@ -532,7 +532,7 @@ public class ValidateLauncher {
   private void getLatestJsonContext() {
     final String searchAfterParam = "search-after";
     final int pageSize = 1000;
-    final String searchAfterKey = "ops:Harvest_Info.ops:harvest_date_time";
+    final String searchAfterKey = "ops:Label_File_Info.ops:creation_date_time";
     List<ValidationProblem> pList = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
     String base = ToolInfo.getSearchURL();
