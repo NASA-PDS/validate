@@ -529,7 +529,7 @@ public class ValidateLauncher {
     }
   }
 
-  private void getLatestJsonContext() {
+  void getLatestJsonContext() {
     final String searchAfterParam = "search-after";
     final int pageSize = 1000;
     final String searchAfterKey = "ops:Label_File_Info.ops:creation_date_time";
@@ -591,7 +591,9 @@ public class ValidateLauncher {
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
-      reader.close();
+      if (reader != null) {
+        reader.close();
+      }
     }
 
     try {
