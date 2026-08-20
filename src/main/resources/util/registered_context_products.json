@@ -1449,46 +1449,6 @@
           },
           {
                "name": [
-                    "Chandrayaan-2 Large Area Soft x-ray Spectrometer (CLASS) onboard Chandrayaan-2 Orbiter spacecraft",
-                    "Chandrayaan-2 Large Area Soft x-ray Spectrometer"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:isro:isda:context:instrument:cla.ch2orbiter::1.0"
-          },
-          {
-               "name": [
-                    "Dual Frequency Radio Science Experiment (DFRS)",
-                    "DFRS"
-               ],
-               "type": [
-                    "Radio Science"
-               ],
-               "lidvid": "urn:isro:isda:context:instrument:frs.ch2orbiter::1.0"
-          },
-          {
-               "name": [
-                    "Solar X-ray Monitor (XSM)",
-                    "XSM"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:isro:isda:context:instrument:xsm.ch2orbiter::1.0"
-          },
-          {
-               "name": [
-                    "Chandra's Atmospheric Composition Explorer 2",
-                    "CHACE2"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:isro:isda:context:instrument:cha.ch2orbiter::1.0"
-          },
-          {
-               "name": [
                     "urn:nasa:pds:context:instrument_host:spacecraft.vex",
                     "The Venus-Express Spacecraft",
                     "VEX"
@@ -1583,36 +1543,6 @@
                     "N/A"
                ],
                "lidvid": "urn:esa:psa:context:instrument:vex.spicav::1.0"
-          },
-          {
-               "name": [
-                    "Alpha Particle X-ray Spectrometer (APXS)",
-                    "APXS"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:isro:isda:context:instrument:apx.ch3rover::1.0"
-          },
-          {
-               "name": [
-                    "Chandrayaan-3 Lander Spacecraft",
-                    "Lander Position Detection Camera"
-               ],
-               "type": [
-                    "Imager"
-               ],
-               "lidvid": "urn:isro:isda:ch3_chl:context:lpd.chandrayaan-3rover::1.0"
-          },
-          {
-               "name": [
-                    "Lander Imager",
-                    "Chandrayaan-3 Lander Spacecraft"
-               ],
-               "type": [
-                    "Imager"
-               ],
-               "lidvid": "urn:isro:isda:ch3_chl:context:lim.chandrayaan-3lander::1.0"
           },
           {
                "name": [
