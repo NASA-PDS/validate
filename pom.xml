@@ -10,7 +10,7 @@
   </parent>
 
   <artifactId>validate</artifactId>
-  <version>4.2.0-SNAPSHOT</version>
+  <version>4.3.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>${project.groupId}:${project.artifactId}</name>
@@ -83,7 +83,7 @@
       </plugin>
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.5</version>
+        <version>3.5.6</version>
         <configuration>
           <argLine>-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR</argLine>
         </configuration>
@@ -221,7 +221,7 @@
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
-      <version>1.3.6</version>
+      <version>1.4.0</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -323,19 +323,19 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
-      <version>6.0.3</version>
+      <version>6.1.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>6.0.3</version>
+      <version>6.1.1</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-suite-api</artifactId>
-      <version>6.0.3</version>
+      <version>6.1.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -347,7 +347,7 @@
     <dependency>
       <groupId>io.cucumber</groupId>
       <artifactId>cucumber-java</artifactId>
-      <version>7.34.3</version>
+      <version>7.34.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -359,7 +359,7 @@
     <dependency>
       <groupId>gov.nasa.pds</groupId>
       <artifactId>pds4-jparser</artifactId>
-      <version>3.2.0-SNAPSHOT</version>
+      <version>3.2.1</version>
       <scope>compile</scope>
       <exclusions>
     	<exclusion>
@@ -389,7 +389,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.21.2</version>
+      <version>2.22.0</version>
     </dependency>
     <!-- three (4) artifacts for complete configuration parsing and RI calls -->
     <dependency>
@@ -426,7 +426,7 @@
     <dependency>
       <groupId>org.opensearch.client</groupId>
       <artifactId>opensearch-java</artifactId>
-      <version>3.8.0</version>
+      <version>3.9.0</version>
     </dependency>
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
@@ -436,7 +436,7 @@
     <dependency>
       <groupId>software.amazon.awssdk</groupId>
       <artifactId>apache-client</artifactId>
-      <version>2.42.38</version>
+      <version>2.46.15</version>
     </dependency>
   </dependencies>
 
