@@ -1,12 +1,17 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-07-24)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-08-22)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
 
 **Defects:**
 
+- validate -u fails: `ERROR [error.connection.registry] Error connecting to Registry` [\#1657](https://github.com/NASA-PDS/validate/issues/1657) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Throws an error processing M4A/AAC files [\#1635](https://github.com/NASA-PDS/validate/issues/1635) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+**Other closed issues:**
+
+- Add automated test coverage for validate -u registry update \(getLatestJsonContext\) [\#1659](https://github.com/NASA-PDS/validate/issues/1659)
 
 ## [v4.2.0](https://github.com/NASA-PDS/validate/tree/v4.2.0) (2026-06-15)
 
