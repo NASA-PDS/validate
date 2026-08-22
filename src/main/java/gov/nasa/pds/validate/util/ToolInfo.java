@@ -100,4 +100,8 @@ public class ToolInfo {
   public static String getQuery() {
     return props.getProperty(QUERY);
   }
+
+  public static void setProperty(String key, String value) {
+    props.setProperty(key, value);
+  }
 }

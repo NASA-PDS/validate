@@ -529,10 +529,10 @@ public class ValidateLauncher {
     }
   }
 
-  private void getLatestJsonContext() {
+  void getLatestJsonContext() {
     final String searchAfterParam = "search-after";
     final int pageSize = 1000;
-    final String searchAfterKey = "ops:Harvest_Info.ops:harvest_date_time";
+    final String sortKey = "ops:Label_File_Info.ops:creation_date_time,lidvid";
     List<ValidationProblem> pList = new ArrayList<>();
     ObjectMapper mapper = new ObjectMapper();
     String base = ToolInfo.getSearchURL();
@@ -546,7 +546,7 @@ public class ValidateLauncher {
       List<Map<String, Object>> contexts = new ArrayList<Map<String, Object>>();
       do {
         url = new URL(base + "/" + endpoint + "?limit=" + Integer.toString(pageSize) + "&q="
-            + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&sort=" + searchAfterKey + "&"
+            + URLEncoder.encode(query, StandardCharsets.UTF_8) + "&sort=" + sortKey + "&"
             + searchAfter);
         LOG.debug("Query URL: " + url.toString());
         reader = new Scanner(url.openStream()).useDelimiter("\\Z");
@@ -559,8 +559,8 @@ public class ValidateLauncher {
         List<Map<String, Object>> dataDocuments = (List<Map<String, Object>>) response.get("data");
 
         contexts.addAll(dataDocuments);
-        String searchAfterValue =
-            getSearchAfterFromDocument(dataDocuments.get(dataDocuments.size() - 1), searchAfterKey);
+        Map<String, Object> lastDoc = dataDocuments.get(dataDocuments.size() - 1);
+        String searchAfterValue = getSearchAfterFromDocument(lastDoc);
 
         searchAfter =
             searchAfterParam + "=" + URLEncoder.encode(searchAfterValue, StandardCharsets.UTF_8);
@@ -591,7 +591,9 @@ public class ValidateLauncher {
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
-      reader.close();
+      if (reader != null) {
+        reader.close();
+      }
     }
 
     try {
@@ -604,10 +606,13 @@ public class ValidateLauncher {
     }
   }
 
-  private String getSearchAfterFromDocument(Map<String, Object> document, String searchAfterKey) {
-    @SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")
+  private String getSearchAfterFromDocument(Map<String, Object> document) {
     Map<String, Object> properties = (Map<String, Object>) document.get("properties");
-    return ((List<String>) properties.get(searchAfterKey)).get(0);
+    String creationDateTime =
+        ((List<String>) properties.get("ops:Label_File_Info.ops:creation_date_time")).get(0);
+    String lidvid = ((List<String>) properties.get("lidvid")).get(0);
+    return creationDateTime + "," + lidvid;
   }
 
   @SuppressWarnings("unchecked")
