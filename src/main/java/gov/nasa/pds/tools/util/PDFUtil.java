@@ -89,6 +89,20 @@ public class PDFUtil {
     }
   }
 
+  /**
+   * Returns the detected PDF/A flavour for the given parser, or null if the PDF has no
+   * conformance declaration. veraPDF 1.30+ throws IndexOutOfBoundsException (rather than
+   * returning NO_FLAVOUR) when no pdfaid metadata is present.
+   */
+  private PDFAFlavour detectFlavour(PDFAParser parser) {
+    try {
+      PDFAFlavour flavour = parser.getFlavour();
+      return PDFAFlavour.NO_FLAVOUR.equals(flavour) ? null : flavour;
+    } catch (IndexOutOfBoundsException e) {
+      return null;
+    }
+  }
+
   private boolean validatePDF(String baseDir, URI uri, String pdfRef) throws IOException {
     boolean pdfValidateFlag = false;
 
@@ -98,23 +112,11 @@ public class PDFUtil {
         this.errorMessage = "Zero length file is an invalid PDF file.";
         return pdfValidateFlag;
       }
-      // Create a parser and auto-detect flavour.
-      // veraPDF 1.30+ throws from getFlavour() when a PDF has no pdfaid conformance declaration;
-      // treat that as non-compliant rather than an internal error so NON_PDFA_FILE is raised.
       PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
-      PDFAFlavour detectedFlavour;
-      try {
-        detectedFlavour = parser.getFlavour();
-      } catch (IndexOutOfBoundsException e) {
-        // veraPDF 1.30+ throws here when a PDF has no pdfaid conformance declaration
-        this.errorMessage = "File does not contain a PDF/A conformance declaration for " + uri
-            + ". Expected: PDF/A-1a or PDF/A-1b.";
-        return pdfValidateFlag;
-      }
+      PDFAFlavour detectedFlavour = detectFlavour(parser);
       LOG.debug("validatePDF: parser.getFlavour() [{}]", detectedFlavour);
 
-      // Explicitly reject PDFs with no conformance declaration before attempting validation.
-      if (detectedFlavour.equals(PDFAFlavour.NO_FLAVOUR)) {
+      if (detectedFlavour == null) {
         this.errorMessage = "File does not contain a PDF/A conformance declaration for " + uri
             + ". Expected: PDF/A-1a or PDF/A-1b.";
       } else if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A)
