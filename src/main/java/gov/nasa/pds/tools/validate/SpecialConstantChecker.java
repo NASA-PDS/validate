@@ -184,6 +184,17 @@ public class SpecialConstantChecker {
         }
       }
     }
+    boolean hasDecimalPoint = constant_repr.contains(".");
+    boolean hasScientificNotation = (constant_repr.contains("E") || constant_repr.contains("e"))
+        && !constant_repr.startsWith("0x") && !constant_repr.startsWith("0X");
+    boolean repr_decimal = hasDecimalPoint || hasScientificNotation;
+    // For ASCII numeric fields, the value arrives as BigDecimal. Compare directly
+    // against a decimal constant representation to avoid lossy BigDecimal→Double→BigInteger
+    // conversion that causes missing_constant values like "-.99999" to never match.
+    if (number instanceof BigDecimal && repr_decimal) {
+      BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr, radix);
+      return constant.compareTo((BigDecimal) number) == 0;
+    }
     if (number instanceof BigDecimal) number = ((BigDecimal)number).doubleValue();
     if (number instanceof Byte) number = BigInteger.valueOf(number.byteValue());
     if (number instanceof Double) number = BigInteger.valueOf(Double.doubleToRawLongBits((Double)number));
@@ -191,9 +202,6 @@ public class SpecialConstantChecker {
     if (number instanceof Integer || number instanceof UnsignedInteger) number = BigInteger.valueOf(number.intValue());
     if (number instanceof Long || number instanceof UnsignedLong) number = BigInteger.valueOf(number.longValue());
     if (number instanceof Short) number = BigInteger.valueOf(number.shortValue());
-    boolean repr_decimal = constant_repr.contains (".") || 
-        ((constant_repr.contains("E") || constant_repr.contains("e")) &&
-            !(constant_repr.startsWith("0x") || constant_repr.startsWith("0X")));
     if (repr_decimal) {
       BigDecimal constant = SpecialConstantBitPatternTransforms.asBigDecimal(constant_repr, radix);
       return constant.equals (number);

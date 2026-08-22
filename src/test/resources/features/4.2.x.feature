@@ -15,4 +15,7 @@ Feature: 4.2.x
 # github1635: M4A/AAC should be a recognized encoding type; content validation not yet supported → WARNING not ERROR
 | 1635 | 1 | "github1635" | "--skip-context-validation -t {datasrc}/audio_m4a.xml" | "summary:totalWarnings=1,summary:messageTypes:warning.validation.content_validation_not_yet_supported=1" |
 
+# github1660: missing_constant must suppress min/max range errors in ASCII table fields
+| 1660 | 1 | "github1660" | "--skip-context-validation -t {datasrc}/pccds.xml" | "summary:productValidation:passed=1,summary:totalErrors=0,summary:totalWarnings=2,summary:messageTypes:warning.label.bad_schematypens=1,summary:messageTypes:warning.label.missing_schematron_spec=1" |
+
 #end
