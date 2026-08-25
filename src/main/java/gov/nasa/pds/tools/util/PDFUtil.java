@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Paths;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,16 +92,18 @@ public class PDFUtil {
 
   /**
    * Returns the detected PDF/A flavour for the given parser, or null if the PDF has no
-   * conformance declaration. veraPDF 1.30+ throws IndexOutOfBoundsException (rather than
-   * returning NO_FLAVOUR) when no pdfaid metadata is present.
+   * conformance declaration.
    */
   private PDFAFlavour detectFlavour(PDFAParser parser) {
-    try {
-      PDFAFlavour flavour = parser.getFlavour();
-      return PDFAFlavour.NO_FLAVOUR.equals(flavour) ? null : flavour;
-    } catch (IndexOutOfBoundsException e) {
+    List<PDFAFlavour> flavours = parser.getFlavours();
+    if (flavours.isEmpty()) {
       return null;
     }
+    PDFAFlavour flavour = flavours.get(0);
+    if (PDFAFlavour.NO_FLAVOUR.equals(flavour)) {
+      return null;
+    }
+    return flavour;
   }
 
   private boolean validatePDF(String baseDir, URI uri, String pdfRef) throws IOException {
@@ -127,16 +130,16 @@ public class PDFUtil {
         // Check the PDF is actually a valid 1a/1b flavour
         PDFAValidator validator =
             Foundries.defaultInstance().createValidator(detectedFlavour, false);
-        this.parserFlavor = parser.getFlavour().getId();
+        this.parserFlavor = detectedFlavour.getId();
         ValidationResult result = validator.validate(parser);
         if (result.isCompliant()) {
           LOG.debug("validatePDF file " + pdfRef + " is a valid PDF file with flavor "
-              + parser.getFlavour().getId());
+              + detectedFlavour.getId());
           pdfValidateFlag = true;
         } else {
           LOG.error("validatePDF file" + pdfRef + " is not valid PDF file with flavor "
-              + parser.getFlavour().getId());
-          this.writeErrorToFile(baseDir, pdfRef, result, parser.getFlavour().getId());
+              + detectedFlavour.getId());
+          this.writeErrorToFile(baseDir, pdfRef, result, detectedFlavour.getId());
           this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId()
               + " in file " + Paths.get(pdfRef).getFileName() + ".";
           if (this.getExternalErrorFilename() != null) this.errorMessage += "  Detailed error output can be found at " + this.getExternalErrorFilename();
