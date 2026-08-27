@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Paths;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,6 +90,22 @@ public class PDFUtil {
     }
   }
 
+  /**
+   * Returns the detected PDF/A flavour for the given parser, or null if the PDF has no
+   * conformance declaration.
+   */
+  private PDFAFlavour detectFlavour(PDFAParser parser) {
+    List<PDFAFlavour> flavours = parser.getFlavours();
+    if (flavours.isEmpty()) {
+      return null;
+    }
+    PDFAFlavour flavour = flavours.get(0);
+    if (PDFAFlavour.NO_FLAVOUR.equals(flavour)) {
+      return null;
+    }
+    return flavour;
+  }
+
   private boolean validatePDF(String baseDir, URI uri, String pdfRef) throws IOException {
     boolean pdfValidateFlag = false;
 
@@ -98,35 +115,31 @@ public class PDFUtil {
         this.errorMessage = "Zero length file is an invalid PDF file.";
         return pdfValidateFlag;
       }
-      // Create a parser and auto-detect flavour
       PDFAParser parser = Foundries.defaultInstance().createParser(new FileInputStream(pdfRef));
-      PDFAFlavour detectedFlavour = parser.getFlavour();
+      PDFAFlavour detectedFlavour = detectFlavour(parser);
       LOG.debug("validatePDF: parser.getFlavour() [{}]", detectedFlavour);
 
-      // First, check the flavour is valid 1a or 1b
-      if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A)
+      if (detectedFlavour == null) {
+        this.errorMessage = "File does not contain a PDF/A conformance declaration for " + uri
+            + ". Expected: PDF/A-1a or PDF/A-1b.";
+      } else if (!detectedFlavour.equals(PDFAFlavour.PDFA_1_A)
           && !detectedFlavour.equals(PDFAFlavour.PDFA_1_B)) {
         this.errorMessage = "Invalid PDF/A version detected for " + uri
             + ". Expected: 1a or 1b. Actual: " + detectedFlavour.getId();
       } else {
-        // Next, check the PDF is actually a valid 1a/1b flavour
+        // Check the PDF is actually a valid 1a/1b flavour
         PDFAValidator validator =
             Foundries.defaultInstance().createValidator(detectedFlavour, false);
-        this.parserFlavor = parser.getFlavour().getId();
+        this.parserFlavor = detectedFlavour.getId();
         ValidationResult result = validator.validate(parser);
         if (result.isCompliant()) {
-          // File is a valid PDF
           LOG.debug("validatePDF file " + pdfRef + " is a valid PDF file with flavor "
-              + parser.getFlavour().getId());
+              + detectedFlavour.getId());
           pdfValidateFlag = true;
         } else {
           LOG.error("validatePDF file" + pdfRef + " is not valid PDF file with flavor "
-              + parser.getFlavour().getId());
-
-          // Write the result to external file so the user can look over in the validate
-          // report.
-          this.writeErrorToFile(baseDir, pdfRef, result, parser.getFlavour().getId());
-
+              + detectedFlavour.getId());
+          this.writeErrorToFile(baseDir, pdfRef, result, detectedFlavour.getId());
           this.errorMessage = "Validation failed for flavour PDF/A-" + detectedFlavour.getId()
               + " in file " + Paths.get(pdfRef).getFileName() + ".";
           if (this.getExternalErrorFilename() != null) this.errorMessage += "  Detailed error output can be found at " + this.getExternalErrorFilename();
