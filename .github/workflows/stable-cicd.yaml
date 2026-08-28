@@ -72,7 +72,7 @@ jobs:
                 uses: NASA-PDS/roundup-action@stable
                 with:
                     assembly: stable
-                    packages: openjdk17-jdk
+                    packages: openjdk21-jdk
                     maven-build-phases: install,-DskipTests
                     maven-doc-phases: clean,site,site:stage
                     maven-stable-artifact-phases: clean,site,site:stage,deploy,-DskipTests
