@@ -563,16 +563,6 @@
           },
           {
                "name": [
-                    "RIME",
-                    "Radar for Icy Moons Exploration"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.rime::1.0"
-          },
-          {
-               "name": [
                     "MPO-MAG",
                     "MPOMAG: Magnetometer for BepiColombo MPO"
                ],
@@ -715,46 +705,6 @@
           },
           {
                "name": [
-                    "3GM",
-                    "Gravity and Geophysics of Jupiter and Galilean Moons"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.3gm::1.0"
-          },
-          {
-               "name": [
-                    "High-Accurary Accelerometer",
-                    "HAA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.haa::1.0"
-          },
-          {
-               "name": [
-                    "JMC",
-                    "Jupiter Monitoring Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.jmc::1.0"
-          },
-          {
-               "name": [
-                    "MAJIS",
-                    "Moons and Jupiter Imaging Spectrometer"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.majis::1.0"
-          },
-          {
-               "name": [
                     "Particle Environment Package",
                     "PEP"
                ],
@@ -765,16 +715,6 @@
           },
           {
                "name": [
-                    "PRIDE",
-                    "Planetary Radio Interferometer and Doppler Experiment"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.pride::1.0"
-          },
-          {
-               "name": [
                     "Radiation Monitor",
                     "RADEM"
                ],
@@ -782,76 +722,6 @@
                     "N/A"
                ],
                "lidvid": "urn:esa:psa:context:instrument:juice.radem::1.0"
-          },
-          {
-               "name": [
-                    "SWI",
-                    "Sub-millimeter Wave Instrument"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.swi::1.0"
-          },
-          {
-               "name": [
-                    "UVS",
-                    "UV imaging Spectrograph"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.uvs::1.0"
-          },
-          {
-               "name": [
-                    "GAnymede Laser Altimeter",
-                    "GALA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.gala::1.0"
-          },
-          {
-               "name": [
-                    "Camera System (Jupiter Amorum ac Natorum Undique Scrutator)",
-                    "JANUS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.janus::1.0"
-          },
-          {
-               "name": [
-                    "JMAG",
-                    "Magnetometer for JUICE"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.jmag::1.0"
-          },
-          {
-               "name": [
-                    "NAVCAM",
-                    "Navigation Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.navcam::1.0"
-          },
-          {
-               "name": [
-                    "RPWI",
-                    "Radio and Plasma Wave Investigation"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.rpwi::1.0"
           },
           {
                "name": [
@@ -1036,16 +906,6 @@
           },
           {
                "name": [
-                    "JUpiter ICy moons Explorer",
-                    "JUICE"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.juice::1.0"
-          },
-          {
-               "name": [
                     "BepiColombo Mercury Magnetospheric Orbiter",
                     "Mercury Magnetospheric Orbiter"
                ],
@@ -1093,17 +953,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.tgo::1.5"
-          },
-          {
-               "name": [
-                    "bc",
-                    "bepicolombo",
-                    "JUICE"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:esa:psa:context:investigation:mission.juice::1.0"
           },
           {
                "name": [
