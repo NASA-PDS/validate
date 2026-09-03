@@ -184,9 +184,9 @@ public class SpecialConstantChecker {
         }
       }
     }
-    boolean hasDecimalPoint = constant_repr.contains(".");
-    boolean hasScientificNotation = (constant_repr.contains("E") || constant_repr.contains("e"))
-        && !constant_repr.startsWith("0x") && !constant_repr.startsWith("0X");
+    boolean isHex = constant_repr.startsWith("0x") || constant_repr.startsWith("0X");
+    boolean hasDecimalPoint = constant_repr.contains(".") && !isHex;
+    boolean hasScientificNotation = (constant_repr.contains("E") || constant_repr.contains("e")) && !isHex;
     boolean repr_decimal = hasDecimalPoint || hasScientificNotation;
     // For ASCII numeric fields, the value arrives as BigDecimal. Compare directly
     // against a decimal constant representation to avoid lossy BigDecimal→Double→BigInteger
