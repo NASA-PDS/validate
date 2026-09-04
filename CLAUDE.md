@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The NASA PDS Validate Tool is a Java-based application for validating PDS4 product labels and PDS3 volumes according to Planetary Data System standards. It validates XML labels against schemas and schematrons, checks data content integrity, and performs referential integrity checks for bundles and collections.
 
-**Main Entry Point**: `gov.nasa.pds.validate.ValidateLauncher` (src/main/java/gov/nasa/pds/validate/ValidateLauncher.java:134)
+**Main Entry Point**: `gov.nasa.pds.validate.ValidateLauncher` (src/main/java/gov/nasa/pds/validate/ValidateLauncher.java)
 
 ## Build Commands
 
@@ -93,15 +93,15 @@ mvn site:run
 - **SchemaValidator** (gov.nasa.pds.tools.validate.rule.pds4.SchemaValidator) - Validates XML against XSD schemas
 - **SchematronTransformer** (gov.nasa.pds.tools.label.SchematronTransformer) - Transforms and applies Schematron rules
 - **CachedEntityResolver** / **CachedLSResourceResolver** - Cache schemas/catalogs to avoid repeated downloads
-- By default, validates against schemas/schematrons specified in label unless user overrides with `-S`, `-s`, `-C` flags
+- By default, validates against schemas/schematrons specified in label unless user overrides with `-x`/`--schema`, `-S`/`--schematron`, `-C`/`--catalog` flags
 
 ### Context Product Validation
 
 The tool validates context product references (instruments, telescopes, targets, etc.) against registered products:
 - Downloads registered context products from PDS Registry API
 - Stores in JSON file (registered-context-products.json in resources.home)
-- Use `--latest-json-file` flag to update from Registry
-- Use `--nonregprod-json-file` to provide non-registered products for development
+- Use `-u`/`--update-context-products` flag to update from Registry
+- Use `--add-context-products` to provide non-registered products for development
 
 ### Referential Integrity
 
@@ -115,7 +115,7 @@ The tool validates context product references (instruments, telescopes, targets,
 ### Test Structure
 
 - **Cucumber BDD Tests** (src/test/resources/features/)
-  - Feature files define test scenarios: 3.6.x.feature, 3.7.x.feature, pre.3.6.x.feature
+  - Feature files define test scenarios: pre.3.6.x.feature, 3.6.x.feature, 3.7.x.feature, 4.0.x.feature, 4.1.x.feature, 4.2.x.feature
   - Test data located in src/test/resources/ organized by GitHub issue number (e.g., github123/)
   - Step definitions in src/test/java/cucumber/StepDefs.java
   - Main Cucumber runner: src/test/java/cucumber/CucumberTest.java
@@ -148,7 +148,7 @@ Follow the procedure in src/site/markdown/developer/contribute.md:
 
 ### Test Configuration Notes
 
-- Maven Surefire plugin version pinned to 3.5.2 due to bugs in 3.5.3/3.5.4
+- Maven Surefire plugin version 3.5.6
 - Cucumber test runner class excluded from normal Surefire execution
 - Tests run with ERROR log level by default: `-Dorg.slf4j.simpleLogger.defaultLogLevel=ERROR`
 
@@ -158,8 +158,8 @@ Follow the procedure in src/site/markdown/developer/contribute.md:
 
 The tool uses SLF4J with NOP logger by default (no debug output). To enable debug logging:
 
-1. Edit pom.xml to comment out slf4j-nop dependency (lines 261-265)
-2. Uncomment slf4j-simple dependency (lines 256-260)
+1. Edit pom.xml to comment out slf4j-nop dependency (lines 272-276)
+2. Uncomment slf4j-simple dependency (lines 267-271)
 3. Set system property: `-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG`
 4. Rebuild: `mvn clean package -DskipTests`
 5. Add property to validate CLI script or use `export JAVA_TOOL_OPTIONS=-Dorg.slf4j.simpleLogger.defaultLogLevel=DEBUG`
@@ -169,40 +169,40 @@ Alternatively, use `--verbose 1` flag for INFO level output in reports (default 
 ## Key Configuration
 
 ### Java Version
-- Source/Target: Java 17 (pom.xml:172-173)
+- Source/Target: Java 17 (pom.xml:179-180)
 
 ### Main Dependencies
-- **pds4-jparser** (version 3.2.0-SNAPSHOT) - PDS4 label parsing and validation; **source is at `../pds4-jparser`** — check there first when tracing errors from pds4-jparser classes (e.g. `FieldValueValidator`, `ProblemType`, parser internals)
+- **pds4-jparser** (version 3.2.1) - PDS4 label parsing and validation; **source is at `../pds4-jparser`** — check there first when tracing errors from pds4-jparser classes (e.g. `FieldValueValidator`, `ProblemType`, parser internals)
 - **pds3-product-tools** (version 4.4.2) - PDS3 validation
 - **Saxon-HE** (version 12.9) - XSLT and XPath processing
-- **registry-common** (version 2.1.0-SNAPSHOT) - Registry API integration
-- **opensearch-java** (version 3.2.0) - Registry backend queries
+- **registry-common** (version 2.3.0) - Registry API integration
+- **opensearch-java** (version 3.9.0) - Registry backend queries
 - **verapdf** (version 1.28.2) - PDF/A validation
-- **junit-jupiter** (version 6.0.0) - Unit testing
-- **cucumber** (version 7.30.0) - BDD testing
+- **junit-jupiter** (version 6.1.0) - Unit testing
+- **cucumber** (version 7.34.4) - BDD testing
 
 ### System Properties
 - `resources.home` - Base directory for configuration files and registered products JSON
-- `https.protocols` - Set to "TLSv1.2" in main() (ValidateLauncher.java:1832)
+- `https.protocols` - Set to "TLSv1.2" in main() (ValidateLauncher.java)
 
 ## Important Implementation Details
 
 ### Static State Management
 - **LabelUtil** maintains static list of Information Model versions across validation runs
-  - Call `hardResetInformationModelVersions()` before new validation (ValidateLauncher.java:1432)
-  - Call `reduceInformationModelVersions()` for pds4.label rule (ValidateLauncher.java:1514)
+  - Call `hardResetInformationModelVersions()` before new validation
+  - Call `reduceInformationModelVersions()` for pds4.label rule
 - **ReferentialIntegrityUtil** maintains static state for referential checks
-  - Call `setContextReferenceCheckFlag()` before validation (ValidateLauncher.java:1436)
-  - Call `reset()` after validation to clean up (ValidateLauncher.java:1599)
-- **FlagsUtil** stores global flags that must be initialized via `initialize()` (ValidateLauncher.java:331)
+  - Call `setContextReferenceCheckFlag()` before validation
+  - Call `reset()` after validation to clean up
+- **FlagsUtil** stores global flags that must be initialized via `initialize()`
 
 ### Error Handling
 - Maximum errors configurable via `--max-errors` (default: 100,000)
 - Tool exits with code 1 if max errors exceeded
-- ValidationMonitor coalesces exceptions by location before reporting (ValidateLauncher.java:1852)
+- ValidationMonitor coalesces exceptions by location before reporting
 
 ### File Crawling
-- Default label extension: `.xml` (configurable via `--extension` flag)
+- Default label extension: `.xml` (configurable via `-e`/`--label-extension` flag)
 - Directory recursion enabled by default (disable with `--local` flag)
 - File filtering via regular expressions
 - Crawler implementations: FileCrawler, URLCrawler (src/main/java/gov/nasa/pds/validate/crawler/)
