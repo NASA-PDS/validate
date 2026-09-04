@@ -1,13 +1,16 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-08-22)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-04)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
 
 **Defects:**
 
+- CLAUDE.md contains hallucinated CLI flags and stale dependency/line-number references [\#1674](https://github.com/NASA-PDS/validate/issues/1674)
+- PDF/A validation reports internal\_error instead of not\_pdfa\_compliant after veraPDF upgrade to 1.30.x [\#1662](https://github.com/NASA-PDS/validate/issues/1662) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate -u fails: `ERROR [error.connection.registry] Error connecting to Registry` [\#1657](https://github.com/NASA-PDS/validate/issues/1657) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - Throws an error processing M4A/AAC files [\#1635](https://github.com/NASA-PDS/validate/issues/1635) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Context reference check is not collapsing whitespace [\#1265](https://github.com/NASA-PDS/validate/issues/1265) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
