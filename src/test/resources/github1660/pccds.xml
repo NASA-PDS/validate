@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schemtatypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+    
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:compil-comet:phys_char:head_diameters_and_tail_lengths</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Physical Charecteristics of Comets - Head Diameters and Tail Lengths</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+		
+		<Citation_Information>
+			<publication_year>2019</publication_year>
+			<description>This file lists the head diameters and tail lengths (columns D1 and       
+					S) from the tabels of observations collected by S. K. Vsekhsvyatskii      
+					and published as a series of articles during the period 1963-1975.        
+					Also included are tail type indications where those were supplied in      
+					the (later) original source tables.  Only those table entries which       
+					contained head diameter or tail length data are represented here.</description>
+		</Citation_Information>
+        
+        <Modification_History>
+            <Modification_Detail>
+                <modification_date>2015-08-25</modification_date>
+                <version_id>1.0</version_id>
+                <description>Migration from PDS3</description>
+            </Modification_Detail>
+        </Modification_History>
+    </Identification_Area>
+    
+    <Observation_Area>
+        
+        <comment>The earliest observation recorded in this data file is from UTC year -466.</comment>
+        <Time_Coordinates>
+            <start_date_time>0000Z</start_date_time>
+            <stop_date_time>1975Z</stop_date_time>
+        </Time_Coordinates>
+        
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+            <description>Head Diameters and Tail Lengths</description>
+            <Science_Facets>
+                
+                <discipline_name>Small Bodies</discipline_name>
+                <facet1>Physical Properties</facet1>
+                
+            </Science_Facets>
+        </Primary_Result_Summary>
+        
+        <Investigation_Area>
+            <name>None</name>
+            <type>Other Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Literature Search</name>
+                <type>Literature Search</type>
+            </Observing_System_Component>
+        </Observing_System>
+
+        <Target_Identification>
+            <name>Multiple Comets</name>
+            <type>Comet</type>
+        </Target_Identification>
+    </Observation_Area>
+    
+    <Reference_List>
+        <Internal_Reference>
+            <lid_reference>urn:nasa:pds:compil-comet:phys_char:references</lid_reference>
+            <reference_type>data_to_associate</reference_type>
+            <comment>
+                This data product contains a numbered list of the references cited by
+                code in the data table, and also provides some additional notes on 
+                each reference.
+            </comment>
+        </Internal_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii, 1963. 'Absolute Magnitudes of      
+                1954-1960 Comets', Soviet Astronomy - AJ [in English], Vol. 6, 849-53.</reference_text>
+        </External_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii, 1964. 'Physical Characteristics    
+                of Comets', trans. Israel Program for Scientific Translations,            
+                NASA TT F-80 / OTS 62-11031.</reference_text>
+            <description>Some of the product data come from this reference.</description>
+        </External_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii, 1967. 'Physical Characteristics    
+                of Comets Observed During 1961-1965', Soviet Astronomy - AJ [in           
+                English], Vol. 10, 1034-41.</reference_text>
+            <description>Some of the product data come from this reference.</description>
+        </External_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii and Il'ichishina, N.I., 1971.       
+                'Absolute Magnitudes of Comets, 1965-1969', Soviet Astronomy - AJ         
+                [in English], Vol 15, 310-13.</reference_text>
+        </External_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii and Il'chishina, N.I., 1974.        
+                'Fizicheskie Kharakteristiki Komet, 1965-1970gg' [in Russian]             
+                (Moskva: Izdatel'stva Nauka).</reference_text>
+            <description>Some of the product data come from this reference.</description>
+        </External_Reference>
+        
+        <External_Reference>
+            <reference_text>S.K. Vsekhsvyatskii, 1979. 'Fizicheskie Kharakteristiki 
+                Komet 1971-1975gg' [in Russian] (Kiev: Kaukova Dumka).</reference_text>
+            <description>Some of the product data come from this reference.</description>
+        </External_Reference>
+    </Reference_List>
+    
+    <File_Area_Observational>
+        <File>
+            <file_name>pccds.tab</file_name>
+			<file_size unit="byte">21692</file_size>
+			<records>187</records>
+        </File>
+        
+        <Table_Character>
+            
+            <offset unit="byte">0</offset>
+            <records>187</records>
+            <description> This file lists the head diameters and tail lengths (columns D1 and       
+                S) from the tabels of observations collected by S. K. Vsekhsvyatskii      
+                and published as a series of articles during the period 1963-1975.        
+                Also included are tail type indications where those were supplied in      
+                the (later) original source tables.  Only those table entries which       
+                contained head diameter or tail length data are represented here.         
+                </description>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            
+            <Record_Character>
+                <fields>12</fields>
+                <groups>0</groups>
+                <record_length unit="byte">116</record_length>
+                
+                <Field_Character>
+                    <name>Periodic Number</name>
+                    <field_number>1</field_number>
+                    <field_location unit="byte">1</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">3</field_length>
+                    <field_format>%3s</field_format>
+                   
+                    <description>Periodic comet number, or blank if this is either        
+                        not a short-period comet or had not yet been numbered.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Comet Type</name>
+                    <field_number>2</field_number>
+                    <field_location unit="byte">4</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%-1s</field_format>
+                    
+                    <description>
+                        Single-character code identifying the type of comet:     
+                         C = long-period or unrecovered                                    
+                         D = deceased or defunct                                           
+                         P = short-period                                                  
+                        This field is separated from the following designation field by a       
+                        slash (/).</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>IAU Designation</name>
+                    <field_number>3</field_number>
+                    <field_location unit="byte">6</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <field_format>%-9s</field_format>
+                   
+                    <description>IAU Comet Designation:  Discovery year followed by a bimonthly          
+                        designation and, in cases of a visually compound object, a component    
+                        designation of the form '-A', '-B', etc.  This designation has been     
+                        assigned retrospectively to all comet apparitions recognized by the     
+                        Minor Planet Center.</description>
+                    <Special_Constants>
+                        <not_applicable_constant>---</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Perihelion Number</name>
+                    <field_number>4</field_number>
+                    <field_location unit="byte">16</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">9</field_length>
+                    <field_format>%-9s</field_format>
+                    
+                    <description>Old IAU Comet Perihelion Number:  Perihelion year followed              
+                        by a roman numeral indicating the chronological order of                
+                        perihelion passage within the year.  When only one comet passed         
+                        perihelion in a given year the numeral 'I' is omitted.
+                    </description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Provisional Number </name>
+                    <field_number>5</field_number>
+                    <field_location unit="byte">26</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <field_format>%-5s</field_format>
+                    
+                    <description>Old IAU Comet Provisional Number:  Discovery year followed              
+                        by a letter indicating the order of discovery. This designation         
+                        is not applied to comets observed prior to 1869.</description>
+                    <Special_Constants>
+                        <not_applicable_constant>---</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Comet Name</name>
+                    <field_number>6</field_number>
+                    <field_location unit="byte">32</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">28</field_length>
+                    <field_format>%-28s</field_format>
+                   
+                    <description>Name of the comet. Comets are named by the surnames      
+                        of up to three co-discoverers.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Reference Code</name>
+                    <field_number>7</field_number>
+                    <field_location unit="byte">62</field_location>
+                    <data_type>ASCII_Integer</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%1d</field_format>
+                    
+                    <description>Code number indicating the reference from which the      
+                        record data were taken.  References are numbered chronologically; the     
+                        codes in the file range from 2 to 6, with no data having been included  
+                        from reference 1, which did not provide head diameter and tail length   
+                        measurements, or reference 4, which was completely superceded by the     
+                        data in reference 5.  For more information and full citations, see      
+                        the accompanying reference code list file.</description>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Head Diameter</name>
+                    <field_number>8</field_number>
+                    <field_location unit="byte">65</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">5</field_length>
+                    <field_format>%5.2f</field_format>
+                    <unit>arcminute</unit>
+                    
+                    <description>Reduced value for the maximum observed head diameter  
+                        in minutes of arc, where provided.  To convert to kilometers,           
+                        multiply by 44,000.                                                     
+                        
+                        The number of digits in each value corresponds to the significant       
+                        digits provided in the original reference.</description>
+                    <Special_Constants>
+                        <missing_constant>-9.99</missing_constant>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>30.0</maximum>
+                        <minimum>0.1</minimum>
+                    </Field_Statistics>
+                    
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Head Diameter Variation</name>
+                    <field_number>9</field_number>
+                    <field_location unit="byte">71</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">4</field_length>
+                    <field_format>%4.1f</field_format>
+                    <unit>arcminute</unit>
+                                      
+                    <description>Occasionally the head diameter was cited as a range.  
+                        In those cases, this value is the second end point of the given         
+                        range; otherwise it contains a filler value.</description>
+                    <Special_Constants>
+                        <missing_constant>-9.9</missing_constant>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>43.0</maximum>
+                        <minimum>0.3</minimum>
+                    </Field_Statistics>
+                    
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Tail Length</name>
+                    <field_number>10</field_number>
+                    <field_location unit="byte">76</field_location>
+                    <data_type>ASCII_Real</data_type>
+                    <field_length unit="byte">7</field_length>
+                    <field_format>%7.5f</field_format>
+                    <unit>AU</unit>
+                    
+                    <description>Reduced length of the tail in AU, corresponding to    
+                        the maximum observed angular length, if provided; otherwise this        
+                        column contains a filler value.                                         
+                        
+                        The number of significant digits in each value here corresponds to      
+                        the number of significant digits provided in the cited publication.</description>
+                    <Special_Constants>
+                        <missing_constant>-.99999</missing_constant>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>1.39</maximum>
+                        <minimum>0.00001</minimum>
+                    </Field_Statistics>
+                    
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Tail Type</name>
+                    <field_number>11</field_number>
+                    <field_location unit="byte">84</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">1</field_length>
+                    <field_format>%-1s</field_format>
+                    
+                    
+                    <description>Code letter indicating the type of tail. These codes were provided      
+                        only in the second reference as unexplained parenthetical remarks       
+                        to the tail length.  The original notation used Roman numerals,         
+                        which have been translated to Arabic numbers here.                      
+                        
+                        Most likely the Roman numerals correspond to a tail structure           
+                        classification scheme developed by Bredikhin and described in           
+                        the first reference (Vsekhsvyatskii 1964):         
+                        
+                        Code  Tail Type   Bredikhin description                                 
+                        ----  ---------   -------------------------------------------------     
+                          A   anti-tail   anamolous, sunward tail                               
+                          1   ion tail    straight, scarcely deviating from the extended        
+                                          radius-vector; they are strung out by a repulsive     
+                                          force about 20 times greater than the solar           
+                                          gravitational attraction                              
+                          2   dust tail   broad and curving; the rpulsive force comes           
+                                          out about even with gravitational attraction          
+                          3   dust tail   usually small, faint, formed by particles             
+                                          repelled by a force about 01.-0.3 of                  
+                                          gravitational attraction.
+                    </description>
+                    <Special_Constants>
+                        <missing_constant>-</missing_constant>
+                    </Special_Constants>
+                </Field_Character>
+                
+                <Field_Character>
+                    <name>Comments</name>
+                    <field_number>12</field_number>
+                    <field_location unit="byte">87</field_location>
+                    <data_type>ASCII_String</data_type>
+                    <field_length unit="byte">28</field_length>
+                    <field_format>%-28s</field_format>
+                    
+                    <description>Some of the records in the published tables contained
+                        qualifying notes or additional explanatory remarks. Also, there were    
+                        format irregularities in the printed versions which could not easily    
+                        be maintained in this archival dataset.  This note field documents      
+                        these additional details.</description>
+                    <Special_Constants>
+                        <not_applicable_constant>---</not_applicable_constant>
+                    </Special_Constants>
+                </Field_Character>
+                          
+              </Record_Character>
+        </Table_Character>
+    </File_Area_Observational>
+</Product_Observational>
