@@ -207,10 +207,10 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
         for (int n = 0; n < nodesOfParent.getLength(); n++) {
           Node parantN = nodesOfParent.item(n);
           if (parantN.getNodeName().equals("name")) {
-            names.add(parantN.getTextContent());
+            names.add(collapseWhitespace(parantN.getTextContent()));
           }
           if (parantN.getNodeName().equals("type")) {
-            types.add(parantN.getTextContent());
+            types.add(collapseWhitespace(parantN.getTextContent()));
           }
         }
         // check LIDVID and name and type
@@ -275,9 +275,13 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                   rgp = rgProds.get(rgProds.indexOf(lidvidObj));
                   rgpNames = rgp.getNames();
                   rgpTypes = rgp.getTypes();
+                  List<String> normalizedRgpNames = rgpNames.stream()
+                      .map(this::collapseWhitespace).toList();
+                  List<String> normalizedRgpTypes = rgpTypes.stream()
+                      .map(this::collapseWhitespace).toList();
                   // check the name
                   for (String name : names) {
-                    if (!rgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
+                    if (!normalizedRgpNames.stream().anyMatch(name::equalsIgnoreCase)) {
                       getListener().addProblem(new ValidationProblem(
                           new ProblemDefinition(this.getContext().getContextMismatchAsWarn() ? ExceptionType.WARNING : ExceptionType.INFO,
                               this.getContext().getContextMismatchAsWarn() ? ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_WARN : ProblemType.CONTEXT_REFERENCE_FOUND_MISMATCH_INFO,
@@ -288,7 +292,7 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
                   }
                   // check the type
                   for (String type : types) {
-                    if (!rgpTypes.stream().anyMatch(type::equalsIgnoreCase) &&
+                    if (!normalizedRgpTypes.stream().anyMatch(type::equalsIgnoreCase) &&
                         !topNode.getLocalName().equals("Observing_System_Component")) {
                       // TODO: For now, we are punting on Observing_System_Component
                       getListener().addProblem(new ValidationProblem(
@@ -318,6 +322,13 @@ public class ContextProductReferenceValidationRule extends AbstractValidationRul
           types, names);
     }
     return new ContextProductReference(identifier.split("::")[0], null, types, names);
+  }
+
+  private String collapseWhitespace(String value) {
+    if (value == null) {
+      return "";
+    }
+    return value.trim().replaceAll("\\s+", " ");
   }
 
 }

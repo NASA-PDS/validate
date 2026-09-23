@@ -2,56 +2,6 @@
      "Product_Context": [
           {
                "name": [
-                    "NASA/Keck Reflectance Experiment Laboratory (RELAB), Brown University, Providence, Rhode Island, United States",
-                    "NASA/Keck Reflectance Experiment Laboratory (RELAB)"
-               ],
-               "type": [
-                    "Laboratory"
-               ],
-               "lidvid": "urn:nasa:pds:context:facility:laboratory.relab::1.0"
-          },
-          {
-               "name": [
-                    "Nicolet 740 Biconical FTIR Spectrometer at RELAB",
-                    "RELAB Nicolet 740 FTIR with Spectra-Tech Biconical Diffuse Reflectance Accessory"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:relab.bc-ftir1::1.0"
-          },
-          {
-               "name": [
-                    "Thermo Nexus 870 Biconical Off-Axis FTIR Spectrometer at RELAB",
-                    "RELAB Thermo Nexus 870 FTIR with Pike AutoDiff Diffuse Reflectance Accessory"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:relab.bcf-ftir2::1.0"
-          },
-          {
-               "name": [
-                    "Bi-directional Visible and Near Infrared Spectrometer at RELAB",
-                    "RELAB Bidirectional Spectrometer"
-               ],
-               "type": [
-                    "Spectrometer"
-               ],
-               "lidvid": "urn:nasa:pds:context:instrument:relab.bd-vnir::1.0"
-          },
-          {
-               "name": [
-                    "RELAB Reflectance Spectra Measurements",
-                    "RELAB Spectral Library"
-               ],
-               "type": [
-                    "Other Investigation"
-               ],
-               "lidvid": "urn:nasa:pds:context:investigation:other_investigation.relab_speclib::1.0"
-          },
-          {
-               "name": [
                     "Mars Atmosphere and Volatile Evolution (MAVEN)",
                     "Mars Atmosphere and Volatile EvolutioN"
                ],
@@ -563,16 +513,6 @@
           },
           {
                "name": [
-                    "RIME",
-                    "Radar for Icy Moons Exploration"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.rime::1.0"
-          },
-          {
-               "name": [
                     "MPO-MAG",
                     "MPOMAG: Magnetometer for BepiColombo MPO"
                ],
@@ -715,46 +655,6 @@
           },
           {
                "name": [
-                    "3GM",
-                    "Gravity and Geophysics of Jupiter and Galilean Moons"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.3gm::1.0"
-          },
-          {
-               "name": [
-                    "High-Accurary Accelerometer",
-                    "HAA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.haa::1.0"
-          },
-          {
-               "name": [
-                    "JMC",
-                    "Jupiter Monitoring Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.jmc::1.0"
-          },
-          {
-               "name": [
-                    "MAJIS",
-                    "Moons and Jupiter Imaging Spectrometer"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.majis::1.0"
-          },
-          {
-               "name": [
                     "Particle Environment Package",
                     "PEP"
                ],
@@ -765,16 +665,6 @@
           },
           {
                "name": [
-                    "PRIDE",
-                    "Planetary Radio Interferometer and Doppler Experiment"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.pride::1.0"
-          },
-          {
-               "name": [
                     "Radiation Monitor",
                     "RADEM"
                ],
@@ -782,76 +672,6 @@
                     "N/A"
                ],
                "lidvid": "urn:esa:psa:context:instrument:juice.radem::1.0"
-          },
-          {
-               "name": [
-                    "SWI",
-                    "Sub-millimeter Wave Instrument"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.swi::1.0"
-          },
-          {
-               "name": [
-                    "UVS",
-                    "UV imaging Spectrograph"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.uvs::1.0"
-          },
-          {
-               "name": [
-                    "GAnymede Laser Altimeter",
-                    "GALA"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.gala::1.0"
-          },
-          {
-               "name": [
-                    "Camera System (Jupiter Amorum ac Natorum Undique Scrutator)",
-                    "JANUS"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.janus::1.0"
-          },
-          {
-               "name": [
-                    "JMAG",
-                    "Magnetometer for JUICE"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.jmag::1.0"
-          },
-          {
-               "name": [
-                    "NAVCAM",
-                    "Navigation Camera"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.navcam::1.0"
-          },
-          {
-               "name": [
-                    "RPWI",
-                    "Radio and Plasma Wave Investigation"
-               ],
-               "type": [
-                    "N/A"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument:juice.rpwi::1.0"
           },
           {
                "name": [
@@ -1036,16 +856,6 @@
           },
           {
                "name": [
-                    "JUpiter ICy moons Explorer",
-                    "JUICE"
-               ],
-               "type": [
-                    "Spacecraft"
-               ],
-               "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.juice::1.0"
-          },
-          {
-               "name": [
                     "BepiColombo Mercury Magnetospheric Orbiter",
                     "Mercury Magnetospheric Orbiter"
                ],
@@ -1093,17 +903,6 @@
                     "Spacecraft"
                ],
                "lidvid": "urn:esa:psa:context:instrument_host:spacecraft.tgo::1.5"
-          },
-          {
-               "name": [
-                    "bc",
-                    "bepicolombo",
-                    "JUICE"
-               ],
-               "type": [
-                    "Mission"
-               ],
-               "lidvid": "urn:esa:psa:context:investigation:mission.juice::1.0"
           },
           {
                "name": [
@@ -14293,50 +14092,50 @@
           {
                "name": [
                     "PLX 5492",
-                    "TD1 29271",
-                    "Gaia DR3 2717594072113956352",
-                    "N30 4992",
-                    "CCDM J22415+1050A",
-                    "WISE J224127.76+104952.7",
-                    "IDS 22365+1019 A",
-                    "PPM 141743",
-                    "uvby98 100214923",
-                    "GCRV 14247",
-                    "PMC 90-93 602",
-                    "HD 214923",
-                    "Zeta Peg",
-                    "SKY# 43140",
-                    "FK5 855",
-                    "AG+10 3107",
-                    "GC 31664",
-                    "GEN# +1.00214923",
-                    "JP11 3523",
-                    "UBV M 26553",
-                    "WEB 19999",
-                    "UCAC3 202-315734",
-                    "UBV 19416",
-                    "BD+10 4797",
-                    "HR 8634",
                     "TYC 1155-2187-1",
                     "Gaia DR2 2717594072113581696",
                     "CSI+10 4797 1",
                     "YZ 10 9059",
                     "SAO 108103",
+                    "TD1 29271",
+                    "Gaia DR3 2717594072113956352",
                     "42 Pegasi",
                     "TIC 322187270",
                     "HIP 112029",
+                    "N30 4992",
+                    "CCDM J22415+1050A",
                     "WDS J22415+1050A",
+                    "WISE J224127.76+104952.7",
                     "Zeta Pegasi",
                     "GSC 01155-02187",
+                    "IDS 22365+1019 A",
+                    "PPM 141743",
+                    "uvby98 100214923",
+                    "GCRV 14247",
+                    "PMC 90-93 602",
                     "AKARI-IRC-V1 J2241277+104952",
+                    "HD 214923",
                     "ADS 16182 A",
                     "42 Peg",
+                    "Zeta Peg",
+                    "SKY# 43140",
                     "PLX 5492.00",
+                    "FK5 855",
+                    "AG+10 3107",
+                    "GC 31664",
                     "HIC 112029",
                     "IRAS 22389+1034",
                     "ROT 3307",
+                    "GEN# +1.00214923",
+                    "JP11 3523",
+                    "UBV M 26553",
+                    "WEB 19999",
+                    "UCAC3 202-315734",
                     "Homam",
                     "SRS 30855",
+                    "UBV 19416",
+                    "BD+10 4797",
+                    "HR 8634",
                     "zet Peg",
                     "2MASS J22412773+1049526"
                ],
@@ -15091,49 +14890,49 @@
           },
           {
                "name": [
-                    "SAO 136871",
-                    "BD-08 2680",
-                    "GC 13044",
-                    "CCDM J09277-0841A",
-                    "Alpha Hya",
-                    "RAFGL 1353",
-                    "GCRV 6136",
-                    "HD 81797",
-                    "GEN# +1.00081797",
-                    "N30 2249",
-                    "JP11 1813",
-                    "2MASS J09273524-0839308",
-                    "SKY# 18272",
-                    "HIP 46390",
-                    "TYC 5460-1592-1",
-                    "SACS 209",
-                    "30 Hya",
-                    "CSI-08 2680 1",
-                    "HR 3748",
-                    "PLX 2247",
                     "SV* P 621",
                     "UBV M 15411",
+                    "SAO 136871",
                     "PPM 192393",
                     "HIC 46390",
                     "SV* SVS 75",
                     "GSC 05460-01592",
+                    "BD-08 2680",
                     "CSV 101049",
+                    "GC 13044",
                     "30 Hydrae",
+                    "CCDM J09277-0841A",
                     "UBV 9023",
                     "IRC -10217",
                     "Alpha Hydrae",
                     "Kalbelaphard",
                     "WDS J09276-0840A",
+                    "Alpha Hya",
+                    "RAFGL 1353",
+                    "GCRV 6136",
+                    "HD 81797",
                     "ROT 1471",
+                    "GEN# +1.00081797",
+                    "N30 2249",
                     "TD1 13937",
                     "YZ 98 3683",
                     "Gaia DR2 5741512800984781824",
                     "Alphard",
                     "FK5 354",
+                    "JP11 1813",
+                    "2MASS J09273524-0839308",
+                    "SKY# 18272",
+                    "HIP 46390",
                     "NSV 4496",
+                    "TYC 5460-1592-1",
+                    "SACS 209",
+                    "30 Hya",
                     "PLX 2247.00",
+                    "CSI-08 2680 1",
+                    "HR 3748",
                     "Cor Hydrae",
                     "IDS 09227-0814 A",
+                    "PLX 2247",
                     "WEB 8768",
                     "IRAS 09251-0826",
                     "alf Hya",
@@ -15794,14 +15593,14 @@
                     "GSC 06194-00413",
                     "TYC 6194-413-1",
                     "HIC 77434",
-                    "HIP 77434",
-                    "BD-19 4222",
-                    "CPD-19 5906",
-                    "Gaia DR2 6247914046758804992",
                     "2MASS J15482554-1946265",
                     "PPM 717852",
                     "U13",
-                    "Uranus 013"
+                    "HIP 77434",
+                    "BD-19 4222",
+                    "Uranus 013",
+                    "CPD-19 5906",
+                    "Gaia DR2 6247914046758804992"
                ],
                "type": [
                     "Star"
@@ -15837,12 +15636,12 @@
                     "HIC 80841",
                     "HIP 80841",
                     "GSC 06215-00892",
-                    "2MASS J16303128-2144310",
-                    "TYC 6215-892-1",
                     "Gaia DR2 6052288315170764928",
                     "BD-21 4376",
+                    "2MASS J16303128-2144310",
                     "Uranus 017",
                     "U17",
+                    "TYC 6215-892-1",
                     "CPD-21 6180"
                ],
                "type": [
@@ -17856,52 +17655,52 @@
           },
           {
                "name": [
+                    "ALS 15808",
                     "GSC 07401-03471",
+                    "20 Sagittarii",
                     "UCAC4 279-185534",
                     "WISE J182410.41-342310.0",
+                    "Epsilon Sagittarii",
+                    "FK5 689",
                     "CPC 17 9906",
+                    "CSI-34 12784 21",
+                    "WEB 15421",
                     "SAO 210091",
                     "UBV M 22887",
                     "20 Sgr",
+                    "GCRV 10865",
                     "SRS 30689",
+                    "UBV 15626",
+                    "eps Sgr",
+                    "PPM 297655",
                     "GC 25100",
                     "1RXS J182410.8-342259",
+                    "HD 169022",
                     "TYC 7401-3471-1",
+                    "SKY# 33590",
                     "Epsilon Sgr",
                     "GOL 2A",
+                    "JP11 2965",
+                    "HR 6879",
+                    "N30 4084",
                     "Kaus Australis",
                     "HIC 90185",
                     "IDS 18175-3427 A",
                     "PLX 4222.00",
                     "WDS J18242-3423A",
-                    "GEN# +1.00169022",
-                    "2E 1820.8-3424",
-                    "HIP 90185",
-                    "CCDM J18242-3423A",
-                    "IRAS 18208-3424",
-                    "PLX 4222",
-                    "ALS 15808",
-                    "20 Sagittarii",
-                    "Epsilon Sagittarii",
-                    "FK5 689",
-                    "CSI-34 12784 21",
-                    "WEB 15421",
-                    "GCRV 10865",
-                    "UBV 15626",
-                    "eps Sgr",
-                    "PPM 297655",
-                    "HD 169022",
-                    "SKY# 33590",
-                    "JP11 2965",
-                    "HR 6879",
-                    "N30 4084",
                     "2E 4062",
+                    "GEN# +1.00169022",
                     "2MASS J18241032-3423046",
                     "CD-34 12784",
                     "SEE 351A",
+                    "2E 1820.8-3424",
                     "uvby98 100169022",
+                    "HIP 90185",
                     "PMC 90-93 491",
+                    "CCDM J18242-3423A",
                     "EUVE J1824-34.3",
+                    "IRAS 18208-3424",
+                    "PLX 4222",
                     "TIC 66389641"
                ],
                "type": [
@@ -28290,8 +28089,8 @@
           },
           {
                "name": [
-                    "Mariner 67",
                     "Venus 67",
+                    "Mariner 67",
                     "Mariner 5",
                     "Mariner V",
                     "Mariner5",
@@ -32852,15 +32651,15 @@
           {
                "name": [
                     "Entry, Descent, and Landing Camera Suite (EDL)",
+                    "Mars 2020 Entry Descent Landing Imager",
+                    "Parachute Uplook Camera B",
+                    "Parachute Uplook Camera C",
                     "Mars 2020 Entry, Descent, and Landing Camera Suite (EDL)",
+                    "Parachute Uplook Camera A",
                     "Rover Uplook Camera",
                     "Mars 2020 Perseverance Rover Entry, Descent, and Landing Camera Suite",
                     "EDL",
                     "Descent Stage Downlook Camera",
-                    "Mars 2020 Entry Descent Landing Imager",
-                    "Parachute Uplook Camera B",
-                    "Parachute Uplook Camera C",
-                    "Parachute Uplook Camera A",
                     "Rover Downlook Camera"
                ],
                "type": [
