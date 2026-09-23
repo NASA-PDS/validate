@@ -1,6 +1,7 @@
 package gov.nasa.pds.tools.validate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.net.MalformedURLException;
@@ -73,5 +74,18 @@ class ValidationTargetTest {
     }
 
     assertEquals(threadCount, results.size());
+  }
+
+  @Test
+  void buildWithDifferentSourceProducesDifferentInstances() throws MalformedURLException {
+    URL target = new URL(TARGET);
+    URL labelA = new URL("file:///data/test/label_a.xml");
+    URL labelB = new URL("file:///data/test/label_b.xml");
+
+    ValidationTarget withLabelA = ValidationTarget.build(target, labelA);
+    ValidationTarget withLabelB = ValidationTarget.build(target, labelB);
+
+    assertNotSame(withLabelA, withLabelB,
+        "Same target URL with different source labels should produce distinct cached instances");
   }
 }

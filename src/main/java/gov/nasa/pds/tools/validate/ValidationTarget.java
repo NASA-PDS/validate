@@ -29,7 +29,7 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   // a file or a URL.
 
   private static final ConcurrentHashMap<String, ValidationTarget> cachedTargets =
-		    new ConcurrentHashMap<>();
+      new ConcurrentHashMap<>();
   private TargetType type;
   private String name;
   private String location;
@@ -40,12 +40,11 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   private int knownHashCode;
 
   private static ValidationTarget build(URL target, URL source, TargetType type) {
-	String key = target == null ? "" : target.toString();
-	  return cachedTargets.computeIfAbsent(
-	     key,
-	     k -> new ValidationTarget(target, source, type)
-	  );
-	}
+    String key = (target == null ? "" : target.toString())
+        + "|" + (source == null ? "" : source.toString())
+        + "|" + (type == null ? "" : type.name());
+    return cachedTargets.computeIfAbsent(key, k -> new ValidationTarget(target, source, type));
+  }
   public static ValidationTarget build (URL target) {return build (target, null, null);}
   public static ValidationTarget build (URL target, URL label) {return build (target, label, null);}
   public static ValidationTarget build (String targetLocation, TargetType type) throws MalformedURLException
