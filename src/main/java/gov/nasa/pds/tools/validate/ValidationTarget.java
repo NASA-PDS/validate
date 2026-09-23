@@ -15,7 +15,7 @@ package gov.nasa.pds.tools.validate;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.io.FilenameUtils;
 import gov.nasa.pds.tools.util.Utility;
 
@@ -27,8 +27,9 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   // There is no need to re-evaluate and/or create these
   // as validation proceeds, as they are static things like
   // a file or a URL.
-  public static HashMap<String, ValidationTarget> cachedTargets = new HashMap<>();
 
+  private static final ConcurrentHashMap<String, ValidationTarget> cachedTargets =
+		    new ConcurrentHashMap<>();
   private TargetType type;
   private String name;
   private String location;
@@ -38,13 +39,13 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
 
   private int knownHashCode;
 
-  private static ValidationTarget build (URL target, URL source, TargetType type) {
-    String key = target == null ? "" : target.toString();
-    if (!cachedTargets.containsKey(key)) {
-      cachedTargets.put (key,new ValidationTarget(target, source, type));
-    }
-    return cachedTargets.get(key);
-  }
+  private static ValidationTarget build(URL target, URL source, TargetType type) {
+	String key = target == null ? "" : target.toString();
+	  return cachedTargets.computeIfAbsent(
+	     key,
+	     k -> new ValidationTarget(target, source, type)
+	  );
+	}
   public static ValidationTarget build (URL target) {return build (target, null, null);}
   public static ValidationTarget build (URL target, URL label) {return build (target, label, null);}
   public static ValidationTarget build (String targetLocation, TargetType type) throws MalformedURLException
