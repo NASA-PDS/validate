@@ -1,7 +1,7 @@
 package gov.nasa.pds.tools.validate;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,7 @@ class ValidationTargetTest {
     assertSame(first, second,
         "Building the same URL should return the cached ValidationTarget");
   }
+
   @Test
   void buildIsThreadSafeForSameUrl() throws Exception {
     URL url = new URL(TARGET);
@@ -44,7 +46,7 @@ class ValidationTargetTest {
     List<ValidationTarget> results = new ArrayList<>();
 
     try {
-      List<java.util.concurrent.Future<ValidationTarget>> futures = new ArrayList<>();
+      List<Future<ValidationTarget>> futures = new ArrayList<>();
 
       for (int i = 0; i < threadCount; i++) {
         futures.add(executor.submit(() -> {
@@ -55,7 +57,7 @@ class ValidationTargetTest {
 
       start.countDown();
 
-      for (java.util.concurrent.Future<ValidationTarget> future : futures) {
+      for (Future<ValidationTarget> future : futures) {
         results.add(future.get());
       }
     } finally {
