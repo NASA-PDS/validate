@@ -37,10 +37,6 @@ public class SpecialConstantChecker {
       matched |= equalsStripped(value, constants.getErrorConstant());
       matched |= equalsStripped(value, constants.getInvalidConstant());
       matched |= equalsStripped(value, constants.getMissingConstant());
-      //matched |= equalsStripped(value, constants.getHighInstrumentSaturation());
-      //matched |= equalsStripped(value, constants.getHighRepresentationSaturation());
-      //matched |= equalsStripped(value, constants.getLowInstrumentSaturation());
-      //matched |= equalsStripped(value, constants.getLowRepresentationSaturation());
       matched |= equalsStripped(value, constants.getNotApplicableConstant());
       matched |= equalsStripped(value, constants.getSaturatedConstant());
       matched |= equalsStripped(value, constants.getUnknownConstant());
