@@ -28,19 +28,18 @@ public class SpecialConstantChecker {
    * @param constants
    * @return
    */
+  private static boolean equalsStripped(String value, String constant) {
+    return constant != null && value.equals(constant.strip());
+  }
   public static boolean isNonConformantSpecialConstant(String value, SpecialConstants constants) {
     boolean matched = false;
     if (constants != null) {
-      matched |= value.equals(constants.getErrorConstant());
-      matched |= value.equals(constants.getInvalidConstant());
-      matched |= value.equals(constants.getMissingConstant());
-      //matched |= value.equals(constants.getHighInstrumentSaturation());
-      //matched |= value.equals(constants.getHighRepresentationSaturation());
-      //matched |= value.equals(constants.getLowInstrumentSaturation());
-      //matched |= value.equals(constants.getLowRepresentationSaturation());
-      matched |= value.equals(constants.getNotApplicableConstant());
-      matched |= value.equals(constants.getSaturatedConstant());
-      matched |= value.equals(constants.getUnknownConstant());
+      matched |= equalsStripped(value, constants.getErrorConstant());
+      matched |= equalsStripped(value, constants.getInvalidConstant());
+      matched |= equalsStripped(value, constants.getMissingConstant());
+      matched |= equalsStripped(value, constants.getNotApplicableConstant());
+      matched |= equalsStripped(value, constants.getSaturatedConstant());
+      matched |= equalsStripped(value, constants.getUnknownConstant());
     }
     return matched;
   }
@@ -164,6 +163,7 @@ public class SpecialConstantChecker {
   }
   public static boolean sameContent (Number number, String constant_repr, int radix) {
     if (constant_repr == null) return false;
+    constant_repr = constant_repr.strip();
     if (number.toString().equals(constant_repr)) {
       return true;
     }
