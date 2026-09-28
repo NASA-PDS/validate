@@ -88,4 +88,15 @@ class ValidationTargetTest {
     assertNotSame(withLabelA, withLabelB,
         "Same target URL with different source labels should produce distinct cached instances");
   }
+
+  @Test
+  void buildWithDifferentTypeProducesDifferentInstances() throws MalformedURLException {
+    URL target = new URL("file:///data/test/product");
+
+    ValidationTarget asFile = ValidationTarget.build("file:///data/test/product", TargetType.FILE);
+    ValidationTarget asDir = ValidationTarget.build("file:///data/test/product", TargetType.DIRECTORY);
+
+    assertNotSame(asFile, asDir,
+        "Same target URL with different types should produce distinct cached instances");
+  }
 }

@@ -28,7 +28,9 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   // as validation proceeds, as they are static things like
   // a file or a URL.
 
-  private static final ConcurrentHashMap<String, ValidationTarget> cachedTargets =
+  private record CacheKey(String target, String source, String type) {}
+
+  private static final ConcurrentHashMap<CacheKey, ValidationTarget> cachedTargets =
       new ConcurrentHashMap<>();
   private TargetType type;
   private String name;
@@ -40,9 +42,10 @@ public class ValidationTarget implements Comparable<ValidationTarget> {
   private int knownHashCode;
 
   private static ValidationTarget build(URL target, URL source, TargetType type) {
-    String key = (target == null ? "" : target.toString())
-        + "|" + (source == null ? "" : source.toString())
-        + "|" + (type == null ? "" : type.name());
+    CacheKey key = new CacheKey(
+        target == null ? null : target.toString(),
+        source == null ? null : source.toString(),
+        type == null ? null : type.name());
     return cachedTargets.computeIfAbsent(key, k -> new ValidationTarget(target, source, type));
   }
   public static ValidationTarget build (URL target) {return build (target, null, null);}
