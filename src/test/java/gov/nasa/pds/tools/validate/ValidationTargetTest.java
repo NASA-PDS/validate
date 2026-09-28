@@ -91,8 +91,6 @@ class ValidationTargetTest {
 
   @Test
   void buildWithDifferentTypeProducesDifferentInstances() throws MalformedURLException {
-    URL target = new URL("file:///data/test/product");
-
     ValidationTarget asFile = ValidationTarget.build("file:///data/test/product", TargetType.FILE);
     ValidationTarget asDir = ValidationTarget.build("file:///data/test/product", TargetType.DIRECTORY);
 
