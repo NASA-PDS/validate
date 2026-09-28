@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.sch" schemtatypens="http://purl.oclc.org/dsdl/schematron"?>
+
+<Product_Observational xmlns="http://pds.nasa.gov/pds4/pds/v1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pds.nasa.gov/pds4/pds/v1 http://pds.nasa.gov/pds4/pds/v1/PDS4_PDS_1B00.xsd">
+
+    <Identification_Area>
+        <logical_identifier>urn:nasa:pds:test:data:missing_constant_whitespace</logical_identifier>
+        <version_id>1.0</version_id>
+        <title>Test: missing_constant with leading whitespace should suppress min/max warnings</title>
+        <information_model_version>1.11.0.0</information_model_version>
+        <product_class>Product_Observational</product_class>
+    </Identification_Area>
+
+    <Observation_Area>
+        <Time_Coordinates>
+            <start_date_time>2020-01-01Z</start_date_time>
+            <stop_date_time>2020-12-31Z</stop_date_time>
+        </Time_Coordinates>
+        <Primary_Result_Summary>
+            <purpose>Science</purpose>
+            <processing_level>Derived</processing_level>
+        </Primary_Result_Summary>
+        <Investigation_Area>
+            <name>None</name>
+            <type>Other Investigation</type>
+            <Internal_Reference>
+                <lid_reference>urn:nasa:pds:context:investigation:individual.none</lid_reference>
+                <reference_type>data_to_investigation</reference_type>
+            </Internal_Reference>
+        </Investigation_Area>
+        <Observing_System>
+            <Observing_System_Component>
+                <name>Test Instrument</name>
+                <type>Instrument</type>
+            </Observing_System_Component>
+        </Observing_System>
+        <Target_Identification>
+            <name>Test Target</name>
+            <type>Comet</type>
+        </Target_Identification>
+    </Observation_Area>
+
+    <File_Area_Observational>
+        <File>
+            <file_name>test_missing_constant_whitespace.csv</file_name>
+            <records>3</records>
+        </File>
+        <Table_Delimited>
+            <name>Test Table</name>
+            <local_identifier>TABLE</local_identifier>
+            <offset unit="byte">0</offset>
+            <parsing_standard_id>PDS DSV 1</parsing_standard_id>
+            <records>3</records>
+            <record_delimiter>Carriage-Return Line-Feed</record_delimiter>
+            <field_delimiter>Comma</field_delimiter>
+            <Record_Delimited>
+                <fields>2</fields>
+                <groups>0</groups>
+                <Field_Delimited>
+                    <name>measurement</name>
+                    <field_number>1</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <Field_Statistics>
+                        <maximum>10000.0</maximum>
+                        <minimum>0.001</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+                <Field_Delimited>
+                    <name>quality_flag</name>
+                    <field_number>2</field_number>
+                    <data_type>ASCII_Real</data_type>
+                    <Special_Constants>
+                        <missing_constant>   -1.000</missing_constant>
+                    </Special_Constants>
+                    <Field_Statistics>
+                        <maximum>10000.000</maximum>
+                        <minimum>0.001</minimum>
+                    </Field_Statistics>
+                </Field_Delimited>
+            </Record_Delimited>
+        </Table_Delimited>
+    </File_Area_Observational>
+
+</Product_Observational>

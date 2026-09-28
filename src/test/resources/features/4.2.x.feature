@@ -20,4 +20,7 @@ Feature: 4.2.x
 # github1660: missing_constant must suppress min/max range errors in ASCII table fields
 | 1660 | 1 | "github1660" | "--skip-context-validation -t {datasrc}/pccds.xml" | "summary:productValidation:passed=1,summary:totalErrors=0,summary:totalWarnings=2,summary:messageTypes:warning.label.bad_schematypens=1,summary:messageTypes:warning.label.missing_schematron_spec=1" |
 
+# github1656: missing_constant with leading/trailing whitespace must suppress min/max range errors
+| 1656 | 1 | "github1656" | "--skip-context-validation -t {datasrc}/test_missing_constant_whitespace.xml" | "summary:productValidation:passed=1,summary:totalErrors=0,summary:totalWarnings=2,summary:messageTypes:warning.label.bad_schematypens=1,summary:messageTypes:warning.label.missing_schematron_spec=1" |
+
 #end
