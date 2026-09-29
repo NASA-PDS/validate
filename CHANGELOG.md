@@ -1,11 +1,12 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-28)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-29)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
 
 **Defects:**
 
+- ValidationTarget cache key ignores source and type parameters, causing incorrect cache hits [\#1684](https://github.com/NASA-PDS/validate/issues/1684) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - CLAUDE.md contains hallucinated CLI flags and stale dependency/line-number references [\#1674](https://github.com/NASA-PDS/validate/issues/1674)
 - PDF/A validation reports internal\_error instead of not\_pdfa\_compliant after veraPDF upgrade to 1.30.x [\#1662](https://github.com/NASA-PDS/validate/issues/1662) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - missing\_constant treated as if part of min/max in ascii table [\#1660](https://github.com/NASA-PDS/validate/issues/1660) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
