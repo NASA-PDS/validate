@@ -1,6 +1,6 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-29)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-30)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
 
@@ -13,6 +13,7 @@
 - validate -u fails: `ERROR [error.connection.registry] Error connecting to Registry` [\#1657](https://github.com/NASA-PDS/validate/issues/1657) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate WARNs if value is below valid\_minimum but equals missing\_constant [\#1656](https://github.com/NASA-PDS/validate/issues/1656) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Throws an error processing M4A/AAC files [\#1635](https://github.com/NASA-PDS/validate/issues/1635) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Unexpected context\_ref\_mismatch warnings [\#1632](https://github.com/NASA-PDS/validate/issues/1632) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Bug: ValidationTarget.cachedTargets is public static mutable HashMap with unsynchronized check-then-act [\#1621](https://github.com/NASA-PDS/validate/issues/1621) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Context reference check is not collapsing whitespace [\#1265](https://github.com/NASA-PDS/validate/issues/1265) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
