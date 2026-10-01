@@ -1617,6 +1617,9 @@ public class ValidateLauncher {
 
     if (this.report.getTotalProducts() == 0 && this.targets.size() > 0) {
 
+      // An ERROR was found, so the execution must not report success (issue #1687).
+      success = false;
+
       String message =
           "No Products found during Validate execution. Verify arguments, paths, and expected "
               + "label extension. See documentation for details.";
