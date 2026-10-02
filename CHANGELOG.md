@@ -1,8 +1,8 @@
 # Changelog
 
-## [release/5.0.0](https://github.com/NASA-PDS/validate/tree/release/5.0.0) (2026-10-01)
+## [v5.0.0](https://github.com/NASA-PDS/validate/tree/v5.0.0) (2026-10-02)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...release/5.0.0)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...v5.0.0)
 
 **Defects:**
 
