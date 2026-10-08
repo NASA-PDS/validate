@@ -4,6 +4,15 @@ on:
   issues:
     types: [opened, labeled, unlabeled]
 
+# Serialize all automation for a given issue. Selecting multiple labels in the UI fires
+# one `labeled` event per label, each starting its own run; without this, concurrent runs
+# race on the read-merge-write of org field values (see set_org_issue_field_values in
+# NASA-PDS/.github) and can silently clobber each other's changes. Queue, don't cancel:
+# every event still needs to be processed.
+concurrency:
+  group: issue-automation-${{ github.repository }}-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
 jobs:
   # When an issue is opened, add it to default project(s)
   add-new-issue-to-project:
