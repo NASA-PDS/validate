@@ -1,5 +1,13 @@
 # Changelog
 
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-10-09)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v5.0.0...«unknown»)
+
+**Defects:**
+
+- validate does not exit non-zero when a fatal internal error occurs during validation [\#1691](https://github.com/NASA-PDS/validate/issues/1691) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
 ## [v5.0.0](https://github.com/NASA-PDS/validate/tree/v5.0.0) (2026-10-02)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...v5.0.0)
