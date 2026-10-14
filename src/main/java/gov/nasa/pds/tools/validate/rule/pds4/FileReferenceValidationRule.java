@@ -71,6 +71,8 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   /**
    * XPath to the file references within a PDS4 data product label.
    */
+  private static final String DOCUMENT_STANDARD_ID_PDFA = "PDF/A";
+
   private final String FILE_AREA_OBJECTS_XPATH =
       "//*[starts-with(name(), 'File_Area')] | //Document_File";
   private final HashSet<String> OBS_DATA_TAGS = new HashSet<String>(Arrays.asList(
@@ -449,10 +451,10 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
               filename, doctype);
 
           // Note that we have to check for "PDF/A" and "PDF" as well.
-          if (doctype.equalsIgnoreCase("PDF/A") || doctype.equalsIgnoreCase("PDF")) {
+          if (doctype.equalsIgnoreCase(DOCUMENT_STANDARD_ID_PDFA) || doctype.equalsIgnoreCase("PDF")) {
             // Check for PDF file validity.
             try {
-              handlePDF(target, urlRef, fileObject, filename, parent, directory);
+              handlePDF(target, urlRef, fileObject, filename, parent, directory, doctype);
             } catch (Exception e) {
               ProblemDefinition def =
                   new ProblemDefinition(ExceptionType.ERROR, ProblemType.INTERNAL_ERROR,
@@ -742,7 +744,7 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
   }
 
   private void handlePDF(ValidationTarget target, URL fileRef, TinyNodeImpl fileObject,
-      String pdfName, URL parent, String directory) throws Exception {
+      String pdfName, URL parent, String directory, String doctype) throws Exception {
     LOG.debug("handlePDF:target,fileRef,pdfName {},{},{}", target, fileRef, pdfName);
     boolean pdfValidateFlag = false;
     if ((pdfName == null) || (fileObject == null)) {
@@ -770,7 +772,16 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
 
     // First, let's check the filename even makes sense
     DocumentsChecker check = new DocumentsChecker();
-    if (check.isMimeTypeCorrect(fileRef.toString(), "PDF/A")) {
+    if (check.isMimeTypeCorrect(fileRef.toString(), DOCUMENT_STANDARD_ID_PDFA)) {
+      // Only a Document_File that declares itself as "PDF/A" is required to meet the
+      // PDF/A archival conformance standard. A "PDF" edition (e.g. a non-archival,
+      // searchable PDF provided alongside a PDF/A edition of the same document) does
+      // not claim PDF/A conformance, so it should not be validated against it.
+      // See https://github.com/NASA-PDS/validate/issues/1698
+      if (!DOCUMENT_STANDARD_ID_PDFA.equalsIgnoreCase(doctype)) {
+        return;
+      }
+
       // The parent is also needed for validateFileStandardConformity function.
       pdfValidateFlag = this.pdfUtil.validateFileStandardConformity(this.getContext().getPDFErrorDir(), pdfName, new URL(parent, directory), fileRef);
 

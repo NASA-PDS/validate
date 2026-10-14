@@ -115,7 +115,8 @@ The tool validates context product references (instruments, telescopes, targets,
 ### Test Structure
 
 - **Cucumber BDD Tests** (src/test/resources/features/)
-  - Feature files define test scenarios: pre.3.6.x.feature, 3.6.x.feature, 3.7.x.feature, 4.0.x.feature, 4.1.x.feature, 4.2.x.feature
+  - Feature files define test scenarios: pre.3.6.x.feature, 3.6.x.feature, 3.7.x.feature, 4.0.x.feature, 4.1.x.feature, 4.2.x.feature, 5.1.x.feature
+  - **Naming convention**: each file is named after the version currently under development in pom.xml's `<version>` (the "-SNAPSHOT" version) at the time the file was created — NOT the last released version. E.g. 4.2.x.feature was created when pom.xml read `4.2.0-SNAPSHOT`. Check pom.xml's current `<version>` before adding a new feature file or scenario; if it doesn't match any existing file, create a new one rather than appending to a file named after an already-released version.
   - Test data located in src/test/resources/ organized by GitHub issue number (e.g., github123/)
   - Step definitions in src/test/java/cucumber/StepDefs.java
   - Main Cucumber runner: src/test/java/cucumber/CucumberTest.java
@@ -128,7 +129,7 @@ The tool validates context product references (instruments, telescopes, targets,
 Follow the procedure in src/site/markdown/developer/contribute.md:
 
 1. Create test data directory: `src/test/resources/github<issue-number>/`
-2. Add test scenario to appropriate feature file (e.g., src/test/resources/features/3.7.x.feature)
+2. Add test scenario to the feature file matching pom.xml's current `<version>` (see naming convention above), e.g., src/test/resources/features/5.1.x.feature
 3. Test scenario format:
    ```gherkin
    Scenario Outline: Execute Test <testName>
