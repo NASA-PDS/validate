@@ -15,8 +15,6 @@ package gov.nasa.pds.tools.util;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,10 +50,6 @@ public class HashSetReferenceInfo {
       return (true);
     }
     return (false);
-  }
-
-  public List<String> getReferences() {
-    return Collections.unmodifiableList(this.references);
   }
 
   public URL getParentLabelFilename() {
