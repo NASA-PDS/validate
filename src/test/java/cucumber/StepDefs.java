@@ -29,6 +29,7 @@ public class StepDefs {
   private Path datasrc;
   private Path datasink;
   private ValidateLauncher launcher = null;
+  private int exitCode = 0;
 
   /**
    * @throws java.lang.Exception
@@ -37,6 +38,7 @@ public class StepDefs {
     System.setProperty("resources.home", TestConstants.RESOURCES_DIR);
     this.makeSink();
     this.launcher = new ValidateLauncher();
+    this.exitCode = 0;
     this.datasink.resolve("cucumber.success").toFile().delete();
     this.datasink.resolve("cucumber.failed").toFile().createNewFile();
   }
@@ -125,7 +127,7 @@ public class StepDefs {
     try {
       this.setUp();
       List<String> arguments = this.resolveArgumentStrings(args, true);
-      this.launcher.processMain(arguments.toArray(new String[0]));
+      this.exitCode = this.launcher.processMain(arguments.toArray(new String[0]));
       this.tearDown();
     } catch (ExitException e) {
       assertEquals(0, e.status, "Exit status");
@@ -165,6 +167,10 @@ public class StepDefs {
       }
       for (String detail : expectation.split(",")) {
         boolean nextIsMessage = false;
+        if (detail.split("=")[0].strip().equals("exitCode")) {
+          assertEquals(Integer.parseInt(detail.split("=")[1].strip()), this.exitCode, "exitCode");
+          continue;
+        }
         Integer expected = Integer.valueOf(detail.split("=")[1].strip());
         Integer reported = -1;
         String keyword = detail.split("=")[0];

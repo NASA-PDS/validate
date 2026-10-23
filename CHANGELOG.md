@@ -1,20 +1,34 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-09-09)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-10-12)
 
-[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...«unknown»)
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v5.0.0...«unknown»)
 
 **Defects:**
 
+- validate does not exit non-zero when a fatal internal error occurs during validation [\#1691](https://github.com/NASA-PDS/validate/issues/1691) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+
+## [v5.0.0](https://github.com/NASA-PDS/validate/tree/v5.0.0) (2026-10-02)
+
+[Full Changelog](https://github.com/NASA-PDS/validate/compare/v4.2.0...v5.0.0)
+
+**Defects:**
+
+- validate does not exit non-zero when it finds no products \(error.execution.no\_products\_found\) [\#1687](https://github.com/NASA-PDS/validate/issues/1687) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- ValidationTarget cache key ignores source and type parameters, causing incorrect cache hits [\#1684](https://github.com/NASA-PDS/validate/issues/1684) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - CLAUDE.md contains hallucinated CLI flags and stale dependency/line-number references [\#1674](https://github.com/NASA-PDS/validate/issues/1674)
 - PDF/A validation reports internal\_error instead of not\_pdfa\_compliant after veraPDF upgrade to 1.30.x [\#1662](https://github.com/NASA-PDS/validate/issues/1662) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
-- missing\_constant treated as if part of min/max in ascii table [\#1660](https://github.com/NASA-PDS/validate/issues/1660)
+- missing\_constant treated as if part of min/max in ascii table [\#1660](https://github.com/NASA-PDS/validate/issues/1660) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - validate -u fails: `ERROR [error.connection.registry] Error connecting to Registry` [\#1657](https://github.com/NASA-PDS/validate/issues/1657) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
+- validate WARNs if value is below valid\_minimum but equals missing\_constant [\#1656](https://github.com/NASA-PDS/validate/issues/1656) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 - Throws an error processing M4A/AAC files [\#1635](https://github.com/NASA-PDS/validate/issues/1635) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Unexpected context\_ref\_mismatch warnings [\#1632](https://github.com/NASA-PDS/validate/issues/1632) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Bug: ValidationTarget.cachedTargets is public static mutable HashMap with unsynchronized check-then-act [\#1621](https://github.com/NASA-PDS/validate/issues/1621) [[s.low](https://github.com/NASA-PDS/validate/labels/s.low)]
 - Context reference check is not collapsing whitespace [\#1265](https://github.com/NASA-PDS/validate/issues/1265) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
 
 **Other closed issues:**
 
+- Upgrade to OpenJDK 25, Oracle Java 17 is EOL [\#1666](https://github.com/NASA-PDS/validate/issues/1666)
 - Add automated test coverage for validate -u registry update \(getLatestJsonContext\) [\#1659](https://github.com/NASA-PDS/validate/issues/1659)
 
 ## [v4.2.0](https://github.com/NASA-PDS/validate/tree/v4.2.0) (2026-06-15)
