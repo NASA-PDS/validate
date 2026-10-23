@@ -52,10 +52,6 @@ public class HashSetReferenceInfo {
     return (false);
   }
 
-  public ArrayList<String> getReferences() {
-    return (this.references);
-  }
-
   public URL getParentLabelFilename() {
     return (this.parentLabelFilename);
   }
