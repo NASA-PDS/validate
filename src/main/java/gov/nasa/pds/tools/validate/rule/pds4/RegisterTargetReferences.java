@@ -82,9 +82,16 @@ public class RegisterTargetReferences extends AbstractValidationRule {
         XPathConstants.NODESET);
     for (int i = 0; i < fileNames.getLength(); ++i) {
       Node name = fileNames.item(i);
+      Node directory = getSiblingNode(name, "directory_path_name");
       try {
-        URL url = new URL(Utility.getParent(getTarget()), name.getTextContent());
-        registerReference(url);
+        if (directory == null) {
+          URL url = new URL(Utility.getParent(getTarget()), name.getTextContent());
+          registerReference(url);
+        } else {
+          URL fileDir = new URL(Utility.getParent(getTarget()), withTrailingSlash(directory.getTextContent()));
+          URL url = new URL(fileDir, name.getTextContent());
+          registerReference(url);
+        }
       } catch (MalformedURLException e) {
         reportError(GenericProblems.UNCAUGHT_EXCEPTION, getContext().getTarget(), -1, -1,
             e.getMessage());
@@ -123,7 +130,7 @@ public class RegisterTargetReferences extends AbstractValidationRule {
         }
       } else {
         try {
-          URL documentDir = new URL(Utility.getParent(target), directory.getTextContent() + "/");
+          URL documentDir = new URL(Utility.getParent(target), withTrailingSlash(directory.getTextContent()));
           URL referencedFile = new URL(documentDir, name.getTextContent());
           registerReference(referencedFile);
         } catch (MalformedURLException mu) {
@@ -133,6 +140,10 @@ public class RegisterTargetReferences extends AbstractValidationRule {
         }
       }
     }
+  }
+
+  private String withTrailingSlash(String directoryPathName) {
+    return directoryPathName.endsWith("/") ? directoryPathName : directoryPathName + "/";
   }
 
   private Node getSiblingNode(Node child, String nodeName) {
