@@ -1,12 +1,14 @@
 # Changelog
 
-## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-10-12)
+## [«unknown»](https://github.com/NASA-PDS/validate/tree/«unknown») (2026-10-26)
 
 [Full Changelog](https://github.com/NASA-PDS/validate/compare/v5.0.0...«unknown»)
 
 **Defects:**
 
+- Validate gives errors for non PDF/A-compliant PDFs that do not claim to be PDF/A [\#1698](https://github.com/NASA-PDS/validate/issues/1698) [[s.high](https://github.com/NASA-PDS/validate/labels/s.high)]
 - validate does not exit non-zero when a fatal internal error occurs during validation [\#1691](https://github.com/NASA-PDS/validate/issues/1691) [[s.medium](https://github.com/NASA-PDS/validate/labels/s.medium)]
+- Bug: HashSetReferenceInfo.getReferences\(\) exposes live mutable ArrayList from shared static state [\#1618](https://github.com/NASA-PDS/validate/issues/1618)
 
 ## [v5.0.0](https://github.com/NASA-PDS/validate/tree/v5.0.0) (2026-10-02)
 
