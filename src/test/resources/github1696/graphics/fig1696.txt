@@ -1,0 +1,1 @@
+Regression test graphics content for NASA-PDS/validate#1696.
