@@ -292,7 +292,11 @@
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
+<<<<<<< Updated upstream
       <version>33.7.1-jre</version>
+=======
+      <version>[33.7.2,)</version>
+>>>>>>> Stashed changes
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
