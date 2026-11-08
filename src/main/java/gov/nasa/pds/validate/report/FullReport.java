@@ -315,7 +315,7 @@ public class FullReport extends Report {
   }
 
   @Override
-  protected void summarizeTotals(int errors, int total, int warnings) {
+  protected void summarizeTotals(long errors, int total, long warnings) {
     this.getWriter().println("  " + total + " product(s)");
     this.getWriter().println("  " + errors + " error(s)");
     this.getWriter().println("  " + warnings + " warning(s)");

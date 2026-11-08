@@ -204,7 +204,7 @@ public class XmlReport extends Report {
     irefs.e("total").t (String.valueOf(total));
   }
   @Override
-  protected void summarizeTotals(int errors, int total, int warnings) {
+  protected void summarizeTotals(long errors, int total, long warnings) {
     this.summary.e("totalProducts").t(String.valueOf(total));
     this.summary.e("totalErrors").t(String.valueOf(errors));
     this.summary.e("totalWarnings").t(String.valueOf(warnings));

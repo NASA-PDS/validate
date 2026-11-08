@@ -307,7 +307,7 @@ public class JSONReport extends Report {
     }
   }
   @Override
-  protected void summarizeTotals(int errors, int total, int warnings) {
+  protected void summarizeTotals(long errors, int total, long warnings) {
     try {
       this.stream.name("totalProducts").value(total);
       this.stream.name("totalErrors").value(errors);

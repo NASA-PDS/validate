@@ -46,7 +46,7 @@ public abstract class Report {
   abstract protected void summarizeDepWarn (String msg);
   abstract protected void summarizeProds (int failed, int passed, int skipped, int total);
   abstract protected void summarizeRefs (int failed, int passed, int skipped, int total);
-  abstract protected void summarizeTotals (int errors, int total, int warnings);
+  abstract protected void summarizeTotals (long errors, int total, long warnings);
 
   protected class Tuple {
     final String a,b,c;
@@ -70,8 +70,8 @@ public abstract class Report {
 
   private boolean deprecatedFlagWarning = false;
   private boolean integrityCheckFlag = false;
-  private int totalWarnings = 0;
-  private int totalErrors = 0;
+  private long totalWarnings = 0;
+  private long totalErrors = 0;
   private int numPassedProds = 0;
   private int numFailedProds = 0;
   private int numSkippedProds = 0;
