@@ -49,7 +49,7 @@ If Validate doesn't run right away, check these requirements:
 ### Java Runtime Environment
 
 **Requirements:**
-- Java 17 or higher (tested with OpenJDK 21.0.8)
+- Java 25 or higher (tested with OpenJDK 25)
 - **Must be 64-bit Java** (not 32-bit)
 
 **Check your Java version:**
@@ -59,9 +59,9 @@ If Validate doesn't run right away, check these requirements:
 /usr/bin/java
 
 % java -version
-openjdk 21.0.8 2025-07-15
-OpenJDK Runtime Environment (build 21.0.8)
-OpenJDK 64-Bit Server VM (build 21.0.8, mixed mode, sharing)
+openjdk 25.0.1 2025-10-21 LTS
+OpenJDK Runtime Environment (build 25.0.1+8-LTS)
+OpenJDK 64-Bit Server VM (build 25.0.1+8-LTS, mixed mode, sharing)
 ```
 
 Look for **64-Bit Server VM** in the output. If you don't see it, you need 64-bit Java.
@@ -116,7 +116,7 @@ C:\> set Path=%Path%;C:\Program Files\${project.artifactId}-${project.version}\b
 **Set JAVA_HOME:**
 
 ```
-C:\> set JAVA_HOME=C:\Program Files\Java\jdk-21.0.8
+C:\> set JAVA_HOME=C:\Program Files\Java\jdk-25.0.1
 ```
 
 The `JAVA_HOME` path should contain a `bin` subdirectory with `java.exe`.
