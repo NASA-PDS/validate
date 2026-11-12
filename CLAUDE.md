@@ -170,7 +170,7 @@ Alternatively, use `--verbose 1` flag for INFO level output in reports (default 
 ## Key Configuration
 
 ### Java Version
-- Source/Target: Java 17 (pom.xml:179-180)
+- Source/Target: Java 25 (maven-compiler-plugin in pom.xml)
 
 ### Main Dependencies
 - **pds4-jparser** (version 3.2.1) - PDS4 label parsing and validation; **source is at `../pds4-jparser`** — check there first when tracing errors from pds4-jparser classes (e.g. `FieldValueValidator`, `ProblemType`, parser internals)
