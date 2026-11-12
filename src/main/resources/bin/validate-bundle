@@ -230,6 +230,7 @@ echo
 rm -f $REPORT_FILE
 errors=0
 warnings=0
+incomplete=""
 for line in $(find . -name "validate_set*.log" -o -name "validate_referential.log"); do
     # Loop through all the validate summaries and combine into one log
     echo | tee -a $REPORT_FILE
@@ -239,9 +240,16 @@ for line in $(find . -name "validate_set*.log" -o -name "validate_referential.lo
     echo "<<<<<<<<<<<<<<<" | tee -a $REPORT_FILE
     echo | tee -a $REPORT_FILE
 
-    # Get numbers of errors and warnings and output overall summary
-    errors="$errors + $(egrep "error\(s\)" $line | awk '{print $1}')"
-    warnings="$warnings + $(egrep "warning\(s\)" $line | awk '{print $1}')"
+    # Get numbers of errors and warnings and output overall summary.
+    # A log without these lines is from a validate run that did not finish.
+    log_errors=$(grep -E '^ *-?[0-9]+ error\(s\)$' "$line" | tail -n 1 | awk '{print $1}')
+    log_warnings=$(grep -E '^ *-?[0-9]+ warning\(s\)$' "$line" | tail -n 1 | awk '{print $1}')
+    if [ -z "$log_errors" ] || [ -z "$log_warnings" ]; then
+        incomplete="$incomplete $line"
+        continue
+    fi
+    errors="$errors + $log_errors"
+    warnings="$warnings + $log_warnings"
 done
 
 echo ">>>>>>>>>>>>>>> OVERALL SUMMARY:" | tee -a $REPORT_FILE
@@ -250,6 +258,13 @@ echo | tee -a $REPORT_FILE
 echo "  $(echo $errors | bc -l) error(s)" | tee -a $REPORT_FILE
 echo "  $(echo $warnings | bc -l) warnings(s)" | tee -a $REPORT_FILE
 echo | tee -a $REPORT_FILE
+if [ -n "$incomplete" ]; then
+    echo "  INCOMPLETE: these validate runs did not write a summary and are not in the totals above:" | tee -a $REPORT_FILE
+    for line in $incomplete; do
+        echo "    $line" | tee -a $REPORT_FILE
+    done
+    echo | tee -a $REPORT_FILE
+fi
 echo "End of Report" | tee -a $REPORT_FILE
 echo | tee -a $REPORT_FILE
 echo "<<<<<<<<<<<<<<<" | tee -a $REPORT_FILE
@@ -258,10 +273,17 @@ echo | tee -a $REPORT_FILE
 # Go back to where ran the code from.
 cd $my_default_dir
 
-echo "Validation complete."
+if [ -n "$incomplete" ]; then
+    echo "Validation did NOT complete: at least one validate run did not write a summary."
+else
+    echo "Validation complete."
+fi
 echo "* See $RUN_DIR/$REPORT_FILE for a summary of results."
 echo "* See $RUN_DIR for individual Validate Tool execution reports."
 echo
 echo
 
+if [ -n "$incomplete" ]; then
+    exit 1
+fi
 exit 0
