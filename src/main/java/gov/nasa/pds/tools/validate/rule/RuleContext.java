@@ -43,6 +43,7 @@ import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.label.LocationValidator;
 import gov.nasa.pds.tools.label.XMLCatalogResolver;
 import gov.nasa.pds.tools.util.ContextProductReference;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.validate.AdditionalTarget;
 import gov.nasa.pds.tools.validate.ProblemListener;
 import gov.nasa.pds.tools.validate.TargetRegistrar;
@@ -167,9 +168,26 @@ public class RuleContext extends ContextBase {
 
   public static final String LAST_DIRECTORY_FLAG_KEY = "validate.last-directory-flag";
 
+  /** Key for the referential integrity state of the current validation run. */
+  public static final String REFERENTIAL_INTEGRITY_KEY = "validate.referential-integrity";
+
   private boolean rootTarget = false;
 
   private ExceptionType logLevel;
+
+  public RuleContext() {
+    // Every context starts with its own state. A validation run replaces it with the run's
+    // shared instance (see LocationValidator) and child contexts copy it from their parent.
+    setReferentialIntegrityUtil(new ReferentialIntegrityUtil());
+  }
+
+  public ReferentialIntegrityUtil getReferentialIntegrityUtil() {
+    return getContextValue(REFERENTIAL_INTEGRITY_KEY, ReferentialIntegrityUtil.class);
+  }
+
+  public void setReferentialIntegrityUtil(ReferentialIntegrityUtil referentialIntegrityUtil) {
+    putContextValue(REFERENTIAL_INTEGRITY_KEY, referentialIntegrityUtil);
+  }
 
   /**
    * Gets a value from the context in a type-safe manner.

@@ -323,7 +323,7 @@ public class LabelValidationRule extends AbstractValidationRule {
       if (document != null) {
         getContext().put(PDS4Context.LABEL_DOCUMENT, document);
         labelIsValidFlag = true; // A non-null document signified that the label is valid.
-        cacheIdentifiers(getTarget());
+        cacheIdentifiers(getTarget(), getContext().getReferentialIntegrityUtil());
       }
     } catch (SAXException | IOException | ParserConfigurationException | TransformerException
         | MissingLabelSchemaException e) {
@@ -343,7 +343,8 @@ public class LabelValidationRule extends AbstractValidationRule {
     LOG.debug("validateLabel:target,labelIsValidFlag {},{}", target, labelIsValidFlag);
   }
 
-  private static void cacheIdentifiers(URL targetUrl) {
+  private static void cacheIdentifiers(URL targetUrl,
+      ReferentialIntegrityUtil referentialIntegrity) {
     // Re-parse using plain DocumentBuilderFactory so whitespace in text content (e.g. \n in
     // logical_identifier or lid_reference) is preserved exactly as authored.
     // Saxon's parseAndValidate() normalizes xs:token values, stripping \n before we can detect them.
@@ -365,7 +366,7 @@ public class LabelValidationRule extends AbstractValidationRule {
           LabelUtil.CONTEXT_AREA_OBSERVATION_SYSTEM_COMPONENT_REFERENCE, false));
       contextRefs.addAll(LabelUtil.getIdentifiersCommon(domSource, targetUrl, tagsArr,
           LabelUtil.CONTEXT_AREA_TARGET_IDENTIFICATION_REFERENCE, false));
-      ReferentialIntegrityUtil.cacheLabelIdentifiers(targetUrl,
+      referentialIntegrity.cacheLabelIdentifiers(targetUrl,
           new LabelCacheEntry(logicalIds, lidVidRefs, contextRefs, suppressedLidVidErrors));
     } catch (Exception e) {
       LOG.error("cacheIdentifiers: failed to parse {}: {}", targetUrl, e.getMessage());

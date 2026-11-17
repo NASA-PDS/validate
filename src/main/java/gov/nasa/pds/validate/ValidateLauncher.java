@@ -104,7 +104,6 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.XMLExtractor;
 import gov.nasa.pds.tools.validate.ContentProblem;
-import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.tools.validate.InMemoryRegistrar;
 import gov.nasa.pds.tools.validate.ProblemContainer;
 import gov.nasa.pds.tools.validate.ProblemDefinition;
@@ -1461,14 +1460,15 @@ public class ValidateLauncher {
     // will incorrectly gives a WARNING that it has multiple versions.
     LabelUtil.hardResetInformationModelVersions();
 
-    // Due to the util class ReferentialIntegrityUtil being static, the flag
-    // contextReferenceCheck must be set manually to skip reference check.
-    ReferentialIntegrityUtil.setContextReferenceCheckFlag(this.contextReferenceCheck);
+    // Referential integrity state lives for this run only and is shared by all its targets.
+    ReferentialIntegrityUtil referentialIntegrity = new ReferentialIntegrityUtil();
+    referentialIntegrity.setContextReferenceCheckFlag(this.contextReferenceCheck);
 
     for (URL target : targets) {
       try {
         LocationValidator validator = factory.newInstance(severity);
         validator.setReport(report);
+        validator.setReferentialIntegrityUtil(referentialIntegrity);
 
         // If the user requested to check in between the fields, set it here in the
         // validator.
@@ -1649,10 +1649,8 @@ public class ValidateLauncher {
       this.printWarningCollocatedData(alternateReferentialPaths);
     }
 
-    // Due to the util class ReferentialIntegrityUtil being static, it need to be
-    // reset() if running a regression test.
-    ReferentialIntegrityUtil.reset();
-    CrossLabelFileAreaReferenceChecker.reset();
+    // The validator is cached between runs, so let go of this run's collected references.
+    referentialIntegrity.reset();
 
     return success;
   }

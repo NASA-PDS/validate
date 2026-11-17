@@ -34,6 +34,7 @@ import gov.nasa.pds.tools.util.ContextProductReference;
 import gov.nasa.pds.tools.util.EveryNCounter;
 import gov.nasa.pds.tools.util.EveryNCounter.Group;
 import gov.nasa.pds.tools.util.FileFinder;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 import gov.nasa.pds.tools.util.SettingsManager;
 import gov.nasa.pds.tools.util.Utility;
 import gov.nasa.pds.tools.validate.AggregateManager;
@@ -463,6 +464,13 @@ public class LocationValidator {
     LOG.info("setLabelExtension: {}", extension);
     ruleContext.setLabelExtension(extension);
     this.labelExtension = extension;
+  }
+
+  /**
+   * Shares one referential integrity state across every target of a validation run.
+   */
+  public void setReferentialIntegrityUtil(ReferentialIntegrityUtil referentialIntegrityUtil) {
+    ruleContext.setReferentialIntegrityUtil(referentialIntegrityUtil);
   }
 
   public void setLastDirectoryFlag(boolean flag) {
