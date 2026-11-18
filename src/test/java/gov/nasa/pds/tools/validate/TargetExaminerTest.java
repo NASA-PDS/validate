@@ -64,6 +64,30 @@ class TargetExaminerTest {
   }
 
   @Test
+  void reportsMalformedBundleRootAsError() throws Exception {
+    URL url = write("bundle.xml", "<Product_Bundle attr=\"a\" attr=\"b\"/>");
+    ProblemContainer problems = new ProblemContainer();
+
+    TargetExaminer.removeNonLabels(new ArrayList<>(List.of(new Target(url, false))), problems);
+
+    assertEquals(ExceptionType.ERROR, problems.getProblems().get(0).getProblem().getSeverity());
+    assertTrue(problems.getProblems().get(0).getMessage().contains("attr"));
+  }
+
+  @Test
+  void reportsOriginalErrorAfterInternalEntity() throws Exception {
+    URL url = write("bundle.xml", "<!DOCTYPE Product_Bundle [<!ENTITY x \"example\">]>\n"
+        + "<Product_Bundle xmlns=\"http://pds.nasa.gov/pds4/pds/v1\">"
+        + "<lid_reference>&x;</lid_refer\nence></Product_Bundle>");
+    ProblemContainer problems = new ProblemContainer();
+
+    TargetExaminer.removeNonLabels(new ArrayList<>(List.of(new Target(url, false))), problems);
+
+    assertEquals(ExceptionType.ERROR, problems.getProblems().get(0).getProblem().getSeverity());
+    assertTrue(problems.getProblems().get(0).getMessage().contains("lid_reference"));
+  }
+
+  @Test
   void keepsWellFormedLabels() throws Exception {
     URL url = write("label.xml", "<Product_Bundle xmlns=\"http://pds.nasa.gov/pds4/pds/v1\">"
         + "<logical_identifier>example</logical_identifier></Product_Bundle>");

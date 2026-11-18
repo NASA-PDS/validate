@@ -22,8 +22,9 @@ import java.util.concurrent.ExecutionException;
 import javax.annotation.Nullable;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.SourceLocator;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
 
 import com.google.common.cache.Cache;
@@ -32,6 +33,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
 import gov.nasa.pds.tools.label.ExceptionType;
 import gov.nasa.pds.tools.util.LabelParser;
 import gov.nasa.pds.tools.util.Utility;
@@ -46,6 +48,7 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 public class TargetExaminer {
   private static class Examination {
     boolean isBundle=false, isCollection=false, isDocument=false, isLabel=false;
+    Exception parseError;
   }
   final private static Cache<String,Examination> examined = CacheBuilder.newBuilder().softValues().build();
   final private static Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
@@ -139,6 +142,7 @@ public class TargetExaminer {
         }
       }
     } catch (Exception e) {
+      patient.parseError = e;
       if (!ignoreErrors) {
         LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
         e.printStackTrace();
@@ -212,11 +216,16 @@ public class TargetExaminer {
     return TargetExaminer.examine(url, true).isLabel;
   }
 
-  private static ValidationProblem malformedXmlProblem(URL url) {
+  private static ValidationProblem malformedXmlProblem(URL url, Exception parseError) {
+    if (parseError == null) {
+      return null;
+    }
     if (!"file".equalsIgnoreCase(url.getProtocol()) || !FileUtils.toFile(url).isFile()) {
       return null;
     }
-    boolean isProduct = false;
+    String filename = FileUtils.toFile(url).getName().toLowerCase(Locale.ROOT);
+    boolean isProduct = filename.equals("bundle.xml") || filename.equals("collection.xml")
+        || filename.startsWith("bundle_") || filename.startsWith("collection_");
     XMLInputFactory factory = XMLInputFactory.newFactory();
     factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
     factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
@@ -225,29 +234,41 @@ public class TargetExaminer {
       try {
         while (reader.hasNext()) {
           if (reader.next() == XMLStreamConstants.START_ELEMENT) {
-            isProduct = "http://pds.nasa.gov/pds4/pds/v1".equals(reader.getNamespaceURI())
-                && reader.getLocalName().startsWith("Product_");
+            isProduct = isProduct
+                || ("http://pds.nasa.gov/pds4/pds/v1".equals(reader.getNamespaceURI())
+                    && reader.getLocalName().startsWith("Product_"));
             break;
           }
-        }
-        while (reader.hasNext()) {
-          reader.next();
         }
       } finally {
         reader.close();
       }
-    } catch (XMLStreamException e) {
-      boolean isError = isProduct || url.getPath().toLowerCase(Locale.ROOT).endsWith(".lblx");
-      ExceptionType severity = isError ? ExceptionType.ERROR : ExceptionType.WARNING;
-      ProblemType type = isError ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
-      int line = e.getLocation() == null ? -1 : e.getLocation().getLineNumber();
-      int column = e.getLocation() == null ? -1 : e.getLocation().getColumnNumber();
-      String message = "The label file cannot be parsed: " + e.getMessage();
-      return new ValidationProblem(new ProblemDefinition(severity, type, message), url, line, column);
     } catch (Exception e) {
       LOG.debug("Unable to inspect XML diagnostic for {}", url, e);
     }
-    return null;
+    int line = -1;
+    int column = -1;
+    String detail = parseError.getMessage();
+    for (Throwable cause = parseError; cause != null; cause = cause.getCause()) {
+      if (cause instanceof SAXParseException) {
+        SAXParseException saxError = (SAXParseException) cause;
+        line = saxError.getLineNumber();
+        column = saxError.getColumnNumber();
+        detail = saxError.getMessage();
+        break;
+      } else if (cause instanceof TransformerException) {
+        SourceLocator locator = ((TransformerException) cause).getLocator();
+        if (locator != null && locator.getLineNumber() > 0) {
+          line = locator.getLineNumber();
+          column = locator.getColumnNumber();
+        }
+      }
+    }
+    boolean isError = isProduct || filename.endsWith(".lblx");
+    ExceptionType severity = isError ? ExceptionType.ERROR : ExceptionType.WARNING;
+    ProblemType type = isError ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
+    String message = "The label file cannot be parsed: " + detail;
+    return new ValidationProblem(new ProblemDefinition(severity, type, message), url, line, column);
   }
 
   /**
@@ -264,7 +285,7 @@ public class TargetExaminer {
         if (listener != null) {
           String path = t.getUrl().getPath().toLowerCase(Locale.ROOT);
           ValidationProblem diagnostic = path.endsWith(".xml") || path.endsWith(".lblx")
-              ? malformedXmlProblem(t.getUrl()) : null;
+              ? malformedXmlProblem(t.getUrl(), examine(t.getUrl(), true).parseError) : null;
           if (diagnostic != null) {
             listener.addProblem(diagnostic);
             continue;
