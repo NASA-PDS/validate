@@ -5,8 +5,8 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMSource;
@@ -17,8 +17,9 @@ import gov.nasa.pds.tools.util.LabelUtil;
 import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 
 public class CrossLabelFileAreaReferenceChecker {
-  final private static HashMap<String,Boolean> isObservational = new HashMap<String,Boolean>();
-  final private static HashMap<String,List<String>> knownRefs = new HashMap<String,List<String>>();
+  // Written from label validation threads, so both maps must be safe for concurrent use.
+  private static final ConcurrentHashMap<String,Boolean> isObservational = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<String,List<String>> knownRefs = new ConcurrentHashMap<>();
   private static String resolve (String name, ValidationTarget target) throws URISyntaxException {
     if (!name.startsWith ("/")) {
       name = Path.of(target.getUrl().toURI()).getParent().resolve(name).toString();
@@ -35,8 +36,8 @@ public class CrossLabelFileAreaReferenceChecker {
       throws IOException, ParserConfigurationException, SAXException, URISyntaxException {
     boolean success = false;
     String full_name = resolve(name, target);
-    isObservational.put(full_name,
-        isObs || (isObservational.containsKey(full_name) ? isObservational.get(full_name) : false));
+    // Once any label marks the file as observational it stays observational.
+    isObservational.merge(full_name, isObs, Boolean::logicalOr);
     List<String> logicalIdentifiers;
     LabelCacheEntry cached = ReferentialIntegrityUtil.getCachedLabelIdentifiers(target.getUrl());
     if (cached != null) {
@@ -51,8 +52,8 @@ public class CrossLabelFileAreaReferenceChecker {
       if (lid.contains("::")) {
         lid = lid.substring (0, lid.indexOf("::"));
       }
-      if (!knownRefs.keySet().contains (full_name)) {
-        knownRefs.put(full_name, (List<String>)Arrays.asList(lid, target.getUrl().getPath()));
+      // putIfAbsent keeps "the first label to claim the file wins" atomic across threads.
+      if (knownRefs.putIfAbsent(full_name, Arrays.asList(lid, target.getUrl().getPath())) == null) {
         success = true;
       } else {
         success = !isObservational.get(full_name);

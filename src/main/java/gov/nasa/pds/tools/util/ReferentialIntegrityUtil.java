@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -142,7 +143,10 @@ public class ReferentialIntegrityUtil {
   private static String[] tagsList = new String[2];
   private static HashSet<String> reportedErrorsReferenceSet = new HashSet<>();
   private static URL parentBundleURL = null;
-  private static HashMap<URL, LabelCacheEntry> labelIdentifierCache = new HashMap<>();
+  // Filled from label validation threads, read later by the bundle/collection pass.
+  // Keyed by the URL string because URL.equals and URL.hashCode can do DNS lookups.
+  private static final ConcurrentHashMap<String, LabelCacheEntry> labelIdentifierCache =
+      new ConcurrentHashMap<>();
 
   /**
    * Initialize this class to ready for doing referential checks.
@@ -165,11 +169,11 @@ public class ReferentialIntegrityUtil {
   }
 
   public static void cacheLabelIdentifiers(URL url, LabelCacheEntry entry) {
-    labelIdentifierCache.put(url, entry);
+    labelIdentifierCache.put(url.toExternalForm(), entry);
   }
 
   public static LabelCacheEntry getCachedLabelIdentifiers(URL url) {
-    return labelIdentifierCache.get(url);
+    return labelIdentifierCache.get(url.toExternalForm());
   }
 
   /**
@@ -185,6 +189,7 @@ public class ReferentialIntegrityUtil {
     // but not in regression test.
     ReferentialIntegrityUtil.lidAndFilenameCombo.clear();
     ReferentialIntegrityUtil.lidvidsCumulative.clear();
+    ReferentialIntegrityUtil.lidsCumulative.clear();
     ReferentialIntegrityUtil.lidOrLidVidReferencesCumulative.clear();
     ReferentialIntegrityUtil.contextReferencesCumulative.clear();
     ReferentialIntegrityUtil.bundleOrCollectionReferenceMap.clear();
