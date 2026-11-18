@@ -333,15 +333,13 @@ public class FileReferenceValidationRule extends AbstractValidationRule {
                 ancestor = ancestor.getParent();
                 isObservational |= OBS_DATA_TAGS.contains(ancestor.getLocalPart());
               }
-              CrossLabelFileAreaReferenceChecker crossLabelChecker =
-                  getContext().getReferentialIntegrityUtil().getCrossLabelFileAreaReferenceChecker();
-              if (!crossLabelChecker.add(fullName, target, isObservational)) {
+              if (!CrossLabelFileAreaReferenceChecker.add(fullName, target, isObservational)) {
                 this.getListener().addProblem(
                     new ValidationProblem(
                         new ProblemDefinition(ExceptionType.ERROR, ProblemType.DUPLICATED_FILE_AREA_REFERENCE,
                             "This file area references " + fullName + " that is already used by label "
-                                + crossLabelChecker.getOtherId(fullName, target)
-                                + " in file " + crossLabelChecker.getOtherFilename(fullName, target)),
+                                + CrossLabelFileAreaReferenceChecker.getOtherId(fullName, target)
+                                + " in file " + CrossLabelFileAreaReferenceChecker.getOtherFilename(fullName, target)),
                         target, fileObject.getLineNumber(), -1));
               }
             }

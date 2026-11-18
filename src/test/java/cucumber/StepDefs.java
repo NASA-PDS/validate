@@ -17,6 +17,8 @@ import org.apache.commons.io.FileUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
+import gov.nasa.pds.tools.validate.CrossLabelFileAreaReferenceChecker;
 import gov.nasa.pds.validate.ValidateLauncher;
 import gov.nasa.pds.validate.constants.TestConstants;
 import io.cucumber.java.en.Given;
@@ -46,6 +48,8 @@ public class StepDefs {
    */
   void tearDown() throws Exception {
     this.launcher.flushValidators();
+    CrossLabelFileAreaReferenceChecker.reset();
+    ReferentialIntegrityUtil.reset();
   }
 
   public void makeSink() throws IOException {

@@ -103,9 +103,8 @@ public class CollectionReferentialIntegrityRule extends AbstractValidationRule {
       // i.e: All context objects specified in observational are referenced in the
       // parent bundle/collection Reference_List
       //
-      ReferentialIntegrityUtil referentialIntegrity = getContext().getReferentialIntegrityUtil();
-      referentialIntegrity.initialize("collection", getTarget(), getListener(), getContext());
-      referentialIntegrity.additionalReferentialIntegrityChecks(getTarget());
+      ReferentialIntegrityUtil.initialize("collection", getTarget(), getListener(), getContext());
+      ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget());
     }
   }
 

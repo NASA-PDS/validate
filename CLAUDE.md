@@ -106,8 +106,9 @@ The tool validates context product references (instruments, telescopes, targets,
 ### Referential Integrity
 
 - **InMemoryRegistrar** - Stores product references during validation for cross-referencing
-- **ReferentialIntegrityUtil** - Per-run state for referential checks, held in the `RuleContext` (`getReferentialIntegrityUtil()`) and copied to child contexts
+- **ReferentialIntegrityUtil** - Static utility for managing referential checks
 - Use `--alternate-file-paths` to provide additional directories for resolving references
+- Important: ReferentialIntegrityUtil must be reset between test runs (it's static)
 
 ## Testing
 
@@ -191,8 +192,9 @@ Alternatively, use `--verbose 1` flag for INFO level output in reports (default 
 - **LabelUtil** maintains static list of Information Model versions across validation runs
   - Call `hardResetInformationModelVersions()` before new validation
   - Call `reduceInformationModelVersions()` for pds4.label rule
-- **ReferentialIntegrityUtil** is no longer static: `ValidateLauncher` creates one per run and passes it to each `LocationValidator`
-  - Its label identifier cache and its `CrossLabelFileAreaReferenceChecker` are safe to use from label worker threads
+- **ReferentialIntegrityUtil** maintains static state for referential checks
+  - Call `setContextReferenceCheckFlag()` before validation
+  - Call `reset()` after validation to clean up
 - **FlagsUtil** stores global flags that must be initialized via `initialize()`
 
 ### Error Handling

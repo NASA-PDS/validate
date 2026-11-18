@@ -127,7 +127,6 @@ public abstract class AbstractValidationRule implements ValidationRule {
     newContext.setLastDirectoryFlag(context.isLastDirectory());
     newContext.setEveryN(this.context.getEveryN());
     newContext.setContextMismatchAsWarn(this.context.getContextMismatchAsWarn());
-    newContext.setReferentialIntegrityUtil(context.getReferentialIntegrityUtil());
     return newContext;
   }
 

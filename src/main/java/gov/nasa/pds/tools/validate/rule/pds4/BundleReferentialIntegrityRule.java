@@ -126,10 +126,9 @@ public class BundleReferentialIntegrityRule extends AbstractValidationRule {
     //
 
     // Use the refactored functions in ReferentialIntegrityUtil class.
-    ReferentialIntegrityUtil referentialIntegrity = getContext().getReferentialIntegrityUtil();
-    referentialIntegrity.initialize("bundle", getTarget(), getListener(), getContext());
-    referentialIntegrity.additionalReferentialIntegrityChecks(getTarget(), bundleURL);
-    referentialIntegrity.reportLidOrLidvidReferenceToNonExistLogicalReferences();
+    ReferentialIntegrityUtil.initialize("bundle", getTarget(), getListener(), getContext());
+    ReferentialIntegrityUtil.additionalReferentialIntegrityChecks(getTarget(), bundleURL);
+    ReferentialIntegrityUtil.reportLidOrLidvidReferenceToNonExistLogicalReferences();
 
     // https://github.com/NASA-PDS/validate/issues/69
     // As a user, I want to validate that all context objects specified in
