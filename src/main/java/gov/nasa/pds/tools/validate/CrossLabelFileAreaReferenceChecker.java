@@ -18,8 +18,8 @@ import gov.nasa.pds.tools.util.ReferentialIntegrityUtil;
 
 public class CrossLabelFileAreaReferenceChecker {
   // Written from label validation threads, so both maps must be safe for concurrent use.
-  final private static ConcurrentHashMap<String,Boolean> isObservational = new ConcurrentHashMap<>();
-  final private static ConcurrentHashMap<String,List<String>> knownRefs = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<String,Boolean> isObservational = new ConcurrentHashMap<>();
+  private static final ConcurrentHashMap<String,List<String>> knownRefs = new ConcurrentHashMap<>();
   private static String resolve (String name, ValidationTarget target) throws URISyntaxException {
     if (!name.startsWith ("/")) {
       name = Path.of(target.getUrl().toURI()).getParent().resolve(name).toString();

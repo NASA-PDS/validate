@@ -144,7 +144,8 @@ public class ReferentialIntegrityUtil {
   private static HashSet<String> reportedErrorsReferenceSet = new HashSet<>();
   private static URL parentBundleURL = null;
   // Filled from label validation threads, read later by the bundle/collection pass.
-  private static final ConcurrentHashMap<URL, LabelCacheEntry> labelIdentifierCache =
+  // Keyed by the URL string because URL.equals and URL.hashCode can do DNS lookups.
+  private static final ConcurrentHashMap<String, LabelCacheEntry> labelIdentifierCache =
       new ConcurrentHashMap<>();
 
   /**
@@ -168,11 +169,11 @@ public class ReferentialIntegrityUtil {
   }
 
   public static void cacheLabelIdentifiers(URL url, LabelCacheEntry entry) {
-    labelIdentifierCache.put(url, entry);
+    labelIdentifierCache.put(url.toExternalForm(), entry);
   }
 
   public static LabelCacheEntry getCachedLabelIdentifiers(URL url) {
-    return labelIdentifierCache.get(url);
+    return labelIdentifierCache.get(url.toExternalForm());
   }
 
   /**
