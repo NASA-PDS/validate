@@ -13,11 +13,17 @@
 // $Id$
 package gov.nasa.pds.tools.validate;
 
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import javax.annotation.Nullable;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.sax.SAXSource;
 
 import com.google.common.cache.Cache;
@@ -205,6 +211,45 @@ public class TargetExaminer {
   public static boolean isTargetALabel(URL url) {
     return TargetExaminer.examine(url, true).isLabel;
   }
+
+  private static ValidationProblem malformedXmlProblem(URL url) {
+    if (!"file".equalsIgnoreCase(url.getProtocol()) || !FileUtils.toFile(url).isFile()) {
+      return null;
+    }
+    boolean isProduct = false;
+    XMLInputFactory factory = XMLInputFactory.newFactory();
+    factory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+    factory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+    try (InputStream input = url.openStream()) {
+      XMLStreamReader reader = factory.createXMLStreamReader(input);
+      try {
+        while (reader.hasNext()) {
+          if (reader.next() == XMLStreamConstants.START_ELEMENT) {
+            isProduct = "http://pds.nasa.gov/pds4/pds/v1".equals(reader.getNamespaceURI())
+                && reader.getLocalName().startsWith("Product_");
+            break;
+          }
+        }
+        while (reader.hasNext()) {
+          reader.next();
+        }
+      } finally {
+        reader.close();
+      }
+    } catch (XMLStreamException e) {
+      boolean isError = isProduct || url.getPath().toLowerCase(Locale.ROOT).endsWith(".lblx");
+      ExceptionType severity = isError ? ExceptionType.ERROR : ExceptionType.WARNING;
+      ProblemType type = isError ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
+      int line = e.getLocation() == null ? -1 : e.getLocation().getLineNumber();
+      int column = e.getLocation() == null ? -1 : e.getLocation().getColumnNumber();
+      String message = "The label file cannot be parsed: " + e.getMessage();
+      return new ValidationProblem(new ProblemDefinition(severity, type, message), url, line, column);
+    } catch (Exception e) {
+      LOG.debug("Unable to inspect XML diagnostic for {}", url, e);
+    }
+    return null;
+  }
+
   /**
    * Modifies the input array and returns it so the same call can be used
    * as a function or as a procedure.
@@ -217,6 +262,13 @@ public class TargetExaminer {
       if (!isTargetALabel (t.getUrl())) {
         nons.add (t);
         if (listener != null) {
+          String path = t.getUrl().getPath().toLowerCase(Locale.ROOT);
+          ValidationProblem diagnostic = path.endsWith(".xml") || path.endsWith(".lblx")
+              ? malformedXmlProblem(t.getUrl()) : null;
+          if (diagnostic != null) {
+            listener.addProblem(diagnostic);
+            continue;
+          }
           ExceptionType et = t.getUrl().getPath().endsWith(".lblx") ? ExceptionType.ERROR : ExceptionType.WARNING;
           ProblemType pt = et == ExceptionType.ERROR ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
           String msg = "The label file cannot be parsed or understood using PDS4 schema" + (et == ExceptionType.ERROR ? "." : " but it may be a data file being as a label.");
