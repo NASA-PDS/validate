@@ -48,7 +48,34 @@ import net.sf.saxon.tree.tiny.TinyNodeImpl;
 public class TargetExaminer {
   private static class Examination {
     boolean isBundle=false, isCollection=false, isDocument=false, isLabel=false;
-    Exception parseError;
+    ParseFailure parseError;
+  }
+  private static class ParseFailure {
+    String message;
+    String systemId;
+    int line = -1;
+    int column = -1;
+
+    ParseFailure(Exception error) {
+      message = error.getMessage();
+      for (Throwable cause = error; cause != null; cause = cause.getCause()) {
+        if (cause instanceof SAXParseException) {
+          SAXParseException saxError = (SAXParseException) cause;
+          line = saxError.getLineNumber();
+          column = saxError.getColumnNumber();
+          systemId = saxError.getSystemId();
+          message = saxError.getMessage();
+          break;
+        } else if (cause instanceof TransformerException) {
+          SourceLocator locator = ((TransformerException) cause).getLocator();
+          if (locator != null && locator.getLineNumber() > 0) {
+            line = locator.getLineNumber();
+            column = locator.getColumnNumber();
+            systemId = locator.getSystemId();
+          }
+        }
+      }
+    }
   }
   final private static Cache<String,Examination> examined = CacheBuilder.newBuilder().softValues().build();
   final private static Logger LOG = LoggerFactory.getLogger(TargetExaminer.class);
@@ -142,7 +169,10 @@ public class TargetExaminer {
         }
       }
     } catch (Exception e) {
-      patient.parseError = e;
+      String path = url.getPath().toLowerCase(Locale.ROOT);
+      if (path.endsWith(".xml") || path.endsWith(".lblx")) {
+        patient.parseError = new ParseFailure(e);
+      }
       if (!ignoreErrors) {
         LOG.error("Exception encountered in tagMatches:url {},{}", url, e.getMessage());
         e.printStackTrace();
@@ -216,7 +246,7 @@ public class TargetExaminer {
     return TargetExaminer.examine(url, true).isLabel;
   }
 
-  private static ValidationProblem malformedXmlProblem(URL url, Exception parseError) {
+  private static ValidationProblem malformedXmlProblem(URL url, ParseFailure parseError) {
     if (parseError == null) {
       return null;
     }
@@ -234,9 +264,8 @@ public class TargetExaminer {
       try {
         while (reader.hasNext()) {
           if (reader.next() == XMLStreamConstants.START_ELEMENT) {
-            isProduct = isProduct
-                || ("http://pds.nasa.gov/pds4/pds/v1".equals(reader.getNamespaceURI())
-                    && reader.getLocalName().startsWith("Product_"));
+            isProduct = "http://pds.nasa.gov/pds4/pds/v1".equals(reader.getNamespaceURI())
+                && reader.getLocalName().startsWith("Product_");
             break;
           }
         }
@@ -246,29 +275,15 @@ public class TargetExaminer {
     } catch (Exception e) {
       LOG.debug("Unable to inspect XML diagnostic for {}", url, e);
     }
-    int line = -1;
-    int column = -1;
-    String detail = parseError.getMessage();
-    for (Throwable cause = parseError; cause != null; cause = cause.getCause()) {
-      if (cause instanceof SAXParseException) {
-        SAXParseException saxError = (SAXParseException) cause;
-        line = saxError.getLineNumber();
-        column = saxError.getColumnNumber();
-        detail = saxError.getMessage();
-        break;
-      } else if (cause instanceof TransformerException) {
-        SourceLocator locator = ((TransformerException) cause).getLocator();
-        if (locator != null && locator.getLineNumber() > 0) {
-          line = locator.getLineNumber();
-          column = locator.getColumnNumber();
-        }
-      }
-    }
     boolean isError = isProduct || filename.endsWith(".lblx");
     ExceptionType severity = isError ? ExceptionType.ERROR : ExceptionType.WARNING;
     ProblemType type = isError ? ProblemType.BAD_LABEL_FILE_ERROR : ProblemType.BAD_LABEL_FILE_WARN;
-    String message = "The label file cannot be parsed: " + detail;
-    return new ValidationProblem(new ProblemDefinition(severity, type, message), url, line, column);
+    String message = "The label file cannot be parsed: " + parseError.message;
+    if (parseError.systemId != null && !parseError.systemId.equals(url.toExternalForm())) {
+      message += " (source: " + parseError.systemId + ")";
+    }
+    return new ValidationProblem(new ProblemDefinition(severity, type, message), url,
+        parseError.line, parseError.column);
   }
 
   /**

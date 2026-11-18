@@ -39,7 +39,7 @@ class TargetExaminerTest {
 
   @Test
   void retainsWarningForAmbiguousXmlData() throws Exception {
-    URL url = write("data.xml", "<data><value></data>");
+    URL url = write("bundle_data.xml", "<data><value></data>");
     ProblemContainer problems = new ProblemContainer();
     List<Target> targets = new ArrayList<>(List.of(new Target(url, false)));
 
